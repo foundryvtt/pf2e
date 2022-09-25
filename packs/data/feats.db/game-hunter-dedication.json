@@ -1,6 +1,8 @@
 {
     "_id": "CowQy8gXP9POjuxq",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Game Hunter Dedication",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -50,16 +51,14 @@
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.GameHunterDedication.TargetHuntedPrey",
                 "option": "huntedPreyGameHunter",
-                "predicate": {
-                    "all": [
-                        {
-                            "gt": [
-                                "grants-hunt-prey",
-                                1
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "gt": [
+                            "grants-hunt-prey",
+                            1
+                        ]
+                    }
+                ],
                 "priority": 101,
                 "toggleable": true
             },
@@ -69,57 +68,55 @@
                     "criticalSuccess",
                     "success"
                 ],
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed",
-                        "hunted-prey"
-                    ],
-                    "any": [
-                        "huntedPreyGameHunter",
-                        {
-                            "eq": [
-                                "grants-hunt-prey",
-                                1
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "target:condition:flat-footed",
+                    "hunted-prey",
+                    {
+                        "or": [
+                            "huntedPreyGameHunter",
+                            {
+                                "eq": [
+                                    "grants-hunt-prey",
+                                    1
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "selector": "attack",
                 "text": "When you succeed at a Strike against your hunted prey while it's flat-footed, it must attempt a Fortitude save against your class DC. On a failure, the prey's Speeds are each reduced by 10 feet for 1 round; on a critical failure, the duration of this effect is 1 minute. The prey is then temporarily immune to this effect for 10 minutes."
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.sur.rank",
-                "predicate": {
-                    "all": [
-                        {
-                            "gt": [
-                                "grants-hunt-prey",
-                                1
-                            ]
-                        }
-                    ]
-                },
+                "path": "system.skills.sur.rank",
+                "predicate": [
+                    {
+                        "gt": [
+                            "grants-hunt-prey",
+                            1
+                        ]
+                    }
+                ],
                 "value": 2
             },
             {
                 "key": "FlatModifier",
                 "label": "Using Stealth against Hunted Prey",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ],
-                    "any": [
-                        "huntedPreyGameHunter",
-                        {
-                            "eq": [
-                                "grants-hunt-prey",
-                                1
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "or": [
+                            "huntedPreyGameHunter",
+                            {
+                                "eq": [
+                                    "grants-hunt-prey",
+                                    1
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "selector": "stealth",
                 "type": "circumstance",
                 "value": 2
@@ -137,7 +134,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Game Hunter Dedication",
     "type": "feat"
 }

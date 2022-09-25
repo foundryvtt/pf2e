@@ -1,6 +1,8 @@
 {
     "_id": "8STJEFVJISujgpMR",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Druidic Order",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,24 +28,22 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.resources.focus.max",
-                "predicate": {
-                    "all": [
-                        "class:druid"
-                    ]
-                },
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:druid"
+                ],
                 "priority": 9,
                 "value": 1
             },
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "label": "level 1 druid class feature",
+                    "predicate": [
                         "item:level:1",
                         "item:trait:druid",
                         "item:type:feature"
-                    ],
-                    "label": "level 1 druid class feature"
+                    ]
                 },
                 "choices": [
                     {
@@ -88,7 +87,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
-    "name": "Druidic Order",
     "type": "feat"
 }

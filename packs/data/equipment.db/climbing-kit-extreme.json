@@ -1,10 +1,12 @@
 {
     "_id": "TWv2EeDJaCjtmGUN",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/climbing-kit.webp",
+    "name": "Climbing Kit (Extreme)",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
-            "value": "<p>This satchel includes 50 feet of rope, pulleys, a dozen pitons, a hammer, a grappling hook, and one set of crampons. Climbing kits allow you to attach yourself to the wall you're Climbing, moving half as quickly as usual (minimum 5 feet) but letting you attempt a DC 5 flat check whenever you critically fail to prevent a fall.</p>\n<p>You gain a +1 item bonus to Athletics checks to Climb while using an extreme climbing kit. A single kit has only enough materials for one climber; each climber needs their own kit.</p>"
+            "value": "<p>This satchel includes 50 feet of rope, pulleys, a dozen pitons, a hammer, a grappling hook, and one set of crampons. Climbing kits allow you to attach yourself to the wall you're Climbing, moving half as quickly as usual (minimum 5 feet) but letting you attempt a @Check[type:flat|dc:5] whenever you critically fail to prevent a fall.</p>\n<p>You gain a +1 item bonus to Athletics checks to Climb while using an extreme climbing kit. A single kit has only enough materials for one climber; each climber needs their own kit.</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -37,11 +39,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Climbing Kit, Extreme (Climb)",
-                "predicate": {
-                    "any": [
-                        "action:climb"
-                    ]
-                },
+                "predicate": [
+                    "action:climb"
+                ],
                 "selector": "athletics",
                 "type": "item",
                 "value": 1
@@ -64,7 +64,5 @@
             "value": "1"
         }
     },
-    "img": "systems/pf2e/icons/equipment/adventuring-gear/climbing-kit.webp",
-    "name": "Climbing Kit (Extreme)",
     "type": "equipment"
 }

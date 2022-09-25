@@ -7,7 +7,7 @@ export class Migration630FixTalismanSpelling extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e) {
         if (itemData.type === "consumable") {
-            const consumableType: { value: string } = itemData.data.consumableType;
+            const consumableType: { value: string } = itemData.system.consumableType;
             if (consumableType.value === "talasman") {
                 consumableType.value = "talisman";
             }

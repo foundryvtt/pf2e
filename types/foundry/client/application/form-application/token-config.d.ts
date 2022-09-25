@@ -19,7 +19,7 @@ declare class TokenConfig<
 
     get title(): string;
 
-    override getData(options?: Partial<TOptions>): TokenConfigData<TDocument> | Promise<TokenConfigData<TDocument>>;
+    override getData(options?: Partial<TOptions>): Promise<TokenConfigData<TDocument>>;
 
     override render(force?: boolean, options?: RenderOptions): Promise<this>;
 

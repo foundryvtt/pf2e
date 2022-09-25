@@ -1,6 +1,8 @@
 {
     "_id": "kquBnQ0kObZztnBc",
-    "data": {
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "+1 Status to All Saves vs. Magic",
+    "system": {
         "actionCategory": {
             "value": "defensive"
         },
@@ -19,22 +21,24 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "magical",
-                        "arcane",
-                        "divine",
-                        "primal",
-                        "occult"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "magical",
+                            "arcane",
+                            "divine",
+                            "primal",
+                            "occult"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Bestiary"
         },
         "traits": {
             "custom": "",
@@ -48,7 +52,5 @@
             "value": ""
         }
     },
-    "img": "systems/pf2e/icons/actions/Passive.webp",
-    "name": "+1 Status to All Saves vs. Magic",
     "type": "action"
 }

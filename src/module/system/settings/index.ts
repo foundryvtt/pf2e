@@ -1,8 +1,7 @@
 import { VariantRulesSettings } from "./variant-rules";
 import { WorldClockSettings } from "./world-clock";
 import { HomebrewElements } from "./homebrew";
-import { StatusEffects } from "@scripts/actor/status-effects";
-import { objectHasKey } from "@util";
+import { StatusEffects } from "@module/canvas/status-effects";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { MetagameSettings } from "./metagame";
@@ -52,11 +51,11 @@ export function registerSettings() {
     game.settings.register("pf2e", "compendiumBrowserPacks", {
         name: "PF2E.SETTINGS.CompendiumBrowserPacks.Name",
         hint: "PF2E.SETTINGS.CompendiumBrowserPacks.Hint",
-        default: "{}",
-        type: String,
+        default: {},
+        type: Object,
         scope: "world",
         onChange: () => {
-            game.pf2e.compendiumBrowser.loadSettings();
+            game.pf2e.compendiumBrowser.initCompendiumList();
         },
     });
 
@@ -96,20 +95,17 @@ export function registerSettings() {
     const iconChoices = {
         blackWhite: "PF2E.SETTINGS.statusEffectType.blackWhite",
         default: "PF2E.SETTINGS.statusEffectType.default",
-        legacy: "PF2E.SETTINGS.statusEffectType.legacy",
     };
     game.settings.register("pf2e", "statusEffectType", {
         name: "PF2E.SETTINGS.statusEffectType.name",
         hint: "PF2E.SETTINGS.statusEffectType.hint",
         scope: "world",
         config: true,
-        default: "blackWhite",
+        default: "default",
         type: String,
         choices: iconChoices,
-        onChange: (iconType = "") => {
-            if (objectHasKey(iconChoices, iconType)) {
-                StatusEffects.migrateStatusEffectUrls(iconType);
-            }
+        onChange: (iconType) => {
+            StatusEffects.migrateStatusEffectUrls(iconType);
         },
     });
 
@@ -138,7 +134,7 @@ export function registerSettings() {
     game.settings.register("pf2e", "statusEffectShowCombatMessage", {
         name: "PF2E.SETTINGS.statusEffectShowCombatMessage.name",
         hint: "PF2E.SETTINGS.statusEffectShowCombatMessage.hint",
-        scope: "client",
+        scope: "world",
         config: true,
         default: true,
         type: Boolean,
@@ -148,7 +144,7 @@ export function registerSettings() {
         name: "World System Version",
         scope: "world",
         config: false,
-        default: game.system.data.version,
+        default: game.system.version,
         type: String,
     });
 
@@ -216,6 +212,15 @@ export function registerSettings() {
         config: true,
         default: false,
         type: Boolean,
+    });
+
+    // Secret for now until the user side is complete and a UI is built
+    game.settings.register("pf2e", "campaignFeatSections", {
+        name: "Campaign Feat Sections",
+        scope: "world",
+        config: false,
+        default: [],
+        type: Array,
     });
 
     // This only exists to not break existing macros (yet). We'll keep it for a few versions

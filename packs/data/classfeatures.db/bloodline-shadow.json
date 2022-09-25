@@ -1,6 +1,8 @@
 {
     "_id": "uoQOm41BVdSo6pAS",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/shadow.webp",
+    "name": "Bloodline: Shadow",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -11,7 +13,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Whether due to a velstrac's manipulations or a planar jaunt gone horribly wrong, your bloodline was infused with a vein of shadow.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Occultism, Stealth</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@Compendium[pf2e.spells-srd.Chill Touch]{Chill Touch}</em>; 1st: <em>@Compendium[pf2e.spells-srd.Grim Tendrils]{Grim Tendrils}</em>; 2nd: <em>@Compendium[pf2e.spells-srd.Darkness]{Darkness}</em>; 3rd: <em>@Compendium[pf2e.spells-srd.Chilling Darkness]{Chilling Darkness}</em>; 4th: <em>@Compendium[pf2e.spells-srd.Phantasmal Killer]{Phantasmal Killer}</em>; 5th: <em>@Compendium[pf2e.spells-srd.Shadow Siphon]{Shadow Siphon}</em>; 6th: <em>@Compendium[pf2e.spells-srd.Collective Transposition]{Collective Transposition}</em>; 7th: <em>@Compendium[pf2e.spells-srd.Duplicate Foe]{Duplicate Foe}</em>; 8th: <em>@Compendium[pf2e.spells-srd.Disappearance]{Disappearance}</em>; 9th: <em>@Compendium[pf2e.spells-srd.Weird]{Weird}</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@Compendium[pf2e.spells-srd.Dim the Light]{Dim the Light}</em>; advanced: <em>@Compendium[pf2e.spells-srd.Steal Shadow]{Steal Shadow}</em>; greater: <em>@Compendium[pf2e.spells-srd.Consuming Darkness]{Consuming Darkness}</em></p>\n<p><strong>Blood Magic</strong> Shadows grow deeper around you or one target, either granting a +1 status bonus to Stealth or imposing a -1 status penalty to Perception for 1 round.</p>\n<p>@Compendium[pf2e.feature-effects.Effect: Shadow Blood Magic (Perception)]{Effect: Shadow Blood Magic (Perception)}, @Compendium[pf2e.feature-effects.Effect: Shadow Blood Magic (Stealth)]{Effect: Shadow Blood Magic (Stealth)}</p>"
+            "value": "<p>Whether due to a velstrac's manipulations or a planar jaunt gone horribly wrong, your bloodline was infused with a vein of shadow.</p>\n<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Occultism, Stealth</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@Compendium[pf2e.spells-srd.Chill Touch]{Chill Touch}</em>; 1st: <em>@Compendium[pf2e.spells-srd.Grim Tendrils]{Grim Tendrils}</em>; 2nd: <em>@Compendium[pf2e.spells-srd.Darkness]{Darkness}</em>; 3rd: <em>@Compendium[pf2e.spells-srd.Chilling Darkness]{Chilling Darkness}</em>; 4th: <em>@Compendium[pf2e.spells-srd.Phantasmal Killer]{Phantasmal Killer}</em>; 5th: <em>@Compendium[pf2e.spells-srd.Shadow Siphon]{Shadow Siphon}</em>; 6th: <em>@Compendium[pf2e.spells-srd.Collective Transposition]{Collective Transposition}</em>; 7th: <em>@Compendium[pf2e.spells-srd.Duplicate Foe]{Duplicate Foe}</em>; 8th: <em>@Compendium[pf2e.spells-srd.Disappearance]{Disappearance}</em>; 9th: <em>@Compendium[pf2e.spells-srd.Weird]{Weird}</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@Compendium[pf2e.spells-srd.Dim the Light]{Dim the Light}</em>; advanced: <em>@Compendium[pf2e.spells-srd.Steal Shadow]{Steal Shadow}</em>; greater: <em>@Compendium[pf2e.spells-srd.Consuming Darkness]{Consuming Darkness}</em></p>\n<p><strong>Blood Magic</strong> Shadows grow deeper around you or one target, either granting a +1 status bonus to Stealth or imposing a -1 status penalty to Perception for 1 round.</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Shadow Blood Magic (Perception)]{Effect: Shadow Blood Magic (Perception)}, @Compendium[pf2e.feat-effects.Effect: Shadow Blood Magic (Stealth)]{Effect: Shadow Blood Magic (Stealth)}</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,37 +28,35 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.resources.focus.max",
-                "predicate": {
-                    "all": [
-                        "class:sorcerer"
-                    ]
-                },
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
                 "priority": 10,
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.occ.rank",
+                "path": "system.skills.occ.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.ste.rank",
+                "path": "system.skills.ste.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "data.proficiencies.aliases.sorcerer",
+                "path": "system.proficiencies.aliases.sorcerer",
                 "priority": 39,
                 "value": "occult"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
             "custom": "",
@@ -67,7 +66,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/shadow.webp",
-    "name": "Bloodline: Shadow",
     "type": "feat"
 }

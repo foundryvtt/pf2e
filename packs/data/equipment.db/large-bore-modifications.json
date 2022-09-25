@@ -1,6 +1,8 @@
 {
     "_id": "N9bhBhJ6JawzVitu",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/other/attached-items/large-bore-modification.webp",
+    "name": "Large Bore Modifications",
+    "system": {
         "baseItem": null,
         "containerId": "null",
         "description": {
@@ -36,26 +38,23 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "kickback"
-                    ]
-                },
+                "predicate": [
+                    "kickback"
+                ],
                 "selector": "strike-damage",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "scatter"
-                    ],
-                    "not": [
-                        "kickback"
-                    ]
-                },
+                "predicate": [
+                    "scatter",
+                    {
+                        "not": "kickback"
+                    }
+                ],
                 "selector": "attack",
+                "slug": "large-bore-scatter",
                 "value": {
                     "brackets": [
                         {
@@ -68,17 +67,16 @@
                             "value": 0
                         }
                     ],
-                    "field": "actor|data.abilities.str.value"
+                    "field": "actor|system.abilities.str.value"
                 }
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "kickback"
-                    ]
-                },
+                "predicate": [
+                    "kickback"
+                ],
                 "selector": "attack",
+                "slug": "large-bore-kickback",
                 "type": "circumstance",
                 "value": {
                     "brackets": [
@@ -92,18 +90,17 @@
                             "value": 0
                         }
                     ],
-                    "field": "actor|data.abilities.str.value"
+                    "field": "actor|system.abilities.str.value"
                 }
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "kickback",
-                        "scatter"
-                    ]
-                },
+                "predicate": [
+                    "kickback",
+                    "scatter"
+                ],
                 "selector": "attack",
+                "slug": "large-bore-scatter-kickback",
                 "value": {
                     "brackets": [
                         {
@@ -116,7 +113,7 @@
                             "value": 0
                         }
                     ],
-                    "field": "actor|data.abilities.str.value"
+                    "field": "actor|system.abilities.str.value"
                 }
             }
         ],
@@ -137,7 +134,5 @@
             "value": "1"
         }
     },
-    "img": "systems/pf2e/icons/equipment/other/attached-items/large-bore-modification.webp",
-    "name": "Large Bore Modifications",
     "type": "equipment"
 }

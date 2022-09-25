@@ -7,7 +7,7 @@ import { MigrationBase } from "../base";
 export class Migration765ChoiceOwnedItemTypes extends MigrationBase {
     static override version = 0.765;
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        for (const rule of source.data.rules) {
+        for (const rule of source.system.rules) {
             if (rule.key !== "ChoiceSet") continue;
 
             const data: ChoiceSetSource = rule;

@@ -12,8 +12,7 @@ declare global {
         /** A convenience alias of Item#parent which is more semantically intuitive */
         get actor(): this["parent"];
 
-        /** A convenience reference to the image path (data.img) used to represent this Item */
-        get img(): ImagePath;
+        img: ImagePath;
 
         /** A convenience alias of Item#isEmbedded which is preserves legacy support */
         get isOwned(): boolean;

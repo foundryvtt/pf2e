@@ -1,6 +1,8 @@
 {
     "_id": "uXCU8GgriUjuj5FV",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/flurry.webp",
+    "name": "Effect: Hunter's Edge, Flurry",
+    "system": {
         "description": {
             "value": "<p>Granted when a ranger shares their @Compendium[pf2e.classfeatures.Flurry]{Flurry} edge with you.</p>\n<p>Your multiple attack penalty for attacks against your hunted prey is -3 (-2 with an agile weapon) on your second attack of the turn instead of -5, and -6 (-4 with an agile weapon) on your third or subsequent attack of the turn, instead of -10.</p>"
         },
@@ -24,12 +26,10 @@
             {
                 "key": "FlatModifier",
                 "label": "To Seek hunted prey",
-                "predicate": {
-                    "all": [
-                        "action:seek",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    "hunted-prey"
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 2
@@ -37,43 +37,37 @@
             {
                 "key": "FlatModifier",
                 "label": "To Track hunted prey",
-                "predicate": {
-                    "all": [
-                        "action:track",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:track",
+                    "hunted-prey"
+                ],
                 "selector": "survival",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "agile",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "agile",
+                    "hunted-prey"
+                ],
                 "selector": "attack",
                 "value": -2
             },
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ],
-                    "not": [
-                        "agile"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "not": "agile"
+                    }
+                ],
                 "selector": "attack",
                 "value": -3
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -89,7 +83,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/classes/flurry.webp",
-    "name": "Effect: Hunter's Edge, Flurry",
     "type": "effect"
 }

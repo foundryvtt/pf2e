@@ -1,5 +1,3 @@
-import * as MonkeyPatch from "../🐵🩹";
-
 export const CanvasInit = {
     listen: (): void => {
         Hooks.on("canvasInit", async (canvas) => {
@@ -35,9 +33,6 @@ export const CanvasInit = {
                     return spaces * canvas.dimensions.distance;
                 });
             };
-
-            // Patch the token class so neutral token borders are yellow
-            MonkeyPatch.patchTokenClasses();
         });
     },
 };

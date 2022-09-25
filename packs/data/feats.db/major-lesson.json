@@ -1,6 +1,8 @@
 {
     "_id": "ZFkCMl63ogK55Otq",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Major Lesson",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 10
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,20 +28,22 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.resources.focus.max",
+                "path": "system.resources.focus.max",
                 "value": 1
             },
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "predicate": [
                         "item:trait:witch",
-                        "item:type:feature"
-                    ],
-                    "any": [
-                        "item:level:10",
-                        "item:level:6",
-                        "item:level:2"
+                        "item:type:feature",
+                        {
+                            "or": [
+                                "item:level:10",
+                                "item:level:6",
+                                "item:level:2"
+                            ]
+                        }
                     ]
                 },
                 "choices": [
@@ -101,7 +104,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Major Lesson",
     "type": "feat"
 }

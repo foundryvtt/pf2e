@@ -1,6 +1,8 @@
 {
     "_id": "16MOW7deoOoDwE9z",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hazard Finder",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 8
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,12 +28,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Hazard Finder (to find traps and hazards)",
-                "predicate": {
-                    "any": [
-                        "trap",
-                        "hazard"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "trap",
+                            "hazard"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 1
@@ -40,12 +43,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Hazard Finder (vs. attacks from traps and hazards)",
-                "predicate": {
-                    "any": [
-                        "trap",
-                        "hazard"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "trap",
+                            "hazard"
+                        ]
+                    }
+                ],
                 "selector": "ac",
                 "type": "circumstance",
                 "value": 1
@@ -53,12 +58,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Hazard Finder (saves vs. traps and hazards)",
-                "predicate": {
-                    "any": [
-                        "trap",
-                        "hazard"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "trap",
+                            "hazard"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -75,7 +82,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Hazard Finder",
     "type": "feat"
 }

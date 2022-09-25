@@ -1,6 +1,8 @@
 {
     "_id": "w9HpSwBLByNyRXvi",
-    "data": {
+    "img": "systems/pf2e/icons/spells/blessing-of-defiance.webp",
+    "name": "Spell Effect: Blessing of Defiance (2 Action)",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Blessing of Defiance]{Blessing of Defiance}</em></p>\n<p>Choose one saving throw: Fortitude, Reflex, or Will. The target gets a +4 status bonus to that saving throw for 1 round. If you choose Fortitude, the target gains resistance 15 to poison. If you choose Reflex, the target gains a +15-foot status bonus to its Speeds. If you choose Will, the target gains resistance 15 to mental damage.</p>"
@@ -47,33 +49,26 @@
             },
             {
                 "key": "Resistance",
-                "predicate": {
-                    "all": [
-                        "blessing-of-defiance:fortitude"
-                    ]
-                },
+                "predicate": [
+                    "blessing-of-defiance:fortitude"
+                ],
                 "type": "poison",
                 "value": 15
             },
             {
                 "key": "FlatModifier",
-                "label": "Blessing of Defiance",
-                "predicate": {
-                    "all": [
-                        "blessing-of-defiance:reflex"
-                    ]
-                },
+                "predicate": [
+                    "blessing-of-defiance:reflex"
+                ],
                 "selector": "speed",
                 "type": "status",
                 "value": 15
             },
             {
                 "key": "Resistance",
-                "predicate": {
-                    "all": [
-                        "blessing-of-defiance:will"
-                    ]
-                },
+                "predicate": [
+                    "blessing-of-defiance:will"
+                ],
                 "type": "mental",
                 "value": 15
             }
@@ -95,7 +90,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/blessing-of-defiance.webp",
-    "name": "Spell Effect: Blessing of Defiance (2 Action)",
     "type": "effect"
 }

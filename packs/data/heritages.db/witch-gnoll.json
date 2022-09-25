@@ -1,6 +1,8 @@
 {
     "_id": "kXp8qRh5AgtD4Izi",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Witch Gnoll",
+    "system": {
         "ancestry": {
             "name": "Gnoll",
             "uuid": "Compendium.pf2e.ancestries.vxbQ1Yw4qwgjTzqo"
@@ -12,15 +14,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Witch Gnoll (voice bonus only)",
-                "predicate": {
-                    "all": [
-                        "auditory"
-                    ],
-                    "any": [
-                        "action:impersonate",
-                        "action:create-a-diversion"
-                    ]
-                },
+                "predicate": [
+                    "auditory",
+                    {
+                        "or": [
+                            "action:impersonate",
+                            "action:create-a-diversion"
+                        ]
+                    }
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
@@ -35,7 +37,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/heritage.svg",
-    "name": "Witch Gnoll",
     "type": "heritage"
 }

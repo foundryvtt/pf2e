@@ -1,7 +1,7 @@
 import { ModifierPF2e } from "@actor/modifiers";
 import { ActorDimensions } from "@actor/types";
 import { ItemType } from "@item/data";
-import { extractModifiers, extractNotes } from "@module/rules/util";
+import { extractModifiers } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { Statistic } from "@system/statistic";
@@ -10,15 +10,15 @@ import { TokenDimensions, VehicleData, VehicleSource } from "./data";
 
 export class VehiclePF2e extends ActorPF2e {
     override get allowedItemTypes(): (ItemType | "physical")[] {
-        return [...super.allowedItemTypes, "physical"];
+        return [...super.allowedItemTypes, "physical", "action"];
     }
 
     /** Vehicle dimensions are specified for all three axes and usually do not form cubes */
     override get dimensions(): ActorDimensions {
         return {
-            length: this.data.data.details.space.long,
-            width: this.data.data.details.space.wide,
-            height: this.data.data.details.space.high,
+            length: this.system.details.space.long,
+            width: this.system.details.space.wide,
+            height: this.system.details.space.high,
         };
     }
 
@@ -33,7 +33,7 @@ export class VehiclePF2e extends ActorPF2e {
         super.prepareBaseData();
 
         // Vehicles never have negative healing
-        const { attributes, details } = this.data.data;
+        const { attributes, details } = this.system;
 
         attributes.hp.negativeHealing = false;
         attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
@@ -41,16 +41,16 @@ export class VehiclePF2e extends ActorPF2e {
         details.alliance = null;
 
         // Set the dimensions of this vehicle in its size object
-        const { size } = this.data.data.traits;
+        const { size } = this.system.traits;
         const { dimensions } = this;
         size.length = dimensions.length;
         size.width = dimensions.width;
 
         // Set the prototype token's dimensions according to the vehicle dimensions
-        if (this.data.token.flags?.pf2e?.linkToActorSize) {
+        if (this.prototypeToken.flags?.pf2e?.linkToActorSize) {
             const { width, height } = this.getTokenDimensions();
-            this.data.token.width = width;
-            this.data.token.height = height;
+            this.prototypeToken.width = width;
+            this.prototypeToken.height = height;
         }
     }
 
@@ -58,10 +58,7 @@ export class VehiclePF2e extends ActorPF2e {
         super.prepareDerivedData();
 
         this.saves = this.prepareSaves();
-        this.data.data.saves.fortitude = mergeObject(
-            this.data.data.saves.fortitude,
-            this.saves.fortitude.getCompatData()
-        );
+        this.system.saves.fortitude = mergeObject(this.system.saves.fortitude, this.saves.fortitude.getTraceData());
     }
 
     private prepareSaves(): { fortitude: Statistic } {
@@ -74,20 +71,18 @@ export class VehiclePF2e extends ActorPF2e {
                 label: "PF2E.ModifierTitle",
                 slug,
                 type: "untyped",
-                modifier: this.data.data.saves.fortitude.value,
+                modifier: this.system.saves.fortitude.value,
             }),
             ...extractModifiers(synthetics, domains),
         ];
         const fortitude = new Statistic(this, {
             slug: "fortitude",
             label: CONFIG.PF2E.saves.fortitude,
-            notes: extractNotes(synthetics.rollNotes, domains),
             modifiers,
             domains,
             check: {
                 type: "saving-throw",
             },
-            dc: {},
         });
 
         return { fortitude };
@@ -99,11 +94,11 @@ export class VehiclePF2e extends ActorPF2e {
         user: UserPF2e
     ): Promise<void> {
         await super._preUpdate(changed, options, user);
-        if (this.data.token.flags?.pf2e?.linkToActorSize) {
-            const { space } = this.data.data.details;
+        if (this.prototypeToken.flags?.pf2e?.linkToActorSize) {
+            const { space } = this.system.details;
             const spaceUpdates = {
-                width: changed.data?.details?.space?.wide ?? space.wide,
-                length: changed.data?.details?.space?.long ?? space.long,
+                width: changed.system?.details?.space?.wide ?? space.wide,
+                length: changed.system?.details?.space?.long ?? space.long,
             };
             const tokenDimensions = this.getTokenDimensions(spaceUpdates);
             mergeObject(changed, { token: tokenDimensions });

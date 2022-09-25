@@ -1,0 +1,82 @@
+#token-hud {
+    .status-effects {
+        grid-template-columns: repeat(5, 1fr);
+        width: auto;
+
+        .effect-control {
+            border-radius: 1px;
+            color: var(--color-text-dark-1);
+            cursor: pointer;
+            height: 36px;
+            opacity: 0.75;
+            position: relative;
+            width: 36px;
+
+            &.active img {
+                border: 1px solid var(--color-border-highlight);
+                opacity: 1;
+            }
+
+            img {
+                border: 1px solid rgba(black, 0);
+                height: 35px;
+                margin: 0;
+                width: 35px;
+            }
+
+            &:hover img {
+                border: 1px solid rgba(#ff6400, 0.5);
+            }
+
+            .badge {
+                background: rgba(255, 255, 255, 90%);
+                border-radius: 50%;
+                border: 0.1em solid darkred;
+                font-size: var(--font-size-8);
+                height: 0.8rem;
+                line-height: var(--font-size-10);
+                pointer-events: none;
+                position: absolute;
+                right: -3px;
+                text-align: center;
+                top: -3px;
+                width: 0.8rem;
+                z-index: 1;
+            }
+
+            &.overridden > * {
+                filter: saturate(0);
+            }
+
+            &.valued .badge {
+                font-size: var(--font-size-12);
+                font-style: unset;
+                font-weight: 500;
+                line-height: var(--font-size-12);
+            }
+        }
+
+        .title-bar {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: inherit;
+            border: inherit;
+            box-shadow: inherit;
+            box-sizing: content-box;
+            font-size: var(--font-size-14);
+            font-weight: normal;
+            left: 0;
+            line-height: normal;
+            padding: 3px 0;
+            position: absolute;
+            text-align: center;
+            top: -30px;
+            visibility: hidden;
+            width: 100%;
+            z-index: 1;
+
+            &.active {
+                visibility: visible;
+            }
+        }
+    }
+}

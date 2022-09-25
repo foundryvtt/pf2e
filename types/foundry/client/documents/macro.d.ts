@@ -10,6 +10,7 @@ declare global {
      * @see {@link applications.MacroConfig}    The Macro configuration application
      */
     class Macro extends MacroConstructor {
+        command: string;
         /* -------------------------------------------- */
         /*  Properties                                  */
         /* -------------------------------------------- */

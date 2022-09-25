@@ -1,6 +1,8 @@
 {
     "_id": "CcQISNjNdD0Fsj9n",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Shining Oath (Paladin)",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -41,15 +42,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Shining Oath",
-                "predicate": {
-                    "all": [
-                        "shining-oath"
-                    ],
-                    "not": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "shining-oath",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "shining-not-master",
                 "value": 4
@@ -57,15 +58,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Shining Oath",
-                "predicate": {
-                    "all": [
-                        "shining-oath"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "shining-oath",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "shining-master",
                 "value": 6
@@ -83,7 +84,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Shining Oath (Paladin)",
     "type": "feat"
 }

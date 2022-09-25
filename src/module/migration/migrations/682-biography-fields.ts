@@ -50,6 +50,6 @@ export class Migration682BiographyFields extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "character") return;
-        this.replaceBiographyData(actorSource.data as CharacterSystemDataOld);
+        this.replaceBiographyData(actorSource.system as CharacterSystemDataOld);
     }
 }

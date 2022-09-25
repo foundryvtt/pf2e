@@ -1,6 +1,8 @@
 {
     "_id": "Tu1hOEr6Ko9Df54L",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Athletic Strategist",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,17 +32,33 @@
             {
                 "ability": "int",
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "devise-a-stratagem"
-                    ],
-                    "any": [
-                        "action:disarm",
-                        "action:grapple",
-                        "action:shove",
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    "class:investigator",
+                    "devise-a-stratagem",
+                    {
+                        "or": [
+                            "action:disarm",
+                            "action:grapple",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse",
+                            {
+                                "and": [
+                                    "weapon:ranged",
+                                    {
+                                        "not": "weapon:thrown-melee"
+                                    }
+                                ]
+                            },
+                            "weapon:base:sap"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "ability"
             }
@@ -57,7 +74,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Athletic Strategist",
     "type": "feat"
 }

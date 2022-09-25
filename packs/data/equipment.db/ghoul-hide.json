@@ -1,6 +1,8 @@
 {
     "_id": "hRwnNTMj7wa8S4Ji",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/ghoul-hide.webp",
+    "name": "Ghoul Hide",
+    "system": {
         "armor": {
             "value": 3
         },
@@ -67,12 +69,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Ghoul Hide (vs. disease & paralysis)",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "paralysis"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "paralysis"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "item",
                 "value": 1
@@ -105,7 +109,5 @@
             "value": "3"
         }
     },
-    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/ghoul-hide.webp",
-    "name": "Ghoul Hide",
     "type": "armor"
 }

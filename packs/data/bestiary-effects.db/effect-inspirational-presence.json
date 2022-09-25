@@ -1,6 +1,8 @@
 {
     "_id": "CiCG3r7SHYMJeUxz",
-    "data": {
+    "img": "systems/pf2e/icons/spells/comprehend-language.webp",
+    "name": "Effect: Inspirational Presence",
+    "system": {
         "description": {
             "value": "<p>Any of the teacher's students in the aura gains a +1 circumstance bonus to @Compendium[pf2e.actionspf2e.Recall Knowledge (Lore)]{Recall Knowledge}.</p>"
         },
@@ -16,11 +18,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:recall-knowledge"
-                    ]
-                },
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
                 "selector": "skill-check",
                 "type": "circumstance",
                 "value": 1
@@ -43,7 +43,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/comprehend-language.webp",
-    "name": "Effect: Inspirational Presence",
     "type": "effect"
 }

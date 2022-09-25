@@ -13,34 +13,34 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** The radius of the aura in feet */
     radius: number;
 
-    /** Border and fill colors in hexadecimal */
-    private colors: TokenAuraColors;
-
-    /** Whether the aura includes the creature from which it is emanating */
-    includesSelf: boolean;
+    /** The aura radius from the center in pixels */
+    radiusPixels: number;
 
     /** Traits associated with this aura: used to configure collision detection */
     traits: Set<ItemTrait>;
 
+    /** Border and fill colors in hexadecimal */
+    private colors: TokenAuraColors;
+
     /** Standard line thickness for circle shape and label markers */
     static readonly LINE_THICKNESS = 3;
 
-    constructor(params: TokenAuraConstructorParams) {
+    constructor(params: AuraRendererParams) {
         super();
 
         this.token = params.token;
         this.colors = this.#convertColors(params.colors);
         this.radius = params.radius;
-        this.includesSelf = params.includesSelf ?? true;
+        this.radiusPixels = 0.5 * this.token.w + (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
         this.traits = new Set(params.traits);
 
         this.draw();
     }
 
-    get bounds(): NormalizedRectangle {
+    get bounds(): PIXI.Rectangle {
         const { token, radiusPixels } = this;
 
-        return new NormalizedRectangle(
+        return new PIXI.Rectangle(
             token.bounds.x - (radiusPixels - token.bounds.width / 2),
             token.bounds.y - (radiusPixels - token.bounds.width / 2),
             radiusPixels * 2,
@@ -58,11 +58,6 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         return this.token.highlightId;
     }
 
-    /** The aura radius from the center in pixels */
-    get radiusPixels(): number {
-        return 0.5 * this.token.w + (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
-    }
-
     /** The squares covered by this aura */
     get squares(): EffectAreaSquare[] {
         return getAreaSquares(this);
@@ -77,7 +72,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 
         return (
             this.token.actor?.alliance === "party" ||
-            !this.token.scene?.data.tokenVision ||
+            !this.token.scene?.tokenVision ||
             this.traits.has("visual") ||
             this.traits.has("auditory") ||
             game.user.isGM
@@ -101,6 +96,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     highlight(): void {
         const { dimensions, grid } = canvas;
         if (!dimensions) return;
+        if (!game.combats.active?.started) return this.#drawLabel();
+
         const highlightLayer = grid.getHighlightLayer(this.highlightId)?.clear();
         if (!(highlightLayer && this.shouldRender)) return;
 
@@ -114,11 +111,11 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
      * Convert HTML color strings to hexadecimal values
      * Due to a bug in the core BaseGrid class, black (0) is treated as the color being excluded
      */
-    #convertColors(colors: AuraColors | undefined): TokenAuraColors {
+    #convertColors(colors: AuraColors | null): TokenAuraColors {
         if (colors) {
             return {
-                border: foundry.utils.colorStringToHex(colors.border) || 1,
-                fill: foundry.utils.colorStringToHex(colors.fill) || 1,
+                border: foundry.utils.Color.fromString(colors.border).littleEndian || 0,
+                fill: foundry.utils.Color.fromString(colors.fill).littleEndian || 0,
             };
         } else {
             const user =
@@ -126,7 +123,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
                 game.users.find((u) => u.isGM && u.active) ??
                 game.user;
 
-            return { border: 1, fill: foundry.utils.colorStringToHex(user.color ?? "#0000000") || 1 };
+            return { border: 1, fill: foundry.utils.Color.fromString(user.color ?? "#0000000").littleEndian || 0 };
         }
     }
 
@@ -137,7 +134,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         style.fontSize = Math.max(Math.round(gridSize * 0.36 * 12) / 12, 36);
         style.align = "center";
 
-        const label = [this.radius, canvas.scene?.data.gridUnits ?? game.system.data.gridUnits].join("");
+        const gridUnits = canvas.scene?.grid.units.trim() || game.system.gridUnits;
+        const label = [this.radius, gridUnits].join("");
         const text = new PreciseText(label, style);
         text.position.set(this.center.x, this.center.y - this.radiusPixels);
 
@@ -155,9 +153,9 @@ interface TokenAuraColors {
     fill: number;
 }
 
-interface TokenAuraConstructorParams extends AuraData {
+interface AuraRendererParams extends Omit<AuraData, "effects" | "traits"> {
     token: TokenPF2e;
-    includesSelf?: boolean;
+    traits: Set<ItemTrait>;
 }
 
 export { AuraRenderer, TokenAuraColors };

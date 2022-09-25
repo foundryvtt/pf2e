@@ -3,6 +3,8 @@ import {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
     Frequency,
+    FrequencySource,
+    ItemSystemData,
     ItemSystemSource,
     ItemTraits,
 } from "@item/data/base";
@@ -11,7 +13,7 @@ import { OneToThree } from "@module/data";
 
 type ActionItemSource = BaseItemSourcePF2e<"action", ActionSystemSource>;
 
-type ActionItemData = Omit<ActionItemSource, "effects" | "flags"> &
+type ActionItemData = Omit<ActionItemSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<ActionItemPF2e, "action", ActionSystemData, ActionItemSource>;
 
 type ActionTrait = keyof ConfigPF2e["PF2E"]["actionTraits"];
@@ -35,9 +37,11 @@ interface ActionSystemSource extends ItemSystemSource {
         value: string;
     };
     deathNote: boolean;
-    frequency?: Frequency;
+    frequency?: FrequencySource;
 }
 
-type ActionSystemData = ActionSystemSource;
+interface ActionSystemData extends ActionSystemSource, Omit<ItemSystemData, "traits"> {
+    frequency?: Frequency;
+}
 
 export { ActionItemSource, ActionItemData, ActionTrait, ActionTraits };

@@ -8,7 +8,7 @@ export class Migration643HazardLevel extends MigrationBase {
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "hazard") return;
 
-        const hazardDetails: ObjectOrNumber = actorSource.data.details;
+        const hazardDetails: ObjectOrNumber = actorSource.system.details;
         if (typeof hazardDetails.level === "number") {
             const level = hazardDetails.level;
             hazardDetails.level = { value: level };

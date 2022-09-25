@@ -12,10 +12,10 @@ export class Migration710RarityToString extends MigrationBase {
     }
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
-        if ("traits" in actorSource.data) this.updateTraits(actorSource.data.traits ?? null);
+        if ("traits" in actorSource.system) this.updateTraits(actorSource.system.traits ?? null);
     }
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        if ("traits" in itemSource.data) this.updateTraits(itemSource.data.traits ?? null);
+        if ("traits" in itemSource.system) this.updateTraits(itemSource.system.traits ?? null);
     }
 }

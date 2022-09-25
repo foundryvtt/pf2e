@@ -1,6 +1,51 @@
 {
     "_id": "LAun416if9NFg3X2",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "QP06eTmf8XusaVPV",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Explode",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> 4 rounds pass after the agents' arrival without anyone smothering them</p>\n<hr />\n<p><strong>Effect</strong> The barrels explode, dealing [[/r {3d6+8}[fire]]]{3d6+8 fire damage} to everything within a 20-foot radius (@Check[type:reflex|dc:20|basic:true|traits:fire] save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Explosive Barrels",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 15
@@ -22,7 +67,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Wooden barrels marked with an oil-drop symbol catch fire and explode.</p>",
-            "disable": "<p>Survival DC 20 to smother the flames without rupturing the barrels</p>",
+            "disable": "<p>@Check[type:survival|dc:20|name:Smother the Flames] to smother the flames without rupturing the barrels</p>",
             "isComplex": false,
             "level": {
                 "value": 2
@@ -64,66 +109,11 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "fire",
-                    "environmental"
-                ]
-            }
+            "value": [
+                "fire",
+                "environmental"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "QP06eTmf8XusaVPV",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> 4 rounds pass after the agents' arrival without anyone smothering them</p>\n<hr />\n<p><strong>Effect</strong> The barrels explode, dealing [[/r {3d6+8}[fire]]]{3d6+8 fire damage} to everything within a 20-foot radius (@Check[type:reflex|dc:20|basic:true|traits:fire] save).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Explode",
-            "sort": 100000,
-            "type": "action"
-        }
-    ],
-    "name": "Explosive Barrels",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Explosive Barrels",
-        "width": 1
     },
     "type": "hazard"
 }

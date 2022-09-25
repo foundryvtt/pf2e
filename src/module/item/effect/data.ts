@@ -1,12 +1,19 @@
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemFlagsPF2e, ItemLevelData, ItemSystemData } from "@item/data/base";
-import { OneToFour } from "@module/data";
+import { EffectBadge } from "@item/abstract-effect";
+import {
+    BaseItemDataPF2e,
+    BaseItemSourcePF2e,
+    ItemFlagsPF2e,
+    ItemLevelData,
+    ItemSystemData,
+    ItemSystemSource,
+} from "@item/data/base";
 import { EffectPF2e } from ".";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
     flags: DeepPartial<EffectFlags>;
 };
 
-type EffectData = Omit<EffectSource, "effects" | "flags"> &
+type EffectData = Omit<EffectSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<EffectPF2e, "effect", EffectSystemData, EffectSource> & {
         flags: EffectFlags;
     };
@@ -17,7 +24,7 @@ type EffectFlags = ItemFlagsPF2e & {
     };
 };
 
-interface EffectSystemSource extends ItemSystemData, ItemLevelData {
+interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
     start: {
         value: number;
         initiative: number | null;
@@ -36,22 +43,12 @@ interface EffectSystemSource extends ItemSystemData, ItemLevelData {
     badge: EffectBadge | null;
 }
 
-interface EffectSystemData extends ItemSystemData, EffectSystemSource {
+interface EffectSystemData extends EffectSystemSource, ItemSystemData {
     expired: boolean;
     remaining: string;
 }
 
-interface EffectBadge {
-    value: number | DiceExpression;
-    tickRule: EffectTickType;
-}
-
 type EffectExpiryType = "turn-start" | "turn-end";
-
-type EffectTickType = "turn-start";
-
-type DieFaceCount = 4 | 6 | 8 | 10 | 12 | 20;
-type DiceExpression = `${OneToFour | ""}d${DieFaceCount}`;
 
 interface EffectAuraData {
     slug: string;
@@ -59,13 +56,4 @@ interface EffectAuraData {
     removeOnExit: boolean;
 }
 
-export {
-    DiceExpression,
-    EffectBadge,
-    EffectData,
-    EffectExpiryType,
-    EffectFlags,
-    EffectSource,
-    EffectSystemData,
-    EffectTickType,
-};
+export { EffectData, EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };

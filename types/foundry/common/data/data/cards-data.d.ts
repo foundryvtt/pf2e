@@ -32,7 +32,7 @@ declare module foundry {
             /** The sort order of this stack relative to others in its parent collection */
             sort: number;
             /** An object which configures user permissions to this stack */
-            permission: Record<string, PermissionLevel>;
+            ownership: Record<string, PermissionLevel>;
             /** An object of optional key/value flags */
             flags: Record<string, Record<string, unknown>>;
         }

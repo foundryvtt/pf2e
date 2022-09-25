@@ -20,14 +20,14 @@ import {
     AbilityBasedStatistic,
     ActorFlagsPF2e,
     ArmorClassData,
-    DexterityModifierCapData,
     PerceptionData,
     StrikeData,
+    TraitViewData,
 } from "@actor/data/base";
 import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
 import { FeatPF2e, WeaponPF2e } from "@item";
-import { ArmorCategory } from "@item/armor/data";
+import { ArmorCategory } from "@item/armor/types";
 import { ProficiencyRank } from "@item/data";
 import { DeitySystemData } from "@item/deity/data";
 import { DeityDomain } from "@item/deity/types";
@@ -36,6 +36,7 @@ import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types"
 import { ZeroToFour } from "@module/data";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
+import { StatisticTraceData } from "@system/statistic";
 import type { CharacterPF2e } from "..";
 import { CharacterSheetTabVisibility } from "./sheet";
 
@@ -44,10 +45,8 @@ interface CharacterSource extends BaseCreatureSource<"character", CharacterSyste
 }
 
 interface CharacterData
-    extends Omit<CharacterSource, "data" | "effects" | "items" | "token" | "type">,
-        BaseCreatureData<CharacterPF2e, "character", CharacterSystemData, CharacterSource> {
-    flags: CharacterFlags;
-}
+    extends Omit<CharacterSource, "data" | "flags" | "effects" | "items" | "prototypeToken" | "system" | "type">,
+        BaseCreatureData<CharacterPF2e, "character", CharacterSystemData, CharacterSource> {}
 
 type CharacterFlags = ActorFlagsPF2e & {
     pf2e: {
@@ -127,6 +126,9 @@ interface CharacterSystemData extends CreatureSystemData {
 
     /** A catch-all for character proficiencies */
     proficiencies: {
+        /** Zero or more class DCs, used for saves related to class abilities. */
+        classDCs: Record<string, ClassDCData>;
+        /** Spellcasting attack modifiers and DCs for each magical tradition */
         traditions: MagicTraditionProficiencies;
         /** Aliased path components for use by rule element during property injection */
         aliases?: Record<string, string | undefined>;
@@ -213,17 +215,22 @@ type MartialProficiencies = CategoryProficiencies &
 type MartialProficiencyKey = keyof Required<MartialProficiencies>;
 
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
-interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
+interface ClassDCData extends Required<AbilityBasedStatistic>, StatisticTraceData {
+    label: string;
     rank: ZeroToFour;
+    primary: boolean;
 }
 
 /** The full data for a character action (used primarily for strikes.) */
 interface CharacterStrike extends StrikeData {
     item: Embedded<WeaponPF2e>;
-    slug: string | null;
+    slug: string;
+    /** Whether this attack is visible on the sheet */
+    visible: boolean;
     adjustments?: DegreeOfSuccessAdjustment[];
     altUsages: CharacterStrike[];
     auxiliaryActions: AuxiliaryAction[];
+    weaponTraits: TraitViewData[];
 }
 
 interface AuxiliaryAction {
@@ -277,7 +284,7 @@ interface CharacterPerception extends PerceptionData {
     rank: ZeroToFour;
 }
 
-type CharacterDetails = CreatureDetails & {
+type CharacterDetails = Omit<CreatureDetails, "creature"> & {
     /** The key ability which class saves (and other class-related things) scale off of. */
     keyability: { value: AbilityString };
 
@@ -351,10 +358,10 @@ type DeityDetails = Pick<DeitySystemData, "alignment" | "skill"> & {
 };
 
 interface CharacterAttributes extends CreatureAttributes {
-    /** The perception skill. */
+    /** The perception statistic */
     perception: CharacterPerception;
-    /** The class DC, used for saves related to class abilities. */
-    classDC: ClassDCData;
+    /** Used for saves related to class abilities */
+    classDC: ClassDCData | null;
     /** The best spell DC, used for certain saves related to feats */
     spellDC: { rank: number; value: number } | null;
     /** The higher between highest spellcasting DC and (if present) class DC */
@@ -363,10 +370,6 @@ interface CharacterAttributes extends CreatureAttributes {
     ac: CharacterArmorClass;
     /** Initiative, used to determine turn order in combat. */
     initiative: CreatureInitiative;
-
-    /** Dexterity modifier cap to AC. Undefined means no limit. */
-    dexCap: DexterityModifierCapData[];
-
     /** The amount of HP provided per level by the character's class. */
     classhp: number;
     /** The amount of HP provided at level 1 by the character's ancestry. */
@@ -447,6 +450,7 @@ export {
     CharacterAttributes,
     CharacterData,
     CharacterDetails,
+    CharacterFlags,
     CharacterProficiency,
     CharacterResources,
     CharacterSaves,

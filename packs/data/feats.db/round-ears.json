@@ -1,6 +1,8 @@
 {
     "_id": "ecJms2jtd6cZ5rQK",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Round Ears",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "onlyLevel1": true,
         "prerequisites": {
             "value": []
@@ -28,17 +29,15 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.dec.rank",
+                "path": "system.skills.dec.rank",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:impersonate",
-                        "not-a-half-elf"
-                    ]
-                },
+                "predicate": [
+                    "action:impersonate",
+                    "not-a-half-elf"
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 4
@@ -55,7 +54,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Round Ears",
     "type": "feat"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "JhLncIB10GSQowWL",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/flurry.webp",
+    "name": "Masterful Hunter (Flurry)",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 17
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -30,33 +31,33 @@
         "rules": [
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ],
-                    "not": [
-                        "agile"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    },
+                    {
+                        "not": "agile"
+                    }
+                ],
                 "selector": "attack",
                 "value": -2
             },
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "agile",
-                        "hunted-prey"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "agile",
+                    "hunted-prey",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "attack",
                 "value": -1
             }
@@ -72,7 +73,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/flurry.webp",
-    "name": "Masterful Hunter (Flurry)",
     "type": "feat"
 }

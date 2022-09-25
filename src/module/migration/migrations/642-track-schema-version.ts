@@ -7,14 +7,14 @@ export class Migration642TrackSchemaVersion extends MigrationBase {
     static override version = 0.642;
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
-        actorSource.data.schema ??= {
+        actorSource.system.schema ??= {
             version: null,
             lastMigration: null,
         };
     }
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        itemSource.data.schema ??= {
+        itemSource.system.schema ??= {
             version: null,
             lastMigration: null,
         };

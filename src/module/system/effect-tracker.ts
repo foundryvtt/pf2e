@@ -1,5 +1,4 @@
 import type { ActorPF2e } from "@actor/base";
-import { CreaturePF2e } from "@actor/creature";
 import type { EffectPF2e } from "@item/index";
 import { EncounterPF2e } from "@module/encounter";
 
@@ -22,14 +21,14 @@ export class EffectTracker {
                 } else if (remaining > duration.remaining) {
                     this.trackedEffects.splice(index, 0, effect);
                     return;
-                } else if ((effect.data.data.start.initiative ?? 0) > (other.data.data.start.initiative ?? 0)) {
+                } else if ((effect.system.start.initiative ?? 0) > (other.system.start.initiative ?? 0)) {
                     // new effect has later initiative - skip ahead
-                } else if ((other.data.data.start.initiative ?? 0) > (effect.data.data.start.initiative ?? 0)) {
+                } else if ((other.system.start.initiative ?? 0) > (effect.system.start.initiative ?? 0)) {
                     this.trackedEffects.splice(index, 0, effect);
                     return;
                 } else if (
-                    other.data.data.duration.expiry === "turn-start" &&
-                    effect.data.data.duration.expiry === "turn-end"
+                    other.system.duration.expiry === "turn-start" &&
+                    effect.system.duration.expiry === "turn-end"
                 ) {
                     this.trackedEffects.splice(index, 0, effect);
                     return;
@@ -40,12 +39,12 @@ export class EffectTracker {
     }
 
     register(effect: Embedded<EffectPF2e>): void {
-        if (effect.fromAura && effect.id) {
+        if (effect.fromAura && (canvas.ready || !effect.actor.isToken) && effect.id) {
             this.auraEffects.set(effect.uuid, effect);
         }
 
         const index = this.trackedEffects.findIndex((e) => e.id === effect.id);
-        const systemData = effect.data.data;
+        const systemData = effect.system;
         const duration = systemData.duration.unit;
         switch (duration) {
             case "unlimited":
@@ -58,7 +57,7 @@ export class EffectTracker {
             }
             default: {
                 const duration = effect.remainingDuration;
-                effect.data.data.expired = duration.expired;
+                effect.system.expired = duration.expired;
                 if (this.trackedEffects.length === 0 || index < 0) {
                     this.insert(effect, duration);
                 } else {
@@ -82,7 +81,7 @@ export class EffectTracker {
         const expired: Embedded<EffectPF2e>[] = [];
         for (const effect of this.trackedEffects) {
             const duration = effect.remainingDuration;
-            if (effect.data.data.expired !== duration.expired) {
+            if (effect.system.expired !== duration.expired) {
                 expired.push(effect);
             } else if (!duration.expired) {
                 break;
@@ -100,17 +99,16 @@ export class EffectTracker {
             }, []);
 
         for (const actor of updatedActors) {
-            actor.prepareData();
+            actor.reset();
             actor.sheet.render(false);
-            if (actor instanceof CreaturePF2e) {
+            if (actor.isOfType("creature")) {
                 for (const token of actor.getActiveTokens()) {
                     await token.drawEffects();
                 }
             }
         }
 
-        const firstGM = game.users.find((u) => u.active && u.isGM);
-        if (game.user === firstGM && game.settings.get("pf2e", "automation.removeExpiredEffects")) {
+        if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
             for (const actor of updatedActors) {
                 await this.removeExpired(actor);
             }
@@ -130,14 +128,10 @@ export class EffectTracker {
             }
         }
 
-        for (const effect of expired) {
-            this.auraEffects.delete(effect.uuid);
-        }
-
         const owners = actor
             ? [actor]
             : [...new Set(expired.map((effect) => effect.actor))].filter((owner) => game.actors.has(owner.id));
-        for (const owner of owners) {
+        for (const owner of owners.filter((a) => game.user === a.primaryUpdater)) {
             await owner.deleteEmbeddedDocuments(
                 "Item",
                 expired.flatMap((effect) => (owner.items.has(effect.id) ? effect.id : []))
@@ -151,13 +145,16 @@ export class EffectTracker {
         const autoExpireEffects = !autoRemoveExpired && game.settings.get("pf2e", "automation.effectExpiration");
         if (!(autoExpireEffects || autoRemoveExpired)) return;
 
-        const actors = encounter.combatants.contents.flatMap((c) => c.actor ?? []);
+        const actors = encounter.combatants.contents
+            .flatMap((c) => c.actor ?? [])
+            .filter((a) => game.user === a.primaryUpdater);
+
         for (const actor of actors) {
-            const expiresNow = actor.itemTypes.effect.filter((e) => e.data.data.duration.unit === "encounter");
+            const expiresNow = actor.itemTypes.effect.filter((e) => e.system.duration.unit === "encounter");
             if (expiresNow.length === 0) continue;
 
             if (autoExpireEffects) {
-                const updates = expiresNow.map((e) => ({ _id: e.id, "data.expired": true }));
+                const updates = expiresNow.map((e) => ({ _id: e.id, "system.expired": true }));
                 await actor.updateEmbeddedDocuments("Item", updates);
             } else {
                 const deletes = expiresNow.map((e) => e.id);

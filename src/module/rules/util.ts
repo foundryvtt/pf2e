@@ -1,7 +1,10 @@
-import { DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
+import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
+import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { RollTwiceOption } from "@system/rolls";
-import { RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
+import { isObject, pick } from "@util";
+import { BracketedValue } from "./rule-element/data";
+import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
 function extractModifiers(
@@ -21,19 +24,12 @@ function extractModifiers(
 }
 
 function extractModifierAdjustments(
-    adjustmentsRecord: Record<string, ModifierAdjustment[]>,
+    adjustmentsRecord: RuleElementSynthetics["modifierAdjustments"],
     selectors: string[],
     slug: string
 ): ModifierAdjustment[] {
-    const selectorMatches = Array.from(
-        new Set(
-            selectors.includes("all")
-                ? Object.values(adjustmentsRecord).flat()
-                : selectors.flatMap((s) => adjustmentsRecord[s] ?? [])
-        )
-    );
-
-    return selectorMatches.filter((a) => [slug, null].includes(a.slug));
+    const adjustments = Array.from(new Set(selectors.flatMap((s) => adjustmentsRecord[s] ?? [])));
+    return adjustments.filter((a) => [slug, null].includes(a.slug));
 }
 
 /** Extracts a list of all cloned notes across all given keys in a single list. */
@@ -41,10 +37,18 @@ function extractNotes(rollNotes: Record<string, RollNotePF2e[]>, selectors: stri
     return selectors.flatMap((s) => (rollNotes[s] ?? []).map((n) => n.clone()));
 }
 
+function extractDamageDice(
+    deferredDice: DamageDiceSynthetics,
+    selectors: string[],
+    options: DeferredValueParams = {}
+): DamageDicePF2e[] {
+    return selectors.flatMap((s) => deferredDice[s] ?? []).flatMap((d) => d(options) ?? []);
+}
+
 function extractRollTwice(
     rollTwices: Record<string, RollTwiceSynthetic[]>,
     selectors: string[],
-    options: string[]
+    options: Set<string>
 ): RollTwiceOption {
     const twices = selectors.flatMap((s) => rollTwices[s] ?? []).filter((rt) => rt.predicate?.test(options) ?? true);
     if (twices.length === 0) return false;
@@ -58,11 +62,31 @@ function extractRollTwice(
 function extractRollSubstitutions(
     substitutions: Record<string, RollSubstitution[]>,
     domains: string[],
-    rollOptions: string[]
+    rollOptions: Set<string>
 ): RollSubstitution[] {
     return domains
         .flatMap((d) => deepClone(substitutions[d] ?? []))
         .filter((s) => s.predicate?.test(rollOptions) ?? true);
 }
 
-export { extractModifierAdjustments, extractModifiers, extractNotes, extractRollSubstitutions, extractRollTwice };
+function extractDegreeOfSuccessAdjustments(
+    synthetics: Pick<RuleElementSynthetics, "degreeOfSuccessAdjustments">,
+    selectors: string[]
+): DegreeOfSuccessAdjustment[] {
+    return Object.values(pick(synthetics.degreeOfSuccessAdjustments, selectors)).flat();
+}
+
+function isBracketedValue(value: unknown): value is BracketedValue {
+    return isObject<{ brackets?: unknown }>(value) && Array.isArray(value.brackets);
+}
+
+export {
+    extractDamageDice,
+    extractDegreeOfSuccessAdjustments,
+    extractModifierAdjustments,
+    extractModifiers,
+    extractNotes,
+    extractRollSubstitutions,
+    extractRollTwice,
+    isBracketedValue,
+};

@@ -4,7 +4,7 @@ import Sortable from "sortablejs";
 import type { SortableEvent } from "sortablejs";
 import { eventToRollParams } from "@scripts/sheet-util";
 
-export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
+export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends CombatTracker<TEncounter> {
     sortable!: Sortable;
 
     /** Make the combatants sortable */
@@ -16,7 +16,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         if (!encounter) return super.activateListeners($html);
 
         const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
-        for (const row of Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))) {
+        for (const row of tracker.querySelectorAll<HTMLLIElement>("li.combatant").values()) {
             const combatantId = row.dataset.combatantId ?? "";
             const combatant = encounter.combatants.get(combatantId, { strict: true });
 
@@ -36,7 +36,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
                     const isActive = combatant.playersCanSeeName;
                     toggleNameVisibility.classList.add(...["combatant-control", isActive ? "active" : []].flat());
                     toggleNameVisibility.dataset.control = "toggle-name-visibility";
-                    toggleNameVisibility.title = game.i18n.localize(
+                    toggleNameVisibility.dataset.tooltip = game.i18n.localize(
                         isActive ? "PF2E.Encounter.HideName" : "PF2E.Encounter.RevealName"
                     );
                     const icon = fontAwesomeIcon("signature");
@@ -45,6 +45,10 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
                     row.querySelector('.combatant-controls a[data-control="toggleHidden"]')?.after(
                         toggleNameVisibility
                     );
+
+                    if (!isActive) {
+                        row.classList.add("hidden-name");
+                    }
                 }
             }
         }
@@ -108,16 +112,22 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     private async onDropCombatant(event: SortableEvent): Promise<void> {
         this.validateDrop(event);
 
-        const encounter = this.viewed!;
+        const encounter = this.viewed;
+        if (!encounter) return;
+
         const droppedId = event.item.getAttribute("data-combatant-id") ?? "";
-        const dropped = encounter.combatants.get(droppedId, { strict: true }) as RolledCombatant;
+        const dropped = encounter.combatants.get(droppedId, { strict: true }) as RolledCombatant<
+            NonNullable<TEncounter>
+        >;
         if (typeof dropped.initiative !== "number") {
             ui.notifications.error(game.i18n.format("PF2E.Encounter.HasNoInitiativeScore", { actor: dropped.name }));
             return;
         }
 
         const newOrder = this.getCombatantsFromDOM();
-        const oldOrder = encounter.turns.filter((c) => c.initiative !== null);
+        const oldOrder = encounter.turns.filter(
+            (c): c is RolledCombatant<NonNullable<TEncounter>> => c.initiative !== null
+        );
         // Exit early if the order wasn't changed
         if (newOrder.every((c) => newOrder.indexOf(c) === oldOrder.indexOf(c))) return;
 
@@ -125,7 +135,10 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         await this.saveNewOrder(newOrder);
     }
 
-    private setInitiativeFromDrop(newOrder: RolledCombatant[], dropped: RolledCombatant): void {
+    private setInitiativeFromDrop(
+        newOrder: RolledCombatant<NonNullable<TEncounter>>[],
+        dropped: RolledCombatant<NonNullable<TEncounter>>
+    ): void {
         const aboveDropped = newOrder.find((c) => newOrder.indexOf(c) === newOrder.indexOf(dropped) - 1);
         const belowDropped = newOrder.find((c) => newOrder.indexOf(c) === newOrder.indexOf(dropped) + 1);
 
@@ -139,7 +152,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         const wasDraggedDown = !!aboveDropped && !wasDraggedUp;
 
         // Set a new initiative intuitively, according to allegedly commonplace intuitions
-        dropped.data.initiative =
+        dropped.initiative =
             hasBelowAndNoAbove || (aboveIsHigherThanBelow && wasDraggedUp)
                 ? belowDropped.initiative + 1
                 : hasAboveAndNoBelow || (belowIsHigherThanAbove && wasDraggedDown)
@@ -151,13 +164,13 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         const withSameInitiative = newOrder.filter((c) => c.initiative === dropped.initiative);
         if (withSameInitiative.length > 1) {
             for (let priority = 0; priority < withSameInitiative.length; priority++) {
-                withSameInitiative[priority].data.flags.pf2e.overridePriority[dropped.initiative] = priority;
+                withSameInitiative[priority].flags.pf2e.overridePriority[dropped.initiative] = priority;
             }
         }
     }
 
     /** Save the new order, or reset the viewed order if no change was made */
-    private async saveNewOrder(newOrder: RolledCombatant[]): Promise<void> {
+    private async saveNewOrder(newOrder: RolledCombatant<NonNullable<TEncounter>>[]): Promise<void> {
         await this.viewed?.setMultipleInitiatives(
             newOrder.map((c) => ({ id: c.id, value: c.initiative, overridePriority: c.overridePriority(c.initiative) }))
         );
@@ -197,7 +210,7 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
     }
 
     /** Retrieve the (rolled) combatants in the real-time order as seen in the DOM */
-    private getCombatantsFromDOM(): RolledCombatant[] {
+    private getCombatantsFromDOM(): RolledCombatant<NonNullable<TEncounter>>[] {
         const { combat } = game;
         if (!combat) throw ErrorPF2e("Unexpected error retrieving combat");
 
@@ -207,6 +220,6 @@ export class EncounterTrackerPF2e extends CombatTracker<EncounterPF2e> {
         return Array.from(tracker.querySelectorAll<HTMLLIElement>("li.combatant"))
             .map((row) => row.getAttribute("data-combatant-id") ?? "")
             .map((id) => combat.combatants.get(id, { strict: true }))
-            .filter((c): c is RolledCombatant => typeof c.initiative === "number");
+            .filter((c): c is RolledCombatant<NonNullable<TEncounter>> => typeof c.initiative === "number");
     }
 }

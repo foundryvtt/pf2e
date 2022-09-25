@@ -1,6 +1,8 @@
 {
     "_id": "bCAvo59b5RyW12iI",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Sneak Attacker",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 4
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -33,25 +34,23 @@
                 "diceNumber": 1,
                 "key": "DamageDice",
                 "label": "PF2E.SpecificRule.SneakAttack",
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed",
-                        {
-                            "or": [
-                                "weapon:trait:finesse",
-                                "weapon:trait:agile",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "target:condition:flat-footed",
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse",
+                            {
+                                "and": [
+                                    "weapon:ranged",
+                                    {
+                                        "not": "weapon:thrown-melee"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -86,7 +85,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Sneak Attacker",
     "type": "feat"
 }

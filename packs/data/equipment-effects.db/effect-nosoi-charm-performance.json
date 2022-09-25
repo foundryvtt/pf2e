@@ -1,6 +1,8 @@
 {
     "_id": "MesQvxSazhl7Xvg8",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/held-items/nosoi-charm.webp",
+    "name": "Effect: Nosoi Charm (Performance)",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>You gain a +2 item bonus to Performance checks to play an instrument, orate, or sing.</p>"
@@ -18,20 +20,22 @@
             {
                 "key": "FlatModifier",
                 "label": "Nosoi Charm (Play an instrument, orate or sing)",
-                "predicate": {
-                    "any": [
-                        "action:play-an-instrument",
-                        "action:orate",
-                        "action:sing"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:play-an-instrument",
+                            "action:orate",
+                            "action:sing"
+                        ]
+                    }
+                ],
                 "selector": "performance",
                 "type": "item",
                 "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Adventure: Night of the Gray Death"
         },
         "start": {
             "initiative": null,
@@ -47,7 +51,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/equipment/held-items/nosoi-charm.webp",
-    "name": "Effect: Nosoi Charm (Performance)",
     "type": "effect"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "O1W40RBvlZW069Mw",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/astrolabe.webp",
+    "name": "Mariner's Astrolabe",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
@@ -37,15 +39,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Mariner's Astrolabe (identify celestial bodies)",
-                "predicate": {
-                    "all": [
-                        "action:recall-knowledge",
-                        "identify"
-                    ],
-                    "any": [
-                        "celestial-body"
-                    ]
-                },
+                "predicate": [
+                    "action:recall-knowledge",
+                    "identify",
+                    {
+                        "or": [
+                            "celestial-body"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "type": "item",
                 "value": 1
@@ -68,7 +70,5 @@
             "value": "L"
         }
     },
-    "img": "systems/pf2e/icons/equipment/adventuring-gear/astrolabe.webp",
-    "name": "Mariner's Astrolabe",
     "type": "equipment"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "vhW3glAaEfq2DKrw",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/angelic.webp",
+    "name": "Bloodline: Angelic",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -11,7 +13,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>One of your forebears hailed from a celestial realm, or your ancestors' devotion led to their lineage being blessed.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Religion</p>\n<p><strong>Granted Spells</strong> cantrip <em>@Compendium[pf2e.spells-srd.Light]{Light}</em>, 1st: <em>@Compendium[pf2e.spells-srd.Heal]{Heal}</em>, 2nd: <em>@Compendium[pf2e.spells-srd.Spiritual Weapon]{Spiritual Weapon}</em>, 3rd: <em>@Compendium[pf2e.spells-srd.Searing Light]{Searing Light}</em>, 4th: <em>@Compendium[pf2e.spells-srd.Divine Wrath]{Divine Wrath}</em>, 5th: <em>@Compendium[pf2e.spells-srd.Flame Strike]{Flame Strike}</em>, 6th:<em>@Compendium[pf2e.spells-srd.Blade Barrier]{Blade Barrier}</em>, 7th: <em>@Compendium[pf2e.spells-srd.Divine Decree]{Divine Decree}</em>, 8th: <em>@Compendium[pf2e.spells-srd.Divine Aura]{Divine Aura}</em>, 9th: <em>@Compendium[pf2e.spells-srd.Foresight]{Foresight}</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@Compendium[pf2e.spells-srd.Angelic Halo]{Angelic Halo}</em>, advanced: <em>@Compendium[pf2e.spells-srd.Angelic Wings]{Angelic Wings}</em>, greater: <em>@Compendium[pf2e.spells-srd.Celestial Brand]{Celestial Brand}</em></p>\n<p><strong>Blood Magic</strong> An angelic aura protects you or one target, granting a +1 status bonus to saving throws for 1 round.</p>\n<p>@Compendium[pf2e.feature-effects.Effect: Angelic Blood Magic]{Effect: Angelic Blood Magic}</p>"
+            "value": "<p>One of your forebears hailed from a celestial realm, or your ancestors' devotion led to their lineage being blessed.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Religion</p>\n<p><strong>Granted Spells</strong> cantrip <em>@Compendium[pf2e.spells-srd.Light]{Light}</em>, 1st: <em>@Compendium[pf2e.spells-srd.Heal]{Heal}</em>, 2nd: <em>@Compendium[pf2e.spells-srd.Spiritual Weapon]{Spiritual Weapon}</em>, 3rd: <em>@Compendium[pf2e.spells-srd.Searing Light]{Searing Light}</em>, 4th: <em>@Compendium[pf2e.spells-srd.Divine Wrath]{Divine Wrath}</em>, 5th: <em>@Compendium[pf2e.spells-srd.Flame Strike]{Flame Strike}</em>, 6th:<em>@Compendium[pf2e.spells-srd.Blade Barrier]{Blade Barrier}</em>, 7th: <em>@Compendium[pf2e.spells-srd.Divine Decree]{Divine Decree}</em>, 8th: <em>@Compendium[pf2e.spells-srd.Divine Aura]{Divine Aura}</em>, 9th: <em>@Compendium[pf2e.spells-srd.Foresight]{Foresight}</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@Compendium[pf2e.spells-srd.Angelic Halo]{Angelic Halo}</em>, advanced: <em>@Compendium[pf2e.spells-srd.Angelic Wings]{Angelic Wings}</em>, greater: <em>@Compendium[pf2e.spells-srd.Celestial Brand]{Celestial Brand}</em></p>\n<p><strong>Blood Magic</strong> An angelic aura protects you or one target, granting a +1 status bonus to saving throws for 1 round.</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Angelic Blood Magic]{Effect: Angelic Blood Magic}</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,37 +28,35 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.resources.focus.max",
-                "predicate": {
-                    "all": [
-                        "class:sorcerer"
-                    ]
-                },
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:sorcerer"
+                ],
                 "priority": 10,
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.dip.rank",
+                "path": "system.skills.dip.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.rel.rank",
+                "path": "system.skills.rel.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "data.proficiencies.aliases.sorcerer",
+                "path": "system.proficiencies.aliases.sorcerer",
                 "priority": 39,
                 "value": "divine"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -67,7 +66,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/angelic.webp",
-    "name": "Bloodline: Angelic",
     "type": "feat"
 }

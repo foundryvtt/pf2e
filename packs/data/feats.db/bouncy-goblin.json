@@ -1,6 +1,8 @@
 {
     "_id": "AlhyF8LCW011w9kq",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Bouncy Goblin",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -30,11 +31,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:tumble-through"
-                    ]
-                },
+                "predicate": [
+                    "action:tumble-through"
+                ],
                 "selector": "acrobatics",
                 "type": "circumstance",
                 "value": "2"
@@ -42,7 +41,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.acr.rank",
+                "path": "system.skills.acr.rank",
                 "value": 1
             }
         ],
@@ -57,7 +56,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Bouncy Goblin",
     "type": "feat"
 }

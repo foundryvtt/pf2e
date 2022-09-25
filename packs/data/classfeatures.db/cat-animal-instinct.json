@@ -1,6 +1,8 @@
 {
     "_id": "vCNtX2LwlemhA3tu",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/animal-instinct.webp",
+    "name": "Cat Animal Instinct",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -22,7 +24,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -30,31 +31,29 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    {
+                        "not": "barbarian-dedication"
+                    }
+                ],
                 "selector": "ac",
                 "value": -1
             },
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "animal-instinct"
-                    ],
-                    "not": [
-                        "agile",
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "animal-instinct",
+                    {
+                        "nor": [
+                            "agile",
+                            "ranged",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "rage",
                 "value": {
@@ -78,17 +77,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile",
-                        "animal-instinct"
-                    ],
-                    "not": [
-                        "ranged",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "agile",
+                    "animal-instinct",
+                    {
+                        "nor": [
+                            "ranged",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "rage-agile",
                 "value": {
@@ -124,15 +123,15 @@
                 "options": [
                     "animal-instinct"
                 ],
-                "predicate": {
-                    "all": [
-                        "self:effect:rage"
-                    ],
-                    "any": [
-                        "class:barbarian",
-                        "feat:instinct-ability"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
                 "range": null,
                 "traits": [
                     "unarmed"
@@ -153,15 +152,15 @@
                 "options": [
                     "animal-instinct"
                 ],
-                "predicate": {
-                    "all": [
-                        "self:effect:rage"
-                    ],
-                    "any": [
-                        "class:barbarian",
-                        "feat:instinct-ability"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
                 "range": null,
                 "traits": [
                     "agile",
@@ -170,11 +169,11 @@
             },
             {
                 "key": "DamageDice",
-                "predicate": {
-                    "not": [
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "barbarian-dedication"
+                    }
+                ],
                 "selector": "cat-jaws-damage",
                 "value": {
                     "brackets": [
@@ -191,11 +190,11 @@
             },
             {
                 "key": "DamageDice",
-                "predicate": {
-                    "not": [
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "barbarian-dedication"
+                    }
+                ],
                 "selector": "cat-claw-damage",
                 "value": {
                     "brackets": [
@@ -213,17 +212,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "barbarian-dedication",
-                        "instinct-ability"
-                    ],
-                    "not": [
-                        "agile",
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "barbarian-dedication",
+                    "instinct-ability",
+                    {
+                        "nor": [
+                            "agile",
+                            "ranged"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "dedication-instinct-rage",
                 "value": 2
@@ -231,17 +230,15 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "barbarian-dedication",
-                        "instinct-ability",
-                        "agile"
-                    ],
-                    "not": [
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "barbarian-dedication",
+                    "instinct-ability",
+                    "agile",
+                    {
+                        "not": "ranged"
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "dedication-instinct-rage-agile",
                 "value": 1
@@ -249,17 +246,17 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "agile",
-                        "ranged",
-                        "animal-instinct",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    {
+                        "nor": [
+                            "agile",
+                            "ranged",
+                            "animal-instinct",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "non-animal-rage",
                 "value": 2
@@ -267,24 +264,24 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile"
-                    ],
-                    "not": [
-                        "ranged",
-                        "animal-instinct",
-                        "barbarian-dedication"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "agile",
+                    {
+                        "nor": [
+                            "ranged",
+                            "animal-instinct",
+                            "barbarian-dedication"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "non-animal-rage-agile",
                 "value": 1
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -294,7 +291,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/animal-instinct.webp",
-    "name": "Cat Animal Instinct",
     "type": "feat"
 }

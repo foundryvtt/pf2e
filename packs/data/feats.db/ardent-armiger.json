@@ -1,6 +1,8 @@
 {
     "_id": "iKOcwFCbNX1a2OFT",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Ardent Armiger",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 4
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,15 +32,17 @@
             {
                 "key": "FlatModifier",
                 "label": "vs. social interactions  (Ardent Armiger)",
-                "predicate": {
-                    "any": [
-                        "improve-attitude",
-                        "coerce",
-                        "demoralize",
-                        "make-an-impression",
-                        "make-a-request"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "improve-attitude",
+                            "coerce",
+                            "demoralize",
+                            "make-an-impression",
+                            "make-a-request"
+                        ]
+                    }
+                ],
                 "selector": "will",
                 "type": "circumstance",
                 "value": 1
@@ -56,7 +59,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Ardent Armiger",
     "type": "feat"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "bheWnrBqMphBRUmn",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/oathbow.webp",
+    "name": "Oathbow",
+    "system": {
         "MAP": {
             "value": ""
         },
@@ -96,21 +98,17 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "Oathbow's sworn target",
-                "predicate": {
-                    "all": [
-                        "target:oathbow"
-                    ]
-                },
+                "predicate": [
+                    "target:oathbow"
+                ],
                 "selector": "{item|_id}-damage"
             },
             {
                 "key": "FlatModifier",
                 "label": "Oathbow (tracking Oathbow's sworn target)",
-                "predicate": {
-                    "all": [
-                        "target:oathbow"
-                    ]
-                },
+                "predicate": [
+                    "target:oathbow"
+                ],
                 "selector": "survival",
                 "type": "circumstance",
                 "value": 2
@@ -153,7 +151,5 @@
             "value": "2"
         }
     },
-    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/oathbow.webp",
-    "name": "Oathbow",
     "type": "weapon"
 }

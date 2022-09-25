@@ -1,6 +1,8 @@
 {
     "_id": "IEmYcavVfSy58aYx",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/staves/staff-of-the-desert-winds.webp",
+    "name": "Staff of the Desert Winds (True)",
+    "system": {
         "MAP": {
             "value": ""
         },
@@ -86,13 +88,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:subsist",
-                        "action:track",
-                        "action:cover-tracks"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:subsist",
+                            "action:track",
+                            "action:cover-tracks"
+                        ]
+                    }
+                ],
                 "selector": "survival",
                 "type": "circumstance",
                 "value": 1
@@ -129,7 +133,5 @@
             "value": "1"
         }
     },
-    "img": "systems/pf2e/icons/equipment/staves/staff-of-the-desert-winds.webp",
-    "name": "Staff of the Desert Winds (True)",
     "type": "weapon"
 }

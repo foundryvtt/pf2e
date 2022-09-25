@@ -1,6 +1,8 @@
 {
     "_id": "acqqlYmti8D9QJi0",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/storm.webp",
+    "name": "Storm Order",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,27 +28,23 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.acr.rank",
+                "path": "system.skills.acr.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.resources.focus.max",
-                "predicate": {
-                    "all": [
-                        "class:druid"
-                    ]
-                },
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:druid"
+                ],
                 "value": 1
             },
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "all": [
-                        "class:druid"
-                    ]
-                },
+                "predicate": [
+                    "class:druid"
+                ],
                 "uuid": "Compendium.pf2e.feats-srd.Storm Born"
             }
         ],
@@ -62,7 +59,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/storm.webp",
-    "name": "Storm Order",
     "type": "feat"
 }

@@ -3,10 +3,27 @@ import { LocalizePF2e } from "@system/localize";
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { EquipmentFilters, RangesData } from "./data";
+import { CompendiumBrowserIndexData, EquipmentFilters, RangesData } from "./data";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     override filterData!: EquipmentFilters;
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/equipment.html";
+    /* MiniSearch */
+    override searchFields = ["name"];
+    override storeFields = [
+        "type",
+        "name",
+        "img",
+        "uuid",
+        "level",
+        "category",
+        "group",
+        "price",
+        "priceInCopper",
+        "traits",
+        "rarity",
+        "source",
+    ];
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "equipment");
@@ -18,17 +35,17 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     protected override async loadData() {
         console.debug("PF2e System | Compendium Browser | Started loading inventory items");
 
-        const inventoryItems: CompendiumIndexData[] = [];
+        const inventoryItems: CompendiumBrowserIndexData[] = [];
         const itemTypes = ["weapon", "armor", "equipment", "consumable", "treasure", "backpack", "kit"];
         // Define index fields for different types of equipment
-        const kitFields = ["img", "data.price", "data.traits"];
-        const baseFields = [...kitFields, "data.stackGroup", "data.level.value", "data.source.value"];
-        const armorAndWeaponFields = [...baseFields, "data.category", "data.group"];
-        const consumableFields = [...baseFields, "data.consumableType.value"];
+        const kitFields = ["img", "system.price", "system.traits"];
+        const baseFields = [...kitFields, "system.stackGroup", "system.level.value", "system.source.value"];
+        const armorAndWeaponFields = [...baseFields, "system.category", "system.group"];
+        const consumableFields = [...baseFields, "system.consumableType.value"];
         const indexFields = [
             ...new Set([...armorAndWeaponFields, ...consumableFields]),
-            "data.denomination.value",
-            "data.value.value",
+            "system.denomination.value",
+            "system.value.value",
         ];
         const sources: Set<string> = new Set();
 
@@ -39,7 +56,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         )) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const itemData of index) {
-                if (itemData.type === "treasure" && itemData.data.stackGroup === "coins") continue;
+                if (itemData.type === "treasure" && itemData.system.stackGroup === "coins") continue;
                 if (itemTypes.includes(itemData.type)) {
                     let skip = false;
                     if (itemData.type === "weapon" || itemData.type === "armor") {
@@ -59,37 +76,36 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     }
 
                     // Store price as a number for better sorting (note: we may be dealing with old data, convert if needed)
-                    const priceValue = itemData.data.price.value;
+                    const priceValue = itemData.system.price.value;
                     const priceCoins =
                         typeof priceValue === "string" ? CoinsPF2e.fromString(priceValue) : new CoinsPF2e(priceValue);
                     const coinValue = priceCoins.copperValue;
 
                     // add item.type into the correct format for filtering
-                    itemData.data.itemTypes = { value: itemData.type };
-                    itemData.data.rarity = itemData.data.traits.rarity;
+                    itemData.system.itemTypes = { value: itemData.type };
+                    itemData.system.rarity = itemData.system.traits.rarity;
                     itemData.filters = {};
 
                     // Prepare source
-                    const source = itemData.data.source.value;
+                    const source = itemData.system.source.value;
                     if (source) {
                         sources.add(source);
-                        itemData.data.source.value = sluggify(source);
+                        itemData.system.source.value = sluggify(source);
                     }
 
                     inventoryItems.push({
-                        _id: itemData._id,
                         type: itemData.type,
                         name: itemData.name,
                         img: itemData.img,
-                        compendium: pack.collection,
-                        level: itemData.data.level?.value ?? 0,
-                        category: itemData.data.category ?? "",
-                        group: itemData.data.group ?? "",
+                        uuid: `Compendium.${pack.collection}.${itemData._id}`,
+                        level: itemData.system.level?.value ?? 0,
+                        category: itemData.system.category ?? "",
+                        group: itemData.system.group ?? "",
                         price: priceCoins,
                         priceInCopper: coinValue,
-                        traits: itemData.data.traits.value,
-                        rarity: itemData.data.traits.rarity,
-                        source: itemData.data.source.value,
+                        traits: itemData.system.traits.value,
+                        rarity: itemData.system.traits.rarity,
+                        source: itemData.system.source.value,
                     });
                 }
             }
@@ -132,19 +148,14 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading inventory items");
     }
 
-    protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, multiselects, ranges, search, sliders } = this.filterData;
+    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
+        const { checkboxes, multiselects, ranges, sliders } = this.filterData;
 
         // Level
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
         // Price
         if (!(entry.priceInCopper >= ranges.price.values.min && entry.priceInCopper <= ranges.price.values.max))
             return false;
-        // Name
-        if (search.text) {
-            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
-                return false;
-        }
         // Item type
         if (checkboxes.itemtypes.selected.length > 0 && !checkboxes.itemtypes.selected.includes(entry.type)) {
             return false;
@@ -156,23 +167,21 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
         ) {
             return false;
         }
-        // Weapons
+
+        // Weapon categories
         if (
             checkboxes.weaponTypes.selected.length > 0 &&
             !this.arrayIncludes(checkboxes.weaponTypes.selected, [entry.category, entry.group])
         ) {
             return false;
         }
+
         // Traits
-        if (
-            multiselects.traits.selected.length > 0 &&
-            !this.arrayIncludes(
-                multiselects.traits.selected.map((s) => s.value),
-                entry.traits
-            )
-        ) {
+        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
+        if (selectedTraits.length > 0 && !selectedTraits.some((t) => entry.traits.includes(t))) {
             return false;
         }
+
         // Source
         if (checkboxes.source.selected.length > 0 && !checkboxes.source.selected.includes(entry.source)) {
             return false;
@@ -245,7 +254,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                 },
             },
             order: {
-                by: "name",
+                by: "level",
                 direction: "asc",
                 options: {
                     name: "PF2E.BrowserSortyByNameLabel",

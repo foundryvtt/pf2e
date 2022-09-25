@@ -1,6 +1,8 @@
 {
     "_id": "owJorCBZmUi5lIV0",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Expert Herbalism",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -33,12 +35,11 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.crafting.entries.herbalist.maxItemLevel",
-                "predicate": {
-                    "all": [
-                        "crafting:entry:herbalist"
-                    ]
-                },
+                "path": "system.crafting.entries.herbalist.maxItemLevel",
+                "phase": "afterDerived",
+                "predicate": [
+                    "crafting:entry:herbalist"
+                ],
                 "value": "@actor.level - 3"
             }
         ],
@@ -53,7 +54,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Expert Herbalism",
     "type": "feat"
 }

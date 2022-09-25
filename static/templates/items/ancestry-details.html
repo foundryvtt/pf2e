@@ -1,53 +1,8 @@
-<div class="form-group">
-    <label>{{localize "PF2E.Rarity"}}</label>
-    <select name="data.traits.rarity" data-dtype="String">
-        {{#select data.traits.rarity}}
-            {{#each rarities}}
-                <option value="{{@key}}">{{localize this.label}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.HitPointsHeader"}}</label>
-    <input type="number" name="data.hp" value="{{data.hp}}" data-dtype="Number" />
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.SizeLabel"}}</label>
-    <select name="data.size" data-dtype="String">
-        {{#select data.size}}
-            {{#each sizes}}
-                <option value="{{@key}}">{{localize this.label}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.Reach"}}</label>
-    <input type="number" name="data.reach" value="{{data.reach}}" data-dtype="Number" />
-</div>
-<div class="form-group">
-    <label>{{localize "PF2E.SpeedFeet"}}</label>
-    <input type="number" name="data.speed" value="{{data.speed}}" data-dtype="Number" />
-</div>
-<div class="form-group">
-    <label>{{localize "PF2E.Item.Ancestry.Vision.Label"}}</label>
-    <select name="data.vision">
-        {{#select data.vision}}
-            <option value="normal">{{localize "PF2E.Item.Ancestry.Vision.Normal"}}</option>
-            <option value="lowLightVision">{{localize "PF2E.SensesLowLightVision"}}</option>
-            <option value="darkvision">{{localize "PF2E.SensesDarkvision"}}</option>
-        {{/select}}
-    </select>
-</div>
 {{#each data.boosts as |boost idx|}}
     <div class="form-group form-group-trait">
         <label class="pf-title">
             {{localize "PF2E.AbilityBoost"}}
-            <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.AbilityBoost" data-config-types="abilities" data-property="data.boosts.{{idx}}" data-no-custom="true"><i class="fas fa-edit"></i></a>
+            <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.AbilityBoost" data-config-types="abilities" data-property="system.boosts.{{idx}}" data-no-custom="true"><i class="fas fa-edit"></i></a>
         </label>
 
         <ul class="abc-traits-list">
@@ -62,7 +17,7 @@
     <div class="form-group form-group-trait">
         <label class="pf-title">
             {{localize "PF2E.AbilityFlaw"}}
-            <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.AbilityFlaw" data-config-types="abilities" data-property="data.flaws.{{idx}}" data-no-custom="true"><i class="fas fa-edit"></i></a>
+            <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.AbilityFlaw" data-config-types="abilities" data-property="system.flaws.{{idx}}" data-no-custom="true"><i class="fas fa-edit"></i></a>
         </label>
 
         {{lookup selectedFlaws @idx}}
@@ -77,7 +32,7 @@
 <div class="form-group form-group-trait">
     <label class="pf-title">
         {{localize "PF2E.Languages"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.languages"><i class="fas fa-edit"></i></a>
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="system.languages"><i class="fas fa-edit"></i></a>
     </label>
 
     <ul class="abc-traits-list">
@@ -94,10 +49,10 @@
 <div class="form-group additional-language">
     <label class="pf-title">
         {{localize "PF2E.LanguagesAdditional"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.LanguagesAdditional" data-config-types="languages" data-property="data.additionalLanguages"><i class="fas fa-edit"></i></a>
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.LanguagesAdditional" data-config-types="languages" data-property="system.additionalLanguages"><i class="fas fa-edit"></i></a>
     </label>
 
-    <input type="number" name="data.additionalLanguages.count" value="{{data.additionalLanguages.count}}" data-dtype="Number" />
+    <input type="number" name="system.additionalLanguages.count" value="{{data.additionalLanguages.count}}" />
     <span>{{localize "PF2E.AdditionalLanguagePlusInt"}}</span>
 </div>
 <div class="form-group form-group-trait">
@@ -112,29 +67,15 @@
         {{/each}}
     </ul>
 </div>
-<div class="form-group form-group-trait">
-    <label>
-        {{localize "PF2E.TraitsLabel"}}
-        <a class="trait-selector" data-trait-selector="basic" data-config-types="creatureTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
-    </label>
-    <ul class="abc-traits-list">
-        {{#each traits}}
-            {{#if this.selected}}
-                <span class="tag-legacy {{@key}}">{{localize this.label}}</span>
-            {{/if}}
-        {{/each}}
-    </ul>
-</div>
 
 {{~#*inline "abcItems"~}}
 <ul class="item-refs">
     {{~#each items as |item i|}}
-    <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-id="{{item.id}}">
+    <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-uuid="{{item.uuid}}">
         <img src="{{item.img}}">
         <div class="name">{{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/unless}}</div>
+        <input value="{{item.uuid}}" name="{{@partial-block}}items.{{i}}.uuid" type="hidden" data-dtype="String">
         <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype="String">
-        <input value="{{item.pack}}" name="{{@partial-block}}items.{{i}}.pack" type="hidden" data-dtype="String">
-        <input value="{{item.id}}" name="{{@partial-block}}items.{{i}}.id" type="hidden" data-dtype="String">
         <a class="remove" data-action="remove"><i class="fa fa-times"></i></a>
         {{#if item.items~}}
             {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}

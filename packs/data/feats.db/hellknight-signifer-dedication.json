@@ -1,6 +1,8 @@
 {
     "_id": "62hpJOuvYYSa4X7u",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hellknight Signifer Dedication",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 6
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -43,18 +44,16 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.int.rank",
+                "path": "system.skills.int.rank",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
                 "label": "to Lie wearing Signifier Mask",
-                "predicate": {
-                    "all": [
-                        "action:lie",
-                        "wearing-signifier-mask"
-                    ]
-                },
+                "predicate": [
+                    "action:lie",
+                    "wearing-signifier-mask"
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
@@ -72,7 +71,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Hellknight Signifer Dedication",
     "type": "feat"
 }

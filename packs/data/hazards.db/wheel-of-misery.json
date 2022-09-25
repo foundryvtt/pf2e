@@ -1,6 +1,50 @@
 {
     "_id": "H2GX04CQXLPQHT8h",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "ZS4b3rYv9jOgbMzm",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Wheel Spin",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the sensor's detection area.</p>\n<hr />\n<p><strong>Effect</strong> The wheel begins to spin and rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Wheel Of Misery",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 24
@@ -22,7 +66,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>An ornate wheel set into a wall-divided into six segments with colored runes on each-is controlled by a magical sensor that detects any creature within 100 feet in front of it.</p>",
-            "disable": "<p>Thievery DC 26 (expert) on the wheel to stop it from spinning, Thievery DC 22 (master) to erase each rune, or <em>dispel magic</em> (4th level; counteract DC 22) to counteract each rune</p>",
+            "disable": "<p>@Check[type:thievery|dc:26|name:Stop Wheel from Spinning|traits:action:disable-a-device] (expert) on the wheel to stop it from spinning, @Check[type:thievery|dc:22|name:Erase Rune|traits:action:disable-a-device] (master) to erase each rune, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (4th level; counteract DC 22) to counteract each rune</p>",
             "isComplex": true,
             "level": {
                 "value": 6
@@ -65,65 +109,11 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "magical",
-                    "mechanical"
-                ]
-            }
+            "value": [
+                "magical",
+                "mechanical"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "ZS4b3rYv9jOgbMzm",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature enters the sensor's detection area.</p>\n<hr />\n<p><strong>Effect</strong> The wheel begins to spin and rolls initiative.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Wheel Spin",
-            "sort": 100000,
-            "type": "action"
-        }
-    ],
-    "name": "Wheel Of Misery",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Wheel Of Misery",
-        "width": 1
     },
     "type": "hazard"
 }

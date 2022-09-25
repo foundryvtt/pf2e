@@ -1,6 +1,8 @@
 {
     "_id": "fOIUmDGa9gkeCHA0",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Supertaster",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 7
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,15 +32,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Supertaster (recall knowledge or investigate via taste)",
-                "predicate": {
-                    "all": [
-                        "taste"
-                    ],
-                    "any": [
-                        "action:recall-knowledge",
-                        "action:investigate"
-                    ]
-                },
+                "predicate": [
+                    "taste",
+                    {
+                        "or": [
+                            "action:recall-knowledge",
+                            "action:investigate"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "type": "circumstance",
                 "value": 2
@@ -56,7 +57,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Supertaster",
     "type": "feat"
 }

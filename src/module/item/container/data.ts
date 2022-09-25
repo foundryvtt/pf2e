@@ -11,7 +11,7 @@ import { ContainerPF2e } from ".";
 
 type ContainerSource = BasePhysicalItemSource<"backpack", ContainerSystemSource>;
 
-type ContainerData = Omit<ContainerSource, "data" | "effects" | "flags"> &
+type ContainerData = Omit<ContainerSource, "system" | "effects" | "flags"> &
     BasePhysicalItemData<ContainerPF2e, "backpack", ContainerSystemData, ContainerSource>;
 
 type ContainerTraits = PhysicalItemTraits<EquipmentTrait>;
@@ -25,6 +25,8 @@ interface ContainerSystemSource extends Investable<PhysicalSystemSource> {
     collapsed: boolean;
 }
 
-type ContainerSystemData = Omit<ContainerSystemSource, "price"> & PhysicalSystemData;
+interface ContainerSystemData
+    extends Omit<ContainerSystemSource, "identification" | "price" | "temporary" | "usage">,
+        Omit<Investable<PhysicalSystemData>, "traits"> {}
 
 export { ContainerData, ContainerSource };

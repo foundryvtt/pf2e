@@ -1,8 +1,7 @@
 import { ActorPF2e } from "@actor/base";
-import { UserDataPF2e } from "./data";
-import { PlayerConfigPF2e, UserSettingsPF2e } from "./player-config";
+import { UserFlagsPF2e } from "./data";
 
-export class UserPF2e extends User<ActorPF2e> {
+class UserPF2e extends User<ActorPF2e> {
     override prepareData(): void {
         super.prepareData();
         if (canvas.ready && canvas.tokens.controlled.length > 0) {
@@ -13,13 +12,17 @@ export class UserPF2e extends User<ActorPF2e> {
     /** Set user settings defaults */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.data.flags = mergeObject(
+        this.flags = mergeObject(
             {
                 pf2e: {
-                    settings: deepClone(PlayerConfigPF2e.defaultSettings),
+                    settings: deepClone({
+                        showEffectPanel: true,
+                        showRollDialogs: true,
+                        searchPackContents: false,
+                    }),
                 },
             },
-            this.data.flags
+            this.flags
         );
     }
 
@@ -31,8 +34,27 @@ export class UserPF2e extends User<ActorPF2e> {
     clearTargets(): void {
         this.updateTokenTargets();
     }
+
+    protected override _onUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+        if (game.user.id === userId && Object.keys(changed).some((c) => c.includes("showEffectPanel"))) {
+            game.pf2e.effectPanel.refresh();
+        }
+    }
 }
 
-export interface UserPF2e extends User<ActorPF2e> {
-    readonly data: UserDataPF2e<this>;
+interface UserPF2e extends User<ActorPF2e> {
+    flags: UserFlagsPF2e;
 }
+
+interface UserSettingsPF2e {
+    showEffectPanel: boolean;
+    showRollDialogs: boolean;
+    searchPackContents: boolean;
+}
+
+export { UserPF2e, UserSettingsPF2e };

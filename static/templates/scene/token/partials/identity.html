@@ -1,0 +1,61 @@
+<div class="tab" data-group="main" data-tab="character">
+    <div class="form-group">
+        <label>{{localize "TOKEN.CharNameplate"}}</label>
+        <input type="text" name="name" placeholder="{{localize "Name"}}" value="{{object.name}}" />
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "TOKEN.CharShowNameplate"}}</label>
+        <select name="displayName" data-dtype="Number">
+            {{selectOptions displayModes selected=object.displayName}}
+        </select>
+    </div>
+
+    {{#unless isPrototype}}
+        <div class="form-group">
+            <label>{{localize "TOKEN.CharActor"}}</label>
+            <select class="actor-template" name="actorId">
+                {{#select object.actorId}}
+                    <option value="">{{localize "None"}}</option>
+                    {{#each actors}}
+                        <option value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    {{/unless}}
+
+    <div class="form-group">
+        <label>{{localize "TOKEN.CharLink"}}</label>
+        <input type="checkbox" name="actorLink" {{checked object.actorLink}}/>
+    </div>
+
+    {{#unless isPrototype}}
+        <div class="form-group slim">
+            <label>{{localize "TOKEN.Coordinates"}} <span class="units">({{localize "Pixels"}})</span></label>
+            <div class="form-fields">
+                <label>X</label>
+                {{numberInput object.x name="x" step=1 disabled=(not isGM) placeholder=(localize "Pixels")}}
+                <label>Y</label>
+                {{numberInput object.y name="y" step=1 disabled=(not isGM) placeholder=(localize "Pixels")}}
+            </div>
+        </div>
+
+        <div class="form-group slim">
+            <label>{{localize "Elevation"}} <span class="units">({{gridUnits}})</span></label>
+            <div class="form-fields">
+                {{numberInput object.elevation name="elevation" placeholder="units"}}
+            </div>
+        </div>
+    {{/unless}}
+
+    <div class="form-group slim">
+        <label>{{localize "Rotation"}} <span class="units">({{localize "Degrees"}})</span></label>
+        <div class="form-fields">
+            <label>{{localize "TOKEN.Lock"}}</label>
+            <input type="checkbox" name="lockRotation" {{checked object.lockRotation}}/>
+            <label>{{localize "Rotation"}}</label>
+            <input type="number" name="rotation" value="{{object.rotation}}"/>
+        </div>
+    </div>
+</div>

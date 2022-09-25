@@ -1,6 +1,8 @@
 {
     "_id": "mNk0KxsZMFnDjUA0",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/precision.webp",
+    "name": "Effect: Hunter's Edge, Precision",
+    "system": {
         "description": {
             "value": "<p>Granted when a ranger shares their @Compendium[pf2e.classfeatures.Precision]{Precision} edge with you.</p>\n<p>You have trained to aim for your prey's weak points. The first time you hit your hunted prey in a round, you also deal 1d8 additional precision damage. (Precision damage increases the damage you already deal, using the same type, but is ineffective against creatures that lack vital organs or weak points.)</p>\n<p>At 11th level, the extra damage increases to 2d8 precision damage, and at 19th level, the extra damage increases to 3d8 precision damage.</p>"
         },
@@ -24,12 +26,10 @@
             {
                 "key": "FlatModifier",
                 "label": "To Seek hunted prey",
-                "predicate": {
-                    "all": [
-                        "action:seek",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    "hunted-prey"
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 2
@@ -37,12 +37,10 @@
             {
                 "key": "FlatModifier",
                 "label": "To Track hunted prey",
-                "predicate": {
-                    "all": [
-                        "action:track",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:track",
+                    "hunted-prey"
+                ],
                 "selector": "survival",
                 "type": "circumstance",
                 "value": 2
@@ -58,11 +56,9 @@
                 "damageType": "precision",
                 "dieSize": "d8",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "first-attack"
-                    ]
-                },
+                "predicate": [
+                    "first-attack"
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -90,7 +86,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -106,7 +102,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/classes/precision.webp",
-    "name": "Effect: Hunter's Edge, Precision",
     "type": "effect"
 }

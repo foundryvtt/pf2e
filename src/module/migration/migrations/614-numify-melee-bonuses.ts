@@ -7,7 +7,7 @@ export class Migration614NumifyMeleeBonuses extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e) {
         if (itemData.type === "melee") {
-            itemData.data.bonus = { value: Number(itemData.data.bonus.value) };
+            itemData.system.bonus = { value: Number(itemData.system.bonus.value) };
         }
     }
 }

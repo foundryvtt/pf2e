@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es2018",
         "module": "commonjs",
-        "lib": ["esnext", "dom"],
+        "lib": ["esnext", "dom", "dom.iterable"],
         "noEmit": true,
         "strict": true,
         "noFallthroughCasesInSwitch": true,
@@ -48,6 +48,9 @@
             "node_modules/handlebars",
             "types/foundry"
         ]
+    },
+    "watchOptions": {
+        "excludeDirectories": ["packs/data/", "static/packs/"],
     },
     "ts-node": {
         "files": true

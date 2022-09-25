@@ -1,6 +1,8 @@
 {
     "_id": "raLQ458uiyd3lI2K",
-    "data": {
+    "img": "systems/pf2e/icons/spells/guiding-star.webp",
+    "name": "Effect: Guided by the Stars",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>You roll twice and take the better result on your next skill check or saving throw. If it's night and you can see the stars, you gain a +1 circumstance bonus to the triggering roll.</p>"
@@ -33,45 +35,37 @@
             {
                 "keep": "higher",
                 "key": "RollTwice",
-                "predicate": {
-                    "all": [
-                        "guided-by-the-stars:skill-check"
-                    ]
-                },
+                "predicate": [
+                    "guided-by-the-stars:skill-check"
+                ],
                 "removeAfterRoll": "True",
                 "selector": "skill-check"
             },
             {
                 "keep": "higher",
                 "key": "RollTwice",
-                "predicate": {
-                    "all": [
-                        "guided-by-the-stars:saving-throw"
-                    ]
-                },
+                "predicate": [
+                    "guided-by-the-stars:saving-throw"
+                ],
                 "removeAfterRoll": "True",
                 "selector": "saving-throw"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "night-time",
-                        "can-see-stars"
-                    ]
-                },
+                "predicate": [
+                    "night-time",
+                    "can-see-stars"
+                ],
                 "selector": "skill-check",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "night-time",
-                        "can-see-stars"
-                    ]
-                },
+                "predicate": [
+                    "night-time",
+                    "can-see-stars"
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -94,7 +88,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/guiding-star.webp",
-    "name": "Effect: Guided by the Stars",
     "type": "effect"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "SqN1FGSgdNlyvRu9",
-    "data": {
+    "img": "systems/pf2e/icons/spells/air-bubble.webp",
+    "name": "Effect: Containment Contraption",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>Your circumstance bonus to saving throws against inhaled toxins increases to +2, and you also gain a +2 circumstance bonus to saves against olfactory effects</p>"
@@ -17,12 +19,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "inhaled",
-                        "olfactory"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "inhaled",
+                            "olfactory"
+                        ]
+                    }
+                ],
                 "requireInvestment": false,
                 "selector": "saving-throw",
                 "type": "circumstance",
@@ -30,7 +34,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder #179: Cradle of Quartz"
         },
         "start": {
             "initiative": null,
@@ -46,7 +50,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/air-bubble.webp",
-    "name": "Effect: Containment Contraption",
     "type": "effect"
 }

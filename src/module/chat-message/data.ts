@@ -8,7 +8,6 @@ import { ChatMessagePF2e } from ".";
 interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e = ChatMessagePF2e>
     extends foundry.data.ChatMessageData<TChatMessage> {
     readonly _source: ChatMessageSourcePF2e;
-    flags: ChatMessageFlagsPF2e;
 }
 
 interface ChatMessageSourcePF2e extends foundry.data.ChatMessageSource {
@@ -20,7 +19,7 @@ type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
         damageRoll?: DamageRollFlag;
         context?: CheckRollContextFlag;
         origin?: { type: ItemType; uuid: string } | null;
-        casting?: { id: string; tradition: MagicTradition } | null;
+        casting?: { id: string; level: number; tradition: MagicTradition } | null;
         modifierName?: string;
         modifiers?: RawModifier[];
         preformatted?: "flavor" | "content" | "both";

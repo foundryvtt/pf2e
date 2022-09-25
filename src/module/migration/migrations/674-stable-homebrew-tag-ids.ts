@@ -25,17 +25,17 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
         }
     }
 
-    override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
-        if (actorSource.type === "familiar") return;
+    override async updateActor(source: MaybeWithExtraNestedTraits): Promise<void> {
+        if (source.type === "familiar" || !source.system.traits?.traits) return;
 
-        this.updateDocumentTags(actorSource.data.traits.traits.value);
-        if (actorSource.type === "character" || actorSource.type === "npc") {
-            this.updateDocumentTags(actorSource.data.traits?.languages.value);
+        this.updateDocumentTags(source.system.traits.traits.value);
+        if (source.type === "character" || source.type === "npc") {
+            this.updateDocumentTags(source.system.traits?.languages.value);
         }
     }
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        this.updateDocumentTags(itemSource.data.traits?.value);
+        this.updateDocumentTags(itemSource.system.traits?.value);
     }
 
     override async migrate(): Promise<void> {
@@ -53,3 +53,11 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
         }
     }
 }
+
+type MaybeWithExtraNestedTraits = ActorSourcePF2e & {
+    system: {
+        traits: {
+            traits?: { value: string[] };
+        };
+    };
+};

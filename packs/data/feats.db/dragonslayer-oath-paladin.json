@@ -1,6 +1,8 @@
 {
     "_id": "LZsTt6zPZfNyjIZl",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dragonslayer Oath (Paladin)",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -41,15 +42,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Dragonslayer Oath",
-                "predicate": {
-                    "all": [
-                        "dragonslayer-oath"
-                    ],
-                    "not": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "dragonslayer-oath",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "dragonslayer-not-master",
                 "value": 4
@@ -57,15 +58,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Dragonslayer Oath",
-                "predicate": {
-                    "all": [
-                        "dragonslayer-oath"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "dragonslayer-oath",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "dragonslayer-master",
                 "value": 6
@@ -83,7 +84,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Dragonslayer Oath (Paladin)",
     "type": "feat"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "2hLDilS6qbjHxgVS",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Dogtooth Tengu",
+    "system": {
         "ancestry": {
             "name": "Tengu",
             "uuid": "Compendium.pf2e.ancestries.18xDKYPDBLEv2myX"
@@ -8,7 +10,17 @@
         "description": {
             "value": "<p>In addition to a beak, your mouth also features a number of vicious, pointed teeth. Some legends claim your powerful jaws can even bite through steel. While you aren't that strong yet, your fangs can still leave terrible wounds. Your beak unarmed attack gains the deadly d8 trait.</p>"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "weapon:beak"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "deadly-d8"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Ancestry Guide"
         },
@@ -18,7 +30,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/heritage.svg",
-    "name": "Dogtooth Tengu",
     "type": "heritage"
 }

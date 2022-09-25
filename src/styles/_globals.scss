@@ -1,5 +1,5 @@
 /* ----------------------------------------- */
-/* Global Settings                           */
+/* Animation                                 */
 /* ----------------------------------------- */
 
 :root {
@@ -11,18 +11,6 @@
 /* ----------------------------------------- */
 /* Layout                                    */
 /* ----------------------------------------- */
-
-$padding: 0.5em;
-$margin: 0.5em;
-
-.grid {
-    display: grid;
-    grid-template-rows: 1fr;
-}
-
-.flex {
-    display: flex;
-}
 
 /** A vertical rule in a flexbox */
 .vr {
@@ -44,10 +32,6 @@ $margin: 0.5em;
     }
 }
 
-a[href] {
-    color: var(--primary);
-}
-
 // ensure higher specificity than the sheet styles
 .pf2e.sheet form span.pf2-icon,
 .pf2e.sheet form span[data-pf2-action],
@@ -67,10 +51,21 @@ a[href] {
     }
 }
 
-p.compact-text {
+section.roll-note, p.compact-text {
     display: inline-block;
     font-weight: normal;
     line-height: 1.4em;
+    margin: 0.5em 0;
+    min-height: 1rem;
+}
+
+.activity-icon {
+    align-self: center;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    font-family: Pathfinder2eActions;
+    font-size: 1.2em;
 }
 
 /* ----------------------------------------- */
@@ -110,7 +105,7 @@ table.pf2-table {
 }
 
 
-a.inline-roll, a.entity-link {
+a.inline-roll, a.content-link {
     font-weight: 500;
     line-height: 1.6em;
 }
@@ -129,7 +124,7 @@ a.foundry-href {
     cursor: pointer;
     font-weight: 500;
     line-height: 1.5em;
-    padding: 1px 0.2em;
+    padding: 1px 0.2em 0;
     white-space: nowrap;
     word-break: break-all;
 
@@ -267,8 +262,11 @@ i[data-pf2-repost] {
     background: var(--inline-repost-bg);
     border: 2px outset var(--color-text-light-7);
     color: var(--color-text-dark-inactive);
+    font-size: 0.833em;
     margin-left: 0.25em;
-    padding: 0.08em;
+    padding: 0.167em;
+    position: relative;
+    top: -0.125em; // Cover top border
 
     &:hover {
         color: var(--color-text-light-7);
@@ -321,3 +319,7 @@ i[data-pf2-repost] {
 /* Forms                                     */
 /* ----------------------------------------- */
 @import "forms";
+
+a[href]:hover {
+    text-shadow: 0 0 8px var(--color-text-hyperlink);
+}

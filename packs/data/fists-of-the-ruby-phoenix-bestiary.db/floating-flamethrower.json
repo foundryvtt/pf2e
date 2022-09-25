@@ -1,6 +1,93 @@
 {
     "_id": "BcRxQjtyMNgiEpvb",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "gHHe473InFt8KHS2",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Blaze",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Hao Jin signals the start of the bout</p>\n<hr />\n<p><strong>Effect</strong> The trap roars with fire and rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "naExmUwTL8vkSeQQ",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Speed Fly 50 feet",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Floating Flamethrower",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 42
@@ -14,14 +101,14 @@
                 "value": 100
             },
             "stealth": {
-                "details": "<p>+23 (expert) or DC 38 (master) to notice the pattern of the orb's trajectory</p>",
+                "details": "<p>+23 (expert) or @Check[type:perception|dc:38|traits:action:seek] (master) to notice the pattern of the orb's trajectory</p>",
                 "value": 23
             }
         },
         "creatureType": "",
         "details": {
             "description": "<p>A floating skull of fire swoops around the arena, rotating as it weaves through the ring and releasing huge gouts of flame in random directions.</p>",
-            "disable": "<p>three @Check[type:thievery|dc:40|name:Floating Flamethrower Disable|traits:hazard,magical,trap,fire] (legendary) checks or castings of dispel magic (7th level; counteract DC 40), one each to pull out or disable the elemental cores hidden in the floating skull's right eye, left eye, and mouth</p>",
+            "disable": "<p>three @Check[type:thievery|dc:40|name:Disable an Elemental Core|traits:action:disable-a-device,hazard,magical,trap,fire] (legendary) checks or castings of <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (7th level; counteract DC 40), one each to pull out or disable the elemental cores hidden in the floating skull's right eye, left eye, and mouth</p>",
             "isComplex": true,
             "level": {
                 "value": 16
@@ -68,109 +155,12 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "fire",
-                    "magical",
-                    "trap"
-                ]
-            }
+            "value": [
+                "fire",
+                "magical",
+                "trap"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "gHHe473InFt8KHS2",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Hao Jin signals the start of the bout</p>\n<hr />\n<p><strong>Effect</strong> The trap roars with fire and rolls initiative.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "fire",
-                        "evocation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Blaze",
-            "sort": 0,
-            "type": "action"
-        },
-        {
-            "_id": "naExmUwTL8vkSeQQ",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Speed Fly 50 feet",
-            "sort": 0,
-            "type": "action"
-        }
-    ],
-    "name": "Floating Flamethrower",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Floating Flamethrower",
-        "width": 1
     },
     "type": "hazard"
 }

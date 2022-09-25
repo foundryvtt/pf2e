@@ -69,16 +69,6 @@ function expandObject(obj: any, _d = 0) {
 }
 
 /**
- * A simple function to test whether or not an Object is empty
- * @param obj The object to test
- * @return Is the object empty?
- */
-function isObjectEmpty(obj: unknown): boolean {
-    if (!(obj instanceof Object)) throw new Error("The provided data is not an object!");
-    return Object.keys(obj).length === 0;
-}
-
-/**
  * A cheap data duplication trick, surprisingly relatively performant
  * @param original Some sort of data
  */
@@ -243,9 +233,11 @@ function diffObject(original: any, other: any, { inner = false } = {}): any {
         if (t0 !== t1) return [true, v1];
         if (t0 === "Array") return [!arrayEquals(v0, v1), v1];
         if (t0 === "Object") {
-            if (isObjectEmpty(v0) !== isObjectEmpty(v1)) return [true, v1];
+            const v0IsEmpty = Object.keys(v0).length === 0;
+            const v1IsEmpty = Object.keys(v1).length === 0;
+            if (v0IsEmpty !== v1IsEmpty) return [true, v1];
             const d = diffObject(v0, v1, { inner });
-            return [!isObjectEmpty(d), d];
+            return [Object.keys(d).length > 0, d];
         }
         return [v0 !== v1, v1];
     }
@@ -261,7 +253,6 @@ function diffObject(original: any, other: any, { inner = false } = {}): any {
 
 export function populateFoundryUtilFunctions() {
     global.setProperty = setProperty;
-    global.isObjectEmpty = isObjectEmpty;
     global.getType = getType;
     global.mergeObject = mergeObject;
     global.diffObject = diffObject;

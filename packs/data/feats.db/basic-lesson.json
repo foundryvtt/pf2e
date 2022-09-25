@@ -1,6 +1,8 @@
 {
     "_id": "wsq8nncD25Q1fRn2",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Basic Lesson",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -11,7 +13,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Your patron grants you a special lesson, revealing a hidden facet of its nature. Choose a Basic Lesson. You gain its associated hex, and your familiar learns the associated spell. Increase the number of Focus Points in your focus pool by 1.</p>\n<hr />"
+            "value": "<p>Your patron grants you a special lesson, revealing a hidden facet of its nature. Choose a Basic Lesson. You gain its associated hex, and your familiar learns the associated spell. Increase the number of Focus Points in your focus pool by 1.</p>"
         },
         "featType": {
             "value": "class"
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,13 +28,13 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.resources.focus.max",
+                "path": "system.resources.focus.max",
                 "value": 1
             },
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "predicate": [
                         "item:level:2",
                         "item:trait:witch",
                         "item:type:feature"
@@ -79,7 +80,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Basic Lesson",
     "type": "feat"
 }

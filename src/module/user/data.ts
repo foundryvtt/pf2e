@@ -1,10 +1,7 @@
-import { UserPF2e } from "./document";
-import { UserSettingsPF2e } from "./player-config";
+import { UserPF2e, UserSettingsPF2e } from "./document";
 
-export interface UserDataPF2e<T extends UserPF2e> extends foundry.data.UserData<T> {
+interface UserDataPF2e<T extends UserPF2e> extends foundry.data.UserData<T> {
     _source: UserSourcePF2e;
-
-    flags: UserFlagsPF2e;
 }
 
 interface UserSourcePF2e extends foundry.data.UserSource {
@@ -17,3 +14,5 @@ type UserFlagsPF2e = {
         settings: UserSettingsPF2e;
     };
 };
+
+export { UserDataPF2e, UserFlagsPF2e };

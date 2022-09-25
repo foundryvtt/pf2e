@@ -1,6 +1,8 @@
 {
     "_id": "SUnKoeqNBsGvUAGe",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/blightburn-ward.webp",
+    "name": "Metuak's Pendant",
+    "system": {
         "baseItem": null,
         "containerId": "null",
         "description": {
@@ -36,17 +38,17 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "mental"
-                    ],
-                    "any": [
-                        "inflicts:confused",
-                        "inflicts:controlled",
-                        "inflicts:frightened",
-                        "inflicts:stupefied"
-                    ]
-                },
+                "predicate": [
+                    "mental",
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:controlled",
+                            "inflicts:frightened",
+                            "inflicts:stupefied"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "metuaks-pendant-normal",
                 "type": "item",
@@ -54,18 +56,18 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "mental",
-                        "origin:trait:fiend"
-                    ],
-                    "any": [
-                        "inflicts:confused",
-                        "inflicts:controlled",
-                        "inflicts:frightened",
-                        "inflicts:stupefied"
-                    ]
-                },
+                "predicate": [
+                    "mental",
+                    "origin:trait:fiend",
+                    {
+                        "or": [
+                            "inflicts:confused",
+                            "inflicts:controlled",
+                            "inflicts:frightened",
+                            "inflicts:stupefied"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "metuaks-pendant-fiend",
                 "type": "item",
@@ -93,7 +95,5 @@
             "value": "L"
         }
     },
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/blightburn-ward.webp",
-    "name": "Metuak's Pendant",
     "type": "equipment"
 }

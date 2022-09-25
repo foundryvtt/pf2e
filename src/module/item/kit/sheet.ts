@@ -1,13 +1,11 @@
-import { KitPF2e } from "@item/kit";
-import { PhysicalItemPF2e } from "@item/physical";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { createSheetTags } from "@module/sheet/helpers";
+import { CoinsPF2e, PhysicalItemPF2e } from "@item/physical";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { htmlClosest, htmlQueryAll } from "@util";
 import { ItemSheetPF2e } from "../sheet/base";
+import { KitEntryData } from "./data";
+import { KitPF2e } from "./index";
 
-/**
- * @category Other
- */
-export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
+class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
@@ -16,53 +14,49 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         };
     }
 
-    override async getData(options?: Partial<DocumentSheetOptions>) {
-        const sheetData = super.getBaseData(options);
-        const traits = createSheetTags(CONFIG.PF2E.classTraits, sheetData.data.traits);
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<KitSheetData> {
+        const items = Object.fromEntries(
+            Object.entries(this.item.system.items).map(([key, ref]): [string, KitEntrySheetData] => [
+                key,
+                { ...ref, fromWorld: ref.uuid.startsWith("Item.") },
+            ])
+        );
 
         return {
-            ...sheetData,
-            type: "kit",
+            ...(await super.getData(options)),
             priceString: this.item.price.value,
+            items,
             hasSidebar: true,
-            sidebarTemplate: () => "systems/pf2e/templates/items/kit-sidebar.html",
             hasDetails: true,
-            detailsTemplate: () => "systems/pf2e/templates/items/kit-details.html",
-            rarity: CONFIG.PF2E.rarityTraits,
-            traits,
         };
     }
 
     protected override async _onDrop(event: ElementDragEvent): Promise<void> {
         event.preventDefault();
-        const dropTarget = $(event.target);
         const dragData = event.dataTransfer?.getData("text/plain");
         const dragItem = JSON.parse(dragData ?? "");
         const containerId =
-            dropTarget.data("containerId") ?? dropTarget.parents("[data-container-id]").data("containerId");
+            event.target.dataset.containerId ??
+            event.target.closest<HTMLElement>("[data-container-id]")?.dataset.containerId;
 
         if (dragItem.type !== "Item") return;
 
-        const item = dragItem.pack
-            ? await game.packs.get(dragItem.pack)?.getDocument(dragItem.id)
-            : game.items.get(dragItem.id);
-
+        const item = await fromUuid(dragItem.uuid ?? "");
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             return;
         }
 
         const entry = {
-            pack: dragItem.pack,
-            id: dragItem.id,
-            img: item.data.img,
+            uuid: item.uuid,
+            img: item.img,
             quantity: 1,
             name: item.name,
-            isContainer: item.data.type === "backpack" && !containerId,
+            isContainer: item.type === "backpack" && !containerId,
             items: {},
         };
 
-        let { items } = this.item.data.data;
-        let pathPrefix = "data.items";
+        let { items } = this.item.system;
+        let pathPrefix = "system.items";
 
         if (containerId !== undefined) {
             pathPrefix = `${pathPrefix}.${containerId}.items`;
@@ -76,29 +70,45 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         await this.item.update({ [`${pathPrefix}.${id}`]: entry });
     }
 
-    removeItem(event: JQuery.ClickEvent): Promise<KitPF2e> {
-        event.preventDefault();
-        const target = $(event.target).parents("li");
-        const containerId = target.parents("[data-container-id]").data("containerId");
-        let path = `-=${target.data("index")}`;
-        if (containerId) {
-            path = `${containerId}.items.${path}`;
-        }
+    async removeItem(event: MouseEvent): Promise<KitPF2e> {
+        const target = htmlClosest(event.currentTarget ?? null, "li");
+        const index = target?.dataset.index;
+        if (!index) return this.item;
 
-        return this.item.update({ [`data.items.${path}`]: null });
+        const containerId = target.closest<HTMLElement>("[data-container-id]")?.dataset.containerId;
+        const path = containerId ? `${containerId}.items.-=${index}` : `-=${target.dataset.index}`;
+
+        return this.item.update({ [`system.items.${path}`]: null });
     }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
-        $html.on("click", "[data-action=remove]", (event) => this.removeItem(event));
+        const html = $html[0]!;
+
+        for (const link of htmlQueryAll(html, "[data-action=remove]")) {
+            link.addEventListener("click", (event) => {
+                this.removeItem(event);
+            });
+        }
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Convert price from a string to an actual object
-        if (formData["data.price.value"]) {
-            formData["data.price.value"] = CoinsPF2e.fromString(String(formData["data.price.value"]));
+        if (formData["system.price.value"]) {
+            formData["system.price.value"] = CoinsPF2e.fromString(String(formData["system.price.value"]));
         }
 
         return super._updateObject(event, formData);
     }
 }
+
+interface KitSheetData extends ItemSheetDataPF2e<KitPF2e> {
+    priceString: CoinsPF2e;
+    items: Record<string, KitEntrySheetData>;
+}
+
+interface KitEntrySheetData extends KitEntryData {
+    fromWorld: boolean;
+}
+
+export { KitSheetPF2e };

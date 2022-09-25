@@ -1,6 +1,8 @@
 {
     "_id": "C80vQCKQBGRaqcmq",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Multitalented",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 9
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,16 +28,16 @@
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "label": "PF2E.SpecificRule.Multitalented.AllowedDrops",
+                    "predicate": [
                         "item:level:2",
                         "item:trait:dedication",
                         "item:trait:multiclass",
                         "item:type:feat"
-                    ],
-                    "label": "PF2E.SpecificRule.Multitalented.AllowedDrops"
+                    ]
                 },
                 "choices": {
-                    "query": "{\"data.featType.value\":\"archetype\",\"data.level.value\":2,\"$and\":[{\"data.traits.value\":{\"$elemMatch\":\"dedication\"}},{\"data.traits.value\":{\"$elemMatch\":\"multiclass\"}}],\"type\":\"feat\",\"$not\":{\"data.slug\":\"{actor|data.details.class.trait}-dedication\"}}"
+                    "query": "{\"system.featType.value\":\"archetype\",\"system.level.value\":2,\"$and\":[{\"system.traits.value\":{\"$elemMatch\":\"dedication\"}},{\"system.traits.value\":{\"$elemMatch\":\"multiclass\"}}],\"type\":\"feat\",\"$not\":{\"system.slug\":\"{actor|system.details.class.trait}-dedication\"}}"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Multitalented.Prompt"
@@ -57,7 +58,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Multitalented",
     "type": "feat"
 }

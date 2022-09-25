@@ -1,4 +1,5 @@
 import { ItemSourcePF2e } from "@item/data";
+import { isObject } from "@util";
 import { MigrationBase } from "../base";
 
 export class Migration716StrikeDamageSelector extends MigrationBase {
@@ -16,11 +17,14 @@ export class Migration716StrikeDamageSelector extends MigrationBase {
     ]);
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (this.itemsToSkip.has(source.data.slug ?? "")) return;
+        if (this.itemsToSkip.has(source.system.slug ?? "")) return;
 
-        const { rules } = source.data;
+        const { rules } = source.system;
         for (const rule of rules) {
-            if (["damage", "mundane-damage"].includes(rule.selector ?? "")) {
+            if (
+                isObject<{ selector?: unknown }>(rule) &&
+                ["damage", "mundane-damage"].includes(String(rule.selector ?? ""))
+            ) {
                 rule.selector = "strike-damage";
             }
         }

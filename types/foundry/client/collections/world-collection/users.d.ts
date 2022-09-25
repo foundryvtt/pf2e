@@ -13,7 +13,7 @@ declare global {
         /** The User entity of the currently connected user */
         current: Active<TUser> | null;
 
-        protected override _initialize(data: TUser["data"]["_source"][]): void;
+        protected override _initialize(data: TUser["_source"][]): void;
 
         static override documentName: "User";
 

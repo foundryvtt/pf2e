@@ -1,6 +1,8 @@
 {
     "_id": "lHcDb9oXUdFupRdi",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Incredible Improvisation",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -16,10 +18,13 @@
         "featType": {
             "value": "ancestry"
         },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
         "level": {
             "value": 9
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -30,12 +35,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "proficiency:untrained",
-                        "incredible-improvisation"
-                    ]
-                },
+                "predicate": [
+                    "proficiency:untrained",
+                    "incredible-improvisation"
+                ],
                 "selector": "skill-check",
                 "type": "circumstance",
                 "value": 4
@@ -58,7 +61,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Incredible Improvisation",
     "type": "feat"
 }

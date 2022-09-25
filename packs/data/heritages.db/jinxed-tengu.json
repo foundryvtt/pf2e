@@ -1,6 +1,8 @@
 {
     "_id": "g4FRxyuHndZu4KTo",
-    "data": {
+    "img": "systems/pf2e/icons/features/ancestry/jinxed-tengu.webp",
+    "name": "Jinxed Tengu",
+    "system": {
         "ancestry": {
             "name": "Tengu",
             "uuid": "Compendium.pf2e.ancestries.18xDKYPDBLEv2myX"
@@ -14,12 +16,14 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "any": [
-                        "curse",
-                        "misfortune"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "curse",
+                            "misfortune"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             },
@@ -39,7 +43,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/ancestry/jinxed-tengu.webp",
-    "name": "Jinxed Tengu",
     "type": "heritage"
 }

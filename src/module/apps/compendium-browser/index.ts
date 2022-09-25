@@ -3,13 +3,26 @@ import { PhysicalItemPF2e } from "@item/physical";
 import { KitPF2e } from "@item/kit";
 import { ErrorPF2e, isObject, objectHasKey } from "@util";
 import { LocalizePF2e } from "@system/localize";
-import { BrowserTab } from "./tabs";
-import { TabData, PackInfo, TabName, TabType, SortDirection } from "./data";
-import { CheckboxData, RangesData } from "./tabs/data";
+import * as browserTabs from "./tabs";
+import { TabData, PackInfo, TabName, BrowserTab, SortDirection } from "./data";
+import {
+    BaseFilterData,
+    CheckboxData,
+    InitialActionFilters,
+    InitialBestiaryFilters,
+    InitialEquipmentFilters,
+    InitialFeatFilters,
+    InitialFilters,
+    InitialHazardFilters,
+    InitialSpellFilters,
+    RangesData,
+    RenderResultListOptions,
+} from "./tabs/data";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import noUiSlider from "nouislider";
 import { SpellcastingEntryPF2e } from "@item";
 import Tagify from "@yaireo/tagify";
+import { CoinsPF2e } from "@item/physical/helpers";
 
 class PackLoader {
     loadedPacks: {
@@ -37,12 +50,15 @@ class PackLoader {
                 if (pack.documentName === documentType) {
                     const index = await pack.getIndex({ fields: indexFields });
                     const firstResult: Partial<CompendiumIndexData> = index.contents.at(0) ?? {};
-                    // Every result should have the "data" property otherwise the indexFields were wrong for that pack
-                    if (firstResult.data) {
+                    // Every result should have the "system" property otherwise the indexFields were wrong for that pack
+                    if (firstResult.system) {
                         this.setModuleArt(packId, index);
                         data = { pack, index };
                         this.loadedPacks[documentType][packId] = data;
                     } else {
+                        ui.notifications.warn(
+                            game.i18n.format("PF2E.BrowserWarnPackNotLoaded", { pack: pack.collection })
+                        );
                         continue;
                     }
                 } else {
@@ -59,42 +75,43 @@ class PackLoader {
     private setModuleArt(packName: string, index: CompendiumIndex): void {
         if (!packName.startsWith("pf2e.")) return;
         for (const record of index) {
-            const actorArt = game.pf2e.system.moduleArt.get(`Compendium.${packName}.${record._id}`)?.actor;
+            const actorArt = game.pf2e.system.moduleArt.map.get(`Compendium.${packName}.${record._id}`)?.actor;
             record.img = actorArt ?? record.img;
         }
     }
 }
 
-export class CompendiumBrowser extends Application {
-    settings!: Omit<TabData<Record<string, PackInfo | undefined>>, "settings">;
+class CompendiumBrowser extends Application {
+    settings: CompendiumBrowserSettings;
     dataTabsList = ["action", "bestiary", "equipment", "feat", "hazard", "spell"] as const;
-    tabs: Record<Exclude<TabName, "settings">, TabType>;
+    tabs: Record<Exclude<TabName, "settings">, BrowserTab>;
     packLoader = new PackLoader();
     activeTab!: TabName;
     navigationTab!: Tabs;
 
     /** An initial filter to be applied upon loading a tab */
-    private initialFilter: string[] = [];
-    private initialMaxLevel = 0;
+    private initialFilter: InitialFilters = {};
 
     constructor(options = {}) {
         super(options);
 
         this.tabs = {
-            action: new BrowserTab.Actions(this),
-            bestiary: new BrowserTab.Bestiary(this),
-            equipment: new BrowserTab.Equipment(this),
-            feat: new BrowserTab.Feats(this),
-            hazard: new BrowserTab.Hazards(this),
-            spell: new BrowserTab.Spells(this),
+            action: new browserTabs.Actions(this),
+            bestiary: new browserTabs.Bestiary(this),
+            equipment: new browserTabs.Equipment(this),
+            feat: new browserTabs.Feats(this),
+            hazard: new browserTabs.Hazards(this),
+            spell: new browserTabs.Spells(this),
         };
-        this.loadSettings();
+
+        this.settings = game.settings.get("pf2e", "compendiumBrowserPacks");
+
         this.initCompendiumList();
         this.injectActorDirectory();
         this.hookTab();
     }
 
-    override get title() {
+    override get title(): string {
         return game.i18n.localize("PF2E.CompendiumBrowser.Title");
     }
 
@@ -118,19 +135,17 @@ export class CompendiumBrowser extends Application {
         });
     }
 
-    override async _render(force?: boolean, options?: RenderOptions) {
-        await super._render(force, options);
-        this.activateResultListeners();
-    }
-
     /** Reset initial filtering */
     override async close(options?: { force?: boolean }): Promise<void> {
-        this.initialFilter = [];
-        this.initialMaxLevel = 0;
+        this.initialFilter = {};
+        for (const tab of Object.values(this.tabs)) {
+            tab.filterData.search.text = "";
+        }
+
         await super.close(options);
     }
 
-    private initCompendiumList() {
+    initCompendiumList(): void {
         const settings: Omit<TabData<Record<string, PackInfo | undefined>>, "settings"> = {
             action: {},
             bestiary: {},
@@ -211,11 +226,7 @@ export class CompendiumBrowser extends Application {
         this.settings = settings;
     }
 
-    loadSettings() {
-        this.settings = JSON.parse(game.settings.get("pf2e", "compendiumBrowserPacks"));
-    }
-
-    hookTab() {
+    hookTab(): void {
         this.navigationTab = this._tabs[0];
         const tabCallback = this.navigationTab.callback;
         this.navigationTab.callback = async (event: JQuery.TriggeredEvent | null, tabs: Tabs, active: TabName) => {
@@ -224,41 +235,41 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    async openTab(tab: TabName, filter: string[] = [], maxLevel = 0): Promise<void> {
+    openTab(tab: "action", filter?: InitialActionFilters): Promise<void>;
+    openTab(tab: "bestiary", filter?: InitialBestiaryFilters): Promise<void>;
+    openTab(tab: "equipment", filter?: InitialEquipmentFilters): Promise<void>;
+    openTab(tab: "feat", filter?: InitialFeatFilters): Promise<void>;
+    openTab(tab: "hazard", filter?: InitialHazardFilters): Promise<void>;
+    openTab(tab: "spell", filter?: InitialSpellFilters): Promise<void>;
+    openTab(tab: "settings"): Promise<void>;
+    async openTab(tab: TabName, filter: InitialFilters = {}): Promise<void> {
         this.initialFilter = filter;
-        this.initialMaxLevel = maxLevel;
         await this._render(true);
         this.initialFilter = filter; // Reapply in case of a double-render (need to track those down)
-        this.initialMaxLevel = maxLevel;
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 
-    async openSpellTab(entry: SpellcastingEntryPF2e, level?: number | null) {
-        const filter: string[] = [];
+    async openSpellTab(entry: SpellcastingEntryPF2e, level = 10): Promise<void> {
+        const filter: { category: string[]; level: number[]; traditions: string[] } = {
+            category: [],
+            level: [],
+            traditions: [],
+        };
 
         if (entry.isRitual || entry.isFocusPool) {
-            filter.push("category-".concat(entry.data.data.prepared.value));
+            filter.category.push(entry.system.prepared.value);
         }
 
-        if (level || level === 0) {
-            filter.push(level ? `level-${level}` : "category-cantrip");
+        if (level) {
+            filter.level.push(...Array.from(Array(level).keys()).map((l) => l + 1));
 
-            if (level > 0) {
-                if (!entry.isPrepared) {
-                    while (level > 1) {
-                        level -= 1;
-                        filter.push("level-".concat(level.toString()));
-                    }
-                }
-
-                if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
-                    filter.push("category-spell");
-                }
+            if (entry.isPrepared || entry.isSpontaneous || entry.isInnate) {
+                filter.category.push("spell");
             }
         }
 
         if (entry.tradition && !entry.isFocusPool && !entry.isRitual) {
-            filter.push("traditions-".concat(entry.data.data.tradition.value));
+            filter.traditions.push(entry.tradition);
         }
 
         this.openTab("spell", filter);
@@ -276,44 +287,181 @@ export class CompendiumBrowser extends Application {
             throw ErrorPF2e(`Unknown tab "${tab}"`);
         }
 
+        const currentTab = this.tabs[tab];
+
         // Initialize Tab if it is not already initialzed
-        if (!this.tabs[tab]?.isInitialized) {
-            await this.tabs[tab].init();
+        if (!currentTab?.isInitialized) {
+            await currentTab?.init();
         }
 
-        // Set filterData for this tab if intitial values were given
-        if (this.initialFilter.length || this.initialMaxLevel) {
-            const currentTab = this.tabs[tab];
+        this.processInitialFilters(currentTab);
+
+        this.render(true);
+    }
+
+    private processInitialFilters(currentTab: BrowserTab): void {
+        // Reset filters if new filters were provided
+        if (this.initialFilter && Object.keys(this.initialFilter).length > 0) {
             currentTab.resetFilters();
-            for (const filter of this.initialFilter) {
-                const [filterType, value] = filter.split("-");
-                if (objectHasKey(currentTab.filterData.checkboxes, filterType)) {
-                    const checkbox = currentTab.filterData.checkboxes[filterType];
+        }
+
+        // Search text filter
+        if (this.initialFilter.searchText) {
+            currentTab.filterData.search.text = this.initialFilter.searchText;
+        }
+
+        // Sorting
+        currentTab.filterData.order.by = this.initialFilter.orderBy ?? currentTab.filterData.order.by;
+        currentTab.filterData.order.direction =
+            this.initialFilter.orderDirection ?? currentTab.filterData.order.direction;
+
+        for (const [filterType, filterValue] of Object.entries(this.initialFilter)) {
+            const mappedFilterType = (() => {
+                if (filterType === "levelRange") {
+                    return "level";
+                } else if (filterType === "priceRange") {
+                    return "price";
+                }
+                return filterType;
+            })();
+
+            if (
+                currentTab.filterData.checkboxes &&
+                objectHasKey(currentTab.filterData.checkboxes, mappedFilterType) &&
+                Array.isArray(filterValue)
+            ) {
+                // Checkboxes
+                const checkbox = currentTab.filterData.checkboxes[mappedFilterType];
+                for (const value of filterValue) {
                     const option = checkbox.options[value];
                     if (option) {
                         checkbox.isExpanded = true;
                         checkbox.selected.push(value);
                         option.selected = true;
                     } else {
-                        console.warn(`Tab '${tab}' filter '${filterType}' has no option: '${value}'`);
+                        console.warn(
+                            `Tab '${currentTab.tabName}' checkboxes filter '${mappedFilterType}' has no option: '${value}'`
+                        );
                     }
+                }
+            } else if (
+                currentTab.filterData.selects &&
+                objectHasKey(currentTab.filterData.selects, mappedFilterType) &&
+                typeof filterValue === "string"
+            ) {
+                // Selects
+                const select = currentTab.filterData.selects[mappedFilterType];
+                const option = select.options[filterValue];
+                if (option) {
+                    select.selected = filterValue;
                 } else {
-                    console.warn(`Tab '${tab}' has no filter '${filterType}'`);
+                    console.warn(
+                        `Tab '${currentTab.tabName}' select filter '${mappedFilterType}' has no option: '${filterValue}'`
+                    );
                 }
-            }
-            if (this.initialMaxLevel) {
-                if (currentTab.filterData.sliders) {
-                    const level = currentTab.filterData.sliders.level;
-                    if (level) {
-                        level.values.max = this.initialMaxLevel;
+            } else if (
+                currentTab.filterData.multiselects &&
+                objectHasKey(currentTab.filterData.multiselects, mappedFilterType) &&
+                Array.isArray(filterValue)
+            ) {
+                // Multiselects
+                // A convoluted cast is necessary here to not get an infered type of MultiSelectData<PhysicalItem> since MultiSelectData is not exported
+                const multiselects = (currentTab.filterData.multiselects as BaseFilterData["multiselects"])!;
+                const multiselect = multiselects[mappedFilterType];
+                for (const value of filterValue) {
+                    const option = multiselect.options.find((opt) => opt.value === value);
+                    if (option) {
+                        multiselect.selected.push(option);
+                    } else {
+                        console.warn(
+                            `Tab '${currentTab.tabName}' multiselect filter '${mappedFilterType}' has no option: '${value}'`
+                        );
                     }
                 }
+            } else if (
+                currentTab.filterData.ranges &&
+                objectHasKey(currentTab.filterData.ranges, mappedFilterType) &&
+                this.#isRange(filterValue)
+            ) {
+                // Ranges (e.g. price)
+                if (
+                    (filterValue.min !== undefined && filterValue.min !== null) ||
+                    (filterValue.max !== undefined && filterValue.max !== null)
+                ) {
+                    const range = currentTab.filterData.ranges[mappedFilterType];
+                    if (filterType === "priceRange") {
+                        if (filterValue.min !== null && filterValue.min !== undefined) {
+                            if (typeof filterValue.min === "number") {
+                                // Number values are handled as a price in gold pieces
+                                range.values.min = new CoinsPF2e({ gp: filterValue.min }).copperValue;
+                                range.values.inputMin = filterValue.min + "gp";
+                            } else if (typeof filterValue.min === "string") {
+                                range.values.min = CoinsPF2e.fromString(filterValue.min).copperValue;
+                                range.values.inputMin = filterValue.min;
+                            }
+                        }
+                        if (filterValue.max !== null && filterValue.max !== undefined) {
+                            if (typeof filterValue.max === "number") {
+                                // Number values are handled as a price in gold pieces
+                                range.values.max = new CoinsPF2e({ gp: filterValue.max }).copperValue;
+                                range.values.inputMax = filterValue.max + "gp";
+                            } else if (typeof filterValue.max === "string") {
+                                range.values.max = CoinsPF2e.fromString(filterValue.max).copperValue;
+                                range.values.inputMax = filterValue.max;
+                            }
+                        }
+                    } else {
+                        // If there is ever another range filter, it should be handled here
+                        console.error("Initital filtering for ranges other than price aren't implemented yet.");
+                        continue;
+                    }
+
+                    // Set max value to min value if min value is higher
+                    if (range.values.min > range.values.max) {
+                        range.values.max = range.values.min;
+                        range.values.inputMax = range.values.inputMin;
+                    }
+
+                    range.isExpanded = true;
+                }
+            } else if (
+                currentTab.filterData.sliders &&
+                objectHasKey(currentTab.filterData.sliders, mappedFilterType) &&
+                this.#isRange(filterValue) &&
+                (typeof filterValue.min === "number" || typeof filterValue.max === "number")
+            ) {
+                // Sliders (e.g. level)
+                const slider = currentTab.filterData.sliders[mappedFilterType];
+
+                const minValue =
+                    typeof filterValue.min === "number"
+                        ? Math.clamped(filterValue.min, slider.values.lowerLimit, slider.values.upperLimit) || 0
+                        : slider.values.lowerLimit;
+                const maxValue = Math.max(
+                    minValue,
+                    typeof filterValue.max === "number"
+                        ? Math.clamped(filterValue.max, slider.values.lowerLimit, slider.values.upperLimit) || 0
+                        : slider.values.upperLimit
+                );
+
+                slider.values.min = minValue;
+                slider.values.max = maxValue;
+                slider.isExpanded = true;
             }
-            this.initialFilter = [];
-            this.initialMaxLevel = 0;
+            // Filter name did not match a filter on the tab
+            else {
+                console.warn(`'${filterType}' is not a valid filter for tab '${currentTab.tabName}'.`);
+            }
         }
 
-        this.render(true);
+        this.initialFilter = {};
+    }
+
+    #isRange(value: unknown): value is { min?: number | string; max?: number | string } {
+        return (
+            isObject<{ min: unknown; max: unknown }>(value) &&
+            (["number", "string"].includes(typeof value.min) || ["number", "string"].includes(typeof value.max))
+        );
     }
 
     loadedPacks(tab: TabName): string[] {
@@ -325,299 +473,355 @@ export class CompendiumBrowser extends Application {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
         const activeTabName = this.activeTab;
-        const html = $html.get(0)!;
 
         // Settings Tab
         if (activeTabName === "settings") {
-            $html.find<HTMLButtonElement>("button.save-settings").on("click", async () => {
-                const formData = new FormData($html.find<HTMLFormElement>(".compendium-browser-settings form")[0]);
-                for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
-                    for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
-                        pack.load = formData.has(`${t}-${key}`);
+            const form = html.querySelector<HTMLFormElement>(".compendium-browser-settings form");
+            if (form) {
+                form.querySelector("button.save-settings")?.addEventListener("click", async () => {
+                    const formData = new FormData(form);
+                    for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
+                        for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
+                            pack.load = formData.has(`${t}-${key}`);
+                        }
                     }
-                }
-                await game.settings.set("pf2e", "compendiumBrowserPacks", JSON.stringify(this.settings));
-                this.loadSettings();
-                this.initCompendiumList();
-                for (const tab of Object.values(this.tabs)) {
-                    if (tab.isInitialized) {
-                        await tab.init();
-                        this.render(true);
+                    await game.settings.set("pf2e", "compendiumBrowserPacks", this.settings);
+                    for (const tab of Object.values(this.tabs)) {
+                        if (tab.isInitialized) {
+                            await tab.init();
+                            tab.scrollLimit = 100;
+                        }
                     }
-                }
-            });
+                    this.render(true);
+                });
+            }
             return;
         }
+
         // Other tabs
         const currentTab = this.tabs[activeTabName];
-        const $controlArea = $html.find(".control-area");
-
-        $controlArea.find("button.clear-filters").on("click", () => {
-            this.resetFilters();
-            this.clearScrollLimit();
-            this.render(true);
-        });
-
-        $controlArea.find("button[data-action=clear-filter]").on("click", (event) => {
-            event.stopImmediatePropagation();
-            const filterType = event.currentTarget.parentElement?.parentElement?.dataset.filterType;
-            const filterName = event.currentTarget.parentElement?.parentElement?.dataset.filterName ?? "";
-            switch (filterType) {
-                case "checkboxes": {
-                    const checkboxes = currentTab.filterData.checkboxes;
-                    if (objectHasKey(checkboxes, filterName)) {
-                        for (const option of Object.values(checkboxes[filterName].options)) {
-                            option.selected = false;
-                        }
-                        checkboxes[filterName].selected = [];
-                        this.render(true);
-                    }
-                    break;
-                }
-                case "ranges": {
-                    const ranges = currentTab.filterData.ranges!;
-                    if (objectHasKey(ranges, filterName)) {
-                        ranges[filterName].values = currentTab.defaultFilterData.ranges![filterName].values;
-                        ranges[filterName].changed = false;
-                        this.render(true);
-                    }
-                }
-            }
-        });
-
-        // Toggle visibility of filter containers
-        $controlArea.find(".filtercontainer div.title").on("click", (event) => {
-            const filterType = event.currentTarget.parentElement?.dataset.filterType;
-            const filterName = event.currentTarget.parentElement?.dataset.filterName ?? "";
-            if (filterType === "checkboxes" || filterType === "ranges" || filterType === "sliders") {
-                const filters = currentTab.filterData[filterType];
-                if (filters && objectHasKey(filters, filterName)) {
-                    // This needs a type assertion because it resolves to never for some reason
-                    const filter = filters[filterName] as CheckboxData | RangesData;
-                    filter.isExpanded = !filter.isExpanded;
-                    this.render(true);
-                }
-            }
-        });
-
-        // Sort item list
-        const $sortContainer = $controlArea.find(".sortcontainer");
-        const $orderSelects = $sortContainer.find<HTMLSelectElement>("select.order");
-        const $directionButtons = $sortContainer.find("a.direction");
-        $orderSelects.on("change", (event) => {
-            const $order = $(event.target);
-            const orderBy = $order.val()?.toString() ?? "name";
-            currentTab.filterData.order.by = orderBy;
-            this.clearScrollLimit();
-            this.render(true);
-        });
-
-        $directionButtons.on("click", (event) => {
-            const direction = ($(event.currentTarget).data("direction") as SortDirection) ?? "asc";
-            currentTab.filterData.order.direction = direction === "asc" ? "desc" : "asc";
-            this.clearScrollLimit();
-            this.render(true);
-        });
+        const controlArea = html.querySelector<HTMLDivElement>("div.control-area");
+        if (!controlArea) return;
 
         // Search field
-        $controlArea.find<HTMLInputElement>("input[name=textFilter]").on("change paste", (event) => {
-            currentTab.filterData.search.text = event.target.value;
-            this.clearScrollLimit();
-            this.render(true);
-        });
-
-        // TODO: Support any generated select element
-        $controlArea.find<HTMLSelectElement>(".timefilter select").on("change", (event) => {
-            if (!currentTab.filterData?.selects?.timefilter) return;
-            currentTab.filterData.selects.timefilter.selected = event.target.value;
-            this.clearScrollLimit();
-            this.render(true);
-        });
-
-        // Activate or deactivate filters
-        $controlArea.find<HTMLInputElement>("input[type=checkbox]").on("click", (event) => {
-            const checkboxName = event.target.closest("div")?.dataset?.filterName;
-            const optionName = event.target.name;
-            if (!checkboxName || !optionName) return;
-            if (objectHasKey(currentTab.filterData.checkboxes, checkboxName)) {
-                const checkbox = currentTab.filterData.checkboxes[checkboxName];
-                const option = checkbox.options[optionName];
-                option.selected = !option.selected;
-                option.selected
-                    ? checkbox.selected.push(optionName)
-                    : (checkbox.selected = checkbox.selected.filter((name) => name !== optionName));
+        const search = controlArea.querySelector<HTMLInputElement>("input[name=textFilter]");
+        if (search) {
+            search.addEventListener("input", () => {
+                currentTab.filterData.search.text = search.value;
                 this.clearScrollLimit();
-                this.render(true);
-            }
-        });
-
-        // Filter for ranges
-        $controlArea.find<HTMLInputElement>("input[name*=Bound]").on("keyup", (event) => {
-            if (event.key !== "Enter") return;
-            const $parent = $(event.target).closest("div");
-            const name = ($parent.closest("div .filtercontainer").data("filterName") as string) ?? "";
-            const ranges = currentTab.filterData.ranges;
-            if (ranges && objectHasKey(ranges, name)) {
-                const range = ranges[name];
-                const lowerBound = $parent.find<HTMLInputElement>("input[name*=lowerBound]")?.val() ?? "";
-                const upperBound = $parent.find<HTMLInputElement>("input[name*=upperBound]")?.val() ?? "";
-                if (!(typeof lowerBound === "string") || !(typeof upperBound === "string")) return;
-                const values = currentTab.parseRangeFilterInput(name, lowerBound, upperBound);
-                range.values = values;
-                range.changed = true;
-                this.clearScrollLimit();
-                this.render(true);
-            }
-        });
-
-        if (!currentTab) return;
-
-        // Multiselects using tagify
-        for (const [key, data] of Object.entries(currentTab.filterData.multiselects ?? {})) {
-            const multiselect = html.querySelector<HTMLInputElement>(`input[name=${key}][data-tagify-select]`);
-            if (!multiselect) continue;
-
-            new Tagify(multiselect, {
-                enforceWhitelist: true,
-                keepInvalidTags: false,
-                editTags: false,
-                tagTextProp: "label",
-                dropdown: {
-                    closeOnSelect: false,
-                    enabled: 0,
-                    fuzzySearch: false,
-                    mapValueTo: "label",
-                    maxItems: data.options.length,
-                    searchKeys: ["label"],
-                },
-                whitelist: data.options,
-            });
-
-            multiselect.addEventListener("change", () => {
-                const selections: unknown = JSON.parse(multiselect.value || "[]");
-                const isValid =
-                    Array.isArray(selections) &&
-                    selections.every(
-                        (s: unknown): s is { value: string; label: string } =>
-                            isObject<{ value: unknown }>(s) && typeof s["value"] === "string"
-                    );
-
-                if (isValid) {
-                    data.selected = selections;
-                    this.render();
-                }
+                this.renderResultList({ replace: true });
             });
         }
 
-        // Slider filters
-        for (const [name, data] of Object.entries(currentTab.filterData.sliders ?? {})) {
-            const $slider = $html.find(`div.slider-${name}`);
-            if (!$slider) continue;
+        // Sort item list
+        const sortContainer = controlArea.querySelector<HTMLDivElement>("div.sortcontainer");
+        if (sortContainer) {
+            const order = sortContainer.querySelector<HTMLSelectElement>("select.order");
+            if (order) {
+                order.addEventListener("change", () => {
+                    const orderBy = order.value ?? "name";
+                    currentTab.filterData.order.by = orderBy;
+                    this.clearScrollLimit(true);
+                });
+            }
+            const directionAnchor = sortContainer.querySelector<HTMLAnchorElement>("a.direction");
+            if (directionAnchor) {
+                directionAnchor.addEventListener("click", () => {
+                    const direction = (directionAnchor.dataset.direction as SortDirection) ?? "asc";
+                    currentTab.filterData.order.direction = direction === "asc" ? "desc" : "asc";
+                    this.clearScrollLimit(true);
+                });
+            }
+        }
 
-            const slider = noUiSlider.create($slider[0], {
-                range: {
-                    min: data.values.lowerLimit,
-                    max: data.values.upperLimit,
-                },
-                start: [data.values.min, data.values.max],
-                tooltips: {
-                    to(value: number) {
-                        return Math.floor(value).toString();
-                    },
-                },
-                connect: [false, true, false],
-                behaviour: "snap",
-                step: data.values.step,
+        if (activeTabName === "spell") {
+            const timeFilter = controlArea.querySelector<HTMLSelectElement>("select[name=timefilter]");
+            if (timeFilter) {
+                timeFilter.addEventListener("change", () => {
+                    if (!currentTab.filterData?.selects?.timefilter) return;
+                    currentTab.filterData.selects.timefilter.selected = timeFilter.value;
+                    this.clearScrollLimit(true);
+                });
+            }
+        }
+
+        // Clear all filters button
+        controlArea.querySelector<HTMLButtonElement>("button.clear-filters")?.addEventListener("click", () => {
+            this.resetFilters();
+            this.clearScrollLimit(true);
+        });
+
+        // Filters
+        const filterContainers = controlArea.querySelectorAll<HTMLDivElement>("div.filtercontainer");
+        for (const container of Array.from(filterContainers)) {
+            const { filterType, filterName } = container.dataset;
+            // Clear this filter button
+            container
+                .querySelector<HTMLButtonElement>("button[data-action=clear-filter]")
+                ?.addEventListener("click", (event) => {
+                    event.stopImmediatePropagation();
+                    switch (filterType) {
+                        case "checkboxes": {
+                            const checkboxes = currentTab.filterData.checkboxes;
+                            if (objectHasKey(checkboxes, filterName)) {
+                                for (const option of Object.values(checkboxes[filterName].options)) {
+                                    option.selected = false;
+                                }
+                                checkboxes[filterName].selected = [];
+                                this.render(true);
+                            }
+                            break;
+                        }
+                        case "ranges": {
+                            const ranges = currentTab.filterData.ranges!;
+                            if (objectHasKey(ranges, filterName)) {
+                                ranges[filterName].values = currentTab.defaultFilterData.ranges![filterName].values;
+                                ranges[filterName].changed = false;
+                                this.render(true);
+                            }
+                        }
+                    }
+                });
+
+            // Toggle visibility of filter container
+            const title = container.querySelector<HTMLDivElement>("div.title");
+            title?.addEventListener("click", () => {
+                if (filterType === "checkboxes" || filterType === "ranges" || filterType === "sliders") {
+                    const filters = currentTab.filterData[filterType];
+                    if (filters && objectHasKey(filters, filterName)) {
+                        // This needs a type assertion because it resolves to never for some reason
+                        const filter = filters[filterName] as CheckboxData | RangesData;
+                        filter.isExpanded = !filter.isExpanded;
+                        const contentElement = title.nextElementSibling;
+                        if (contentElement instanceof HTMLElement) {
+                            filter.isExpanded
+                                ? (contentElement.style.display = "")
+                                : (contentElement.style.display = "none");
+                        }
+                    }
+                }
             });
 
-            slider.on("change", (values) => {
-                const [min, max] = values.map((value) => Number(value));
-                data.values.min = min;
-                data.values.max = max;
+            if (filterType === "checkboxes") {
+                container.querySelectorAll<HTMLInputElement>("input[type=checkbox]").forEach((checkboxElement) => {
+                    checkboxElement.addEventListener("click", () => {
+                        if (objectHasKey(currentTab.filterData.checkboxes, filterName)) {
+                            const optionName = checkboxElement.name;
+                            const checkbox = currentTab.filterData.checkboxes[filterName];
+                            const option = checkbox.options[optionName];
+                            option.selected = !option.selected;
+                            option.selected
+                                ? checkbox.selected.push(optionName)
+                                : (checkbox.selected = checkbox.selected.filter((name) => name !== optionName));
+                            this.clearScrollLimit(true);
+                        }
+                    });
+                });
+            }
 
-                const $minLabel = $html.find(`label.${name}-min-label`);
-                const $maxLabel = $html.find(`label.${name}-max-label`);
-                $minLabel.text(min);
-                $maxLabel.text(max);
+            if (filterType === "ranges") {
+                container.querySelectorAll<HTMLInputElement>("input[name*=Bound]").forEach((range) => {
+                    range.addEventListener("keyup", (event) => {
+                        if (event.key !== "Enter") return;
+                        const ranges = currentTab.filterData.ranges;
+                        if (ranges && objectHasKey(ranges, filterName)) {
+                            const range = ranges[filterName];
+                            const lowerBound =
+                                container.querySelector<HTMLInputElement>("input[name*=lowerBound]")?.value ?? "";
+                            const upperBound =
+                                container.querySelector<HTMLInputElement>("input[name*=upperBound]")?.value ?? "";
+                            const values = currentTab.parseRangeFilterInput(filterName, lowerBound, upperBound);
+                            range.values = values;
+                            range.changed = true;
+                            this.clearScrollLimit(true);
+                        }
+                    });
+                });
+            }
 
-                this.clearScrollLimit();
-                this.render();
-            });
+            if (filterType === "multiselects") {
+                // Multiselects using tagify
+                const multiselects = currentTab.filterData.multiselects;
+                if (!multiselects) continue;
+                if (objectHasKey(multiselects, filterName)) {
+                    const multiselect = container.querySelector<HTMLInputElement>(
+                        `input[name=${filterName}][data-tagify-select]`
+                    );
+                    if (!multiselect) continue;
+                    const data = multiselects[filterName];
 
-            // Set styling
-            $slider.find(".noUi-handle").each((_index, handle) => {
-                const $handle = $(handle);
-                $handle.addClass("handle");
-            });
+                    new Tagify(multiselect, {
+                        enforceWhitelist: true,
+                        keepInvalidTags: false,
+                        editTags: false,
+                        tagTextProp: "label",
+                        dropdown: {
+                            enabled: 0,
+                            fuzzySearch: false,
+                            mapValueTo: "label",
+                            maxItems: data.options.length,
+                            searchKeys: ["label"],
+                        },
+                        whitelist: data.options,
+                    });
 
-            $slider.find(".noUi-connect").each((_index, connect) => {
-                $(connect).addClass("range_selected");
-            });
+                    multiselect.addEventListener("change", () => {
+                        const selections: unknown = JSON.parse(multiselect.value || "[]");
+                        const isValid =
+                            Array.isArray(selections) &&
+                            selections.every(
+                                (s: unknown): s is { value: string; label: string } =>
+                                    isObject<{ value: unknown }>(s) && typeof s["value"] === "string"
+                            );
+
+                        if (isValid) {
+                            data.selected = selections;
+                            this.render();
+                        }
+                    });
+                }
+            }
+
+            if (filterType === "sliders") {
+                // Slider filters
+                const sliders = currentTab.filterData.sliders;
+                if (!sliders) continue;
+
+                if (objectHasKey(sliders, filterName)) {
+                    const sliderElement = container.querySelector<HTMLDivElement>(`div.slider-${filterName}`);
+                    if (!sliderElement) continue;
+                    const data = sliders[filterName];
+
+                    const slider = noUiSlider.create(sliderElement, {
+                        range: {
+                            min: data.values.lowerLimit,
+                            max: data.values.upperLimit,
+                        },
+                        start: [data.values.min, data.values.max],
+                        tooltips: {
+                            to(value: number) {
+                                return Math.floor(value).toString();
+                            },
+                        },
+                        connect: [false, true, false],
+                        behaviour: "snap",
+                        step: data.values.step,
+                    });
+
+                    slider.on("change", (values) => {
+                        const [min, max] = values.map((value) => Number(value));
+                        data.values.min = min;
+                        data.values.max = max;
+
+                        const $minLabel = $html.find(`label.${name}-min-label`);
+                        const $maxLabel = $html.find(`label.${name}-max-label`);
+                        $minLabel.text(min);
+                        $maxLabel.text(max);
+
+                        this.clearScrollLimit(true);
+                    });
+
+                    // Set styling
+                    sliderElement.querySelectorAll<HTMLDivElement>(".noUi-handle").forEach((element) => {
+                        element.classList.add("handle");
+                    });
+                    sliderElement.querySelectorAll<HTMLDivElement>(".noUi-connect").forEach((element) => {
+                        element.classList.add("range_selected");
+                    });
+                }
+            }
+        }
+
+        const list = html.querySelector<HTMLUListElement>(".tab.active ul.item-list");
+        if (!list) return;
+        list.addEventListener("scroll", () => {
+            if (list.scrollTop + list.clientHeight >= list.scrollHeight - 5) {
+                const currentValue = currentTab.scrollLimit;
+                const maxValue = currentTab.totalItemCount ?? 0;
+                if (currentValue < maxValue) {
+                    currentTab.scrollLimit = Math.clamped(currentValue + 100, 100, maxValue);
+                    this.renderResultList({ list, start: currentValue });
+                }
+            }
+        });
+
+        // Initial result list render
+        this.renderResultList({ list });
+    }
+
+    /**
+     * Append new results to the result list
+     * @param options Render options
+     * @param options.list The result list HTML element
+     * @param options.start The index position to start from
+     * @param options.replace Replace the current list with the new results?
+     */
+    private async renderResultList({ list, start = 0, replace = false }: RenderResultListOptions): Promise<void> {
+        const currentTab = this.activeTab !== "settings" ? this.tabs[this.activeTab] : null;
+        const html = this.element[0];
+        if (!currentTab) return;
+
+        if (!list) {
+            const listElement = html.querySelector<HTMLUListElement>(".tab.active ul.item-list");
+            if (!listElement) return;
+            list = listElement;
+        }
+
+        // Get new results from index
+        const newResults = await currentTab.renderResults(start);
+        // Add listeners to new results only
+        this.activateResultListeners(newResults);
+        // Add the results to the DOM
+        const fragment = document.createDocumentFragment();
+        fragment.append(...newResults);
+        if (replace) {
+            list.replaceChildren(fragment);
+        } else {
+            list.append(fragment);
+        }
+        // Re-apply drag drop handler
+        for (const dragDropHandler of this._dragDrop) {
+            dragDropHandler.bind(html);
         }
     }
 
     /** Activate click listeners on loaded actors and items */
-    private activateResultListeners(): void {
-        const $list = this.element.find(".tab.active ul.item-list");
-        if ($list.length === 0) return;
+    private activateResultListeners(liElements: HTMLLIElement[] = []): void {
+        for (const liElement of liElements) {
+            const { entryUuid } = liElement.dataset;
+            if (!entryUuid) continue;
 
-        const $items = $list.children("li");
-        if ($list.data("listeners-active")) {
-            $items.children("a").off("click");
-        }
-
-        $items
-            .children(".name")
-            .children("a.item-link, a.actor-link")
-            .on("click", (event) => {
-                const entry = $(event.currentTarget).closest(".item")[0].dataset;
-                const compendiumId = entry.entryCompendium ?? "";
-                const docId = entry.entryId ?? "";
-                game.packs
-                    .get(compendiumId)
-                    ?.getDocument(docId)
-                    .then((document) => {
-                        document?.sheet?.render(true);
-                    });
-            });
-
-        // Add an item to selected tokens' actors' inventories
-        $items.find("a[data-action=take-item]").on("click", async (event) => {
-            const $li = $(event.currentTarget).closest("li");
-            const { entryCompendium, entryId } = $li.data();
-            this.takePhysicalItem(entryCompendium, entryId);
-        });
-
-        // Attempt to buy an item with the selected tokens' actors'
-        $items.find("a[data-action=buy-item]").on("click", (event) => {
-            const $li = $(event.currentTarget).closest("li");
-            const { entryCompendium, entryId } = $li.data();
-            this.buyPhysicalItem(entryCompendium, entryId);
-        });
-
-        // Lazy load list when scrollbar reaches bottom
-        $list.on("scroll", (event) => {
-            const target = event.currentTarget;
-            if (target.scrollTop + target.clientHeight === target.scrollHeight) {
-                const tab = this.activeTab;
-                if (tab === "settings") return;
-                const currentValue = this.tabs[tab].scrollLimit;
-                const maxValue = this.tabs[tab].totalItemCount ?? 0;
-                if (currentValue < maxValue) {
-                    const newValue = Math.clamped(currentValue + 100, 100, maxValue);
-                    this.tabs[tab].scrollLimit = newValue;
-                    this.render(true);
-                }
+            const nameAnchor = liElement.querySelector<HTMLAnchorElement>("div.name > a");
+            if (nameAnchor) {
+                nameAnchor.addEventListener("click", async () => {
+                    const document = await fromUuid(entryUuid);
+                    if (document?.sheet) {
+                        document.sheet.render(true);
+                    }
+                });
             }
-        });
 
-        $list.data("listeners-active", true);
+            if (this.activeTab === "equipment") {
+                // Add an item to selected tokens' actors' inventories
+                liElement
+                    .querySelector<HTMLAnchorElement>("a[data-action=take-item]")
+                    ?.addEventListener("click", () => {
+                        this.takePhysicalItem(entryUuid);
+                    });
+
+                // Attempt to buy an item with the selected tokens' actors'
+                liElement.querySelector<HTMLAnchorElement>("a[data-action=buy-item]")?.addEventListener("click", () => {
+                    this.buyPhysicalItem(entryUuid);
+                });
+            }
+        }
     }
 
-    private async takePhysicalItem(compendiumId: string, itemId: string): Promise<void> {
+    private async takePhysicalItem(uuid: string): Promise<void> {
         const actors = getSelectedOrOwnActors(["character", "npc"]);
-        const item = await this.getPhysicalItem(compendiumId, itemId);
+        const item = await this.getPhysicalItem(uuid);
 
         if (actors.length === 0) {
             ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
@@ -640,9 +844,9 @@ export class CompendiumBrowser extends Application {
         }
     }
 
-    private async buyPhysicalItem(compendiumId: string, itemId: string): Promise<void> {
+    private async buyPhysicalItem(uuid: string): Promise<void> {
         const actors = getSelectedOrOwnActors(["character", "npc"]);
-        const item = await this.getPhysicalItem(compendiumId, itemId);
+        const item = await this.getPhysicalItem(uuid);
 
         if (actors.length === 0) {
             ui.notifications.error(game.i18n.format("PF2E.ErrorMessage.NoTokenSelected"));
@@ -691,8 +895,8 @@ export class CompendiumBrowser extends Application {
         }
     }
 
-    private async getPhysicalItem(compendiumId: string, itemId: string): Promise<PhysicalItemPF2e | KitPF2e> {
-        const item = await game.packs.get(compendiumId)?.getDocument(itemId);
+    private async getPhysicalItem(uuid: string): Promise<PhysicalItemPF2e | KitPF2e> {
+        const item = await fromUuid(uuid);
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             throw ErrorPF2e("Unexpected failure retrieving compendium item");
         }
@@ -712,26 +916,25 @@ export class CompendiumBrowser extends Application {
     protected override _onDragStart(event: ElementDragEvent): void {
         this.element.animate({ opacity: 0.125 }, 250);
 
-        const $item = $(event.currentTarget);
-        const packName = $item.attr("data-entry-compendium");
-        const itemPack = game.packs.find((pack) => pack.collection === packName);
-        if (!itemPack) return;
+        const item = $(event.currentTarget)[0];
         event.dataTransfer.setData(
             "text/plain",
             JSON.stringify({
-                type: itemPack.documentName,
-                pack: itemPack.collection,
-                id: $item.attr("data-entry-id"),
+                type: item.dataset.type,
+                uuid: item.dataset.entryUuid,
             })
         );
-
-        $item.one("dragend", () => {
-            window.setTimeout(() => {
-                this.element.animate({ opacity: 1 }, 250, () => {
-                    this.element.css({ pointerEvents: "" });
-                });
-            }, 500);
-        });
+        item.addEventListener(
+            "dragend",
+            () => {
+                window.setTimeout(() => {
+                    this.element.animate({ opacity: 1 }, 250, () => {
+                        this.element.css({ pointerEvents: "" });
+                    });
+                }, 500);
+            },
+            { once: true }
+        );
     }
 
     protected override _onDragOver(event: ElementDragEvent): void {
@@ -777,7 +980,6 @@ export class CompendiumBrowser extends Application {
                 user: game.user,
                 [activeTab]: {
                     filterData: tab.filterData,
-                    indexData: tab.getIndexData(),
                 },
                 scrollLimit: tab.scrollLimit,
             };
@@ -795,12 +997,21 @@ export class CompendiumBrowser extends Application {
         }
     }
 
-    private clearScrollLimit() {
+    private clearScrollLimit(render = false) {
         const tab = this.activeTab;
         if (tab === "settings") return;
 
-        const $list = this.element.find(".tab.active ul.item-list");
-        $list.scrollTop(0);
+        const list = this.element[0].querySelector<HTMLUListElement>(".tab.active ul.item-list");
+        if (!list) return;
+        list.scrollTop = 0;
         this.tabs[tab].scrollLimit = 100;
+
+        if (render) {
+            this.render();
+        }
     }
 }
+
+type CompendiumBrowserSettings = Omit<TabData<Record<string, PackInfo | undefined>>, "settings">;
+
+export { CompendiumBrowser, CompendiumBrowserSettings };

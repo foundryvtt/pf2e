@@ -1,119 +1,18 @@
 {
     "_id": "RiKjpztTt7tZbOeo",
-    "data": {
-        "abilities": {
-            "cha": {
-                "mod": -1
-            },
-            "con": {
-                "mod": 5
-            },
-            "dex": {
-                "mod": 4
-            },
-            "int": {
-                "mod": -3
-            },
-            "str": {
-                "mod": 7
-            },
-            "wis": {
-                "mod": 2
-            }
-        },
-        "attributes": {
-            "ac": {
-                "details": "all-around vision",
-                "value": 23
-            },
-            "allSaves": {
-                "value": ""
-            },
-            "hp": {
-                "details": "hydra regeneration",
-                "max": 90,
-                "temp": 0,
-                "value": 90
-            },
-            "initiative": {
-                "ability": "perception"
-            },
-            "perception": {
-                "value": 17
-            },
-            "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "swim",
-                        "value": "25"
-                    }
-                ],
-                "value": "25"
-            }
-        },
-        "details": {
-            "alignment": {
-                "value": "N"
-            },
-            "blurb": "",
-            "creatureType": "Beast",
-            "level": {
-                "value": 6
-            },
-            "privateNotes": "",
-            "publicNotes": "<p>Hydras are multiheaded, foul-tempered serpentine beasts with voracious appetites, widely feared for their regeneration abilities.</p>",
-            "source": {
-                "value": "Pathfinder Bestiary"
-            }
-        },
-        "resources": {},
-        "saves": {
-            "fortitude": {
-                "saveDetail": "",
-                "value": 15
-            },
-            "reflex": {
-                "saveDetail": "",
-                "value": 12
-            },
-            "will": {
-                "saveDetail": "",
-                "value": 10
-            }
-        },
-        "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
-            "rarity": "common",
-            "senses": {
-                "value": "low-light vision, scent (imprecise) 30 feet"
-            },
-            "size": {
-                "value": "huge"
-            },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "beast"
-                ]
-            }
-        }
-    },
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "UNKL6y0xQcbsDrvG",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-effects.uZJOdounIHaFDC1t"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/summon-animal.webp",
+            "name": "Effect: Hydra Heads (05)",
+            "sort": 100000,
+            "system": {
                 "badge": null,
                 "description": {
                     "value": "<p>The number of heads the hydra currently has.</p>"
@@ -179,11 +78,9 @@
                         "diceNumber": "{item|flags.pf2e.rulesSelections.headCount}",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "focusedAssault"
-                            ]
-                        },
+                        "predicate": [
+                            "focusedAssault"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -205,19 +102,14 @@
                     "value": []
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-effects.uZJOdounIHaFDC1t"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/summon-animal.webp",
-            "name": "Effect: Hydra Heads (05)",
-            "sort": 100000,
             "type": "effect"
         },
         {
             "_id": "hJ1mAKCkNvCy1GY0",
-            "data": {
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 200000,
+            "system": {
                 "attack": {
                     "value": ""
                 },
@@ -253,14 +145,19 @@
                     "value": "melee"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
-            "sort": 200000,
             "type": "melee"
         },
         {
             "_id": "UVFdUW8UmQmQjvIs",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "system": {
                 "actionCategory": {
                     "value": "interaction"
                 },
@@ -293,19 +190,19 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
-            "sort": 300000,
             "type": "action"
         },
         {
             "_id": "9yPuatISy0aUTsVE",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 400000,
+            "system": {
                 "actionCategory": {
                     "value": "interaction"
                 },
@@ -338,19 +235,19 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent (Imprecise) 30 feet",
-            "sort": 400000,
             "type": "action"
         },
         {
             "_id": "qOhxTyF0N56kRCTR",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.9qV49KjZujZnSp6w"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "All-Around Vision",
+            "sort": 500000,
+            "system": {
                 "actionCategory": {
                     "value": "defensive"
                 },
@@ -370,7 +267,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "override",
-                        "path": "data.attributes.flanking.flankable",
+                        "path": "system.attributes.flanking.flankable",
                         "value": false
                     }
                 ],
@@ -390,19 +287,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.9qV49KjZujZnSp6w"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "All-Around Vision",
-            "sort": 500000,
             "type": "action"
         },
         {
             "_id": "0KLll6op6LwSp19s",
-            "data": {
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Hydra Regeneration",
+            "sort": 600000,
+            "system": {
                 "actionCategory": {
                     "value": "defensive"
                 },
@@ -435,14 +327,19 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Hydra Regeneration",
-            "sort": 600000,
             "type": "action"
         },
         {
             "_id": "1VqUGL35cW3NbTOz",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 700000,
+            "system": {
                 "actionCategory": {
                     "value": "defensive"
                 },
@@ -475,19 +372,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 700000,
             "type": "action"
         },
         {
             "_id": "m2aEAnMnepSKN57G",
-            "data": {
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Head Regrowth",
+            "sort": 800000,
+            "system": {
                 "actionCategory": {
                     "value": "defensive"
                 },
@@ -520,14 +412,14 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Head Regrowth",
-            "sort": 800000,
             "type": "action"
         },
         {
             "_id": "pSKjTPdO8e9KO9LI",
-            "data": {
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Multiple Opportunities",
+            "sort": 900000,
+            "system": {
                 "actionCategory": {
                     "value": "defensive"
                 },
@@ -560,14 +452,14 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Multiple Opportunities",
-            "sort": 900000,
             "type": "action"
         },
         {
             "_id": "FGm1xbUPgE0BRiSf",
-            "data": {
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Focused Assault",
+            "sort": 1000000,
+            "system": {
                 "actionCategory": {
                     "value": "offensive"
                 },
@@ -607,14 +499,14 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Focused Assault",
-            "sort": 1000000,
             "type": "action"
         },
         {
             "_id": "0L6qwj5JpEiwbnph",
-            "data": {
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Storm of Jaws",
+            "sort": 1100000,
+            "system": {
                 "actionCategory": {
                     "value": "offensive"
                 },
@@ -647,14 +539,14 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Storm of Jaws",
-            "sort": 1100000,
             "type": "action"
         },
         {
             "_id": "33Y77ow1L9XFERU5",
-            "data": {
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1200000,
+            "system": {
                 "description": {
                     "value": ""
                 },
@@ -675,14 +567,14 @@
                     "value": []
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1200000,
             "type": "lore"
         },
         {
             "_id": "HZjTjHMm6PiqprBW",
-            "data": {
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1300000,
+            "system": {
                 "description": {
                     "value": ""
                 },
@@ -696,11 +588,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Water",
-                        "predicate": {
-                            "all": [
-                                "terrain:water"
-                            ]
-                        },
+                        "predicate": [
+                            "terrain:water"
+                        ],
                         "selector": "stealth",
                         "value": 3
                     }
@@ -721,19 +611,115 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1300000,
             "type": "lore"
         }
     ],
     "name": "Hydra",
-    "token": {
-        "disposition": -1,
-        "height": 3,
-        "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Hydra",
-        "width": 3
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -1
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -3
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "all-around vision",
+                "value": 23
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "hydra regeneration",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "initiative": {
+                "ability": "perception"
+            },
+            "perception": {
+                "value": 17
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 25
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "N"
+            },
+            "blurb": "",
+            "creatureType": "Beast",
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Hydras are multiheaded, foul-tempered serpentine beasts with voracious appetites, widely feared for their regeneration abilities.</p>",
+            "source": {
+                "value": "Pathfinder Bestiary"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 10
+            }
+        },
+        "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "value": []
+            },
+            "dr": [],
+            "dv": [],
+            "languages": {
+                "custom": "",
+                "selected": [],
+                "value": []
+            },
+            "rarity": "common",
+            "senses": {
+                "value": "low-light vision, scent (imprecise) 30 feet"
+            },
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "beast"
+            ]
+        }
     },
     "type": "npc"
 }

@@ -36,6 +36,6 @@ export class Migration727TrimSelfRollOptions extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        source.data.rules = source.data.rules.map((r) => this.trimPredicates(r)) as RuleElementSource[];
+        source.system.rules = source.system.rules.map((r) => this.trimPredicates(r)) as RuleElementSource[];
     }
 }

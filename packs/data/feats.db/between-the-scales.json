@@ -1,6 +1,8 @@
 {
     "_id": "zL6zUrt44tZYyuh4",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Between The Scales",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,28 +21,23 @@
         "level": {
             "value": 9
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
-                "definition": {
-                    "all": [
-                        "weapon:trait:agile",
-                        "weapon:trait:finesse"
-                    ],
-                    "not": [
-                        "weapon:ranged"
-                    ]
-                },
+                "definition": [
+                    "weapon:trait:agile",
+                    "weapon:trait:finesse",
+                    {
+                        "not": "weapon:ranged"
+                    }
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed"
-                    ]
-                },
+                "predicate": [
+                    "target:condition:flat-footed"
+                ],
                 "property": "weapon-traits",
                 "value": "backstabber"
             }
@@ -56,7 +53,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Between The Scales",
     "type": "feat"
 }

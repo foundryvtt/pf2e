@@ -1,6 +1,8 @@
 {
     "_id": "dFG2yWRg5yNCfugI",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/mercurial-mantle.webp",
+    "name": "Mercurial Mantle",
+    "system": {
         "baseItem": null,
         "containerId": "null",
         "description": {
@@ -49,11 +51,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Attack from Enemy Reaction due to Movement",
-                "predicate": {
-                    "all": [
-                        "reaction:movement"
-                    ]
-                },
+                "predicate": [
+                    "reaction:movement"
+                ],
                 "selector": "ac",
                 "type": "circumstance",
                 "value": 2
@@ -68,13 +68,13 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.abilities.dex.value",
+                "path": "system.abilities.dex.value",
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.abilities.dex.value",
+                "path": "system.abilities.dex.value",
                 "value": 18
             }
         ],
@@ -100,7 +100,5 @@
             "value": "L"
         }
     },
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/mercurial-mantle.webp",
-    "name": "Mercurial Mantle",
     "type": "equipment"
 }

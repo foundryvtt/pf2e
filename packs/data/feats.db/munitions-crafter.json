@@ -1,6 +1,8 @@
 {
     "_id": "lFVqejlf52cdYrZy",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Munitions Crafter",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,31 +21,30 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
+                "craftableItems": {
+                    "all": [
+                        "item:trait:alchemical"
+                    ],
+                    "any": [
+                        "item:trait:bomb",
+                        "item:subtype:ammo"
+                    ]
+                },
                 "isAlchemical": true,
                 "isDailyPrep": true,
                 "key": "CraftingEntry",
                 "maxItemLevel": 1,
-                "requiredTraits": [
-                    [
-                        "alchemical",
-                        "bomb"
-                    ],
-                    [
-                        "alchemical"
-                    ]
-                ],
                 "selector": "munitionsCrafter"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.resources.crafting.infusedReagents.max",
+                "path": "system.resources.crafting.infusedReagents.max",
                 "value": "@actor.level"
             },
             {
@@ -52,7 +53,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",
@@ -62,7 +63,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Munitions Crafter",
     "type": "feat"
 }

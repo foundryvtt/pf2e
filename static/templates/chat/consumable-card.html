@@ -16,12 +16,12 @@
         </div>
     {{/if}}
     <div class="card-content">
-        {{{data.description.value}}}
+        {{{item.description}}}
     </div>
     <div class="card-buttons">
         {{#if (and data.usesCharges data.isUsable)}}
             {{#if data.hasCharges}}
-                <button type="button" data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{data.consumableType}}</button>
+                <button type="button" data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{item.consumableType}}</button>
             {{else}}
                 <button type="button" disabled="disabled">{{localize "PF2E.ConsumableNoChargesLabel"}}</button>
             {{/if}}

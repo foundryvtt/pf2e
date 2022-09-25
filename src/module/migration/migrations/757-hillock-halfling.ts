@@ -10,20 +10,20 @@ export class Migration757HillockHalfling extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type !== "heritage") return;
 
-        const slug = itemSource.data.slug ?? sluggify(itemSource.name);
+        const slug = itemSource.system.slug ?? sluggify(itemSource.name);
 
         if (slug !== "hillock-halfling") return;
 
-        const rules = itemSource.data.rules;
+        const rules = itemSource.system.rules;
         const needsRuleElement = !rules.some(
-            (rule: Record<string, unknown>) => "path" in rule && rule["path"] === "data.attributes.hp.recoveryAddend"
+            (rule: Record<string, unknown>) => "path" in rule && rule["path"] === "system.attributes.hp.recoveryAddend"
         );
 
         if (needsRuleElement) {
             const element: AELikeSource = {
                 key: "ActiveEffectLike",
                 mode: "add",
-                path: "data.attributes.hp.recoveryAddend",
+                path: "system.attributes.hp.recoveryAddend",
                 value: "@actor.level",
             };
             rules.push(element);

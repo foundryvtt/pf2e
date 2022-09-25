@@ -1,6 +1,8 @@
 {
     "_id": "0YjetnLVIUz9zQt5",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Champion Dedication",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -33,7 +34,7 @@
         "rules": [
             {
                 "allowedDrops": {
-                    "all": [
+                    "predicate": [
                         "item:type:deity"
                     ]
                 },
@@ -52,31 +53,31 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.rel.rank",
+                "path": "system.skills.rel.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.heavy.rank",
+                "path": "system.martial.heavy.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.medium.rank",
+                "path": "system.martial.medium.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.light.rank",
+                "path": "system.martial.light.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.custom.modifiers.champion-dedication-count",
+                "path": "system.custom.modifiers.champion-dedication-count",
                 "value": 1
             }
         ],
@@ -93,7 +94,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Champion Dedication",
     "type": "feat"
 }

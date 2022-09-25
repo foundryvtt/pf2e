@@ -1,6 +1,8 @@
 {
     "_id": "6ACbQIpmmemxmoBJ",
-    "data": {
+    "img": "systems/pf2e/icons/spells/guiding-star.webp",
+    "name": "Effect: Saoc Astrology",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>This effect grants you the selected circumstance bonus or penalty to skill checks.</p>\n<hr />\n<p><em>Note: The effect lasts until the end of your turn, and should be manually removed after you have made a skill check.</em></p>"
@@ -23,11 +25,11 @@
                     },
                     {
                         "label": "+1 bonus",
-                        "predicate": {
-                            "not": [
-                                "heir-of-the-saoc"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "heir-of-the-saoc"
+                            }
+                        ],
                         "value": 1
                     },
                     {
@@ -36,20 +38,16 @@
                     },
                     {
                         "label": "+3 bonus",
-                        "predicate": {
-                            "all": [
-                                "heir-of-the-saoc"
-                            ]
-                        },
+                        "predicate": [
+                            "heir-of-the-saoc"
+                        ],
                         "value": 3
                     },
                     {
                         "label": "+4 bonus",
-                        "predicate": {
-                            "all": [
-                                "heir-of-the-saoc"
-                            ]
-                        },
+                        "predicate": [
+                            "heir-of-the-saoc"
+                        ],
                         "value": 4
                     }
                 ],
@@ -81,7 +79,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/guiding-star.webp",
-    "name": "Effect: Saoc Astrology",
     "type": "effect"
 }

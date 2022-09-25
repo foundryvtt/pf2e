@@ -1,6 +1,8 @@
 {
     "_id": "IZupJre7o5We2VrK",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Vicious Fangs",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 8
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -33,16 +34,14 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        {
-                            "lte": [
-                                "self:level",
-                                13
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
                 "selector": "fangs-damage",
                 "text": "PF2E.SpecificRule.Vampire.ViciousFangs.Note.Base",
                 "title": "{item|name}"
@@ -52,24 +51,22 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        {
-                            "gte": [
-                                "self:level",
-                                14
-                            ]
-                        }
-                    ],
-                    "not": [
-                        {
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            14
+                        ]
+                    },
+                    {
+                        "not": {
                             "gte": [
                                 "self:level",
                                 20
                             ]
                         }
-                    ]
-                },
+                    }
+                ],
                 "selector": "fangs-damage",
                 "text": "PF2E.SpecificRule.Vampire.ViciousFangs.Note.FourteenthLevel",
                 "title": "{item|name}"
@@ -79,16 +76,14 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        {
-                            "gte": [
-                                "self:level",
-                                20
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            20
+                        ]
+                    }
+                ],
                 "selector": "fangs-damage",
                 "text": "PF2E.SpecificRule.Vampire.ViciousFangs.Note.TwentiethLevel",
                 "title": "{item|name}"
@@ -105,7 +100,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Vicious Fangs",
     "type": "feat"
 }

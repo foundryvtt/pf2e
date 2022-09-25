@@ -17,7 +17,7 @@ export class Migration659MultipleDamageRows extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e) {
         if (itemData.type !== "spell") return;
 
-        const data: SpellSystemDataOld = itemData.data;
+        const data: SpellSystemDataOld = itemData.system;
 
         // Migrate scaling (standalone)
         if (data.scaling instanceof Object) {

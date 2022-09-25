@@ -54,6 +54,10 @@ export class RollTwiceRuleElement extends RuleElementPF2e {
     }
 
     override async afterRoll({ selectors, roll, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
+        if (!this.actor.items.has(this.item.id)) {
+            return;
+        }
+
         const rolledTwice = roll?.dice.some((d) => ["kh", "kl"].some((m) => d.modifiers.includes(m))) ?? false;
         if (!(rolledTwice && this.removeAfterRoll && selectors.includes(this.selector) && this.test(rollOptions))) {
             return;
@@ -66,12 +70,13 @@ export class RollTwiceRuleElement extends RuleElementPF2e {
         if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
             await this.item.delete();
         } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
-            await this.item.update({ "data.duration.value": -1, "data.expired": true });
+            await this.item.update({ "system.duration.value": -1, "system.expired": true });
         }
     }
 }
 
 interface RollTwiceSource extends RuleElementSource {
+    selector?: unknown;
     keep?: unknown;
     removeAfterRoll?: unknown;
 }

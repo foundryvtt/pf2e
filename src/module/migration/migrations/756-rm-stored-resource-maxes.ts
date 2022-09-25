@@ -7,15 +7,15 @@ export class Migration756RMStoredResourceMaxes extends MigrationBase {
 
     override async updateActor(source: ActorSourceWithDeletions): Promise<void> {
         if (source.type === "character") {
-            source["data.resources.focus.-=max"] = null;
-            source["data.resources.crafting.infusedReagents.-=max"] = null;
-            source["data.resources.-=investiture"] = null;
+            source["system.resources.focus.-=max"] = null;
+            source["system.resources.crafting.infusedReagents.-=max"] = null;
+            source["system.resources.-=investiture"] = null;
         }
     }
 }
 
 type ActorSourceWithDeletions = ActorSourcePF2e & {
-    "data.resources.focus.-=max"?: null;
-    "data.resources.crafting.infusedReagents.-=max"?: null;
-    "data.resources.-=investiture"?: null;
+    "system.resources.focus.-=max"?: null;
+    "system.resources.crafting.infusedReagents.-=max"?: null;
+    "system.resources.-=investiture"?: null;
 };

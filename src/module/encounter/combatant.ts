@@ -2,18 +2,17 @@ import type { ActorPF2e } from "@actor/base";
 import { ErrorPF2e } from "@util";
 import { EncounterPF2e } from ".";
 
-class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
-    get encounter(): EncounterPF2e | null {
+class CombatantPF2e<
+    TParent extends EncounterPF2e | null = EncounterPF2e | null,
+    TActor extends ActorPF2e | null = ActorPF2e | null
+> extends Combatant<TParent, TActor> {
+    get encounter(): TParent {
         return this.parent;
-    }
-
-    get defeated(): boolean {
-        return this.data.defeated;
     }
 
     /** The round this combatant last had a turn */
     get roundOfLastTurn(): number | null {
-        return this.data.flags.pf2e.roundOfLastTurn;
+        return this.flags.pf2e.roundOfLastTurn;
     }
 
     /** Can the user see this combatant's name? */
@@ -22,10 +21,13 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
     }
 
     overridePriority(initiative: number): number | null {
-        return this.data.flags.pf2e.overridePriority[initiative] ?? null;
+        return this.flags.pf2e.overridePriority[initiative] ?? null;
     }
 
-    hasHigherInitiative(this: RolledCombatant, { than }: { than: RolledCombatant }): boolean {
+    hasHigherInitiative(
+        this: RolledCombatant<NonNullable<TParent>>,
+        { than }: { than: RolledCombatant<NonNullable<TParent>> }
+    ): boolean {
         if (this.parent !== than.parent) {
             throw ErrorPF2e("The initiative of Combatants from different combats cannot be compared");
         }
@@ -36,8 +38,8 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.data.flags.pf2e = mergeObject(this.data.flags.pf2e ?? {}, { overridePriority: {} });
-        this.data.flags.pf2e.roundOfLastTurn ??= null;
+        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { overridePriority: {} });
+        this.flags.pf2e.roundOfLastTurn ??= null;
     }
 
     /** Toggle the defeated status of this combatant, applying or removing the overlay icon on its token */
@@ -64,18 +66,14 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
     override _getInitiativeFormula(): string {
         const { actor } = this;
         if (!actor) return "1d20";
-        const actorData = actor.data;
         let bonus = 0;
 
-        if (actorData.type === "hazard") {
-            bonus = actorData.data.attributes.stealth.value ?? 0;
-        } else if (
-            "initiative" in actorData.data.attributes &&
-            "totalModifier" in actorData.data.attributes.initiative
-        ) {
-            bonus = actorData.data.attributes.initiative.totalModifier;
-        } else if ("perception" in actorData.data.attributes) {
-            bonus = actorData.data.attributes.perception.value;
+        if (actor.isOfType("hazard")) {
+            bonus = actor.attributes.stealth.value ?? 0;
+        } else if ("initiative" in actor.attributes && "totalModifier" in actor.attributes.initiative) {
+            bonus = actor.attributes.initiative.totalModifier;
+        } else if ("perception" in actor.attributes) {
+            bonus = actor.attributes.perception.value;
         }
 
         const parts = ["1d20", bonus || 0];
@@ -87,7 +85,7 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
     async toggleNameVisibility(): Promise<void> {
         if (!this.token) return;
 
-        const currentVisibility = this.token.data.displayName;
+        const currentVisibility = this.token.displayName;
 
         const visibilityToggles = {
             [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: CONST.TOKEN_DISPLAY_MODES.OWNER,
@@ -107,7 +105,7 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
 
     /** Send out a message with information on an automatic effect that occurs upon an actor's death */
     protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<this>,
         userId: string
     ): void {
@@ -115,7 +113,7 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
 
         if (changed.defeated && game.user.id === userId) {
             for (const action of this.actor?.itemTypes.action ?? []) {
-                if (action.data.data.deathNote) {
+                if (action.system.deathNote) {
                     action.toMessage(undefined, { rollMode: this.actor?.hasPlayerOwner ? "publicroll" : "gmroll" });
                 }
             }
@@ -123,21 +121,21 @@ class CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends 
     }
 }
 
-type CombatantDataPF2e<T extends CombatantPF2e> = foundry.data.CombatantData<T> & {
-    flags: {
-        pf2e: {
-            roundOfLastTurn: number | null;
-            overridePriority: Record<number, number | undefined>;
-        };
-    };
-};
-
-interface CombatantPF2e<TActor extends ActorPF2e | null = ActorPF2e | null> extends Combatant<TActor> {
-    readonly parent: EncounterPF2e | null;
-
-    readonly data: CombatantDataPF2e<this>;
+interface CombatantPF2e<
+    TParent extends EncounterPF2e | null = EncounterPF2e | null,
+    TActor extends ActorPF2e | null = ActorPF2e | null
+> extends Combatant<TParent, TActor> {
+    flags: CombatantFlags;
 }
 
-type RolledCombatant = Embedded<CombatantPF2e> & { get initiative(): number };
+type CombatantFlags = {
+    pf2e: {
+        roundOfLastTurn: number | null;
+        overridePriority: Record<number, number | undefined>;
+    };
+    [key: string]: unknown;
+};
+
+type RolledCombatant<TEncounter extends EncounterPF2e> = CombatantPF2e<TEncounter> & { get initiative(): number };
 
 export { CombatantPF2e, RolledCombatant };

@@ -1,6 +1,8 @@
 {
     "_id": "wAh2riuFRzz0edPl",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/thief.webp",
+    "name": "Thief",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,22 +28,20 @@
             {
                 "ability": "dex",
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "weapon:melee",
-                        "weapon:trait:finesse"
-                    ],
-                    "not": [
-                        "weapon:category:unarmed"
-                    ]
-                },
+                "predicate": [
+                    "weapon:melee",
+                    "weapon:trait:finesse",
+                    {
+                        "not": "weapon:category:unarmed"
+                    }
+                ],
                 "selector": "strike-damage",
                 "type": "ability"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.thi.rank",
+                "path": "system.skills.thi.rank",
                 "value": 1
             }
         ],
@@ -57,7 +56,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/thief.webp",
-    "name": "Thief",
     "type": "feat"
 }

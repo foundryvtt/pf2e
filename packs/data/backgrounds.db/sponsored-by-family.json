@@ -1,6 +1,8 @@
 {
     "_id": "T8SlgHjj0hVjKW2Q",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Sponsored by Family",
+    "system": {
         "boosts": {
             "0": {
                 "value": [
@@ -44,25 +46,21 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
                 "value": 1
             },
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "all": [
-                        "family:diplomacy"
-                    ]
-                },
+                "predicate": [
+                    "family:diplomacy"
+                ],
                 "uuid": "Compendium.pf2e.feats-srd.Hobnobber"
             },
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "all": [
-                        "family:society"
-                    ]
-                },
+                "predicate": [
+                    "family:society"
+                ],
                 "uuid": "Compendium.pf2e.feats-srd.Eye For Numbers"
             }
         ],
@@ -80,7 +78,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/background.svg",
-    "name": "Sponsored by Family",
     "type": "background"
 }

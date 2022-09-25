@@ -1,6 +1,8 @@
 {
     "_id": "ZEqAx8jEc6zhX3V1",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/trackers-goggles.webp",
+    "name": "Tracker's Goggles",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
@@ -37,12 +39,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Tracker's Goggles (Sense Direction & Track)",
-                "predicate": {
-                    "any": [
-                        "action:sense-direction",
-                        "action:track"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "action:track"
+                        ]
+                    }
+                ],
                 "selector": "survival",
                 "type": "item",
                 "value": 1
@@ -69,7 +73,5 @@
             "value": "-"
         }
     },
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/trackers-goggles.webp",
-    "name": "Tracker's Goggles",
     "type": "equipment"
 }

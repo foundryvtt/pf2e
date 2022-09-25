@@ -1,6 +1,8 @@
 {
     "_id": "CnKc1kBejFV5gWtN",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Animalistic Resistance",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,12 +28,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Animalistic Resistance (vs. disease and poison)",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
@@ -49,7 +52,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Animalistic Resistance",
     "type": "feat"
 }

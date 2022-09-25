@@ -1,6 +1,8 @@
 {
     "_id": "LD2cFdr3IntL71oP",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/backfire-mantle.webp",
+    "name": "Backfire Mantle (Greater)",
+    "system": {
         "baseItem": null,
         "containerId": "null",
         "description": {
@@ -36,12 +38,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "target:self",
-                        "target:ally"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:self",
+                            "target:ally"
+                        ]
+                    }
+                ],
                 "selector": "reflex",
                 "type": "circumstance",
                 "value": 2
@@ -68,7 +72,5 @@
             "value": "1"
         }
     },
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/backfire-mantle.webp",
-    "name": "Backfire Mantle (Greater)",
     "type": "equipment"
 }

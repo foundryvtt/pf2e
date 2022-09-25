@@ -27,8 +27,8 @@ export class Migration720UpdateSpellDescriptions extends MigrationBase {
         }
 
         const spells: unknown[] = await this.spells;
-        const spell = spells.find((s): s is SpellPF2e => s instanceof SpellPF2e && s.slug === source.data.slug);
+        const spell = spells.find((s): s is SpellPF2e => s instanceof SpellPF2e && s.slug === source.system.slug);
 
-        if (spell) source.data.description.value = spell.description;
+        if (spell) source.system.description.value = spell.description;
     }
 }

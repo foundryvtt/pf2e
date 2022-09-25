@@ -1,6 +1,8 @@
 {
     "_id": "1Eceqc6zbMj2x0q9",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Seasoned",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,16 +32,16 @@
             {
                 "key": "FlatModifier",
                 "label": "Seasoned (craft food, drink & potions)",
-                "predicate": {
-                    "all": [
-                        "action:craft"
-                    ],
-                    "any": [
-                        "food",
-                        "drink",
-                        "potion"
-                    ]
-                },
+                "predicate": [
+                    "action:craft",
+                    {
+                        "or": [
+                            "food",
+                            "drink",
+                            "potion"
+                        ]
+                    }
+                ],
                 "selector": "crafting",
                 "type": "circumstance",
                 "value": {
@@ -56,7 +57,7 @@
                             "value": 1
                         }
                     ],
-                    "field": "actor|data.skills.cra.rank"
+                    "field": "actor|system.skills.cra.rank"
                 }
             }
         ],
@@ -72,7 +73,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Seasoned",
     "type": "feat"
 }

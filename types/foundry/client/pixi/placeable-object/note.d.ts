@@ -6,7 +6,7 @@
 declare class Note<TDocument extends NoteDocument = NoteDocument> extends PlaceableObject<TDocument> {
     static override embeddedName: "Note";
 
-    override get bounds(): NormalizedRectangle;
+    override get bounds(): PIXI.Rectangle;
 
     /** The associated JournalEntry which is referenced by this Note */
     get entry(): JournalEntry;
@@ -28,7 +28,7 @@ declare class Note<TDocument extends NoteDocument = NoteDocument> extends Placea
     /* Rendering                                    */
     /* -------------------------------------------- */
 
-    override draw(): Promise<this>;
+    protected _draw(): Promise<void>;
 
     /** Draw the ControlIcon for the Map Note */
     protected _drawControlIcon(): ControlIcon;
@@ -46,7 +46,7 @@ declare class Note<TDocument extends NoteDocument = NoteDocument> extends Placea
     /* -------------------------------------------- */
 
     override _onUpdate(
-        changed: DeepPartial<TDocument["data"]["_source"]>,
+        changed: DeepPartial<TDocument["_source"]>,
         options: DocumentModificationContext<TDocument>,
         userId: string
     ): void;

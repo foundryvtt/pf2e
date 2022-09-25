@@ -12,19 +12,19 @@ export class Migration690InitiativeTiebreakItems extends MigrationBase {
     /** Sets the tiebreak priority for the item owner from 2 (PCs) to 0 */
     private rule = {
         key: "ActiveEffectLike",
-        path: "data.attributes.initiative.tiebreakPriority",
+        path: "system.attributes.initiative.tiebreakPriority",
         mode: "override",
         value: 0,
     };
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (
-            this.itemSlugs.includes(itemSource.data.slug ?? "") &&
-            !itemSource.data.rules.some((rule) => rule.key === "ActiveEffectLike") &&
+            this.itemSlugs.includes(itemSource.system.slug ?? "") &&
+            !itemSource.system.rules.some((rule) => rule.key === "ActiveEffectLike") &&
             // Add the RE to the Pilgrim's Token physical item rather than the feat
-            !(itemSource.data.slug === "pilgrims-token" && itemSource.type !== "equipment")
+            !(itemSource.system.slug === "pilgrims-token" && itemSource.type !== "equipment")
         ) {
-            itemSource.data.rules.push(this.rule);
+            itemSource.system.rules.push(this.rule);
         }
     }
 }

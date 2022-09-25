@@ -16,12 +16,12 @@ import {
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
-import { ActorFlagsPF2e, ArmorClassData, DexterityModifierCapData, PerceptionData, StrikeData } from "@actor/data/base";
+import { ActorFlagsPF2e, ArmorClassData, PerceptionData, StrikeData } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
-import { AbilityString, SaveType } from "@actor/types";
+import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
 import { MeleePF2e } from "@item";
-import { ValueAndMax } from "@module/data";
+import { Rarity, Size, ValueAndMax } from "@module/data";
 import type { NPCPF2e } from ".";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
@@ -29,7 +29,7 @@ interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
 }
 
 interface NPCData
-    extends Omit<NPCSource, "data" | "effects" | "items" | "token" | "type">,
+    extends Omit<NPCSource, "data" | "system" | "effects" | "items" | "prototypeToken" | "type">,
         BaseCreatureData<NPCPF2e, "npc", NPCSystemData, NPCSource> {
     flags: NPCFlags;
 }
@@ -46,7 +46,7 @@ interface NPCSystemSource extends CreatureSystemSource {
     attributes: NPCAttributesSource;
 
     /** Details about this actor, such as alignment or ancestry. */
-    details: NPCDetails;
+    details: NPCDetailsSource;
 
     /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
     saves: NPCSavesSource;
@@ -63,6 +63,7 @@ interface NPCAttributesSource {
         value: number;
         details: string;
     };
+    adjustment: "elite" | "weak" | null;
     hp: {
         value: number;
         max: number;
@@ -76,7 +77,7 @@ interface NPCAttributesSource {
         value: number;
     };
     speed: {
-        value: string;
+        value: number;
         otherSpeeds: LabeledSpeed[];
         details?: string;
     };
@@ -90,10 +91,12 @@ type NPCSavesSource = Record<SaveType, { value: number; saveDetail: string }>;
 interface NPCTraitsSource extends CreatureTraitsSource {
     /** A description of special senses this NPC has */
     senses: { value: string };
+    rarity: Rarity;
+    size: { value: Size };
 }
 
 /** The raw information contained within the actor data object for NPCs. */
-interface NPCSystemData extends CreatureSystemData, NPCSystemSource {
+interface NPCSystemData extends Omit<CreatureSystemData, "senses">, NPCSystemSource {
     /** The six primary ability scores. */
     abilities: Abilities;
 
@@ -121,15 +124,16 @@ interface NPCSystemData extends CreatureSystemData, NPCSystemSource {
     customModifiers: Record<string, ModifierPF2e[]>;
 }
 
-interface NPCTraitsData extends CreatureTraitsData, NPCTraitsSource {
+interface NPCTraitsData extends Omit<CreatureTraitsData, "senses">, NPCTraitsSource {
+    rarity: Rarity;
     size: ActorSizePF2e;
 }
 
-type NPCDetails = CreatureDetails & {
-    /** The presence of a `base` that is different from the `value` indicates the level was automatically adjusted. */
+interface NPCDetailsSource extends Omit<CreatureDetails, "creature"> {
     level: {
-        base?: number;
+        value: number;
     };
+
     /** Which sourcebook this creature comes from. */
     source: {
         value: string;
@@ -143,7 +147,17 @@ type NPCDetails = CreatureDetails & {
     publicNotes: string;
     /** The private GM notes */
     privateNotes: string;
-};
+}
+
+interface NPCDetails extends NPCDetailsSource {
+    level: {
+        value: number;
+        /** The presence of a `base` that is different from the `value` indicates the level was adjusted. */
+        base: number;
+    };
+
+    alliance: ActorAlliance;
+}
 
 /** The full data for a NPC action (used primarily for strikes.) */
 interface NPCStrike extends StrikeData {
@@ -192,17 +206,16 @@ interface NPCPerception extends PerceptionData {
 interface NPCSkillData extends SkillData {
     base?: number;
     visible?: boolean;
+    ability: AbilityString;
     label: string;
     expanded: string;
 }
 
 interface NPCAttributes extends CreatureAttributes {
     ac: NPCArmorClass;
+    adjustment: "elite" | "weak" | null;
     hp: NPCHitPoints;
     perception: NPCPerception;
-
-    /** Sources of the dexterity modifier cap to AC */
-    dexCap: DexterityModifierCapData[];
 
     initiative: CreatureInitiative;
 
@@ -221,6 +234,7 @@ export {
     NPCAttributes,
     NPCAttributesSource,
     NPCData,
+    NPCFlags,
     NPCHitPoints,
     NPCPerception,
     NPCSaveData,

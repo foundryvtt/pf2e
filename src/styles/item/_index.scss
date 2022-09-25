@@ -1,4 +1,15 @@
 .pf2e.item.sheet {
+    @import "../reset";
+    @import "header";
+
+    .sheet-body {
+        height: calc(100% - 35px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
     &.deity form {
         @import "deity-sheet";
     }
@@ -20,26 +31,47 @@
     }
 
     form {
-        .tagify > span {
-            min-width: 40px;
-        }
-
-        .tagify--hasMaxTags > span {
-            display: none;
-        }
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
 
         @import "abc-sheet";
         @import "activations";
         @import "identify-item";
-        @import "tagify";
         @import "rules";
 
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
+        label {
+            display: block;
+        }
 
-        > * {
+        .mce-panel span {
+            display: inherit;
+        }
+
+        &.editable .rollable:hover {
+            color: #000;
+            text-shadow: 0 0 10px #00005a;
+            cursor: pointer;
+        }
+
+        .tab {
             flex: 1;
+            overflow: hidden;
+        }
+
+        .tag-legacy {
+            float: left;
+            margin: 0 2px 2px 0;
+            padding: 0 3px;
+            font-size: var(--font-size-10);
+            line-height: 16px;
+            border: 1px solid #999;
+            border-radius: 3px;
+            white-space: normal;
+            font-weight: 500;
         }
 
         p.hint {
@@ -54,42 +86,51 @@
             gap: 2px;
         }
 
-        > header {
-            flex: 0 0 70px;
-            width: 100%;
-            padding-bottom: 6px;
+        .sheet-navigation {
+            display: flex;
+            align-items: baseline;
             border-bottom: 1px solid var(--secondary-background);
+            flex: 0 0 30px;
+            line-height: 30px;
+            margin-bottom: 0.5rem;
 
-            img {
-                border: none;
-                flex: 0 0 64px;
-                margin-right: 6px;
+            a {
+                flex: 1 1 auto;
             }
 
-            .level {
-                font-family: var(--serif-condensed);
-                font-weight: 700;
-                font-size: var(--font-size-34);
-                flex: 0;
-                white-space: nowrap;
-                margin-left: auto;
-                padding-left: 8px;
+            a.active {
+                text-decoration: underline;
+            }
 
-                i {
-                    font-size: 0.6em;
-                    margin-right: 4px;
-                    margin-bottom: 4px;
-                }
+            .sidebar-summary {
+                flex: 0 0 220px;
+                margin: 0;
+                text-align: center;
+            }
 
-                input {
-                    width: 40px;
+            .sheet-tabs {
+                font-weight: 500;
+                margin: 0;
+                flex: 1;
+                align-items: baseline;
+
+                > .list-row {
+                    font-size: var(--font-size-12);
                     text-align: center;
-                    font: inherit;
+
+                    &:last-of-type {
+                        padding-right: 4px;
+                    }
+
+                    &.active {
+                        color: #000;
+                        font-weight: 700;
+                    }
                 }
             }
         }
 
-        article {
+        article.sheet-content {
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -107,19 +148,30 @@
             }
 
             @import "sidebar";
-        }
 
-        section.sheet-body {
-            .tabs {
-                border-bottom: 1px solid var(--secondary-background);
-                a {
-                    flex: 1 1 auto;
-                }
-                a.active {
-                    text-decoration: underline;
+            input {
+                &[type="text"], &[type="number"] {
+                    width: calc(100% - 2px);
+                    height: calc(100% - 2px);
+                    background: none;
+                    padding: 0;
+                    margin: 1px 0;
+                    color: #333;
+                    border: 1px solid transparent;
+
+                    &:hover:not(:disabled), &:focus {
+                        border: 1px solid black;
+                        box-shadow: 0 0 10px #00005a;
+                    }
                 }
             }
 
+            select {
+                background: rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        section.sheet-body {
             input[type="text"], input[type="number"] {
                 background: rgba(255, 255, 255, 0.5);
                 border: 1px solid #aaa;
@@ -132,6 +184,10 @@
                 /** Any tab */
                 .editor {
                     height: 100%;
+                }
+
+                .editor-content {
+                    @include scrollbar;
                 }
 
                 /** Details */
@@ -168,6 +224,10 @@
                         font-weight: bold;
                     }
                 }
+
+                &.item-activations, &.item-rules {
+                    @include scrollbar;
+                }
             }
 
             .editor {
@@ -200,6 +260,9 @@
             border-radius: 5px;
             padding: 0.25em;
             margin: 0.5em 0;
+            &:first-child {
+                margin-top: 0;
+            }
             h3 {
                 font-weight: 600;
                 font-size: 1.05em;
@@ -274,7 +337,6 @@
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            font-size: var(--font-size-12);
 
             & > label {
                 display: flex;

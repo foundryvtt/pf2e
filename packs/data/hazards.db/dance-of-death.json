@@ -1,79 +1,13 @@
 {
     "_id": "ZUCGvc2dTJUlM9dC",
-    "data": {
-        "attributes": {
-            "ac": {
-                "value": 10
-            },
-            "hardness": 0,
-            "hasHealth": false,
-            "hp": {
-                "details": "",
-                "max": 0,
-                "temp": 0,
-                "tempmax": 0,
-                "value": 0
-            },
-            "stealth": {
-                "details": "<p>(master)</p>",
-                "value": 32
-            }
-        },
-        "creatureType": "",
-        "details": {
-            "description": "<p>An eerie orchestra compels all who hear it to dance until they collapse from exhaustion.</p>",
-            "disable": "<p>DC 42 Intimidation (expert) three times to frighten dancers and spectral musicians alike away from participating in the deadly performance, DC 40 Performance (master) twice to produce a tune discordant enough to disrupt the compulsion, or DC 42 Religion (master) three times to banish the spirits with prayers</p>",
-            "isComplex": true,
-            "level": {
-                "value": 16
-            },
-            "reset": "<p>The eerie orchestra spends an hour retuning its phantasmal instruments, after which it is ready to begin its routine again.</p>",
-            "routine": "<p>(1 action, auditory, enchantment, incapacitation, occult) The orchestra performs a raucous tune, compelling all creatures that can hear it to spend actions dancing. Each round, creature must attempt a DC 37 Will save; the results of this save modify the number of actions that the creature must spend dancing each round. If this would cause the creature to spend more actions dancing than it can use on its turn, the creature takes 10d6 damage (or double that on a critical failure) from moving faster than its body can manage.</p>\n<p><strong>Critical Success</strong> The creature decreases the number of actions it must spend dancing by 1.</p>\n<p><strong>Success</strong> No effect.</p>\n<p><strong>Failure</strong> The creature increases the actions it must spend dancing by 1.</p>\n<p><strong>Critical Failure</strong> The creature increases the actions it must spend dancing by 2.</p>"
-        },
-        "saves": {
-            "fortitude": {
-                "saveDetail": "",
-                "value": 0
-            },
-            "reflex": {
-                "saveDetail": "",
-                "value": 0
-            },
-            "will": {
-                "saveDetail": "",
-                "value": 0
-            }
-        },
-        "source": {
-            "value": "Pathfinder Gamemastery Guide"
-        },
-        "statusEffects": [],
-        "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
-            "rarity": "common",
-            "size": {
-                "value": "med"
-            },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "haunt"
-                ]
-            }
-        }
-    },
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
             "_id": "Bov9feGVYpn5nmUl",
-            "data": {
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Prelude",
+            "sort": 100000,
+            "system": {
                 "actionCategory": {
                     "value": ""
                 },
@@ -111,19 +45,75 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Prelude",
-            "sort": 100000,
             "type": "action"
         }
     ],
     "name": "Dance Of Death",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Dance Of Death",
-        "width": 1
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 10
+            },
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 32
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>An eerie orchestra compels all who hear it to dance until they collapse from exhaustion.</p>",
+            "disable": "<p>@Check[type:intimidation|dc:42|name:Frighten the Orchestra|traits:action:demoralize] (expert) three times to frighten dancers and spectral musicians alike away from participating in the deadly performance, @Check[type:performance|dc:40|name:Disrupt Compulsion] (master) twice to produce a tune discordant enough to disrupt the compulsion, or @Check[type:religion|dc:42|name:Banish Spirits] (master) three times to banish the spirits with prayers</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "reset": "<p>The eerie orchestra spends an hour retuning its phantasmal instruments, after which it is ready to begin its routine again.</p>",
+            "routine": "<p>(1 action, auditory, enchantment, incapacitation, occult) The orchestra performs a raucous tune, compelling all creatures that can hear it to spend actions dancing. Each round, creature must attempt a @Check[type:will|dc:37]; the results of this save modify the number of actions that the creature must spend dancing each round. If this would cause the creature to spend more actions dancing than it can use on its turn, the creature takes 10d6 damage (or double that on a critical failure) from moving faster than its body can manage.</p>\n<p><strong>Critical Success</strong> The creature decreases the number of actions it must spend dancing by 1.</p>\n<p><strong>Success</strong> No effect.</p>\n<p><strong>Failure</strong> The creature increases the actions it must spend dancing by 1.</p>\n<p><strong>Critical Failure</strong> The creature increases the actions it must spend dancing by 2.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "value": "Pathfinder Gamemastery Guide"
+        },
+        "statusEffects": [],
+        "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": []
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
     },
     "type": "hazard"
 }

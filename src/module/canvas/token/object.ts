@@ -1,40 +1,24 @@
-import { CreaturePF2e } from "@actor";
 import { TokenDocumentPF2e } from "@module/scene";
-import { measureDistanceRect, TokenLayerPF2e } from "..";
+import { pick } from "@util";
+import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
 import { AuraRenderers } from "./aura";
 
 class TokenPF2e extends Token<TokenDocumentPF2e> {
-    /** Whether the Token Auras module is active */
-    kimsNaughtyModule: boolean;
+    /** Visual representation and proximity-detection facilities for auras */
+    readonly auras: AuraRenderers;
 
     constructor(document: TokenDocumentPF2e) {
         super(document);
-
-        this.kimsNaughtyModule = game.modules.get("token-auras")?.active ?? false;
+        this.auras = new AuraRenderers(this);
+        Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }
 
-    /** Visual representation and proximity-detection facilities for auras */
-    auras = new AuraRenderers(this);
+    /** The promise returned by the last call to `Token#_draw()` */
+    private drawLock?: Promise<void>;
 
-    /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
-    statusEffectChanged = false;
-
-    /** The promise returned by the last call to `Token#draw()` */
-    private drawLock?: Promise<this>;
-
-    /** Is the user currently controlling this token? */
-    get isControlled(): boolean {
-        return this._controlled;
-    }
-
-    /** Is the user currently mouse-hovering this token? */
-    get isHovered(): boolean {
-        return this._hover;
-    }
-
-    /** Is this token currently moving? */
-    get isMoving(): boolean {
-        return !!this._movement;
+    /** Is this token currently animating? */
+    get isAnimating(): boolean {
+        return !!this._animation;
     }
 
     /** Is this token emitting light with a negative value */
@@ -54,7 +38,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Is this token's dimensions linked to its actor's size category? */
     get linkToActorSize(): boolean {
-        return this.data.flags.pf2e.linkToActorSize;
+        return this.document.linkToActorSize;
     }
 
     /** The ID of the highlight layer for this token */
@@ -80,9 +64,9 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
 
         // Only PCs and NPCs can flank
-        if (!["character", "npc"].includes(this.actor.type)) return false;
+        if (!this.actor.isOfType("character", "npc")) return false;
         // Only creatures can be flanked
-        if (!(flankee.actor instanceof CreaturePF2e)) return false;
+        if (!flankee.actor.isOfType("creature")) return false;
 
         // Allies don't flank each other
         if (this.actor.isAllyOf(flankee.actor)) return false;
@@ -137,35 +121,73 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
     }
 
-    /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */
-    override updateSource({ defer = false, deleted = false, skipUpdateFog = false } = {}): void {
-        if (this.actor?.type === "npc" || !(canvas.sight.hasLowLightVision || canvas.sight.hasDarkvision)) {
-            return super.updateSource({ defer, deleted, skipUpdateFog });
+    /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
+    protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
+        if (!canvas.dimensions) return;
+
+        const actor = this.document.actor;
+        const isHealth = data.attribute === "attributes.hp" && actor?.attributes.hp;
+
+        if (!isHealth) {
+            return super._drawBar(number, bar, data);
         }
 
-        const original = { dim: this.data.light.dim, bright: this.data.light.bright };
-        this.data.light.bright = Math.max(original.dim, original.bright);
-        this.data.light.dim = 0;
+        const { value, max, temp } = actor.attributes.hp;
+        const healthPercent = Math.clamped(value, 0, max) / max;
 
-        super.updateSource({ defer, deleted, skipUpdateFog });
+        // Compute the color based on health percentage, this formula is the one core foundry uses
+        const black = 0x000000;
+        const color = number
+            ? PIXI.utils.rgb2hex([0.5 * healthPercent, 0.7 * healthPercent, 0.5 + healthPercent / 2])
+            : PIXI.utils.rgb2hex([1 - healthPercent / 2, healthPercent, 0]);
 
-        this.data.light.bright = original.bright;
-        this.data.light.dim = original.dim;
+        // Bar size logic stolen from core
+        let h = Math.max(canvas.dimensions.size / 12, 8);
+        const bs = Math.clamped(h / 8, 1, 2);
+        if (this.document.height >= 2) h *= 1.6; // Enlarge the bar for large tokens
+
+        const numBars = temp > 0 ? 2 : 1;
+        const barHeight = h / numBars;
+
+        bar.clear();
+
+        // Draw background
+        bar.lineStyle(0).beginFill(black, 0.5).drawRoundedRect(0, 0, this.w, h, 3);
+
+        // Set border style for temp hp and health bar
+        bar.lineStyle(bs / 2, black, 1.0);
+
+        // Draw temp hp
+        if (temp > 0) {
+            const tempColor = 0x66ccff;
+            const tempPercent = Math.clamped(temp, 0, max) / max;
+            const tempWidth = tempPercent * this.w - 2 * (bs - 1);
+            bar.beginFill(tempColor, 1.0).drawRoundedRect(0, 0, tempWidth, barHeight, 2);
+        }
+
+        // Draw the health bar
+        const healthBarY = (numBars - 1) * barHeight;
+        bar.beginFill(color, 1.0).drawRoundedRect(0, healthBarY, healthPercent * this.w, barHeight, 2);
+
+        // Draw the container (outermost border)
+        bar.beginFill(black, 0).lineStyle(bs, black, 1.0).drawRoundedRect(0, 0, this.w, h, 3);
+
+        // Set position
+        bar.position.set(0, number === 0 ? this.h - h : 0);
     }
 
     /** Make the drawing promise accessible to `#redraw` */
-    override async draw(): Promise<this> {
-        if (!this.kimsNaughtyModule) this.auras.clear();
-        this.drawLock = super.draw();
+    protected override async _draw(): Promise<void> {
+        this.auras.clear();
+        this.drawLock = super._draw();
         await this.drawLock;
-
-        return this;
     }
 
     /** Draw auras along with effect icons */
-    override drawEffects(): Promise<void> {
-        if (!this.kimsNaughtyModule) this.auras.draw();
-        return super.drawEffects();
+    override async drawEffects(): Promise<void> {
+        await super.drawEffects();
+        await this._animation;
+        this.auras.draw();
     }
 
     emitHoverIn() {
@@ -186,10 +208,12 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Include actor overrides in the clone if it is a preview */
     override clone(): this {
         const clone = super.clone();
-        if (!clone.id) {
-            clone.data.height = this.data.height;
-            clone.data.width = this.data.width;
-            clone.data.img = this.data.img;
+        if (clone.isPreview) {
+            clone.document.height = this.document.height;
+            clone.document.width = this.document.width;
+            clone.document.texture.scaleX = this.document.texture.scaleX;
+            clone.document.texture.scaleY = this.document.texture.scaleY;
+            clone.document.texture.src = this.document.texture.src;
         }
 
         return clone;
@@ -197,7 +221,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Emit floaty text from this tokens */
     async showFloatyText(params: number | ShowFloatyEffectParams): Promise<void> {
-        const scrollingTextArgs = ((): Parameters<ObjectHUD<TokenPF2e>["createScrollingText"]> | null => {
+        const scrollingTextArgs = ((): Parameters<CanvasPF2e["interface"]["createScrollingText"]> | null => {
             if (typeof params === "number") {
                 const quantity = params;
                 const maxHP = this.actor?.hitPoints?.max;
@@ -209,6 +233,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                     healing: 65280, // greenish
                 };
                 return [
+                    this.center,
                     params.signedString(),
                     {
                         anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
@@ -225,17 +250,17 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 const sign = isAdded ? "+ " : "- ";
                 const appendedNumber = details.value ? ` ${details.value}` : "";
                 const content = `${sign}${details.name}${appendedNumber}`;
+                const anchorDirection = isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM;
+                const textStyle = pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
 
                 return [
+                    this.center,
                     content,
                     {
-                        anchor: change === "create" ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
-                        direction: isAdded ? 2 : 1,
+                        ...textStyle,
+                        anchor: anchorDirection,
+                        direction: anchorDirection,
                         jitter: 0.25,
-                        fill: "white",
-                        fontSize: 28,
-                        stroke: 0x000000,
-                        strokeThickness: 4,
                     },
                 ];
             }
@@ -243,7 +268,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (!scrollingTextArgs) return;
 
         await this.drawLock;
-        await this.hud?.createScrollingText(...scrollingTextArgs);
+        await canvas.interface?.createScrollingText(...scrollingTextArgs);
     }
 
     /**
@@ -261,89 +286,87 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
 
         const distance = {
-            horizontal: measureDistanceRect(this.bounds, target.bounds, { reach }),
-            vertical: 0,
+            xy: measureDistanceRect(this.bounds, target.bounds, { reach }),
+            xz: 0,
+            yz: 0,
         };
 
-        const selfElevation = this.data.elevation;
-        const targetElevation = target.data.elevation;
-        if (selfElevation === targetElevation || !this.actor || !target.actor) return distance.horizontal;
+        const selfElevation = this.document.elevation;
+        const targetElevation = target.document.elevation;
+        if (selfElevation === targetElevation || !this.actor || !target.actor) return distance.xy;
 
         const [selfDimensions, targetDimensions] = [this.actor.dimensions, target.actor.dimensions];
-        if (!(selfDimensions && targetDimensions)) return distance.horizontal;
+        if (!(selfDimensions && targetDimensions)) return distance.xy;
 
         const gridSize = canvas.dimensions.size;
         const gridDistance = canvas.dimensions.distance;
-        const vertical = {
-            self: new NormalizedRectangle(
+
+        const xzPlane = {
+            self: new PIXI.Rectangle(
                 this.bounds.x,
-                (this.data.elevation / gridDistance) * gridSize,
+                Math.floor((selfElevation / gridDistance) * gridSize),
                 this.bounds.width,
-                (selfDimensions.height / gridDistance) * gridSize
+                Math.floor((selfDimensions.height / gridDistance) * gridSize)
             ),
-            target: new NormalizedRectangle(
+            target: new PIXI.Rectangle(
                 target.bounds.x,
-                (target.data.elevation / gridDistance) * gridSize,
+                Math.floor((targetElevation / gridDistance) * gridSize),
                 target.bounds.width,
-                (targetDimensions.height / gridDistance) * gridSize
+                Math.floor((targetDimensions.height / gridDistance) * gridSize)
             ),
         };
+        distance.xz = measureDistanceRect(xzPlane.self, xzPlane.target, { reach });
 
-        distance.vertical = measureDistanceRect(vertical.self, vertical.target, { reach });
-        const hypotenuse = Math.sqrt(Math.pow(distance.horizontal, 2) + Math.pow(distance.vertical, 2));
+        const yzPlane = {
+            self: new PIXI.Rectangle(
+                this.bounds.y,
+                Math.floor((selfElevation / gridDistance) * gridSize),
+                this.bounds.height,
+                Math.floor((selfDimensions.height / gridDistance) * gridSize)
+            ),
+            target: new PIXI.Rectangle(
+                target.bounds.y,
+                Math.floor((targetElevation / gridDistance) * gridSize),
+                target.bounds.height,
+                Math.floor((targetDimensions.height / gridDistance) * gridSize)
+            ),
+        };
+        distance.yz = measureDistanceRect(yzPlane.self, yzPlane.target, { reach });
+
+        const hypotenuse = Math.sqrt(Math.pow(distance.xy, 2) + Math.pow(Math.max(distance.xz, distance.yz), 2));
 
         return Math.floor(hypotenuse / gridDistance) * gridDistance;
     }
 
     /** Add a callback for when a movement animation finishes */
-    override async animateMovement(ray: Ray): Promise<void> {
-        await super.animateMovement(ray);
-        this.onFinishMoveAnimation();
+    override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void> {
+        await super.animate(updateData, options);
+        if (!this._animation) this.onFinishAnimation();
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
 
     /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         super._onControl(options);
-        if (!this.kimsNaughtyModule) this.auras.refresh();
-        canvas.lighting.setPerceivedLightLevel(this);
+        this.auras.refresh();
     }
 
     /** Refresh vision and the `EffectsPanel` */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
 
-        const hasLowLightVision = canvas.sight.sources.some((s) => s.object !== this && s.object.hasLowLightVision);
-        canvas.lighting.setPerceivedLightLevel({ hasLowLightVision });
         super._onRelease(options);
-        if (!this.kimsNaughtyModule) this.auras.refresh();
-    }
 
-    /** Work around Foundry bug in which unlinked token redrawing performed before data preparation completes */
-    override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
-        options: DocumentModificationContext<this["document"]>,
-        userId: string
-    ): void {
-        if (!this.document.isLinked) {
-            const { width, height, scale, img } = this.data;
-            this.document.prepareData();
-            // If any of the following changed, a full redraw should be performed
-            const { data } = this;
-            const postChange = { width: data.width, height: data.height, scale: data.scale, img: data.img };
-            mergeObject(changed, diffObject({ width, height, scale, img }, postChange));
-        }
-
-        super._onUpdate(changed, options, userId);
+        this.auras.refresh();
     }
 
     protected override _onDragLeftStart(event: TokenInteractionEvent<this>): void {
         super._onDragLeftStart(event);
-        if (!this.kimsNaughtyModule) this.auras.clearHighlights();
+        this.auras.clearHighlights();
     }
 
     /** If a single token (this one) was dropped, re-establish the hover status */
@@ -356,7 +379,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             this.emitHoverIn();
         }
 
-        if (!this.kimsNaughtyModule) this.auras.refresh();
+        this.auras.refresh();
 
         return dropped;
     }
@@ -364,7 +387,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onHoverIn(event: PIXI.InteractionEvent, options?: { hoverOutOthers?: boolean }): boolean {
         const refreshed = super._onHoverIn(event, options);
         if (refreshed === false) return false;
-        if (!this.kimsNaughtyModule) this.auras.refresh();
+        this.auras.refresh();
 
         return true;
     }
@@ -372,7 +395,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onHoverOut(event: PIXI.InteractionEvent): boolean {
         const refreshed = super._onHoverOut(event);
         if (refreshed === false) return false;
-        if (!this.kimsNaughtyModule) this.auras.refresh();
+        this.auras.refresh();
 
         return true;
     }
@@ -380,13 +403,23 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Destroy auras before removing this token from the canvas */
     override _onDelete(options: DocumentModificationContext<TokenDocumentPF2e>, userId: string): void {
         super._onDelete(options, userId);
-        if (!this.kimsNaughtyModule) this.auras.clear();
+        this.auras.clear();
     }
 
     /** A callback for when a movement animation for this token finishes */
-    private async onFinishMoveAnimation(): Promise<void> {
-        if (this._movement) return;
-        if (!this.kimsNaughtyModule) this.auras.refresh();
+    private async onFinishAnimation(): Promise<void> {
+        await this._animation;
+        this.auras.refresh();
+    }
+
+    /** Handle system-specific status effects (upstream handles invisible and blinded) */
+    override _onApplyStatusEffect(statusId: string, active: boolean): void {
+        super._onApplyStatusEffect(statusId, active);
+
+        if (["undetected", "unnoticed"].includes(statusId)) {
+            canvas.perception.update({ refreshVision: true, refreshLighting: true }, true);
+            this.mesh.refresh();
+        }
     }
 }
 

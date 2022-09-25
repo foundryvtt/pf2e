@@ -3,7 +3,7 @@ import { PhysicalItemPF2e, TreasurePF2e } from "@item";
 import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
 import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers";
-import { groupBy } from "@util";
+import { ErrorPF2e, groupBy } from "@util";
 import { InventoryBulk } from "./bulk";
 
 class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
@@ -27,7 +27,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
         if (this.actor.isOfType("character")) {
             return {
                 value: this.filter((item) => !!item.isInvested).length,
-                max: this.actor.data.data.resources.investiture.max,
+                max: this.actor.system.resources.investiture.max,
             };
         }
 
@@ -45,20 +45,19 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
         for (const denomination of DENOMINATIONS) {
             const quantity = coins[denomination] ?? 0;
             if (quantity > 0) {
-                const item = coinsByDenomination.get(denomination)?.[0];
+                const item = coinsByDenomination.get(denomination)?.at(0);
                 if (item) {
-                    await item.update({ "data.quantity": item.quantity + quantity });
+                    await item.update({ "system.quantity": item.quantity + quantity });
                 } else {
                     const compendiumId = coinCompendiumIds[denomination];
                     const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e>>(
                         (p) => p.collection === "pf2e.equipment-srd"
                     );
-                    if (!pack) {
-                        throw Error("unable to get pack!");
-                    }
-                    const item = await pack.getDocument(compendiumId);
-                    if (item?.data.type === "treasure") {
-                        item.data.update({ "data.quantity": quantity });
+                    if (!pack) throw ErrorPF2e("Unexpected error retrieving equipment compendium");
+
+                    const item = (await pack.getDocument(compendiumId))?.clone();
+                    if (item?.isOfType("treasure")) {
+                        item.updateSource({ "system.quantity": quantity });
                         await this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
                     }
                 }
@@ -149,7 +148,7 @@ class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
                 for (const item of coinItems) {
                     if (quantityToRemove === 0) break;
                     if (item.quantity > quantityToRemove) {
-                        itemsToUpdate.push({ _id: item.id, "data.quantity": item.quantity - quantityToRemove });
+                        itemsToUpdate.push({ _id: item.id, "system.quantity": item.quantity - quantityToRemove });
                         quantityToRemove = 0;
                         break;
                     } else {

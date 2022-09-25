@@ -31,7 +31,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         switch (overlayType) {
             case "override":
                 await this.spell.update({
-                    [`data.overlays.${id}`]: {
+                    [`system.overlays.${id}`]: {
                         _id: id,
                         sort: this.overrideVariants.length + 1,
                         overlayType: "override",
@@ -53,7 +53,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         options?: DocumentModificationContext
     ): Promise<Embedded<SpellPF2e>> {
         // Perform local data update of spell variant data
-        variantSpell.data.update(data, options);
+        variantSpell.updateSource(data, options);
 
         // Diff data and only save the difference
         const variantSource = variantSpell.toObject();
@@ -63,20 +63,20 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         if (Object.keys(difference).length === 0) return variantSpell;
 
         // Always remove the spell description if it makes it this far
-        delete difference.data?.description;
+        delete difference.system?.description;
         // Restore overlayType
         difference.overlayType = "override";
 
         // Delete old entry to ensure clean data
         await this.spell.update(
             {
-                [`data.overlays.-=${variantSpell.id}`]: null,
+                [`system.overlays.-=${variantSpell.id}`]: null,
             },
             { render: false }
         );
         // Save new diff object
         await this.spell.update({
-            [`data.overlays.${variantSpell.id}`]: difference,
+            [`system.overlays.${variantSpell.id}`]: difference,
         });
 
         if (variantSpell.sheet.rendered) {
@@ -90,7 +90,7 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
         this.verifyOverlayId(overlayId);
 
         await this.spell.update({
-            [`data.overlays.-=${overlayId}`]: null,
+            [`system.overlays.-=${overlayId}`]: null,
         });
         this.delete(overlayId);
     }

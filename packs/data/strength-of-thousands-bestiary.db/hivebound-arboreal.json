@@ -1,141 +1,13 @@
 {
     "_id": "EYAcaqkQajIbvtLB",
-    "data": {
-        "abilities": {
-            "cha": {
-                "mod": 5
-            },
-            "con": {
-                "mod": 10
-            },
-            "dex": {
-                "mod": -1
-            },
-            "int": {
-                "mod": 0
-            },
-            "str": {
-                "mod": 10
-            },
-            "wis": {
-                "mod": 6
-            }
-        },
-        "attributes": {
-            "ac": {
-                "details": "",
-                "value": 44
-            },
-            "allSaves": {
-                "value": ""
-            },
-            "hp": {
-                "details": "",
-                "max": 400,
-                "temp": 0,
-                "value": 400
-            },
-            "initiative": {
-                "ability": "perception"
-            },
-            "perception": {
-                "value": 33
-            },
-            "shield": {
-                "ac": 2,
-                "brokenThreshold": 0,
-                "hardness": 0,
-                "max": 0,
-                "value": 0
-            },
-            "speed": {
-                "details": "Freedom of Movement",
-                "otherSpeeds": [],
-                "special": "",
-                "value": "25"
-            }
-        },
-        "details": {
-            "alignment": {
-                "value": "NE"
-            },
-            "blurb": "Variant arboreal regent",
-            "creatureType": "",
-            "level": {
-                "value": 19
-            },
-            "privateNotes": "",
-            "publicNotes": "",
-            "source": {
-                "value": "Pathfinder #174: Shadows of the Ancients"
-            }
-        },
-        "resources": {},
-        "saves": {
-            "fortitude": {
-                "saveDetail": "",
-                "value": 35
-            },
-            "reflex": {
-                "saveDetail": "",
-                "value": 26
-            },
-            "will": {
-                "saveDetail": "",
-                "value": 33
-            }
-        },
-        "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "bludgeoning",
-                    "value": 15
-                },
-                {
-                    "type": "piercing",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 20
-                }
-            ],
-            "languages": {
-                "custom": "speak with plants",
-                "selected": [],
-                "value": [
-                    "arboreal",
-                    "common",
-                    "sylvan"
-                ]
-            },
-            "rarity": "rare",
-            "senses": {
-                "value": "low-light vision, tremorsense (imprecise) 120 feet"
-            },
-            "size": {
-                "value": "huge"
-            },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "plant"
-                ]
-            }
-        }
-    },
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "2NKCtJjUJ5Cw0sK7",
-            "data": {
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Primal Innate Spells",
+            "sort": 100000,
+            "system": {
                 "autoHeightenLevel": {
                     "value": null
                 },
@@ -237,14 +109,19 @@
                     "value": []
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Primal Innate Spells",
-            "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
             "_id": "g2FDWdQC6tRJP4MA",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Tc5NLaMu71vrGTJQ"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/natures-enmity.webp",
+            "name": "Nature's Enmity",
+            "sort": 200000,
+            "system": {
                 "ability": {
                     "value": ""
                 },
@@ -271,7 +148,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Animals and plants in the area turn against the targets. Each target suffers from the following effects as long as it remains in the area.</p>\n<ul>\n<li>Vegetation springs up from every surface, giving each target a -10-foot circumstance penalty to its Speed any time it's adjacent to the plants.</li>\n<li>Aggressive animals attack unpredictably. At the start of its turn, each target rolls a DC 8 flat check. On a failure, it's attacked by swarming creatures that deal 2d10 slashing damage. The target attempts a basic Reflex save, and it is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on any outcome other than a critical success.</li>\n<li>The target loses any connection to nature or natural creatures. The target has to succeed at a DC 5 flat check when casting any primal spell or the spell fails. Furthermore, animal or plant creatures become hostile to it, even one with a strong bond to the target, such as an animal companion.</li>\n</ul>\n<p>The GM might decide that you can't subject some creatures, such as an emissary of a nature deity, to the ire of nature.</p>"
+                    "value": "<p>Animals and plants in the area turn against the targets. Each target suffers from the following effects as long as it remains in the area.</p>\n<ul>\n<li>Vegetation springs up from every surface, giving each target a -10-foot circumstance penalty to its Speed any time it's adjacent to the plants.</li>\n<li>Aggressive animals attack unpredictably. At the start of its turn, each target rolls a @Check[type:flat|dc:8]. On a failure, it's attacked by swarming creatures that deal 2d10 slashing damage. The target attempts a basic Reflex save, and it is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on any outcome other than a critical success.</li>\n<li>The target loses any connection to nature or natural creatures. The target has to succeed at a @Check[type:flat|dc:5] when casting any primal spell or the spell fails. Furthermore, animal or plant creatures become hostile to it, even one with a strong bond to the target, such as an animal companion.</li>\n</ul>\n<p>The GM might decide that you can't subject some creatures, such as an emissary of a nature deity, to the ire of nature.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -338,19 +215,19 @@
                     "value": []
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Tc5NLaMu71vrGTJQ"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/natures-enmity.webp",
-            "name": "Nature's Enmity",
-            "sort": 200000,
             "type": "spell"
         },
         {
             "_id": "bbxOh8sXV4ZcRJaR",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.M0jQlpQYUr0pp2Sv"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
+            "name": "Horrid Wilting",
+            "sort": 300000,
+            "system": {
                 "ability": {
                     "value": ""
                 },
@@ -463,19 +340,19 @@
                     ]
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.M0jQlpQYUr0pp2Sv"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/horrid-wilting.webp",
-            "name": "Horrid Wilting",
-            "sort": 300000,
             "type": "spell"
         },
         {
             "_id": "CPQo3fFZrgoLh50R",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.JbAcSLu62TU1OgNF"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/tangling-creepers.webp",
+            "name": "Tangling Creepers",
+            "sort": 400000,
+            "system": {
                 "ability": {
                     "value": ""
                 },
@@ -571,19 +448,19 @@
                     ]
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.JbAcSLu62TU1OgNF"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/tangling-creepers.webp",
-            "name": "Tangling Creepers",
-            "sort": 400000,
             "type": "spell"
         },
         {
             "_id": "H5WzFldUoZiDvYER",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aqRYNoSvxsVfqglH"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
+            "name": "Freedom of Movement (Constant)",
+            "sort": 500000,
+            "system": {
                 "ability": {
                     "value": ""
                 },
@@ -679,19 +556,19 @@
                     "value": []
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.aqRYNoSvxsVfqglH"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
-            "name": "Freedom of Movement (Constant)",
-            "sort": 500000,
             "type": "spell"
         },
         {
             "_id": "xuaoAsSqcKi66lGo",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.qvwIwJ9QBihy8R0t"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/speak-with-plants.webp",
+            "name": "Speak with Plants (Constant)",
+            "sort": 600000,
+            "system": {
                 "ability": {
                     "value": ""
                 },
@@ -787,19 +664,19 @@
                     ]
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.qvwIwJ9QBihy8R0t"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/speak-with-plants.webp",
-            "name": "Speak with Plants (Constant)",
-            "sort": 600000,
             "type": "spell"
         },
         {
             "_id": "r556gVe8n4GyHWwR",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gPvtmKMRpg9I9D7H"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/earthbind.webp",
+            "name": "Earthbind (At Will)",
+            "sort": 700000,
+            "system": {
                 "ability": {
                     "value": ""
                 },
@@ -895,19 +772,19 @@
                     "value": []
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.gPvtmKMRpg9I9D7H"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/earthbind.webp",
-            "name": "Earthbind (At Will)",
-            "sort": 700000,
             "type": "spell"
         },
         {
             "_id": "NEaDNey1CUaqXfCG",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.J6vNvrUT3b1hx2iA"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/entangle.webp",
+            "name": "Entangle",
+            "sort": 800000,
+            "system": {
                 "ability": {
                     "value": ""
                 },
@@ -1003,19 +880,14 @@
                     ]
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.J6vNvrUT3b1hx2iA"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/entangle.webp",
-            "name": "Entangle",
-            "sort": 800000,
             "type": "spell"
         },
         {
             "_id": "h1cevfjxxre03qvw",
-            "data": {
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Branch",
+            "sort": 900000,
+            "system": {
                 "attack": {
                     "value": ""
                 },
@@ -1053,14 +925,14 @@
                     "value": "melee"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Branch",
-            "sort": 900000,
             "type": "melee"
         },
         {
             "_id": "eqcv1v81thoi9n12",
-            "data": {
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Root",
+            "sort": 1000000,
+            "system": {
                 "attack": {
                     "value": ""
                 },
@@ -1097,14 +969,14 @@
                     "value": "melee"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Root",
-            "sort": 1000000,
             "type": "melee"
         },
         {
             "_id": "blcs07ocvi4u0g8b",
-            "data": {
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Rock",
+            "sort": 1100000,
+            "system": {
                 "attack": {
                     "value": ""
                 },
@@ -1141,14 +1013,19 @@
                     "value": "ranged"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Rock",
-            "sort": 1100000,
             "type": "melee"
         },
         {
             "_id": "I3h3BcKkDVIRb66Y",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 1200000,
+            "system": {
                 "actionCategory": {
                     "value": "interaction"
                 },
@@ -1181,19 +1058,19 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
-            "sort": 1200000,
             "type": "action"
         },
         {
             "_id": "Sj4Fb2B9ZAWW6Axx",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense",
+            "sort": 1300000,
+            "system": {
                 "actionCategory": {
                     "value": "interaction"
                 },
@@ -1226,19 +1103,19 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Tremorsense",
-            "sort": 1300000,
             "type": "action"
         },
         {
             "_id": "waUIdJqLOMRjXSwO",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 1400000,
+            "system": {
                 "actionCategory": {
                     "value": "interaction"
                 },
@@ -1271,19 +1148,19 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
-            "sort": 1400000,
             "type": "action"
         },
         {
             "_id": "Z1MdR48WRRSWr39R",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 1500000,
+            "system": {
                 "actionCategory": {
                     "value": "interaction"
                 },
@@ -1316,19 +1193,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Constant Spells",
-            "sort": 1500000,
             "type": "action"
         },
         {
             "_id": "b8m3301u6voc54xx",
-            "data": {
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Axe Vulnerability",
+            "sort": 1600000,
+            "system": {
                 "actionCategory": {
                     "value": "defensive"
                 },
@@ -1358,14 +1230,14 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Axe Vulnerability",
-            "sort": 1600000,
             "type": "action"
         },
         {
             "_id": "imdm1852t7fcgfad",
-            "data": {
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Swarm Host",
+            "sort": 1700000,
+            "system": {
                 "actionCategory": {
                     "value": "defensive"
                 },
@@ -1398,14 +1270,19 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Swarm Host",
-            "sort": 1700000,
             "type": "action"
         },
         {
             "_id": "29LsTHqCXSCofSTG",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 1800000,
+            "system": {
                 "actionCategory": {
                     "value": "offensive"
                 },
@@ -1438,19 +1315,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Constrict",
-            "sort": 1800000,
             "type": "action"
         },
         {
             "_id": "bqm225yruvrtoqii",
-            "data": {
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Offered to the Swarm",
+            "sort": 1900000,
+            "system": {
                 "actionCategory": {
                     "value": "offensive"
                 },
@@ -1480,14 +1352,19 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Offered to the Swarm",
-            "sort": 1900000,
             "type": "action"
         },
         {
             "_id": "ui6C4yPnBdBzKwqZ",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.a0tx6exmB9v9CUsj"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Throw Rock",
+            "sort": 2000000,
+            "system": {
                 "actionCategory": {
                     "value": "offensive"
                 },
@@ -1520,19 +1397,19 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.a0tx6exmB9v9CUsj"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Throw Rock",
-            "sort": 2000000,
             "type": "action"
         },
         {
             "_id": "kfbmbTeno3BQwPP7",
-            "data": {
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 2100000,
+            "system": {
                 "actionCategory": {
                     "value": "offensive"
                 },
@@ -1565,19 +1442,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/FreeAction.webp",
-            "name": "Improved Grab",
-            "sort": 2100000,
             "type": "action"
         },
         {
             "_id": "qrcl9jkhog9pxcc3",
-            "data": {
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 2200000,
+            "system": {
                 "description": {
                     "value": ""
                 },
@@ -1598,14 +1470,14 @@
                     "value": []
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 2200000,
             "type": "lore"
         },
         {
             "_id": "9xye30sakiid62ra",
-            "data": {
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 2300000,
+            "system": {
                 "description": {
                     "value": ""
                 },
@@ -1626,14 +1498,14 @@
                     "value": []
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 2300000,
             "type": "lore"
         },
         {
             "_id": "upscifmb43xshkgv",
-            "data": {
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Nature",
+            "sort": 2400000,
+            "system": {
                 "description": {
                     "value": ""
                 },
@@ -1654,14 +1526,14 @@
                     "value": []
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 2400000,
             "type": "lore"
         },
         {
             "_id": "ojfhu7bjohpv0j7r",
-            "data": {
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 2500000,
+            "system": {
                 "description": {
                     "value": ""
                 },
@@ -1682,19 +1554,137 @@
                     "value": []
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 2500000,
             "type": "lore"
         }
     ],
     "name": "Hivebound Arboreal",
-    "token": {
-        "disposition": -1,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Hivebound Arboreal",
-        "width": 1
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 5
+            },
+            "con": {
+                "mod": 10
+            },
+            "dex": {
+                "mod": -1
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 10
+            },
+            "wis": {
+                "mod": 6
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 44
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 400,
+                "temp": 0,
+                "value": 400
+            },
+            "initiative": {
+                "ability": "perception"
+            },
+            "perception": {
+                "value": 33
+            },
+            "shield": {
+                "ac": 2,
+                "brokenThreshold": 0,
+                "hardness": 0,
+                "max": 0,
+                "value": 0
+            },
+            "speed": {
+                "details": "Freedom of Movement",
+                "otherSpeeds": [],
+                "special": "",
+                "value": 25
+            }
+        },
+        "details": {
+            "alignment": {
+                "value": "NE"
+            },
+            "blurb": "Variant arboreal regent",
+            "creatureType": "",
+            "level": {
+                "value": 19
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "source": {
+                "value": "Pathfinder #174: Shadows of the Ancients"
+            }
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 35
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 33
+            }
+        },
+        "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "value": []
+            },
+            "dr": [
+                {
+                    "type": "bludgeoning",
+                    "value": 15
+                },
+                {
+                    "type": "piercing",
+                    "value": 15
+                }
+            ],
+            "dv": [
+                {
+                    "type": "fire",
+                    "value": 20
+                }
+            ],
+            "languages": {
+                "custom": "speak with plants",
+                "selected": [],
+                "value": [
+                    "arboreal",
+                    "common",
+                    "sylvan"
+                ]
+            },
+            "rarity": "rare",
+            "senses": {
+                "value": "low-light vision, tremorsense (imprecise) 120 feet"
+            },
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "plant"
+            ]
+        }
     },
     "type": "npc"
 }

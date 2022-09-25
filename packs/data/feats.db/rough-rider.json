@@ -1,6 +1,8 @@
 {
     "_id": "GF9kkULUYowgjEWM",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Rough Rider",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -30,17 +31,15 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:command-an-animal",
-                        {
-                            "or": [
-                                "target:goblin-dog",
-                                "target:wolf"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "action:command-an-animal",
+                    {
+                        "or": [
+                            "target:goblin-dog",
+                            "target:wolf"
+                        ]
+                    }
+                ],
                 "selector": "nature",
                 "type": "circumstance",
                 "value": 1
@@ -57,7 +56,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Rough Rider",
     "type": "feat"
 }

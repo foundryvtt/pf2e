@@ -1,6 +1,8 @@
 {
     "_id": "hDGosy2ZTwnyctEP",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Oddity Identification",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,17 +32,17 @@
             {
                 "key": "FlatModifier",
                 "label": "Oddity Identification (identify magic with specific traits)",
-                "predicate": {
-                    "all": [
-                        "action:identify-magic"
-                    ],
-                    "any": [
-                        "mental",
-                        "possession",
-                        "prediction",
-                        "scrying"
-                    ]
-                },
+                "predicate": [
+                    "action:identify-magic",
+                    {
+                        "or": [
+                            "mental",
+                            "possession",
+                            "prediction",
+                            "scrying"
+                        ]
+                    }
+                ],
                 "selector": "occultism",
                 "type": "circumstance",
                 "value": 2
@@ -59,7 +60,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Oddity Identification",
     "type": "feat"
 }

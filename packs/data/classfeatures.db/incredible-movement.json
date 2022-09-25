@@ -1,6 +1,8 @@
 {
     "_id": "Cq6NjvcKZOMySBVj",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/incredible-movement.webp",
+    "name": "Incredible Movement",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,18 +21,17 @@
         "level": {
             "value": 3
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "self:armored"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
                 "selector": "land-speed",
                 "type": "status",
                 "value": {
@@ -64,7 +65,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -74,7 +75,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/incredible-movement.webp",
-    "name": "Incredible Movement",
     "type": "feat"
 }

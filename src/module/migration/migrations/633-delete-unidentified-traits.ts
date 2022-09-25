@@ -11,10 +11,10 @@ export class Migration633DeleteUnidentifiedTraits extends MigrationBase {
     override async updateItem(itemData: ItemDataWithIdentification): Promise<void> {
         // This definitely shouldn't be here
         if (itemData.type === "melee") {
-            const systemData: MeleeWithIdentification = itemData.data;
+            const systemData: MeleeWithIdentification = itemData.system;
             if (systemData.identification) {
                 if ("game" in globalThis) {
-                    itemData["data.-=identification"] = null;
+                    itemData["system.-=identification"] = null;
                 } else {
                     delete systemData.identification;
                 }
@@ -23,10 +23,10 @@ export class Migration633DeleteUnidentifiedTraits extends MigrationBase {
 
         if (!isPhysicalData(itemData)) return;
 
-        const unidentifiedDataData: UnidentifiedWithTraits = itemData.data.identification?.unidentified?.data;
+        const unidentifiedDataData: UnidentifiedWithTraits = itemData.system.identification?.unidentified?.data;
         if (unidentifiedDataData?.traits) {
             if ("game" in globalThis) {
-                itemData["data.identification.unidentified.data.-=traits"] = null;
+                itemData["system.identification.unidentified.data.-=traits"] = null;
             } else {
                 delete unidentifiedDataData.traits;
             }
@@ -35,8 +35,8 @@ export class Migration633DeleteUnidentifiedTraits extends MigrationBase {
 }
 
 type ItemDataWithIdentification = ItemSourcePF2e & {
-    "data.-=identification"?: null;
-    "data.identification.unidentified.data.-=traits"?: null;
+    "system.-=identification"?: null;
+    "system.identification.unidentified.data.-=traits"?: null;
 };
 
 type UnidentifiedWithTraits = MystifiedData["data"] & {

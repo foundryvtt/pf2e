@@ -1,6 +1,8 @@
 {
     "_id": "kqnFdIhToKTnOpMl",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dream May",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "onlyLevel1": true,
         "prerequisites": {
             "value": []
@@ -28,12 +29,14 @@
             {
                 "key": "FlatModifier",
                 "label": "vs. sleep or dream-related effects (Dream May)",
-                "predicate": {
-                    "any": [
-                        "sleep",
-                        "dream"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "sleep",
+                            "dream"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
@@ -41,7 +44,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.attributes.hp.recoveryMultiplier",
+                "path": "system.attributes.hp.recoveryMultiplier",
                 "value": 1
             }
         ],
@@ -57,7 +60,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Dream May",
     "type": "feat"
 }

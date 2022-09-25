@@ -19,7 +19,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         if ((Number(document.schemaVersion) || 0) < currentVersion) {
             const runner = new this(migrations);
-            const source = document.data._source;
+            const source = document._source;
             const updated = await (async () => {
                 try {
                     return "items" in source
@@ -29,15 +29,15 @@ export class MigrationRunner extends MigrationRunnerBase {
                     return null;
                 }
             })();
-            if (updated) document.data.update(updated);
+            if (updated) document.updateSource(updated);
         }
 
-        document.data.update({ "data.schema.version": currentVersion });
+        document.updateSource({ "system.schema.version": currentVersion });
         // Discriminate between item and actor without importing, which would throw errors on the migration test
         if ("items" in document && "token" in document) {
             for (const item of document.items) {
                 if (!item.schemaVersion) {
-                    item.data.update({ "data.schema.version": currentVersion });
+                    item.updateSource({ "system.schema.version": currentVersion });
                 }
             }
         }
@@ -49,7 +49,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         migrations: MigrationBase[]
     ): Promise<void> {
         const DocumentClass = collection.documentClass as unknown as typeof ClientDocument;
-        const updateGroup: TDocument["data"]["_source"][] = [];
+        const updateGroup: TDocument["_source"][] = [];
         // Have familiars go last so that their data migration and re-preparation happen after their master's
         for (const document of collection.contents.sort((a) => (a.type === "familiar" ? 1 : -1))) {
             if (updateGroup.length === 50) {
@@ -161,7 +161,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         // Delete embedded ActiveEffects on embedded Items
         for (const updated of updatedItems) {
-            const original = baseActor.items.find((item) => item._id === updated._id);
+            const original = baseActor.items.find((i) => i._id === updated._id);
             if (!original) continue;
             const itemAEDiff = this.diffCollection(original.effects, updated.effects);
             if (itemAEDiff.deleted.length > 0) {
@@ -185,7 +185,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         try {
             const updatedMacro = await this.getUpdatedMacro(macro.toObject(), migrations);
             const changes = diffObject(macro.toObject(), updatedMacro);
-            if (!isObjectEmpty(changes)) {
+            if (Object.keys(changes).length > 0) {
                 await macro.update(changes, { noHook: true });
             }
         } catch (error) {
@@ -199,7 +199,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         try {
             const updatedMacro = await this.getUpdatedTable(table.toObject(), migrations);
             const changes = diffObject(table.toObject(), updatedMacro);
-            if (!isObjectEmpty(changes)) {
+            if (Object.keys(changes).length > 0) {
                 table.update(changes, { noHook: true });
             }
         } catch (error) {
@@ -217,7 +217,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             const updatedToken = await this.getUpdatedToken(token, migrations);
             const changes = diffObject(token.toObject(), updatedToken);
 
-            if (!isObjectEmpty(changes)) {
+            if (Object.keys(changes).length > 0) {
                 try {
                     await token.update(changes, { noHook: true });
                 } catch (error) {
@@ -238,7 +238,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             const baseUser = user.toObject();
             const updatedUser = await this.getUpdatedUser(baseUser, migrations);
             const changes = diffObject(user.toObject(), updatedUser);
-            if (!isObjectEmpty(changes)) {
+            if (Object.keys(changes).length > 0) {
                 await user.update(changes, { noHook: true });
             }
         } catch (error) {
@@ -308,7 +308,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             latest: MigrationRunner.LATEST_SCHEMA_VERSION,
             current: game.settings.get("pf2e", "worldSchemaVersion"),
         };
-        const systemVersion = game.system.data.version;
+        const systemVersion = game.system.version;
 
         ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: systemVersion }), {
             permanent: true,

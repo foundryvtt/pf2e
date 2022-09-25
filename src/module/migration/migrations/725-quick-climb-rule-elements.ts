@@ -6,7 +6,7 @@ import { MigrationBase } from "../base";
 export class Migration725QuickClimbREs extends MigrationBase {
     static override version = 0.725;
 
-    private quickClimb: MaybeNote[] = [
+    private quickClimb: NoteOrBaseSpeed[] = [
         {
             key: "BaseSpeed",
             predicate: {
@@ -26,12 +26,13 @@ export class Migration725QuickClimbREs extends MigrationBase {
     ];
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.type === "feat" && source.data.slug === "quick-climb") {
-            source.data.rules = deepClone(this.quickClimb);
+        if (source.type === "feat" && source.system.slug === "quick-climb") {
+            source.system.rules = deepClone(this.quickClimb);
         }
     }
 }
 
-interface MaybeNote extends RuleElementSource {
+interface NoteOrBaseSpeed extends RuleElementSource {
+    selector?: string;
     text?: string;
 }

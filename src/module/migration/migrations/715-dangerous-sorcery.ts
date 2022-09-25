@@ -18,9 +18,9 @@ export class Migration715DangerousSorcery extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "feat") return;
 
-        const slug = source.data.slug ?? sluggify(source.name);
-        if (slug === "dangerous-sorcery" && !source.data.rules.length) {
-            source.data.rules = [this.dangerousSorcery];
+        const slug = source.system.slug ?? sluggify(source.name);
+        if (slug === "dangerous-sorcery" && !source.system.rules.length) {
+            source.system.rules = [this.dangerousSorcery];
         }
     }
 }

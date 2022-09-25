@@ -1,6 +1,8 @@
 {
     "_id": "7utuH8VJjKEzKtNw",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/belt-of-giant-strength.webp",
+    "name": "Belt of Giant Strength",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
@@ -43,13 +45,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Belt of Giant Strength (lift heavy objects, Escape, Force Open)",
-                "predicate": {
-                    "any": [
-                        "action:lift-heavy-object",
-                        "action:escape",
-                        "action:force-open"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:lift-heavy-object",
+                            "action:escape",
+                            "action:force-open"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "circumstance",
                 "value": 2
@@ -57,13 +61,13 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.abilities.str.value",
+                "path": "system.abilities.str.value",
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.abilities.str.value",
+                "path": "system.abilities.str.value",
                 "value": 18
             }
         ],
@@ -87,7 +91,5 @@
             "value": "L"
         }
     },
-    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/belt-of-giant-strength.webp",
-    "name": "Belt of Giant Strength",
     "type": "equipment"
 }

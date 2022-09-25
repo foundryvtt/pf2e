@@ -1,6 +1,8 @@
 {
     "_id": "GFtNQvpzuqtsdOTG",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hunter's Aim",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -32,27 +33,23 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "hunters-aim",
-                        "hunted-prey",
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "hunters-aim",
+                    "hunted-prey",
+                    "ranged"
+                ],
                 "selector": "attack",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "hunters-aim",
-                        "hunted-prey",
-                        "ranged",
-                        "target:condition:concealed"
-                    ]
-                },
+                "predicate": [
+                    "hunters-aim",
+                    "hunted-prey",
+                    "ranged",
+                    "target:condition:concealed"
+                ],
                 "selector": "attack",
                 "text": "Ignore your prey's concealed condition.",
                 "title": "{item|name}"
@@ -70,7 +67,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Hunter's Aim",
     "type": "feat"
 }

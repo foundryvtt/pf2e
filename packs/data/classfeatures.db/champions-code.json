@@ -1,6 +1,8 @@
 {
     "_id": "fykh5pE99O3I2sOI",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/champion-code.webp",
+    "name": "Champion's Code",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,31 +21,34 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "any": [
-                        "class:champion:alignment:lg",
-                        "class:champion:alignment:ng",
-                        "class:champion:alignment:cg"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:champion:alignment:lg",
+                            "class:champion:alignment:ng",
+                            "class:champion:alignment:cg"
+                        ]
+                    }
+                ],
                 "uuid": "Compendium.pf2e.classfeatures.The Tenets of Good"
             },
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "any": [
-                        "class:champion:alignment:le",
-                        "class:champion:alignment:ne",
-                        "class:champion:alignment:ce"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:champion:alignment:le",
+                            "class:champion:alignment:ne",
+                            "class:champion:alignment:ce"
+                        ]
+                    }
+                ],
                 "uuid": "Compendium.pf2e.classfeatures.The Tenets of Evil"
             }
         ],
@@ -58,7 +63,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/champion-code.webp",
-    "name": "Champion's Code",
     "type": "feat"
 }

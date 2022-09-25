@@ -1,6 +1,8 @@
 {
     "_id": "ypir96PNY6LBSIWT",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Alchemical Savant",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,23 +32,19 @@
             {
                 "key": "FlatModifier",
                 "label": "Alchemical Savant (identify alchemical items with formula)",
-                "predicate": {
-                    "all": [
-                        "action:identify-alchemy",
-                        "have-formula"
-                    ]
-                },
+                "predicate": [
+                    "action:identify-alchemy",
+                    "have-formula"
+                ],
                 "selector": "crafting",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "action:identify-alchemy"
-                    ]
-                },
+                "predicate": [
+                    "action:identify-alchemy"
+                ],
                 "selector": "crafting",
                 "text": "If have the formula for the item you're identifying, and you roll a critical failure, you get a failure instead.",
                 "title": "{item|name}"
@@ -64,7 +61,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Alchemical Savant",
     "type": "feat"
 }

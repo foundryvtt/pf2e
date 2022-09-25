@@ -45,6 +45,7 @@ declare global {
              * @param [options.recursive=true]      Control whether to merge inner-objects recursively (if true), or whether to simply replace inner objects with a provided new value.
              * @param [options.inplace=true]        Control whether to apply updates to the original object in-place (if true), otherwise the original object is duplicated and the copy is merged.
              * @param [options.enforceTypes=false]  Control whether strict type checking requires that the value of a key in the other object must match the data type in the original data to be merged.
+             * @param [options.performDeletions=false]  Control whether to perform deletions on the original object if deletion keys are present in the other object.
              * @param [_d=0]         A privately used parameter to track recursion depth.
              * @returns The original source object including updated, inserted, or overwritten records.
              *
@@ -68,7 +69,7 @@ declare global {
             function mergeObject<T extends object, U extends object = T>(
                 original: T,
                 other?: U,
-                { insertKeys, insertValues, overwrite, inplace, enforceTypes }?: MergeObjectOptions,
+                { insertKeys, insertValues, overwrite, inplace, enforceTypes, performDeletions }?: MergeObjectOptions,
                 _d?: number
             ): T & U;
 
@@ -201,7 +202,7 @@ declare global {
              * @param  b       The blue color value
              * @return         The HSV representation
              */
-            function rgbToHsv(r: number, g: number, b: number): Array<number>;
+            function rgbToHsv(r: number, g: number, b: number): number[];
 
             /**
              * Converts an HSV color value to RGB. Conversion formula
@@ -264,6 +265,28 @@ declare global {
              * @return          Return a string containing random letters and numbers
              */
             function randomID(length?: number): string;
+
+            /**
+             * Log a compatibility warning which is filtered based on the client's defined compatibility settings.
+             * @param message              The original warning or error message
+             * @param [options={}]         Additional options which customize logging
+             * @param [options.mode]       A logging level in COMPATIBILITY_MODES which overrides the configured default
+             * @param [options.since]      A version identifier since which a change was made
+             * @param [options.until]      A version identifier until which a change remains supported
+             * @param [options.details]    Additional details to append to the logged message
+             * @param [options.stack=true] Include the message stack trace
+             * @throws An Error if the mode is ERROR
+             */
+            function logCompatibilityWarning(
+                message: string,
+                options?: {
+                    mode?: CompatibilityMode;
+                    since?: number | string;
+                    until?: number | string;
+                    details?: string;
+                    stack?: boolean;
+                }
+            ): void;
         }
     }
 
@@ -273,6 +296,7 @@ declare global {
         overwrite?: boolean;
         inplace?: boolean;
         enforceTypes?: boolean;
+        performDeletions?: boolean;
     }
 
     namespace globalThis {

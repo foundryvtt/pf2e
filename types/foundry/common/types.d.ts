@@ -19,7 +19,9 @@ declare global {
     /* ----------------------------------------- */
 
     /** A Client Setting */
-    interface SettingConfig {
+    interface SettingConfig<
+        TChoices extends Record<string, unknown> | undefined = Record<string, unknown> | undefined
+    > {
         /** A unique machine-readable id for the setting */
         key: string;
         /** The namespace the setting belongs to */
@@ -33,15 +35,23 @@ declare global {
         /** Indicates if this Setting should render in the Config application */
         config: boolean;
         /** The JS Type that the Setting is storing */
-        type: NumberConstructor | StringConstructor | BooleanConstructor | ObjectConstructor | FunctionConstructor;
+        type:
+            | NumberConstructor
+            | StringConstructor
+            | BooleanConstructor
+            | ObjectConstructor
+            | ArrayConstructor
+            | FunctionConstructor;
         /** For string Types, defines the allowable values */
-        choices?: Record<string, string>;
+        choices?: TChoices;
         /** For numeric Types, defines the allowable range */
         range?: this["type"] extends NumberConstructor ? { min: number; max: number; step: number } : never;
         /** The default value */
         default: number | string | boolean | object | Function;
         /** Executes when the value of this Setting changes */
-        onChange?: (choice?: string) => void | Promise<void>;
+        onChange?: (
+            choice: TChoices extends Record<string, unknown> ? keyof TChoices : undefined
+        ) => void | Promise<void>;
     }
 
     interface SettingSubmenuConfig {

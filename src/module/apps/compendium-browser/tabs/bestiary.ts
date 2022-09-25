@@ -1,18 +1,33 @@
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { BestiaryFilters } from "./data";
+import { BestiaryFilters, CompendiumBrowserIndexData } from "./data";
 
 export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     protected index = [
         "img",
-        "data.details.level.value",
-        "data.details.alignment.value",
-        "data.details.source.value",
-        "data.traits",
+        "system.details.level.value",
+        "system.details.alignment.value",
+        "system.details.source.value",
+        "system.traits",
     ];
 
     override filterData!: BestiaryFilters;
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/bestiary.html";
+    /* MiniSearch */
+    override searchFields = ["name"];
+    override storeFields = [
+        "type",
+        "name",
+        "img",
+        "uuid",
+        "level",
+        "alignment",
+        "actorSize",
+        "traits",
+        "rarity",
+        "source",
+    ];
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "bestiary");
@@ -24,9 +39,9 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     protected override async loadData() {
         console.debug("PF2e System | Compendium Browser | Started loading Bestiary actors");
 
-        const bestiaryActors: CompendiumIndexData[] = [];
+        const bestiaryActors: CompendiumBrowserIndexData[] = [];
         const sources: Set<string> = new Set();
-        const indexFields = [...this.index, "data.details.isComplex"];
+        const indexFields = [...this.index, "system.details.isComplex"];
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Actor",
@@ -43,24 +58,23 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                         continue;
                     }
                     // Prepare source
-                    const source = actorData.data.details.source.value;
+                    const source = actorData.system.details.source.value;
                     if (source) {
                         sources.add(source);
-                        actorData.data.details.source.value = sluggify(source);
+                        actorData.system.details.source.value = sluggify(source);
                     }
 
                     bestiaryActors.push({
-                        _id: actorData._id,
                         type: actorData.type,
                         name: actorData.name,
                         img: actorData.img,
-                        compendium: pack.collection,
-                        level: actorData.data.details.level.value,
-                        alignment: actorData.data.details.alignment.value,
-                        actorSize: actorData.data.traits.size.value,
-                        traits: actorData.data.traits.traits.value,
-                        rarity: actorData.data.traits.rarity,
-                        source: actorData.data.details.source.value,
+                        uuid: `Compendium.${pack.collection}.${actorData._id}`,
+                        level: actorData.system.details.level.value,
+                        alignment: actorData.system.details.alignment.value,
+                        actorSize: actorData.system.traits.size.value,
+                        traits: actorData.system.traits.value,
+                        rarity: actorData.system.traits.rarity,
+                        source: actorData.system.details.source.value,
                     });
                 }
             }
@@ -80,15 +94,11 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading Bestiary actors");
     }
 
-    protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, search, sliders } = this.filterData;
+    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
+        const { checkboxes, sliders } = this.filterData;
+
         // Level
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
-        // Name
-        if (search.text) {
-            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
-                return false;
-        }
         // Size
         if (checkboxes.sizes.selected.length) {
             if (!checkboxes.sizes.selected.includes(entry.actorSize)) return false;
@@ -147,7 +157,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                 },
             },
             order: {
-                by: "name",
+                by: "level",
                 direction: "asc",
                 options: {
                     name: "PF2E.BrowserSortyByNameLabel",

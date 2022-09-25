@@ -1,6 +1,8 @@
 {
     "_id": "y1EmCv2cEb5hXBwx",
-    "data": {
+    "img": "systems/pf2e/icons/features/ancestry/keen-eyes.webp",
+    "name": "Keen Eyes",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,31 +21,29 @@
         "level": {
             "value": 0
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Keen Eyes (Seek hidden or undetected within 30 feet)",
-                "predicate": {
-                    "all": [
-                        "action:seek",
-                        "target:within-30-feet"
-                    ],
-                    "any": [
-                        "target:hidden",
-                        "target:undetected"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    "target:within-30-feet",
+                    {
+                        "or": [
+                            "target:hidden",
+                            "target:undetected"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -56,7 +56,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/ancestry/keen-eyes.webp",
-    "name": "Keen Eyes",
     "type": "feat"
 }

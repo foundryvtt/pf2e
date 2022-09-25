@@ -1,6 +1,8 @@
 {
     "_id": "CZx9HMmoOwcpkLY8",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Root Leshy",
+    "system": {
         "ancestry": {
             "name": "Leshy",
             "uuid": "Compendium.pf2e.ancestries.cdhgByGG1WtuaK73"
@@ -12,19 +14,21 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "data.attributes.ancestryhp",
+                "path": "system.attributes.ancestryhp",
                 "value": 10
             },
             {
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "label": "PF2E.SkillVariant.VsShoveOrTrip",
-                "predicate": {
-                    "any": [
-                        "action:shove",
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
                 "selector": "fortitude",
                 "type": "circumstance",
                 "value": 2
@@ -33,12 +37,14 @@
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "label": "PF2E.SkillVariant.VsShoveOrTrip",
-                "predicate": {
-                    "any": [
-                        "action:shove",
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
                 "selector": "reflex",
                 "type": "circumstance",
                 "value": 2
@@ -53,7 +59,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/heritage.svg",
-    "name": "Root Leshy",
     "type": "heritage"
 }

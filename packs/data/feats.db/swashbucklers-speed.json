@@ -1,6 +1,8 @@
 {
     "_id": "RU86cGTryRAdaEqx",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Swashbuckler's Speed",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 8
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -30,24 +31,23 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "panache"
-                    ]
-                },
-                "selector": "speed",
+                "predicate": [
+                    "self:effect:panache"
+                ],
+                "selector": "all-speeds",
+                "slug": "swashbucklers-speed-panache",
                 "type": "status",
                 "value": 10
             },
             {
                 "key": "FlatModifier",
-                "label": "Swashbuckler's Speed (Half)",
-                "predicate": {
-                    "not": [
-                        "panache"
-                    ]
-                },
-                "selector": "speed",
+                "predicate": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "all-speeds",
+                "slug": "swashbucklers-speed-no-panache",
                 "type": "status",
                 "value": 5
             }
@@ -63,7 +63,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Swashbuckler's Speed",
     "type": "feat"
 }

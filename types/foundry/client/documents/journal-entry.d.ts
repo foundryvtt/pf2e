@@ -52,11 +52,15 @@ declare global {
         /* -------------------------------------------- */
 
         override _onUpdate(
-            changed: DeepPartial<this["data"]["_source"]>,
+            changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext,
             userId: string
         ): void;
 
         override _onDelete(options: DocumentModificationContext, userId: string): void;
+    }
+
+    interface JournalEntry {
+        get sheet(): JournalSheet<this>;
     }
 }

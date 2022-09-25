@@ -1,6 +1,8 @@
 {
     "_id": "emRfSVvU8ZAH9UdK",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dangerous Sorcery",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,13 +28,11 @@
             {
                 "key": "FlatModifier",
                 "phase": "afterDerived",
-                "predicate": {
-                    "all": [
-                        "item:spell-slot",
-                        "item:duration:0",
-                        "damaging-effect"
-                    ]
-                },
+                "predicate": [
+                    "item:spell-slot",
+                    "item:duration:0",
+                    "damaging-effect"
+                ],
                 "selector": "spell-damage",
                 "type": "status",
                 "value": "@spell.level"
@@ -50,7 +49,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Dangerous Sorcery",
     "type": "feat"
 }

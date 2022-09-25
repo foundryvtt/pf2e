@@ -9,11 +9,11 @@ export class Migration627LowerCaseSpellSaves extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e) {
         if (itemData.type !== "spell") return;
-        const saveType = itemData.data.save.value?.toLowerCase() ?? "";
+        const saveType = itemData.system.save.value?.toLowerCase() ?? "";
         if (tupleHasValue(AllSaves, saveType)) {
-            itemData.data.save.value = saveType;
+            itemData.system.save.value = saveType;
         } else {
-            itemData.data.save.value = "";
+            itemData.system.save.value = "";
         }
     }
 }

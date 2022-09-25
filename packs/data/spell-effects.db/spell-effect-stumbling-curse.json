@@ -1,0 +1,53 @@
+{
+    "_id": "ViBlOrd6hno3DiPP",
+    "img": "systems/pf2e/icons/spells/stumbling-curse.webp",
+    "name": "Spell Effect: Stumbling Curse",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Stumbling Curse]{Stumbling Curse}</p>\n<p>The target takes a -2 status penalty to Athletics and Acrobatics checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "athletics",
+                "slug": "stumbling-curse-athletics",
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "acrobatics",
+                "slug": "stumbling-curse-acrobatics",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Dark Archive"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

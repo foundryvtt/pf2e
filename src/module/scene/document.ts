@@ -14,11 +14,19 @@ class ScenePF2e extends Scene<
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean {
         const settingEnabled = game.settings.get("pf2e", "automation.rulesBasedVision");
-        return this.data.tokenVision && settingEnabled;
+        return this.tokenVision && settingEnabled;
+    }
+
+    /** Is this scene's darkness value synced to the world time? */
+    get darknessSyncedToTime(): boolean {
+        return (
+            this.flags.pf2e.syncDarkness === "enabled" ||
+            (this.flags.pf2e.syncDarkness === "default" && game.settings.get("pf2e", "worldClock.syncDarkness"))
+        );
     }
 
     get lightLevel(): number {
-        return 1 - this.data.darkness;
+        return 1 - this.darkness;
     }
 
     get isBright(): boolean {
@@ -33,9 +41,16 @@ class ScenePF2e extends Scene<
         return this.lightLevel <= LightLevels.DARKNESS;
     }
 
+    get hasHexGrid(): boolean {
+        const squareOrGridless: number[] = [CONST.GRID_TYPES.GRIDLESS, CONST.GRID_TYPES.SQUARE];
+        return !squareOrGridless.includes(this.grid.type);
+    }
+
     /** Check for auras containing newly-placed or moved tokens */
     async checkAuras(): Promise<void> {
-        if (!this.active || this.data.gridType !== CONST.GRID_TYPES.SQUARE) return;
+        if (!(canvas.ready && this.active && this.grid.type === CONST.GRID_TYPES.SQUARE)) {
+            return;
+        }
 
         // Prevent concurrent executions of this method
         await this.auraCheckLock;
@@ -45,13 +60,18 @@ class ScenePF2e extends Scene<
         });
 
         // Get all tokens in the scene, excluding additional tokens linked to a common actor
-        const tokens = this.tokens.contents.reduce((list: Embedded<TokenDocumentPF2e>[], token) => {
-            if (token.data.actorLink && list.some((t) => t.actor === token.actor)) {
+        const tokens = this.tokens.reduce((list: Embedded<TokenDocumentPF2e>[], token) => {
+            if (token.isLinked && list.some((t) => t.actor === token.actor)) {
                 return list;
             }
             list.push(token);
             return list;
         }, []);
+
+        // Wait for any token animation to finish
+        for (const token of tokens) {
+            await token.object?._animation;
+        }
 
         const auras = tokens.flatMap((t) => Array.from(t.auras.values()));
         for (const aura of auras) {
@@ -64,11 +84,11 @@ class ScenePF2e extends Scene<
             }
         }
 
-        if (auras.length === 0) {
-            const sceneActors = new Set(tokens.flatMap((t) => t.actor ?? []));
-            for (const actor of sceneActors) {
-                await actor.checkAreaEffects();
-            }
+        const sceneActors = new Set(
+            tokens.flatMap((t) => (t.actor?.canUserModify(game.user, "update") ? t.actor : []))
+        );
+        for (const actor of sceneActors) {
+            await actor.checkAreaEffects();
         }
 
         lock.release();
@@ -86,18 +106,26 @@ class ScenePF2e extends Scene<
     override prepareBaseData(): void {
         super.prepareBaseData();
         if (this.rulesBasedVision) {
-            this.data.globalLight = true;
-            this.data.hasGlobalThreshold = true;
-            this.data.globalLightThreshold = 1 - (LightLevels.DARKNESS + 0.001);
+            this.globalLight = true;
+            this.hasGlobalThreshold = true;
+            this.globalLightThreshold = 1 - (LightLevels.DARKNESS + 0.001);
         }
 
-        this.data.flags.pf2e ??= { syncDarkness: "default" };
-        this.data.flags.pf2e.syncDarkness ??= "default";
+        this.flags.pf2e ??= { syncDarkness: "default" };
+        this.flags.pf2e.syncDarkness ??= "default";
     }
 }
 
 interface ScenePF2e {
     _sheet: SceneConfigPF2e<this> | null;
+
+    flags: {
+        pf2e: {
+            [key: string]: unknown;
+            syncDarkness: "enabled" | "disabled" | "default";
+        };
+        [key: string]: Record<string, unknown>;
+    };
 
     readonly data: SceneDataPF2e<this>;
 

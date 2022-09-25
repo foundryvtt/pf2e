@@ -16,7 +16,7 @@ import { LocalizePF2e } from "@system/localize";
 export async function createItemMacro(item: ItemSourcePF2e, slot: number): Promise<void> {
     const command = `game.pf2e.rollItemMacro("${item._id}");`;
     const macro =
-        game.macros.find((macro) => macro.name === item.name && macro.data.command === command) ??
+        game.macros.find((macro) => macro.name === item.name && macro.command === command) ??
         (await MacroPF2e.create(
             {
                 command,
@@ -47,13 +47,13 @@ export function rollItemMacro(itemId: string): ReturnType<ItemPF2e["toChat"]> | 
 
 export async function createActionMacro(actionIndex: number, actorId: string, slot: number): Promise<void> {
     const actor = game.actors.get(actorId, { strict: true });
-    const action = actor.isOfType("character", "npc") ? actor.data.data.actions[actionIndex] : null;
+    const action = actor.isOfType("character", "npc") ? actor.system.actions[actionIndex] : null;
     if (!action) return;
-    const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.name}`;
-    const actionName = JSON.stringify(action.name);
+    const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.slug}`;
+    const actionName = JSON.stringify(action.slug);
     const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, ${actionName})`;
     const actionMacro =
-        game.macros.find((macro) => macro.name === macroName && macro.data.command === command) ??
+        game.macros.find((macro) => macro.name === macroName && macro.command === command) ??
         (await MacroPF2e.create(
             {
                 command,
@@ -70,14 +70,16 @@ export async function createActionMacro(actionIndex: number, actorId: string, sl
 export async function rollActionMacro(actorId: string, actionIndex: number, actionName: string) {
     const actor = game.actors.get(actorId);
     if (actor?.isOfType("character", "npc")) {
-        const action = actor.data.data.actions.at(actionIndex);
-        if (action?.name === actionName) {
+        const action = actor.system.actions.at(actionIndex);
+        if (action?.slug === actionName) {
             if (action.type === "strike") {
                 const templateData = {
                     actor,
                     strike: action,
                     strikeIndex: actionIndex,
-                    strikeDescription: game.pf2e.TextEditor.enrichHTML(game.i18n.localize(action.description)),
+                    strikeDescription: await game.pf2e.TextEditor.enrichHTML(game.i18n.localize(action.description), {
+                        async: true,
+                    }),
                 };
 
                 const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.html", templateData);
@@ -112,13 +114,13 @@ export async function createSkillMacro(skill: SkillAbbreviation, skillName: stri
 const a = game.actors.get("${actorId}");
 if (a) {
     const opts = a.getRollOptions(["all", "skill-check", "${dictName}"]);
-    a.data.data.skills["${skill}"]?.roll(event, opts);
+    a.system.skills["${skill}"]?.roll(event, opts);
 } else {
     ui.notifications.error(game.i18n.localize("PF2E.MacroActionNoActorError"));
 }`;
     const macroName = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
     const skillMacro =
-        game.macros.find((macro) => macro.name === macroName && macro.data.command === command) ??
+        game.macros.find((macro) => macro.name === macroName && macro.command === command) ??
         (await MacroPF2e.create(
             {
                 command,
@@ -153,7 +155,7 @@ const source = (await fromUuid(ITEM_UUID)).toObject();
 source.flags = mergeObject(source.flags ?? {}, { core: { sourceId: ITEM_UUID } });
 
 for (const actor of actors) {
-    const existing = actor.itemTypes.effect.find((e) => e.data.flags.core?.sourceId === ITEM_UUID);
+    const existing = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === ITEM_UUID);
     if (existing) {
         await existing.delete();
     } else {
@@ -162,13 +164,13 @@ for (const actor of actors) {
 }
 `;
     const toggleMacro =
-        game.macros.contents.find((macro) => macro.name === effect.data.name && macro.data.command === command) ??
+        game.macros.contents.find((macro) => macro.name === effect.name && macro.command === command) ??
         (await MacroPF2e.create(
             {
                 command,
-                name: effect.data.name,
+                name: effect.name,
                 type: "script",
-                img: effect.data.img,
+                img: effect.img,
             },
             { renderSheet: false }
         ));

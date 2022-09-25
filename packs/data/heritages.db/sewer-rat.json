@@ -1,6 +1,8 @@
 {
     "_id": "eFsD7W6hnK33jlDQ",
-    "data": {
+    "img": "systems/pf2e/icons/features/ancestry/sewer-rat.webp",
+    "name": "Sewer Rat",
+    "system": {
         "ancestry": {
             "name": "Ratfolk",
             "uuid": "Compendium.pf2e.ancestries.P6PcVnCkh4XMdefw"
@@ -11,12 +13,14 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "Your succesful saving throws against a disease or poison reduce its stage by 2 (or 1 for a virulent disease or poison). Each critical success reduces its stage by 3 (or 2 for a virulent disease or poison).",
                 "title": "{item|name}"
@@ -31,7 +35,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/ancestry/sewer-rat.webp",
-    "name": "Sewer Rat",
     "type": "heritage"
 }

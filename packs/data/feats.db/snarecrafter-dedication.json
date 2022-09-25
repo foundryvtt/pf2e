@@ -1,6 +1,8 @@
 {
     "_id": "4MUbwilvb9dI0X59",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Snarecrafter Dedication",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -31,21 +33,22 @@
         },
         "rules": [
             {
+                "craftableItems": {
+                    "all": [
+                        "item:trait:snare"
+                    ]
+                },
                 "isDailyPrep": false,
                 "isPrepared": true,
                 "key": "CraftingEntry",
                 "label": "PF2E.SpecificRule.DedicationCraftingEntry.Snarecrafter",
-                "requiredTraits": [
-                    [
-                        "snare"
-                    ]
-                ],
                 "selector": "snareCrafting"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.crafting.entries.snareCrafting.maxSlots",
+                "path": "system.crafting.entries.snareCrafting.maxSlots",
+                "phase": "afterDerived",
                 "value": {
                     "brackets": [
                         {
@@ -63,7 +66,7 @@
                             "value": 8
                         }
                     ],
-                    "field": "actor|data.skills.cra.rank"
+                    "field": "actor|system.skills.cra.rank"
                 }
             }
         ],
@@ -79,7 +82,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Snarecrafter Dedication",
     "type": "feat"
 }

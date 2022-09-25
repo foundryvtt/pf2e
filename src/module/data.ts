@@ -1,11 +1,14 @@
+import { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
+
 /** The size property of creatures and equipment */
-export const SIZES = ["tiny", "sm", "med", "lg", "huge", "grg"] as const;
-export const SIZE_SLUGS = ["tiny", "small", "medium", "large", "huge", "gargantuan"] as const;
+const SIZES = ["tiny", "sm", "med", "lg", "huge", "grg"] as const;
+const SIZE_SLUGS = ["tiny", "small", "medium", "large", "huge", "gargantuan"] as const;
 
 type Size = typeof SIZES[number];
 
 /** The rarity trait of creatures, equipment, spells, etc. */
-export const RARITIES = ["common", "uncommon", "rare", "unique"] as const;
+const RARITIES = ["common", "uncommon", "rare", "unique"] as const;
 type Rarity = typeof RARITIES[number];
 
 interface ValuesList<T extends string = string> {
@@ -25,6 +28,10 @@ interface LabeledString extends LabeledValue {
 }
 interface LabeledNumber extends LabeledValue {
     value: number;
+}
+
+interface TraitsWithRarity<T extends string> extends ValuesList<T> {
+    rarity: Rarity;
 }
 
 /** Literal numeric types */
@@ -48,7 +55,7 @@ interface ValueAndMaybeMax {
 
 type ValueAndMax = Required<ValueAndMaybeMax>;
 
-export function goesToEleven(value: number): value is ZeroToEleven {
+function goesToEleven(value: number): value is ZeroToEleven {
     return value >= 0 && value <= 11;
 }
 
@@ -119,25 +126,33 @@ export const MATH_FUNCTION_NAMES: Set<MathFunctionName> = new Set([
     "trunc",
 ] as const);
 
+type EnfolderableDocumentPF2e = ActorPF2e | ItemPF2e | Exclude<EnfolderableDocument, Actor | Item>;
+
 export {
     DocumentSchemaRecord,
+    EnfolderableDocumentPF2e,
     LabeledNumber,
     LabeledString,
     LabeledValue,
+    OneToFive,
+    OneToFour,
+    OneToTen,
+    OneToThree,
+    RARITIES,
     Rarity,
+    SIZES,
+    SIZE_SLUGS,
     Size,
+    TraitsWithRarity,
+    TwoToThree,
     ValueAndMax,
     ValueAndMaybeMax,
     ValuesList,
-    ZeroToTwo,
-    ZeroToThree,
-    OneToThree,
-    TwoToThree,
-    ZeroToFour,
-    OneToFour,
-    ZeroToFive,
-    OneToFive,
-    ZeroToTen,
-    OneToTen,
     ZeroToEleven,
+    ZeroToFive,
+    ZeroToFour,
+    ZeroToTen,
+    ZeroToThree,
+    ZeroToTwo,
+    goesToEleven,
 };

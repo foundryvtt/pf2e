@@ -1,24 +1,12 @@
 <div class="form-group">
-    <label>{{localize "PF2E.Rarity"}}</label>
-    <select name="data.traits.rarity" data-dtype="String">
-        {{#select data.traits.rarity}}
-            {{#each rarities as |rarity slug|}}
-                <option value="{{slug}}">{{rarity.label}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
-
-<div class="form-group">
     <label>{{localize "PF2E.HitPointsHeader"}}</label>
-    <input type="number" name="data.hp" min="6" max="12" data-dtype="Number" value="{{data.hp}}">
+    <input type="number" name="system.hp" min="6" max="12" data-dtype="Number" value="{{data.hp}}">
 </div>
-
 
 <div class="form-group form-group-trait">
     <label class="pf-title">
         {{localize "PF2E.KeyAbilityLabel"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.KeyAbilityLabel" data-config-types="abilities" data-property="data.keyAbility" data-no-custom="true"><i class="fas fa-edit"></i></a>
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.KeyAbilityLabel" data-config-types="abilities" data-property="system.keyAbility" data-no-custom="true"><i class="fas fa-edit"></i></a>
     </label>
 
     <ul class="abc-traits-list">
@@ -29,8 +17,8 @@
 </div>
 
 <div class="form-group">
-    <label>{{localize "PF2E.ClassDCLabel"}}</label>
-    <select name="data.classDC" data-dtype="Number">
+    <label>{{localize "PF2E.Actor.Character.ClassDC.Label"}}</label>
+    <select name="system.classDC" data-dtype="Number">
         {{#select data.classDC}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -41,7 +29,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.PerceptionLabel"}}</label>
-    <select name="data.perception" data-dtype="Number">
+    <select name="system.perception" data-dtype="Number">
         {{#select data.perception}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -52,7 +40,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.SavesFortitude"}}</label>
-    <select name="data.savingThrows.fortitude" data-dtype="Number">
+    <select name="system.savingThrows.fortitude" data-dtype="Number">
         {{#select data.savingThrows.fortitude}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -63,7 +51,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.SavesReflex"}}</label>
-    <select name="data.savingThrows.reflex" data-dtype="Number">
+    <select name="system.savingThrows.reflex" data-dtype="Number">
         {{#select data.savingThrows.reflex}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -74,7 +62,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.SavesWill"}}</label>
-    <select name="data.savingThrows.will" data-dtype="Number">
+    <select name="system.savingThrows.will" data-dtype="Number">
         {{#select data.savingThrows.will}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -85,7 +73,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponTypeSimple"}}</label>
-    <select name="data.attacks.simple" data-dtype="Number">
+    <select name="system.attacks.simple" data-dtype="Number">
         {{#select data.attacks.simple}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -96,7 +84,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponTypeMartial"}}</label>
-    <select name="data.attacks.martial" data-dtype="Number">
+    <select name="system.attacks.martial" data-dtype="Number">
         {{#select data.attacks.martial}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -107,7 +95,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponTypeAdvanced"}}</label>
-    <select name="data.attacks.advanced" data-dtype="Number">
+    <select name="system.attacks.advanced" data-dtype="Number">
         {{#select data.attacks.advanced}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -118,7 +106,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponTypeUnarmed"}}</label>
-    <select name="data.attacks.unarmed" data-dtype="Number">
+    <select name="system.attacks.unarmed" data-dtype="Number">
         {{#select data.attacks.unarmed}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -129,8 +117,8 @@
 
 <div class="form-group other-weapons">
     <label>{{localize "PF2E.WeaponTypeSpecial"}}</label>
-    <input type="text" name="data.attacks.other.name" data-dtype="String" value="{{data.attacks.other.name}}">
-    <select name="data.attacks.other.rank" data-dtype="Number">
+    <input type="text" name="system.attacks.other.name" data-dtype="String" value="{{data.attacks.other.name}}">
+    <select name="system.attacks.other.rank" data-dtype="Number">
         {{#select data.attacks.other.rank}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -141,7 +129,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorTypeUnarmored"}}</label>
-    <select name="data.defenses.unarmored" data-dtype="Number">
+    <select name="system.defenses.unarmored" data-dtype="Number">
         {{#select data.defenses.unarmored}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -152,7 +140,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorTypeLight"}}</label>
-    <select name="data.defenses.light" data-dtype="Number">
+    <select name="system.defenses.light" data-dtype="Number">
         {{#select data.defenses.light}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -163,7 +151,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorTypeMedium"}}</label>
-    <select name="data.defenses.medium" data-dtype="Number">
+    <select name="system.defenses.medium" data-dtype="Number">
         {{#select data.defenses.medium}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -175,7 +163,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorTypeHeavy"}}</label>
-    <select name="data.defenses.heavy" data-dtype="Number">
+    <select name="system.defenses.heavy" data-dtype="Number">
         {{#select data.defenses.heavy}}
             {{#each proficiencyChoices as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
@@ -187,7 +175,7 @@
 <div class="form-group form-group-trait">
     <label class="pf-title">
         {{localize "PF2E.TrainedSkillsLabel"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.TrainedSkillsLabel" data-config-types="skills" data-property="data.trainedSkills"><i class="fas fa-edit"></i></a>
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.TrainedSkillsLabel" data-config-types="skills" data-property="system.trainedSkills"><i class="fas fa-edit"></i></a>
     </label>
 
     <ul class="abc-traits-list">
@@ -201,7 +189,7 @@
 
 <div class="form-group additional-language">
     <label>{{localize "PF2E.AdditionalSkills"}}</label>
-    <input type="number" name="data.trainedSkills.additional" data-dtype="Number" value="{{data.trainedSkills.additional}}">
+    <input type="number" name="system.trainedSkills.additional" data-dtype="Number" value="{{data.trainedSkills.additional}}">
     <span>{{localize "PF2E.AdditionalLanguagePlusInt"}}</span>
 </div>
 
@@ -209,7 +197,7 @@
 <div class="form-group form-group-trait">
     <label class="pf-title">
         {{localize "PF2E.AncestryFeatLevels"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.AncestryFeatLevels" data-config-types="levels" data-property="data.ancestryFeatLevels" data-no-custom="true"><i class="fas fa-edit"></i></a>
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.AncestryFeatLevels" data-config-types="levels" data-property="system.ancestryFeatLevels" data-no-custom="true"><i class="fas fa-edit"></i></a>
     </label>
 
     <ul class="abc-traits-list">
@@ -224,7 +212,7 @@
 <div class="form-group form-group-trait">
     <label class="pf-title">
         {{localize "PF2E.ClassFeatLevels"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.ClassFeatLevels" data-config-types="levels" data-property="data.classFeatLevels" data-no-custom="true"><i class="fas fa-edit"></i></a>
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.ClassFeatLevels" data-config-types="levels" data-property="system.classFeatLevels" data-no-custom="true"><i class="fas fa-edit"></i></a>
     </label>
 
     <ul class="abc-traits-list">
@@ -237,7 +225,7 @@
 <div class="form-group form-group-trait">
     <label class="pf-title">
         {{localize "PF2E.GeneralFeatLevels"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.GeneralFeatLevels" data-config-types="levels" data-property="data.generalFeatLevels" data-no-custom="true"><i class="fas fa-edit"></i></a>
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.GeneralFeatLevels" data-config-types="levels" data-property="system.generalFeatLevels" data-no-custom="true"><i class="fas fa-edit"></i></a>
     </label>
 
     <ul class="abc-traits-list">
@@ -250,7 +238,7 @@
 <div class="form-group form-group-trait">
     <label class="pf-title">
         {{localize "PF2E.SkillFeatLevels"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.SkillFeatLevels" data-config-types="levels" data-property="data.skillFeatLevels" data-no-custom="true"><i class="fas fa-edit"></i></a>
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.SkillFeatLevels" data-config-types="levels" data-property="system.skillFeatLevels" data-no-custom="true"><i class="fas fa-edit"></i></a>
     </label>
 
     <ul class="abc-traits-list">
@@ -263,7 +251,7 @@
 <div class="form-group form-group-trait">
     <label class="pf-title">
         {{localize "PF2E.SkillIncreaseLevels"}}
-        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.SkillIncreaseLevels" data-config-types="levels" data-property="data.skillIncreaseLevels" data-no-custom="true"><i class="fas fa-edit"></i></a>
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.SkillIncreaseLevels" data-config-types="levels" data-property="system.skillIncreaseLevels" data-no-custom="true"><i class="fas fa-edit"></i></a>
     </label>
 
     <ul class="abc-traits-list">
@@ -273,16 +261,21 @@
     </ul>
 </div>
 
+<div class="form-group-stacked item-ref-group" data-valid-drops="classfeature">
+    <label for="data.traits">{{localize "PF2E.ClassFeatures"}}</label>
+    {{#> abcItems}}{{/abcItems}}
+    {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
+</div>
+
 {{~#*inline "abcItem"~}}
-    <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-id="{{item.id}}">
+    <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-uuid="{{item.uuid}}">
         <img src="{{item.img}}">
         <div class="name">
-            {{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/unless}}
+            {{item.name}}{{#if item.isWorldItem}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/if}}
         </div>
-        <input type="number" class="level" value="{{item.level}}" name="data.items.{{i}}.level" />
-        <input value="{{item.name}}" name="data.items.{{i}}.name" type="hidden" data-dtype="String" />
-        <input value="{{item.pack}}" name="data.items.{{i}}.pack" type="hidden" data-dtype="String" />
-        <input value="{{item.id}}" name="data.items.{{i}}.id" type="hidden" data-dtype="String" />
+        <input type="number" class="level" value="{{item.level}}" name="system.items.{{i}}.level" />
+        <input value="{{item.uuid}}" name="system.items.{{i}}.uuid" type="hidden" data-dtype="String" />
+        <input value="{{item.name}}" name="system.items.{{i}}.name" type="hidden" data-dtype="String" />
         <a class="remove" data-action="remove"><i class="fa fa-times"></i></a>
         {{#if item.items~}}
             {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
@@ -292,14 +285,8 @@
 
 {{~#*inline "abcItems"~}}
 <ul class="item-refs">
-    {{#each items}}
+    {{#each features}}
         {{#> abcItem item=this.item i=this.key}}{{@partial-block}}{{/abcItem}}
     {{/each}}
 </ul>
 {{~/inline~}}
-
-<div class="form-group-stacked item-ref-group" data-valid-drops="classfeature">
-    <label for="data.traits">{{localize "PF2E.ClassFeatures"}}</label>
-    {{#> abcItems}}{{/abcItems}}
-    {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
-</div>

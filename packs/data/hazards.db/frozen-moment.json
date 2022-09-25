@@ -1,6 +1,53 @@
 {
     "_id": "8gAoSgBJN8QqzP1R",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "SoObyOgEreU0KLDs",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Adrift in Time",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches the warded object or area.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature and all creatures within 30 feet are trapped in a disrupted time flow (@Check[type:fortitude|dc:38] negates). The creatures' minds move so quickly that each round seems to last a century, but their bodies and magical energies move so slowly that they can't use any actions except Recall Knowledge. An affected creature must attempt a @Check[type:will|dc:36] saving throw against a <i>warp mind</i> spell immediately and again for every minute of real time that passes while the creature is trapped in the frozen moment. This effect has an unlimited duration but can be counteracted.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "occult",
+                        "transmutation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Frozen Moment",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 10
@@ -22,7 +69,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Warding magic attempts to trap intruders or would-be thieves in a disrupted time flow.</p>",
-            "disable": "<p>Thievery DC 38 (legendary) to rapidly disassemble the spell's myriad components in a single blink of an eye; or <i>dispel magic </i>(9th level; counteract DC 36) to counteract the trap before it triggers or to counteract the effect on one creature after the trap is triggered</p>",
+            "disable": "<p>@Check[type:thievery|dc:38|name:Disassemble Spell Components|traits:action:disable-a-device] (legendary) to rapidly disassemble the spell's myriad components in a single blink of an eye; or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (9th level; counteract DC 36) to counteract the trap before it triggers or to counteract the effect on one creature after the trap is triggered</p>",
             "isComplex": false,
             "level": {
                 "value": 17
@@ -61,67 +108,10 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "magical"
-                ]
-            }
+            "value": [
+                "magical"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "SoObyOgEreU0KLDs",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature touches the warded object or area.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature and all creatures within 30 feet are trapped in a disrupted time flow (@Check[type:fortitude|dc:38] negates). The creatures' minds move so quickly that each round seems to last a century, but their bodies and magical energies move so slowly that they can't use any actions except Recall Knowledge. An affected creature must attempt a @Check[type:will|dc:36] saving throw against a <i>warp mind</i> spell immediately and again for every minute of real time that passes while the creature is trapped in the frozen moment. This effect has an unlimited duration but can be counteracted.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "occult",
-                        "transmutation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Adrift in Time",
-            "sort": 100000,
-            "type": "action"
-        }
-    ],
-    "name": "Frozen Moment",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Frozen Moment",
-        "width": 1
     },
     "type": "hazard"
 }

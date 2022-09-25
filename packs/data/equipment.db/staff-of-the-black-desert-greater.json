@@ -1,6 +1,8 @@
 {
     "_id": "Ri09KBg9DG0aapLw",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/staves/staff-of-the-black-desert.webp",
+    "name": "Staff of the Black Desert (Greater)",
+    "system": {
         "MAP": {
             "value": ""
         },
@@ -87,17 +89,17 @@
             {
                 "key": "FlatModifier",
                 "label": "Staff of the Black Desert (identify oozes & aberrations of Darklands)",
-                "predicate": {
-                    "all": [
-                        "action:recall-knowledge",
-                        "identify",
-                        "target:native-darklands"
-                    ],
-                    "any": [
-                        "target:trait:ooze",
-                        "target:trait:aberration"
-                    ]
-                },
+                "predicate": [
+                    "action:recall-knowledge",
+                    "identify",
+                    "target:native-darklands",
+                    {
+                        "or": [
+                            "target:trait:ooze",
+                            "target:trait:aberration"
+                        ]
+                    }
+                ],
                 "selector": "occultism",
                 "type": "circumstance",
                 "value": 2
@@ -131,7 +133,5 @@
             "value": "1"
         }
     },
-    "img": "systems/pf2e/icons/equipment/staves/staff-of-the-black-desert.webp",
-    "name": "Staff of the Black Desert (Greater)",
     "type": "weapon"
 }

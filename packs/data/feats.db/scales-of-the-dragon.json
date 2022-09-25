@@ -1,6 +1,8 @@
 {
     "_id": "fT37dtsByEIc3glC",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Scales Of The Dragon",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 4
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -30,11 +31,11 @@
         "rules": [
             {
                 "key": "DexterityModifierCap",
-                "predicate": {
-                    "not": [
-                        "self:armored"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
                 "value": 3
             },
             {
@@ -63,17 +64,17 @@
             },
             {
                 "key": "Resistance",
-                "type": "{actor|data.custom.dragonDisciple.energyType}",
+                "type": "{actor|system.custom.dragonDisciple.energyType}",
                 "value": "3+floor(@actor.level/2)"
             },
             {
                 "fromEquipment": false,
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "self:armored"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
                 "selector": "ac",
                 "type": "item",
                 "value": 2
@@ -90,7 +91,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Scales Of The Dragon",
     "type": "feat"
 }

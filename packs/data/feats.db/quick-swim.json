@@ -1,6 +1,8 @@
 {
     "_id": "bFoh3267kNLk68cU",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Quick Swim",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 7
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -39,16 +40,14 @@
                             "value": "@actor.attributes.speed.value"
                         }
                     ],
-                    "field": "actor|data.skills.ath.rank"
+                    "field": "actor|system.skills.ath.rank"
                 }
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "action:swim"
-                    ]
-                },
+                "predicate": [
+                    "action:swim"
+                ],
                 "selector": "athletics",
                 "text": "You swim 5 more feet on a success, and 10 more feet on a critical success.",
                 "title": "{item|name}"
@@ -66,7 +65,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Quick Swim",
     "type": "feat"
 }

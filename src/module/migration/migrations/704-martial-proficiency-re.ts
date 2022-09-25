@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules";
-import { RawPredicate } from "@system/predication";
+import { PredicateStatement } from "@system/predication";
 import { sluggify } from "@util";
 import { MigrationBase } from "../base";
 
@@ -9,20 +9,26 @@ export class Migration704MartialProficiencyRE extends MigrationBase {
     static override version = 0.704;
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const rules: MaybeLinkedProficiency[] = itemSource.data.rules.filter((r) => r.key === "LinkedProficiency");
+        const rules: MaybeLinkedProficiency[] = itemSource.system.rules.filter(
+            (r): r is MaybeLinkedProficiency => r.key === "LinkedProficiency"
+        );
         for (const rule of rules) {
             rule.key = "MartialProficiency";
             rule.definition = rule.predicate;
             delete rule.predicate;
-            if (typeof rule.slug === "string" && itemSource.data.slug?.endsWith("-weapon-familiarity") && !rule.label) {
+            if (
+                typeof rule.slug === "string" &&
+                itemSource.system.slug?.endsWith("-weapon-familiarity") &&
+                !rule.label
+            ) {
                 const key = sluggify(rule.slug, { camel: "bactrian" });
                 rule.label = `PF2E.SpecificRule.MartialProficiency.${key}`;
             }
         }
 
         if (itemSource.type === "class") {
-            if (itemSource.data.slug === "gunslinger" && itemSource.data.rules.length === 0) {
-                const gunslingerRules: Array<RuleElementSource & { definition?: object }> = [
+            if (itemSource.system.slug === "gunslinger" && itemSource.system.rules.length === 0) {
+                const gunslingerRules: (RuleElementSource & { definition?: object })[] = [
                     {
                         definition: {
                             all: ["weapon:category:simple"],
@@ -54,13 +60,20 @@ export class Migration704MartialProficiencyRE extends MigrationBase {
                         value: 1,
                     },
                 ];
-                itemSource.data.rules = gunslingerRules;
+                itemSource.system.rules = gunslingerRules;
             }
         }
     }
 }
 
-interface MaybeLinkedProficiency extends RuleElementSource {
-    definition?: RawPredicate;
+interface MaybeLinkedProficiency extends Omit<RuleElementSource, "predicate"> {
+    predicate?: OldRawPredicate;
+    definition?: OldRawPredicate;
     immutable?: boolean;
+}
+
+interface OldRawPredicate {
+    all?: PredicateStatement[];
+    any?: PredicateStatement[];
+    not?: PredicateStatement[];
 }

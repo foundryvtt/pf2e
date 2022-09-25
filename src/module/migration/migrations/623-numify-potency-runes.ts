@@ -7,11 +7,11 @@ export class Migration623NumifyPotencyRunes extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (!(itemData.type === "weapon" || itemData.type === "armor")) return;
 
-        const potencyRune: { value: number | null } | undefined = itemData.data.potencyRune;
+        const potencyRune: { value: number | null } | undefined = itemData.system.potencyRune;
         if (potencyRune) {
-            potencyRune.value = Number(itemData.data.potencyRune.value) || null;
+            potencyRune.value = Number(itemData.system.potencyRune.value) || null;
         } else {
-            itemData.data.potencyRune = { value: null };
+            itemData.system.potencyRune = { value: null };
         }
     }
 }

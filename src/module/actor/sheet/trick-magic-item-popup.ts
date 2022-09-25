@@ -3,7 +3,6 @@ import type { ConsumablePF2e } from "@item";
 import { CharacterPF2e } from "@actor";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e } from "@util";
-import { SKILL_DICTIONARY } from "@actor/values";
 import { TrickMagicItemEntry, TrickMagicItemSkill, TRICK_MAGIC_SKILLS } from "@item/spellcasting-entry/trick";
 
 export class TrickMagicItemPopup {
@@ -19,11 +18,12 @@ export class TrickMagicItemPopup {
     private translations = LocalizePF2e.translations.PF2E.TrickMagicItemPopup;
 
     constructor(item: Embedded<ConsumablePF2e>) {
-        this.item = item;
-        if (item.data.type !== "consumable") {
+        if (!item.isOfType("consumable")) {
             throw ErrorPF2e("Unexpected item used for Trick Magic Item");
         }
-        this.checkDC = calculateTrickMagicItemCheckDC(item.data);
+
+        this.item = item;
+        this.checkDC = calculateTrickMagicItemCheckDC(item);
 
         if (!(item.actor instanceof CharacterPF2e)) {
             ui.notifications.warn(this.translations.InvalidActor);
@@ -59,11 +59,11 @@ export class TrickMagicItemPopup {
     }
 
     handleTrickItem(skill: TrickMagicItemSkill) {
-        const options = ["all", "skill-check", "action:trick-magic-item"].concat(SKILL_DICTIONARY[skill]);
-        const stat = this.actor.data.data.skills[skill];
-        stat.roll({
-            options: options,
+        const stat = this.actor.skills[skill];
+        stat.check.roll({
+            extraRollOptions: ["action:trick-magic-item"],
             dc: { value: this.checkDC[skill] ?? 0 },
+            item: this.item,
         });
 
         const trick = new TrickMagicItemEntry(this.actor, skill);

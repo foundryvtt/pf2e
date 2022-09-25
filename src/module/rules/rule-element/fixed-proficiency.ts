@@ -17,10 +17,19 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
 
     override slug: string;
 
-    ability: AbilityString | null;
+    private selector: string;
+
+    private ability: AbilityString | null;
 
     constructor(data: FixedProficiencySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
+
+        if (typeof data.selector === "string") {
+            this.selector = data.selector;
+        } else {
+            this.failValidation("Missing string selector property");
+            this.selector = "";
+        }
 
         this.slug = sluggify(typeof data.slug === "string" ? data.slug : this.label);
         this.ability =
@@ -34,9 +43,9 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
     }
 
     override beforePrepareData(): void {
-        const selector = this.resolveInjectedProperties(this.data.selector);
+        const selector = this.resolveInjectedProperties(this.selector);
         const proficiencyBonus = Number(this.resolveValue(this.data.value)) || 0;
-        const abilityModifier = this.ability ? this.actor.data.data.abilities[this.ability].mod : 0;
+        const abilityModifier = this.ability ? this.actor.system.abilities[this.ability].mod : 0;
 
         const modifier = new ModifierPF2e({
             type: MODIFIER_TYPE.PROFICIENCY,
@@ -49,8 +58,8 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
     }
 
     override afterPrepareData() {
-        const selector = this.resolveInjectedProperties(this.data.selector);
-        const systemData = this.actor.data.data;
+        const selector = this.resolveInjectedProperties(this.selector);
+        const systemData = this.actor.system;
         const skillLongForms: Record<string, { shortform?: string } | undefined> = SKILL_EXPANDED;
         const proficiency = skillLongForms[selector]?.shortform ?? selector;
         const statistic = setHasElement(SKILL_ABBREVIATIONS, proficiency)
@@ -62,12 +71,12 @@ class FixedProficiencyRuleElement extends RuleElementPF2e {
         if (statistic) {
             const toIgnore = statistic.modifiers.filter((m) => m.type === "proficiency" && m.slug !== this.slug);
             for (const modifier of toIgnore) {
-                modifier.predicate = new PredicatePF2e({ all: [`overridden-by-${this.slug}`] });
+                modifier.predicate = new PredicatePF2e(`overridden-by-${this.slug}`);
             }
 
             // Only AC will be a `StatisticModifier`
             if (statistic instanceof StatisticModifier) {
-                const rollOptions = this.actor.getRollOptions(["ac", `${this.ability}-based`]);
+                const rollOptions = new Set(this.actor.getRollOptions(["ac", `${this.ability}-based`]));
                 statistic.calculateTotal(rollOptions);
                 statistic.value = 10 + statistic.totalModifier;
             }
@@ -80,6 +89,7 @@ interface FixedProficiencyRuleElement {
 }
 
 interface FixedProficiencySource extends RuleElementSource {
+    selector?: unknown;
     ability?: unknown;
     force?: unknown;
 }

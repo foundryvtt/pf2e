@@ -1,6 +1,8 @@
 {
     "_id": "0OC945wcZ4H4akLz",
-    "data": {
+    "img": "systems/pf2e/icons/spells/summoners-visage.webp",
+    "name": "Spell Effect: Summoner's Visage",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>Your eidolon gains a +4 status bonus to Deception checks to Impersonate you and can add its level to such checks even if it's untrained.</p>"
@@ -18,11 +20,9 @@
             {
                 "key": "FlatModifier",
                 "label": "summoners-visage-status",
-                "predicate": {
-                    "all": [
-                        "impersonatingSummoner"
-                    ]
-                },
+                "predicate": [
+                    "impersonatingSummoner"
+                ],
                 "selector": "deception",
                 "type": "status",
                 "value": 4
@@ -30,11 +30,9 @@
             {
                 "key": "FlatModifier",
                 "label": "summoners-visage-proficiency",
-                "predicate": {
-                    "all": [
-                        "impersonatingSummoner"
-                    ]
-                },
+                "predicate": [
+                    "impersonatingSummoner"
+                ],
                 "selector": "deception",
                 "type": "proficiency",
                 "value": "@actor.level"
@@ -48,7 +46,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Secrets of Magic"
         },
         "start": {
             "initiative": null,
@@ -64,7 +62,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/summoners-visage.webp",
-    "name": "Spell Effect: Summoner's Visage",
     "type": "effect"
 }

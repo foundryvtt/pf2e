@@ -10,9 +10,6 @@ declare global {
         /*  Properties                                  */
         /* -------------------------------------------- */
 
-        /** A reference to the User who created the MeasuredTemplate document. */
-        get author(): User | undefined;
-
         /** A flag for whether the current User has full ownership over the MeasuredTemplate document. */
         override get isOwner(): boolean;
     }
@@ -21,6 +18,9 @@ declare global {
         readonly parent: Scene | null;
 
         _sheet: MeasuredTemplateConfig | null;
+
+        /** A reference to the User who created the MeasuredTemplate document. */
+        readonly author: User | undefined;
 
         readonly _object: MeasuredTemplate<MeasuredTemplateDocument> | null;
     }

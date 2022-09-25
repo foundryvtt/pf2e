@@ -9,48 +9,48 @@ export class Migration719ShrugFlanking extends MigrationBase {
     static override version = 0.719;
 
     override async updateItem(source: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> {
-        const slug = source.data.slug ?? "";
+        const slug = source.system.slug ?? "";
         switch (source.type) {
             case "action": {
                 if (slug === "all-around-vision") {
-                    source.data.rules = [this.allAroundVision];
+                    source.system.rules = [this.allAroundVision];
                 } else if (actorSource?.type === "npc" && source.name === "Deny Advantage") {
                     // No slugs, unfortunately
                     const sourceId = actorSource.flags.core?.sourceId;
                     const npcId = sourceId?.replace(/^Compendium\.[^.]+\./, "") ?? actorSource._id;
 
-                    if (this.needsDenyAdvantage(source.data.rules)) {
+                    if (this.needsDenyAdvantage(source.system.rules)) {
                         const rule = this.npcDenyAvantage(npcId);
-                        source.data.rules.push(rule);
+                        source.system.rules.push(rule);
                     }
                 }
                 return;
             }
             case "effect": {
                 if (slug === "stance-wolf-stance") {
-                    source.data.rules = this.wolfStanceRules;
+                    source.system.rules = this.wolfStanceRules;
                 }
                 return;
             }
             case "feat": {
-                source.data.slug = source.data.slug?.replace(/^deny-advantage-level-\d$/, "deny-advantage") ?? null;
-                const featSlug = source.data.slug ?? "";
+                source.system.slug = source.system.slug?.replace(/^deny-advantage-level-\d$/, "deny-advantage") ?? null;
+                const featSlug = source.system.slug ?? "";
 
                 if (
                     ["constant-gaze", "deny-advantage"].includes(featSlug) &&
-                    this.needsDenyAdvantage(source.data.rules)
+                    this.needsDenyAdvantage(source.system.rules)
                 ) {
-                    source.data.rules.push(this.denyAdvantage);
+                    source.system.rules.push(this.denyAdvantage);
                 } else if (featSlug === "gang-up") {
-                    source.data.rules = [this.gangUp];
+                    source.system.rules = [this.gangUp];
                 } else if (featSlug.startsWith("side-by-side")) {
                     const sideBySide = this.gangUp;
                     sideBySide.value = "animal-companion";
-                    source.data.rules = [sideBySide];
+                    source.system.rules = [sideBySide];
                 } else if (["pack-tactics", "squad-tactics"].includes(featSlug)) {
                     const tactics = this.gangUp;
                     tactics.value = 2;
-                    source.data.rules = [tactics];
+                    source.system.rules = [tactics];
                 }
             }
         }
@@ -61,7 +61,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
         return {
             key: "ActiveEffectLike",
             mode: "override",
-            path: "data.attributes.flanking.flankable",
+            path: "system.attributes.flanking.flankable",
             value: false,
         };
     }
@@ -70,7 +70,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
         return {
             key: "ActiveEffectLike",
             mode: "override",
-            path: "data.attributes.flanking.flatFootable",
+            path: "system.attributes.flanking.flatFootable",
             value: "@actor.level",
         };
     }
@@ -79,7 +79,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
         return {
             key: "ActiveEffectLike",
             mode: "add",
-            path: "data.attributes.flanking.canGangUp",
+            path: "system.attributes.flanking.canGangUp",
             value: 1,
         };
     }
@@ -143,7 +143,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
     private needsDenyAdvantage(rules: AELikeSource[]): boolean {
         return !rules.some(
             (r: Partial<AELikeSource>) =>
-                r.key === "ActiveEffectLike" && r.path === "data.attributes.flanking.flatFootable"
+                r.key === "ActiveEffectLike" && r.path === "system.attributes.flanking.flatFootable"
         );
     }
 }

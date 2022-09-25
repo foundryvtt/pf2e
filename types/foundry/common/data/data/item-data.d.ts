@@ -14,7 +14,7 @@ declare module foundry {
          * @property [data]       The system data object which is defined by the system template.json model
          * @property folder       The _id of a Folder which contains this Item
          * @property [sort]       The numeric sort value which orders this Item relative to its siblings
-         * @property [permission] An object which configures user permissions to this Item
+         * @property [ownership] An object which configures user permissions to this Item
          * @property [flags={}]   An object of optional key/value flags
          */
         interface ItemSource<TType extends string = string, TSystemSource extends object = object> {
@@ -22,11 +22,11 @@ declare module foundry {
             name: string;
             type: TType;
             img: ImagePath;
-            data: TSystemSource;
+            system: TSystemSource;
             effects: ActiveEffectSource[];
             folder?: string | null;
             sort: number;
-            permission: Record<string, PermissionLevel>;
+            ownership: Record<string, PermissionLevel>;
             flags: ItemFlags;
         }
 
@@ -58,9 +58,6 @@ declare module foundry {
                 permission: typeof fields.DOCUMENT_PERMISSIONS;
                 flags: typeof fields.OBJECT_FIELD;
             };
-
-            /** The default icon used for newly created Item documents */
-            static DEFAULT_ICON: ImagePath;
 
             protected override _initializeSource(data: this["_source"]): this["_source"];
 

@@ -2,9 +2,9 @@ import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions
 import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { PhysicalItemTrait } from "@item/physical/data";
 import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { sluggify } from "@util";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 
 /**
  * @category RuleElement
@@ -12,9 +12,9 @@ import { sluggify } from "@util";
 class CraftingEntryRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    name: string;
+    private name: string;
 
-    selector: string;
+    private selector: string;
 
     constructor(data: CraftingEntryRuleSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
@@ -32,38 +32,41 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
         }
     }
 
-    override onCreate(actorUpdates: Record<string, unknown>): void {
+    override beforePrepareData(): void {
         if (!this.test()) return;
 
         const selector = String(this.resolveValue(this.selector));
 
+        const craftableItems = new PredicatePF2e(this.data.craftableItems ?? []);
+
+        if (!craftableItems.isValid) {
+            console.warn("PF2E | Crafting Entry RE craftableItems predicate does not have the correct format.");
+        }
+
         const data: CraftingEntryData = {
-            actorPreparedFormulas: [],
             selector: selector,
             name: this.name,
             isAlchemical: this.data.isAlchemical,
             isDailyPrep: this.data.isDailyPrep,
             isPrepared: this.data.isPrepared,
-            requiredTraits: this.data.requiredTraits,
+            craftableItems: craftableItems,
             maxItemLevel: this.data.maxItemLevel,
             maxSlots: this.data.maxSlots,
+            parentItem: this.item.id,
+            preparedFormulaData: this.data.preparedFormulas,
         };
 
-        actorUpdates[`data.crafting.entries.${selector}`] = data;
+        this.actor.system.crafting.entries[this.selector] = data;
     }
 
     /** Set a roll option to cue any subsequent max-item-level-increasing `ActiveEffectLike`s */
     override onApplyActiveEffects(): void {
         if (!this.test()) return;
 
-        if (!this.actor.data.data.crafting.entries[this.selector]) return;
+        if (!this.actor.system.crafting.entries[this.selector]) return;
 
         const option = sluggify(this.selector);
         this.actor.rollOptions.all[`crafting:entry:${option}`] = true;
-    }
-
-    override onDelete(actorUpdates: Record<string, unknown>): void {
-        actorUpdates[`data.crafting.entries.-=${this.selector}`] = null;
     }
 }
 
@@ -77,19 +80,29 @@ interface CraftingEntryRuleData extends RuleElementData {
     isAlchemical?: boolean;
     isDailyPrep?: boolean;
     isPrepared?: boolean;
-    requiredTraits?: PhysicalItemTrait[][];
     maxItemLevel?: number;
     maxSlots?: number;
+    craftableItems?: RawPredicate;
+    preparedFormulas?: PreparedFormulaData[];
 }
 
 interface CraftingEntryRuleSource extends RuleElementSource {
+    selector?: unknown;
     name?: unknown;
     isAlchemical?: unknown;
     isDailyPrep?: unknown;
     isPrepared?: unknown;
-    requiredTraits?: PhysicalItemTrait[][];
     maxItemLevel?: unknown;
     maxSlots?: unknown;
+    craftableItems?: unknown;
+    preparedFormulas?: unknown;
 }
 
-export { CraftingEntryRuleElement };
+interface PreparedFormulaData {
+    itemUUID: string;
+    quantity?: number;
+    expended?: boolean;
+    isSignatureItem?: boolean;
+}
+
+export { CraftingEntryRuleData, CraftingEntryRuleElement, CraftingEntryRuleSource };

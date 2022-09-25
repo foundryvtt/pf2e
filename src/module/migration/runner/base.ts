@@ -14,7 +14,7 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.767;
+    static LATEST_SCHEMA_VERSION = 0.793;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -71,31 +71,26 @@ export class MigrationRunnerBase {
         return ret;
     }
 
-    async getUpdatedItem(item: ItemSourcePF2e, migrations: MigrationBase[]): Promise<ItemSourcePF2e> {
-        const current = deepClone(item);
-
-        for await (const migration of migrations) {
-            await migration.updateItem?.(current);
-            // Handle embedded spells
-            if (current.type === "consumable" && current.data.spell.data) {
-                await migration.updateItem?.(current.data.spell.data);
-            }
-        }
-        if (migrations.length > 0) this.updateSchemaRecord(current.data.schema, migrations.slice(-1)[0]);
-
-        return current;
-    }
-
     async getUpdatedActor(actor: ActorSourcePF2e, migrations: MigrationBase[]): Promise<ActorSourcePF2e> {
         const currentActor = deepClone(actor);
 
-        for await (const migration of migrations) {
+        for (const migration of migrations) {
+            for (const currentItem of currentActor.items) {
+                await migration.preUpdateItem?.(currentItem, currentActor);
+                if (currentItem.type === "consumable" && currentItem.system.spell) {
+                    await migration.preUpdateItem?.(currentItem.system.spell);
+                }
+            }
+        }
+
+        for (const migration of migrations) {
             await migration.updateActor?.(currentActor);
-            for await (const currentItem of currentActor.items) {
+
+            for (const currentItem of currentActor.items) {
                 await migration.updateItem?.(currentItem, currentActor);
                 // Handle embedded spells
-                if (currentItem.type === "consumable" && currentItem.data.spell.data) {
-                    await migration.updateItem?.(currentItem.data.spell.data, currentActor);
+                if (currentItem.type === "consumable" && currentItem.system.spell) {
+                    await migration.updateItem?.(currentItem.system.spell, currentActor);
                 }
             }
         }
@@ -103,15 +98,38 @@ export class MigrationRunnerBase {
         // Don't set schema record on compendium JSON
         if ("game" in globalThis) {
             const latestMigration = migrations.slice(-1)[0];
-            currentActor.data.schema ??= { version: null, lastMigration: null };
-            this.updateSchemaRecord(currentActor.data.schema, latestMigration);
+            currentActor.system.schema ??= { version: null, lastMigration: null };
+            this.updateSchemaRecord(currentActor.system.schema, latestMigration);
             for (const itemSource of currentActor.items) {
-                itemSource.data.schema ??= { version: null, lastMigration: null };
-                this.updateSchemaRecord(itemSource.data.schema, latestMigration);
+                itemSource.system.schema ??= { version: null, lastMigration: null };
+                this.updateSchemaRecord(itemSource.system.schema, latestMigration);
             }
         }
 
         return currentActor;
+    }
+
+    async getUpdatedItem(item: ItemSourcePF2e, migrations: MigrationBase[]): Promise<ItemSourcePF2e> {
+        const current = deepClone(item);
+
+        for (const migration of migrations) {
+            await migration.preUpdateItem?.(current);
+            if (current.type === "consumable" && current.system.spell) {
+                await migration.preUpdateItem?.(current.system.spell);
+            }
+        }
+
+        for (const migration of migrations) {
+            await migration.updateItem?.(current);
+            // Handle embedded spells
+            if (current.type === "consumable" && current.system.spell) {
+                await migration.updateItem?.(current.system.spell);
+            }
+        }
+
+        if (migrations.length > 0) this.updateSchemaRecord(current.system.schema, migrations.slice(-1)[0]);
+
+        return current;
     }
 
     private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
@@ -124,7 +142,7 @@ export class MigrationRunnerBase {
             version: {
                 schema: fromVersion,
                 foundry: "game" in globalThis ? game.version : undefined,
-                system: "game" in globalThis ? game.system.data.version : undefined,
+                system: "game" in globalThis ? game.system.version : undefined,
             },
         };
     }
@@ -165,7 +183,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedToken(token: TokenDocumentPF2e, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
         const current = token.toObject();
-        for await (const migration of migrations) {
+        for (const migration of migrations) {
             await migration.updateToken?.(current, token.actor, token.scene);
         }
 

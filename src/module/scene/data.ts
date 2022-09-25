@@ -7,30 +7,23 @@ import type {
     TokenDocumentPF2e,
 } from ".";
 
-export interface SceneDataPF2e<T extends ScenePF2e>
-    extends foundry.data.SceneData<
-        T,
-        TokenDocumentPF2e,
-        AmbientLightDocumentPF2e,
-        AmbientSoundDocument,
-        DrawingDocument,
-        MeasuredTemplateDocumentPF2e,
-        NoteDocument,
-        TileDocumentPF2e,
-        WallDocument
-    > {
-    flags: {
-        pf2e: {
-            [key: string]: unknown;
-            syncDarkness: "enabled" | "disabled" | "default";
-        };
-        [key: string]: Record<string, unknown>;
-    };
-}
+type SceneDataPF2e<T extends ScenePF2e> = foundry.data.SceneData<
+    T,
+    TokenDocumentPF2e,
+    AmbientLightDocumentPF2e,
+    AmbientSoundDocument,
+    DrawingDocument,
+    MeasuredTemplateDocumentPF2e,
+    NoteDocument,
+    TileDocumentPF2e,
+    WallDocument
+>;
 
-export enum LightLevels {
+enum LightLevels {
     DARKNESS = 1 / 4,
     BRIGHT_LIGHT = 3 / 4,
 }
 
-export type LightLevel = ZeroToTwo;
+type LightLevel = ZeroToTwo;
+
+export { SceneDataPF2e, LightLevel, LightLevels };

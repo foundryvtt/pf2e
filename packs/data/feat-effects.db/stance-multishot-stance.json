@@ -1,6 +1,8 @@
 {
     "_id": "l4QUaedYofnfXig0",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/consumables/ammunition/sleep-arrow.webp",
+    "name": "Stance: Multishot Stance",
+    "system": {
         "description": {
             "value": "<p>Granted by @Compendium[pf2e.feats-srd.Multishot Stance]{Multishot Stance}.</p>\n<p>While you are in this stance, your penalty for Double Shot is reduced to -1, or -2 if you add the extra action to make three Strikes. If you move from your position, this stance ends.</p>"
         },
@@ -17,11 +19,9 @@
             {
                 "key": "AdjustModifier",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "double-shot"
-                    ]
-                },
+                "predicate": [
+                    "double-shot"
+                ],
                 "relabel": "{item|name}",
                 "selector": "ranged-attack-roll",
                 "slug": "double-shot",
@@ -30,11 +30,9 @@
             {
                 "key": "AdjustModifier",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "triple-shot"
-                    ]
-                },
+                "predicate": [
+                    "triple-shot"
+                ],
                 "relabel": "{item|name}",
                 "selector": "ranged-attack-roll",
                 "slug": "double-shot",
@@ -42,7 +40,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -58,7 +56,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/equipment/consumables/ammunition/sleep-arrow.webp",
-    "name": "Stance: Multishot Stance",
     "type": "effect"
 }

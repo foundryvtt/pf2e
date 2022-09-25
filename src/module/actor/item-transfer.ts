@@ -32,13 +32,11 @@ export class ItemTransfer implements ItemTransferData {
     ) {}
 
     async request(): Promise<void> {
-        const gamemaster = game.users.find((user) => user.isGM && user.active);
+        const gamemaster = game.users.find((u) => u.isGM && u.active);
         if (!gamemaster) {
             const source = this.getSource();
             const target = this.getTarget();
-            const loot = [source, target].find(
-                (actor) => actor instanceof ActorPF2e && actor.isLootableBy(game.user) && !actor.isOwner
-            );
+            const loot = [source, target].find((a) => a?.isLootableBy(game.user) && !a.isOwner);
 
             if (!(loot instanceof ActorPF2e)) throw ErrorPF2e("Unexpected missing actor");
             const translations = LocalizePF2e.translations.PF2E.loot;
@@ -60,7 +58,7 @@ export class ItemTransfer implements ItemTransferData {
 
         console.debug("PF2e System | Enacting item transfer");
         const sourceActor = this.getSource();
-        const sourceItem = sourceActor?.items?.find((item) => item.id === this.source.itemId);
+        const sourceItem = sourceActor?.items?.find((i) => i.id === this.source.itemId);
         const targetActor = this.getTarget();
 
         // Sanity checks
@@ -82,7 +80,7 @@ export class ItemTransfer implements ItemTransferData {
             this.quantity,
             this.containerId
         );
-        const sourceIsLoot = sourceActor.data.type === "loot" && sourceActor.data.data.lootSheetType === "Loot";
+        const sourceIsLoot = sourceActor.isOfType("loot") && sourceActor.system.lootSheetType === "Loot";
 
         // A merchant transaction can fail if funds are insufficient, but a loot transfer failing is an error.
         if (!sourceItem && sourceIsLoot) {
@@ -95,7 +93,7 @@ export class ItemTransfer implements ItemTransferData {
     /** Retrieve the full actor from the source or target ID */
     private getActor(tokenId: string | undefined, actorId: string): ActorPF2e | null {
         if (typeof tokenId === "string") {
-            const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === tokenId);
+            const token = canvas.tokens.placeables.find((t) => t.id === tokenId);
             return token?.actor ?? null;
         }
         return game.actors.get(actorId) ?? null;
@@ -110,23 +108,22 @@ export class ItemTransfer implements ItemTransferData {
     }
 
     // Prefer token names over actor names
-    private static tokenName(entity: ActorPF2e | User): string {
-        if (entity instanceof ActorPF2e) {
+    private static tokenName(document: ActorPF2e | User): string {
+        if (document instanceof ActorPF2e) {
             // Synthetic actor: use its token name or, failing that, actor name
-            if (entity.isToken && entity.token instanceof Token) {
-                return entity.token.name;
-            }
+            if (document.token) return document.token.name;
+
             // Linked actor: use its token prototype name
-            return entity.data.token?.name ?? entity.name;
+            return document.prototypeToken?.name ?? document.name;
         }
         // User with an assigned character
-        if (entity.character instanceof ActorPF2e) {
-            const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.actor?.id === entity.id);
-            return token?.name ?? entity.character?.name;
+        if (document.character instanceof ActorPF2e) {
+            const token = canvas.tokens.placeables.find((t) => t.actor?.id === document.id);
+            return token?.name ?? document.character?.name;
         }
 
         // User with no assigned character (should never happen)
-        return entity.name;
+        return document.name;
     }
 
     /** Send a chat message that varies on the types of transaction and parties involved
@@ -144,8 +141,7 @@ export class ItemTransfer implements ItemTransferData {
         const translations = LocalizePF2e.translations.PF2E.loot;
 
         if (!item) {
-            const sourceIsMerchant =
-                sourceActor.data.type === "loot" && sourceActor.data.data.lootSheetType === "Merchant";
+            const sourceIsMerchant = sourceActor.isOfType("loot") && sourceActor.system.lootSheetType === "Merchant";
             if (sourceIsMerchant) {
                 const message = translations.InsufficientFundsMessage;
                 // The buyer didn't have enough funds! No transaction.
@@ -175,16 +171,16 @@ export class ItemTransfer implements ItemTransferData {
 
         const [speaker, subtitle, formatArgs] = ((): PatternMatch => {
             const isMerchant = (actor: ActorPF2e) =>
-                actor.data.type === "loot" && actor.data.data.lootSheetType === "Merchant";
+                actor.isOfType("loot") && actor.system.lootSheetType === "Merchant";
             const isWhat = (actor: ActorPF2e) => ({
-                isCharacter: actor.testUserPermission(requester, "OWNER") && actor.data.type === "character",
+                isCharacter: actor.testUserPermission(requester, "OWNER") && actor.isOfType("character"),
                 isMerchant: isMerchant(actor),
                 isNPC:
-                    actor.data.type === "npc" &&
+                    actor.isOfType("npc") &&
                     actor.isLootableBy(requester) &&
                     !actor.testUserPermission(requester, "OWNER"),
                 isLoot:
-                    actor.data.type === "loot" &&
+                    actor.isOfType("loot") &&
                     actor.isLootableBy(requester) &&
                     !actor.testUserPermission(requester, "OWNER") &&
                     !isMerchant(actor),
@@ -328,7 +324,7 @@ export class ItemTransfer implements ItemTransferData {
                 title: "PF2E.TraitInteract",
                 subtitle: subtitle,
                 tooltip: "PF2E.TraitInteract",
-                typeNumber: sourceActor.data.type === "loot" && targetActor.data.type === "loot" ? 2 : 1,
+                typeNumber: sourceActor.isOfType("loot") && targetActor.isOfType("loot") ? 2 : 1,
             },
             traits: [
                 {

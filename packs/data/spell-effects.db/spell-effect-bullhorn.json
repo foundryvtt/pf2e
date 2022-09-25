@@ -1,6 +1,8 @@
 {
     "_id": "9yzlmYUdvdQshTDF",
-    "data": {
+    "img": "systems/pf2e/icons/spells/bullhorn.webp",
+    "name": "Spell Effect: Bullhorn",
+    "system": {
         "badge": null,
         "description": {
             "value": ""
@@ -17,26 +19,20 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Bullhorn",
-                "predicate": {
-                    "all": [
-                        "auditory",
-                        "action:perform",
-                        "terrain:largeVenue"
-                    ]
-                },
+                "predicate": [
+                    "auditory",
+                    "action:perform",
+                    "terrain:largeVenue"
+                ],
                 "selector": "performance",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "label": "Bullhorn",
-                "predicate": {
-                    "all": [
-                        "action:coerce"
-                    ]
-                },
+                "predicate": [
+                    "action:coerce"
+                ],
                 "selector": "intimidation",
                 "type": "status",
                 "value": 1
@@ -59,7 +55,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/bullhorn.webp",
-    "name": "Spell Effect: Bullhorn",
     "type": "effect"
 }

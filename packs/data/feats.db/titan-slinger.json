@@ -1,6 +1,8 @@
 {
     "_id": "50CRpoP5XS1MVbu8",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Titan Slinger",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -29,13 +30,15 @@
                 "override": {
                     "upgrade": true
                 },
-                "predicate": {
-                    "any": [
-                        "target:size:large",
-                        "target:size:huge",
-                        "target:size:gargantuan"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:size:large",
+                            "target:size:huge",
+                            "target:size:gargantuan"
+                        ]
+                    }
+                ],
                 "selector": "sling-weapon-group-damage"
             }
         ],
@@ -50,7 +53,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Titan Slinger",
     "type": "feat"
 }

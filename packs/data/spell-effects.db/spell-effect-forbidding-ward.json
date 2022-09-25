@@ -1,6 +1,8 @@
 {
     "_id": "ctMxYPGEpstvhW9C",
-    "data": {
+    "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
+    "name": "Spell Effect: Forbidding Ward",
+    "system": {
         "description": {
             "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Forbidding Ward]{Forbidding Ward}</em>.</p>\n<p>You are warded against the attacks and hostile spells from the target enemy. You gain a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>"
         },
@@ -24,11 +26,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Forbidding Ward",
-                "predicate": {
-                    "all": [
-                        "forbidding-ward"
-                    ]
-                },
+                "predicate": [
+                    "forbidding-ward"
+                ],
                 "selector": "ac",
                 "type": "status",
                 "value": {
@@ -42,17 +42,15 @@
                             "value": 2
                         }
                     ],
-                    "field": "item|data.level.value"
+                    "field": "item|system.level.value"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "Forbidding Ward",
-                "predicate": {
-                    "all": [
-                        "forbidding-ward"
-                    ]
-                },
+                "predicate": [
+                    "forbidding-ward"
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": {
@@ -66,12 +64,12 @@
                             "value": 2
                         }
                     ],
-                    "field": "item|data.level.value"
+                    "field": "item|system.level.value"
                 }
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -87,7 +85,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
-    "name": "Spell Effect: Forbidding Ward",
     "type": "effect"
 }

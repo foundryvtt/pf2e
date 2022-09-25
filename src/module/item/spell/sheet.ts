@@ -3,7 +3,6 @@ import { ItemSheetPF2e } from "../sheet/base";
 import { ItemSheetDataPF2e } from "../sheet/data-types";
 import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data";
 import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, tagify, tupleHasValue } from "@util";
-import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
 import { OneToTen } from "@module/data";
 
 /** Set of properties that are legal for the purposes of spell overrides */
@@ -24,7 +23,7 @@ const DEFAULT_INTERVAL_SCALING: SpellHeighteningInterval = {
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<SpellSheetData> {
-        const sheetData: ItemSheetDataPF2e<SpellPF2e> = await super.getData(options);
+        const sheetData = await super.getData(options);
         const { isCantrip, isFocusSpell, isRitual } = this.item;
 
         // Create a level label to show in the summary.
@@ -34,19 +33,26 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 ? game.i18n.localize("PF2E.SpellCategoryFocusCantrip")
                 : this.item.isCantrip
                 ? game.i18n.localize("PF2E.TraitCantrip")
-                : game.i18n.localize(CONFIG.PF2E.spellCategories[this.item.data.data.category.value]);
+                : game.i18n.localize(CONFIG.PF2E.spellCategories[this.item.system.category.value]);
+
+        const damageTypes = Object.fromEntries(
+            Object.entries(CONFIG.PF2E.damageTypes)
+                .map(([slug, localizeKey]): [string, string] => [slug, game.i18n.localize(localizeKey)])
+                .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1]))
+        );
 
         const variants = this.item.overlays.overrideVariants
             .map((variant) => ({
                 name: variant.name,
                 id: variant.id,
-                sort: variant.data.sort,
-                actions: getActionGlyph(variant.data.data.time.value),
+                sort: variant.sort,
+                actions: getActionGlyph(variant.system.time.value),
             }))
             .sort((variantA, variantB) => variantA.sort - variantB.sort);
 
         return {
             ...sheetData,
+            hasSidebar: true,
             itemType,
             isCantrip,
             isFocusSpell,
@@ -55,11 +61,12 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             isVariant: this.item.isVariant,
             spellCategories: CONFIG.PF2E.spellCategories,
             spellTypes: CONFIG.PF2E.spellTypes,
+            saves: CONFIG.PF2E.saves,
             magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
+            damageTypes,
             damageSubtypes: CONFIG.PF2E.damageSubtypes,
             damageCategories: CONFIG.PF2E.damageCategories,
-            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [sheetData.data.traits.rarity] }),
             spellComponents: this.formatSpellComponents(sheetData.data),
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
@@ -82,6 +89,12 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             : super.title;
     }
 
+    override get validTraits() {
+        const traits = deepClone(CONFIG.PF2E.spellTraits);
+        delete traits[this.item.school];
+        return traits;
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -90,10 +103,24 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         super.activateListeners($html);
         const html = $html[0]!;
 
-        const traits = deepClone(CONFIG.PF2E.spellTraits);
-        delete traits[this.item.school];
-        tagify(html.querySelector('input[name="data.traits.value"]'), { whitelist: traits });
-        tagify(html.querySelector('input[name="data.traditions.value"]'), { whitelist: CONFIG.PF2E.magicTraditions });
+        tagify(html.querySelector('input[name="system.traditions.value"]'), { whitelist: CONFIG.PF2E.magicTraditions });
+
+        $html.find(".toggle-trait").on("change", (evt) => {
+            const target = evt.target as HTMLInputElement;
+            const trait = target.dataset.trait ?? "";
+            if (!objectHasKey(CONFIG.PF2E.spellTraits, trait)) {
+                console.warn("Toggled trait is invalid");
+                return;
+            }
+
+            if (target.checked && !this.item.traits.has(trait)) {
+                const newTraits = this.item.system.traits.value.concat([trait]);
+                this.item.update({ "system.traits.value": newTraits });
+            } else if (!target.checked && this.item.traits.has(trait)) {
+                const newTraits = this.item.system.traits.value.filter((t) => t !== trait);
+                this.item.update({ "system.traits.value": newTraits });
+            }
+        });
 
         $html.find("[data-action=damage-create]").on("click", (event) => {
             event.preventDefault();
@@ -124,7 +151,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         // Event used to delete all heightening, not just a particular one
         $html.find("[data-action=heightening-delete]").on("click", () => {
-            this.item.update({ "data.-=heightening": null });
+            this.item.update({ "system.-=heightening": null });
         });
 
         $html.find("[data-action=heightening-fixed-create]").on("click", () => {
@@ -133,7 +160,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             const level = highestLevel && highestLevel < 10 ? highestLevel + 1 : available.at(0);
             if (level === undefined) return;
 
-            this.item.update({ "data.heightening": { type: "fixed", levels: { [level]: {} } } });
+            this.item.update({ "system.heightening": { type: "fixed", levels: { [level]: {} } } });
         });
 
         $html.find("[data-action=overlay-delete]").on("click", async (event) => {
@@ -144,7 +171,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             if (overlay.type === "heighten") {
                 const layers = this.item.getHeightenLayers();
                 if (layers.length === 1 && layers[0].level === overlay.level) {
-                    this.item.update({ "data.-=heightening": null });
+                    this.item.update({ "system.-=heightening": null });
                     return;
                 }
             }
@@ -165,9 +192,9 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 // default scaling object, or the most recent value among all overlays and base spell.
                 const value = (() => {
                     const scaling = this.item.getHeightenLayers().reverse();
-                    for (const entry of [...scaling, this.item.data]) {
-                        if (objectHasKey(entry.data, property)) {
-                            return entry.data[property];
+                    for (const entry of [...scaling, { system: this.item.system }]) {
+                        if (objectHasKey(entry.system, property)) {
+                            return entry.system[property];
                         }
                     }
 
@@ -207,7 +234,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             const existingData = this.item.getHeightenLayers().find((layer) => layer.level === currentLevel);
             this.item.update({
                 [`${overlay.collectionPath}.-=${currentLevel}`]: null,
-                [`${overlay.collectionPath}.${newLevel}`]: existingData?.data ?? {},
+                [`${overlay.collectionPath}.${newLevel}`]: existingData?.system ?? {},
             });
         });
 
@@ -338,12 +365,12 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
 
         const id = "overlayId" in domData ? String(domData.overlayId) : null;
         const level = "level" in domData ? Number(domData.level) : null;
-        const collectionPath = overlayType === "heighten" ? "data.heightening.levels" : "data.variants";
+        const collectionPath = overlayType === "heighten" ? "system.heightening.levels" : "system.variants";
         const base = overlayType === "heighten" ? `${collectionPath}.${level}` : `${collectionPath}.${id}`;
 
         const data = (() => {
             if (overlayType === "heighten") {
-                const heightening = this.item.data.data.heightening;
+                const heightening = this.item.system.heightening;
                 if (heightening?.type === "fixed") {
                     return heightening.levels[level as OneToTen];
                 }
@@ -360,11 +387,11 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         const layers = spell.getHeightenLayers();
 
         return layers.map((layer) => {
-            const { level, data } = layer;
-            const base = `data.heightening.levels.${layer.level}`;
+            const { level, system } = layer;
+            const base = `system.heightening.levels.${layer.level}`;
             const missing: SpellSheetOverlayData["missing"] = [];
             for (const [key, label] of Object.entries(spellOverridable)) {
-                if (key in layer.data) continue;
+                if (key in layer.system) continue;
                 missing.push({ key: key as keyof SpellSystemData, label });
             }
 
@@ -372,7 +399,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             heightenLevels.push(level);
             heightenLevels.sort((a, b) => a - b);
 
-            return { id: null, level, base, dataPath: base, type: "heighten", data, missing, heightenLevels };
+            return { id: null, level, base, dataPath: base, type: "heighten", system, missing, heightenLevels };
         });
     }
 }
@@ -392,10 +419,11 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     spellCategories: ConfigPF2e["PF2E"]["spellCategories"];
     spellLevels: ConfigPF2e["PF2E"]["spellLevels"];
     spellTypes: ConfigPF2e["PF2E"]["spellTypes"];
+    saves: ConfigPF2e["PF2E"]["saves"];
     damageCategories: ConfigPF2e["PF2E"]["damageCategories"];
+    damageTypes: Record<string, string>;
     damageSubtypes: ConfigPF2e["PF2E"]["damageSubtypes"];
     spellComponents: string[];
-    rarities: SheetOptions;
     areaSizes: ConfigPF2e["PF2E"]["areaSizes"];
     areaTypes: ConfigPF2e["PF2E"]["areaTypes"];
     heightenIntervals: number[];
@@ -410,7 +438,7 @@ interface SpellSheetOverlayData {
     /** Base path to the spell override data, dot delimited. Currently this is the same as base */
     dataPath: string;
     level: number;
-    data: Partial<SpellSystemData>;
+    system: Partial<SpellSystemData>;
     type: "heighten";
     heightenLevels: number[];
     missing: { key: keyof SpellSystemData; label: string }[];

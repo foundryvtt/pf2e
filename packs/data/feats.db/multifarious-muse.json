@@ -1,6 +1,8 @@
 {
     "_id": "a898miJnjgD93ZsX",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Multifarious Muse",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -26,52 +28,52 @@
         "rules": [
             {
                 "allowedDrops": {
-                    "all": [
+                    "label": "1st-level Bard class feature",
+                    "predicate": [
                         "item:level:1",
                         "item:trait:bard",
                         "item:type:feature"
-                    ],
-                    "label": "1st-level Bard class feature"
+                    ]
                 },
                 "choices": [
                     {
                         "img": "systems/pf2e/icons/features/classes/enigma.webp",
                         "label": "Enigma",
-                        "predicate": {
-                            "not": [
-                                "feature:enigma"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feature:enigma"
+                            }
+                        ],
                         "value": "enigma"
                     },
                     {
                         "img": "systems/pf2e/icons/features/classes/maestro.webp",
                         "label": "Maestro",
-                        "predicate": {
-                            "not": [
-                                "feature:maestro"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feature:maestro"
+                            }
+                        ],
                         "value": "maestro"
                     },
                     {
                         "img": "systems/pf2e/icons/features/classes/polymath.webp",
                         "label": "Polymath",
-                        "predicate": {
-                            "not": [
-                                "feature:polymath"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feature:polymath"
+                            }
+                        ],
                         "value": "polymath"
                     },
                     {
                         "img": "systems/pf2e/icons/features/classes/warrior.webp",
                         "label": "Warrior",
-                        "predicate": {
-                            "not": [
-                                "feature:warrior"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feature:warrior"
+                            }
+                        ],
                         "value": "warrior"
                     }
                 ],
@@ -82,7 +84,7 @@
             {
                 "adjustName": false,
                 "choices": {
-                    "query": "{\"data.featType.value\":\"class\",\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"bard\"},\"data.prerequisites.value\":{\"$elemMatch\":{\"value\":\"{item|flags.pf2e.rulesSelections.muse} muse\"}}}"
+                    "query": "{\"system.featType.value\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"bard\"},\"system.prerequisites.value\":{\"$elemMatch\":{\"value\":\"{item|flags.pf2e.rulesSelections.muse} muse\"}}}"
                 },
                 "flag": "feat",
                 "key": "ChoiceSet",
@@ -109,7 +111,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Multifarious Muse",
     "type": "feat"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "t03Tc5I4B8RHsyqs",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Overwatch Dedication",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -27,9 +28,28 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "events": [
+                            "enter"
+                        ],
+                        "uuid": "Compendium.pf2e.feat-effects.Effect: Overwatch Field"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 30,
+                "slug": "overwatch-field",
+                "traits": [
+                    "auditory",
+                    "visual"
+                ]
+            }
+        ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",
@@ -40,7 +60,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Overwatch Dedication",
     "type": "feat"
 }

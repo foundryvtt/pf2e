@@ -11,7 +11,7 @@
                 text-align: center;
                 &:disabled {
                     border: none;
-                    color: #777;
+                    color: var(--color-text-dark-6);
                 }
             }
 
@@ -19,41 +19,26 @@
                 max-width: 20em;
             }
 
-            label.dimension {
-                font-size: var(--font-size-12);
-            }
-
             &:last-child {
                 margin: 6px 0;
-            }
-            .form-group.scale.children-disabled {
-                .range-value {
-                    border: none;
-                    background-color: rgba(0, 0, 0, 0.05);
-                    color: #777;
-                }
             }
         }
     }
 
     .tab[data-tab="vision"] {
-        .form-group.managed-by-rbv {
-            position: relative;
-
-            p {
-                background: rgba(0, 0, 0, 0.05);
-                border-radius: 3px;
-                color: #4b4a44;
-                padding: 16px 48px;
-                position: absolute;
-                right: 0;
-                text-align: center;
-                top: 4px;
-
-                a {
-                    color: var(--primary);
-                }
-            }
+        .disabled[data-tab] {
+            color: var(--color-text-dark-6);
+            pointer-events: none;
         }
+
+        a.managed-by-rbv {
+            padding-left: 0.33em;
+        }
+    }
+
+    .form-group.children-disabled .range-value {
+        border: none;
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #777;
     }
 }

@@ -1,6 +1,8 @@
 {
     "_id": "uxHWqFbYD0ZvkeF8",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Scroll Trickster Dedication",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,6 +32,27 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Trick Magic Item"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:trick-magic-item",
+                    "item:trait:scroll"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:trick-magic-item",
+                    "item:trait:scroll"
+                ],
+                "selector": "skill-check"
             }
         ],
         "source": {
@@ -45,7 +67,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Scroll Trickster Dedication",
     "type": "feat"
 }

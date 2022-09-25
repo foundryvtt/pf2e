@@ -1,6 +1,5 @@
 import {
     calculateDamage,
-    DamageType,
     DamageValues,
     golemAntiMagic,
     GolemMagicImmunity,
@@ -10,6 +9,7 @@ import {
     Resistance,
     Weakness,
 } from "@system/damage/calculation";
+import { DamageType } from "@system/damage/types";
 
 describe("test damage calculation", () => {
     test("simple damage", () => {

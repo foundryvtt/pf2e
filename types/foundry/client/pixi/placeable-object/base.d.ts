@@ -14,9 +14,6 @@ declare global {
         /** A reference to the Scene embedded Document instance which this object represents */
         document: TDocument;
 
-        /** The underlying data object which provides the basis for this placeable object */
-        data: TDocument["data"];
-
         /**
          * Track the field of vision for the placeable object.
          * This is necessary to determine whether a player has line-of-sight towards a placeable object or vice-versa
@@ -28,12 +25,6 @@ declare global {
 
         /** A mouse interaction manager instance which handles mouse workflows related to this object. */
         mouseInteractionManager: MouseInteractionManager;
-
-        /** An indicator for whether the object is currently controlled */
-        protected _controlled: boolean;
-
-        /** An indicator for whether the object is currently a hover target */
-        protected _hover: boolean;
 
         /** Identify the official EmbeddedEntity name for this PlaceableObject class */
         static embeddedName: string;
@@ -54,6 +45,18 @@ declare global {
         /** The id of the corresponding Document which this PlaceableObject represents. */
         get id(): string;
 
+        /** A unique identifier which is used to uniquely identify elements on the canvas related to this object. */
+        get objectId(): string;
+
+        /**
+         * The named identified for the source object associated with this PlaceableObject.
+         * This differs from the objectId because the sourceId is the same for preview objects as for the original.
+         */
+        get sourceId(): string;
+
+        /** Is this placeable object a temporary preview? */
+        get isPreview(): boolean;
+
         /** The field-of-vision polygon for the object, if it has been computed */
         get fov(): PIXI.Polygon;
 
@@ -68,6 +71,12 @@ declare global {
          * it represents.
          */
         get sheet(): TDocument["sheet"];
+
+        /** An indicator for whether the object is currently controlled */
+        get controlled(): boolean;
+
+        /** An indicator for whether the object is currently a hover target */
+        get hover(): boolean;
 
         /* -------------------------------------------- */
         /*  Permission Controls                         */
@@ -130,20 +139,19 @@ declare global {
         override destroy(options?: boolean | PIXI.IDestroyOptions): void;
 
         /** Draw the placeable object into its parent container */
-        abstract draw(): Promise<this>;
+        draw(): Promise<this>;
+
+        /** The inner _draw method which must be defined by each PlaceableObject subclass. */
+        protected abstract _draw(): Promise<void>;
 
         /**
          * Refresh the current display state of the Placeable Object
          * @return The refreshed object
          */
-        abstract refresh(): this;
+        refresh(): this;
 
         /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
-        _onCreate(
-            data: TDocument["data"]["_source"],
-            options: DocumentModificationContext<TDocument>,
-            userId: string
-        ): void;
+        _onCreate(data: TDocument["_source"], options: DocumentModificationContext<TDocument>, userId: string): void;
 
         /** Define additional steps taken when an existing placeable object of this type is updated with new data */
         _onUpdate(

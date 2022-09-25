@@ -1,6 +1,8 @@
 {
     "_id": "70qdCBokXBvKIUIQ",
-    "data": {
+    "img": "systems/pf2e/icons/spells/vision-of-weakness.webp",
+    "name": "Spell Effect: Vision of Weakness",
+    "system": {
         "description": {
             "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Vision of Weakness]{Vision of Weakness}</em></p>"
         },
@@ -24,11 +26,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Against target of Vision of Weakness",
-                "predicate": {
-                    "all": [
-                        "vision-of-weakness"
-                    ]
-                },
+                "predicate": [
+                    "vision-of-weakness"
+                ],
                 "selector": "attack",
                 "type": "status",
                 "value": 2
@@ -36,19 +36,17 @@
             {
                 "key": "FlatModifier",
                 "label": "Part of an Attack action against Vision of Weakness target",
-                "predicate": {
-                    "all": [
-                        "attack",
-                        "vision-of-weakness"
-                    ]
-                },
+                "predicate": [
+                    "attack",
+                    "vision-of-weakness"
+                ],
                 "selector": "skill-check",
                 "type": "status",
                 "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Advanced Player's Guide"
         },
         "start": {
             "initiative": null,
@@ -64,7 +62,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/vision-of-weakness.webp",
-    "name": "Spell Effect: Vision of Weakness",
     "type": "effect"
 }

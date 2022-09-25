@@ -81,14 +81,12 @@ abstract class PickAThingPrompt<T> extends Application {
     }
 
     override async getData(options: Partial<ApplicationOptions> = {}): Promise<PromptTemplateData> {
-        options.id = `pick-a-thing-${this.item.slug ?? sluggify(this.item.name)}`;
+        const slug = this.item.slug ?? sluggify(this.item.name);
+        options.id = `pick-a-${slug}`;
 
         return {
             selectMenu: this.choices.length > 9,
-            // Sort by the `sort` property, if set, and otherwise `label`
-            choices: this.choices
-                .map((c, index) => ({ ...c, value: index }))
-                .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : a.label.localeCompare(b.label, game.i18n.lang))),
+            choices: this.choices.map((c, index) => ({ ...c, value: index })),
         };
     }
 
@@ -118,9 +116,7 @@ abstract class PickAThingPrompt<T> extends Application {
                 maxItems: this.choices.length,
                 searchKeys: ["label"],
             },
-            whitelist: this.choices
-                .sort((a, b) => (a.sort && b.sort ? a.sort - b.sort : a.label.localeCompare(b.label, game.i18n.lang)))
-                .map((c, index) => ({ value: index.toString(), label: c.label })),
+            whitelist: this.choices.map((c, index) => ({ value: index.toString(), label: c.label })),
         });
 
         this.selectMenu.DOM.input.spellcheck = false;
@@ -163,8 +159,6 @@ interface PickableThing<T = string | number | object> {
     img?: string;
     domain?: string[];
     predicate?: PredicatePF2e;
-    /** A numeric order by which to sort the choices */
-    sort?: number;
 }
 
 interface PromptTemplateData {

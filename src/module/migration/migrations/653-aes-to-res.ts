@@ -10,12 +10,12 @@ export class Migration653AEstoREs extends MigrationBase {
 
     /** Remove the AE if the originating item is a class and is modifying any of the below property paths */
     private pathsToRemove = new Set([
-        ...["unarmored", "light", "medium", "heavy"].map((category) => `data.martial.${category}.rank`),
-        ...["unarmed", "simple", "martial", "advanced"].map((category) => `data.martial.${category}.rank`),
-        ...["fortitude", "reflex", "will"].map((save) => `data.saves.${save}.rank`),
-        "data.details.keyability.value",
-        "data.attributes.perception.rank",
-        "data.attributes.classDC.rank",
+        ...["unarmored", "light", "medium", "heavy"].map((category) => `system.martial.${category}.rank`),
+        ...["unarmed", "simple", "martial", "advanced"].map((category) => `system.martial.${category}.rank`),
+        ...["fortitude", "reflex", "will"].map((save) => `system.saves.${save}.rank`),
+        "system.details.keyability.value",
+        "system.attributes.perception.rank",
+        "system.attributes.classDC.rank",
     ]);
 
     private isRemovableAE(effect: foundry.data.ActiveEffectSource): boolean {
@@ -31,13 +31,13 @@ export class Migration653AEstoREs extends MigrationBase {
 
     private fixClassKeyAbilities(classSource: ClassSource): void {
         type MaybeOldKeyAbility = { value: AbilityString[] | { value: AbilityString }[] };
-        const keyAbility: MaybeOldKeyAbility = classSource.data.keyAbility;
+        const keyAbility: MaybeOldKeyAbility = classSource.system.keyAbility;
         keyAbility.value = keyAbility.value.map((value) => (typeof value === "string" ? value : value.value));
     }
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "character") return;
-        const systemData: { martial: Record<string, CharacterProficiency> } = actorSource.data;
+        const systemData: { martial: Record<string, CharacterProficiency> } = actorSource.system;
         systemData.martial = {}; // Only remove on compendium JSON
 
         // Remove transferred ActiveEffects, some of which will be converted to RuleElements
@@ -65,7 +65,7 @@ export class Migration653AEstoREs extends MigrationBase {
 
             // Turn what remains into AE-Like rule elements
             const toAELikes = effect.changes.filter(this.isRemoveableChange);
-            const rules = itemSource.data.rules;
+            const rules = itemSource.system.rules;
             for (const change of toAELikes) {
                 if (change.mode === 0) continue;
                 const newRule = {

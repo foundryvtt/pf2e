@@ -1,6 +1,6 @@
 <div class="control-area">
     <div class="sortcontainer" id="tagfilter">
-        <input name="textFilter" type="text" value="{{filterData.search.text}}" data-dtype="String" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}" />
+        <input name="textFilter" type="search" value="{{filterData.search.text}}" placeholder="{{localize "PF2E.BrowserSearchPlaceholder"}}" title="{{localize "PF2E.BrowserSearchTitle"}}" />
         <dl>
             <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
             <dd>
@@ -28,13 +28,13 @@
                 </a>
             </dd>
         </dl>
-        {{#each filterData.selects as |select type|}}
+        {{#each filterData.selects as |selectData type|}}
             <dl class="{{type}}">
-                <dt>{{localize select.label}}:</dt>
+                <dt>{{localize selectData.label}}:</dt>
                 <dd><select name="{{type}}">
-                    {{#select select.selected}}
-                        <option value="" selected>-</option>
-                        {{#each select.options as |option key|}}
+                    {{#select selectData.selected}}
+                        <option value="">-</option>
+                        {{#each selectData.options as |option key|}}
                             <option value="{{key}}">{{option}}</option>
                         {{/each}}
                     {{/select}}
@@ -45,10 +45,10 @@
     <button type="button" class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
     {{#each filterData.checkboxes as |checkbox name|}}
         {{#if (eq @index 1)}}
-            {{#each ../filterData.multiselects as |select type|}}
+            {{#each ../filterData.multiselects as |selectData type|}}
                 <div class="filtercontainer" data-filter-type="multiselects" data-filter-name="{{type}}">
-                    <h3>{{localize select.label}}</h3>
-                    <input class="paizo-style" name="{{type}}" data-tagify-select="true" spellcheck="false" value="{{json select.selected}}" />
+                    <h3>{{localize selectData.label}}</h3>
+                    <input class="tags paizo-style" name="{{type}}" data-tagify-select="true" spellcheck="false" value="{{json selectData.selected}}" />
                 </div>
             {{/each}}
         {{/if}}
@@ -78,25 +78,25 @@
                 {{/if}}
             </div>
             <div {{#if (not range.isExpanded)}}style="display: none;"{{/if}}>
-                <input type="text" name="lowerBound-level" value="{{range.values.inputMin}}">
+                <input type="search" name="lowerBound-level" value="{{range.values.inputMin}}" placeholder="0cp">
                 -
-                <input type="text" name="upperBound-level" value="{{range.values.inputMax}}">
+                <input type="search" name="upperBound-level" value="{{range.values.inputMax}}" placeholder="200,000gp">
             </div>
         </div>
     {{/each}}
     {{#each filterData.sliders as |slider name|}}
-    <div class="filtercontainer slidercontainer" data-filter-type="sliders" data-filter-name="{{name}}">
-        <div class="title">
-            <h3>{{localize slider.label}}</h3>
-            {{#if slider.changed}}
-                <button type="button" data-action="clear-filter" {{#if (not slider.isExpanded)}}style="display: none;"{{/if}}>{{localize "PF2E.BrowserClearFilter"}}</button>
-            {{/if}}
+        <div class="filtercontainer slidercontainer" data-filter-type="sliders" data-filter-name="{{name}}">
+            <div class="title">
+                <h3>{{localize slider.label}}</h3>
+                {{#if slider.changed}}
+                    <button type="button" data-action="clear-filter" {{#if (not slider.isExpanded)}}style="display: none;"{{/if}}>{{localize "PF2E.BrowserClearFilter"}}</button>
+                {{/if}}
+            </div>
+            <div class="slidercontainer-flex" {{#if (not slider.isExpanded)}}style="display: none;"{{/if}}>
+                <label id="{{name}}-min-label">{{slider.values.min}}</label>
+                <div class="slider-{{name}}"></div>
+                <label id="{{name}}-max-label">{{slider.values.max}}</label>
+            </div>
         </div>
-        <div class="slidercontainer-flex" {{#if (not slider.isExpanded)}}style="display: none;"{{/if}}>
-            <label id="{{name}}-min-label">{{slider.values.min}}</label>
-            <div class="slider-{{name}}"></div>
-            <label id="{{name}}-max-label">{{slider.values.max}}</label>
-        </div>
-    </div>
     {{/each}}
 </div>

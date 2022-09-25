@@ -1,6 +1,8 @@
 {
     "_id": "Ee2xfKX1yyqGIDZj",
-    "data": {
+    "img": "systems/pf2e/icons/effects/treat-disease.webp",
+    "name": "Effect: Treat Disease (Success)",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>You have been treated to prevent the spread of disease. You gain a +2 circumstance bonus to your next save against the disease.</p>"
@@ -17,11 +19,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "disease"
-                    ]
-                },
+                "predicate": [
+                    "disease"
+                ],
                 "removeAfterRoll": true,
                 "selector": "saving-throw",
                 "type": "circumstance",
@@ -29,7 +29,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -45,7 +45,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/effects/treat-disease.webp",
-    "name": "Effect: Treat Disease (Success)",
     "type": "effect"
 }

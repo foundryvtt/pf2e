@@ -1,52 +1,48 @@
-import { LocalizePF2e } from "@module/system/localize";
-import { ConsumableData, ConsumableType } from "./data";
-import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { ErrorPF2e } from "@util";
-import { ChatMessagePF2e } from "@module/chat-message";
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
+import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
+import { ItemSummaryData } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
+import { ValueAndMax } from "@module/data";
+import { LocalizePF2e } from "@module/system/localize";
+import { ErrorPF2e } from "@util";
+import { ConsumableData, ConsumableType } from "./data";
 
 class ConsumablePF2e extends PhysicalItemPF2e {
     get consumableType(): ConsumableType {
-        return this.data.data.consumableType.value;
+        return this.system.consumableType.value;
     }
 
     get isAmmunition(): boolean {
         return this.consumableType === "ammo";
     }
 
-    get charges() {
+    get uses(): ValueAndMax {
         return {
-            value: this.data.data.charges.value,
-            current: this.data.data.charges.value, // will be removed in v10
-            max: this.data.data.charges.max,
+            value: this.system.charges.value,
+            max: this.system.charges.max,
         };
     }
 
     /** Should this item be automatically destroyed upon use */
     get autoDestroy(): boolean {
-        return this.data.data.autoDestroy.value;
+        return this.system.autoDestroy.value;
     }
 
     get embeddedSpell(): Embedded<SpellPF2e> | null {
-        const spellData = deepClone(this.data.data.spell.data);
-
-        if (!spellData) return null;
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
+        if (!this.system.spell) return null;
 
-        const heightenedLevel = this.data.data.spell.heightenedLevel;
-        if (typeof heightenedLevel === "number") {
-            spellData.data.location.heightenedLevel = heightenedLevel;
-        }
-
-        return new SpellPF2e(spellData, {
+        return new SpellPF2e(deepClone(this.system.spell), {
             parent: this.actor,
             fromConsumable: true,
         }) as Embedded<SpellPF2e>;
     }
 
-    override getChatData(this: Embedded<ConsumablePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
-        const data = this.data.data;
+    override async getChatData(
+        this: Embedded<ConsumablePF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
+        const systemData = this.system;
         const translations = LocalizePF2e.translations.PF2E;
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
         const [consumableType, isUsable] = this.isIdentified
@@ -57,14 +53,14 @@ class ConsumablePF2e extends PhysicalItemPF2e {
               ];
 
         return this.processChatData(htmlOptions, {
-            ...data,
+            ...systemData,
             traits,
             properties:
-                this.isIdentified && this.charges.max > 0
-                    ? [`${data.charges.value}/${data.charges.max} ${translations.ConsumableChargesLabel}`]
+                this.isIdentified && this.uses.max > 0
+                    ? [`${systemData.charges.value}/${systemData.charges.max} ${translations.ConsumableChargesLabel}`]
                     : [],
-            usesCharges: this.charges.max > 0,
-            hasCharges: this.charges.max > 0 && this.charges.value > 0,
+            usesCharges: this.uses.max > 0,
+            hasCharges: this.uses.max > 0 && this.uses.value > 0,
             consumableType,
             isUsable,
         });
@@ -94,27 +90,24 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             return false;
         }
 
-        const { max } = this.charges;
+        const { max } = this.uses;
         return weapon.traits.has("repeating") ? max > 1 : max <= 1;
     }
 
     /** Use a consumable item, sending the result to chat */
     async consume(this: Embedded<ConsumablePF2e>): Promise<void> {
-        const { value, max } = this.charges;
+        const { value, max } = this.uses;
 
-        if (["scroll", "wand"].includes(this.data.data.consumableType.value) && this.data.data.spell.data) {
+        if (["scroll", "wand"].includes(this.system.consumableType.value) && this.system.spell) {
             if (this.actor.spellcasting.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
             } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
                 new TrickMagicItemPopup(this);
             } else {
-                const content = game.i18n.format("PF2E.LackCastConsumableCapability", { name: this.name });
-                await ChatMessagePF2e.create({
-                    user: game.user.id,
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    whisper: ChatMessage.getWhisperRecipients(this.actor.name).map((user) => user.id),
-                    content,
-                });
+                const formatParams = { actor: this.actor.name, spell: this.name };
+                const message = game.i18n.format("PF2E.LackCastConsumableCapability", formatParams);
+                ui.notifications.warn(message);
+                return;
             }
         } else {
             const exhausted = max > 1 && value === 1;
@@ -125,7 +118,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             });
 
             // If using this consumable creates a roll, we need to show it
-            const formula = this.data.data.consume.value;
+            const formula = this.system.consume.value;
             if (formula) {
                 new Roll(formula).toMessage({
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -149,14 +142,14 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
-                    "data.quantity": Math.max(quantity - 1, 0),
-                    "data.charges.value": max,
+                    "system.quantity": Math.max(quantity - 1, 0),
+                    "system.charges.value": max,
                 });
             }
         } else {
             // Deduct one charge
             await this.update({
-                "data.charges.value": Math.max(value - 1, 0),
+                "system.charges.value": Math.max(value - 1, 0),
             });
         }
     }
@@ -166,28 +159,20 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         if (!spell) return;
         const actor = this.actor;
 
-        // Filter to only spellcasting entries that are eligible to cast this consumable
+        // Find the best spellcasting entry to cast this consumable
         const entry = (() => {
             if (trickMagicItemData) return trickMagicItemData;
-
-            const spellcastingEntries = actor.spellcasting.spellcastingFeatures.filter((entry) =>
-                spell.traditions.has(entry.tradition)
-            );
-
-            let maxBonus = 0;
-            let bestEntry = 0;
-            for (let i = 0; i < spellcastingEntries.length; i++) {
-                if (spellcastingEntries[i].data.data.spelldc.value > maxBonus) {
-                    maxBonus = spellcastingEntries[i].data.data.spelldc.value;
-                    bestEntry = i;
-                }
-            }
-
-            return spellcastingEntries[bestEntry];
+            return actor.spellcasting
+                .filter((entry) => entry.canCastSpell(spell, { origin: this }))
+                .reduce((previous, current) => {
+                    const previousDC = previous.statistic.dc.value;
+                    const currentDC = current.statistic.dc.value;
+                    return currentDC > previousDC ? current : previous;
+                });
         })();
 
         if (entry) {
-            const systemData = spell.data.data;
+            const systemData = spell.system;
             if (entry instanceof SpellcastingEntryPF2e) {
                 systemData.location.value = entry.id;
             }

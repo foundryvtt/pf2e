@@ -9,7 +9,7 @@ export class Migration740MaxTakable extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "feat") return;
 
-        const systemData: MaybeWithMaxTaken = source.data;
+        const systemData: MaybeWithMaxTaken = source.system;
         if ("maxTaken" in systemData) {
             if (typeof systemData.maxTaken === "number" && typeof systemData.maxTakable !== "number") {
                 systemData.maxTakable = systemData.maxTaken;

@@ -9,7 +9,7 @@ export class Migration678SeparateNPCAttackTraits extends MigrationBase {
 
     override async updateItem(itemSource: ItemWithRarityObject): Promise<void> {
         if (itemSource.type === "weapon") {
-            const weaponTraits = itemSource.data.traits.value;
+            const weaponTraits = itemSource.system.traits.value;
             const rangeTraits = weaponTraits.filter((trait) => /^range(?!d)/.test(trait));
             for (const trait of rangeTraits) {
                 weaponTraits.splice(weaponTraits.indexOf(trait), 1);
@@ -18,21 +18,21 @@ export class Migration678SeparateNPCAttackTraits extends MigrationBase {
             for (const trait of reloadTraits) {
                 weaponTraits.splice(weaponTraits.indexOf(trait), 1);
             }
-            itemSource.data.traits.value = [...new Set(weaponTraits)].sort();
+            itemSource.system.traits.value = [...new Set(weaponTraits)].sort();
         }
 
         // While we're at it ...
-        if (!itemSource.data.traits) return;
-        const itemTraits: string[] = itemSource.data.traits.value;
+        if (!itemSource.system.traits) return;
+        const itemTraits: string[] = itemSource.system.traits.value;
         for (const trait of itemTraits) {
             if (tupleHasValue(RARITIES, trait)) {
                 itemTraits.splice(itemTraits.indexOf(trait), 1);
                 if (
                     trait !== "common" &&
-                    isObject(itemSource.data.traits.rarity) &&
-                    itemSource.data.traits.rarity.value === "common"
+                    isObject(itemSource.system.traits.rarity) &&
+                    itemSource.system.traits.rarity.value === "common"
                 ) {
-                    itemSource.data.traits.rarity.value = trait;
+                    itemSource.system.traits.rarity.value = trait;
                 }
             }
         }
@@ -40,7 +40,7 @@ export class Migration678SeparateNPCAttackTraits extends MigrationBase {
 }
 
 type ItemWithRarityObject = ItemSourcePF2e & {
-    data: {
+    system: {
         traits?: {
             rarity: string | { value: string };
         };

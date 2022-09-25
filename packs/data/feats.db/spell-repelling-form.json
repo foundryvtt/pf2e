@@ -1,6 +1,8 @@
 {
     "_id": "cgtVYaZRVaTIW4sk",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Spell-Repelling Form",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,29 +21,30 @@
         "level": {
             "value": 14
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "magical",
-                        "arcane",
-                        "divine",
-                        "primal",
-                        "occult"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "magical",
+                            "arcane",
+                            "divine",
+                            "primal",
+                            "occult"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Secrets of Magic"
         },
         "traits": {
             "custom": "",
@@ -52,7 +55,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Spell-Repelling Form",
     "type": "feat"
 }

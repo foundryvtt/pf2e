@@ -1,7 +1,6 @@
 import { AncestryPF2e } from "@item/ancestry";
-import { ABCSheetPF2e } from "@item/abc/sheet";
-import { ABCSheetData, AncestrySheetData } from "../sheet/data-types";
-import { createSheetOptions } from "@module/sheet/helpers";
+import { ABCSheetData, ABCSheetPF2e } from "@item/abc/sheet";
+import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
 
 export class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<AncestrySheetData> {
@@ -11,16 +10,22 @@ export class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
         return {
             ...data,
             selectedBoosts: Object.fromEntries(
-                Object.entries(itemData.data.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)])
+                Object.entries(itemData.system.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)])
             ),
             selectedFlaws: Object.fromEntries(
-                Object.entries(itemData.data.flaws).map(([k, b]) => [k, this.getLocalizedAbilities(b)])
+                Object.entries(itemData.system.flaws).map(([k, b]) => [k, this.getLocalizedAbilities(b)])
             ),
-            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.data.traits.rarity] }),
-            sizes: createSheetOptions(CONFIG.PF2E.actorSizes, { value: [itemData.data.size] }),
-            traits: createSheetOptions(CONFIG.PF2E.creatureTraits, itemData.data.traits),
-            languages: createSheetOptions(CONFIG.PF2E.languages, itemData.data.languages),
-            additionalLanguages: createSheetOptions(CONFIG.PF2E.languages, itemData.data.additionalLanguages),
+            sizes: createSheetOptions(CONFIG.PF2E.actorSizes, { value: [itemData.system.size] }),
+            languages: createSheetOptions(CONFIG.PF2E.languages, itemData.system.languages),
+            additionalLanguages: createSheetOptions(CONFIG.PF2E.languages, itemData.system.additionalLanguages),
         };
     }
+}
+
+interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {
+    selectedBoosts: Record<string, Record<string, string>>;
+    selectedFlaws: Record<string, Record<string, string>>;
+    sizes: SheetOptions;
+    languages: SheetOptions;
+    additionalLanguages: SheetOptions;
 }

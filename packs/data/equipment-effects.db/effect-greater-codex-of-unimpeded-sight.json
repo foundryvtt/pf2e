@@ -1,6 +1,8 @@
 {
     "_id": "ApGnHnZEK7nv3IqL",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/held-items/codex-of-unimpreded-sight.webp",
+    "name": "Effect: Greater Codex of Unimpeded Sight",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>You gain a +1 item bonus on your Perception check to Seek or skill check to Recall Knowledge.</p>"
@@ -17,22 +19,18 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:seek"
-                    ]
-                },
+                "predicate": [
+                    "action:seek"
+                ],
                 "selector": "perception",
                 "type": "item",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:recall-knowledge"
-                    ]
-                },
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
                 "selector": "skill-check",
                 "type": "item",
                 "value": 1
@@ -55,7 +53,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/equipment/held-items/codex-of-unimpreded-sight.webp",
-    "name": "Effect: Greater Codex of Unimpeded Sight",
     "type": "effect"
 }

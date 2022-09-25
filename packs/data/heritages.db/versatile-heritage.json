@@ -1,6 +1,8 @@
 {
     "_id": "hFBwsVcSnNCJoimo",
-    "data": {
+    "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
+    "name": "Versatile Heritage",
+    "system": {
         "ancestry": {
             "name": "Human",
             "uuid": "Compendium.pf2e.ancestries.IiG7DgeLWYrSNXuX"
@@ -12,15 +14,15 @@
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops",
+                    "predicate": [
                         "item:type:feat",
                         "item:level:1",
                         "item:trait:general"
-                    ],
-                    "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops"
+                    ]
                 },
                 "choices": {
-                    "query": "{\"data.level.value\":1,\"data.traits.value\":{\"$elemMatch\":\"general\"}}"
+                    "query": "{\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt"
@@ -39,7 +41,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
-    "name": "Versatile Heritage",
     "type": "heritage"
 }

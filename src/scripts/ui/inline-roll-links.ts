@@ -5,43 +5,62 @@ import { Statistic } from "@system/statistic";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { objectHasKey, sluggify } from "@util";
+import { htmlQueryAll, objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
+import { MeasuredTemplateDocumentPF2e } from "@scene";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
 export const InlineRollLinks = {
-    injectRepostElement: ($links: JQuery): void => {
-        for (const link of $links) {
-            if (link.querySelector("i[data-pf2-repost]")) {
-                link.classList.add("with-repost");
+    injectRepostElement: (links: HTMLElement[], foundryDoc?: ClientDocument): void => {
+        for (const link of links) {
+            if (!foundryDoc || foundryDoc.isOwner) link.classList.add("with-repost");
+
+            const repostButtons = htmlQueryAll(link, "i[data-pf2-repost]");
+            if (repostButtons.length > 0) {
+                if (foundryDoc && !foundryDoc.isOwner) {
+                    for (const button of repostButtons) {
+                        button.remove();
+                    }
+                    link.classList.remove("with-repost");
+                }
                 continue;
             }
 
-            if (!game.user.isGM) continue;
+            if (foundryDoc && !foundryDoc.isOwner) continue;
 
-            link.classList.add("with-repost");
-            const child = document.createElement("i");
-            child.classList.add("fas", "fa-comment-alt");
-            child.setAttribute("data-pf2-repost", "");
-            child.setAttribute("title", game.i18n.localize("PF2E.Repost"));
-            link.appendChild(child);
+            const newButton = document.createElement("i");
+            newButton.classList.add("fas", "fa-comment-alt");
+            newButton.setAttribute("data-pf2-repost", "");
+            newButton.setAttribute("title", game.i18n.localize("PF2E.Repost"));
+            link.appendChild(newButton);
         }
     },
 
-    listen: ($html: JQuery): void => {
-        const $links = $html.find("span").filter(inlineSelector);
-        InlineRollLinks.injectRepostElement($links);
+    listen: ($html: HTMLElement | JQuery, foundryDoc?: ClientDocument): void => {
+        const html = $html instanceof HTMLElement ? $html : $html[0]!;
+        if ($html instanceof HTMLElement) $html = $($html);
+
+        const links = htmlQueryAll(html, inlineSelector).filter((l) => l.nodeName === "SPAN");
+        InlineRollLinks.injectRepostElement(links, foundryDoc);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
-        const documentFromDOM = (html: HTMLElement): ActorPF2e | JournalEntry | null => {
+        const documentFromDOM = (html: HTMLElement): ActorPF2e | JournalEntry | JournalEntryPage | null => {
+            if (foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor ?? foundryDoc.journalEntry ?? null;
+            if (
+                foundryDoc instanceof ActorPF2e ||
+                foundryDoc instanceof JournalEntry ||
+                foundryDoc instanceof JournalEntryPage
+            ) {
+                return foundryDoc;
+            }
+
             const sheet: { id?: string; document?: unknown; actor?: unknown; journalEntry?: unknown } | null =
                 ui.windows[Number(html.closest<HTMLElement>(".app.sheet")?.dataset.appid)];
-            const sheetOrMessage =
-                sheet ?? game.messages.get(html.closest<HTMLElement>("li.chat-message")?.dataset.messageId ?? "") ?? {};
-            const document = sheetOrMessage.document ?? sheetOrMessage.actor ?? sheetOrMessage.journalEntry;
 
-            return document instanceof ActorPF2e || document instanceof JournalEntry ? document : null;
+            return sheet.document instanceof ActorPF2e || sheet.document instanceof JournalEntry
+                ? sheet.document
+                : null;
         };
 
         $repostLinks.filter("i[data-pf2-repost]").on("click", (event) => {
@@ -52,6 +71,7 @@ export const InlineRollLinks = {
             event.stopPropagation();
         });
 
+        const $links = $(links);
         $links.filter("[data-pf2-action]").on("click", (event) => {
             const $target = $(event.currentTarget);
             const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc } = $target[0]?.dataset ?? {};
@@ -86,7 +106,7 @@ export const InlineRollLinks = {
             switch (pf2Check) {
                 case "perception": {
                     for (const actor of creatureActors) {
-                        const perceptionCheck = actor.data.data.attributes.perception;
+                        const perceptionCheck = actor.system.attributes.perception;
                         if (perceptionCheck) {
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? { label: pf2Label, value: Number(pf2Dc) }
@@ -178,36 +198,28 @@ export const InlineRollLinks = {
         });
 
         $links.filter("[data-pf2-effect-area]").on("click", async (event) => {
-            const {
-                pf2EffectArea,
-                pf2Distance,
-                pf2TemplateData = "{}",
-                pf2Traits,
-                pf2Width,
-            } = event.currentTarget.dataset;
-            const templateConversion: Record<string, string> = {
+            const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = event.currentTarget.dataset;
+            const templateConversion: Record<string, MeasuredTemplateType> = {
                 burst: "circle",
                 emanation: "circle",
                 line: "ray",
                 cone: "cone",
                 rect: "rect",
-            };
+            } as const;
 
             if (typeof pf2EffectArea === "string") {
-                const templateData = JSON.parse(pf2TemplateData);
-                templateData.t = templateConversion[pf2EffectArea];
-                templateData.user = game.user.id;
-
+                const templateData: DeepPartial<foundry.data.MeasuredTemplateSource> = JSON.parse(
+                    pf2TemplateData ?? "{}"
+                );
                 templateData.distance ||= Number(pf2Distance);
+                templateData.fillColor ||= game.user.color;
+                templateData.t = templateConversion[pf2EffectArea];
 
                 if (templateData.t === "ray") {
-                    templateData.width ||= pf2Width ? Number(pf2Width) : canvas.dimensions?.distance ?? 0;
+                    templateData.width = Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width;
+                } else if (templateData.t === "cone") {
+                    templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
                 }
-                if (templateData.t === "cone") {
-                    templateData.angle ||= 90;
-                }
-
-                templateData.fillColor ||= game.user.color;
 
                 if (pf2Traits) {
                     templateData.flags = {
@@ -219,7 +231,7 @@ export const InlineRollLinks = {
                     };
                 }
 
-                const templateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
+                const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
                 const ghostTemplate = new GhostTemplate(templateDoc);
                 await ghostTemplate.drawPreview();
             } else {
@@ -228,7 +240,7 @@ export const InlineRollLinks = {
         });
     },
 
-    repostAction: (target: HTMLElement, document: ActorPF2e | JournalEntry | null = null): void => {
+    repostAction: (target: HTMLElement, document: ActorPF2e | JournalEntry | JournalEntryPage | null = null): void => {
         if (!["pf2Action", "pf2Check", "pf2EffectArea"].some((d) => d in target.dataset)) {
             return;
         }

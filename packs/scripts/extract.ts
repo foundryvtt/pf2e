@@ -124,7 +124,7 @@ function assertDocIdSame(newSource: PackEntry, jsonPath: string): void {
         if (oldSource._id !== newSource._id) {
             throw PackError(
                 `The ID of doc "${newSource.name}" (${newSource._id}) does not match the current ID ` +
-                    `(${oldSource._id}). Entities that are already in the system must keep their current ID.`
+                    `(${oldSource._id}). Documents that are already in the system must keep their current ID.`
             );
         }
     }
@@ -154,67 +154,76 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
             }
 
             if ("type" in docSource) {
-                if (isActorSource(docSource)) {
-                    lastActor = docSource;
-                    delete (docSource as { effects?: unknown }).effects;
-                    delete (docSource.data as { schema?: unknown }).schema;
+                if (isActorSource(docSource) || isItemSource(docSource)) {
                     docSource.name = docSource.name.trim();
-
-                    (docSource.token as Partial<foundry.data.PrototypeTokenSource>) = {
-                        disposition: docSource.token.disposition,
-                        height: docSource.token.height,
-                        img: docSource.token.img.replace(
-                            "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
-                            "systems/pf2e/"
-                        ) as VideoPath,
-                        name: docSource.token.name,
-                        width: docSource.token.width,
-                    };
-
-                    if (docSource.type === "npc") {
-                        const { source } = docSource.data.details;
-                        source.author = source.author?.trim() || undefined;
-
-                        const { speed } = docSource.data.attributes;
-                        speed.details = speed.details?.trim() || undefined;
-                    }
+                    delete (docSource as { ownership?: unknown }).ownership;
+                    delete (docSource as { effects?: unknown }).effects;
+                    delete (docSource.system as { schema?: unknown }).schema;
+                    delete (docSource as { _stats?: unknown })._stats;
                 }
 
-                // Prune several common item data defaults
-                if (isItemSource(docSource)) {
-                    delete (docSource as { effects?: unknown }).effects;
-                    delete (docSource.data as { schema?: unknown }).schema;
-                    docSource.name = docSource.name.trim();
+                if (isActorSource(docSource)) {
+                    lastActor = docSource;
 
-                    docSource.data.description = { value: docSource.data.description.value };
+                    if (docSource.prototypeToken?.name === docSource.name) {
+                        delete (docSource as { prototypeToken?: unknown }).prototypeToken;
+                    } else if (docSource.prototypeToken) {
+                        const withToken: {
+                            img: ImagePath;
+                            prototypeToken: DeepPartial<foundry.data.PrototypeTokenSource>;
+                        } = docSource;
+                        withToken.prototypeToken = { name: docSource.prototypeToken.name };
+                        // Iconics have special tokens
+                        if (withToken.img?.includes("iconics")) {
+                            withToken.prototypeToken.texture = { src: withToken.img.replace("Full", "") as ImagePath };
+                        }
+                    }
+
+                    if (docSource.type === "npc") {
+                        const { source } = docSource.system.details;
+                        source.author = source.author?.trim() || undefined;
+
+                        const { speed } = docSource.system.attributes;
+                        speed.details = speed.details?.trim() || undefined;
+
+                        for (const key of Object.keys(docSource.system)) {
+                            if (!npcSystemKeys.has(key)) {
+                                delete (docSource.system as NPCSystemData & { extraneous?: unknown })[
+                                    key as "extraneous"
+                                ];
+                            }
+                        }
+                    }
+                } else if (isItemSource(docSource)) {
+                    // Prune several common item data defaults
+                    docSource.system.description = { value: docSource.system.description.value };
                     if (isPhysicalData(docSource)) {
-                        delete (docSource.data as { identification?: unknown }).identification;
-                    } else if (docSource.type === "action" && !docSource.data.deathNote) {
-                        delete (docSource.data as { deathNote?: boolean }).deathNote;
-                    } else if (docSource.type === "spellcastingEntry" && lastActor?.type === "npc") {
-                        delete (docSource.data as { ability?: unknown }).ability;
+                        delete (docSource.system as { identification?: unknown }).identification;
+                        if (docSource.system.traits.otherTags?.length === 0) {
+                            delete (docSource.system.traits as { otherTags?: unknown }).otherTags;
+                        }
+                        if (docSource.type === "consumable" && !docSource.system.spell) {
+                            delete (docSource.system as { spell?: unknown }).spell;
+                        }
+                    } else if (docSource.type === "action" && !docSource.system.deathNote) {
+                        delete (docSource.system as { deathNote?: boolean }).deathNote;
                     } else if (docSource.type === "feat") {
-                        const isFeat = !["ancestryfeature", "classfeature"].includes(docSource.data.featType.value);
+                        const isFeat = !["ancestryfeature", "classfeature"].includes(docSource.system.featType.value);
                         if (isFeat && docSource.img === "systems/pf2e/icons/default-icons/feat.svg") {
                             docSource.img = "systems/pf2e/icons/features/feats/feats.webp";
                         }
-                        if (docSource.data.maxTakable === 1) {
-                            delete (docSource.data as { maxTakable?: number }).maxTakable;
+
+                        if (docSource.system.maxTakable === 1) {
+                            delete (docSource.system as { maxTakable?: number }).maxTakable;
                         }
-                        if (!docSource.data.onlyLevel1) {
-                            delete (docSource.data as { onlyLevel1?: boolean }).onlyLevel1;
+                        if (!docSource.system.onlyLevel1) {
+                            delete (docSource.system as { onlyLevel1?: boolean }).onlyLevel1;
                         }
+                    } else if (docSource.type === "spellcastingEntry" && lastActor?.type === "npc") {
+                        delete (docSource.system as { ability?: unknown }).ability;
                     }
-                }
-                if (docSource.type !== "script") {
-                    delete (docSource as Partial<PackEntry>).permission;
-                }
-                if (docSource.type === "npc") {
-                    for (const key of Object.keys(docSource.data)) {
-                        if (!npcSystemKeys.has(key)) {
-                            delete (docSource.data as NPCSystemData & { extraneous?: unknown })[key as "extraneous"];
-                        }
-                    }
+                } else if (docSource.type !== "script") {
+                    delete (docSource as Partial<PackEntry>).ownership;
                 }
             }
         } else if (["_modifiers", "_sheetTab"].includes(key)) {
@@ -234,11 +243,11 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
     }
 
     if (!isEmbedded) {
-        docSource.permission = { default: docSource.permission?.default ?? 0 };
+        docSource.ownership = { default: docSource.ownership?.default ?? 0 };
         delete (docSource as Partial<typeof docSource>).sort;
 
         if (isItemSource(docSource)) {
-            const slug = docSource.data.slug;
+            const slug = docSource.system.slug;
             if (typeof slug === "string" && slug !== sluggify(docSource.name)) {
                 console.warn(
                     `Warning: Name change detected on ${docSource.name}. ` +
@@ -246,10 +255,12 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
                 );
             }
 
-            delete (docSource.data as { slug?: unknown }).slug;
+            delete (docSource.system as { slug?: unknown }).slug;
             docSource.flags = docSource.type === "condition" ? { pf2e: { condition: true } } : {};
             if (isPhysicalData(docSource)) {
-                delete (docSource.data as { equipped?: unknown }).equipped;
+                delete (docSource.system as { equipped?: unknown }).equipped;
+            } else if (["feat", "spell"].includes(docSource.type)) {
+                delete (docSource.system as { location?: unknown }).location;
             }
         }
     }
@@ -291,7 +302,7 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
         }
 
         // Sometimes Foundry's conversion of document links to anchor tags makes it into an export: convert them back
-        const $anchors = $description.find("a.entity-link");
+        const $anchors = $description.find("a.content-link");
         $anchors.each((_i, anchor) => {
             const $anchor = $(anchor);
             const label = $anchor.text().trim();
@@ -318,8 +329,8 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
             .trim();
     };
 
-    if ("data" in docSource && "description" in docSource.data) {
-        const description = docSource.data.description;
+    if ("system" in docSource && "description" in docSource.system) {
+        const description = docSource.system.description;
         description.value = cleanDescription(description.value);
     } else if ("content" in docSource) {
         docSource.content = cleanDescription(docSource.content);
@@ -489,7 +500,7 @@ function sortDataItems(docSource: PackEntry): ItemSourcePF2e[] {
 function sortAttacks(docName: string, attacks: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
     for (const attack of attacks) {
         const attackData = attack as MeleeSource;
-        if (!attackData.data.weaponType?.value && args.logWarnings) {
+        if (!attackData.system.weaponType?.value && args.logWarnings) {
             console.log(`Warning in ${docName}: Melee item '${attackData.name}' has no weaponType defined!`);
         }
     }
@@ -497,13 +508,13 @@ function sortAttacks(docName: string, attacks: Set<ItemSourcePF2e>): ItemSourceP
     return Array.from(attacks).sort((a, b) => {
         const attackA = a as MeleeSource;
         const attackB = b as MeleeSource;
-        if (attackA.data.weaponType?.value) {
-            if (!attackB.data.weaponType?.value) {
+        if (attackA.system.weaponType?.value) {
+            if (!attackB.system.weaponType?.value) {
                 return -1;
             }
 
-            return attackA.data.weaponType.value.localeCompare(attackB.data.weaponType.value);
-        } else if (attackB.data.weaponType?.value) {
+            return attackA.system.weaponType.value.localeCompare(attackB.system.weaponType.value);
+        } else if (attackB.system.weaponType?.value) {
             return 1;
         }
 
@@ -626,13 +637,13 @@ function sortActions(docName: string, actions: Set<ItemSourcePF2e>): ItemSourceP
                 `Error in ${docName}: ${notActionMatch[0]} has type action but should be type ${notActionMatch[1]}!`
             );
         }
-        if (!actionData.data.actionCategory?.value) {
+        if (!actionData.system.actionCategory?.value) {
             if (args.logWarnings) {
                 console.log(`Warning in ${docName}: Action item '${actionData.name}' has no actionCategory defined!`);
             }
             actionsMap.get("other")!.push(actionData);
         } else {
-            let actionCategory = actionData.data.actionCategory.value;
+            let actionCategory = actionData.system.actionCategory.value;
             if (!actionsMap.has(actionCategory)) {
                 actionCategory = "other";
             }
@@ -651,8 +662,8 @@ function sortSpells(spells: Set<ItemSourcePF2e>): SpellSource[] {
     return Array.from(spells).sort((a, b) => {
         const spellA = a as SpellSource;
         const spellB = b as SpellSource;
-        const aLevel = spellA.data.level;
-        const bLevel = spellB.data.level;
+        const aLevel = spellA.system.level;
+        const bLevel = spellB.system.level;
         if (aLevel && !bLevel) {
             return -1;
         } else if (!aLevel && bLevel) {
@@ -794,7 +805,7 @@ async function extractPacks() {
                 fs.rmSync(outDirPath, { recursive: true, force: true });
                 await fs.promises.rename(tempOutDirPath, outDirPath);
 
-                console.log(`Finished extracting ${sourceCount} entities from pack ${dbFilename}`);
+                console.log(`Finished extracting ${sourceCount} documents from pack ${dbFilename}`);
                 return sourceCount;
             })
         )

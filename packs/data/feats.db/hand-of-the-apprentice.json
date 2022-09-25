@@ -1,6 +1,8 @@
 {
     "_id": "pD1oDbUDkNtHadGY",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hand of the Apprentice",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -27,7 +28,14 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.resources.focus.max",
+                "value": 1
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
@@ -39,7 +47,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Hand of the Apprentice",
     "type": "feat"
 }

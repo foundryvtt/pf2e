@@ -1,12 +1,14 @@
 const WEAPON_CATEGORIES = new Set(["unarmed", "simple", "martial", "advanced"] as const);
 
+const MELEE_OR_RANGED_GROUPS = new Set(["dart", "knife"] as const);
+
 const MELEE_WEAPON_GROUPS = new Set([
+    ...MELEE_OR_RANGED_GROUPS,
     "axe",
     "brawling",
     "club",
     "flail",
     "hammer",
-    "knife",
     "pick",
     "polearm",
     "shield",
@@ -14,9 +16,10 @@ const MELEE_WEAPON_GROUPS = new Set([
     "sword",
 ] as const);
 
-const RANGED_WEAPON_GROUPS = new Set(["bomb", "bow", "dart", "firearm", "sling"] as const);
+/** Groups that will be forced as ranged weapons */
+const MANDATORY_RANGED_GROUPS = new Set(["bomb", "bow", "firearm", "sling"] as const);
 
-const WEAPON_GROUPS = new Set([...MELEE_WEAPON_GROUPS, ...RANGED_WEAPON_GROUPS] as const);
+const WEAPON_GROUPS = new Set([...MELEE_WEAPON_GROUPS, ...MANDATORY_RANGED_GROUPS] as const);
 
 /** Precious materials that provide effects to strike attack or damage rolls */
 const WEAPON_MATERIAL_EFFECTS = new Set([
@@ -29,6 +32,8 @@ const WEAPON_MATERIAL_EFFECTS = new Set([
     "noqual",
     "peachwood",
     "silver",
+    "sisterstone-dusk",
+    "sisterstone-scarlet",
     "sovereignSteel",
 ] as const);
 
@@ -108,7 +113,7 @@ const CROSSBOW_WEAPONS = new Set([
 export {
     CROSSBOW_WEAPONS,
     MELEE_WEAPON_GROUPS,
-    RANGED_WEAPON_GROUPS,
+    MANDATORY_RANGED_GROUPS,
     THROWN_RANGES,
     WEAPON_CATEGORIES,
     WEAPON_GROUPS,

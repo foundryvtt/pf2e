@@ -1,6 +1,8 @@
 {
     "_id": "u4nlOzPj2WHkIj9l",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/leaf.webp",
+    "name": "Leaf Order",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,27 +28,23 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.dip.rank",
+                "path": "system.skills.dip.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.resources.focus.max",
-                "predicate": {
-                    "all": [
-                        "class:druid"
-                    ]
-                },
+                "path": "system.resources.focus.max",
+                "predicate": [
+                    "class:druid"
+                ],
                 "value": 1
             },
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "all": [
-                        "class:druid"
-                    ]
-                },
+                "predicate": [
+                    "class:druid"
+                ],
                 "uuid": "Compendium.pf2e.feats-srd.Leshy Familiar"
             }
         ],
@@ -62,7 +59,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/leaf.webp",
-    "name": "Leaf Order",
     "type": "feat"
 }

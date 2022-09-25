@@ -1,6 +1,8 @@
 {
     "_id": "ecqz1iUGtyQEkZwy",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/boots-of-bounding.webp",
+    "name": "Boots of Bounding",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
@@ -36,18 +38,20 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "speed",
+                "selector": "land-speed",
                 "type": "item",
                 "value": 5
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:high-jump",
-                        "action:long-jump"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:high-jump",
+                            "action:long-jump"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "item",
                 "value": 2
@@ -74,7 +78,5 @@
             "value": "L"
         }
     },
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/boots-of-bounding.webp",
-    "name": "Boots of Bounding",
     "type": "equipment"
 }

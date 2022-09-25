@@ -22,12 +22,12 @@ export class Migration652KillHalcyonTradition extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void> {
         if (itemData.type !== "spellcastingEntry") return;
 
-        const tradition: TraditionDataOld = itemData.data.tradition;
+        const tradition: TraditionDataOld = itemData.system.tradition;
         if (tradition.value === "halcyon") {
             // Try to derive it from the class name. No other way to do it.
             // Users can always edit their tradition in the actual spellcasting entry.
             const classItem = actor?.items.find((testItem): testItem is ClassSource => testItem.type === "class");
-            const className = classItem?.data.slug || sluggify(classItem?.name ?? "");
+            const className = classItem?.system.slug || sluggify(classItem?.name ?? "");
             tradition.value = defaultTraditionByClass[className] ?? "arcane";
         }
     }

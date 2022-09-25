@@ -9,7 +9,7 @@ export class Migration712ActorShieldStructure extends MigrationBase {
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type === "character" || source.type === "npc") {
-            const attributes: WithDeletableShield = source.data.attributes;
+            const attributes: WithDeletableShield = source.system.attributes;
             if (attributes.shield) {
                 attributes["-=shield"] = null;
                 if ("game" in globalThis) {

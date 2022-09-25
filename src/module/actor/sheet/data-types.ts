@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor/base";
+import { ActorSizePF2e } from "@actor/data/size";
 import { InventoryBulk } from "@actor/inventory";
 import { LootPF2e } from "@actor/loot";
 import { PhysicalItemPF2e } from "@item";
@@ -6,8 +7,10 @@ import { Coins } from "@item/physical/data";
 import { PhysicalItemType } from "@item/physical/types";
 import { SheetOptions } from "@module/sheet/helpers";
 
-export interface InventoryItem<D extends PhysicalItemPF2e = PhysicalItemPF2e> {
-    item: D;
+export interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
+    item: TItem;
+    /** Item size if it causes any weight difference relative to the actor */
+    itemSize?: ActorSizePF2e | null;
     editable: boolean;
     isContainer: boolean;
     canBeEquipped: boolean;
@@ -49,6 +52,7 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     immunities: SheetOptions;
     hasImmunities: boolean;
     inventory: SheetInventory;
+    enrichedContent: Record<string, string>;
 }
 
 export interface LootSheetDataPF2e extends ActorSheetDataPF2e<LootPF2e> {

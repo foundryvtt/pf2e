@@ -1,6 +1,8 @@
 {
     "_id": "8nF3r3NHW2uSRgwb",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Devil's Advocate",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,30 +21,29 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "target:trait:devil",
-                        "origin:trait:devil"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:devil",
+                            "origin:trait:devil"
+                        ]
+                    }
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "origin:trait:devil"
-                    ]
-                },
+                "predicate": [
+                    "origin:trait:devil"
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
@@ -59,7 +60,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Devil's Advocate",
     "type": "feat"
 }

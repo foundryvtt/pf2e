@@ -125,7 +125,7 @@ declare global {
         /* -------------------------------------------- */
 
         protected override _preCreate(
-            data: PreDocumentId<this["data"]["_source"]>,
+            data: PreDocumentId<this["_source"]>,
             options: DocumentModificationContext,
             user: User
         ): Promise<void>;
@@ -133,15 +133,17 @@ declare global {
 
     interface ActiveEffect {
         readonly parent: Actor | Item;
+
+        disabled: boolean;
+        icon: ImagePath;
+        tint?: string;
     }
 
     interface TemporaryEffect {
+        disabled: boolean;
         isTemporary: boolean;
-        data: {
-            disabled: boolean;
-            icon: string;
-            tint: string;
-        };
+        icon: ImagePath;
+        tint?: string;
     }
 
     interface ApplicableChangeData<T extends ActiveEffect> extends foundry.data.EffectChangeSource {

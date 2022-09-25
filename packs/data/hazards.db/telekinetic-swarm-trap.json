@@ -1,6 +1,94 @@
 {
     "_id": "AM3YY2Zfe2ChJHd7",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "SvVSBExFgbjDrBvW",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Agitate",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature stays in the room for at least 6 seconds.</p>\n<hr />\n<p><strong>Effect</strong> Each telekinetic decoration constructs a cloud of objects in the room (three clouds total) and the trap rolls initiative. The creatures in the room when the trap is triggered become the trap's targets, regardless of whether they leave the room or other creatures later enter the room. Each decoration targets a different creature if possible. A target creature that moves at least 1 mile from the trap ceases being a target, at which point the decoration designates a new target.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aJouqXgwCGFTWYHD",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Objects",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "ha17f105vm6xzoc5d1w0": {
+                        "damage": "2d12+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Telekinetic Swarm Trap",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 33
@@ -22,7 +110,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Three innocuous decorations instilled with telekinetic magic pull objects and pieces of the room itself into spinning clouds of debris that attack all creatures in the room.</p>",
-            "disable": "<p>Thievery DC 27 (expert) to take apart a telekinetic cloud, Thievery DC 32 (master) to disable each telekinetic decoration, or <i>dispel magic </i>(6th level; counteract DC 30) to counteract each telekinetic decoration</p>",
+            "disable": "<p>@Check[type:thievery|dc:27|name:Take Apart Cloud|traits:action:disable-a-device] (expert) to take apart a telekinetic cloud, @Check[type:thievery|dc:32|name:Disable Telekinetic Decoration|traits:action:disable-a-device] (master) to disable each telekinetic decoration, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (6th level; counteract DC 30) to counteract each telekinetic decoration</p>",
             "isComplex": true,
             "level": {
                 "value": 12
@@ -61,109 +149,11 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "magical",
-                    "mechanical"
-                ]
-            }
+            "value": [
+                "magical",
+                "mechanical"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "SvVSBExFgbjDrBvW",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature stays in the room for at least 6 seconds.</p>\n<hr />\n<p><strong>Effect</strong> Each telekinetic decoration constructs a cloud of objects in the room (three clouds total) and the trap rolls initiative. The creatures in the room when the trap is triggered become the trap's targets, regardless of whether they leave the room or other creatures later enter the room. Each decoration targets a different creature if possible. A target creature that moves at least 1 mile from the trap ceases being a target, at which point the decoration designates a new target.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "evocation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Agitate",
-            "sort": 100000,
-            "type": "action"
-        },
-        {
-            "_id": "aJouqXgwCGFTWYHD",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 24
-                },
-                "damageRolls": {
-                    "ha17f105vm6xzoc5d1w0": {
-                        "damage": "2d12+10",
-                        "damageType": "bludgeoning"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Objects",
-            "sort": 200000,
-            "type": "melee"
-        }
-    ],
-    "name": "Telekinetic Swarm Trap",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Telekinetic Swarm Trap",
-        "width": 1
     },
     "type": "hazard"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "AThOnEYzPO9ssYTB",
-    "data": {
+    "img": "systems/pf2e/icons/spells/see-invisibility.webp",
+    "name": "Effect: Disturbing Vision",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>The visions last [[/br 1d4 #rounds]]{1d4 rounds}, and while they do, all evil creatures in the area gain a +1 status bonus to all checks.</p>"
@@ -17,40 +19,34 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:trait:evil"
-                    ]
-                },
+                "predicate": [
+                    "self:trait:evil"
+                ],
                 "selector": "attack",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:trait:evil"
-                    ]
-                },
+                "predicate": [
+                    "self:trait:evil"
+                ],
                 "selector": "skill-check",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:trait:evil"
-                    ]
-                },
+                "predicate": [
+                    "self:trait:evil"
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Bestiary"
         },
         "start": {
             "initiative": null,
@@ -66,7 +62,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/see-invisibility.webp",
-    "name": "Effect: Disturbing Vision",
     "type": "effect"
 }

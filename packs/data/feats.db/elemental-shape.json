@@ -1,6 +1,8 @@
 {
     "_id": "F0MYBfiyOD8YHq5t",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Elemental Shape",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 10
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -30,21 +31,23 @@
         "rules": [
             {
                 "key": "Resistance",
-                "predicate": {
-                    "all": [
-                        "spell-effect-wild-shape"
-                    ],
-                    "any": [
-                        "battle-form",
-                        "spell-effect-humanoid-form"
-                    ],
-                    "not": [
-                        "spell-effect-elemental-form-air",
-                        "spell-effect-elemental-form-earth",
-                        "spell-effect-elemental-form-fire",
-                        "spell-effect-elemental-form-water"
-                    ]
-                },
+                "predicate": [
+                    "spell-effect-wild-shape",
+                    {
+                        "or": [
+                            "battle-form",
+                            "spell-effect-humanoid-form"
+                        ]
+                    },
+                    {
+                        "nor": [
+                            "spell-effect-elemental-form-air",
+                            "spell-effect-elemental-form-earth",
+                            "spell-effect-elemental-form-fire",
+                            "spell-effect-elemental-form-water"
+                        ]
+                    }
+                ],
                 "type": "fire",
                 "value": 5
             }
@@ -60,7 +63,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Elemental Shape",
     "type": "feat"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "v8UNEJR5IDKi8yqa",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/weapon-tricks.webp",
+    "name": "Weapon Tricks",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,72 +28,72 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.simple.rank",
+                "path": "system.martial.simple.rank",
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.weapon-base-rapier.rank",
+                "path": "system.martial.weapon-base-rapier.rank",
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.weapon-base-sap.rank",
+                "path": "system.martial.weapon-base-sap.rank",
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.weapon-base-shortbow.rank",
+                "path": "system.martial.weapon-base-shortbow.rank",
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.weapon-base-shortsword.rank",
+                "path": "system.martial.weapon-base-shortsword.rank",
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.unarmed.rank",
+                "path": "system.martial.unarmed.rank",
                 "value": 2
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed"
-                    ],
-                    "any": [
-                        {
-                            "and": [
-                                {
-                                    "or": [
-                                        "weapon:trait:agile",
-                                        "weapon:trait:finesse"
-                                    ]
-                                },
-                                {
-                                    "or": [
-                                        "weapon:category:simple",
-                                        "weapon:category:unarmed"
-                                    ]
-                                }
-                            ]
-                        },
-                        "weapon:base:rapier",
-                        "weapon:base:sap",
-                        "weapon:base:shortbow",
-                        "weapon:base:shortsword"
-                    ]
-                }
+                "predicate": [
+                    "target:condition:flat-footed",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            "weapon:trait:agile",
+                                            "weapon:trait:finesse"
+                                        ]
+                                    },
+                                    {
+                                        "or": [
+                                            "weapon:category:simple",
+                                            "weapon:category:unarmed"
+                                        ]
+                                    }
+                                ]
+                            },
+                            "weapon:base:rapier",
+                            "weapon:base:sap",
+                            "weapon:base:shortbow",
+                            "weapon:base:shortsword"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -102,7 +103,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/weapon-tricks.webp",
-    "name": "Weapon Tricks",
     "type": "feat"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "Wkm2VYPsfGjWBtQe",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/ring-of-maniacal-devices.webp",
+    "name": "Ring of Maniacal Devices (Greater)",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
@@ -37,12 +39,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Ring of Maniacal Devices (Disable Devices and Pick a Lock)",
-                "predicate": {
-                    "any": [
-                        "action:disable-devices",
-                        "action:pick-a-lock"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disable-devices",
+                            "action:pick-a-lock"
+                        ]
+                    }
+                ],
                 "selector": "thievery",
                 "type": "item",
                 "value": 3
@@ -50,15 +54,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Ring of Maniacal Devices (Craft snares and traps)",
-                "predicate": {
-                    "all": [
-                        "action:craft"
-                    ],
-                    "any": [
-                        "snare",
-                        "trap"
-                    ]
-                },
+                "predicate": [
+                    "action:craft",
+                    {
+                        "or": [
+                            "snare",
+                            "trap"
+                        ]
+                    }
+                ],
                 "selector": "crafting",
                 "type": "item",
                 "value": 3
@@ -66,15 +70,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Ring of Maniacal Devices (Repair snares and traps)",
-                "predicate": {
-                    "all": [
-                        "action:repair"
-                    ],
-                    "any": [
-                        "snare",
-                        "trap"
-                    ]
-                },
+                "predicate": [
+                    "action:repair",
+                    {
+                        "or": [
+                            "snare",
+                            "trap"
+                        ]
+                    }
+                ],
                 "selector": "crafting",
                 "type": "item",
                 "value": 3
@@ -101,7 +105,5 @@
             "value": "-"
         }
     },
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/ring-of-maniacal-devices.webp",
-    "name": "Ring of Maniacal Devices (Greater)",
     "type": "equipment"
 }

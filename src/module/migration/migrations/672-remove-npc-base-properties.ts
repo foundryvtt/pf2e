@@ -18,12 +18,12 @@ export class Migration672RemoveNPCBaseProperties extends MigrationBase {
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "npc") return;
 
-        const { ac, hp, perception } = actorSource.data.attributes;
+        const { ac, hp, perception } = actorSource.system.attributes;
         this.removeBase(ac);
         this.removeBase(hp, "max");
         this.removeBase(perception);
 
-        const { saves } = actorSource.data;
+        const { saves } = actorSource.system;
         for (const saveType of SAVE_TYPES) {
             this.removeBase(saves[saveType]);
         }
@@ -31,7 +31,7 @@ export class Migration672RemoveNPCBaseProperties extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> {
         if (!(actorSource?.type === "npc" && itemSource.type === "lore")) return;
-        this.removeBase(itemSource.data.mod);
+        this.removeBase(itemSource.system.mod);
     }
 }
 

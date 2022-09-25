@@ -1,0 +1,25 @@
+<li class="item flexrow" data-entry-uuid="{{entry.uuid}}" data-type="Item">
+    <div class="image">
+        <img src="{{entry.img}}" title="{{entry.name}}" width="32" height="32" loading="lazy" />
+    </div>
+    <div class="name">
+        <a class="item-link">{{entry.name}}</a>
+    </div>
+    <div class="rarity tags">
+        {{#unless (eq entry.rarity "common")}}
+            <span class="tag {{entry.rarity}}">
+                {{lookup (lookup filterData.checkboxes.rarity.options entry.rarity) "label"}}
+            </span>
+        {{/unless}}
+    </div>
+    <div class="price" title="Item Price">{{entry.price}}</div>
+    <div class="level">
+        <span title="Item level">{{entry.level}}</span>
+    </div>
+    <a class="equipment-controls" data-action="take-item" title="{{localize "PF2E.CompendiumBrowser.TakeLabel"}}">
+        <i class="far fa-hand-rock"></i>
+    </a>
+        <a class="equipment-controls" data-action="buy-item" title="{{localize "PF2E.CompendiumBrowser.BuyLabel"}}">
+            <i class="fas fa-coins"></i>
+        </a>
+</li>

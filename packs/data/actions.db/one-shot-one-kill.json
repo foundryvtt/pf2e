@@ -1,6 +1,8 @@
 {
     "_id": "Tlrde2xh7AhesXNB",
-    "data": {
+    "img": "systems/pf2e/icons/actions/FreeAction.webp",
+    "name": "One Shot, One Kill",
+    "system": {
         "actionCategory": {
             "value": "offensive"
         },
@@ -27,15 +29,15 @@
                 "damageCategory": "precision",
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "one-shot-one-kill"
-                    ],
-                    "any": [
-                        "weapon:group:firearm",
-                        "weapon:tag:crossbow"
-                    ]
-                },
+                "predicate": [
+                    "one-shot-one-kill",
+                    {
+                        "or": [
+                            "weapon:group:firearm",
+                            "weapon:tag:crossbow"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -76,7 +78,5 @@
             "value": ""
         }
     },
-    "img": "systems/pf2e/icons/actions/FreeAction.webp",
-    "name": "One Shot, One Kill",
     "type": "action"
 }

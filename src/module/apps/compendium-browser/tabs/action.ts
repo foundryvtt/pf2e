@@ -1,12 +1,16 @@
 import { getActionIcon, sluggify } from "@util";
 import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { ActionFilters } from "./data";
+import { ActionFilters, CompendiumBrowserIndexData } from "./data";
 
 export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     override filterData!: ActionFilters;
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/action.html";
+    /* MiniSearch */
+    override searchFields = ["name"];
+    override storeFields = ["type", "name", "img", "uuid", "traits", "source"];
 
-    protected index = ["img", "data.actionType.value", "data.traits.value", "data.source.value"];
+    protected index = ["img", "system.actionType.value", "system.traits.value", "system.source.value"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "action");
@@ -18,8 +22,8 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     protected override async loadData() {
         console.debug("PF2e System | Compendium Browser | Started loading actions");
 
-        const actions: CompendiumIndexData[] = [];
-        const indexFields = ["img", "data.actionType.value", "data.traits.value", "data.source.value"];
+        const actions: CompendiumBrowserIndexData[] = [];
+        const indexFields = ["img", "system.actionType.value", "system.traits.value", "system.source.value"];
         const sources: Set<string> = new Set();
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
@@ -37,22 +41,21 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
                         continue;
                     }
                     // update icons for any passive actions
-                    if (actionData.data.actionType.value === "passive") actionData.img = getActionIcon("passive");
+                    if (actionData.system.actionType.value === "passive") actionData.img = getActionIcon("passive");
 
                     // Prepare source
-                    const source = actionData.data.source.value;
+                    const source = actionData.system.source.value;
                     if (source) {
                         sources.add(source);
-                        actionData.data.source.value = sluggify(source);
+                        actionData.system.source.value = sluggify(source);
                     }
                     actions.push({
-                        _id: actionData._id,
                         type: actionData.type,
                         name: actionData.name,
                         img: actionData.img,
-                        compendium: pack.collection,
-                        traits: actionData.data.traits.value,
-                        source: actionData.data.source.value,
+                        uuid: `Compendium.${pack.collection}.${actionData._id}`,
+                        traits: actionData.system.traits.value,
+                        source: actionData.system.source.value,
                     });
                 }
             }
@@ -68,13 +71,9 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading actions");
     }
 
-    protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, search } = this.filterData;
-        // Name
-        if (search.text) {
-            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
-                return false;
-        }
+    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
+        const { checkboxes } = this.filterData;
+
         // Traits
         if (checkboxes.traits.selected.length) {
             if (!this.arrayIncludes(checkboxes.traits.selected, entry.traits)) return false;

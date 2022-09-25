@@ -14,8 +14,6 @@ declare module foundry {
          * @property actorId              The _id of an Actor document which this Token represents
          * @property [actorLink=false]    Does this Token uniquely represent a singular Actor, or is it one of many?
          * @property [actorData]          Token-level data which overrides the base data of the associated Actor
-         * @property img                  A file path to an image or video file used to depict the Token
-         * @property [tint=null]          An optional color tint applied to the Token image
          * @property [width=1]            The width of the Token in grid units
          * @property [height=1]           The height of the Token in grid units
          * @property [scale=1]            A scale factor applied to the Token image, between 0.25 and 3
@@ -44,7 +42,7 @@ declare module foundry {
          * @property [bar2]               The configuration of the Token's secondary resource bar
          * @property [flags={}]           An object of optional key/value flags
          */
-        interface TokenSource extends PrototypeTokenSource, TokenLightData {
+        interface TokenSource extends TokenLightData {
             _id: string;
             name: string;
 
@@ -54,11 +52,9 @@ declare module foundry {
             navOrder: number;
             navName: string;
 
-            img: VideoPath;
             actorId: string | null;
             actorLink: boolean;
             actorData: DeepPartial<ActorSource>;
-            scale: number;
             mirrorX: boolean;
             mirrorY: boolean;
             height: number;
@@ -67,7 +63,7 @@ declare module foundry {
             y: number;
             elevation: number;
             lockRotation: boolean;
-            effects: string[];
+            effects: VideoPath[];
             overlayEffect: string | null;
             vision: boolean;
             dimSight: number;
@@ -75,6 +71,16 @@ declare module foundry {
             sightAngle: number;
             light: LightSource;
             hidden: boolean;
+            texture: {
+                src: VideoPath;
+                scaleX: number;
+                scaleY: number;
+                offsetX: number;
+                offsetY: number;
+                rotation: number | null;
+                tint: `#${string}`;
+            };
+
             lightAnimation: AnimationSource;
             disposition: TokenDisposition;
             displayName: TokenDisplayMode;
@@ -100,8 +106,6 @@ declare module foundry {
                 actorId: fields.ForeignDocumentField<{ type: typeof documents.BaseActor; required: true }>;
                 actorLink: typeof fields.BOOLEAN_FIELD;
                 actorData: typeof fields.OBJECT_FIELD;
-                img: typeof fields.VIDEO_FIELD & { default: () => VideoPath };
-                tint: typeof fields.COLOR_FIELD;
                 width: typeof fields.REQUIRED_POSITIVE_NUMBER & { default: 1 };
                 height: typeof fields.REQUIRED_POSITIVE_NUMBER & { default: 1 };
                 scale: {

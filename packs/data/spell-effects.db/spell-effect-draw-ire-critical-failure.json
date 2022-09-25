@@ -1,6 +1,8 @@
 {
     "_id": "4VOZP2ArmS12nvz8",
-    "data": {
+    "img": "systems/pf2e/icons/spells/draw-ire.webp",
+    "name": "Spell Effect: Draw Ire (Critical Failure)",
+    "system": {
         "description": {
             "value": "<p>The creature takes a -2 status penalty to attack rolls against creatures other than you.</p>"
         },
@@ -16,18 +18,18 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "target:drawIre"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "target:drawIre"
+                    }
+                ],
                 "selector": "attack",
                 "type": "status",
                 "value": -2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Secrets of Magic"
         },
         "start": {
             "initiative": null,
@@ -43,7 +45,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/draw-ire.webp",
-    "name": "Spell Effect: Draw Ire (Critical Failure)",
     "type": "effect"
 }

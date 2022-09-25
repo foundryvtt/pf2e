@@ -188,8 +188,8 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
     };
 
     override async updateItem(item: ItemSourcePF2e) {
-        if (typeof item.data.description.value === "string") {
-            item.data.description.value = item.data.description.value.replace(
+        if (typeof item.system.description.value === "string") {
+            item.system.description.value = item.system.description.value.replace(
                 /(@Compendium\[pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})(\]{.*?})/g,
                 (_full, first, _replace, dot, itemId, rest): string => {
                     const packName = objectHasKey(Migration601SplitEffectCompendia.effectLocations, itemId)

@@ -5,8 +5,6 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActorsPF2e } from "@module/collection/actors";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
-import { FogExplorationPF2e } from "@module/fog-exploration";
-import { FolderPF2e } from "@module/folder";
 import { MacroPF2e } from "@module/macro";
 import { UserPF2e } from "@module/user";
 import {
@@ -17,6 +15,7 @@ import {
     TokenConfigPF2e,
     TokenDocumentPF2e,
 } from "@scene";
+import { monkeyPatchFoundry } from "@scripts/🐵🩹";
 
 /** Not an actual hook listener but rather things to run on initial load */
 export const Load = {
@@ -29,8 +28,6 @@ export const Load = {
         CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
         CONFIG.Combat.documentClass = EncounterPF2e;
         CONFIG.Combatant.documentClass = CombatantPF2e;
-        CONFIG.FogExploration.documentClass = FogExplorationPF2e;
-        CONFIG.Folder.documentClass = FolderPF2e;
         CONFIG.Item.documentClass = ItemPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
         CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
@@ -41,7 +38,7 @@ export const Load = {
         CONFIG.User.documentClass = UserPF2e;
 
         // Mystery Man but with a drop shadow
-        foundry.data.ActorData.DEFAULT_ICON = "systems/pf2e/icons/default-icons/mystery-man.svg";
+        Actor.DEFAULT_ICON = "systems/pf2e/icons/default-icons/mystery-man.svg";
 
         Roll.MATH_PROXY = mergeObject(Roll.MATH_PROXY, {
             eq: (a: number, b: number) => a === b,
@@ -56,10 +53,14 @@ export const Load = {
         // Make available immediately on load for module subclassing
         window.AutomaticBonusProgression = AutomaticBonusProgression;
 
+        // Monkey-patch `TextEditor.enrichHTML`
+        monkeyPatchFoundry();
+
         // Prevent buttons from retaining focus when clicked so that canvas hotkeys still work
         document.addEventListener("mouseup", (): void => {
-            if (document.activeElement instanceof HTMLButtonElement) {
-                document.activeElement.blur();
+            const element = document.activeElement;
+            if (element instanceof HTMLButtonElement && !element.classList.contains("pm-dropdown")) {
+                element.blur();
             }
         });
     },

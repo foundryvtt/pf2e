@@ -84,20 +84,21 @@ export class Migration680SetWeaponHands extends MigrationBase {
         "whip-claw",
     ]);
 
-    isShield(source: ItemSourcePF2e & { data: { armorType?: { value?: unknown } } }): source is MaybeOldShieldData {
+    isShield(source: ItemSourcePF2e & { system: { armorType?: { value?: unknown } } }): source is MaybeOldShieldData {
         return (
-            source.type === "armor" && (source.data.armorType?.value === "shield" || source.data.category === "shield")
+            source.type === "armor" &&
+            (source.system.armorType?.value === "shield" || source.system.category === "shield")
         );
     }
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (this.isShield(itemSource)) {
-            itemSource.data.usage.value = "held-in-one-hand";
+            itemSource.system.usage.value = "held-in-one-hand";
         } else if (itemSource.type === "weapon") {
-            itemSource.data.usage ??= { value: "held-in-one-hand" };
+            itemSource.system.usage ??= { value: "held-in-one-hand" };
 
-            const { baseItem, slug, traits } = itemSource.data;
-            const usage: { value: string } = itemSource.data.usage;
+            const { baseItem, slug, traits } = itemSource.system;
+            const usage: { value: string } = itemSource.system.usage;
 
             if (this.twoHandedWeapons.has(baseItem || slug || "")) {
                 usage.value = "held-in-two-hands";

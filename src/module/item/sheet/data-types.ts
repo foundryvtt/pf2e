@@ -1,64 +1,49 @@
-import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { ABCItemPF2e } from "@item/abc";
-import { AncestryPF2e } from "@item/ancestry";
-import { BackgroundPF2e } from "@item/background";
-import { FeatPF2e } from "@item/feat";
-import { HeritagePF2e } from "@item/heritage";
-import { ItemActivation } from "@item/physical/data";
+import { AncestryPF2e, FeatPF2e, HeritagePF2e, ItemPF2e } from "@item";
+import { Rarity } from "@module/data";
 import { RuleElementSource } from "@module/rules";
 import { SheetOptions } from "@module/sheet/helpers";
 
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
+    /** The item type label that shows at the top right (for example, "Feat" for "Feat 6") */
     itemType: string | null;
+    showTraits: boolean;
+    /** Whether the sheet should have a sidebar at all */
     hasSidebar: boolean;
+    /** Whether the sheet should have a details tab (some item types don't have one) */
     hasDetails: boolean;
+    /** The sidebar's current title */
+    sidebarTitle: string;
     sidebarTemplate?: () => string;
     detailsTemplate?: () => string;
     item: TItem["data"];
-    data: TItem["data"]["data"];
+    data: TItem["data"]["system"];
+    enrichedContent: Record<string, string>;
     isPhysical: boolean;
     user: { isGM: boolean };
     enabledRulesUI: boolean;
     ruleEditing: boolean;
-    ruleSelection: {
-        selected: string | null;
-        types: Record<string, string>;
+    rarity: Rarity | null;
+    rarities: ConfigPF2e["PF2E"]["rarityTraits"];
+    traits: SheetOptions | null;
+    /** The slugs of the item's value sorted trait list */
+    traitSlugs: string[];
+    rules: {
+        labels: {
+            label: string;
+            recognized: boolean;
+        }[];
+        selection: {
+            selected: string | null;
+            types: Record<string, string>;
+        };
+        elements: {
+            template: string;
+            index: number;
+            rule: RuleElementSource;
+        }[];
     };
-    ruleElements: {
-        template: string;
-        index: number;
-        rule: RuleElementSource;
-    }[];
-}
-
-export interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
-    isPhysical: true;
-    basePriceString: string;
-    priceString: string;
-    actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
-    actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
-    frequencies: ConfigPF2e["PF2E"]["frequencies"];
-    activations: { action: ItemActivation; id: string; base: string }[];
-}
-
-export interface ABCSheetData<TItem extends ABCItemPF2e> extends ItemSheetDataPF2e<TItem> {
-    hasDetails: true;
-}
-
-export interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {
-    selectedBoosts: Record<string, Record<string, string>>;
-    selectedFlaws: Record<string, Record<string, string>>;
-    rarities: SheetOptions;
-    sizes: SheetOptions;
-    traits: SheetOptions;
-    languages: SheetOptions;
-    additionalLanguages: SheetOptions;
-}
-
-export interface BackgroundSheetData extends ABCSheetData<BackgroundPF2e> {
-    rarities: SheetOptions;
-    trainedSkills: SheetOptions;
-    selectedBoosts: Record<string, Record<string, string>>;
+    /** Lore only, will be removed later */
+    proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
 }
 
 export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
@@ -69,8 +54,6 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     damageTypes: ConfigPF2e["PF2E"]["damageTypes"] & ConfigPF2e["PF2E"]["healingTypes"];
     categories: ConfigPF2e["PF2E"]["actionCategories"];
     prerequisites: string;
-    rarities: SheetOptions;
-    traits: SheetOptions;
     isFeat: boolean;
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
@@ -79,6 +62,4 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
 export interface HeritageSheetData extends ItemSheetDataPF2e<HeritagePF2e> {
     ancestry: AncestryPF2e | null;
     ancestryRefBroken: boolean;
-    traits: SheetOptions;
-    rarities: SheetOptions;
 }

@@ -1,6 +1,8 @@
 {
     "_id": "28NvrpZmELvyrHUt",
-    "data": {
+    "img": "systems/pf2e/icons/spells/variable-gravity.webp",
+    "name": "Spell Effect: Variable Gravity (High Gravity)",
+    "system": {
         "description": {
             "value": "<p>You gain a +2 status bonus to your saving throws and DCs to resist forced movement and attempts to knock you prone</p>"
         },
@@ -16,20 +18,22 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "forcedMovement",
-                        "action:trip",
-                        "action:shove"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "forcedMovement",
+                            "action:trip",
+                            "action:shove"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Secrets of Magic"
         },
         "start": {
             "initiative": null,
@@ -45,7 +49,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/variable-gravity.webp",
-    "name": "Spell Effect: Variable Gravity (High Gravity)",
     "type": "effect"
 }

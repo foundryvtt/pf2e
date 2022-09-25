@@ -81,6 +81,8 @@ declare global {
         static on(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static on(...args: HookParamsRender<Settings, "Settings">): number;
         static on(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
+        static on(...args: HookParamsRender<JournalPageSheet, "JournalPageSheet">): number;
+        static on(...args: HookParamsRender<JournalTextPageSheet, "JournalTextPageSheet">): number;
         static on(...args: HookParamsUpdate<Combat, "Combat">): number;
         static on(...args: HookParamsUpdate<Scene, "Scene">): number;
         static on(...args: HookParamsUpdateWorldTime): number;
@@ -114,6 +116,8 @@ declare global {
         static once(...args: HookParamsRender<CompendiumDirectory, "CompendiumDirectory">): number;
         static once(...args: HookParamsRender<Dialog, "Dialog">): number;
         static once(...args: HookParamsRender<ItemDirectory<Item>, "ItemDirectory">): number;
+        static once(...args: HookParamsRender<JournalPageSheet, "JournalPageSheet">): number;
+        static once(...args: HookParamsRender<JournalTextPageSheet, "JournalTextPageSheet">): number;
         static once(...args: HookParamsRender<SceneControls, "SceneControls">): number;
         static once(...args: HookParamsRender<Settings, "Settings">): number;
         static once(...args: HookParamsRender<TokenHUD, "TokenHUD">): number;
@@ -155,7 +159,8 @@ declare global {
 
     interface DropCanvasData<T extends string = string, D extends object = object> {
         type?: T;
-        data?: D extends foundry.abstract.Document ? D["data"]["_source"] : D;
+        data?: D extends foundry.abstract.Document ? D["_source"] : D;
+        uuid?: string;
         id?: string;
         pack?: string;
         x: number;

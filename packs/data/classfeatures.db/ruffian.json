@@ -1,6 +1,8 @@
 {
     "_id": "3KPZ7svIO6kmmEKH",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/ruffian.webp",
+    "name": "Ruffian",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -29,26 +30,24 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "PF2E.SpecificRule.SneakAttack",
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed",
-                        "weapon:category:simple",
-                        {
-                            "nor": [
-                                "weapon:trait:finesse",
-                                "weapon:trait:agile",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "target:condition:flat-footed",
+                    "weapon:category:simple",
+                    {
+                        "nor": [
+                            {
+                                "and": [
+                                    "weapon:ranged",
+                                    {
+                                        "not": "weapon:thrown-melee"
+                                    }
+                                ]
+                            },
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -84,14 +83,27 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.medium.rank",
+                "path": "system.martial.medium.rank",
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.itm.rank",
+                "path": "system.skills.itm.rank",
                 "value": 1
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "target:condition:flat-footed",
+                    "weapon:category:simple",
+                    {
+                        "lte": [
+                            "weapon:damage:die:faces",
+                            8
+                        ]
+                    }
+                ]
             }
         ],
         "source": {
@@ -105,7 +117,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/ruffian.webp",
-    "name": "Ruffian",
     "type": "feat"
 }

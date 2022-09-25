@@ -1,6 +1,8 @@
 {
     "_id": "QWPFf6NOObxaZJwW",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Manifold Edge (Flurry)",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 18
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -33,31 +34,27 @@
         "rules": [
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "agile",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "agile",
+                    "hunted-prey"
+                ],
                 "selector": "attack",
                 "value": -2
             },
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ],
-                    "not": [
-                        "agile"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "not": "agile"
+                    }
+                ],
                 "selector": "attack",
                 "value": -3
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -67,7 +64,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Manifold Edge (Flurry)",
     "type": "feat"
 }

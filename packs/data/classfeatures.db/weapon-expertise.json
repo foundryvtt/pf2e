@@ -1,6 +1,8 @@
 {
     "_id": "9XLUh9iMepZesdmc",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
+    "name": "Weapon Expertise",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,31 +28,33 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.simple.rank",
+                "path": "system.martial.simple.rank",
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.unarmed.rank",
+                "path": "system.martial.unarmed.rank",
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.martial.rank",
-                "predicate": {
-                    "any": [
-                        "class:champion",
-                        "class:investigator",
-                        "class:magus"
-                    ]
-                },
+                "path": "system.martial.martial.rank",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:champion",
+                            "class:investigator",
+                            "class:magus"
+                        ]
+                    }
+                ],
                 "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -59,7 +62,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
-    "name": "Weapon Expertise",
     "type": "feat"
 }

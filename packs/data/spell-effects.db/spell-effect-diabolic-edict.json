@@ -1,6 +1,8 @@
 {
     "_id": "1kelGCsoXyGRqMd9",
-    "data": {
+    "img": "systems/pf2e/icons/spells/diabolic-edict.webp",
+    "name": "Spell Effect: Diabolic Edict",
+    "system": {
         "description": {
             "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Diabolic Edict]{Diabolic Edict}</em></p>"
         },
@@ -24,11 +26,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Diabolic Edict Request",
-                "predicate": {
-                    "all": [
-                        "diabolic-edict-agree"
-                    ]
-                },
+                "predicate": [
+                    "diabolic-edict-agree"
+                ],
                 "selector": "attack",
                 "type": "status",
                 "value": 1
@@ -36,11 +36,11 @@
             {
                 "key": "FlatModifier",
                 "label": "Diabolic Edict Refused",
-                "predicate": {
-                    "not": [
-                        "diabolic-edict-agree"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "diabolic-edict-agree"
+                    }
+                ],
                 "selector": "attack",
                 "type": "status",
                 "value": -1
@@ -48,11 +48,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Diabolic Edict Performed",
-                "predicate": {
-                    "all": [
-                        "diabolic-edict"
-                    ]
-                },
+                "predicate": [
+                    "diabolic-edict"
+                ],
                 "selector": "skill-check",
                 "type": "status",
                 "value": 1
@@ -60,18 +58,18 @@
             {
                 "key": "FlatModifier",
                 "label": "Diabolic Edict Refused",
-                "predicate": {
-                    "not": [
-                        "diabolic-edict"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "diabolic-edict"
+                    }
+                ],
                 "selector": "skill-check",
                 "type": "status",
                 "value": -1
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -87,7 +85,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/diabolic-edict.webp",
-    "name": "Spell Effect: Diabolic Edict",
     "type": "effect"
 }

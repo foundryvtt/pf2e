@@ -1,6 +1,8 @@
 {
     "_id": "c2h9Z8exSFhraJ8j",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Esoteric Oath (Paladin)",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -41,15 +42,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Esoteric Oath",
-                "predicate": {
-                    "all": [
-                        "esoteric-oath"
-                    ],
-                    "not": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "esoteric-oath",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "esoteric-not-master",
                 "value": 4
@@ -57,15 +58,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Esoteric Oath",
-                "predicate": {
-                    "all": [
-                        "esoteric-oath"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "esoteric-oath",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "esoteric-master",
                 "value": 6
@@ -83,7 +84,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Esoteric Oath (Paladin)",
     "type": "feat"
 }

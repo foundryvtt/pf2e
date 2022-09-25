@@ -1,6 +1,8 @@
 {
     "_id": "5CRt5Dy9eLv5LpRF",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Herbalist Dedication",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -34,27 +35,27 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.nat.rank",
+                "path": "system.skills.nat.rank",
                 "value": 2
             },
             {
+                "craftableItems": {
+                    "all": [
+                        "item:trait:alchemical",
+                        "item:trait:healing"
+                    ]
+                },
                 "isAlchemical": true,
                 "isDailyPrep": true,
                 "key": "CraftingEntry",
                 "label": "PF2E.SpecificRule.DedicationCraftingEntry.Herbalist",
                 "maxItemLevel": 1,
-                "requiredTraits": [
-                    [
-                        "alchemical",
-                        "healing"
-                    ]
-                ],
                 "selector": "herbalist"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.resources.crafting.infusedReagents.max",
+                "path": "system.resources.crafting.infusedReagents.max",
                 "value": "@actor.level"
             },
             {
@@ -74,7 +75,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Herbalist Dedication",
     "type": "feat"
 }

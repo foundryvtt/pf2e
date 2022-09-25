@@ -8,7 +8,7 @@
         <h4 class="dice-total">{{total}}</h4>
     </div>
 </div>
-{{#if canRollDamage}}
+{{#if (and strike.damaging canRollDamage)}}
     <div class="message-buttons" data-strike-index="{{strike.index}}" data-strike-name="{{strike.name}}">
         <button type="button" class="success" data-action="strike-damage">{{localize "PF2E.DamageLabel"}}</button>
         <button type="button" class="critical-success" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>

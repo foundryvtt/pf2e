@@ -1,6 +1,8 @@
 {
     "_id": "N8Xz5fuW6o7GW124",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Fast Recovery",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -30,15 +31,15 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "ongoing"
-                    ],
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
+                "predicate": [
+                    "ongoing",
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
                 "selector": "Fortitude",
                 "text": "If you roll a success on a Fortitude save against an ongoing posion or disease, reduce its stage by 2, or by 1 if its virulent. If you roll a critical success, reduce its stage by 3, or by 2 if its virulent.",
                 "title": "{item|name}"
@@ -46,7 +47,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.attributes.hp.recoveryMultiplier",
+                "path": "system.attributes.hp.recoveryMultiplier",
                 "value": 1
             }
         ],
@@ -61,7 +62,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Fast Recovery",
     "type": "feat"
 }

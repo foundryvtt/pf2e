@@ -2,7 +2,7 @@
 export const SetAsInitiative = {
     listen: ($li: JQuery) => {
         const message = game.messages.get($li.attr("data-message-id") ?? "", { strict: true });
-        const { context } = message.data.flags.pf2e;
+        const { context } = message.flags.pf2e;
         if (
             message.token &&
             (message.isAuthor || game.user.isGM) &&

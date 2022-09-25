@@ -1,5 +1,5 @@
 import { ActionTrait } from "@item/action/data";
-import { ArmorTrait } from "@item/armor/data";
+import { ArmorTrait } from "@item/armor/types";
 import { ConsumableTrait } from "@item/consumable/data";
 import { EquipmentTrait } from "@item/equipment/data";
 import type { PhysicalItemPF2e } from "@item/physical";
@@ -32,7 +32,7 @@ type BasePhysicalItemData<
     TType extends PhysicalItemType = PhysicalItemType,
     TSystemData extends PhysicalSystemData = PhysicalSystemData,
     TSource extends BasePhysicalItemSource<TType> = BasePhysicalItemSource<TType>
-> = Omit<BasePhysicalItemSource, "data" | "effects" | "flags"> & BaseItemDataPF2e<TItem, TType, TSystemData, TSource>;
+> = Omit<BasePhysicalItemSource, "system" | "effects" | "flags"> & BaseItemDataPF2e<TItem, TType, TSystemData, TSource>;
 
 interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     traits: PhysicalItemTraits;
@@ -52,7 +52,7 @@ interface PhysicalSystemSource extends ItemSystemSource, ItemLevelData {
     };
     price: PartialPrice;
     equipped: EquippedData;
-    identification: IdentificationData;
+    identification: IdentificationSource;
     stackGroup: string | null;
     negateBulk: {
         value: string;
@@ -77,6 +77,7 @@ interface PhysicalSystemData extends PhysicalSystemSource, ItemSystemData {
     bulk: BulkData;
     traits: PhysicalItemTraits;
     temporary: boolean;
+    identification: IdentificationData;
     usage: UsageDetails;
 }
 
@@ -129,7 +130,7 @@ type IdentificationStatus = "identified" | "unidentified";
 
 interface MystifiedData {
     name: string;
-    img: string;
+    img: ImagePath;
     data: {
         description: {
             value: string;
@@ -139,11 +140,14 @@ interface MystifiedData {
 
 type IdentifiedData = DeepPartial<MystifiedData>;
 
-interface IdentificationData {
+interface IdentificationSource {
     status: IdentificationStatus;
-    identified: MystifiedData;
     unidentified: MystifiedData;
     misidentified: {};
+}
+
+interface IdentificationData extends IdentificationSource {
+    identified: MystifiedData;
 }
 
 type EquippedData = {
@@ -154,7 +158,9 @@ type EquippedData = {
 };
 
 type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | WeaponTrait;
-type PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> = ItemTraits<T>;
+interface PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> extends ItemTraits<T> {
+    otherTags: string[];
+}
 
 interface ItemActivation {
     id: string;

@@ -1,6 +1,8 @@
 {
     "_id": "fUzFWIPK4mdZSGyH",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/worn-items/companion-items/stampede-medallion.webp",
+    "name": "Stampede Medallion",
+    "system": {
         "baseItem": null,
         "containerId": "null",
         "description": {
@@ -36,12 +38,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:shove",
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "item",
                 "value": 2
@@ -69,7 +73,5 @@
             "value": "L"
         }
     },
-    "img": "systems/pf2e/icons/equipment/worn-items/companion-items/stampede-medallion.webp",
-    "name": "Stampede Medallion",
     "type": "equipment"
 }

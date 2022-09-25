@@ -1,6 +1,8 @@
 {
     "_id": "Ot1jI91ccnB2ayfk",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Celestial Strikes",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 13
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -29,6 +30,34 @@
                 "key": "FlatModifier",
                 "selector": "strike-damage",
                 "value": 1
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "weapon:melee",
+                            "weapon:ranged"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "magical"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "weapon:melee",
+                            "weapon:ranged"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "good"
             }
         ],
         "source": {
@@ -42,7 +71,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Celestial Strikes",
     "type": "feat"
 }

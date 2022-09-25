@@ -15,9 +15,9 @@ export class Migration657RemoveSetProperty extends MigrationBase {
     }
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        itemSource.data.rules ??= [];
-        const rules = itemSource.data.rules;
-        const setPropertyRules = itemSource.data.rules.filter(
+        itemSource.system.rules ??= [];
+        const rules = itemSource.system.rules;
+        const setPropertyRules = itemSource.system.rules.filter(
             (rule: Record<string, unknown>): rule is SetPropertySource =>
                 typeof rule.key === "string" &&
                 ["SetProperty", "PF2E.RuleElement.SetProperty"].includes(rule.key) &&
@@ -41,7 +41,7 @@ export class Migration657RemoveSetProperty extends MigrationBase {
         }
 
         // Remove any surviving (likely malformed) SetProperty rule elements
-        itemSource.data.rules = itemSource.data.rules.filter(
+        itemSource.system.rules = itemSource.system.rules.filter(
             (rule) => rule && typeof rule.key === "string" && !rule.key.trim().endsWith("SetProperty")
         );
     }

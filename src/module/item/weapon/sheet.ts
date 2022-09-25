@@ -1,16 +1,16 @@
-import { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from "@item/physical/values";
-import { PreciousMaterialGrade } from "@item/physical/types";
-import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
-import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
-import { PhysicalItemSheetData } from "@item/sheet/data-types";
-import { CoinsPF2e } from "@item/physical/helpers";
+import {
+    CoinsPF2e,
+    PhysicalItemSheetData,
+    PhysicalItemSheetPF2e,
+    WEAPON_MATERIAL_VALUATION_DATA,
+} from "@item/physical";
 import { OneToFour, OneToThree } from "@module/data";
-import { objectHasKey, setHasElement } from "@util";
-import { LocalizePF2e } from "@system/localize";
-import { WeaponPF2e } from ".";
-import { WeaponPropertyRuneSlot } from "./data";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
-import { RANGED_WEAPON_GROUPS, WEAPON_RANGES } from "./values";
+import { LocalizePF2e } from "@system/localize";
+import { setHasElement } from "@util";
+import { WeaponPropertyRuneSlot } from "./data";
+import { type WeaponPF2e } from "./document";
+import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>) {
@@ -22,6 +22,9 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const sheetData: PhysicalItemSheetData<WeaponPF2e> & {
             propertyRuneSlots?: PropertyRuneSheetSlot[];
         } = await super.getData(options);
+
+        // Show source damage in case of modification during data preparation
+        sheetData.data.damage = deepClone(this.item._source.system.damage);
 
         const ABPVariant = game.settings.get("pf2e", "automaticBonusVariant");
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
@@ -41,24 +44,24 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             )
             .map(([slotNumber, slot]) => ({
                 ...slot,
-                name: `data.propertyRune${slotNumber}.value`,
+                name: `system.propertyRune${slotNumber}.value`,
                 label: game.i18n.localize(`PF2E.PropertyRuneLabel${slotNumber}`),
                 number: slotNumber,
             }));
 
         // Weapons have derived level, price, and traits: base data is shown for editing
         const baseData = this.item.toObject();
-        sheetData.data.traits.rarity = baseData.data.traits.rarity;
+        sheetData.data.traits.rarity = baseData.system.traits.rarity;
         const hintText = LocalizePF2e.translations.PF2E.Item.Weapon.FromMaterialAndRunes;
         const adjustedLevelHint =
-            this.item.level !== baseData.data.level.value
+            this.item.level !== baseData.system.level.value
                 ? game.i18n.format(hintText, {
                       property: game.i18n.localize("PF2E.LevelLabel"),
                       value: this.item.level,
                   })
                 : null;
         const adjustedPriceHint = (() => {
-            const basePrice = new CoinsPF2e(baseData.data.price.value).scale(baseData.data.quantity).copperValue;
+            const basePrice = new CoinsPF2e(baseData.system.price.value).scale(baseData.system.quantity).copperValue;
             const derivedPrice = this.item.assetValue.copperValue;
             return basePrice !== derivedPrice
                 ? game.i18n.format(hintText, {
@@ -67,36 +70,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                   })
                 : null;
         })();
-
-        type MaterialSheetData = MaterialValuationData & {
-            [key in keyof MaterialValuationData]:
-                | null
-                | (MaterialValuationData[key] & {
-                      label?: string;
-                  } & {
-                      [key in PreciousMaterialGrade]: { label?: string; selected?: boolean } | null;
-                  });
-        };
-
-        const preciousMaterials: Partial<MaterialSheetData> = deepClone(MATERIAL_VALUATION_DATA);
-        delete preciousMaterials[""];
-        delete preciousMaterials["dragonhide"];
-        delete preciousMaterials["grisantian-pelt"];
-        const { material } = this.item;
-        for (const materialKey of PRECIOUS_MATERIAL_TYPES) {
-            const materialData = preciousMaterials[materialKey];
-            if (materialData) {
-                materialData.label = game.i18n.localize(CONFIG.PF2E.preciousMaterials[materialKey]);
-                for (const gradeKey of PRECIOUS_MATERIAL_GRADES) {
-                    const grade = materialData[gradeKey];
-                    if (grade) {
-                        grade.label = game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[gradeKey]);
-                        grade.selected =
-                            material.precious?.type === materialKey && material.precious?.grade === gradeKey;
-                    }
-                }
-            }
-        }
 
         const groups = Object.fromEntries(
             Object.entries(CONFIG.PF2E.weaponGroups)
@@ -128,7 +101,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         );
         const rangedOnlyTraits = ["combination", "thrown", "volley-20", "volley-30", "volley-50"] as const;
         const mandatoryRanged =
-            setHasElement(RANGED_WEAPON_GROUPS, this.item.group) ||
+            setHasElement(MANDATORY_RANGED_GROUPS, this.item.group) ||
             rangedOnlyTraits.some((trait) => traitSet.has(trait));
         const mandatoryMelee = sheetData.data.traits.value.some((trait) => /^thrown-\d+$/.test(trait));
 
@@ -136,7 +109,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const otherTags = ((): SheetOptions => {
             const otherWeaponTags: Record<string, string> = deepClone(CONFIG.PF2E.otherWeaponTags);
             if (this.item.hands !== "1") delete otherWeaponTags.implement;
-            return createSheetTags(otherWeaponTags, sheetData.item.data.traits.otherTags);
+            return createSheetTags(otherWeaponTags, sheetData.data.traits.otherTags);
         })();
 
         const meleeUsage = sheetData.data.meleeUsage ?? {
@@ -148,18 +121,19 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         return {
             ...sheetData,
-            preciousMaterials,
+            hasDetails: true,
+            hasSidebar: true,
+            preciousMaterials: this.prepareMaterials(WEAPON_MATERIAL_VALUATION_DATA),
             weaponPotencyRunes: CONFIG.PF2E.weaponPotencyRunes,
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
             weaponPropertyRunes,
-            traits: createSheetTags(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits),
             otherTags,
             adjustedLevelHint,
             adjustedPriceHint,
             abpEnabled,
-            baseLevel: baseData.data.level.value,
-            baseRarity: baseData.data.traits.rarity,
-            basePrice: new CoinsPF2e(baseData.data.price.value),
+            baseLevel: baseData.system.level.value,
+            rarity: baseData.system.traits.rarity,
+            basePrice: new CoinsPF2e(baseData.system.price.value),
             categories: CONFIG.PF2E.weaponCategories,
             groups,
             baseTypes: LocalizePF2e.translations.PF2E.Weapon.Base,
@@ -173,8 +147,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             mandatoryRanged,
             weaponReload: CONFIG.PF2E.weaponReload,
             weaponMAP: CONFIG.PF2E.weaponMAP,
-            bulkTypes: CONFIG.PF2E.bulkTypes,
-            sizes: CONFIG.PF2E.actorSizes,
             isBomb: this.item.group === "bomb",
             isComboWeapon,
             meleeGroups: CONFIG.PF2E.meleeWeaponGroups,
@@ -198,55 +170,42 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         });
     }
 
-    /** Seal the material and runes when a weapon is marked as specific */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const weapon = this.item;
-        formData["data.potencyRune.value"] ||= 0;
-        // Set empty-string values and zeroes to null
+
+        formData["system.bonusDamage.value"] ||= 0;
+        formData["system.splashDamage.value"] ||= 0;
+
+        // Set empty-string values to null
+        formData["system.potencyRune.value"] ||= null;
+        formData["system.strikingRune.value"] ||= null;
         for (const slotNumber of [1, 2, 3, 4]) {
-            formData[`data.propertyRune${slotNumber}.value`] ||= null;
+            formData[`system.propertyRune${slotNumber}.value`] ||= null;
         }
 
         // Coerce a weapon range of zero to null
-        formData["data.range"] ||= null;
-
-        // Process precious-material selection
-        if (typeof formData["preciousMaterial"] === "string") {
-            const typeGrade = formData["preciousMaterial"].split("-");
-            const isValidSelection =
-                objectHasKey(CONFIG.PF2E.preciousMaterials, typeGrade[0] ?? "") &&
-                objectHasKey(CONFIG.PF2E.preciousMaterialGrades, typeGrade[1] ?? "");
-            if (isValidSelection) {
-                formData["data.preciousMaterial.value"] = typeGrade[0];
-                formData["data.preciousMaterialGrade.value"] = typeGrade[1];
-            } else {
-                formData["data.preciousMaterial.value"] = null;
-                formData["data.preciousMaterialGrade.value"] = null;
-            }
-
-            delete formData["preciousMaterial"];
-        }
+        formData["system.range"] ||= null;
 
         // Seal specific magic weapon data if set to true
-        const isSpecific = formData["data.specific.value"];
+        const isSpecific = formData["system.specific.value"];
         if (isSpecific !== weapon.isSpecific) {
             if (isSpecific === true) {
-                formData["data.price.value"] = this.item.price.value;
-                formData["data.specific.price"] = this.item.price.value;
-                formData["data.specific.material"] = weapon.material;
-                formData["data.specific.runes"] = {
-                    potency: formData["data.potencyRune.value"],
-                    striking: formData["data.strikingRune.value"],
+                formData["system.price.value"] = this.item.price.value;
+                formData["system.specific.price"] = this.item.price.value;
+                formData["system.specific.material"] = weapon.material;
+                formData["system.specific.runes"] = {
+                    potency: formData["system.potencyRune.value"],
+                    striking: formData["system.strikingRune.value"],
                 };
             } else if (isSpecific === false) {
-                formData["data.specific.-=material"] = null;
-                formData["data.specific.-=runes"] = null;
+                formData["system.specific.-=material"] = null;
+                formData["system.specific.-=runes"] = null;
             }
         }
 
         // Ensure melee usage is absent if not a combination weapon
-        if (weapon.data.data.meleeUsage && !this.item.traits.has("combination")) {
-            formData["data.-=meleeUsage"] = null;
+        if (weapon.system.meleeUsage && !this.item.traits.has("combination")) {
+            formData["system.-=meleeUsage"] = null;
         }
 
         return super._updateObject(event, formData);

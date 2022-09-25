@@ -38,7 +38,7 @@
             <!-- Character -->
             <div class="tab character" data-group="primary" data-tab="character">
                 <div class="character-bio">
-                    <div class="bio">{{{enrichHTML data.details.biography.appearance}}}</div>
+                    <div class="bio">{{{data.details.biography.appearance}}}</div>
                 </div>
             </div>
 
@@ -59,28 +59,28 @@
                         </div>
                         <div class="item-summary">
                             <div class="item-description">
-                                <p>{{{enrichHTML item.description}}}</p>
+                                <p>{{{item.enrichedDescription}}}</p>
                             </div>
                             {{#if item.references}}
                             <div class="condition-references">
                                 {{#if item.parents.length}}
                                 <div class="condition-parents">
-                                    <p>Applied From:{{#each item.parents as |parent|}} <span data-item-id="{{parent.id}}">{{{enrichHTML parent.text}}}</span>{{/each}}</p>
+                                    <p>Applied From:{{#each item.parents as |parent|}} <span data-item-id="{{parent.id}}">{{{parent.enrichedText}}}</span>{{/each}}</p>
                                 </div>
                                 {{/if}}
                                 {{#if item.children.length}}
                                 <div class="condition-children">
-                                    <p>Also Applied:{{#each item.children as |child|}} {{{enrichHTML child.text}}}{{/each}}</p>
+                                    <p>Also Applied:{{#each item.children as |child|}} {{{child.enrichedText}}}{{/each}}</p>
                                 </div>
                                 {{/if}}
                                 {{#if item.overrides.length}}
                                 <div class="condition-overriding">
-                                    <p>Overriding:{{#each item.overrides as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
+                                    <p>Overriding:{{#each item.overrides as |o|}} {{{o.enrichedText}}}{{/each}}</p>
                                 </div>
                                 {{/if}}
                                 {{#if item.overriddenBy.length}}
                                 <div class="condition-overridden">
-                                    <p>Overridden by:{{#each item.overriddenBy as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
+                                    <p>Overridden by:{{#each item.overriddenBy as |o|}} {{{o.enrichedText}}}{{/each}}</p>
                                 </div>
                                 {{/if}}
                             </div>

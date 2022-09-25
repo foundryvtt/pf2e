@@ -1,6 +1,8 @@
 {
     "_id": "cmuvvPJvt2R16vGe",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Fresh Ingredients",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -34,13 +35,11 @@
             {
                 "key": "FlatModifier",
                 "label": "Spend a batch of herbs in wilderness",
-                "predicate": {
-                    "all": [
-                        "action:treat-wounds",
-                        "natural-medicine",
-                        "terrain:wilderness"
-                    ]
-                },
+                "predicate": [
+                    "action:treat-wounds",
+                    "natural-medicine",
+                    "terrain:wilderness"
+                ],
                 "selector": "nature",
                 "slug": "fresh-herbs-wild",
                 "type": "circumstance",
@@ -49,12 +48,10 @@
             {
                 "key": "FlatModifier",
                 "label": "Spend a batch of herbs",
-                "predicate": {
-                    "all": [
-                        "action:treat-wounds",
-                        "natural-medicine"
-                    ]
-                },
+                "predicate": [
+                    "action:treat-wounds",
+                    "natural-medicine"
+                ],
                 "selector": "nature",
                 "slug": "fresh-herbs",
                 "type": "circumstance",
@@ -73,7 +70,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Fresh Ingredients",
     "type": "feat"
 }

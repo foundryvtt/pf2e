@@ -1,12 +1,16 @@
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { HazardFilters } from "./data";
+import { CompendiumBrowserIndexData, HazardFilters } from "./data";
 
 export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     override filterData!: HazardFilters;
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/hazard.html";
+    /* MiniSearch */
+    override searchFields = ["name"];
+    override storeFields = ["type", "name", "img", "uuid", "level", "complexity", "traits", "rarity", "source"];
 
-    protected index = ["img", "data.details.level.value", "data.details.isComplex", "data.traits"];
+    protected index = ["img", "system.details.level.value", "system.details.isComplex", "system.traits"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "hazard");
@@ -18,9 +22,9 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     protected override async loadData() {
         console.debug("PF2e System | Compendium Browser | Started loading Hazard actors");
 
-        const hazardActors: CompendiumIndexData[] = [];
+        const hazardActors: CompendiumBrowserIndexData[] = [];
         const sources: Set<string> = new Set();
-        const indexFields = [...this.index, "data.details.alignment.value", "data.details.source.value"];
+        const indexFields = [...this.index, "system.details.alignment.value", "system.details.source.value"];
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Actor",
@@ -37,25 +41,24 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                         continue;
                     }
                     // Prepare source
-                    const source = actorData.data.details.source?.value;
+                    const source = actorData.system.details.source?.value;
                     if (source) {
                         sources.add(source);
-                        actorData.data.details.source.value = sluggify(source);
+                        actorData.system.details.source.value = sluggify(source);
                     } else {
-                        actorData.data.details.source = { value: "" };
+                        actorData.system.details.source = { value: "" };
                     }
 
                     hazardActors.push({
-                        _id: actorData._id,
                         type: actorData.type,
                         name: actorData.name,
                         img: actorData.img,
-                        compendium: pack.collection,
-                        level: actorData.data.details.level.value,
-                        complexity: actorData.data.details.isComplex ? "complex" : "simple",
-                        traits: actorData.data.traits.traits.value,
-                        rarity: actorData.data.traits.rarity,
-                        source: actorData.data.details.source.value,
+                        uuid: `Compendium.${pack.collection}.${actorData._id}`,
+                        level: actorData.system.details.level.value,
+                        complexity: actorData.system.details.isComplex ? "complex" : "simple",
+                        traits: actorData.system.traits.value,
+                        rarity: actorData.system.traits.rarity,
+                        source: actorData.system.details.source.value,
                     });
                 }
             }
@@ -80,15 +83,11 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading Hazard actors");
     }
 
-    protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, search, sliders } = this.filterData;
+    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
+        const { checkboxes, sliders } = this.filterData;
+
         // Level
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
-        // Name
-        if (search.text) {
-            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
-                return false;
-        }
         // Complexity
         if (checkboxes.complexity.selected.length) {
             if (!checkboxes.complexity.selected.includes(entry.complexity)) return false;
@@ -137,7 +136,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
                 },
             },
             order: {
-                by: "name",
+                by: "level",
                 direction: "asc",
                 options: {
                     name: "PF2E.BrowserSortyByNameLabel",

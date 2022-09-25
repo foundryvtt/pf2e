@@ -70,9 +70,10 @@ async function repair(options: RepairActionOptions) {
         callback: async (result) => {
             // react to check result by posting a chat message with appropriate follow-up options
             if (item && result.message instanceof ChatMessagePF2e) {
-                const messageData = result.message.data;
+                const messageSource = result.message.toObject();
                 const flavor = await (async () => {
-                    const proficiencyRank = result.actor instanceof CharacterPF2e ? result.actor.skills.cra.rank : 0;
+                    const proficiencyRank =
+                        result.actor instanceof CharacterPF2e ? result.actor.skills.crafting.rank : 0;
                     if ("criticalSuccess" === result.outcome) {
                         const label = "PF2E.Actions.Repair.Labels.RestoreItemHitPoints";
                         const restored = String(10 + proficiencyRank * 10);
@@ -89,9 +90,9 @@ async function repair(options: RepairActionOptions) {
                     return "";
                 })();
                 if (flavor) {
-                    messageData.update({ flavor: messageData.flavor + flavor });
+                    messageSource.flavor += flavor;
                 }
-                await ChatMessage.create(messageData);
+                await ChatMessage.create(messageSource);
             }
         },
     });
@@ -175,14 +176,14 @@ async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMess
         });
     if (repair === "restore") {
         const value = Number($button.attr("data-repair-value") ?? "0");
-        const beforeRepair = item.data.data.hp.value;
-        const afterRepair = Math.min(item.data.data.hp.max, beforeRepair + value);
-        await item.update({ "data.hp.value": afterRepair });
+        const beforeRepair = item.system.hp.value;
+        const afterRepair = Math.min(item.system.hp.max, beforeRepair + value);
+        await item.update({ "system.hp.value": afterRepair });
         const content = game.i18n.format("PF2E.Actions.Repair.Chat.ItemRepaired", {
             itemName: item.name,
             repairedDamage: afterRepair - beforeRepair,
             afterRepairHitPoints: afterRepair,
-            maximumHitPoints: item.data.data.hp.max,
+            maximumHitPoints: item.system.hp.max,
         });
         await ChatMessage.create({ content, speaker });
     } else if (repair === "roll-damage") {
@@ -190,7 +191,7 @@ async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMess
         const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.html";
         const flavor = await renderTemplate(templatePath, {
             damage: {
-                dealt: Math.max(0, roll.total - item.data.data.hardness),
+                dealt: Math.max(0, roll.total - item.system.hardness),
                 rolled: roll.total,
             },
             item,
@@ -205,17 +206,17 @@ async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMess
             speaker,
         });
     } else if (repair === "damage") {
-        const hardness = Math.max(0, item.data.data.hardness);
+        const hardness = Math.max(0, item.system.hardness);
         const damage = (message?.roll?.total ?? 0) - hardness;
         if (damage > 0) {
-            const beforeDamage = item.data.data.hp.value;
-            const afterDamage = Math.max(0, item.data.data.hp.value - damage);
-            await item.update({ "data.hp.value": afterDamage });
+            const beforeDamage = item.system.hp.value;
+            const afterDamage = Math.max(0, item.system.hp.value - damage);
+            await item.update({ "system.hp.value": afterDamage });
             const content = game.i18n.format("PF2E.Actions.Repair.Chat.ItemDamaged", {
                 itemName: item.name,
                 damageDealt: beforeDamage - afterDamage,
                 afterDamageHitPoints: afterDamage,
-                maximumHitPoints: item.data.data.hp.max,
+                maximumHitPoints: item.system.hp.max,
             });
             await ChatMessage.create({ content, speaker });
         } else {

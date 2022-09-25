@@ -1,12 +1,11 @@
 import type { ActorPF2e } from "@actor/base";
+import { DexterityModifierCapData } from "@actor/character/types";
 import { SkillAbbreviation } from "@actor/creature/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance } from "@actor/types";
 import { IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "@actor/values";
-import { MeleePF2e, WeaponPF2e } from "@item";
-import type { ItemPF2e } from "@item/base";
-import { ConsumableData } from "@item/consumable/data";
+import { ConsumablePF2e, ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { DocumentSchemaRecord, LabeledNumber, Rarity, Size, ValueAndMaybeMax, ValuesList } from "@module/data";
@@ -20,7 +19,7 @@ interface BaseActorSourcePF2e<
     TSystemSource extends ActorSystemSource = ActorSystemSource
 > extends foundry.data.ActorSource<TType, TSystemSource, ItemSourcePF2e> {
     flags: DeepPartial<ActorFlagsPF2e>;
-    token: PrototypeTokenSourcePF2e;
+    prototypeToken: PrototypeTokenSourcePF2e;
 }
 
 interface BaseActorDataPF2e<
@@ -28,12 +27,11 @@ interface BaseActorDataPF2e<
     TType extends ActorType = ActorType,
     TSystemData extends ActorSystemData = ActorSystemData,
     TSource extends BaseActorSourcePF2e<TType> = BaseActorSourcePF2e<TType>
-> extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "effects" | "items" | "token">,
+> extends Omit<BaseActorSourcePF2e<TType, ActorSystemSource>, "effects" | "items" | "prototypeToken">,
         foundry.data.ActorData<TActor, ActiveEffectPF2e, ItemPF2e> {
     readonly type: TType;
-    readonly data: TSystemData;
-    token: PrototypeTokenDataPF2e;
-    flags: ActorFlagsPF2e;
+    readonly system: TSystemData;
+    token: PrototypeTokenPF2e;
 
     readonly _source: TSource;
 }
@@ -46,7 +44,7 @@ interface ActorSystemSource {
     attributes: {
         hp?: ValueAndMaybeMax;
     };
-    traits?: BaseTraitsSource;
+    traits?: BaseTraitsSource<string>;
     /** A record of this actor's current world schema version as well a log of the last migration to occur */
     schema: DocumentSchemaRecord;
 }
@@ -57,7 +55,7 @@ interface ActorSystemData extends ActorSystemSource {
         alliance: ActorAlliance;
     };
     attributes: BaseActorAttributes;
-    traits: BaseTraitsData;
+    traits: BaseTraitsData<string>;
     /** Icons appearing in the Effects Tracker application */
     tokenEffects: TemporaryEffect[];
     /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
@@ -131,13 +129,13 @@ export interface LabeledResistance extends LabeledNumber {
     type: ResistanceType;
 }
 
-export interface BaseTraitsSource {
-    /** The rarity of the actor (common, uncommon, etc.) */
-    rarity: Rarity;
-    /** The character size (such as 'med'). */
-    size: { value: Size };
+export interface BaseTraitsSource<TTrait extends string> {
     /** Actual Pathfinder traits */
-    traits: ValuesList;
+    value: TTrait[];
+    /** The rarity of the actor (common, uncommon, etc.) */
+    rarity?: Rarity;
+    /** The character size (such as 'med'). */
+    size?: { value: Size };
     /** Damage immunities this actor has. */
     di: ValuesList<ImmunityType>;
     /** Damage resistances that this actor has. */
@@ -146,7 +144,8 @@ export interface BaseTraitsSource {
     dv: LabeledWeakness[];
 }
 
-interface BaseTraitsData extends BaseTraitsSource {
+interface BaseTraitsData<TTrait extends string> extends BaseTraitsSource<TTrait> {
+    rarity: Rarity;
     size: ActorSizePF2e;
 }
 
@@ -176,14 +175,6 @@ interface InitiativeData {
 /** The full data for character perception rolls (which behave similarly to skills). */
 type PerceptionData = StatisticModifier & AbilityBasedStatistic & Rollable;
 /** The full data for character AC; includes the armor check penalty. */
-
-/** Single source of a Dexterity modifier cap to Armor Class, including the cap value itself. */
-interface DexterityModifierCapData {
-    /** The numeric value that constitutes the maximum Dexterity modifier. */
-    value: number;
-    /** The source of this Dex cap - usually the name of an armor, a monk stance, or a spell. */
-    source: string;
-}
 
 interface ArmorClassData {
     /** The actual AC value */
@@ -245,12 +236,12 @@ interface StrikeData extends StatisticModifier {
 
     /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
     ammunition?: {
-        compatible: RawObject<ConsumableData>[];
-        incompatible: RawObject<ConsumableData>[];
-        selected?: {
+        compatible: ConsumablePF2e[];
+        incompatible: ConsumablePF2e[];
+        selected: {
             id: string;
             compatible: boolean;
-        };
+        } | null;
     };
 
     /** The item that generated this strike */
@@ -276,7 +267,7 @@ interface Rollable {
 }
 
 interface PrototypeTokenSourcePF2e extends foundry.data.PrototypeTokenSource {
-    flags: foundry.data.PrototypeTokenData["flags"] & {
+    flags: foundry.data.PrototypeToken["flags"] & {
         pf2e?: {
             linkToActorSize?: boolean;
             autoscale?: boolean;
@@ -284,8 +275,8 @@ interface PrototypeTokenSourcePF2e extends foundry.data.PrototypeTokenSource {
     };
 }
 
-interface PrototypeTokenDataPF2e extends foundry.data.PrototypeTokenData {
-    flags: foundry.data.PrototypeTokenData["flags"] & {
+interface PrototypeTokenPF2e extends foundry.data.PrototypeToken {
+    flags: foundry.data.PrototypeToken["flags"] & {
         pf2e: {
             linkToActorSize: boolean;
             autoscale: boolean;
@@ -304,11 +295,10 @@ export {
     BaseActorSourcePF2e,
     BaseHitPointsData,
     BaseTraitsData,
-    DexterityModifierCapData,
     GangUpCircumstance,
     InitiativeData,
     PerceptionData,
-    PrototypeTokenDataPF2e,
+    PrototypeTokenPF2e,
     RollFunction,
     RollOptionFlags,
     RollToggle,

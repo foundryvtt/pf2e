@@ -1,6 +1,93 @@
 {
     "_id": "xw7S8108irh2D1Uw",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "HIbGLn4unRGk8EZL",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Dart Volley",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> More than two Small or larger creatures step on the brass seal.</p>\n<hr />\n<p><strong>Effect</strong> The trap makes up to four dart Strikes against creatures standing on the seal, then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7UeREmeUuipS0pKu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Dart",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "no multiple attack penalty",
+                    "rarity": "common",
+                    "value": [
+                        "no multiple attack penalty"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Dart Barrage",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 22
@@ -15,14 +102,14 @@
                 "value": 60
             },
             "stealth": {
-                "details": "<p>(trained) or DC 23 (trained) to notice scratches around the musical pipes and a slight give to the seal</p>",
+                "details": "<p>(trained) or @Check[type:perception|dc:23|traits:action:seek] (trained) to notice scratches around the musical pipes and a slight give to the seal</p>",
                 "value": 11
             }
         },
         "creatureType": "",
         "details": {
             "description": "<p>Four dart-loaded pipes hidden in the diagonal walls are connected to a pressure plate under the brass seal in the room's center.</p>",
-            "disable": "<p>Thievery DC 22 (trained) to disable the pressure plate, or four Thievery DC 18 (trained) checks to plug the dart launchers</p>",
+            "disable": "<p>@Check[type:thievery|dc:22|name:Disable Pressure Plate|traits:action:disable-a-device] (trained) to disable the pressure plate, or four @Check[type:thievery|dc:18|name:Plug Dart Launcher|traits:action:disable-a-device] (trained) checks to plug the dart launchers</p>",
             "isComplex": true,
             "level": {
                 "value": 3
@@ -65,108 +152,11 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "mechanical",
-                    "trap"
-                ]
-            }
+            "value": [
+                "mechanical",
+                "trap"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "HIbGLn4unRGk8EZL",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> More than two Small or larger creatures step on the brass seal.</p>\n<hr />\n<p><strong>Effect</strong> The trap makes up to four dart Strikes against creatures standing on the seal, then rolls initiative.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Dart Volley",
-            "sort": 100000,
-            "type": "action"
-        },
-        {
-            "_id": "7UeREmeUuipS0pKu",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "3d6",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "no multiple attack penalty",
-                    "rarity": "common",
-                    "value": [
-                        "no multiple attack penalty"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dart",
-            "sort": 200000,
-            "type": "melee"
-        }
-    ],
-    "name": "Dart Barrage",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Dart Barrage",
-        "width": 1
     },
     "type": "hazard"
 }

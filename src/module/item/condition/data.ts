@@ -4,7 +4,7 @@ import { ConditionPF2e } from ".";
 
 type ConditionSource = BaseItemSourcePF2e<"condition", ConditionSystemSource>;
 
-type ConditionData = Omit<ConditionSource, "effects" | "flags"> &
+type ConditionData = Omit<ConditionSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<ConditionPF2e, "condition", ConditionSystemData, ConditionSource>;
 
 interface ConditionSystemSource extends ItemSystemSource {
@@ -49,7 +49,7 @@ interface ConditionSystemSource extends ItemSystemSource {
             value?: number;
         }
     ];
-    base: string;
+    base: ConditionSlug;
     group: string;
     value: ConditionValueData;
     sources: {
@@ -58,13 +58,13 @@ interface ConditionSystemSource extends ItemSystemSource {
     alsoApplies: {
         linked: [
             {
-                condition: string;
+                condition: ConditionSlug;
                 value?: number;
             }
         ];
         unlinked: [
             {
-                condition: string;
+                condition: ConditionSlug;
                 value?: number;
             }
         ];

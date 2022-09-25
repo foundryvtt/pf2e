@@ -1,6 +1,8 @@
 {
     "_id": "D2AE8RfMlZ3D1FuV",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/mystic-strikes.webp",
+    "name": "Mystic Strikes",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,21 +21,18 @@
         "level": {
             "value": 3
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "unarmed"
-                    ],
-                    "not": [
-                        "suppress-mystic-strike"
-                    ]
-                },
+                "predicate": [
+                    "unarmed",
+                    {
+                        "not": "suppress-mystic-strike"
+                    }
+                ],
                 "selector": "strike-damage",
                 "traits": [
                     "magical"
@@ -41,7 +40,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -51,7 +50,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/mystic-strikes.webp",
-    "name": "Mystic Strikes",
     "type": "feat"
 }

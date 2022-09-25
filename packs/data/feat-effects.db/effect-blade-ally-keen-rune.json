@@ -1,6 +1,8 @@
 {
     "_id": "Gf7h44DcTB43464h",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp",
+    "name": "Effect: Blade Ally Keen Rune",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>The edges of a keen weapon are preternaturally sharp. Attacks with this weapon are a critical hit on a 19 on the die as long as that result is a success. This property has no effect on a 19 if the result would be a failure.</p>"
@@ -34,16 +36,18 @@
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
-                        "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
+                            "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -59,7 +63,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp",
-    "name": "Effect: Blade Ally Keen Rune",
     "type": "effect"
 }

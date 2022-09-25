@@ -1,6 +1,52 @@
 {
     "_id": "PooDdJo4wmkBvETW",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "rxzKPSkZ4m2BBbQJ",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Frigid Floor",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Hao Jin signals the beginning of the match.</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "cold"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Freezing Floor Tiles",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 36
@@ -14,14 +60,14 @@
                 "value": 40
             },
             "stealth": {
-                "details": "<p>+23 (expert) or DC 38 (master) to notice the four sensors</p>",
+                "details": "<p>+23 (expert) or @Check[type:perception|dc:38|traits:action:seek] (master) to notice the four sensors</p>",
                 "value": 23
             }
         },
         "creatureType": "",
         "details": {
             "description": "<p>Four remote sensors at each corner of the arena cause bursts of freezing magic to erupt from random tiles on the arena and stop creatures in their tracks.</p>",
-            "disable": "<p>@Check[type:thievery|dc:40|name:Freezing Floor Tiles Disable] (legendary) or dispel magic (6th level; counteract DC 38) to disable one of the sensors</p>",
+            "disable": "<p>@Check[type:thievery|dc:40|name:Disable One Sensor|traits:action:disable-a-device] (legendary) or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (6th level; counteract DC 38) to disable one of the sensors</p>",
             "isComplex": true,
             "level": {
                 "value": 16
@@ -68,68 +114,12 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "cold",
-                    "magical",
-                    "trap"
-                ]
-            }
+            "value": [
+                "cold",
+                "magical",
+                "trap"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "rxzKPSkZ4m2BBbQJ",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Hao Jin signals the beginning of the match.</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "cold"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Frigid Floor",
-            "sort": 0,
-            "type": "action"
-        }
-    ],
-    "name": "Freezing Floor Tiles",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Freezing Floor Tiles",
-        "width": 1
     },
     "type": "hazard"
 }

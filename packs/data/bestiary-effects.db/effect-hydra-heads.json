@@ -1,6 +1,8 @@
 {
     "_id": "uZJOdounIHaFDC1t",
-    "data": {
+    "img": "systems/pf2e/icons/spells/summon-animal.webp",
+    "name": "Effect: Hydra Heads",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>The number of heads the hydra currently has.</p>"
@@ -65,11 +67,9 @@
                 "diceNumber": "{item|flags.pf2e.rulesSelections.headCount}",
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "focusedAssault"
-                    ]
-                },
+                "predicate": [
+                    "focusedAssault"
+                ],
                 "selector": "strike-damage"
             }
         ],
@@ -90,7 +90,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/summon-animal.webp",
-    "name": "Effect: Hydra Heads",
     "type": "effect"
 }

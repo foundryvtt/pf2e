@@ -15,14 +15,13 @@ export class FakeActor {
 
     _itemGuid = 1;
 
+    id: string;
+
     constructor(data: ActorSourcePF2e, public options: DocumentConstructionContext<ActorPF2e> = {}) {
+        this.id = data._id;
         this._data = duplicate(data);
         this._data.items ??= [];
         this.prepareData();
-    }
-
-    get id(): string {
-        return this.data._id;
     }
 
     get data() {
@@ -52,21 +51,6 @@ export class FakeActor {
                 );
             }
         }
-    }
-
-    static fromToken(token: Token): ActorPF2e | null {
-        let actor = game.actors.get(token.data.actorId ?? "");
-        if (!actor) return null;
-        if (!token.data._id) return actor;
-        if (!token.data.actorLink) actor = FakeActor.createTokenActor(actor, token);
-        return actor;
-    }
-
-    static createTokenActor(baseActor: ActorPF2e, token: Token): ActorPF2e {
-        const actor = game.actors.tokens[token.id];
-        if (actor) return actor;
-        const actorData = mergeObject(baseActor.data, token.data.actorData, { inplace: false }) as ActorSourcePF2e;
-        return new this(actorData, { token }) as unknown as ActorPF2e;
     }
 
     update(changes: Record<string, any>) {

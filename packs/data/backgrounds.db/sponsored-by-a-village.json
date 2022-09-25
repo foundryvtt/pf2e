@@ -1,6 +1,8 @@
 {
     "_id": "8usMHYAmFdqmmkTS",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Sponsored by a Village",
+    "system": {
         "boosts": {
             "0": {
                 "value": [
@@ -44,25 +46,21 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
                 "value": 1
             },
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "all": [
-                        "village.crafting"
-                    ]
-                },
+                "predicate": [
+                    "village.crafting"
+                ],
                 "uuid": "Compendium.pf2e.feats-srd.Crafter's Appraisal"
             },
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "all": [
-                        "village:survival"
-                    ]
-                },
+                "predicate": [
+                    "village:survival"
+                ],
                 "uuid": "Compendium.pf2e.feats-srd.Forager"
             }
         ],
@@ -80,7 +78,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/background.svg",
-    "name": "Sponsored by a Village",
     "type": "background"
 }

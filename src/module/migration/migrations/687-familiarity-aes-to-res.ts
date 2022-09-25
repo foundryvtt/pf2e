@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules";
-import { RawPredicate } from "@system/predication";
+import { PredicateStatement } from "@system/predication";
 import { MigrationBase } from "../base";
 
 /** Convert weapon familiarity `ActiveEffect`s to Rule Elements */
@@ -43,10 +43,10 @@ export class Migration687FamiliarityAEsToREs extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         for (const effect of [...itemSource.effects]) {
-            for (const change of effect.changes.filter((change) => change.key.startsWith("data.martial."))) {
+            for (const change of effect.changes.filter((change) => change.key.startsWith("system.martial."))) {
                 const linkTo = change.key.replace(/^data\.martial\.|\.familiarity$/g, "");
                 const reData = this.toRuleElement(linkTo, change.value);
-                if (reData) itemSource.data.rules.push(reData);
+                if (reData) itemSource.system.rules.push(reData);
             }
         }
         itemSource.effects = [];
@@ -58,9 +58,15 @@ interface AEFamiliarityValue {
     category: string;
 }
 
-interface LinkedProficiencySource extends RuleElementSource {
+interface LinkedProficiencySource extends Omit<RuleElementSource, "predicate"> {
     key: "LinkedProficiency";
     slug: string;
-    predicate: RawPredicate;
+    predicate: OldRawPredicate;
     sameAs: string;
+}
+
+interface OldRawPredicate {
+    all?: PredicateStatement[];
+    any?: PredicateStatement[];
+    not?: PredicateStatement[];
 }

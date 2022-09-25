@@ -1,6 +1,8 @@
 {
     "_id": "iCzJRywykSFwLto0",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Vanth's Weapon Execution",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -30,14 +31,16 @@
         "rules": [
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:base:bo-staff",
-                        "weapon:base:longbow",
-                        "weapon:base:scythe",
-                        "weapon:base:staff"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:base:bo-staff",
+                            "weapon:base:longbow",
+                            "weapon:base:scythe",
+                            "weapon:base:staff"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {
@@ -51,7 +54,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Vanth's Weapon Execution",
     "type": "feat"
 }

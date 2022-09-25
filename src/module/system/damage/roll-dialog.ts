@@ -1,7 +1,8 @@
-import { ChatMessagePF2e } from "@module/chat-message";
-import { DamageRollFlag } from "@module/chat-message/data";
 import { ModifierPF2e } from "@actor/modifiers";
-import { DamageRollContext, DamageTemplate } from ".";
+import { ItemType } from "@item/data";
+import { ChatMessagePF2e, DamageRollFlag } from "@module/chat-message";
+import { DamageRollContext } from "./helpers";
+import { DamageTemplate } from "./weapon";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
 export class DamageRollModifiersDialog extends Application {
@@ -30,11 +31,14 @@ export class DamageRollModifiersDialog extends Application {
 
         context.rollMode ??= (context.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
 
-        let damageBaseModifier = "";
-        if (damage.base.modifier) {
-            damageBaseModifier =
-                damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
-        }
+        const damageBaseModifier = ((): string => {
+            if (damage.base.diceNumber > 0 && damage.base.modifier !== 0) {
+                return damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
+            } else if (damage.base.modifier !== 0) {
+                return damage.base.modifier.toString();
+            }
+            return "";
+        })();
 
         const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
         let flavor = `<strong>${damage.name}</strong> (${outcomeLabel})`;
@@ -113,14 +117,25 @@ export class DamageRollModifiersDialog extends Application {
             flavor += `<div class="tags">${traits}<hr class="vr" />${otherTags}</div><hr>`;
         }
 
-        const base = game.i18n.localize("PF2E.Damage.Base");
-        const dice = `${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier}`;
+        const base =
+            damage.base.diceNumber > 0
+                ? `${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier}`
+                : damageBaseModifier.toString();
         const damageTypes: Record<string, string | undefined> = CONFIG.PF2E.damageTypes;
-        const damageType = game.i18n.localize(damageTypes[damage.base.damageType] ?? damage.base.damageType);
-        const baseBreakdown = `<span class="tag tag_transparent">${base} ${dice} ${damageType}</span>`;
+        const damageTypeLabel = game.i18n.localize(damageTypes[damage.base.damageType] ?? damage.base.damageType);
+        const baseBreakdown = `<span class="tag tag_transparent">${base} ${damageTypeLabel}</span>`;
         const modifierBreakdown = [damage.diceModifiers.filter((m) => m.diceNumber !== 0), damage.numericModifiers]
             .flat()
             .filter((m) => m.enabled && (!m.critical || outcome === "criticalSuccess"))
+            .sort((a, b) =>
+                a.damageType === damage.base.damageType && b.damageType === damage.base.damageType
+                    ? 0
+                    : a.damageType === damage.base.damageType
+                    ? -1
+                    : b.damageType === damage.base.damageType
+                    ? 1
+                    : 0
+            )
             .map((m) => {
                 const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? "" : "+"}${m.modifier}` : "";
                 const damageType =
@@ -135,10 +150,15 @@ export class DamageRollModifiersDialog extends Application {
         flavor += `<div class="tags">${baseBreakdown}${modifierBreakdown}</div>`;
 
         const noteRollData = context.self?.item?.getRollData();
-        const notes = damage.notes
-            .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
-            .map((note) => game.pf2e.TextEditor.enrichHTML(note.text, { rollData: noteRollData }))
-            .join("<br />");
+        const damageNotes = await Promise.all(
+            damage.notes
+                .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
+                .map(
+                    async (note) =>
+                        await game.pf2e.TextEditor.enrichHTML(note.text, { rollData: noteRollData, async: true })
+                )
+        );
+        const notes = damageNotes.join("<br />");
         flavor += `${notes}`;
 
         const formula = deepClone(damage.formula[outcome]);
@@ -215,7 +235,7 @@ export class DamageRollModifiersDialog extends Application {
 
         const { self, target } = context;
         const item = self?.item ?? null;
-        const origin = item ? { uuid: item.uuid, type: item.data.type } : null;
+        const origin = item ? { uuid: item.uuid, type: item.type as ItemType } : null;
         const targetFlag = target ? { actor: target.actor.uuid, token: target.token.uuid } : null;
 
         await ChatMessagePF2e.create(

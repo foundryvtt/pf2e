@@ -4,7 +4,7 @@ import { ActionTrait } from "@item/action/data";
 import { WeaponMaterialEffect, WeaponRangeIncrement } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { PredicatePF2e } from "@system/predication";
-import { ErrorPF2e, isObject, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { StrikeAdjustment } from "../synthetics";
 import { AELikeData, AELikeRuleElement, AELikeSource } from "./ae-like";
 import { RuleElementOptions } from "./base";
@@ -24,7 +24,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
         super({ ...data, predicate: data.predicate ?? {}, phase: "beforeDerived", priority: 110 }, item, options);
 
         this.property = setHasElement(AdjustStrikeRuleElement.VALID_PROPERTIES, data.property) ? data.property : null;
-        this.definition = new PredicatePF2e(isObject(data.definition) ? data.definition : {});
+        this.definition = new PredicatePF2e(Array.isArray(data.definition) ? data.definition : []);
     }
 
     protected override validateData(): void {
@@ -32,7 +32,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
             property: setHasElement(AdjustStrikeRuleElement.VALID_PROPERTIES, this.property),
             predicate: this.predicate.isValid,
             definition: this.definition.isValid,
-            mode: AELikeRuleElement.CHANGE_MODES.includes(String(this.mode)),
+            mode: tupleHasValue(AELikeRuleElement.CHANGE_MODES, this.data.mode),
             value: ["string", "number"].includes(typeof this.value),
         };
 
@@ -95,7 +95,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             }
 
                             const newRangeIncrement = this.getNewValue(rangeIncrement, change);
-                            weapon.data.data.range = newRangeIncrement as WeaponRangeIncrement;
+                            weapon.system.range = newRangeIncrement as WeaponRangeIncrement;
                             return;
                         },
                     };
@@ -132,7 +132,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                                 return;
                             }
 
-                            const { traits } = weapon.data.data;
+                            const { traits } = weapon.system;
                             // If the weapon already has this trait, we don't need to do anything else
                             if (traits.value.includes(change)) return;
 

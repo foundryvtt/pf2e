@@ -1,6 +1,8 @@
 {
     "_id": "AWvNPE4U0kEJSL1T",
-    "data": {
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "Sneak Attack",
+    "system": {
         "actionCategory": {
             "value": "offensive"
         },
@@ -22,25 +24,23 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed",
-                        {
-                            "or": [
-                                "finesse",
-                                "agile",
-                                {
-                                    "and": [
-                                        "ranged",
-                                        {
-                                            "not": "thrown"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "target:condition:flat-footed",
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse",
+                            {
+                                "and": [
+                                    "weapon:ranged",
+                                    {
+                                        "not": "weapon:thrown-melee"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "selector": "strike-damage"
             }
         ],
@@ -59,7 +59,5 @@
             "value": ""
         }
     },
-    "img": "systems/pf2e/icons/actions/Passive.webp",
-    "name": "Sneak Attack",
     "type": "action"
 }

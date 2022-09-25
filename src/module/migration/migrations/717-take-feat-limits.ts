@@ -46,20 +46,20 @@ export class Migration717TakeFeatLimits extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "feat") return;
 
-        const slug = source.data.slug ?? "";
+        const slug = source.system.slug ?? "";
 
         // Set level-one-only restriction
-        const traits = source.data.traits.value;
+        const traits = source.system.traits.value;
         if (traits.includes("lineage") || this.levelOneOnly.has(slug)) {
-            source.data.onlyLevel1 = true;
+            source.system.onlyLevel1 = true;
         } else if ("game" in globalThis) {
-            source.data.onlyLevel1 = false;
+            source.system.onlyLevel1 = false;
         }
 
-        if (!source.data.onlyLevel1 && slug in this.maxTakeable) {
-            source.data.maxTakable = this.maxTakeable[slug];
+        if (!source.system.onlyLevel1 && slug in this.maxTakeable) {
+            source.system.maxTakable = this.maxTakeable[slug];
         } else if ("game" in globalThis) {
-            source.data.maxTakable = 1;
+            source.system.maxTakable = 1;
         }
     }
 }

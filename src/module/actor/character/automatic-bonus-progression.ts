@@ -1,7 +1,8 @@
 import { DamageDicePF2e, ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
-import { WeaponPF2e } from "@item";
+import { ArmorPF2e, WeaponPF2e } from "@item";
 import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
 import { PotencySynthetic, RuleElementSynthetics, StrikingSynthetic } from "@module/rules/synthetics";
+import { PredicatePF2e } from "@system/predication";
 
 export class AutomaticBonusProgression {
     static get isEnabled(): boolean {
@@ -78,13 +79,14 @@ export class AutomaticBonusProgression {
             }
 
             if (damage > 0) {
-                synthetics.damageDice["damage"] = (synthetics.damageDice["damage"] || []).concat(
-                    new DamageDicePF2e({
-                        slug: "devasting-attacks",
-                        label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
-                        selector: "damage",
-                        diceNumber: damage,
-                    })
+                synthetics.damageDice.damage.push(
+                    () =>
+                        new DamageDicePF2e({
+                            slug: "devasting-attacks",
+                            label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
+                            selector: "damage",
+                            diceNumber: damage,
+                        })
                 );
             }
         }
@@ -98,6 +100,7 @@ export class AutomaticBonusProgression {
                 const s: StrikingSynthetic = {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
                     bonus: damage,
+                    predicate: new PredicatePF2e(),
                 };
                 (synthetics.striking["strike-damage"] ??= []).push(s);
             }
@@ -106,6 +109,7 @@ export class AutomaticBonusProgression {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
                     type: MODIFIER_TYPE.POTENCY,
                     bonus: attack,
+                    predicate: new PredicatePF2e(),
                 };
                 synthetics.weaponPotency["mundane-attack"] = (synthetics.weaponPotency["mundane-attack"] || []).concat(
                     potency
@@ -115,26 +119,18 @@ export class AutomaticBonusProgression {
     }
 
     /** Remove stored runes from specific magic weapons or otherwise set prior to enabling ABP */
-    static cleanupRunes(weapon: WeaponPF2e): void {
+    static cleanupRunes(item: ArmorPF2e | WeaponPF2e): void {
         const setting = game.settings.get("pf2e", "automaticBonusVariant");
-        const systemData = weapon.data.data;
+        if (setting === "noABP") return;
 
-        switch (setting) {
-            case "noABP":
-                return;
-            case "ABPRulesAsWritten": {
-                systemData.potencyRune.value = null;
-                systemData.strikingRune.value = null;
-                const propertyRunes = ([1, 2, 3, 4] as const).map((n) => systemData[`propertyRune${n}` as const]);
-                for (const rune of propertyRunes) {
-                    rune.value = null;
-                }
-                return;
-            }
-            case "ABPFundamentalPotency": {
-                systemData.potencyRune.value = null;
-                systemData.strikingRune.value = null;
-                return;
+        item.system.potencyRune.value = null;
+        const otherFundamental = item.isOfType("weapon") ? item.system.strikingRune : item.system.resiliencyRune;
+        otherFundamental.value = null;
+
+        if (setting === "ABPRulesAsWritten") {
+            const propertyRunes = ([1, 2, 3, 4] as const).map((n) => item.system[`propertyRune${n}` as const]);
+            for (const rune of propertyRunes) {
+                rune.value = null;
             }
         }
     }
@@ -143,7 +139,7 @@ export class AutomaticBonusProgression {
         if (game.settings.get("pf2e", "automaticBonusVariant") !== "ABPFundamentalPotency") return;
         const potencyBonuses = potency.filter((p) => p.type === "potency");
         for (const bonus of potencyBonuses) {
-            bonus.property = deepClone(weapon.data.data.runes.property);
+            bonus.property = deepClone(weapon.system.runes.property);
         }
     }
 

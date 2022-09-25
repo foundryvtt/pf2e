@@ -49,7 +49,7 @@ export function getAreaSquares(aura: TokenAuraData) {
         .filter((s) => measureDistanceRect(aura.token.bounds, s) <= aura.radius)
         .map((square) => {
             const ray = new Ray(aura.token.center, square.center);
-            square.active = !canvas.walls.checkCollision(ray, { type: collisionType });
+            square.active = !canvas.walls.checkCollision(ray, { type: collisionType, mode: "any" });
             return square;
         });
 }

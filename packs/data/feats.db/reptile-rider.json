@@ -1,6 +1,8 @@
 {
     "_id": "k31sg0xBIwvkfWyg",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Reptile Rider",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -30,18 +31,16 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:command-an-animal",
-                        {
-                            "or": [
-                                "target:tag:reptile",
-                                "target:trait:dinosaur",
-                                "target:tag:non-sapient-dragon"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "action:command-an-animal",
+                    {
+                        "or": [
+                            "target:tag:reptile",
+                            "target:trait:dinosaur",
+                            "target:tag:non-sapient-dragon"
+                        ]
+                    }
+                ],
                 "selector": "nature",
                 "type": "circumstance",
                 "value": 1
@@ -58,7 +57,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Reptile Rider",
     "type": "feat"
 }

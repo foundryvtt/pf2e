@@ -1,6 +1,8 @@
 {
     "_id": "B7RMnrHwQHlezlJT",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/gymnast-style.webp",
+    "name": "Gymnast",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,23 +21,22 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "panache"
-                    ],
-                    "any": [
-                        "action:grapple",
-                        "action:shove",
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    "panache",
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "circumstance",
                 "value": 1
@@ -43,12 +44,10 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.ath.rank",
-                "predicate": {
-                    "all": [
-                        "class:swashbuckler"
-                    ]
-                },
+                "path": "system.skills.ath.rank",
+                "predicate": [
+                    "class:swashbuckler"
+                ],
                 "value": 1
             }
         ],
@@ -63,7 +62,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/gymnast-style.webp",
-    "name": "Gymnast",
     "type": "feat"
 }

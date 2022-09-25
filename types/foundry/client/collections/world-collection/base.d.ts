@@ -7,10 +7,10 @@ declare global {
      * @param data An array of data objects from which to create Document instances
      */
     abstract class WorldCollection<TDocument extends WorldDocument> extends DocumentCollection<TDocument> {
-        constructor(data?: TDocument["data"]["_source"][]);
+        constructor(data?: TDocument["_source"][]);
 
         /** The source data is, itself, a mapping of IDs to data objects */
-        protected readonly _source: TDocument["data"]["_source"];
+        protected readonly _source: TDocument["_source"];
 
         /** An Array of application references which will be automatically updated when the collection content changes */
         apps: Application[];
@@ -19,7 +19,7 @@ declare global {
          * Initialize the WorldCollection object by constructing its contained Document instances
          * @param data
          */
-        protected _initialize(data: TDocument["data"]["_source"][]): void;
+        protected _initialize(data: TDocument["_source"][]): void;
 
         /* -------------------------------------------- */
         /*  Collection Properties                       */
@@ -73,9 +73,9 @@ declare global {
          * @return The processed data ready for world Document creation
          */
         fromCompendium(
-            document: TDocument | TDocument["data"]["_source"],
+            document: TDocument | TDocument["_source"],
             options?: FromCompendiumOptions
-        ): TDocument["data"]["_source"];
+        ): TDocument["_source"];
     }
 
     interface FromCompendiumOptions {

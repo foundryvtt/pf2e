@@ -38,10 +38,17 @@ interface MigrationBase {
     updateActor?(_actor: ActorSourcePF2e): Promise<void>;
 
     /**
+     * Update the item to the latest schema version, handling changes that must happen before any other migration in a
+     * given list.
+     * @param item Item to update. This should be an `ItemData` from the previous version.
+     * @param actor If the item is part of an actor, this is set to the actor. For instance
+     */
+    preUpdateItem?(item: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void>;
+
+    /**
      * Update the item to the latest schema version.
      * @param item Item to update. This should be an `ItemData` from the previous version.
      * @param actor If the item is part of an actor, this is set to the actor. For instance
-     * if you only want to update items that are on a npc you can do that here.
      */
     updateItem?(item: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void>;
 

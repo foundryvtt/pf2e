@@ -1,6 +1,8 @@
 {
     "_id": "RUEAV5LMUGFHcXcW",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/breastplate-of-command.webp",
+    "name": "Breastplate of Command",
+    "system": {
         "armor": {
             "value": 4
         },
@@ -73,12 +75,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Breastplate of Command (Hide, Sneak)",
-                "predicate": {
-                    "any": [
-                        "action:hide",
-                        "action:sneak"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
                 "selector": "stealth",
                 "type": "item",
                 "value": -2
@@ -86,11 +90,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Breastplate of Command (Impersonate)",
-                "predicate": {
-                    "any": [
-                        "action:impersonate"
-                    ]
-                },
+                "predicate": [
+                    "action:impersonate"
+                ],
                 "selector": "deception",
                 "type": "item",
                 "value": -2
@@ -123,7 +125,5 @@
             "value": "3"
         }
     },
-    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/breastplate-of-command.webp",
-    "name": "Breastplate of Command",
     "type": "armor"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "1VdLr4Qm8fv1m4tM",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Godless Graycloak",
+    "system": {
         "boosts": {
             "0": {
                 "value": [
@@ -24,24 +26,25 @@
         },
         "items": {
             "pf0s5": {
-                "id": "IlOQuCQIhjJpig3S",
                 "img": "systems/pf2e/icons/features/feats/feats.webp",
                 "level": "1",
                 "name": "Quick Identification",
-                "pack": "pf2e.feats-srd"
+                "uuid": "Compendium.pf2e.feats-srd.IlOQuCQIhjJpig3S"
             }
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Graycloaks, priests, and clerics (Godless Graycloak)",
-                "predicate": {
-                    "any": [
-                        "target:graycloak",
-                        "target:priest",
-                        "target:cleric"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:graycloak",
+                            "target:priest",
+                            "target:cleric"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1
@@ -49,13 +52,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Graycloaks, priests, and clerics (Godless Graycloak)",
-                "predicate": {
-                    "any": [
-                        "target:graycloak",
-                        "target:priest",
-                        "target:cleric"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:graycloak",
+                            "target:priest",
+                            "target:cleric"
+                        ]
+                    }
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
@@ -63,13 +68,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Graycloaks, priests, and clerics (Godless Graycloak)",
-                "predicate": {
-                    "any": [
-                        "target:graycloak",
-                        "target:priest",
-                        "target:cleric"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:graycloak",
+                            "target:priest",
+                            "target:cleric"
+                        ]
+                    }
+                ],
                 "selector": "intimidate",
                 "type": "circumstance",
                 "value": 1
@@ -90,7 +97,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/background.svg",
-    "name": "Godless Graycloak",
     "type": "background"
 }

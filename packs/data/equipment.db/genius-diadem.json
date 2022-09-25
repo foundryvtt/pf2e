@@ -1,6 +1,8 @@
 {
     "_id": "QZaOQ8luuxWXpFqJ",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/intelligent-items/genius-diadem.webp",
+    "name": "Genius Diadem",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
@@ -36,11 +38,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:recall-knowledge"
-                    ]
-                },
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
                 "selector": "skill-check",
                 "type": "item",
                 "value": 3
@@ -48,13 +48,13 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.abilities.int.value",
+                "path": "system.abilities.int.value",
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.abilities.int.value",
+                "path": "system.abilities.int.value",
                 "value": 18
             }
         ],
@@ -80,7 +80,5 @@
             "value": "L"
         }
     },
-    "img": "systems/pf2e/icons/equipment/intelligent-items/genius-diadem.webp",
-    "name": "Genius Diadem",
     "type": "equipment"
 }

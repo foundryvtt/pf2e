@@ -28,8 +28,8 @@ export class Migration620RenameToWebp extends MigrationBase {
     override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         actorData.img = this.renameToWebP(actorData.img);
 
-        if (typeof actorData.token?.img === "string") {
-            actorData.token.img = this.renameToWebP(actorData.token.img);
+        if (typeof actorData.prototypeToken?.texture.src === "string") {
+            actorData.prototypeToken.texture.src = this.renameToWebP(actorData.prototypeToken.texture.src);
         }
 
         // Icons for active effects
@@ -38,7 +38,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
 
         if (actorData.type === "character") {
-            const details: CharacterDetails & { deity?: { image: string } } = actorData.data.details;
+            const details: CharacterDetails & { deity?: { image: string } } = actorData.system.details;
             if (details.deity) {
                 details.deity.image = this.renameToWebP(details.deity.image);
             }
@@ -53,17 +53,12 @@ export class Migration620RenameToWebp extends MigrationBase {
             effect.icon = this.renameToWebP(effect.icon);
         }
 
-        if (itemData.type === "consumable" && itemData.data.spell?.data) {
-            const embeddedSpell = itemData.data.spell.data;
-            embeddedSpell.img = this.renameToWebP(embeddedSpell.img);
-        }
-
         if (itemData.type === "condition" && itemData.flags.pf2e?.condition) {
-            itemData.data.hud.img.value = this.renameToWebP(itemData.data.hud.img.value);
+            itemData.system.hud.img.value = this.renameToWebP(itemData.system.hud.img.value);
         }
 
         if (this.isABCK(itemData)) {
-            const embedData = itemData.data.items;
+            const embedData = itemData.system.items;
             const embeds = Object.values(embedData).filter(
                 (maybeEmbed): maybeEmbed is KitEntryData | ABCFeatureEntryData => !!maybeEmbed
             );
@@ -91,7 +86,7 @@ export class Migration620RenameToWebp extends MigrationBase {
     }
 
     override async updateToken(tokenData: foundry.data.TokenSource): Promise<void> {
-        tokenData.img = this.renameToWebP(tokenData.img);
+        tokenData.texture.src = this.renameToWebP(tokenData.texture.src);
         tokenData.effects = tokenData.effects.filter((texture) => !this.regexp.test(texture));
     }
 

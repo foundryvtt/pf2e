@@ -25,7 +25,7 @@ declare global {
         TDocument extends foundry.abstract.Document = foundry.abstract.Document,
         TOptions extends DocumentSheetOptions = DocumentSheetOptions
     > extends FormApplication<TDocument, TOptions> {
-        constructor(object: TDocument, options: Partial<TOptions>);
+        constructor(object: TDocument, options?: Partial<TOptions>);
 
         static override get defaultOptions(): DocumentSheetOptions;
 

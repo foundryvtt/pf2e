@@ -1,6 +1,8 @@
 {
     "_id": "8w6esW689NNbbq3i",
-    "data": {
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "Call on Ancient Blood",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,18 +21,18 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "call-on-ancient-blood"
-                    ],
-                    "any": [
-                        "magical",
-                        "arcane",
-                        "divine",
-                        "primal",
-                        "occult"
-                    ]
-                },
+                "predicate": [
+                    "call-on-ancient-blood",
+                    {
+                        "or": [
+                            "magical",
+                            "arcane",
+                            "divine",
+                            "primal",
+                            "occult"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -57,7 +59,5 @@
             "value": ""
         }
     },
-    "img": "systems/pf2e/icons/actions/Reaction.webp",
-    "name": "Call on Ancient Blood",
     "type": "action"
 }

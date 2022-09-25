@@ -1,6 +1,8 @@
 {
     "_id": "XFJiGllNZp8Xebda",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Intimidating Prowess",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -11,7 +13,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>In situations where you can physically menace the target when you Coerce or Demoralize, you gain a +1 circumstance bonus to your Intimidation check and you ignore the penalty for not sharing a language. If your Strength score is 20 or higher and you are a master in Intimidation, this bonus increases to +2.</p>"
+            "value": "<p>In situations where you can physically menace the target when you @Compendium[pf2e.actionspf2e.Coerce]{Coerce} or @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize}, you gain a +1 circumstance bonus to your Intimidation check and you ignore the penalty for not sharing a language. If your Strength score is 20 or higher and you are a master in Intimidation, this bonus increases to +2.</p>"
         },
         "featType": {
             "value": "skill"
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -33,15 +34,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:physically-menaced"
-                    ],
-                    "any": [
-                        "action:coerce",
-                        "action:demoralize"
-                    ]
-                },
+                "predicate": [
+                    "target:physically-menaced",
+                    {
+                        "or": [
+                            "action:coerce",
+                            "action:demoralize"
+                        ]
+                    }
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": {
@@ -57,7 +58,7 @@
                             "value": 1
                         }
                     ],
-                    "field": "actor|data.skills.itm.rank"
+                    "field": "actor|system.skills.itm.rank"
                 }
             }
         ],
@@ -73,7 +74,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Intimidating Prowess",
     "type": "feat"
 }

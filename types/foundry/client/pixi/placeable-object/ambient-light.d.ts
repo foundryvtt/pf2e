@@ -11,22 +11,16 @@ declare class AmbientLight<
 
     static override embeddedName: "AmbientLight";
 
-    override get bounds(): NormalizedRectangle;
+    override get bounds(): PIXI.Rectangle;
 
     /** A convenience accessor to the LightData configuration object */
-    get config(): foundry.data.LightData;
+    get config(): TDocument["config"];
 
     /** Test whether a specific AmbientLight source provides global illumination */
     get global(): boolean;
 
     /** The maximum radius in pixels of the light field */
     get radius(): number;
-
-    /** Get the pixel radius of dim light emitted by this light source */
-    get dimRadius(): number;
-
-    /** Get the pixel radius of bright light emitted by this light source */
-    get brightRadius(): number;
 
     /** Is this ambient light is currently visible based on its hidden state and the darkness level of the Scene? */
     get isVisible(): boolean;
@@ -35,7 +29,7 @@ declare class AmbientLight<
     /* Rendering                                    */
     /* -------------------------------------------- */
 
-    override draw(): Promise<this>;
+    protected _draw(): Promise<void>;
 
     /** Draw the ControlIcon for the AmbientLight */
     protected _drawControlIcon(): ControlIcon;
@@ -64,7 +58,7 @@ declare class AmbientLight<
     /* -------------------------------------------- */
 
     override _onCreate(
-        data: TDocument["data"]["_source"],
+        data: TDocument["_source"],
         options: DocumentModificationContext<TDocument>,
         userId: string
     ): void;

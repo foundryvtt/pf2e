@@ -8,7 +8,7 @@ export class Migration688ClampSpellLevel extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type === "spell") {
-            itemSource.data.level.value = Math.min(Math.max(itemSource.data.level.value, 1), 10) as OneToTen;
+            itemSource.system.level.value = Math.min(Math.max(itemSource.system.level.value, 1), 10) as OneToTen;
         }
     }
 }

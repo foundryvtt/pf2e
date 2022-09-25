@@ -1,6 +1,50 @@
 {
     "_id": "1UIJ4oknQ7btkUCb",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "nXrzkclnA7IMvnFu",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Pitfall and Plunger",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor</p>\n<hr />\n<p><strong>Effect</strong> Anyone within 10 feet of the room's northern wall falls 40 feet down the shaft to area <strong>E33</strong>, taking [[/r {20}[bludgeoning]]]{20 bludgeoning damage} and landing prone in the ochre jelly's pit.</p>\n<p>The victims can @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge} to avoid falling.</p>\n<p>The DC to Grab an Edge is 20; the DC to @Compendium[pf2e.actionspf2e.Climb]{Climb} the walls is 22.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Plunger Chute",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 22
@@ -22,7 +66,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A trapdoor in the floor conceals a hidden chute, and a moving section of wall shoves victims into it.</p>",
-            "disable": "<p>DC 23 Thievery (expert) to jam the trapdoor shut or activate a hidden bypass switch by twisting a fitting on the gas lamp</p>",
+            "disable": "<p>@Check[type:thievery|dc:23|name:Jam the Trapdoor Shut|traits:action:disable-a-device] (expert) to jam the trapdoor shut or activate a hidden bypass switch by twisting a fitting on the gas lamp</p>",
             "isComplex": false,
             "level": {
                 "value": 3
@@ -65,65 +109,11 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "mechanical",
-                    "trap"
-                ]
-            }
+            "value": [
+                "mechanical",
+                "trap"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "nXrzkclnA7IMvnFu",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor</p>\n<hr />\n<p><strong>Effect</strong> Anyone within 10 feet of the room's northern wall falls 40 feet down the shaft to area <strong>E33</strong>, taking [[/r {20}[bludgeoning]]]{20 bludgeoning damage} and landing prone in the ochre jelly's pit.</p>\n<p>The victims can @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge} to avoid falling.</p>\n<p>The DC to Grab an Edge is 20; the DC to @Compendium[pf2e.actionspf2e.Climb]{Climb} the walls is 22.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Pitfall and Plunger",
-            "sort": 100000,
-            "type": "action"
-        }
-    ],
-    "name": "Plunger Chute",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Plunger Chute",
-        "width": 1
     },
     "type": "hazard"
 }

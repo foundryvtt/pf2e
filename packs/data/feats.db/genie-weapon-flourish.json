@@ -1,6 +1,8 @@
 {
     "_id": "2kwLzw618QaIHOap",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Genie Weapon Flourish",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -30,15 +31,17 @@
         "rules": [
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:trait:geniekin",
-                        "weapon:base:falchion",
-                        "weapon:base:ranseur",
-                        "weapon:base:scimitar",
-                        "weapon:base:trident"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:trait:geniekin",
+                            "weapon:base:falchion",
+                            "weapon:base:ranseur",
+                            "weapon:base:scimitar",
+                            "weapon:base:trident"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {
@@ -56,7 +59,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Genie Weapon Flourish",
     "type": "feat"
 }

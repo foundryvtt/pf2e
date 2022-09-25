@@ -1,83 +1,13 @@
 {
     "_id": "HYUQOdH0WB6ckC5e",
-    "data": {
-        "attributes": {
-            "ac": {
-                "value": 16
-            },
-            "hardness": 0,
-            "hasHealth": true,
-            "hp": {
-                "details": "",
-                "max": 24,
-                "temp": 0,
-                "tempmax": 0,
-                "value": 24
-            },
-            "stealth": {
-                "details": "<p>(trained)</p>",
-                "value": 23
-            }
-        },
-        "creatureType": "",
-        "details": {
-            "description": "<p>A mold cloud puffs from spoiled spilled food.</p>",
-            "disable": "<p>Survival DC 16 (trained) to remove the mold from the food without triggering the spores.</p>",
-            "isComplex": false,
-            "level": {
-                "value": 4
-            },
-            "reset": "",
-            "routine": ""
-        },
-        "saves": {
-            "fortitude": {
-                "saveDetail": "",
-                "value": 10
-            },
-            "reflex": {
-                "saveDetail": "",
-                "value": 2
-            },
-            "will": {
-                "saveDetail": "",
-                "value": 0
-            }
-        },
-        "source": {
-            "value": ""
-        },
-        "statusEffects": [],
-        "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
-            "rarity": "common",
-            "size": {
-                "value": "med"
-            },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "environmental"
-                ]
-            }
-        }
-    },
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
             "_id": "NcyiM0WihYrncbSF",
-            "data": {
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Foodborn Spores",
+            "sort": 100000,
+            "system": {
                 "actionCategory": {
                     "value": ""
                 },
@@ -112,14 +42,14 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Foodborn Spores",
-            "sort": 100000,
             "type": "action"
         },
         {
             "_id": "MQ3CKYIdF6zrMg0x",
-            "data": {
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spore Puff",
+            "sort": 200000,
+            "system": {
                 "actionCategory": {
                     "value": ""
                 },
@@ -152,19 +82,82 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spore Puff",
-            "sort": 200000,
             "type": "action"
         }
     ],
     "name": "Moldy Foodstuffs (3-4)",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Moldy Foodstuffs",
-        "width": 1
+    "prototypeToken": {
+        "name": "Moldy Foodstuffs"
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 16
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 24,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 24
+            },
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 23
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A mold cloud puffs from spoiled spilled food.</p>",
+            "disable": "<p>@Check[type:survival|dc:16|name:Remove Mold] (trained) to remove the mold from the food without triggering the spores.</p>",
+            "isComplex": false,
+            "level": {
+                "value": 4
+            },
+            "reset": "",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 2
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "value": "Pathfinder Society Scenario #1-03: Escaping the Grave"
+        },
+        "statusEffects": [],
+        "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": [
+                    "critical-hits",
+                    "object-immunities",
+                    "precision"
+                ]
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
     },
     "type": "hazard"
 }

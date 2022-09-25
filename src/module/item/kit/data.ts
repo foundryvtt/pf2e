@@ -4,11 +4,11 @@ import type { KitPF2e } from ".";
 
 type KitSource = BaseItemSourcePF2e<"kit", KitSystemSource>;
 
-type KitData = Omit<KitSource, "effects" | "flags"> & BaseItemDataPF2e<KitPF2e, "kit", KitSystemData, KitSource>;
+type KitData = Omit<KitSource, "system" | "effects" | "flags"> &
+    BaseItemDataPF2e<KitPF2e, "kit", KitSystemData, KitSource>;
 
 interface KitEntryData {
-    pack?: string;
-    id: string;
+    uuid: ItemUUID;
     img: ImagePath;
     quantity: number;
     name: string;

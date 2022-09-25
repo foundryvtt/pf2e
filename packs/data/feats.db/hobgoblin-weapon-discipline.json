@@ -1,6 +1,8 @@
 {
     "_id": "B6eoSmowSFNlhj9h",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Hobgoblin Weapon Discipline",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -30,13 +31,15 @@
         "rules": [
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:group:polearm",
-                        "weapon:group:spear",
-                        "weapon:group:sword"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:group:polearm",
+                            "weapon:group:spear",
+                            "weapon:group:sword"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {
@@ -50,7 +53,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Hobgoblin Weapon Discipline",
     "type": "feat"
 }

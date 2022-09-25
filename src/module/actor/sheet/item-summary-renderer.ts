@@ -8,8 +8,8 @@ import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
  * Implementation used to populate item summaries, toggle visibility
  * of item summaries, and save expanded/collapsed state of item summaries.
  */
-export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
-    constructor(protected sheet: Application & { get actor(): AType }) {}
+export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
+    constructor(protected sheet: Application & { get actor(): TActor }) {}
 
     activateListeners($html: JQuery) {
         $html.find(".item .item-name h4, .item .melee-name h4, .item .action-name h4").on("click", async (event) => {
@@ -65,13 +65,13 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
                 return $summary.insertAfter($element.children(".item-name, .item-controls, .action-header").last());
             })();
 
-            const chatData = item.getChatData({ secrets: actor.isOwner }, $element.data());
+            const chatData = await item.getChatData({ secrets: actor.isOwner }, $element.data());
             this.renderItemSummary($summary, item, chatData);
             if (options.instant) {
-                InlineRollLinks.listen($summary);
+                InlineRollLinks.listen($summary, actor);
             } else {
                 $summary.hide().slideDown(200, () => {
-                    InlineRollLinks.listen($summary);
+                    InlineRollLinks.listen($summary, actor);
                 });
             }
         }
@@ -83,10 +83,10 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
      * Called when an item summary is expanded and needs to be filled out.
      * @todo Move this to templates
      */
-    renderItemSummary($div: JQuery, item: Embedded<ItemPF2e>, chatData: ItemSummaryData) {
+    async renderItemSummary($div: JQuery, item: ItemPF2e, chatData: ItemSummaryData): Promise<void> {
         const localize = game.i18n.localize.bind(game.i18n);
 
-        const itemIsIdentifiedOrUserIsGM = item instanceof PhysicalItemPF2e && (item.isIdentified || game.user.isGM);
+        const itemIsIdentifiedOrUserIsGM = item.isOfType("physical") && (item.isIdentified || game.user.isGM);
 
         const $rarityTag = itemIsIdentifiedOrUserIsGM
             ? (() => {
@@ -97,7 +97,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             : null;
 
         const $priceLabel =
-            itemIsIdentifiedOrUserIsGM && item.data.data.stackGroup !== "coins"
+            itemIsIdentifiedOrUserIsGM && item.system.stackGroup !== "coins"
                 ? ((): JQuery => {
                       const price = item.price.value.toString();
                       const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
@@ -139,7 +139,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 
         const description = isItemSystemData(chatData)
             ? chatData.description.value
-            : game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData() });
+            : await game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
 
         $div.append($properties, $priceLabel, `<div class="item-description">${description}</div>`);
     }
@@ -183,11 +183,15 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 }
 
 export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemSummaryRendererPF2e<AType> {
-    override renderItemSummary($div: JQuery, item: Embedded<ItemPF2e>, chatData: Record<string, unknown>) {
-        super.renderItemSummary($div, item, chatData);
+    override async renderItemSummary(
+        $div: JQuery,
+        item: Embedded<ItemPF2e>,
+        chatData: Record<string, unknown>
+    ): Promise<void> {
+        await super.renderItemSummary($div, item, chatData);
         const actor = item.actor;
         const buttons = $('<div class="item-buttons"></div>');
-        switch (item.data.type) {
+        switch (item.type) {
             case "spell":
                 if (chatData.isSave) {
                     const save = chatData.save as Record<string, unknown>;
@@ -195,7 +199,7 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
                 }
 
                 if (actor instanceof CharacterPF2e) {
-                    if (chatData.variants) {
+                    if (Array.isArray(chatData.variants) && chatData.variants.length) {
                         const label = game.i18n.localize("PF2E.Item.Spell.Variants.SelectVariantLabel");
                         buttons.append(
                             `<span><button class="spell_attack" data-action="selectVariant">${label}</button></span>`
@@ -217,7 +221,7 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
 
                 break;
             case "consumable":
-                if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified) {
+                if (item instanceof ConsumablePF2e && item.uses.max > 0 && item.isIdentified) {
                     const label = game.i18n.localize("PF2E.ConsumableUseLabel");
                     buttons.append(
                         `<span><button class="consume" data-action="consume">${label} ${item.name}</button></span>`

@@ -7,19 +7,19 @@ export class Migration736RemoveBrokenThreshold extends MigrationBase {
     static override version = 0.736;
 
     #hasBrokenThreshold(source: ItemSourcePF2e): source is SourceWithBrokenThreshold {
-        return isPhysicalData(source) && "brokenThreshold" in source.data;
+        return isPhysicalData(source) && "brokenThreshold" in source.system;
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (this.#hasBrokenThreshold(source)) {
-            delete source.data.brokenThreshold;
-            source.data["-=brokenThreshold"] = null;
+            delete source.system.brokenThreshold;
+            source.system["-=brokenThreshold"] = null;
         }
     }
 }
 
 type SourceWithBrokenThreshold = PhysicalItemSource & {
-    data: {
+    system: {
         brokenThreshold?: unknown;
         "-=brokenThreshold"?: null;
     };

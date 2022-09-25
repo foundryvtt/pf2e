@@ -11,11 +11,18 @@ import { Size } from "@module/data";
 import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
 import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { ErrorPF2e, getActionGlyph, getActionIcon, objectHasKey, setHasElement } from "@util";
+import { getActionGlyph, getActionIcon, objectHasKey, setHasElement, tagify } from "@util";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { NPCConfig } from "./config";
 import { NPCSkillData } from "./data";
-import { NPCActionSheetData, NPCAttackSheetData, NPCSheetData, NPCSheetItemData, NPCSystemSheetData } from "./types";
+import {
+    NPCActionSheetData,
+    NPCAttackSheetData,
+    NPCSheetData,
+    NPCSheetItemData,
+    NPCSpellcastingSheetData,
+    NPCSystemSheetData,
+} from "./types";
 
 export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = NPCConfig;
@@ -65,24 +72,23 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
      * Prepares items in the actor for easier access during sheet rendering.
      * @param sheetData Data from the actor associated to this sheet.
      */
-    protected prepareItems(sheetData: NPCSheetData<TActor>): void {
+    protected async prepareItems(sheetData: NPCSheetData<TActor>): Promise<void> {
         this.prepareAbilities(sheetData.data.abilities);
         this.prepareSize(sheetData.data);
         this.prepareAlignment(sheetData.data);
         this.prepareSkills(sheetData.data);
-        this.prepareSpeeds(sheetData.data);
         this.prepareSaves(sheetData.data);
-        this.prepareActions(sheetData);
-        sheetData.attacks = this.prepareAttacks(sheetData.data);
+        await this.prepareActions(sheetData);
+        sheetData.attacks = await this.prepareAttacks(sheetData.data);
         sheetData.effectItems = sheetData.items.filter(
             (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
         );
-        sheetData.spellcastingEntries = this.prepareSpellcasting();
+        sheetData.spellcastingEntries = await this.prepareSpellcasting();
     }
 
     private getIdentifyCreatureData(): IdentifyCreatureData {
         const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-        return identifyCreature(this.actor.data, { proficiencyWithoutLevel });
+        return identifyCreature(this.actor, { proficiencyWithoutLevel });
     }
 
     override async getData(): Promise<NPCSheetData<TActor>> {
@@ -95,7 +101,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
         // Filter out alignment traits for sheet presentation purposes
         const alignmentTraits: Set<string> = ALIGNMENT_TRAITS;
-        const actorTraits = sheetData.data.traits.traits;
+        const actorTraits = sheetData.data.traits;
         actorTraits.value = actorTraits.value.filter((t: string) => !alignmentTraits.has(t));
 
         // recall knowledge DCs
@@ -123,15 +129,13 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         const actorShieldData = sheetData.data.attributes.shield;
         sheetData.hasShield = !!heldShield || actorShieldData.hp.max > 0;
 
-        const isElite = this.isElite;
-        const isWeak = this.isWeak;
+        const isElite = this.actor.isElite;
+        const isWeak = this.actor.isWeak;
         sheetData.isElite = isElite;
         sheetData.isWeak = isWeak;
         sheetData.notAdjusted = !isElite && !isWeak;
 
-        if (isElite && isWeak) {
-            throw ErrorPF2e("NPC is both, Elite and Weak at the same time.");
-        } else if (isElite) {
+        if (isElite) {
             sheetData.eliteState = "active";
             sheetData.weakState = "inactive";
         } else if (isWeak) {
@@ -162,16 +166,34 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
         sheetData.configLootableNpc = game.settings.get("pf2e", "automation.lootableNPCs");
 
+        // Enrich content
+        const rollData = this.actor.getRollData();
+        sheetData.enrichedContent.publicNotes = await TextEditor.enrichHTML(sheetData.data.details.publicNotes, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.privateNotes = await TextEditor.enrichHTML(sheetData.data.details.privateNotes, {
+            rollData,
+            async: true,
+        });
+
         // Return data for rendering
         return sheetData as NPCSheetData<TActor>;
     }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html.get(0)!;
 
         // Set the inventory tab as active on a loot-sheet rendering.
         if (this.isLootSheet) {
             $html.find(".tab.inventory").addClass("active");
+        }
+
+        // Tagify the traits selection
+        const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.value"]');
+        if (traitsEl) {
+            tagify(traitsEl, { whitelist: CONFIG.PF2E.monsterTraits });
         }
 
         // Subscribe to roll events
@@ -187,8 +209,13 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         });
 
         // Adjustments
-        $html.find(".npc-elite-adjustment").on("click", () => this.onClickMakeElite());
-        $html.find(".npc-weak-adjustment").on("click", () => this.onClickMakeWeak());
+        $html.find(".adjustment").on("click", (event) => {
+            const adjustment = String(event.target.dataset.adjustment);
+            if (adjustment === "elite" || adjustment === "weak") {
+                const alreadyHasAdjustment = adjustment === this.actor.system.attributes.adjustment;
+                this.actor.applyAdjustment(alreadyHasAdjustment ? null : adjustment);
+            }
+        });
 
         // Handle spellcastingEntry attack and DC updates
         $html
@@ -274,7 +301,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             const skill = skills[skillId];
             skill.label = objectHasKey(CONFIG.PF2E.skillList, skill.expanded)
                 ? game.i18n.localize(CONFIG.PF2E.skillList[skill.expanded])
-                : skill.label ?? skill.name;
+                : skill.label ?? skill.slug;
             skill.adjustedHigher = skill.value > Number(skill.base);
             skill.adjustedLower = skill.value < Number(skill.base);
         }
@@ -298,25 +325,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         sheetSystemData.sortedSkills = sortedSkills;
     }
 
-    private prepareSpeeds(sheetData: NPCSystemSheetData): void {
-        const configSpeedTypes = CONFIG.PF2E.speedTypes;
-        sheetData.attributes.speed.otherSpeeds.forEach((speed) => {
-            // Try to convert it to a recognizable speed name
-            // This is done to recognize speed types for NPCs from the compendium
-            const speedName: string = speed.type.trim().toLowerCase().replace(/\s+/g, "-");
-            let value = speed.value;
-            if (typeof value === "string" && value.includes("feet")) {
-                value = value.replace("feet", "").trim(); // Remove `feet` at the end, wi will localize it later
-            }
-            speed.label = objectHasKey(configSpeedTypes, speedName) ? configSpeedTypes[speedName] : "";
-        });
-        // Make sure regular speed has no `feet` at the end, we will add it localized later on
-        // This is usally the case for NPCs from the compendium
-        if (typeof sheetData.attributes.speed.value === "string") {
-            sheetData.attributes.speed.value = sheetData.attributes.speed.value.replace("feet", "").trim();
-        }
-    }
-
     private prepareSaves(systemData: NPCSystemSheetData): void {
         for (const saveType of SAVE_TYPES) {
             const save = systemData.saves[saveType];
@@ -326,11 +334,29 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         }
     }
 
+    protected override async prepareSpellcasting(): Promise<NPCSpellcastingSheetData[]> {
+        const entries: NPCSpellcastingSheetData[] = await super.prepareSpellcasting();
+        for (const entry of entries) {
+            const entryItem = this.actor.items.get(entry.id);
+            if (!entryItem?.isOfType("spellcastingEntry")) continue;
+            entry.adjustedHigher = {
+                dc: entry.statistic.dc.value > entryItem._source.system.spelldc.dc,
+                mod: entry.statistic.check.mod > entryItem._source.system.spelldc.value,
+            };
+            entry.adjustedLower = {
+                dc: entry.statistic.dc.value < entryItem._source.system.spelldc.dc,
+                mod: entry.statistic.check.mod < entryItem._source.system.spelldc.value,
+            };
+        }
+
+        return entries;
+    }
+
     /**
      * Prepares the actions list to be accessible from the sheet.
      * @param sheetData Data of the actor to be shown in the sheet.
      */
-    private prepareActions(sheetData: NPCSheetData<TActor>): void {
+    private async prepareActions(sheetData: NPCSheetData<TActor>): Promise<void> {
         const actions: NPCActionSheetData = {
             passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionTypeFree"), actions: [] },
@@ -340,11 +366,11 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
         for (const item of this.actor.itemTypes.action) {
             const itemData = item.toObject(false);
-            const chatData = item.getChatData();
-            const traits = chatData.traits;
+            const chatData = await item.getChatData();
+            const traits = chatData.traits ?? [];
 
             // Create trait with the type of action
-            const systemData = itemData.data;
+            const systemData = itemData.system;
             const hasType = systemData.actionType && systemData.actionType.value;
 
             if (hasType) {
@@ -383,31 +409,30 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         sheetData.actions = actions;
     }
 
-    private prepareAttacks(sheetData: NPCSystemSheetData): NPCAttackSheetData {
+    private async prepareAttacks(sheetData: NPCSystemSheetData): Promise<NPCAttackSheetData> {
         const attackTraits: Record<string, string | undefined> = CONFIG.PF2E.npcAttackTraits;
         const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-
-        return sheetData.actions.map((attack) => {
-            const traits = attack.traits
-                .map((strikeTrait) => ({
-                    label: attackTraits[strikeTrait.label] ?? strikeTrait.label,
-                    description: traitDescriptions[strikeTrait.name] ?? "",
-                }))
-                .sort((a, b) => {
-                    if (a.label < b.label) return -1;
-                    if (a.label > b.label) return 1;
-                    return 0;
+        const actorRollData = this.actor.getRollData();
+        return Promise.all(
+            sheetData.actions.map(async (attack) => {
+                const itemRollData = attack.item.getRollData();
+                attack.description = await TextEditor.enrichHTML(attack.description, {
+                    rollData: { ...actorRollData, ...itemRollData },
+                    async: true,
                 });
-            return { attack, traits };
-        });
-    }
-
-    private get isWeak(): boolean {
-        return this.actor.traits.has("weak");
-    }
-
-    private get isElite(): boolean {
-        return this.actor.traits.has("elite");
+                const traits = attack.traits
+                    .map((strikeTrait) => ({
+                        label: attackTraits[strikeTrait.label] ?? strikeTrait.label,
+                        description: traitDescriptions[strikeTrait.name] ?? "",
+                    }))
+                    .sort((a, b) => {
+                        if (a.label < b.label) return -1;
+                        if (a.label > b.label) return 1;
+                        return 0;
+                    });
+                return { attack, traits };
+            })
+        );
     }
 
     private getSizeLocalizedKey(size: string): string {
@@ -427,7 +452,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
     }
 
     private async rollAbility(event: JQuery.ClickEvent, abilityId: AbilityString): Promise<void> {
-        const bonus = this.actor.data.data.abilities[abilityId].mod;
+        const bonus = this.actor.system.abilities[abilityId].mod;
         const parts = ["@bonus"];
         const title = game.i18n.localize(`PF2E.AbilityCheck.${abilityId}`);
         const data = { bonus };
@@ -467,14 +492,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         }
     }
 
-    private onClickMakeWeak(): Promise<void> {
-        return this.actor.applyAdjustment(this.actor.isWeak ? "normal" : "weak");
-    }
-
-    private onClickMakeElite(): Promise<void> {
-        return this.actor.applyAdjustment(this.actor.isElite ? "normal" : "elite");
-    }
-
     private async onChangeSpellcastingEntry(
         event: JQuery.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ): Promise<void> {
@@ -494,18 +511,18 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // do not update max health if the value has not actually changed
-        if (this.isElite || this.isWeak) {
-            const { max } = this.actor.data.data.attributes.hp;
-            if (formData["data.attributes.hp.max"] === max) {
-                delete formData["data.attributes.hp.max"];
+        if (this.actor.isElite || this.actor.isWeak) {
+            const { max } = this.actor.system.attributes.hp;
+            if (formData["system.attributes.hp.max"] === max) {
+                delete formData["system.attributes.hp.max"];
             }
         }
 
         // update shield hp
         const shield = this.actor.heldShield;
-        if (shield && Number.isInteger(formData["data.attributes.shield.value"])) {
+        if (shield && Number.isInteger(formData["system.attributes.shield.value"])) {
             await shield.update({
-                "data.hp.value": formData["data.attributes.shield.value"],
+                "system.hp.value": formData["system.attributes.shield.value"],
             });
         }
 

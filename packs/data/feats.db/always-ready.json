@@ -1,6 +1,8 @@
 {
     "_id": "vUQ3XwCT0i3ydX1U",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Always Ready",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 4
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -31,21 +32,17 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "data.attributes.flanking.flatFootable",
-                "predicate": {
-                    "all": [
-                        "origin:trait:undead"
-                    ]
-                },
+                "path": "system.attributes.flanking.flatFootable",
+                "predicate": [
+                    "origin:trait:undead"
+                ],
                 "value": "@actor.level"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "all-undead"
-                    ]
-                },
+                "predicate": [
+                    "all-undead"
+                ],
                 "selector": "initiative",
                 "type": "circumstance",
                 "value": 1
@@ -62,7 +59,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Always Ready",
     "type": "feat"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "u8gmBNHgb880vN3S",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Witch Warden",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,19 +21,20 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "curse",
-                        "origin:trait:hag"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "curse",
+                            "origin:trait:hag"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -41,23 +44,27 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "any": [
-                        "curse",
-                        "origin:trait:hag"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "curse",
+                            "origin:trait:hag"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "curse",
-                        "origin:trait:hag"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "curse",
+                            "origin:trait:hag"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "PF2E.SpecificRule.Human.WitchWarden.SaveNote",
                 "title": "{item|name}"
@@ -74,7 +81,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Witch Warden",
     "type": "feat"
 }

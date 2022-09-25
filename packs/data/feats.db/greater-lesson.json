@@ -1,6 +1,8 @@
 {
     "_id": "qDfTqetM9UEpp8ty",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Greater Lesson",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 6
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,19 +28,21 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.resources.focus.max",
+                "path": "system.resources.focus.max",
                 "value": 1
             },
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "predicate": [
                         "item:trait:witch",
-                        "item:type:feature"
-                    ],
-                    "any": [
-                        "item:level:6",
-                        "item:level:2"
+                        "item:type:feature",
+                        {
+                            "or": [
+                                "item:level:6",
+                                "item:level:2"
+                            ]
+                        }
                     ]
                 },
                 "choices": [
@@ -69,6 +72,9 @@
                     },
                     {
                         "value": "Compendium.pf2e.classfeatures.Lesson of Vengeance"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Lesson of Favors"
                     }
                 ],
                 "flag": "lesson",
@@ -91,7 +97,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Greater Lesson",
     "type": "feat"
 }

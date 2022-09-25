@@ -1,6 +1,8 @@
 {
     "_id": "T4ulOYkFh8gq2kY9",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Tide-hardened",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,19 +21,20 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "cold",
-                        "water"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "cold",
+                            "water"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "When you roll a success on a save against a cold or water effect, you get a critical success instead.",
                 "title": "{item|name}"
@@ -41,23 +44,27 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "any": [
-                        "cold",
-                        "water"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "cold",
+                            "water"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "cold",
-                        "water"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "cold",
+                            "water"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -74,7 +81,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Tide-hardened",
     "type": "feat"
 }

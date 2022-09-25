@@ -16,16 +16,16 @@ export class LootPF2e extends ActorPF2e {
     }
 
     get isLoot(): boolean {
-        return this.data.data.lootSheetType === "Loot";
+        return this.system.lootSheetType === "Loot";
     }
 
     get isMerchant(): boolean {
-        return this.data.data.lootSheetType === "Merchant";
+        return this.system.lootSheetType === "Merchant";
     }
 
     /** Should this actor's token(s) be hidden when there are no items in its inventory? */
     get hiddenWhenEmpty(): boolean {
-        return this.isLoot && this.data.data.hiddenWhenEmpty;
+        return this.isLoot && this.system.hiddenWhenEmpty;
     }
 
     /** Loot actors can never benefit from rule elements */
@@ -33,7 +33,7 @@ export class LootPF2e extends ActorPF2e {
         return false;
     }
 
-    /** Come on, it's a box. */
+    /** It's a box. */
     override get canAct(): false {
         return false;
     }
@@ -62,7 +62,7 @@ export class LootPF2e extends ActorPF2e {
         if (!(this.isOwner && targetActor.isOwner)) {
             return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
         }
-        if (this.isMerchant && item instanceof PhysicalItemPF2e) {
+        if (this.isMerchant && item.isOfType("physical")) {
             const itemValue = CoinsPF2e.fromPrice(item.price, quantity);
             if (await targetActor.inventory.removeCoins(itemValue)) {
                 await item.actor.inventory.addCoins(itemValue);
@@ -104,11 +104,11 @@ export class LootPF2e extends ActorPF2e {
     }
 
     protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: DocumentUpdateContext<this>,
         userId: string
     ): void {
-        if (changed.data?.hiddenWhenEmpty !== undefined) {
+        if (changed.system?.hiddenWhenEmpty !== undefined) {
             this.toggleTokenHiding();
         }
         super._onUpdate(changed, options, userId);

@@ -13,7 +13,7 @@ export const Setup = {
             registerSheets();
 
             CONFIG.controlIcons.defeated = game.settings.get("pf2e", "deathIcon");
-            game.pf2e.StatusEffects.setIconTheme();
+            game.pf2e.StatusEffects.initialize();
 
             // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
             const homebrew = new HomebrewElements();
@@ -24,8 +24,10 @@ export const Setup = {
             // Some of game.pf2e must wait until the setup phase
             SetGamePF2e.onSetup();
 
-            // Forced panning is intrinsicly annoying, so set default to false
+            // Forced panning is intrinsically annoying: change default to false
             game.settings.settings.get("core.chatBubblesPan").default = false;
+            // Improve discoverability of map notes
+            game.settings.settings.get("core.notesDisplayToggle").default = true;
 
             // Set Hover by Owner as defaults for Default Token Configuration
             const defaultTokenSettingsDefaults = game.settings.settings.get("core.defaultToken").default;

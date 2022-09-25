@@ -11,7 +11,7 @@ export class NPCConfig extends CreatureConfig<NPCPF2e> {
             notLootable: "PF2E.Actor.NPC.Configure.Lootable.NotLootable",
         };
         const lootableSelection = (() => {
-            const storedSelection = this.actor.data._source.flags.pf2e?.lootable;
+            const storedSelection = this.actor._source.flags.pf2e?.lootable;
             return typeof storedSelection === "boolean" ? (storedSelection ? "lootable" : "notLootable") : "default";
         })();
 

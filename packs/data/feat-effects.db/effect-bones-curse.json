@@ -1,0 +1,200 @@
+{
+    "_id": "6fObd480rDBkFwZ3",
+    "img": "systems/pf2e/icons/features/classes/bones-mystery.webp",
+    "name": "Effect: Bones Curse",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.OracleCurses.Label.Minor",
+                        "value": "minor"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Moderate",
+                        "predicate": [
+                            "class:oracle"
+                        ],
+                        "value": "moderate"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Major",
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
+                        "value": "major"
+                    },
+                    {
+                        "label": "PF2E.OracleCurses.Label.Extreme",
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
+                        "value": "extreme"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "oracular-curse:stage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "death"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 4
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "death"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.OracleCurses.Bones.ModerateUpgrade",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "oracular-curse:stage:moderate",
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "death"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.OracleCurses.Bones.MajorUpgrade",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "death"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "death"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major"
+                        ]
+                    }
+                ],
+                "type": "poison",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Advanced Player's Guide"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

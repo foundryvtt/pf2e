@@ -1,6 +1,8 @@
 {
     "_id": "mEDTJi7d1bTEiwUD",
-    "data": {
+    "img": "systems/pf2e/icons/features/ancestry/unusual-anatomy.webp",
+    "name": "Unusual Anatomy",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,19 +21,20 @@
         "level": {
             "value": 0
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
                 "selector": "fortitude",
                 "type": "circumstance",
                 "value": 1
@@ -48,7 +51,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/ancestry/unusual-anatomy.webp",
-    "name": "Unusual Anatomy",
     "type": "feat"
 }

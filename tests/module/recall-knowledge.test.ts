@@ -1,23 +1,21 @@
-import { NPCData } from "@actor/data";
+import { NPCPF2e } from "@actor";
 import { Rarity } from "@module/data";
 import { identifyCreature } from "@module/recall-knowledge";
 
-function createCreature(level: number, rarity: Rarity, traits: string[]): NPCData {
+function createCreature(level: number, rarity: Rarity, traits: string[]): NPCPF2e {
     return {
-        data: {
+        system: {
             details: {
                 level: {
                     value: level,
                 },
             },
             traits: {
+                value: traits,
                 rarity,
-                traits: {
-                    value: traits,
-                },
             },
         },
-    } as NPCData;
+    } as unknown as NPCPF2e;
 }
 
 describe("test recall knowledge on creatures", () => {

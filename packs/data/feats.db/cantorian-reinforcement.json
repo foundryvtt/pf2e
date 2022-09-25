@@ -1,6 +1,8 @@
 {
     "_id": "0qshtd4mBcjFAxA8",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Cantorian Reinforcement",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,19 +21,20 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "poison",
-                        "disease"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "disease"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "PF2E.SpecificRule.Hobgoblin.CantorianReinforcement.Note",
                 "title": "{item|name}"
@@ -48,7 +51,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Cantorian Reinforcement",
     "type": "feat"
 }

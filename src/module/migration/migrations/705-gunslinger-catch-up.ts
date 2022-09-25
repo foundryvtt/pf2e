@@ -6,9 +6,9 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
     static override version = 0.705;
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        if (!(itemSource.type === "feat" && itemSource.data.featType.value === "classfeature")) return;
+        if (!(itemSource.type === "feat" && itemSource.system.featType.value === "classfeature")) return;
 
-        switch (itemSource.data.slug) {
+        switch (itemSource.system.slug) {
             case "singular-expertise": {
                 const rules = [
                     {
@@ -25,7 +25,7 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
                         value: 1,
                     },
                 ];
-                itemSource.data.rules = rules;
+                itemSource.system.rules = rules;
                 break;
             }
             case "gunslinger-weapon-mastery": {
@@ -33,41 +33,41 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.unarmed.rank",
+                        path: "system.martial.unarmed.rank",
                         value: 2,
                     },
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.simple.rank",
+                        path: "system.martial.simple.rank",
                         value: 2,
                     },
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.martial.rank",
+                        path: "system.martial.martial.rank",
                         value: 2,
                     },
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.advanced-firearms-crossbows.rank",
+                        path: "system.martial.advanced-firearms-crossbows.rank",
                         value: 2,
                     },
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.simple-firearms-crossbows.rank",
+                        path: "system.martial.simple-firearms-crossbows.rank",
                         value: 3,
                     },
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.martial-firearms-crossbows.rank",
+                        path: "system.martial.martial-firearms-crossbows.rank",
                         value: 3,
                     },
                 ];
-                itemSource.data.rules = rules;
+                itemSource.system.rules = rules;
                 break;
             }
             case "gunslinging-legend": {
@@ -75,41 +75,41 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.unarmed.rank",
+                        path: "system.martial.unarmed.rank",
                         value: 3,
                     },
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.simple.rank",
+                        path: "system.martial.simple.rank",
                         value: 3,
                     },
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.martial.rank",
+                        path: "system.martial.martial.rank",
                         value: 3,
                     },
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.advanced-firearms-crossbows.rank",
+                        path: "system.martial.advanced-firearms-crossbows.rank",
                         value: 3,
                     },
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.simple-firearms-crossbows.rank",
+                        path: "system.martial.simple-firearms-crossbows.rank",
                         value: 4,
                     },
                     {
                         key: "ActiveEffectLike",
                         mode: "upgrade",
-                        path: "data.martial.martial-firearms-crossbows.rank",
+                        path: "system.martial.martial-firearms-crossbows.rank",
                         value: 4,
                     },
                 ];
-                itemSource.data.rules = rules;
+                itemSource.system.rules = rules;
                 break;
             }
         }

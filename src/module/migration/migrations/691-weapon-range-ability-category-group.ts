@@ -1,9 +1,9 @@
 import { ItemSourcePF2e } from "@item/data";
 import { WeaponSystemSource } from "@item/weapon/data";
 import { WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types";
-import { RANGED_WEAPON_GROUPS } from "@item/weapon/values";
+import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values";
 import { RuleElementSource } from "@module/rules";
-import { setHasElement } from "@util";
+import { isObject, setHasElement } from "@util";
 import { MigrationBase } from "../base";
 
 /** Normalize weapon range to numeric or null, remove ability property, and let's do category and group too! */
@@ -11,11 +11,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
     static override version = 0.691;
 
     private isOldGroupData(group: OldOrNewGroup): group is { value: WeaponGroup | null } {
-        return (
-            group instanceof Object &&
-            "value" in group &&
-            (typeof group["value"] === "string" || group["value"] === null)
-        );
+        return isObject<{ value: unknown }>(group) && (typeof group.value === "string" || group.value === null);
     }
 
     private isOldRangeData(range: WeaponRangeIncrement | null | { value: string }): range is { value: string } {
@@ -24,7 +20,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type === "weapon") {
-            const systemData: MaybeOldData = itemSource.data;
+            const systemData: MaybeOldData = itemSource.system;
 
             // Category
             systemData.category =
@@ -45,7 +41,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
                 : systemData.range;
 
             if (hasOldRangeData && systemData.ability) {
-                if (systemData.ability.value === "str" && !setHasElement(RANGED_WEAPON_GROUPS, systemData.group)) {
+                if (systemData.ability.value === "str" && !setHasElement(MANDATORY_RANGED_GROUPS, systemData.group)) {
                     // The range thrown melee weapons are set by a thrown trait
                     systemData.range = null;
                 }
@@ -54,7 +50,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
             }
 
             // Correct thrown trait on ranged (rather than melee) thrown weapons
-            if (setHasElement(RANGED_WEAPON_GROUPS, systemData.group)) {
+            if (setHasElement(MANDATORY_RANGED_GROUPS, systemData.group)) {
                 const thrownIndex = systemData.traits.value.findIndex((trait) => /^thrown-\d+/.test(trait));
                 if (thrownIndex !== -1) {
                     systemData.traits.value[thrownIndex] = "thrown";
@@ -71,8 +67,8 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
         }
 
         // Remove setting of ability on Strike rule elements
-        const { rules } = itemSource.data;
-        const strikeRules = rules.filter((rule): rule is StrikeRuleSource => /\bStrike$/.test(rule.key));
+        const { rules } = itemSource.system;
+        const strikeRules = rules.filter((rule): rule is StrikeRuleSource => /\bStrike$/.test(String(rule.key)));
         for (const rule of strikeRules) {
             rule.key = "Strike";
             rule.range = Number(rule.range) || null;

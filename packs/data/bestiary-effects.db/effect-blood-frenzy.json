@@ -1,6 +1,8 @@
 {
     "_id": "ScZ8tlV5zS0Jwnqn",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/hunt-prey.webp",
+    "name": "Effect: Blood Frenzy",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>The creature gains temporary hit points and other effects based on the specific creature.</p>"
@@ -17,12 +19,12 @@
         "rules": [
             {
                 "key": "TempHP",
-                "value": "@actor.level + @actor.abilities.con.mod + @actor.data.data.custom.modifiers.frenzyMod"
+                "value": "@actor.level + @actor.abilities.con.mod + @actor.system.custom.modifiers.frenzyMod"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.custom.modifiers.frenzyMod",
+                "path": "system.custom.modifiers.frenzyMod",
                 "value": 0
             }
         ],
@@ -43,7 +45,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/classes/hunt-prey.webp",
-    "name": "Effect: Blood Frenzy",
     "type": "effect"
 }

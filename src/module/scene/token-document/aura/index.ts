@@ -6,37 +6,52 @@ import { TokenAuraData } from "./types";
 import { TokenDocumentPF2e } from "../document";
 import { measureDistanceRect } from "@module/canvas";
 import { ActorPF2e } from "@actor";
+import { AuraColors, AuraData } from "@actor/types";
 
 class TokenAura implements TokenAuraData {
     slug: string;
 
-    radius: number;
-
     token: Embedded<TokenDocumentPF2e>;
+
+    /** The radius of the aura in feet */
+    radius: number;
 
     traits: Set<ItemTrait>;
 
+    colors: AuraColors | null;
+
     /** Does this aura affect its emanating token? */
-    includesSelf: boolean;
+    private includesSelf: boolean;
 
     constructor(args: TokenAuraParams) {
         this.slug = args.slug;
-        this.radius = args.radius;
         this.token = args.token;
+
+        this.radius = args.radius;
+
         this.traits = args.traits;
+        this.colors = args.colors ?? null;
         this.includesSelf = args.includesSelf;
+    }
+
+    /** The aura radius from the center in pixels */
+    get radiusPixels(): number {
+        const gridSize = this.scene.grid.distance;
+        const gridSizePixels = this.scene.grid.size;
+        const tokenWidth = this.token.width * gridSizePixels;
+        return 0.5 * tokenWidth + (this.radius / gridSize) * gridSizePixels;
     }
 
     private get scene(): ScenePF2e {
         return this.token.scene;
     }
 
-    get bounds(): NormalizedRectangle {
+    get bounds(): PIXI.Rectangle {
         const { token, radiusPixels } = this;
-        const tokenWidth = token.data.width * this.scene.data.grid;
+        const tokenWidth = token.width * this.scene.grid.size;
         const tokenBounds = token.bounds;
 
-        return new NormalizedRectangle(
+        return new PIXI.Rectangle(
             tokenBounds.x - (radiusPixels - tokenWidth / 2),
             tokenBounds.y - (radiusPixels - tokenWidth / 2),
             radiusPixels * 2,
@@ -46,14 +61,6 @@ class TokenAura implements TokenAuraData {
 
     get center(): Point {
         return this.token.center;
-    }
-
-    get radiusPixels(): number {
-        const gridSize = this.scene.data.gridDistance;
-        const gridSizePixels = this.scene.data.grid;
-        const tokenWidth = this.token.data.width * gridSizePixels;
-
-        return 0.5 * tokenWidth + (this.radius / gridSize) * gridSizePixels;
     }
 
     /** The squares covered by this aura */
@@ -67,7 +74,7 @@ class TokenAura implements TokenAuraData {
         if (token === this.token) return this.includesSelf;
 
         // 2. If this aura is out of range, return false early
-        if (measureDistanceRect(this.token.bounds, token.bounds) > this.radius) return false;
+        if (this.token.object.distanceTo(token.object) > this.radius) return false;
 
         // 3. Check whether any aura square intersects the token's space
         return this.squares.some((s) => s.active && measureDistanceRect(s, token.bounds) === 0);
@@ -104,7 +111,7 @@ class TokenAura implements TokenAuraData {
     }
 }
 
-interface TokenAuraParams {
+interface TokenAuraParams extends Omit<AuraData, "effects" | "traits"> {
     slug: string;
     radius: number;
     token: Embedded<TokenDocumentPF2e>;

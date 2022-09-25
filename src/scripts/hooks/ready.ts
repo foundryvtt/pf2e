@@ -1,18 +1,19 @@
-import { activateSocketListener } from "@scripts/socket";
-import { PlayerConfigPF2e } from "@module/user/player-config";
-import { MigrationRunner } from "@module/migration/runner";
+import { MigrationSummary } from "@module/apps/migration-summary";
+import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
+import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
 import { MigrationList } from "@module/migration";
+import { MigrationRunner } from "@module/migration/runner";
+import { registerModuleArt } from "@scripts/register-module-art";
+import { SetGamePF2e } from "@scripts/set-game-pf2e";
+import { activateSocketListener } from "@scripts/socket";
 import { storeInitialWorldVersions } from "@scripts/store-versions";
 import { extendDragData } from "@scripts/system/dragstart-handler";
-import { MigrationSummary } from "@module/apps/migration-summary";
-import { SetGamePF2e } from "@scripts/set-game-pf2e";
-import { registerModuleArt } from "@scripts/register-module-art";
 
 export const Ready = {
     listen: (): void => {
         Hooks.once("ready", () => {
             /** Once the entire VTT framework is initialized, check to see if we should perform a data migration */
-            console.log("PF2e System | Readying Pathfinder 2nd Edition System");
+            console.log("PF2e System | Starting Pathfinder 2nd Edition System");
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 
             // Determine whether a system migration is required and feasible
@@ -38,33 +39,37 @@ export const Ready = {
 
                 // Update the world system version
                 const previous = game.settings.get("pf2e", "worldSystemVersion");
-                const current = game.system.data.version;
+                const current = game.system.version;
                 if (foundry.utils.isNewerVersion(current, previous)) {
                     await game.settings.set("pf2e", "worldSystemVersion", current);
                 }
 
                 // These modules claim compatibility with all of V9 but are abandoned
-                const abandonedModules = new Set(["pf2e-lootgen", "pf2e-toolbox"]);
+                const abandonedModules = new Set(["foundry_community_macros", "pf2e-lootgen", "pf2e-toolbox"]);
 
                 // Nag the GM for running unmaintained modules
                 const subV9Modules = Array.from(game.modules.values()).filter(
                     (m) =>
                         m.active &&
-                        // Foundry does not enforce the presence of `ModuleData#compatibleCoreVersion`, but modules
+                        (m.esmodules.size > 0 || m.scripts.size > 0) &&
+                        // Foundry does not enforce the presence of `Module#compatibility.verified`, but modules
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
-                        (abandonedModules.has(m.id) ||
-                            !foundry.utils.isNewerVersion(m.data.compatibleCoreVersion ?? 9, "0.8.9"))
+                        !!m.compatibility.verified &&
+                        (abandonedModules.has(m.id) || !foundry.utils.isNewerVersion(m.compatibility.verified, "0.8.9"))
                 );
 
                 for (const badModule of subV9Modules) {
-                    const message = game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.data.title });
+                    const message = game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.title });
                     ui.notifications.warn(message);
                     console.warn(message);
                 }
             });
 
-            PlayerConfigPF2e.activateColorScheme();
+            // Update chat messages to add set-as-initiative buttons to skill checks
+            for (const li of document.querySelectorAll<HTMLLIElement>("#chat-log > li")) {
+                SetAsInitiative.listen($(li));
+            }
 
             activateSocketListener();
 
@@ -77,6 +82,9 @@ export const Ready = {
             // In case there's no canvas, run Condition Manager initialization from this hook as well
             game.pf2e.ConditionManager.initialize();
 
+            // Add Scene Darkness Adjuster to `Scenes` apps list so that it will re-render on scene update
+            game.scenes.apps.push(SceneDarknessAdjuster.instance);
+
             // Sort item types for display in sidebar create-item dialog
             game.system.documentTypes.Item.sort((typeA, typeB) => {
                 return game.i18n
@@ -84,16 +92,13 @@ export const Ready = {
                     .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
             });
 
-            // Compile compendium search index
-            registerModuleArt().then(() => {
-                ui.compendium.onReady();
-            });
+            registerModuleArt();
 
             // Now that all game data is available, reprepare actor data among those actors currently in an encounter
             const participants = game.combats.contents.flatMap((e) => e.combatants.contents);
             const fightyActors = new Set(participants.flatMap((c) => c.actor ?? []));
             for (const actor of fightyActors) {
-                actor.prepareData();
+                actor.reset();
             }
 
             // Final pass to ensure effects on actors properly consider the initiative of any active combat
@@ -102,8 +107,8 @@ export const Ready = {
             }
 
             // Prepare familiars now that all actors are initialized
-            for (const familiar of game.actors.filter((a) => a.data.type === "familiar")) {
-                familiar.prepareData();
+            for (const familiar of game.actors.filter((a) => a.type === "familiar")) {
+                familiar.reset();
             }
 
             // Announce the system is ready in case any module needs access to an application not available until now

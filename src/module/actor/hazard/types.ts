@@ -36,4 +36,6 @@ interface HazardSaveSheetData {
     mod?: number;
 }
 
-export { HazardActionSheetData, HazardSaveSheetData, HazardSheetData };
+type HazardTrait = keyof ConfigPF2e["PF2E"]["hazardTraits"];
+
+export { HazardActionSheetData, HazardSaveSheetData, HazardSheetData, HazardTrait };

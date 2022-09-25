@@ -30,11 +30,13 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 default: true,
                 type: Boolean,
                 onChange: () => {
-                    game.actors.forEach((actor) => {
-                        actor.prepareData();
+                    for (const actor of game.actors) {
+                        actor.reset();
                         actor.sheet.render(false);
-                        actor.getActiveTokens().forEach((token) => token.drawEffects());
-                    });
+                        for (const token of actor.getActiveTokens()) {
+                            token.drawEffects();
+                        }
+                    }
                 },
             },
             removeExpiredEffects: {

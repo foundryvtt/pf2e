@@ -42,7 +42,7 @@ export class WorldClockSettings extends FormApplication {
         });
     }
 
-    override getData(): TemplateData {
+    override async getData(): Promise<TemplateData> {
         const worldDefault = game.settings.get("pf2e", "worldClock.syncDarkness")
             ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.enabled)
             : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.disabled);
@@ -70,7 +70,7 @@ export class WorldClockSettings extends FormApplication {
 
         const settings: FormInputData[] = visibleSettings.map(([key, setting]) => {
             const value = ((): unknown => {
-                if (key === "syncDarknessScene") return canvas.scene?.data.flags.pf2e.syncDarkness;
+                if (key === "syncDarknessScene") return canvas.scene?.flags.pf2e.syncDarkness;
                 const rawValue = game.settings.get("pf2e", `worldClock.${key}`);
 
                 // Present the world-creation timestamp as an HTML datetime-locale input
@@ -89,7 +89,7 @@ export class WorldClockSettings extends FormApplication {
                 isDateTime: setting.type === String && !("choices" in setting),
             };
         });
-        return mergeObject(super.getData(), { settings });
+        return mergeObject(await super.getData(), { settings });
     }
 
     /** Register World Clock settings */

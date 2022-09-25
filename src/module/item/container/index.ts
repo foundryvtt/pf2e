@@ -1,4 +1,5 @@
 import { InventoryBulk } from "@actor/inventory";
+import { ItemSummaryData } from "@item/data";
 import { EquipmentTrait } from "@item/equipment/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { Bulk, weightToBulk } from "@item/physical/bulk";
@@ -11,17 +12,17 @@ class ContainerPF2e extends PhysicalItemPF2e {
 
     /** Is this an actual stowing container or merely one of the old pouches/quivers/etc.? */
     get stowsItems(): boolean {
-        return this.data.data.stowing;
+        return this.system.stowing;
     }
 
     get isCollapsed(): boolean {
-        return this.data.data.collapsed;
+        return this.system.collapsed;
     }
 
     get capacity(): { value: Bulk; max: Bulk } {
         return {
             value: InventoryBulk.computeTotalBulk(this.contents.contents, this.actor?.size ?? "med"),
-            max: weightToBulk(this.data.data.bulkCapacity.value) || new Bulk(),
+            max: weightToBulk(this.system.bulkCapacity.value) || new Bulk(),
         };
     }
 
@@ -32,7 +33,7 @@ class ContainerPF2e extends PhysicalItemPF2e {
 
     override get bulk(): Bulk {
         const canReduceBulk = !this.traits.has("extradimensional") || !hasExtraDimensionalParent(this);
-        const reduction = canReduceBulk ? weightToBulk(this.data.data.negateBulk.value) : new Bulk();
+        const reduction = canReduceBulk ? weightToBulk(this.system.negateBulk.value) : new Bulk();
         return super.bulk.plus(this.capacity.value.minus(reduction ?? new Bulk()));
     }
 
@@ -47,15 +48,18 @@ class ContainerPF2e extends PhysicalItemPF2e {
     async ejectContents(): Promise<void> {
         if (!this.actor) return;
 
-        const updates = this.contents.map((i) => ({ _id: i.id, "data.containerId": this.container?.id ?? null }));
+        const updates = this.contents.map((i) => ({ _id: i.id, "system.containerId": this.container?.id ?? null }));
         await this.actor.updateEmbeddedDocuments("Item", updates, { render: false });
     }
 
-    override getChatData(this: Embedded<ContainerPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
-        const data = this.data.data;
+    override async getChatData(
+        this: Embedded<ContainerPF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
+        const systemData = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
 
-        return this.processChatData(htmlOptions, { ...data, traits });
+        return this.processChatData(htmlOptions, { ...systemData, traits });
     }
 }
 

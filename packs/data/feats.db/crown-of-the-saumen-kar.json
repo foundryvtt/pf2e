@@ -1,6 +1,8 @@
 {
     "_id": "00uTUJPgJ6kuGR8O",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Crown of the Saumen Kar",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 6
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -50,22 +51,20 @@
             {
                 "key": "FlatModifier",
                 "label": "Sneak or Hide In Forest or Snow",
-                "predicate": {
-                    "all": [
-                        {
-                            "or": [
-                                "action:sneak",
-                                "action:hide"
-                            ]
-                        },
-                        {
-                            "or": [
-                                "terrain:snow",
-                                "terrain:forest"
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sneak",
+                            "action:hide"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "terrain:snow",
+                            "terrain:forest"
+                        ]
+                    }
+                ],
                 "selector": "stealth",
                 "value": 1
             },
@@ -87,7 +86,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Crown of the Saumen Kar",
     "type": "feat"
 }

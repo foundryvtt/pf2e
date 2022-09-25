@@ -20,7 +20,7 @@ class TempHPRuleElement extends RuleElementPF2e {
     override onCreate(actorUpdates: Record<string, unknown>): void {
         if (this.ignored || !this.data.onCreate) return;
 
-        const updatedActorData = mergeObject(this.actor.data._source, actorUpdates, { inplace: false });
+        const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
         const value = this.resolveValue(this.data.value);
 
         const rollOptions = Array.from(
@@ -29,7 +29,7 @@ class TempHPRuleElement extends RuleElementPF2e {
                 ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
             ])
         );
-        if (this.data.predicate && !this.data.predicate.test(rollOptions)) {
+        if (!this.predicate.test(rollOptions)) {
             return;
         }
 
@@ -37,11 +37,11 @@ class TempHPRuleElement extends RuleElementPF2e {
             return this.failValidation("Temporary HP requires a non-zero value field or a formula field");
         }
 
-        const currentTempHP = Number(getProperty(updatedActorData, "data.attributes.hp.temp")) || 0;
+        const currentTempHP = Number(getProperty(updatedActorData, "system.attributes.hp.temp")) || 0;
         if (value > currentTempHP) {
             mergeObject(actorUpdates, {
-                "data.attributes.hp.temp": value,
-                "data.attributes.hp.tempsource": this.item.id,
+                "system.attributes.hp.temp": value,
+                "system.attributes.hp.tempsource": this.item.id,
             });
             this.broadcast(value, currentTempHP);
         }
@@ -57,7 +57,7 @@ class TempHPRuleElement extends RuleElementPF2e {
                 ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
             ])
         );
-        if (this.data.predicate && !this.data.predicate.test(rollOptions)) {
+        if (!this.predicate.test(rollOptions)) {
             return;
         }
 
@@ -67,21 +67,21 @@ class TempHPRuleElement extends RuleElementPF2e {
             return;
         }
 
-        const updatedActorData = mergeObject(this.actor.data._source, actorUpdates, { inplace: false });
-        const currentTempHP = Number(getProperty(updatedActorData, "data.attributes.hp.temp")) || 0;
+        const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
+        const currentTempHP = Number(getProperty(updatedActorData, "system.attributes.hp.temp")) || 0;
         if (value > currentTempHP) {
-            actorUpdates["data.attributes.hp.temp"] = value;
+            actorUpdates["system.attributes.hp.temp"] = value;
             this.broadcast(value, currentTempHP);
         }
     }
 
     override onDelete(actorUpdates: Record<string, unknown>): void {
-        const updatedActorData = mergeObject(this.actor.data._source, actorUpdates, { inplace: false });
-        if (getProperty(updatedActorData, "data.attributes.hp.tempsource") === this.item.id) {
+        const updatedActorData = mergeObject(this.actor._source, actorUpdates, { inplace: false });
+        if (getProperty(updatedActorData, "system.attributes.hp.tempsource") === this.item.id) {
             mergeObject(actorUpdates, {
-                "data.attributes.hp.temp": 0,
+                "system.attributes.hp.temp": 0,
             });
-            getProperty(actorUpdates, "data.attributes.hp")["-=tempsource"] = null;
+            getProperty(actorUpdates, "system.attributes.hp")["-=tempsource"] = null;
         }
     }
 

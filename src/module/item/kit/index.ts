@@ -10,13 +10,13 @@ import { KitData, KitEntryData } from "./data";
 
 class KitPF2e extends ItemPF2e {
     get entries(): KitEntryData[] {
-        return Object.values(this.data.data.items);
+        return Object.values(this.system.items);
     }
 
     get price(): Price {
         return {
-            value: new CoinsPF2e(this.data.data.price.value),
-            per: this.data.data.price.per ?? 1,
+            value: new CoinsPF2e(this.system.price.value),
+            per: this.system.price.per ?? 1,
         };
     }
 
@@ -25,7 +25,7 @@ class KitPF2e extends ItemPF2e {
         entries = this.entries,
         containerId = null,
     }: { entries?: KitEntryData[]; containerId?: string | null } = {}): Promise<PhysicalItemPF2e[]> {
-        const itemUUIDs = entries.map((e): ItemUUID => (e.pack ? `Compendium.${e.pack}.${e.id}` : `Item.${e.id}`));
+        const itemUUIDs = entries.map((e): ItemUUID => e.uuid);
         const items: unknown[] = await fromUUIDs(itemUUIDs);
         if (entries.length !== items.length) throw ErrorPF2e(`Some items from ${this.name} were not found`);
         if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
@@ -35,9 +35,9 @@ class KitPF2e extends ItemPF2e {
             const clone = item.clone({ _id: randomID() }, { keepId: true });
             const entry = entries[index];
             if (clone instanceof PhysicalItemPF2e) {
-                clone.data.update({
-                    "data.quantity": entry.quantity,
-                    "data.containerId": containerId,
+                clone.updateSource({
+                    "system.quantity": entry.quantity,
+                    "system.containerId": containerId,
                 });
             }
 
@@ -59,15 +59,15 @@ class KitPF2e extends ItemPF2e {
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        if (!changed.data) return await super._preUpdate(changed, options, user);
+        if (!changed.system) return await super._preUpdate(changed, options, user);
 
         // Clear 0 price denominations
-        if (isObject<Record<string, unknown>>(changed.data?.price)) {
-            const price: Record<string, unknown> = changed.data.price;
+        if (isObject<Record<string, unknown>>(changed.system?.price)) {
+            const price: Record<string, unknown> = changed.system.price;
             for (const denomination of DENOMINATIONS) {
                 if (price[denomination] === 0) {
                     price[`-=denomination`] = null;

@@ -1,6 +1,8 @@
 {
     "_id": "4qhnEsaypUjLm7eP",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Burnished Plating",
+    "system": {
         "baseItem": null,
         "containerId": "null",
         "description": {
@@ -43,11 +45,11 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "evironment:lighting:darkness"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "evironment:lighting:darkness"
+                    }
+                ],
                 "selector": "stealth",
                 "type": "circumstance",
                 "value": -4
@@ -72,7 +74,5 @@
             "value": "L"
         }
     },
-    "img": "systems/pf2e/icons/default-icons/equipment.svg",
-    "name": "Burnished Plating",
     "type": "equipment"
 }

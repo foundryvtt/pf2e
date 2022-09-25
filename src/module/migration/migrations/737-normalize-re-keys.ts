@@ -7,7 +7,7 @@ export class Migration737NormalizeRuleElementKeys extends Migration731ToggleProp
     static override version = 0.737;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        const rules: unknown[] = source.data.rules;
+        const rules: unknown[] = source.system.rules;
         for (const rule of [...rules]) {
             if (!isObject<{ key: unknown }>(rule) || typeof rule.key !== "string") {
                 rules.splice(rules.indexOf(rule), 1);

@@ -9,13 +9,13 @@ export class Migration635NumifyACAndQuantity extends MigrationBase {
 
     override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         if (actorData.type === "hazard" || actorData.type === "npc" || actorData.type === "vehicle") {
-            actorData.data.attributes.ac.value = Number(actorData.data.attributes.ac.value);
+            actorData.system.attributes.ac.value = Number(actorData.system.attributes.ac.value);
         }
     }
 
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (isPhysicalData(itemData)) {
-            const quantity = itemData.data.quantity || { value: 0 };
+            const quantity = itemData.system.quantity || { value: 0 };
             if (quantity instanceof Object) {
                 quantity.value = Number(quantity.value);
             }

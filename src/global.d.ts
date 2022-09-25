@@ -1,27 +1,20 @@
 import { ActorPF2e } from "@actor/base";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
-import {
-    AbilityModifier,
-    CheckModifier,
-    ModifierPF2e,
-    MODIFIER_TYPE,
-    ProficiencyModifier,
-    StatisticModifier,
-} from "@actor/modifiers";
+import { FeatCategoryOptions } from "@actor/character/feats";
+import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { ItemPF2e } from "@item/base";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { ActiveEffectPF2e } from "@module/active-effect";
-import { CompendiumBrowser } from "@module/apps/compendium-browser";
+import { CompendiumBrowser, CompendiumBrowserSettings } from "@module/apps/compendium-browser";
 import { EffectsPanel } from "@module/apps/effects-panel";
 import { LicenseViewer } from "@module/apps/license-viewer";
 import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
 import { WorldClock } from "@module/apps/world-clock";
-import { CanvasPF2e } from "@module/canvas";
+import { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas";
+import { StatusEffects } from "@module/canvas/status-effects";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActorsPF2e } from "@module/collection/actors";
-import { FogExplorationPF2e } from "@module/fog-exploration";
-import { FolderPF2e } from "@module/folder";
 import { MacroPF2e } from "@module/macro";
 import { RuleElementPF2e, RuleElements } from "@module/rules";
 import {
@@ -32,13 +25,12 @@ import {
     TokenDocumentPF2e,
 } from "@module/scene";
 import { UserPF2e } from "@module/user";
-import { StatusEffects } from "@scripts/actor/status-effects";
 import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
 import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
 import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
 import { calculateXP } from "@scripts/macros/xp";
-import { ModuleArt } from "@scripts/register-module-art";
+import { ModuleArt, registerModuleArt } from "@scripts/register-module-art";
 import { remigrate } from "@scripts/system/remigrate";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { EffectTracker } from "@system/effect-tracker";
@@ -66,7 +58,10 @@ declare global {
                 launchTravelSheet: typeof launchTravelSheet;
             };
             system: {
-                moduleArt: Map<ActorUUID, ModuleArt>;
+                moduleArt: {
+                    map: Map<ActorUUID, ModuleArt>;
+                    refresh: typeof registerModuleArt;
+                };
                 remigrate: typeof remigrate;
                 sluggify: typeof sluggify;
             };
@@ -82,8 +77,6 @@ declare global {
             ConditionManager: typeof ConditionManager;
             ModifierType: typeof MODIFIER_TYPE;
             Modifier: typeof ModifierPF2e;
-            AbilityModifier: typeof AbilityModifier;
-            ProficiencyModifier: typeof ProficiencyModifier;
             StatisticModifier: typeof StatisticModifier;
             CheckModifier: typeof CheckModifier;
             Check: typeof CheckPF2e;
@@ -108,17 +101,7 @@ declare global {
 
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<
-            ActorPF2e,
-            ActorsPF2e,
-            ChatMessagePF2e,
-            EncounterPF2e,
-            FolderPF2e,
-            ItemPF2e,
-            MacroPF2e,
-            ScenePF2e,
-            UserPF2e
-        >;
+        var game: Game<ActorPF2e, ActorsPF2e, ChatMessagePF2e, EncounterPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
 
         // eslint-disable-next-line no-var
         var ui: FoundryUI<ActorPF2e, ItemPF2e, ChatLogPF2e, CompendiumDirectoryPF2e>;
@@ -167,11 +150,12 @@ declare global {
         get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
 
         get(module: "pf2e", setting: "campaignFeats"): boolean;
+        get(module: "pf2e", setting: "campaignFeatSections"): FeatCategoryOptions[];
 
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewSettingsKey): HomebrewTag[];
 
-        get(module: "pf2e", setting: "compendiumBrowserPacks"): string;
+        get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "deathIcon"): ImagePath;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
@@ -185,7 +169,6 @@ declare global {
 
     interface ClientSettingsMap {
         get(key: "pf2e.worldClock.worldCreatedOn"): SettingConfig & { default: string };
-        get(key: "core.chatBubblesPan"): SettingConfig & { default: boolean };
     }
 
     interface RollMathProxy {
@@ -209,10 +192,8 @@ type ConfiguredConfig = Config<
     ChatMessagePF2e,
     EncounterPF2e,
     CombatantPF2e,
-    EncounterTrackerPF2e,
+    EncounterTrackerPF2e<EncounterPF2e | null>,
     CompendiumDirectoryPF2e,
-    FogExplorationPF2e,
-    FolderPF2e,
     HotbarPF2e,
     ItemPF2e,
     MacroPF2e,
@@ -220,5 +201,6 @@ type ConfiguredConfig = Config<
     TileDocumentPF2e,
     TokenDocumentPF2e,
     ScenePF2e,
-    UserPF2e
+    UserPF2e,
+    EffectsCanvasGroupPF2e
 >;

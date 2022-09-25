@@ -38,7 +38,7 @@ export class Migration749AssuranceREs extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        const { slug, rules } = source.data;
+        const { slug, rules } = source.system;
         if (!(source.type === "feat" && slug?.startsWith("assurance"))) {
             return;
         }

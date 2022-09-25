@@ -9,6 +9,11 @@ declare global {
             context?: TokenDocumentConstructionContext<TokenDocument>
         );
 
+        /** An array of detection modes which are available to this Token */
+        detectionModes: TokenDetectionMode[];
+
+        sort: number;
+
         /**
          * A cached reference to the Actor document that this Token modifies.
          * This may be a "synthetic" unlinked Token Actor which does not exist in the World.
@@ -26,10 +31,10 @@ declare global {
         override get isOwner(): boolean;
 
         /** A convenient reference for whether this TokenDocument is linked to the Actor it represents, or is a synthetic copy */
-        get isLinked(): this["data"]["actorLink"];
+        get isLinked(): this["actorLink"];
 
         /** Return a reference to a Combatant that represents this Token, if one is present in the current encounter. */
-        get combatant(): Embedded<Combatant> | null;
+        get combatant(): Combatant<Combat> | null;
 
         /** An indicator for whether or not this Token is currently involved in the active combat encounter. */
         get inCombat(): boolean;
@@ -37,6 +42,14 @@ declare global {
         /* -------------------------------------------- */
         /*  Methods                                     */
         /* -------------------------------------------- */
+
+        override prepareBaseData(): void;
+
+        /**
+         * Prepare detection modes which are available to the Token.
+         * Ensure that every Token has the basic sight detection mode configured.
+         */
+        protected _prepareDetectionModes(): void;
 
         override clone(
             data: DeepPartial<foundry.data.TokenSource> | undefined,
@@ -65,6 +78,13 @@ declare global {
          * @return The attribute displayed on the Token bar, if any
          */
         getBarAttribute(barName: string, { alternative }?: { alternative?: string }): TokenResourceData | null;
+
+        /**
+         * Test whether a Token has a specific status effect.
+         * @param statusId The status effect ID as defined in CONFIG.statusEffects
+         * @returns Does the Token have this status effect?
+         */
+        hasStatusEffect(statusId: string): boolean;
 
         /* -------------------------------------------- */
         /*  Actor Data Operations                       */
@@ -129,29 +149,29 @@ declare global {
 
         protected override _preUpdate(
             data: DocumentUpdateData<this>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<this>,
             user: User
         ): Promise<void>;
 
         /** When the Actor data overrides change for an un-linked Token Actor, simulate the pre-update process. */
         protected _preUpdateTokenActor(
             data: DocumentUpdateData<TActor>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext<this>,
             userId: string
         ): Promise<void>;
 
         protected override _onUpdate(
-            changed: DeepPartial<this["data"]["_source"]>,
+            changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext,
             userId: string
         ): void;
 
         /** When the base Actor for a TokenDocument changes, we may need to update its Actor instance */
-        protected _onUpdateBaseActor(update?: Record<string, unknown>): void;
+        _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<Actor>): void;
 
         /** When the Actor data overrides change for an un-linked Token Actor, simulate the post-update process. */
         protected _onUpdateTokenActor(
-            data: Record<string, unknown>,
+            data: DeepPartial<this["_source"]["actorData"]>,
             options: DocumentModificationContext,
             userId: string
         ): void;

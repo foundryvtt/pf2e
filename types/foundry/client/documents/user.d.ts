@@ -93,17 +93,12 @@ declare global {
         updateTokenTargets(targetIds?: string[]): void;
 
         protected override _onUpdate(
-            changed: DeepPartial<this["data"]["_source"]>,
+            changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext,
             userId: string
         ): void;
 
         protected override _onDelete(options: DocumentModificationContext, userId: string): void;
-    }
-
-    interface User {
-        // V10 shim
-        readonly flags: this["data"]["flags"];
     }
 
     interface UserActivity {

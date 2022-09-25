@@ -1,6 +1,8 @@
 {
     "_id": "zhIaJewomiJTkKFV",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Virtuosic Performer (Winds)",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -30,11 +31,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:perform:winds"
-                    ]
-                },
+                "predicate": [
+                    "action:perform:winds"
+                ],
                 "selector": "performance",
                 "type": "circumstance",
                 "value": {
@@ -50,12 +49,12 @@
                             "value": 1
                         }
                     ],
-                    "field": "actor|data.skills.prf.rank"
+                    "field": "actor|system.skills.prf.rank"
                 }
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -66,7 +65,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Virtuosic Performer (Winds)",
     "type": "feat"
 }

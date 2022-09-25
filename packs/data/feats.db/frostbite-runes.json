@@ -1,6 +1,8 @@
 {
     "_id": "gipC9eWrBDFRpNkQ",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Frostbite Runes",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 12
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -30,12 +31,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "necromancy",
-                        "evil"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "necromancy",
+                            "evil"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
@@ -49,11 +52,9 @@
             {
                 "damageType": "cold",
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "ice-crafted"
-                    ]
-                },
+                "predicate": [
+                    "ice-crafted"
+                ],
                 "selector": "strike-damage",
                 "value": 1
             }
@@ -71,7 +72,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Frostbite Runes",
     "type": "feat"
 }

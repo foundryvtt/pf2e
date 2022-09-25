@@ -10,23 +10,23 @@ import { AbilityString } from "@actor/types";
 
 class AncestryPF2e extends ABCItemPF2e {
     get traits(): Set<CreatureTrait> {
-        return new Set(this.data.data.traits.value);
+        return new Set(this.system.traits.value);
     }
 
     get hitPoints(): number {
-        return this.data.data.hp;
+        return this.system.hp;
     }
 
     get speed(): number {
-        return this.data.data.speed;
+        return this.system.speed;
     }
 
     get size(): Size {
-        return this.data.data.size;
+        return this.system.size;
     }
 
     get lockedBoosts(): AbilityString[] {
-        return Object.values(this.data.data.boosts)
+        return Object.values(this.system.boosts)
             .filter((boost) => boost.value.length === 1)
             .map((boost) => boost.selected)
             .filter((boost): boost is AbilityString => !!boost);
@@ -46,23 +46,23 @@ class AncestryPF2e extends ABCItemPF2e {
 
     /** Toggle between voluntary flaws being on or off */
     async toggleVoluntaryFlaw(): Promise<void> {
-        if (this.data._source.data.voluntary) {
-            await this.update({ "data.-=voluntary": null });
+        if (this._source.system.voluntary) {
+            await this.update({ "system.-=voluntary": null });
         } else {
-            await this.update({ "data.voluntary": { boost: null, flaws: [] } });
+            await this.update({ "system.voluntary": { boost: null, flaws: [] } });
         }
     }
 
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        for (const boost of Object.values(this.data.data.boosts)) {
+        for (const boost of Object.values(this.system.boosts)) {
             if (boost.value.length === 1) {
                 boost.selected = boost.value[0];
             }
         }
 
-        for (const flaw of Object.values(this.data.data.flaws)) {
+        for (const flaw of Object.values(this.system.flaws)) {
             if (flaw.value.length === 1) {
                 flaw.selected = flaw.value[0];
             }
@@ -78,24 +78,22 @@ class AncestryPF2e extends ABCItemPF2e {
         }
 
         actor.ancestry = this;
-        const actorData = actor.data;
-        const systemData = actorData.data;
 
-        systemData.attributes.ancestryhp = this.hitPoints;
-        this.logAutoChange("data.attributes.ancestryhp", this.hitPoints);
+        actor.system.attributes.ancestryhp = this.hitPoints;
+        this.logAutoChange("system.attributes.ancestryhp", this.hitPoints);
 
-        systemData.traits.size.value = this.size;
-        this.logAutoChange("data.traits.size.value", this.size);
+        actor.system.traits.size.value = this.size;
+        this.logAutoChange("system.traits.size.value", this.size);
 
         const reach = SIZE_TO_REACH[this.size];
-        systemData.attributes.reach = { general: reach, manipulate: reach };
+        actor.system.attributes.reach = { general: reach, manipulate: reach };
 
-        systemData.attributes.speed.value = String(this.speed);
+        actor.system.attributes.speed.value = this.speed;
 
         // Add ability boosts and flaws
-        const { build } = actor.data.data;
+        const { build } = actor.system;
         for (const target of ["boosts", "flaws"] as const) {
-            for (const ability of Object.values(this.data.data[target])) {
+            for (const ability of Object.values(this.system[target])) {
                 if (ability.selected) {
                     build.abilities[target].ancestry.push(ability.selected);
                 }
@@ -103,23 +101,23 @@ class AncestryPF2e extends ABCItemPF2e {
         }
 
         // Add voluntary boost and flaws (if they exist)
-        if (this.data.data.voluntary) {
-            const { boost, flaws } = this.data.data.voluntary;
+        if (this.system.voluntary) {
+            const { boost, flaws } = this.system.voluntary;
             if (boost) build.abilities.boosts.ancestry.push(boost);
             build.abilities.flaws.ancestry.push(...flaws);
         }
 
         // Add languages
-        const innateLanguages = this.data.data.languages.value;
+        const innateLanguages = this.system.languages.value;
         for (const language of innateLanguages) {
-            if (!systemData.traits.languages.value.includes(language)) {
-                systemData.traits.languages.value.push(language);
+            if (!actor.system.traits.languages.value.includes(language)) {
+                actor.system.traits.languages.value.push(language);
             }
         }
 
         // Add low-light vision or darkvision if the ancestry includes it
-        const { senses } = systemData.traits;
-        const { vision } = this.data.data;
+        const { senses } = actor.system.traits;
+        const { vision } = this.system;
         if (!(vision === "normal" || senses.some((sense) => sense.type === vision))) {
             senses.push(new CreatureSensePF2e({ type: vision, value: "", source: this.name }));
             const senseRollOptions = (actor.rollOptions["sense"] ??= {});
@@ -127,10 +125,10 @@ class AncestryPF2e extends ABCItemPF2e {
         }
 
         // Add traits from this item
-        systemData.traits.traits.value.push(...this.traits);
+        actor.system.traits.value.push(...this.traits);
 
         const slug = this.slug ?? sluggify(this.name);
-        systemData.details.ancestry = { name: this.name, trait: slug };
+        actor.system.details.ancestry = { name: this.name, trait: slug };
 
         // Set self: roll option for this ancestry and its associated traits
         actor.rollOptions.all[`self:ancestry:${slug}`] = true;

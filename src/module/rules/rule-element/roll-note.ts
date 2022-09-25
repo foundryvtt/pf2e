@@ -7,6 +7,8 @@ import { BracketedValue, RuleElementPF2e, RuleElementSource } from "./";
 import { RuleElementOptions } from "./base";
 
 export class RollNoteRuleElement extends RuleElementPF2e {
+    private selector: string;
+
     /** An optional title prepended to the note */
     private title: string | null;
 
@@ -26,11 +28,13 @@ export class RollNoteRuleElement extends RuleElementPF2e {
         data.outcome ??= [];
         data.visibility ??= null;
         if (this.#isValid(data)) {
+            this.selector = data.selector;
             this.title = data.title;
             this.text = data.text;
             this.outcomes = data.outcome;
             this.visibility = data.visibility;
         } else {
+            this.selector = "";
             this.title = null;
             this.text = "";
             this.outcomes = [];
@@ -61,16 +65,15 @@ export class RollNoteRuleElement extends RuleElementPF2e {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const selector = this.resolveInjectedProperties(this.data.selector);
+        const selector = this.resolveInjectedProperties(this.selector);
         const title = this.title ? this.resolveInjectedProperties(this.title) : null;
         const text = this.resolveInjectedProperties(String(this.resolveValue(this.text, "", { evaluate: false })));
         if (selector && text) {
-            const predicate = this.data.predicate ?? {};
             const note = new RollNotePF2e({
                 selector,
                 title,
                 text,
-                predicate,
+                predicate: this.predicate,
                 outcome: this.outcomes,
                 visibility: this.visibility,
             });
@@ -83,6 +86,7 @@ export class RollNoteRuleElement extends RuleElementPF2e {
 }
 
 interface RollNoteSource extends RuleElementSource {
+    selector?: unknown;
     outcome?: unknown;
     title?: unknown;
     text?: unknown;
@@ -90,6 +94,7 @@ interface RollNoteSource extends RuleElementSource {
 }
 
 interface RollNoteData extends RollNoteSource {
+    selector: string;
     outcome: DegreeOfSuccessString[];
     title: string | null;
     text: string | BracketedValue<string>;

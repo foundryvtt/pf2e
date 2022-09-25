@@ -1,6 +1,8 @@
 {
     "_id": "6EgHimhCuS8L0xDE",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Explosive Savant",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,36 +21,35 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
-                "definition": {
-                    "all": [
-                        "weapon:category:simple"
-                    ],
-                    "any": [
-                        "weapon:group:firearm",
-                        "weapon:group:bomb"
-                    ]
-                },
+                "definition": [
+                    "weapon:category:simple",
+                    {
+                        "or": [
+                            "weapon:group:firearm",
+                            "weapon:group:bomb"
+                        ]
+                    }
+                ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.SimpleBombsFirearms",
                 "slug": "simple-bombs-firearms",
                 "value": 1
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:category:martial"
-                    ],
-                    "any": [
-                        "weapon:group:firearm",
-                        "weapon:group:bomb"
-                    ]
-                },
+                "definition": [
+                    "weapon:category:martial",
+                    {
+                        "or": [
+                            "weapon:group:firearm",
+                            "weapon:group:bomb"
+                        ]
+                    }
+                ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.MartialBombsFirearms",
                 "slug": "martial-bombs-firearms",
@@ -56,7 +57,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",
@@ -66,7 +67,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Explosive Savant",
     "type": "feat"
 }

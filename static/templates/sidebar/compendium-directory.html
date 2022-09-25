@@ -1,4 +1,4 @@
-<section class="tab sidebar-tab directory flexcol" id="compendium" data-tab="compendium">
+<section class="{{cssClass}} directory flexcol" id="{{cssId}}" data-tab="{{tabName}}">
     <header class="directory-header">
         <div class="header-actions action-buttons flexrow">
             {{#if user.isGM}}
@@ -7,37 +7,45 @@
         </div>
         <div class="header-search flexrow">
             <i class="fas fa-search"></i>
-            <input type="text" name="search" autocomplete="off" spellcheck="false" />
-            <button class="search-contents{{#if searchContents}} active{{/if}}" data-action="toggle-search-contents" title="{{localize "COMPENDIUM.SearchContents.Hint"}}">
-                <i class="fas fa-file"></i>
-            </button>
+            <input type="search" name="search" autocomplete="off" spellcheck="false" placeholder="{{localize "COMPENDIUM.Search"}}" />
         </div>
     </header>
+
     <ol class="directory-list">
-        {{#each packs as |pack label|}}
-            <li class="compendium-type">
-                <h3>{{label}}</h3>
+        {{#each packs as |group type|}}
+            <li class="compendium-type" data-type="{{type}}">
+                <h3 class="noborder">{{localize (concat "DOCUMENT." type)}}</h3>
                 <ol class="compendium-list">
-                    {{#each pack.packs}}
-                        <li class="compendium-pack directory-item" data-pack="{{this.collection}}" data-open="0">
+                    {{#each group.packs as |pack|}}
+                        <li class="compendium-pack directory-item" data-collection="{{pack.collection}}" data-pack="{{pack.collection}}" data-open="0">
                             <h4 class="pack-title">
-                                <a><i class="folder fas fa-folder"></i> {{this.metadata.label}}</a>
+                                <a><i class="folder fas fa-folder"></i> {{pack.metadata.label}}</a>
                                 <div class="status-icons">
-                                    {{#if this.private}}<i class="fas fa-eye-slash"></i>{{/if}}
-                                    {{#if this.locked}}<i class="fas fa-lock"></i>{{/if}}
+                                    {{#if pack.private}}<i class="fas fa-eye-slash"></i>{{/if}}
+                                    {{#if pack.locked}}<i class="fas fa-lock"></i>{{/if}}
                                 </div>
                             </h4>
                             <footer class="compendium-footer">
-                                <span class="entity-type">{{localize this.documentName}}</span>
-                                <span> ({{this.metadata.package}})</span>
+                                <span class="document-type">{{localize pack.documentName}}</span>
+                                <span> ({{pack.metadata.packageName}})</span>
                             </footer>
                         </li>
                     {{/each}}
+                    <ol class="document-matches"></ol>
                 </ol>
             </li>
         {{/each}}
     </ol>
+
     <footer class="directory-footer">
         <button type="button" class="compendium-browser-btn"><i class="fas fa-fire"></i> {{localize "PF2E.CompendiumBrowser.Title"}}</button>
     </footer>
+
+    <template id="compendium-search-match">
+        <li class="match" >
+            <div class="thumbnail"><img /></div>
+            <a class="name"></a>
+            <span class="details"></span>
+        </li>
+    </template>
 </section>

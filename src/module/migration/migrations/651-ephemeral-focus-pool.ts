@@ -8,8 +8,8 @@ import { MigrationBase } from "../base";
 export class Migration651EphemeralFocusPool extends MigrationBase {
     static override version = 0.651;
 
-    private needsRuleElement(rules: Array<RuleElementSource & { path?: string }>): boolean {
-        return !rules.some((rule) => rule.key === "ActiveEffectLike" && rule.path === "data.resources.focus.max");
+    private needsRuleElement(rules: (RuleElementSource & { path?: string })[]): boolean {
+        return !rules.some((rule) => rule.key === "ActiveEffectLike" && rule.path === "system.resources.focus.max");
     }
 
     private increasesByOne = new Set([
@@ -99,7 +99,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "character") return;
-        const systemData: { resources: { focus?: { max?: number; "-=max"?: null } } } = actorSource.data;
+        const systemData: { resources: { focus?: { max?: number; "-=max"?: null } } } = actorSource.system;
         systemData.resources ??= {};
 
         const resources = systemData.resources;
@@ -113,7 +113,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type !== "feat") return;
 
-        const systemData = itemSource.data;
+        const systemData = itemSource.system;
 
         const rule = ((): (RuleElementSource & { [key: string]: unknown }) | null => {
             const slug = systemData.slug ?? sluggify(itemSource.name);
@@ -121,7 +121,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
             if (slug === "revelation-spells") {
                 return {
                     key: "ActiveEffectLike",
-                    path: "data.resources.focus.max",
+                    path: "system.resources.focus.max",
                     mode: "upgrade",
                     value: 2,
                     priority: 10, // Before any adds
@@ -131,7 +131,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
             if (slug === "major-curse") {
                 return {
                     key: "ActiveEffectLike",
-                    path: "data.resources.focus.max",
+                    path: "system.resources.focus.max",
                     mode: "upgrade",
                     value: 3,
                 };
@@ -139,11 +139,11 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
 
             if (
                 ["composition-spells", "devotion-spells", "druidic-order", "hexes"].includes(slug) ||
-                (/^(?:arcane-school|bloodline)-/.test(slug) && itemSource.data.featType.value === "classfeature")
+                (/^(?:arcane-school|bloodline)-/.test(slug) && itemSource.system.featType.value === "classfeature")
             ) {
                 return {
                     key: "ActiveEffectLike",
-                    path: "data.resources.focus.max",
+                    path: "system.resources.focus.max",
                     mode: "upgrade",
                     value: 1,
                     priority: 10, // Before any adds
@@ -153,7 +153,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
             if (this.increasesByOne.has(slug) || slug.startsWith("first-revelation-")) {
                 return {
                     key: "ActiveEffectLike",
-                    path: "data.resources.focus.max",
+                    path: "system.resources.focus.max",
                     mode: "add",
                     value: 1,
                 };
@@ -162,6 +162,6 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
             return null;
         })();
 
-        if (rule && this.needsRuleElement(itemSource.data.rules)) systemData.rules.push(rule);
+        if (rule && this.needsRuleElement(itemSource.system.rules)) systemData.rules.push(rule);
     }
 }

@@ -1,6 +1,6 @@
 import { MigrationBase } from "../base";
 import { sluggify } from "@util";
-import { BaseArmorType } from "@item/armor/data";
+import { BaseArmorType } from "@item/armor/types";
 import { isPhysicalData } from "@item/data/helpers";
 import { ItemSourcePF2e } from "@item/data";
 
@@ -195,7 +195,7 @@ export class Migration629SetBaseItems extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e) {
         if (!isPhysicalData(itemData)) return;
 
-        const systemData: { slug: string | null; baseItem: string | null } = itemData.data;
+        const systemData: { slug: string | null; baseItem: string | null } = itemData.system;
 
         if (!systemData.slug || (itemData.type !== "armor" && itemData.type !== "weapon")) return;
 

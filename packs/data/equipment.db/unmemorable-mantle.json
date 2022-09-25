@@ -1,6 +1,8 @@
 {
     "_id": "Oudcra1CGDmUq0BH",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/unmemorable-mantle.webp",
+    "name": "Unmemorable Mantle",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
@@ -37,12 +39,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Unmemorable Mantle (Impersonate & Lie in character)",
-                "predicate": {
-                    "any": [
-                        "action:impersonate",
-                        "action:lie"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:impersonate",
+                            "action:lie"
+                        ]
+                    }
+                ],
                 "selector": "deception",
                 "type": "item",
                 "value": 1
@@ -69,7 +73,5 @@
             "value": "1"
         }
     },
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/unmemorable-mantle.webp",
-    "name": "Unmemorable Mantle",
     "type": "equipment"
 }

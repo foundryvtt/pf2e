@@ -8,7 +8,7 @@ export class Migration648RemoveInvestedProperty extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (!(itemSource.type === "treasure" || itemSource.type === "consumable")) return;
-        const systemData: NotInvestableSource = itemSource.data;
+        const systemData: NotInvestableSource = itemSource.system;
         delete systemData.invested;
         if ("game" in globalThis) {
             systemData["-=invested"] = null;

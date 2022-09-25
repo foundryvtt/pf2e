@@ -320,6 +320,27 @@ function sortedStringify(obj: object): string {
     return JSON.stringify(sortObjByKey(obj));
 }
 
+/** Walk an object tree and replace any string values found according to a provided function */
+function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
+function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
+    const clone = isObject(source) ? deepClone(source) : source;
+    if (typeof clone === "string") {
+        return replace(clone);
+    } else if (isObject<Record<string, unknown>>(clone)) {
+        for (const [key, value] of Object.entries(clone)) {
+            if (Array.isArray(value)) {
+                clone[key] = value.map((e: unknown) =>
+                    typeof e === "string" || isObject(e) ? recursiveReplaceString(e, replace) : e
+                );
+            } else if (typeof value === "string" || isObject(value)) {
+                clone[key] = recursiveReplaceString(value, replace);
+            }
+        }
+    }
+
+    return clone;
+}
+
 export {
     ErrorPF2e,
     Fraction,
@@ -338,6 +359,7 @@ export {
     padArray,
     parseHTML,
     pick,
+    recursiveReplaceString,
     setHasElement,
     sluggify,
     sortLabeledRecord,

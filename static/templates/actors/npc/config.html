@@ -1,7 +1,7 @@
 <form autocomplete="off">
     <div class="form-group">
         <label>{{localize "PF2E.Actor.Creature.Configure.Alliance.Label"}}</label>
-        <select name="data.details.alliance">
+        <select name="system.details.alliance">
             {{#each alliances as |option|}}
                 <option value="{{option.value}}"{{#if option.selected}} selected="selected"{{/if}}>{{localize option.label}}</option>
             {{/each}}
@@ -17,7 +17,7 @@
         </select>
         <p class="hint">{{{localize "PF2E.Actor.NPC.Configure.Lootable.Hint"}}}</p>
     </div>
-    <button type="submit" name="submit">
+    <button type="submit">
         <i class="fas fa-save"></i> {{localize "SETTINGS.Save"}}
     </button>
 </form>

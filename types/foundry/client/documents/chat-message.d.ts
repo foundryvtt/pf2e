@@ -13,8 +13,9 @@ declare global {
             context?: DocumentConstructionContext<ChatMessage>
         );
 
-        /** If the chat message contains a Roll instance, cache it here */
-        protected _roll: Rolled<Roll> | null;
+        flavor: string;
+
+        _rollExpanded: boolean;
 
         /**
          * Return the recommended String alias for this message.
@@ -154,6 +155,12 @@ declare global {
         /** Render the HTML for the ChatMessage which should be added to the log */
         getHTML(): Promise<JQuery>;
 
+        /**
+         * Render the inner HTML content for ROLL type messages.
+         * @param messageData      The chat message data used to render the message HTML
+         */
+        protected _renderRollContent: (messageData: ChatMessageRenderData) => Promise<void>;
+
         protected override _preUpdate(
             changed: DeepPartial<foundry.data.ChatMessageSource>,
             options: DocumentModificationContext<this>,
@@ -167,7 +174,7 @@ declare global {
         ): void;
 
         protected override _onUpdate(
-            changed: DeepPartial<this["data"]["_source"]>,
+            changed: DeepPartial<this["_source"]>,
             options: DocumentModificationContext,
             userId: string
         ): void;
@@ -178,30 +185,37 @@ declare global {
         export(): string;
     }
 
-    interface ChatMessage {
-        readonly data: foundry.data.ChatMessageData<this>;
-        readonly parent: null;
-    }
-
     namespace ChatMessage {
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
-            data: PreCreate<T["data"]["_source"]>[],
+            data: PreCreate<T["_source"]>[],
             context?: ChatMessageModificationContext
         ): Promise<T[]>;
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
-            data: PreCreate<T["data"]["_source"]>,
+            data: PreCreate<T["_source"]>,
             context?: ChatMessageModificationContext
         ): Promise<T | undefined>;
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
-            data: PreCreate<T["data"]["_source"]>[] | PreCreate<T["data"]["_source"]>,
+            data: PreCreate<T["_source"]>[] | PreCreate<T["_source"]>,
             context?: ChatMessageModificationContext
         ): Promise<T[] | T | undefined>;
     }
 
     interface ChatMessageModificationContext extends DocumentModificationContext {
         rollMode?: RollMode;
+    }
+
+    interface ChatMessageRenderData {
+        message: RawObject<foundry.data.ChatMessageData>;
+        user: User;
+        author: User;
+        alias: string;
+        borderColor?: string;
+        cssClass: string;
+        isWhisper: number;
+        canDelete: boolean;
+        whisperTo: string;
     }
 }

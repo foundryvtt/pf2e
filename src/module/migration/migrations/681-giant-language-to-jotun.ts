@@ -13,11 +13,11 @@ export class Migration681GiantLanguageToJotun extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (!(actorSource.type === "character" || actorSource.type === "npc")) return;
-        this.replaceGiant(actorSource.data.traits.languages);
+        this.replaceGiant(actorSource.system.traits.languages);
     }
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type !== "ancestry") return;
-        this.replaceGiant(itemSource.data.additionalLanguages);
+        this.replaceGiant(itemSource.system.additionalLanguages);
     }
 }

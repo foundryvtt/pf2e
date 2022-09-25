@@ -1,6 +1,8 @@
 {
     "_id": "IUmN2WC55LxPNSBB",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Mummy Dedication",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -93,11 +94,11 @@
             },
             {
                 "key": "Weakness",
-                "predicate": {
-                    "not": [
-                        "feat:sealed-poppet"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "feat:sealed-poppet"
+                    }
+                ],
                 "type": "fire",
                 "value": "floor(@actor.level/2)"
             }
@@ -114,7 +115,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Mummy Dedication",
     "type": "feat"
 }

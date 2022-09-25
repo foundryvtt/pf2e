@@ -1,6 +1,54 @@
 {
     "_id": "1CjTIaMYUvQUkQI2",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "6jthkAwvS3DHh7jF",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Summon Monster",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the circle without uttering the passphrase, \"Praise to the Water Lizard\"</p>\n<hr />\n<p><strong>Effect</strong> The trap summons a mukradi. The mukradi rolls initiative and remains for 1 minute, after which the spell ends and the mukradi disappears. The mukradi also disappears if someone disables the trap before the duration expires. The mukradi can use 3 actions each round and can use reactions, unlike most summoned creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "occult",
+                        "summon"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mukradi Summoning Runes",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 0
@@ -22,7 +70,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Barely visible runes are etched into the stone floor in a 20-foot diameter circle.</p>",
-            "disable": "<p>DC 36 Acrobatics to approach without triggering the trap followed by DC 34 Occultism (expert) or DC 38 Thievery (master) to erase the rune, or dispel magic (8th level; counteract DC 34) to counteract the rune.</p>",
+            "disable": "<p>@Check[type:acrobatics|dc:36|name:Approach Rune] to approach without triggering the trap followed by @Check[type:occultism|dc:34|name:Erase the Rune] (expert) or @Check[type:thievery|dc:38|name:Erase the Rune|traits:action:disable-a-device] (master) to erase the rune, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (8th level; counteract DC 34) to counteract the rune.</p>",
             "isComplex": true,
             "level": {
                 "value": 15
@@ -61,68 +109,10 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "magical"
-                ]
-            }
+            "value": [
+                "magical"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "6jthkAwvS3DHh7jF",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature enters the circle without uttering the passphrase, \"Praise to the Water Lizard\"</p>\n<hr />\n<p><strong>Effect</strong> The trap summons a mukradi. The mukradi rolls initiative and remains for 1 minute, after which the spell ends and the mukradi disappears. The mukradi also disappears if someone disables the trap before the duration expires. The mukradi can use 3 actions each round and can use reactions, unlike most summoned creatures.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "conjuration",
-                        "occult",
-                        "summon"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Summon Monster",
-            "sort": 100000,
-            "type": "action"
-        }
-    ],
-    "name": "Mukradi Summoning Runes",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Mukradi Summoning Runes",
-        "width": 1
     },
     "type": "hazard"
 }

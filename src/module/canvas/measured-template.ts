@@ -4,7 +4,7 @@ import { highlightGrid } from "./helpers";
 
 class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
     get type(): MeasuredTemplateType {
-        return this.data.t;
+        return this.document.t;
     }
 
     /** The highlight layer for this template */
@@ -13,14 +13,14 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
     }
 
     override highlightGrid(): void {
-        if (!["circle", "cone"].includes(this.type) || canvas.scene?.data.gridType !== CONST.GRID_TYPES.SQUARE) {
+        if (!["circle", "cone"].includes(this.type) || canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
             return super.highlightGrid();
         }
 
         highlightGrid({
             type: this.type === "circle" ? "burst" : "cone",
             object: this,
-            data: this.data,
+            document: this.document,
             colors: { border: this.borderColor, fill: this.fillColor },
         });
     }

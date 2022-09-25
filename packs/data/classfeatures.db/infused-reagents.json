@@ -1,6 +1,8 @@
 {
     "_id": "wySB9VHOW1v3TX1L",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/infused-reagents.webp",
+    "name": "Infused Reagents",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,28 +28,26 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.resources.crafting.infusedReagents.max",
-                "predicate": {
-                    "all": [
-                        "class:alchemist"
-                    ]
-                },
+                "path": "system.resources.crafting.infusedReagents.max",
+                "predicate": [
+                    "class:alchemist"
+                ],
                 "value": "@actor.level  + floor((@actor.abilities.int.value - 10) / 2)"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.resources.crafting.infusedReagents.max",
-                "predicate": {
-                    "not": [
-                        "class:alchemist"
-                    ]
-                },
+                "path": "system.resources.crafting.infusedReagents.max",
+                "predicate": [
+                    {
+                        "not": "class:alchemist"
+                    }
+                ],
                 "value": "@actor.level"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -58,7 +57,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/infused-reagents.webp",
-    "name": "Infused Reagents",
     "type": "feat"
 }

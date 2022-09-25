@@ -1,6 +1,8 @@
 {
     "_id": "GMrJdGwajADbL1y5",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Diamond Soul",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,22 +21,23 @@
         "level": {
             "value": 12
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "magical",
-                        "arcane",
-                        "primal",
-                        "occult",
-                        "divine"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "magical",
+                            "arcane",
+                            "primal",
+                            "occult",
+                            "divine"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
@@ -51,7 +54,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Diamond Soul",
     "type": "feat"
 }

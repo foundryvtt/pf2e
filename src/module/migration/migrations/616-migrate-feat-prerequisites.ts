@@ -8,7 +8,7 @@ export class Migration616MigrateFeatPrerequisites extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type === "feat") {
             const update: { value: string }[] = [];
-            const prerequisites: AnyOldPrereqValue = source.data.prerequisites;
+            const prerequisites: AnyOldPrereqValue = source.system.prerequisites;
             if (prerequisites.value) {
                 if (typeof prerequisites.value === "string") {
                     update.push({ value: prerequisites.value });
@@ -30,7 +30,7 @@ export class Migration616MigrateFeatPrerequisites extends MigrationBase {
                     }
                 }
             }
-            source.data.prerequisites = { value: update };
+            source.system.prerequisites = { value: update };
         }
     }
 }

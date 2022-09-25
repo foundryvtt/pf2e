@@ -21,19 +21,28 @@ export const PackError = (message: string) => {
     process.exit(1);
 };
 
-/** A rule element, possibly a ChoiceSet or GrantItem */
-export interface REMaybeChoiceGrant extends RuleElementSource {
+/** A rule element, possibly an Aura, ChoiceSet, GrantItem */
+export interface REMaybeWithUUIDs extends RuleElementSource {
+    effects?: unknown[];
     choices?: Record<string, string | { value?: string }>;
     uuid?: unknown;
 }
 
 type CompendiumSource = CompendiumDocument["data"]["_source"];
 export function isActorSource(docSource: CompendiumSource): docSource is ActorSourcePF2e {
-    return "data" in docSource && isObject(docSource.data) && "items" in docSource && Array.isArray(docSource.items);
+    return (
+        "system" in docSource && isObject(docSource.system) && "items" in docSource && Array.isArray(docSource.items)
+    );
 }
 
 export function isItemSource(docSource: CompendiumSource): docSource is ItemSourcePF2e {
-    return "data" in docSource && isObject(docSource.data) && !isActorSource(docSource);
+    return (
+        "system" in docSource &&
+        "type" in docSource &&
+        !("text" in docSource) &&
+        isObject(docSource.system) &&
+        !isActorSource(docSource)
+    );
 }
 
 export class CompendiumPack {
@@ -113,7 +122,7 @@ export class CompendiumPack {
                 }
             }
             if ("type" in docSource && docSource.type === "script") {
-                docSource.permission ??= { default: 1 };
+                docSource.ownership ??= { default: 1 };
             }
         }
     }
@@ -125,7 +134,7 @@ export class CompendiumPack {
         }
 
         const filenames = fs.readdirSync(dirPath);
-        const filePaths = filenames.map((filename) => path.resolve(dirPath, filename));
+        const filePaths = filenames.map((f) => path.resolve(dirPath, f));
         const parsedData = filePaths.map((filePath) => {
             const jsonString = fs.readFileSync(filePath, "utf-8");
             const packSource: CompendiumSource = (() => {
@@ -167,20 +176,20 @@ export class CompendiumPack {
         docSource.flags.core = { sourceId: this.sourceIdOf(docSource._id) };
         if (isActorSource(docSource)) {
             this.assertSizeValid(docSource);
-            docSource.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+            docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             for (const item of docSource.items) {
-                item.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+                item.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
             }
         }
 
         if (isItemSource(docSource)) {
-            docSource.data.slug = sluggify(docSource.name);
-            docSource.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+            docSource.system.slug = sluggify(docSource.name);
+            docSource.system.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
 
             if (isPhysicalData(docSource)) {
-                docSource.data.equipped = { carryType: "worn" };
+                docSource.system.equipped = { carryType: "worn" };
             } else if (docSource.type === "feat") {
-                const featType = docSource.data.featType.value;
+                const featType = docSource.system.featType.value;
                 if (!setHasElement(FEAT_TYPES, featType)) {
                     throw PackError(`${docSource.name} has an unrecognized feat type: ${featType}`);
                 }
@@ -216,7 +225,7 @@ export class CompendiumPack {
         return `Compendium.${this.systemId}.${this.name}.${documentId}`;
     }
 
-    /** Convert UUIDs in ChoiceSet/GrantItem REs to resemble links by name or back again */
+    /** Convert UUIDs in REs to resemble links by name or back again */
     static convertRuleUUIDs(
         source: ItemSourcePF2e,
         { to, map }: { to: "ids" | "names"; map: Map<string, Map<string, string>> }
@@ -250,9 +259,16 @@ export class CompendiumPack {
         };
 
         const convert = to === "ids" ? toIDRef : toNameRef;
-        const rules: REMaybeChoiceGrant[] = source.data.rules;
+        const rules: REMaybeWithUUIDs[] = source.system.rules;
+
         for (const rule of rules) {
-            if (rule.key === "GrantItem" && typeof rule.uuid === "string" && !rule.uuid.startsWith("{")) {
+            if (rule.key === "Aura" && Array.isArray(rule.effects)) {
+                for (const effect of rule.effects) {
+                    if (isObject<{ uuid?: unknown }>(effect) && typeof effect.uuid === "string") {
+                        effect.uuid = convert(effect.uuid);
+                    }
+                }
+            } else if (rule.key === "GrantItem" && typeof rule.uuid === "string" && !rule.uuid.startsWith("{")) {
                 rule.uuid = convert(rule.uuid);
             } else if (rule.key === "ChoiceSet" && hasUUIDChoices(rule.choices)) {
                 for (const [key, choice] of Object.entries(rule.choices)) {
@@ -305,8 +321,8 @@ export class CompendiumPack {
     }
 
     private assertSizeValid(source: ActorSourcePF2e | ItemSourcePF2e): void {
-        if ("items" in source && "traits" in source.data && source.type !== "character") {
-            if (!tupleHasValue(SIZES, source.data.traits.size.value)) {
+        if (source.type === "npc" || source.type === "vehicle") {
+            if (!tupleHasValue(SIZES, source.system.traits.size.value)) {
                 throw PackError(`Actor size on ${source.name} (${source._id}) is invalid.`);
             }
         }

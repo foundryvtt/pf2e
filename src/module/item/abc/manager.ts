@@ -4,6 +4,8 @@ import { ABCFeatureEntryData } from "@item/abc/data";
 import { CharacterPF2e } from "@actor/index";
 import type { FeatSource } from "@item/feat/data";
 import { ErrorPF2e, sluggify } from "@util";
+import { fromUUIDs } from "@util/from-uuids";
+import { MigrationList, MigrationRunner } from "@module/migration";
 
 export interface ABCManagerOptions {
     assurance?: string[];
@@ -15,6 +17,10 @@ export class AncestryBackgroundClassManager {
         actor: CharacterPF2e,
         options?: ABCManagerOptions
     ): Promise<ItemPF2e[]> {
+        const tempItem = new CONFIG.PF2E.Item.documentClasses[source.type](source);
+        await MigrationRunner.ensureSchemaVersion(tempItem, MigrationList.constructFromVersion(tempItem.schemaVersion));
+        source = tempItem.toObject();
+
         switch (source.type) {
             case "ancestry": {
                 await actor.ancestry?.delete({ render: false });
@@ -28,7 +34,7 @@ export class AncestryBackgroundClassManager {
                 await actor.class?.delete({ render: false });
 
                 /** Add class self roll option in case it is needed by any features' rule elements */
-                const slug = source.data.slug ?? sluggify(source.name);
+                const slug = source.system.slug ?? sluggify(source.name);
                 actor.rollOptions.all[`class:${slug}`] = true;
 
                 source._id = randomID(16);
@@ -65,9 +71,9 @@ export class AncestryBackgroundClassManager {
     }
 
     static sortClassFeaturesByLevelAndChoiceSet(features: FeatSource[]) {
-        const hasChoiceSet = (f: FeatSource) => f.data.rules.some((re) => re.key === "ChoiceSet");
+        const hasChoiceSet = (f: FeatSource) => f.system.rules.some((re) => re.key === "ChoiceSet");
         return features.sort((a, b) => {
-            const [aLevel, bLevel] = [a.data.level.value, b.data.level.value];
+            const [aLevel, bLevel] = [a.system.level.value, b.system.level.value];
             if (aLevel !== bLevel) return aLevel - bLevel;
             const [aHasSet, bHasSet] = [hasChoiceSet(a), hasChoiceSet(b)];
             if (aHasSet !== bHasSet) return aHasSet ? -1 : 1;
@@ -85,7 +91,7 @@ export class AncestryBackgroundClassManager {
     ): Promise<AncestrySource | BackgroundSource | ClassSource | FeatSource> {
         const slug = sluggify(name);
         const pack = game.packs.get<CompendiumCollection<ABCItemPF2e>>(packName, { strict: true });
-        const docs = await pack.getDocuments({ "data.slug": { $in: [slug] } });
+        const docs = await pack.getDocuments({ "system.slug": { $in: [slug] } });
         if (docs.length === 1) {
             return docs[0].toObject();
         } else {
@@ -105,7 +111,7 @@ export class AncestryBackgroundClassManager {
 
         const classSource = item instanceof ClassPF2e ? item.toObject() : item;
         const itemId = classSource._id;
-        const featureEntries = classSource.data.items;
+        const featureEntries = classSource.system.items;
         const featuresToAdd = Object.values(featureEntries).filter(
             (entryData) => actorLevel >= entryData.level && entryData.level > minLevel
         );
@@ -117,31 +123,27 @@ export class AncestryBackgroundClassManager {
         const feats: FeatSource[] = [];
         if (entries.length > 0) {
             // Get feats from a compendium pack
-            const packEntries = entries.filter((entry) => !!entry.pack);
+            const packEntries = entries.filter((entry) => !!entry.uuid);
             if (packEntries.length > 0) {
                 const compendiumFeats = await this.getFromCompendium(packEntries);
                 feats.push(
                     ...compendiumFeats.map((feat) => {
-                        if (feat instanceof FeatPF2e) {
-                            const featSource = feat.toObject();
-                            featSource._id = randomID(16);
-                            featSource.data.location = locationId;
-                            return featSource;
-                        } else {
-                            throw ErrorPF2e("Invalid item type referenced in ABCFeatureEntryData");
-                        }
+                        const featSource = feat.toObject();
+                        featSource._id = randomID(16);
+                        featSource.system.location = locationId;
+                        return featSource;
                     })
                 );
             }
             // Get feats from the game.items collection
-            const gameEntries = entries.filter((entry) => !entry.pack);
+            const worldEntries = entries.filter((e) => e.uuid.startsWith("Item."));
             feats.push(
-                ...gameEntries.map((entry) => {
-                    const item = game.items.get(entry.id);
+                ...worldEntries.map((entry) => {
+                    const item = fromUuidSync(entry.uuid);
                     if (item instanceof FeatPF2e) {
-                        const itemData = item.toObject();
-                        itemData._id = randomID(16);
-                        return itemData;
+                        const source = item.toObject();
+                        source._id = randomID(16);
+                        return source;
                     } else {
                         throw ErrorPF2e("Invalid item type referenced in ABCFeatureEntryData");
                     }
@@ -152,28 +154,25 @@ export class AncestryBackgroundClassManager {
     }
 
     protected static async getFromCompendium(entries: ABCFeatureEntryData[]): Promise<FeatPF2e[]> {
-        const feats: FeatPF2e[] = [];
-        // Entries can be from different packs
-        const packs = new Set(entries.map((entry) => entry.pack!));
-        for await (const pack of packs) {
-            // Only fetch feats that are in this pack
-            const entryIds = entries.filter((entry) => entry.pack === pack).map((entry) => entry.id);
-            const features = await game.packs
-                .get<CompendiumCollection<FeatPF2e>>(pack, { strict: true })
-                // Use NeDB query to fetch all needed feats in one transaction
-                .getDocuments({ _id: { $in: entryIds } });
-            // For class features, set the level to the one prescribed in the class item
-            for (const feature of features) {
-                const entry = entries.find((e) => e.id === feature.id);
-                if (entry && feature.featType === "classfeature") {
-                    feature.data._source.data.level.value = entry.level;
-                    feature.prepareData();
-                }
+        const items = (await fromUUIDs(entries.map((e) => e.uuid))).map((i) => i.clone());
+        for (const item of items) {
+            if (item instanceof ItemPF2e) {
+                await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
             }
-
-            feats.push(...features);
         }
-        return feats;
+
+        return items.flatMap((item): FeatPF2e | never[] => {
+            if (item instanceof FeatPF2e) {
+                if (item.featType === "classfeature") {
+                    const level = entries.find((e) => item.sourceId === e.uuid)?.level ?? item.level;
+                    item.updateSource({ "system.level.value": level });
+                }
+                return item;
+            } else {
+                console.error("PF2e System | Missing or invalid ABC item");
+                return [];
+            }
+        });
     }
 
     protected static async addFeatures(
@@ -187,17 +186,17 @@ export class AncestryBackgroundClassManager {
             itemSource._id = randomID(16);
             itemsToCreate.push(itemSource);
         }
-        const entriesData = Object.values(itemSource.data.items);
+        const entriesData = Object.values(itemSource.system.items);
         itemsToCreate.push(...(await this.getFeatures(entriesData, itemSource._id)));
 
         if (options?.assurance) {
             for (const skill of options.assurance) {
-                const index = itemsToCreate.findIndex((item) => item.data.slug === "assurance");
+                const index = itemsToCreate.findIndex((item) => item.system.slug === "assurance");
                 if (index > -1) {
-                    const location = (itemsToCreate[index] as FeatSource).data.location;
+                    const location = (itemsToCreate[index] as FeatSource).system.location;
                     itemsToCreate[index] = await this.getItemSource("pf2e.feats-srd", `Assurance (${skill})`);
                     itemsToCreate[index]._id = randomID(16);
-                    (itemsToCreate[index] as FeatSource).data.location = location;
+                    (itemsToCreate[index] as FeatSource).system.location = location;
                 }
             }
         }

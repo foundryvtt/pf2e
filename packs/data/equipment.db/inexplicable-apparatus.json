@@ -1,6 +1,8 @@
 {
     "_id": "V9iVPhIk980GT6A2",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/inexplicable-apparatus.webp",
+    "name": "Inexplicable Apparatus",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
@@ -37,13 +39,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Inexplicable Apparatus (craft, earn income, repair",
-                "predicate": {
-                    "any": [
-                        "action:craft",
-                        "action:earn-income",
-                        "action:repair"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:craft",
+                            "action:earn-income",
+                            "action:repair"
+                        ]
+                    }
+                ],
                 "selector": "crafting",
                 "type": "item",
                 "value": 3
@@ -70,7 +74,5 @@
             "value": "2"
         }
     },
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/inexplicable-apparatus.webp",
-    "name": "Inexplicable Apparatus",
     "type": "equipment"
 }

@@ -20,7 +20,7 @@
                 </div>
                 <div>
                     <label for="{{actor._id}}-master"><strong>{{localize "PF2E.Familiar.Master"}}</strong></label>
-                    <select id="{{actor._id}}-master" name="data.master.id">
+                    <select id="{{actor._id}}-master" name="system.master.id">
                         {{#select master.id}}
                         <option value="">{{localize "PF2E.Familiar.SelectMaster"}}</option>
                         {{#each masters as |eligible idx|}}
@@ -38,12 +38,12 @@
                     </div>
                     <div class="value">
                         <input class="current-hp" id="{{actor._id}}-hit-points" type="number"
-                            name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" class="current-hp"
+                            name="system.attributes.hp.value" value="{{data.attributes.hp.value}}" class="current-hp"
                             data-dtype="Number" />
                         <div>/ </div>
                         <div class="total-hp" title="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}</div>
                         <div class="temp-hp">
-                            (+<input name="data.attributes.hp.temp" type="number" value="{{data.attributes.hp.temp}}" placeholder="0"/>)
+                            (+<input name="system.attributes.hp.temp" type="number" value="{{data.attributes.hp.temp}}" placeholder="0"/>)
                         </div>
                     </div>
                     <div class="label">
@@ -127,7 +127,7 @@
                             <div class="detail">
                                 <div class="detail-label" for="{{actor._id}}-species">{{localize
                                     "PF2E.Familiar.CreatureType"}}</div>
-                                <input id="{{actor._id}}-species" type="text" name="data.details.creature.value"
+                                <input id="{{actor._id}}-species" type="text" name="system.details.creature.value"
                                     value="{{data.details.creature.value}}" placeholder="Rat, imp, leshy, etc." />
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                         <div class="familiar-modifier">
                             <div class="detail">
                                 <div class="detail-label">{{localize 'PF2E.Familiar.MasterSpellcastingAbility'}}</div>
-                                <select id="{{actor._id}}-spellcasting-ability" name="data.master.ability">
+                                <select id="{{actor._id}}-spellcasting-ability" name="system.master.ability">
                                     {{#select data.master.ability}}
                                     {{#each abilities as |ability abbr|}}
                                     <option value="{{abbr}}">{{localize ability}}</option>

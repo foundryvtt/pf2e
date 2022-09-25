@@ -1,6 +1,8 @@
 {
     "_id": "yQd2Yoht8libCMCv",
-    "data": {
+    "img": "systems/pf2e/icons/spells/shadow-illusion.webp",
+    "name": "Effect: Fortune's Favor",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>Whenever the creature attempts a specific type of saving throw, it rolls twice and takes the higher result. The type of saving throw is determined by the suit that featured most prominently in the harrow reading: Fortitude (Hammers or Shields), Reflex (Keys or Books), or Will (Stars or Crowns)</p>"
@@ -51,34 +53,40 @@
             {
                 "keep": "higher",
                 "key": "RollTwice",
-                "predicate": {
-                    "any": [
-                        "harrow-doll:harrow-suit:hammers",
-                        "harrow-doll:harrow-suit:shields"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "harrow-doll:harrow-suit:hammers",
+                            "harrow-doll:harrow-suit:shields"
+                        ]
+                    }
+                ],
                 "selector": "fortitude"
             },
             {
                 "keep": "higher",
                 "key": "RollTwice",
-                "predicate": {
-                    "any": [
-                        "harrow-doll:harrow-suit:keys",
-                        "harrow-doll:harrow-suit:books"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "harrow-doll:harrow-suit:keys",
+                            "harrow-doll:harrow-suit:books"
+                        ]
+                    }
+                ],
                 "selector": "reflex"
             },
             {
                 "keep": "higher",
                 "key": "RollTwice",
-                "predicate": {
-                    "any": [
-                        "harrow-doll:harrow-suit:stars",
-                        "harrow-doll:harrow-suit:crowns"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "harrow-doll:harrow-suit:stars",
+                            "harrow-doll:harrow-suit:crowns"
+                        ]
+                    }
+                ],
                 "selector": "will"
             }
         ],
@@ -99,7 +107,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/shadow-illusion.webp",
-    "name": "Effect: Fortune's Favor",
     "type": "effect"
 }

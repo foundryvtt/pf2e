@@ -1,0 +1,25 @@
+<form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();" {{#if flat}}data-flat="{{flat}}"{{/if}}>
+    <header class="trait-header flexrow">
+        <div class="header-search">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search" value="{{searchString}}" placeholder="Search" autocomplete="off"/>
+        </div>
+    </header>
+    <ol class="trait-list">
+        {{#each choices as |choice key|}}
+        <li class="trait-item">
+            <label class="trait-selection-label">
+                <input type="checkbox" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
+                <span class="trait-label">{{choice.label}}</span>
+            </label>
+        </li>
+        {{/each}}
+    </ol>
+    {{#if allowCustom}}
+    <div class="form-group-stacked trait-footer">
+        <label>{{localize "PF2E.SpecialLabel"}}:</label>
+        <input type="text" name="custom" value="{{custom}}" data-dtype="String"/>
+    </div>
+    {{/if}}
+    <button class="trait-footer" type="submit"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>
+</form>

@@ -1,6 +1,8 @@
 {
     "_id": "1newzNV5nkLvZ9KE",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Handy with your Paws",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,21 +21,18 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:repair"
-                    ],
-                    "not": [
-                        "target:trait:magical"
-                    ]
-                },
+                "predicate": [
+                    "action:repair",
+                    {
+                        "not": "target:trait:magical"
+                    }
+                ],
                 "selector": "crafting",
                 "type": "circumstance",
                 "value": 1
@@ -50,7 +49,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Handy with your Paws",
     "type": "feat"
 }

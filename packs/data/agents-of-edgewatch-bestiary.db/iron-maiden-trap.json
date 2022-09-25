@@ -1,6 +1,50 @@
 {
     "_id": "rDYDTCVUa5GS3uTE",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Y7LWmp8wJgF4O24C",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Slam Shut",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps onto the trap's pressure plate (indicated on the map)</p>\n<hr />\n<p><strong>Effect</strong> The front of the iron maiden slams shut with incredible force and locks itself. The triggering creature takes [[/r {4d10+10}[piercing]]]{4d10+10 piercing damage} and @Localize[PF2E.PersistentDamage.Bleed2d6.success] (@Check[type:reflex|dc:26|basic:true] save; if the creature critically succeeds, they avoid the trap completely). The triggering creature is also immobilized. The victim can end their immobilization only once a creature outside the iron maiden unlocks the device (requiring two successful @Check[type:thievery|dc:28|name:Unlock Iron Maiden|traits:manipulate,action:disable-a-device] checks to Disable a Device) or breaks the iron maiden, after which the trapped creature must succeed at a DC 25 check to Escape the trap's spike-lined interior.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Iron Maiden Trap",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 25
@@ -22,7 +66,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A pressure plate hidden on the floor before an iron maiden causes the torture device to snap shut and trap the triggering creature inside.</p>",
-            "disable": "<p>DC 28 Thievery to disable the pressure plate</p>",
+            "disable": "<p>@Check[type:thievery|dc:28|name:Disable Pressure Plate|traits:action:disable-a-device] to disable the pressure plate</p>",
             "isComplex": false,
             "level": {
                 "value": 8
@@ -65,65 +109,11 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "mechanical",
-                    "trap"
-                ]
-            }
+            "value": [
+                "mechanical",
+                "trap"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "Y7LWmp8wJgF4O24C",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature steps onto the trap's pressure plate (indicated on the map)</p>\n<hr />\n<p><strong>Effect</strong> The front of the iron maiden slams shut with incredible force and locks itself. The triggering creature takes [[/r {4d10+10}[piercing]]]{4d10+10 piercing damage} and @Localize[PF2E.PersistentDamage.Bleed2d6.success] (@Check[type:reflex|dc:26|basic:true] save; if the creature critically succeeds, they avoid the trap completely). The triggering creature is also immobilized. The victim can end their immobilization only once a creature outside the iron maiden unlocks the device (requiring two successful @Check[type:thievery|dc:28|name:Unlock Iron Maiden|traits:manipulate,action:disable-a-device] checks to Disable a Device) or breaks the iron maiden, after which the trapped creature must succeed at a DC 25 check to Escape the trap's spike-lined interior.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Slam Shut",
-            "sort": 100000,
-            "type": "action"
-        }
-    ],
-    "name": "Iron Maiden Trap",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Iron Maiden Trap",
-        "width": 1
     },
     "type": "hazard"
 }

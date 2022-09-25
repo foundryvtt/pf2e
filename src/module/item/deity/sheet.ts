@@ -7,7 +7,7 @@ import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
 import { ErrorPF2e, tagify } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
 
-export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemSheetPF2e<TItem> {
+export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
@@ -17,7 +17,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
     }
 
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<DeitySheetData> {
-        const sheetData = super.getBaseData(options);
+        const sheetData = await super.getData(options);
 
         const spellEntries = Object.entries(sheetData.data.spells);
         const spells = (await fromUUIDs(Object.values(sheetData.data.spells)))
@@ -54,15 +54,15 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
         const html = $html.get(0)!;
         const getInput = (name: string): HTMLInputElement | null => html.querySelector(`input[name="${name}"]`);
 
-        tagify(getInput("data.ability"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
-        tagify(getInput("data.alignment.follower"), { whitelist: CONFIG.PF2E.alignments, maxTags: 9 });
+        tagify(getInput("system.ability"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
+        tagify(getInput("system.alignment.follower"), { whitelist: CONFIG.PF2E.alignments, maxTags: 9 });
 
         // Everything past this point requires a deity or pantheon
         if (this.item.category === "philosophy") return;
 
-        tagify(getInput("data.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 });
-        tagify(getInput("data.domains.primary"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
-        tagify(getInput("data.domains.alternate"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
+        tagify(getInput("system.weapons"), { whitelist: CONFIG.PF2E.baseWeaponTypes, maxTags: 2 });
+        tagify(getInput("system.domains.primary"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
+        tagify(getInput("system.domains.alternate"), { whitelist: CONFIG.PF2E.deityDomains, maxTags: 4 });
 
         const $clericSpells = $html.find(".cleric-spells");
         // View one of the spells
@@ -83,13 +83,13 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             const $target = $(event.currentTarget);
             const uuidToRemove = $target.closest("li").attr("data-uuid") ?? "";
             const [levelToRemove] =
-                Object.entries(this.item.data.data.spells).find(([_level, uuid]) => uuid === uuidToRemove) ?? [];
+                Object.entries(this.item.system.spells).find(([_level, uuid]) => uuid === uuidToRemove) ?? [];
             if (!levelToRemove) {
                 this.render(false);
                 return;
             }
 
-            await this.item.update({ [`data.spells.-=${levelToRemove}`]: null });
+            await this.item.update({ [`system.spells.-=${levelToRemove}`]: null });
         });
 
         // Update the level of a spell
@@ -97,7 +97,7 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             .find<HTMLInputElement>("input[data-action=update-spell-level]")
             .on("change", async (event): Promise<void> => {
                 const oldLevel = Number(event.target.dataset.level);
-                const uuid = this.item.data.data.spells[oldLevel];
+                const uuid = this.item.system.spells[oldLevel];
                 // Shouldn't happen unless the sheet falls out of sync
                 if (!uuid) {
                     this.render(false);
@@ -106,7 +106,10 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
 
                 const newLevel = Math.clamped(Number(event.target.value) || 1, 1, 10);
                 if (oldLevel !== newLevel) {
-                    await this.item.update({ [`data.spells.-=${oldLevel}`]: null, [`data.spells.${newLevel}`]: uuid });
+                    await this.item.update({
+                        [`system.spells.-=${oldLevel}`]: null,
+                        [`system.spells.${newLevel}`]: uuid,
+                    });
                 }
             });
     }
@@ -130,13 +133,18 @@ export class DeitySheetPF2e<TItem extends DeityPF2e = DeityPF2e> extends ItemShe
             return;
         }
 
-        await this.item.update({ [`data.spells.${item.level}`]: item.uuid });
+        await this.item.update({ [`system.spells.${item.level}`]: item.uuid });
     }
 
     /** Foundry inflexibly considers checkboxes to be booleans: set back to a string tuple for Divine Font */
     override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Filter out null values from font that may have been inserted by Foundry's multi-checkbox handling
+        if (Array.isArray(formData["system.font"])) {
+            formData["system.font"] = formData["system.font"].filter((f) => !!f);
+        }
+
         // Null out empty strings for some properties
-        for (const property of ["data.alignment.own", "data.skill"]) {
+        for (const property of ["system.alignment.own", "system.skill"]) {
             if (typeof formData[property] === "string") formData[property] ||= null;
         }
 

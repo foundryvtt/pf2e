@@ -1,6 +1,8 @@
 {
     "_id": "ADDOwO0QWOXAV85x",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Telluric Power",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,22 +21,19 @@
         "level": {
             "value": 13
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "telluric-power",
-                        "melee"
-                    ]
-                },
+                "predicate": [
+                    "telluric-power",
+                    "melee"
+                ],
                 "selector": "strike-damage",
                 "type": "circumstance",
-                "value": "1+@weapon.data.data.runes.striking"
+                "value": "1+@weapon.system.runes.striking"
             },
             {
                 "domain": "all",
@@ -54,7 +53,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Telluric Power",
     "type": "feat"
 }

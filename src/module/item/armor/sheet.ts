@@ -1,15 +1,20 @@
-import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
+import {
+    ARMOR_MATERIAL_VALUATION_DATA,
+    getPropertySlots,
+    PhysicalItemSheetData,
+    PhysicalItemSheetPF2e,
+    PreparedMaterials,
+} from "@item/physical";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { LocalizePF2e } from "@system/localize";
-import { getPropertySlots } from "../runes";
-import { ArmorPF2e } from ".";
-import { createSheetTags } from "@module/sheet/helpers";
+import { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType } from ".";
 
-export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
-    override async getData(options?: Partial<DocumentSheetOptions>) {
+class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<ArmorSheetData> {
         const sheetData = await super.getData(options);
 
         // Armor property runes
-        const totalSlots = getPropertySlots(sheetData.item);
+        const totalSlots = getPropertySlots(this.item);
         const propertyRuneSlots: Record<`propertyRuneSlots${number}`, boolean> = {};
         for (const slot of [1, 2, 3, 4]) {
             if (totalSlots >= slot) {
@@ -19,6 +24,8 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
 
         return {
             ...sheetData,
+            hasDetails: true,
+            hasSidebar: true,
             armorPotencyRunes: CONFIG.PF2E.armorPotencyRunes,
             armorResiliencyRunes: CONFIG.PF2E.armorResiliencyRunes,
             armorPropertyRunes: CONFIG.PF2E.armorPropertyRunes,
@@ -26,12 +33,33 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             groups: CONFIG.PF2E.armorGroups,
             baseTypes: LocalizePF2e.translations.PF2E.Item.Armor.Base,
             bulkTypes: CONFIG.PF2E.bulkTypes,
-            preciousMaterials: CONFIG.PF2E.preciousMaterials,
-            preciousMaterialGrades: CONFIG.PF2E.preciousMaterialGrades,
+            preciousMaterials: this.prepareMaterials(ARMOR_MATERIAL_VALUATION_DATA),
             ...propertyRuneSlots,
-            sizes: CONFIG.PF2E.actorSizes,
-            traits: createSheetTags(CONFIG.PF2E.armorTraits, sheetData.item.data.traits),
-            otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.item.data.traits.otherTags),
+            otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
         };
     }
+
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        formData["system.potencyRune.value"] ||= null;
+        formData["system.resiliencyRune.value"] ||= null;
+        for (const slotNumber of [1, 2, 3, 4]) {
+            formData[`system.propertyRune${slotNumber}.value`] ||= null;
+        }
+
+        return super._updateObject(event, formData);
+    }
 }
+
+interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
+    armorPotencyRunes: ConfigPF2e["PF2E"]["armorPotencyRunes"];
+    armorResiliencyRunes: ConfigPF2e["PF2E"]["armorResiliencyRunes"];
+    armorPropertyRunes: ConfigPF2e["PF2E"]["armorPropertyRunes"];
+    categories: Record<ArmorCategory, string>;
+    groups: Record<ArmorGroup, string>;
+    baseTypes: Record<BaseArmorType, string>;
+    bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];
+    preciousMaterials: PreparedMaterials;
+    otherTags: SheetOptions;
+}
+
+export { ArmorSheetPF2e };

@@ -1,39 +1,21 @@
 <div class="tab biography" data-group="primary" data-tab="biography">
     <section class="biography-details">
         <div class="bio appearance">
-            <label class="details-label" >
-                {{localize "PF2E.BiographyAppearance"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyAppearanceTitle'}}" class="biography-content" style="min-height: 200px;" >
-                {{editor
-                    content=data.details.biography.appearance
-                    target="data.details.biography.appearance"
-                    button=true owner=owner editable=editable}}
+            <label class="details-label">{{localize "PF2E.BiographyAppearance"}}</label>
+            <span title="{{localize "PF2E.BiographyAppearanceTitle"}}" class="biography-content" style="min-height: 200px;" >
+                {{editor data.details.biography.appearance target="system.details.biography.appearance" button=true owner=owner editable=editable}}
             </span>
         </div>
         <div class="bio backstory">
-            <label class="details-label" >
-                {{localize "PF2E.BiographyBackStory"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyBackStoryTitle'}}" class="biography-content" style="min-height: 200px;" >
-                {{editor
-                    content=data.details.biography.backstory
-                    target="data.details.biography.backstory"
-                    button=true owner=owner editable=editable}}
+            <label class="details-label">{{localize "PF2E.BiographyBackStory"}}</label>
+            <span title="{{localize "PF2E.BiographyBackStoryTitle"}}" class="biography-content" style="min-height: 200px;" >
+                {{editor data.details.biography.backstory target="system.details.biography.backstory" button=true owner=owner editable=editable}}
             </span>
         </div>
         <div class="bio birth-place">
-            <label class="details-label" for="{{options.id}}-birth-place">
-                {{localize "PF2E.BiographyBirthPlace"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyBirthPlaceTitle'}}">
-                <input
-                    id="{{options.id}}-birth-place"
-                    name="data.details.biography.birthPlace"
-                    type="text"
-                    value="{{data.details.biography.birthPlace}}"
-                    data-dtype="String"
-                />
+            <label class="details-label" for="{{options.id}}-birth-place">{{localize "PF2E.BiographyBirthPlace"}}</label>
+            <span title="{{localize "PF2E.BiographyBirthPlaceTitle"}}">
+                <input type="text" id="{{options.id}}-birth-place" name="system.details.biography.birthPlace" value="{{data.details.biography.birthPlace}}" />
             </span>
         </div>
     </section>
@@ -41,73 +23,33 @@
     <h3 class="core-title"> {{localize "PF2E.BiographyPersonalityHeader"}}</h3>
     <section class="biography-personality">
         <div class="bio attitude">
-            <label class="details-label" for="{{options.id}}-attitude">
-                {{localize "PF2E.BiographyAttitude"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyAttitudeTitle'}}">
-                <input
-                    id="{{options.id}}-attitude"
-                    name="data.details.biography.attitude"
-                    type="text"
-                    value="{{data.details.biography.attitude}}"
-                    data-dtype="String"
-                />
+            <label class="details-label" for="{{options.id}}-attitude">{{localize "PF2E.BiographyAttitude"}}</label>
+            <span title="{{localize "PF2E.BiographyAttitudeTitle"}}">
+                <input type="text" id="{{options.id}}-attitude" name="system.details.biography.attitude" value="{{data.details.biography.attitude}}" />
             </span>
         </div>
         <div class="bio beliefs">
-            <label class="details-label" for="{{options.id}}-beliefs">
-                {{localize "PF2E.BiographyBeliefs"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyBeliefsTitle'}}">
-                <input
-                    id="{{options.id}}-beliefs"
-                    name="data.details.biography.beliefs"
-                    type="text"
-                    value="{{data.details.biography.beliefs}}"
-                    data-dtype="String"
-                />
+            <label class="details-label" for="{{options.id}}-beliefs">{{localize "PF2E.BiographyBeliefs"}}</label>
+            <span title="{{localize "PF2E.BiographyBeliefsTitle"}}">
+                <input type="text" id="{{options.id}}-beliefs" name="system.details.biography.beliefs" value="{{data.details.biography.beliefs}}" />
             </span>
         </div>
         <div class="bio likes">
-            <label class="details-label" for="{{options.id}}-likes">
-                {{localize "PF2E.BiographyLikes"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyLikesTitle'}}">
-                <input
-                    id="{{options.id}}-likes"
-                    name="data.details.biography.likes"
-                    type="text"
-                    value="{{data.details.biography.likes}}"
-                    data-dtype="String"
-                />
+            <label class="details-label" for="{{options.id}}-likes">{{localize "PF2E.BiographyLikes"}}</label>
+            <span title="{{localize "PF2E.BiographyLikesTitle"}}">
+                <input type="text" id="{{options.id}}-likes" name="system.details.biography.likes" value="{{data.details.biography.likes}}" />
             </span>
         </div>
         <div class="bio dislikes">
-            <label class="details-label" for="{{options.id}}-dislikes">
-                {{localize "PF2E.BiographyDislikes"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyDislikesTitle'}}">
-                <input
-                    id="{{options.id}}-dislikes"
-                    name="data.details.biography.dislikes"
-                    type="text"
-                    value="{{data.details.biography.dislikes}}"
-                    data-dtype="String"
-                />
+            <label class="details-label" for="{{options.id}}-dislikes">{{localize "PF2E.BiographyDislikes"}}</label>
+            <span title="{{localize "PF2E.BiographyDislikesTitle"}}">
+                <input type="text" id="{{options.id}}-dislikes" name="system.details.biography.dislikes" value="{{data.details.biography.dislikes}}" />
             </span>
         </div>
         <div class="bio catchphrases">
-            <label class="details-label" for="{{options.id}}-catchphrases">
-                {{localize "PF2E.BiographyCatchphrases"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyCatchphrasesTitle'}}">
-                <input
-                    id="{{options.id}}-catchphrases"
-                    name="data.details.biography.catchphrases"
-                    type="text"
-                    value="{{data.details.biography.catchphrases}}"
-                    data-dtype="String"
-                />
+            <label class="details-label" for="{{options.id}}-catchphrases">{{localize "PF2E.BiographyCatchphrases"}}</label>
+            <span title="{{localize "PF2E.BiographyCatchphrasesTitle"}}">
+                <input type="text" id="{{options.id}}-catchphrases" name="system.details.biography.catchphrases" value="{{data.details.biography.catchphrases}}" />
             </span>
         </div>
     </section>
@@ -115,51 +57,27 @@
     <h3 class="core-title"> {{localize "PF2E.BiographyCampaignNotesHeader"}}</h3>
     <section class="biography-campaign-notes">
         <div class="bio campaign-notes">
-            <label class="details-label" >
-                {{localize "PF2E.BiographyCampaignNotes"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyCampaignNotesTitle'}}" class="biography-content" style="min-height: 200px;" >
-                {{editor
-                    content=data.details.biography.campaignNotes
-                    target="data.details.biography.campaignNotes"
-                    button=true owner=owner
-                    editable=editable}}
+            <label class="details-label">{{localize "PF2E.BiographyCampaignNotes"}}</label>
+            <span title="{{localize "PF2E.BiographyCampaignNotesTitle"}}" class="biography-content" style="min-height: 200px;" >
+                {{editor data.details.biography.campaignNotes target="system.details.biography.campaignNotes" button=true owner=owner editable=editable}}
             </span>
         </div>
         <div class="bio allies">
-            <label class="details-label" >
-                {{localize "PF2E.BiographyAllies"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyAlliesTitle'}}" class="biography-content" style="min-height: 200px;" >
-                {{editor
-                    content=data.details.biography.allies
-                    target="data.details.biography.allies"
-                    button=true owner=owner
-                    editable=editable}}
+            <label class="details-label">{{localize "PF2E.BiographyAllies"}}</label>
+            <span title="{{localize "PF2E.BiographyAlliesTitle"}}" class="biography-content" style="min-height: 200px;" >
+                {{editor data.details.biography.allies target="system.details.biography.allies" button=true owner=owner editable=editable}}
             </span>
         </div>
         <div class="bio enemies">
-            <label class="details-label" >
-                {{localize "PF2E.BiographyEnemies"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyEnemiesTitle'}}" class="biography-content" style="min-height: 200px;" >
-                {{editor
-                    content=data.details.biography.enemies
-                    target="data.details.biography.enemies"
-                    button=true owner=owner
-                    editable=editable}}
+            <label class="details-label">{{localize "PF2E.BiographyEnemies"}}</label>
+            <span title="{{localize "PF2E.BiographyEnemiesTitle"}}" class="biography-content" style="min-height: 200px;" >
+                {{editor data.details.biography.enemies target="system.details.biography.enemies" button=true owner=owner editable=editable}}
             </span>
         </div>
         <div class="bio organizations">
-            <label class="details-label" >
-                {{localize "PF2E.BiographyOrganizations"}}
-            </label>
-            <span title="{{localize 'PF2E.BiographyOrganizationsTitle'}}" class="biography-content" style="min-height: 200px;" >
-                {{editor
-                    content=data.details.biography.organizations
-                    target="data.details.biography.organizations"
-                    button=true owner=owner
-                    editable=editable}}
+            <label class="details-label">{{localize "PF2E.BiographyOrganizations"}}</label>
+            <span title="{{localize "PF2E.BiographyOrganizationsTitle"}}" class="biography-content" style="min-height: 200px;" >
+                {{editor data.details.biography.organizations target="system.details.biography.organizations" button=true owner=owner editable=editable}}
             </span>
         </div>
     </section>

@@ -1,6 +1,8 @@
 {
     "_id": "asPQEfYCcsbYxx6K",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Basic Breakthrough",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 4
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,14 +32,14 @@
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "label": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat",
+                    "predicate": [
                         "item:type:feat",
                         "item:trait:inventor"
-                    ],
-                    "label": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
+                    ]
                 },
                 "choices": {
-                    "query": "{\"data.level.value\":{\"$lte\":2},\"data.traits.value\":{\"$elemMatch\":\"inventor\"}}"
+                    "query": "{\"system.level.value\":{\"$lte\":2},\"system.traits.value\":{\"$elemMatch\":\"inventor\"}}"
                 },
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.LevelOneOrTwoClassFeat"
@@ -49,7 +50,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",
@@ -59,7 +60,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Basic Breakthrough",
     "type": "feat"
 }

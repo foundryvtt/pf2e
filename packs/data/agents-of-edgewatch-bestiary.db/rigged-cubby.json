@@ -1,84 +1,13 @@
 {
     "_id": "54i6ithgmhDk7Dne",
-    "data": {
-        "attributes": {
-            "ac": {
-                "value": 25
-            },
-            "hardness": 0,
-            "hasHealth": true,
-            "hp": {
-                "details": "",
-                "max": 1,
-                "temp": 0,
-                "tempmax": 0,
-                "value": 1
-            },
-            "stealth": {
-                "details": "<p>(expert)</p>",
-                "value": 15
-            }
-        },
-        "creatureType": "",
-        "details": {
-            "description": "<p>A hidden string connected to precariously stacked bricks causes the cubby to collapse in on itself when the string is pulled.</p>",
-            "disable": "<p>Thievery DC 20 to cut the string without setting off the trap</p>",
-            "isComplex": false,
-            "level": {
-                "value": 6
-            },
-            "reset": "",
-            "routine": ""
-        },
-        "saves": {
-            "fortitude": {
-                "saveDetail": "",
-                "value": 0
-            },
-            "reflex": {
-                "saveDetail": "",
-                "value": 0
-            },
-            "will": {
-                "saveDetail": "",
-                "value": 0
-            }
-        },
-        "source": {
-            "value": ""
-        },
-        "statusEffects": [],
-        "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "precision",
-                    "critical-hits",
-                    "object-immunities"
-                ]
-            },
-            "dr": [],
-            "dv": [],
-            "rarity": "common",
-            "size": {
-                "value": "med"
-            },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "mechanical",
-                    "trap"
-                ]
-            }
-        }
-    },
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
             "_id": "5vpT5j3f28sZPdRn",
-            "data": {
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Collapse",
+            "sort": 100000,
+            "system": {
                 "actionCategory": {
                     "value": "offensive"
                 },
@@ -111,19 +40,80 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Collapse",
-            "sort": 100000,
             "type": "action"
         }
     ],
     "name": "Rigged Cubby",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Rigged Cubby",
-        "width": 1
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 1,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 1
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A hidden string connected to precariously stacked bricks causes the cubby to collapse in on itself when the string is pulled.</p>",
+            "disable": "<p>@Check[type:thievery|dc:20|name:Cut String|traits:action:disable-a-device] to cut the string without setting off the trap</p>",
+            "isComplex": false,
+            "level": {
+                "value": 6
+            },
+            "reset": "",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "value": "Pathfinder #158: Sixty Feet Under"
+        },
+        "statusEffects": [],
+        "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": [
+                    "precision",
+                    "critical-hits",
+                    "object-immunities"
+                ]
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
     },
     "type": "hazard"
 }

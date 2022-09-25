@@ -19,7 +19,7 @@ export class Migration637CleanMeleeItems extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type !== "melee") return;
 
-        const systemData = itemData.data;
+        const systemData = itemData.system;
         for (const key of Object.keys(systemData)) {
             if (!meleeKeys.has(key)) {
                 delete systemData[key as keyof typeof systemData];

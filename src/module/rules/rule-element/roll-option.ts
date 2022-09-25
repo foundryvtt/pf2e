@@ -32,6 +32,9 @@ class RollOptionRuleElement extends RuleElementPF2e {
     /** Whether this roll option is countable: it will have a numeric value counting how many rules added this option */
     private count?: boolean;
 
+    /** If the hosting item is an effect, remove or expire it after a matching roll is made */
+    private removeAfterRoll: boolean;
+
     constructor(data: RollOptionSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         // This rule element behaves much like an override AE-like, so set its default priority to 50
         data.priority ??= CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10;
@@ -41,12 +44,13 @@ class RollOptionRuleElement extends RuleElementPF2e {
         this.option = String(data.option).trim();
         this.toggleable = !!data.toggleable;
         this.value = typeof data.value === "string" ? data.value : !!(data.value ?? !this.toggleable);
-        if (this.toggleable && data.disabledIf instanceof Object) {
-            this.disabledIf = new PredicatePF2e(data.disabledIf);
+        if (this.toggleable && Array.isArray(data.disabledIf)) {
+            this.disabledIf = new PredicatePF2e(...data.disabledIf);
             this.disabledValue =
                 data.disabledValue === null || typeof data.disabledValue === "boolean" ? data.disabledValue : false;
         }
         this.count = !!data.count;
+        this.removeAfterRoll = this.item.isOfType("effect") && !!data.removeAfterRoll;
 
         if (!(typeof data.domain === "string" && /^[-a-z0-9]+$/.test(data.domain) && /[a-z]/.test(data.domain))) {
             this.failValidation(
@@ -130,12 +134,15 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 domainRecord[`${option}:1`] = true;
             }
         } else {
-            const value = (domainRecord[option] = !!this.resolveValue(this.value));
+            const value = !!this.resolveValue(this.value);
+            if (value) domainRecord[option] = value;
+
+            const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
 
             if (this.toggleable) {
                 const toggle: RollToggle = {
                     itemId: this.item.id,
-                    label: this.label,
+                    label,
                     domain: this.domain,
                     option,
                     checked: value,
@@ -149,26 +156,8 @@ class RollOptionRuleElement extends RuleElementPF2e {
                         if (!this.disabledValue) delete domainRecord[option];
                     }
                 }
-                this.actor.data.data.toggles.push(toggle);
+                this.actor.system.toggles.push(toggle);
             }
-        }
-    }
-
-    /**
-     * Add or remove directly from/to a provided set of roll options. All RollOption REs, regardless of phase, are
-     * (re-)called here.
-     */
-    override beforeRoll(domains: string[], rollOptions: string[]): void {
-        if (!(this.test() && domains.includes(this.domain))) return;
-
-        const option = this.resolveOption();
-        const value = this.resolveValue();
-        if (value === true) {
-            rollOptions.push(option);
-        } else if (value === false) {
-            rollOptions.findSplice((o) => o === option);
-        } else {
-            this.failValidation("Unrecognized roll option value");
         }
     }
 
@@ -195,7 +184,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
         } else if (itemId) {
             // Directly update the rule element on the item
             const item = actor.items.get(itemId, { strict: true });
-            const rules = item.toObject().data.rules;
+            const rules = item.toObject().system.rules;
             const rule = rules.find(
                 (r: RollOptionSource) =>
                     r.key === "RollOption" &&
@@ -207,12 +196,50 @@ class RollOptionRuleElement extends RuleElementPF2e {
             );
             if (rule) {
                 rule.value = value;
-                const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "data.rules": rules }]);
+                const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "system.rules": rules }]);
                 return result.length === 1 ? value : null;
             }
         }
 
         return null;
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
+
+    /**
+     * Add or remove directly from/to a provided set of roll options. All RollOption REs, regardless of phase, are
+     * (re-)called here.
+     */
+    override beforeRoll(domains: string[], rollOptions: Set<string>): void {
+        if (!(this.test(rollOptions) && domains.includes(this.domain))) return;
+
+        this.option = this.resolveOption();
+        this.value = !!this.resolveValue(this.value);
+        if (this.value) {
+            rollOptions.add(this.option);
+        } else {
+            rollOptions.delete(this.option);
+        }
+    }
+
+    /** Remove the parent effect if configured so */
+    override async afterRoll({ domains, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void> {
+        if (
+            !this.ignored &&
+            this.removeAfterRoll &&
+            this.value &&
+            this.actor.items.has(this.item.id) &&
+            domains.includes(this.domain) &&
+            rollOptions.has(this.option)
+        ) {
+            if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
+                await this.item.delete();
+            } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
+                await this.item.update({ "system.duration.value": -1, "system.expired": true });
+            }
+        }
     }
 }
 
@@ -223,6 +250,7 @@ interface RollOptionSource extends RuleElementSource {
     disabledIf?: unknown;
     disabledValue?: unknown;
     count?: unknown;
+    removeAfterRoll?: unknown;
 }
 
 interface ToggleParameters {

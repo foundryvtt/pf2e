@@ -1,6 +1,8 @@
 {
     "_id": "eEVZ19G2BAnHQZpa",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Emotionless",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,24 +28,28 @@
             {
                 "key": "FlatModifier",
                 "label": "Emotionless (vs. emotion and fear effects)",
-                "predicate": {
-                    "any": [
-                        "emotion",
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "emotion",
+                            "fear"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "emotion",
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "emotion",
+                            "fear"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "When you roll a success on a save against an emotion or fear effect, you get a critical success instead.",
                 "title": "{item|name}"
@@ -54,12 +59,14 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "any": [
-                        "emotion",
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "emotion",
+                            "fear"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             }
@@ -75,7 +82,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Emotionless",
     "type": "feat"
 }

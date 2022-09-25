@@ -1,81 +1,13 @@
 {
     "_id": "AZ6AaYdx2NwLWSwh",
-    "data": {
-        "attributes": {
-            "ac": {
-                "value": 40
-            },
-            "hardness": 30,
-            "hasHealth": true,
-            "hp": {
-                "details": "",
-                "max": 150,
-                "temp": 0,
-                "value": 150
-            },
-            "stealth": {
-                "details": "<p>(legendary)</p>",
-                "value": 30
-            }
-        },
-        "creatureType": "",
-        "details": {
-            "description": "<p>The trapdoor's metal is infused with a deadly toxin that seeps out when the trap is triggered.</p>",
-            "disable": "<p>DC 50 Thievery (legendary) to gum up the trapdoor's porous metal surface, DC 45 Crafting (master) to render the toxin inert, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (9th level; counteract DC 45) to counteract the trap's magic</p>",
-            "isComplex": false,
-            "level": {
-                "value": 19
-            },
-            "reset": "",
-            "routine": ""
-        },
-        "saves": {
-            "fortitude": {
-                "saveDetail": "",
-                "value": 38
-            },
-            "reflex": {
-                "saveDetail": "",
-                "value": 30
-            },
-            "will": {
-                "saveDetail": "",
-                "value": 0
-            }
-        },
-        "source": {
-            "value": ""
-        },
-        "statusEffects": [],
-        "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "object-immunities"
-                ]
-            },
-            "dr": [],
-            "dv": [],
-            "rarity": "common",
-            "size": {
-                "value": "med"
-            },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "magical",
-                    "trap"
-                ]
-            }
-        }
-    },
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
             "_id": "K2xZ73LiKk2uqR28",
-            "data": {
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Blackfinger's Prayer",
+            "sort": 100000,
+            "system": {
                 "actionCategory": {
                     "value": "offensive"
                 },
@@ -112,14 +44,14 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Blackfinger's Prayer",
-            "sort": 100000,
             "type": "action"
         },
         {
             "_id": "A04N1HzBOQCcYnM2",
-            "data": {
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Blackfinger Blight",
+            "sort": 200000,
+            "system": {
                 "actionCategory": {
                     "value": "offensive"
                 },
@@ -156,19 +88,77 @@
                     "value": ""
                 }
             },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Blackfinger Blight",
-            "sort": 200000,
             "type": "action"
         }
     ],
     "name": "Blackfinger's Prayer",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Blackfinger's Prayer",
-        "width": 1
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 40
+            },
+            "hardness": 30,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "stealth": {
+                "details": "<p>(legendary)</p>",
+                "value": 30
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The trapdoor's metal is infused with a deadly toxin that seeps out when the trap is triggered.</p>",
+            "disable": "<p>@Check[type:thievery|dc:50|name:Gum Up Trapdoor|traits:action:disable-a-device] (legendary) to gum up the trapdoor's porous metal surface, @Check[type:crafting|dc:45|name:Render Toxin Inert] (master) to render the toxin inert, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (9th level; counteract DC 45) to counteract the trap's magic</p>",
+            "isComplex": false,
+            "level": {
+                "value": 19
+            },
+            "reset": "",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 38
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "value": "Pathfinder #162: Ruins of the Radiant Siege"
+        },
+        "statusEffects": [],
+        "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": [
+                    "object-immunities"
+                ]
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
     },
     "type": "hazard"
 }

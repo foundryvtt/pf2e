@@ -5,15 +5,15 @@ import { MigrationRunner } from "@module/migration/runner";
 import { LocalizePF2e } from "@module/system/localize";
 import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
 import Tagify from "@yaireo/tagify";
-import { MenuTemplateData, PartialSettingsData, SettingsMenuPF2e } from "../menu";
+import { PartialSettingsData, SettingsMenuPF2e } from "../menu";
 import { prepareCleanup } from "./cleanup-migration";
 import { isHomebrewFlagCategory } from "./helpers";
 import "@yaireo/tagify/src/tagify.scss";
 
-export type ConfigPF2eHomebrewRecord = typeof HomebrewElements.SETTINGS[number];
-export type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewRecord}`;
+type ConfigPF2eHomebrewRecord = typeof HomebrewElements.SETTINGS[number];
+type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewRecord}`;
 
-export interface HomebrewTag<T extends ConfigPF2eHomebrewRecord = ConfigPF2eHomebrewRecord> {
+interface HomebrewTag<T extends ConfigPF2eHomebrewRecord = ConfigPF2eHomebrewRecord> {
     id: T extends "baseWeapons"
         ? BaseWeaponType
         : T extends Exclude<ConfigPF2eHomebrewRecord, "baseWeapons">
@@ -22,7 +22,7 @@ export interface HomebrewTag<T extends ConfigPF2eHomebrewRecord = ConfigPF2eHome
     value: string;
 }
 
-export class HomebrewElements extends SettingsMenuPF2e {
+class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
 
     /** Whether this is the first time the homebrew tags will have been injected into CONFIG and actor derived data */
@@ -43,9 +43,10 @@ export class HomebrewElements extends SettingsMenuPF2e {
 
     /** Homebrew elements from some of the above records are propagated to related records */
     private secondaryRecords = {
-        weaponTraits: ["npcAttackTraits"],
+        creatureTraits: ["ancestryItemTraits"],
         equipmentTraits: ["armorTraits", "consumableTraits"],
         featTraits: ["actionTraits"],
+        weaponTraits: ["npcAttackTraits"],
     } as const;
 
     static override get defaultOptions() {
@@ -69,18 +70,10 @@ export class HomebrewElements extends SettingsMenuPF2e {
         );
     }
 
-    override getData(): MenuTemplateData {
-        const data = super.getData();
-        for (const setting of data.settings) {
-            setting.value = JSON.stringify(setting.value);
-        }
-        return data;
-    }
-
     override activateListeners($form: JQuery<HTMLFormElement>): void {
         super.activateListeners($form);
 
-        $form.find('button[name="reset"]').on("click", () => {
+        $form.find("button[name=reset]").on("click", () => {
             this.render();
         });
 
@@ -110,12 +103,12 @@ export class HomebrewElements extends SettingsMenuPF2e {
         event: Event,
         { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {}
     ): Promise<Record<string, unknown>> {
-        const $form = $<HTMLFormElement>(this.form);
-        $form.find<HTMLInputElement>("tags ~ input").each((_i, input) => {
+        this.form.querySelectorAll<HTMLInputElement>("tags ~ input").forEach((input) => {
             if (input.value === "") {
                 input.value = "[]";
             }
         });
+
         return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
 
@@ -186,7 +179,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     registerModuleTags(): void {
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
         for (const [key, foundryModule] of activeModules) {
-            const homebrew = foundryModule.data.flags?.[key]?.["pf2e-homebrew"];
+            const homebrew = foundryModule.flags?.[key]?.["pf2e-homebrew"];
             if (!isObject<Record<string, unknown>>(homebrew)) continue;
 
             for (const recordKey of Object.keys(homebrew)) {
@@ -237,3 +230,9 @@ export class HomebrewElements extends SettingsMenuPF2e {
         }
     }
 }
+
+interface HomebrewElements extends SettingsMenuPF2e {
+    constructor: typeof HomebrewElements;
+}
+
+export { ConfigPF2eHomebrewRecord, HomebrewElements, HomebrewSettingsKey, HomebrewTag };

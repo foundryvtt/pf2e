@@ -1,6 +1,8 @@
 {
     "_id": "ZOOP2RzRJnpVqnCr",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Aquatic Conversationalist",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,15 +28,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Aquatic conversationalist (Make an Impression with amphibious or aquatic creatures)",
-                "predicate": {
-                    "all": [
-                        "action:make-an-impression"
-                    ],
-                    "any": [
-                        "target:trait:amphibious",
-                        "target:trait:aquatic"
-                    ]
-                },
+                "predicate": [
+                    "action:make-an-impression",
+                    {
+                        "or": [
+                            "target:trait:amphibious",
+                            "target:trait:aquatic"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1
@@ -52,7 +53,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Aquatic Conversationalist",
     "type": "feat"
 }

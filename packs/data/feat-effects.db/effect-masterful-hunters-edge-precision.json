@@ -1,6 +1,8 @@
 {
     "_id": "Lt5iSfx8fxHSdYXz",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/precision.webp",
+    "name": "Effect: Masterful Hunter's Edge, Precision",
+    "system": {
         "description": {
             "value": "<p>Granted when a ranger shares their @Compendium[pf2e.classfeatures.Masterful Hunter (Precision)]{Masterful Hunter (Precision)} with you.</p>\n<p>The second time in a round you hit your hunted prey, you also deal 1d8 precision damage.</p>\n<p>At 19th level, your second hit in a round against your hunted prey deals 2d8 precision damage, and your third hit in a round against your hunted prey deals 1d8 precision damage.</p>"
         },
@@ -24,12 +26,10 @@
             {
                 "key": "FlatModifier",
                 "label": "To Track hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "action:track",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:track",
+                    "hunted-prey"
+                ],
                 "selector": "survival",
                 "type": "circumstance",
                 "value": {
@@ -45,18 +45,16 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.skills.sur.rank"
+                    "field": "actor|system.skills.sur.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "To Seek hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "action:seek",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    "hunted-prey"
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": {
@@ -72,7 +70,7 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.attributes.perception.rank"
+                    "field": "actor|system.attributes.perception.rank"
                 }
             },
             {
@@ -86,11 +84,9 @@
                 "damageType": "precision",
                 "dieSize": "d8",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "second-attack"
-                    ]
-                },
+                "predicate": [
+                    "second-attack"
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -120,11 +116,9 @@
                 "damageType": "precision",
                 "dieSize": "d8",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "third-attack"
-                    ]
-                },
+                "predicate": [
+                    "third-attack"
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -139,7 +133,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -155,7 +149,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/classes/precision.webp",
-    "name": "Effect: Masterful Hunter's Edge, Precision",
     "type": "effect"
 }

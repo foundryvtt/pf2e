@@ -1,9 +1,11 @@
 {
     "_id": "UzIamWcEJTOjwfoA",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/spin-tale.webp",
+    "name": "Effect: Spin Tale",
+    "system": {
         "badge": null,
         "description": {
-            "value": "<p>You gains a +1 status bonus to attack rolls and saving throws against the villain until the start of your next turn.</p>"
+            "value": "<p>You gain a +1 status bonus to attack rolls and saving throws against the villain until the start of your next turn.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -17,26 +19,18 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Spin Tale",
-                "predicate": {
-                    "all": [
-                        "fear",
-                        "spin-tale"
-                    ]
-                },
-                "selector": "saving-throw",
+                "predicate": [
+                    "spin-tale"
+                ],
+                "selector": "attack",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "label": "Spin Tale",
-                "predicate": {
-                    "all": [
-                        "fear",
-                        "spin-tale"
-                    ]
-                },
+                "predicate": [
+                    "spin-tale"
+                ],
                 "selector": "saving-throw",
                 "value": 1
             },
@@ -65,7 +59,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/feats/spin-tale.webp",
-    "name": "Effect: Spin Tale",
     "type": "effect"
 }

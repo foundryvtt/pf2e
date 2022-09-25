@@ -1,6 +1,8 @@
 {
     "_id": "AFXY5eM4IQuo5Ygj",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Speak With Bats",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -30,15 +31,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "target:tag:bat"
-                    ],
-                    "any": [
-                        "action:make-an-impression",
-                        "action:request"
-                    ]
-                },
+                "predicate": [
+                    "target:tag:bat",
+                    {
+                        "or": [
+                            "action:make-an-impression",
+                            "action:request"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 2
@@ -55,7 +56,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Speak With Bats",
     "type": "feat"
 }

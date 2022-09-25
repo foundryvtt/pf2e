@@ -1,50 +1,67 @@
 import { ItemPF2e } from "@item/base";
-import { ActionItemData } from "./data";
+import { ActionItemData, ActionItemSource } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { ActionCost, Frequency } from "@item/data/base";
+import { ItemSummaryData } from "@item/data";
 
-export class ActionItemPF2e extends ItemPF2e {
+class ActionItemPF2e extends ItemPF2e {
     get actionCost(): ActionCost | null {
-        const actionType = this.data.data.actionType.value || "passive";
+        const actionType = this.system.actionType.value || "passive";
         if (actionType === "passive") return null;
 
         return {
             type: actionType,
-            value: this.data.data.actions.value,
+            value: this.system.actions.value,
         };
     }
 
     get frequency(): Frequency | null {
-        return this.data.data.frequency ?? null;
+        return this.system.frequency ?? null;
     }
 
-    override prepareData() {
-        const data = super.prepareData();
+    override prepareBaseData(): void {
+        super.prepareBaseData();
 
-        /**
-         * @todo Fill this out like so or whatever we settle on
-         * data.data.playMode.encounter ??= false; // etc.
-         **/
-
-        return data;
+        // Initialize frequency uses if not set
+        if (this.actor && this.system.frequency) {
+            this.system.frequency.value ??= this.system.frequency.max;
+        }
     }
 
-    override getChatData(this: Embedded<ActionItemPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
-        const data = this.data.data;
+    override async getChatData(
+        this: Embedded<ActionItemPF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
+        const systemData = this.system;
 
         // Feat properties
-        const properties = [CONFIG.PF2E.actionTypes[data.actionType.value]].filter((property) => property);
+        const properties = [CONFIG.PF2E.actionTypes[systemData.actionType.value]].filter((property) => property);
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-        return this.processChatData(htmlOptions, { ...data, properties, traits });
+        return this.processChatData(htmlOptions, { ...systemData, properties, traits });
     }
 
-    protected override async _preUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+    protected override async _preCreate(
+        data: PreDocumentId<ActionItemSource>,
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        const actionCount = changed.data?.actions;
+        // In case this was copied from an actor, clear any active frequency value
+        if (!this.parent) {
+            if (this._source.system.frequency) {
+                this.updateSource({ "system.frequency.-=value": null });
+            }
+        }
+
+        return super._preCreate(data, options, user);
+    }
+
+    protected override async _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext<this>,
+        user: UserPF2e
+    ): Promise<void> {
+        const actionCount = changed.system?.actions;
         if (actionCount) {
             actionCount.value = (Math.clamped(Number(actionCount.value), 0, 3) || null) as OneToThree | null;
         }
@@ -52,6 +69,8 @@ export class ActionItemPF2e extends ItemPF2e {
     }
 }
 
-export interface ActionItemPF2e {
+interface ActionItemPF2e {
     readonly data: ActionItemData;
 }
+
+export { ActionItemPF2e };

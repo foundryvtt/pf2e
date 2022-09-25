@@ -1,6 +1,8 @@
 {
     "_id": "TIvzBALymvb56L79",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/battlefield-surveyor.webp",
+    "name": "Battlefield Surveyor",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,18 +21,15 @@
         "level": {
             "value": 7
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "perception"
-                    ]
-                },
+                "predicate": [
+                    "perception"
+                ],
                 "selector": "initiative",
                 "type": "circumstance",
                 "value": 2
@@ -38,12 +37,12 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.attributes.perception.rank",
+                "path": "system.attributes.perception.rank",
                 "value": 3
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -53,7 +52,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/battlefield-surveyor.webp",
-    "name": "Battlefield Surveyor",
     "type": "feat"
 }

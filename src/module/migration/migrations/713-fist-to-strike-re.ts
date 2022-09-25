@@ -7,8 +7,8 @@ export class Migration713FistToStrikeRE extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         const fistFeatures: unknown[] = ["powerful-fist", "martial-artist-dedication"];
-        if (!(itemSource.type === "feat" && fistFeatures.includes(itemSource.data.slug))) return;
-        if (itemSource.data.rules.some((rule) => rule.key === "Strike")) return;
+        if (!(itemSource.type === "feat" && fistFeatures.includes(itemSource.system.slug))) return;
+        if (itemSource.system.rules.some((rule) => rule.key === "Strike")) return;
 
         const strike = {
             key: "Strike",
@@ -21,6 +21,6 @@ export class Migration713FistToStrikeRE extends MigrationBase {
             range: null,
             traits: ["agile", "finesse", "nonlethal", "unarmed"],
         };
-        itemSource.data.rules = [strike];
+        itemSource.system.rules = [strike];
     }
 }

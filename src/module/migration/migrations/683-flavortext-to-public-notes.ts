@@ -31,6 +31,6 @@ export class Migration683FlavorTextToPublicNotes extends MigrationBase {
 
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "npc") return;
-        this.replaceFlavorTextData(actorSource.data);
+        this.replaceFlavorTextData(actorSource.system);
     }
 }

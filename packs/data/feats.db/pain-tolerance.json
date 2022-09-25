@@ -1,6 +1,8 @@
 {
     "_id": "FqrfyUtoBWJNnSi6",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Pain Tolerance",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 6
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -30,13 +31,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "inflicts:clumsy",
-                        "inflicts:drained",
-                        "inflicts:enfeebled"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:clumsy",
+                            "inflicts:drained",
+                            "inflicts:enfeebled"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "value": 1
             },
@@ -58,7 +61,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Pain Tolerance",
     "type": "feat"
 }

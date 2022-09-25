@@ -1,6 +1,8 @@
 {
     "_id": "XK4DM8wOtcuOsji6",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/dwarven-thrower.webp",
+    "name": "Dwarven Thrower",
+    "system": {
         "MAP": {
             "value": ""
         },
@@ -86,11 +88,9 @@
         "rules": [
             {
                 "key": "Striking",
-                "predicate": {
-                    "all": [
-                        "self:ancestry:dwarf"
-                    ]
-                },
+                "predicate": [
+                    "self:ancestry:dwarf"
+                ],
                 "selector": "{item|_id}-damage",
                 "value": 2
             },
@@ -98,12 +98,10 @@
                 "diceNumber": 1,
                 "diceSize": "d8",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "target:trait:giant",
-                        "self:ancestry:dwarf"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:giant",
+                    "self:ancestry:dwarf"
+                ],
                 "selector": "{item|_id}-damage"
             }
         ],
@@ -142,7 +140,5 @@
             "value": "1"
         }
     },
-    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/dwarven-thrower.webp",
-    "name": "Dwarven Thrower",
     "type": "weapon"
 }

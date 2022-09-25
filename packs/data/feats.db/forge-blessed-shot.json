@@ -1,6 +1,8 @@
 {
     "_id": "9cq4j15EbVyrHKFX",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Forge-Blessed Shot",
+    "system": {
         "actionCategory": {
             "value": "offensive"
         },
@@ -16,10 +18,13 @@
         "featType": {
             "value": "ancestry"
         },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
         "level": {
             "value": 17
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -32,29 +37,25 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "forge-blessed-shot"
-                    ]
-                },
+                "predicate": [
+                    "forge-blessed-shot"
+                ],
                 "selector": "ranged-attack-roll",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "forge-blessed-shot"
-                    ]
-                },
+                "predicate": [
+                    "forge-blessed-shot"
+                ],
                 "selector": "ranged-attack-roll",
                 "text": "PF2E.SpecificRule.Dwarf.ForgeBlessedShot.Note",
                 "title": "{item|name}"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",
@@ -64,7 +65,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Forge-Blessed Shot",
     "type": "feat"
 }

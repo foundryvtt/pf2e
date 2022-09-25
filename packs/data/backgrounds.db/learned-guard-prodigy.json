@@ -1,6 +1,8 @@
 {
     "_id": "OD8RTS7cTeMJJFcR",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Learned Guard Prodigy",
+    "system": {
         "boosts": {
             "0": {
                 "value": [
@@ -24,23 +26,24 @@
         },
         "items": {
             "o4rw8": {
-                "id": "MjQyTcV8Jiv1Jtln",
                 "img": "systems/pf2e/icons/features/feats/feats.webp",
                 "level": "1",
                 "name": "Recognize Spell",
-                "pack": "pf2e.feats-srd"
+                "uuid": "Compendium.pf2e.feats-srd.MjQyTcV8Jiv1Jtln"
             }
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Learned guards or scholars (Learned Guard Prodigy)",
-                "predicate": {
-                    "any": [
-                        "target:learned-guard",
-                        "target:scholar"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:learned-guard",
+                            "target:scholar"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1
@@ -48,12 +51,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Learned guards or scholars (Learned Guard Prodigy)",
-                "predicate": {
-                    "any": [
-                        "target:learned-guard",
-                        "target:scholar"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:learned-guard",
+                            "target:scholar"
+                        ]
+                    }
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
@@ -61,12 +66,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Learned guards or scholars (Learned Guard Prodigy)",
-                "predicate": {
-                    "any": [
-                        "target:learned-guard",
-                        "target:scholar"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:learned-guard",
+                            "target:scholar"
+                        ]
+                    }
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": 1
@@ -90,7 +97,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
                 "value": 1
             }
         ],
@@ -108,7 +115,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/background.svg",
-    "name": "Learned Guard Prodigy",
     "type": "background"
 }

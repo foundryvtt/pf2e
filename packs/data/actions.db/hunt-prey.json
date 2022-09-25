@@ -1,6 +1,8 @@
 {
     "_id": "JYi4MnsdFu618hPm",
-    "data": {
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "Hunt Prey",
+    "system": {
         "actionCategory": {
             "value": "offensive"
         },
@@ -27,12 +29,10 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
-                "predicate": {
-                    "all": [
-                        "action:seek",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    "hunted-prey"
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 2
@@ -40,12 +40,10 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
-                "predicate": {
-                    "all": [
-                        "action:track",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:track",
+                    "hunted-prey"
+                ],
                 "selector": "survival",
                 "type": "circumstance",
                 "value": 2
@@ -54,11 +52,9 @@
                 "domain": "ranged-attack-roll",
                 "key": "RollOption",
                 "option": "ignore-range-penalty:2",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ]
-                }
+                "predicate": [
+                    "hunted-prey"
+                ]
             }
         ],
         "source": {
@@ -79,7 +75,5 @@
             "value": ""
         }
     },
-    "img": "systems/pf2e/icons/actions/OneAction.webp",
-    "name": "Hunt Prey",
     "type": "action"
 }

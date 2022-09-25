@@ -1,6 +1,8 @@
 {
     "_id": "EFhh3AenX7wtAmrs",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Orc Superstition",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -33,18 +34,18 @@
             {
                 "key": "FlatModifier",
                 "label": "Orc Superstition",
-                "predicate": {
-                    "all": [
-                        "orc-superstition"
-                    ],
-                    "any": [
-                        "arcane",
-                        "divine",
-                        "primal",
-                        "occult",
-                        "magical"
-                    ]
-                },
+                "predicate": [
+                    "orc-superstition",
+                    {
+                        "or": [
+                            "arcane",
+                            "divine",
+                            "primal",
+                            "occult",
+                            "magical"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -62,7 +63,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Orc Superstition",
     "type": "feat"
 }

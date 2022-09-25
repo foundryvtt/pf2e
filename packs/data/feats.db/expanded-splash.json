@@ -1,6 +1,8 @@
 {
     "_id": "gyVcJfZTmBytLsXq",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Expanded Splash",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 10
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,26 +32,22 @@
             {
                 "key": "FlatModifier",
                 "label": "Expanded Splash",
-                "predicate": {
-                    "all": [
-                        "alchemical",
-                        "splash",
-                        "bomb"
-                    ]
-                },
+                "predicate": [
+                    "alchemical",
+                    "splash",
+                    "bomb"
+                ],
                 "selector": "strike-damage",
                 "type": "untyped",
                 "value": "@actor.abilities.int.mod"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "alchemical",
-                        "bomb",
-                        "splash"
-                    ]
-                },
+                "predicate": [
+                    "alchemical",
+                    "bomb",
+                    "splash"
+                ],
                 "selector": "strike-damage",
                 "text": "The bomb deals splash damage to every creature within 10 feet of the target.",
                 "title": "{item|name}"
@@ -67,7 +64,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Expanded Splash",
     "type": "feat"
 }

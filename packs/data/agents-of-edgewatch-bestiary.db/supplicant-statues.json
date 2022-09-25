@@ -1,6 +1,134 @@
 {
     "_id": "JFcEtt18SGlb5uxm",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "pNlE1um147bT0E6P",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Animated Statues",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters a square adjacent to a statue</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a statue shortsword Strike against the triggering creature, activates its predictive impediment ability, and then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "x85871wfT5AGGHSb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Predictive Impediment",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The statues continually slide around to bump into creatures and block their passage through the room. The first time on its turn that a creature attempts to move within the room, it must succeed at a @Check[type:reflex|dc:36] save or treat the entire room as difficult terrain for 1 round. On a critical failure, the creature is also knocked prone.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "divination"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VyojjmuQFpZR3NHk",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "statue shortsword",
+            "sort": 300000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "ai6gplx5e9o56x26jzxh": {
+                        "damage": "2d10+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Supplicant Statues",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 34
@@ -22,7 +150,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Six statues rapidly slide around the room on rollers, slowing down intruders and striking at them with spring-loaded sword arms.</p>",
-            "disable": "<p>DC 34 Thievery (master) to disable a specific statue's rollers, or DC 39 Thievery (master) on the control panel in <strong>A4</strong> deactivates the whole trap. For each statue disabled, the trap loses 1 action from its routine and the DC for its predictive impediment ability decreases by 4. <i>Dispel magic</i> (7th level, counteract DC 32) doesn't harm the statues but removes the predictive impediment ability. Breaking the control panel prevents the trap from resetting.</p>",
+            "disable": "<p>@Check[type:thievery|dc:34|name:Disable Statue Rollers|traits:action:disable-a-device] (master) to disable a specific statue's rollers, or @Check[type:thievery|dc:39|name:Disable Trap (Control Panel)|traits:action:disable-a-device] (master) on the control panel in <strong>A4</strong> deactivates the whole trap. For each statue disabled, the trap loses 1 action from its routine and the DC for its predictive impediment ability decreases by 4. <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (7th level, counteract DC 32) doesn't harm the statues but removes the predictive impediment ability. Breaking the control panel prevents the trap from resetting.</p>",
             "isComplex": true,
             "level": {
                 "value": 14
@@ -65,149 +193,11 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "magical",
-                    "mechanical"
-                ]
-            }
+            "value": [
+                "magical",
+                "mechanical"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "pNlE1um147bT0E6P",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature enters a square adjacent to a statue</p>\n<hr />\n<p><strong>Effect</strong> The trap makes a statue shortsword Strike against the triggering creature, activates its predictive impediment ability, and then rolls initiative.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Animated Statues",
-            "sort": 100000,
-            "type": "action"
-        },
-        {
-            "_id": "x85871wfT5AGGHSb",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The statues continually slide around to bump into creatures and block their passage through the room. The first time on its turn that a creature attempts to move within the room, it must succeed at a @Check[type:reflex|dc:36] save or treat the entire room as difficult terrain for 1 round. On a critical failure, the creature is also knocked prone.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "divination"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Predictive Impediment",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "VyojjmuQFpZR3NHk",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": []
-                },
-                "bonus": {
-                    "value": 28
-                },
-                "damageRolls": {
-                    "ai6gplx5e9o56x26jzxh": {
-                        "damage": "2d10+10",
-                        "damageType": "slashing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "statue shortsword",
-            "sort": 300000,
-            "type": "melee"
-        }
-    ],
-    "name": "Supplicant Statues",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Supplicant Statues",
-        "width": 1
     },
     "type": "hazard"
 }

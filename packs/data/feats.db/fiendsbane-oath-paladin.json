@@ -1,6 +1,8 @@
 {
     "_id": "0NRIP8cDv9Opl5Ls",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Fiendsbane Oath (Paladin)",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -41,15 +42,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Fiendsbane Oath",
-                "predicate": {
-                    "all": [
-                        "fiendsbane-oath"
-                    ],
-                    "not": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "fiendsbane-oath",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "fiendsbane-not-master",
                 "value": 4
@@ -57,15 +58,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Fiendsbane Oath",
-                "predicate": {
-                    "all": [
-                        "fiendsbane-oath"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "fiendsbane-oath",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "fiendsbane-master",
                 "value": 6
@@ -83,7 +84,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Fiendsbane Oath (Paladin)",
     "type": "feat"
 }

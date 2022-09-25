@@ -1,15 +1,14 @@
-/**
- * Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43
- */
 import { CoinsPF2e } from "@item/physical/helpers";
 import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { getIncomeForLevel, TrainedProficiency } from "@scripts/macros/earn-income";
 import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { ZeroToFour } from "@module/data";
+import { OneToTen, ZeroToFour } from "@module/data";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { CheckRoll } from "@system/check/roll";
 import { ChatMessagePF2e } from "@module/chat-message";
+
+/** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */
 
 interface Costs {
     reductionPerDay: CoinsPF2e;
@@ -22,7 +21,7 @@ function calculateDaysToNoCost(costs: Costs): number {
     return Math.ceil((costs.itemPrice.copperValue - costs.materials.copperValue) / costs.reductionPerDay.copperValue);
 }
 
-function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
+async function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
     const rollData = item.getRollData();
 
     return {
@@ -36,7 +35,7 @@ function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
         lostMaterials: game.i18n.format("PF2E.Actions.Craft.Details.LostMaterials", {
             cost: costs.lostMaterials.toString(),
         }),
-        itemLink: game.pf2e.TextEditor.enrichHTML(item.link, { rollData }),
+        itemLink: await game.pf2e.TextEditor.enrichHTML(item.link, { rollData, async: true }),
     };
 }
 
@@ -51,7 +50,7 @@ function calculateCosts(
     const lostMaterials = new CoinsPF2e();
     const reductionPerDay = new CoinsPF2e();
 
-    const proficiency = skillRankToProficiency(actor.data.data.skills.cra.rank);
+    const proficiency = skillRankToProficiency(actor.system.skills.cra.rank);
     if (!proficiency) return null;
 
     if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {
@@ -92,12 +91,12 @@ export async function craftItem(
     infused?: boolean
 ): Promise<void> {
     const itemSource = item.toObject();
-    itemSource.data.quantity = itemQuantity;
+    itemSource.system.quantity = itemQuantity;
     const itemTraits = item.traits;
     if (infused && itemTraits.has("alchemical") && itemTraits.has("consumable")) {
-        const sourceTraits: string[] = itemSource.data.traits.value;
+        const sourceTraits: string[] = itemSource.system.traits.value;
         sourceTraits.push("infused");
-        itemSource.data.temporary = true;
+        itemSource.system.temporary = true;
     }
     const result = await actor.addToInventory(itemSource);
     if (!result) {
@@ -123,9 +122,11 @@ export async function craftSpellConsumable(
 ): Promise<void> {
     const consumableType = item.consumableType;
     if (!(consumableType === "scroll" || consumableType === "wand")) return;
-    const spellLevel = consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2);
+    const spellLevel = (
+        consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)
+    ) as OneToTen;
     const validSpells = actor.itemTypes.spell
-        .filter((spell) => spell.baseLevel <= spellLevel && !spell.isCantrip && !spell.isFocusSpell && !spell.isRitual)
+        .filter((s) => s.baseLevel <= spellLevel && !s.isCantrip && !s.isFocusSpell && !s.isRitual)
         .reduce((result, spell) => {
             result[spell.baseLevel] = [...(result[spell.baseLevel] || []), spell];
             return result;
@@ -163,9 +164,10 @@ export async function renderCraftingInline(
     item: PhysicalItemPF2e,
     roll: Rolled<CheckRoll>,
     quantity: number,
-    actor: ActorPF2e
+    actor: ActorPF2e,
+    free: boolean
 ): Promise<string | null> {
-    if (!(actor instanceof CharacterPF2e)) return null;
+    if (!actor.isOfType("character")) return null;
 
     const degreeOfSuccess = roll.data.degreeOfSuccess ?? 0;
     const costs = calculateCosts(item, quantity, actor, degreeOfSuccess);
@@ -175,10 +177,11 @@ export async function renderCraftingInline(
 
     return await renderTemplate("systems/pf2e/templates/chat/crafting-result.html", {
         daysForZeroCost: daysForZeroCost,
-        strings: prepStrings(costs, item),
+        strings: await prepStrings(costs, item),
         item,
         quantity,
         success: degreeOfSuccess > 1,
         criticalFailure: degreeOfSuccess === 0,
+        free: free,
     });
 }

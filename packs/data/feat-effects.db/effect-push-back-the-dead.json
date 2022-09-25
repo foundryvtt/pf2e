@@ -1,6 +1,8 @@
 {
     "_id": "OeZ0E1oUKyGPxPy0",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Push Back the Dead!",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>The creature gains a +2 circumstance bonus to saves against effects originating from undead.</p>"
@@ -17,18 +19,16 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "origin:trait:undead"
-                    ]
-                },
+                "predicate": [
+                    "origin:trait:undead"
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Lost Omens: Knights of Lastwall"
         },
         "start": {
             "initiative": null,
@@ -44,7 +44,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
-    "name": "Effect: Push Back the Dead!",
     "type": "effect"
 }

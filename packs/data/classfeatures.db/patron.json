@@ -1,6 +1,8 @@
 {
     "_id": "KPtF29AaeX2sJW0K",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+    "name": "Patron",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,12 +28,10 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.proficiencies.traditions.{actor|data.proficiencies.aliases.witch}.rank",
-                "predicate": {
-                    "all": [
-                        "class:witch"
-                    ]
-                },
+                "path": "system.proficiencies.traditions.{actor|system.proficiencies.aliases.witch}.rank",
+                "predicate": [
+                    "class:witch"
+                ],
                 "value": {
                     "brackets": [
                         {
@@ -55,17 +54,17 @@
                             "value": 4
                         }
                     ],
-                    "field": "actor|data.details.level.value"
+                    "field": "actor|system.details.level.value"
                 }
             },
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "label": "level 1 Witch feature",
+                    "predicate": [
                         "item:trait:witch",
                         "item:level:1"
-                    ],
-                    "label": "level 1 Witch feature"
+                    ]
                 },
                 "choices": [
                     {
@@ -94,6 +93,9 @@
                     },
                     {
                         "value": "Compendium.pf2e.classfeatures.Mosquito Witch Patron"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Pacts Patron"
                     }
                 ],
                 "key": "ChoiceSet",
@@ -115,7 +117,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
-    "name": "Patron",
     "type": "feat"
 }

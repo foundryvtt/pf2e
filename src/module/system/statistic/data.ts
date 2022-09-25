@@ -1,45 +1,42 @@
 import { ModifierPF2e, RawModifier } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { ZeroToFour } from "@module/data";
-import { RollNotePF2e } from "@module/notes";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { CheckType } from "@system/rolls";
 
 export interface StatisticCheckData {
     type: CheckType;
     label?: string;
-    adjustments?: DegreeOfSuccessAdjustment[];
-    modifiers?: ModifierPF2e[];
     /** Additional domains for fetching actor roll options */
     domains?: string[];
+    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    modifiers?: ModifierPF2e[];
 }
 
 export interface StatisticDifficultyClassData {
     base?: number;
-    modifiers?: ModifierPF2e[];
     /** Additional domains for fetching actor roll options */
     domains?: string[];
+    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    modifiers?: ModifierPF2e[];
 }
 
 /**
- * The base type for statistic data, which is used to build the actual statistic object.
- * In general, the statistic data should be available in document data, but the actual statistic object
- * does not have to be.
+ * Used to build the actual statistic object.
  */
-export interface BaseStatisticData {
+export interface StatisticData {
     /** An identifier such as "reflex" or "ac" or "deception" */
     slug: string;
     ability?: AbilityString;
-    rank?: ZeroToFour;
+    rank?: ZeroToFour | "untrained-level";
     label: string;
-    /** If given and rank is omitted, declares if the statistic is with proficiency */
+    /** If the actor is proficient with this statistic (rather than deriving from rank) */
     proficient?: boolean;
     check?: StatisticCheckData;
     dc?: StatisticDifficultyClassData;
-    modifiers?: ModifierPF2e[];
-    notes?: RollNotePF2e[];
     /** Base domains for fetching actor roll options */
     domains?: string[];
+    /** Any additional modifiers not already handled by fetching modifiers using domains as selectors */
+    modifiers?: ModifierPF2e[];
     /**
      * Any static roll options that should be added to the list of roll options.
      * This does not include actor, rank, or basic item roll options.
@@ -47,34 +44,28 @@ export interface BaseStatisticData {
     rollOptions?: string[];
 }
 
-export type StatisticDataWithCheck = BaseStatisticData & { check: StatisticCheckData };
-export type StatisticDataWithDC = BaseStatisticData & { dc: StatisticDifficultyClassData };
-/** The complete form of statistic data, able to do used to build a statistic for anything */
-export type StatisticData = StatisticDataWithCheck & StatisticDataWithDC;
-
 /** Defines view data for chat message and sheet rendering */
-export interface StatisticChatData<T extends BaseStatisticData = StatisticData> {
-    name: string;
-    check: T["check"] extends object
-        ? {
-              label: string;
-              mod: number;
-              breakdown: string;
-              map1: number;
-              map2: number;
-          }
-        : undefined;
-    dc: T["dc"] extends object
-        ? {
-              value: number;
-              breakdown: string;
-          }
-        : undefined;
+export interface StatisticChatData {
+    slug: string;
+    label: string;
+    rank: number | null;
+    check: {
+        label: string;
+        mod: number;
+        breakdown: string;
+        map1: number;
+        map2: number;
+    };
+    dc: {
+        value: number;
+        breakdown: string;
+    };
 }
 
-export interface StatisticCompatData {
+/** Data intended to be merged back into actor data (usually for token attribute/RE purposes) */
+export interface StatisticTraceData {
     slug: string;
-    name: string;
+    label: string;
     totalModifier: number;
     value: number;
     breakdown: string;

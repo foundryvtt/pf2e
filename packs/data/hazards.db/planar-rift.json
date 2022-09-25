@@ -1,6 +1,54 @@
 {
     "_id": "yM4G2LvMwvkIRx0G",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "K7Ya0U5jerfvH0vw",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Into the Great Beyond",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves within 10 feet of the rift.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature and all creatures within 30 feet of the rift are drawn into another plane. Each creature can attempt a @Check[type:reflex|dc:33] save to avoid this fate.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "conjuration",
+                        "occult",
+                        "teleportation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Planar Rift",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 10
@@ -22,7 +70,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A rift attempts to draw creatures into another plane (the GM chooses the specific plane).</p>",
-            "disable": "<p>Thievery DC 33 (master) to assemble a rift seal using objects strongly grounded to your plane, or <i>dispel magic </i>(7th level; counteract DC 31) to counteract the rift</p>",
+            "disable": "<p>@Check[type:thievery|dc:33|name:Assemble a Rift Seal|traits:action:disable-a-device] (master) to assemble a rift seal using objects strongly grounded to your plane, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (7th level; counteract DC 31) to counteract the rift</p>",
             "isComplex": false,
             "level": {
                 "value": 13
@@ -61,68 +109,10 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "magical"
-                ]
-            }
+            "value": [
+                "magical"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "K7Ya0U5jerfvH0vw",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature moves within 10 feet of the rift.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature and all creatures within 30 feet of the rift are drawn into another plane. Each creature can attempt a @Check[type:reflex|dc:33] save to avoid this fate.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "conjuration",
-                        "occult",
-                        "teleportation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Into the Great Beyond",
-            "sort": 100000,
-            "type": "action"
-        }
-    ],
-    "name": "Planar Rift",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Planar Rift",
-        "width": 1
     },
     "type": "hazard"
 }

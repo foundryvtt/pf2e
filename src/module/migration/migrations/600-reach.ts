@@ -6,7 +6,7 @@ export class Migration600Reach extends MigrationBase {
 
     override async updateItem(item: ItemSourcePF2e) {
         if (item.type === "ancestry") {
-            item.data.reach = 5;
+            item.system.reach = 5;
         }
     }
 }

@@ -19,18 +19,22 @@ export class Migration702REFormulasAtInstanceLevel extends MigrationBase {
             if (match === "@item.level.value") return "@item.level";
             if (/^@item\.[a-z]+$/.test(match)) return match;
             return match
-                .replace(/@item\.(?!data\b)/, "@item.data.data.")
-                .replace(/@(?!(?:item|actor|[A-Z]\w+))/, "@actor.data.data.");
+                .replace(/@item\.(?!data\b)/, "@item.system.")
+                .replace(/@(?!(?:item|actor|[A-Z]\w+))/, "@actor.system.");
         });
     }
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const rules: Array<RuleElementSource & { text?: string }> = itemSource.data.rules;
+        const rules: (RuleElementSource & { text?: string })[] = itemSource.system.rules;
         for (const rule of rules) {
             try {
                 if (typeof rule.value === "string") {
                     rule.value = this.raiseToInstanceLevel(rule.value);
-                } else if (isObject(rule.value) && "brackets" in rule.value && Array.isArray(rule.value.brackets)) {
+                } else if (
+                    isObject<Record<string, unknown>>(rule.value) &&
+                    "brackets" in rule.value &&
+                    Array.isArray(rule.value.brackets)
+                ) {
                     for (const bracket of rule.value.brackets) {
                         if (isObject<{ value: unknown }>(bracket) && typeof bracket.value === "string") {
                             bracket.value = this.raiseToInstanceLevel(bracket.value);

@@ -1,6 +1,8 @@
 {
     "_id": "udMXXjFirjARYr4p",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Ant Gnoll",
+    "system": {
         "ancestry": {
             "name": "Gnoll",
             "uuid": "Compendium.pf2e.ancestries.vxbQ1Yw4qwgjTzqo"
@@ -11,11 +13,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "deception"
-                    ]
-                },
+                "predicate": [
+                    "deception"
+                ],
                 "selector": "initiative",
                 "type": "circumstance",
                 "value": 1
@@ -23,11 +23,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Lying to Claim Innocence",
-                "predicate": {
-                    "all": [
-                        "action:lie"
-                    ]
-                },
+                "predicate": [
+                    "action:lie"
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
@@ -39,7 +37,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.dec.rank",
+                "path": "system.skills.dec.rank",
                 "value": 1
             }
         ],
@@ -52,7 +50,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/heritage.svg",
-    "name": "Ant Gnoll",
     "type": "heritage"
 }

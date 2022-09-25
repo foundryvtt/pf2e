@@ -1,6 +1,8 @@
 {
     "_id": "JvTSfyCkG70bmY7f",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Bloody Blows",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -29,14 +30,12 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        "unarmed"
-                    ],
-                    "not": [
-                        "nonlethal"
-                    ]
-                },
+                "predicate": [
+                    "unarmed",
+                    {
+                        "not": "nonlethal"
+                    }
+                ],
                 "selector": "strike-damage",
                 "text": "When you critically hit with a Strike using an unarmed attack that isn't nonlethal, the target takes @Localize[PF2E.PersistentDamage.Bleed1d4.success].",
                 "title": "{item|name}"
@@ -53,7 +52,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Bloody Blows",
     "type": "feat"
 }

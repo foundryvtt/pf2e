@@ -1,6 +1,8 @@
 {
     "_id": "8Jdw4yAzWYylGePS",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/torch.webp",
+    "name": "Torch",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
@@ -36,11 +38,9 @@
         "rules": [
             {
                 "key": "TokenLight",
-                "predicate": {
-                    "all": [
-                        "lit-torch"
-                    ]
-                },
+                "predicate": [
+                    "lit-torch"
+                ],
                 "value": {
                     "animation": {
                         "intensity": 4,
@@ -71,11 +71,9 @@
             {
                 "damageType": "fire",
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "lit-torch"
-                    ]
-                },
+                "predicate": [
+                    "lit-torch"
+                ],
                 "selector": "{item|_id}-damage",
                 "value": 1
             },
@@ -88,11 +86,9 @@
             },
             {
                 "key": "TokenEffectIcon",
-                "predicate": {
-                    "all": [
-                        "lit-torch"
-                    ]
-                },
+                "predicate": [
+                    "lit-torch"
+                ],
                 "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
             }
         ],
@@ -113,7 +109,5 @@
             "value": "L"
         }
     },
-    "img": "systems/pf2e/icons/equipment/adventuring-gear/torch.webp",
-    "name": "Torch",
     "type": "equipment"
 }

@@ -7,7 +7,7 @@ export class Migration606SignatureSpells extends MigrationBase {
 
     override async updateItem(item: ItemSourcePF2e) {
         if (item.type === "spellcastingEntry") {
-            const data: SpellcastingEntrySystemDataOld = item.data;
+            const data: SpellcastingEntrySystemDataOld = item.system;
             if (!data.signatureSpells) {
                 data.signatureSpells = {
                     value: [],

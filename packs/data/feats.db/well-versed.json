@@ -1,6 +1,8 @@
 {
     "_id": "iX5HEqRImhKzfPR2",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Well-Versed",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,15 +28,17 @@
             {
                 "key": "FlatModifier",
                 "label": "Well-Versed (vs. performative effects)",
-                "predicate": {
-                    "any": [
-                        "auditory",
-                        "illusion",
-                        "linguistic",
-                        "sonic",
-                        "visual"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "auditory",
+                            "illusion",
+                            "linguistic",
+                            "sonic",
+                            "visual"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -52,7 +55,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Well-Versed",
     "type": "feat"
 }

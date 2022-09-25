@@ -3,20 +3,20 @@
             <label class="player-number details-label" for="{{options.id}}-pfs-player-number">{{localize "PF2E.PFS.OrganizedPlayNumber"}}</label>
             <label class="character-number details-label" for="{{options.id}}-pfs-character-number">{{localize "PF2E.PFS.CharacterNumber"}}</label>
 
-            <input type="number" class="player-number details-input" id="{{options.id}}-pfs-player-number" name="data.pfs.playerNumber" value="{{data.pfs.playerNumber}}" min="10000" max="99999" placeholder="10000" />
+            <input type="number" class="player-number details-input" id="{{options.id}}-pfs-player-number" name="system.pfs.playerNumber" value="{{data.pfs.playerNumber}}" min="10000" max="99999" placeholder="10000" />
             <span class="dash">&ndash;</span>
-            <input type="number" class="character-number details-input" id="{{options.id}}-pfs-character-number" name="data.pfs.characterNumber" value="{{data.pfs.characterNumber}}" min="2001" max="9999" placeholder="2001" />
+            <input type="number" class="character-number details-input" id="{{options.id}}-pfs-character-number" name="system.pfs.characterNumber" value="{{data.pfs.characterNumber}}" min="2001" max="9999" placeholder="2001" />
     </section>
     <section class="level-bump">
         <label class="details-label" for="{{options.id}}-pfs-level-bump">{{localize "PF2E.PFS.LevelBump"}}</label>
         <div class="toggle{{#if data.pfs.levelBump}} enabled{{/if}}">
-            <input class="details-input" id="{{options.id}}-pfs-level-bump" name="data.pfs.levelBump" type="checkbox" {{checked data.pfs.levelBump}} />
+            <input class="details-input" id="{{options.id}}-pfs-level-bump" name="system.pfs.levelBump" type="checkbox" {{checked data.pfs.levelBump}} />
             <label for="{{options.id}}-pfs-level-bump"></label>
         </div>
     </section>
     <section class="faction">
         <label class="details-label" for="{{options.id}}-pfs-current-faction">{{localize "PF2E.PFS.CurrentFaction"}}</label>
-        <select id="{{options.id}}-pfs-current-faction" name="data.pfs.currentFaction" title="{{localize "PF2E.PFS.CurrentFaction"}}">
+        <select id="{{options.id}}-pfs-current-faction" name="system.pfs.currentFaction" title="{{localize "PF2E.PFS.CurrentFaction"}}">
             {{#select data.pfs.currentFaction}}
                 {{#each pfsFactions as |label key|}}
                     <option value="{{key}}">{{localize label}}</option>
@@ -29,7 +29,7 @@
         {{#each data.pfs.reputation as |rep faction|}}
             <div class="reputation">
                 <label for="{{@root.options.id}}-pfs-rep-{{faction}}">{{localize (add "PF2E.PFS.Factions." faction)}}:</label>
-                <input type="number" class="details-input small-input" id="{{@root.options.id}}-pfs-rep-{{faction}}" name="data.pfs.reputation.{{faction}}" value="{{rep}}" placeholder="0" />
+                <input type="number" class="details-input small-input" id="{{@root.options.id}}-pfs-rep-{{faction}}" name="system.pfs.reputation.{{faction}}" value="{{rep}}" placeholder="0" />
             </div>
         {{/each}}
         </div>

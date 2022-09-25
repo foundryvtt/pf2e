@@ -1,6 +1,8 @@
 {
     "_id": "JbJykktAYMR4BRav",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/energy-mutagen.webp",
+    "name": "Effect: Energy Mutagen (Greater)",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p><strong>Benefit</strong> You gain resistance 15 to the attuned energy type. Whenever you score a hit with a melee weapon, add 1d6 damage of the attuned energy type.</p>\n<p><strong>Drawback</strong> You gain weakness 5 to the other three energy types.</p>"
@@ -41,41 +43,41 @@
             },
             {
                 "key": "Weakness",
-                "predicate": {
-                    "not": [
-                        "energy-mutagen:acid"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "energy-mutagen:acid"
+                    }
+                ],
                 "type": "acid",
                 "value": 5
             },
             {
                 "key": "Weakness",
-                "predicate": {
-                    "not": [
-                        "energy-mutagen:cold"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "energy-mutagen:cold"
+                    }
+                ],
                 "type": "cold",
                 "value": 5
             },
             {
                 "key": "Weakness",
-                "predicate": {
-                    "not": [
-                        "energy-mutagen:electricity"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "energy-mutagen:electricity"
+                    }
+                ],
                 "type": "electricity",
                 "value": 5
             },
             {
                 "key": "Weakness",
-                "predicate": {
-                    "not": [
-                        "energy-mutagen:fire"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "energy-mutagen:fire"
+                    }
+                ],
                 "type": "fire",
                 "value": 5
             },
@@ -84,14 +86,12 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "weapon:melee"
-                    ],
-                    "not": [
-                        "unarmed"
-                    ]
-                },
+                "predicate": [
+                    "weapon:melee",
+                    {
+                        "not": "unarmed"
+                    }
+                ],
                 "selector": "strike-damage"
             },
             {
@@ -117,7 +117,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/energy-mutagen.webp",
-    "name": "Effect: Energy Mutagen (Greater)",
     "type": "effect"
 }

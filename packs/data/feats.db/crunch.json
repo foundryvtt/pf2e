@@ -1,6 +1,8 @@
 {
     "_id": "aOhZUMCn0o2ZMkdW",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Crunch",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -29,10 +30,16 @@
                 "override": {
                     "dieSize": "d8"
                 },
-                "selector": "bite-damage",
-                "traits": [
-                    "grapple"
-                ]
+                "selector": "jaws-damage"
+            },
+            {
+                "definition": [
+                    "weapon:jaws"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "grapple"
             }
         ],
         "source": {
@@ -46,7 +53,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Crunch",
     "type": "feat"
 }

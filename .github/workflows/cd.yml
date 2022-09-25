@@ -2,7 +2,7 @@ name: PF2e System CD
 
 on:
   workflow_dispatch:
-    branches: [release-v9]
+    branches: [release]
 
 jobs:
   release:
@@ -29,7 +29,6 @@ jobs:
         run: |
           SYSTEM_VERSION=$(grep -oP '(?<="version": ")[^"]+' dist/system.json | tr -d '\n')
           echo "systemVersion=$SYSTEM_VERSION" >> $GITHUB_ENV
-          perl -pi -e 's/(?<="version": )"([^"]+)"/"$1.$ENV{GITHUB_RUN_NUMBER}"/' dist/system.json
 
       - name: Zip Files
         working-directory: ./dist
@@ -39,22 +38,10 @@ jobs:
         id: create_version_release
         uses: ncipollo/release-action@v1
         with:
-          name: ${{ env.systemVersion }}.${{ github.run_number }}
+          name: ${{ env.systemVersion }}
           allowUpdates: false
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: './dist/system.json,./dist/pf2e.zip'
-          tag: ${{ env.systemVersion }}.${{ github.run_number }}
-
-      - name: Create Latest Release
-        id: create_latest_release
-        uses: ncipollo/release-action@v1
-        with:
-          name: Latest
-          allowUpdates: true
-          draft: false
-          prerelease: false
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: './dist/system.json,./dist/pf2e.zip'
-          tag: latest
+          tag: ${{ env.systemVersion }}

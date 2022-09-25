@@ -27,7 +27,7 @@ declare global {
         clear(): void;
     }
 
-    type BasePlaceableHUDData<T extends PlaceableObject> = T["document"]["data"]["_source"] & {
+    type BasePlaceableHUDData<T extends PlaceableObject> = T["document"]["_source"] & {
         id: string;
         classes: string;
         appId: number;

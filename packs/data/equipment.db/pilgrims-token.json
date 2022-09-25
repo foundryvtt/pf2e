@@ -1,6 +1,8 @@
 {
     "_id": "gwP3Uums2ApH6o9K",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Pilgrim's Token",
+    "system": {
         "baseItem": null,
         "containerId": "null",
         "description": {
@@ -35,10 +37,10 @@
         "quantity": 1,
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "data.attributes.initiative.tiebreakPriority",
-                "value": 0
+                "domain": "all",
+                "key": "RollOption",
+                "option": "has-pilgrims-token",
+                "requiresEquipped": false
             }
         ],
         "size": "med",
@@ -52,13 +54,11 @@
             "value": []
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worn"
         },
         "weight": {
             "value": "-"
         }
     },
-    "img": "systems/pf2e/icons/default-icons/equipment.svg",
-    "name": "Pilgrim's Token",
     "type": "equipment"
 }

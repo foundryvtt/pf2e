@@ -16,10 +16,7 @@ declare class Actors<TActor extends Actor> extends WorldCollection<TActor> {
      */
     get tokens(): Record<string, TActor | undefined>;
 
-    override fromCompendium(
-        document: TActor | TActor["data"]["_source"],
-        options?: FromCompendiumOptions
-    ): TActor["data"]["_source"];
+    override fromCompendium(document: TActor | TActor["_source"], options?: FromCompendiumOptions): TActor["_source"];
 
     /* -------------------------------------------- */
     /*  Sheet Registration Methods                  */

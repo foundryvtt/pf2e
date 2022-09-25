@@ -4,7 +4,7 @@ import { PredicatePF2e } from "@system/predication";
 
 class StrikeAttackTraits {
     static createAttackModifiers(strike: MeleePF2e): ModifierPF2e[] {
-        const traits = strike.data.data.traits.value;
+        const traits = strike.system.traits.value;
 
         const getLabel = (traitOrTag: string): string => {
             const traits: Record<string, string | undefined> = CONFIG.PF2E.weaponTraits;
@@ -19,7 +19,7 @@ class StrikeAttackTraits {
                         label: getLabel(trait),
                         modifier: 1,
                         type: MODIFIER_TYPE.CIRCUMSTANCE,
-                        predicate: new PredicatePF2e({ all: ["sweep-bonus"] }),
+                        predicate: new PredicatePF2e("sweep-bonus"),
                     });
                 }
                 case "backswing": {
@@ -27,7 +27,7 @@ class StrikeAttackTraits {
                         label: getLabel(trait),
                         modifier: 1,
                         type: MODIFIER_TYPE.CIRCUMSTANCE,
-                        predicate: new PredicatePF2e({ all: ["backswing-bonus"] }),
+                        predicate: new PredicatePF2e("backswing-bonus"),
                     });
                 }
                 default:

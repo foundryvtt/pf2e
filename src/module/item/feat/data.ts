@@ -3,8 +3,9 @@ import {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
     Frequency,
+    FrequencySource,
     ItemLevelData,
-    ItemSystemData,
+    ItemSystemSource,
     ItemTraits,
 } from "@item/data/base";
 import { OneToThree } from "@module/data";
@@ -13,7 +14,8 @@ import { FEAT_TYPES } from "./values";
 
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;
 
-type FeatData = Omit<FeatSource, "effects" | "flags"> & BaseItemDataPF2e<FeatPF2e, "feat", FeatSystemData, FeatSource>;
+type FeatData = Omit<FeatSource, "system" | "effects" | "flags"> &
+    BaseItemDataPF2e<FeatPF2e, "feat", FeatSystemData, FeatSource>;
 
 export type FeatTrait = keyof ConfigPF2e["PF2E"]["featTraits"];
 export type FeatTraits = ItemTraits<FeatTrait>;
@@ -23,7 +25,7 @@ export interface PrerequisiteTagData {
     value: string;
 }
 
-export interface FeatSystemSource extends ItemSystemData, ItemLevelData {
+export interface FeatSystemSource extends ItemSystemSource, ItemLevelData {
     traits: FeatTraits;
     featType: {
         value: FeatType;
@@ -45,12 +47,13 @@ export interface FeatSystemSource extends ItemSystemData, ItemLevelData {
         value: PrerequisiteTagData[];
     };
     location: string | null;
+    frequency?: FrequencySource;
+}
+
+interface FeatSystemData extends Omit<FeatSystemSource, "maxTaken"> {
+    /** `null` is set to `Infinity` during data preparation */
+    maxTakable: number;
     frequency?: Frequency;
 }
 
-export interface FeatSystemData extends Omit<FeatSystemSource, "maxTaken"> {
-    /** `null` is set to `Infinity` during data preparation */
-    maxTakable: number;
-}
-
-export { FeatData, FeatSource };
+export { FeatData, FeatSource, FeatSystemData };

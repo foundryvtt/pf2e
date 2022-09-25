@@ -1,18 +1,19 @@
+import { ItemSummaryData } from "@item/data";
+import { PhysicalItemPF2e } from "@item/physical";
 import { LocalizePF2e } from "@module/system/localize";
 import { objectHasKey, sluggify } from "@util";
-import { PhysicalItemPF2e } from "../physical";
 import { EquipmentData, EquipmentTrait } from "./data";
 import { OtherEquipmentTag } from "./types";
 
 class EquipmentPF2e extends PhysicalItemPF2e {
     get otherTags(): Set<OtherEquipmentTag> {
-        return new Set(this.data.data.traits.otherTags);
+        return new Set(this.system.traits.otherTags);
     }
 
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.data.data.traits.otherTags ??= [];
+        this.system.traits.otherTags ??= [];
     }
 
     override prepareActorData(): void {
@@ -25,8 +26,11 @@ class EquipmentPF2e extends PhysicalItemPF2e {
         }
     }
 
-    override getChatData(this: Embedded<EquipmentPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
-        const data = this.data.data;
+    override async getChatData(
+        this: Embedded<EquipmentPF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
+        const data = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
         const properties = [this.isEquipped ? game.i18n.localize("PF2E.EquipmentEquippedLabel") : null].filter(
             (p) => p
@@ -40,7 +44,7 @@ class EquipmentPF2e extends PhysicalItemPF2e {
             ? "Book"
             : /\bring\b/.test(this.slug ?? "")
             ? "Ring"
-            : this.data.data.usage.value?.replace(/^worn/, "").capitalize() ?? "";
+            : this.system.usage.value?.replace(/^worn/, "").capitalize() ?? "";
 
         const itemType = objectHasKey(translations.UnidentifiedType, slotType)
             ? translations.UnidentifiedType[slotType]

@@ -1,6 +1,50 @@
 {
     "_id": "l3AqEkQwRJS8TY7f",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "MClpWaT5c8jTmcFK",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Flush",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Two or more creatures stand on the trapped spaces</p>\n<hr />\n<p><strong>Effect</strong> One round after the trap is triggered, all creatures in the room fall 40 feet down the shaft to area <strong>E36</strong>, taking [[/r {20}[bludgeoning]]]{20 bludgeoning damage} from the fall plus [[/r {2d6}[piercing]]]{2d6 piercing damage} as they land in the spiked pit.</p>\n<p>The creatures can @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge} to snag the hammock or one of the hanging storage containers to avoid falling.</p>\n<p>The DC to @Compendium[pf2e.actionspf2e.Climb]{Climb} the walls or Grab an Edge is 20.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Canopy Drop",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 20
@@ -22,7 +66,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A trapdoor, connected to floor sensors, opens in the section of floor marked on the map, while the surrounding floor suddenly tilts to a 45-degree angle and the fountains in the wall begin spraying at high pressure, making the tile slippery and pushing creatures toward the open chute.</p>",
-            "disable": "<p>DC 23 Thievery (expert) to jam the mechanisms and keep the trapdoor from opening, or to locate the bypass switch hidden under a stair riser just outside the room</p>",
+            "disable": "<p>@Check[type:thievery|dc:23|name:Jam Trapdoor Mechanism|traits:action:disable-a-device] (expert) to jam the mechanisms and keep the trapdoor from opening, or to locate the bypass switch hidden under a stair riser just outside the room</p>",
             "isComplex": false,
             "level": {
                 "value": 4
@@ -65,65 +109,11 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "mechanical",
-                    "trap"
-                ]
-            }
+            "value": [
+                "mechanical",
+                "trap"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "MClpWaT5c8jTmcFK",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Two or more creatures stand on the trapped spaces</p>\n<hr />\n<p><strong>Effect</strong> One round after the trap is triggered, all creatures in the room fall 40 feet down the shaft to area <strong>E36</strong>, taking [[/r {20}[bludgeoning]]]{20 bludgeoning damage} from the fall plus [[/r {2d6}[piercing]]]{2d6 piercing damage} as they land in the spiked pit.</p>\n<p>The creatures can @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge} to snag the hammock or one of the hanging storage containers to avoid falling.</p>\n<p>The DC to @Compendium[pf2e.actionspf2e.Climb]{Climb} the walls or Grab an Edge is 20.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Flush",
-            "sort": 100000,
-            "type": "action"
-        }
-    ],
-    "name": "Canopy Drop",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Canopy Drop",
-        "width": 1
     },
     "type": "hazard"
 }

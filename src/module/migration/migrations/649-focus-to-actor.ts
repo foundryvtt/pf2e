@@ -23,7 +23,7 @@ export class Migration649FocusToActor extends MigrationBase {
 
     override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         if (!isCreatureSource(actorData)) return;
-        const systemData: { resources: object } = actorData.data;
+        const systemData: { resources: object } = actorData.system;
         if (!systemData.resources) systemData.resources = {};
 
         // Focus points in descending order by max pool, and then "most recent".
@@ -31,13 +31,13 @@ export class Migration649FocusToActor extends MigrationBase {
         const spellLists = actorData.items
             .filter((i): i is SpellcastingEntrySource => i.type === "spellcastingEntry")
             .sort((a, b) => (a.sort || 0) - (b.sort || 0))
-            .map((i) => i.data as SpellcastingEntrySystemDataOld)
+            .map((i) => i.system as SpellcastingEntrySystemDataOld)
             .filter((i) => i.prepared.value === "focus" && i.focus)
             .sort((a, b) => (b.focus?.pool || 0) - (a.focus?.pool || 0));
 
         if (spellLists.length === 0) return;
         const focusOld = spellLists[0].focus;
-        actorData.data.resources.focus = {
+        actorData.system.resources.focus = {
             value: focusOld?.points ?? 0,
             max: focusOld?.pool ?? 1,
         };
@@ -45,7 +45,7 @@ export class Migration649FocusToActor extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type !== "spellcastingEntry") return;
-        const data: SpellcastingEntrySystemDataOld = itemData.data;
+        const data: SpellcastingEntrySystemDataOld = itemData.system;
         delete data.focus;
         if ("game" in globalThis) {
             data["-=focus"] = null;

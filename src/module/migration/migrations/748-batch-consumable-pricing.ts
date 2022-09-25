@@ -9,12 +9,12 @@ export class Migration748BatchConsumablePricing extends MigrationBase {
     override async updateItem(item: ItemSourcePF2e) {
         if (!isPhysicalData(item)) return;
 
-        const slug = item.data.slug ?? sluggify(item.name);
+        const slug = item.system.slug ?? sluggify(item.name);
         if (batched_5.has(slug)) {
-            item.data.price.per = 5;
+            item.system.price.per = 5;
         }
         if (batched_10.has(slug)) {
-            item.data.price.per = 10;
+            item.system.price.per = 10;
         }
     }
 }

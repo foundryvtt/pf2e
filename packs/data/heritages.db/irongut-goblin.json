@@ -1,6 +1,8 @@
 {
     "_id": "gyoN45SVfRZwHMkk",
-    "data": {
+    "img": "systems/pf2e/icons/features/ancestry/irongut-goblin.webp",
+    "name": "Irongut Goblin",
+    "system": {
         "ancestry": {
             "name": "Goblin",
             "uuid": "Compendium.pf2e.ancestries.sQfjTMDaZbT9DThq"
@@ -12,30 +14,30 @@
             {
                 "key": "FlatModifier",
                 "label": "Irongut Goblin (vs. afflictions & sickened)",
-                "predicate": {
-                    "all": [
-                        "ingested"
-                    ],
-                    "any": [
-                        "affliction",
-                        "sickened"
-                    ]
-                },
+                "predicate": [
+                    "ingested",
+                    {
+                        "or": [
+                            "affliction",
+                            "sickened"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "ingested"
-                    ],
-                    "any": [
-                        "affliction",
-                        "sickened"
-                    ]
-                },
+                "predicate": [
+                    "ingested",
+                    {
+                        "or": [
+                            "affliction",
+                            "sickened"
+                        ]
+                    }
+                ],
                 "selector": "fortitude",
                 "text": "If you roll a success on a save against an ingested affliction or to avoid gaining the sickened condition, treat it as a critical success",
                 "title": "{item|name}"
@@ -50,7 +52,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/ancestry/irongut-goblin.webp",
-    "name": "Irongut Goblin",
     "type": "heritage"
 }

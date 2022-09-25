@@ -1,6 +1,8 @@
 {
     "_id": "6v4Rj7wWfOH1882r",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/flurry.webp",
+    "name": "Flurry",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,32 +21,27 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "agile",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "agile",
+                    "hunted-prey"
+                ],
                 "selector": "attack",
                 "value": -2
             },
             {
                 "key": "MultipleAttackPenalty",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ],
-                    "not": [
-                        "agile"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "not": "agile"
+                    }
+                ],
                 "selector": "attack",
                 "value": -3
             }
@@ -60,7 +57,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/flurry.webp",
-    "name": "Flurry",
     "type": "feat"
 }

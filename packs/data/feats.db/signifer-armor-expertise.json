@@ -1,6 +1,8 @@
 {
     "_id": "wDo5dsSmyJqfmPgj",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Signifer Armor Expertise",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 12
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -31,47 +32,51 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.medium.rank",
+                "path": "system.martial.medium.rank",
                 "phase": "beforeDerived",
-                "predicate": {
-                    "any": [
-                        {
-                            "gte": [
-                                "defense:light:rank",
-                                2
-                            ]
-                        },
-                        {
-                            "gte": [
-                                "defense:unarmored:rank",
-                                2
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "gte": [
+                                    "defense:light:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "gte": [
+                                    "defense:unarmored:rank",
+                                    2
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.heavy.rank",
+                "path": "system.martial.heavy.rank",
                 "phase": "beforeDerived",
-                "predicate": {
-                    "any": [
-                        {
-                            "gte": [
-                                "defense:light:rank",
-                                2
-                            ]
-                        },
-                        {
-                            "gte": [
-                                "defense:unarmored:rank",
-                                2
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "gte": [
+                                    "defense:light:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "gte": [
+                                    "defense:unarmored:rank",
+                                    2
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "value": 2
             }
         ],
@@ -86,7 +91,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Signifer Armor Expertise",
     "type": "feat"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "35k2aujXYvqUCSS1",
-    "data": {
+    "img": "systems/pf2e/icons/features/ancestry/cavern-kobold.webp",
+    "name": "Cavern Kobold",
+    "system": {
         "ancestry": {
             "name": "Kobold",
             "uuid": "Compendium.pf2e.ancestries.7oQxL6wgsokD3QXG"
@@ -11,23 +13,19 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "action:climb",
-                        "natural-stone"
-                    ]
-                },
+                "predicate": [
+                    "action:climb",
+                    "natural-stone"
+                ],
                 "selector": "athletics",
                 "text": "When you climb natural stone, you move at half your Speed on a success, and full speed on a critical success.",
                 "title": "{item|name}"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "action:squeeze"
-                    ]
-                },
+                "predicate": [
+                    "action:squeeze"
+                ],
                 "selector": "acrobatics",
                 "text": "When you roll a success to Squeeze, you get a critical success instead.",
                 "title": "{item|name}"
@@ -37,11 +35,9 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "action:squeeze"
-                    ]
-                },
+                "predicate": [
+                    "action:squeeze"
+                ],
                 "selector": "acrobatics",
                 "type": "skill"
             }
@@ -55,7 +51,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/ancestry/cavern-kobold.webp",
-    "name": "Cavern Kobold",
     "type": "heritage"
 }

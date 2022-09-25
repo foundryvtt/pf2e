@@ -1,6 +1,8 @@
 {
     "_id": "8Mo0fKRAz1TVbrr1",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Catfolk Weapon Rake",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -30,16 +31,18 @@
         "rules": [
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:trait:catfolk",
-                        "weapon:base:hatchet",
-                        "weapon:base:kama",
-                        "weapon:base:kukri",
-                        "weapon:base:scimitar",
-                        "weapon:base:sickle"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:trait:catfolk",
+                            "weapon:base:hatchet",
+                            "weapon:base:kama",
+                            "weapon:base:kukri",
+                            "weapon:base:scimitar",
+                            "weapon:base:sickle"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {
@@ -53,7 +56,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Catfolk Weapon Rake",
     "type": "feat"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "WVU0c8rgcpGSRqSi",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Barbarian Dedication",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -34,17 +35,15 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "data.custom.modifiers.barbarian-dedication-count",
+                "path": "system.custom.modifiers.barbarian-dedication-count",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ]
-                },
+                "predicate": [
+                    "rage"
+                ],
                 "selector": "ac",
                 "slug": "dedication-rage",
                 "value": -1
@@ -52,16 +51,16 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "agile",
-                        "ranged",
-                        "instinct-ability"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    {
+                        "nor": [
+                            "agile",
+                            "ranged",
+                            "instinct-ability"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "dedication-rage",
                 "value": 2
@@ -69,16 +68,16 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile"
-                    ],
-                    "not": [
-                        "ranged",
-                        "instinct-ability"
-                    ]
-                },
+                "predicate": [
+                    "rage",
+                    "agile",
+                    {
+                        "nor": [
+                            "ranged",
+                            "instinct-ability"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "dedication-rage-agile",
                 "value": 1
@@ -111,7 +110,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Barbarian Dedication",
     "type": "feat"
 }

@@ -4,7 +4,7 @@ import { SaveType } from "@actor/types";
 import { SAVE_TYPES } from "@actor/values";
 import { ItemType } from "@item/data";
 import { Rarity } from "@module/data";
-import { extractModifiers, extractNotes } from "@module/rules/util";
+import { extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 import { HazardData } from "./data";
 
@@ -14,11 +14,11 @@ export class HazardPF2e extends ActorPF2e {
     }
 
     get rarity(): Rarity {
-        return this.data.data.traits.rarity;
+        return this.system.traits.rarity;
     }
 
     get isComplex(): boolean {
-        return this.data.data.details.isComplex;
+        return this.system.details.isComplex;
     }
 
     /** Minimal check since the disabled status of a hazard isn't logged */
@@ -26,10 +26,17 @@ export class HazardPF2e extends ActorPF2e {
         return this.itemTypes.melee.length > 0;
     }
 
+    override get emitsSound(): boolean {
+        const { emitsSound } = this.system.attributes;
+        return !this.isDead && typeof emitsSound === "boolean"
+            ? emitsSound
+            : !!game.combats.active?.started && game.combats.active.combatants.some((c) => c.actor === this);
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        const { attributes, details } = this.data.data;
+        const { attributes, details } = this.system;
         attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
 
         attributes.hp.negativeHealing = false;
@@ -41,20 +48,20 @@ export class HazardPF2e extends ActorPF2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const { data } = this.data;
+        const { system } = this;
 
         this.prepareSynthetics();
 
         // Armor Class
         {
-            const base = data.attributes.ac.value;
+            const base = system.attributes.ac.value;
             const domains = ["ac", "dex-based", "all"];
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),
                 ...extractModifiers(this.synthetics, domains, { test: this.getRollOptions(domains) }),
             ];
 
-            const stat = mergeObject(new StatisticModifier("ac", modifiers), data.attributes.ac, {
+            const stat = mergeObject(new StatisticModifier("ac", modifiers), system.attributes.ac, {
                 overwrite: false,
             });
             stat.base = base;
@@ -64,19 +71,18 @@ export class HazardPF2e extends ActorPF2e {
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
 
-            data.attributes.ac = stat;
+            system.attributes.ac = stat;
         }
 
         this.saves = this.prepareSaves();
     }
 
     protected prepareSaves(): { [K in SaveType]?: Statistic } {
-        const data = this.data.data;
-        const { rollNotes } = this.synthetics;
+        const { system } = this;
 
         // Saving Throws
         return SAVE_TYPES.reduce((saves: { [K in SaveType]?: Statistic }, saveType) => {
-            const save = data.saves[saveType];
+            const save = system.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
             const ability = CONFIG.PF2E.savingThrowDefaultAbilities[saveType];
@@ -89,7 +95,6 @@ export class HazardPF2e extends ActorPF2e {
             const stat = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
-                notes: extractNotes(rollNotes, selectors),
                 domains: selectors,
                 modifiers: [
                     new ModifierPF2e("PF2E.BaseModifier", base, MODIFIER_TYPE.UNTYPED),
@@ -98,10 +103,9 @@ export class HazardPF2e extends ActorPF2e {
                 check: {
                     type: "saving-throw",
                 },
-                dc: {},
             });
 
-            mergeObject(this.data.data.saves[saveType], stat.getCompatData());
+            mergeObject(this.system.saves[saveType], stat.getTraceData());
 
             saves[saveType] = stat;
             return saves;

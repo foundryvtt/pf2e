@@ -1,6 +1,8 @@
 {
     "_id": "ltIvO9ZQlmqGD89Y",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/outwit.webp",
+    "name": "Effect: Hunter's Edge, Outwit",
+    "system": {
         "description": {
             "value": "<p>Granted when a ranger shares their @Compendium[pf2e.classfeatures.Outwit]{Outwit} edge with you.</p>\n<p>You gain a +2 circumstance bonus to Deception checks, Intimidation checks, Stealth checks, and any checks to Recall Knowledge about the prey, and a +1 circumstance bonus to AC against your prey's attacks.</p>"
         },
@@ -24,12 +26,10 @@
             {
                 "key": "FlatModifier",
                 "label": "To Seek hunted prey",
-                "predicate": {
-                    "all": [
-                        "action:seek",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    "hunted-prey"
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": 2
@@ -37,12 +37,10 @@
             {
                 "key": "FlatModifier",
                 "label": "To Track hunted prey",
-                "predicate": {
-                    "all": [
-                        "action:track",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:track",
+                    "hunted-prey"
+                ],
                 "selector": "survival",
                 "type": "circumstance",
                 "value": 2
@@ -50,11 +48,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Vs. hunted prey",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey"
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 2
@@ -62,11 +58,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Vs. hunted prey",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey"
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": 2
@@ -74,11 +68,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Vs. hunted prey",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey"
+                ],
                 "selector": "stealth",
                 "type": "circumstance",
                 "value": 2
@@ -86,12 +78,10 @@
             {
                 "key": "FlatModifier",
                 "label": "Recall knowledge on hunted prey",
-                "predicate": {
-                    "all": [
-                        "action:recall-knowledge",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:recall-knowledge",
+                    "hunted-prey"
+                ],
                 "selector": "skill-check",
                 "type": "circumstance",
                 "value": 2
@@ -99,18 +89,16 @@
             {
                 "key": "FlatModifier",
                 "label": "Vs. attacks from hunted prey",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey"
+                ],
                 "selector": "ac",
                 "type": "circumstance",
                 "value": 1
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -126,7 +114,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/classes/outwit.webp",
-    "name": "Effect: Hunter's Edge, Outwit",
     "type": "effect"
 }

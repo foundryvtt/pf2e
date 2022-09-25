@@ -17,7 +17,7 @@ declare module foundry {
          * @property effects      A Collection of ActiveEffect embedded Documents
          * @property folder       The _id of a Folder which contains this Actor
          * @property [sort]       The numeric sort value which orders this Actor relative to its siblings
-         * @property [permission] An object which configures user permissions to this Actor
+         * @property [ownership] An object which configures user permissions to this Actor
          * @property [flags={}]   An object of optional key/value flags
          */
         interface ActorSource<
@@ -29,13 +29,13 @@ declare module foundry {
             name: string;
             type: TType;
             img: ImagePath;
-            data: TSystemSource;
-            token: PrototypeTokenSource;
+            system: TSystemSource;
+            prototypeToken: PrototypeTokenSource;
             items: TItemSource[];
             effects: ActiveEffectSource[];
             folder: string | null;
             sort: number;
-            permission: Record<string, PermissionLevel>;
+            ownership: Record<string, PermissionLevel>;
             flags: ActorFlags;
         }
 
@@ -46,17 +46,11 @@ declare module foundry {
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
 
-            /** The default icon used for newly created Actor documents */
-            static DEFAULT_ICON: ImagePath;
-
             /** A Collection of ActiveEffect embedded Documents */
             effects: abstract.EmbeddedCollection<TActiveEffect>;
 
             /** A Collection of Item embedded Documents */
             items: abstract.EmbeddedCollection<TItem>;
-
-            /** Default Token settings that are used for Tokens created from this Actor **/
-            token: PrototypeTokenData;
 
             protected override _initializeSource(data: ActorSource): this["_source"];
 
@@ -67,7 +61,7 @@ declare module foundry {
             TDocument extends documents.BaseActor,
             TActiveEffect extends documents.BaseActiveEffect,
             TItem extends documents.BaseItem
-        > extends Omit<ActorSource, "effects" | "items" | "token"> {
+        > extends Omit<ActorSource, "effects" | "flags" | "items" | "token"> {
             readonly _source: ActorSource;
         }
 

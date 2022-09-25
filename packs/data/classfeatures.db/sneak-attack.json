@@ -1,6 +1,8 @@
 {
     "_id": "j1JE61quDxdge4mg",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/sneak-attack.webp",
+    "name": "Sneak Attack",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -28,26 +29,24 @@
                 "category": "precision",
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "class:rogue",
-                        "target:condition:flat-footed",
-                        {
-                            "or": [
-                                "weapon:trait:finesse",
-                                "weapon:trait:agile",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "class:rogue",
+                    "target:condition:flat-footed",
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse",
+                            {
+                                "and": [
+                                    "weapon:ranged",
+                                    {
+                                        "not": "weapon:thrown-melee"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -82,7 +81,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",
@@ -92,7 +91,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/sneak-attack.webp",
-    "name": "Sneak Attack",
     "type": "feat"
 }

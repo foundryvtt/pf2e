@@ -1,6 +1,8 @@
 {
     "_id": "X7RD0JRxhJV9u2LC",
-    "data": {
+    "img": "systems/pf2e/icons/spells/disrupting-weapons.webp",
+    "name": "Spell Effect: Disrupting Weapons",
+    "system": {
         "description": {
             "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Disrupting Weapons]{Disrupting Weapons}</em>.</p>\n<p>You infuse weapons with positive energy. Attacks with these weapons deal an extra 1d4 positive damage to undead.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The damage increases to 2d4 damage.</p>\n<p><strong>Heightened (5th)</strong> Target up to three weapons, and the damage increases to 3d4 damage.</p>"
         },
@@ -17,11 +19,9 @@
             {
                 "choices": {
                     "ownedItems": true,
-                    "predicate": {
-                        "all": [
-                            "item:equipped"
-                        ]
-                    },
+                    "predicate": [
+                        "item:equipped"
+                    ],
                     "types": [
                         "weapon"
                     ]
@@ -40,12 +40,14 @@
                 "damageType": "positive",
                 "dieSize": "d4",
                 "key": "DamageDice",
-                "predicate": {
-                    "any": [
-                        "disrupting-weapons",
-                        "target:trait:undead"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disrupting-weapons",
+                            "target:trait:undead"
+                        ]
+                    }
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.spellEffectDisruptingWeapons}-damage",
                 "value": {
                     "brackets": [
@@ -69,12 +71,12 @@
                             }
                         }
                     ],
-                    "field": "item|data.level.value"
+                    "field": "item|system.level.value"
                 }
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -90,7 +92,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/disrupting-weapons.webp",
-    "name": "Spell Effect: Disrupting Weapons",
     "type": "effect"
 }

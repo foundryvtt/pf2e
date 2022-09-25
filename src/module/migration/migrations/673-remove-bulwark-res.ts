@@ -1,7 +1,8 @@
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
-import { sluggify } from "@util";
+import { isObject, sluggify } from "@util";
 import { RuleElementSource } from "@module/rules";
+import { PredicateStatement } from "@system/predication";
 
 /** Remove bulwark armor rule elements */
 export class Migration673RemoveBulwarkREs extends MigrationBase {
@@ -9,24 +10,29 @@ export class Migration673RemoveBulwarkREs extends MigrationBase {
 
     private hasRuleElement(rules: RuleElementSource[]): boolean {
         return rules.some(
-            (rule) => rule.key?.endsWith("FlatModifier") && rule.predicate?.all?.includes("self:armor:trait:bulwark")
+            (r) =>
+                typeof r.key === "string" &&
+                r.key.endsWith("FlatModifier") &&
+                isObject<OldRawPredicate>(r.predicate) &&
+                !!r.predicate.all?.includes("self:armor:trait:bulwark")
         );
     }
 
     override async updateItem(item: ItemSourcePF2e): Promise<void> {
-        const { rules } = item.data;
+        const { rules } = item.system;
         if (item.type === "armor") {
             const index = rules.findIndex(
                 (rule: RESourceWithAbility) =>
-                    rule.key?.endsWith("FlatModifier") &&
+                    typeof rule.key === "string" &&
+                    rule.key.endsWith("FlatModifier") &&
                     rule.selector === "reflex" &&
                     rule.type === "ability" &&
-                    /bulwark/i.test(rule.label ?? "")
+                    /bulwark/i.test(String(rule.label ?? ""))
             );
             if (index !== -1) rules.splice(index);
         }
 
-        const slug = item.data.slug ?? sluggify(item.name);
+        const slug = item.system.slug ?? sluggify(item.name);
         if (item.type === "feat" && slug === "mighty-bulwark" && !this.hasRuleElement(rules)) {
             const newRules = [
                 {
@@ -48,5 +54,12 @@ export class Migration673RemoveBulwarkREs extends MigrationBase {
 }
 
 interface RESourceWithAbility extends RuleElementSource {
+    selector?: string;
     type?: string;
+}
+
+interface OldRawPredicate {
+    all?: PredicateStatement[];
+    any?: PredicateStatement[];
+    not?: PredicateStatement[];
 }

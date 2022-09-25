@@ -1,7 +1,4 @@
-@import "legacy";
-
-// Dev Hazard Sheet
-.sheet.hazard:not(.pf2e) {
+.sheet.hazard {
     ul, ol {
         @include p-reset;
         list-style-type: none;
@@ -16,6 +13,14 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+
+        .tagify > span {
+            min-width: 20px;
+        }
+
+        .tagify--hasMaxTags > span {
+            display: none;
+        }
     }
 
     .window-content {
@@ -48,7 +53,7 @@
         padding-left: 5px;
         padding-right: 5px;
         padding: 0 5px 20px 5px;
-        overflow-y: auto;
+        @include scrollbar;
     }
 
     @import "header", "sidebar", "actions";

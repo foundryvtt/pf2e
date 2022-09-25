@@ -1,5 +1,5 @@
-import { earnIncome } from "../../src/scripts/macros/earn-income";
-import { DegreeOfSuccess } from "../../src/module/system/degree-of-success";
+import { calculateDC, earnIncome } from "@scripts/macros/earn-income/calculate";
+import { DegreeOfSuccess } from "@system/degree-of-success";
 
 const options = {
     useLoreAsExperiencedProfessional: false,
@@ -11,7 +11,18 @@ const dcOptions = {
 
 describe("earn income", () => {
     test("should earn a crit failure", () => {
-        expect(earnIncome(1, 1, { dieValue: 1, modifier: 13 }, "trained", options, dcOptions)).toEqual({
+        const level = 1;
+        const dc = calculateDC(level, dcOptions);
+        expect(
+            earnIncome({
+                level,
+                days: 1,
+                rollBrief: { dieValue: 1, modifier: 13 },
+                proficiency: "trained",
+                options,
+                dc,
+            })
+        ).toMatchObject({
             rewards: { combined: {}, perDay: {} },
             degreeOfSuccess: DegreeOfSuccess.CRITICAL_FAILURE,
             daysSpentWorking: 1,
@@ -22,26 +33,22 @@ describe("earn income", () => {
     });
 
     test("crit failures for using lores as an experienced professional should become a failure", () => {
+        const level = 1;
+        const dc = calculateDC(level, dcOptions);
+
         expect(
-            earnIncome(
-                1,
-                1,
-                {
-                    dieValue: 1,
-                    modifier: 13,
-                },
-                "expert",
-                { useLoreAsExperiencedProfessional: true },
-                dcOptions
-            )
-        ).toEqual({
+            earnIncome({
+                level,
+                days: 1,
+                rollBrief: { dieValue: 1, modifier: 13 },
+                proficiency: "expert",
+                options: { useLoreAsExperiencedProfessional: true },
+                dc,
+            })
+        ).toMatchObject({
             rewards: {
-                combined: {
-                    cp: 2,
-                },
-                perDay: {
-                    cp: 2,
-                },
+                combined: { cp: 2 },
+                perDay: { cp: 2 },
             },
             degreeOfSuccess: DegreeOfSuccess.FAILURE,
             daysSpentWorking: 1,
@@ -52,19 +59,19 @@ describe("earn income", () => {
     });
 
     test("using lores as an experienced professional should earn double failure income", () => {
+        const level = 1;
+        const dc = calculateDC(level, dcOptions);
+
         expect(
-            earnIncome(
-                1,
-                1,
-                {
-                    dieValue: 2,
-                    modifier: 12,
-                },
-                "expert",
-                { useLoreAsExperiencedProfessional: true },
-                dcOptions
-            )
-        ).toEqual({
+            earnIncome({
+                level,
+                days: 1,
+                rollBrief: { dieValue: 2, modifier: 12 },
+                proficiency: "expert",
+                options: { useLoreAsExperiencedProfessional: true },
+                dc,
+            })
+        ).toMatchObject({
             rewards: {
                 combined: {
                     cp: 4,
@@ -82,15 +89,20 @@ describe("earn income", () => {
     });
 
     test("should earn failure", () => {
-        expect(earnIncome(1, 1, { dieValue: 13, modifier: 1 }, "legendary", options, dcOptions)).toEqual({
-            rewards: {
-                combined: {
-                    cp: 2,
-                },
-                perDay: {
-                    cp: 2,
-                },
-            },
+        const level = 1;
+        const dc = calculateDC(level, dcOptions);
+
+        expect(
+            earnIncome({
+                level,
+                days: 1,
+                rollBrief: { dieValue: 13, modifier: 1 },
+                proficiency: "legendary",
+                options,
+                dc,
+            })
+        ).toMatchObject({
+            rewards: { combined: { cp: 2 }, perDay: { cp: 2 } },
             degreeOfSuccess: DegreeOfSuccess.FAILURE,
             daysSpentWorking: 1,
             level: 1,
@@ -100,14 +112,21 @@ describe("earn income", () => {
     });
 
     test("should earn a success", () => {
-        expect(earnIncome(1, 1, { dieValue: 13, modifier: 2 }, "legendary", options, dcOptions)).toEqual({
+        const level = 1;
+        const dc = calculateDC(level, dcOptions);
+        expect(
+            earnIncome({
+                level,
+                days: 1,
+                rollBrief: { dieValue: 13, modifier: 2 },
+                proficiency: "legendary",
+                options,
+                dc,
+            })
+        ).toMatchObject({
             rewards: {
-                combined: {
-                    sp: 2,
-                },
-                perDay: {
-                    sp: 2,
-                },
+                combined: { sp: 2 },
+                perDay: { sp: 2 },
             },
             degreeOfSuccess: DegreeOfSuccess.SUCCESS,
             daysSpentWorking: 1,
@@ -118,14 +137,21 @@ describe("earn income", () => {
     });
 
     test("should earn a success for 5 days", () => {
-        expect(earnIncome(1, 5, { dieValue: 13, modifier: 2 }, "legendary", options, dcOptions)).toEqual({
+        const level = 1;
+        const dc = calculateDC(level, dcOptions);
+        expect(
+            earnIncome({
+                level,
+                days: 5,
+                rollBrief: { dieValue: 13, modifier: 2 },
+                proficiency: "legendary",
+                options,
+                dc,
+            })
+        ).toMatchObject({
             rewards: {
-                combined: {
-                    sp: 10,
-                },
-                perDay: {
-                    sp: 2,
-                },
+                combined: { sp: 10 },
+                perDay: { sp: 2 },
             },
             degreeOfSuccess: DegreeOfSuccess.SUCCESS,
             daysSpentWorking: 5,
@@ -136,14 +162,21 @@ describe("earn income", () => {
     });
 
     test("should earn a critical success", () => {
-        expect(earnIncome(20, 1, { dieValue: 20, modifier: 20 }, "legendary", options, dcOptions)).toEqual({
+        const level = 20;
+        const dc = calculateDC(level, dcOptions);
+        expect(
+            earnIncome({
+                level,
+                days: 1,
+                rollBrief: { dieValue: 20, modifier: 20 },
+                proficiency: "legendary",
+                options,
+                dc,
+            })
+        ).toMatchObject({
             rewards: {
-                combined: {
-                    gp: 300,
-                },
-                perDay: {
-                    gp: 300,
-                },
+                combined: { gp: 300 },
+                perDay: { gp: 300 },
             },
             degreeOfSuccess: DegreeOfSuccess.CRITICAL_SUCCESS,
             daysSpentWorking: 1,
@@ -154,26 +187,21 @@ describe("earn income", () => {
     });
 
     test("should earn a critical success with variant proficiency without level", () => {
+        const level = 20;
+        const dc = calculateDC(level, { proficiencyWithoutLevel: true });
         expect(
-            earnIncome(
-                20,
-                1,
-                {
-                    dieValue: 20,
-                    modifier: 0,
-                },
-                "legendary",
+            earnIncome({
+                level: 20,
+                days: 1,
+                rollBrief: { dieValue: 20, modifier: 0 },
+                proficiency: "legendary",
                 options,
-                { proficiencyWithoutLevel: true }
-            )
-        ).toEqual({
+                dc,
+            })
+        ).toMatchObject({
             rewards: {
-                combined: {
-                    gp: 300,
-                },
-                perDay: {
-                    gp: 300,
-                },
+                combined: { gp: 300 },
+                perDay: { gp: 300 },
             },
             degreeOfSuccess: DegreeOfSuccess.CRITICAL_SUCCESS,
             daysSpentWorking: 1,

@@ -1,6 +1,8 @@
 {
     "_id": "RkofVX55ciXZyfAA",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/shootists-edge.webp",
+    "name": "Shootist's Edge",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 17
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -27,7 +28,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.attributes.classDC.rank",
+                "path": "system.proficiencies.classDCs.gunslinger.rank",
                 "value": 3
             },
             {
@@ -35,20 +36,18 @@
                 "key": "RollOption",
                 "option": "ignore-range-penalty:3",
                 "phase": "beforeRoll",
-                "predicate": {
-                    "all": [
-                        {
-                            "gte": [
-                                "weapon:proficiency:rank",
-                                3
-                            ]
-                        }
-                    ]
-                }
+                "predicate": [
+                    {
+                        "gte": [
+                            "weapon:proficiency:rank",
+                            3
+                        ]
+                    }
+                ]
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",
@@ -58,7 +57,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/shootists-edge.webp",
-    "name": "Shootist's Edge",
     "type": "feat"
 }

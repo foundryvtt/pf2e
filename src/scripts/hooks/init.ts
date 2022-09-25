@@ -3,29 +3,27 @@ import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@mod
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
 import {
     AmbientLightPF2e,
+    EffectsCanvasGroupPF2e,
     LightingLayerPF2e,
     MeasuredTemplatePF2e,
-    SightLayerPF2e,
     TemplateLayerPF2e,
     TokenLayerPF2e,
     TokenPF2e,
 } from "@module/canvas";
-import { PlayerConfigPF2e } from "@module/user/player-config";
+import { setPerceptionModes } from "@module/canvas/perception/modes";
+import { PF2ECONFIG } from "@scripts/config";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
+import { registerFonts } from "@scripts/register-fonts";
 import { registerKeybindings } from "@scripts/register-keybindings";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { Check } from "@system/check";
 import { registerSettings } from "@system/settings";
-import { PF2ECONFIG } from "@scripts/config";
-import { createV10Shims } from "@scripts/create-v10-shims";
 
 export const Init = {
     listen: (): void => {
         Hooks.once("init", () => {
             console.log("PF2e System | Initializing Pathfinder 2nd Edition System");
-
-            createV10Shims();
 
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
@@ -44,15 +42,12 @@ export const Init = {
             CONFIG.Token.objectClass = TokenPF2e;
             CONFIG.Token.layerClass = TokenLayerPF2e;
 
+            CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
-            CONFIG.Canvas.layers.sight.layerClass = SightLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
             CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
 
-            // Make darkness visibility a little more appropriate for basic map use
-            CONFIG.Canvas.lightLevels.dim = 0.25;
-            CONFIG.Canvas.darknessColor = PIXI.utils.rgb2hex([0.25, 0.25, 0.4]);
-            CONFIG.Canvas.exploredColor = PIXI.utils.rgb2hex([0.6, 0.6, 0.6]);
+            setPerceptionModes();
 
             // Automatically advance world time by 6 seconds each round
             CONFIG.time.roundTime = 6;
@@ -65,8 +60,8 @@ export const Init = {
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
             CONFIG.ui.hotbar = HotbarPF2e;
 
-            // Remove fonts available only on Windows 10/11
-            CONFIG.fontFamilies = CONFIG.fontFamilies.filter((f) => !["Courier", "Helvetica", "Times"].includes(f));
+            // The condition in Pathfinder 2e is "blinded" rather than "blind"
+            CONFIG.specialStatusEffects.BLIND = "blinded";
 
             // Insert templates into DOM tree so Applications can render into
             if (document.querySelector("#ui-top") !== null) {
@@ -139,17 +134,23 @@ export const Init = {
                 ],
             });
 
+            // Register custom enricher
+            CONFIG.TextEditor.enrichers.push({
+                pattern: new RegExp("@(Check|Localize|Template)\\[([^\\]]+)\\](?:{([^}]+)})?", "g"),
+                enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
+            });
+
             // Soft-set system-preferred core settings until they've been explicitly set by the GM
-            const schema = foundry.data.PrototypeTokenData.schema;
-            schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
+            // const schema = foundry.data.PrototypeToken.schema;
+            // schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
 
             // Register stuff with the Foundry client
-            registerSettings();
-            registerKeybindings();
-            registerTemplates();
+            registerFonts();
             registerHandlebarsHelpers();
+            registerKeybindings();
+            registerSettings();
+            registerTemplates();
 
-            PlayerConfigPF2e.hookOnRenderSettings();
             MystifiedTraits.compile();
 
             // Create and populate initial game.pf2e interface

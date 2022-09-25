@@ -1,6 +1,8 @@
 {
     "_id": "D3ypq5kAmLbwrgjq",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "No Stranger to Death",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 12
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -30,13 +31,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "death",
-                        "disease",
-                        "evil"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "disease",
+                            "evil"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
@@ -53,7 +56,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "No Stranger to Death",
     "type": "feat"
 }

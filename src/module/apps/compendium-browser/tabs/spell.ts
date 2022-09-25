@@ -1,10 +1,27 @@
 import { getActionIcon, sluggify } from "@util";
 import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { SpellFilters } from "./data";
+import { CompendiumBrowserIndexData, SpellFilters } from "./data";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     override filterData!: SpellFilters;
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.html";
+    /* MiniSearch */
+    override searchFields = ["name"];
+    override storeFields = [
+        "type",
+        "name",
+        "img",
+        "uuid",
+        "level",
+        "time",
+        "category",
+        "school",
+        "traditions",
+        "traits",
+        "rarity",
+        "source",
+    ];
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "spell");
@@ -16,18 +33,18 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     protected override async loadData() {
         console.debug("PF2e System | Compendium Browser | Started loading spells");
 
-        const spells: CompendiumIndexData[] = [];
+        const spells: CompendiumBrowserIndexData[] = [];
         const times: Set<string> = new Set();
         const sources: Set<string> = new Set();
         const indexFields = [
             "img",
-            "data.level.value",
-            "data.category.value",
-            "data.traditions.value",
-            "data.time",
-            "data.school.value",
-            "data.traits",
-            "data.source.value",
+            "system.level.value",
+            "system.category.value",
+            "system.traditions.value",
+            "system.time",
+            "system.school.value",
+            "system.traits",
+            "system.source.value",
         ];
 
         const data = this.browser.packLoader.loadPacks("Item", this.browser.loadedPacks("spell"), indexFields);
@@ -44,52 +61,51 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         continue;
                     }
                     // Set category of cantrips to "cantrip" until migration can be done
-                    if (spellData.data.traits.value.includes("cantrip")) {
-                        spellData.data.category.value = "cantrip";
+                    if (spellData.system.traits.value.includes("cantrip")) {
+                        spellData.system.category.value = "cantrip";
                     }
 
                     // recording casting times
-                    let time = spellData.data.time.value;
+                    let time = spellData.system.time.value;
                     if (time) {
                         if (time.includes("reaction")) time = "reaction";
                         times.add(time);
-                        spellData.data.time.value = sluggify(time);
+                        spellData.system.time.value = sluggify(time);
                     }
 
                     // format casting time
-                    if (spellData.data.time.value === "reaction") {
-                        spellData.data.time.img = getActionIcon("reaction");
-                    } else if (spellData.data.time.value === "free") {
-                        spellData.data.time.img = getActionIcon("free");
+                    if (spellData.system.time.value === "reaction") {
+                        spellData.system.time.img = getActionIcon("reaction");
+                    } else if (spellData.system.time.value === "free") {
+                        spellData.system.time.img = getActionIcon("free");
                     } else {
-                        spellData.data.time.img = getActionIcon(spellData.data.time.value);
+                        spellData.system.time.img = getActionIcon(spellData.system.time.value);
                     }
                     // replace mystery man with one action icon
-                    if (spellData.data.time.img === "systems/pf2e/icons/default-icons/mystery-man.svg") {
-                        spellData.data.time.img = "systems/pf2e/icons/actions/OneAction.webp";
+                    if (spellData.system.time.img === "systems/pf2e/icons/default-icons/mystery-man.svg") {
+                        spellData.system.time.img = "systems/pf2e/icons/actions/OneAction.webp";
                     }
 
                     // Prepare source
-                    const source = spellData.data.source.value;
+                    const source = spellData.system.source.value;
                     if (source) {
                         sources.add(source);
-                        spellData.data.source.value = sluggify(source);
+                        spellData.system.source.value = sluggify(source);
                     }
 
                     spells.push({
-                        _id: spellData._id,
                         type: spellData.type,
                         name: spellData.name,
                         img: spellData.img,
-                        compendium: pack.collection,
-                        level: spellData.data.level.value,
-                        time: spellData.data.time,
-                        category: spellData.data.category.value,
-                        school: spellData.data.school.value,
-                        traditions: spellData.data.traditions.value,
-                        traits: spellData.data.traits.value,
-                        rarity: spellData.data.traits.rarity,
-                        source: spellData.data.source.value,
+                        uuid: `Compendium.${pack.collection}.${spellData._id}`,
+                        level: spellData.system.level.value,
+                        time: spellData.system.time,
+                        category: spellData.system.category.value,
+                        school: spellData.system.school.value,
+                        traditions: spellData.system.traditions.value,
+                        traits: spellData.system.traits.value,
+                        rarity: spellData.system.traits.rarity,
+                        source: spellData.system.source.value,
                     });
                 }
             }
@@ -128,14 +144,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading spells");
     }
 
-    protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, selects, search } = this.filterData;
+    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
+        const { checkboxes, selects } = this.filterData;
 
-        // Name
-        if (search.text) {
-            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
-                return false;
-        }
         // Level
         if (checkboxes.level.selected.length) {
             const levels = checkboxes.level.selected.map((level) => Number(level));
@@ -233,7 +244,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 },
             },
             order: {
-                by: "name",
+                by: "level",
                 direction: "asc",
                 options: {
                     name: "PF2E.BrowserSortyByNameLabel",

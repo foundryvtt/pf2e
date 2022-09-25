@@ -14,15 +14,16 @@ export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (itemSource.type === "armor") {
-            const systemData: ArmorSystemSourceWithResilient = itemSource.data;
+            const systemData: ArmorSystemSourceWithResilient = itemSource.system;
 
             if (this.towerShieldSlugs.includes(systemData.slug ?? "")) {
-                itemSource.data.speed.value = -5;
+                itemSource.system.speed.value = -5;
             }
 
             systemData.armor.value = Number(systemData.armor.value) || 0;
             systemData.speed.value = Number(systemData.speed.value) || 0;
-            systemData.potencyRune.value = (Number(systemData.potencyRune.value) || 0) as ZeroToFour;
+            const potencyRune: { value: ZeroToFour | null } = systemData.potencyRune;
+            potencyRune.value = (Number(systemData.potencyRune.value) || 0) as ZeroToFour;
             if ("resilient" in systemData) {
                 // Aborted attempt to store rune data?
                 "game" in globalThis ? (systemData["-=resilient"] = null) : delete systemData.resilient;
@@ -31,7 +32,7 @@ export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
     }
 }
 
-type ArmorSystemSourceWithResilient = ArmorSource["data"] & {
+type ArmorSystemSourceWithResilient = ArmorSource["system"] & {
     resilient?: unknown;
     "-=resilient"?: null;
 };

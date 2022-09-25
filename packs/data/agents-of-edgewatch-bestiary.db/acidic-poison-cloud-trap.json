@@ -1,6 +1,50 @@
 {
     "_id": "aLhAofozzdTuqfcg",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "iG9uOtBJolj3P4CM",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Spew Cloud",
+            "sort": 100000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Twelve seconds have passed since the door to the apartment was opened</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Acidic Poison Cloud Trap",
+    "system": {
         "attributes": {
             "ac": {
                 "value": 34
@@ -22,7 +66,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Five nozzles hidden across the apartment's ceiling spew thick clouds of acidic poison from a reinforced tank behind the wall.</p>",
-            "disable": "<p>DC 35 Thievery (expert) to block one of the nozzles or DC 40 Thievery (master) to shut off the tank. The trap deactivates after 5 rounds, once the tank is empty.</p>",
+            "disable": "<p>@Check[type:thievery|dc:35|name:Block One Nozzle|traits:action:disable-a-device] (expert) to block one of the nozzles or @Check[type:thievery|dc:40|name:Shut Off the Tank|traits:action:disable-a-device (master) to shut off the tank. The trap deactivates after 5 rounds, once the tank is empty.</p>",
             "isComplex": true,
             "level": {
                 "value": 13
@@ -65,66 +109,12 @@
             "size": {
                 "value": "med"
             },
-            "traits": {
-                "custom": "",
-                "value": [
-                    "alchemical",
-                    "mechanical",
-                    "trap"
-                ]
-            }
+            "value": [
+                "alchemical",
+                "mechanical",
+                "trap"
+            ]
         }
-    },
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
-    "items": [
-        {
-            "_id": "iG9uOtBJolj3P4CM",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> Twelve seconds have passed since the door to the apartment was opened</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Spew Cloud",
-            "sort": 100000,
-            "type": "action"
-        }
-    ],
-    "name": "Acidic Poison Cloud Trap",
-    "token": {
-        "disposition": 0,
-        "height": 1,
-        "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "name": "Acidic Poison Cloud Trap",
-        "width": 1
     },
     "type": "hazard"
 }

@@ -1,6 +1,8 @@
 {
     "_id": "z7kwVNaCB4oJs3Fe",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Aura Of Preservation",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 14
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -35,7 +36,7 @@
                         "events": [
                             "enter"
                         ],
-                        "uuid": "Compendium.pf2e.feat-effects.18FHJoazfEmgNkfk"
+                        "uuid": "Compendium.pf2e.feat-effects.Effect: Aura of Preservation"
                     }
                 ],
                 "key": "Aura",
@@ -44,42 +45,42 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "morph",
-                        "polymorph"
-                    ],
-                    "not": [
-                        "origin:trait:aberration"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "morph",
+                            "polymorph"
+                        ]
+                    },
+                    {
+                        "not": "origin:trait:aberration"
+                    }
+                ],
                 "selector": "fortitude",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "origin:trait:aberration"
-                    ],
-                    "any": [
-                        "morph",
-                        "polymorph"
-                    ]
-                },
+                "predicate": [
+                    "origin:trait:aberration",
+                    {
+                        "or": [
+                            "morph",
+                            "polymorph"
+                        ]
+                    }
+                ],
                 "selector": "fortitude",
                 "type": "status",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "mental",
-                        "origin:trait:aberration"
-                    ]
-                },
+                "predicate": [
+                    "mental",
+                    "origin:trait:aberration"
+                ],
                 "selector": "will",
                 "type": "status",
                 "value": 2
@@ -96,7 +97,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Aura Of Preservation",
     "type": "feat"
 }

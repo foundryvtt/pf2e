@@ -1,6 +1,8 @@
 {
     "_id": "kMPPl4AqFb6GclOL",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/malleable-mixture.webp",
+    "name": "Effect: Malleable Mixture (Greater)",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>You gain a +3 item bonus to your Fortitude and Reflex DCs against attempts to Grapple, Shove, or Trip you for 10 minutes.</p>"
@@ -18,13 +20,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Inspire Courage (vs fear)",
-                "predicate": {
-                    "any": [
-                        "action:grapple",
-                        "action:trip",
-                        "action:shove"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:trip",
+                            "action:shove"
+                        ]
+                    }
+                ],
                 "selector": "fortitude",
                 "type": "item",
                 "value": 3
@@ -32,20 +36,22 @@
             {
                 "key": "FlatModifier",
                 "label": "Inspire Courage (vs fear)",
-                "predicate": {
-                    "any": [
-                        "action:grapple",
-                        "action:trip",
-                        "action:shove"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:trip",
+                            "action:shove"
+                        ]
+                    }
+                ],
                 "selector": "reflex",
                 "type": "item",
                 "value": 3
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Lost Omens: The Grand Bazaar"
         },
         "start": {
             "initiative": null,
@@ -61,7 +67,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/malleable-mixture.webp",
-    "name": "Effect: Malleable Mixture (Greater)",
     "type": "effect"
 }

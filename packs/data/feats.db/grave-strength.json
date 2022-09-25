@@ -1,6 +1,8 @@
 {
     "_id": "7GrACprIxZuarGDs",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Grave Strength",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 6
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -30,23 +31,21 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "ghoul-satiated"
-                    ]
-                },
+                "predicate": [
+                    "ghoul-satiated"
+                ],
                 "selector": "land-speed",
+                "slug": "speed-satiated",
                 "type": "status",
                 "value": 5
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "ghoul-fully-satiated"
-                    ]
-                },
+                "predicate": [
+                    "ghoul-fully-satiated"
+                ],
                 "selector": "land-speed",
+                "slug": "speed-fully-satiated",
                 "type": "status",
                 "value": 10
             },
@@ -66,7 +65,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Grave Strength",
     "type": "feat"
 }

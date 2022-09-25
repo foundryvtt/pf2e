@@ -1,4 +1,23 @@
 &.spellcasting {
+    .blue-button {
+        background: var(--secondary);
+        border: black;
+        border-radius: 2px;
+        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 50%);
+        color: white;
+        font-family: var(--serif);
+        font-weight: 500;
+        line-height: 1.8em;
+        margin: 0;
+        padding: 0 0.5em;
+        &:hover {
+            text-shadow: 0 0 4px white;
+        }
+        .fas {
+            margin-right: 4px;
+        }
+    }
+
     .spellcasting-entry {
         align-items: center;
         border-bottom: 1px solid var(--color-border-light-2);
@@ -12,132 +31,99 @@
             }
         }
 
-        .action-header {
-            background: var(--primary);
-            border-radius: 0.25em;
-            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 0 0 2px rgb(255 255 255 / 20%);
-            flex-basis: 100%;
-            padding: 0 0.5em;
-            width: 100%;
-            z-index: 2;
-
-            .drag-handle {
-                cursor: move;
-            }
-
-            & > a {
-                .fas, > .fa {
-                    flex-basis: 0;
-                    color: white;
-                    margin-right: 0.25em;
-                    padding-top: 0.25em;
+        .rollable {
+            .d20-svg {
+                width: var(--font-size-14);
+                height: var(--font-size-14);
+                path {
+                    fill: black;
                 }
             }
 
-            .item-controls {
-                color: white;
-                flex: 1 0 auto;
-                font: 0.85em var(--sans-serif);
-                letter-spacing: 0.05em;
-                margin-left: auto;
-                max-width: fit-content;
-                text-transform: uppercase;
-            }
-
-            h3 {
-                margin-bottom: 0;
-
-                input.item-name-input {
-                    color: white;
-                    max-width: 100%;
-                    font-weight: 500;
-                }
+            &:hover svg {
+                @include rotate;
             }
         }
 
-        .skills-list {
-            @include p-reset;
-            display: flex;
+        .spell-ability-data {
             align-items: center;
+            display: flex;
             flex: 1;
-            justify-content: space-between;
-            margin: 0.25em 0;
+            gap: 1rem;
+            margin: 0.5em 0.25rem;
 
-            .skill-grid {
-                @include flex-center;
-                gap: 1em;
-                padding-top: 2px;
+            section {
+                display: flex;
+                align-items: center;
+            }
+
+            .rollable {
+                cursor: pointer;
+            }
+
+            button {
+                width: auto;
+                line-height: 1.5em;
+                i {
+                    font-size: 0.9em;
+                }
+
+                // hardcoded alignment adjustments due to annoying font centering
+                padding-top: 1px;
+                margin-bottom: 1px;
+            }
+
+            .skill-score {
+                font-family: var(--serif);
+                font-weight: bold;
+                font-size: 1rem;
+                letter-spacing: -1px;
+                line-height: 1;
+                color: var(--secondary);
+            }
+
+            .statistic-values {
+                display: flex;
+                gap: 0.5rem;
 
                 .skill-data {
-                    @include flex-center;
-                }
-
-                .rollable {
-                    cursor: pointer;
-                }
-
-                h4.rollable {
-                    margin-right: 1em;
-                }
-
-                .skill-score {
-                    font-family: var(--serif);
-                    font-weight: bold;
-                    font-size: 1rem;
-                    letter-spacing: -1px;
-                    line-height: 1;
-                    color: var(--secondary);
-                }
-
-                .skill-name {
-                    margin: 0 4px;
+                    display: flex;
+                    gap: 0.25rem;
                     white-space: nowrap;
                 }
 
-                .skill-container {
-                    display: flex;
-                    flex-direction: column;
+                h4 {
+                    white-space: nowrap;
+                }
 
-                    h4 {
-                        @include micro;
-                        color: var(--secondary);
-                        font-weight: 800;
-                    }
-                    .item-value-input {
-                        input {
-                            width: 20px;
-                            text-align: center;
-                            font-family: var(--serif);
-                            font-weight: 500;
-                            font-size: var(--font-size-18);
-                        }
-                    }
-
-                    &.skill-proficiency,
-                    &.item-modifier {
-                        margin: 0 4px;
-                        margin-bottom: 3px;
-                    }
-
-                    &.item-modifier {
-                        h4 {
-                            margin-bottom: 1px;
-                        }
-                        input {
-                            font-size: var(--font-size-12);
-                            height: 18px;
-                            border: 1px solid var(--alt);
-                        }
-                    }
+                .spell-attack {
+                    cursor: pointer;
+                    gap: 0.1rem;
                 }
             }
 
             .focus-pool {
+                cursor: pointer;
+                gap: 0.25em;
                 position: relative;
                 img.pool-size {
                     border: none;
                     width: 34px;
                     height: 32px;
+                }
+
+                .pips {
+                    display: flex;
+                    font-size: var(--font-size-10);
+                    gap: 1px;
+
+                    i {
+                        padding-bottom: 0.08rem;
+                    }
+                }
+
+                h4 {
+                    white-space: nowrap;
                 }
 
                 .focus-pool-text {
@@ -162,18 +148,17 @@
             }
 
             .spell-ability {
-                display: flex;
-                align-items: center;
                 gap: 0.5em;
-
-                h4 {
-                    margin-bottom: 2px;
-                }
+                margin-left: auto;
 
                 .spell-tradition {
                     font-family: var(--body-serif);
                     font-weight: 600;
                 }
+            }
+
+            .pf-rank {
+                margin-bottom: 0.13rem;
             }
         }
     }
@@ -192,20 +177,8 @@
         justify-content: space-evenly;
 
         a {
-            background: var(--secondary);
-            border-radius: 2px;
-            padding: 4px 8px;
-            color: white;
-            font-family: var(--serif);
-            font-weight: 500;
             width: 100%;
             margin-bottom: 12px;
-            &:hover {
-                text-shadow: 0 0 4px white;
-            }
-            .fas {
-                margin-right: 4px;
-            }
         }
     }
 }

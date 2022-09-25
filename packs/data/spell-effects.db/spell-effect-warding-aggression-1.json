@@ -1,6 +1,8 @@
 {
     "_id": "FR4ucNi2ceHZdrpB",
-    "data": {
+    "img": "systems/pf2e/icons/spells/warding-aggression.webp",
+    "name": "Spell Effect: Warding Aggression (+1)",
+    "system": {
         "description": {
             "value": "<p>Warding aggression ends if the foe you attacked dies or at the end of any turn in which you didn't hit that foe with a melee Strike.</p>\n<hr />\n<p>You gain a +1 status bonus to AC against the foe for the remaining duration.</p>"
         },
@@ -16,11 +18,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "wardingAggression"
-                    ]
-                },
+                "predicate": [
+                    "wardingAggression"
+                ],
                 "selector": "ac",
                 "type": "status",
                 "value": 1
@@ -34,7 +34,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Secrets of Magic"
         },
         "start": {
             "initiative": null,
@@ -50,7 +50,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/warding-aggression.webp",
-    "name": "Spell Effect: Warding Aggression (+1)",
     "type": "effect"
 }

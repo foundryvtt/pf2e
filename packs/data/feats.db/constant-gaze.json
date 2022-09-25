@@ -1,6 +1,8 @@
 {
     "_id": "kPyyZGD5L6b2Kl8C",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Constant Gaze",
+    "system": {
         "actionCategory": {
             "value": "defensive"
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 9
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -32,21 +33,19 @@
                 "domain": "ac",
                 "key": "RollOption",
                 "option": "self:condition:flat-footed:ignore:flanking",
-                "predicate": {
-                    "all": [
-                        {
-                            "lte": [
-                                "origin:level",
-                                "self:level"
-                            ]
-                        }
-                    ]
-                }
+                "predicate": [
+                    {
+                        "lte": [
+                            "origin:level",
+                            "self:level"
+                        ]
+                    }
+                ]
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "data.attributes.flanking.flatFootable",
+                "path": "system.attributes.flanking.flatFootable",
                 "value": "@actor.level"
             }
         ],
@@ -61,7 +60,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Constant Gaze",
     "type": "feat"
 }

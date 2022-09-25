@@ -150,7 +150,7 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
         return this.actorFormToSheetData(actor, {
             detectionMode: "before",
             explorationActivity: "Search",
-            speed: actor.data.data.attributes.speed.total,
+            speed: actor.system.attributes.speed.total,
         });
     }
 
@@ -276,7 +276,7 @@ function parseExplorationActivity(activity: ExplorationActivitiesData): Explorat
 function getHustleMinutes(actors: CharacterPF2e[]): number {
     return Math.min(
         ...actors.map((actor) => {
-            return Math.max(1, actor.data.data.abilities.con.mod) * 10;
+            return Math.max(1, actor.system.abilities.con.mod) * 10;
         })
     );
 }

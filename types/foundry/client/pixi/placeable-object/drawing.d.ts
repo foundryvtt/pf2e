@@ -17,9 +17,6 @@ declare class Drawing<TDocument extends DrawingDocument = DrawingDocument> exten
     /** The Graphics outer frame and handles */
     frame: PIXI.Container;
 
-    /** Internal flag for the permanent points of the polygon */
-    protected _fixedPoints: this["data"]["points"];
-
     static override embeddedName: "Drawing";
 
     /** The rate at which points are sampled (in milliseconds) during a freehand drawing workflow */
@@ -29,7 +26,7 @@ declare class Drawing<TDocument extends DrawingDocument = DrawingDocument> exten
     /*  Properties                                  */
     /* -------------------------------------------- */
 
-    override get bounds(): NormalizedRectangle;
+    override get bounds(): PIXI.Rectangle;
 
     /** A Boolean flag for whether or not the Drawing utilizes a tiled texture background */
     get isTiled(): boolean;
@@ -41,7 +38,7 @@ declare class Drawing<TDocument extends DrawingDocument = DrawingDocument> exten
     /* Rendering                                    */
     /* -------------------------------------------- */
 
-    override draw(): Promise<this>;
+    protected _draw(): Promise<void>;
 
     /** Clean the drawing data to constrain its allowed position */
     protected _cleanData(): void;

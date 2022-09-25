@@ -6,12 +6,12 @@ export class Migration730DeruneHandwraps extends MigrationBase {
     static override version = 0.73;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.type === "weapon" && source.data.slug === "handwraps-of-mighty-blows") {
-            const { rules } = source.data;
+        if (source.type === "weapon" && source.system.slug === "handwraps-of-mighty-blows") {
+            const { rules } = source.system;
 
             for (const rule of [...rules]) {
-                if (["Striking", "WeaponPotency"].includes(rule.key)) {
-                    source.data.rules.splice(rules.indexOf(rule), 1);
+                if (["Striking", "WeaponPotency"].includes(String(rule.key))) {
+                    source.system.rules.splice(rules.indexOf(rule), 1);
                 }
             }
         }

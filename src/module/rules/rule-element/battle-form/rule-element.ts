@@ -15,7 +15,7 @@ import { ItemPF2e, WeaponPF2e } from "@item";
 import { DiceModifierPF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { RollNotePF2e } from "@module/notes";
 import { PredicatePF2e } from "@system/predication";
-import { isObject, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, isObject, sluggify, tupleHasValue } from "@util";
 import { RuleElementSource } from "../data";
 import { CharacterStrike } from "@actor/character/data";
 
@@ -123,7 +123,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         overrides.resistances ??= [];
 
         // Disable Automatic Bonus Progression
-        this.actor.data.flags.pf2e.disableABP = true;
+        this.actor.flags.pf2e.disableABP = true;
     }
 
     override async preCreate({ itemSource, ruleSource }: RuleElementPF2e.PreCreateParams): Promise<void> {
@@ -133,12 +133,11 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
 
         // Pre-clear other rule elements on this item as being compatible with the battle form
-        const rules = (itemSource.data?.rules ?? []) as RuleElementSource[];
+        const rules = (itemSource.system?.rules ?? []) as RuleElementSource[];
         for (const rule of rules) {
-            if (["DamageDice", "FlatModifier", "Note"].includes(rule.key)) {
-                const predicate = (rule.predicate ??= {});
-                const predicateAll = (predicate.all ??= []);
-                predicateAll.push("battle-form");
+            if (["DamageDice", "FlatModifier", "Note"].includes(String(rule.key))) {
+                const predicate = (rule.predicate ??= []);
+                if (Array.isArray(predicate)) predicate.push("battle-form");
             }
         }
 
@@ -175,7 +174,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.prepareSenses();
 
         for (const trait of this.overrides.traits) {
-            const currentTraits = actor.system.traits.traits;
+            const currentTraits = actor.system.traits;
             if (!currentTraits.value.includes(trait)) currentTraits.value.push(trait);
         }
 
@@ -309,9 +308,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 otherSpeeds.push({
                     type: movementType,
                     label,
-                    value: String(speedOverride),
+                    value: speedOverride,
                 });
                 const newSpeed = this.actor.prepareSpeed(movementType);
+                if (!newSpeed) throw ErrorPF2e("Unexpected failure retrieving movement type");
                 this.suppressModifiers(newSpeed);
                 newSpeed.totalModifier = newSpeed.total = speedOverride + newSpeed.totalModifier;
                 newSpeed.breakdown = [`${label} ${speedOverride}`]
@@ -338,10 +338,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             if (!newSkill) continue;
 
             const currentSkill = this.actor.system.skills[key];
-            if (currentSkill.totalModifier > newSkill.modifier && newSkill.ownIfHigher) {
+            const newModifier = Number(this.resolveValue(newSkill.modifier)) || 0;
+            if (currentSkill.totalModifier > newModifier && newSkill.ownIfHigher) {
                 continue;
             }
-            const newModifier = Number(this.resolveValue(newSkill.modifier)) || 0;
 
             this.suppressModifiers(currentSkill);
             currentSkill.unshift(new ModifierPF2e(this.modifierLabel, newModifier, "untyped"));
@@ -377,7 +377,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             synthetics.strikes.clear();
             for (const striking of Object.values(synthetics.striking).flat()) {
                 const predicate = (striking.predicate ??= new PredicatePF2e());
-                predicate.not.push("battle-form");
+                predicate.push({ not: "battle-form" });
             }
 
             for (const datum of ruleData) {
@@ -451,10 +451,10 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
     private suppressNotes(notes: RollNotePF2e[]): void {
         for (const note of notes) {
-            if (!note.predicate?.all?.includes("battle-form")) {
+            if (!note.predicate.includes("battle-form")) {
                 note.predicate =
                     note.predicate instanceof PredicatePF2e ? note.predicate : new PredicatePF2e(note.predicate);
-                note.predicate.not.push("battle-form");
+                note.predicate.push({ not: "battle-form" });
             }
         }
     }
@@ -463,26 +463,32 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         if (this.ownUnarmed) return;
 
         for (const modifier of modifiers) {
-            if (modifier.predicate?.not?.includes("battle-form")) continue;
+            if (modifier.predicate.some((s) => s instanceof Object && "not" in s && s.not === "battle-form")) {
+                continue;
+            }
 
             const isNumericBonus = modifier instanceof ModifierPF2e && modifier.modifier >= 0;
+            const isAbilityModifier = modifier instanceof ModifierPF2e && modifier.type === "ability";
             const isExtraDice = modifier instanceof DiceModifierPF2e;
-            const isStatusOrCircumstance =
-                isNumericBonus && ["status", "circumstance"].includes(modifier.type ?? "untyped");
+            const isStatusOrCircumstance = isNumericBonus && ["status", "circumstance"].includes(modifier.type);
             const isDamageTrait =
                 isExtraDice &&
                 /^(?:deadly|fatal)-\d?d\d{1,2}$/.test(modifier.slug) &&
                 tupleHasValue(this.overrides.strikes[weapon.slug ?? ""]?.traits ?? [], modifier.slug);
             const isBattleFormModifier = !!(
-                modifier.predicate?.any?.includes("battle-form") ||
-                modifier.predicate?.all?.includes("battle-form") ||
+                modifier.predicate.includes("battle-form") ||
+                modifier.predicate.some((s) => s instanceof Object && "or" in s && s.or.includes("battle-form")) ||
                 isDamageTrait
             );
 
-            if ((isNumericBonus || isExtraDice) && !isStatusOrCircumstance && !isBattleFormModifier) {
+            if (
+                (isNumericBonus || isAbilityModifier || isExtraDice) &&
+                !isStatusOrCircumstance &&
+                !isBattleFormModifier
+            ) {
                 modifier.enabled = false;
                 modifier.ignored = true;
-                modifier.predicate.not.push("battle-form");
+                modifier.predicate.push({ not: "battle-form" });
             }
         }
     }

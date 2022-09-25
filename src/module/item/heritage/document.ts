@@ -7,22 +7,22 @@ import { HeritageData } from "./data";
 
 class HeritagePF2e extends ItemPF2e {
     get traits(): Set<CreatureTrait> {
-        return new Set(this.data.data.traits.value);
+        return new Set(this.system.traits.value);
     }
 
     get rarity(): Rarity {
-        return this.data.data.traits.rarity;
+        return this.system.traits.rarity;
     }
 
     /** Prepare a character's data derived from their heritage */
     override prepareActorData(this: Embedded<HeritagePF2e>): void {
         this.actor.heritage = this;
-        const systemData = this.actor.data.data;
+
         // Add and remove traits as specified
-        systemData.traits.traits.value.push(...this.traits);
+        this.actor.system.traits.value.push(...this.traits);
 
         const slug = this.slug ?? sluggify(this.name);
-        systemData.details.heritage = {
+        this.actor.system.details.heritage = {
             name: this.name,
             trait: slug in CONFIG.PF2E.ancestryTraits ? slug : null,
         };

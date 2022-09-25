@@ -1,6 +1,8 @@
 {
     "_id": "tKaesXO5nlZ2sspx",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Bounty Hunter Dedication",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -43,12 +44,10 @@
             {
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.BountyHunterDedication.GatherInfoHuntedPrey",
-                "predicate": {
-                    "all": [
-                        "action:gather-information",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:gather-information",
+                    "hunted-prey"
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 2
@@ -56,17 +55,15 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.skills.sur.rank",
-                "predicate": {
-                    "all": [
-                        {
-                            "gt": [
-                                "grants-hunt-prey",
-                                1
-                            ]
-                        }
-                    ]
-                },
+                "path": "system.skills.sur.rank",
+                "predicate": [
+                    {
+                        "gt": [
+                            "grants-hunt-prey",
+                            1
+                        ]
+                    }
+                ],
                 "value": 2
             }
         ],
@@ -82,7 +79,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Bounty Hunter Dedication",
     "type": "feat"
 }

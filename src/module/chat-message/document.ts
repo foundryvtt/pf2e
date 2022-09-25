@@ -1,21 +1,16 @@
-import { ActorPF2e, CharacterPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { RollDataPF2e } from "@system/rolls";
-import { ChatCards } from "./listeners/cards";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
-import { ItemPF2e, SpellPF2e } from "@item";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { DamageButtons } from "./listeners/damage-buttons";
-import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
-import { ChatMessageDataPF2e, ChatMessageSourcePF2e } from "./data";
+import { ItemPF2e } from "@item";
+import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
-import { SetAsInitiative } from "./listeners/set-as-initiative";
-import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { TraditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
-import { ErrorPF2e } from "@util";
+import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { UserPF2e } from "@module/user";
 import { CheckRoll } from "@system/check/roll";
-import { TextEditorPF2e } from "@system/text-editor";
 import { ChatRollDetails } from "./chat-roll-details";
+import { StrikeData } from "@actor/data/base";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
+import { StrikeAttackRoll } from "@system/check/strike/attack-roll";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -27,31 +22,32 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         super(data, context);
 
         // Backward compatibility for roll messages prior to `rollerId` (user ID) being stored with the roll
-        if (this.roll instanceof CheckRoll) {
-            this.roll.roller ??= this.user ?? null;
+        for (const roll of this.rolls) {
+            if (roll instanceof CheckRoll) {
+                roll.roller ??= this.user ?? null;
+            }
         }
     }
 
     /** Is this a damage (or a manually-inputed non-D20) roll? */
     get isDamageRoll(): boolean {
-        if (this.isRoll && this.roll.terms.some((term) => term instanceof FateDie || term instanceof Coin)) {
+        const firstRoll = this.rolls.at(0);
+        if (!firstRoll || firstRoll.terms.some((t) => t instanceof FateDie || t instanceof Coin)) {
             return false;
         }
-        const isDamageRoll = !!this.data.flags.pf2e.damageRoll;
-        const fromRollTable = !!this.data.flags.core.RollTable;
-        const isRoll = isDamageRoll || this.isRoll;
-        const isD20 = (isRoll && this.roll && this.roll.dice[0]?.faces === 20) || false;
-        return isRoll && !(isD20 || fromRollTable);
+        const fromRollTable = !!this.flags.core.RollTable;
+        const isD20 = firstRoll.dice[0]?.faces === 20 || !!this.flags.pf2e.context;
+        return !(isD20 || fromRollTable);
     }
 
     /** Get the actor associated with this chat message */
     get actor(): ActorPF2e | null {
-        return ChatMessagePF2e.getSpeakerActor(this.data.speaker);
+        return ChatMessagePF2e.getSpeakerActor(this.speaker);
     }
 
     /** If this is a check or damage roll, it will have target information */
     get target(): { actor: ActorPF2e; token: Embedded<TokenDocumentPF2e> } | null {
-        const targetUUID = this.data.flags.pf2e.context?.target?.token;
+        const targetUUID = this.flags.pf2e.context?.target?.token;
         if (!targetUUID) return null;
 
         const match = /^Scene\.(\w+)\.Token\.(\w+)$/.exec(targetUUID ?? "") ?? [];
@@ -64,7 +60,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** If the message came from dynamic inline content in a journal entry, the entry's ID may be used to retrieve it */
     get journalEntry(): JournalEntry | null {
-        const uuid = this.data.flags.pf2e.journalEntry;
+        const uuid = this.flags.pf2e.journalEntry;
         if (!uuid) return null;
 
         const entryId = /^JournalEntry.([A-Za-z0-9]{16})$/.exec(uuid)?.at(1);
@@ -73,17 +69,17 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Does this message include a check (1d20 + c) roll? */
     get isCheckRoll(): boolean {
-        return this.roll instanceof CheckRoll;
+        return this.rolls[0] instanceof CheckRoll;
     }
 
     /** Does the message include a rerolled check? */
     get isReroll(): boolean {
-        return !!this.data.flags.pf2e.context?.isReroll;
+        return !!this.flags.pf2e.context?.isReroll;
     }
 
     /** Does the message include a check that hasn't been rerolled? */
     get isRerollable(): boolean {
-        const { roll } = this;
+        const roll = this.rolls[0];
         return !!(
             this.actor?.isOwner &&
             this.canUserModify(game.user, "update") &&
@@ -94,24 +90,29 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Get the owned item associated with this chat message */
     get item(): Embedded<ItemPF2e> | null {
+        // If this is a strike, we usually want the strike's item
+        const strike = this._strike;
+        if (strike?.item) return strike.item as Embedded<ItemPF2e>;
+
         const item = (() => {
             const domItem = this.getItemFromDOM();
             if (domItem) return domItem;
 
-            const origin = this.data.flags.pf2e?.origin ?? null;
+            const origin = this.flags.pf2e?.origin ?? null;
             const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
             return this.actor?.items.get(match?.[1] ?? "") ?? null;
         })();
+        if (!item) return null;
 
         // Assign spellcasting entry, currently only used for trick magic item
-        const { tradition } = this.data.flags.pf2e?.casting ?? {};
-        const isCharacter = item && item.actor instanceof CharacterPF2e;
-        if (tradition && item instanceof SpellPF2e && !item.spellcasting && isCharacter) {
-            const trick = new TrickMagicItemEntry(item.actor, TraditionSkills[tradition]);
+        const { tradition } = this.flags.pf2e?.casting ?? {};
+        const isCharacter = item.actor.isOfType("character");
+        if (tradition && item.isOfType("spell") && !item.spellcasting && isCharacter) {
+            const trick = new TrickMagicItemEntry(item.actor, traditionSkills[tradition]);
             item.trickMagicEntry = trick;
         }
 
-        const spellVariant = this.data.flags.pf2e.spellVariant;
+        const spellVariant = this.flags.pf2e.spellVariant;
         if (spellVariant && item?.isOfType("spell")) {
             return item.loadVariant({
                 overlayIds: spellVariant.overlayIds,
@@ -119,6 +120,24 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
 
         return item;
+    }
+
+    /** If this message was for a strike, return the strike. Strikes will change in a future release */
+    get _strike(): StrikeData | null {
+        const actor = this.actor;
+        if (!actor?.isOfType("character", "npc")) return null;
+
+        const roll = this.rolls.at(0);
+        if (roll instanceof StrikeAttackRoll && roll.data.strike) {
+            const strikeIndex = roll.data.strike.index;
+            const altUsage = this.flags.pf2e.context?.altUsage ?? null;
+            const action = actor.system.actions.at(strikeIndex) ?? null;
+            return altUsage
+                ? action?.altUsages?.find((w) => (altUsage === "thrown" ? w.item.isThrown : w.item.isMelee)) ?? null
+                : action;
+        }
+
+        return null;
     }
 
     /** Get stringified item source from the DOM-rendering of this chat message */
@@ -130,7 +149,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             const item = itemSource
                 ? new ItemPF2e(itemSource, {
                       parent: this.actor,
-                      fromConsumable: this.data.flags?.pf2e?.isFromConsumable,
+                      fromConsumable: this.flags?.pf2e?.isFromConsumable,
                   })
                 : null;
             return item as Embedded<ItemPF2e> | null;
@@ -140,98 +159,38 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     async showDetails() {
-        if (!this.data.flags.pf2e.context) return;
+        if (!this.flags.pf2e.context) return;
         new ChatRollDetails(this).render(true);
     }
 
     /** Get the token of the speaker if possible */
     get token(): Embedded<TokenDocumentPF2e> | null {
         if (!game.scenes) return null;
-        const sceneId = this.data.speaker.scene ?? "";
-        const tokenId = this.data.speaker.token ?? "";
+        const sceneId = this.speaker.scene ?? "";
+        const tokenId = this.speaker.token ?? "";
         return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
     }
 
-    /** As of Foundry 9.251, players are able to delete their own messages, and GMs are unable to restrict it. */
-    protected static override _canDelete(user: UserPF2e): boolean {
-        return user.isGM;
-    }
-
-    override prepareData(): void {
-        super.prepareData();
-
-        const rollData = { ...this.actor?.getRollData(), ...(this.item?.getRollData() ?? { actor: this.actor }) };
-        this.data.update({ content: TextEditorPF2e.enrichHTML(this.data.content, { rollData }) });
-    }
-
     override async getHTML(): Promise<JQuery> {
+        const { actor } = this;
+
+        // Enrich flavor, which is skipped by upstream
+        if (this.isContentVisible) {
+            const rollData = { ...actor?.getRollData(), ...(this.item?.getRollData() ?? { actor }) };
+            this.flavor = await TextEditor.enrichHTML(this.flavor, { async: true, rollData });
+        }
+
         const $html = await super.getHTML();
+        const html = $html[0]!;
+        html.addEventListener("mouseenter", () => this.onHoverIn());
+        html.addEventListener("mouseleave", () => this.onHoverOut());
 
-        // Show/Hide GM only sections, DCs, and other such elements
-        UserVisibilityPF2e.process($html, { message: this });
+        const sender = html.querySelector<HTMLElement>(".message-sender");
+        sender?.addEventListener("click", this.onClickSender.bind(this));
+        sender?.addEventListener("dblclick", this.onClickSender.bind(this));
 
-        // Remove spell card owner buttons if the user is not the owner of the spell
-        if (this.item?.isOfType("spell") && !this.item.isOwner) {
-            $html.find("section.owner-buttons").remove();
-        }
-
-        // Remove entire .target-dc and .dc-result elements if they are empty after user-visibility processing
-        const targetDC = $html[0].querySelector(".target-dc");
-        if (targetDC?.innerHTML.trim() === "") targetDC.remove();
-        const dcResult = $html[0].querySelector(".dc-result");
-        if (dcResult?.innerHTML.trim() === "") dcResult.remove();
-
-        if (!this.data.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
-            await DamageButtons.append(this, $html);
-
-            // Clean up styling of old damage messages
-            $html.find(".flavor-text > div:has(.tags)").removeAttr("style").attr({ "data-pf2e-deprecated": true });
-        }
-
-        CriticalHitAndFumbleCards.appendButtons(this, $html);
-
-        ChatCards.listen($html);
-        InlineRollLinks.listen($html);
-        DegreeOfSuccessHighlights.listen(this, $html);
-        if (canvas.ready) SetAsInitiative.listen($html);
-
-        // Check DC adjusted by circumstance bonuses or penalties
-        try {
-            const $adjustedDC = $html.find(".adjusted-dc[data-circumstances]");
-            if ($adjustedDC.length === 1) {
-                const circumstances = JSON.parse($adjustedDC.attr("data-circumstances") ?? "");
-                if (!Array.isArray(circumstances)) throw ErrorPF2e("Malformed adjustments array");
-
-                const content = circumstances
-                    .map((a: { label: string; value: number }) => {
-                        const sign = a.value >= 0 ? "+" : "";
-                        return $("<div>").text(`${a.label}: ${sign}${a.value}`);
-                    })
-                    .reduce(($concatted, $a) => $concatted.append($a), $("<div>"))
-                    .prop("outerHTML");
-
-                $adjustedDC.tooltipster({ content, contentAsHTML: true, theme: "crb-hover" });
-            }
-        } catch (error) {
-            if (error instanceof Error) console.error(error.message);
-        }
-
-        // Trait and material tooltips
-        $html.find(".tag[data-material], .tag[data-slug], .tag[data-trait]").each((_idx, span) => {
-            const $tag = $(span);
-            const description = $tag.attr("data-description");
-            if (description) {
-                $tag.tooltipster({
-                    content: game.i18n.localize(description),
-                    maxWidth: 400,
-                    theme: "crb-hover",
-                });
-            }
-        });
-
-        $html.on("mouseenter", () => this.onHoverIn());
-        $html.on("mouseleave", () => this.onHoverOut());
-        $html.find(".message-sender").on("click", this.onClick.bind(this));
+        UserVisibilityPF2e.processMessageSender(this, html);
+        if (!actor && this.content) UserVisibilityPF2e.process(html, { document: this });
 
         return $html;
     }
@@ -239,7 +198,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     private onHoverIn(): void {
         if (!canvas.ready) return;
         const token = this.token?.object;
-        if (token?.isVisible && !token.isControlled) {
+        if (token?.isVisible && !token.controlled) {
             token.emitHoverIn();
         }
     }
@@ -248,11 +207,16 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (canvas.ready) this.token?.object?.emitHoverOut();
     }
 
-    private onClick(event: JQuery.ClickEvent): void {
-        event.preventDefault();
+    private onClickSender(event: MouseEvent): void {
+        if (!canvas) return;
         const token = this.token?.object;
-        if (token?.isVisible) {
-            token.isControlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
+        if (token?.isVisible && token.isOwner) {
+            token.controlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
+            // If a double click, also pan to the token
+            if (event.type === "dblclick") {
+                const scale = Math.max(1, canvas.stage.scale.x);
+                canvas.animatePan({ ...token.center, scale, duration: 1000 });
+            }
         }
     }
 
@@ -272,6 +236,12 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
 interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     readonly data: ChatMessageDataPF2e<this>;
+
+    flags: ChatMessageFlagsPF2e;
+
+    blind: this["data"]["blind"];
+    type: this["data"]["type"];
+    whisper: this["data"]["whisper"];
 
     get roll(): Rolled<Roll<RollDataPF2e>>;
 

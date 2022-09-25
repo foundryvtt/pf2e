@@ -1,10 +1,10 @@
 import { VehiclePF2e } from "@actor";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey } from "@util";
 import { TokenDocumentPF2e } from ".";
 
-export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends TokenConfig<TDocument> {
+export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
     override get template(): string {
-        return "systems/pf2e/templates/scene/token-config.html";
+        return "systems/pf2e/templates/scene/token/sheet.html";
     }
 
     /** Get this token's dimensions were they linked to its actor's size */
@@ -20,109 +20,166 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e = TokenDocument
         }[actorSize];
     }
 
-    /** Show token data in config sheet that is unmodified by `TokenDocumentPF2e` */
-    override async getData(options?: Partial<FormApplicationOptions>): Promise<TokenConfigData<TDocument>> {
-        const data = await super.getData(options);
-        const DataConstructor = data.object.constructor as ConstructorOf<TDocument["data"]>;
-        data.object = new DataConstructor(data.object.toObject(), data.object.document);
-
-        return data;
-    }
-
     /** Hide token-sight settings when rules-based vision is enabled */
     override activateListeners($html: JQuery): void {
-        const $linkToActorSize = $html.find<HTMLInputElement>('input[name="flags.pf2e.linkToActorSize"]');
-        if ($linkToActorSize.prop("checked")) {
-            this.disableScale($html);
+        super.activateListeners($html);
+
+        const html = $html[0]!;
+        const linkToActorSize = html.querySelector<HTMLInputElement>('input[name="flags.pf2e.linkToActorSize"]');
+        if (!linkToActorSize) throw ErrorPF2e("");
+        if (linkToActorSize.checked) {
+            this.#disableScale(html);
         }
 
-        $linkToActorSize.on("change", (event) => {
-            const $sizeInputs = $(event.currentTarget)
-                .closest("fieldset")
-                .find("input[type=number], input[type=range]");
-            const newSetting = $linkToActorSize.prop("checked");
-            $sizeInputs.prop("disabled", newSetting);
-            if (this.token.autoscale && newSetting === true) {
+        linkToActorSize.addEventListener("change", (event) => {
+            if (!(event.currentTarget instanceof HTMLInputElement)) {
+                throw ErrorPF2e("Input element not found");
+            }
+
+            const sizeInputs = Array.from(
+                event.currentTarget
+                    .closest("fieldset")
+                    ?.querySelectorAll<HTMLInputElement>("input[type=number], input[type=range]") ?? []
+            );
+
+            for (const input of sizeInputs) {
+                input.disabled = linkToActorSize.checked;
+            }
+
+            const dimensionInputs = sizeInputs.filter((i) => ["width", "height"].includes(i.name));
+
+            const autoscale =
+                game.settings.get("pf2e", "tokens.autoscale") && this.token._source.flags.pf2e?.autoscale !== false;
+
+            if (linkToActorSize.checked && autoscale) {
                 if (this.actor instanceof VehiclePF2e) {
                     const { dimensions } = this.actor;
-                    const width = Math.max(Math.round(dimensions.width / 5), 1);
-                    const length = Math.max(Math.round(dimensions.length / 5), 1);
-                    $sizeInputs.filter("[name=width]").val(width);
-                    $sizeInputs.filter("[name=height]").val(length);
+                    const dimensionValues: Record<string, number> = {
+                        width: Math.max(Math.round(dimensions.width / 5), 1),
+                        height: Math.max(Math.round(dimensions.length / 5), 1),
+                    };
+                    for (const input of dimensionInputs) {
+                        input.value = dimensionValues[input.name].toString();
+                    }
                 } else {
-                    $sizeInputs.filter("[name=width], [name=height]").val(this.dimensionsFromActorSize);
+                    for (const input of dimensionInputs) {
+                        input.value = this.dimensionsFromActorSize.toString();
+                    }
                 }
-                this.disableScale($html);
+                this.#disableScale(html);
             } else {
-                const source = this.token.data._source;
-                $sizeInputs.filter("[name=width]").val(source.width);
-                $sizeInputs.filter("[name=height]").val(source.height);
-                $sizeInputs.filter("[name=scale]").val(source.scale);
-                this.enableScale($html);
-            }
-        });
-
-        const $visionInputs = $html.find(
-            ["dimSight", "brightSight", "sightAngle"].map((selector) => `input[name="${selector}"]`).join(", ")
-        );
-
-        // Disable vision management if vision is also disabled
-        if (!this.token.data.vision) {
-            $visionInputs.prop({ disabled: true });
-        }
-        $html.find<HTMLInputElement>('input[name="vision"]').on("change", (event) => {
-            $visionInputs.prop({ disabled: !event.currentTarget.checked });
-        });
-
-        // Indicate that this setting is managed by rules-based vision
-        const rbvEnabled = game.settings.get("pf2e", "automation.rulesBasedVision");
-        if (rbvEnabled && ["character", "familiar"].includes(this.actor?.type ?? "")) {
-            for (const selector of ["dimSight", "brightSight", "sightAngle"]) {
-                const $input = $html.find(`input[name="${selector}"]`);
-
-                if (selector === "brightSight") {
-                    const $managedBy = $("<p>").html(
-                        game.i18n.localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy")
-                    );
-                    $input.replaceWith($managedBy);
-                    $managedBy.closest(".form-group").addClass("managed-by-rbv").find(".form-fields label").remove();
-
-                    $managedBy.find("a").on("click", () => {
-                        const menu = game.settings.menus.get("pf2e.automation");
-                        if (!menu) throw ErrorPF2e("Automation Settings application not found");
-                        const app = new menu.type();
-                        app.render(true);
-                    });
-                } else {
-                    $input.remove();
+                const source = this.token._source;
+                const nameToValue = {
+                    width: source.width,
+                    height: source.height,
+                    scale: source.texture.scaleX,
+                };
+                for (const input of sizeInputs) {
+                    if (objectHasKey(nameToValue, input.name)) {
+                        input.value = nameToValue[input.name].toString();
+                    }
                 }
+                this.#enableScale(html);
             }
-        }
+        });
 
-        super.activateListeners($html);
+        this.#disableVisionInputs(html);
     }
 
     /** Disable the range input for token scale and style to indicate as much */
-    private disableScale($html: JQuery): void {
+    #disableScale(html: HTMLElement): void {
         // If autoscaling is disabled, keep form input enabled
         if (!game.settings.get("pf2e", "tokens.autoscale")) return;
 
-        const $scale = $html.find(".form-group.scale");
-        $scale.addClass("children-disabled");
+        const scale = html.querySelector(".form-group.scale");
+        if (!scale) throw ErrorPF2e("Scale form group missing");
+        scale.classList.add("children-disabled");
 
-        const constrainedScale = this.actor?.size === "sm" ? 0.8 : 1;
-        $scale.find('input[type="range"]').prop({ disabled: true }).val(constrainedScale);
-        $scale.find(".range-value").text(constrainedScale);
+        const constrainedScale = String(this.actor?.size === "sm" ? 0.8 : 1);
+        const rangeInput = scale.querySelector<HTMLInputElement>("input[type=range]");
+        if (rangeInput) {
+            rangeInput.disabled = true;
+            rangeInput.value = constrainedScale;
+            const rangeDisplayValue = scale.querySelector(".range-value");
+            if (rangeDisplayValue) rangeDisplayValue.innerHTML = constrainedScale;
+        }
     }
 
     /** Reenable range input for token scale and restore normal styling */
-    private enableScale($html: JQuery): void {
-        const $scale = $html.find(".form-group.scale");
-        $scale.removeClass("children-disabled");
-        $scale.find('input[type="range"]').prop({ disabled: false });
+    #enableScale(html: HTMLElement): void {
+        const scale = html.querySelector(".form-group.scale");
+        if (!scale) throw ErrorPF2e("Scale form group missing");
+        scale.classList.remove("children-disabled");
+        const rangeInput = scale.querySelector<HTMLInputElement>("input[type=range]");
+        if (rangeInput) {
+            rangeInput.disabled = false;
+            const rangeDisplayValue = scale.querySelector(".range-value");
+            if (rangeDisplayValue) rangeDisplayValue.innerHTML = rangeInput.value;
+        }
+    }
 
-        const $range = $scale.find<HTMLInputElement>('input[type="range"]');
-        $scale.find(".range-value").text(String($range.val()));
+    #disableVisionInputs(html: HTMLElement): void {
+        const actorIsPCOrFamiliar = ["character", "familiar"].includes(this.actor?.type ?? "");
+        const rulesBasedVision =
+            actorIsPCOrFamiliar &&
+            (this.token.rulesBasedVision ||
+                (this.isPrototype && game.settings.get("pf2e", "automation.rulesBasedVision")));
+        if (!rulesBasedVision) return;
+
+        const sightInputNames = ["angle", "brightness", "range", "saturation", "visionMode"].map((n) => `sight.${n}`);
+        const sightInputs = Array.from(
+            html.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
+                sightInputNames.map((n) => `[name="${n}"]`).join(", ")
+            )
+        );
+
+        const sightEnabledInput = html.querySelector<HTMLInputElement>('input[name="sight.enabled"]');
+        if (!sightEnabledInput) throw ErrorPF2e("sight.enabled input not found");
+        sightEnabledInput.addEventListener("change", () => {
+            for (const input of sightInputs) {
+                input.disabled = !sightEnabledInput.checked;
+                if (input.type === "range") {
+                    if (!sightEnabledInput.checked) {
+                        input.closest(".form-group")?.classList.add("children-disabled");
+                    } else {
+                        input.closest(".form-group")?.classList.remove("children-disabled");
+                    }
+                } else if (input.name === "sight.color") {
+                    const colorInput = input.parentElement?.querySelector<HTMLInputElement>("input[type=color]");
+                    if (colorInput) colorInput.disabled = !sightEnabledInput.checked;
+                }
+            }
+        });
+
+        // Indicate that vision settings are managed by rules-based vision
+        for (const input of sightInputs) {
+            input.disabled = true;
+            if (input.type === "range") {
+                input.closest(".form-group")?.classList.add("children-disabled");
+            }
+        }
+
+        // Disable detection-mode tab link
+        html.querySelector<HTMLAnchorElement>("a.item[data-tab=detection]")?.classList.add("disabled");
+
+        const managedBy = document.createElement("a");
+        managedBy.className = "managed-by-rbv";
+        managedBy.append(fontAwesomeIcon("robot"));
+        managedBy.title = game.i18n
+            .localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy")
+            .replace(/<\/?rbv>/g, "");
+        for (const sightInput of sightInputs) {
+            const anchor = managedBy.cloneNode(true);
+            anchor.addEventListener("click", () => {
+                const menu = game.settings.menus.get("pf2e.automation");
+                if (!menu) throw ErrorPF2e("Automation Settings application not found");
+                const app = new menu.type();
+                app.render(true);
+            });
+
+            const label = sightInput.closest(".form-group")?.querySelector("label");
+            label?.append(anchor);
+        }
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>) {

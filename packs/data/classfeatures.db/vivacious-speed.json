@@ -1,6 +1,8 @@
 {
     "_id": "8BOFeRE7ZfJ02N0O",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/vivacious-speed.webp",
+    "name": "Vivacious Speed",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,18 +21,15 @@
         "level": {
             "value": 3
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:effect:panache"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:panache"
+                ],
                 "selector": "speed",
                 "slug": "vivacious-full",
                 "type": "status",
@@ -69,11 +68,11 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "self:effect:panache"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
                 "selector": "speed",
                 "slug": "vivacious-half",
                 "type": "status",
@@ -98,7 +97,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
             "custom": "",
@@ -108,7 +107,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/classes/vivacious-speed.webp",
-    "name": "Vivacious Speed",
     "type": "feat"
 }

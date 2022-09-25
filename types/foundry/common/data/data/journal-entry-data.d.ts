@@ -23,14 +23,17 @@ declare module foundry {
             img: ImagePath;
             folder: string | null;
             sort: number;
-            permission: Record<string, PermissionLevel>;
+            ownership: Record<string, PermissionLevel>;
             flags: Record<string, unknown>;
         }
 
         class JournalEntryData<
-            TDocument extends documents.BaseJournalEntry = documents.BaseJournalEntry
+            TDocument extends documents.BaseJournalEntry = documents.BaseJournalEntry,
+            TPage extends documents.BaseJournalEntryPage = documents.BaseJournalEntryPage
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
+
+            pages: abstract.EmbeddedCollection<TPage>;
         }
 
         interface JournalEntryData extends JournalEntrySource {

@@ -1,0 +1,57 @@
+<form autocomplete="off">
+    <div class="form-group">
+        <label>{{localize "PLAYERS.PlayerAvatar"}}</label>
+        <img class="avatar" src="{{user.avatar}}" data-edit="avatar" title="{{actor.name}}" height="64" width="64"/>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PLAYERS.PlayerColor"}}</label>
+        <div class="form-fields">
+            {{colorPicker name="color" value=user.color}}
+        </div>
+    </div>
+
+    {{!-- PF2e Settings --}}
+    <div class="form-group">
+        <label>{{localize "PF2E.SETTINGS.User.EffectPanel.Name"}}</label>
+        <input type="checkbox" name="flags.pf2e.settings.showEffectPanel" {{checked user.flags.pf2e.settings.showEffectPanel}} />
+        <p class="notes">{{localize "PF2E.SETTINGS.User.EffectPanel.Hint"}}</p>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SettingsQuickRollsLabel"}}</label>
+        <input type="checkbox" name="flags.pf2e.settings.showRollDialogs" {{checked user.flags.pf2e.settings.showRollDialogs}} />
+        <p class="notes">{{localize "PF2E.SettingsQuickRollsNotes"}}</p>
+    </div>
+    {{!-- /PF2e Settings --}}
+
+    <div class="form-group stacked directory">
+        {{#if user.character}}
+            <label>{{localize "PLAYERS.CharSelected"}}</label>
+            <button type="reset" name="release">
+                <i class="fas fa-ban"></i> {{localize "PLAYERS.CharRelease"}}
+            </button>
+            <ul id="characters" class="directory-list">
+                <li class="actor directory-item flexrow" data-actor-id="{{user.character.id}}">
+                    <img class="profile actor-profile" src="{{user.character.img}}" title="{{user.character.name}}" />
+                    <h3 class="document-name noborder"><a>{{user.character.name}}</a></h3>
+                </li>
+            </ul>
+        {{else}}
+            <label>{{localize "PLAYERS.CharSelect"}}</label>
+            <ul id="characters" class="directory-list">
+                {{#each actors}}
+                    <li class="actor directory-item flexrow" data-actor-id="{{this.id}}">
+                        <img class="profile actor-profile" src="{{this.img}}" title="{{this.name}}" />
+                        <h3 class="document-name noborder"><a>{{this.name}}</a></h3>
+                    </li>
+                {{/each}}
+            </ul>
+            <input type="hidden" name="character" value="" />
+        {{/if}}
+    </div>
+
+    <button type="submit">
+        <i class="fas fa-save"></i> {{localize "PLAYERS.SaveConfig"}}
+    </button>
+</form>

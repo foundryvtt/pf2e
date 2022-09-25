@@ -65,9 +65,9 @@ declare interface Number {
 /* -------------------------------------------- */
 
 declare interface Array<T> {
-    fromRange(n: number): Array<T>;
+    fromRange(n: number): T[];
 
-    deepFlatten(): Array<T>;
+    deepFlatten(): T[];
 
     /**
      * Test equality of the values of this array against the values of some other Array

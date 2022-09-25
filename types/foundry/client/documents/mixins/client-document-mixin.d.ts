@@ -173,13 +173,13 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     /* -------------------------------------------- */
 
     protected override _onCreate(
-        data: this["data"]["_source"],
+        data: this["_source"],
         options: DocumentModificationContext<this>,
         userId: string
     ): void;
 
     protected override _onUpdate(
-        changed: DeepPartial<this["data"]["_source"]>,
+        changed: DeepPartial<this["_source"]>,
         options: DocumentModificationContext<this>,
         userId: string
     ): void;
@@ -195,7 +195,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      */
     protected _preCreateEmbeddedDocuments(
         embeddedName: string,
-        result: ClientDocument["data"]["_source"][],
+        result: ClientDocument["_source"][],
         options: DocumentModificationContext,
         userId: string
     ): void;
@@ -211,7 +211,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     protected _onCreateEmbeddedDocuments(
         embeddedName: string,
         documents: ClientDocument[],
-        result: ClientDocument["data"]["_source"][],
+        result: ClientDocument["_source"][],
         options: DocumentModificationContext,
         userId: string
     ): void;
@@ -225,7 +225,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      */
     protected _preUpdateEmbeddedDocuments(
         embeddedName: string,
-        result: ClientDocument["data"]["_source"][],
+        result: ClientDocument["_source"][],
         options: DocumentModificationContext,
         userId: string
     ): void;
@@ -241,7 +241,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     protected _onUpdateEmbeddedDocuments(
         embeddedName: string,
         documents: ClientDocument[],
-        result: ClientDocument["data"]["_source"][],
+        result: ClientDocument["_source"][],
         options: DocumentModificationContext,
         userId: string
     ): void;
@@ -255,7 +255,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      */
     protected _preDeleteEmbeddedDocuments(
         embeddedName: string,
-        result: ClientDocument["data"]["_source"][],
+        result: ClientDocument["_source"][],
         options: DocumentModificationContext,
         userId: string
     ): void;
@@ -271,7 +271,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     protected _onDeleteEmbeddedDocuments(
         embeddedName: string,
         documents: ClientDocument[],
-        result: ClientDocument["data"]["_source"][],
+        result: ClientDocument["_source"][],
         options: DocumentModificationContext,
         userId: string
     ): void;
@@ -303,5 +303,5 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      * @param [pack] A specific pack being exported to
      * @return A data object of cleaned data suitable for compendium import
      */
-    toCompendium(pack: CompendiumCollection<any>): this["data"]["_source"];
+    toCompendium(pack: CompendiumCollection<any>): this["_source"];
 }

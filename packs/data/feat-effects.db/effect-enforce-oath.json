@@ -1,6 +1,8 @@
 {
     "_id": "LF8xzzFsFJKxejqv",
-    "data": {
+    "img": "systems/pf2e/icons/spells/abyssal-pact.webp",
+    "name": "Effect: Enforce Oath",
+    "system": {
         "description": {
             "value": "<p>Granted by @Compendium[pf2e.feats-srd.Enforce Oath]{Enforce Oath}.</p>\n<p>You gain a +1 status bonus to AC and saves against attacks and effects by the chosen creature. You also gain a +1 status bonus to attack rolls against the chosen creature.</p>\n<p>However, your dedication to Enforcing your Oath draws your focus away from all other foes. While you are Enforcing your Oath, you take a -1 status penalty to AC, attack rolls, and saves against all other creatures until you stop Enforcing your Oath.</p>\n<p>You stop Enforcing your Oath once the chosen creature is reduced to 0 Hit Points or offers a legitimate surrender to you or your allies. You immediately stop Enforcing your Oath if you are @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} or if the chosen creature goes @Compendium[pf2e.conditionitems.Unnoticed]{Unnoticed} by you for more than 1 minute. You can also stop Enforcing your Oath at any time during your turn as a free action.</p>"
         },
@@ -24,11 +26,9 @@
             {
                 "key": "FlatModifier",
                 "label": "oath-target",
-                "predicate": {
-                    "all": [
-                        "enforce-oath"
-                    ]
-                },
+                "predicate": [
+                    "enforce-oath"
+                ],
                 "selector": "ac",
                 "type": "status",
                 "value": 1
@@ -36,11 +36,9 @@
             {
                 "key": "FlatModifier",
                 "label": "oath-target",
-                "predicate": {
-                    "all": [
-                        "enforce-oath"
-                    ]
-                },
+                "predicate": [
+                    "enforce-oath"
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
@@ -48,11 +46,9 @@
             {
                 "key": "FlatModifier",
                 "label": "oath-target",
-                "predicate": {
-                    "all": [
-                        "enforce-oath"
-                    ]
-                },
+                "predicate": [
+                    "enforce-oath"
+                ],
                 "selector": "attack",
                 "type": "status",
                 "value": 1
@@ -60,11 +56,11 @@
             {
                 "key": "FlatModifier",
                 "label": "not-oath-target",
-                "predicate": {
-                    "not": [
-                        "enforce-oath"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "enforce-oath"
+                    }
+                ],
                 "selector": "ac",
                 "type": "status",
                 "value": -1
@@ -72,11 +68,11 @@
             {
                 "key": "FlatModifier",
                 "label": "not-oath-target",
-                "predicate": {
-                    "not": [
-                        "enforce-oath"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "enforce-oath"
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": -1
@@ -84,18 +80,18 @@
             {
                 "key": "FlatModifier",
                 "label": "not-oath-target",
-                "predicate": {
-                    "not": [
-                        "enforce-oath"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "enforce-oath"
+                    }
+                ],
                 "selector": "attack",
                 "type": "status",
                 "value": -1
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Advanced Player's Guide"
         },
         "start": {
             "initiative": null,
@@ -111,7 +107,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/abyssal-pact.webp",
-    "name": "Effect: Enforce Oath",
     "type": "effect"
 }

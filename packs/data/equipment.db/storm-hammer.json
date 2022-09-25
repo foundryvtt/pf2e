@@ -1,6 +1,8 @@
 {
     "_id": "EuTZxxwdVeN6Xg3A",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/weapons/warhammer.webp",
+    "name": "Storm Hammer",
+    "system": {
         "MAP": {
             "value": ""
         },
@@ -89,11 +91,9 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "electrify"
-                    ]
-                },
+                "predicate": [
+                    "electrify"
+                ],
                 "selector": "{item|_id}-damage"
             },
             {
@@ -106,11 +106,11 @@
             {
                 "damageType": "electricity",
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "electrify"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "electrify"
+                    }
+                ],
                 "selector": "{item|_id}-damage",
                 "value": 1
             }
@@ -151,7 +151,5 @@
             "value": "1"
         }
     },
-    "img": "systems/pf2e/icons/equipment/weapons/warhammer.webp",
-    "name": "Storm Hammer",
     "type": "weapon"
 }

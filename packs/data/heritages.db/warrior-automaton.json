@@ -1,6 +1,8 @@
 {
     "_id": "y24ykEUfpIu5Gp6D",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Warrior Automaton",
+    "system": {
         "ancestry": {
             "name": "Automaton",
             "uuid": "Compendium.pf2e.ancestries.kYsBAJ103T44agJF"
@@ -23,13 +25,15 @@
                 "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
                 "key": "Strike",
                 "label": "PF2E.Strike.Fist.Label",
-                "predicate": {
-                    "not": [
-                        "feature:powerful-fist",
-                        "feat:martial-artist-dedication",
-                        "feat:arcane-fist"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "nor": [
+                            "feature:powerful-fist",
+                            "feat:martial-artist-dedication",
+                            "feat:arcane-fist"
+                        ]
+                    }
+                ],
                 "range": null,
                 "slug": "fist",
                 "traits": [
@@ -49,7 +53,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/heritage.svg",
-    "name": "Warrior Automaton",
     "type": "heritage"
 }

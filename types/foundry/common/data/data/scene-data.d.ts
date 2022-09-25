@@ -25,15 +25,10 @@ declare module foundry {
 
             backgroundColor: HexColorString;
 
-            // Grid Configuration
-            gridType: GridType;
-            grid: number;
+            grid: GridData;
+
             shiftX: number;
             shiftY: number;
-            gridColor: HexColorString;
-            gridAlpha: number;
-            gridDistance: number;
-            gridUnits: string;
 
             // Vision and Lighting Configuration
             tokenVision: boolean;
@@ -63,8 +58,23 @@ declare module foundry {
             // Permissions
             folder: string | null;
             sort: number;
-            permission: Record<string, PermissionLevel>;
-            flags: Record<string, unknown>;
+            ownership: Record<string, PermissionLevel>;
+            flags: Record<string, Record<string, unknown>>;
+        }
+
+        interface GridData {
+            /** The type of grid, a number from CONST.GRID_TYPES. */
+            type: GridType;
+            /** The grid size which represents the width (or height) of a single grid space. */
+            size: number;
+            /** A string representing the color used to render the grid lines. */
+            color: HexColorString;
+            /** A number between 0 and 1 for the opacity of the grid lines. */
+            alpha: number;
+            /** The number of distance units which are represented by a single grid space. */
+            distance: number;
+            /** A label for the units of measure which are used for grid distance. */
+            units: string;
         }
 
         class SceneData<
@@ -99,6 +109,7 @@ declare module foundry {
         interface SceneData
             extends Omit<
                 SceneSource,
+                | "flags"
                 | "drawings"
                 | "tokens"
                 | "lights"

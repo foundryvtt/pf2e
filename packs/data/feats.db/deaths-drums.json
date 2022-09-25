@@ -1,6 +1,8 @@
 {
     "_id": "ZcKW5n7F0oAqRw5o",
-    "data": {
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Death's Drums",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,19 +21,20 @@
         "level": {
             "value": 9
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "self:condition:persistent-damage",
-                        "self:condition:wounded"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "self:condition:persistent-damage",
+                            "self:condition:wounded"
+                        ]
+                    }
+                ],
                 "selector": "fortitude",
                 "type": "circumstance",
                 "value": 2
@@ -48,7 +51,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Death's Drums",
     "type": "feat"
 }

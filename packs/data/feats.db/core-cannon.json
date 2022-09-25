@@ -1,6 +1,8 @@
 {
     "_id": "zeyrLJr6b7hPdx4w",
-    "data": {
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Core Cannon",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -16,10 +18,13 @@
         "featType": {
             "value": "ancestry"
         },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
         "level": {
             "value": 17
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -34,11 +39,9 @@
                     }
                 },
                 "key": "Strike",
-                "predicate": {
-                    "all": [
-                        "core-cannon"
-                    ]
-                },
+                "predicate": [
+                    "core-cannon"
+                ],
                 "range": 120,
                 "traits": [
                     "unarmed"
@@ -63,7 +66,8 @@
             {
                 "key": "Note",
                 "selector": "{item|_id}-attack",
-                "text": "<p class='compact-text'><strong>{item|name}</strong> <em>@Localize[PF2E.SpecificRule.Automaton.CoreCannon.AttackNote]</em></p>"
+                "text": "<em>@Localize[PF2E.SpecificRule.Automaton.CoreCannon.AttackNote]</em>",
+                "title": "{item|name}"
             },
             {
                 "damageType": "fire",
@@ -103,7 +107,5 @@
             ]
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feats.webp",
-    "name": "Core Cannon",
     "type": "feat"
 }

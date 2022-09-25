@@ -1,11 +1,10 @@
-import { EditorState, EditorView, basicSetup } from "@codemirror/basic-setup";
+import { EditorView, basicSetup } from "codemirror";
 import { keymap } from "@codemirror/view";
 import { indentWithTab } from "@codemirror/commands";
 import { linter } from "@codemirror/lint";
 import { json, jsonParseLinter } from "@codemirror/lang-json";
 
 export const CodeMirror = {
-    EditorState,
     EditorView,
     basicSetup,
     json,

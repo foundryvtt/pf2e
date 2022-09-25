@@ -133,4 +133,8 @@ export class ActorSizePF2e {
         this.length = newSpace.length;
         this.width = newSpace.width;
     }
+
+    toString() {
+        return game.i18n.localize(CONFIG.PF2E.actorSizes[this.value]);
+    }
 }

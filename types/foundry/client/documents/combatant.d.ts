@@ -9,7 +9,10 @@ declare global {
      * @see {@link data.CombatantData} The Combatant data schema
      * @see {@link documents.Combat}   The Combat document which contains Combatant embedded documents
      */
-    class Combatant<TActor extends Actor | null = Actor | null> extends CombatantConstructor {
+    class Combatant<
+        TParent extends Combat | null = Combat | null,
+        TActor extends Actor | null = Actor | null
+    > extends CombatantConstructor {
         constructor(data: PreCreate<foundry.data.CombatantSource>, context?: DocumentConstructionContext<Combatant>);
 
         /** A cached reference to the Token which this Combatant represents, if any */
@@ -31,9 +34,6 @@ declare global {
          */
         get img(): VideoPath;
 
-        /** A convenience reference to the current initiative score of this Combatant */
-        get initiative(): number | null;
-
         /**
          * This is treated as a non-player combatant if it has no associated actor and no player users who can control
          * it
@@ -44,18 +44,6 @@ declare global {
 
         /** Is this Combatant entry currently visible in the Combat Tracker? */
         get isVisible(): boolean;
-
-        /**
-         * Is this Combatant "hidden", either because they are explicitly marked as hidden or because their token is
-         * hidden
-         */
-        get hidden(): boolean;
-
-        /**
-         * The displayed name for the Combatant is based off its own configured data, or the data of its represented
-         * Token.
-         */
-        get name(): string;
 
         /** A reference to the Actor document which this Combatant represents, if any */
         get actor(): TActor;
@@ -103,8 +91,11 @@ declare global {
         _getInitiativeFormula(): string;
     }
 
-    interface Combatant {
-        readonly parent: Combat | null;
+    interface Combatant<TParent extends Combat | null = Combat | null, TActor extends Actor | null = Actor | null> {
+        readonly data: foundry.data.CombatantData<this>;
+
+        readonly parent: TParent;
+
         _sheet: CombatantConfig<this>;
     }
 }

@@ -4,7 +4,6 @@ import { ItemPF2e } from "@item";
 import { BaseWeaponType } from "@item/weapon/types";
 import { sluggify } from "@util";
 import { DeityData } from "./data";
-import { DeitySheetPF2e } from "./sheet";
 
 class DeityPF2e extends ItemPF2e {
     get category(): "deity" | "pantheon" | "philosophy" {
@@ -40,7 +39,7 @@ class DeityPF2e extends ItemPF2e {
 
         this.actor.deity = this;
 
-        const { deities } = this.actor.data.data.details;
+        const { deities } = this.actor.system.details;
         const systemData = this.system;
         deities.primary = {
             alignment: deepClone(systemData.alignment),
@@ -97,12 +96,16 @@ class DeityPF2e extends ItemPF2e {
             }
         }
     }
+
+    override getRollOptions(prefix = this.type): string[] {
+        const baseOptions = super.getRollOptions(prefix);
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        return [...baseOptions, `${delimitedPrefix}category:${this.category}`].sort();
+    }
 }
 
 interface DeityPF2e extends ItemPF2e {
     readonly data: DeityData;
-
-    readonly _sheet: DeitySheetPF2e<this>;
 }
 
 export { DeityPF2e };

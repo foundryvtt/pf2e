@@ -74,6 +74,11 @@ interface NPCSystemSheetData extends NPCSystemData {
     };
 }
 
+interface NPCSpellcastingSheetData extends SpellcastingSheetData {
+    adjustedHigher?: { dc: boolean; mod: boolean };
+    adjustedLower?: { dc: boolean; mod: boolean };
+}
+
 /** Additional fields added in sheet data preparation */
 interface NPCSheetData<T extends NPCPF2e = NPCPF2e> extends CreatureSheetData<T> {
     actions: NPCActionSheetData;
@@ -115,7 +120,7 @@ type NPCSheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDat
         description?: string;
     }[];
     chatData?: unknown;
-    data: {
+    system: {
         bonus?: {
             value: number;
             total?: number;
@@ -135,6 +140,7 @@ export {
     NPCAttackSheetData,
     NPCSheetData,
     NPCSheetItemData,
+    NPCSpellcastingSheetData,
     NPCSystemSheetData,
     VariantCloneParams,
 };

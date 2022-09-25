@@ -24,10 +24,10 @@ export class Migration663FixSpellDamage extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e) {
         if (itemData.type !== "spell") return;
-        if (Object.keys(itemData.data.damage?.value ?? {}).length > 0) return;
+        if (Object.keys(itemData.system.damage?.value ?? {}).length > 0) return;
 
-        const itemName = itemData.data.slug ?? sluggify(itemData.name);
-        const systemData: SpellScalingOld = itemData.data;
+        const itemName = itemData.system.slug ?? sluggify(itemData.name);
+        const systemData: SpellScalingOld = itemData.system;
 
         switch (itemName) {
             case "animated-assault":

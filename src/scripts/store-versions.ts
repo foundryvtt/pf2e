@@ -6,7 +6,7 @@ export async function storeInitialWorldVersions(): Promise<void> {
 
     const storedSystemVersion = game.settings.storage.get("world").getItem("pf2e.worldSystemVersion");
     if (!storedSystemVersion) {
-        await game.settings.set("pf2e", "worldSystemVersion", game.system.data.version);
+        await game.settings.set("pf2e", "worldSystemVersion", game.system.version);
     }
 
     const storedSchemaVersion = game.settings.storage.get("world").getItem("pf2e.worldSchemaVersion");

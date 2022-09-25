@@ -8,7 +8,7 @@ export class Migration689EncumberanceActiveEffects extends MigrationBase {
     static override version = 0.689;
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const systemData = itemSource.data;
+        const systemData = itemSource.system;
         const slug = systemData.slug ?? sluggify(itemSource.name);
 
         const amountToIncreaseBy = (() => {
@@ -25,19 +25,19 @@ export class Migration689EncumberanceActiveEffects extends MigrationBase {
 
         if (amountToIncreaseBy === 0) return;
 
-        const alreadyMigrated = systemData.rules.some((x: { key: string }) => x.key === "ActiveEffectLike");
+        const alreadyMigrated = systemData.rules.some((r) => r.key === "ActiveEffectLike");
         if (alreadyMigrated) return;
 
         const rules: (RuleElementSource & { [key: string]: unknown })[] = [
             {
                 key: "ActiveEffectLike",
-                path: "data.attributes.bonusEncumbranceBulk",
+                path: "system.attributes.bonusEncumbranceBulk",
                 mode: "add",
                 value: amountToIncreaseBy,
             },
             {
                 key: "ActiveEffectLike",
-                path: "data.attributes.bonusLimitBulk",
+                path: "system.attributes.bonusLimitBulk",
                 mode: "add",
                 value: amountToIncreaseBy,
             },

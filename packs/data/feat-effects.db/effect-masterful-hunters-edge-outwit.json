@@ -1,6 +1,8 @@
 {
     "_id": "iqvurepX0zyu9OlI",
-    "data": {
+    "img": "systems/pf2e/icons/features/classes/outwit.webp",
+    "name": "Effect: Masterful Hunter's Edge, Outwit",
+    "system": {
         "description": {
             "value": "<p>Granted when a ranger shares their @Compendium[pf2e.classfeatures.Masterful Hunter (Outwit)]{Masterful Hunter (Outwit)} with you.</p>\n<p>Your mastery of skills allows you to overwhelm your prey. If you have master proficiency in Deception, Intimidation, Stealth, or the skill you use to Recall Knowledge about your prey, increase the circumstance bonus against the prey with that skill from +2 to +4.</p>\n<p>If you have master proficiency with your armor, increase the circumstance bonus to AC against the prey from +1 to +2.</p>"
         },
@@ -24,12 +26,10 @@
             {
                 "key": "FlatModifier",
                 "label": "To Track hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "action:track",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:track",
+                    "hunted-prey"
+                ],
                 "selector": "survival",
                 "type": "circumstance",
                 "value": {
@@ -45,18 +45,16 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.skills.sur.rank"
+                    "field": "actor|system.skills.sur.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "To Seek hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "action:seek",
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "action:seek",
+                    "hunted-prey"
+                ],
                 "selector": "perception",
                 "type": "circumstance",
                 "value": {
@@ -72,17 +70,15 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.attributes.perception.rank"
+                    "field": "actor|system.attributes.perception.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "Vs. attacks from hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey"
+                ],
                 "selector": "ac",
                 "type": "circumstance",
                 "value": {
@@ -98,17 +94,15 @@
                             "value": 1
                         }
                     ],
-                    "field": "actor|data.martial.unarmored.rank"
+                    "field": "actor|system.martial.unarmored.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "Vs. hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey"
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": {
@@ -124,17 +118,15 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.skills.dec.rank"
+                    "field": "actor|system.skills.dec.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "Vs. hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey"
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": {
@@ -150,17 +142,15 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.skills.itm.rank"
+                    "field": "actor|system.skills.itm.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "Vs. hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "hunted-prey"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey"
+                ],
                 "selector": "stealth",
                 "type": "circumstance",
                 "value": {
@@ -176,18 +166,16 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.skills.ste.rank"
+                    "field": "actor|system.skills.ste.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "Recall knowledge on hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "hunted-prey",
-                        "action:recall-knowledge"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    "action:recall-knowledge"
+                ],
                 "selector": "arcana",
                 "type": "circumstance",
                 "value": {
@@ -203,18 +191,16 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.skills.arc.rank"
+                    "field": "actor|system.skills.arc.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "Recall knowledge on hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "hunted-prey",
-                        "action:recall-knowledge"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    "action:recall-knowledge"
+                ],
                 "selector": "religion",
                 "type": "circumstance",
                 "value": {
@@ -230,18 +216,16 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.skills.rel.rank"
+                    "field": "actor|system.skills.rel.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "Recall knowledge on hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "hunted-prey",
-                        "action:recall-knowledge"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    "action:recall-knowledge"
+                ],
                 "selector": "nature",
                 "type": "circumstance",
                 "value": {
@@ -257,18 +241,16 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.skills.nat.rank"
+                    "field": "actor|system.skills.nat.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "Recall knowledge on hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "hunted-prey",
-                        "action:recall-knowledge"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    "action:recall-knowledge"
+                ],
                 "selector": "occultism",
                 "type": "circumstance",
                 "value": {
@@ -284,18 +266,16 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.skills.occ.rank"
+                    "field": "actor|system.skills.occ.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "Recall knowledge on hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "hunted-prey",
-                        "action:recall-knowledge"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    "action:recall-knowledge"
+                ],
                 "selector": "crafting",
                 "type": "circumstance",
                 "value": {
@@ -311,18 +291,16 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.skills.cra.rank"
+                    "field": "actor|system.skills.cra.rank"
                 }
             },
             {
                 "key": "FlatModifier",
                 "label": "Recall knowledge on hunted prey (Masterful Hunter)",
-                "predicate": {
-                    "all": [
-                        "hunted-prey",
-                        "action:recall-knowledge"
-                    ]
-                },
+                "predicate": [
+                    "hunted-prey",
+                    "action:recall-knowledge"
+                ],
                 "selector": "society",
                 "type": "circumstance",
                 "value": {
@@ -338,12 +316,12 @@
                             "value": 2
                         }
                     ],
-                    "field": "actor|data.skills.soc.rank"
+                    "field": "actor|system.skills.soc.rank"
                 }
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,
@@ -359,7 +337,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/features/classes/outwit.webp",
-    "name": "Effect: Masterful Hunter's Edge, Outwit",
     "type": "effect"
 }

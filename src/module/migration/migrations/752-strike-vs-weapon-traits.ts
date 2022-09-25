@@ -12,9 +12,9 @@ export class Migration752StrikeVsWeaponTraits extends MigrationBase {
     #toSkip = new Set(["ghost-hunter", "stance-arcane-cascade", "spirit-strikes"]);
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (this.#toSkip.has(source.data.slug ?? "")) return;
+        if (this.#toSkip.has(source.system.slug ?? "")) return;
 
-        const rules = source.data.rules.filter(
+        const rules = source.system.rules.filter(
             (r: MaybeAdjustStrike): r is AdjustStrikeSource => r.key === "AdjustStrike" && r.property === "traits"
         );
 

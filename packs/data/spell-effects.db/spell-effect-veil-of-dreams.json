@@ -1,15 +1,17 @@
 {
     "_id": "hkLhZsH3T6jc9S1y",
-    "data": {
+    "img": "systems/pf2e/icons/spells/veil-of-dreams.webp",
+    "name": "Spell Effect: Veil of Dreams",
+    "system": {
         "badge": null,
         "description": {
             "value": "<p>The target takes a -1 status penalty to Perception, attack rolls, and Will saves. This penalty increases to -2 for Will saves against sleep effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
-            "sustained": false,
-            "unit": "rounds",
-            "value": 0
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
         },
         "level": {
             "value": 1
@@ -35,11 +37,9 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "sleep"
-                    ]
-                },
+                "predicate": [
+                    "sleep"
+                ],
                 "selector": "will",
                 "type": "status",
                 "value": -1
@@ -62,7 +62,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/veil-of-dreams.webp",
-    "name": "Spell Effect: Veil of Dreams",
     "type": "effect"
 }

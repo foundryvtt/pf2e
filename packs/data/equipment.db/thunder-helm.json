@@ -1,6 +1,8 @@
 {
     "_id": "GVgA0w4CUP4lanPl",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/clockwork-helm.webp",
+    "name": "Thunder Helm",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
@@ -36,12 +38,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "auditory",
-                        "visual"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "auditory",
+                            "visual"
+                        ]
+                    }
+                ],
                 "requireInvestment": false,
                 "selector": "perception",
                 "type": "circumstance",
@@ -49,12 +53,14 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "auditory",
-                        "visual"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "auditory",
+                            "visual"
+                        ]
+                    }
+                ],
                 "requireInvestment": false,
                 "selector": "saving-throw",
                 "type": "circumstance",
@@ -82,7 +88,5 @@
             "value": "L"
         }
     },
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/clockwork-helm.webp",
-    "name": "Thunder Helm",
     "type": "equipment"
 }

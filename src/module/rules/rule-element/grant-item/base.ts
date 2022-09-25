@@ -50,13 +50,19 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const uuid = this.resolveInjectedProperties(this.uuid);
         const grantedItem: ClientDocument | null = await (async () => {
             try {
-                return await fromUuid(uuid);
+                return (await fromUuid(uuid))?.clone() ?? null;
             } catch (error) {
                 console.error(error);
                 return null;
             }
         })();
         if (!(grantedItem instanceof ItemPF2e)) return;
+
+        // The grant may have come from a non-system compendium, so make sure it's fully migrated
+        const migrations = MigrationList.constructFromVersion(grantedItem.schemaVersion);
+        if (migrations.length > 0) {
+            await MigrationRunner.ensureSchemaVersion(grantedItem, migrations);
+        }
 
         // If we shouldn't allow duplicates, check for an existing item with this source ID
         if (!this.allowDuplicate && this.actor.items.some((i) => i.sourceId === uuid)) {
@@ -79,17 +85,6 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
         // Guarantee future alreadyGranted checks pass in all cases by re-assigning sourceId
         grantedSource.flags = mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
-
-        // The grant may have come from a non-system compendium, so make sure it's fully migrated
-        const migrations = MigrationList.constructFromVersion(grantedSource.data.schema.version ?? 0);
-        if (migrations.length > 0) {
-            const actorWithNewItem = this.actor.toObject();
-            actorWithNewItem.items.push(grantedSource);
-            for (const migration of migrations) {
-                await migration.updateItem?.(grantedSource, actorWithNewItem);
-            }
-            grantedSource.data.schema.version = MigrationRunner.LATEST_SCHEMA_VERSION;
-        }
 
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
         const tempGranted = new ItemPF2e(grantedSource, { parent: this.actor }) as Embedded<ItemPF2e>;
@@ -124,8 +119,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         flags.pf2e.itemGrants.push({ id: grantedSource._id });
 
         // The granted item records its granting item's ID at `flags.pf2e.grantedBy`
-        const grantedFlags = mergeObject(grantedSource.flags ?? {}, { pf2e: {} });
-        grantedFlags.pf2e.grantedBy = { id: itemSource._id };
+        grantedSource.flags = mergeObject(grantedSource.flags ?? {}, { pf2e: { grantedBy: { id: itemSource._id } } });
 
         // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
         if (!args.reevaluation) {
@@ -140,7 +134,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         if (!this.reevaluateOnUpdate) return;
 
         const uuid = this.resolveInjectedProperties(this.uuid);
-        const alreadyGranted = this.item.data.flags.pf2e.itemGrants.some(
+        const alreadyGranted = this.item.flags.pf2e.itemGrants.some(
             (g) => this.actor.items.get(g.id)?.sourceId === uuid
         );
         if (alreadyGranted) return;
@@ -161,13 +155,13 @@ class GrantItemRuleElement extends RuleElementPF2e {
     }
 
     override async preDelete({ pendingItems }: RuleElementPF2e.PreDeleteParams): Promise<void> {
-        const grants = this.item.data.flags.pf2e.itemGrants ?? [];
+        const grants = this.item.flags.pf2e.itemGrants ?? [];
         const DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
 
         const deletionActions = grants.reduce(
             (actions: Record<ItemGrantDeleteAction, Embedded<ItemPF2e>[]>, grant) => {
                 const item = this.actor.items.get(grant.id);
-                const { grantedBy } = item?.data.flags.pf2e ?? {};
+                const { grantedBy } = item?.flags.pf2e ?? {};
                 if (!(item && grantedBy && tupleHasValue(DELETE_ACTIONS, grantedBy.onDelete))) {
                     return actions;
                 }
@@ -189,7 +183,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         // Unset the grant flag for any grant that is to detach upon granter's deletion
         await this.actor.updateEmbeddedDocuments(
             "Item",
-            deletionActions.detach.map((i) => ({ _id: i.id, "data.flags.pf2e.-=grantedBy": null })),
+            deletionActions.detach.map((i) => ({ _id: i.id, "flags.pf2e.-=grantedBy": null })),
             { render: false }
         );
 
@@ -198,13 +192,13 @@ class GrantItemRuleElement extends RuleElementPF2e {
     }
 
     private applyChoiceSelections(grantedItem: Embedded<ItemPF2e>): void {
-        const source = grantedItem.data._source;
+        const source = grantedItem._source;
         for (const [flag, selection] of Object.entries(this.preselectChoices ?? {})) {
             const rule = grantedItem.rules.find(
                 (rule): rule is ChoiceSetRuleElement => rule instanceof ChoiceSetRuleElement && rule.data.flag === flag
             );
             if (rule) {
-                const ruleSource = source.data.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
+                const ruleSource = source.system.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
                 const resolvedSelection =
                     typeof selection === "string" ? this.resolveInjectedProperties(selection) : selection;
                 rule.data.selection = ruleSource.selection = resolvedSelection;
@@ -219,17 +213,15 @@ class GrantItemRuleElement extends RuleElementPF2e {
         context: DocumentModificationContext<ItemPF2e>
     ): Promise<void> {
         // Create a temporary embedded version of the item to run its pre-create REs
-        if (grantedItem.data.data.rules) {
-            const grantedSource = grantedItem.data._source;
-            for await (const rule of grantedItem.rules) {
-                const ruleSource = grantedSource.data.rules[grantedItem.rules.indexOf(rule)] as RuleElementSource;
-                await rule.preCreate?.({
-                    ...originalArgs,
-                    itemSource: grantedSource,
-                    ruleSource,
-                    context,
-                });
-            }
+        const grantedSource = grantedItem._source;
+        for (const rule of grantedItem.rules) {
+            const ruleSource = grantedSource.system.rules[grantedItem.rules.indexOf(rule)] as RuleElementSource;
+            await rule.preCreate?.({
+                ...originalArgs,
+                itemSource: grantedSource,
+                ruleSource,
+                context,
+            });
         }
     }
 }

@@ -2,7 +2,7 @@ import { CreatureTrait } from "@actor/creature/data";
 import type { ItemPF2e } from "@item/base";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { RuleElementSource } from "@module/rules";
-import { DocumentSchemaRecord, OneToThree, Rarity, ValuesList } from "@module/data";
+import { DocumentSchemaRecord, OneToThree, TraitsWithRarity } from "@module/data";
 import { ItemType } from ".";
 import { PhysicalItemTrait } from "../physical/data";
 import { NPCAttackTrait } from "@item/melee/data";
@@ -20,10 +20,10 @@ interface BaseItemDataPF2e<
     TType extends ItemType = ItemType,
     TSystemData extends ItemSystemData = ItemSystemData,
     TSource extends BaseItemSourcePF2e<TType> = BaseItemSourcePF2e<TType>
-> extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "data" | "effects">,
+> extends Omit<BaseItemSourcePF2e<TType, ItemSystemSource>, "system" | "effects">,
         foundry.data.ItemData<TItem, ActiveEffectPF2e> {
     readonly type: TType;
-    readonly data: TSystemData;
+    readonly system: TSystemData;
     flags: ItemFlagsPF2e;
 
     readonly _source: TSource;
@@ -38,9 +38,7 @@ interface ActionCost {
     value: OneToThree | null;
 }
 
-interface ItemTraits<T extends ItemTrait = ItemTrait> extends ValuesList<T> {
-    rarity: Rarity;
-}
+type ItemTraits<T extends ItemTrait = ItemTrait> = TraitsWithRarity<T>;
 
 interface ItemFlagsPF2e extends foundry.data.ItemFlags {
     pf2e: {
@@ -93,11 +91,15 @@ interface ItemSystemSource {
 
 type ItemSystemData = ItemSystemSource;
 
-interface Frequency {
-    value: number;
+interface FrequencySource {
+    value?: number;
     max: number;
     /** Gap between recharges as an ISO8601 duration, or "day" for daily prep. */
     per: keyof ConfigPF2e["PF2E"]["frequencies"];
+}
+
+interface Frequency extends FrequencySource {
+    value: number;
 }
 
 export {
@@ -106,6 +108,7 @@ export {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
     Frequency,
+    FrequencySource,
     ItemFlagsPF2e,
     ItemGrantData,
     ItemGrantDeleteAction,

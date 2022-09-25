@@ -1,0 +1,44 @@
+// Spellcasting Preparation Sheet Styling
+.spellcasting-entry.preparation {
+    @import "../reset";
+    @import "spell-list";
+
+    form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 4px;
+    }
+
+    .sheet-header {
+        align-items: baseline;
+        display: block;
+        flex: 0;
+        padding-right: 16px;
+
+        h1 {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            font-family: var(--serif-condensed);
+            font-weight: 700;
+            white-space: nowrap;
+            justify-content: space-between;
+        }
+
+        p.hint {
+            margin: auto auto 1em;
+        }
+
+        .item-controls {
+            flex: 0;
+            white-space: nowrap;
+        }
+    }
+
+    .sheet-content {
+        @include scrollbar;
+        padding-bottom: 1em;
+        padding-right: 8px; // easier resize gripping
+    }
+}

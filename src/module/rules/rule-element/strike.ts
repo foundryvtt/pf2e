@@ -54,10 +54,10 @@ class StrikeRuleElement extends RuleElementPF2e {
 
     override beforePrepareData(): void {
         const predicatePassed =
-            !this.data.predicate ||
+            this.predicate.length === 0 ||
             ((): boolean => {
-                const rollOptions = this.actor.getRollOptions(["attack", "attack-roll", "strike-attack-roll"]);
-                return this.resolveInjectedProperties(this.data.predicate).test(rollOptions);
+                const rollOptions = new Set(this.actor.getRollOptions(["attack", "attack-roll", "strike-attack-roll"]));
+                return this.resolveInjectedProperties(this.predicate).test(rollOptions);
             })();
 
         if (predicatePassed) {
@@ -72,12 +72,12 @@ class StrikeRuleElement extends RuleElementPF2e {
         if (!this.actor.isOfType("character")) return;
 
         if (this.data.replaceAll) {
-            const systemData = this.actor.data.data;
+            const systemData = this.actor.system;
             systemData.actions = systemData.actions.filter(
                 (a) => a.item.id === this.item.id && a.item.name === this.label && a.item.group === this.group
             );
         } else if (this.data.replaceBasicUnarmed) {
-            const systemData = this.actor.data.data;
+            const systemData = this.actor.system;
             systemData.actions.findSplice((a) => a.item?.slug === "basic-unarmed");
         }
     }
@@ -95,7 +95,7 @@ class StrikeRuleElement extends RuleElementPF2e {
             name: this.label,
             type: "weapon",
             img: this.data.img ?? this.item.img,
-            data: {
+            system: {
                 slug: this.slug,
                 description: { value: "" },
                 category: this.category,

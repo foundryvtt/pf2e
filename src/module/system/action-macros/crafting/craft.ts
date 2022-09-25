@@ -33,6 +33,9 @@ export async function craft(options: CraftActionOptions) {
         visibility: "all",
     };
 
+    // whether the player needs to pay crafting costs
+    const free = !!options.free;
+
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
@@ -56,17 +59,17 @@ export async function craft(options: CraftActionOptions) {
         callback: async (result) => {
             // react to check result, creating the item in the actor's inventory on a success
             if (result.message instanceof ChatMessagePF2e) {
-                const messageData = result.message.data;
+                const message = result.message;
                 const flavor = await (async () => {
                     if (["criticalSuccess", "success", "criticalFailure"].includes(result.outcome ?? "")) {
-                        return await renderCraftingInline(item, result.roll, quantity, result.actor);
+                        return await renderCraftingInline(item, result.roll, quantity, result.actor, free);
                     }
                     return "";
                 })();
                 if (flavor) {
-                    messageData.update({ flavor: messageData.flavor + flavor });
+                    message.updateSource({ flavor: message.flavor + flavor });
                 }
-                ChatMessage.create(messageData);
+                ChatMessage.create(message.toObject());
             } else {
                 console.error("PF2E | Unable to amend chat message with craft result.", result.message);
             }
@@ -80,6 +83,7 @@ interface CraftActionOptions extends SkillActionOptions {
     item?: PhysicalItemPF2e;
     quantity?: number;
     uuid?: string;
+    free?: boolean;
 }
 
 interface ItemDropData {

@@ -1,6 +1,8 @@
 {
     "_id": "laU7xnX42wXch2Dv",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/concealed-sheath.webp",
+    "name": "Concealed Sheath",
+    "system": {
         "baseItem": null,
         "containerId": null,
         "description": {
@@ -37,12 +39,10 @@
             {
                 "key": "FlatModifier",
                 "label": "Concealed Sheath (hide or conceal contents)",
-                "predicate": {
-                    "all": [
-                        "action:conceal-an-object",
-                        "target:contents"
-                    ]
-                },
+                "predicate": [
+                    "action:conceal-an-object",
+                    "target:contents"
+                ],
                 "selector": "stealth",
                 "type": "item",
                 "value": 1
@@ -65,7 +65,5 @@
             "value": "-"
         }
     },
-    "img": "systems/pf2e/icons/equipment/adventuring-gear/concealed-sheath.webp",
-    "name": "Concealed Sheath",
     "type": "equipment"
 }

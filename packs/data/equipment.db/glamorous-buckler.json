@@ -1,6 +1,8 @@
 {
     "_id": "IxuDS3POB6EH8TVN",
-    "data": {
+    "img": "systems/pf2e/icons/equipment/shields/specific-shields/glamorous-buckler.webp",
+    "name": "Glamorous Buckler",
+    "system": {
         "armor": {
             "value": 1
         },
@@ -66,12 +68,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:feint",
-                        "self:shield:raised"
-                    ]
-                },
+                "predicate": [
+                    "action:feint",
+                    "self:shield:raised"
+                ],
                 "selector": "deception",
                 "value": 1
             }
@@ -102,7 +102,5 @@
             "value": "L"
         }
     },
-    "img": "systems/pf2e/icons/equipment/shields/specific-shields/glamorous-buckler.webp",
-    "name": "Glamorous Buckler",
     "type": "armor"
 }

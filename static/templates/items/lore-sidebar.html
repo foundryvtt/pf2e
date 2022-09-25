@@ -1,9 +1,7 @@
-<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeLore")}}</h4>
-
 <div class="inventory-details">
     <div class="form-group">
         <label>{{localize "PF2E.ProficiencyLabel"}}</label>
-        <select name="data.proficient.value" data-dtype="Number">
+        <select name="system.proficient.value" data-dtype="Number">
             {{#select data.proficient.value}}
                 {{#each proficiencies as |label p|}}
                     <option value="{{p}}">{{localize label}}</option>

@@ -1,6 +1,8 @@
 {
     "_id": "kHRbOHKEedKaBFH5",
-    "data": {
+    "img": "systems/pf2e/icons/spells/divine-aura.webp",
+    "name": "Effect: Transfer Protection",
+    "system": {
         "description": {
             "value": "<p>The creature gains a +1 status bonus to AC and saves against evil creatures.</p>"
         },
@@ -16,22 +18,18 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "origin:trait:evil"
-                    ]
-                },
+                "predicate": [
+                    "origin:trait:evil"
+                ],
                 "selector": "ac",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "origin:trait:evil"
-                    ]
-                },
+                "predicate": [
+                    "origin:trait:evil"
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
@@ -54,7 +52,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/spells/divine-aura.webp",
-    "name": "Effect: Transfer Protection",
     "type": "effect"
 }

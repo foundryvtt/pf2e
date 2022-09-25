@@ -1,6 +1,8 @@
 {
     "_id": "YGk41WV42aTM7CQV",
-    "data": {
+    "img": "systems/pf2e/icons/spells/dread-aura.webp",
+    "name": "Advanced Undead Benefits",
+    "system": {
         "actionCategory": {
             "value": ""
         },
@@ -19,7 +21,6 @@
         "level": {
             "value": 0
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -31,25 +32,31 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
+                "slug": "advanced-undead-disease-poison",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "inflicts:paralyzed",
-                        "sleep"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "inflicts:paralyzed",
+                            "sleep"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
+                "slug": "advanced-undead-paralyzed-sleep",
                 "type": "circumstance",
                 "value": 1
             }
@@ -63,7 +70,5 @@
             "value": []
         }
     },
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
-    "name": "Advanced Undead Benefits",
     "type": "feat"
 }

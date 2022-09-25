@@ -2,41 +2,66 @@ import { ActorPF2e } from "@actor";
 import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
 import { ItemPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
-import { extractModifiers, extractNotes } from "@module/rules/util";
+import { extractModifiers } from "@module/rules/util";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { objectHasKey, sluggify } from "@util";
 import { Statistic } from "./statistic";
 
+const superEnrichHTML = TextEditor.enrichHTML;
+
 /** Censor enriched HTML according to metagame knowledge settings */
 class TextEditorPF2e extends TextEditor {
-    static override enrichHTML(content = "", options: EnrichHTMLOptionsPF2e = {}): string {
-        const enriched = super.enrichHTML(this.enrichString(content, options), options);
-        const $html = $("<div>").html(enriched);
-        const actor = options.rollData?.actor ?? null;
-        UserVisibilityPF2e.process($html, { actor });
+    static override enrichHTML(content: string | null, options?: EnrichHTMLOptionsPF2e & { async?: false }): string;
+    static override enrichHTML(
+        content: string | null,
+        options?: EnrichHTMLOptionsPF2e & { async: true }
+    ): Promise<string>;
+    static override enrichHTML(content: string | null, options?: EnrichHTMLOptionsPF2e): string;
+    static override enrichHTML(
+        this: typeof TextEditor,
+        content: string | null,
+        options: EnrichHTMLOptionsPF2e = {}
+    ): string | Promise<string> {
+        if (content?.startsWith("<p>@Localize")) {
+            // Remove tags
+            content = content.substring(3, content.length - 4);
+        }
+        const enriched = superEnrichHTML.apply(this, [content, options]);
+        if (typeof enriched === "string") {
+            return TextEditorPF2e.processUserVisibility(enriched, options);
+        }
+
+        return Promise.resolve().then(async () => TextEditorPF2e.processUserVisibility(await enriched, options));
+    }
+
+    static processUserVisibility(content: string, options: EnrichHTMLOptionsPF2e): string {
+        const $html = $("<div>").html(content);
+        const document = options.rollData?.actor ?? null;
+        UserVisibilityPF2e.process($html, { document });
 
         return $html.html();
     }
 
-    static enrichString(data: string, options: EnrichHTMLOptionsPF2e = {}): string {
+    static async enrichString(
+        data: RegExpMatchArray,
+        options: EnrichHTMLOptionsPF2e = {}
+    ): Promise<HTMLElement | null> {
+        if (data.length < 4) return null;
         const item = options.rollData?.item ?? null;
+        const [_match, inlineType, paramString, buttonLabel] = data;
 
-        // Enrich @inline commands: Localize, Template
-        // Localize calls the function again in order to enrich data contained in there
-        const types = ["Check", "Localize", "Template"];
-        const rgx = new RegExp(`@(${types.join("|")})\\[([^\\]]+)\\](?:{([^}]+)})?`, "g");
-
-        return data.replace(rgx, (match: string, inlineType: string, paramString: string, buttonLabel: string) => {
-            switch (inlineType) {
-                case "Check":
-                    return this.createItemCheck(paramString, buttonLabel, item);
-                case "Localize":
-                    return this.enrichString(game.i18n.localize(paramString), options);
-                case "Template":
-                    return this.createTemplate(paramString, buttonLabel, item?.data.data);
+        switch (inlineType) {
+            case "Check": {
+                const actor = options.rollData?.actor ?? item?.actor ?? null;
+                return this.#createCheck({ paramString, inlineLabel: buttonLabel, item, actor });
             }
-            return match;
-        });
+            case "Localize":
+                return this.#localize(paramString, options);
+            case "Template":
+                return this.#createTemplate(paramString, buttonLabel, item?.system);
+            default:
+                return null;
+        }
     }
 
     /**
@@ -69,8 +94,19 @@ class TextEditorPF2e extends TextEditor {
         return span;
     }
 
+    static async #localize(paramString: string, options: EnrichHTMLOptionsPF2e = {}): Promise<HTMLElement | null> {
+        const content = game.i18n.localize(paramString);
+        if (content === paramString) {
+            ui.notifications.error(`Failed to localize ${paramString}!`);
+            return null;
+        }
+        const result = document.createElement("span");
+        result.innerHTML = await TextEditor.enrichHTML(content, { ...options, async: true });
+        return result;
+    }
+
     /** Create inline template button from @template command */
-    private static createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): string {
+    static #createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): HTMLSpanElement | null {
         // Get parameters from data
         const rawParams = ((): Map<string, string> | string => {
             const error = "Wrong notation for params - use [type1:value1|type2:value2|...]";
@@ -90,21 +126,34 @@ class TextEditorPF2e extends TextEditor {
         })();
 
         // Check for correct syntax
-        if (typeof rawParams === "string") return rawParams;
+        if (typeof rawParams === "string") {
+            ui.notifications.error(rawParams);
+            return null;
+        }
 
         const params = Object.fromEntries(rawParams);
 
         // Check for correct param notation
         if (!params.type) {
-            return game.i18n.localize("PF2E.InlineTemplateErrors.TypeMissing");
+            ui.notifications.error(game.i18n.localize("PF2E.InlineTemplateErrors.TypeMissing"));
         } else if (!params.distance) {
-            return game.i18n.localize("PF2E.InlineTemplateErrors.DistanceMissing");
+            ui.notifications.error(game.i18n.localize("PF2E.InlineTemplateErrors.DistanceMissing"));
+            return null;
         } else if (!objectHasKey(CONFIG.PF2E.areaTypes, params.type)) {
-            return game.i18n.format("PF2E.InlineTemplateErrors.TypeUnsupported", { type: params.type });
+            ui.notifications.error(
+                game.i18n.format("PF2E.InlineTemplateErrors.TypeUnsupported", { type: params.type })
+            );
+            return null;
         } else if (isNaN(+params.distance)) {
-            return game.i18n.format("PF2E.InlineTemplateErrors.DistanceNoNumber", { distance: params.distance });
+            ui.notifications.error(
+                game.i18n.format("PF2E.InlineTemplateErrors.DistanceNoNumber", { distance: params.distance })
+            );
+            return null;
         } else if (params.width && isNaN(+params.width)) {
-            return game.i18n.format("PF2E.InlineTemplateErrors.WidthNoNumber", { width: params.width });
+            ui.notifications.error(
+                game.i18n.format("PF2E.InlineTemplateErrors.WidthNoNumber", { width: params.width })
+            );
+            return null;
         } else {
             // If no traits are entered manually use the traits from rollOptions if available
             if (!params.traits) {
@@ -135,15 +184,22 @@ class TextEditorPF2e extends TextEditor {
             html.setAttribute("data-pf2-distance", params.distance);
             if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
             if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
-            return html.outerHTML;
+            return html;
         }
+        return null;
     }
 
-    private static createItemCheck(paramString: string, inlineLabel?: string, item: ItemPF2e | null = null): string {
-        const error = (text: string) => {
-            return `[${text}]`;
-        };
-
+    static #createCheck({
+        paramString,
+        inlineLabel,
+        item = null,
+        actor = item?.actor ?? null,
+    }: {
+        paramString: string;
+        inlineLabel?: string;
+        item?: ItemPF2e | null;
+        actor?: ActorPF2e | null;
+    }): HTMLSpanElement | null {
         // Parse the parameter string
         const parts = paramString.split("|");
         const params: { type: string; dc: string } & Record<string, string> = { type: "", dc: "" };
@@ -155,17 +211,21 @@ class TextEditorPF2e extends TextEditor {
             } else {
                 const paramParts = param.split(":");
                 if (paramParts.length !== 2) {
-                    return error(`Error. Expected "parameter:value" but got: ${param}`);
+                    ui.notifications.warn(`Error. Expected "parameter:value" but got: ${param}`);
+                    return null;
                 }
                 params[paramParts[0].trim()] = paramParts[1].trim();
             }
         }
-        if (!params.type) return error(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
+        if (!params.type) {
+            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.TypeMissing"));
+            return null;
+        }
 
         const traits: string[] = [];
 
         // Set item traits
-        const itemTraits = item?.data.data.traits;
+        const itemTraits = item?.system.traits;
         if (itemTraits && params.overrideTraits !== "true") {
             traits.push(...itemTraits.value);
             if (itemTraits.custom) {
@@ -180,7 +240,7 @@ class TextEditorPF2e extends TextEditor {
         }
 
         // Set origin actor traits.
-        const actorTraits = item?.actor?.getSelfRollOptions("origin");
+        const actorTraits = actor?.getSelfRollOptions("origin");
         if (actorTraits && params.overrideTraits !== "true") {
             traits.push(...actorTraits);
         }
@@ -250,32 +310,38 @@ class TextEditorPF2e extends TextEditor {
 
         if (params.type && params.dc) {
             // Let the inline roll function handle level base DCs
-            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC(name, params, item);
+            const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
             html.setAttribute("data-pf2-dc", checkDC);
             const text = html.innerHTML;
             if (checkDC !== "@self.level") {
                 html.innerHTML = game.i18n.format("PF2E.DCWithValueAndVisibility", { role, dc: checkDC, text });
             }
         }
-        return html.outerHTML;
+        return html;
     }
 }
 
-function getCheckDC(
-    name: string,
-    params: { type: string; dc: string } & Record<string, string | undefined>,
-    item: ItemPF2e | null = null
-): string {
+function getCheckDC({
+    name,
+    params,
+    item = null,
+    actor = item?.actor ?? null,
+}: {
+    name: string;
+    params: { type: string; dc: string } & Record<string, string | undefined>;
+    item?: ItemPF2e | null;
+    actor?: ActorPF2e | null;
+}): string {
     const { type } = params;
     const dc = params.dc;
     const base = (() => {
-        if (dc.startsWith("resolve") && item) {
+        if (dc.startsWith("resolve") && actor) {
             params.immutable ||= "true";
             const resolve = dc.match(/resolve\((.+?)\)$/);
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
             const saferEval = (resolveString: string): number => {
                 try {
-                    return Roll.safeEval(Roll.replaceFormulaData(resolveString, { actor: item.actor!, item: item }));
+                    return Roll.safeEval(Roll.replaceFormulaData(resolveString, { actor, item: item ?? {} }));
                 } catch {
                     return 0;
                 }
@@ -289,12 +355,10 @@ function getCheckDC(
         const getStatisticValue = (selectors: string[]): string => {
             if (item?.isOwned && params.immutable !== "true") {
                 const actor = item.actor!;
-                const { rollNotes } = actor.synthetics;
 
                 const stat = new Statistic(actor, {
                     slug: type,
                     label: name,
-                    notes: extractNotes(rollNotes, selectors),
                     domains: selectors,
                     modifiers: [...extractModifiers(actor.synthetics, selectors)],
                     dc: {

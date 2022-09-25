@@ -1,7 +1,6 @@
 import { AncestryPF2e, HeritagePF2e, ItemPF2e } from "@item";
 import { ItemSheetPF2e } from "@item/sheet/base";
 import { HeritageSheetData } from "@item/sheet/data-types";
-import { createSheetOptions } from "@module/sheet/helpers";
 import { ErrorPF2e } from "@util";
 
 export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
@@ -13,9 +12,9 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
     }
 
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<HeritageSheetData> {
-        const sheetData = super.getBaseData(options);
+        const sheetData = await super.getData(options);
         const ancestry = await (async (): Promise<AncestryPF2e | null> => {
-            const item = this.item.data.data.ancestry ? await fromUuid(this.item.data.data.ancestry.uuid) : null;
+            const item = this.item.system.ancestry ? await fromUuid(this.item.system.ancestry.uuid) : null;
             return item instanceof AncestryPF2e ? item : null;
         })();
 
@@ -26,8 +25,6 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
             hasSidebar: true,
             hasDetails: false,
             sidebarTemplate: () => "systems/pf2e/templates/items/heritage-sidebar.html",
-            rarities: createSheetOptions(CONFIG.PF2E.rarityTraits, { value: [sheetData.data.traits.rarity] }),
-            traits: createSheetOptions(CONFIG.PF2E.featTraits, sheetData.data.traits),
         };
     }
 
@@ -36,7 +33,7 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
 
         // Remove ancestry reference
         $html.find('a[data-action="remove-ancestry"]').on("click", () => {
-            this.item.update({ "data.ancestry": null });
+            this.item.update({ "system.ancestry": null });
         });
     }
 
@@ -54,6 +51,6 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
             throw ErrorPF2e("Invalid item drop on heritage sheet");
         }
         const ancestryReference = { name: item.name, uuid: item.uuid };
-        await this.item.update({ "data.ancestry": ancestryReference });
+        await this.item.update({ "system.ancestry": ancestryReference });
     }
 }
