@@ -115,9 +115,9 @@ export const ActionMacros = {
     // Occultism
     disturbingKnowledge,
 
-    //Religion
+    // Religion
     battlePrayer,
-    
+
     // Stealth
     hide,
     sneak,

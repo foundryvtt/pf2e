@@ -21,6 +21,7 @@ export function disturbingKnowledge(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.DisturbingKnowledge", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.DisturbingKnowledge", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.DisturbingKnowledge", "failure"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.DisturbingKnowledge", "criticalFailure"),        ],
+            ActionMacroHelpers.note(selector, "PF2E.Actions.DisturbingKnowledge", "criticalFailure"),
+        ],
     });
 }

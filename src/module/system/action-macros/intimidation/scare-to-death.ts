@@ -21,6 +21,7 @@ export function scareToDeath(options: SkillActionOptions) {
             ActionMacroHelpers.note(selector, "PF2E.Actions.ScareToDeath", "criticalSuccess"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.ScareToDeath", "success"),
             ActionMacroHelpers.note(selector, "PF2E.Actions.ScareToDeath", "failure"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.ScareToDeath", "criticalFailure"),        ],
+            ActionMacroHelpers.note(selector, "PF2E.Actions.ScareToDeath", "criticalFailure"),
+        ],
     });
 }

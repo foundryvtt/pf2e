@@ -33,12 +33,12 @@ export function sacredDefense(options: ActionDefaultOptions): void {
                 const degreeOfSuccess = roll.data.degreeOfSuccess ?? 0;
 
                 if (degreeOfSuccess === 3) {
-                    healFormula = rel.rank === 3? `10`: `25`;
+                    healFormula = rel.rank === 3 ? `10` : `25`;
                     successLabel = game.i18n.format(translations.CritSuccess, {
                         healFormula: healFormula,
                     });
                 } else if (degreeOfSuccess === 2) {
-                    healFormula = rel.rank === 3? `5`: `15`;
+                    healFormula = rel.rank === 3 ? `5` : `15`;
                     successLabel = game.i18n.format(translations.Success, {
                         healFormula: healFormula,
                     });
@@ -75,10 +75,10 @@ export function sacredDefense(options: ActionDefaultOptions): void {
                         name: name,
                     })
                 ),
-                () => sacredDefenseMacro(10, rel),
-                () => sacredDefenseMacro(20, rel),
-                () => sacredDefenseMacro(30, rel),
-                () => sacredDefenseMacro(40, rel),
+            () => sacredDefenseMacro(10, rel),
+            () => sacredDefenseMacro(20, rel),
+            () => sacredDefenseMacro(30, rel),
+            () => sacredDefenseMacro(40, rel),
         ][usedProf];
 
         roll();
