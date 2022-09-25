@@ -25,7 +25,7 @@ class ResistanceRuleElement extends IWRRuleElement {
             label: this.dictionary[this.data.type],
             type: this.data.type,
             value,
-            exceptions: this.data.except,
+            exceptions: this.data.except ? game.i18n.localize(this.data.except) : undefined,
         };
     }
 }
