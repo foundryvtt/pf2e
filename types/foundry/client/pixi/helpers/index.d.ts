@@ -7,4 +7,3 @@ import "./point-source";
 import "./precise-text";
 import "./ray";
 import "./resize-handle";
-import "./ruler";
