@@ -894,7 +894,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     private onClickCreateItem(event: JQuery.ClickEvent) {
         event.preventDefault();
         const header = event.currentTarget;
-        const data: any = duplicate(header.dataset);
+        const data = duplicate(header.dataset);
         data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
 
         if (data.type === "action") {

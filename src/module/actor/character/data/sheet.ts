@@ -7,7 +7,8 @@ import { FlattenedCondition } from "@system/conditions";
 import { BonusFeat, CharacterSystemData, SlottedFeat } from ".";
 import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types";
 import { CHARACTER_SHEET_TABS } from "./values";
-import { ClassDCData } from "./types";
+import { CharacterSaveData, ClassDCData } from "./types";
+import { SaveType } from "@actor/types";
 
 type CharacterSheetOptions = ActorSheetOptions;
 
@@ -27,6 +28,13 @@ type CharacterSystemSheetData = CharacterSystemData & {
             hover: string;
         };
     };
+    saves: Record<
+        SaveType,
+        CharacterSaveData & {
+            rankName?: string;
+            short?: string;
+        }
+    >;
 };
 
 export interface CraftingEntriesSheetData {

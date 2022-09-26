@@ -454,6 +454,7 @@ export {
     CharacterProficiency,
     CharacterResources,
     CharacterSaves,
+    CharacterSaveData,
     CharacterSkillData,
     CharacterSource,
     CharacterStrike,
