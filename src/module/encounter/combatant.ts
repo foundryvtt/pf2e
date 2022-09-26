@@ -28,7 +28,7 @@ class CombatantPF2e<
         this: RolledCombatant<NonNullable<TParent>>,
         { than }: { than: RolledCombatant<NonNullable<TParent>> }
     ): boolean {
-        if (this.parent !== than.parent) {
+        if (this.parent.id !== than.parent.id) {
             throw ErrorPF2e("The initiative of Combatants from different combats cannot be compared");
         }
 

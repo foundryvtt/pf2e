@@ -2,7 +2,7 @@ import { AbstractEffectPF2e } from "@item/abstract-effect";
 import { EffectBadge } from "@item/abstract-effect/data";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
-import { isObject, sluggify } from "@util";
+import { isObject, objectHasKey, sluggify } from "@util";
 import { EffectData } from "./data";
 
 class EffectPF2e extends AbstractEffectPF2e {
@@ -158,7 +158,7 @@ class EffectPF2e extends AbstractEffectPF2e {
 
         // If the badge type changes, reset the value
         const badge = changed.system?.badge;
-        if (isObject<EffectBadge>(badge) && badge?.type && !("value" in badge)) {
+        if (isObject<EffectBadge>(badge) && badge?.type && !objectHasKey(badge, "value")) {
             badge.value = 1;
         }
 
