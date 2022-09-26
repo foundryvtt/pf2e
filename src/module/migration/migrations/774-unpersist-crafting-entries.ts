@@ -59,7 +59,7 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
             delete craftingEntryRule.requiredTraits;
         }
 
-        // Add "phase":"afterDerived" property to any AE-Likes targeting "system.crafting.entries"
+        // Add "phase":"beforeDerived" property to any AE-Likes targeting "system.crafting.entries"
         const craftingEntryAELikes: (RuleElementSource & { phase?: unknown })[] = rules.filter(
             (r: RuleElementSource & { path?: unknown }) =>
                 r.key === "ActiveEffectLike" &&
@@ -67,7 +67,7 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
                 r.path.startsWith("system.crafting.entries.")
         );
         const newCraftingEntryAELikes = craftingEntryAELikes.map((craftingEntryAELike) => {
-            craftingEntryAELike.phase = "afterDerived";
+            craftingEntryAELike.phase = "beforeDerived";
             return craftingEntryAELike;
         });
         for (const craftingEntryAELike of craftingEntryAELikes) {

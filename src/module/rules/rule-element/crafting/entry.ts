@@ -2,7 +2,6 @@ import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions
 import { CharacterPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
-import { CraftingEntryData } from "@actor/character/crafting/entry";
 import { sluggify } from "@util";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 
@@ -33,9 +32,9 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
     }
 
     override beforePrepareData(): void {
-        if (!this.test()) return;
+        if (this.ignored) return;
 
-        const selector = String(this.resolveValue(this.selector));
+        const selector = this.resolveInjectedProperties(this.selector);
 
         const craftableItems = new PredicatePF2e(this.data.craftableItems ?? []);
 
@@ -43,7 +42,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             this.failValidation("Malformed craftableItems predicate");
         }
 
-        const data: CraftingEntryData = {
+        this.actor.system.crafting.entries[this.selector] = {
             selector: selector,
             name: this.name,
             isAlchemical: this.data.isAlchemical,
@@ -56,15 +55,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             preparedFormulaData: this.data.preparedFormulas,
         };
 
-        this.actor.system.crafting.entries[this.selector] = data;
-    }
-
-    /** Set a roll option to cue any subsequent max-item-level-increasing `ActiveEffectLike`s */
-    override onApplyActiveEffects(): void {
-        if (!this.test()) return;
-
-        if (!this.actor.system.crafting.entries[this.selector]) return;
-
+        // Set a roll option to cue any subsequent max-item-level-increasing `ActiveEffectLike`s
         const option = sluggify(this.selector);
         this.actor.rollOptions.all[`crafting:entry:${option}`] = true;
     }
