@@ -38,6 +38,8 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
                 }
             } else if (this.#isObjectChoiceSet(rule) && this.#isOldRawPredicate(rule.choices.predicate)) {
                 rule.choices.predicate = convertLegacyData(rule.choices.predicate);
+            } else if (this.#isOldRawPredicate(rule.craftableItems)) {
+                rule.craftableItems = convertLegacyData(rule.craftableItems);
             }
         }
     }
@@ -64,6 +66,7 @@ interface MaybeWithOldPredicates extends RuleElementSource {
     allowedDrops?: unknown;
     disabledIf?: unknown;
     choices?: unknown;
+    craftableItems?: unknown;
 }
 
 interface ArrayChoiceSet extends MaybeWithOldPredicates {
