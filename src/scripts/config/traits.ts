@@ -361,6 +361,7 @@ const weaponTraits = {
     alchemical: "PF2E.TraitAlchemical",
     agile: "PF2E.TraitAgile",
     artifact: "PF2E.TraitArtifact",
+    attached: "PF2E.TraitAttached",
     "attached-to-shield": "PF2E.TraitAttachedToShield",
     "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
     auditory: "PF2E.TraitAuditory",
