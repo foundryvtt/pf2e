@@ -133,12 +133,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             reflex: sheetData.data.saves.reflex,
             will: sheetData.data.saves.will,
         };
-        for (const save of Object.values(sheetData.data.saves as Record<any, any>)) {
+        for (const save of Object.values(sheetData.data.saves)) {
             save.rankName = game.i18n.format(`PF2E.ProficiencyLevel${save.rank}`);
         }
 
         // limiting the amount of characters for the save labels
-        for (const save of Object.values(sheetData.data.saves as Record<any, any>)) {
+        for (const save of Object.values(sheetData.data.saves)) {
             save.short = game.i18n.format(`PF2E.Saves${save.label}Short`);
         }
 

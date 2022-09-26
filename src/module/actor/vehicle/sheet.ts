@@ -2,6 +2,7 @@ import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
 import { tupleHasValue } from "@util";
+import { VehicleSheetData } from "./data";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -18,8 +19,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         return "systems/pf2e/templates/actors/vehicle/vehicle-sheet.html";
     }
 
-    override async getData() {
-        const sheetData: any = await super.getData();
+    override async getData(): Promise<VehicleSheetData> {
+        const sheetData = (await super.getData()) as VehicleSheetData;
 
         sheetData.actorSizes = CONFIG.PF2E.actorSizes;
         sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
@@ -32,7 +33,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         return sheetData;
     }
 
-    protected async prepareItems(sheetData: any): Promise<void> {
+    protected async prepareItems(sheetData: VehicleSheetData): Promise<void> {
         const actorData = sheetData.actor;
 
         // Actions

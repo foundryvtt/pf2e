@@ -6,6 +6,7 @@ import {
     BaseHitPointsData,
     BaseTraitsData,
 } from "@actor/data/base";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { ActorSizePF2e } from "@actor/data/size";
 import { StatisticTraceData } from "@system/statistic";
 import { VehiclePF2e } from ".";
@@ -65,6 +66,7 @@ interface VehicleFortitudeSaveData extends StatisticTraceData {
 }
 
 interface VehicleTraitsData extends BaseTraitsData<VehicleTrait> {
+    rarity: keyof ConfigPF2e["PF2E"]["rarityTraits"];
     size: ActorSizePF2e;
 }
 
@@ -73,4 +75,14 @@ interface TokenDimensions {
     height: number;
 }
 
-export { VehicleData, VehicleSource, VehicleTrait, TokenDimensions };
+interface VehicleSheetData extends ActorSheetDataPF2e<VehiclePF2e> {
+    actorRarities: typeof CONFIG.PF2E.rarityTraits;
+    actorRarity: string;
+    actorSizes: typeof CONFIG.PF2E.actorSizes;
+    actorSize: string;
+    data: {
+        traits: VehicleTraitsData;
+    };
+}
+
+export { VehicleData, VehicleSheetData, VehicleSource, VehicleTrait, TokenDimensions };

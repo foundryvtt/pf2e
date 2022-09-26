@@ -1,5 +1,4 @@
 import {
-    ActivatedEffectData,
     BasePhysicalItemData,
     BasePhysicalItemSource,
     PhysicalItemTraits,
@@ -18,7 +17,7 @@ type ConsumableType = keyof ConfigPF2e["PF2E"]["consumableTypes"];
 type ConsumableTrait = keyof ConfigPF2e["PF2E"]["consumableTraits"];
 type ConsumableTraits = PhysicalItemTraits<ConsumableTrait>;
 
-interface ConsumableSystemSource extends PhysicalSystemSource, ActivatedEffectData {
+interface ConsumableSystemSource extends PhysicalSystemSource {
     traits: ConsumableTraits;
 
     consumableType: {
@@ -27,7 +26,7 @@ interface ConsumableSystemSource extends PhysicalSystemSource, ActivatedEffectDa
     uses: {
         value: number;
         max: number;
-        per: any;
+        per: keyof ConfigPF2e["PF2E"]["frequencies"];
         autoUse: boolean;
         autoDestroy: boolean;
     };
