@@ -19,7 +19,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
         super(data, item, options);
 
         // For the purpose of AE-Like predication, this rule element should set its roll option very early
-        this.data.priority = 5;
+        this.data.priority = 19;
 
         this.name = String(data.name || this.data.label);
 
