@@ -1,5 +1,5 @@
 import { MystifiedTraits } from "@item/data/values";
-import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
+import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
 import {
     AmbientLightPF2e,
@@ -55,6 +55,7 @@ export const Init = {
             CONFIG.Combat.initiative.decimals = 0;
 
             // Assign the PF2e Sidebar subclasses
+            CONFIG.ui.actors = ActorDirectoryPF2e;
             CONFIG.ui.combat = EncounterTrackerPF2e;
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
