@@ -155,9 +155,6 @@ abstract class RuleElementPF2e {
      * }
      *
      * @param source string that should be parsed
-     * @param ruleData current rule data
-     * @param itemData current item data
-     * @param actorData current actor data
      * @return the looked up value on the specific object
      */
     resolveInjectedProperties<T extends string | object | null | undefined>(source: T): T;
@@ -184,7 +181,7 @@ abstract class RuleElementPF2e {
                 if (value === undefined) {
                     this.failValidation("Failed to resolve injected property");
                 }
-                return value;
+                return String(value);
             });
         }
 
@@ -203,9 +200,6 @@ abstract class RuleElementPF2e {
      *          {start: 1, end: 4, value: 5}],
      *          {start: 5, end: 9, value: 10}],
      *   }: compares the value from field to >= start and <= end of a bracket and uses that value
-     * @param ruleData current rule data
-     * @param item current item data
-     * @param actorData current actor data
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
