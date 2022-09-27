@@ -437,7 +437,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
             roll: async (args: InitiativeRollParams): Promise<InitiativeRollResult | null> => {
                 if (!("initiative" in this.system.attributes)) return null;
                 const rollOptions = new Set([...this.getRollOptions(domains), ...(args.options ?? []), proficiency]);
-                if (this.isOfType("character")) ensureProficiencyOption(rollOptions, initStat.rank ?? -1);
+                if (this.isOfType("character")) {
+                    const rank =
+                        checkType === "perception"
+                            ? this.system.attributes.perception.rank
+                            : this.system.skills[checkType].rank;
+                    ensureProficiencyOption(rollOptions, rank);
+                }
 
                 // Get or create the combatant
                 const combatant = await (async (): Promise<Embedded<CombatantPF2e> | null> => {
@@ -712,7 +718,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 { overwrite: false }
             );
             stat.total = base + stat.totalModifier;
-            stat.type = "land";
             stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: label })} ${base}`]
                 .concat(
                     stat.modifiers
@@ -720,7 +725,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                         .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 )
                 .join(", ");
-            return stat;
+            return mergeObject(stat, { type: "land" });
         } else {
             const speeds = systemData.attributes.speed;
             const { otherSpeeds } = speeds;

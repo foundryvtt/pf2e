@@ -71,6 +71,8 @@ interface CharacterSkillData extends SkillData {
     rank: ZeroToFour;
     /** Whether this skill is subject to an armor check penalty */
     armor: boolean;
+    /** Is this skill a Lore skill? */
+    lore?: boolean;
 }
 
 /** The raw information contained within the actor data object for characters. */

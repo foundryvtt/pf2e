@@ -1141,16 +1141,19 @@ class CharacterPF2e extends CreaturePF2e {
                 loreSkill,
                 { overwrite: false }
             );
+            const additionalData = {
+                itemID: loreItem.id,
+                shortform: shortForm,
+                expanded: loreItem,
+                lore: true,
+            };
+
             stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.label = loreItem.name;
             stat.ability = "int";
-            stat.itemID = loreItem.id;
             stat.notes = extractNotes(synthetics.rollNotes, domains);
             stat.rank = rank ?? 0;
-            stat.shortform = shortForm;
-            stat.expanded = loreItem;
             stat.value = stat.totalModifier;
-            stat.lore = true;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
@@ -1194,7 +1197,7 @@ class CharacterPF2e extends CreaturePF2e {
                 return roll;
             };
 
-            skills[shortForm] = stat;
+            skills[shortForm] = mergeObject(stat, additionalData);
         }
 
         return skills;

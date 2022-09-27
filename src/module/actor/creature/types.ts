@@ -12,6 +12,9 @@ import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
 import { TraitViewData } from "@actor/data/base";
 import { FlattenedCondition } from "@system/conditions";
 import { ActorUpdateContext } from "@actor/base";
+import { AbilityData, CreatureSystemData, SaveData, SkillData } from "./data";
+import { ZeroToFour } from "@module/data";
+import { AbilityString, SaveType } from "@actor/types";
 
 type Alignment = SetElement<typeof ALIGNMENTS>;
 type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
@@ -73,7 +76,17 @@ interface CreatureUpdateContext<T extends CreaturePF2e> extends ActorUpdateConte
     allowHPOverage?: boolean;
 }
 
+type WithRank = { icon?: string; hover?: string; rank: ZeroToFour };
+
 interface CreatureSheetData<TActor extends CreaturePF2e = CreaturePF2e> extends ActorSheetDataPF2e<TActor> {
+    data: CreatureSystemData & {
+        abilities: Record<AbilityString, AbilityData & { label?: string }>;
+        attributes: {
+            perception: CreatureSystemData["attributes"]["perception"] & WithRank;
+        };
+        saves: Record<SaveType, SaveData & WithRank>;
+        skills: Record<string, SkillData & WithRank>;
+    };
     languages: SheetOptions;
     abilities: ConfigPF2e["PF2E"]["abilities"];
     skills: ConfigPF2e["PF2E"]["skills"];

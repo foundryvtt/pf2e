@@ -22,7 +22,6 @@ import {
 } from "@util";
 import { ActorSheetPF2e } from "../sheet/base";
 import { CreatureConfig } from "./config";
-import { SkillData } from "./data";
 import { SpellPreparationSheet } from "./spell-preparation-sheet";
 import { CreatureSheetData, SpellcastingSheetData } from "./types";
 
@@ -37,7 +36,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     protected abstract readonly actorConfigClass: ConstructorOf<CreatureConfig<CreaturePF2e>> | null;
 
     override async getData(options?: ActorSheetOptions): Promise<CreatureSheetData<TActor>> {
-        const sheetData = await super.getData(options);
+        const sheetData = (await super.getData(options)) as CreatureSheetData<TActor>;
         const { actor } = this;
 
         // Update save labels
@@ -68,13 +67,12 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
         // Update skill labels
         if (sheetData.data.skills) {
-            const skills: Record<string, SkillData & Record<string, string>> = sheetData.data.skills;
-            const mainSkills: Record<string, string> = CONFIG.PF2E.skills;
-            for (const key in skills) {
-                const skill = skills[key];
+            const skills = sheetData.data.skills;
+            for (const [key, skill] of Object.entries(skills)) {
+                const label = objectHasKey(CONFIG.PF2E.skills, key) ? CONFIG.PF2E.skills[key] : null;
                 skill.icon = this.getProficiencyIcon(skill.rank);
                 skill.hover = CONFIG.PF2E.proficiencyLevels[skill.rank];
-                skill.label = skill.label ?? mainSkills[key];
+                skill.label = skill.label ?? label ?? "";
             }
         }
 

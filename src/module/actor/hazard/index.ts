@@ -64,14 +64,13 @@ export class HazardPF2e extends ActorPF2e {
             const stat = mergeObject(new StatisticModifier("ac", modifiers), system.attributes.ac, {
                 overwrite: false,
             });
-            stat.base = base;
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
 
-            system.attributes.ac = stat;
+            system.attributes.ac = mergeObject(stat, { base });
         }
 
         this.saves = this.prepareSaves();

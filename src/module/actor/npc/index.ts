@@ -419,14 +419,16 @@ class NPCPF2e extends CreaturePF2e {
                     system.skills[shortform],
                     { overwrite: false }
                 );
+                const additionalData = {
+                    itemID: item.id,
+                    lore: !objectHasKey(SKILL_EXPANDED, skill),
+                    rank: 1,
+                };
                 stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
                 stat.notes = extractNotes(rollNotes, domains);
-                stat.itemID = item.id;
                 stat.base = base;
                 stat.expanded = skill;
                 stat.label = item.name;
-                stat.lore = !objectHasKey(SKILL_EXPANDED, skill);
-                stat.rank = 1; // default to trained
                 stat.value = stat.totalModifier;
                 stat.visible = true;
                 stat.breakdown = stat.modifiers
@@ -463,15 +465,7 @@ class NPCPF2e extends CreaturePF2e {
                     return roll;
                 };
 
-                const variants = item.system.variants;
-                if (variants && Object.keys(variants).length) {
-                    stat.variants = [];
-                    for (const [, variant] of Object.entries(variants)) {
-                        stat.variants.push(variant);
-                    }
-                }
-
-                system.skills[shortform] = stat;
+                system.skills[shortform] = mergeObject(stat, additionalData);
             } else if (item.isOfType("melee")) {
                 const { ability, traits, isMelee, isThrown } = item;
 

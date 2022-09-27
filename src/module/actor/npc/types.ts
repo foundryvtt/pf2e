@@ -2,6 +2,7 @@ import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types"
 import { HitPointsData, PerceptionData } from "@actor/data/base";
 import { SaveType } from "@actor/types";
 import { ActionItemData, EffectData, ItemDataPF2e } from "@item/data";
+import { ZeroToFour } from "@module/data";
 import { IdentifyCreatureData } from "@module/recall-knowledge";
 import { NPCPF2e } from ".";
 import {
@@ -53,11 +54,13 @@ interface VariantCloneParams {
     keepId?: boolean;
 }
 
+type WithRank = { icon?: string; hover?: string; rank: ZeroToFour };
+
 interface NPCSystemSheetData extends NPCSystemData {
     attributes: NPCAttributes & {
         ac: NPCArmorClass & WithAdjustments;
         hp: HitPointsData & WithAdjustments;
-        perception: PerceptionData & WithAdjustments;
+        perception: PerceptionData & WithAdjustments & WithRank;
     };
     details: NPCSystemData["details"] & {
         level: NPCSystemData["details"]["level"] & WithAdjustments;
@@ -66,7 +69,8 @@ interface NPCSystemSheetData extends NPCSystemData {
         };
     };
     sortedSkills: Record<string, NPCSkillData & WithAdjustments>;
-    saves: Record<SaveType, NPCSaveData & WithAdjustments & { labelShort?: string }>;
+    saves: Record<SaveType, NPCSaveData & WithAdjustments & WithRank & { labelShort?: string }>;
+    skills: Record<string, NPCSkillData & WithAdjustments & WithRank>;
     traits: NPCTraitsData & {
         size: {
             localizedName?: string;

@@ -72,6 +72,8 @@ type CreatureDetails = {
 };
 
 interface CreatureSystemData extends CreatureSystemSource, ActorSystemData {
+    abilities?: Abilities;
+
     details: CreatureDetails;
 
     /** Traits, languages, and other information. */
@@ -173,6 +175,7 @@ type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
 interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
     type: Exclude<MovementType, "land">;
     source?: string;
+    total?: number;
 }
 
 type UnlabeledSpeed = Omit<LabeledSpeed, "label">;
