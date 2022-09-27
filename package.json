@@ -9,21 +9,16 @@
         "build:packs": "ts-node -r tsconfig-paths/register ./packs/scripts/build.ts",
         "start": "npm run build:packs && webpack serve --hot",
         "extractPacks": "ts-node -r tsconfig-paths/register ./packs/scripts/extract.ts",
-        "pretest": "eslint ./ --ext .ts && eslint ./static ./system.json --ext .json",
+        "pretest": "eslint ./src ./packs/scripts ./webpack.config.ts --ext .ts && eslint ./static ./system.json --ext .json",
         "test": "jest",
-        "posttest": "npm run betterer",
         "migrate": "ts-node -r tsconfig-paths/register ./packs/scripts/run-migration.ts",
         "lint": "eslint ./src --ext .ts && eslint ./static ./system.json --ext .json",
         "lint:fix": "eslint ./src --ext .ts --fix",
-        "docs": "typedoc",
-        "betterer": "betterer --strict"
+        "docs": "typedoc"
     },
     "author": "",
     "license": "",
     "devDependencies": {
-        "@betterer/cli": "^5.4.0",
-        "@betterer/eslint": "^5.4.0",
-        "@betterer/typescript": "^5.4.0",
         "@pixi/graphics-smooth": "^0.0.30",
         "@pixi/particle-emitter": "5.0.7",
         "@types/fs-extra": "^9.0.13",
