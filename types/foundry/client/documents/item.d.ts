@@ -59,9 +59,6 @@ declare global {
         _sheet: ItemSheet<this> | null;
 
         get sheet(): ItemSheet<this>;
-
-        getFlag(scope: string, key: string): any;
-        getFlag(scope: "core", key: "sourceId"): string | undefined;
     }
 
     type EmbeddedItemUUID = `Actor.${string}.Item.${string}`;
