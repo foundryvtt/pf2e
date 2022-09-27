@@ -106,15 +106,6 @@ declare global {
          */
         protected _animateSource(dt: number): void;
 
-        /**
-         * Animate a smooth transition of the darkness overlay to a target value.
-         * Only begin animating if another animation is not already in progress.
-         * @param target   The target darkness level between 0 and 1
-         * @param duration The desired animation time in milliseconds. Default is 10 seconds
-         * @return A Promise which resolves once the animation is complete
-         */
-        animateDarkness(target?: number, { duration }?: { duration?: number }): Promise<void>;
-
         /* -------------------------------------------- */
         /*  Event Listeners and Handlers                */
         /* -------------------------------------------- */

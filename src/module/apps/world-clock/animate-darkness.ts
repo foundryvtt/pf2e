@@ -52,7 +52,7 @@ async function runAnimation(transition: DarknessTransition) {
         return;
     }
     const duration = Math.min(Math.trunc(100 * transition.duration) / 100, 6000);
-    await canvas.lighting.animateDarkness(transition.target, { duration: duration });
+    await canvas.effects.animateDarkness(transition.target, { duration: duration });
 
     if (game.user.isGM) {
         await canvas.scene!.update({ darkness: transition.target });
