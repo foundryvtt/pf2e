@@ -409,8 +409,6 @@ class StatisticModifier {
     notes?: RollNotePF2e[];
 
     adjustments?: DegreeOfSuccessAdjustment[];
-    /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
-    [key: string]: any;
 
     /**
      * @param slug The name of this collection of statistic modifiers.

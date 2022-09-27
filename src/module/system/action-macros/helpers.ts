@@ -119,7 +119,7 @@ export class ActionMacroHelpers {
             })();
             combinedOptions.push(...(weapon?.getRollOptions("weapon") ?? []));
 
-            const stat = getProperty(selfActor, options.statName) as StatisticModifier;
+            const stat = getProperty(selfActor, options.statName) as StatisticModifier & { rank?: number };
             const itemBonus =
                 weapon && weapon.slug !== "basic-unarmed" ? this.getWeaponPotencyModifier(weapon, stat.slug) : null;
 

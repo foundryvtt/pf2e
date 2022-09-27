@@ -199,6 +199,7 @@ interface NPCHitPoints extends CreatureHitPoints {
 
 /** Perception data with an additional "base" value */
 interface NPCPerception extends PerceptionData {
+    rank?: number;
     base?: number;
 }
 
@@ -206,6 +207,8 @@ interface NPCPerception extends PerceptionData {
 interface NPCSkillData extends SkillData {
     base?: number;
     visible?: boolean;
+    isLore?: boolean;
+    itemID?: string;
     ability: AbilityString;
     label: string;
     expanded: string;

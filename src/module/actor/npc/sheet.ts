@@ -92,7 +92,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
     }
 
     override async getData(): Promise<NPCSheetData<TActor>> {
-        const sheetData: PrePrepSheetData<TActor> = await super.getData();
+        const sheetData = (await super.getData()) as PrePrepSheetData<TActor>;
 
         // Show the token's name as the actor's name if the user has limited permission or this NPC is dead and lootable
         if (this.actor.limited || this.isLootSheet) {

@@ -62,7 +62,7 @@ interface FamiliarAttributes extends CreatureAttributes {
 }
 
 type FamiliarPerception = { value: number } & StatisticModifier & Rollable;
-type FamiliarSkill = StatisticModifier & Rollable & { value: number };
+type FamiliarSkill = StatisticModifier & Rollable & { value: number; ability: AbilityString; visible?: boolean };
 type FamiliarSkills = Record<SkillAbbreviation, FamiliarSkill>;
 
 interface FamiliarTraitsData extends CreatureTraitsData {

@@ -219,12 +219,11 @@ export class FamiliarPF2e extends CreaturePF2e {
                 },
             });
             stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
-            stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 .join(", ");
-            systemData.attack = stat;
+            systemData.attack = mergeObject(stat, { value: stat.totalModifier });
         }
 
         // Perception
