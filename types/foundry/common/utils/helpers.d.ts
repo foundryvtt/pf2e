@@ -10,10 +10,10 @@ declare global {
              * @param delay An amount of time in milliseconds to delay
              * @return A wrapped function which can be called to debounce execution
              */
-            function debounce<T extends (...args: any[]) => unknown>(
-                callback: T,
+            function debounce<T extends unknown[]>(
+                callback: (...args: T) => unknown,
                 delay: number
-            ): (...args: Parameters<T>) => void;
+            ): (...args: T) => void;
 
             /**
              * Quickly clone a simple piece of data, returning a copy which can be mutated safely.
