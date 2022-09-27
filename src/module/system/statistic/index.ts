@@ -215,6 +215,11 @@ export class Statistic {
         return new StatisticDifficultyClass(this, this.#data, this.options);
     }
 
+    /** Shortcut to `this#check#roll` */
+    roll(args: StatisticRollParameters = {}): Promise<Rolled<CheckRoll> | null> {
+        return this.check.roll(args);
+    }
+
     /** Creates view data for sheets and chat messages */
     getChatData(options: RollOptionParameters = {}): StatisticChatData {
         const { check, dc } = this.withRollOptions(options);
