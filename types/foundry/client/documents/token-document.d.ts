@@ -156,7 +156,7 @@ declare global {
         /** When the Actor data overrides change for an un-linked Token Actor, simulate the pre-update process. */
         protected _preUpdateTokenActor(
             data: DocumentUpdateData<TActor>,
-            options: DocumentModificationContext<this>,
+            options: TokenUpdateContext<this>,
             userId: string
         ): Promise<void>;
 
@@ -198,9 +198,13 @@ declare global {
         readonly _object: Token<TokenDocument> | null;
     }
 
-    interface TokenDocumentConstructionContext<TTokenDocument extends TokenDocument>
-        extends DocumentConstructionContext<TTokenDocument> {
-        actor?: TTokenDocument["actor"];
+    interface TokenDocumentConstructionContext<T extends TokenDocument> extends DocumentConstructionContext<T> {
+        actor?: T["actor"];
+    }
+
+    interface TokenUpdateContext<T extends TokenDocument> extends DocumentModificationContext<T> {
+        action?: "create" | "update" | "delete";
+        embedded?: { embeddedName: string; hookData: { _id?: string }[] };
     }
 
     namespace TokenDocument {

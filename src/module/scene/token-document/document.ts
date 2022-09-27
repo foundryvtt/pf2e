@@ -340,6 +340,28 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
+    /**
+     * Temporary workaround of upstream issue:
+     * _preCreate source updates are dropped for embedded documents created on synthetic actors
+     * https://github.com/foundryvtt/foundryvtt/issues/8287
+     */
+    protected override async _preUpdateTokenActor(
+        data: DeepPartial<TActor["_source"]> & { items?: { _id?: string }[] },
+        options: TokenUpdateContext<this>,
+        userId: string
+    ): Promise<void> {
+        if (game.release.build > 286) return super._preUpdateTokenActor(data, options, userId);
+
+        if (options.embedded?.embeddedName === "Item" && options.action === "create") {
+            const { hookData } = options.embedded;
+            for (let i = 0; i < options.embedded.hookData.length; i++) {
+                hookData[i] = data.items?.find((s) => s._id === hookData[i]?._id) ?? {};
+            }
+        }
+
+        return super._preUpdateTokenActor(data, options, userId);
+    }
+
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
         data: this["_source"],
