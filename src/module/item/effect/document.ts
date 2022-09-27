@@ -131,16 +131,20 @@ class EffectPF2e extends AbstractEffectPF2e {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        if (this.isOwned && user.id === game.userId) {
-            const initiative = game.combat?.turns[game.combat.turn]?.initiative ?? null;
+        if (this.isOwned) {
+            const initiative =
+                game.combat && game.combat.turns.length > game.combat.turn
+                    ? game.combat?.turns[game.combat.turn]?.initiative ?? null
+                    : null;
             this.updateSource({
                 "system.start": {
                     value: game.time.worldTime,
-                    initiative: game.combat && game.combat.turns.length > game.combat.turn ? initiative : null,
+                    initiative,
                 },
             });
         }
-        await super._preCreate(data, options, user);
+
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
