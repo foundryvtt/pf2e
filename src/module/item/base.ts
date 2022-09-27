@@ -343,11 +343,15 @@ class ItemPF2e extends Item<ActorPF2e> {
         return processed ? super.importFromJSON(processed) : this;
     }
 
-    static override async createDocuments<T extends ConstructorOf<ItemPF2e>>(
-        this: T,
-        data: PreCreate<InstanceType<T>["_source"]>[] = [],
-        context: DocumentModificationContext<InstanceType<T>> = {}
-    ): Promise<InstanceType<T>[]> {
+    static override async createDocuments<T extends foundry.abstract.Document>(
+        this: ConstructorOf<T>,
+        data?: PreCreate<T["_source"]>[],
+        context?: DocumentModificationContext<T>
+    ): Promise<T[]>;
+    static override async createDocuments(
+        data: PreCreate<ItemSourcePF2e>[] = [],
+        context: DocumentModificationContext<ItemPF2e> = {}
+    ): Promise<Item[]> {
         if (context.parent) {
             const validTypes = context.parent.allowedItemTypes;
             if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
@@ -396,7 +400,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
             // Pre-sort unnested, class features according to their sorting from the class
             if (nonKits.length > 1 && nonKits.some((i) => i.type === "class")) {
-                type PartialSourceWithLevel = PreCreate<InstanceType<T>["_source"]> & {
+                type PartialSourceWithLevel = PreCreate<ItemSourcePF2e> & {
                     system: { level: { value: number } };
                 };
                 const classFeatures = nonKits.filter(
@@ -411,10 +415,10 @@ class ItemPF2e extends Item<ActorPF2e> {
                 }
             }
 
-            return super.createDocuments(nonKits, context) as Promise<InstanceType<T>[]>;
+            return super.createDocuments(nonKits, context);
         }
 
-        return super.createDocuments(data, context) as Promise<InstanceType<T>[]>;
+        return super.createDocuments(data, context);
     }
 
     static override async deleteDocuments<T extends ConstructorOf<ItemPF2e>>(
