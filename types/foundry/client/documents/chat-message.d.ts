@@ -36,9 +36,6 @@ declare global {
         /** Test whether the chat message contains a dice roll */
         get isRoll(): boolean;
 
-        /** Return the Roll instance contained in this chat message, if one is present */
-        get roll(): Rolled<Roll> | null;
-
         /**
          * Return whether the ChatMessage is visible to the current User.
          * Messages may not be visible if they are private whispers.
