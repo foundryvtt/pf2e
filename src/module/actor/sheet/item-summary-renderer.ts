@@ -101,7 +101,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
                 ? (() => {
                       const price = item.price.value.toString();
                       const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
-                      return $(`<p>${localize("Level")} ${item.level}<br/>${priceLabel}</p>`);
+                      return $(`<p>${localize("LevelLabel")} ${item.level}<br/>${priceLabel}</p>`);
                   })()
                 : $();
 
