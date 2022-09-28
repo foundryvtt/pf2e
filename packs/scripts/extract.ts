@@ -140,6 +140,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
         if (key === "_id") {
             topLevel = docSource;
             delete docSource.folder;
+            delete (docSource as { _stats?: unknown })._stats;
 
             docSource.img &&= docSource.img.replace(
                 "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
@@ -159,7 +160,6 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     delete (docSource as { ownership?: unknown }).ownership;
                     delete (docSource as { effects?: unknown }).effects;
                     delete (docSource.system as { schema?: unknown }).schema;
-                    delete (docSource as { _stats?: unknown })._stats;
                 }
 
                 if (isActorSource(docSource)) {
