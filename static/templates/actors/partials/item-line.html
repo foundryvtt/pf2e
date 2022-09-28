@@ -8,7 +8,7 @@
                 {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.system.identification.identified.name}})</span>{{/if}}
                 {{#if itemSize}}<span class="size">({{itemSize}})</span>{{/if}}
             </h4>
-            {{#if item.uses.max}}
+            {{#if (and item.uses.max (or (gt item.uses.max 1) (eq item.system.consumableType.value "wand")))}}
                 <span class="item-charges">({{item.uses.value}}/{{item.uses.max}})</span>
             {{/if}}
         </div>
