@@ -13,7 +13,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You gain expert proficiency with your deity's favored weapon.</p>\n<p>When you critically succeed at an attack roll using that weapon, you apply the weapon's critical specialization effect; use your divine spell DC if necessary.</p>"
+            "value": "<p>You gain expert proficiency with your deity's favored weapon and unarmed attacks. When you critically succeed at an attack roll using your deity's favored weapon, you apply the weapon's critical specialization effect; use your divine spell DC if necessary.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -24,7 +24,26 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.favoredWeaponRank",
+                "value": 2
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "weapon:deity-favored"
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.unarmed.rank",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
