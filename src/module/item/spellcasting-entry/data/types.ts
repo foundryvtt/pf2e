@@ -74,6 +74,7 @@ interface SpellcastingEntrySystemData extends ItemSystemData {
     prepared: {
         value: PreparationType;
         flexible?: boolean;
+        validItems?: "scroll" | "";
     };
     showSlotlessLevels: {
         value: boolean;

@@ -111,7 +111,11 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     canCastSpell(spell: SpellPF2e, options: { origin?: PhysicalItemPF2e } = {}): boolean {
         // For certain collection-less modes, the spell must come from an item
         if (this.system.prepared.value === "items") {
-            return !!options.origin;
+            const { origin } = options;
+            if (!origin) return false;
+
+            // Eventually this will use predicates, but right now its just a simple match
+            return this.system.prepared.validItems === "scroll" ? origin.traits.has("scroll") : true;
         }
 
         // Only prepared/spontaneous casting count as a "spellcasting class feature"
