@@ -171,12 +171,17 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
     }
 
+    override getRollData(): Record<string, unknown> {
+        const { actor, item } = this;
+        return { ...actor?.getRollData(), ...item?.getRollData() };
+    }
+
     override async getHTML(): Promise<JQuery> {
         const { actor } = this;
 
         // Enrich flavor, which is skipped by upstream
         if (this.isContentVisible) {
-            const rollData = { ...actor?.getRollData(), ...(this.item?.getRollData() ?? { actor }) };
+            const rollData = this.getRollData();
             this.flavor = await TextEditor.enrichHTML(this.flavor, { async: true, rollData });
         }
 
