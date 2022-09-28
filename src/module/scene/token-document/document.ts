@@ -226,41 +226,48 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         TokenDocumentPF2e.prepareSize(this, this.actor);
 
         // Set vision and detection modes
-        if (this.rulesBasedVision) {
-            const visionMode = this.hasDarkvision ? "darkvision" : "basic";
-            this.sight.visionMode = visionMode;
-            const { defaults } = CONFIG.Canvas.visionModes[visionMode].vision;
-            this.sight.brightness = defaults.brightness;
-            this.sight.saturation = defaults.saturation;
+        this.#prepareDerivedPerception();
+    }
 
-            if (visionMode === "darkvision" || this.scene.lightLevel > LightLevels.DARKNESS) {
-                const basicDetection = this.detectionModes.at(0);
-                if (!basicDetection) return;
-                this.sight.range = basicDetection.range = defaults.range;
+    /** Set vision and detection modes based on actor data */
+    #prepareDerivedPerception(): void {
+        if (!(this.rulesBasedVision && this.actor && this.scene && this.sight.enabled)) {
+            return;
+        }
 
-                // Temporary hard-coded fetchling check for initial release
-                if (this.actor.isOfType("character") && this.actor.ancestry?.slug === "fetchling") {
-                    this.sight.saturation = 1;
-                }
-            }
+        const visionMode = this.hasDarkvision ? "darkvision" : "basic";
+        this.sight.visionMode = visionMode;
+        const { defaults } = CONFIG.Canvas.visionModes[visionMode].vision;
+        this.sight.brightness = defaults.brightness;
+        this.sight.saturation = defaults.saturation;
 
-            if (!this.actor.hasCondition("deafened")) {
-                this.detectionModes.push({ id: "hearing", enabled: true, range: Infinity });
-            }
+        if (visionMode === "darkvision" || this.scene.lightLevel > LightLevels.DARKNESS) {
+            const basicDetection = this.detectionModes.at(0);
+            if (!basicDetection) return;
+            this.sight.range = basicDetection.range = defaults.range;
 
-            const tremorsense = this.actor.isOfType("character")
-                ? this.actor.system.traits.senses.find((s) => s.type === "tremorsense" && s.acuity !== "vague")
-                : null;
-            if (tremorsense) {
-                this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });
+            // Temporary hard-coded fetchling check for initial release
+            if (this.actor.isOfType("character") && this.actor.ancestry?.slug === "fetchling") {
+                this.sight.saturation = 1;
             }
         }
 
         const canSeeInvisibility =
-            this.actor.isOfType("character") &&
+            this.actor.isOfType("character", "familiar") &&
             this.actor.system.traits.senses.some((s) => s.type === "seeInvisibility");
         if (canSeeInvisibility) {
             this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: 1000 });
+        }
+
+        const tremorsense = this.actor.isOfType("character")
+            ? this.actor.system.traits.senses.find((s) => s.type === "tremorsense" && s.acuity !== "vague")
+            : null;
+        if (tremorsense) {
+            this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });
+        }
+
+        if (!this.actor.hasCondition("deafened")) {
+            this.detectionModes.push({ id: "hearing", enabled: true, range: Infinity });
         }
     }
 
