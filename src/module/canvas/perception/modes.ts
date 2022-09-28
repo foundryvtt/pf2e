@@ -65,6 +65,8 @@ class HearingDetectionMode extends DetectionMode {
             return false;
         }
 
+        if (!game.settings.get("pf2e", "automation.rulesBasedVision")) return true;
+
         // Not if the target is unnoticed or undetected
         if (target.actor.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug))) {
             return false;
