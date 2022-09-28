@@ -114,7 +114,7 @@ async function applyDamage(
 ): Promise<void> {
     if (promptModifier) return shiftModifyDamage(message, multiplier);
 
-    const tokens = canvas.tokens.controlled.filter((token) => token.actor);
+    const tokens = canvas.tokens.controlled.filter((token) => !!token.actor);
     if (tokens.length === 0) {
         const errorMsg = LocalizePF2e.translations.PF2E.UI.errorTargetToken;
         ui.notifications.error(errorMsg);
@@ -124,7 +124,7 @@ async function applyDamage(
     const shieldBlockRequest = CONFIG.PF2E.chatDamageButtonShieldToggle;
     const damage = message.roll!.total * multiplier + adjustment;
     for (const token of tokens) {
-        await token.actor?.applyDamage(damage, token, shieldBlockRequest);
+        await token.actor?.applyDamage(damage, token.document, shieldBlockRequest);
     }
     toggleOffShieldBlock(message.id);
 }
