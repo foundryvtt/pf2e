@@ -178,18 +178,19 @@ class ModifierPF2e implements RawModifier {
         this.ability = params.ability ?? null;
         this.force = params.force ?? false;
         this.adjustments = deepClone(params.adjustments ?? []);
-        this.damageType = setHasElement(DAMAGE_TYPES, params.damageType) ? params.damageType : null;
-        this.damageCategory = params.damageCategory ?? null;
         this.enabled = params.enabled ?? true;
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
-        this.critical = params.critical ?? null;
         this.source = params.source ?? null;
         this.predicate = PredicatePF2e.create(params.predicate ?? []);
         this.notes = params.notes ?? "";
         this.traits = deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
         this.modifier = params.modifier;
+
+        this.damageType = setHasElement(DAMAGE_TYPES, params.damageType) ? params.damageType : null;
+        this.damageCategory = params.damageCategory ?? null;
+        this.critical = this.damageCategory === "splash" ? false : params.critical ?? null;
 
         if (this.force && this.type === "untyped") {
             throw ErrorPF2e("A forced modifier must have a type");

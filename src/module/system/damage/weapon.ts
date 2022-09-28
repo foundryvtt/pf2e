@@ -476,6 +476,7 @@ class WeaponDamagePF2e {
 
         base.category = DamageCategorization.fromDamageType(base.damageType);
 
+        // Separate dice into regular damage pool (doubled on critical hit) and critical damage pool
         const dicePool: DamagePool = {};
         const critPool: DamagePool = {};
         dicePool[base.damageType] = {
@@ -491,38 +492,27 @@ class WeaponDamagePF2e {
         // dice modifiers always stack
         for (const dice of diceModifiers.filter((dm) => dm.enabled)) {
             const dieSize = dice.dieSize || base.dieSize || null;
-            if (dice.diceNumber > 0 && dieSize && outcomeMatches(dice)) {
-                this.addDice(critPool, dice.damageType ?? base.damageType, dice.category, dieSize, dice.diceNumber);
+            if (dice.diceNumber > 0 && dieSize) {
+                const pool = dice.critical || (critical && dice.critical === false) ? critPool : dicePool;
+                this.addDice(pool, dice.damageType ?? base.damageType, dice.category, dieSize, dice.diceNumber);
             }
         }
 
         // Apply stacking rules here and distribute on dice pools
         {
-            const modifiers = damage.numericModifiers
-                .filter((nm: ModifierPF2e) => nm.enabled && (!nm.critical || critical))
-                .flatMap((nm: ModifierPF2e) => {
-                    nm.damageType ??= base.damageType;
-                    nm.damageCategory ??= DamageCategorization.fromDamageType(nm.damageType);
-                    if (critical && nm.damageCategory === "splash") {
-                        return [];
-                    } else if (critical && nm.critical) {
-                        // Critical-only damage
-                        return nm;
-                    } else if (!nm.critical) {
-                        // Regular pool
-                        return nm;
-                    }
-                    // Skip
-                    return [];
-                });
+            const modifiers = damage.numericModifiers.flatMap((modifier): ModifierPF2e | never[] => {
+                modifier.damageType ??= base.damageType;
+                modifier.damageCategory ??= DamageCategorization.fromDamageType(modifier.damageType);
+                return modifier.enabled && outcomeMatches(modifier) ? modifier : [];
+            });
 
-            const numericModifiers = Array.from(groupBy(modifiers, (m) => m.damageType ?? base.damageType).entries())
-                .flatMap(
-                    ([damageType, modifiers]) =>
-                        // Apply stacking rules for numeric modifiers of each damage type separately
-                        new StatisticModifier(`${damageType}-damage-stacking-rules`, modifiers).modifiers
-                )
-                .filter((m) => m.enabled && outcomeMatches(m));
+            const numericModifiers = Array.from(
+                groupBy(modifiers, (m) => m.damageType ?? base.damageType).entries()
+            ).flatMap(
+                ([damageType, modifiers]) =>
+                    // Apply stacking rules for numeric modifiers of each damage type separately
+                    new StatisticModifier(`${damageType}-damage-stacking-rules`, modifiers).modifiers
+            );
 
             for (const modifier of numericModifiers) {
                 const damageType = modifier.damageType ?? base.damageType;
@@ -541,15 +531,18 @@ class WeaponDamagePF2e {
         let formula = this.buildFormula(dicePool, partials);
         if (critical) {
             formula = this.doubleFormula(formula);
-            const splashDamage = damage.numericModifiers.find(
-                (modifier) => modifier.enabled && modifier.damageCategory === "splash"
-            );
-            if (splashDamage) formula += ` + ${splashDamage.modifier}`;
+            const nonDoublings = damage.numericModifiers.filter((m) => m.enabled && m.critical === false);
+            for (const nonDoubling of nonDoublings) {
+                formula += ` + ${nonDoubling.modifier}`;
+            }
+
             for (const [damageType, categories] of Object.entries(partials)) {
                 for (const [damageCategory, f] of Object.entries(categories)) {
                     partials[damageType][damageCategory] = this.doubleFormula(f);
-                    if (splashDamage?.damageType === damageType) {
-                        partials[damageType][damageCategory] += ` + ${splashDamage.modifier}`;
+                    for (const nonDoubling of nonDoublings) {
+                        if (nonDoubling.damageType === damageType) {
+                            partials[damageType][damageCategory] += ` + ${nonDoubling.modifier}`;
+                        }
                     }
                 }
             }
