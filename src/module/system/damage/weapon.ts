@@ -446,9 +446,13 @@ class WeaponDamagePF2e {
         const { base } = damage;
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
+        // Test that a damage modifier is compatible with the prior check result
+        const outcomeMatches = (m: { critical: boolean | null }): boolean =>
+            m.critical === null || (critical && m.critical) || (!critical && !m.critical);
+
         // First, increase or decrease the damage die. This can only be done once, so we
         // only need to find the presence of a rule that does this
-        const hasUpgrade = diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && (critical || !dm.critical));
+        const hasUpgrade = diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && outcomeMatches(dm));
         const hasDowngrade = diceModifiers.some(
             (dm) => dm.enabled && dm.override?.downgrade && (critical || !dm.critical)
         );
@@ -485,14 +489,10 @@ class WeaponDamagePF2e {
         };
 
         // dice modifiers always stack
-        for (const dice of diceModifiers.filter((dm) => dm.enabled && (!dm.critical || critical))) {
+        for (const dice of diceModifiers.filter((dm) => dm.enabled)) {
             const dieSize = dice.dieSize || base.dieSize || null;
-            if (dice.diceNumber <= 0 || !dieSize) continue;
-            if (critical && dice.critical) {
-                // critical-only stuff
+            if (dice.diceNumber > 0 && dieSize && outcomeMatches(dice)) {
                 this.addDice(critPool, dice.damageType ?? base.damageType, dice.category, dieSize, dice.diceNumber);
-            } else if (!dice.critical) {
-                this.addDice(dicePool, dice.damageType ?? base.damageType, dice.category, dieSize, dice.diceNumber);
             }
         }
 
@@ -522,7 +522,7 @@ class WeaponDamagePF2e {
                         // Apply stacking rules for numeric modifiers of each damage type separately
                         new StatisticModifier(`${damageType}-damage-stacking-rules`, modifiers).modifiers
                 )
-                .filter((nm) => nm.enabled && (!nm.critical || critical));
+                .filter((m) => m.enabled && outcomeMatches(m));
 
             for (const modifier of numericModifiers) {
                 const damageType = modifier.damageType ?? base.damageType;
