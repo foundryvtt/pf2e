@@ -145,7 +145,7 @@ export class CheckModifiersDialog extends Application {
 
     async onAddModifier(event: JQuery.ClickEvent): Promise<void> {
         const parent = $(event.currentTarget).parents(".add-modifier-panel");
-        const value = Number(parent.find(".add-modifier-value").val());
+        const value = Number(parent.find(".add-modifier-value").val() || 1);
         const type = `${parent.find(".add-modifier-type").val()}`;
         let name = `${parent.find(".add-modifier-name").val()}`;
         const errors: string[] = [];
