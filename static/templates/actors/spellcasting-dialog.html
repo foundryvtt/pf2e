@@ -16,7 +16,19 @@
                 <input name="system.prepared.flexible" type="checkbox" {{checked data.prepared.flexible}}/>
             </div>
         {{/if}}
+        {{#if (eq data.prepared.value "items")}}
+            <div class="form-group">
+                <label>{{localize "PF2E.Actor.Creature.Spellcasting.MagicItemTypesLabel"}}</label>
+                <select name="system.prepared.validItems">
+                    {{#select data.prepared.validItems}}
+                        <option>{{localize "PF2E.Actor.Creature.Spellcasting.ValidItemTypes.All"}}</option>
+                        <option value="scroll">{{localize "PF2E.Actor.Creature.Spellcasting.ValidItemTypes.Scroll"}}</option>
+                    {{/select}}
+                </select>
+            </div>
+        {{/if}}
         <hr/>
+
         {{#unless object.isRitual}}
             <div class="form-group">
                 <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
