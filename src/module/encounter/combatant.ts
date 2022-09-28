@@ -44,12 +44,11 @@ class CombatantPF2e<
 
     /** Toggle the defeated status of this combatant, applying or removing the overlay icon on its token */
     async toggleDefeated(): Promise<void> {
-        const isDead = !this.defeated;
-        await this.update({ defeated: isDead });
+        await this.update({ defeated: !this.defeated });
         await this.token?.object.toggleEffect(game.settings.get("pf2e", "deathIcon"), { overlay: true });
 
         /** Remove this combatant's token as a target if it died */
-        if (isDead && this.token?.object?.isTargeted) {
+        if (this.isDefeated && this.token?.object?.isTargeted) {
             this.token.object.setTarget(false, { releaseOthers: false });
         }
     }

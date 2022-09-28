@@ -7,7 +7,6 @@ import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { EffectFlags, EffectSource } from "@item/effect/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
-import { TokenPF2e } from "@module/canvas";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { Size } from "@module/data";
 import { preImportJSON } from "@module/doc-helpers";
@@ -676,10 +675,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         isDelta = false,
         isBar = true
     ): Promise<this> {
-        const tokens = this.getActiveTokens();
-        if (attribute === "attributes.hp" && isDelta && tokens.length) {
-            await this.applyDamage(-value, tokens[0]);
-            return this;
+        const token = this.getActiveTokens(false, true).shift();
+        const isDamage = isDelta || (value === 0 && !!token?.combatant);
+        if (token && attribute === "attributes.hp" && isDamage) {
+            const damage = value === 0 ? this.hitPoints?.value ?? 0 : -value;
+            return this.applyDamage(damage, token);
         }
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
@@ -691,9 +691,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
      * @param token The applicable token for this actor
      * @param shieldBlockRequest Whether the user has toggled the Shield Block button
      */
-    async applyDamage(damage: number, token: TokenPF2e, shieldBlockRequest = false): Promise<void> {
+    async applyDamage(damage: number, token: TokenDocumentPF2e, shieldBlockRequest = false): Promise<this> {
         const { hitPoints } = this;
-        if (!hitPoints) return;
+        if (!hitPoints) return this;
         damage = Math.trunc(damage); // Round damage and healing (negative values) toward zero
 
         // Calculate damage to hit points and shield
@@ -753,8 +753,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
         if (this.hitPoints?.value === 0) {
             const deadAtZero = game.settings.get("pf2e", "automation.actorsDeadAtZero");
-            if (this.type === "npc" && ["npcsOnly", "both"].includes(deadAtZero)) {
-                await game.combat?.combatants.find((c) => c.actor === this && !c.defeated)?.toggleDefeated();
+            if (this.type === "npc" && ["npcsOnly", "both"].includes(deadAtZero) && !token.combatant?.isDefeated) {
+                token.combatant?.toggleDefeated();
             }
         }
 
@@ -797,6 +797,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
                     : [],
         });
+
+        return this;
     }
 
     isLootableBy(user: UserPF2e) {

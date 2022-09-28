@@ -48,9 +48,12 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             const messageId = $li.attr("data-message-id") ?? "";
             const roll = game.messages.get(messageId, { strict: true }).roll;
             if (!roll) return;
-            for await (const token of canvas.tokens.controlled) {
-                if (!token.actor) continue;
-                await token.actor.applyDamage(roll.total * multiplier, token, CONFIG.PF2E.chatDamageButtonShieldToggle);
+            for (const token of canvas.tokens.controlled) {
+                await token.actor?.applyDamage(
+                    roll.total * multiplier,
+                    token.document,
+                    CONFIG.PF2E.chatDamageButtonShieldToggle
+                );
             }
         };
 
