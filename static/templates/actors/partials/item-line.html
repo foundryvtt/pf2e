@@ -8,8 +8,8 @@
                 {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.system.identification.identified.name}})</span>{{/if}}
                 {{#if itemSize}}<span class="size">({{itemSize}})</span>{{/if}}
             </h4>
-            {{#if item.charges.max}}
-                <span class="item-charges">({{item.charges.value}}/{{item.charges.max}})</span>
+            {{#if item.uses.max}}
+                <span class="item-charges">({{item.uses.value}}/{{item.uses.max}})</span>
             {{/if}}
         </div>
         {{#if (or @root.inventory.showValueAlways (and (eq item.type "treasure") (not item.container)))}}
