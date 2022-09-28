@@ -163,7 +163,7 @@ declare global {
              *
              * @return         The value of the found property
              */
-            function getProperty(object: object, key: string): any;
+            function getProperty(object: object, key: string): unknown;
 
             /**
              * A helper function which searches through an object to assign a value using a string key

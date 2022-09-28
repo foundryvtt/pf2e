@@ -184,7 +184,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
             const $input = $(event.target);
             const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue: number = getProperty(this.actor._source, propertyPath);
+            const baseValue = Number(getProperty(this.actor._source, propertyPath));
             $input.val(baseValue).attr({ name: propertyPath });
         });
 
@@ -192,7 +192,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
-            const preparedValue: number = getProperty(this.actor, propertyPath);
+            const preparedValue = Number(getProperty(this.actor, propertyPath));
             $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
         });
 

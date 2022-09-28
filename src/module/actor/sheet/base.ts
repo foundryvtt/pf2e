@@ -1052,7 +1052,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const strValue = el.value.trim();
                 const value = Number(strValue);
                 if ((strValue.startsWith("+") || strValue.startsWith("-")) && !Number.isNaN(value))
-                    data[el.name] = getProperty(this.actor, el.name) + value;
+                    data[el.name] = Number(getProperty(this.actor, el.name)) + value;
             }
         }
 

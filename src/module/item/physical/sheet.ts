@@ -68,7 +68,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> e
             if (value !== undefined && !Array.isArray(value)) {
                 $input.attr("data-value", value);
             }
-            const baseValue = $input.attr("data-value-base") ?? getProperty(this.item._source, propertyPath);
+            const baseValue = $input.attr("data-value-base") ?? String(getProperty(this.item._source, propertyPath));
             $input.val(baseValue).attr({ name: propertyPath });
         });
 
@@ -76,7 +76,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> e
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
-            const preparedValue = $input.attr("data-value") ?? getProperty(this.item, propertyPath);
+            const preparedValue = $input.attr("data-value") ?? String(getProperty(this.item, propertyPath));
             $input.val(preparedValue);
         });
 
