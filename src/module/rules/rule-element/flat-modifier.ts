@@ -30,6 +30,9 @@ class FlatModifierRuleElement extends RuleElementPF2e {
     /** Whether this modifier comes from equipment or an equipment effect */
     fromEquipment: boolean;
 
+    /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
+    critical: boolean | null;
+
     constructor(data: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
         data.type ??= MODIFIER_TYPE.UNTYPED;
@@ -66,6 +69,11 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                 );
             }
         }
+
+        this.critical =
+            typeof data.critical === "boolean" && this.selectors.some((s) => s.includes("damage"))
+                ? data.critical
+                : null;
 
         if (this.force && this.type === "untyped") {
             this.failValidation("A forced bonus or penalty must have a type");
@@ -116,6 +124,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                     force: this.force,
                     damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
                     damageCategory: this.data.damageCategory || undefined,
+                    critical: this.critical,
                     hideIfDisabled: this.hideIfDisabled,
                     source: this.item.uuid,
                 });
@@ -153,6 +162,7 @@ interface FlatModifierSource extends RuleElementSource {
     force?: unknown;
     damageType?: unknown;
     damageCategory?: unknown;
+    critical?: unknown;
     hideIfDisabled?: unknown;
     fromEquipment?: unknown;
 }
