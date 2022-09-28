@@ -18,6 +18,8 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
     damageType: string | null;
 
+    critical: boolean | null;
+
     precision: boolean;
 
     brackets: BracketedValue | null;
@@ -59,6 +61,9 @@ class DamageDiceRuleElement extends RuleElementPF2e {
             this.failValidation("damageType must be a string or omitted");
         }
         this.damageType ??= null;
+
+        // Critical-only (or non-critical-only)
+        this.critical = typeof data.critical === "boolean" ? data.critical : null;
 
         // Add precision damage
         const category = data.category ?? data.damageCategory;
@@ -116,6 +121,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
                 label,
                 dieSize: this.dieSize,
                 diceNumber,
+                critical: this.critical,
                 category: this.precision ? "precision" : null,
                 damageType,
                 predicate: this.predicate ?? {},
@@ -178,6 +184,7 @@ interface DamageDiceSource extends RuleElementSource {
     dieSize?: unknown;
     override?: unknown;
     damageType?: unknown;
+    critical?: unknown;
     category?: unknown;
     damageCategory?: unknown;
 }
