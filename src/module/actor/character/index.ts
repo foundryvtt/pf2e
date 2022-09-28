@@ -643,7 +643,7 @@ class CharacterPF2e extends CreaturePF2e {
         this.classDCs = {};
         for (const [slug, classDC] of Object.entries(systemData.proficiencies.classDCs)) {
             const statistic = this.prepareClassDC(slug, classDC);
-            systemData.proficiencies.classDCs[slug] = mergeObject(classDC, statistic.getTraceData());
+            systemData.proficiencies.classDCs[slug] = mergeObject(classDC, statistic.getTraceData({ value: "dc" }));
             this.classDCs[slug] = statistic;
             if (classDC.primary) {
                 this.classDC = statistic;

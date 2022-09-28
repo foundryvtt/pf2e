@@ -66,7 +66,7 @@ export interface StatisticChatData {
 export interface StatisticTraceData {
     slug: string;
     label: string;
-    /** Backwards compatibility with StatisticModifier (this is an alias for totalModifier) */
+    /** Either the totalModifier or the dc depending on what the data is for */
     value: number;
     totalModifier: number;
     dc: number;
