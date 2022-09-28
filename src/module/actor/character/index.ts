@@ -655,40 +655,17 @@ class CharacterPF2e extends CreaturePF2e {
         const { wornArmor, heldShield } = this;
         {
             const modifiers = [this.getShieldBonus() ?? []].flat();
+
+            // Collect sources of dexterity modifier caps
             const dexCapSources: DexterityModifierCapData[] = [
                 { value: Infinity, source: "" },
                 ...synthetics.dexterityModifierCaps,
             ];
-            let armorCheckPenalty = 0;
-            const proficiency = wornArmor?.category ?? "unarmored";
-
             if (wornArmor) {
                 dexCapSources.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
-                if (wornArmor.checkPenalty) {
-                    // armor check penalty
-                    if (typeof wornArmor.strength === "number" && systemData.abilities.str.value < wornArmor.strength) {
-                        armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
-                    }
-                }
-
-                const slug = wornArmor.baseType ?? wornArmor.slug ?? sluggify(wornArmor.name);
-                modifiers.unshift(
-                    new ModifierPF2e({
-                        label: wornArmor.name,
-                        type: MODIFIER_TYPE.ITEM,
-                        slug,
-                        modifier: wornArmor.acBonus,
-                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
-                    })
-                );
             }
 
-            // Proficiency bonus
-            modifiers.unshift(
-                ProficiencyModifier.fromLevelAndRank(this.level, systemData.martial[proficiency]?.rank ?? 0)
-            );
-
-            // DEX modifier is limited by the lowest cap, usually from armor
+            // Find the lowest cap, usually from armor
             const dexModifier = createAbilityModifier({
                 actor: this,
                 ability: "dex",
@@ -707,6 +684,36 @@ class CharacterPF2e extends CreaturePF2e {
                 .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
             const acAbility = abilityModifier.ability!;
             const domains = ["all", "ac", `${acAbility}-based`];
+
+            let armorCheckPenalty = 0;
+            const proficiency = wornArmor?.category ?? "unarmored";
+
+            if (wornArmor) {
+                if (wornArmor.checkPenalty) {
+                    // armor check penalty
+                    if (typeof wornArmor.strength === "number" && systemData.abilities.str.value < wornArmor.strength) {
+                        armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
+                    }
+                }
+
+                const slug = wornArmor.baseType ?? wornArmor.slug ?? sluggify(wornArmor.name);
+                const wornDomains = [...domains, "worn-ac"];
+                modifiers.unshift(
+                    new ModifierPF2e({
+                        label: wornArmor.name,
+                        type: MODIFIER_TYPE.ITEM,
+                        slug,
+                        modifier: wornArmor.acBonus,
+                        adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, wornDomains, slug),
+                    })
+                );
+            }
+
+            // Proficiency bonus
+            modifiers.unshift(
+                ProficiencyModifier.fromLevelAndRank(this.level, systemData.martial[proficiency]?.rank ?? 0)
+            );
+
             modifiers.push(...extractModifiers(synthetics, domains));
 
             const rollOptions = this.getRollOptions(domains);
