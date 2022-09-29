@@ -48,7 +48,7 @@ export class MetagameSettings extends SettingsMenuPF2e {
                 onChange: async () => {
                     await ui.combat.render();
                     const renderedMessages = document.querySelectorAll<HTMLLIElement>("#chat-log > li");
-                    for await (const rendered of Array.from(renderedMessages)) {
+                    for (const rendered of Array.from(renderedMessages)) {
                         const message = game.messages.get(rendered?.dataset.messageId ?? "");
                         if (!message) continue;
                         await ui.chat.updateMessage(message);

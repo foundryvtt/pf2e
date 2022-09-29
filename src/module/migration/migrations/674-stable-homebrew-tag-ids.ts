@@ -39,7 +39,7 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
     }
 
     override async migrate(): Promise<void> {
-        for await (const key of this.homebrewKeys) {
+        for (const key of this.homebrewKeys) {
             const tags: { id: string; value: string }[] = this.homebrewTags[key];
 
             for (const tag of tags) {
