@@ -96,12 +96,13 @@ export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
               })()
             : null;
 
-        const $priceLabel =
+        const $levelPriceLabel =
             itemIsIdentifiedOrUserIsGM && item.system.stackGroup !== "coins"
                 ? ((): JQuery => {
                       const price = item.price.value.toString();
                       const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
-                      return $(`<p>${priceLabel}</p>`);
+                      const levelLabel = game.i18n.format("PF2E.LevelN", { level: item.level });
+                      return $(`<p>${levelLabel}<br/>${priceLabel}</p>`);
                   })()
                 : $();
 
@@ -141,7 +142,7 @@ export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
             ? chatData.description.value
             : await game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
 
-        $div.append($properties, $priceLabel, `<div class="item-description">${description}</div>`);
+        $div.append($properties, $levelPriceLabel, `<div class="item-description">${description}</div>`);
     }
 
     /**
