@@ -131,11 +131,7 @@ export class ConditionManager {
         return conditionsToCreate;
     }
 
-    /**
-     * Removes a condition from a token.
-     * @param name  A collection of conditions to retrieve modifiers from.
-     * @param token The token to add the condition to.
-     */
+    /** Remove a condition from a token */
     static removeConditionFromToken(itemId: string | string[], token: TokenPF2e): Promise<void>;
     static removeConditionFromToken(itemId: string | string[], actor: ActorPF2e): Promise<void>;
     static removeConditionFromToken(itemId: string | string[], actorOrToken: ActorPF2e | TokenPF2e): Promise<void>;
