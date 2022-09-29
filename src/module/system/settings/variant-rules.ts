@@ -147,7 +147,7 @@ export class VariantRulesSettings extends FormApplication {
     }
 
     protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
-        for await (const key of Object.keys(SETTINGS)) {
+        for (const key of Object.keys(SETTINGS)) {
             game.settings.set("pf2e", key, data[key]);
         }
     }
