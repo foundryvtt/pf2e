@@ -1,7 +1,7 @@
 import { Rarity } from "@module/data";
 import { PreciousMaterialGrade, PreciousMaterialType } from "./types";
 
-export interface MaterialGradeData {
+interface MaterialGradeData {
     level: number;
     price: number;
     rarity: Rarity;
@@ -9,10 +9,11 @@ export interface MaterialGradeData {
 
 // https://2e.aonprd.com/Equipment.aspx?Category=11&Subcategory=12
 // https://2e.aonprd.com/Equipment.aspx?Category=37&Subcategory=38
-export type MaterialValuationData = Partial<
+type MaterialValuationData = Partial<
     Record<PreciousMaterialType | "", Record<PreciousMaterialGrade, MaterialGradeData | null>>
 >;
-export const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
+
+const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
     "": {
         low: null,
         standard: null,
@@ -235,7 +236,8 @@ export const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
         },
     },
 };
-export const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
+
+const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
     "": {
         low: null,
         standard: null,
@@ -472,3 +474,5 @@ export const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
         high: null,
     },
 };
+
+export { ARMOR_MATERIAL_VALUATION_DATA, MaterialGradeData, MaterialValuationData, WEAPON_MATERIAL_VALUATION_DATA };
