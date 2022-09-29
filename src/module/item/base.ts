@@ -10,6 +10,7 @@ import { ContainerPF2e } from "./container";
 import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
 import { ItemTrait } from "./data/base";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
+import { processGrantDeletions } from "../rules/rule-element/grant-item/helpers";
 import type { PhysicalItemPF2e } from "./physical";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
@@ -188,7 +189,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
         const grants = (flags.pf2e.itemGrants ??= []);
         for (const grant of grants) {
-            if (isObject(grant)) grant.onDelete ??= "detach";
+            grant.onDelete ??= "detach";
         }
     }
 
@@ -438,10 +439,12 @@ class ItemPF2e extends Item<ActorPF2e> {
             }
 
             // Run RE pre-delete callbacks
-            for (const item of items) {
+            for (const item of [...items]) {
                 for (const rule of item.rules) {
                     await rule.preDelete?.({ pendingItems: items, context });
                 }
+
+                await processGrantDeletions(item, items);
             }
             ids = Array.from(new Set(items.map((i) => i.id))).filter((id) => actor.items.has(id));
         }
