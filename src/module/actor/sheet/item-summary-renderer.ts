@@ -98,11 +98,10 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
 
         const $levelPriceLabel =
             itemIsIdentifiedOrUserIsGM && item.system.stackGroup !== "coins"
-                ? (() => {
+                ? ((): JQuery => {
                       const price = item.price.value.toString();
-                      const level = item.level.toString();
                       const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
-                      const levelLabel = game.i18n.format("PF2E.LevelN", { level });
+                      const levelLabel = game.i18n.format("PF2E.LevelN", { level: item.level });
                       return $(`<p>${levelLabel}<br/>${priceLabel}</p>`);
                   })()
                 : $();
