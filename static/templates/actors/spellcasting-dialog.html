@@ -59,16 +59,18 @@
                     </select>
                 </div>
             {{/if}}
-            <div class="form-group">
-                <label>{{localize "PF2E.SpellAbilityLabel"}}</label>
-                <select name="system.ability.value">
-                    {{#select data.ability.value}}
-                        {{#each abilities as |label key|}}
-                            <option value="{{key}}">{{localize label}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-            </div>
+            {{#if hasAbility}}
+                <div class="form-group">
+                    <label>{{localize "PF2E.SpellAbilityLabel"}}</label>
+                    <select name="system.ability.value">
+                        {{#select data.ability.value}}
+                            {{#each abilities as |label key|}}
+                                <option value="{{key}}">{{localize label}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            {{/if}}
             {{#if (eq actor.type "npc")}}
             <div class="form-group">
                 <label>{{localize "PF2E.SpellcastingSettings.AutoHeightenLabel"}}</label>

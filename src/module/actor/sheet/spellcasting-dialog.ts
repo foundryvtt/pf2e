@@ -47,11 +47,19 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
         return {
             ...(await super.getData()),
             actor: this.actor,
-            data: this.object.toObject(false).system,
+            data: this.object.toObject().system,
             magicTraditions: CONFIG.PF2E.magicTraditions,
             spellcastingTypes: CONFIG.PF2E.preparationType,
             abilities: CONFIG.PF2E.abilities,
+            hasAbility: this.#canSetAbility(),
         };
+    }
+
+    /** Returns whether or not the spellcasting data can include an ability */
+    #canSetAbility(): boolean {
+        const slug = this.object._source.system.proficiency.slug;
+        const baseStat = this.actor.isOfType("character") ? this.actor.getProficiencyStatistic(slug) : null;
+        return !slug || (!!baseStat && !baseStat.ability);
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -59,22 +67,29 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
 
         // Unflatten the form data, so that we may make some modifications
         const inputData: DeepPartial<SpellcastingEntrySource> = expandObject(formData);
-        const system = inputData.system;
 
         // We may disable certain form data, so reinject it
-        inputData.system = mergeObject(
+        const system = mergeObject(
             inputData.system ?? {},
             {
                 prepared: {
                     value: this.object.system.prepared.value,
                 },
+                ability: { value: "cha" },
             },
             { overwrite: false }
         );
 
-        // When swapping to innate, convert to cha, but don't force it
-        if (system?.prepared?.value === "innate" && !wasInnate && system?.ability) {
+        inputData.system = system;
+
+        // When swapping to innate convert to cha, but allow changes after
+        if (system.prepared.value === "innate" && !wasInnate) {
             system.ability.value = "cha";
+        }
+
+        // If the proficiency is being set to a value, remove the selected ability
+        if (system.proficiency?.slug) {
+            system.ability.value = "";
         }
 
         if (system?.autoHeightenLevel) {
@@ -141,6 +156,7 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<E
     magicTraditions: ConfigPF2e["PF2E"]["magicTraditions"];
     spellcastingTypes: ConfigPF2e["PF2E"]["preparationType"];
     abilities: ConfigPF2e["PF2E"]["abilities"];
+    hasAbility: boolean;
 }
 
 export async function createSpellcastingDialog(event: MouseEvent, object: ActorPF2e | Embedded<SpellcastingEntryPF2e>) {
