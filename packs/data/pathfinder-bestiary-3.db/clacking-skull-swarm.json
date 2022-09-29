@@ -116,7 +116,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a clacking skull swarm is reduced to 0 Hit Points, it erupts in an explosion of foul energy and bone fragments in a @Template[type:burst|distance:30], dealing [[/r {2d12}[piercing]]]{2d12 piercing damage} and [[/r {2d12}[negative]]]{2d12 negative damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                    "value": "<p>When a clacking skull swarm is reduced to 0 Hit Points, it erupts in an explosion of foul energy and bone fragments in a @Template[type:burst|distance:30], dealing [[/r {2d12}[piercing]+{2d12}[negative]]]{2d12 piercing damage and 2d12 negative damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -204,7 +204,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The clacking skull swarm emits a terrifying, painful scream that deals [[/r {10d6}[sonic]]]{10d6 sonic damage} to all creatures in a @Template[type:cone|distance:30] (@Check[type:will|dc:29|basic:true] save). A creature that fails this save is also @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical failure).</p>\n<p>The swarm can't use Frightening Scream again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The clacking skull swarm emits a terrifying, painful scream that deals [[/r {10d6}[sonic]]]{10d6 sonic damage} to all creatures in a @Template[type:cone|distance:30] (@Check[type:will|dc:29|basic:true] save). A creature that fails this save is also @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical failure).</p>\n<p>The swarm can't use Frightening Scream again for [[/br 1d4 #Recharge Shrieking Scream]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -331,7 +331,7 @@
                 "value": 29
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "negative healing",
@@ -360,7 +360,7 @@
                 "value": 10
             },
             "privateNotes": "",
-            "publicNotes": "<p>A skull swarm is composed of reanimated masses of craniums and jawbones, forming a terrifying avalanche of undead fury. Most skull swarms are mindless, though some retain a vestige of wit, awareness, and even magical talents from life, culminating in a highly intelligent swarm mind.</p>\n<hr />\n<p>Roiling about in seething waves of bleached death, clacking skull swarms arise from the remains of dozens of beheaded humanoids. The horrible clattering of the skulls' onslaught drives their prey to distraction even while they try to flee in terror.</p>",
+            "publicNotes": "<p>Roiling about in seething waves of bleached death, clacking skull swarms arise from the remains of dozens of beheaded humanoids. The horrible clattering of the skulls' onslaught drives their prey to distraction even while they try to flee in terror.</p>\n<hr>\n<p>A skull swarm is composed of reanimated masses of craniums and jawbones, forming a terrifying avalanche of undead fury. Most skull swarms are mindless, though some retain a vestige of wit, awareness, and even magical talents from life, culminating in a highly intelligent swarm mind.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -400,47 +400,43 @@
             "dr": [
                 {
                     "exceptions": "",
-                    "label": "Bludgeoning",
                     "type": "bludgeoning",
                     "value": 5
                 },
                 {
                     "exceptions": "",
-                    "label": "Cold",
                     "type": "cold",
                     "value": 10
                 },
                 {
                     "exceptions": "",
-                    "label": "Electricity",
                     "type": "electricity",
                     "value": 10
                 },
                 {
                     "exceptions": "",
-                    "label": "Fire",
                     "type": "fire",
                     "value": 10
                 },
                 {
                     "exceptions": "",
-                    "label": "Piercing",
                     "type": "piercing",
                     "value": 10
                 },
                 {
                     "exceptions": "",
-                    "label": "Slashing",
                     "type": "slashing",
                     "value": 10
                 }
             ],
             "dv": [
                 {
+                    "exceptions": "",
                     "type": "area-damage",
                     "value": 10
                 },
                 {
+                    "exceptions": "",
                     "type": "splash-damage",
                     "value": 10
                 }
