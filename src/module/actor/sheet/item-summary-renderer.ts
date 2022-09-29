@@ -100,8 +100,10 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             itemIsIdentifiedOrUserIsGM && item.system.stackGroup !== "coins"
                 ? (() => {
                       const price = item.price.value.toString();
+                      const level = item.level.toString();
                       const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
-                      return $(`<p>${game.i18n.format("PF2E.LevelN")} ${item.level}<br/>${priceLabel}</p>`);
+                      const levelLabel = game.i18n.format("PF2E.LevelN", { level });
+                      return $(`<p>${levelLabel}<br/>${priceLabel}</p>`);
                   })()
                 : $();
 
