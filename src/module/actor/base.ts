@@ -52,10 +52,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     synthetics!: RuleElementSynthetics;
 
+    /** Saving throw statistics */
+    saves?: { [K in SaveType]?: Statistic };
+
     /** Data from rule elements for auras this actor may be emanating */
     auras!: Map<string, AuraData>;
 
-    saves?: { [K in SaveType]?: Statistic };
+    /** Conditions this actor has */
+    conditions!: Map<ConditionSlug, ConditionPF2e>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private _itemTypes?: { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] };
@@ -423,8 +427,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     protected override _initialize(): void {
-        this.auras = new Map();
         this.rules = [];
+        this.conditions = new Map();
+        this.auras = new Map();
 
         super._initialize();
         this.initialized = true;
@@ -1067,11 +1072,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     /**
-     * Does this actor have the provided condition?
-     * @param slug The slug of the queried condition
+     * Does this actor have any of the provided condition?
+     * @param slugs Slug(s) of the queried condition(s)
      */
-    hasCondition(slug: ConditionSlug): boolean {
-        return this.itemTypes.condition.some((condition) => condition.slug === slug);
+    hasCondition(...slugs: ConditionSlug[]): boolean {
+        return slugs.some((s) => this.conditions.has(s));
     }
 
     /** Decrease the value of condition or remove it entirely */
