@@ -758,11 +758,12 @@ class CharacterPF2e extends CreaturePF2e {
             }
 
             // Spellcasting entries extend other statistics, usually a tradition, but sometimes class dc
-            const stat = this.getProficiencyStatistic(entry.system.proficiency.slug);
-            if (!stat) continue;
+            const baseStat = this.getProficiencyStatistic(entry.system.proficiency.slug);
+            if (!baseStat) continue;
 
-            entry.system.proficiency.value = Math.max(entry.rank, stat.rank ?? 0) as ZeroToFour;
-            entry.statistic = stat.extend({
+            entry.system.ability.value = baseStat.ability ?? entry.system.ability.value;
+            entry.system.proficiency.value = Math.max(entry.rank, baseStat.rank ?? 0) as ZeroToFour;
+            entry.statistic = baseStat.extend({
                 slug: entry.slug ?? sluggify(entry.name),
                 ability: entry.ability,
                 rank: entry.rank,
