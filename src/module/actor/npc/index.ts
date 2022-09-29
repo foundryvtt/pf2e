@@ -781,7 +781,6 @@ class NPCPF2e extends CreaturePF2e {
                         modifier: base,
                         adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                     }),
-                    ...extractModifiers(this.synthetics, domains),
                 ],
                 check: {
                     type: "saving-throw",
