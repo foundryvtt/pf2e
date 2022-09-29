@@ -968,9 +968,6 @@ class CharacterPF2e extends CreaturePF2e {
                 });
             }
 
-            // Add custom modifiers and roll notes relevant to this save.
-            modifiers.push(...extractModifiers(this.synthetics, selectors));
-
             const stat = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
