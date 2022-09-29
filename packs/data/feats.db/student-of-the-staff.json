@@ -35,7 +35,7 @@
             {
                 "key": "CriticalSpecialization",
                 "predicate": [
-                    "weapon:group:club"
+                    "weapon:base:staff"
                 ]
             },
             {
@@ -46,7 +46,39 @@
                 "key": "DamageDice",
                 "predicate": [
                     "weapon:base:staff",
-                    "self:effect:arcane-cascade"
+                    "self:effect:arcane-cascade",
+                    {
+                        "nor": [
+                            "weapon:damage-dice:3",
+                            "weapon:damage-dice:4"
+                        ]
+                    }
+                ],
+                "selector": "damage"
+            },
+            {
+                "critical": true,
+                "damageType": "{actor|flags.pf2e.arcaneCascade.damageType}",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "weapon:base:staff",
+                    "self:effect:arcane-cascade",
+                    "weapon:damage-dice:3"
+                ],
+                "selector": "damage"
+            },
+            {
+                "critical": true,
+                "damageType": "{actor|flags.pf2e.arcaneCascade.damageType}",
+                "diceNumber": 3,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "weapon:base:staff",
+                    "self:effect:arcane-cascade",
+                    "weapon:damage-dice:4"
                 ],
                 "selector": "damage"
             }
