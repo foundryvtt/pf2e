@@ -36,8 +36,13 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
                         choice.predicate = convertLegacyData(choice.predicate);
                     }
                 }
-            } else if (this.#isObjectChoiceSet(rule) && this.#isOldRawPredicate(rule.choices.predicate)) {
-                rule.choices.predicate = convertLegacyData(rule.choices.predicate);
+            } else if (this.#isObjectChoiceSet(rule)) {
+                if (this.#isOldRawPredicate(rule.choices.predicate)) {
+                    rule.choices.predicate = convertLegacyData(rule.choices.predicate);
+                }
+                if (this.#isOldRawPredicate(rule.choices.postFilter)) {
+                    rule.choices.postFilter = convertLegacyData(rule.choices.postFilter);
+                }
             } else if (this.#isOldRawPredicate(rule.craftableItems)) {
                 rule.craftableItems = convertLegacyData(rule.craftableItems);
             }
@@ -74,7 +79,10 @@ interface ArrayChoiceSet extends MaybeWithOldPredicates {
 }
 
 interface ObjectChoiceSet extends MaybeWithOldPredicates {
-    choices: { predicate?: OldRawPredicate | RawPredicate };
+    choices: {
+        postFilter?: OldRawPredicate | RawPredicate;
+        predicate?: OldRawPredicate | RawPredicate;
+    };
 }
 
 interface OldRawPredicate {

@@ -4699,28 +4699,32 @@
                     {
                         "adjustName": false,
                         "choices": {
-                            "postFilter": {
-                                "any": [
-                                    "feature:dragon-instinct",
-                                    {
-                                        "not": "item:draconic-arrogance"
-                                    }
-                                ],
-                                "not": [
-                                    "item:animal-companion",
-                                    "item:animal-companion-druid",
-                                    "item:bardic-lore",
-                                    "item:fire-lung",
-                                    "item:lingering-composition",
-                                    "item:leshy-familiar",
-                                    "item:martial-performance",
-                                    "item:shore-step",
-                                    "item:steadying-stone",
-                                    "item:storm-born",
-                                    "item:versatile-performance",
-                                    "item:wild-shape"
-                                ]
-                            },
+                            "postFilter": [
+                                {
+                                    "or": [
+                                        "feature:dragon-instinct",
+                                        {
+                                            "not": "item:draconic-arrogance"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:animal-companion",
+                                        "item:animal-companion-druid",
+                                        "item:bardic-lore",
+                                        "item:fire-lung",
+                                        "item:lingering-composition",
+                                        "item:leshy-familiar",
+                                        "item:martial-performance",
+                                        "item:shore-step",
+                                        "item:steadying-stone",
+                                        "item:storm-born",
+                                        "item:versatile-performance",
+                                        "item:wild-shape"
+                                    ]
+                                }
+                            ],
                             "query": "{\"system.featType.value\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.class.trait}\"}}"
                         },
                         "flag": "naturalAmbition",
