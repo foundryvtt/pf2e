@@ -47,7 +47,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
         return {
             ...(await super.getData()),
             actor: this.actor,
-            data: this.object.toObject(true).system,
+            data: this.object.toObject().system,
             magicTraditions: CONFIG.PF2E.magicTraditions,
             spellcastingTypes: CONFIG.PF2E.preparationType,
             abilities: CONFIG.PF2E.abilities,
