@@ -2,6 +2,7 @@ import { MigrationBase } from "../base";
 import { ActorSourcePF2e } from "@actor/data";
 import { FeatPF2e } from "@item";
 import { FeatSource } from "@item/data";
+import { ErrorPF2e } from "@util";
 
 export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase {
     static override version = 0.611;
@@ -22,7 +23,7 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
             (itemData): itemData is FeatSource =>
                 this.featSlugs.includes(itemData.system.slug ?? "") && itemData.type === "feat"
         );
-        for await (const oldFeatData of oldFeatsData) {
+        for (const oldFeatData of oldFeatsData) {
             if (oldFeatData.system.slug === "mountain-s-stoutness") {
                 oldFeatData.system.slug = "mountains-stoutness";
             }
@@ -32,7 +33,7 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
                     ? (await this.featsPromise).find((feat) => feat.slug === "toughness")
                     : (await this.featsPromise).find((feat) => feat.slug === "mountains-stoutness");
             if (!(newFeat instanceof FeatPF2e)) {
-                throw Error("PF2E System | Expected item not found in Compendium");
+                throw ErrorPF2e("Expected item not found in Compendium");
             }
             newFeat._source.system.location = oldFeatData.system.location;
             const oldFeatIndex = actorData.items.indexOf(oldFeatData);

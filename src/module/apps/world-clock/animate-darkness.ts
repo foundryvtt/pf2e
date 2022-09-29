@@ -103,7 +103,7 @@ export async function animateDarkness(this: WorldClock, timeDiff: number): Promi
 
     const transitions = transitionIntervals.map((interval) => intervalToTransition(interval, compactInterval));
 
-    for await (const transition of transitions) {
+    for (const transition of transitions) {
         await runAnimation(transition);
     }
 }

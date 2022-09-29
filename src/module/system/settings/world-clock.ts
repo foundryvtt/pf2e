@@ -139,7 +139,7 @@ export class WorldClockSettings extends FormApplication {
             "syncDarkness",
             "showClockButton",
         ];
-        for await (const key of keys) {
+        for (const key of keys) {
             const settingKey = `worldClock.${key}`;
             const newValue = key === "worldCreatedOn" ? DateTime.fromISO(data[key]).toUTC() : data[key];
             await game.settings.set("pf2e", settingKey, newValue);

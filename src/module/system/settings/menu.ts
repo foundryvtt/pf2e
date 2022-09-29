@@ -67,7 +67,7 @@ abstract class SettingsMenuPF2e extends FormApplication {
     }
 
     protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
-        for await (const key of (this.constructor as typeof SettingsMenuPF2e).SETTINGS) {
+        for (const key of (this.constructor as typeof SettingsMenuPF2e).SETTINGS) {
             const settingKey = `${this.namespace}.${key}`;
             await game.settings.set("pf2e", settingKey, data[key]);
         }

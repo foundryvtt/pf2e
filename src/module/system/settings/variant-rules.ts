@@ -132,7 +132,7 @@ export class VariantRulesSettings extends FormApplication {
      */
     private async onResetDefaults(event: JQuery.ClickEvent): Promise<this> {
         event.preventDefault();
-        for await (const [k, v] of Object.entries(SETTINGS)) {
+        for (const [k, v] of Object.entries(SETTINGS)) {
             await game.settings.set("pf2e", k, v?.default);
         }
         return this.render();
