@@ -195,14 +195,14 @@ export class ConditionManager {
         }
     }
 
-    static getFlattenedConditions(items: ConditionPF2e[]): FlattenedCondition[] {
-        const conditions: Map<string, FlattenedCondition> = new Map();
+    static getFlattenedConditions(items: Embedded<ConditionPF2e>[]): FlattenedCondition[] {
+        const flatteneds: Map<string, FlattenedCondition> = new Map();
 
         for (const condition of items.sort(this.sortConditions)) {
             // Sorted list of conditions.
             // First by active, then by base (lexicographically), then by value (descending).
 
-            const flattened = conditions.get(condition.slug) ?? {
+            const flattened = flatteneds.get(condition.slug) ?? {
                 id: condition.id,
                 badge: condition.badge,
                 active: condition.isActive,
@@ -211,18 +211,19 @@ export class ConditionManager {
                 description: condition.description,
                 img: condition.img,
                 references: false,
-                locked: false,
+                locked: condition.isLocked,
                 parents: [],
                 children: [],
                 overrides: [],
                 overriddenBy: [],
                 immunityFrom: [],
             };
-            if (!condition.isActive && conditions.has(condition.slug)) {
+
+            if (!condition.isActive && flatteneds.has(condition.slug)) {
                 continue;
             }
 
-            conditions.set(condition.slug, flattened);
+            flatteneds.set(condition.slug, flattened);
 
             // Update any references
             const systemData = condition.system;
@@ -247,6 +248,16 @@ export class ConditionManager {
                     flattened.references = true;
                     flattened.locked = true;
                     flattened.parents.push(ref);
+                }
+            } else if (condition.flags.pf2e.grantedBy) {
+                const granter = condition.actor.items.get(condition.flags.pf2e.grantedBy.id);
+                if (granter) {
+                    flattened.parents.push({
+                        id: { id: granter.id, type: granter.type },
+                        name: granter.name,
+                        base: granter.slug ?? sluggify(granter.name),
+                        text: "",
+                    });
                 }
             }
 
@@ -343,7 +354,20 @@ export class ConditionManager {
             }
         }
 
-        return Array.from(conditions.values());
+        for (const flattened of flatteneds.values()) {
+            flattened.breakdown = ((): string => {
+                if (flattened.parents.length > 0) {
+                    const list = Array.from(new Set(flattened.parents.map((p) => p.name)))
+                        .sort((a, b) => a.localeCompare(b))
+                        .join(", ");
+                    return game.i18n.format("PF2E.EffectPanel.AppliedBy", { "condition-list": list });
+                }
+
+                return "";
+            })();
+        }
+
+        return Array.from(flatteneds.values());
     }
 
     private static sortConditions(conditionA: ConditionPF2e, conditionB: ConditionPF2e): number {
