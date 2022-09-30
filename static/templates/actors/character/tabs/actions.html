@@ -98,6 +98,47 @@
                         {{/each}}
                     </ol>
 
+                    {{#if heroActions}}
+                    <h3 class="header">
+                        {{localize "PF2E.HeroActions.Label"}}
+                        <button type="button" title="{{localize "PF2E.HeroActions.TBD"}}">
+                            <i class="fas fa-question"></i>
+                        </button>
+                    </h3>
+                    <ol class="actions-list item-list directory-list heroActions-list"{{#unless heroActions.canUse}} data-discard="{{heroActions.diff}}"{{/unless}}>
+                        {{#each heroActions.list as |action|}}
+                        <li class="item action" data-id="{{action._id}}">
+                            <div class="item-name">
+                                <div data-action="display" class="item-image" style="background-image: url(systems/pf2e/icons/actions/Passive.webp)">
+                                    <i class="fas fa-comment-alt"></i>
+                                </div>
+                                <h4 data-action="expand">{{action.name}}</h4>
+                            </div>
+                            {{#if @root.owner}}
+                            <div class="item-controls">
+                                {{#if @root.heroActions.canUse}}
+                                <button type="button" data-action="use">{{localize 'PF2E.HeroAction.Use'}}</button>
+                                {{else}}
+                                <button type="button" data-action="discard">{{localize 'PF2E.HeroAction.Discard'}}</button>
+                                {{/if}}
+                            </div>
+                            {{/if}}
+                            <div class="item-summary">
+                                <div class="item-description"></div>
+                            </div>
+                        </li>
+                        {{/each}}
+                        {{#if heroActions.canDraw}}
+                        <button type="button" data-action="draw">{{localize 'PF2E.HeroActions.Draw' nb=heroActions.diff}}</button>
+                        {{else if heroActions.mustDiscard}}
+                        <div class="error">{{localize 'PF2E.HeroActions.Error' nb=heroActions.diff}}</div>
+                        <button type="button" data-action="discard-selected">
+                            {{localize 'PF2E.HeroActions.Discard' nb=heroActions.diff}}
+                        </button>
+                        {{/if}}
+                    </ol>
+                    {{/if}}
+
                     {{#each actor.actions as |section sid|}}
                     <h3 class="header">
                         {{section.label}}

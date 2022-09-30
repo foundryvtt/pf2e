@@ -1,3 +1,6 @@
+import { CharacterSheetPF2e } from "@actor/character/sheet";
+import { createWorldHeroDeckTable, getWorldHeroDeckTable } from "@util";
+
 const SETTINGS: Record<string, SettingRegistration> = {
     gradualBoostsVariant: {
         name: "PF2E.SETTINGS.Variant.AbilityScore.GradualBoosts.Name",
@@ -83,6 +86,36 @@ const SETTINGS: Record<string, SettingRegistration> = {
         hint: "PF2E.SETTINGS.Variant.LegendaryModifier.Hint",
         default: 8,
         type: Number,
+    },
+    heroActionsVariant: {
+        name: "PF2E.SETTINGS.Variant.HeroActions.Name",
+        hint: "PF2E.SETTINGS.Variant.HeroActions.Hint",
+        default: "none",
+        type: String,
+        choices: {
+            none: "PF2E.SETTINGS.Variant.HeroActions.Choices.none",
+            random: "PF2E.SETTINGS.Variant.HeroActions.Choices.random",
+            unique: "PF2E.SETTINGS.Variant.HeroActions.Choices.unique",
+        },
+        onChange: async (value) => {
+            for (const id in ui.windows) {
+                const window = ui.windows[id];
+                if (window instanceof CharacterSheetPF2e) {
+                    window.render();
+                }
+            }
+
+            let table = getWorldHeroDeckTable();
+            // we create a Hero Deck Table if none exist
+            if (!table && value === "unique") table = await createWorldHeroDeckTable();
+            table?.resetResults();
+        },
+    },
+    heroActionsDeckId: {
+        name: "PF2E.SETTINGS.Variant.HeroActions.DeckId.Name",
+        hint: "PF2E.SETTINGS.Variant.HeroActions.DeckId.Hint",
+        default: "",
+        type: String,
     },
 };
 

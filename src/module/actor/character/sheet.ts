@@ -11,7 +11,23 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    formatHeroActionUUID,
+    getCompendiumHeroDeckTable,
+    getHeroActionDetails,
+    getHeroDeckPack,
+    groupBy,
+    type HeroActionIndex,
+    htmlQueryAll,
+    isObject,
+    objectHasKey,
+    setHasElement,
+    tupleHasValue,
+    getWorldHeroDeckTable,
+    createWorldHeroDeckTable,
+    isHeroActionVariantUnique,
+} from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
@@ -210,6 +226,26 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.attributes.bonusLimitBulk !== baseData.system.attributes.bonusLimitBulk;
 
         sheetData.tabVisibility = deepClone(this.actor.flags.pf2e.sheetTabs);
+
+        // Hero Actions
+        sheetData.heroActions = null;
+        if (
+            !this.actor.pack &&
+            game.actors.has(this.actor.id) &&
+            game.settings.get("pf2e", "heroActionsVariant") !== "none"
+        ) {
+            const actions = this.getHeroActionsIndexes();
+            const diff = this.actor.heroPoints.value - actions.length;
+            const isOwner = this.actor.isOwner
+
+            sheetData.heroActions = {
+                list: actions,
+                canUse: diff >= 0 && isOwner,
+                canDraw: diff > 0 && isOwner,
+                mustDiscard: diff < 0,
+                diff: Math.abs(diff),
+            };
+        }
 
         // Return data for rendering
         return sheetData;
@@ -770,6 +806,201 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         for (const link of html.querySelectorAll<HTMLElement>(".feat-browse").values()) {
             link.addEventListener("click", (event) => this.#onClickBrowseFeats(event));
         }
+
+        // Hero Actions
+        const $heroActionsList = $actions.find(".heroActions-list");
+        $heroActionsList.find("[data-action=draw]").on("click", this.#onClickHeroActionsDraw.bind(this));
+        $heroActionsList.find("[data-action=expand]").on("click", this.#onClickHeroActionExpand.bind(this));
+        $heroActionsList.find("[data-action=use]").on("click", this.#onClickHeroActioUse.bind(this));
+        $heroActionsList.find("[data-action=display]").on("click", this.#onClickHeroActioDisplay.bind(this));
+        $heroActionsList.find("[data-action=discard]").on("click", this.#onClickHeroActioDiscard.bind(this));
+        $heroActionsList.find("[data-action=discard-selected]").on("click", this.#onClickHeroActionsDiscard.bind(this));
+    }
+
+    async #onClickHeroActionsDiscard() {
+        const actor = this.actor;
+        const $discarded = this.element.find(".tab.actions .heroActions-list .action.discarded");
+        const ids = $discarded.toArray().map((x) => x.dataset.id);
+        const actions = this.getHeroActionsIndexes();
+
+        const removed = [] as HeroActionIndex[];
+        for (const id of ids) {
+            const index = actions.findIndex((x) => x._id === id);
+            if (index === -1) continue;
+            removed.push(actions[index]);
+            actions.splice(index, 1);
+        }
+
+        actor.setFlag(
+            "pf2e",
+            "heroActions",
+            actions.map((x) => x._id)
+        );
+
+        const template = "systems/pf2e/templates/chat/hero-actions/discard-card.html";
+        ChatMessage.create({
+            content: await renderTemplate(template, { actions: removed.map((x) => formatHeroActionUUID(x)) }),
+            speaker: ChatMessage.getSpeaker({ actor }),
+        });
+    }
+
+    #onClickHeroActioDiscard(event: JQuery.ClickEvent<any, any, HTMLElement>) {
+        event.preventDefault();
+
+        const $action = $(event.currentTarget).closest(".action");
+        const $list = $action.closest(".heroActions-list");
+
+        $action.toggleClass("discarded");
+
+        const toDiscard = Number($list.attr("data-discard") ?? "0");
+        const $discarded = $list.find(".action.discarded");
+
+        $list.toggleClass("discardable", $discarded.length === toDiscard);
+    }
+
+    async #onClickHeroActioDisplay(event: JQuery.ClickEvent<any, any, HTMLElement>) {
+        event.preventDefault();
+
+        const id = $(event.currentTarget).closest(".action").attr("data-id") as string;
+        const action = await getHeroActionDetails(id);
+        if (!action) return;
+
+        const template = "systems/pf2e/templates/chat/hero-actions/display-card.html";
+        ChatMessage.create({
+            content: await renderTemplate(template, action),
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+        });
+    }
+
+    async #onClickHeroActioUse(event: JQuery.ClickEvent<any, any, HTMLElement>) {
+        event.preventDefault();
+
+        const actor = this.actor;
+        const points = actor.heroPoints.value;
+        if (points < 1) {
+            ui.notifications.warn("You need at least 1 Hero Point to use a Hero Action");
+            return;
+        }
+
+        const id = $(event.currentTarget).closest(".action").attr("data-id") as string;
+        const actions = this.getHeroActionsIndexes();
+
+        const index = actions.findIndex((x) => x._id === id);
+        if (index === -1) return;
+
+        const action = await getHeroActionDetails(id);
+        if (!action) return;
+
+        actions.splice(index, 1);
+
+        actor.update({
+            ["system.resources.heroPoints.value"]: points - 1,
+            [`flags.pf2e.heroActions`]: actions.map((x) => x._id),
+        });
+
+        const template = "systems/pf2e/templates/chat/hero-actions/use-card.html";
+        ChatMessage.create({
+            content: await renderTemplate(template, action),
+            speaker: ChatMessage.getSpeaker({ actor }),
+        });
+    }
+
+    async #onClickHeroActionExpand(event: JQuery.ClickEvent<any, any, HTMLElement>) {
+        event.preventDefault();
+
+        const $action = $(event.currentTarget).closest(".action");
+        const $summary = $action.find(".item-summary");
+
+        if (!$summary.hasClass("loaded")) {
+            const action = await getHeroActionDetails($action.attr("data-id") as string);
+            if (!action) return;
+
+            const text = await TextEditor.enrichHTML(action.description, { async: true });
+
+            $summary.find(".item-description").html(text);
+            $summary.addClass("loaded");
+        }
+
+        $action.toggleClass("expanded");
+    }
+
+    async #drawUniqueHeroAction() {
+        let table = getWorldHeroDeckTable();
+
+        if (!table) {
+            if (game.user.isGM) {
+                // because we are the GM, we can create the missing table
+                table = await createWorldHeroDeckTable();
+            } else {
+                ui.notifications.warn(game.i18n.localize("PF2E.HeroActions.NoTableWarn"));
+                return undefined;
+            }
+        }
+
+        if (!table) {
+            ui.notifications.error(game.i18n.localize("PF2E.HeroActions.NoTableError"));
+            return undefined;
+        } else if (!table.formula) {
+            if (game.user.isGM) {
+                // again, we are GM so we can fix the mess
+                await table.update({ formula: `1d${table.results.size}` });
+            } else {
+                ui.notifications.warn(game.i18n.localize("PF2E.HeroActions.NoFormula"));
+                return undefined;
+            }
+        }
+
+        const drawn = table.results.filter((r) => !r.drawn);
+        if (!drawn.length) {
+            // the whole table has been drawn, we reset
+            await table.resetResults();
+        }
+
+        const draw = (await table.draw({ displayChat: false })).results[0];
+        return { _id: draw.documentId, name: draw.text };
+    }
+
+    async #drawRandomHeroAction() {
+        const deck = await getCompendiumHeroDeckTable();
+        const draw = (await deck.roll()).results[0];
+        return { _id: draw.documentId, name: draw.text };
+    }
+
+    async #onClickHeroActionsDraw(event: JQuery.ClickEvent) {
+        event.preventDefault();
+
+        const actor = this.actor;
+        const actions = this.getHeroActionsIndexes();
+        const drawFunction = isHeroActionVariantUnique() ? this.#drawUniqueHeroAction : this.#drawRandomHeroAction;
+
+        const nb = actor.heroPoints.value - actions.length;
+        const drawn = [] as HeroActionIndex[];
+        for (let i = 0; i < nb; i++) {
+            const index = await drawFunction();
+            if (!index) continue
+            actions.push(index);
+            drawn.push(index);
+        }
+
+        actor.setFlag(
+            "pf2e",
+            "heroActions",
+            actions.map((x) => x._id)
+        );
+
+        const template = "systems/pf2e/templates/chat/hero-actions/draw-card.html";
+        ChatMessage.create({
+            content: await renderTemplate(template, { actions: drawn.map((x) => formatHeroActionUUID(x)) }),
+            speaker: ChatMessage.getSpeaker({ actor }),
+        });
+    }
+
+    getHeroActionsIndexes() {
+        const indexes = getHeroDeckPack().index;
+        const actions = (this.actor.getFlag("pf2e", "heroActions") ?? []) as string[];
+        return actions
+            .filter((action) => indexes.has(action))
+            .map((action) => indexes.get(action)) as HeroActionIndex[];
     }
 
     /** Contextually search the feats tab of the Compendium Browser */

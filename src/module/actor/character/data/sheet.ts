@@ -9,6 +9,7 @@ import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types"
 import { CHARACTER_SHEET_TABS } from "./values";
 import { CharacterSaveData, ClassDCData } from "./types";
 import { SaveType } from "@actor/types";
+import { HeroActionIndex } from "@util";
 
 type CharacterSheetOptions = ActorSheetOptions;
 
@@ -64,6 +65,14 @@ interface CraftingSheetData {
 
 type CharacterSheetTabVisibility = Record<typeof CHARACTER_SHEET_TABS[number], boolean>;
 
+type HeroActionsData = null | {
+    list: HeroActionIndex[];
+    canUse: boolean;
+    canDraw: boolean;
+    mustDiscard: boolean;
+    diff: number;
+};
+
 interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     abpEnabled: boolean;
     ancestry: Embedded<AncestryPF2e> | null;
@@ -92,6 +101,7 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     spellcastingEntries: SpellcastingSheetData[];
     tabVisibility: CharacterSheetTabVisibility;
     feats: FeatCategorySheetData[];
+    heroActions: HeroActionsData;
 }
 
 interface ClassDCSheetData extends ClassDCData {

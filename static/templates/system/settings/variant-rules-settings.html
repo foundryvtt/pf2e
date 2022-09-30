@@ -114,6 +114,29 @@
         </div>
         <p class="notes">{{localize "PF2E.SETTINGS.Variant.LegendaryModifier.Name"}}</p>
     </div>
+
+    <h2>{{localize "PF2E.SETTINGS.Variant.HeroActions.Title"}}</h2>
+    <div class="form-group">
+        <label>{{localize "PF2E.SETTINGS.Variant.HeroActions.Name"}}</label>
+        <div class="form-fields">
+            <select name="heroActionsVariant">
+            {{#select heroActionsVariant.value}}
+            {{#each heroActionsVariant.setting.choices as |label value|}}
+            <option value="{{value}}">{{localize label}}</option>
+            {{/each}}
+            {{/select}}
+            </select>
+        </div>
+        <p class="notes">{{localize "PF2E.SETTINGS.Variant.HeroActions.Hint"}}</p>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.SETTINGS.Variant.HeroActions.DeckId.Name"}}</label>
+        <div class="form-fields">
+            <input type="text" name="heroActionsDeckId" value="{{heroActionsDeckId.value}}" />
+        </div>
+        <p class="notes">{{localize "PF2E.SETTINGS.Variant.HeroActions.DeckId.Hint"}}</p>
+    </div>
+
     <footer class="sheet-footer flexrow">
         <button type="submit">
             <i class="far fa-save"></i> {{localize "Save Changes"}}
