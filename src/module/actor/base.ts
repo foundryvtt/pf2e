@@ -1092,7 +1092,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (value !== null && !forceRemove) {
             await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, value);
         } else {
-            await game.pf2e.ConditionManager.removeConditionFromActor(condition.id, this);
+            await this.deleteEmbeddedDocuments("Item", [condition.id]);
         }
     }
 
@@ -1100,7 +1100,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     async increaseCondition(
         conditionSlug: ConditionSlug | Embedded<ConditionPF2e>,
         { min, max = Number.MAX_SAFE_INTEGER }: { min?: number | null; max?: number | null } = {}
-    ): Promise<void> {
+    ): Promise<ConditionPF2e | null> {
         const existing = typeof conditionSlug === "string" ? this.getCondition(conditionSlug) : conditionSlug;
         if (existing) {
             const conditionValue = (() => {
@@ -1112,8 +1112,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     ? Math.min(existing.value + 1, max)
                     : existing.value + 1;
             })();
-            if (conditionValue === null || conditionValue > (max ?? 0)) return;
+            if (conditionValue === null || conditionValue > (max ?? 0)) return null;
             await game.pf2e.ConditionManager.updateConditionValue(existing.id, this, conditionValue);
+            return existing;
         } else if (typeof conditionSlug === "string") {
             const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
             const conditionValue =
@@ -1121,8 +1122,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     ? Math.clamped(conditionSource.system.value.value, min, max)
                     : null;
             conditionSource.system.value.value = conditionValue;
-            await game.pf2e.ConditionManager.addConditionToActor(conditionSource, this);
+            const condition = (await ItemPF2e.create(conditionSource)) as ConditionPF2e | undefined;
+
+            return condition ?? null;
         }
+        return null;
     }
 
     /** Toggle a condition as present or absent. If a valued condition is toggled on, it will be set to a value of 1. */
