@@ -10,13 +10,13 @@ import { type CharacterPF2e } from ".";
 class StrikeWeaponTraits {
     static adjustWeapon(weapon: WeaponPF2e): void {
         const traits = weapon.system.traits.value;
-        for (const trait of traits) {
+        for (const trait of [...traits]) {
             switch (trait.replace(/-d?\d{1,3}$/, "")) {
                 case "fatal-aim": {
                     if (weapon.rangeIncrement && weapon.handsHeld === 2) {
                         const fatal = trait.replace("-aim", "");
-                        if (objectHasKey(CONFIG.PF2E.weaponTraits, fatal)) {
-                            weapon.system.traits.value.push(fatal);
+                        if (objectHasKey(CONFIG.PF2E.weaponTraits, fatal) && !traits.includes(fatal)) {
+                            traits.push(fatal);
                         }
                     }
                     break;
