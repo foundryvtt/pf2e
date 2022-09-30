@@ -23,7 +23,7 @@
 </div>
 
 {{#*inline "dropZone"}}
-    {{#if @root.containsUUIDs}}
+    {{#if (any @root.containsUUIDs @root.allowedDrops )}}
         <div class="drop-zone with-image">
             <i class="fas fa-info-circle" title="{{localize "PF2E.UI.RuleElements.ChoiceSet.DragHomebrewItem"}}"></i>
             <span>{{localize "PF2E.UI.RuleElements.ChoiceSet.HomebrewItem"}}</span>

@@ -46,6 +46,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
             prompt: this.prompt,
             containsUUIDs: this.containsUUIDs,
             allowNoSelection: this.allowNoSelection,
+            allowedDrops: this.allowedDrops,
             selectMenu: this.choices.length > 9,
         };
     }
@@ -72,7 +73,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
         }
 
         // Exit early if there are no valid choices
-        if (this.choices.length === 0 && !this.containsUUIDs) {
+        if (this.choices.length === 0 && !this.containsUUIDs && !this.allowedDrops) {
             await this.close({ force: true });
             return null;
         }
@@ -160,4 +161,5 @@ interface ChoiceSetTemplateData extends PromptTemplateData {
     choices: PickableThing[];
     containsUUIDs: boolean;
     allowNoSelection: boolean;
+    allowedDrops: { label: string | null; predicate: PredicatePF2e };
 }
