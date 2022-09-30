@@ -302,30 +302,22 @@
 
     .item-summary {
         flex: 100%;
-        padding: 4px;
+        padding: 4px 8px 8px;
         border-top: 1px solid var(--alt);
         border-bottom: 1px solid var(--alt);
         background: var(--bg);
 
         .item-buttons {
-            grid-area: btn;
-            display: flex;
-            flex-wrap: wrap;
-            margin-right: 2px;
             button {
-                margin: 0;
-                border: none;
-                cursor: pointer;
-                @include micro;
-                padding: 5px 4px;
-                color: white;
-                width: 70px;
                 @include button;
-                margin-top: 4px;
+                @include p-reset;
                 background: var(--primary);
+                border: none;
                 border-radius: 2px;
-                flex: 1;
-
+                color: white;
+                cursor: pointer;
+                margin-top: 8px;
+                padding: 0 8px;
                 &:hover {
                     box-shadow: none;
                     text-shadow: 0 0 2px white;
