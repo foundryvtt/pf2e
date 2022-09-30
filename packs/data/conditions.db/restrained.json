@@ -10,14 +10,7 @@
     "system": {
         "active": true,
         "alsoApplies": {
-            "linked": [
-                {
-                    "condition": "Flat-Footed"
-                },
-                {
-                    "condition": "Immobilized"
-                }
-            ],
+            "linked": [],
             "unlinked": []
         },
         "base": "Restrained",
@@ -55,6 +48,20 @@
                 "mode": "override",
                 "path": "system.attributes.flanking.canFlank",
                 "value": false
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Flat-Footed"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Immobilized"
             }
         ],
         "source": {

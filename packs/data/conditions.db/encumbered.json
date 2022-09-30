@@ -10,12 +10,7 @@
     "system": {
         "active": true,
         "alsoApplies": {
-            "linked": [
-                {
-                    "condition": "Clumsy",
-                    "value": 1
-                }
-            ],
+            "linked": [],
             "unlinked": []
         },
         "base": "Encumbered",
@@ -51,13 +46,21 @@
                 "selector": "speed",
                 "slug": "encumbered",
                 "value": -10
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Clumsy"
             }
         ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "sources": {
-            "hud": false
+            "hud": false,
+            "values": []
         },
         "traits": {
             "custom": "",
