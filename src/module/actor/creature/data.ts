@@ -160,6 +160,9 @@ interface CreatureAttributes extends BaseActorAttributes {
     wounded: ValueAndMax;
     /** The current doomed level (and maximum) for this creature. */
     doomed: ValueAndMax;
+
+    /** Whether this creature emits sound */
+    emitsSound: boolean;
 }
 
 interface CreatureSpeeds extends StatisticModifier {

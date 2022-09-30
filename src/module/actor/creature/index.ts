@@ -169,7 +169,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     override get canAct(): boolean {
         // Accomodate eidolon play with the Companion Compendia module (typically is run with zero hit points)
         const traits = this.system.traits.value;
-        const aliveOrEidolon = this.hitPoints.value > 0 || traits.some((t) => t === "eidolon");
+        const aliveOrEidolon = !this.isDead || traits.some((t) => t === "eidolon");
 
         return aliveOrEidolon && !this.hasCondition("paralyzed", "stunned", "unconscious");
     }
@@ -179,17 +179,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     override get isDead(): boolean {
-        if (super.isDead) return true;
         const { hitPoints } = this;
-        return (
-            hitPoints.max > 0 &&
-            hitPoints.value === 0 &&
-            !this.itemTypes.condition.some((c) => ["dying", "unconscious"].includes(c.slug))
-        );
+        if (hitPoints.max > 0 && hitPoints.value === 0 && !this.hasCondition("dying", "unconscious")) {
+            return true;
+        }
+
+        const token = this.token ?? this.getActiveTokens(false, true).shift();
+        return !!token?.hasStatusEffect("dead");
     }
 
+    /** Whether the creature emits sound: overridable by AE-like */
     override get emitsSound(): boolean {
-        return !this.isDead;
+        return this.system.attributes.emitsSound;
     }
 
     get isSpellcaster(): boolean {
@@ -366,6 +367,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Set whether this actor is wearing armor
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
+
+        // Set whether this creature emits sound
+        this.system.attributes.emitsSound = !this.isDead;
 
         this.prepareSynthetics();
 
