@@ -14,7 +14,7 @@ interface ConditionSystemSource extends ItemSystemSource {
     references: {
         parent?: {
             id: string;
-            type: "status" | "condition" | "feat" | "weapon" | "armor" | "consumable" | "equipment" | "spell";
+            type: string;
         };
         children: { id: string; type: "condition" }[];
         overriddenBy: { id: string; type: "condition" }[];
@@ -25,7 +25,7 @@ interface ConditionSystemSource extends ItemSystemSource {
          */
         immunityFrom: {
             id: string;
-            type: "status" | "condition" | "feat" | "weapon" | "armor" | "consumable" | "equipment" | "spell";
+            type: string;
         }[];
     };
     hud: {
@@ -41,33 +41,19 @@ interface ConditionSystemSource extends ItemSystemSource {
         value: number;
         text: string;
     };
-    modifiers: [
-        {
-            type: "ability" | "proficiency" | "status" | "circumstance" | "item" | "untyped";
-            name: string;
-            group: string;
-            value?: number;
-        }
-    ];
+    modifiers: {
+        type: string;
+        name: string;
+        group: string;
+        value?: number;
+    }[];
     base: ConditionSlug;
     group: string;
     value: ConditionValueData;
-    sources: {
-        hud: boolean;
-    };
+    sources: { hud: boolean };
     alsoApplies: {
-        linked: [
-            {
-                condition: ConditionSlug;
-                value?: number;
-            }
-        ];
-        unlinked: [
-            {
-                condition: ConditionSlug;
-                value?: number;
-            }
-        ];
+        linked: { condition: ConditionSlug; value?: number }[];
+        unlinked: { condition: ConditionSlug; value?: number }[];
     };
     overrides: string[];
     traits?: never;
