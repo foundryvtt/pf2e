@@ -552,7 +552,7 @@ class CheckModifier extends StatisticModifier {
      */
     constructor(
         slug: string,
-        statistic: StatisticModifier,
+        statistic: { modifiers: readonly ModifierPF2e[] },
         modifiers: ModifierPF2e[] = [],
         rollOptions: string[] = []
     ) {
