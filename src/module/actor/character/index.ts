@@ -1779,14 +1779,18 @@ class CharacterPF2e extends CreaturePF2e {
                         dc.adjustments = action.adjustments;
                     }
 
-                    const item = context.self.item;
                     const rollTwice =
                         params.rollTwice || extractRollTwice(synthetics.rollTwice, selectors, context.options);
+                    const substitutions = extractRollSubstitutions(
+                        synthetics.rollSubstitutions,
+                        selectors,
+                        context.options
+                    );
 
                     const checkContext: CheckRollContext = {
                         actor: context.self.actor,
                         target: context.target,
-                        item,
+                        item: context.self.item,
                         type: "attack-roll",
                         altUsage: params.altUsage ?? null,
                         options: context.options,
@@ -1794,9 +1798,10 @@ class CharacterPF2e extends CreaturePF2e {
                         dc,
                         traits: context.traits,
                         rollTwice,
+                        substitutions,
                     };
 
-                    if (!this.consumeAmmo(item, params)) return null;
+                    if (!this.consumeAmmo(context.self.item, params)) return null;
 
                     const roll = await CheckPF2e.roll(
                         constructModifier(context.self.modifiers),

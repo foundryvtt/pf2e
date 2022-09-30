@@ -14,6 +14,7 @@ import {
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
+    extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/util";
 import { WeaponDamagePF2e } from "@module/system/damage";
@@ -621,6 +622,12 @@ class NPCPF2e extends CreaturePF2e {
                                     notes: rollNotes,
                                     dc: params.dc ?? context.dc,
                                     rollTwice: extractRollTwice(this.synthetics.rollTwice, domains, context.options),
+                                    substitutions: extractRollSubstitutions(
+                                        synthetics.rollSubstitutions,
+                                        domains,
+                                        context.options
+                                    ),
+
                                     traits: [attackTrait],
                                 },
                                 params.event
