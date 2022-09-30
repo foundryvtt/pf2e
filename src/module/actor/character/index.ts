@@ -1992,7 +1992,14 @@ class CharacterPF2e extends CreaturePF2e {
             throw ErrorPF2e("Unexpected error toggling item investment");
         }
 
-        return !!(await item.update({ "system.equipped.invested": !item.isInvested }));
+        const invested = item.isInvested;
+
+        // If investing and unequipped, equip first
+        if (!invested && !item.isEquipped) {
+            await this.adjustCarryType(item, item.system.usage.type, item.system.usage.hands, true);
+        }
+
+        return !!(await item.update({ "system.equipped.invested": !invested }));
     }
 
     /** Add a proficiency in a weapon group or base weapon */

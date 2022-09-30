@@ -144,17 +144,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const itemSize = new ActorSizePF2e({ value: item.size });
             const sizeDifference = itemSize.difference(actorSize, { smallIsMedium: true });
 
+            const canBeEquipped = !item.isInContainer;
+
             return {
                 item: item,
                 itemSize: sizeDifference !== 0 ? itemSize : null,
                 editable,
                 isContainer: item.isOfType("backpack"),
-                canBeEquipped: !item.isInContainer,
+                canBeEquipped,
                 isInvestable:
-                    this.actor.isOfType("character") &&
-                    item.isEquipped &&
-                    item.isIdentified &&
-                    item.isInvested !== null,
+                    this.actor.isOfType("character") && canBeEquipped && item.isIdentified && item.isInvested !== null,
                 isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
                 hasCharges: item.isOfType("consumable") && item.uses.max > 0,
                 heldItems,
