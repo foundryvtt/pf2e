@@ -18,6 +18,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
     override hasStatusEffect(statusId: string): boolean {
+        if (statusId === "dead") return this.overlayEffect === CONFIG.controlIcons.defeated;
+
         const { actor } = this;
         if (!actor || !game.settings.get("pf2e", "automation.rulesBasedVision")) {
             return false;
