@@ -7,7 +7,7 @@ import {
     PromptTemplateData,
 } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, sluggify } from "@util";
 
 /** Prompt the user for a selection among a set of options */
 export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
@@ -105,7 +105,10 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
         }
 
         // Drop accepted: Add to button list or select menu
-        const newChoice = { value: droppedItem.uuid, label: droppedItem.name };
+        const newChoice = {
+            value: this.containsUUIDs ? droppedItem.uuid : sluggify(droppedItem.name),
+            label: droppedItem.name,
+        };
         const choicesLength = this.choices.push(newChoice);
 
         const prompt = document.querySelector<HTMLElement>(`#${this.id}`);
