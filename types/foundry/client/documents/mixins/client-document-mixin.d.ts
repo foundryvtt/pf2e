@@ -304,4 +304,10 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      * @return A data object of cleaned data suitable for compendium import
      */
     toCompendium(pack: CompendiumCollection<any>): this["_source"];
+
+    /**
+     * Serialize salient information about this Document when dragging it.
+     * @return An object of drag data.
+     */
+    toDragData(): object;
 }
