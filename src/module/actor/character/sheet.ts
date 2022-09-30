@@ -231,33 +231,14 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
         };
 
-        const readonlyEquipment: unknown[] = [];
-
         // Skills
         const lores: LoreData[] = [];
 
         for (const itemData of sheetData.items) {
             const item = this.actor.items.get(itemData._id, { strict: true });
-            if (item.isOfType("physical")) {
-                const { isEquipped, isIdentified, isInvested, isTemporary } = item;
-                itemData.isEquipped = isEquipped;
-                itemData.isIdentified = isIdentified;
-                itemData.isInvested = isInvested;
-                itemData.isTemporary = isTemporary;
-                itemData.showEdit = sheetData.user.isGM || isIdentified;
-                itemData.img ||= CONST.DEFAULT_TOKEN;
-                itemData.assetValue = item.assetValue;
-                itemData.isInvestable = isEquipped && isIdentified && isInvested !== null;
-
-                // Read-Only Equipment
-                if (item.isOfType("armor", "consumable", "equipment", "backpack")) {
-                    readonlyEquipment.push(itemData);
-                    actorData.hasEquipment = true;
-                }
-            }
 
             // Feats
-            else if (itemData.type === "feat") {
+            if (itemData.type === "feat") {
                 const actionType = itemData.system.actionType.value || "passive";
                 if (Object.keys(actions).includes(actionType)) {
                     itemData.feat = true;
@@ -313,7 +294,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.pfsBoons = this.actor.pfsBoons;
         actorData.deityBoonsCurses = this.actor.deityBoonsCurses;
         actorData.actions = actions;
-        actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
     }
 
