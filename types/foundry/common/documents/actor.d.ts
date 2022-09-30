@@ -15,13 +15,11 @@ declare module foundry {
 
             static override get metadata(): ActorMetadata;
 
-            /**
-             * A reference to the Collection of embedded ActiveEffect instances in the Actor document, indexed by _id.
-             */
-            get effects(): this["data"]["effects"];
+            /** A Collection of Item embedded Documents */
+            readonly items: abstract.EmbeddedCollection<documents.BaseItem>;
 
-            /** A reference to the Collection of embedded Item instances in the Actor document, indexed by _id. */
-            get items(): this["data"]["items"];
+            /** A Collection of ActiveEffect embedded Documents */
+            readonly effects: abstract.EmbeddedCollection<documents.BaseActiveEffect>;
 
             /**
              * Migrate the system data object to conform to data model defined by the current system version.
