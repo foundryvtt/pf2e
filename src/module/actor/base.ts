@@ -1245,6 +1245,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     readonly data: ActorDataPF2e;
 
+    readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e>;
+
+    readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e>;
+
     prototypeToken: PrototypeTokenPF2e;
 
     flags: ActorFlagsPF2e;
