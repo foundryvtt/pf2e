@@ -10,11 +10,7 @@
     "system": {
         "active": true,
         "alsoApplies": {
-            "linked": [
-                {
-                    "condition": "Unconscious"
-                }
-            ],
+            "linked": [],
             "unlinked": []
         },
         "base": "Dying",
@@ -44,12 +40,21 @@
             "overrides": []
         },
         "removable": true,
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Unconscious"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "sources": {
-            "hud": true
+            "hud": true,
+            "values": []
         },
         "traits": {
             "custom": "",

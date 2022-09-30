@@ -230,7 +230,7 @@ export class StatusEffects {
             } else if (objectHasKey(CONFIG.PF2E.conditionTypes, slug)) {
                 const newCondition = game.pf2e.ConditionManager.getCondition(slug).toObject();
                 newCondition.system.sources.hud = true;
-                await game.pf2e.ConditionManager.addConditionToToken(newCondition, token);
+                await token.actor?.createEmbeddedDocuments("Item", [newCondition]);
             } else {
                 this.#toggleStatus(event, token);
             }
@@ -239,7 +239,7 @@ export class StatusEffects {
             if (event.ctrlKey) {
                 // Remove all conditions
                 const conditionIds = actor.itemTypes.condition.filter((c) => c.slug === slug).map((c) => c.id);
-                await game.pf2e.ConditionManager.removeConditionFromToken(conditionIds, token);
+                await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
             } else if (condition?.value) {
                 await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value - 1);
             } else {
@@ -264,7 +264,7 @@ export class StatusEffects {
             if (objectHasKey(CONFIG.PF2E.conditionTypes, slug)) {
                 const newCondition = game.pf2e.ConditionManager.getCondition(slug).toObject();
                 newCondition.system.sources.hud = true;
-                await game.pf2e.ConditionManager.addConditionToToken(newCondition, token);
+                await token.actor?.createEmbeddedDocuments("Item", [newCondition]);
             } else if (iconSrc && (event.shiftKey || icon.dataset.statusId === "dead")) {
                 await token.toggleEffect(iconSrc, { overlay: true, active: true });
                 await canvas.tokens.hud.render();
@@ -273,7 +273,7 @@ export class StatusEffects {
             if (affecting) conditionIds.push(affecting.id);
 
             if (conditionIds.length > 0) {
-                await game.pf2e.ConditionManager.removeConditionFromToken(conditionIds, token);
+                await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
             } else if (token.document.overlayEffect === iconSrc) {
                 await token.toggleEffect(iconSrc, { overlay: true, active: false });
                 await canvas.tokens.hud.render();

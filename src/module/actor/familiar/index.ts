@@ -106,25 +106,22 @@ export class FamiliarPF2e extends CreaturePF2e {
         const spellcastingAbilityModifier = master.system.abilities[systemData.master.ability].mod;
 
         const { synthetics } = this;
-        const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
-        const filterModifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
+        this.stripInvalidModifiers();
 
         const speeds = (systemData.attributes.speed = this.prepareSpeed("land"));
         speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
 
         // Hit Points
         {
-            const perLevelModifiers = extractModifiers(synthetics, ["hp-per-level"])
-                .filter(filterModifier)
-                .map((modifier) => {
-                    const clone = modifier.clone();
-                    clone.modifier *= level;
-                    return clone;
-                });
+            const perLevelModifiers = extractModifiers(synthetics, ["hp-per-level"]).map((modifier) => {
+                const clone = modifier.clone();
+                clone.modifier *= level;
+                return clone;
+            });
 
             const modifiers = [
                 new ModifierPF2e("PF2E.MasterLevelHP", level * 5, MODIFIER_TYPE.UNTYPED),
-                extractModifiers(synthetics, ["hp"]).filter(filterModifier),
+                extractModifiers(synthetics, ["hp"]),
                 perLevelModifiers,
             ].flat();
 
@@ -146,7 +143,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 (modifier) => !["status", "circumstance"].includes(modifier.type)
             );
             const base = 10 + new StatisticModifier("base", source).totalModifier;
-            const modifiers = extractModifiers(synthetics, ["ac", "dex-based", "all"]).filter(filterModifier);
+            const modifiers = extractModifiers(synthetics, ["ac", "dex-based", "all"]);
             const stat = mergeObject(new StatisticModifier("ac", modifiers), systemData.attributes.ac, {
                 overwrite: false,
             });
@@ -172,13 +169,8 @@ export class FamiliarPF2e extends CreaturePF2e {
                 slug: saveType,
                 label: saveName,
                 domains: selectors,
-                modifiers: [
-                    new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, MODIFIER_TYPE.UNTYPED),
-                    ...extractModifiers(synthetics, selectors).filter(filterModifier),
-                ],
-                check: {
-                    type: "saving-throw",
-                },
+                modifiers: [new ModifierPF2e(`PF2E.MasterSavingThrow.${saveType}`, totalMod, MODIFIER_TYPE.UNTYPED)],
+                check: { type: "saving-throw" },
             });
 
             return { ...partialSaves, [saveType]: stat };
@@ -236,7 +228,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                     spellcastingAbilityModifier,
                     MODIFIER_TYPE.UNTYPED
                 ),
-                ...extractModifiers(synthetics, domains).filter(filterModifier),
+                ...extractModifiers(synthetics, domains),
             ];
             const stat = mergeObject(new StatisticModifier("perception", modifiers), systemData.attributes.perception, {
                 overwrite: false,
@@ -284,7 +276,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             }
             const ability = SKILL_EXPANDED[longForm].ability;
             const domains = [longForm, `${ability}-based`, "skill-check", "all"];
-            modifiers.push(...extractModifiers(synthetics, domains).filter(filterModifier));
+            modifiers.push(...extractModifiers(synthetics, domains));
 
             const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
             const stat = mergeObject(new StatisticModifier(longForm, modifiers), {
@@ -329,6 +321,17 @@ export class FamiliarPF2e extends CreaturePF2e {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
+        }
+    }
+
+    /** Familiars cannot have item bonuses. Nor do they have ability mods nor proficiency (sans master level) */
+    private stripInvalidModifiers() {
+        const invalidModifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
+        for (const key of Object.keys(this.synthetics.statisticsModifiers)) {
+            this.synthetics.statisticsModifiers[key] = this.synthetics.statisticsModifiers[key]?.filter((modifier) => {
+                const resolvedModifier = modifier();
+                return resolvedModifier && !invalidModifierTypes.includes(resolvedModifier.type);
+            });
         }
     }
 

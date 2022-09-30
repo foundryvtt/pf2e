@@ -968,9 +968,6 @@ class CharacterPF2e extends CreaturePF2e {
                 });
             }
 
-            // Add custom modifiers and roll notes relevant to this save.
-            modifiers.push(...extractModifiers(this.synthetics, selectors));
-
             const stat = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
@@ -1782,14 +1779,18 @@ class CharacterPF2e extends CreaturePF2e {
                         dc.adjustments = action.adjustments;
                     }
 
-                    const item = context.self.item;
                     const rollTwice =
                         params.rollTwice || extractRollTwice(synthetics.rollTwice, selectors, context.options);
+                    const substitutions = extractRollSubstitutions(
+                        synthetics.rollSubstitutions,
+                        selectors,
+                        context.options
+                    );
 
                     const checkContext: CheckRollContext = {
                         actor: context.self.actor,
                         target: context.target,
-                        item,
+                        item: context.self.item,
                         type: "attack-roll",
                         altUsage: params.altUsage ?? null,
                         options: context.options,
@@ -1797,9 +1798,10 @@ class CharacterPF2e extends CreaturePF2e {
                         dc,
                         traits: context.traits,
                         rollTwice,
+                        substitutions,
                     };
 
-                    if (!this.consumeAmmo(item, params)) return null;
+                    if (!this.consumeAmmo(context.self.item, params)) return null;
 
                     const roll = await CheckPF2e.roll(
                         constructModifier(context.self.modifiers),
@@ -1995,7 +1997,14 @@ class CharacterPF2e extends CreaturePF2e {
             throw ErrorPF2e("Unexpected error toggling item investment");
         }
 
-        return !!(await item.update({ "system.equipped.invested": !item.isInvested }));
+        const invested = item.isInvested;
+
+        // If investing and unequipped, equip first
+        if (!invested && !item.isEquipped) {
+            await this.adjustCarryType(item, item.system.usage.type, item.system.usage.hands, true);
+        }
+
+        return !!(await item.update({ "system.equipped.invested": !invested }));
     }
 
     /** Add a proficiency in a weapon group or base weapon */

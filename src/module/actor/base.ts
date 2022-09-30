@@ -52,10 +52,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     synthetics!: RuleElementSynthetics;
 
+    /** Saving throw statistics */
+    saves?: { [K in SaveType]?: Statistic };
+
     /** Data from rule elements for auras this actor may be emanating */
     auras!: Map<string, AuraData>;
 
-    saves?: { [K in SaveType]?: Statistic };
+    /** Conditions this actor has */
+    conditions!: Map<ConditionSlug, ConditionPF2e>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private _itemTypes?: { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] };
@@ -423,8 +427,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     protected override _initialize(): void {
-        this.auras = new Map();
         this.rules = [];
+        this.conditions = new Map();
+        this.auras = new Map();
 
         super._initialize();
         this.initialized = true;
@@ -1067,11 +1072,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     /**
-     * Does this actor have the provided condition?
-     * @param slug The slug of the queried condition
+     * Does this actor have any of the provided condition?
+     * @param slugs Slug(s) of the queried condition(s)
      */
-    hasCondition(slug: ConditionSlug): boolean {
-        return this.itemTypes.condition.some((condition) => condition.slug === slug);
+    hasCondition(...slugs: ConditionSlug[]): boolean {
+        return slugs.some((s) => this.conditions.has(s));
     }
 
     /** Decrease the value of condition or remove it entirely */
@@ -1087,7 +1092,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (value !== null && !forceRemove) {
             await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, value);
         } else {
-            await game.pf2e.ConditionManager.removeConditionFromActor(condition.id, this);
+            await this.deleteEmbeddedDocuments("Item", [condition.id]);
         }
     }
 
@@ -1095,7 +1100,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     async increaseCondition(
         conditionSlug: ConditionSlug | Embedded<ConditionPF2e>,
         { min, max = Number.MAX_SAFE_INTEGER }: { min?: number | null; max?: number | null } = {}
-    ): Promise<void> {
+    ): Promise<ConditionPF2e | null> {
         const existing = typeof conditionSlug === "string" ? this.getCondition(conditionSlug) : conditionSlug;
         if (existing) {
             const conditionValue = (() => {
@@ -1107,8 +1112,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     ? Math.min(existing.value + 1, max)
                     : existing.value + 1;
             })();
-            if (conditionValue === null || conditionValue > (max ?? 0)) return;
+            if (conditionValue === null || conditionValue > (max ?? 0)) return null;
             await game.pf2e.ConditionManager.updateConditionValue(existing.id, this, conditionValue);
+            return existing;
         } else if (typeof conditionSlug === "string") {
             const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
             const conditionValue =
@@ -1116,8 +1122,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     ? Math.clamped(conditionSource.system.value.value, min, max)
                     : null;
             conditionSource.system.value.value = conditionValue;
-            await game.pf2e.ConditionManager.addConditionToActor(conditionSource, this);
+            const condition = (await ItemPF2e.create(conditionSource)) as ConditionPF2e | undefined;
+
+            return condition ?? null;
         }
+        return null;
     }
 
     /** Toggle a condition as present or absent. If a valued condition is toggled on, it will be set to a value of 1. */

@@ -344,7 +344,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    title: "PF2E.WeaponPropertyRune.extending.Name",
+                    title: "PF2E.WeaponPropertyRune.fearsome.Name",
                     text: "PF2E.WeaponPropertyRune.fearsome.Note.criticalSuccess",
                 },
             ],

@@ -124,7 +124,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         // If the granted item is replacing the granting item, swap it out and return early
         if (this.replaceSelf) {
             pendingItems.findSplice((i) => i === itemSource, grantedSource);
-            await this.runGrantedItemPreCreates(args, tempGranted, context);
+            await this.runGrantedItemPreCreates(args, tempGranted, grantedSource, context);
             return;
         }
 
@@ -151,7 +151,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
         // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
         if (!args.reevaluation) {
-            await this.runGrantedItemPreCreates(args, tempGranted, context);
+            await this.runGrantedItemPreCreates(args, tempGranted, grantedSource, context);
         }
 
         pendingItems.push(grantedSource);
@@ -201,10 +201,10 @@ class GrantItemRuleElement extends RuleElementPF2e {
     private async runGrantedItemPreCreates(
         originalArgs: Omit<RuleElementPF2e.PreCreateParams, "ruleSource">,
         grantedItem: Embedded<ItemPF2e>,
+        grantedSource: ItemSourcePF2e,
         context: DocumentModificationContext<ItemPF2e>
     ): Promise<void> {
         // Create a temporary embedded version of the item to run its pre-create REs
-        const grantedSource = grantedItem._source;
         for (const rule of grantedItem.rules) {
             const ruleSource = grantedSource.system.rules[grantedItem.rules.indexOf(rule)] as RuleElementSource;
             await rule.preCreate?.({

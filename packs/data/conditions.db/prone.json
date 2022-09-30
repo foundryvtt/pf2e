@@ -10,11 +10,7 @@
     "system": {
         "active": true,
         "alsoApplies": {
-            "linked": [
-                {
-                    "condition": "Flat-Footed"
-                }
-            ],
+            "linked": [],
             "unlinked": []
         },
         "base": "Prone",
@@ -51,13 +47,21 @@
                 "slug": "prone",
                 "type": "circumstance",
                 "value": -2
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Flat-Footed"
             }
         ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
         "sources": {
-            "hud": true
+            "hud": true,
+            "values": []
         },
         "traits": {
             "custom": "",

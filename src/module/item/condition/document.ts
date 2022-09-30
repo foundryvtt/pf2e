@@ -1,4 +1,5 @@
 import { AbstractEffectPF2e, EffectBadge } from "@item/abstract-effect";
+import { ItemPF2e } from "@item";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
 import { ErrorPF2e } from "@util";
@@ -7,6 +8,10 @@ import { ConditionData, ConditionSlug } from "./data";
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
         return this.system.value.value ? { type: "counter", value: this.system.value.value } : null;
+    }
+
+    get appliedBy(): ItemPF2e | null {
+        return this.actor?.items.get(this.system.references.parent?.id ?? this.flags.pf2e.grantedBy?.id ?? "") ?? null;
     }
 
     get value(): number | null {
@@ -24,7 +29,10 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
     /** Is this condition locked in place by another? */
     get isLocked(): boolean {
-        return !!this.system.references.parent?.id;
+        if (this.system.references.parent?.id) return true;
+
+        const granter = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
+        return granter?.flags.pf2e.itemGrants.find((g) => g.id === this.id)?.onDelete === "restrict";
     }
 
     /** Is the condition found in the token HUD menu? */
@@ -85,6 +93,11 @@ class ConditionPF2e extends AbstractEffectPF2e {
                 deactivate(condition);
             }
         }
+    }
+
+    /** Log self in parent's conditions map */
+    override prepareActorData(): void {
+        if (this.isActive) this.actor?.conditions.set(this.slug, this);
     }
 
     /** Withhold all rule elements if this condition is inactive */

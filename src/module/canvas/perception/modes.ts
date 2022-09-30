@@ -33,8 +33,7 @@ class VisionDetectionMode extends DetectionModeBasicSight {
     protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
         if (!super._canDetect(visionSource, target)) return false;
         const targetIsUndetected =
-            target instanceof TokenPF2e &&
-            !!target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug));
+            target instanceof TokenPF2e && !!target.actor?.hasCondition("undetected", "unnoticed");
         return !targetIsUndetected;
     }
 }
@@ -68,7 +67,7 @@ class HearingDetectionMode extends DetectionMode {
         if (!game.settings.get("pf2e", "automation.rulesBasedVision")) return true;
 
         // Not if the target is unnoticed or undetected
-        if (target.actor.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug))) {
+        if (target.actor.hasCondition("undetected", "unnoticed")) {
             return false;
         }
 
@@ -128,7 +127,7 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
             super._canDetect(visionSource, target) &&
             target instanceof TokenPF2e &&
             !target.actor?.isOfType("loot") &&
-            !target.actor?.itemTypes.condition.some((c) => ["undetected", "unnoticed"].includes(c.slug))
+            !target.actor?.hasCondition("undetected", "unnoticed")
         );
     }
 }

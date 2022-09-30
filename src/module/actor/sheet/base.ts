@@ -144,17 +144,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const itemSize = new ActorSizePF2e({ value: item.size });
             const sizeDifference = itemSize.difference(actorSize, { smallIsMedium: true });
 
+            const canBeEquipped = !item.isInContainer;
+
             return {
                 item: item,
                 itemSize: sizeDifference !== 0 ? itemSize : null,
                 editable,
                 isContainer: item.isOfType("backpack"),
-                canBeEquipped: !item.isInContainer,
+                canBeEquipped,
                 isInvestable:
-                    this.actor.isOfType("character") &&
-                    item.isEquipped &&
-                    item.isIdentified &&
-                    item.isInvested !== null,
+                    this.actor.isOfType("character") && canBeEquipped && item.isIdentified && item.isInvested !== null,
                 isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
                 hasCharges: item.isOfType("consumable") && item.uses.max > 0,
                 heldItems,
@@ -560,22 +559,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (previewElement && targetElement && targetElement !== previewElement) {
             const { x, y } = previewElement.getBoundingClientRect();
             event.dataTransfer.setDragImage(previewElement, event.pageX - x, event.pageY - y);
-            mergeObject(targetElement.dataset, previewElement.dataset);
         }
+
+        const itemId = $itemRef.attr("data-item-id");
+        const item = this.actor.items.get(itemId ?? "");
 
         const baseDragData: { [key: string]: unknown } = {
             actorId: this.actor.id,
             sceneId: canvas.scene?.id ?? null,
             tokenId: this.actor.token?.id ?? null,
+            ...item?.toDragData(),
         };
-
-        // Owned Items
-        const itemId = $itemRef.attr("data-item-id");
-        const item = this.actor.items.get(itemId ?? "");
-        if (item) {
-            baseDragData.type = "Item";
-            baseDragData.uuid = item.uuid;
-        }
 
         // Dragging ...
         const supplementalData = (() => {
@@ -619,15 +613,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             return null;
         })();
 
-        return supplementalData
-            ? event.dataTransfer.setData(
-                  "text/plain",
-                  JSON.stringify({
-                      ...baseDragData,
-                      ...supplementalData,
-                  })
-              )
-            : super._onDragStart(event);
+        event.dataTransfer.setData("text/plain", JSON.stringify({ ...baseDragData, ...supplementalData }));
     }
 
     /** Handle a drop event for an existing Owned Item to sort that item */
@@ -713,7 +699,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         item: ItemPF2e,
         data: DropCanvasItemDataPF2e
     ): Promise<ItemPF2e[]> {
-        const actor = this.actor;
+        const { actor } = this;
         const itemSource = item.toObject();
 
         // mystify the item if the alt key was pressed
@@ -734,7 +720,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (item.isOfType("spell") && itemSource.type === "spell") {
             if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
                 const popup = new ScrollWandPopup(
-                    this.actor,
+                    actor,
                     {},
                     async (heightenedLevel, itemType, spell) => {
                         if (!(itemType === "scroll" || itemType === "wand")) return;
@@ -756,20 +742,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (typeof value === "number" && itemSource.system.value.isValued) {
                 itemSource.system.value.value = value;
             }
-            const token = actor.token?.object
-                ? actor.token.object
-                : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor?.id === actor.id);
 
             if (!actor.canUserModify(game.user, "update")) {
                 const translations = LocalizePF2e.translations.PF2E;
                 ui.notifications.error(translations.ErrorMessage.NoUpdatePermission);
                 return [];
-            } else if (token) {
-                const condition = await game.pf2e.ConditionManager.addConditionToToken(itemSource, token);
-                return condition ? [condition] : [];
             } else {
-                await actor.increaseCondition(itemSource.system.slug, { min: itemSource.system.value.value });
-                return [item];
+                const updated = await actor.increaseCondition(itemSource.system.slug, {
+                    min: itemSource.system.value.value,
+                });
+                return [updated ?? []].flat();
             }
         } else if (itemSource.type === "effect" && data && "level" in data) {
             const level = data.level;

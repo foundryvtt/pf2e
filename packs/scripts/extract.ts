@@ -259,7 +259,7 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
             docSource.flags = docSource.type === "condition" ? { pf2e: { condition: true } } : {};
             if (isPhysicalData(docSource)) {
                 delete (docSource.system as { equipped?: unknown }).equipped;
-            } else if (["feat", "spell"].includes(docSource.type)) {
+            } else if (docSource.type === "spell" || (docSource.type === "feat" && !docSource.system.location)) {
                 delete (docSource.system as { location?: unknown }).location;
             }
         }
