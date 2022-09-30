@@ -712,7 +712,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         item: ItemPF2e,
         data: DropCanvasItemDataPF2e
     ): Promise<ItemPF2e[]> {
-        const actor = this.actor;
+        const { actor } = this;
         const itemSource = item.toObject();
 
         // mystify the item if the alt key was pressed
@@ -733,7 +733,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (item.isOfType("spell") && itemSource.type === "spell") {
             if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
                 const popup = new ScrollWandPopup(
-                    this.actor,
+                    actor,
                     {},
                     async (heightenedLevel, itemType, spell) => {
                         if (!(itemType === "scroll" || itemType === "wand")) return;
@@ -755,20 +755,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (typeof value === "number" && itemSource.system.value.isValued) {
                 itemSource.system.value.value = value;
             }
-            const token = actor.token?.object
-                ? actor.token.object
-                : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor?.id === actor.id);
 
             if (!actor.canUserModify(game.user, "update")) {
                 const translations = LocalizePF2e.translations.PF2E;
                 ui.notifications.error(translations.ErrorMessage.NoUpdatePermission);
                 return [];
-            } else if (token) {
-                const condition = await game.pf2e.ConditionManager.addConditionToToken(itemSource, token);
-                return condition ? [condition] : [];
             } else {
-                await actor.increaseCondition(itemSource.system.slug, { min: itemSource.system.value.value });
-                return [item];
+                const updated = await actor.increaseCondition(itemSource.system.slug, {
+                    min: itemSource.system.value.value,
+                });
+                return [updated ?? []].flat();
             }
         } else if (itemSource.type === "effect" && data && "level" in data) {
             const level = data.level;
