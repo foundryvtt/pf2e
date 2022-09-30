@@ -559,22 +559,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (previewElement && targetElement && targetElement !== previewElement) {
             const { x, y } = previewElement.getBoundingClientRect();
             event.dataTransfer.setDragImage(previewElement, event.pageX - x, event.pageY - y);
-            mergeObject(targetElement.dataset, previewElement.dataset);
         }
+
+        const itemId = $itemRef.attr("data-item-id");
+        const item = this.actor.items.get(itemId ?? "");
 
         const baseDragData: { [key: string]: unknown } = {
             actorId: this.actor.id,
             sceneId: canvas.scene?.id ?? null,
             tokenId: this.actor.token?.id ?? null,
+            ...item?.toDragData(),
         };
-
-        // Owned Items
-        const itemId = $itemRef.attr("data-item-id");
-        const item = this.actor.items.get(itemId ?? "");
-        if (item) {
-            baseDragData.type = "Item";
-            baseDragData.uuid = item.uuid;
-        }
 
         // Dragging ...
         const supplementalData = (() => {
@@ -618,15 +613,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             return null;
         })();
 
-        return supplementalData
-            ? event.dataTransfer.setData(
-                  "text/plain",
-                  JSON.stringify({
-                      ...baseDragData,
-                      ...supplementalData,
-                  })
-              )
-            : super._onDragStart(event);
+        event.dataTransfer.setData("text/plain", JSON.stringify({ ...baseDragData, ...supplementalData }));
     }
 
     /** Handle a drop event for an existing Owned Item to sort that item */
