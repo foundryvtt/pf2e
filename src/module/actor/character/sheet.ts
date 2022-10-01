@@ -785,9 +785,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const $heroActionsList = $actions.find(".heroActions-list");
         $heroActionsList.find("[data-action=draw]").on("click", this.#onClickHeroActionsDraw.bind(this));
         $heroActionsList.find("[data-action=expand]").on("click", this.#onClickHeroActionExpand.bind(this));
-        $heroActionsList.find("[data-action=use]").on("click", this.#onClickHeroActioUse.bind(this));
-        $heroActionsList.find("[data-action=display]").on("click", this.#onClickHeroActioDisplay.bind(this));
-        $heroActionsList.find("[data-action=discard]").on("click", this.#onClickHeroActioDiscard.bind(this));
+        $heroActionsList.find("[data-action=use]").on("click", this.#onClickHeroActionUse.bind(this));
+        $heroActionsList.find("[data-action=display]").on("click", this.#onClickHeroActionDisplay.bind(this));
+        $heroActionsList.find("[data-action=discard]").on("click", this.#onClickHeroActionDiscard.bind(this));
         $heroActionsList.find("[data-action=discard-selected]").on("click", this.#onClickHeroActionsDiscard.bind(this));
     }
 
@@ -818,7 +818,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
-    #onClickHeroActioDiscard(event: JQuery.ClickEvent<any, any, HTMLElement>) {
+    #onClickHeroActionDiscard(event: JQuery.ClickEvent<any, any, HTMLElement>) {
         event.preventDefault();
 
         const $action = $(event.currentTarget).closest(".action");
@@ -832,7 +832,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         $list.toggleClass("discardable", $discarded.length === toDiscard);
     }
 
-    async #onClickHeroActioDisplay(event: JQuery.ClickEvent<any, any, HTMLElement>) {
+    async #onClickHeroActionDisplay(event: JQuery.ClickEvent<any, any, HTMLElement>) {
         event.preventDefault();
 
         const id = $(event.currentTarget).closest(".action").attr("data-id") as string;
@@ -846,7 +846,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
-    async #onClickHeroActioUse(event: JQuery.ClickEvent<any, any, HTMLElement>) {
+    async #onClickHeroActionUse(event: JQuery.ClickEvent<any, any, HTMLElement>) {
         event.preventDefault();
 
         const actor = this.actor;
@@ -869,7 +869,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         actor.update({
             ["system.resources.heroPoints.value"]: points - 1,
-            [`flags.pf2e.heroActions`]: actions.map((x) => x._id),
+            ["flags.pf2e.heroActions"]: actions.map((x) => x._id),
         });
 
         const template = "systems/pf2e/templates/chat/hero-actions/use-card.html";
