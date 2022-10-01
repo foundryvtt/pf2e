@@ -176,7 +176,7 @@ interface CreatureSpeeds extends StatisticModifier {
 
 type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
 interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
-    type: Exclude<MovementType, "land">;
+    type: MovementType;
     source?: string;
     total?: number;
 }
