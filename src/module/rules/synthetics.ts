@@ -29,6 +29,7 @@ interface RuleElementSynthetics {
     strikeAdjustments: StrikeAdjustment[];
     strikes: Map<string, Embedded<WeaponPF2e>>;
     striking: Record<string, StrikingSynthetic[]>;
+    targetMarks: Map<TokenDocumentUUID, string>;
     tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name" | "texture">>;
     weaponPotency: Record<string, PotencySynthetic[]>;
     preparationWarnings: {

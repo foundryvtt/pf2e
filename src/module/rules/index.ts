@@ -23,6 +23,7 @@ import { ImmunityRuleElement } from "./rule-element/iwr/immunity";
 import { ResistanceRuleElement } from "./rule-element/iwr/resistance";
 import { WeaknessRuleElement } from "./rule-element/iwr/weakness";
 import { LoseHitPointsRuleElement } from "./rule-element/lose-hit-points";
+import { MarkTokenRuleElement } from "./rule-element/mark-token/rule-element";
 import { MartialProficiencyRuleElement } from "./rule-element/martial-proficiency";
 import { MultipleAttackPenaltyRuleElement } from "./rule-element/multiple-attack-penalty";
 import { RollNoteRuleElement } from "./rule-element/roll-note";
@@ -66,6 +67,7 @@ class RuleElements {
         GrantItem: GrantItemRuleElement,
         Immunity: ImmunityRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,
+        MarkToken: MarkTokenRuleElement,
         MartialProficiency: MartialProficiencyRuleElement,
         MultipleAttackPenalty: MultipleAttackPenaltyRuleElement,
         Note: RollNoteRuleElement,
