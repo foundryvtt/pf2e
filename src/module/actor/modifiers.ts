@@ -8,6 +8,7 @@ import { DAMAGE_TYPES } from "@system/damage/values";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
+import { ZeroToFour } from "@module/data";
 
 const PROFICIENCY_RANK_OPTION = [
     "proficiency:untrained",
@@ -57,7 +58,7 @@ interface BaseRawModifier {
     /** The actual numeric benefit/penalty that this modifier provides. */
     modifier?: number;
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
-    type?: string;
+    type?: ModifierType;
     /** If the type is "ability", this should be set to a particular ability */
     ability?: AbilityString | null;
     /** Numeric adjustments to apply */
@@ -248,7 +249,7 @@ type ModifierObjectParams = RawModifier & {
 type ModifierOrderedParams = [
     slug: string,
     modifier: number,
-    type?: string,
+    type?: ModifierType,
     enabled?: boolean,
     ignored?: boolean,
     source?: string,
@@ -257,8 +258,6 @@ type ModifierOrderedParams = [
 
 /**
  * Create a modifier from a given ability type and score.
- * @param ability str = Strength, dex = Dexterity, con = Constitution, int = Intelligence, wis = Wisdom, cha = Charisma
- * @param score The score of this ability.
  * @returns The modifier provided by the given ability score.
  */
 function createAbilityModifier({ actor, ability, domains }: CreateAbilityModifierParams): ModifierPF2e {
@@ -287,21 +286,24 @@ const ProficiencyModifier = {
      * @param rank 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
      * @returns The modifier for the given proficiency rank and character level.
      */
-    fromLevelAndRank: (level: number, rank: number, options: { addLevel?: boolean } = {}): ModifierPF2e => {
-        const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
-        const addLevel = (options.addLevel ?? rank > 0) && rule === "ProficiencyWithLevel";
-        rank = Math.clamped(rank, 0, 4);
+    fromLevelAndRank: (level: number, rank: ZeroToFour, { addLevel = rank > 0 } = {}): ModifierPF2e => {
+        rank = Math.clamped(rank, 0, 4) as ZeroToFour;
+        const pwolVariant = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
 
-        const modifier =
-            [
-                0,
-                game.settings.get("pf2e", "proficiencyTrainedModifier") ?? 2,
-                game.settings.get("pf2e", "proficiencyExpertModifier") ?? 4,
-                game.settings.get("pf2e", "proficiencyMasterModifier") ?? 6,
-                game.settings.get("pf2e", "proficiencyLegendaryModifier") ?? 8,
-            ][rank] + (addLevel ? level : 0);
+        const baseBonuses: [number, number, number, number, number] = pwolVariant
+            ? [
+                  game.settings.get("pf2e", "proficiencyUntrainedModifier"),
+                  game.settings.get("pf2e", "proficiencyTrainedModifier"),
+                  game.settings.get("pf2e", "proficiencyExpertModifier"),
+                  game.settings.get("pf2e", "proficiencyMasterModifier"),
+                  game.settings.get("pf2e", "proficiencyLegendaryModifier"),
+              ]
+            : [0, 2, 4, 6, 8];
 
-        return new ModifierPF2e(`PF2E.ProficiencyLevel${rank}`, modifier, MODIFIER_TYPE.PROFICIENCY);
+        const addedLevel = addLevel && !pwolVariant ? level : 0;
+        const bonus = baseBonuses[rank] + addedLevel;
+
+        return new ModifierPF2e({ label: `PF2E.ProficiencyLevel${rank}`, modifier: bonus, type: "proficiency" });
     },
 };
 
