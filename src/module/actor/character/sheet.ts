@@ -818,7 +818,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
-    #onClickHeroActionDiscard(event: JQuery.ClickEvent<any, any, HTMLElement>) {
+    #onClickHeroActionDiscard(event: JQuery.ClickEvent<HTMLElement, unknown, HTMLElement>) {
         event.preventDefault();
 
         const $action = $(event.currentTarget).closest(".action");
@@ -832,7 +832,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         $list.toggleClass("discardable", $discarded.length === toDiscard);
     }
 
-    async #onClickHeroActionDisplay(event: JQuery.ClickEvent<any, any, HTMLElement>) {
+    async #onClickHeroActionDisplay(event: JQuery.ClickEvent<HTMLElement, unknown, HTMLElement>) {
         event.preventDefault();
 
         const id = $(event.currentTarget).closest(".action").attr("data-id") as string;
@@ -846,7 +846,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
-    async #onClickHeroActionUse(event: JQuery.ClickEvent<any, any, HTMLElement>) {
+    async #onClickHeroActionUse(event: JQuery.ClickEvent<HTMLElement, unknown, HTMLElement>) {
         event.preventDefault();
 
         const actor = this.actor;
@@ -879,7 +879,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
-    async #onClickHeroActionExpand(event: JQuery.ClickEvent<any, any, HTMLElement>) {
+    async #onClickHeroActionExpand(event: JQuery.ClickEvent<HTMLElement, unknown, HTMLElement>) {
         event.preventDefault();
 
         const $action = $(event.currentTarget).closest(".action");
