@@ -443,6 +443,7 @@ const weaponTraits = {
     splash: "PF2E.TraitSplash",
     staff: "PF2E.TraitStaff",
     sweep: "PF2E.TraitSweep",
+    tech: "PF2E.TraitTech",
     teleportation: "PF2E.TraitTeleportation",
     tethered: "PF2E.TraitTethered",
     thrown: "PF2E.TraitThrown",
