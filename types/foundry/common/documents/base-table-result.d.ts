@@ -21,9 +21,9 @@ declare module foundry {
 
             readonly parent: BaseRollTable | null;
 
-            readonly documentId: string;
-            readonly text: string;
-            drawn: boolean
+            documentId: string;
+            text: string;
+            drawn: boolean;
         }
 
         interface TableResultMetadata extends abstract.DocumentMetadata {

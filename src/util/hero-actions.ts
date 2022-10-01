@@ -15,7 +15,7 @@ export function getCompendiumHeroDeckTable() {
 export function getWorldHeroDeckTable() {
     const id = game.settings.get("pf2e", "heroActionsDeckId") as string;
     // Hero Deck table with user provided id
-    let table = id ? game.tables.get(id) : undefined;
+    const table = id ? game.tables.get(id) : undefined;
     // or the first Hero Deck table found in the world
     return table ?? game.tables.find((x) => x.getFlag("core", "sourceId") === TABLE_UUID);
 }

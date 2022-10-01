@@ -87,7 +87,7 @@ declare global {
         reset(): Promise<this>;
 
         /** Reset the state of the RollTable to return any drawn items to the table   */
-        resetResults(): Promise<this>
+        resetResults(): Promise<this>;
 
         /**
          * Evaluate a RollTable by rolling its formula and retrieving a drawn result.
