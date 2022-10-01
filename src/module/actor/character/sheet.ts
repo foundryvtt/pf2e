@@ -11,23 +11,7 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import {
-    ErrorPF2e,
-    formatHeroActionUUID,
-    getCompendiumHeroDeckTable,
-    getHeroActionDetails,
-    getHeroDeckPack,
-    groupBy,
-    type HeroActionIndex,
-    htmlQueryAll,
-    isObject,
-    objectHasKey,
-    setHasElement,
-    tupleHasValue,
-    getWorldHeroDeckTable,
-    createWorldHeroDeckTable,
-    isHeroActionVariantUnique,
-} from "@util";
+import { ErrorPF2e, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
@@ -39,6 +23,16 @@ import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { CharacterConfig } from "./config";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { PROFICIENCY_RANKS } from "@module/data";
+import {
+    createWorldHeroDeckTable,
+    formatHeroActionUUID,
+    getCompendiumHeroDeckTable,
+    getHeroActionDetails,
+    getHeroDeckPack,
+    getWorldHeroDeckTable,
+    isHeroActionVariantUnique,
+    type HeroActionIndex,
+} from "@util/hero-actions";
 
 class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -236,7 +230,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         ) {
             const actions = this.getHeroActionsIndexes();
             const diff = this.actor.heroPoints.value - actions.length;
-            const isOwner = this.actor.isOwner
+            const isOwner = this.actor.isOwner;
 
             sheetData.heroActions = {
                 list: actions,
@@ -912,20 +906,20 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 // because we are the GM, we can create the missing table
                 table = await createWorldHeroDeckTable();
             } else {
-                ui.notifications.warn(game.i18n.localize("PF2E.HeroActions.NoTableWarn"));
+                ui.notifications.warn(game.i18n.localize("PF2E.HeroActions.Table.MissingWarn"));
                 return undefined;
             }
         }
 
         if (!table) {
-            ui.notifications.error(game.i18n.localize("PF2E.HeroActions.NoTableError"));
+            ui.notifications.error(game.i18n.localize("PF2E.HeroActions.Table.MissingError"));
             return undefined;
         } else if (!table.formula) {
             if (game.user.isGM) {
                 // again, we are GM so we can fix the mess
                 await table.update({ formula: `1d${table.results.size}` });
             } else {
-                ui.notifications.warn(game.i18n.localize("PF2E.HeroActions.NoFormula"));
+                ui.notifications.warn(game.i18n.localize("PF2E.HeroActions.Table.NoFormula"));
                 return undefined;
             }
         }
@@ -957,7 +951,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const drawn = [] as HeroActionIndex[];
         for (let i = 0; i < nb; i++) {
             const index = await drawFunction();
-            if (!index) continue
+            if (!index) return;
             actions.push(index);
             drawn.push(index);
         }

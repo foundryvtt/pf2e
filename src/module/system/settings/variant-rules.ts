@@ -1,5 +1,5 @@
 import { CharacterSheetPF2e } from "@actor/character/sheet";
-import { createWorldHeroDeckTable, getWorldHeroDeckTable } from "@util";
+import { createWorldHeroDeckTable, getWorldHeroDeckTable } from "@util/hero-actions";
 
 const SETTINGS: Record<string, SettingRegistration> = {
     gradualBoostsVariant: {

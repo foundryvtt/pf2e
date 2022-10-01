@@ -9,7 +9,7 @@ import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types"
 import { CHARACTER_SHEET_TABS } from "./values";
 import { CharacterSaveData, ClassDCData } from "./types";
 import { SaveType } from "@actor/types";
-import { HeroActionIndex } from "@util";
+import { HeroActionIndex } from "@util/hero-actions";
 
 type CharacterSheetOptions = ActorSheetOptions;
 
