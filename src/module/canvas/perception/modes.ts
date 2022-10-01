@@ -57,17 +57,16 @@ class HearingDetectionMode extends DetectionMode {
     }
 
     protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
-        if (!(target instanceof TokenPF2e && target.actor)) return false;
+        // Not if the target isn't a token
+        if (!(target instanceof TokenPF2e)) return false;
 
         // Not if the target doesn't emit sound
-        if (!target.actor.emitsSound) {
-            return false;
-        }
+        if (!target.actor?.emitsSound) return false;
 
         if (!game.settings.get("pf2e", "automation.rulesBasedVision")) return true;
 
         // Not if the target is unnoticed or undetected
-        if (target.actor.hasCondition("undetected", "unnoticed")) {
+        if (target.actor?.hasCondition("undetected", "unnoticed")) {
             return false;
         }
 

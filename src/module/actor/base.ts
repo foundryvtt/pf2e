@@ -578,15 +578,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** If there is an active encounter, set roll options for it and this actor's participant */
     setEncounterRollOptions(): void {
         const encounter = game.ready ? game.combat : null;
-        const participants = encounter?.combatants.contents ?? [];
-        const participant = encounter?.started
-            ? this.token
-                ? this.token.combatant
-                : participants.find((c) => c.actor === this)
-            : null;
-        if (!(encounter && participant)) return;
+        if (!encounter?.started) return;
+
+        const participants = encounter.combatants.contents;
+        const participant = this.token?.combatant ?? participants.find((c) => c.actor === this);
+        if (!participant) return;
 
         const rollOptionsAll = this.rollOptions.all;
+        rollOptionsAll["encounter"] = true;
         rollOptionsAll[`encounter:round:${encounter.round}`] = true;
         rollOptionsAll[`encounter:turn:${encounter.turn + 1}`] = true;
         rollOptionsAll["self:participant:own-turn"] = encounter.combatant?.actor === this;
@@ -1244,6 +1243,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
 interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     readonly data: ActorDataPF2e;
+
+    readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e>;
+
+    readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e>;
 
     prototypeToken: PrototypeTokenPF2e;
 

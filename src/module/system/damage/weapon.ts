@@ -308,21 +308,19 @@ class WeaponDamagePF2e {
         }
 
         // Fatal trait
-        weaponTraits
-            .filter((t) => t.startsWith("fatal-d"))
-            .forEach((t) => {
-                const dieSize = t.substring(t.indexOf("-") + 1) as DamageDieSize;
-                diceModifiers.push(
-                    new DiceModifierPF2e({
-                        label: traitLabels[t],
-                        diceNumber: 1,
-                        dieSize,
-                        critical: true,
-                        enabled: true,
-                        override: { dieSize },
-                    })
-                );
-            });
+        for (const trait of weaponTraits.filter((t) => t.startsWith("fatal-d"))) {
+            const dieSize = trait.substring(trait.indexOf("-") + 1) as DamageDieSize;
+            diceModifiers.push(
+                new DiceModifierPF2e({
+                    label: traitLabels[trait],
+                    diceNumber: 1,
+                    dieSize,
+                    critical: true,
+                    enabled: true,
+                    override: { dieSize },
+                })
+            );
+        }
 
         // Check for weapon specialization
         const weaponSpecializationDamage = proficiencyRank > 1 ? proficiencyRank : 0;

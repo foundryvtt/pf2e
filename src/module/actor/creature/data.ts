@@ -160,6 +160,9 @@ interface CreatureAttributes extends BaseActorAttributes {
     wounded: ValueAndMax;
     /** The current doomed level (and maximum) for this creature. */
     doomed: ValueAndMax;
+
+    /** Whether this creature emits sound */
+    emitsSound: boolean;
 }
 
 interface CreatureSpeeds extends StatisticModifier {
@@ -173,7 +176,7 @@ interface CreatureSpeeds extends StatisticModifier {
 
 type MovementType = "land" | "burrow" | "climb" | "fly" | "swim";
 interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
-    type: Exclude<MovementType, "land">;
+    type: MovementType;
     source?: string;
     total?: number;
 }
