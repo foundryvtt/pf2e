@@ -21,13 +21,10 @@ export function getWorldHeroDeckTable() {
 }
 
 export async function createWorldHeroDeckTable() {
-    const _source = (await getCompendiumHeroDeckTable())._source;
-    const source = {
-        ..._source,
-        displayRoll: false,
-        replacement: false,
-        name: game.i18n.localize("PF2E.HeroActions.Table.Name"),
-    };
+    const source = duplicate((await getCompendiumHeroDeckTable())._source);
+    source.displayRoll = false;
+    source.replacement = false;
+    source.name = game.i18n.localize("PF2E.HeroActions.Table.Name");
     return await RollTable.create(source, { temporary: false });
 }
 
