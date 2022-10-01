@@ -130,32 +130,21 @@ class EncounterPF2e extends Combat {
         await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
     }
 
-    /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
-    /* -------------------------------------------- */
-
-    /** Disable the initiative button on PC sheets if this was the only encounter */
-    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
-        super._onDelete(options, userId);
-
-        if (this.started) {
-            Hooks.call("pf2e.endTurn", this.combatant ?? null, this, userId);
-            game.pf2e.effectTracker.onEncounterEnd(this);
+    /** Rerun data preparation for participating actors and the scene, refresh perception */
+    #resetActorAndSceneData(): void {
+        for (const actor of this.combatants.contents.flatMap((c) => c.actor ?? [])) {
+            actor.reset();
         }
 
-        // Disable the initiative button if this was the only encounter
-        if (!game.combat) {
-            const pcSheets = Object.values(ui.windows).filter(
-                (sheet): sheet is CharacterSheetPF2e => sheet instanceof CharacterSheetPF2e
-            );
-            for (const sheet of pcSheets) {
-                sheet.disableInitiativeButton();
-            }
+        if (this.scene) {
+            this.scene.reset();
+            canvas.perception.update({ refreshVision: true }, true);
         }
-
-        // Clear targets to prevent unintentional targeting in future encounters
-        game.user.clearTargets();
     }
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
 
     /** Enable the initiative button on PC sheets */
     protected override _onCreate(
@@ -182,6 +171,11 @@ class EncounterPF2e extends Combat {
         super._onUpdate(changed, options, userId);
 
         game.pf2e.StatusEffects.onUpdateEncounter(this);
+
+        // Reset actor/scene data and refresh perception if the turn has changed
+        if (changed.round && typeof changed.turn === "number") {
+            this.#resetActorAndSceneData();
+        }
 
         // No updates necessary if combat hasn't started or this combatant has already had a turn this round
         const combatant = this.combatant;
@@ -218,6 +212,32 @@ class EncounterPF2e extends Combat {
             await game.pf2e.effectTracker.refresh();
             game.pf2e.effectPanel.refresh();
         });
+    }
+
+    /** Disable the initiative button on PC sheets if this was the only encounter */
+    protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
+        super._onDelete(options, userId);
+
+        if (this.started) {
+            Hooks.call("pf2e.endTurn", this.combatant ?? null, this, userId);
+            game.pf2e.effectTracker.onEncounterEnd(this);
+        }
+
+        // Disable the initiative button if this was the only encounter
+        if (!game.combat) {
+            const pcSheets = Object.values(ui.windows).filter(
+                (sheet): sheet is CharacterSheetPF2e => sheet instanceof CharacterSheetPF2e
+            );
+            for (const sheet of pcSheets) {
+                sheet.disableInitiativeButton();
+            }
+        }
+
+        // Clear targets to prevent unintentional targeting in future encounters
+        game.user.clearTargets();
+
+        // Clear encounter-related roll options and any scene behavior that depends on it
+        this.#resetActorAndSceneData();
     }
 }
 
