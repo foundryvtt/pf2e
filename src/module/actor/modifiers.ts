@@ -190,7 +190,8 @@ class ModifierPF2e implements RawModifier {
 
         this.damageType = setHasElement(DAMAGE_TYPES, params.damageType) ? params.damageType : null;
         this.damageCategory = params.damageCategory ?? null;
-        this.critical = this.damageCategory === "splash" ? false : params.critical ?? null;
+        // Force splash damage into being critical-only or not doubling on critical hits
+        this.critical = this.damageCategory === "splash" ? !!params.critical : params.critical ?? null;
 
         if (this.force && this.type === "untyped") {
             throw ErrorPF2e("A forced modifier must have a type");
