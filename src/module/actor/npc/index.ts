@@ -415,55 +415,53 @@ class NPCPF2e extends CreaturePF2e {
                     extractModifiers(this.synthetics, domains),
                 ].flat();
 
-                const stat = mergeObject(
-                    new StatisticModifier(skill, modifiers, this.getRollOptions(domains)),
-                    system.skills[shortform],
-                    { overwrite: false }
-                );
+                const stat = new StatisticModifier(skill, modifiers, this.getRollOptions(domains));
                 const additionalData = {
                     itemID: item.id,
                     lore: !objectHasKey(SKILL_EXPANDED, skill),
+                    ability,
                     rank: 1,
-                };
-                stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
-                stat.notes = extractNotes(rollNotes, domains);
-                stat.base = base;
-                stat.expanded = skill;
-                stat.label = item.name;
-                stat.value = stat.totalModifier;
-                stat.visible = true;
-                stat.breakdown = stat.modifiers
-                    .filter((m) => m.enabled)
-                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                    .join(", ");
-                stat.roll = async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
-                    console.warn(
-                        `Rolling skill checks via actor.system.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
-                    );
-                    const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: item.name });
-                    const rollOptions = new Set(params.options ?? []);
-                    const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
-                    const context: CheckRollContext = {
-                        actor: this,
-                        type: "skill-check",
-                        options: rollOptions,
-                        dc: params.dc,
-                        rollTwice,
-                        notes: stat.notes,
-                    };
+                    adjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
+                    notes: extractNotes(rollNotes, domains),
+                    base,
+                    expanded: skill,
+                    label: item.name,
+                    value: stat.totalModifier,
+                    visible: true,
+                    breakdown: stat.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+                        .join(", "),
+                    variants: Object.values(item.system.variants ?? {}),
+                    roll: async (params: RollParameters): Promise<Rolled<CheckRoll> | null> => {
+                        console.warn(
+                            `Rolling skill checks via actor.system.skills.${shortform}.roll() is deprecated, use actor.skills.${skill}.check.roll() instead`
+                        );
+                        const label = game.i18n.format("PF2E.SkillCheckWithName", { skillName: item.name });
+                        const rollOptions = new Set(params.options ?? []);
+                        const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
+                        const context: CheckRollContext = {
+                            actor: this,
+                            type: "skill-check",
+                            options: rollOptions,
+                            dc: params.dc,
+                            rollTwice,
+                            notes: stat.notes,
+                        };
 
-                    const roll = await CheckPF2e.roll(
-                        new CheckModifier(label, stat),
-                        context,
-                        params.event,
-                        params.callback
-                    );
+                        const roll = await CheckPF2e.roll(
+                            new CheckModifier(label, stat),
+                            context,
+                            params.event,
+                            params.callback
+                        );
 
-                    for (const rule of this.rules.filter((r) => !r.ignored)) {
-                        await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
-                    }
+                        for (const rule of this.rules.filter((r) => !r.ignored)) {
+                            await rule.afterRoll?.({ roll, selectors: domains, domains, rollOptions });
+                        }
 
-                    return roll;
+                        return roll;
+                    },
                 };
 
                 system.skills[shortform] = mergeObject(stat, additionalData);
