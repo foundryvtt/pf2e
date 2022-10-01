@@ -9,7 +9,7 @@ export function getHeroDeckPack() {
 
 export function getCompendiumHeroDeckTable() {
     const pack = game.packs.get("pf2e.rollable-tables") as CompendiumCollection<RollTable>;
-    return pack.getDocument("zgZoI7h0XjjJrrNK") as Promise<RollTable>;
+    return pack.getDocument(TABLE_ID) as Promise<RollTable>;
 }
 
 export function getWorldHeroDeckTable() {
@@ -21,10 +21,13 @@ export function getWorldHeroDeckTable() {
 }
 
 export async function createWorldHeroDeckTable() {
-    const source = (await getCompendiumHeroDeckTable())._source;
-    source.displayRoll = false;
-    source.replacement = false;
-    source.name = game.i18n.localize("PF2E.HeroActions.Table.Name");
+    const _source = (await getCompendiumHeroDeckTable())._source;
+    const source = {
+        ..._source,
+        displayRoll: false,
+        replacement: false,
+        name: game.i18n.localize("PF2E.HeroActions.Table.Name"),
+    };
     return await RollTable.create(source, { temporary: false });
 }
 
