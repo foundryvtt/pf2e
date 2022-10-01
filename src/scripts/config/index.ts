@@ -614,7 +614,7 @@ const traitsDescriptions = {
     sylph: "PF2E.TraitDescriptionSylph",
     talisman: "PF2E.TraitDescriptionTalisman",
     tattoo: "PF2E.TraitDescriptionTattoo",
-	tech: "PF2E.TraitDescriptionTech",
+    tech: "PF2E.TraitDescriptionTech",
     telepathy: "PF2E.TraitDescriptionTelepathy",
     teleportation: "PF2E.TraitDescriptionTeleportation",
     tengu: "PF2E.TraitDescriptionTengu",
