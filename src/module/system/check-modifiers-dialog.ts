@@ -1,6 +1,6 @@
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
+import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifiers";
 import { RollSubstitution } from "@module/rules/synthetics";
-import { ErrorPF2e, tupleHasValue } from "@util";
+import { ErrorPF2e, setHasElement, tupleHasValue } from "@util";
 import { LocalizePF2e } from "./localize";
 import { CheckRollContext, RollTwiceOption } from "./rolls";
 
@@ -144,18 +144,19 @@ export class CheckModifiersDialog extends Application {
     }
 
     async onAddModifier(event: JQuery.ClickEvent): Promise<void> {
-        const parent = $(event.currentTarget).parents(".add-modifier-panel");
-        const value = Number(parent.find(".add-modifier-value").val() || 1);
-        const type = `${parent.find(".add-modifier-type").val()}`;
-        let name = `${parent.find(".add-modifier-name").val()}`;
+        const $parent = $(event.currentTarget).parents(".add-modifier-panel");
+        const value = Number($parent.find(".add-modifier-value").val() || 1);
+        const type = $parent.find(".add-modifier-type").val();
+        let name = `${$parent.find(".add-modifier-name").val()}`;
         const errors: string[] = [];
         if (Number.isNaN(value)) {
             errors.push("Modifier value must be a number.");
         } else if (value === 0) {
             errors.push("Modifier value must not be zero.");
         }
-        if (!type || !type.trim().length) {
-            errors.push("Modifier type is required.");
+        if (!setHasElement(MODIFIER_TYPES, type)) {
+            // Select menu should make this impossible
+            throw ErrorPF2e("Unexpected invalid modifier type");
         }
         if (!name || !name.trim()) {
             name = game.i18n.localize(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
