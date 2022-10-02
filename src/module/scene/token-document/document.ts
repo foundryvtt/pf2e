@@ -251,6 +251,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             // Temporary hard-coded fetchling check for initial release
             if (this.actor.isOfType("character") && this.actor.ancestry?.slug === "fetchling") {
                 this.sight.saturation = 1;
+            } else if (!game.user.settings.monochromeDarkvision) {
+                this.sight.saturation = 0;
             }
         }
 
