@@ -46,6 +46,9 @@ export class Migration793MakePredicatesArrays extends MigrationBase {
             } else if (this.#isOldRawPredicate(rule.craftableItems)) {
                 rule.craftableItems = convertLegacyData(rule.craftableItems);
             }
+            if (this.#isOldRawPredicate(rule.disabledIf)) {
+                rule.disabledIf = convertLegacyData(rule.disabledIf);
+            }
         }
     }
 
