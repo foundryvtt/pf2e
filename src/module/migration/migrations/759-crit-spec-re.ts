@@ -310,7 +310,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                     {
                         key: "CriticalSpecialization",
                         predicate: {
-                            any: ["weapon:trait:orc", "weapon:group:falchion", "weapon:group:greataxe"],
+                            any: ["weapon:trait:orc", "weapon:base:falchion", "weapon:base:greataxe"],
                         },
                     },
                 ];
@@ -343,7 +343,7 @@ export class Migration759CritSpecRE extends MigrationBase {
                 source.system.rules = source.system.rules.filter((r) => r.key !== "Note");
                 source.system.rules.unshift({
                     key: critSpecKey,
-                    predicate: { all: ["weapon:group:club"] },
+                    predicate: { all: ["weapon:base:staff"] },
                 });
                 return;
             }
