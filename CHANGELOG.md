@@ -3,11 +3,13 @@
 ## Version 4.2.0
 
 ### System Improvements
+* (Cerapter) Add support for strike attack roll substitutions
 * (Forgent) Add logic to snap templates to 30 degree instead of 45 on hex grids
 * (GravenImageRD) Show level in inventory item summaries and for actors in actor directory
 * (GravenImageRD) Add rarity colors to player inventory items
 * (stwlam) Optimize CPU usage of hearing checks
-* (stwlam) Convert predicates to arrays (see wiki for more information)
+* (stwlam) Allow sound emission to be overridable for creatures via ActiveEffect-like rule elements
+* (stwlam) Convert predicates to arrays (wiki will be updated with more information)
 * (stwlam) Allow FlatModifier rule elements to only apply to critical damage
 * (stwlam) Make GrantItem `onDelete` actions configurable
 * (stwlam) Set hex-grid-suitable cone rotation increments and default angle
@@ -18,7 +20,6 @@
 * (Supe) Always show invest button, and equip the item to the correct slot when investing
 
 ### Bugfixes
-* (Ceraptor) Add support for strike attack roll substitutions
 * (In3luki) Fix rarity tag height in the Compendium Browser
 * (Supe) Fix display of item uses in inventory
 * (Supe) Fix inline rolls for class dcs
@@ -27,7 +28,6 @@
 * (stwlam) Fix AE-likes modifying crafting entries
 * (stwlam) Fix Proficiency without Level variant not reflecting untrained proficiency penalties
 * (stwlam) Restore inclusion of `critical` property from DamageDice REs
-* (stwlam) Allow sound emission to be overridable for creatures via ActiveEffect-like rule elements
 * (stwlam) Work around upstream issue affecting item creation on synthetic actors
 * (stwlam) Prevent duplicate fatal traits from being added to fatal-aim weapons
 * (tyrielv) Fix overflow for long tag elements
