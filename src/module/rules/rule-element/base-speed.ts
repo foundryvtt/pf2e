@@ -49,9 +49,9 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
         return (): UnlabeledSpeed | null => {
             if (!this.test()) return null;
 
-            const value = this.resolveValue(this.value);
-            if (!(typeof value === "number" && Number.isInteger(value))) {
-                this.failValidation("Failed to resolve a value");
+            const value = Math.trunc(Number(this.resolveValue(this.value)));
+            if (!Number.isInteger(value)) {
+                this.failValidation("Failed to resolve value");
                 return null;
             }
 
