@@ -56,7 +56,7 @@ export class CheckModifiersDialog extends Application {
         const none = fortune === misfortune;
         return {
             appId: this.id,
-            modifiers: this.check.modifiers.filter((m) => m.enabled || !m.hideIfDisabled),
+            modifiers: this.check.modifiers,
             totalModifier: this.check.totalModifier,
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
@@ -192,7 +192,7 @@ export class CheckModifiersDialog extends Application {
 
 interface CheckDialogData {
     appId: string;
-    modifiers: ModifierPF2e[];
+    modifiers: readonly ModifierPF2e[];
     totalModifier: number;
     rollModes: Record<RollMode, string>;
     rollMode: RollMode | undefined;
