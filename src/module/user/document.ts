@@ -15,11 +15,12 @@ class UserPF2e extends User<ActorPF2e> {
         this.flags = mergeObject(
             {
                 pf2e: {
-                    settings: deepClone({
+                    settings: {
                         showEffectPanel: true,
                         showRollDialogs: true,
                         searchPackContents: false,
-                    }),
+                        monochromeDarkvision: true,
+                    },
                 },
             },
             this.flags
@@ -41,8 +42,15 @@ class UserPF2e extends User<ActorPF2e> {
         userId: string
     ): void {
         super._onUpdate(changed, options, userId);
-        if (game.user.id === userId && Object.keys(changed).some((c) => c.includes("showEffectPanel"))) {
+        if (game.user.id !== userId) return;
+
+        const keys = Object.keys(flattenObject(changed));
+        if (keys.includes("flags.pf2e.settings.showEffectPanel")) {
             game.pf2e.effectPanel.refresh();
+        }
+        if (keys.includes("flags.pf2e.settings.monochromeDarkvision") && canvas.ready) {
+            canvas.scene?.reset();
+            canvas.perception.update({ initializeVision: true, refreshLighting: true }, true);
         }
     }
 }
@@ -54,6 +62,7 @@ interface UserPF2e extends User<ActorPF2e> {
 interface UserSettingsPF2e {
     showEffectPanel: boolean;
     showRollDialogs: boolean;
+    monochromeDarkvision: boolean;
     searchPackContents: boolean;
 }
 
