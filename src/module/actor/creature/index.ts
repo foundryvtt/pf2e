@@ -8,6 +8,7 @@ import {
     ensureProficiencyOption,
     ModifierPF2e,
     MODIFIER_TYPE,
+    MODIFIER_TYPES,
     RawModifier,
     StatisticModifier,
 } from "@actor/modifiers";
@@ -34,7 +35,7 @@ import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CheckPF2e, CheckRollContext } from "@system/rolls";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, objectHasKey, traitSlugToObject } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, traitSlugToObject } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -599,7 +600,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const customModifiers = this.toObject().system.customModifiers ?? {};
         const modifiers = customModifiers[stat] ?? [];
         if (!modifiers.some((m) => m.label === label)) {
-            const modifier = new ModifierPF2e({ label, modifier: value, type, predicate, custom: true }).toObject();
+            const modifierType = setHasElement(MODIFIER_TYPES, type) ? type : "untyped";
+            const modifier = new ModifierPF2e({
+                label,
+                modifier: value,
+                type: modifierType,
+                predicate,
+                custom: true,
+            }).toObject();
             if (damageType) {
                 modifier.damageType = damageType;
             }
