@@ -1,13 +1,13 @@
 /** A Token Configuration Application */
 declare class TokenConfig<
     TDocument extends TokenDocument = TokenDocument,
-    TOptions extends FormApplicationOptions = FormApplicationOptions
-> extends FormApplication<TDocument, TOptions> {
+    TOptions extends DocumentSheetOptions = DocumentSheetOptions
+> extends DocumentSheet<TDocument, TOptions> {
     constructor(object: TDocument, options?: Partial<FormApplicationOptions>);
 
     token: TDocument;
 
-    static override get defaultOptions(): FormApplicationOptions;
+    static override get defaultOptions(): DocumentSheetOptions;
 
     override get id(): `token-config-${string}`;
 
@@ -32,12 +32,9 @@ declare class TokenConfig<
 
     override activateListeners(html: JQuery): void;
 
-    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown>;
+    protected override _getSubmitData(updateData?: Record<string, unknown> | null): Record<string, unknown>;
 
-    protected override _updateObject(
-        event: Event,
-        formData: Record<string, unknown>
-    ): Promise<TDocument | TDocument["actor"]>;
+    protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 
     /**
      * Handle Token assignment requests to update the default prototype Token
@@ -49,13 +46,13 @@ declare class TokenConfig<
     protected _onBarChange(event: Event): void;
 }
 
-declare interface TokenConfigData<T extends TokenDocument> extends FormApplicationData<T> {
+declare interface TokenConfigData<T extends TokenDocument> extends DocumentSheetData<T> {
     cssClasses: string;
     isPrototype: boolean;
     hasAlternates: boolean;
     alternateImages: string[];
     object: T["data"];
-    options: Partial<FormApplicationOptions>;
+    options: DocumentSheetOptions;
     gridUnits: string;
     barAttributes: string[];
     bar1: string;
