@@ -1,13 +1,14 @@
 import { ActorPF2e } from "@actor";
+import { CharacterSkill } from "@actor/character/types";
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
-import { askSkillPopupTemplate, getSkills, runEarnIncome } from "./helpers";
+import { askSkillPopupTemplate, runEarnIncome } from "./helpers";
 
 function showEarnIncomePopup(actor: ActorPF2e | undefined): void {
     if (!actor?.isOfType("character")) {
         return ui.notifications.error(`You must select at least one PC`);
     }
 
-    const skills = getSkills(actor);
+    const skills = Object.values(actor.skills).filter((s): s is CharacterSkill => !!s?.proficient);
 
     new Dialog({
         title: "Earn Income",
@@ -25,7 +26,7 @@ function showEarnIncomePopup(actor: ActorPF2e | undefined): void {
                     const level = Number(html.querySelector<HTMLSelectElement>("[name=level]")?.value) || 1;
                     const days = Number(html.querySelector<HTMLInputElement>("[name=days]")?.value) || 1;
                     const skillAcronym = html.querySelector<HTMLSelectElement>("[name=skillAcronym]")?.value ?? "soc";
-                    const skill = skills.find((s) => s.acronym === skillAcronym);
+                    const skill = skills.find((s) => s.slug === skillAcronym);
                     if (!skill) throw ErrorPF2e("Skill not found");
 
                     localStorage.setItem("earnIncomeLevel", level.toString());
