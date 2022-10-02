@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 4.2.1
+
+### Bugfixes
+* (stwlam) Fix dropping conditions on tokens and actor sheets
+* (Supe) Restore raw note functionality to `CheckPF2e`
+
+### Data Updates
+* (Abaddon) Fix nosferatu ability typo
+* (stwlam) Fix predicate of RE on Orc Weapon Carnage
+* (stwlam) Default toggle in Unleash Psyche effect to true
+
+
 ## Version 4.2.0
 
 ### System Improvements
