@@ -17,10 +17,33 @@
         },
         "rules": [
             {
+                "choices": "flags.pf2e.wildShapeForms",
+                "flag": "formEffect",
+                "key": "ChoiceSet",
+                "onDeleteActions": {
+                    "grantee": "cascade",
+                    "granter": "cascade"
+                },
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.WildShape"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.formEffect}"
+            },
+            {
                 "key": "FlatModifier",
                 "label": "Wild Shape",
                 "predicate": [
-                    "battle-form:own-attack-modifier"
+                    "battle-form:own-attack-modifier",
+                    {
+                        "not": "self:effect:pest-form"
+                    }
                 ],
                 "selector": "attack",
                 "type": "status",
