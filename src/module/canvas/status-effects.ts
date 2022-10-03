@@ -228,9 +228,7 @@ export class StatusEffects {
             if (typeof condition?.value === "number") {
                 await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value + 1);
             } else if (objectHasKey(CONFIG.PF2E.conditionTypes, slug)) {
-                const newCondition = game.pf2e.ConditionManager.getCondition(slug).toObject();
-                newCondition.system.sources.hud = true;
-                await token.actor?.createEmbeddedDocuments("Item", [newCondition]);
+                await token.actor?.increaseCondition(slug);
             } else {
                 this.#toggleStatus(event, token);
             }
