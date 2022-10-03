@@ -758,7 +758,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const deadAtZero = ["npcsOnly", "both"].includes(game.settings.get("pf2e", "automation.actorsDeadAtZero"));
         if (this.isOfType("npc") && deadAtZero && this.isDead !== token.combatant?.isDefeated) {
             token.combatant?.toggleDefeated();
-            }
         }
 
         // Send chat message
