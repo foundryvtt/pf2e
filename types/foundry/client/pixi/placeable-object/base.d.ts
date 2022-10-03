@@ -259,6 +259,18 @@ declare global {
         /** Callback actions which occur when a mouse-drag action is first begun. */
         protected _onDragLeftStart(event: PIXI.InteractionEvent): void;
 
+        /**
+         * Begin a drag operation from the perspective of the preview clone.
+         * Modify the appearance of both the clone (this) and the original (_original) object.
+         */
+        protected _onDragStart(): void;
+
+        /**
+         * Conclude a drag operation from the perspective of the preview clone.
+         * Modify the appearance of both the clone (this) and the original (_original) object.
+         */
+        protected _onDragEnd(): void;
+
         /** Callback actions which occur on a mouse-move operation. */
         protected _onDragLeftMove(event: PIXI.InteractionEvent): void;
 

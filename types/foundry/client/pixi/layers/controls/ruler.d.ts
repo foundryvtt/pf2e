@@ -135,7 +135,7 @@ declare global {
          * @param event The drag start event
          * @see {Canvas._onDragLeftStart}
          */
-        protected _onDragStart(event: PIXI.InteractionEvent): void;
+        _onDragStart(event: PIXI.InteractionEvent): void;
 
         /**
          * Handle left-click events on the Canvas during Ruler measurement.
