@@ -32,19 +32,40 @@
             {
                 "key": "Resistance",
                 "predicate": [
-                    "spell-effect-wild-shape",
+                    "self:effect:wild-shape",
                     {
-                        "or": [
-                            "battle-form",
-                            "spell-effect-humanoid-form"
-                        ]
-                    },
-                    {
-                        "not": "spell-effect-plant-form"
+                        "not": "self:effect:plant-form"
                     }
                 ],
                 "type": "poison",
                 "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": "Compendium.pf2e.spell-effects.tu8FyCtmL3YYR2jL"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": "Compendium.pf2e.spell-effects.JrNHFNxJayevlv2G"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": "Compendium.pf2e.spell-effects.fIloZhZVH1xTnX4B"
             }
         ],
         "source": {
