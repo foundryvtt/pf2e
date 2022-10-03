@@ -277,6 +277,9 @@ class StatisticCheck {
         this.label = this.#calculateLabel(data);
         this.domains = (data.domains ?? []).concat(data.check?.domains ?? []);
         this.modifiers = parent.modifiers.concat(data.check?.modifiers ?? []);
+        if (data.check?.domains) {
+            this.modifiers.push(...extractModifiers(parent.actor.synthetics, data.check.domains));
+        }
 
         const rollOptions = parent.createRollOptions(this.domains, options);
         this.#stat = new StatisticModifier(this.label, this.modifiers, rollOptions);
@@ -416,6 +419,9 @@ class StatisticDifficultyClass {
         this.modifiers = (parent.modifiers ?? [])
             .concat(data.dc?.modifiers ?? [])
             .map((modifier) => modifier.clone({ test: rollOptions }));
+        if (data.dc?.domains) {
+            this.modifiers.push(...extractModifiers(parent.actor.synthetics, data.dc.domains));
+        }
 
         this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers).totalModifier;
     }
