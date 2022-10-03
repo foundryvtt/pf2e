@@ -5,6 +5,13 @@
     {{else}}
         <div class="description">{{{enrichedContent.description}}}</section>
     {{/if}}
+
+    {{#unless user.isGM}}
+        {{#if isLoot}}
+            <div class="bulk"><strong>{{localize "PF2E.BulkLabel"}}</strong> {{inventory.bulk.value}}</div>
+        {{/if}}
+    {{/unless}}
+
     {{#if user.isGM}}
         {{#if isLoot}}
             <section class="loot-distribution">
