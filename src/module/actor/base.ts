@@ -755,9 +755,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (hpDamage !== 0) {
             await this.update(hpUpdate.updates);
         }
-        if (this.hitPoints?.value === 0) {
-            const deadAtZero = game.settings.get("pf2e", "automation.actorsDeadAtZero");
-            if (this.type === "npc" && ["npcsOnly", "both"].includes(deadAtZero) && !token.combatant?.isDefeated) {
+        const deadAtZero = game.settings.get("pf2e", "automation.actorsDeadAtZero");
+        if (this.type === "npc" && ["npcsOnly", "both"].includes(deadAtZero) && this.hitPoints) {
+            if (
+                (this.hitPoints.value === 0 && !token.combatant?.isDefeated) ||
+                (this.hitPoints.value > 0 && token.combatant?.isDefeated)
+            ) {
                 token.combatant?.toggleDefeated();
             }
         }
