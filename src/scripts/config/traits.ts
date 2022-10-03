@@ -505,15 +505,18 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
 
 const otherArmorTags: Record<OtherArmorTag, string> = {
     innovation: "PF2E.Item.Physical.OtherTag.Innovation",
+    shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
 
 const otherEquipmentTags: Record<OtherEquipmentTag, string> = {
     implement: "PF2E.Item.Physical.OtherTag.Implement",
+    shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
 
 const otherWeaponTags: Record<OtherWeaponTag, string> = {
     crossbow: "PF2E.Weapon.Base.crossbow",
     improvised: "PF2E.Item.Weapon.Improvised",
+    shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
