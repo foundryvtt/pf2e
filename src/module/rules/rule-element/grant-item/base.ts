@@ -100,6 +100,11 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const grantedSource = grantedItem.toObject();
         grantedSource._id = randomID();
 
+        // Special case until configurable item alterations are supported:
+        if (itemSource.type === "effect" && grantedSource.type === "effect") {
+            grantedSource.system.level.value = itemSource.system?.level?.value ?? grantedSource.system.level.value;
+        }
+
         // Guarantee future alreadyGranted checks pass in all cases by re-assigning sourceId
         grantedSource.flags = mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
 
