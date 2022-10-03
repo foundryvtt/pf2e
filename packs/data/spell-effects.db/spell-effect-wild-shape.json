@@ -17,13 +17,10 @@
         },
         "rules": [
             {
+                "adjustName": false,
                 "choices": "flags.pf2e.wildShapeForms",
                 "flag": "formEffect",
                 "key": "ChoiceSet",
-                "onDeleteActions": {
-                    "grantee": "cascade",
-                    "granter": "cascade"
-                },
                 "predicate": [
                     "feat:wild-shape"
                 ],
@@ -31,6 +28,10 @@
             },
             {
                 "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade",
+                    "granter": "cascade"
+                },
                 "predicate": [
                     "feat:wild-shape"
                 ],
