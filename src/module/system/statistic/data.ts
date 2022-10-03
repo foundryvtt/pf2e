@@ -31,6 +31,7 @@ export interface StatisticData {
     label: string;
     /** If the actor is proficient with this statistic (rather than deriving from rank) */
     proficient?: boolean;
+    lore?: boolean;
     check?: StatisticCheckData;
     dc?: StatisticDifficultyClassData;
     /** Base domains for fetching actor roll options */

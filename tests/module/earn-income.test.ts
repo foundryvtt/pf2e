@@ -18,7 +18,7 @@ describe("earn income", () => {
                 level,
                 days: 1,
                 rollBrief: { dieValue: 1, modifier: 13 },
-                proficiency: "trained",
+                proficiency: 1,
                 options,
                 dc,
             })
@@ -41,7 +41,7 @@ describe("earn income", () => {
                 level,
                 days: 1,
                 rollBrief: { dieValue: 1, modifier: 13 },
-                proficiency: "expert",
+                proficiency: 2,
                 options: { useLoreAsExperiencedProfessional: true },
                 dc,
             })
@@ -67,7 +67,7 @@ describe("earn income", () => {
                 level,
                 days: 1,
                 rollBrief: { dieValue: 2, modifier: 12 },
-                proficiency: "expert",
+                proficiency: 2,
                 options: { useLoreAsExperiencedProfessional: true },
                 dc,
             })
@@ -97,7 +97,7 @@ describe("earn income", () => {
                 level,
                 days: 1,
                 rollBrief: { dieValue: 13, modifier: 1 },
-                proficiency: "legendary",
+                proficiency: 4,
                 options,
                 dc,
             })
@@ -119,7 +119,7 @@ describe("earn income", () => {
                 level,
                 days: 1,
                 rollBrief: { dieValue: 13, modifier: 2 },
-                proficiency: "legendary",
+                proficiency: 4,
                 options,
                 dc,
             })
@@ -144,7 +144,7 @@ describe("earn income", () => {
                 level,
                 days: 5,
                 rollBrief: { dieValue: 13, modifier: 2 },
-                proficiency: "legendary",
+                proficiency: 4,
                 options,
                 dc,
             })
@@ -169,7 +169,7 @@ describe("earn income", () => {
                 level,
                 days: 1,
                 rollBrief: { dieValue: 20, modifier: 20 },
-                proficiency: "legendary",
+                proficiency: 4,
                 options,
                 dc,
             })
@@ -194,7 +194,7 @@ describe("earn income", () => {
                 level: 20,
                 days: 1,
                 rollBrief: { dieValue: 20, modifier: 0 },
-                proficiency: "legendary",
+                proficiency: 4,
                 options,
                 dc,
             })

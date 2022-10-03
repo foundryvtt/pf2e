@@ -491,7 +491,13 @@ declare global {
 
         protected override _onDragLeftDrop(event: TokenInteractionEvent<this>): Promise<TDocument[]>;
 
-        protected override _onDragLeftMove(event: PIXI.InteractionEvent): void;
+        protected override _onDragLeftMove(event: TokenInteractionEvent<this>): void;
+
+        protected override _onDragLeftCancel(event: TokenInteractionEvent<this>): void;
+
+        protected override _onDragStart(): void;
+
+        protected override _onDragEnd(): void;
     }
 
     interface Token {

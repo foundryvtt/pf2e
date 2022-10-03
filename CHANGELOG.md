@@ -1,5 +1,83 @@
 # Changelog
 
+## Version 4.2.1
+
+### Bugfixes
+* (stwlam) Fix dropping conditions on tokens and actor sheets
+* (Supe) Restore raw note functionality to `CheckPF2e`
+
+### Data Updates
+* (Abaddon) Fix nosferatu ability typo
+* (stwlam) Fix predicate of RE on Orc Weapon Carnage
+* (stwlam) Default toggle in Unleash Psyche effect to true
+
+
+## Version 4.2.0
+
+### System Improvements
+* (Cerapter) Add support for strike attack roll substitutions
+* (Forgent) Add logic to snap templates to 30 degree instead of 45 on hex grids
+* (GravenImageRD) Show level in inventory item summaries and for actors in actor directory
+* (GravenImageRD) Add rarity colors to player inventory items
+* (stwlam) Optimize CPU usage of hearing checks
+* (stwlam) Allow sound emission to be overridable for creatures via ActiveEffect-like rule elements
+* (stwlam) Convert predicates to arrays (wiki will be updated with more information)
+* (stwlam) Allow FlatModifier rule elements to only apply to critical damage
+* (stwlam) Make GrantItem `onDelete` actions configurable
+* (stwlam) Set hex-grid-suitable cone rotation increments and default angle
+* (stwlam) Show scrolling text from aura-granted effects only during encounters
+* (Supe) Add ability to restrict item spellcasting to scrolls only
+* (Supe) Add support for class dc proficiencies for spellcasting entries
+* (Supe) Allow choice-less choice sets that support homebrew items
+* (Supe) Always show invest button, and equip the item to the correct slot when investing
+
+### Bugfixes
+* (In3luki) Fix rarity tag height in the Compendium Browser
+* (Supe) Fix display of item uses in inventory
+* (Supe) Fix inline rolls for class dcs
+* (Supe) Show resistance exceptions in hazard IWR
+* (Supe) Fix drag/drop of feats sometimes preventing sheet summary from opening
+* (stwlam) Fix AE-likes modifying crafting entries
+* (stwlam) Fix Proficiency without Level variant not reflecting untrained proficiency penalties
+* (stwlam) Restore inclusion of `critical` property from DamageDice REs
+* (stwlam) Work around upstream issue affecting item creation on synthetic actors
+* (stwlam) Prevent duplicate fatal traits from being added to fatal-aim weapons
+* (tyrielv) Fix overflow for long tag elements
+
+### Data Updates
+* (Abaddon) Add Living Graffiti variants: blood, chalk, and ink
+* (Abaddon) Add clockwork creature malfunction abilities
+* (Abaddon) Add sea skull swarm variants
+* (Abaddon) Fix details of forsaken deities
+* (Abaddon) Localize resistance exceptions from rule elements
+* (Abaddon) Remove damaging-effect from marut's fists of thunder and lightning
+* (Abaddon) Review Bestiary 3 NPCs: living graffiti oil, owb & owb prophet, skull swarms
+* (Abaddon) localize resistance exceptions in B3 rule elements
+* (avagdu) Audit Crystal Dragons
+* (avagdu) Fix description of True Staff of Healing
+* (avagdu) Fix weapon descriptions for BB Skeleton Warrior
+* (Dana) Improve implementation of fatal dice from Student of the Staff
+* (InfamousSky) Add icons to Thaumaturge class features as well as Dark Archive & Blood Lords spells
+* (LebombJames) Fix Greater Thundering Rune description
+* (LebombJames) Fix enervation damage
+* (Manni) Correct action cost of tentacle cannon
+* (Manni) Fix description of Animate Dreamer
+* (rectulo) Fix the range of sturzstromer tremorsense ability
+* (SpartanCPA) Add Rollable button to Gorget of the Primal Roar
+* (SpartanCPA) Add feats for the Psychic Duelist Dedication
+* (stwlam) Fix size of scythe embedded in cow
+* (stwlam) Add rule elements to and update description of cloistered cleric's 4th doctrine
+* (stwlam) Move Pilgrim Token's `tieBreakPriority` override to feat
+* (Tikael) Add Kingmaker backgrounds
+* (Tikael) Add missing Dark Archive and Grand Bazaar equipment
+* (Tikael) Add missing item from Strength of Thousands 4
+* (Tikael) Brushup spell effect REs A-C
+* (Tikael) Fix rule elements on Celestial Armor
+* (Tikael) Fix the title of the Fearsome rune note
+* (Tikael) Fix token name of Gold Tank Broker
+* (TMun) Add NPCs from PFS 4-04
+
+
 ## Version 4.1.3
 
 ### Bugfixes

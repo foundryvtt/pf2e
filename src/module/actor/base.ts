@@ -1121,9 +1121,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     ? Math.clamped(conditionSource.system.value.value, min, max)
                     : null;
             conditionSource.system.value.value = conditionValue;
-            const condition = (await ItemPF2e.create(conditionSource)) as ConditionPF2e | undefined;
+            const items = (await this.createEmbeddedDocuments("Item", [conditionSource])) as ConditionPF2e[];
 
-            return condition ?? null;
+            return items.shift() ?? null;
         }
         return null;
     }

@@ -80,7 +80,7 @@ interface BaseRollContext {
     /** Any options which should be used in the roll. */
     options?: Set<string>;
     /** Any notes which should be shown for the roll. */
-    notes?: RollNotePF2e[];
+    notes?: (RollNotePF2e | RollNoteSource)[];
     /** If true, this is a secret roll which should only be seen by the GM. */
     secret?: boolean;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
@@ -280,9 +280,10 @@ class CheckPF2e {
             roll.data.degreeOfSuccess = degree.value;
         }
 
-        const notes =
-            context.notes
-                ?.filter((note) => {
+        const notes = context.notes?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n))) ?? [];
+        const notesText =
+            notes
+                .filter((note) => {
                     if (!note.predicate.test(rollOptions)) return false;
                     if (!context.dc || note.outcome.length === 0) {
                         // Always show the note if the check has no DC or no outcome is specified.
@@ -318,7 +319,7 @@ class CheckPF2e {
             const header = document.createElement("h4");
             header.classList.add("action");
             header.innerHTML = check.slug;
-            return [header, result ?? [], tags, notes, incapacitation]
+            return [header, result ?? [], tags, notesText, incapacitation]
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
@@ -334,7 +335,7 @@ class CheckPF2e {
             domains: context.domains ?? [],
             target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
             options: Array.from(rollOptions).sort(),
-            notes: (context.notes ?? []).filter((n) => n.predicate.test(rollOptions)).map((n) => n.toObject()),
+            notes: notes.filter((n) => n.predicate.test(rollOptions)).map((n) => n.toObject()),
             secret,
             rollMode: secret ? "blindroll" : context.rollMode ?? game.settings.get("core", "rollMode"),
             rollTwice: context.rollTwice ?? false,

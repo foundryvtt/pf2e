@@ -212,7 +212,12 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
     private choicesFromPath(path: string): PickableThing<string>[] {
         const choiceObject: unknown = getProperty(CONFIG.PF2E, path) ?? getProperty(this.actor, path) ?? {};
-        if (isObject<string>(choiceObject) && Object.values(choiceObject).every((c) => typeof c === "string")) {
+        if (
+            Array.isArray(choiceObject) &&
+            choiceObject.every((c) => isObject<{ value: string }>(c) && typeof c.value === "string")
+        ) {
+            return choiceObject;
+        } else if (isObject<string>(choiceObject) && Object.values(choiceObject).every((c) => typeof c === "string")) {
             return Object.entries(choiceObject).map(([value, label]) => ({
                 value,
                 label: String(label),

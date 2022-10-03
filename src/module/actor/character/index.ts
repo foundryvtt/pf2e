@@ -167,6 +167,7 @@ class CharacterPF2e extends CreaturePF2e {
             skills[key] = mergeObject(skill, {
                 rank: data.rank,
                 ability: data.ability,
+                proficient: data.rank >= 1,
                 abilityModifier: data.modifiers.find((m) => m.enabled && m.type === "ability") ?? null,
             });
         }
@@ -556,7 +557,7 @@ class CharacterPF2e extends CreaturePF2e {
         // Perception
         {
             const domains = ["perception", "wis-based", "all"];
-            const proficiencyRank = systemData.attributes.perception.rank || 0;
+            const proficiencyRank = systemData.attributes.perception.rank;
             const modifiers = [
                 createAbilityModifier({ actor: this, ability: "wis", domains }),
                 ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank),
@@ -1469,7 +1470,7 @@ class CharacterPF2e extends CreaturePF2e {
             .filter((p): p is MartialProficiency => "definition" in p && p.definition.test(weaponProficiencyOptions))
             .map((p) => p.rank);
 
-        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks);
+        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
         weaponRollOptions.push(`weapon:proficiency:rank:${proficiencyRank}`);
 

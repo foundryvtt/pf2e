@@ -75,10 +75,14 @@ export class Statistic {
 
     label: string;
 
+    /** If this is a skill, returns whether it is a lore skill or not */
+    lore?: boolean;
+
     constructor(public actor: ActorPF2e, data: StatisticData, public options?: RollOptionParameters) {
         this.#data = data;
         this.slug = data.slug;
         this.ability = data.ability ?? null;
+        this.lore = data.lore;
         this.label = game.i18n.localize(data.label);
 
         // Add some base modifiers depending on data values

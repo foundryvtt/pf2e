@@ -182,6 +182,15 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenC
         }
     }
 
+    /** Readd scale property to form data if input is disabled: necessary for mirroring checkboxes to function */
+    protected override _getSubmitData(updateData: Record<string, unknown> | null = {}): Record<string, unknown> {
+        const changes = updateData ?? {};
+        if (this.form.querySelector<HTMLInputElement>("input[name=scale]")?.disabled) {
+            changes["scale"] = Math.abs(this.object._source.texture.scaleX);
+        }
+        return super._getSubmitData(changes);
+    }
+
     protected override async _updateObject(event: Event, formData: Record<string, unknown>) {
         if (formData["flags.pf2e.linkToActorSize"] === true) {
             if (this.actor instanceof VehiclePF2e) {
