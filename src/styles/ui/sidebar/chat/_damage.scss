@@ -148,63 +148,46 @@
 > .message-content {
     .chat-damage-buttons {
         display: flex;
+        justify-content: center;
         margin-top: 3px;
 
         button {
             flex: 1 1 0;
             font-size: var(--font-size-18);
             line-height: 0.5em;
-            position: relative;
-            width: 52px;
 
-            > i {
-                left: 1px;
-                margin-right: 3px;
+            &.half-damage {
                 position: relative;
-                top: 1px;
-                vertical-align: top;
-            }
 
-             .transparent-half {
-                background: rgb(248, 247, 233);
-                display: block;
-                height: 24px;
-                left: 48%;
-                opacity: 0.6;
-                position: absolute;
-                top: 0px;
-                width: 16px;
-            }
-
-            .plus {
-                color: rgba(248, 247, 233);
-                font-size: var(--font-size-17);
-                font-weight: bold;
-                left: 40%;
-                position: absolute;
-                top: 6px;
+                .transparent-half {
+                    background: rgb(248, 247, 233);
+                    display: block;
+                    height: 24px;
+                    left: 49%;
+                    opacity: 0.6;
+                    position: absolute;
+                    top: 0px;
+                    width: 10px;
+                }
             }
 
             > img {
                 border: none;
-                height: 19px;
-                position: relative;
-                top: 2px;
+                height: var(--font-size-18);
+            }
+
+            &.heal-damage .fa-stack {
+                font-size: 0.5em;
+
+                i.fa-plus {
+                    font-size: var(--font-size-10);
+                }
             }
 
             .label {
-                font-size: 0.4em;
+                font-size: var(--font-size-9);
+                font-weight: 500;
                 text-transform: uppercase;
-            }
-        }
-
-        // Slightly reposition elements if the triple-damage button is in
-        &.includes-fumble {
-            > button.triple-damage > img {
-                left: -1px;
-            }
-            span.plus {
-                left: 16px;
             }
         }
     }
