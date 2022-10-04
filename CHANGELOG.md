@@ -1,5 +1,32 @@
 # Changelog
 
+## Version 4.2.2
+
+### New Features
+* (stwlam) Add GM Vision (keybinding defaults to CTRL-G) as means of brightening dark scenes
+
+### System Improvements
+* (stwlam) Have wild shape effect grant battle form effect
+* (xdy) Show players the total bulk for Loot actors they own
+* (xdy) Toggle defeated state for npcs when healed to above 0 hp when defeated
+
+### Bugfixes
+* (stwlam) Prevent multiple conditions of the same type from being created from token HUD
+* (stwlam) Defer validation of damage dice overrides
+* (stwlam) Fix display of level in actor directory for level-zero actors
+* (Supe) Restore modifier acquisition for spell attack modifiers and DCs
+* (Supe) Fix display of drag gap and mystified name in encounter view popouts
+* (Supe) Fix start of turn status message
+
+### Data Updates
+* (Manni) Localize label for Pack Attack
+* (rectulo) Fix prereq format in psychic duelist dedication
+* (stwlam) Set range of Spined Azerketi's unarmed attack
+* (Surge) Remove incorrect label from Death Ward spell effect
+* (Tikael) Add Hispanic Heritage Month Paizo blog items
+* (Tikael) Fix inline check in Psi Burst
+
+
 ## Version 4.2.1
 
 ### Bugfixes
