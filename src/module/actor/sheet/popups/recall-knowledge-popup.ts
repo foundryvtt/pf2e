@@ -24,7 +24,7 @@ export class RecallKnowledgePopup extends Application {
             skills: Array.from(data.skills)
                 .sort()
                 .map((skill) => ({
-                    name: CONFIG.PF2E.skills[skill],
+                    name: CONFIG.PF2E.skillList[skill],
                     attempts: this.padAttempts(data.skill.progression),
                 })),
         };

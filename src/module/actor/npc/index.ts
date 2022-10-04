@@ -9,6 +9,7 @@ import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "
 import { ItemPF2e, MeleePF2e } from "@item";
 import { ItemType } from "@item/data";
 import { RollNotePF2e } from "@module/notes";
+import { identifyCreature } from "@module/recall-knowledge";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -121,6 +122,9 @@ class NPCPF2e extends CreaturePF2e {
         if (details.alliance === undefined) {
             details.alliance = this.hasPlayerOwner ? "party" : "opposition";
         }
+
+        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+        details.identification = identifyCreature(this, { proficiencyWithoutLevel });
     }
 
     /** The NPC level needs to be known before the rest of the weak/elite adjustments */
