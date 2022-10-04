@@ -306,7 +306,7 @@ export class StatusEffects {
             <div class="dice-roll">
                 <div class="dice-result">
                     <div class="dice-total statuseffect-message">
-                        <ul>${statusEffectList.join(", ")}</ul>
+                        <ul>${statusEffectList.join("")}</ul>
                     </div>
                 </div>
             </div>
