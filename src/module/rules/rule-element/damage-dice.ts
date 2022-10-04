@@ -112,7 +112,16 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
             if (this.override) {
                 this.override.damageType &&= this.resolveInjectedProperties(this.override.damageType);
+                if ("damageType" in this.override && !setHasElement(DAMAGE_TYPES, this.override.damageType)) {
+                    this.failValidation("Unrecognized damage type in override");
+                    return null;
+                }
+
                 this.override.dieSize &&= this.resolveInjectedProperties(this.override.dieSize);
+                if ("dieSize" in this.override && !setHasElement(DAMAGE_DIE_FACES, this.override.dieSize)) {
+                    this.failValidation("Unrecognized die size in override");
+                    return null;
+                }
             }
 
             return new DamageDicePF2e({
@@ -141,8 +150,6 @@ class DamageDiceRuleElement extends RuleElementPF2e {
             isObject<DamageDiceOverride>(override) &&
             ((typeof override.upgrade === "boolean" && !("downgrade" in override)) ||
                 (typeof override.downgrade === "boolean" && !("upgrade" in override)) ||
-                setHasElement(DAMAGE_DIE_FACES, override.dieSize) ||
-                setHasElement(DAMAGE_TYPES, override.damageType) ||
                 (typeof override.diceNumber === "number" &&
                     Number.isInteger(override.diceNumber) &&
                     override.diceNumber > 0 &&
