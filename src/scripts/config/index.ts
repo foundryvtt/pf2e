@@ -1995,4 +1995,11 @@ export const PF2ECONFIG = {
     },
 
     JournalEntry: { sheetClass: JournalSheetPF2e },
+
+    Canvas: {
+        darkness: {
+            default: CONFIG.Canvas.darknessColor,
+            gmVision: 0x6a6791,
+        },
+    },
 };

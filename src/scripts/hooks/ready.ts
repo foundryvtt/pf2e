@@ -79,6 +79,17 @@ export const Ready = {
             // Some of game.pf2e must wait until the ready phase
             SetGamePF2e.onReady();
 
+            // Set darkness color according to GM Vision setting
+            if (
+                canvas.ready &&
+                game.user.isGM &&
+                !game.modules.get("perfect-vision")?.active &&
+                game.settings.get("pf2e", "gmVision")
+            ) {
+                CONFIG.Canvas.darknessColor = CONFIG.PF2E.Canvas.darkness.gmVision;
+                canvas.colorManager.initialize();
+            }
+
             // In case there's no canvas, run Condition Manager initialization from this hook as well
             game.pf2e.ConditionManager.initialize();
 

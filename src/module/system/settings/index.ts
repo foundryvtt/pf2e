@@ -232,6 +232,20 @@ export function registerSettings() {
         type: Boolean,
     });
 
+    // Increase brightness of darkness color for GMs
+    game.settings.register("pf2e", "gmVision", {
+        name: "PF2E.SETTINGS.GMVision",
+        scope: "client",
+        config: false,
+        default: false,
+        type: Boolean,
+        onChange: (value) => {
+            const color = value ? CONFIG.PF2E.Canvas.darkness.gmVision : CONFIG.PF2E.Canvas.darkness.default;
+            CONFIG.Canvas.darknessColor = color;
+            canvas.colorManager.initialize();
+        },
+    });
+
     if (BUILD_MODE === "production") {
         registerWorldSchemaVersion();
     }
