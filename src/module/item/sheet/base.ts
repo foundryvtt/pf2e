@@ -11,7 +11,16 @@ import {
     TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, sluggify, sortStringRecord, tupleHasValue, objectHasKey, tagify, htmlQueryAll } from "@util";
+import {
+    ErrorPF2e,
+    sluggify,
+    sortStringRecord,
+    tupleHasValue,
+    objectHasKey,
+    tagify,
+    htmlQueryAll,
+    htmlQuery,
+} from "@util";
 import type * as TinyMCE from "tinymce";
 import { CodeMirror } from "./codemirror";
 import { ItemSheetDataPF2e } from "./data-types";
@@ -333,6 +342,24 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         // Update Tab visibility (in case this is a tab without a sidebar)
         this.updateSidebarVisibility(this._tabs[0].active);
+
+        // Lore items
+        htmlQuery(html, ".add-skill-variant")?.addEventListener("click", (): void => {
+            if (!this.item.isOfType("lore")) return;
+            const variants = this.item.system.variants ?? {};
+            const index = Object.keys(variants).length;
+            this.item.update({
+                [`system.variants.${index}`]: { label: "+X in terrain", options: "" },
+            });
+        });
+
+        for (const button of htmlQueryAll(html, ".skill-variants .remove-skill-variant")) {
+            button.addEventListener("click", (event): void => {
+                if (!(event.currentTarget instanceof HTMLElement)) return;
+                const index = event.currentTarget.dataset.skillVariantIndex;
+                this.item.update({ [`system.variants.-=${index}`]: null });
+            });
+        }
     }
 
     /** When tabs are changed, change visibility of elements such as the sidebar */
