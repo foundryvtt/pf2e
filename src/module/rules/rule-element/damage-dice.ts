@@ -162,7 +162,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
     #resolvedBracketsIsValid(value: unknown): value is ResolvedBrackets {
         if (!isObject<ResolvedBrackets>(value)) return false;
         const keysAreValid = Object.keys(value).every((k) => ["diceNumber", "dieSize", "override"].includes(k));
-        const diceNumberIsValid = !("diceNumber" in value) || typeof value.diceNumber === "number";
+        const diceNumberIsValid = !("diceNumber" in value) || ["number", "string"].includes(typeof value.diceNumber);
         const dieSizeIsValid = !("dieSize" in value) || setHasElement(DAMAGE_DIE_FACES, value.dieSize);
         const overrideIsValid = !("override" in value) || this.#isValidOverride(value.override);
         return keysAreValid && diceNumberIsValid && dieSizeIsValid && overrideIsValid;
