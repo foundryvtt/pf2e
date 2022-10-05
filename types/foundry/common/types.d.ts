@@ -87,9 +87,9 @@ declare global {
         /** The default bindings that can be changed by the user. */
         editable?: KeybindingActionBinding[];
         /** A function to execute when a key down event occurs. If True is returned, the event is consumed and no further keybinds execute. */
-        onDown?: (...args: unknown[]) => boolean;
+        onDown?: (context: KeyboardEventContext) => boolean | void;
         /** A function to execute when a key up event occurs. If True is returned, the event is consumed and no further keybinds execute. */
-        onUp?: (...args: unknown[]) => boolean;
+        onUp?: (context: KeyboardEventContext) => boolean | void;
         /** If True, allows Repeat events to execute the Action's onDown. Defaults to false. */
         repeat?: boolean;
         /** If true, only a GM can edit and execute this Action */

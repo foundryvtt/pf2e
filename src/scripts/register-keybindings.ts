@@ -13,6 +13,10 @@ export function registerKeybindings(): void {
             hint: "PF2E.Keybinding.GMVision.Hint",
             editable: [{ key: "KeyG", modifiers: ["Control"] }],
             restricted: true,
+            onDown: (context: KeyboardEventContext): boolean => {
+                context.event.preventDefault();
+                return true;
+            },
             onUp: (): boolean => {
                 game.settings.set("pf2e", "gmVision", !game.settings.get("pf2e", "gmVision"));
                 return true;
