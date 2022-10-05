@@ -62,12 +62,16 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource> {
             ? "object"
             : "primitive";
 
+        const selectors = [this.rule.selector ?? []].flat();
+        const isDamage = selectors.some((s) => String(s).endsWith("damage"));
+
         return {
             ...data,
             selectorIsArray: Array.isArray(this.rule.selector),
             abilities: CONFIG.PF2E.abilities,
             types: [...MODIFIER_TYPES].filter((type) => type !== "untyped"),
             damageCategories: CONFIG.PF2E.damageCategories,
+            isDamage,
             value: {
                 mode: valueMode,
                 data: this.rule.value,
@@ -101,15 +105,7 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource> {
         }
 
         // Remove empty string, null, or falsy values for certain optional parameters
-        for (const optional of [
-            "label",
-            "type",
-            "min",
-            "max",
-            "damageType",
-            "damageCategory",
-            "hideIfDisabled",
-        ] as const) {
+        for (const optional of ["label", "type", "damageType", "damageCategory", "hideIfDisabled"] as const) {
             if (!formData[optional]) {
                 delete formData[optional];
             }
