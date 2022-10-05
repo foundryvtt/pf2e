@@ -150,6 +150,8 @@ class DamageDiceRuleElement extends RuleElementPF2e {
             isObject<DamageDiceOverride>(override) &&
             ((typeof override.upgrade === "boolean" && !("downgrade" in override)) ||
                 (typeof override.downgrade === "boolean" && !("upgrade" in override)) ||
+                typeof override.damageType === "string" ||
+                typeof override.dieSize === "string" ||
                 (typeof override.diceNumber === "number" &&
                     Number.isInteger(override.diceNumber) &&
                     override.diceNumber > 0 &&
