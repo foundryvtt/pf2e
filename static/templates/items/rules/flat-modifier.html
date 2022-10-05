@@ -83,7 +83,7 @@
     </div>
 {{/if}}
 
-{{#unless (eq rule.type "ability")}}
+{{#if isDamage}}
 <div class="form-group">
     <label class="short">{{localize "PF2E.RuleEditor.General.DamageType"}}</label>
     <div class="spaced-fields details-container-flex-row">
@@ -92,15 +92,9 @@
             {{localize "PF2E.TraitPrecision"}}
             <input type="checkbox" name="system.rules.{{index}}.damageCategory" value="precision" data-dtype="String" {{checked (eq rule.damageCategory "precision")}}/>
         </label>
-        <label>Value Range</label>
-        <div class="range">
-            <input type="number" name="system.rules.{{index}}.min" value="{{rule.min}}">
-            -
-            <input type="number" name="system.rules.{{index}}.max" value="{{rule.max}}">
-        </div>
     </div>
 </div>
-{{/unless}}
+{{/if}}
 
 <div class="form-group">
     <label class="short">{{localize "PF2E.RuleEditor.General.Predicate"}}</label>

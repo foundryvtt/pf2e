@@ -14,7 +14,7 @@ function coerceNumber<T extends string | unknown>(value: T): T | number {
 class RuleElementForm<TSource extends RuleElementSource = RuleElementSource> {
     template = "systems/pf2e/templates/items/rules/default.html";
     constructor(protected item: ItemPF2e, protected index: number, protected rule: TSource) {}
-    async getData(): Promise<{ index: number; rule: TSource }> {
+    async getData(): Promise<RuleElementSheetData<TSource>> {
         return {
             index: this.index,
             rule: this.rule,
@@ -38,6 +38,11 @@ class RuleElementForm<TSource extends RuleElementSource = RuleElementSource> {
 
     activateListeners(_html: HTMLElement): void {}
     _updateObject(_formData: Partial<Record<string, unknown>>): void {}
+}
+
+interface RuleElementSheetData<TSource> {
+    index: number;
+    rule: TSource;
 }
 
 export { RuleElementForm, coerceNumber };
