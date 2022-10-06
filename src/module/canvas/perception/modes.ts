@@ -30,6 +30,18 @@ class VisionDetectionMode extends DetectionModeBasicSight {
         });
     }
 
+    /** Short-circuit test to false if token is GM-hidden */
+    override testVisibility(
+        visionSource: VisionSource<Token>,
+        mode: TokenDetectionMode,
+        config?: CanvasVisibilityTestConfig
+    ): boolean {
+        return (
+            !(config?.object instanceof PlaceableObject && config.object.document.hidden) &&
+            super.testVisibility(visionSource, mode, config)
+        );
+    }
+
     protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
         if (!super._canDetect(visionSource, target)) return false;
         const targetIsUndetected =
@@ -54,6 +66,19 @@ class HearingDetectionMode extends DetectionMode {
         }));
         filter.thickness = 1;
         return filter;
+    }
+
+    /** Short-circuit test to false if token is GM-hidden */
+    override testVisibility(
+        visionSource: VisionSource<Token>,
+        mode: TokenDetectionMode,
+        config?: CanvasVisibilityTestConfig
+    ): boolean {
+        return (
+            config?.object instanceof TokenPF2e &&
+            !config.object.document.hidden &&
+            super.testVisibility(visionSource, mode, config)
+        );
     }
 
     protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {

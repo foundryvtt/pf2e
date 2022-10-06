@@ -509,6 +509,7 @@ const traitsDescriptions = {
     manipulate: "PF2E.TraitDescriptionManipulate",
     mechanical: "PF2E.TraitDescriptionMechanical",
     mental: "PF2E.TraitDescriptionMental",
+    metal: "PF2E.TraitDescriptionMetal",
     metamagic: "PF2E.TraitDescriptionMetamagic",
     mindless: "PF2E.TraitDescriptionMindless",
     minion: "PF2E.TraitDescriptionMinion",
