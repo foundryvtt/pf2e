@@ -1,5 +1,22 @@
 # Changelog
 
+## Version 4.2.3
+
+### System Improvements
+* (stwlam) Improve performance when moving multiple tokens with vision
+* (Supe) Only show FlatModifier damage row for damage selectors in form
+
+### Bugfixes
+* (JDCalvert) Fix damage dice validation for damageType and dieSize overrides
+* (stwlam) Prevent browser-defined default actions for CTRL-G keypress
+
+### Data Updates
+* (LebombJames) Fix Battle Oracle Curse Effect predicates
+* (redeux) Fix minor errors in Iconic sheets
+* (Tikael) Link Treat Wounds macro in Treat Wounds action
+* (TMun) Add Damaj's Gloves
+
+
 ## Version 4.2.2
 
 ### New Features
