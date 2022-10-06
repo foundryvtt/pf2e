@@ -74,6 +74,7 @@ const elementalTraits = {
     air: "PF2E.TraitAir",
     earth: "PF2E.TraitEarth",
     fire: "PF2E.TraitFire",
+    metal: "PF2E.TraitMetal",
     water: "PF2E.TraitWater",
 };
 
