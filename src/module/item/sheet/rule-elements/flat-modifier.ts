@@ -98,10 +98,13 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource> {
         }
 
         // Flat Modifier types may have mutually exclusive properties
-        if (formData.type === "ability") {
-            delete formData.value;
+        delete formData[formData.type === "ability" ? "value" : "ability"];
+
+        // Critical is optional if empty string but empty isn't the same as false or true
+        if (formData.critical === "") {
+            delete formData.critical;
         } else {
-            delete formData.ability;
+            formData.critical = formData.critical === "true" ? true : false;
         }
 
         // Remove empty string, null, or falsy values for certain optional parameters

@@ -68,7 +68,7 @@
 {{#if (eq value.mode "brackets")}}
     <div class="brackets">
         {{#each rule.value.brackets as |bracket idx|}}
-            <div class="bracket details-container-flex-row">
+            <div class="bracket details-container-flex-row spaced-fields">
                 <label>{{localize "PF2E.RuleEditor.General.Range"}}</label>
                 <div class="range">
                     <input type="number" name="system.rules.{{@root.index}}.value.brackets.{{idx}}.start" value="{{bracket.start}}">
@@ -92,6 +92,13 @@
             {{localize "PF2E.TraitPrecision"}}
             <input type="checkbox" name="system.rules.{{index}}.damageCategory" value="precision" data-dtype="String" {{checked (eq rule.damageCategory "precision")}}/>
         </label>
+        <select name="system.rules.{{index}}.critical">
+            {{#select rule.critical}}
+                <option value="">{{localize "PF2E.RuleEditor.General.CriticalBehavior.null"}}</option>
+                <option value="false">{{localize "PF2E.RuleEditor.General.CriticalBehavior.false"}}</option>
+                <option value="true">{{localize "PF2E.RuleEditor.General.CriticalBehavior.true"}}</option>
+            {{/select}}
+        </select>
     </div>
 </div>
 {{/if}}
