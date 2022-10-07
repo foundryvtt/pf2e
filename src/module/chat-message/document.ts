@@ -128,7 +128,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const actor = this.actor;
         if (!actor?.isOfType("character", "npc")) return null;
 
-        // Get the strike index from either the flags or the dom. In the case of roll macros its in the DOM
+        // Get the strike index from either the flags or the DOM. In the case of roll macros, it's in the DOM
         const roll = this.rolls.at(0);
         const strikeIndex = (() => {
             if (roll instanceof StrikeAttackRoll) return roll.data.strike?.index;
