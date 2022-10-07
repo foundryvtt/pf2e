@@ -11,6 +11,7 @@ import { ChatRollDetails } from "./chat-roll-details";
 import { StrikeData } from "@actor/data/base";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { StrikeAttackRoll } from "@system/check/strike/attack-roll";
+import { htmlQuery } from "@util";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -127,9 +128,16 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const actor = this.actor;
         if (!actor?.isOfType("character", "npc")) return null;
 
+        // Get the strike index from either the flags or the DOM. In the case of roll macros, it's in the DOM
         const roll = this.rolls.at(0);
-        if (roll instanceof StrikeAttackRoll && roll.data.strike) {
-            const strikeIndex = roll.data.strike.index;
+        const strikeIndex = (() => {
+            if (roll instanceof StrikeAttackRoll) return roll.data.strike?.index;
+            const messageHTML = htmlQuery(ui.chat.element[0], `li[data-message-id="${this.id}"]`);
+            const chatCard = htmlQuery(messageHTML, ".chat-card");
+            return chatCard?.dataset.strikeIndex === undefined ? undefined : Number(chatCard?.dataset.strikeIndex);
+        })();
+
+        if (typeof strikeIndex === "number") {
             const altUsage = this.flags.pf2e.context?.altUsage ?? null;
             const action = actor.system.actions.at(strikeIndex) ?? null;
             return altUsage
