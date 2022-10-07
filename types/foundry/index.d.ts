@@ -46,6 +46,7 @@ import "./client/application/sidebar/sidebar-tab/sidebar-directory/item-director
 import "./client/application/sidebar/sidebar-tab/sidebar-directory/roll-table-directory";
 import "./client/application/templates";
 import "./client/apps/forms/fonts";
+import "./client/apps/sidebar";
 import "./client/collections/compendium-collection";
 import "./client/collections/document-collection";
 import "./client/collections/world-collection/actors";
