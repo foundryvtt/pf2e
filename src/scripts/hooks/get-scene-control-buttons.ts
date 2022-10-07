@@ -29,17 +29,16 @@ export const GetSceneControlButtons = {
             if (!(lightingControls && lightingTools && dayTool)) return;
 
             // Scene Darkness Adjuster
-
             if (lightingControls.visible && SceneDarknessAdjuster.instance.rendered) {
                 SceneDarknessAdjuster.instance.close({ force: true });
             }
-
-            lightingTools.splice(lightingTools?.indexOf(dayTool), 0, {
+            const adjusterTool: SceneControlTool = {
                 name: "darkness-adjuster",
                 title: "CONTROLS.AdjustSceneDarkness",
-                icon: "fas fa-adjust",
+                icon: "fa-solid fa-adjust",
                 visible: game.user.isGM && game.settings.get("pf2e", "automation.rulesBasedVision"),
                 toggle: true,
+                active: false,
                 onClick: (): void => {
                     const adjuster = SceneDarknessAdjuster.instance;
                     if (adjuster.rendered) {
@@ -48,7 +47,40 @@ export const GetSceneControlButtons = {
                         adjuster.render(true);
                     }
                 },
-            });
+            };
+
+            // GM Vision
+            const gmVisionTool = ((): SceneControlTool | null => {
+                const binding = game.keybindings.actions.get("pf2e.gm-vision")?.editable?.[0];
+                if (!binding) return null;
+
+                const gmVisionLabel = game.i18n.localize("PF2E.Keybinding.GMVision.Label");
+                const bindingLabel = KeybindingsConfig._humanizeBinding(binding);
+                const gmVisionIcon = (active = game.settings.get("pf2e", "gmVision")): string =>
+                    active ? "fa-solid fa-lightbulb-cfl-on" : "fa-solid fa-lightbulb-cfl";
+
+                return {
+                    name: "gm-vision",
+                    title: `${gmVisionLabel} [${bindingLabel}]`,
+                    icon: gmVisionIcon(),
+                    visible: game.user.isGM,
+                    toggle: true,
+                    active: game.settings.get("pf2e", "gmVision"),
+                    onClick: (): void => {
+                        const newStatus = !game.settings.get("pf2e", "gmVision");
+                        game.settings.set("pf2e", "gmVision", newStatus);
+                        const toggle = ui.controls.control?.tools.find((t) => t.name === "gm-vision");
+                        if (toggle) {
+                            toggle.active = newStatus;
+                            toggle.icon = gmVisionIcon(newStatus);
+                            ui.controls.render();
+                        }
+                    },
+                };
+            })();
+
+            const tools = [adjusterTool, gmVisionTool ?? []].flat();
+            lightingTools.splice(lightingTools?.indexOf(dayTool), 0, ...tools);
         });
     },
 };
