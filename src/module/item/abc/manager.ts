@@ -135,20 +135,6 @@ export class AncestryBackgroundClassManager {
                     })
                 );
             }
-            // Get feats from the game.items collection
-            const worldEntries = entries.filter((e) => e.uuid.startsWith("Item."));
-            feats.push(
-                ...worldEntries.map((entry) => {
-                    const item = fromUuidSync(entry.uuid);
-                    if (item instanceof FeatPF2e) {
-                        const source = item.toObject();
-                        source._id = randomID(16);
-                        return source;
-                    } else {
-                        throw ErrorPF2e("Invalid item type referenced in ABCFeatureEntryData");
-                    }
-                })
-            );
         }
         return feats;
     }
