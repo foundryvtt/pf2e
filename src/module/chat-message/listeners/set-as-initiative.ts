@@ -11,7 +11,7 @@ export const SetAsInitiative = {
             const btnStyling = "width: 22px; height:22px; font-size:10px;line-height:1px";
             const initiativeButtonTitle = game.i18n.localize("PF2E.ClickToSetInitiative");
             const setInitiativeButton = $(
-                `<button class="dice-total-setInitiative-btn" style="${btnStyling}"><i class="fas fa-fist-raised" title="${initiativeButtonTitle}"></i></button>`
+                `<button class="dice-total-setInitiative-btn" style="${btnStyling}"><i class="fa-solid fa-swords" title="${initiativeButtonTitle}"></i></button>`
             );
             const btnContainer = $(
                 '<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>'
