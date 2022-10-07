@@ -3,7 +3,7 @@ import { AbilityString } from "@actor/types";
 import { SpellPF2e } from "@item";
 import { extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
-import { BaseSpellcastingEntry } from "./data";
+import { BaseSpellcastingEntry, CastOptions } from "./data";
 
 export const TRICK_MAGIC_SKILLS = ["arcana", "nature", "occultism", "religion"] as const;
 export type TrickMagicItemSkill = typeof TRICK_MAGIC_SKILLS[number];
@@ -81,12 +81,14 @@ export class TrickMagicItemEntry implements BaseSpellcastingEntry {
         });
     }
 
-    async cast(spell: SpellPF2e, options: { level?: number } = {}): Promise<void> {
-        const slotLevel = options.level ?? spell.level;
-        const castLevel = spell.computeCastLevel(slotLevel);
+    async cast(spell: SpellPF2e, options: CastOptions = {}): Promise<void> {
+        const { rollMode, message } = options;
+        const castLevel = spell.computeCastLevel(spell.level);
+        if (message === false) return;
+
         try {
             spell.trickMagicEntry = this;
-            await spell.toMessage(undefined, { data: { castLevel } });
+            await spell.toMessage(undefined, { rollMode, data: { castLevel } });
         } finally {
             spell.trickMagicEntry = null;
         }
