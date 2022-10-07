@@ -1225,17 +1225,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
+        // Send any accrued warnings to the console
+        this.synthetics.preparationWarnings.flush();
+
         if (this.isToken) {
             return super._onEmbeddedDocumentChange(embeddedName);
         }
 
-        for (const tokenDoc of this.getActiveTokens(true, true)) {
-            tokenDoc._onUpdateBaseActor();
+        // For linked tokens, replace parent method with alternative workflow to control canvas re-rendering
+        const tokenDocs = this.getActiveTokens(true, true);
+        for (const tokenDoc of tokenDocs) {
+            tokenDoc.onActorEmbeddedItemChange();
         }
-
-        // Send any accrued warnings to the console
-        this.synthetics.preparationWarnings.flush();
-        super._onEmbeddedDocumentChange(embeddedName);
     }
 }
 
