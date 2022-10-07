@@ -1,6 +1,6 @@
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CheckPF2e } from "@system/rolls";
-import { ErrorPF2e } from "@util";
+import { ErrorPF2e, fontAwesomeIcon } from "@util";
 
 export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     protected override _getEntryContextOptions(): EntryContextOption[] {
@@ -100,7 +100,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.ClickToSetInitiativeContext",
-                icon: '<i class="fas fa-fist-raised"></i>',
+                icon: fontAwesomeIcon("swords").outerHTML,
                 condition: canApplyInitiative,
                 callback: ($li) => {
                     const message = game.messages.get($li.attr("data-message-id") ?? "", { strict: true });
