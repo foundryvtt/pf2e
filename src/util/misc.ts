@@ -149,7 +149,7 @@ const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|(?:${wordBou
 function sluggify(text: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
     // Sanity check
     if (typeof text !== "string") {
-        ui.notifications.warn("Non-string argument passed to `sluggify`");
+        console.warn("Non-string argument passed to `sluggify`");
         return "";
     }
 
