@@ -113,7 +113,7 @@ declare global {
          *
          * @see {SightLayer#testVisibility}
          */
-        get isVisible(): boolean;
+        get isVisible(): boolean | undefined;
 
         /** The animation name used for Token movement */
         get movementAnimationName(): string;
