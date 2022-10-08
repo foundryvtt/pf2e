@@ -198,6 +198,8 @@ declare global {
             data: PreCreate<T["_source"]>[] | PreCreate<T["_source"]>,
             context?: ChatMessageModificationContext
         ): Promise<T[] | T | undefined>;
+
+        const implementation: typeof ChatMessage;
     }
 
     interface ChatMessageModificationContext extends DocumentModificationContext {
