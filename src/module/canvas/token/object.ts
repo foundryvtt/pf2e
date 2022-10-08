@@ -16,6 +16,11 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** The promise returned by the last call to `Token#_draw()` */
     private drawLock?: Promise<void>;
 
+    /** Guarantee boolean return */
+    override get isVisible(): boolean {
+        return super.isVisible ?? false;
+    }
+
     /** Is this token currently animating? */
     get isAnimating(): boolean {
         return !!this._animation;
@@ -221,6 +226,8 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Emit floaty text from this tokens */
     async showFloatyText(params: number | ShowFloatyEffectParams): Promise<void> {
+        if (!this.isVisible) return;
+
         const scrollingTextArgs = ((): Parameters<CanvasPF2e["interface"]["createScrollingText"]> | null => {
             if (typeof params === "number") {
                 const quantity = params;
