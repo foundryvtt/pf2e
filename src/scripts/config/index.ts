@@ -1459,6 +1459,7 @@ export const PF2ECONFIG = {
         alghollthu: "PF2E.LanguageAlghollthu",
         amurrun: "PF2E.LanguageAmurrun",
         anadi: "PF2E.LanguageAnadi",
+        "ancient-osiriani": "PF2E.LanguageAncientOsiriani",
         anugobu: "PF2E.LanguageAnugobu",
         arcadian: "PF2E.LanguageArcadian",
         aquan: "PF2E.LanguageAquan",
