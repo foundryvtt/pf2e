@@ -52,7 +52,7 @@ export const GetSceneControlButtons = {
             // GM Vision
             const gmVisionTool = ((): SceneControlTool | null => {
                 const binding = game.keybindings.actions.get("pf2e.gm-vision")?.editable?.[0];
-                if (!binding) return null;
+                if (!(binding && game.user.isGM)) return null;
 
                 const gmVisionLabel = game.i18n.localize("PF2E.Keybinding.GMVision.Label");
                 const bindingLabel = KeybindingsConfig._humanizeBinding(binding);
