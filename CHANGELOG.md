@@ -1,5 +1,22 @@
 # Changelog
 
+## Version 4.2.4
+
+### System Improvements
+* (stwlam) Add lighting control tool to toggle GM vision
+* (Supe) Add critical field to FlatModifier form
+
+### Bugfixes
+* (stwlam) Fix issue causing TokenImage rule element to fail
+* (stwlam) Re-render actor directory when world actors' levels are changed
+* (Supe) Fix issue causing duplicate feats/features to be created from ancestry/background/class items under certain circumstances
+* (Supe) Fix strike macros
+
+### Data Updates
+* (LebombJames) Fix Mountain Quake requirement
+* (Tikael) Fix usage of Crown of the Companion
+
+
 ## Version 4.2.3
 
 ### System Improvements
