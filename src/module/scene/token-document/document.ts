@@ -377,6 +377,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             this._onUpdateTokenActor(changed.actorData, options, userId);
             this.reset();
             changed.light = {} as foundry.data.LightSource;
+            changed.texture = { src: this.texture.src } as foundry.data.TokenSource["texture"];
             delete changed.actorData; // Prevent upstream from doing so a second time
         }
 
