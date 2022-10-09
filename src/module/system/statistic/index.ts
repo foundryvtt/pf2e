@@ -415,13 +415,13 @@ class StatisticDifficultyClass {
         this.domains = (data.domains ?? []).concat(data.dc?.domains ?? []);
         const rollOptions = parent.createRollOptions(this.domains, options);
 
-        // toggle modifiers based on the specified options
-        this.modifiers = (parent.modifiers ?? [])
-            .concat(data.dc?.modifiers ?? [])
-            .map((modifier) => modifier.clone({ test: rollOptions }));
-        if (data.dc?.domains) {
-            this.modifiers.push(...extractModifiers(parent.actor.synthetics, data.dc.domains));
-        }
+        // Add all modifiers from all sources together, then test them
+        const allDCModifiers = [
+            parent.modifiers ?? [],
+            data.dc?.modifiers ?? [],
+            data.dc?.domains ? extractModifiers(parent.actor.synthetics, data.dc.domains) : [],
+        ].flat();
+        this.modifiers = allDCModifiers.map((modifier) => modifier.clone({ test: rollOptions }));
 
         this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers).totalModifier;
     }
