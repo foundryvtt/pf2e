@@ -461,6 +461,13 @@ declare global {
             userId: string
         ): void;
 
+        /** Control updates to the appearance of the Token and its linked TokenMesh when a data update occurs. */
+        protected _onUpdateAppearance(
+            data: DeepPartial<foundry.data.TokenSource>,
+            changed: Set<string>,
+            options: DocumentModificationContext
+        ): Promise<void>;
+
         /** Define additional steps taken when an existing placeable object of this type is deleted */
         override _onDelete(options: DocumentModificationContext<TDocument>, userId: string): void;
 
