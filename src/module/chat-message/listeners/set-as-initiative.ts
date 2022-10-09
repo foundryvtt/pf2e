@@ -21,7 +21,7 @@ export const SetAsInitiative = {
             $diceTotal.append(btnContainer);
 
             setInitiativeButton.on("click", () => {
-                message.token?.setInitiative({ initiative: message.roll.total });
+                message.token?.setInitiative({ initiative: message.rolls.at(0)?.total ?? 0 });
             });
         }
     },
