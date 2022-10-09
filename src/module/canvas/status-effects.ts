@@ -244,6 +244,8 @@ export class StatusEffects {
                 this.#toggleStatus(event, token);
             }
         }
+
+        await canvas.hud?.token.render();
     }
 
     static async #toggleStatus(event: MouseEvent, token: TokenPF2e): Promise<void> {
