@@ -1,5 +1,5 @@
 import { ImmunityType } from "@actor/data/base";
-import { IWRRuleElement, IWRRuleElementData } from "./base";
+import { IWRRuleElement } from "./base";
 
 /** @category RuleElement */
 class ImmunityRuleElement extends IWRRuleElement {
@@ -10,20 +10,16 @@ class ImmunityRuleElement extends IWRRuleElement {
     }
 
     override validate(): boolean {
-        return this.data.type in this.dictionary;
+        return this.type.every((t) => t in this.dictionary);
     }
 
-    getIWR(): ImmunityType {
-        return this.data.type;
+    getIWR(): ImmunityType[] {
+        return this.type;
     }
 }
 
 interface ImmunityRuleElement extends IWRRuleElement {
-    data: ImmunityData;
-}
-
-interface ImmunityData extends IWRRuleElementData {
-    type: ImmunityType;
+    type: ImmunityType[];
 }
 
 export { ImmunityRuleElement };
