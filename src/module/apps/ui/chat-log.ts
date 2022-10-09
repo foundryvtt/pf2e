@@ -46,7 +46,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
         const applyDamage = async ($li: JQuery, multiplier: number): Promise<void> => {
             const messageId = $li.attr("data-message-id") ?? "";
-            const roll = game.messages.get(messageId, { strict: true }).roll;
+            const roll = game.messages.get(messageId, { strict: true }).rolls.at(0);
             if (!roll) return;
             for (const token of canvas.tokens.controlled) {
                 await token.actor?.applyDamage(
@@ -104,7 +104,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 condition: canApplyInitiative,
                 callback: ($li) => {
                     const message = game.messages.get($li.attr("data-message-id") ?? "", { strict: true });
-                    const roll = message.isRoll ? message.roll : null;
+                    const roll = message.rolls.at(0);
                     if (!roll || Number.isNaN(roll.total || "NaN")) throw ErrorPF2e("No roll found");
 
                     const token = message.token;

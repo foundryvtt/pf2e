@@ -1,5 +1,4 @@
 import { ActorPF2e } from "@actor";
-import { RollDataPF2e } from "@system/rolls";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemPF2e } from "@item";
 import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data";
@@ -255,8 +254,6 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     blind: this["data"]["blind"];
     type: this["data"]["type"];
     whisper: this["data"]["whisper"];
-
-    get roll(): Rolled<Roll<RollDataPF2e>>;
 
     get user(): UserPF2e;
 }

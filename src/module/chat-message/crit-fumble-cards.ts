@@ -8,7 +8,7 @@ export class CriticalHitAndFumbleCards {
     static handleDraw(message: ChatMessagePF2e): void {
         if (message.isAuthor && message.isContentVisible) {
             const type = message.flags.pf2e.context?.type ?? "";
-            const firstDie = message.roll?.dice[0];
+            const firstDie = message.rolls.at(0)?.dice[0];
             if (firstDie && firstDie.faces === 20 && this.rollTypes.includes(type)) {
                 if (firstDie.total === 20) {
                     this.automaticDraw("critTable");

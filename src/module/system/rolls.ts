@@ -507,10 +507,10 @@ class CheckPF2e {
         context.skipDialog = true;
         context.isReroll = true;
 
-        const oldRoll = message.roll;
+        const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
 
-        const RollCls = message.roll.constructor as typeof Check.Roll;
+        const RollCls = oldRoll.constructor as typeof Check.Roll;
         const newData = { ...oldRoll.data, isReroll: true };
         const newRoll = await new RollCls(oldRoll.formula, newData).evaluate({ async: true });
 
