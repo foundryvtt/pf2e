@@ -1,7 +1,7 @@
 import { MODIFIER_TYPES } from "@actor/modifiers";
 import { FlatModifierSource } from "@module/rules/rule-element/flat-modifier";
 import { isBracketedValue } from "@module/rules/util";
-import { htmlQuery, isObject, tagify } from "@util";
+import { htmlQuery, isObject, tagify, tupleHasValue } from "@util";
 import { coerceNumber, RuleElementForm } from "./base";
 
 /** Form handler for the flat modifier rule element */
@@ -100,11 +100,10 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource> {
         // Flat Modifier types may have mutually exclusive properties
         delete formData[formData.type === "ability" ? "value" : "ability"];
 
-        // Critical is optional if empty string but empty isn't the same as false or true
-        if (formData.critical === "") {
+        // `critical` is a tri-state of false, true, and null (default).
+        formData.critical = tupleHasValue([false, "false"], formData.critical) ? false : !!formData.critical || null;
+        if (formData.critical === null) {
             delete formData.critical;
-        } else {
-            formData.critical = formData.critical === "true" ? true : false;
         }
 
         // Remove empty string, null, or falsy values for certain optional parameters
