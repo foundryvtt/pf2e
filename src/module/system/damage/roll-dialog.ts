@@ -2,6 +2,7 @@ import { ModifierPF2e } from "@actor/modifiers";
 import { ItemType } from "@item/data";
 import { ChatMessagePF2e, DamageRollFlag } from "@module/chat-message";
 import { DamageRollContext } from "./helpers";
+import { DamageCategory, DamageRollRenderData, DamageType } from "./types";
 import { DamageTemplate } from "./weapon";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
@@ -121,7 +122,8 @@ export class DamageRollModifiersDialog extends Application {
             damage.base.diceNumber > 0
                 ? `${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier}`
                 : damageBaseModifier.toString();
-        const damageTypes: Record<string, string | undefined> = CONFIG.PF2E.damageTypes;
+        const damageTypes = CONFIG.PF2E.damageTypes;
+        const damageCategories = CONFIG.PF2E.damageCategories;
         const damageTypeLabel = game.i18n.localize(damageTypes[damage.base.damageType] ?? damage.base.damageType);
         const baseBreakdown = `<span class="tag tag_transparent">${base} ${damageTypeLabel}</span>`;
         const modifierBreakdown = [damage.diceModifiers.filter((m) => m.diceNumber !== 0), damage.numericModifiers]
@@ -140,7 +142,7 @@ export class DamageRollModifiersDialog extends Application {
                 const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? "" : "+"}${m.modifier}` : "";
                 const damageType =
                     m.damageType && m.damageType !== damage.base.damageType
-                        ? game.i18n.localize(damageTypes[m.damageType] ?? m.damageType)
+                        ? game.i18n.localize(damageTypes[m.damageType as DamageType] ?? m.damageType)
                         : null;
                 const typeLabel = damageType ? ` ${damageType}` : "";
 
@@ -176,17 +178,20 @@ export class DamageRollModifiersDialog extends Application {
             diceResults: {},
             baseDamageDice: damage.effectDice,
         };
+        const renderData: DamageRollRenderData = {
+            formula: formula.formula,
+            damageTypes: {},
+            total: 1,
+        };
         const rolls: Rolled<Roll>[] = [];
-        let content = `
-    <div class="dice-roll">
-        <div class="dice-result">
-            <div class="dice-formula">${formula.formula}</div>
-            <div class="dice-tooltip" style="display: none;">`;
+
         for (const [damageType, categories] of Object.entries(formula.partials)) {
-            const icon = DamageRollModifiersDialog.getDamageTypeIcon(damageType);
-            content += `<div class="damage-type ${damageType}">`;
-            content += `<h3 class="flexrow"><span>${damageType}</span><i class="fa fa-${icon}"></i></h3>`;
             rollData.diceResults[damageType] = {};
+            renderData.damageTypes[damageType] = {
+                categories: {},
+                icon: DamageRollModifiersDialog.getDamageTypeIcon(damageType),
+                label: damageTypes[damageType as DamageType] ?? damageType,
+            };
             for (const [damageCategory, partial] of Object.entries(categories)) {
                 const data: object = formula.data;
                 const roll = await new Roll(partial, data).evaluate({ async: true });
@@ -196,28 +201,20 @@ export class DamageRollModifiersDialog extends Application {
                 rollData.types[damageType] = damageValue;
                 rollData.total += roll.total;
                 rollData.diceResults[damageType][damageCategory] = [];
-                const dice = roll.dice
-                    .flatMap((d) =>
+                renderData.damageTypes[damageType].categories[damageCategory] = {
+                    dice: roll.dice.flatMap((d) =>
                         d.results.map((r) => {
+                            // Record the partial result for the roll flag
                             rollData.diceResults[damageType][damageCategory].push(r.result);
-                            return `<li class="roll die d${d.faces}">${r.result}</li>`;
+                            // Return the needed render data
+                            return { faces: d.faces ?? 0, result: r.result };
                         })
-                    )
-                    .join("\n");
-                content += `
-            <section class="tooltip-part">
-                <div class="dice">
-                    <header class="part-header flexrow">
-                        <span class="part-formula">${partial}</span>
-                        <span class="part-flavor">${damageCategory}</span>
-                        <span class="part-total">${roll.total}</span>
-                    </header>
-                    <ol class="dice-rolls">${dice}</ol>
-                </div>
-            </section>
-            `;
+                    ),
+                    formula: partial,
+                    label: damageCategories[damageCategory as DamageCategory] ?? damageCategory,
+                    total: roll.total,
+                };
             }
-            content += "</div>";
         }
         // Combine the rolls into a single roll of a dice pool
         const roll = (() => {
@@ -231,7 +228,8 @@ export class DamageRollModifiersDialog extends Application {
             return Roll.fromTerms([pool]);
         })();
 
-        content += `</div><h4 class="dice-total"><span id="value">${rollData.total}</span></h4></div></div>`;
+        renderData.total = rollData.total;
+        const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-card-content.html", renderData);
 
         const { self, target } = context;
         const item = self?.item ?? null;
@@ -243,7 +241,7 @@ export class DamageRollModifiersDialog extends Application {
                 type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                 speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
                 flavor,
-                content: content.trim(),
+                content,
                 roll: roll.toJSON(),
                 sound: "sounds/dice.wav",
                 flags: {
