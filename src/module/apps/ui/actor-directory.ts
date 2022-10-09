@@ -4,7 +4,7 @@ import { ActorPF2e } from "@actor/base";
 export class ActorDirectoryPF2e<TDocument extends ActorPF2e> extends ActorDirectory<TDocument> {
     static override get defaultOptions(): SidebarDirectoryOptions {
         const options = super.defaultOptions;
-        options.renderUpdateKeys.push("system.details.level.value");
+        options.renderUpdateKeys.push("system.details.level.value", "system.attributes.adjustment");
         return options;
     }
 
