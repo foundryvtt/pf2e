@@ -178,7 +178,60 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "bone-chariot",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "bone-chariot"
+                        ],
+                        "value": "small"
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "bone-chariot"
+                        ],
+                        "type": [
+                            "bleed",
+                            "death-effects",
+                            "disease",
+                            "doomed",
+                            "drained",
+                            "fatigued",
+                            "good",
+                            "healing",
+                            "lawful",
+                            "mental",
+                            "necromancy",
+                            "nonlethal-attacks",
+                            "paralyzed",
+                            "poison",
+                            "sickened",
+                            "unconscious"
+                        ]
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "not": "bone-chariot"
+                            }
+                        ],
+                        "type": [
+                            "good",
+                            "mental",
+                            "physical"
+                        ],
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -395,24 +448,7 @@
             "ci": [],
             "di": {
                 "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "good",
-                    "healing",
-                    "lawful",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
+                "value": []
             },
             "dr": [],
             "dv": [],
@@ -428,7 +464,7 @@
                 "value": "darkvision"
             },
             "size": {
-                "value": "sm"
+                "value": "tiny"
             },
             "value": [
                 "fiend"
