@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 4.2.5
+
+### Bugfixes
+* (stwlam) Work around upstream issue introduced in 10.287 preventing execution of some macros
+* (stwlam) Fix TokenImage rule element for unlinked tokens
+* (stwlam) Fix issue causing multiple ability modifiers to stack for some damage rolls
+* (stwlam) Restore re-rendering token HUD after mouse interactions
+* (Supe) Fix predication for spell/class/save dc modifiers
+* (Supe) Restore ability-based domains for spellcasting
+* (Supe) Fix flat modifier editor adding critical: false to newly added rules
+
+### Data Updates
+* (JDCalvert) Automate Sentinel Dedication feat
+* (stwlam) Add toggle for Ostovite's bone chariotR
+
+
 ## Version 4.2.4
 
 ### System Improvements
