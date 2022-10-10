@@ -276,12 +276,15 @@ class StatisticCheck {
         this.type = data.check?.type ?? "check";
         this.label = this.#calculateLabel(data);
         this.domains = (data.domains ?? []).concat(data.check?.domains ?? []);
-        this.modifiers = parent.modifiers.concat(data.check?.modifiers ?? []);
-        if (data.check?.domains) {
-            this.modifiers.push(...extractModifiers(parent.actor.synthetics, data.check.domains));
-        }
 
         const rollOptions = parent.createRollOptions(this.domains, options);
+        const allCheckModifiers = [
+            parent.modifiers,
+            data.check?.modifiers ?? [],
+            data.check?.domains ? extractModifiers(parent.actor.synthetics, data.check.domains) : [],
+        ].flat();
+        this.modifiers = allCheckModifiers.map((modifier) => modifier.clone({ test: rollOptions }));
+
         this.#stat = new StatisticModifier(this.label, this.modifiers, rollOptions);
         this.mod = this.#stat.totalModifier;
     }
@@ -385,7 +388,7 @@ class StatisticCheck {
         };
 
         const roll = await CheckPF2e.roll(
-            new CheckModifier(this.label, this.#stat, extraModifiers),
+            new CheckModifier(this.label, this.#stat, extraModifiers, options),
             context,
             null,
             args.callback
@@ -417,13 +420,13 @@ class StatisticDifficultyClass {
 
         // Add all modifiers from all sources together, then test them
         const allDCModifiers = [
-            parent.modifiers ?? [],
+            parent.modifiers,
             data.dc?.modifiers ?? [],
             data.dc?.domains ? extractModifiers(parent.actor.synthetics, data.dc.domains) : [],
         ].flat();
         this.modifiers = allDCModifiers.map((modifier) => modifier.clone({ test: rollOptions }));
 
-        this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers).totalModifier;
+        this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers, rollOptions).totalModifier;
     }
 
     createRollOptions(args: RollOptionParameters = {}): Set<string> {

@@ -557,7 +557,7 @@ class CheckModifier extends StatisticModifier {
         slug: string,
         statistic: { modifiers: readonly ModifierPF2e[] },
         modifiers: ModifierPF2e[] = [],
-        rollOptions: string[] = []
+        rollOptions: string[] | Set<string> = new Set()
     ) {
         super(slug, statistic.modifiers.map((modifier) => modifier.clone()).concat(modifiers), rollOptions);
     }
