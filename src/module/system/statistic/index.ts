@@ -388,7 +388,7 @@ class StatisticCheck {
         };
 
         const roll = await CheckPF2e.roll(
-            new CheckModifier(this.label, this.#stat, extraModifiers, options),
+            new CheckModifier(this.label, this.#stat, extraModifiers),
             context,
             null,
             args.callback
