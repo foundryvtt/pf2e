@@ -412,7 +412,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
                 this._onUpdate(changes, {}, game.user.id);
             }
 
-            if (Object.keys(auraChanges).length > 0) {
+            if (Object.keys(auraChanges).length > 0 || "width" in changes || "height" in changes) {
                 this.scene?.checkAuras();
             }
 
