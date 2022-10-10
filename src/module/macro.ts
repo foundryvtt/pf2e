@@ -14,7 +14,7 @@ export class MacroPF2e extends Macro {
 
         // Attempt script execution
         const AsyncFunction = async function () {}.constructor as { new (...args: string[]): Function };
-        const fn = new AsyncFunction("speaker", "actor", "token", "character", `{${this.command}}`);
+        const fn = new AsyncFunction("speaker", "actor", "token", "character", `{${this.command}\n}`);
         try {
             return fn.call(this, speaker, actor, token, character);
         } catch {
