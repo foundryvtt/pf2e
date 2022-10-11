@@ -7,14 +7,15 @@ class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e
         return this.document.t;
     }
 
-    /** The highlight layer for this template */
-    get highlightId(): string {
-        return `Template.${this.id}`;
-    }
-
     override highlightGrid(): void {
         if (!["circle", "cone"].includes(this.type) || canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
             return super.highlightGrid();
+        }
+
+        // Refrain from highlighting if not visible
+        if (!this.isVisible) {
+            canvas.grid.getHighlightLayer(this.highlightId)?.clear();
+            return;
         }
 
         highlightGrid({
