@@ -13,26 +13,14 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
 
     /** Draw this token's auras on the canvas */
     draw(): void {
+        this.clear();
         if (!(canvas.ready && this.token.actor)) {
-            this.clear();
             return;
         }
 
-        for (const slug of this.keys()) {
-            if (!this.token.document.auras.has(slug)) {
-                this.delete(slug);
-            }
-        }
-
-        for (const [slug, aura] of this.token.document.auras.entries() ?? []) {
-            const renderer = this.get(slug) ?? new AuraRenderer({ ...aura, token: this.token });
-            if (!this.token.children.includes(renderer)) {
-                this.set(slug, this.token.addChild(renderer));
-            } else if (renderer.radiusPixels !== aura.radiusPixels) {
-                // The radius changed: remove old aura and set new one
-                this.delete(slug);
-                this.set(slug, this.token.addChild(new AuraRenderer({ ...aura, token: this.token })));
-            }
+        for (const [slug, aura] of this.token.document.auras.entries()) {
+            const renderer = new AuraRenderer({ ...aura, token: this.token });
+            this.set(slug, this.token.addChild(renderer));
         }
 
         this.refresh();

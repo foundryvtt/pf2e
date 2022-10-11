@@ -13,9 +13,6 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }
 
-    /** The promise returned by the last call to `Token#_draw()` */
-    private drawLock?: Promise<void>;
-
     /** Guarantee boolean return */
     override get isVisible(): boolean {
         return super.isVisible ?? false;
@@ -181,13 +178,6 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         bar.position.set(0, number === 0 ? this.h - h : 0);
     }
 
-    /** Make the drawing promise accessible to `#redraw` */
-    protected override async _draw(): Promise<void> {
-        this.auras.clear();
-        this.drawLock = super._draw();
-        await this.drawLock;
-    }
-
     /** Draw auras along with effect icons */
     override async drawEffects(): Promise<void> {
         await super.drawEffects();
@@ -274,7 +264,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         })();
         if (!scrollingTextArgs) return;
 
-        await this.drawLock;
+        await this._animation;
         await canvas.interface?.createScrollingText(...scrollingTextArgs);
     }
 
