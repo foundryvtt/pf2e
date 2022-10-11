@@ -14,6 +14,7 @@ import { processGrantDeletions } from "../rules/rule-element/grant-item/helpers"
 import type { PhysicalItemPF2e } from "./physical";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -353,6 +354,18 @@ class ItemPF2e extends Item<ActorPF2e> {
         data: PreCreate<ItemSourcePF2e>[] = [],
         context: DocumentModificationContext<ItemPF2e> = {}
     ): Promise<Item[]> {
+        // Migrate source in case of importing from an old compendium
+        for (const source of [...data]) {
+            if (Object.keys(source).length === 2 && "name" in source && "type" in source) {
+                // The item consists of only a `name` and `type`: set schema version and skip
+                source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
+                continue;
+            }
+            const item = new ItemPF2e(source);
+            await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
+            data.splice(data.indexOf(source), 1, item.toObject());
+        }
+
         if (context.parent) {
             const validTypes = context.parent.allowedItemTypes;
             if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
@@ -482,11 +495,6 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
 
         await super._preCreate(data, options, user);
-
-        // Ensure imported items are current on their schema version
-        if (!options.parent) {
-            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
-        }
 
         // Remove any rule elements that request their own removal upon item creation
         this._source.system.rules = this._source.system.rules.filter((r) => !r.removeUponCreate);

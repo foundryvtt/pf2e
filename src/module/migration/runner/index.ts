@@ -15,6 +15,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     /** Ensure that an actor or item reflects the current data schema before it is created */
     static async ensureSchemaVersion(document: ActorPF2e | ItemPF2e, migrations: MigrationBase[]): Promise<void> {
+        if (migrations.length === 0) return;
         const currentVersion = this.LATEST_SCHEMA_VERSION;
 
         if ((Number(document.schemaVersion) || 0) < currentVersion) {
