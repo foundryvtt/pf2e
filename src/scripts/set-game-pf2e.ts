@@ -8,15 +8,19 @@ import { WorldClock } from "@module/apps/world-clock";
 import { StatusEffects } from "@module/canvas/status-effects";
 import { RuleElementPF2e, RuleElements } from "@module/rules";
 import { DicePF2e } from "@scripts/dice";
-import { showEarnIncomePopup } from "@scripts/macros/earn-income";
-import { encouragingWords } from "@scripts/macros/encouraging-words";
-import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
-import { raiseAShield } from "@scripts/macros/raise-a-shield";
-import { restForTheNight } from "@scripts/macros/rest-for-the-night";
-import { steelYourResolve } from "@scripts/macros/steel-your-resolve";
-import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
-import { treatWounds } from "@scripts/macros/treat-wounds";
-import { calculateXP } from "@scripts/macros/xp";
+import {
+    calculateXP,
+    encouragingWords,
+    launchTravelSheet,
+    perceptionForSelected,
+    raiseAShield,
+    restForTheNight,
+    rollActionMacro,
+    rollItemMacro,
+    showEarnIncomePopup,
+    steelYourResolve,
+    treatWounds,
+} from "@scripts/macros";
 import { remigrate } from "@scripts/system/remigrate";
 import { ActionMacros } from "@system/action-macros";
 import { ConditionManager } from "@system/conditions";
@@ -56,7 +60,7 @@ export const SetGamePF2e = {
             actions,
             effectPanel: new EffectsPanel(),
             effectTracker: new EffectTracker(),
-            gm: { calculateXP, launchTravelSheet },
+            gm: { calculateXP, launchTravelSheet, perceptionForSelected },
             importer: { actor: ActorImporter },
             licenseViewer: new LicenseViewer(),
             rollActionMacro,
