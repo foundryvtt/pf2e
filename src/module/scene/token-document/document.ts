@@ -404,15 +404,20 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             const postUpdate = this.toObject(false);
             const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
             const changes = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-            const auraChanges = mergeObject(
-                diffObject(preUpdateAuras, postUpdateAuras),
-                diffObject(postUpdateAuras, preUpdateAuras)
-            );
+
+            // Assess the full diff using `diffObject`: additions, removals, and changes
+            const aurasChanged = ((): boolean => {
+                const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
+                const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
+                return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
+            })();
+            if (aurasChanged) changes.effects = []; // Nudge upstream to redraw effects
+
             if (Object.keys(changes).length > 0) {
                 this._onUpdate(changes, {}, game.user.id);
             }
 
-            if (Object.keys(auraChanges).length > 0 || "width" in changes || "height" in changes) {
+            if (aurasChanged || "width" in changes || "height" in changes) {
                 this.scene?.checkAuras();
             }
 
