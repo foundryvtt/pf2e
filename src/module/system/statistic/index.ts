@@ -78,6 +78,9 @@ export class Statistic {
     /** If this is a skill, returns whether it is a lore skill or not */
     lore?: boolean;
 
+    check: StatisticCheck;
+    dc: StatisticDifficultyClass;
+
     constructor(public actor: ActorPF2e, data: StatisticData, public options?: RollOptionParameters) {
         this.#data = data;
         this.slug = data.slug;
@@ -101,21 +104,20 @@ export class Statistic {
             baseModifiers.push(ProficiencyModifier.fromLevelAndRank(actor.level, 0, { addLevel: true }));
         }
 
-        this.modifiers = [baseModifiers, data.modifiers ?? []].flat();
-        if (data.domains) this.modifiers.push(...extractModifiers(this.actor.synthetics, data.domains));
-
         // Check rank and data to assign proficient, but default to true
         this.proficient = data.proficient === undefined ? this.rank === null || this.rank > 0 : !!data.proficient;
 
-        // Pre-test modifiers so that inspection outside of rolls (such as modifier popups) works correctly
+        this.modifiers = [baseModifiers, data.modifiers ?? []].flat();
+        this.check = new StatisticCheck(this, this.#data, this.options);
+        this.dc = new StatisticDifficultyClass(this, this.#data, this.options);
+
+        // Add from synthetics, but only after check/dc are created so that modifiers aren't duplicated
+        if (data.domains) this.modifiers.push(...extractModifiers(this.actor.synthetics, data.domains));
+
+        // Test the gathered modifiers if there are any domains
         if (data.domains) {
             const options = this.createRollOptions(data.domains, {});
-
-            for (const modifier of this.modifiers) {
-                modifier.test(options);
-            }
-            data.check?.modifiers?.forEach((mod) => mod.test(options));
-            data.dc?.modifiers?.forEach((mod) => mod.test(options));
+            this.modifiers = this.modifiers.map((mod) => mod.clone({ test: options }));
         }
     }
 
@@ -209,16 +211,6 @@ export class Statistic {
         return new Statistic(this.actor, result, this.options);
     }
 
-    /** Creates and returns an object that can be used to perform a check if this statistic has check data. */
-    get check(): StatisticCheck {
-        return new StatisticCheck(this, this.#data, this.options);
-    }
-
-    /** Calculates the DC (with optional roll options) and returns it, if this statistic has DC data. */
-    get dc(): StatisticDifficultyClass {
-        return new StatisticDifficultyClass(this, this.#data, this.options);
-    }
-
     /** Shortcut to `this#check#roll` */
     roll(args: StatisticRollParameters = {}): Promise<Rolled<CheckRoll> | null> {
         return this.check.roll(args);
@@ -281,7 +273,7 @@ class StatisticCheck {
         const allCheckModifiers = [
             parent.modifiers,
             data.check?.modifiers ?? [],
-            data.check?.domains ? extractModifiers(parent.actor.synthetics, data.check.domains) : [],
+            extractModifiers(parent.actor.synthetics, this.domains),
         ].flat();
         this.modifiers = allCheckModifiers.map((modifier) => modifier.clone({ test: rollOptions }));
 
@@ -422,7 +414,7 @@ class StatisticDifficultyClass {
         const allDCModifiers = [
             parent.modifiers,
             data.dc?.modifiers ?? [],
-            data.dc?.domains ? extractModifiers(parent.actor.synthetics, data.dc.domains) : [],
+            extractModifiers(parent.actor.synthetics, this.domains),
         ].flat();
         this.modifiers = allDCModifiers.map((modifier) => modifier.clone({ test: rollOptions }));
 
