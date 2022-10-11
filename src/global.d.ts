@@ -27,16 +27,14 @@ import {
 import { UserPF2e } from "@module/user";
 import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
-import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
-import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
-import { calculateXP } from "@scripts/macros/xp";
+import { calculateXP, launchTravelSheet, perceptionForSelected, rollActionMacro, rollItemMacro } from "@scripts/macros";
 import { ModuleArt, registerModuleArt } from "@scripts/register-module-art";
 import { remigrate } from "@scripts/system/remigrate";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { EffectTracker } from "@system/effect-tracker";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { CheckPF2e } from "@system/rolls";
-import type { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
+import { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
@@ -56,6 +54,7 @@ declare global {
             gm: {
                 calculateXP: typeof calculateXP;
                 launchTravelSheet: typeof launchTravelSheet;
+                perceptionForSelected: typeof perceptionForSelected;
             };
             system: {
                 moduleArt: {
