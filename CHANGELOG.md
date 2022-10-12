@@ -1,5 +1,23 @@
 # Changelog
 
+## Version 4.2.6
+
+### Bugfixes
+* (stwlam) Fix aura colors getting inverted
+* (stwlam) Accommodate macros ending with single-line comments
+* (stwlam) Restore setting self:condition roll options
+* (stwlam) Refrain from highlighting measured templates invisible to players
+* (stwlam) Fix issue causing some auras to fall behind in rendering
+* (Supe) Fix double weak/elite adjustments on statistic rolls
+* (Supe) Fix issue preventing modifier adjustments from applying via spellcasting attack and DC selectors
+
+### Data Updates
+* (dogstarrb) Add missing automation to Inventor Weapon Mastery
+* (MySurvive) Remove some unnecessary labels from REs on equipment
+* (redeux1) Updated Iconics/Pregens to use action-based Heal/Harm spell
+* (Tikael) Fix rule elements on Elemental Assault effect
+
+
 ## Version 4.2.5
 
 ### Bugfixes
