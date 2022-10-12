@@ -1133,15 +1133,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1850,11 +1852,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Forests",
-                        "predicate": {
-                            "all": [
-                                "terrain:forest"
-                            ]
-                        },
+                        "predicate": [
+                            "terrain:forest"
+                        ],
                         "selector": "stealth",
                         "value": 4
                     }
@@ -1907,12 +1907,6 @@
         }
     ],
     "name": "Ancient Forest Dragon",
-    "prototypeToken": {
-        "name": "Ancient Forest Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

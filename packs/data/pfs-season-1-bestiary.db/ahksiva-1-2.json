@@ -1831,15 +1831,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1893,11 +1895,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "sound-imitation"
-                            ]
-                        },
+                        "predicate": [
+                            "sound-imitation"
+                        ],
                         "selector": "deception",
                         "type": "circumstance",
                         "value": 4
@@ -2263,10 +2263,7 @@
     ],
     "name": "Ahksiva (1-2)",
     "prototypeToken": {
-        "name": "Ahksiva",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Ahksiva"
     },
     "system": {
         "abilities": {

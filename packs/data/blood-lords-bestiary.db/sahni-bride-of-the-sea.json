@@ -3259,15 +3259,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -3554,12 +3556,6 @@
         }
     ],
     "name": "Sahni Bride-Of-The-Sea",
-    "prototypeToken": {
-        "name": "Sahni Bride-Of-The-Sea",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {
@@ -3654,11 +3650,12 @@
                 }
             ],
             "languages": {
-                "custom": "Iblydan",
+                "custom": "",
                 "selected": [],
                 "value": [
                     "aklo",
                     "common",
+                    "iblydan",
                     "necril"
                 ]
             },

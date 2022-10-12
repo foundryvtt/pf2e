@@ -167,7 +167,7 @@
                 "containerId": null,
                 "damage": {
                     "damageType": "bludgeoning",
-                    "dice": 1,
+                    "dice": 0,
                     "die": "",
                     "value": ""
                 },
@@ -247,7 +247,8 @@
                             "success"
                         ],
                         "selector": "{item|_id}-attack",
-                        "text": "PF2E.BombNotes.TanglefootBag.Lesser.success"
+                        "text": "PF2E.BombNotes.TanglefootBag.Lesser.success",
+                        "title": "ITEM.TypeEffect"
                     },
                     {
                         "key": "Note",
@@ -255,7 +256,8 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-attack",
-                        "text": "PF2E.BombNotes.TanglefootBag.Lesser.criticalSuccess"
+                        "text": "PF2E.BombNotes.TanglefootBag.Lesser.criticalSuccess",
+                        "title": "ITEM.TypeEffect"
                     }
                 ],
                 "size": "med",
@@ -572,11 +574,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "High-Fashion Clothes (Make an Impression on nobility)",
-                        "predicate": {
-                            "any": [
-                                "action:make-an-impression"
-                            ]
-                        },
+                        "predicate": [
+                            "action:make-an-impression"
+                        ],
                         "selector": "diplomacy",
                         "type": "item",
                         "value": 1
@@ -1386,11 +1386,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "alchemical"
-                            ]
-                        },
+                        "predicate": [
+                            "alchemical"
+                        ],
                         "selector": "strike-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
@@ -1739,12 +1737,6 @@
         }
     ],
     "name": "Shoma Lyzerius",
-    "prototypeToken": {
-        "name": "Shoma Lyzerius",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {
@@ -1810,15 +1802,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": "6"
+                "value": 6
             },
             "reflex": {
                 "saveDetail": "",
-                "value": "10"
+                "value": 10
             },
             "will": {
                 "saveDetail": "",
-                "value": "8"
+                "value": 8
             }
         },
         "traits": {

@@ -454,11 +454,9 @@
                     {
                         "hideIfDisabled": true,
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "action:disarm"
-                            ]
-                        },
+                        "predicate": [
+                            "action:disarm"
+                        ],
                         "selector": "fortitude",
                         "type": "status",
                         "value": 2
@@ -620,12 +618,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.DisarmGrapple",
-                        "predicate": {
-                            "any": [
-                                "action:disarm",
-                                "action:grapple"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disarm",
+                                    "action:grapple"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -650,12 +650,6 @@
         }
     ],
     "name": "Clockwork Door Warden",
-    "prototypeToken": {
-        "name": "Clockwork Door Warden",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

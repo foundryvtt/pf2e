@@ -1599,11 +1599,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
                         "selector": "strike-damage",
                         "text": "<span class=\"pf2-icon\">f</span> The Scarlet Triad agent applies one of the following debilitations to the creature, which lasts until the end of their next turn.",
                         "title": "{item|name}",
@@ -1657,23 +1655,23 @@
                         "diceNumber": 3,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1722,11 +1720,9 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
                         "selector": "rapier-damage",
                         "text": "PF2E.Item.Weapon.CriticalSpecialization.sword",
                         "title": "{item|name}",
@@ -1737,11 +1733,9 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
                         "selector": "blowgun-damage",
                         "text": "PF2E.Item.Weapon.CriticalSpecialization.dart",
                         "title": "{item|name}",
@@ -1961,12 +1955,6 @@
         }
     ],
     "name": "Scarlet Triad Agent",
-    "prototypeToken": {
-        "name": "Scarlet Triad Agent",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

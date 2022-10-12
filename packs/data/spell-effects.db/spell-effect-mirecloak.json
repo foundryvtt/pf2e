@@ -26,24 +26,24 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "mirecloak-darkness"
-                    ]
-                },
+                "predicate": [
+                    "mirecloak-darkness"
+                ],
                 "selector": "ac",
                 "type": "status",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "mirecloak-darkness",
-                        "environment:lighting:lowLight",
-                        "environment:lighting:darkness"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "mirecloak-darkness",
+                            "environment:lighting:lowLight",
+                            "environment:lighting:darkness"
+                        ]
+                    }
+                ],
                 "selector": "stealth",
                 "type": "status",
                 "value": 2

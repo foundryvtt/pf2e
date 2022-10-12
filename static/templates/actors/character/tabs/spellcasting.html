@@ -1,7 +1,7 @@
 <div class="tab spellcasting spellbook-pane" data-group="primary" data-tab="spellcasting">
     <ol class="spellcastingEntry-list directory-list">
         {{#each spellcastingEntries as |entry eid|}}
-            <li class="item item-container spellcasting-entry" data-container-type="spellcastingEntry" data-item-id="{{entry.id}}" data-container-id="{{entry.id}}">
+            <li class="item item-container spellcasting-entry" data-item-id="{{entry.id}}" {{#if entry.hasCollection}}data-container-type="spellcastingEntry" data-container-id="{{entry.id}}"{{/if}}>
                 <div class="action-header">
                     <a class="drag-handle"><i class="fas fa-bars"></i></a>
 
@@ -24,47 +24,52 @@
                 </div>
 
                 {{#unless entry.isRitual}}
-                    <ol class="skills-list spell-dc">
-                        <li class="skill-grid">
-                            <div class="skill-data spell-attack" title="{{entry.statistic.check.breakdown}}">
-                                <span class="skill-score">{{numberFormat entry.statistic.check.mod decimals=0 sign=true}}</span>
-                                <h4 class="skill-name">{{localize "PF2E.SpellAttackLabel"}}</h4>
-                            </div>
-
-                            <div class="skill-data" title="{{entry.statistic.dc.breakdown}}">
+                    <div class="spell-ability-data">
+                        <div class="statistic-values">
+                            <section class="skill-data" title="{{entry.statistic.dc.breakdown}}">
                                 <span class="skill-score spellcasting">{{entry.statistic.dc.value}}</span>
                                 <h4 class="skill-name spellcasting">{{localize "PF2E.SpellSaveLabel"}}</h4>
-                            </div>
+                            </section>
+                            <section>
+                                (
+                                    <div class="skill-data spell-attack rollable" title="{{entry.statistic.check.breakdown}}">
+                                        {{> systems/pf2e/templates/actors/character/icons/d20.html}}
+                                        <span class="skill-score">{{numberFormat entry.statistic.check.mod decimals=0 sign=true}}</span>
+                                    </div>
+                                )
+                            </section>
+                        </div>
 
-                            {{#if entry.isPrepared}}
-                                <button type="button" class="skill-name prepared-toggle blue-button">
-                                    <i class="fas fa-book"></i>{{localize "PF2E.ToggleSpellVisibilityTitle"}}
-                                </a>
-                            {{/if}}
+                        {{#if entry.isPrepared}}
+                            <button type="button" class="skill-name prepared-toggle blue-button">
+                                <i class="fas fa-book"></i>{{localize "PF2E.ToggleSpellVisibilityTitle"}}
+                            </button>
+                        {{/if}}
 
-                            {{#if entry.isFocusPool}}
-                                <div class="focus-pool">
-                                    <span class="pips">
-                                        {{#times @root.data.resources.focus.max}}
-                                            <i class="{{#if (gt @root.data.resources.focus.value this)}}fas fa-dot-circle{{else}}far fa-circle{{/if}}"></i>
-                                        {{/times}}
-                                    </span>
-                                    <h4>{{localize "PF2E.Focus.Pool"}}</h4>
-                                </div>
-                            {{/if}}
-                        </li>
-                        <li class="spell-ability">
-                            <span class="spell-tradition">{{localize (lookup @root.magicTraditions entry.tradition)}}</span>
-                            <div class="spellcasting-prof button-group skill-container">
-                                <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficiency.value" value="{{entry.system.proficiency.value}}">
-                                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html" excludeUntrained=true proflevel=entry.system.proficiency.value}}
+                        {{#if entry.isFocusPool}}
+                            <section class="focus-pool">
+                                <span class="pips">
+                                    {{#times @root.data.resources.focus.max}}
+                                        <i class="{{#if (gt @root.data.resources.focus.value this)}}fas fa-dot-circle{{else}}far fa-circle{{/if}}"></i>
+                                    {{/times}}
+                                </span>
+                                <h4>{{localize "PF2E.Focus.Pool"}}</h4>
+                            </section>
+                        {{/if}}
+
+                        <section class="spell-ability">
+                            <span class="spell-tradition">{{localize entry.statistic.label}}</span>
+                            <div class="spellcasting-prof button-group">
+                                <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficiency.value" value="{{entry.statistic.rank}}">
+                                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html" excludeUntrained=true proflevel=entry.statistic.rank}}
                                 </select>
                             </div>
-                        </li>
-                    </ol>
+                        </section>
+                    </div>
                 {{/unless}}
-
-                {{> "systems/pf2e/templates/actors/spellcasting-spell-list.html" entry=entry}}
+                {{#if entry.hasCollection}}
+                    {{> "systems/pf2e/templates/actors/spellcasting-spell-list.html" entry=entry}}
+                {{/if}}
             </li>
         {{/each}}
 

@@ -107,6 +107,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 
 * Dark Archive
     * Pathfinder Dark Archive © 2022, Paizo Inc.; Authors: James Case, Mikhail Rekun, Mark Seifter, Rigby Bendele, Logan Bonner, Dan Cascone, Jessica Catalan, Banana Chan, Kay Hashimoto, Sen H.H.S., Patrick Hurley, Joshua Kim, Avi Kool, Daniel Kwan, Kendra Leigh Speedling, Luis Loza, Ron Lundeen, Liane Merciel, Jacob W. Michaels, Andrew Mullen, Quinn Murphy, K. Tessa Newton, Patrick Renie, Solomon St. John, Michael Sayre, Shay Snow, Alex Speidel, Geoffrey Suthers, Ruvaid Virk, Jabari Weathers, and Isis Wozniakowska
+    * Pathfinder Dark Archive Web Supplement: In Darkness © 2022, Paizo Inc.; Author: James Case.
 
 
 * Adventures and Adventure Paths
@@ -117,6 +118,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure: Night of the Gray Death © 2021, Paizo Inc.; Author: Ron Lundeen.
     *  Pathfinder Adventure: Shadows at Sundown © 2022, Paizo Inc.; Author: Landon Winkler.
     *  Pathfinder Adventure: Crown of the Kobold King Anniversary Edition © 2022, Paizo Inc.; Authors: Jason Bulmahn, Tim Hitchcock, Nicholas Logue, and F. Wesley Schneider
+	*  Pathfinder Kingmaker Player's Guide © 2022, Paizo Inc.; Author: James Jacobs, with Jason Nelson and Victoria Jaczko.
+	*  Pathfinder Kingmaker Adventure Path © 2022, Paizo Inc.; Authors: Steven T. Helt, Tim Hitchcock, James Jacobs, Ron Lundeen, Rob McCreary, Jason Nelson, Richard Pett, Tom Phillips, Neil Spicer, and Greg A. Vaughan
+	*  Pathfinder Kingmaker Companion Guide © 2022, Paizo Inc.; Authors: Alex Augunas, Russ Brown, Jeremy Corff, Steven T. Helt, Eric Hindley, James Jacobs, Victoria Jaczko, Jeff Lee, Tom McQueen, Jason Nelson, Chris Perrin, Richard Pett, David N. Ross, and Mike Welham
+	
     *  Pathfinder Adventure: The Dead God's Hand © 2022, Paizo Inc.; Author: Erik Mona
     *  Age of Ashes Player's Guide © 2019, Paizo Inc.; Authors: James Jacobs, with Amanda Hamon.
     *  Pathfinder Adventure Path #145: Hellknight Hill © 2019, Paizo Inc.; Authors: Amanda Hamon, with Logan Bonner, James Jacobs, and Jason Tondro.
@@ -289,6 +294,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #4-01: Intro: Year of Boundless Wonder © 2022, Paizo Inc.; Authors: Mike Kimmel
     * Pathfinder Society Scenario #4-02: Return to the Grave © 2022, Paizo Inc.; Authors: Joseph Blomquist
     * Pathfinder Society Scenario #4-03: Linnorm's Legacy © 2022, Paizo Inc.; Authors: Jessica Catalan
+	* Pathfinder Society Scenario #4-04: To Seek the Heart of Calamity © 2022, Paizo Inc.; Authors: Tineke Bolleman
+	* Pathfinder Society Scenario #4-05: The Arclord Who Never Was © 2022, Paizo Inc.; Authors: Michael Bramnik
+	* Pathfinder Society Scenario #4-06: Signal from the Electric Library © 2022, Paizo Inc.; Authors: Letterio Mammoliti
+	* Pathfinder Society Scenario #4-07: A Most Wondrous Exchange! © 2022, Paizo Inc.; Authors: Kendra Leigh Speedling
 
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
@@ -319,6 +328,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Lost Omens Monsters of Myth © 2021, Paizo Inc.; Authors: James Case, John Compton, Dana Ebert, Joshua Kim, Aaron Lascano, Luis Loza, Ron Lundeen, Stephanie Lundeen, Liane Merciel, Andrew Mullen, Michael Sayre, Sen H.H.S., Shay Snow, and Jason Tondro.
     * Pathfinder Lost Omens Knights of Lastwall © 2022, Paizo Inc.; Authors: Banana Chan, Jessica Catalan, Ryan Costello, Katina Davis, Alastor Guzman, Ron Lundeen, Ianara Natividad, Erin Roberts, Ashton Sperry, and Isabelle Thorne
     * Pathfinder Lost Omens Travel Guide © 2022, Paizo Inc.; Authors: Rigby Bendele, Katina Davis, Dana Ebert, Dustin Knight, Aaron Lascano, Ron Lundeen, Stephanie Lundeen, Ianara Natividad, Dave Nelson, Jessica Redekop, Nathan Reinecke, Mikhail Rekun, Erin Roberts, Simone Sallé, and Diego Valdez
+    * Pathfinder Lost Omens Impossible Lands © 2022, Paizo Inc.; Authors: Mariam Ahmad, Saif Ansari, Alexandria Bustion, Basheer Ghouse, Michelle Jones, TJ Kahn, Matt Morris, Dave Nelson, Shiv Ramdas, Mikhail Rekun, Michael Sayre, Tan Shao Han, Ruvaid Virk, Jabari Weathers, and Brian Yaksha.
 
 *  Free Adventures
     *  Pathfinder Torment and Legacy: A Pathfinder Second Edition Demo Adventure © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland
@@ -343,7 +353,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Hero Point Deck © 2021, Paizo Inc.; Author: Jason Bulmahn
 
 *  Paizo Blog
-    *  No-Prep Character: Gristleburst © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
+    *  Kineticist Playtest Analysis © 2022, Paizo Inc.; Author: Logan Bonner; Illustrator: Wayne Reynolds.
+	*  No-Prep Character: Gristleburst © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
     *  No-Prep Character: Duhgik © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Dominik Derow.
     *  No-Prep Character: Wendlyn © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
     *  No-Prep Character: Zhang Yong © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Gislaine Avila.

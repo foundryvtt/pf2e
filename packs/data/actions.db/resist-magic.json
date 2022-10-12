@@ -28,18 +28,18 @@
             {
                 "key": "FlatModifier",
                 "label": "Resist Magic",
-                "predicate": {
-                    "all": [
-                        "resist-magic"
-                    ],
-                    "any": [
-                        "arcane",
-                        "divine",
-                        "primal",
-                        "occult",
-                        "magical"
-                    ]
-                },
+                "predicate": [
+                    "resist-magic",
+                    {
+                        "or": [
+                            "arcane",
+                            "divine",
+                            "primal",
+                            "occult",
+                            "magical"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -49,12 +49,10 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "resist-magic",
-                        "arcane"
-                    ]
-                },
+                "predicate": [
+                    "resist-magic",
+                    "arcane"
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             }

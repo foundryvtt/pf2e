@@ -1259,15 +1259,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1359,11 +1361,9 @@
                             "criticalSuccess",
                             "success"
                         ],
-                        "predicate": {
-                            "all": [
-                                "melee"
-                            ]
-                        },
+                        "predicate": [
+                            "melee"
+                        ],
                         "selector": "attack",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}",
@@ -1511,12 +1511,10 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "sudden-dive",
-                                "melee"
-                            ]
-                        },
+                        "predicate": [
+                            "sudden-dive",
+                            "melee"
+                        ],
                         "selector": "attack",
                         "type": "circumstance",
                         "value": 1
@@ -1682,12 +1680,6 @@
         }
     ],
     "name": "Munagola",
-    "prototypeToken": {
-        "name": "Munagola",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -21,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "onlyLevel1": true,
         "prerequisites": {
             "value": []
@@ -29,23 +28,23 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:hide",
-                        "action:sneak"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
                 "selector": "stealth",
                 "type": "circumstance",
                 "value": -2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "light"
-                    ]
-                },
+                "predicate": [
+                    "light"
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

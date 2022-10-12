@@ -429,12 +429,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "Thieves' Tools (Pick Lock & Disable Devices)",
-                        "predicate": {
-                            "any": [
-                                "action:disable-device",
-                                "action:pick-a-lock"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disable-device",
+                                    "action:pick-a-lock"
+                                ]
+                            }
+                        ],
                         "selector": "thievery",
                         "type": "item",
                         "value": 1
@@ -982,11 +984,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Pick a Lock",
-                        "predicate": {
-                            "all": [
-                                "action:pick-a-lock"
-                            ]
-                        },
+                        "predicate": [
+                            "action:pick-a-lock"
+                        ],
                         "selector": "thievery",
                         "type": "untyped",
                         "value": 2
@@ -1040,12 +1040,6 @@
         }
     ],
     "name": "Froglegs",
-    "prototypeToken": {
-        "name": "Froglegs",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

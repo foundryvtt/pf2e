@@ -774,12 +774,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.HighJumpOrLongJump",
-                        "predicate": {
-                            "any": [
-                                "action:high-jump",
-                                "action:long-jump"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:high-jump",
+                                    "action:long-jump"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 4
                     }
@@ -860,12 +862,6 @@
         }
     ],
     "name": "Grig",
-    "prototypeToken": {
-        "name": "Grig",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

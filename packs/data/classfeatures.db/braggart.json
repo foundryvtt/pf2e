@@ -21,21 +21,20 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "panache"
-                    ],
-                    "any": [
-                        "action:demoralize"
-                    ]
-                },
+                "predicate": [
+                    "panache",
+                    {
+                        "or": [
+                            "action:demoralize"
+                        ]
+                    }
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": 1
@@ -44,11 +43,9 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.itm.rank",
-                "predicate": {
-                    "all": [
-                        "class:swashbuckler"
-                    ]
-                },
+                "predicate": [
+                    "class:swashbuckler"
+                ],
                 "value": 1
             }
         ],

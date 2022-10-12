@@ -53,11 +53,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Bullhook (Command an Animal)",
-                        "predicate": {
-                            "any": [
-                                "action:command-an-animal"
-                            ]
-                        },
+                        "predicate": [
+                            "action:command-an-animal"
+                        ],
                         "selector": "nature",
                         "type": "item",
                         "value": 2
@@ -380,36 +378,32 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "mountain-stance"
-                            ]
-                        },
+                        "predicate": [
+                            "mountain-stance"
+                        ],
                         "selector": "ac",
                         "type": "status",
                         "value": 4
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "mountain-stance"
-                            ]
-                        },
+                        "predicate": [
+                            "mountain-stance"
+                        ],
                         "selector": "speed",
                         "value": -5
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "mountain-stance"
-                            ],
-                            "any": [
-                                "action:shove",
-                                "action:trip"
-                            ]
-                        },
+                        "predicate": [
+                            "mountain-stance",
+                            {
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
@@ -465,12 +459,10 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "mountain-stance",
-                                "mountain-stronghold"
-                            ]
-                        },
+                        "predicate": [
+                            "mountain-stance",
+                            "mountain-stronghold"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -664,12 +656,6 @@
         }
     ],
     "name": "Evora Yarket",
-    "prototypeToken": {
-        "name": "Evora Yarket",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

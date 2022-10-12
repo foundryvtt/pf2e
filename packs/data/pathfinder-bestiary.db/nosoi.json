@@ -825,11 +825,9 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:trait:undead"
-                            ]
-                        },
+                        "predicate": [
+                            "target:trait:undead"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -837,11 +835,11 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "not": [
-                                "target:trait:undead"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "target:trait:undead"
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1061,12 +1059,6 @@
         }
     ],
     "name": "Nosoi",
-    "prototypeToken": {
-        "name": "Nosoi",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

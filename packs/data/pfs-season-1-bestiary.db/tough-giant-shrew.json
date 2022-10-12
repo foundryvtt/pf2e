@@ -226,12 +226,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "To Climb or Swim",
-                        "predicate": {
-                            "any": [
-                                "action:climb",
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:climb",
+                                    "action:swim"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "type": "untyped",
                         "value": 2
@@ -285,12 +287,6 @@
         }
     ],
     "name": "Tough Giant Shrew",
-    "prototypeToken": {
-        "name": "Tough Giant Shrew",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

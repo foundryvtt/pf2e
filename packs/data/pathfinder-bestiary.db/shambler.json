@@ -341,12 +341,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.ForestsOrSwamps",
-                        "predicate": {
-                            "any": [
-                                "terrain:forest",
-                                "terrain:swamp"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:forest",
+                                    "terrain:swamp"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 6
                     }
@@ -371,12 +373,6 @@
         }
     ],
     "name": "Shambler",
-    "prototypeToken": {
-        "name": "Shambler",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

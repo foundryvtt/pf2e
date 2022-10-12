@@ -1489,12 +1489,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "Tracker's Goggles (Sense Direction & Track)",
-                        "predicate": {
-                            "any": [
-                                "action:sense-direction",
-                                "action:track"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:sense-direction",
+                                    "action:track"
+                                ]
+                            }
+                        ],
                         "selector": "survival",
                         "type": "item",
                         "value": 1
@@ -1902,11 +1904,9 @@
                         "override": {
                             "dieSize": "d8"
                         },
-                        "predicate": {
-                            "all": [
-                                "twoHanded"
-                            ]
-                        },
+                        "predicate": [
+                            "twoHanded"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -2183,10 +2183,7 @@
     ],
     "name": "Vengeant Thorn (1-2)",
     "prototypeToken": {
-        "name": "Vengeant Thorn",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Vengeant Thorn"
     },
     "system": {
         "abilities": {

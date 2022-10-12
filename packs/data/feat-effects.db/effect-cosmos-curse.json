@@ -26,90 +26,86 @@
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Moderate",
-                        "predicate": {
-                            "all": [
-                                "class:oracle"
-                            ]
-                        },
+                        "predicate": [
+                            "class:oracle"
+                        ],
                         "value": "moderate"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Major",
-                        "predicate": {
-                            "all": [
-                                "feature:major-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
                         "value": "major"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Extreme",
-                        "predicate": {
-                            "all": [
-                                "feature:extreme-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
                         "value": "extreme"
                     }
                 ],
                 "key": "ChoiceSet",
-                "predicate": {
-                    "any": [
-                        "class:oracle",
-                        "feat:first-revelation"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
                 "rollOption": "oracular-curse:stage"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "oracular-curse:stage:minor"
-                    ],
-                    "any": [
-                        "action:grapple",
-                        "action:shove",
-                        "forced-movement"
-                    ]
-                },
+                "predicate": [
+                    "oracular-curse:stage:minor",
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "forced-movement"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "curse-minor",
                 "value": -2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "oracular-curse:stage:moderate"
-                    ],
-                    "any": [
-                        "action:grapple",
-                        "action:shove",
-                        "forced-movement"
-                    ]
-                },
+                "predicate": [
+                    "oracular-curse:stage:moderate",
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "forced-movement"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "curse-moderate",
                 "value": -3
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        {
-                            "or": [
-                                "oracular-curse:stage:moderate",
-                                "oracular-curse:stage:major",
-                                "oracular-curse:stage:extreme"
-                            ]
-                        }
-                    ],
-                    "any": [
-                        "action:trip"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "action:trip"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "curse-moderate-trip",
                 "type": "status",
@@ -117,21 +113,21 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        {
-                            "or": [
-                                "oracular-curse:stage:major",
-                                "oracular-curse:stage:extreme"
-                            ]
-                        }
-                    ],
-                    "any": [
-                        "action:grapple",
-                        "action:shove",
-                        "forced-movement"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove",
+                            "forced-movement"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "slug": "curse-major",
                 "value": -4

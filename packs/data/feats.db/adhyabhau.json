@@ -21,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "onlyLevel1": true,
         "prerequisites": {
             "value": []
@@ -29,35 +28,30 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "emotion"
-                    ]
-                },
+                "predicate": [
+                    "emotion"
+                ],
                 "selector": "will",
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "emotion"
-                    ]
-                },
+                "predicate": [
+                    "emotion"
+                ],
                 "selector": "will",
-                "text": "<p class='compact-text'><strong>{item|name}</strong> <em>@Localize[PF2E.SpecificRule.Dhampir.Adhyabhau.SaveNote]</em></p>"
+                "text": "<em>@Localize[PF2E.SpecificRule.Dhampir.Adhyabhau.SaveNote]</em>",
+                "title": "{item|name}"
             },
             {
                 "adjustment": {
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "emotion"
-                    ]
-                },
+                "predicate": [
+                    "emotion"
+                ],
                 "selector": "will",
                 "type": "save"
             }

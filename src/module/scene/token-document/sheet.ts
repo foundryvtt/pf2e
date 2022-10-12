@@ -48,7 +48,10 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenC
 
             const dimensionInputs = sizeInputs.filter((i) => ["width", "height"].includes(i.name));
 
-            if (this.token.autoscale && linkToActorSize.checked) {
+            const autoscale =
+                game.settings.get("pf2e", "tokens.autoscale") && this.token._source.flags.pf2e?.autoscale !== false;
+
+            if (linkToActorSize.checked && autoscale) {
                 if (this.actor instanceof VehiclePF2e) {
                     const { dimensions } = this.actor;
                     const dimensionValues: Record<string, number> = {
@@ -117,7 +120,10 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenC
 
     #disableVisionInputs(html: HTMLElement): void {
         const actorIsPCOrFamiliar = ["character", "familiar"].includes(this.actor?.type ?? "");
-        const rulesBasedVision = this.token.rulesBasedVision && actorIsPCOrFamiliar;
+        const rulesBasedVision =
+            actorIsPCOrFamiliar &&
+            (this.token.rulesBasedVision ||
+                (this.isPrototype && game.settings.get("pf2e", "automation.rulesBasedVision")));
         if (!rulesBasedVision) return;
 
         const sightInputNames = ["angle", "brightness", "range", "saturation", "visionMode"].map((n) => `sight.${n}`);
@@ -174,6 +180,15 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenC
             const label = sightInput.closest(".form-group")?.querySelector("label");
             label?.append(anchor);
         }
+    }
+
+    /** Readd scale property to form data if input is disabled: necessary for mirroring checkboxes to function */
+    protected override _getSubmitData(updateData: Record<string, unknown> | null = {}): Record<string, unknown> {
+        const changes = updateData ?? {};
+        if (this.form.querySelector<HTMLInputElement>("input[name=scale]")?.disabled) {
+            changes["scale"] = Math.abs(this.object._source.texture.scaleX);
+        }
+        return super._getSubmitData(changes);
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>) {

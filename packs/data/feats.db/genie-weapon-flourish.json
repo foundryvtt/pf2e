@@ -21,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -32,15 +31,17 @@
         "rules": [
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:trait:geniekin",
-                        "weapon:base:falchion",
-                        "weapon:base:ranseur",
-                        "weapon:base:scimitar",
-                        "weapon:base:trident"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:trait:geniekin",
+                            "weapon:base:falchion",
+                            "weapon:base:ranseur",
+                            "weapon:base:scimitar",
+                            "weapon:base:trident"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

@@ -1567,15 +1567,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1628,11 +1630,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            "divine"
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -1766,12 +1766,10 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "target:trait:undead",
-                                "target:trait:incorporeal"
-                            ]
-                        },
+                        "predicate": [
+                            "target:trait:undead",
+                            "target:trait:incorporeal"
+                        ],
                         "selector": "flaming-ghost-touch-longspear-attack",
                         "text": "PF2E.WeaponPropertyRune.ghostTouch.Note",
                         "title": "{item|name}",
@@ -1923,12 +1921,6 @@
         }
     ],
     "name": "Jyoti",
-    "prototypeToken": {
-        "name": "Jyoti",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

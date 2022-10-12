@@ -1812,11 +1812,9 @@
                         "override": {
                             "dieSize": "d8"
                         },
-                        "predicate": {
-                            "all": [
-                                "twoHanded"
-                            ]
-                        },
+                        "predicate": [
+                            "twoHanded"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -1911,12 +1909,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "dream",
-                                "sleep"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "dream",
+                                    "sleep"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
@@ -2082,12 +2082,6 @@
         }
     ],
     "name": "Changeling Exile",
-    "prototypeToken": {
-        "name": "Changeling Exile",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -123,22 +123,20 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "construct-armor"
-                            ]
-                        },
+                        "predicate": [
+                            "construct-armor"
+                        ],
                         "selector": "ac",
                         "slug": "construct-armor-critical",
                         "value": -2
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "construct-armor"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "construct-armor"
+                            }
+                        ],
                         "selector": "ac",
                         "slug": "construct-armor-health",
                         "value": "2*(min(round(@actor.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
@@ -228,12 +226,6 @@
         }
     ],
     "name": "Animated Blade",
-    "prototypeToken": {
-        "name": "Animated Blade",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

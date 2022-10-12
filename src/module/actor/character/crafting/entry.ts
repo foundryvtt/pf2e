@@ -119,7 +119,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
             });
         }
 
-        return this.updateRE();
+        return this.#updateRE();
     }
 
     checkEntryRequirements(formula: CraftingFormula, { warn = true } = {}): boolean {
@@ -152,7 +152,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
 
         this.preparedFormulaData.splice(index, 1);
 
-        return this.updateRE();
+        return this.#updateRE();
     }
 
     async increaseFormulaQuantity(index: number, itemUUID: string): Promise<void> {
@@ -161,7 +161,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
 
         formula.quantity ? (formula.quantity += 1) : (formula.quantity = 2);
 
-        return this.updateRE();
+        return this.#updateRE();
     }
 
     async decreaseFormulaQuantity(index: number, itemUUID: string): Promise<void> {
@@ -175,7 +175,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
             return;
         }
 
-        return this.updateRE();
+        return this.#updateRE();
     }
 
     async setFormulaQuantity(index: number, itemUUID: string, quantity: number): Promise<void> {
@@ -189,7 +189,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
 
         formula.quantity = quantity;
 
-        return this.updateRE();
+        return this.#updateRE();
     }
 
     async toggleFormulaExpended(index: number, itemUUID: string): Promise<void> {
@@ -198,7 +198,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
 
         formula.expended = !formula.expended;
 
-        return this.updateRE();
+        return this.#updateRE();
     }
 
     async toggleSignatureItem(itemUUID: string): Promise<void> {
@@ -207,11 +207,11 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
 
         formula.isSignatureItem = !formula.isSignatureItem;
 
-        return this.updateRE();
+        return this.#updateRE();
     }
 
-    private async updateRE(): Promise<void> {
-        const rules = this.parentItem._source.system.rules;
+    async #updateRE(): Promise<void> {
+        const rules = this.parentItem.toObject().system.rules;
         const thisRule = rules.find(
             (r: CraftingEntryRuleSource): r is CraftingEntryRuleData =>
                 r.key === "CraftingEntry" && r.selector === this.selector

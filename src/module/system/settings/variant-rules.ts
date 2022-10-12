@@ -132,7 +132,7 @@ export class VariantRulesSettings extends FormApplication {
      */
     private async onResetDefaults(event: JQuery.ClickEvent): Promise<this> {
         event.preventDefault();
-        for await (const [k, v] of Object.entries(SETTINGS)) {
+        for (const [k, v] of Object.entries(SETTINGS)) {
             await game.settings.set("pf2e", k, v?.default);
         }
         return this.render();
@@ -147,7 +147,7 @@ export class VariantRulesSettings extends FormApplication {
     }
 
     protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
-        for await (const key of Object.keys(SETTINGS)) {
+        for (const key of Object.keys(SETTINGS)) {
             game.settings.set("pf2e", key, data[key]);
         }
     }

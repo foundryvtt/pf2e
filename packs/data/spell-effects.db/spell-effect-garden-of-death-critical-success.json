@@ -1,8 +1,9 @@
 {
     "_id": "5xCheSMgtQhQZm00",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/garden-of-death.webp",
     "name": "Spell Effect: Garden of Death (Critical Success)",
     "system": {
+        "badge": null,
         "description": {
             "value": "<p>A poisonous garden forms, and you and the secondary casters gain a +2 circumstance bonus to Nature or Crafting checks to deal with the plants or animals, such as feeding them or harvesting poison from them.</p>"
         },
@@ -18,29 +19,25 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "dealWithGardenOfDeath"
-                    ]
-                },
+                "predicate": [
+                    "dealWithGardenOfDeath"
+                ],
                 "selector": "nature",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "dealWithGardenOfDeath"
-                    ]
-                },
+                "predicate": [
+                    "dealWithGardenOfDeath"
+                ],
                 "selector": "crafting",
                 "type": "circumstance",
                 "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Secrets of Magic"
         },
         "start": {
             "initiative": null,

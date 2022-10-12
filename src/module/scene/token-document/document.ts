@@ -6,7 +6,6 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { PrototypeTokenPF2e } from "@actor/data/base";
 import { TokenAura } from "./aura";
-import { ActorSourcePF2e } from "@actor/data";
 import { objectHasKey, sluggify } from "@util";
 import { LightLevels } from "@scene/data";
 
@@ -18,6 +17,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
     override hasStatusEffect(statusId: string): boolean {
+        if (statusId === "dead") return this.overlayEffect === CONFIG.controlIcons.defeated;
+
         const { actor } = this;
         if (!actor || !game.settings.get("pf2e", "automation.rulesBasedVision")) {
             return false;
@@ -79,7 +80,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     }
 
     get rulesBasedVision(): boolean {
-        return !!(this.sight.enabled && this.actor && this.scene?.rulesBasedVision);
+        return !!(this.sight.enabled && this.actor?.isOfType("character", "familiar") && this.scene?.rulesBasedVision);
     }
 
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
@@ -197,17 +198,14 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             return super._prepareDetectionModes();
         }
 
-        const baseDetection = { id: "basicSight", enabled: true, range: null };
-        this.detectionModes = [baseDetection];
-        if (this.rulesBasedVision && ["character", "familiar"].includes(this.actor.type)) {
+        this.detectionModes = [{ id: "basicSight", enabled: true, range: null }];
+        if (["character", "familiar"].includes(this.actor.type)) {
             this.sight.attenuation = 0.1;
             this.sight.brightness = 0;
             this.sight.contrast = 0;
             this.sight.range = null;
             this.sight.saturation = 0;
             this.sight.visionMode = "basic";
-        } else {
-            super._prepareDetectionModes();
         }
     }
 
@@ -228,32 +226,51 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         // Token dimensions from actor size
         TokenDocumentPF2e.prepareSize(this, this.actor);
 
-        // Set primary vision mode and its defaults
-        if (this.rulesBasedVision && this.actor.type !== "npc") {
-            const isDark = this.scene.lightLevel <= LightLevels.DARKNESS;
-            const mode = this.hasDarkvision && isDark ? "darkvision" : "basic";
-            this.sight.visionMode = mode;
-            const { defaults } = CONFIG.Canvas.visionModes[mode].vision;
-            this.sight.brightness = defaults.brightness;
-            this.sight.saturation = defaults.saturation;
+        // Set vision and detection modes
+        this.#prepareDerivedPerception();
+    }
 
-            if (mode === "darkvision" || !isDark) {
-                const basicDetection = this.detectionModes.at(0);
-                if (!basicDetection) return;
-                this.sight.range = basicDetection.range = defaults.range;
+    /** Set vision and detection modes based on actor data */
+    #prepareDerivedPerception(): void {
+        if (!(this.rulesBasedVision && this.actor && this.scene && this.sight.enabled)) {
+            return;
+        }
 
-                // Temporary hard-coded fetchling check for initial release
-                if (this.actor.isOfType("character") && this.actor.ancestry?.slug === "fetchling") {
-                    this.sight.saturation = 1;
-                }
+        const visionMode = this.hasDarkvision ? "darkvision" : "basic";
+        this.sight.visionMode = visionMode;
+        const { defaults } = CONFIG.Canvas.visionModes[visionMode].vision;
+        this.sight.brightness = defaults.brightness;
+        this.sight.saturation = defaults.saturation;
+
+        if (visionMode === "darkvision" || this.scene.lightLevel > LightLevels.DARKNESS) {
+            const basicDetection = this.detectionModes.at(0);
+            if (!basicDetection) return;
+            this.sight.range = basicDetection.range = defaults.range;
+
+            // Temporary hard-coded fetchling check for initial release
+            if (this.actor.isOfType("character") && this.actor.ancestry?.slug === "fetchling") {
+                this.sight.saturation = 1;
+            } else if (!game.user.settings.monochromeDarkvision) {
+                this.sight.saturation = 0;
             }
         }
 
         const canSeeInvisibility =
-            this.actor.isOfType("character") &&
+            this.actor.isOfType("character", "familiar") &&
             this.actor.system.traits.senses.some((s) => s.type === "seeInvisibility");
         if (canSeeInvisibility) {
             this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: 1000 });
+        }
+
+        const tremorsense = this.actor.isOfType("character")
+            ? this.actor.system.traits.senses.find((s) => s.type === "tremorsense" && s.acuity !== "vague")
+            : null;
+        if (tremorsense) {
+            this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });
+        }
+
+        if (!this.actor.hasCondition("deafened")) {
+            this.detectionModes.push({ id: "hearing", enabled: true, range: Infinity });
         }
     }
 
@@ -280,7 +297,11 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             token.height = size;
 
             if (game.settings.get("pf2e", "tokens.autoscale") && token.flags.pf2e.autoscale !== false) {
-                token.texture.scaleX = token.texture.scaleY = actor.size === "sm" ? 0.8 : 1;
+                const absoluteScale = actor.size === "sm" ? 0.8 : 1;
+                const mirrorX = token.texture.scaleX < 0 ? -1 : 1;
+                token.texture.scaleX = mirrorX * absoluteScale;
+                const mirrorY = token.texture.scaleY < 0 ? -1 : 1;
+                token.texture.scaleY = mirrorY * absoluteScale;
             }
         }
     }
@@ -351,18 +372,16 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
 
         // Handle ephemeral changes from synthetic actor
-        if (this.actor && changed.actorData) {
-            super._onUpdate(changed, options, userId);
-            const preUpdate = this.toObject(false);
+        if (!this.actorLink && this.parent && changed.actorData) {
+            // If the Actor data override changed, simulate updating the synthetic Actor
+            this._onUpdateTokenActor(changed.actorData, options, userId);
             this.reset();
-            const postUpdate = this.toObject(false);
-            const ephemeralChanges = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-            if (Object.keys(ephemeralChanges).length > 0) {
-                this.object?._onUpdate(ephemeralChanges, options, userId);
-            }
-        } else {
-            super._onUpdate(changed, options, userId);
+            changed.light = {} as foundry.data.LightSource;
+            changed.texture = { src: this.texture.src } as foundry.data.TokenSource["texture"];
+            delete changed.actorData; // Prevent upstream from doing so a second time
         }
+
+        return super._onUpdate(changed, options, userId);
     }
 
     /** Check area effects, removing any from this token's actor if the actor has no other tokens in the scene */
@@ -374,26 +393,37 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
     }
 
-    /**
-     * Since token properties may be changed during data preparation, rendering called by the parent method must be
-     * based on the diff between pre- and post-data-preparation.
-     */
-    override _onUpdateBaseActor(
-        updates: DeepPartial<ActorSourcePF2e> = {},
-        options: DocumentModificationContext<ActorPF2e> = {}
-    ): void {
-        if (this.isLinked) {
+    /** Re-render token placeable if REs have ephemerally changed any visuals of this token */
+    onActorEmbeddedItemChange(): void {
+        if (!(this.isLinked && this.rendered && this.object.visible)) return;
+
+        this.object.drawEffects().then(() => {
             const preUpdate = this.toObject(false);
+            const preUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
             this.reset();
             const postUpdate = this.toObject(false);
-            const changed = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-            if (Object.keys(changed).length > 0) {
-                this._onUpdate(changed, options, game.user.id);
-            }
-        }
+            const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
+            const changes = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
 
-        // Parent method will perform effects redrawing
-        super._onUpdateBaseActor(updates, options);
+            // Assess the full diff using `diffObject`: additions, removals, and changes
+            const aurasChanged = ((): boolean => {
+                const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
+                const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
+                return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
+            })();
+            if (aurasChanged) changes.effects = []; // Nudge upstream to redraw effects
+
+            if (Object.keys(changes).length > 0) {
+                this._onUpdate(changes, {}, game.user.id);
+            }
+
+            if (aurasChanged || "width" in changes || "height" in changes) {
+                this.scene?.checkAuras();
+            }
+
+            // Update combat tracker with changed effects
+            if (this.combatant?.parent.active) ui.combat.render;
+        });
     }
 }
 

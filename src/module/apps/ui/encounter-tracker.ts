@@ -1,4 +1,4 @@
-import { EncounterPF2e, RolledCombatant } from "@module/encounter";
+import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter";
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
 import Sortable from "sortablejs";
 import type { SortableEvent } from "sortablejs";
@@ -62,7 +62,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                 dragoverBubble: true,
                 easing: "cubic-bezier(1, 0, 0, 1)",
                 ghostClass: "drag-gap",
-                onUpdate: (event) => this.onDropCombatant(event),
+                onUpdate: (event) => this.#onDropCombatant(event),
                 onEnd: (event) => this.adjustFinalOrder(event),
             });
         }
@@ -108,8 +108,13 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         }
     }
 
+    /** Replace parent method with system-specific procedure */
+    protected override _onToggleDefeatedStatus(combatant: CombatantPF2e<TEncounter>): Promise<void> {
+        return combatant.toggleDefeated();
+    }
+
     /** Handle the drop event of a dragged & dropped combatant */
-    private async onDropCombatant(event: SortableEvent): Promise<void> {
+    async #onDropCombatant(event: SortableEvent): Promise<void> {
         this.validateDrop(event);
 
         const encounter = this.viewed;

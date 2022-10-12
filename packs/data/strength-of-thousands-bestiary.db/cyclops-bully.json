@@ -485,12 +485,10 @@
                         "diceNumber": 2,
                         "dieSize": "d10",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:frightened",
-                                "terrorizing-swing"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:frightened",
+                            "terrorizing-swing"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -501,12 +499,10 @@
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "target:condition:frightened",
-                                "terrorizing-swing"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:frightened",
+                            "terrorizing-swing"
+                        ],
                         "selector": "strike-damage",
                         "text": "If the creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} and takes damage, it takes an additional [[/r {2d10}[]bludgeoning]]]{2d10 damage} and is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.",
                         "title": "{item|name}"
@@ -613,12 +609,6 @@
         }
     ],
     "name": "Cyclops Bully",
-    "prototypeToken": {
-        "name": "Cyclops Bully",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

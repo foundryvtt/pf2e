@@ -3013,15 +3013,15 @@
                     {
                         "key": "FlatModifier",
                         "label": "Verdant Staff (identify plants)",
-                        "predicate": {
-                            "all": [
-                                "action:recall-knowledge",
-                                "identify"
-                            ],
-                            "any": [
-                                "target:trait:plant"
-                            ]
-                        },
+                        "predicate": [
+                            "action:recall-knowledge",
+                            "identify",
+                            {
+                                "or": [
+                                    "target:trait:plant"
+                                ]
+                            }
+                        ],
                         "selector": "nature",
                         "type": "circumstance",
                         "value": 2
@@ -3482,11 +3482,9 @@
                         "override": {
                             "dieSize": "d8"
                         },
-                        "predicate": {
-                            "all": [
-                                "twoHanded"
-                            ]
-                        },
+                        "predicate": [
+                            "twoHanded"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -3631,11 +3629,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "mental"
-                            ]
-                        },
+                        "predicate": [
+                            "mental"
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -3828,11 +3824,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Climb",
-                        "predicate": {
-                            "all": [
-                                "action:climb"
-                            ]
-                        },
+                        "predicate": [
+                            "action:climb"
+                        ],
                         "selector": "athletics",
                         "value": 4
                     }
@@ -4081,12 +4075,6 @@
         }
     ],
     "name": "Nketiah",
-    "prototypeToken": {
-        "name": "Nketiah",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

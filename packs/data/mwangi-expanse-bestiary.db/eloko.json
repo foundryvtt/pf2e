@@ -1003,13 +1003,15 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "agile",
-                                "finesse",
-                                "ranged"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "agile",
+                                    "finesse",
+                                    "ranged"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1201,12 +1203,6 @@
         }
     ],
     "name": "Eloko",
-    "prototypeToken": {
-        "name": "Eloko",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

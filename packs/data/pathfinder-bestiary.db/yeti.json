@@ -113,48 +113,44 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "nightmareGuardianRage"
-                            ]
-                        },
+                        "predicate": [
+                            "nightmareGuardianRage"
+                        ],
                         "selector": "attack",
                         "type": "status",
                         "value": 1
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "nightmareGuardianRage"
-                            ]
-                        },
+                        "predicate": [
+                            "nightmareGuardianRage"
+                        ],
                         "selector": "strike-damage",
                         "type": "status",
                         "value": 1
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "nightmareGuardianRage"
-                            ]
-                        },
+                        "predicate": [
+                            "nightmareGuardianRage"
+                        ],
                         "selector": "ac",
                         "type": "status",
                         "value": -1
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "dream",
-                                "fear"
-                            ],
-                            "not": [
-                                "nightmareGuardianRage"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "dream",
+                                    "fear"
+                                ]
+                            },
+                            {
+                                "not": "nightmareGuardianRage"
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 4
@@ -354,11 +350,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Snow",
-                        "predicate": {
-                            "all": [
-                                "terrain:snow"
-                            ]
-                        },
+                        "predicate": [
+                            "terrain:snow"
+                        ],
                         "selector": "stealth",
                         "value": 3
                     }
@@ -411,12 +405,6 @@
         }
     ],
     "name": "Yeti",
-    "prototypeToken": {
-        "name": "Yeti",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

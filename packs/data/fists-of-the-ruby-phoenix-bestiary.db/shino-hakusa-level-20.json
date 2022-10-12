@@ -468,11 +468,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "necromancy"
-                            ]
-                        },
+                        "predicate": [
+                            "necromancy"
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 3
@@ -526,11 +524,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "nimble-dodge"
-                            ]
-                        },
+                        "predicate": [
+                            "nimble-dodge"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -668,23 +664,23 @@
                         "diceNumber": 5,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -920,10 +916,7 @@
     ],
     "name": "Shino Hakusa (Level 20)",
     "prototypeToken": {
-        "name": "Shino Hakusa",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Shino Hakusa"
     },
     "system": {
         "abilities": {

@@ -88,7 +88,14 @@ declare global {
          * @param [options.mode=any]             Which type of collisions are returned: any, closest, all
          * @returns Does a collision occur along the tested Ray?
          */
-        checkCollision(ray: Ray, { type, mode }?: { type?: WallRestrictionType; mode?: WallMode }): boolean;
+        checkCollision(ray: Ray, { type, mode }: { type?: WallRestrictionType; mode: "closest" }): PolygonVertex;
+        checkCollision(ray: Ray, { type, mode }: { type?: WallRestrictionType; mode: "any" }): boolean;
+        checkCollision(ray: Ray, { type, mode }: { type?: WallRestrictionType; mode: "all" }): PolygonVertex[];
+        checkCollision(ray: Ray, { type, mode }?: { type?: WallRestrictionType; mode?: undefined }): PolygonVertex[];
+        checkCollision(
+            ray: Ray,
+            { type, mode }?: { type?: WallRestrictionType; mode?: WallMode }
+        ): boolean | PolygonVertex | PolygonVertex[];
 
         /**
          * Highlight the endpoints of Wall segments which are currently group-controlled on the Walls layer

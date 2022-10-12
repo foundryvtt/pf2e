@@ -21,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -32,16 +31,18 @@
         "rules": [
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:trait:catfolk",
-                        "weapon:base:hatchet",
-                        "weapon:base:kama",
-                        "weapon:base:kukri",
-                        "weapon:base:scimitar",
-                        "weapon:base:sickle"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:trait:catfolk",
+                            "weapon:base:hatchet",
+                            "weapon:base:kama",
+                            "weapon:base:kukri",
+                            "weapon:base:scimitar",
+                            "weapon:base:sickle"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

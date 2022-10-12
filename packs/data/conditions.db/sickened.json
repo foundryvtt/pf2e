@@ -1,0 +1,71 @@
+{
+    "_id": "fesd1n5eVhpCSS18",
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/sickened.webp",
+    "name": "Sickened",
+    "system": {
+        "active": true,
+        "alsoApplies": {
+            "linked": [],
+            "unlinked": []
+        },
+        "base": "Sickened",
+        "description": {
+            "value": "<p>You feel ill. Sickened always includes a value. You take a status penalty equal to this value on all your checks and DCs. You can't willingly ingest anything-including elixirs and potions-while sickened.</p>\n<p>You can spend a single action retching in an attempt to recover, which lets you immediately attempt a Fortitude save against the DC of the effect that made you sickened. On a success, you reduce your sickened value by 1 (or by 2 on a critical success).</p>"
+        },
+        "duration": {
+            "perpetual": true,
+            "text": "",
+            "value": 0
+        },
+        "group": "",
+        "hud": {
+            "img": {
+                "useStatusName": true,
+                "value": "systems/pf2e/icons/conditions-2/sickened.webp"
+            },
+            "selectable": true,
+            "statusName": "sickened"
+        },
+        "modifiers": [],
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "removable": true,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "all",
+                "slug": "sickened",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "sources": {
+            "hud": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "value": {
+            "immutable": false,
+            "isValued": true,
+            "modifiers": [],
+            "value": 1
+        }
+    },
+    "type": "condition"
+}

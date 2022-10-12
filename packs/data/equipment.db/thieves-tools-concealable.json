@@ -39,12 +39,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Thieves' Tools (Pick Lock & Disable Devices)",
-                "predicate": {
-                    "any": [
-                        "action:disable-device",
-                        "action:pick-a-lock"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:disable-device",
+                            "action:pick-a-lock"
+                        ]
+                    }
+                ],
                 "selector": "thievery",
                 "type": "item",
                 "value": 1
@@ -52,12 +54,10 @@
             {
                 "key": "FlatModifier",
                 "label": "Thieves' Tools (Conceal tools)",
-                "predicate": {
-                    "all": [
-                        "action:conceal-an-object",
-                        "target:concealable-tools"
-                    ]
-                },
+                "predicate": [
+                    "action:conceal-an-object",
+                    "target:concealable-tools"
+                ],
                 "selector": "stealth",
                 "type": "item",
                 "value": 1

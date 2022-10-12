@@ -164,11 +164,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Lazurite-Infused Flesh",
-                        "predicate": {
-                            "all": [
-                                "positive"
-                            ]
-                        },
+                        "predicate": [
+                            "positive"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
@@ -176,12 +174,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Lazurite-Infused Terrain",
-                        "predicate": {
-                            "all": [
-                                "positive",
-                                "terrain:lazurite"
-                            ]
-                        },
+                        "predicate": [
+                            "positive",
+                            "terrain:lazurite"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 3
@@ -568,23 +564,23 @@
                         "diceNumber": 4,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -846,12 +842,6 @@
         }
     ],
     "name": "Falrok",
-    "prototypeToken": {
-        "name": "Falrok",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

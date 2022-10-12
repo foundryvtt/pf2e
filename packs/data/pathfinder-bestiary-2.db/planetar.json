@@ -3514,15 +3514,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -3615,11 +3617,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "illusion"
-                            ]
-                        },
+                        "predicate": [
+                            "illusion"
+                        ],
                         "selector": "perception",
                         "value": 4
                     }
@@ -3717,11 +3717,9 @@
                     {
                         "diceNumber": 3,
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "blade-of-justice"
-                            ]
-                        },
+                        "predicate": [
+                            "blade-of-justice"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -3922,12 +3920,6 @@
         }
     ],
     "name": "Planetar",
-    "prototypeToken": {
-        "name": "Planetar",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

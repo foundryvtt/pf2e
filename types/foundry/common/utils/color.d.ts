@@ -149,5 +149,5 @@ declare global {
         }
     }
 
-    type Color = typeof foundry.utils.Color;
+    type Color = foundry.utils.Color;
 }

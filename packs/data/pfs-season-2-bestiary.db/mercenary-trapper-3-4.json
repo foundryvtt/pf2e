@@ -684,12 +684,14 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "target:condition:immobilized",
-                                "trapped-prey"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:immobilized",
+                                    "trapped-prey"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -798,10 +800,7 @@
     ],
     "name": "Mercenary Trapper (3-4)",
     "prototypeToken": {
-        "name": "Mercenary Trapper",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Mercenary Trapper"
     },
     "system": {
         "abilities": {

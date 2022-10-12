@@ -520,11 +520,9 @@
                         "override": {
                             "dieSize": "d8"
                         },
-                        "predicate": {
-                            "all": [
-                                "twoHanded"
-                            ]
-                        },
+                        "predicate": [
+                            "twoHanded"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -615,11 +613,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "action:subsist"
-                            ]
-                        },
+                        "predicate": [
+                            "action:subsist"
+                        ],
                         "selector": "survival",
                         "text": "While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide subsistence living for multiple creatures.",
                         "title": "{item|name}"
@@ -715,12 +711,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "To Seek hunted prey",
-                        "predicate": {
-                            "all": [
-                                "action:seek",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "action:seek",
+                            "hunted-prey"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 2
@@ -728,12 +722,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "To Track hunted prey",
-                        "predicate": {
-                            "all": [
-                                "action:track",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "action:track",
+                            "hunted-prey"
+                        ],
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
@@ -750,11 +742,9 @@
                         "diceNumber": 1,
                         "dieSize": "d8",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "first-attack"
-                            ]
-                        },
+                        "predicate": [
+                            "first-attack"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -892,12 +882,6 @@
         }
     ],
     "name": "Tracker",
-    "prototypeToken": {
-        "name": "Tracker",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

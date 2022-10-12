@@ -303,11 +303,11 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.NPCAbility.CustomArmor.BrokenArmor",
-                        "predicate": {
-                            "not": [
-                                "broken-armor"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "broken-armor"
+                            }
+                        ],
                         "selector": "ac",
                         "slug": "broken-from-damage",
                         "value": "4*(min(round(@actor.system.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
@@ -315,11 +315,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.NPCAbility.CustomArmor.BrokenArmor",
-                        "predicate": {
-                            "all": [
-                                "broken-armor"
-                            ]
-                        },
+                        "predicate": [
+                            "broken-armor"
+                        ],
                         "selector": "ac",
                         "slug": "broken-from-critical",
                         "value": "-4"
@@ -377,11 +375,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "leapAway"
-                            ]
-                        },
+                        "predicate": [
+                            "leapAway"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -627,11 +623,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Climb",
-                        "predicate": {
-                            "all": [
-                                "action:climb"
-                            ]
-                        },
+                        "predicate": [
+                            "action:climb"
+                        ],
                         "selector": "athletics",
                         "value": 4
                     }
@@ -740,12 +734,6 @@
         }
     ],
     "name": "Glaz Nixbrix",
-    "prototypeToken": {
-        "name": "Glaz Nixbrix",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {
@@ -816,15 +804,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": "10"
+                "value": 10
             },
             "reflex": {
                 "saveDetail": "",
-                "value": "14"
+                "value": 14
             },
             "will": {
                 "saveDetail": "",
-                "value": "9"
+                "value": 9
             }
         },
         "traits": {

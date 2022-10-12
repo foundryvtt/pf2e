@@ -2301,15 +2301,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -2677,11 +2679,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Grapple",
-                        "predicate": {
-                            "all": [
-                                "action:grapple"
-                            ]
-                        },
+                        "predicate": [
+                            "action:grapple"
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -2874,12 +2874,6 @@
         }
     ],
     "name": "Iron Taviah",
-    "prototypeToken": {
-        "name": "Iron Taviah",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

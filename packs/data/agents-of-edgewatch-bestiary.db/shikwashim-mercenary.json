@@ -1028,29 +1028,31 @@
                 "rules": [
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "agile"
-                            ],
-                            "any": [
-                                "target:trait:human",
-                                "human-hunter"
-                            ]
-                        },
+                        "predicate": [
+                            "agile",
+                            {
+                                "or": [
+                                    "target:trait:human",
+                                    "human-hunter"
+                                ]
+                            }
+                        ],
                         "selector": "attack",
                         "value": -2
                     },
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "any": [
-                                "target:trait:human",
-                                "human-hunter"
-                            ],
-                            "not": [
-                                "agile"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:human",
+                                    "human-hunter"
+                                ]
+                            },
+                            {
+                                "not": "agile"
+                            }
+                        ],
                         "selector": "attack",
                         "value": -3
                     },
@@ -1110,11 +1112,9 @@
                     {
                         "diceNumber": 1,
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "powerful-swipe"
-                            ]
-                        },
+                        "predicate": [
+                            "powerful-swipe"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1290,12 +1290,6 @@
         }
     ],
     "name": "Shikwashim Mercenary",
-    "prototypeToken": {
-        "name": "Shikwashim Mercenary",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

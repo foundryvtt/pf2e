@@ -21,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -29,7 +28,18 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d10"
+                },
+                "predicate": [
+                    "item:slug:harm"
+                ],
+                "selector": "spell-damage"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

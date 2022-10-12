@@ -828,11 +828,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "nimbleDodge"
-                            ]
-                        },
+                        "predicate": [
+                            "nimbleDodge"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -1036,23 +1034,23 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1121,12 +1119,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.ClimbOrSwim",
-                        "predicate": {
-                            "any": [
-                                "action:climb",
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:climb",
+                                    "action:swim"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -1235,12 +1235,6 @@
         }
     ],
     "name": "Wererat",
-    "prototypeToken": {
-        "name": "Wererat",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

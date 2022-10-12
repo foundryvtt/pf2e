@@ -776,12 +776,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "In Grass or Undergrowth",
-                        "predicate": {
-                            "any": [
-                                "terrain:grass",
-                                "terrain:undergrowth"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:grass",
+                                    "terrain:undergrowth"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 4
                     }
@@ -834,12 +836,6 @@
         }
     ],
     "name": "Carbuncle",
-    "prototypeToken": {
-        "name": "Carbuncle",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

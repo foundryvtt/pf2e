@@ -21,7 +21,6 @@
         "level": {
             "value": 8
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -36,12 +35,14 @@
             {
                 "key": "FlatModifier",
                 "label": "vs. fear or despair (Unshakable Idealism)",
-                "predicate": {
-                    "any": [
-                        "fear",
-                        "emotion-despair"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "fear",
+                            "emotion-despair"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

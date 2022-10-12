@@ -287,24 +287,20 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:rage"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
                         "selector": "ac",
                         "value": -1
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:rage"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:rage",
+                            {
+                                "not": "ranged"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "value": 4
                     }
@@ -417,12 +413,6 @@
         }
     ],
     "name": "Drunkard",
-    "prototypeToken": {
-        "name": "Drunkard",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

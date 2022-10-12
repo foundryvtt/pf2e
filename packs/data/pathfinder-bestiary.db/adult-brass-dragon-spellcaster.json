@@ -2834,15 +2834,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -2946,11 +2948,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "wing-deflection"
-                            ]
-                        },
+                        "predicate": [
+                            "wing-deflection"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -3206,10 +3206,7 @@
     ],
     "name": "Adult Brass Dragon (Spellcaster)",
     "prototypeToken": {
-        "name": "Adult Brass Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Adult Brass Dragon"
     },
     "system": {
         "abilities": {

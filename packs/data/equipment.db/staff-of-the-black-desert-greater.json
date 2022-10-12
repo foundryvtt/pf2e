@@ -89,17 +89,17 @@
             {
                 "key": "FlatModifier",
                 "label": "Staff of the Black Desert (identify oozes & aberrations of Darklands)",
-                "predicate": {
-                    "all": [
-                        "action:recall-knowledge",
-                        "identify",
-                        "target:native-darklands"
-                    ],
-                    "any": [
-                        "target:trait:ooze",
-                        "target:trait:aberration"
-                    ]
-                },
+                "predicate": [
+                    "action:recall-knowledge",
+                    "identify",
+                    "target:native-darklands",
+                    {
+                        "or": [
+                            "target:trait:ooze",
+                            "target:trait:aberration"
+                        ]
+                    }
+                ],
                 "selector": "occultism",
                 "type": "circumstance",
                 "value": 2

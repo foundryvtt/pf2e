@@ -91,11 +91,9 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "stoke-flames"
-                    ]
-                },
+                "predicate": [
+                    "stoke-flames"
+                ],
                 "selector": "{item|_id}-damage"
             },
             {
@@ -108,11 +106,11 @@
             {
                 "damageType": "fire",
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "stoke-flames"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "stoke-flames"
+                    }
+                ],
                 "selector": "{item|_id}-damage",
                 "value": 1
             }

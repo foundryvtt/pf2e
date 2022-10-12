@@ -86,20 +86,20 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:craft"
-                    ],
-                    "any": [
-                        "armor",
-                        "jewelry",
-                        "metalworking",
-                        "stonemasonry",
-                        "snare",
-                        "trap",
-                        "weapon"
-                    ]
-                },
+                "predicate": [
+                    "action:craft",
+                    {
+                        "or": [
+                            "armor",
+                            "jewelry",
+                            "metalworking",
+                            "stonemasonry",
+                            "snare",
+                            "trap",
+                            "weapon"
+                        ]
+                    }
+                ],
                 "selector": "crafting",
                 "type": "item",
                 "value": 4
@@ -108,11 +108,9 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "target:trait:orc"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:orc"
+                ],
                 "selector": "strike-damage"
             },
             {

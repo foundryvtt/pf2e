@@ -21,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -32,13 +31,15 @@
         "rules": [
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:trait:gnome",
-                        "weapon:base:glaive",
-                        "weapon:base:kukri"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:trait:gnome",
+                            "weapon:base:glaive",
+                            "weapon:base:kukri"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {

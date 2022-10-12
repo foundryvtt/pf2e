@@ -188,12 +188,11 @@ declare global {
                  * const data = [{name: "Compendium Actor", type: "character", img: "path/to/profile.jpg"}];
                  * const created = await Actor.createDocuments(data, {pack: "mymodule.mypack"});
                  */
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                static createDocuments<T extends ConstructorOf<any>>(
-                    this: T,
-                    data?: PreCreate<InstanceType<T>["_source"]>[],
-                    context?: DocumentModificationContext
-                ): Promise<InstanceType<T>[]>;
+                static createDocuments<T extends Document>(
+                    this: ConstructorOf<T>,
+                    data?: PreCreate<T["_source"]>[],
+                    context?: DocumentModificationContext<T>
+                ): Promise<T[]>;
 
                 /**
                  * Update multiple Document instances using provided differential data.

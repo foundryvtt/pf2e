@@ -2772,12 +2772,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "mental",
-                                "disease"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "mental",
+                                    "disease"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -3210,12 +3212,6 @@
         }
     ],
     "name": "Parsus",
-    "prototypeToken": {
-        "name": "Parsus",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

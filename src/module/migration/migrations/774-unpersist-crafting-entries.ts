@@ -3,14 +3,14 @@ import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { PhysicalItemTrait } from "@item/physical/data";
 import { RuleElementSource } from "@module/rules";
-import { RawPredicate } from "@system/predication";
+import { PredicateStatement } from "@system/predication";
 import { MigrationBase } from "../base";
 
 /** Convert crafting entry `requiredTrait` properties to be predicates */
 export class Migration774UnpersistCraftingEntries extends MigrationBase {
     static override version = 0.774;
 
-    munitionsCrafterPredicate: RawPredicate = {
+    munitionsCrafterPredicate: OldRawPredicate = {
         all: ["item:trait:alchemical"],
         any: ["item:trait:bomb", "item:subtype:ammo"],
     };
@@ -59,7 +59,7 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
             delete craftingEntryRule.requiredTraits;
         }
 
-        // Add "phase":"afterDerived" property to any AE-Likes targeting "system.crafting.entries"
+        // Add "phase":"beforeDerived" property to any AE-Likes targeting "system.crafting.entries"
         const craftingEntryAELikes: (RuleElementSource & { phase?: unknown })[] = rules.filter(
             (r: RuleElementSource & { path?: unknown }) =>
                 r.key === "ActiveEffectLike" &&
@@ -67,7 +67,7 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
                 r.path.startsWith("system.crafting.entries.")
         );
         const newCraftingEntryAELikes = craftingEntryAELikes.map((craftingEntryAELike) => {
-            craftingEntryAELike.phase = "afterDerived";
+            craftingEntryAELike.phase = "beforeDerived";
             return craftingEntryAELike;
         });
         for (const craftingEntryAELike of craftingEntryAELikes) {
@@ -76,7 +76,7 @@ export class Migration774UnpersistCraftingEntries extends MigrationBase {
         }
     }
 
-    generatePredicateFromRequiredTraits(requiredTraits: PhysicalItemTrait[][]): RawPredicate {
+    generatePredicateFromRequiredTraits(requiredTraits: PhysicalItemTrait[][]): OldRawPredicate {
         if (requiredTraits.length === 1)
             return {
                 all: requiredTraits[0].map((trait) => {
@@ -117,7 +117,7 @@ interface ActorPreparedFormula {
 interface MaybeWithRequiredTraits extends RuleElementSource {
     selector?: unknown;
     requiredTraits?: PhysicalItemTrait[][];
-    craftableItems?: RawPredicate;
+    craftableItems?: OldRawPredicate;
     isAlchemical?: boolean;
     isDailyPrep?: boolean;
     isPrepared?: boolean;
@@ -131,4 +131,10 @@ interface PreparedFormulaData {
     quantity?: number;
     expended?: boolean;
     isSignatureItem?: boolean;
+}
+
+interface OldRawPredicate {
+    all?: PredicateStatement[];
+    any?: PredicateStatement[];
+    not?: PredicateStatement[];
 }

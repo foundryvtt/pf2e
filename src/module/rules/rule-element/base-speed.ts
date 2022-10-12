@@ -1,9 +1,10 @@
 import { CreaturePF2e } from "@actor";
-import { MovementType } from "@actor/creature/data";
+import { MovementType, UnlabeledSpeed } from "@actor/creature/data";
 import { ActorType } from "@actor/data";
+import { MOVEMENT_TYPES } from "@actor/values";
 import { ItemPF2e } from "@item";
 import { tupleHasValue } from "@util";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from ".";
+import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from ".";
 import { DeferredMovementType } from "../synthetics";
 
 /**
@@ -12,9 +13,9 @@ import { DeferredMovementType } from "../synthetics";
 class BaseSpeedRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    static VALID_SELECTORS = ["burrow", "fly", "climb", "swim"] as const;
+    private selector: MovementType;
 
-    private selector: BaseSpeedSelector = "fly";
+    private value: number | string | BracketedValue = 0;
 
     constructor(data: BaseSpeedSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
@@ -23,12 +24,17 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
             .trim()
             .replace(/-speed$/, "");
 
-        if (speedType === "land") {
-            this.failValidation("A land speed may not be created");
-        } else if (!tupleHasValue(BaseSpeedRuleElement.VALID_SELECTORS, speedType)) {
+        if (!tupleHasValue(MOVEMENT_TYPES, speedType)) {
             this.failValidation("Unrecognized or missing selector");
+            this.selector = "land";
         } else {
             this.selector = speedType;
+        }
+
+        if (typeof data.value === "string" || typeof data.value === "number" || this.isBracketedValue(data.value)) {
+            this.value = data.value;
+        } else {
+            this.failValidation("A value must be a number, string, or bracketed value");
         }
     }
 
@@ -40,19 +46,16 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
     }
 
     #createMovementType(): DeferredMovementType {
-        return () => {
-            if (!this.test()) null;
+        return (): UnlabeledSpeed | null => {
+            if (!this.test()) return null;
 
-            const value = this.resolveValue(this.data.value);
-            if (!(typeof value === "number" && Number.isInteger(value) && value > 0)) {
-                this.failValidation("Base speed requires a positive value field");
+            const value = Math.trunc(Number(this.resolveValue(this.value)));
+            if (!Number.isInteger(value)) {
+                this.failValidation("Failed to resolve value");
                 return null;
             }
 
-            return {
-                type: this.selector,
-                value,
-            };
+            return value > 0 ? { type: this.selector, value, source: this.item.name } : null;
         };
     }
 }
@@ -64,7 +67,5 @@ interface BaseSpeedSource extends RuleElementSource {
 interface BaseSpeedRuleElement extends RuleElementPF2e {
     get actor(): CreaturePF2e;
 }
-
-type BaseSpeedSelector = Exclude<MovementType, "land">;
 
 export { BaseSpeedRuleElement };

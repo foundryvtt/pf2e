@@ -615,15 +615,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "value": 1
                     }
@@ -775,12 +777,6 @@
         }
     ],
     "name": "Nixie",
-    "prototypeToken": {
-        "name": "Nixie",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

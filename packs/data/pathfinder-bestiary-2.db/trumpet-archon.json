@@ -1543,11 +1543,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Virtuoso Instrument (playing it)",
-                        "predicate": {
-                            "all": [
-                                "playing"
-                            ]
-                        },
+                        "predicate": [
+                            "playing"
+                        ],
                         "selector": "performance",
                         "type": "item",
                         "value": 1
@@ -1784,15 +1782,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -2192,12 +2192,6 @@
         }
     ],
     "name": "Trumpet Archon",
-    "prototypeToken": {
-        "name": "Trumpet Archon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

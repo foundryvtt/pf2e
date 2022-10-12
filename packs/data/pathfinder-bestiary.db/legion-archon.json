@@ -1037,15 +1037,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1227,21 +1229,19 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "not": [
-                                "flameOfJustice"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "flameOfJustice"
+                            }
+                        ],
                         "selector": "strike-damage"
                     },
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "flameOfJustice"
-                            ]
-                        },
+                        "predicate": [
+                            "flameOfJustice"
+                        ],
                         "selector": "strike-damage",
                         "value": 6
                     },
@@ -1447,12 +1447,6 @@
         }
     ],
     "name": "Legion Archon",
-    "prototypeToken": {
-        "name": "Legion Archon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

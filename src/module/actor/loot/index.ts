@@ -33,7 +33,7 @@ export class LootPF2e extends ActorPF2e {
         return false;
     }
 
-    /** Come on, it's a box. */
+    /** It's a box. */
     override get canAct(): false {
         return false;
     }

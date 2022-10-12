@@ -5,7 +5,7 @@ import { ItemPF2e, WeaponPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { ZeroToThree } from "@module/data";
-import { RollNotePF2e } from "@module/notes";
+import { RollNotePF2e, RollNoteSource } from "@module/notes";
 import { RollSubstitution } from "@module/rules/synthetics";
 import { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -35,6 +35,7 @@ interface RollDataPF2e extends RollData {
     strike?: {
         actor: ActorUUID | TokenDocumentUUID;
         index: number;
+        damaging?: boolean;
         name: string;
     };
 }
@@ -79,7 +80,7 @@ interface BaseRollContext {
     /** Any options which should be used in the roll. */
     options?: Set<string>;
     /** Any notes which should be shown for the roll. */
-    notes?: RollNotePF2e[];
+    notes?: (RollNotePF2e | RollNoteSource)[];
     /** If true, this is a secret roll which should only be seen by the GM. */
     secret?: boolean;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
@@ -129,13 +130,14 @@ interface CheckTargetFlag {
     token?: TokenDocumentUUID;
 }
 
-type ContextFlagOmission = "actor" | "altUsage" | "createMessage" | "item" | "options" | "target" | "token";
+type ContextFlagOmission = "actor" | "altUsage" | "createMessage" | "item" | "notes" | "options" | "target" | "token";
 interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
     item?: undefined;
     target: CheckTargetFlag | null;
     altUsage?: "thrown" | "melee" | null;
+    notes: RollNoteSource[];
     options: string[];
 }
 
@@ -258,6 +260,7 @@ class CheckPF2e {
                     data.strike = {
                         actor: context.actor.uuid,
                         index: strikes.indexOf(strike),
+                        damaging: !contextItem.isOfType("melee", "weapon") || contextItem.dealsDamage,
                         name: strike.item.name,
                     };
                 }
@@ -277,10 +280,11 @@ class CheckPF2e {
             roll.data.degreeOfSuccess = degree.value;
         }
 
-        const notes =
-            context.notes
-                ?.filter((note) => {
-                    if (!PredicatePF2e.test(note.predicate, rollOptions)) return false;
+        const notes = context.notes?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n))) ?? [];
+        const notesText =
+            notes
+                .filter((note) => {
+                    if (!note.predicate.test(rollOptions)) return false;
                     if (!context.dc || note.outcome.length === 0) {
                         // Always show the note if the check has no DC or no outcome is specified.
                         return true;
@@ -293,7 +297,7 @@ class CheckPF2e {
                     return false;
                 })
                 .map((n) => n.text)
-                .join("<br />") ?? "";
+                .join("\n") ?? "";
 
         const item = context.item ?? null;
 
@@ -302,24 +306,23 @@ class CheckPF2e {
             const tags = this.createTagFlavor({ check, context, extraTags });
 
             const incapacitationNote = (): HTMLElement => {
-                const note = document.createElement("p");
-                note.classList.add("compact-text");
-                const title = document.createElement("strong");
-                title.innerText = `${game.i18n.localize("PF2E.TraitIncapacitation")}:`;
-                note.append(title, game.i18n.localize("PF2E.TraitDescriptionIncapacitationShort"));
-                return note;
+                const note = new RollNotePF2e({
+                    selector: "all",
+                    title: game.i18n.localize("PF2E.TraitIncapacitation"),
+                    text: game.i18n.localize("PF2E.TraitDescriptionIncapacitationShort"),
+                });
+                return parseHTML(note.text);
             };
             const incapacitation =
                 item?.isOfType("spell") && item.traits.has("incapacitation") ? incapacitationNote() : "";
 
             const header = document.createElement("h4");
             header.classList.add("action");
-            header.innerHTML = check.name;
-            const flavor = [header, result ?? [], tags, notes, incapacitation]
+            header.innerHTML = check.slug;
+            return [header, result ?? [], tags, notesText, incapacitation]
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
-            return TextEditor.enrichHTML(flavor, { ...item?.getRollData(), async: true });
         })();
 
         const secret = context.secret ?? rollOptions.has("secret");
@@ -332,7 +335,7 @@ class CheckPF2e {
             domains: context.domains ?? [],
             target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
             options: Array.from(rollOptions).sort(),
-            notes: (context.notes ?? []).filter((n) => PredicatePF2e.test(n.predicate, rollOptions)),
+            notes: notes.filter((n) => n.predicate.test(rollOptions)).map((n) => n.toObject()),
             secret,
             rollMode: secret ? "blindroll" : context.rollMode ?? game.settings.get("core", "rollMode"),
             rollTwice: context.rollTwice ?? false,
@@ -358,7 +361,7 @@ class CheckPF2e {
                 pf2e: {
                     context: contextFlag,
                     unsafe: flavor,
-                    modifierName: check.name,
+                    modifierName: check.slug,
                     modifiers: check.modifiers,
                     origin,
                 },
@@ -504,10 +507,10 @@ class CheckPF2e {
         context.skipDialog = true;
         context.isReroll = true;
 
-        const oldRoll = message.roll;
+        const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
 
-        const RollCls = message.roll.constructor as typeof Check.Roll;
+        const RollCls = oldRoll.constructor as typeof Check.Roll;
         const newData = { ...oldRoll.data, isReroll: true };
         const newRoll = await new RollCls(oldRoll.formula, newData).evaluate({ async: true });
 

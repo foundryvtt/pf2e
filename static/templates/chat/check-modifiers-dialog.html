@@ -26,7 +26,7 @@
     </div>
     <div class="modifier-container">
         {{#each modifiers as |modifier idx|}}
-            <div class="dialog-row{{#unless modifier.enabled}} disabled{{/unless}}">
+            <div class="dialog-row{{#unless modifier.enabled}} disabled{{#if modifier.hideIfDisabled}} hidden{{/if}}{{/unless}}">
                 <span class="type tag">{{localize (concat "PF2E.ModifierType." modifier.type)}}</span>
                 <span class="mod">{{modifier.label}}</span>
                 <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
@@ -48,7 +48,7 @@
             <option value="ability">{{localize "PF2E.ModifierType.ability"}}</option>
             <option value="proficiency">{{localize "PF2E.ModifierType.proficiency"}}</option>
         </select>
-        <input type="text" class="add-modifier-value" placeholder="+1">
+        <input type="number" class="add-modifier-value" placeholder="+1">
         <button type="button" class="add-modifier">+{{localize "PF2E.Roll.Add"}}</button>
     </div>
     <hr/>

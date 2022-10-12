@@ -228,12 +228,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.ClimbOrSwim",
-                        "predicate": {
-                            "any": [
-                                "action:climb",
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:climb",
+                                    "action:swim"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -286,12 +288,6 @@
         }
     ],
     "name": "Vulture Rat",
-    "prototypeToken": {
-        "name": "Vulture Rat",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

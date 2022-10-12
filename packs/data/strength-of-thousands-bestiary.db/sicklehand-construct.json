@@ -323,12 +323,14 @@
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "target:condition:flat-footed",
-                                "target:condition:prone"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:flat-footed",
+                                    "target:condition:prone"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -397,11 +399,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Trip",
-                        "predicate": {
-                            "all": [
-                                "action:trip"
-                            ]
-                        },
+                        "predicate": [
+                            "action:trip"
+                        ],
                         "selector": "athletics",
                         "type": "untyped",
                         "value": 1
@@ -427,12 +427,6 @@
         }
     ],
     "name": "Sicklehand Construct",
-    "prototypeToken": {
-        "name": "Sicklehand Construct",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

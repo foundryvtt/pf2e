@@ -568,14 +568,12 @@
                         "outcome": [
                             "success"
                         ],
-                        "predicate": {
-                            "all": [
-                                "self:effect:rage"
-                            ],
-                            "not": [
-                                "range"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:rage",
+                            {
+                                "not": "range"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
@@ -585,14 +583,12 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "all": [
-                                "self:effect:rage"
-                            ],
-                            "not": [
-                                "range"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:rage",
+                            {
+                                "not": "range"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "text": "<p class='compact-text'><strong>{item|name}</strong></p><p>While the charau-ka butcher is raging, its melee Strikes deal @Localize[PF2E.PersistentDamage.Bleed1d4.criticalSuccess].</p>"
                     }
@@ -640,26 +636,24 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "self:effect:rage"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
                         "selector": "ac",
                         "value": -1
                     },
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "self:effect:rage"
-                            ],
-                            "not": [
-                                "agile",
-                                "ranged"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:rage",
+                            {
+                                "nor": [
+                                    "agile",
+                                    "ranged"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "slug": "rage",
                         "value": 2
@@ -667,15 +661,13 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.TraitRage",
-                        "predicate": {
-                            "all": [
-                                "self:effect:rage",
-                                "agile"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:rage",
+                            "agile",
+                            {
+                                "not": "ranged"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "slug": "agile-rage",
                         "value": 1
@@ -927,12 +919,6 @@
         }
     ],
     "name": "Charau-ka Butcher",
-    "prototypeToken": {
-        "name": "Charau-ka Butcher",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

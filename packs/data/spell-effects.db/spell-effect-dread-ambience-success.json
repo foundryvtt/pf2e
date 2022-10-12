@@ -1,8 +1,9 @@
 {
     "_id": "1gTnFmfLUQnCo3TK",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/spells/dread-ambience.webp",
     "name": "Spell Effect: Dread Ambience (Success)",
     "system": {
+        "badge": null,
         "description": {
             "value": "<p>Every creature in the area takes a -1 status penalty to saving throws against fear effects.</p>"
         },
@@ -18,18 +19,16 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    "fear"
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": -1
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Secrets of Magic"
         },
         "start": {
             "initiative": null,

@@ -21,7 +21,6 @@
         "level": {
             "value": 6
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,11 +30,11 @@
         },
         "rules": [
             {
-                "disabledIf": {
-                    "not": [
-                        "double-shot"
-                    ]
-                },
+                "disabledIf": [
+                    {
+                        "not": "double-shot"
+                    }
+                ],
                 "domain": "ranged-attack-roll",
                 "key": "RollOption",
                 "option": "triple-shot",
@@ -45,12 +44,10 @@
             {
                 "key": "AdjustModifier",
                 "mode": "override",
-                "predicate": {
-                    "all": [
-                        "double-shot",
-                        "triple-shot"
-                    ]
-                },
+                "predicate": [
+                    "double-shot",
+                    "triple-shot"
+                ],
                 "relabel": "{item|name}",
                 "selector": "ranged-attack-roll",
                 "slug": "double-shot",

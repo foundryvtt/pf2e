@@ -9,7 +9,7 @@
             "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
-                    "value": null
+                    "value": 3
                 },
                 "description": {
                     "value": ""
@@ -24,7 +24,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -98,7 +98,7 @@
                 "spelldc": {
                     "dc": 25,
                     "mod": 0,
-                    "value": 15
+                    "value": 17
                 },
                 "tradition": {
                     "value": "primal"
@@ -127,7 +127,7 @@
                 },
                 "area": {
                     "areaType": "cone",
-                    "value": 15
+                    "value": "15"
                 },
                 "areasize": {
                     "value": "15-foot cone"
@@ -157,9 +157,10 @@
                     "value": false
                 },
                 "level": {
-                    "value": 3
+                    "value": 1
                 },
                 "location": {
+                    "heightenedLevel": 3,
                     "value": "znBZYCY2qwfdxbV3"
                 },
                 "materials": {
@@ -190,7 +191,7 @@
                 },
                 "slug": "color-spray",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -215,6 +216,7 @@
                     "rarity": "common",
                     "value": [
                         "incapacitation",
+                        "primal",
                         "visual"
                     ]
                 }
@@ -237,7 +239,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -300,7 +302,7 @@
                 },
                 "slug": "dancing-lights",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -326,8 +328,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "cantrip",
                         "light",
-                        "cantrip"
+                        "primal"
                     ]
                 }
             },
@@ -510,6 +513,51 @@
             "type": "action"
         },
         {
+            "_id": "ZvvD1xFO55olkqpZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
+            "sort": 800000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "Sei3FrQPmhMHMkTo",
             "flags": {
                 "core": {
@@ -517,8 +565,8 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent",
-            "sort": 800000,
+            "name": "Scent (Imprecise) 60 feet",
+            "sort": 900000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -563,7 +611,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -608,7 +656,7 @@
             "_id": "G5NJxlLVYCrXX8Jv",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Twisting Tail",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -625,7 +673,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "attack",
+                        "key": "RollOption",
+                        "option": "twisting-tail",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "twisting-tail"
+                        ],
+                        "selector": "tail-attack",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -650,7 +714,7 @@
             "_id": "JLM9pHvLtJxtkDH5",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -693,7 +757,7 @@
             "_id": "cvtGewKiksGkDNKz",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Draconic Frenzy",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -733,7 +797,7 @@
             "_id": "EW5LH6Dw5jEKEVOU",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Draconic Momentum",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -783,7 +847,7 @@
             "_id": "PvSWIH9C84FIcxCe",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -811,7 +875,7 @@
             "_id": "vwvHmTux8fppV1GI",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -839,7 +903,7 @@
             "_id": "JJmcJAQe2fsraAn7",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -867,7 +931,7 @@
             "_id": "FSt93piodAQLdzBF",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -895,7 +959,7 @@
             "_id": "7sOp3ateROM3qz30",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -923,7 +987,7 @@
             "_id": "6y0OokhZEsA6yg1p",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1900000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -951,7 +1015,7 @@
             "_id": "jquhvADqoP6HSdDR",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2000000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -977,12 +1041,6 @@
         }
     ],
     "name": "Young Crystal Dragon",
-    "prototypeToken": {
-        "name": "Young Crystal Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

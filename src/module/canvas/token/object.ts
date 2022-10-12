@@ -1,4 +1,5 @@
 import { TokenDocumentPF2e } from "@module/scene";
+import { pick } from "@util";
 import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
 import { AuraRenderers } from "./aura";
 
@@ -12,8 +13,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }
 
-    /** The promise returned by the last call to `Token#draw()` */
-    private drawLock?: Promise<this>;
+    /** Guarantee boolean return */
+    override get isVisible(): boolean {
+        return super.isVisible ?? false;
+    }
 
     /** Is this token currently animating? */
     get isAnimating(): boolean {
@@ -120,7 +123,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         return flankingBuddies.some((b) => onOppositeSides(this, b, flankee));
     }
 
-    /** Overrides _drawBar() to also draw pf2e variants of normal resource bars (such as temp health) */
+    /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
         if (!canvas.dimensions) return;
 
@@ -175,19 +178,11 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         bar.position.set(0, number === 0 ? this.h - h : 0);
     }
 
-    /** Make the drawing promise accessible to `#redraw` */
-    override async draw(): Promise<this> {
-        this.auras.clear();
-        this.drawLock = super.draw();
-        await this.drawLock;
-
-        return this;
-    }
-
     /** Draw auras along with effect icons */
-    override drawEffects(): Promise<void> {
+    override async drawEffects(): Promise<void> {
+        await super.drawEffects();
+        await this._animation;
         this.auras.draw();
-        return super.drawEffects();
     }
 
     emitHoverIn() {
@@ -221,6 +216,8 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Emit floaty text from this tokens */
     async showFloatyText(params: number | ShowFloatyEffectParams): Promise<void> {
+        if (!this.isVisible) return;
+
         const scrollingTextArgs = ((): Parameters<CanvasPF2e["interface"]["createScrollingText"]> | null => {
             if (typeof params === "number") {
                 const quantity = params;
@@ -238,12 +235,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                     {
                         anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
                         jitter: 0.25,
-                        textStyle: {
-                            fill: textColors[quantity < 0 ? "damage" : "healing"],
-                            fontSize: 16 + 32 * percent, // Range between [16, 48]
-                            stroke: 0x000000,
-                            strokeThickness: 4,
-                        },
+                        fill: textColors[quantity < 0 ? "damage" : "healing"],
+                        fontSize: 16 + 32 * percent, // Range between [16, 48]
+                        stroke: 0x000000,
+                        strokeThickness: 4,
                     },
                 ];
             } else {
@@ -252,27 +247,24 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 const sign = isAdded ? "+ " : "- ";
                 const appendedNumber = details.value ? ` ${details.value}` : "";
                 const content = `${sign}${details.name}${appendedNumber}`;
+                const anchorDirection = isAdded ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM;
+                const textStyle = pick(this._getTextStyle(), ["fill", "fontSize", "stroke", "strokeThickness"]);
 
                 return [
                     this.center,
                     content,
                     {
-                        anchor: change === "create" ? CONST.TEXT_ANCHOR_POINTS.TOP : CONST.TEXT_ANCHOR_POINTS.BOTTOM,
-                        direction: isAdded ? 2 : 1,
+                        ...textStyle,
+                        anchor: anchorDirection,
+                        direction: anchorDirection,
                         jitter: 0.25,
-                        textStyle: {
-                            fill: "white",
-                            fontSize: 28,
-                            stroke: 0x000000,
-                            strokeThickness: 4,
-                        },
                     },
                 ];
             }
         })();
         if (!scrollingTextArgs) return;
 
-        await this.drawLock;
+        await this._animation;
         await canvas.interface?.createScrollingText(...scrollingTextArgs);
     }
 
@@ -350,7 +342,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
+    /*  Event Handlers                              */
     /* -------------------------------------------- */
 
     /** Refresh vision and the `EffectsPanel` */
@@ -415,6 +407,16 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     private async onFinishAnimation(): Promise<void> {
         await this._animation;
         this.auras.refresh();
+    }
+
+    /** Handle system-specific status effects (upstream handles invisible and blinded) */
+    override _onApplyStatusEffect(statusId: string, active: boolean): void {
+        super._onApplyStatusEffect(statusId, active);
+
+        if (["undetected", "unnoticed"].includes(statusId)) {
+            canvas.perception.update({ refreshVision: true, refreshLighting: true }, true);
+            this.mesh.refresh();
+        }
     }
 }
 

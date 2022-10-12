@@ -26,23 +26,24 @@
         },
         "items": {
             "3tdk7": {
-                "id": "jDdOqFmZLwE4dblQ",
                 "img": "systems/pf2e/icons/features/feats/feats.webp",
                 "level": "1",
                 "name": "Pickpocket",
-                "pack": "pf2e.feats-srd"
+                "uuid": "Compendium.pf2e.feats-srd.jDdOqFmZLwE4dblQ"
             }
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Token guard or convicted criminal (Ex-Con Token Guard)",
-                "predicate": {
-                    "any": [
-                        "target:token-guard",
-                        "target:convict"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:token-guard",
+                            "target:convict"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1
@@ -50,12 +51,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Token guard or convicted criminal (Ex-Con Token Guard)",
-                "predicate": {
-                    "any": [
-                        "target:token-guard",
-                        "target:convict"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:token-guard",
+                            "target:convict"
+                        ]
+                    }
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
@@ -63,12 +66,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Token guard or convicted criminal (Ex-Con Token Guard)",
-                "predicate": {
-                    "any": [
-                        "target:token-guard",
-                        "target:convict"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:token-guard",
+                            "target:convict"
+                        ]
+                    }
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": 1

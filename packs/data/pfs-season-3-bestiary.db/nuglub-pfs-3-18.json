@@ -785,14 +785,12 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "not": [
-                                "target:condition:prone"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "not": "target:condition:prone"
+                            }
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -800,11 +798,9 @@
                         "diceNumber": 1,
                         "dieSize": "d10",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:prone"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:prone"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -918,11 +914,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Traps",
-                        "predicate": {
-                            "all": [
-                                "action:craft:trap"
-                            ]
-                        },
+                        "predicate": [
+                            "action:craft:trap"
+                        ],
                         "selector": "crafting",
                         "value": 2
                     }
@@ -1004,10 +998,7 @@
     ],
     "name": "Nuglub (PFS 3-18)",
     "prototypeToken": {
-        "name": "Nuglub",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Nuglub"
     },
     "system": {
         "abilities": {

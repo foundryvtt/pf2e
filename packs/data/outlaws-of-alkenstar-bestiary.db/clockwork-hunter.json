@@ -382,7 +382,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The clockwork hunter takes a moment to scan a creature for weaknesses, then Strikes with a +1 circumstance bonus to its attack roll. The hunter’s Strike gains the deadly d4 trait for this attack.</p>"
+                    "value": "<p>The clockwork hunter takes a moment to scan a creature for weaknesses, then Strikes with a +1 circumstance bonus to its attack roll. The hunter's Strike gains the deadly d4 trait for this attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -396,11 +396,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "targetWeakness"
-                            ]
-                        },
+                        "predicate": [
+                            "targetWeakness"
+                        ],
                         "selector": "attack",
                         "type": "circumstance",
                         "value": 1
@@ -410,11 +408,9 @@
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "targetWeakness"
-                            ]
-                        },
+                        "predicate": [
+                            "targetWeakness"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -452,11 +448,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Climb",
-                        "predicate": {
-                            "all": [
-                                "action:climb"
-                            ]
-                        },
+                        "predicate": [
+                            "action:climb"
+                        ],
                         "selector": "athletics",
                         "value": 4
                     }
@@ -509,12 +503,6 @@
         }
     ],
     "name": "Clockwork Hunter",
-    "prototypeToken": {
-        "name": "Clockwork Hunter",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {
@@ -585,15 +573,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": "2"
+                "value": 2
             },
             "reflex": {
                 "saveDetail": "",
-                "value": "8"
+                "value": 8
             },
             "will": {
                 "saveDetail": "",
-                "value": "5"
+                "value": 5
             }
         },
         "traits": {

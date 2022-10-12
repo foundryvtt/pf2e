@@ -2633,15 +2633,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -2697,32 +2699,30 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "alien-vestment"
-                            ]
-                        },
+                        "predicate": [
+                            "alien-vestment"
+                        ],
                         "selector": "ac",
                         "type": "untyped",
                         "value": -3
                     },
                     {
                         "key": "Resistance",
-                        "predicate": {
-                            "not": [
-                                "alien-vestment"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "alien-vestment"
+                            }
+                        ],
                         "type": "mental",
                         "value": 10
                     },
                     {
                         "key": "Resistance",
-                        "predicate": {
-                            "not": [
-                                "alien-vestment"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "alien-vestment"
+                            }
+                        ],
                         "type": "physical",
                         "value": 10
                     }
@@ -3054,12 +3054,6 @@
         }
     ],
     "name": "Chyzaedu",
-    "prototypeToken": {
-        "name": "Chyzaedu",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

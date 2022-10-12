@@ -318,13 +318,15 @@
                             "criticalFailure": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "any": [
-                                "action:treat-wounds",
-                                "action:treat-disease",
-                                "action:treat-poison"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:treat-wounds",
+                                    "action:treat-disease",
+                                    "action:treat-poison"
+                                ]
+                            }
+                        ],
                         "selector": "medicine",
                         "type": "skill"
                     }
@@ -387,11 +389,9 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "medical-malpractice"
-                            ]
-                        },
+                        "predicate": [
+                            "medical-malpractice"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -399,11 +399,9 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "medical-malpractice-crit"
-                            ]
-                        },
+                        "predicate": [
+                            "medical-malpractice-crit"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -511,12 +509,6 @@
         }
     ],
     "name": "Surgeon",
-    "prototypeToken": {
-        "name": "Surgeon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

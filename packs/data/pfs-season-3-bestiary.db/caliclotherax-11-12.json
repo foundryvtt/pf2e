@@ -849,15 +849,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -962,11 +964,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "twisting-tail"
-                            ]
-                        },
+                        "predicate": [
+                            "twisting-tail"
+                        ],
                         "selector": "tail-attack",
                         "value": -2
                     }
@@ -1367,10 +1367,7 @@
     ],
     "name": "Caliclotherax (11-12)",
     "prototypeToken": {
-        "name": "Caliclotherax",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Caliclotherax"
     },
     "system": {
         "abilities": {

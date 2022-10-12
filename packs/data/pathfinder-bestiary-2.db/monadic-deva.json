@@ -1896,15 +1896,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -2089,11 +2091,9 @@
                         "diceNumber": 2,
                         "dieSize": "d12",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "solid-blow"
-                            ]
-                        },
+                        "predicate": [
+                            "solid-blow"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -2295,12 +2295,6 @@
         }
     ],
     "name": "Monadic Deva",
-    "prototypeToken": {
-        "name": "Monadic Deva",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

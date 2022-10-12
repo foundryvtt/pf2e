@@ -89,15 +89,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Animal Staff (identify animals)",
-                "predicate": {
-                    "all": [
-                        "target:trait:animal"
-                    ],
-                    "any": [
-                        "action:recall-knowledge",
-                        "action:identify"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:animal",
+                    {
+                        "or": [
+                            "action:recall-knowledge",
+                            "action:identify"
+                        ]
+                    }
+                ],
                 "selector": "nature",
                 "type": "circumstance",
                 "value": 2

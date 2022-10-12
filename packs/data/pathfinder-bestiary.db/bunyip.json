@@ -285,22 +285,18 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "jaws-damage",
                         "type": "status",
                         "value": 4
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "ac",
                         "value": -2
                     },
@@ -404,12 +400,14 @@
                         "outcome": [
                             "success"
                         ],
-                        "predicate": {
-                            "not": [
-                                "self:effect:crocodile-form",
-                                "self:effect:snake-form"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "self:effect:crocodile-form",
+                                    "self:effect:snake-form"
+                                ]
+                            }
+                        ],
                         "selector": "jaws-damage",
                         "text": "PF2E.PersistentDamage.Bleed1d6.success",
                         "title": "{item|name}",
@@ -420,12 +418,14 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "not": [
-                                "self:effect:crocodile-form",
-                                "self:effect:snake-form"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "self:effect:crocodile-form",
+                                    "self:effect:snake-form"
+                                ]
+                            }
+                        ],
                         "selector": "jaws-damage",
                         "text": "PF2E.PersistentDamage.Bleed1d6.criticalSuccess",
                         "title": "{item|name}",
@@ -539,12 +539,6 @@
         }
     ],
     "name": "Bunyip",
-    "prototypeToken": {
-        "name": "Bunyip",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

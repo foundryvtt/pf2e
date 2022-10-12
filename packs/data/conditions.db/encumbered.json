@@ -1,0 +1,78 @@
+{
+    "_id": "D5mg6Tc7Jzrj6ro7",
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/encumbered.webp",
+    "name": "Encumbered",
+    "system": {
+        "active": true,
+        "alsoApplies": {
+            "linked": [],
+            "unlinked": []
+        },
+        "base": "Encumbered",
+        "description": {
+            "value": "<p>You are carrying more weight than you can manage. While you're encumbered, you're @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and take a 10-foot penalty to all your Speeds. As with all penalties to your Speed, this can't reduce your Speed below 5 feet.</p>"
+        },
+        "duration": {
+            "perpetual": true,
+            "text": "",
+            "value": 0
+        },
+        "group": "",
+        "hud": {
+            "img": {
+                "useStatusName": true,
+                "value": "systems/pf2e/icons/conditions-2/encumbered.webp"
+            },
+            "selectable": true,
+            "statusName": "encumbered"
+        },
+        "modifiers": [],
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "removable": true,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "speed",
+                "slug": "encumbered",
+                "value": -10
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Clumsy"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "sources": {
+            "hud": false,
+            "values": []
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "value": {
+            "immutable": false,
+            "isValued": false,
+            "modifiers": [],
+            "value": null
+        }
+    },
+    "type": "condition"
+}

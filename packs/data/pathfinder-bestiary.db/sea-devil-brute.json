@@ -457,44 +457,36 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "claw-attack",
                         "type": "status",
                         "value": 1
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "jaws-attack",
                         "type": "status",
                         "value": 1
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "claw-damage",
                         "type": "status",
                         "value": 4
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "jaws-damage",
                         "type": "status",
                         "value": 4
@@ -507,11 +499,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "ac",
                         "type": "status",
                         "value": -2
@@ -561,11 +551,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
                         "selector": "attack",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
@@ -575,11 +563,11 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "not": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "target:condition:flat-footed"
+                            }
+                        ],
                         "selector": "attack",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
@@ -662,11 +650,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Swim",
-                        "predicate": {
-                            "all": [
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            "action:swim"
+                        ],
                         "selector": "athletics",
                         "value": 3
                     }
@@ -747,12 +733,6 @@
         }
     ],
     "name": "Sea Devil Brute",
-    "prototypeToken": {
-        "name": "Sea Devil Brute",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

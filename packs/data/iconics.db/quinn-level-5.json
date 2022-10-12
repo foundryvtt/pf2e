@@ -156,12 +156,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 investigator class feature",
+                            "predicate": [
                                 "item:level:1",
                                 "item:trait:investigator",
                                 "item:type:feature"
-                            ],
-                            "label": "level 1 investigator class feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -251,25 +251,25 @@
                     {
                         "ability": "int",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "class:investigator",
-                                "devise-a-stratagem"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                },
-                                "weapon:base:sap"
-                            ]
-                        },
+                        "predicate": [
+                            "class:investigator",
+                            "devise-a-stratagem",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    },
+                                    "weapon:base:sap"
+                                ]
+                            }
+                        ],
                         "selector": "attack-roll",
                         "type": "ability"
                     },
@@ -397,11 +397,9 @@
                         "category": "precision",
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "devise-a-stratagem"
-                            ]
-                        },
+                        "predicate": [
+                            "devise-a-stratagem"
+                        ],
                         "selector": "strike-damage",
                         "value": {
                             "brackets": [
@@ -526,151 +524,130 @@
                 "hp": 8,
                 "items": {
                     "0abc3": {
-                        "id": "malYpr0CYL4fDGhr",
                         "img": "systems/pf2e/icons/features/classes/deductive-improvisation.webp",
                         "level": 11,
                         "name": "Deductive Improvisation",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.malYpr0CYL4fDGhr"
                     },
                     "3ss71": {
-                        "id": "MV6XIuAgN9uSA0Da",
                         "img": "systems/pf2e/icons/features/classes/evasion.webp",
                         "level": 15,
                         "name": "Evasion",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.MV6XIuAgN9uSA0Da"
                     },
                     "71q10": {
-                        "id": "nLwPMPLRne1HnL00",
                         "img": "systems/pf2e/icons/features/classes/incredible-sense.webp",
                         "level": 13,
                         "name": "Incredible Senses",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.nLwPMPLRne1HnL00"
                     },
                     "fofuw": {
-                        "id": "6FasgIXUJ1X8ekRn",
                         "img": "systems/pf2e/icons/features/classes/on-the-case.webp",
                         "level": 1,
                         "name": "On the Case",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.6FasgIXUJ1X8ekRn"
                     },
                     "gvvwp": {
-                        "id": "i6563IU7x4L9oRgC",
                         "img": "systems/pf2e/icons/features/classes/weapon-mastery.webp",
                         "level": 13,
                         "name": "Weapon Mastery",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.i6563IU7x4L9oRgC"
                     },
                     "j15np": {
-                        "id": "9XLUh9iMepZesdmc",
                         "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
                         "level": 5,
                         "name": "Weapon Expertise",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.9XLUh9iMepZesdmc"
                     },
                     "lqbki": {
-                        "id": "DZWQspPi4IkfXV2E",
                         "img": "systems/pf2e/icons/features/classes/keen-recollection.webp",
                         "level": 3,
                         "name": "Keen Recollection",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.DZWQspPi4IkfXV2E"
                     },
                     "ly271": {
-                        "id": "0npO4rPscGm0dX13",
                         "img": "systems/pf2e/icons/features/classes/vigilant-senses.webp",
                         "level": 7,
                         "name": "Vigilant Senses",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.0npO4rPscGm0dX13"
                     },
                     "mb94u": {
-                        "id": "SHpjmM4A3Sw4GgDz",
                         "img": "systems/pf2e/icons/features/classes/light-armor-master.webp",
                         "level": 19,
                         "name": "Light Armor Mastery (Level 19)",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.SHpjmM4A3Sw4GgDz"
                     },
                     "o89io": {
-                        "id": "uhHg9BXBiHpL5ndS",
                         "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
                         "level": 1,
                         "name": "Methodology",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.uhHg9BXBiHpL5ndS"
                     },
                     "oktpj": {
-                        "id": "PFvB79O2VFdiAeSj",
                         "img": "systems/pf2e/icons/features/classes/investigator-expertise.webp",
                         "level": 9,
                         "name": "Investigator Expertise",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.PFvB79O2VFdiAeSj"
                     },
                     "qfhwe": {
-                        "id": "F57Na5VxfBp56kke",
                         "img": "systems/pf2e/icons/features/classes/great-fortitude.webp",
                         "level": 9,
                         "name": "Great Fortitude",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.F57Na5VxfBp56kke"
                     },
                     "qwerc": {
-                        "id": "flEx8eY0NinF9XZU",
                         "img": "systems/pf2e/icons/features/classes/master-detective.webp",
                         "level": 19,
                         "name": "Master Detective",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.flEx8eY0NinF9XZU"
                     },
                     "rz4r2": {
-                        "id": "Z7HX6TeFsaup7Dx9",
                         "img": "systems/pf2e/icons/features/classes/greater-weapon-specialization.webp",
                         "level": 15,
                         "name": "Greater Weapon Specialization (Level 15)",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.Z7HX6TeFsaup7Dx9"
                     },
                     "sesh2": {
-                        "id": "5LOARurr4qWkfS9K",
                         "img": "systems/pf2e/icons/features/classes/greater-resolve.webp",
                         "level": 17,
                         "name": "Greater Resolve",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.5LOARurr4qWkfS9K"
                     },
                     "skjy3": {
-                        "id": "lgo65ldX7WkXC8Ir",
                         "img": "systems/pf2e/icons/features/classes/devise-a-stratagem.webp",
                         "level": 1,
                         "name": "Devise a Stratagem",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.lgo65ldX7WkXC8Ir"
                     },
                     "u3nsr": {
-                        "id": "2Fe4YZCvAr9Yf6w7",
                         "img": "systems/pf2e/icons/features/classes/strategic-strike.webp",
                         "level": 1,
                         "name": "Strategic Strike",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.2Fe4YZCvAr9Yf6w7"
                     },
                     "vv9fi": {
-                        "id": "dmK1wya8GBi9MmCB",
                         "img": "systems/pf2e/icons/features/classes/skillful-lessons.webp",
                         "level": 3,
                         "name": "Skillful Lessons",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.dmK1wya8GBi9MmCB"
                     },
                     "vxchn": {
-                        "id": "pZYkb12t5DSwtts7",
                         "img": "systems/pf2e/icons/features/classes/light-armor-expertise.webp",
                         "level": 13,
                         "name": "Light Armor Expertise",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.pZYkb12t5DSwtts7"
                     },
                     "xvwjc": {
-                        "id": "9EqIasqfI8YIM3Pt",
                         "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
                         "level": 7,
                         "name": "Weapon Specialization",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.9EqIasqfI8YIM3Pt"
                     },
                     "y1tah": {
-                        "id": "JQAujUXjczVnYDEI",
                         "img": "systems/pf2e/icons/features/classes/resolve.webp",
                         "level": 11,
                         "name": "Resolve",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.JQAujUXjczVnYDEI"
                     }
                 },
                 "keyAbility": {
@@ -680,14 +657,7 @@
                     ]
                 },
                 "perception": 2,
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.skills.soc.rank",
-                        "value": 1
-                    }
-                ],
+                "rules": [],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 2,
@@ -1059,11 +1029,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Pursue a Lead",
-                        "predicate": {
-                            "all": [
-                                "pursue-a-lead"
-                            ]
-                        },
+                        "predicate": [
+                            "pursue-a-lead"
+                        ],
                         "selector": "skill-check",
                         "type": "circumstance",
                         "value": {
@@ -1082,11 +1050,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Pursue a Lead",
-                        "predicate": {
-                            "all": [
-                                "pursue-a-lead"
-                            ]
-                        },
+                        "predicate": [
+                            "pursue-a-lead"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": {
@@ -1214,11 +1180,10 @@
                 },
                 "items": {
                     "d4ikn": {
-                        "id": "KpFetnUqTiweypZk",
                         "img": "systems/pf2e/icons/features/feats/feats.webp",
                         "level": "1",
                         "name": "Group Impression",
-                        "pack": "pf2e.feats-srd"
+                        "uuid": "Compendium.pf2e.feats-srd.KpFetnUqTiweypZk"
                     }
                 },
                 "rules": [],
@@ -1406,12 +1371,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Known Weakness (critically succeeded on Recall Knowledge)",
-                        "predicate": {
-                            "all": [
-                                "devise-a-strategem",
-                                "known-weakness"
-                            ]
-                        },
+                        "predicate": [
+                            "devise-a-strategem",
+                            "known-weakness"
+                        ],
                         "selector": "attack",
                         "type": "circumstance",
                         "value": 1
@@ -1874,11 +1837,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1909,11 +1870,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1926,11 +1885,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -2742,12 +2699,10 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "action:recall-knowledge",
-                                "skill:rank:0"
-                            ]
-                        },
+                        "predicate": [
+                            "action:recall-knowledge",
+                            "skill:rank:0"
+                        ],
                         "selector": "skill-check",
                         "type": "proficiency",
                         "value": "@actor.level"
@@ -2865,13 +2820,15 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.martial.martial.rank",
-                        "predicate": {
-                            "any": [
-                                "class:champion",
-                                "class:investigator",
-                                "class:magus"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "class:champion",
+                                    "class:investigator",
+                                    "class:magus"
+                                ]
+                            }
+                        ],
                         "value": 2
                     }
                 ],
@@ -3245,12 +3202,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Eye for Number (decipher numerical writing)",
-                        "predicate": {
-                            "all": [
-                                "action:decipher-writing",
-                                "numerical"
-                            ]
-                        },
+                        "predicate": [
+                            "action:decipher-writing",
+                            "numerical"
+                        ],
                         "selector": "skill-check",
                         "type": "circumstance",
                         "value": 2
@@ -3546,87 +3501,6 @@
                 }
             },
             "type": "consumable"
-        },
-        {
-            "_id": "hEw3QvU2mRzC8C5w",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.5GbC7RTgyAeaOcAI"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/magnifying-glass.webp",
-            "name": "Magnifying Glass",
-            "sort": 0,
-            "system": {
-                "baseItem": null,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This quality handheld lens gives you a +1 item bonus to Perception checks to notice minute details of documents, fabric, and the like.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": {
-                        "gp": 40
-                    }
-                },
-                "quantity": 1,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Magnifying Glass (minute details)",
-                        "predicate": {
-                            "all": [
-                                "minute-details"
-                            ]
-                        },
-                        "selector": "perception",
-                        "type": "item",
-                        "value": 1
-                    }
-                ],
-                "size": "med",
-                "slug": "magnifying-glass",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "-"
-                }
-            },
-            "type": "equipment"
         },
         {
             "_id": "doTfHnTdmTHSc4gA",
@@ -4221,6 +4095,85 @@
                 }
             },
             "type": "treasure"
+        },
+        {
+            "_id": "LkghwEgxgiyGkZ09",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.5GbC7RTgyAeaOcAI"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/magnifying-glass.webp",
+            "name": "Magnifying Glass",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This quality handheld lens gives you a +1 item bonus to Perception checks to notice minute details of documents, fabric, and the like.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 40
+                    }
+                },
+                "quantity": 1,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Magnifying Glass (minute details)",
+                        "predicate": [
+                            "minute-details"
+                        ],
+                        "selector": "perception",
+                        "type": "item",
+                        "value": 1
+                    }
+                ],
+                "size": "med",
+                "slug": "magnifying-glass",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "type": "equipment"
         }
     ],
     "name": "Quinn (Level 5)",
@@ -4275,6 +4228,7 @@
             }
         },
         "crafting": {
+            "entries": {},
             "formulas": []
         },
         "customModifiers": {},
@@ -4307,7 +4261,7 @@
                 "value": ""
             },
             "gender": {
-                "value": ""
+                "value": "M/He/Him"
             },
             "height": {
                 "value": ""

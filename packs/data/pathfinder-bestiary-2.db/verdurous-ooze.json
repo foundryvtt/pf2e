@@ -436,12 +436,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "In Tall Grass or Undergrowth",
-                        "predicate": {
-                            "any": [
-                                "terrain:undergrowth",
-                                "terrain:grass"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:undergrowth",
+                                    "terrain:grass"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 6
                     }
@@ -466,12 +468,6 @@
         }
     ],
     "name": "Verdurous Ooze",
-    "prototypeToken": {
-        "name": "Verdurous Ooze",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

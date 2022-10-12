@@ -13,12 +13,12 @@
         "rules": [
             {
                 "allowedDrops": {
-                    "all": [
+                    "label": "PF2E.SpecificRule.AncientElf.AllowedDrops",
+                    "predicate": [
                         "item:trait:dedication",
                         "item:trait:multiclass",
                         "item:type:feat"
-                    ],
-                    "label": "PF2E.SpecificRule.AncientElf.AllowedDrops"
+                    ]
                 },
                 "choices": {
                     "query": "{\"system.featType.value\":\"archetype\",\"$and\":[{\"system.traits.value\":{\"$elemMatch\":\"dedication\"}},{\"system.traits.value\":{\"$elemMatch\":\"multiclass\"}}]}"

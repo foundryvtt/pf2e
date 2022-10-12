@@ -1590,15 +1590,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1736,14 +1738,16 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "target:condition:prone",
-                                "target:condition:enfeebled",
-                                "target:condition:frightened",
-                                "sadisticStrike"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:prone",
+                                    "target:condition:enfeebled",
+                                    "target:condition:frightened",
+                                    "sadisticStrike"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1990,12 +1994,6 @@
         }
     ],
     "name": "Osyluth",
-    "prototypeToken": {
-        "name": "Osyluth",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

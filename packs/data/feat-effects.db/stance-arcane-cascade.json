@@ -20,13 +20,11 @@
             {
                 "key": "TempHP",
                 "onTurnStart": true,
-                "predicate": {
-                    "all": [
-                        "feature:inexorable-iron",
-                        "self:weapon:melee",
-                        "self:weapon:hands-held:2"
-                    ]
-                },
+                "predicate": [
+                    "feature:inexorable-iron",
+                    "self:weapon:melee",
+                    "self:weapon:hands-held:2"
+                ],
                 "value": "max(floor(@actor.level / 2), 1)"
             },
             {
@@ -108,11 +106,9 @@
                 "prompt": "Select extra damage type"
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:melee"
-                    ]
-                },
+                "definition": [
+                    "weapon:melee"
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
                 "property": "traits",
@@ -121,11 +117,9 @@
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.stanceArcaneCascade}",
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "weapon:melee"
-                    ]
-                },
+                "predicate": [
+                    "weapon:melee"
+                ],
                 "selector": "strike-damage",
                 "slug": "arcane-cascade-extra-damage",
                 "value": 1
@@ -133,12 +127,10 @@
             {
                 "key": "AdjustModifier",
                 "mode": "upgrade",
-                "predicate": {
-                    "all": [
-                        "weapon:melee",
-                        "feature:weapon-specialization"
-                    ]
-                },
+                "predicate": [
+                    "weapon:melee",
+                    "feature:weapon-specialization"
+                ],
                 "selector": "strike-damage",
                 "slug": "arcane-cascade-extra-damage",
                 "value": 2
@@ -146,12 +138,10 @@
             {
                 "key": "AdjustModifier",
                 "mode": "upgrade",
-                "predicate": {
-                    "all": [
-                        "weapon:melee",
-                        "feature:greater-weapon-specialization"
-                    ]
-                },
+                "predicate": [
+                    "weapon:melee",
+                    "feature:greater-weapon-specialization"
+                ],
                 "selector": "strike-damage",
                 "slug": "arcane-cascade-extra-damage",
                 "value": 3

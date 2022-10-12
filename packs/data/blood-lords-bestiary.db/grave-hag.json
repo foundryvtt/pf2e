@@ -1058,15 +1058,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1143,7 +1145,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The grave hag names a single creature within 30 feet; that creature must succeed at a @Check[type:will|dc:28] save or be afflicted with a grave curse equal to the hag's level. The curse lasts until the hag chooses to end it or is slain, rather than by returning items. Regardless of the save result, the target is then temporarily immune to the hag's grave curse for 24 hours.</p>\n<hr />\n<p><strong>Effect</strong> You are hounded by undead creatures of the same level as the curse. Every night, you must attempt a @Check[type:flat|dc:15] check. On a failure, an incorporeal undead manifests to hassle and harry you throughout the night, retreating before it can take much damage and often preventing you from gaining a full night’s rest. Whenever you enter a graveyard or other area where bodies are buried, you must succeed at the same flat check or a body animates as a corporeal undead (typically a skeleton or zombie) to attack you.</p>\n<p>These undead are temporary and exist only to harry you; if you take control of the undead, move on, or otherwise avoid their attacks, incorporeal undead discorporate and corporeal undead collapse into ordinary corpses. The curse can be removed by returning the stolen items to their resting place.</p>"
+                    "value": "<p>The grave hag names a single creature within 30 feet; that creature must succeed at a @Check[type:will|dc:28] save or be afflicted with a grave curse equal to the hag's level. The curse lasts until the hag chooses to end it or is slain, rather than by returning items. Regardless of the save result, the target is then temporarily immune to the hag's grave curse for 24 hours.</p>\n<hr />\n<p><strong>Effect</strong> You are hounded by undead creatures of the same level as the curse. Every night, you must attempt a @Check[type:flat|dc:15] check. On a failure, an incorporeal undead manifests to hassle and harry you throughout the night, retreating before it can take much damage and often preventing you from gaining a full night's rest. Whenever you enter a graveyard or other area where bodies are buried, you must succeed at the same flat check or a body animates as a corporeal undead (typically a skeleton or zombie) to attack you.</p>\n<p>These undead are temporary and exist only to harry you; if you take control of the undead, move on, or otherwise avoid their attacks, incorporeal undead discorporate and corporeal undead collapse into ordinary corpses. The curse can be removed by returning the stolen items to their resting place.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1554,12 +1556,6 @@
         }
     ],
     "name": "Grave Hag",
-    "prototypeToken": {
-        "name": "Grave Hag",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

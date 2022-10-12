@@ -67,13 +67,6 @@ abstract class PickAThingPrompt<T> extends Application {
     /** Return a promise containing the user's item selection, or `null` if no selection was made */
     async resolveSelection(): Promise<PickableThing<T> | null> {
         this.choices = this.getChoices();
-
-        // Exit early if there are no valid choices
-        if (this.choices.length === 0) {
-            await this.close({ force: true });
-            return null;
-        }
-
         this.render(true);
         return new Promise((resolve) => {
             this.resolve = resolve;

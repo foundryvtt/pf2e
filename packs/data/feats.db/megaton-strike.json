@@ -21,7 +21,6 @@
         "level": {
             "value": 4
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -32,14 +31,12 @@
         "rules": [
             {
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "megaton"
-                    ],
-                    "not": [
-                        "unstable-megaton"
-                    ]
-                },
+                "predicate": [
+                    "megaton",
+                    {
+                        "not": "unstable-megaton"
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -69,11 +66,9 @@
             {
                 "key": "DamageDice",
                 "label": "Unstable Megaton Strike",
-                "predicate": {
-                    "all": [
-                        "unstable-megaton"
-                    ]
-                },
+                "predicate": [
+                    "unstable-megaton"
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -115,7 +110,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",

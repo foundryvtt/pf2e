@@ -5173,15 +5173,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -5630,10 +5632,7 @@
     ],
     "name": "Ancient Umbral Dragon (Spellcaster)",
     "prototypeToken": {
-        "name": "Ancient Umbral Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Ancient Umbral Dragon"
     },
     "system": {
         "abilities": {

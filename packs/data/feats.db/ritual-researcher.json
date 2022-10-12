@@ -21,7 +21,6 @@
         "level": {
             "value": 4
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -36,15 +35,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Ritual Researcher (ritual casting)",
-                "predicate": {
-                    "all": [
-                        "ritual"
-                    ],
-                    "any": [
-                        "primary-check",
-                        "secondary-check"
-                    ]
-                },
+                "predicate": [
+                    "ritual",
+                    {
+                        "or": [
+                            "primary-check",
+                            "secondary-check"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "type": "circumstance",
                 "value": 2

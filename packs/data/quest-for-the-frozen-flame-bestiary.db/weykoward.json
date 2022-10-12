@@ -212,12 +212,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.JunkOrDebris",
-                        "predicate": {
-                            "any": [
-                                "terrain:junk",
-                                "terrain:debris"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:junk",
+                                    "terrain:debris"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 2
                     }
@@ -242,12 +244,6 @@
         }
     ],
     "name": "Weykoward",
-    "prototypeToken": {
-        "name": "Weykoward",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

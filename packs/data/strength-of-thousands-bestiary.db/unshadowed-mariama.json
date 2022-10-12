@@ -4573,12 +4573,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "shadow",
-                                "acid"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "shadow",
+                                    "acid"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 4
@@ -4889,12 +4891,6 @@
         }
     ],
     "name": "Unshadowed Mariama",
-    "prototypeToken": {
-        "name": "Unshadowed Mariama",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

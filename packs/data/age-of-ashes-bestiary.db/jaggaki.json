@@ -3062,7 +3062,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @Compendium[pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@Compendium[pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -3238,12 +3238,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Staff of Necromancy (identify necromancy magic)",
-                        "predicate": {
-                            "all": [
-                                "action:identify-magic",
-                                "necromancy"
-                            ]
-                        },
+                        "predicate": [
+                            "action:identify-magic",
+                            "necromancy"
+                        ],
                         "selector": "skill-check",
                         "type": "circumstance",
                         "value": 2
@@ -3321,11 +3319,9 @@
                         "override": {
                             "dieSize": "d8"
                         },
-                        "predicate": {
-                            "all": [
-                                "twoHanded"
-                            ]
-                        },
+                        "predicate": [
+                            "twoHanded"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -3508,11 +3504,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "positive"
-                            ]
-                        },
+                        "predicate": [
+                            "positive"
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -3618,22 +3612,18 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "catch-rock"
-                            ]
-                        },
+                        "predicate": [
+                            "catch-rock"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 4
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "catch-rock"
-                            ]
-                        },
+                        "predicate": [
+                            "catch-rock"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 4
@@ -3739,11 +3729,9 @@
                         "diceNumber": 4,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "bones-of-stone"
-                            ]
-                        },
+                        "predicate": [
+                            "bones-of-stone"
+                        ],
                         "selector": "hand-damage"
                     }
                 ],
@@ -4034,11 +4022,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "terrain:rocky"
-                            ]
-                        },
+                        "predicate": [
+                            "terrain:rocky"
+                        ],
                         "selector": "stealth",
                         "value": 4
                     }
@@ -4063,12 +4049,6 @@
         }
     ],
     "name": "Jaggaki",
-    "prototypeToken": {
-        "name": "Jaggaki",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

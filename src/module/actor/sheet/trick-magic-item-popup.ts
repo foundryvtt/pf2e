@@ -3,7 +3,6 @@ import type { ConsumablePF2e } from "@item";
 import { CharacterPF2e } from "@actor";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e } from "@util";
-import { SKILL_DICTIONARY } from "@actor/values";
 import { TrickMagicItemEntry, TrickMagicItemSkill, TRICK_MAGIC_SKILLS } from "@item/spellcasting-entry/trick";
 
 export class TrickMagicItemPopup {
@@ -60,11 +59,11 @@ export class TrickMagicItemPopup {
     }
 
     handleTrickItem(skill: TrickMagicItemSkill) {
-        const options = ["all", "skill-check", "action:trick-magic-item"].concat(SKILL_DICTIONARY[skill]);
-        const stat = this.actor.system.skills[skill];
-        stat.roll({
-            options: options,
+        const stat = this.actor.skills[skill];
+        stat.check.roll({
+            extraRollOptions: ["action:trick-magic-item"],
             dc: { value: this.checkDC[skill] ?? 0 },
+            item: this.item,
         });
 
         const trick = new TrickMagicItemEntry(this.actor, skill);

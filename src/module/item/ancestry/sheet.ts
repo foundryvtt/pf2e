@@ -1,7 +1,6 @@
 import { AncestryPF2e } from "@item/ancestry";
-import { ABCSheetPF2e } from "@item/abc/sheet";
-import { ABCSheetData, AncestrySheetData } from "../sheet/data-types";
-import { createSheetOptions } from "@module/sheet/helpers";
+import { ABCSheetData, ABCSheetPF2e } from "@item/abc/sheet";
+import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
 
 export class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<AncestrySheetData> {
@@ -21,4 +20,12 @@ export class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
             additionalLanguages: createSheetOptions(CONFIG.PF2E.languages, itemData.system.additionalLanguages),
         };
     }
+}
+
+interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {
+    selectedBoosts: Record<string, Record<string, string>>;
+    selectedFlaws: Record<string, Record<string, string>>;
+    sizes: SheetOptions;
+    languages: SheetOptions;
+    additionalLanguages: SheetOptions;
 }

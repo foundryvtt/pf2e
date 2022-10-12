@@ -21,7 +21,6 @@
         "level": {
             "value": 8
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -32,23 +31,23 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "panache"
-                    ]
-                },
-                "selector": "speed",
+                "predicate": [
+                    "self:effect:panache"
+                ],
+                "selector": "all-speeds",
+                "slug": "swashbucklers-speed-panache",
                 "type": "status",
                 "value": 10
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "not": [
-                        "panache"
-                    ]
-                },
-                "selector": "speed",
+                "predicate": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "selector": "all-speeds",
+                "slug": "swashbucklers-speed-no-panache",
                 "type": "status",
                 "value": 5
             }

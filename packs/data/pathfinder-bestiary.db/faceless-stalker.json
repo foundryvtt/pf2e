@@ -662,12 +662,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "auditory",
-                                "visual"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "auditory",
+                                    "visual"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -715,11 +717,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "assumeForm"
-                            ]
-                        },
+                        "predicate": [
+                            "assumeForm"
+                        ],
                         "selector": "deception",
                         "type": "circumstance",
                         "value": 4
@@ -901,25 +901,23 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                {
-                                    "or": [
-                                        "finesse",
-                                        "agile",
-                                        {
-                                            "and": [
-                                                "ranged",
-                                                {
-                                                    "not": "thrown"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "finesse",
+                                    "agile",
+                                    {
+                                        "and": [
+                                            "ranged",
+                                            {
+                                                "not": "thrown"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1132,12 +1130,6 @@
         }
     ],
     "name": "Faceless Stalker",
-    "prototypeToken": {
-        "name": "Faceless Stalker",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

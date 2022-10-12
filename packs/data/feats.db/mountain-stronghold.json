@@ -21,7 +21,6 @@
         "level": {
             "value": 6
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -32,14 +31,12 @@
         "rules": [
             {
                 "key": "DexterityModifierCap",
-                "predicate": {
-                    "all": [
-                        "self:effect:mountain-stance"
-                    ],
-                    "not": [
-                        "feat:mountain-quake"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:mountain-stance",
+                    {
+                        "not": "feat:mountain-quake"
+                    }
+                ],
                 "value": 1
             }
         ],

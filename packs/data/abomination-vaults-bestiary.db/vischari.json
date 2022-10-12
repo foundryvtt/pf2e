@@ -1113,12 +1113,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.GrappleShove",
-                        "predicate": {
-                            "any": [
-                                "action:grapple",
-                                "action:shove"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:grapple",
+                                    "action:shove"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -1227,12 +1229,6 @@
         }
     ],
     "name": "Vischari",
-    "prototypeToken": {
-        "name": "Vischari",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

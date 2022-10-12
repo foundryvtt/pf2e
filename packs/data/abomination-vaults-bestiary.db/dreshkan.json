@@ -167,18 +167,20 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "inflicts:persistent-damage:bleed",
-                                "death-effects",
-                                "disease",
-                                "inflicts:doomed",
-                                "inflicts:fatigued",
-                                "inflicts:paralyzed",
-                                "poison",
-                                "inflicts:sickened"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "inflicts:persistent-damage:bleed",
+                                    "death-effects",
+                                    "disease",
+                                    "inflicts:doomed",
+                                    "inflicts:fatigued",
+                                    "inflicts:paralyzed",
+                                    "poison",
+                                    "inflicts:sickened"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -397,11 +399,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "swarmingStance"
-                            ]
-                        },
+                        "predicate": [
+                            "swarmingStance"
+                        ],
                         "selector": "attack",
                         "type": "circumstance",
                         "value": 1
@@ -472,11 +472,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Climb",
-                        "predicate": {
-                            "all": [
-                                "action:climb"
-                            ]
-                        },
+                        "predicate": [
+                            "action:climb"
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -557,12 +555,6 @@
         }
     ],
     "name": "Dreshkan",
-    "prototypeToken": {
-        "name": "Dreshkan",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

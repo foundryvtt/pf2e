@@ -481,12 +481,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.ForestsOrSwamps",
-                        "predicate": {
-                            "any": [
-                                "terrain:forest",
-                                "terrain:swamp"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:forest",
+                                    "terrain:swamp"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 3
                     }
@@ -511,12 +513,6 @@
         }
     ],
     "name": "Dezullon",
-    "prototypeToken": {
-        "name": "Dezullon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

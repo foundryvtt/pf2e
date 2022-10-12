@@ -17,20 +17,42 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": "flags.pf2e.wildShapeForms",
+                "flag": "formEffect",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.WildShape"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "cascade",
+                    "granter": "cascade"
+                },
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.formEffect}"
+            },
+            {
                 "key": "FlatModifier",
                 "label": "Wild Shape",
-                "predicate": {
-                    "all": [
-                        "battle-form:own-attack-modifier"
-                    ]
-                },
+                "predicate": [
+                    "battle-form:own-attack-modifier",
+                    {
+                        "not": "self:effect:pest-form"
+                    }
+                ],
                 "selector": "attack",
                 "type": "status",
                 "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,

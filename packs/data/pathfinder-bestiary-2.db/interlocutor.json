@@ -873,15 +873,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1122,11 +1124,9 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "precise-wound"
-                            ]
-                        },
+                        "predicate": [
+                            "precise-wound"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1194,11 +1194,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "scuplt-flesh"
-                            ]
-                        },
+                        "predicate": [
+                            "scuplt-flesh"
+                        ],
                         "selector": "crafting",
                         "value": 2
                     }
@@ -1363,12 +1361,6 @@
         }
     ],
     "name": "Interlocutor",
-    "prototypeToken": {
-        "name": "Interlocutor",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

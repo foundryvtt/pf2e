@@ -1,15 +1,15 @@
 <li class="list-row">
-    <div class="item {{#if item.isTemporary}}temporary-item{{/if}}" data-item-id="{{item.id}}" data-item-is-container="{{isContainer}}" data-item-rarity="{{item.system.traits.rarity}}">
+    <div class="item {{#if item.isTemporary}}temporary-item{{/if}}" data-item-id="{{item.id}}" data-item-is-container="{{isContainer}}">
         <div class="item-name rollable{{#if (and (ne @root.actor.type "loot") (not owner))}} long{{/if}}">
             <div class="item-image" style="background-image: url('{{item.img}}')"></div>
-            <h4>
+            <h4 {{#if (or user.isGM item.isIdentified)}}class="rarity-{{item.system.traits.rarity}}"{{/if}}>
                 {{item.name}}
                 {{#if item.isTemporary}}<i class="fas fa-info-circle small" title="{{localize "PF2E.TemporaryItemToolTip"}}"></i>{{/if}}
                 {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.system.identification.identified.name}})</span>{{/if}}
                 {{#if itemSize}}<span class="size">({{itemSize}})</span>{{/if}}
             </h4>
-            {{#if item.charges.max}}
-                <span class="item-charges">({{item.charges.value}}/{{item.charges.max}})</span>
+            {{#if (and item.uses.max (or (gt item.uses.max 1) (eq item.system.consumableType.value "wand")))}}
+                <span class="item-charges">({{item.uses.value}}/{{item.uses.max}})</span>
             {{/if}}
         </div>
         {{#if (or @root.inventory.showValueAlways (and (eq item.type "treasure") (not item.container)))}}

@@ -1,20 +1,14 @@
 import { ClassPF2e } from "@item/class";
-import { createSheetTags } from "@module/sheet/helpers";
-import { ABCSheetPF2e } from "../abc/sheet";
-import { ClassSheetData } from "./types";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
+import { ABCSheetData, ABCSheetPF2e } from "../abc/sheet";
 
 export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<ClassSheetData> {
         const sheetData = await super.getData(options);
         const itemData = sheetData.item;
 
-        const items = Object.entries(itemData.system.items)
-            .map(([key, item]) => ({ key, item }))
-            .sort((first, second) => first.item.level - second.item.level);
-
         return {
             ...sheetData,
-            items,
             skills: CONFIG.PF2E.skills,
             proficiencyChoices: CONFIG.PF2E.proficiencyLevels,
             selectedKeyAbility: this.getLocalizedAbilities(itemData.system.keyAbility),
@@ -27,4 +21,17 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
             skillIncreaseLevels: createSheetTags(CONFIG.PF2E.levels, itemData.system.skillIncreaseLevels),
         };
     }
+}
+
+interface ClassSheetData extends ABCSheetData<ClassPF2e> {
+    skills: typeof CONFIG.PF2E.skills;
+    proficiencyChoices: typeof CONFIG.PF2E.proficiencyLevels;
+    selectedKeyAbility: Record<string, string>;
+    ancestryTraits: SheetOptions;
+    trainedSkills: SheetOptions;
+    ancestryFeatLevels: SheetOptions;
+    classFeatLevels: SheetOptions;
+    generalFeatLevels: SheetOptions;
+    skillFeatLevels: SheetOptions;
+    skillIncreaseLevels: SheetOptions;
 }

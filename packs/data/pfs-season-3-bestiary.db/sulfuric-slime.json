@@ -116,11 +116,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "one-with-the-mud"
-                            ]
-                        },
+                        "predicate": [
+                            "one-with-the-mud"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -160,14 +158,16 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.WaterOrMud",
-                        "predicate": {
-                            "any": [
-                                "terrain:underwater",
-                                "terrain:water",
-                                "terrain:aquatic",
-                                "terrain:mud"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:underwater",
+                                    "terrain:water",
+                                    "terrain:aquatic",
+                                    "terrain:mud"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 5
                     }
@@ -192,12 +192,6 @@
         }
     ],
     "name": "Sulfuric Slime",
-    "prototypeToken": {
-        "name": "Sulfuric Slime",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

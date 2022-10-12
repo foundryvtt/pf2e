@@ -356,12 +356,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "In Forests or Grasslands",
-                        "predicate": {
-                            "any": [
-                                "terrain:forest",
-                                "terrain:grasslands"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:forest",
+                                    "terrain:grasslands"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 2
                     }
@@ -386,12 +388,6 @@
         }
     ],
     "name": "Assassin Vine",
-    "prototypeToken": {
-        "name": "Assassin Vine",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

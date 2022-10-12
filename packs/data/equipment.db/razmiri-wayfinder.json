@@ -45,12 +45,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Razmiri Wayfinder (Lie or Impersonate)",
-                "predicate": {
-                    "any": [
-                        "action:lie",
-                        "action:impersonate"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:lie",
+                            "action:impersonate"
+                        ]
+                    }
+                ],
                 "selector": "deception",
                 "type": "item",
                 "value": 1

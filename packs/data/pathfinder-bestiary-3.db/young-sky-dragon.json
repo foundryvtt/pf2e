@@ -468,11 +468,11 @@
                         "diceNumber": 1,
                         "dieSize": "d12",
                         "key": "DamageDice",
-                        "predicate": {
-                            "not": [
-                                "countered-by-fire"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "countered-by-fire"
+                            }
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -1336,12 +1336,6 @@
         }
     ],
     "name": "Young Sky Dragon",
-    "prototypeToken": {
-        "name": "Young Sky Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -41,22 +41,18 @@
             {
                 "key": "Sense",
                 "label": "PF2E.SensesDarkvision",
-                "predicate": {
-                    "all": [
-                        "self:low-light-vision:from-ancestry",
-                        "background:magical-experiment:enhanced-senses"
-                    ]
-                },
+                "predicate": [
+                    "self:low-light-vision:from-ancestry",
+                    "background:magical-experiment:enhanced-senses"
+                ],
                 "selector": "darkvision"
             },
             {
                 "key": "Sense",
                 "label": "PF2E.SensesLowLightVision",
-                "predicate": {
-                    "all": [
-                        "background:magical-experiment:enhanced-senses"
-                    ]
-                },
+                "predicate": [
+                    "background:magical-experiment:enhanced-senses"
+                ],
                 "selector": "lowLightVision"
             },
             {
@@ -85,11 +81,9 @@
                 ],
                 "flag": "energy-1",
                 "key": "ChoiceSet",
-                "predicate": {
-                    "all": [
-                        "background:magical-experiment:resistant-skin"
-                    ]
-                }
+                "predicate": [
+                    "background:magical-experiment:resistant-skin"
+                ]
             },
             {
                 "adjustName": true,
@@ -117,29 +111,23 @@
                 ],
                 "flag": "energy-2",
                 "key": "ChoiceSet",
-                "predicate": {
-                    "all": [
-                        "background:magical-experiment:resistant-skin"
-                    ]
-                }
+                "predicate": [
+                    "background:magical-experiment:resistant-skin"
+                ]
             },
             {
                 "key": "Resistance",
-                "predicate": {
-                    "all": [
-                        "background:magical-experiment:resistant-skin"
-                    ]
-                },
+                "predicate": [
+                    "background:magical-experiment:resistant-skin"
+                ],
                 "type": "{item|flags.pf2e.rulesSelections.energy-1}",
                 "value": "max(1,floor(@actor.level/2))"
             },
             {
                 "key": "Resistance",
-                "predicate": {
-                    "all": [
-                        "background:magical-experiment:resistant-skin"
-                    ]
-                },
+                "predicate": [
+                    "background:magical-experiment:resistant-skin"
+                ],
                 "type": "{item|flags.pf2e.rulesSelections.energy-2}",
                 "value": "max(1,floor(@actor.level/2))"
             }

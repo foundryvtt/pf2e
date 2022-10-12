@@ -566,12 +566,14 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "inhaled",
-                                "olfactory"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "inhaled",
+                                    "olfactory"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "text": "When you roll a saving throw against an olfactory or inhaled effect, you get the outcome one degree of success better than the result of your roll.",
                         "title": "{item|name}"
@@ -581,12 +583,14 @@
                             "all": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "any": [
-                                "olfactory",
-                                "inhaled"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "olfactory",
+                                    "inhaled"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "save"
                     }
@@ -625,11 +629,9 @@
                     {
                         "key": "AdjustModifier",
                         "mode": "add",
-                        "predicate": {
-                            "all": [
-                                "action:tumble-through"
-                            ]
-                        },
+                        "predicate": [
+                            "action:tumble-through"
+                        ],
                         "selector": "acrobatics",
                         "value": 1
                     }
@@ -766,12 +768,6 @@
         }
     ],
     "name": "Shoony Militia Member",
-    "prototypeToken": {
-        "name": "Shoony Militia Member",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

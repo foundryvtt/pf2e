@@ -113,22 +113,20 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "construct-armor"
-                            ]
-                        },
+                        "predicate": [
+                            "construct-armor"
+                        ],
                         "selector": "ac",
                         "slug": "construct-armor-critical",
                         "value": -4
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "construct-armor"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "construct-armor"
+                            }
+                        ],
                         "selector": "ac",
                         "slug": "construct-armor-health",
                         "value": "4*(min(round(@actor.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
@@ -245,10 +243,7 @@
     ],
     "name": "Anatomical Model (1-2)",
     "prototypeToken": {
-        "name": "Anatomical Model",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Anatomical Model"
     },
     "system": {
         "abilities": {

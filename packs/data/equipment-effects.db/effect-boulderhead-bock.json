@@ -19,12 +19,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Boulderhead Bock (vs. stunned/stupefied)",
-                "predicate": {
-                    "any": [
-                        "stunned",
-                        "stupefied"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "stunned",
+                            "stupefied"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "item",
                 "value": 1
@@ -37,7 +39,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Lost Omens: Pathfinder Society Guide"
         },
         "start": {
             "initiative": null,

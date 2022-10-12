@@ -367,11 +367,11 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "not": [
-                                "countered-by-water"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "countered-by-water"
+                            }
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -1261,12 +1261,6 @@
         }
     ],
     "name": "Young Underworld Dragon",
-    "prototypeToken": {
-        "name": "Young Underworld Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -274,12 +274,10 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "ravenous-tracker",
-                                "action:track"
-                            ]
-                        },
+                        "predicate": [
+                            "ravenous-tracker",
+                            "action:track"
+                        ],
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 4
@@ -361,12 +359,14 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "inhaled",
-                                "olfactory"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "inhaled",
+                                    "olfactory"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "text": "A viskithrel's many-chambered snout allows it to partition and ignore scents. The creature can choose to critically succeed at any saving throw against an inhaled threat (such as inhaled poison) or olfactory effects, regardless of its roll.",
                         "title": "{item|name}"
@@ -565,12 +565,6 @@
         }
     ],
     "name": "Viskithrel",
-    "prototypeToken": {
-        "name": "Viskithrel",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

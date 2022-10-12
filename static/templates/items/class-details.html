@@ -17,7 +17,7 @@
 </div>
 
 <div class="form-group">
-    <label>{{localize "PF2E.ClassDCLabel"}}</label>
+    <label>{{localize "PF2E.Actor.Character.ClassDC.Label"}}</label>
     <select name="system.classDC" data-dtype="Number">
         {{#select data.classDC}}
             {{#each proficiencyChoices as |label key|}}
@@ -261,16 +261,21 @@
     </ul>
 </div>
 
+<div class="form-group-stacked item-ref-group" data-valid-drops="classfeature">
+    <label for="data.traits">{{localize "PF2E.ClassFeatures"}}</label>
+    {{#> abcItems}}{{/abcItems}}
+    {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
+</div>
+
 {{~#*inline "abcItem"~}}
-    <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-id="{{item.id}}">
+    <li data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-uuid="{{item.uuid}}">
         <img src="{{item.img}}">
         <div class="name">
-            {{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/unless}}
+            {{item.name}}{{#if item.fromWorld}}<i class="fa fa-globe" title="{{localize "PF2E.Item.WorldItemWarning"}}"></i>{{/if}}
         </div>
         <input type="number" class="level" value="{{item.level}}" name="system.items.{{i}}.level" />
+        <input value="{{item.uuid}}" name="system.items.{{i}}.uuid" type="hidden" data-dtype="String" />
         <input value="{{item.name}}" name="system.items.{{i}}.name" type="hidden" data-dtype="String" />
-        <input value="{{item.pack}}" name="system.items.{{i}}.pack" type="hidden" data-dtype="String" />
-        <input value="{{item.id}}" name="system.items.{{i}}.id" type="hidden" data-dtype="String" />
         <a class="remove" data-action="remove"><i class="fa fa-times"></i></a>
         {{#if item.items~}}
             {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
@@ -280,14 +285,8 @@
 
 {{~#*inline "abcItems"~}}
 <ul class="item-refs">
-    {{#each items}}
+    {{#each features}}
         {{#> abcItem item=this.item i=this.key}}{{@partial-block}}{{/abcItem}}
     {{/each}}
 </ul>
 {{~/inline~}}
-
-<div class="form-group-stacked item-ref-group" data-valid-drops="classfeature">
-    <label for="data.traits">{{localize "PF2E.ClassFeatures"}}</label>
-    {{#> abcItems}}{{/abcItems}}
-    {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
-</div>

@@ -39,11 +39,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Belt of 5 Kings (dwarves)",
-                "predicate": {
-                    "all": [
-                        "target:trait:dwarf"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:dwarf"
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1
@@ -51,12 +49,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Belt of 5 Kings (giants, orcs)",
-                "predicate": {
-                    "any": [
-                        "target:trait:giant",
-                        "target:trait:orc"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:giant",
+                            "target:trait:orc"
+                        ]
+                    }
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": 1

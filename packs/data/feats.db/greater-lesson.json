@@ -21,7 +21,6 @@
         "level": {
             "value": 6
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -35,13 +34,15 @@
             {
                 "adjustName": false,
                 "allowedDrops": {
-                    "all": [
+                    "predicate": [
                         "item:trait:witch",
-                        "item:type:feature"
-                    ],
-                    "any": [
-                        "item:level:6",
-                        "item:level:2"
+                        "item:type:feature",
+                        {
+                            "or": [
+                                "item:level:6",
+                                "item:level:2"
+                            ]
+                        }
                     ]
                 },
                 "choices": [
@@ -71,6 +72,9 @@
                     },
                     {
                         "value": "Compendium.pf2e.classfeatures.Lesson of Vengeance"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Lesson of Favors"
                     }
                 ],
                 "flag": "lesson",

@@ -115,10 +115,11 @@ declare global {
          * Render the Application by evaluating it's HTML template against the object of data provided by the getData method
          * If the Application is rendered as a pop-out window, wrap the contained HTML in an outer frame with window controls
          *
-         * @param force     Add the rendered application to the DOM if it is not already present. If false, the
-         *                  Application will only be re-rendered if it is already present.
-         * @param options   Additional rendering options which are applied to customize the way that the Application
-         *                  is rendered in the DOM.
+         * @param force   Add the rendered application to the DOM if it is not already present. If false, the
+         *                Application will only be re-rendered if it is already present.
+         * @param options Additional rendering options which are applied to customize the way that the Application
+         *                is rendered in the DOM.
+         * @returns The rendered Application instance
          */
         render(force?: boolean, options?: RenderOptions): this | Promise<this>;
 
@@ -290,6 +291,8 @@ declare global {
         top: number | null;
         /** The default offset-left position for the rendered HTML */
         left: number | null;
+        /** A transformation scale for the rendered HTML */
+        scale?: number | null;
         /** Whether to display the application as a pop-out container */
         popOut: boolean;
         /** Whether the rendered application can be minimized (popOut only) */
@@ -345,7 +348,7 @@ declare global {
         onclick: ((event: Event) => void) | null;
     }
 
-    interface RenderOptions {
+    interface RenderOptions extends Partial<ApplicationOptions> {
         // Undocumented
         action?: UserAction;
         /** The left positioning attribute */

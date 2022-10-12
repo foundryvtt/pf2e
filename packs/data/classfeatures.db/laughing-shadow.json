@@ -21,19 +21,16 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:armored",
-                        "self:effect:arcane-cascade"
-                    ]
-                },
+                "predicate": [
+                    "self:armored",
+                    "self:effect:arcane-cascade"
+                ],
                 "selector": "speed",
                 "slug": "laughing-shadow-armored-movement",
                 "type": "status",
@@ -41,14 +38,12 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "self:effect:arcane-cascade"
-                    ],
-                    "not": [
-                        "self:armored"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:arcane-cascade",
+                    {
+                        "not": "self:armored"
+                    }
+                ],
                 "selector": "speed",
                 "slug": "laughing-shadow-unarmored-movement",
                 "type": "status",
@@ -57,17 +52,15 @@
             {
                 "key": "AdjustModifier",
                 "mode": "upgrade",
-                "predicate": {
-                    "all": [
-                        "target:condition:flat-footed",
-                        {
-                            "gte": [
-                                "hands-free:but-really",
-                                1
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "target:condition:flat-footed",
+                    {
+                        "gte": [
+                            "hands-free:but-really",
+                            1
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "arcane-cascade-extra-damage",
                 "value": 3
@@ -75,18 +68,16 @@
             {
                 "key": "AdjustModifier",
                 "mode": "upgrade",
-                "predicate": {
-                    "all": [
-                        "feature:weapon-specialization",
-                        "target:condition:flat-footed",
-                        {
-                            "gte": [
-                                "hands-free:but-really",
-                                1
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "feature:weapon-specialization",
+                    "target:condition:flat-footed",
+                    {
+                        "gte": [
+                            "hands-free:but-really",
+                            1
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "arcane-cascade-extra-damage",
                 "value": 5
@@ -94,25 +85,23 @@
             {
                 "key": "AdjustModifier",
                 "mode": "upgrade",
-                "predicate": {
-                    "all": [
-                        "feature:greater-weapon-specialization",
-                        "target:condition:flat-footed",
-                        {
-                            "gte": [
-                                "hands-free:but-really",
-                                1
-                            ]
-                        }
-                    ]
-                },
+                "predicate": [
+                    "feature:greater-weapon-specialization",
+                    "target:condition:flat-footed",
+                    {
+                        "gte": [
+                            "hands-free:but-really",
+                            1
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "arcane-cascade-extra-damage",
                 "value": 7
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Secrets of Magic"
         },
         "traits": {
             "custom": "",

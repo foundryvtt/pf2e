@@ -178,7 +178,60 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "bone-chariot",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "bone-chariot"
+                        ],
+                        "value": "small"
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "bone-chariot"
+                        ],
+                        "type": [
+                            "bleed",
+                            "death-effects",
+                            "disease",
+                            "doomed",
+                            "drained",
+                            "fatigued",
+                            "good",
+                            "healing",
+                            "lawful",
+                            "mental",
+                            "necromancy",
+                            "nonlethal-attacks",
+                            "paralyzed",
+                            "poison",
+                            "sickened",
+                            "unconscious"
+                        ]
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "not": "bone-chariot"
+                            }
+                        ],
+                        "type": [
+                            "good",
+                            "mental",
+                            "physical"
+                        ],
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -256,12 +309,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "When using bone",
-                        "predicate": {
-                            "all": [
-                                "action:craft",
-                                "bone"
-                            ]
-                        },
+                        "predicate": [
+                            "action:craft",
+                            "bone"
+                        ],
                         "selector": "crafting",
                         "value": 2
                     }
@@ -314,12 +365,6 @@
         }
     ],
     "name": "Ostovite",
-    "prototypeToken": {
-        "name": "Ostovite",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {
@@ -403,24 +448,7 @@
             "ci": [],
             "di": {
                 "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "good",
-                    "healing",
-                    "lawful",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
+                "value": []
             },
             "dr": [],
             "dv": [],
@@ -436,7 +464,7 @@
                 "value": "darkvision"
             },
             "size": {
-                "value": "sm"
+                "value": "tiny"
             },
             "value": [
                 "fiend"

@@ -21,7 +21,6 @@
         "level": {
             "value": 6
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -37,17 +36,15 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.crafting.entries.fireworkTechnician.maxItemLevel",
-                "phase": "afterDerived",
-                "predicate": {
-                    "all": [
-                        "crafting:entry:firework-technician"
-                    ]
-                },
+                "phase": "beforeDerived",
+                "predicate": [
+                    "crafting:entry:firework-technician"
+                ],
                 "value": "@actor.level - 3"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",

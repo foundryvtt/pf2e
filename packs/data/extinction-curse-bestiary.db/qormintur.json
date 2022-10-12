@@ -883,12 +883,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Alchemist's Tools, Expanded (craft alchemical items)",
-                        "predicate": {
-                            "all": [
-                                "alchemical",
-                                "action:craft"
-                            ]
-                        },
+                        "predicate": [
+                            "alchemical",
+                            "action:craft"
+                        ],
                         "selector": "crafting",
                         "type": "item",
                         "value": 1
@@ -1696,15 +1694,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "occult",
-                                "primal"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "occult",
+                                    "primal"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -2027,11 +2027,9 @@
                         "diceNumber": 2,
                         "dieSize": "d10",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "sticky-poison"
-                            ]
-                        },
+                        "predicate": [
+                            "sticky-poison"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -2321,12 +2319,6 @@
         }
     ],
     "name": "Qormintur",
-    "prototypeToken": {
-        "name": "Qormintur",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

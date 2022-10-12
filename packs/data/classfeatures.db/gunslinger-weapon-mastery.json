@@ -21,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -64,16 +63,18 @@
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:group:firearm",
-                        "weapon:tag:crossbow"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:group:firearm",
+                            "weapon:tag:crossbow"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",

@@ -521,11 +521,9 @@
                         "override": {
                             "dieSize": "d8"
                         },
-                        "predicate": {
-                            "all": [
-                                "twoHanded"
-                            ]
-                        },
+                        "predicate": [
+                            "twoHanded"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -659,12 +657,14 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "inhaled",
-                                "olfactory"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "inhaled",
+                                    "olfactory"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "text": "When you roll a saving throw against an olfactory or inhaled effect, you get the outcome one degree of success better than the result of your roll.",
                         "title": "{item|name}"
@@ -674,12 +674,14 @@
                             "all": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "any": [
-                                "olfactory",
-                                "inhaled"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "olfactory",
+                                    "inhaled"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "save"
                     }
@@ -723,11 +725,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            "action:swim"
+                        ],
                         "selector": "athletics",
                         "text": "When you roll a success to Swim, you get a critical success instead.",
                         "title": "{item|name}"
@@ -737,11 +737,9 @@
                             "success": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "all": [
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            "action:swim"
+                        ],
                         "selector": "athletics",
                         "type": "skill"
                     }
@@ -943,12 +941,6 @@
         }
     ],
     "name": "Shoony Hierarch",
-    "prototypeToken": {
-        "name": "Shoony Hierarch",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

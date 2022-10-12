@@ -219,12 +219,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "Climbing or Swimming",
-                        "predicate": {
-                            "any": [
-                                "action:climb",
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:climb",
+                                    "action:swim"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "type": "untyped",
                         "value": 2
@@ -278,12 +280,6 @@
         }
     ],
     "name": "Explosive Rats",
-    "prototypeToken": {
-        "name": "Explosive Rats",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/mystery-man.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

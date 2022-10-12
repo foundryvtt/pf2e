@@ -904,14 +904,16 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "action:coerce",
-                                "action:demoralize",
-                                "action:make-an-impression",
-                                "action:request"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:coerce",
+                                    "action:demoralize",
+                                    "action:make-an-impression",
+                                    "action:request"
+                                ]
+                            }
+                        ],
                         "selector": "will",
                         "value": -4
                     }
@@ -1052,14 +1054,12 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "vengefulAnger"
-                            ],
-                            "not": [
-                                "self:condition:frightened"
-                            ]
-                        },
+                        "predicate": [
+                            "vengefulAnger",
+                            {
+                                "not": "self:condition:frightened"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "type": "status",
                         "value": 2
@@ -1133,11 +1133,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.VsArthropods",
-                        "predicate": {
-                            "all": [
-                                "target:tag:arthropod"
-                            ]
-                        },
+                        "predicate": [
+                            "target:tag:arthropod"
+                        ],
                         "selector": "diplomacy",
                         "value": 6
                     }
@@ -1246,12 +1244,6 @@
         }
     ],
     "name": "Mitflit",
-    "prototypeToken": {
-        "name": "Mitflit",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

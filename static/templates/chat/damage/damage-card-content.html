@@ -1,34 +1,29 @@
 <div class="dice-roll">
     <div class="dice-result">
-        <div class="dice-formula">{{damage.formula}}</div>
-        <div class="dice-tooltip">
-            {{#each damage.types}}
-            <div class="damage-type {{@key}}">
-                <h3 class="flexrow">{{@key}}</h3>
-                {{#each this as |categories|}}
+        <div class="dice-formula">{{formula}}</div>
+        <div class="dice-tooltip" style="display: none;">
+            {{#each damageTypes as |data type|}}
+            <div class="damage-type {{type}}">
+                <h3 class="flexrow"><span>{{localize data.label}}</span><i class="fa fa-{{data.icon}}"></i></h3>
+                {{#each data.categories as |category|}}
                 <section class="tooltip-part">
                     <div class="dice">
                         <header class="part-header flexrow">
-                            <span class="part-formula">{{this.formula}}</span>
-                            <span class="part-flavor">{{this.label}}</span>
-                            <span class="part-total">{{this.total}}</span>
+                            <span class="part-formula">{{category.formula}}</span>
+                            <span class="part-flavor">{{localize category.label}}</span>
+                            <span class="part-total">{{category.total}}</span>
                         </header>
                     </div>
                     <ol class="dice-rolls">
-                        {{#each this.results as |rolls damageDie|}}
-                            {{#each rolls}}
-                            <li class="roll die {{damageDie}} {{#if (eq this 1)}}min{{/if}} {{#if (eq (add 'd' this) damageDie)}}max{{/if}}">{{this}}</li>
-                            {{/each}}
+                        {{#each category.dice as |die|}}
+                            <li class="roll die d{{die.faces}}">{{die.result}}</li>
                         {{/each}}
-                        {{#if this.modifier}}
-                        <li class="roll" style="background: none;">{{numberFormat this.modifier sign=true decimals=0}}</li>
-                        {{/if}}
                     </ol>
                 </section>
                 {{/each}}
             </div>
             {{/each}}
         </div>
-        <h4 class="dice-total">{{damage.total}}</h4>
+        <h4 class="dice-total">{{total}}</h4>
     </div>
 </div>

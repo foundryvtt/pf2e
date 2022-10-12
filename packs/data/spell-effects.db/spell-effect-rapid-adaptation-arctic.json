@@ -21,21 +21,21 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "action:balance"
-                    ],
-                    "any": [
-                        "terrain:snow",
-                        "terrain:ice"
-                    ]
-                },
+                "predicate": [
+                    "action:balance",
+                    {
+                        "or": [
+                            "terrain:snow",
+                            "terrain:ice"
+                        ]
+                    }
+                ],
                 "selector": "acrobatics",
                 "type": "skill"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Secrets of Magic"
         },
         "start": {
             "initiative": null,

@@ -659,14 +659,16 @@
                     {
                         "key": "FlatModifier",
                         "label": "Expanded Healer's Tools (1st aid, treat disease, poison or wounds",
-                        "predicate": {
-                            "any": [
-                                "action:administer-first-aid",
-                                "action:treat-disease",
-                                "action:treat-poison",
-                                "action:treat-wounds"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:administer-first-aid",
+                                    "action:treat-disease",
+                                    "action:treat-poison",
+                                    "action:treat-wounds"
+                                ]
+                            }
+                        ],
                         "selector": "medicine",
                         "type": "item",
                         "value": 1
@@ -1684,12 +1686,6 @@
         }
     ],
     "name": "Ginjana Mindkeeper",
-    "prototypeToken": {
-        "name": "Ginjana Mindkeeper",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

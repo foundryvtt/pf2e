@@ -34,11 +34,9 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        "target:trait:undead"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:undead"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
                 "text": "PF2E.WeaponPropertyRune.greaterDisrupting.Note.criticalSuccess"
             },
@@ -47,25 +45,25 @@
                 "diceNumber": 2,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "target:trait:undead"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:undead"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             },
             {
                 "key": "CriticalSpecialization",
-                "predicate": {
-                    "any": [
-                        "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
-                        "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
-                    ]
-                }
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
+                            "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                        ]
+                    }
+                ]
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,

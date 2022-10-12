@@ -3878,7 +3878,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @Compendium[pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@Compendium[pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -4346,7 +4346,7 @@
                 "containerId": null,
                 "damage": {
                     "damageType": "bludgeoning",
-                    "dice": 1,
+                    "dice": 0,
                     "die": "",
                     "value": ""
                 },
@@ -4426,7 +4426,8 @@
                             "success"
                         ],
                         "selector": "{item|_id}-attack",
-                        "text": "PF2E.BombNotes.TanglefootBag.Greater.success"
+                        "text": "PF2E.BombNotes.TanglefootBag.Greater.success",
+                        "title": "ITEM.TypeEffect"
                     },
                     {
                         "key": "Note",
@@ -4434,7 +4435,8 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-attack",
-                        "text": "PF2E.BombNotes.TanglefootBag.Greater.criticalSuccess"
+                        "text": "PF2E.BombNotes.TanglefootBag.Greater.criticalSuccess",
+                        "title": "ITEM.TypeEffect"
                     }
                 ],
                 "size": "med",
@@ -4730,11 +4732,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "poison"
-                            ]
-                        },
+                        "predicate": [
+                            "poison"
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -4986,10 +4986,7 @@
     ],
     "name": "Yabin the Just (Level 13)",
     "prototypeToken": {
-        "name": "Yabin the Just",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Yabin the Just"
     },
     "system": {
         "abilities": {

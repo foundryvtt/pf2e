@@ -1,6 +1,4 @@
 article {
-    position: relative;
-
     .sheet-sidebar {
         .required-ancestry {
             flex-wrap: nowrap;
@@ -14,16 +12,21 @@ article {
 
             .drop-zone {
                 background-color: rgba(0, 0, 0, 0.05);
-                border: 1px dotted var(--alt-dark);
                 border-radius: 2px;
+                border: 1px dotted var(--alt-dark);
                 display: flex;
                 font-weight: normal;
-                flex: 1;
                 justify-content: center;
-                margin-left: auto;
+                margin: 2px 3px 0 auto;
                 max-width: 8em;
                 padding: 3px;
-                text-overflow: ellipsis;
+                position: relative;
+
+                span {
+                    display: inline-block;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
 
                 &.ancestry-ref-broken {
                     background-color: rgba(255, 0, 0, 0.15);
@@ -33,9 +36,8 @@ article {
                 a.remove-ancestry {
                     display: none;
                     position: absolute;
-                    margin-left: auto;
-                    left: 210px;
-                    top: 33px;
+                    right: -0.5em;
+                    top: -0.25em;
 
                     &:hover {
                         display: flex;

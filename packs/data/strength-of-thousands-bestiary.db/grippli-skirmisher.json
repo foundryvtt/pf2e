@@ -890,12 +890,14 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "target-poisoned",
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target-poisoned",
+                                    "target:condition:flat-footed"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1059,12 +1061,6 @@
         }
     ],
     "name": "Grippli Skirmisher",
-    "prototypeToken": {
-        "name": "Grippli Skirmisher",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

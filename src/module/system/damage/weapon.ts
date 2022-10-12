@@ -4,7 +4,6 @@ import {
     DamageDiceOverride,
     DamageDicePF2e,
     DiceModifierPF2e,
-    ModifierAdjustment,
     ModifierPF2e,
     MODIFIER_TYPE,
     PROFICIENCY_RANK_OPTION,
@@ -13,13 +12,18 @@ import {
 import { AbilityString } from "@actor/types";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { MeleeDamageRoll } from "@item/melee/data";
-import { getPropertyRuneModifiers } from "@item/runes";
-import { WeaponDamage } from "@item/weapon/data";
-import { WeaponMaterialEffect } from "@item/weapon/types";
-import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
+import { getPropertyRuneModifiers } from "@item/physical";
+import { WeaponDamage, WeaponMaterialEffect, WEAPON_MATERIAL_EFFECTS } from "@item/weapon";
 import { RollNotePF2e } from "@module/notes";
-import { DeferredModifier, PotencySynthetic, StrikeAdjustment, StrikingSynthetic } from "@module/rules/synthetics";
-import { extractModifiers } from "@module/rules/util";
+import {
+    DamageDiceSynthetics,
+    ModifierAdjustmentSynthetics,
+    ModifierSynthetics,
+    PotencySynthetic,
+    StrikeAdjustment,
+    StrikingSynthetic,
+} from "@module/rules/synthetics";
+import { extractDamageDice, extractModifiers } from "@module/rules/util";
 import { PredicatePF2e } from "@system/predication";
 import { groupBy, setHasElement, sluggify } from "@util";
 import { DamageCategorization, DamageDieSize, DamageType, nextDamageDieSize } from ".";
@@ -29,9 +33,9 @@ class WeaponDamagePF2e {
         attack: MeleePF2e,
         actor: NPCPF2e,
         traits: TraitViewData[] = [],
-        statisticsModifiers: Record<string, DeferredModifier[]>,
-        modifierAdjustments: Record<string, ModifierAdjustment[]>,
-        damageDice: Record<string, DamageDicePF2e[]>,
+        statisticsModifiers: ModifierSynthetics,
+        modifierAdjustments: ModifierAdjustmentSynthetics,
+        damageDice: DamageDiceSynthetics,
         proficiencyRank = 0,
         options: Set<string> = new Set(),
         rollNotes: Record<string, RollNotePF2e[]>,
@@ -44,14 +48,15 @@ class WeaponDamagePF2e {
             const { damageType } = instance;
             if (instance.dice > 0 && instance.die) {
                 damageDice.damage.push(
-                    new DamageDicePF2e({
-                        slug: "base",
-                        selector: "damage",
-                        name: "PF2E.Damage.Base",
-                        diceNumber: instance.dice,
-                        dieSize: instance.die,
-                        damageType: instance.damageType,
-                    })
+                    () =>
+                        new DamageDicePF2e({
+                            slug: "base",
+                            label: "PF2E.Damage.Base",
+                            selector: "damage",
+                            diceNumber: instance.dice,
+                            dieSize: instance.die,
+                            damageType: instance.damageType,
+                        })
                 );
             }
             // Amend numeric modifiers with any flat modifier
@@ -83,9 +88,9 @@ class WeaponDamagePF2e {
         weapon: WeaponPF2e | MeleePF2e,
         actor: CharacterPF2e | NPCPF2e,
         traits: TraitViewData[] = [],
-        statisticsModifiers: Record<string, DeferredModifier[]>,
-        modifierAdjustments: Record<string, ModifierAdjustment[]>,
-        damageDice: Record<string, DamageDicePF2e[]>,
+        statisticsModifiers: ModifierSynthetics,
+        modifierAdjustments: ModifierAdjustmentSynthetics,
+        damageDice: DamageDiceSynthetics,
         proficiencyRank = -1,
         options: Set<string> = new Set(),
         rollNotes: Record<string, RollNotePF2e[]>,
@@ -243,7 +248,11 @@ class WeaponDamagePF2e {
             // find best striking source
             const strikingRune = weapon.isOfType("weapon") ? weapon.system.runes.striking : null;
             if (strikingRune) {
-                strikingList.push({ label: "PF2E.StrikingRuneLabel", bonus: strikingRune });
+                strikingList.push({
+                    label: "PF2E.StrikingRuneLabel",
+                    bonus: strikingRune,
+                    predicate: new PredicatePF2e(),
+                });
             }
             if (strikingList.length > 0) {
                 const s = strikingList.reduce(
@@ -265,23 +274,9 @@ class WeaponDamagePF2e {
         const propertyRunes = weaponPotency?.property ?? [];
         diceModifiers.push(...getPropertyRuneModifiers(propertyRunes));
 
-        const runeNotes = propertyRunes.flatMap((r) => {
-            const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
-            return data.map(
-                (d) =>
-                    new RollNotePF2e({
-                        selector: "strike-damage",
-                        text: d.text,
-                        predicate: d.predicate,
-                        outcome: d.outcome,
-                    })
-            );
-        });
-        (rollNotes["strike-damage"] ??= []).push(...runeNotes);
-
         // Ghost touch
         if (propertyRunes.includes("ghostTouch")) {
-            diceModifiers.push(new DiceModifierPF2e({ label: "PF2E.WeaponPropertyRuneGhostTouch" }));
+            diceModifiers.push(new DiceModifierPF2e({ label: CONFIG.PF2E.weaponPropertyRunes.ghostTouch }));
         }
 
         // Backstabber trait
@@ -313,21 +308,19 @@ class WeaponDamagePF2e {
         }
 
         // Fatal trait
-        weaponTraits
-            .filter((t) => t.startsWith("fatal-d"))
-            .forEach((t) => {
-                const dieSize = t.substring(t.indexOf("-") + 1) as DamageDieSize;
-                diceModifiers.push(
-                    new DiceModifierPF2e({
-                        label: traitLabels[t],
-                        diceNumber: 1,
-                        dieSize,
-                        critical: true,
-                        enabled: true,
-                        override: { dieSize },
-                    })
-                );
-            });
+        for (const trait of weaponTraits.filter((t) => t.startsWith("fatal-d"))) {
+            const dieSize = trait.substring(trait.indexOf("-") + 1) as DamageDieSize;
+            diceModifiers.push(
+                new DiceModifierPF2e({
+                    label: traitLabels[trait],
+                    diceNumber: 1,
+                    dieSize,
+                    critical: true,
+                    enabled: true,
+                    override: { dieSize },
+                })
+            );
+        }
 
         // Check for weapon specialization
         const weaponSpecializationDamage = proficiencyRank > 1 ? proficiencyRank : 0;
@@ -357,11 +350,15 @@ class WeaponDamagePF2e {
         const syntheticModifiers = extractModifiers(synthetics, selectors, { resolvables, injectables });
         numericModifiers.push(...new StatisticModifier("", syntheticModifiers, options).modifiers);
 
+        // Roll notes
+        const runeNotes = propertyRunes.flatMap((r) => {
+            const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
+            return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
+        });
+
+        (rollNotes["strike-damage"] ??= []).push(...runeNotes);
         const notes = selectors.flatMap(
-            (s) =>
-                rollNotes[s]
-                    ?.map((note) => duplicate(note))
-                    .filter((note) => PredicatePF2e.test(note.predicate, options)) ?? []
+            (s) => rollNotes[s]?.map((n) => n.clone()).filter((n) => n.predicate.test(options)) ?? []
         );
 
         // Accumulate damage-affecting precious materials
@@ -400,36 +397,35 @@ class WeaponDamagePF2e {
         };
 
         // Damage dice from synthetics
-        for (const selector of selectors) {
-            const testedDice =
-                damageDice[selector]?.map((dice) => {
-                    dice.enabled = dice.predicate.test(options);
-                    dice.ignored = !dice.enabled;
-                    return dice;
-                }) ?? [];
-            diceModifiers.push(...testedDice);
-        }
+        diceModifiers.push(
+            ...extractDamageDice(damageDice, selectors, {
+                test: options,
+                resolvables: { weapon },
+                injectables: { weapon },
+            })
+        );
 
         // include dice number and size in damage tag
-        diceModifiers.forEach((d) => {
-            d.label = game.i18n.localize(d.label ?? d.slug);
-            if (d.diceNumber > 0 && d.dieSize) {
-                d.label += ` +${d.diceNumber}${d.dieSize}`;
-            } else if (d.diceNumber > 0) {
-                d.label += ` +${d.diceNumber}${damage.base.dieSize}`;
-            } else if (d.dieSize) {
-                d.label += ` ${d.dieSize}`;
+        for (const dice of diceModifiers) {
+            dice.label = game.i18n.localize(dice.label ?? dice.slug);
+            if (dice.diceNumber > 0 && dice.dieSize) {
+                dice.label += ` +${dice.diceNumber}${dice.dieSize}`;
+            } else if (dice.diceNumber > 0) {
+                dice.label += ` +${dice.diceNumber}${damage.base.dieSize}`;
+            } else if (dice.dieSize) {
+                dice.label += ` ${dice.dieSize}`;
             }
             if (
-                d.category &&
-                (d.diceNumber > 0 || d.dieSize) &&
-                (!d.damageType || (d.damageType === damage.base.damageType && d.category !== damage.base.category))
+                dice.category &&
+                (dice.diceNumber > 0 || dice.dieSize) &&
+                (!dice.damageType ||
+                    (dice.damageType === damage.base.damageType && dice.category !== damage.base.category))
             ) {
-                d.label += ` ${d.category}`;
+                dice.label += ` ${dice.category}`;
             }
-            d.enabled = new PredicatePF2e(d.predicate ?? {}).test(options);
-            d.ignored = !d.enabled;
-        });
+            dice.enabled = dice.predicate.test(options);
+            dice.ignored = !dice.enabled;
+        }
 
         const excludeFrom = weapon.isOfType("weapon") ? weapon : null;
         this.excludeDamage({ actor, weapon: excludeFrom, modifiers: [...numericModifiers, ...diceModifiers], options });
@@ -448,9 +444,13 @@ class WeaponDamagePF2e {
         const { base } = damage;
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
+        // Test that a damage modifier is compatible with the prior check result
+        const outcomeMatches = (m: { critical: boolean | null }): boolean =>
+            m.critical === null || (critical && m.critical) || (!critical && !m.critical);
+
         // First, increase or decrease the damage die. This can only be done once, so we
         // only need to find the presence of a rule that does this
-        const hasUpgrade = diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && (critical || !dm.critical));
+        const hasUpgrade = diceModifiers.some((dm) => dm.enabled && dm.override?.upgrade && outcomeMatches(dm));
         const hasDowngrade = diceModifiers.some(
             (dm) => dm.enabled && dm.override?.downgrade && (critical || !dm.critical)
         );
@@ -465,7 +465,7 @@ class WeaponDamagePF2e {
             (dm): dm is DiceModifierPF2e & { override: DamageDiceOverride } => !!(dm.enabled && dm.override)
         );
         for (const override of damageOverrides) {
-            if ((critical && override.critical) || !override.critical) {
+            if ((critical && override.critical !== false) || (!critical && !override.critical)) {
                 base.dieSize = override.override.dieSize ?? base.dieSize;
                 base.damageType = override.override.damageType ?? base.damageType;
                 base.diceNumber = override.override.diceNumber ?? base.diceNumber;
@@ -474,6 +474,7 @@ class WeaponDamagePF2e {
 
         base.category = DamageCategorization.fromDamageType(base.damageType);
 
+        // Separate dice into regular damage pool (doubled on critical hit) and critical damage pool
         const dicePool: DamagePool = {};
         const critPool: DamagePool = {};
         dicePool[base.damageType] = {
@@ -487,44 +488,26 @@ class WeaponDamagePF2e {
         };
 
         // dice modifiers always stack
-        for (const dice of diceModifiers.filter((dm) => dm.enabled && (!dm.critical || critical))) {
+        for (const dice of diceModifiers.filter((dm) => dm.enabled)) {
             const dieSize = dice.dieSize || base.dieSize || null;
-            if (dice.diceNumber <= 0 || !dieSize) continue;
-            if (critical && dice.critical) {
-                // critical-only stuff
-                this.addDice(critPool, dice.damageType ?? base.damageType, dice.category, dieSize, dice.diceNumber);
-            } else if (!dice.critical) {
-                this.addDice(dicePool, dice.damageType ?? base.damageType, dice.category, dieSize, dice.diceNumber);
+            if (dice.diceNumber > 0 && dieSize) {
+                const pool = dice.critical || (critical && dice.critical === false) ? critPool : dicePool;
+                this.addDice(pool, dice.damageType ?? base.damageType, dice.category, dieSize, dice.diceNumber);
             }
         }
 
-        // Apply stacking rules here and distribute on dice pools
+        // Apply stacking rules and distribute on dice pools
         {
-            const modifiers = damage.numericModifiers
-                .filter((nm: ModifierPF2e) => nm.enabled && (!nm.critical || critical))
-                .flatMap((nm: ModifierPF2e) => {
-                    nm.damageType ??= base.damageType;
-                    nm.damageCategory ??= DamageCategorization.fromDamageType(nm.damageType);
-                    if (critical && nm.damageCategory === "splash") {
-                        return [];
-                    } else if (critical && nm.critical) {
-                        // Critical-only damage
-                        return nm;
-                    } else if (!nm.critical) {
-                        // Regular pool
-                        return nm;
-                    }
-                    // Skip
-                    return [];
-                });
+            const modifiers = damage.numericModifiers.flatMap((modifier): ModifierPF2e | never[] => {
+                modifier.damageType ??= base.damageType;
+                modifier.damageCategory ??= DamageCategorization.fromDamageType(modifier.damageType);
+                return outcomeMatches(modifier) ? modifier : [];
+            });
 
+            // Apply stacking rules for numeric modifiers of each damage type separately
             const numericModifiers = Array.from(groupBy(modifiers, (m) => m.damageType ?? base.damageType).entries())
-                .flatMap(
-                    ([damageType, modifiers]) =>
-                        // Apply stacking rules for numeric modifiers of each damage type separately
-                        new StatisticModifier(`${damageType}-damage-stacking-rules`, modifiers).modifiers
-                )
-                .filter((nm) => nm.enabled && (!nm.critical || critical));
+                .flatMap(([t, m]) => new StatisticModifier(`${t}-damage`, m).modifiers)
+                .filter((m) => m.enabled);
 
             for (const modifier of numericModifiers) {
                 const damageType = modifier.damageType ?? base.damageType;
@@ -543,15 +526,18 @@ class WeaponDamagePF2e {
         let formula = this.buildFormula(dicePool, partials);
         if (critical) {
             formula = this.doubleFormula(formula);
-            const splashDamage = damage.numericModifiers.find(
-                (modifier) => modifier.enabled && modifier.damageCategory === "splash"
-            );
-            if (splashDamage) formula += ` + ${splashDamage.modifier}`;
+            const nonDoublings = damage.numericModifiers.filter((m) => m.enabled && m.critical === false);
+            for (const nonDoubling of nonDoublings) {
+                formula += ` + ${nonDoubling.modifier}`;
+            }
+
             for (const [damageType, categories] of Object.entries(partials)) {
                 for (const [damageCategory, f] of Object.entries(categories)) {
                     partials[damageType][damageCategory] = this.doubleFormula(f);
-                    if (splashDamage?.damageType === damageType) {
-                        partials[damageType][damageCategory] += ` + ${splashDamage.modifier}`;
+                    for (const nonDoubling of nonDoublings) {
+                        if (nonDoubling.damageType === damageType) {
+                            partials[damageType][damageCategory] += ` + ${nonDoubling.modifier}`;
+                        }
                     }
                 }
             }
@@ -575,7 +561,7 @@ class WeaponDamagePF2e {
     public static addDice(
         pool: DamagePool,
         damageType: string,
-        category: string | undefined,
+        category: string | null,
         dieSize: string,
         count: number
     ): DamagePool {
@@ -674,7 +660,7 @@ class WeaponDamagePF2e {
             rule.applyDamageExclusion?.(weapon, notIgnored);
         }
         for (const modifier of notIgnored) {
-            modifier.ignored = !new PredicatePF2e(modifier.predicate ?? {}).test(options);
+            modifier.ignored = !modifier.predicate.test(options);
         }
     }
 

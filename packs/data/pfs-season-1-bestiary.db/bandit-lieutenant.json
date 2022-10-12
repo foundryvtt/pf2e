@@ -809,25 +809,21 @@
                 "rules": [
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "agile",
-                                "single-out"
-                            ]
-                        },
+                        "predicate": [
+                            "agile",
+                            "single-out"
+                        ],
                         "selector": "attack",
                         "value": -2
                     },
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "single-out"
-                            ],
-                            "not": [
-                                "agile"
-                            ]
-                        },
+                        "predicate": [
+                            "single-out",
+                            {
+                                "not": "agile"
+                            }
+                        ],
                         "selector": "attack",
                         "value": -3
                     },
@@ -971,12 +967,6 @@
         }
     ],
     "name": "Bandit Lieutenant",
-    "prototypeToken": {
-        "name": "Bandit Lieutenant",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

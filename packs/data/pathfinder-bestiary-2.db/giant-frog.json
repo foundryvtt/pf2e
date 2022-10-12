@@ -153,11 +153,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "avoid-fall"
-                            ]
-                        },
+                        "predicate": [
+                            "avoid-fall"
+                        ],
                         "selector": "reflex",
                         "value": 4
                     }
@@ -312,12 +310,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.HighJumpOrLongJump",
-                        "predicate": {
-                            "any": [
-                                "action:long-jump",
-                                "action:high-jump"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:long-jump",
+                                    "action:high-jump"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 4
                     }
@@ -370,12 +370,6 @@
         }
     ],
     "name": "Giant Frog",
-    "prototypeToken": {
-        "name": "Giant Frog",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

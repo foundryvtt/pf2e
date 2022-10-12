@@ -1233,15 +1233,15 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.DisarmStoneMetal",
-                        "predicate": {
-                            "all": [
-                                "action:disarm"
-                            ],
-                            "any": [
-                                "target:stone",
-                                "target:metal"
-                            ]
-                        },
+                        "predicate": [
+                            "action:disarm",
+                            {
+                                "or": [
+                                    "target:stone",
+                                    "target:metal"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 4
                     }
@@ -1311,11 +1311,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Sand",
-                        "predicate": {
-                            "any": [
-                                "terrain:sand"
-                            ]
-                        },
+                        "predicate": [
+                            "terrain:sand"
+                        ],
                         "selector": "stealth",
                         "value": 3
                     }
@@ -1340,12 +1338,6 @@
         }
     ],
     "name": "Zaramuun",
-    "prototypeToken": {
-        "name": "Zaramuun",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

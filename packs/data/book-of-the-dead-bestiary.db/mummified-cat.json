@@ -560,23 +560,23 @@
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -684,12 +684,6 @@
         }
     ],
     "name": "Mummified Cat",
-    "prototypeToken": {
-        "name": "Mummified Cat",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {
@@ -787,7 +781,7 @@
             "dr": [],
             "dv": [
                 {
-                    "exceptions": "<b>Aura of Repose</b> (aura, divine, necromancy) 60 feet. Corpses within the aura don’t decay. This aura also attempts to counteract any effect that would transform a creature in the aura into undead (counteract level 2, counteract modifier +5).",
+                    "exceptions": "<b>Aura of Repose</b> (aura, divine, necromancy) 60 feet. Corpses within the aura don't decay. This aura also attempts to counteract any effect that would transform a creature in the aura into undead (counteract level 2, counteract modifier +5).",
                     "type": "fire",
                     "value": 2
                 }

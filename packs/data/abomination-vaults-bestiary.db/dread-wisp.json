@@ -169,14 +169,12 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "glowing"
-                            ],
-                            "not": [
-                                "go-dark"
-                            ]
-                        },
+                        "predicate": [
+                            "glowing",
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -549,12 +547,6 @@
         }
     ],
     "name": "Dread Wisp",
-    "prototypeToken": {
-        "name": "Dread Wisp",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

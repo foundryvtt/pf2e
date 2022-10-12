@@ -1932,15 +1932,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1985,7 +1987,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "skill-check",
+                        "key": "RollOption",
+                        "option": "bonds-of-iron",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bonds-of-iron"
+                        ],
+                        "selector": "athletics",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2195,11 +2214,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Grapple",
-                        "predicate": {
-                            "all": [
-                                "action:grapple"
-                            ]
-                        },
+                        "predicate": [
+                            "action:grapple"
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -2337,10 +2354,7 @@
     ],
     "name": "Annis Hag (1-06)",
     "prototypeToken": {
-        "name": "Annis Hag",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Annis Hag"
     },
     "system": {
         "abilities": {

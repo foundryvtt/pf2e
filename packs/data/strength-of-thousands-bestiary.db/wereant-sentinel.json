@@ -532,34 +532,28 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "hive-mind"
-                            ]
-                        },
+                        "predicate": [
+                            "hive-mind"
+                        ],
                         "selector": "initiative",
                         "type": "circumstance",
                         "value": 2
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "hive-mind"
-                            ]
-                        },
+                        "predicate": [
+                            "hive-mind"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 2
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "hive-mind",
-                                "mental"
-                            ]
-                        },
+                        "predicate": [
+                            "hive-mind",
+                            "mental"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
@@ -835,15 +829,15 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "sentinels-focus"
-                            ],
-                            "any": [
-                                "action:trip",
-                                "action:shove"
-                            ]
-                        },
+                        "predicate": [
+                            "sentinels-focus",
+                            {
+                                "or": [
+                                    "action:trip",
+                                    "action:shove"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
@@ -853,11 +847,9 @@
                         "diceNumber": 2,
                         "dieSize": "d8",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "sentinels-focus"
-                            ]
-                        },
+                        "predicate": [
+                            "sentinels-focus"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1007,12 +999,6 @@
         }
     ],
     "name": "Wereant Sentinel",
-    "prototypeToken": {
-        "name": "Wereant Sentinel",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

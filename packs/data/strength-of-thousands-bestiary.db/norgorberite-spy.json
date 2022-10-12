@@ -705,11 +705,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "reapersProtection"
-                            ]
-                        },
+                        "predicate": [
+                            "reapersProtection"
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
@@ -801,16 +799,16 @@
                         "diceNumber": 4,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "finesse",
+                                    "agile",
+                                    "ranged"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -825,19 +823,19 @@
                         "diceNumber": 4,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "inReachOfAllies"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ],
-                            "not": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            "inReachOfAllies",
+                            {
+                                "or": [
+                                    "finesse",
+                                    "agile",
+                                    "ranged"
+                                ]
+                            },
+                            {
+                                "not": "target:condition:flat-footed"
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1094,12 +1092,6 @@
         }
     ],
     "name": "Norgorberite Spy",
-    "prototypeToken": {
-        "name": "Norgorberite Spy",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

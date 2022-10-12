@@ -2761,11 +2761,9 @@
                         "override": {
                             "dieSize": "d8"
                         },
-                        "predicate": {
-                            "all": [
-                                "twoHanded"
-                            ]
-                        },
+                        "predicate": [
+                            "twoHanded"
+                        ],
                         "selector": "{item|_id}-damage"
                     },
                     {
@@ -2865,12 +2863,10 @@
                         "outcome": [
                             "success"
                         ],
-                        "predicate": {
-                            "all": [
-                                "action:balance",
-                                "on-ground"
-                            ]
-                        },
+                        "predicate": [
+                            "action:balance",
+                            "on-ground"
+                        ],
                         "selector": "acrobatics",
                         "text": "If Eltha succeeds on a acrobatics check to balance on uneven ground composed of earch or rock she gets a critical success instead."
                     },
@@ -2883,30 +2879,30 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "on-ground"
-                            ],
-                            "any": [
-                                "action:shove",
-                                "action:trip"
-                            ]
-                        },
+                        "predicate": [
+                            "on-ground",
+                            {
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            }
+                        ],
                         "selector": "fortitude",
                         "type": "circumstance",
                         "value": 3
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "on-ground"
-                            ],
-                            "any": [
-                                "action:shove",
-                                "action:trip"
-                            ]
-                        },
+                        "predicate": [
+                            "on-ground",
+                            {
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            }
+                        ],
                         "selector": "reflex",
                         "type": "circumstance",
                         "value": 3
@@ -3098,10 +3094,7 @@
     ],
     "name": "Advanced Eltha Embercall (9-10)/Eltha Embercall (11-12)",
     "prototypeToken": {
-        "name": "Eltha Embercall",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Eltha Embercall"
     },
     "system": {
         "abilities": {

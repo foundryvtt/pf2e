@@ -7,7 +7,7 @@
  */
 
 import { NPCPF2e } from "@actor";
-import { SkillAbbreviation } from "@actor/creature/data";
+import { SkillLongForm } from "@actor/types";
 import { Rarity } from "@module/data";
 import {
     adjustDC,
@@ -20,25 +20,25 @@ import {
     rarityToDCAdjustment,
 } from "./dc";
 
-const identifySkills = new Map<string, SkillAbbreviation[]>();
-identifySkills.set("aberration", ["occ"]);
-identifySkills.set("animal", ["nat"]);
-identifySkills.set("astral", ["occ"]);
-identifySkills.set("beast", ["arc", "nat"]);
-identifySkills.set("celestial", ["rel"]);
-identifySkills.set("construct", ["arc", "cra"]);
-identifySkills.set("dragon", ["arc"]);
-identifySkills.set("elemental", ["arc", "nat"]);
-identifySkills.set("ethereal", ["occ"]);
-identifySkills.set("fey", ["nat"]);
-identifySkills.set("fiend", ["rel"]);
-identifySkills.set("fungus", ["nat"]);
-identifySkills.set("humanoid", ["soc"]);
-identifySkills.set("monitor", ["rel"]);
-identifySkills.set("ooze", ["occ"]);
-identifySkills.set("plant", ["nat"]);
-identifySkills.set("spirit", ["occ"]);
-identifySkills.set("undead", ["rel"]);
+const identifySkills = new Map<string, SkillLongForm[]>();
+identifySkills.set("aberration", ["occultism"]);
+identifySkills.set("animal", ["nature"]);
+identifySkills.set("astral", ["occultism"]);
+identifySkills.set("beast", ["arcana", "nature"]);
+identifySkills.set("celestial", ["religion"]);
+identifySkills.set("construct", ["arcana", "crafting"]);
+identifySkills.set("dragon", ["arcana"]);
+identifySkills.set("elemental", ["arcana", "nature"]);
+identifySkills.set("ethereal", ["occultism"]);
+identifySkills.set("fey", ["nature"]);
+identifySkills.set("fiend", ["religion"]);
+identifySkills.set("fungus", ["nature"]);
+identifySkills.set("humanoid", ["society"]);
+identifySkills.set("monitor", ["religion"]);
+identifySkills.set("ooze", ["occultism"]);
+identifySkills.set("plant", ["nature"]);
+identifySkills.set("spirit", ["occultism"]);
+identifySkills.set("undead", ["religion"]);
 
 export interface RecallKnowledgeDC {
     dc: number;
@@ -50,7 +50,7 @@ export interface IdentifyCreatureData {
     skill: RecallKnowledgeDC;
     specificLoreDC: RecallKnowledgeDC;
     unspecificLoreDC: RecallKnowledgeDC;
-    skills: Set<SkillAbbreviation>;
+    skills: Set<SkillLongForm>;
 }
 
 function toKnowledgeDC(dc: number, rarity: Rarity, loreAdjustment: NegativeDCAdjustment = "normal"): RecallKnowledgeDC {

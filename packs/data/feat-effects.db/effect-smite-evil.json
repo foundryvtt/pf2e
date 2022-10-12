@@ -27,15 +27,15 @@
                 "damageType": "good",
                 "key": "FlatModifier",
                 "label": "Smite Evil",
-                "predicate": {
-                    "all": [
-                        "smite-evil"
-                    ],
-                    "not": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "smite-evil",
+                    {
+                        "nor": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "smite-not-master",
                 "value": 4
@@ -44,22 +44,22 @@
                 "damageType": "good",
                 "key": "FlatModifier",
                 "label": "Smite Evil",
-                "predicate": {
-                    "all": [
-                        "smite-evil"
-                    ],
-                    "any": [
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                },
+                "predicate": [
+                    "smite-evil",
+                    {
+                        "or": [
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "slug": "smite-master",
                 "value": 6
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,

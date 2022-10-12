@@ -2,11 +2,13 @@ import { ActorPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base";
 import { CreatureData } from "@actor/data";
 import { StrikeData } from "@actor/data/base";
+import { calculateRangePenalty, getRangeIncrement } from "@actor/helpers";
 import {
     CheckModifier,
     ensureProficiencyOption,
     ModifierPF2e,
     MODIFIER_TYPE,
+    MODIFIER_TYPES,
     RawModifier,
     StatisticModifier,
 } from "@actor/modifiers";
@@ -33,7 +35,7 @@ import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CheckPF2e, CheckRollContext } from "@system/rolls";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, objectHasKey, traitSlugToObject } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, traitSlugToObject } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -43,6 +45,7 @@ import {
     LabeledSpeed,
     MovementType,
     SenseData,
+    UnlabeledSpeed,
     VisionLevel,
     VisionLevels,
 } from "./data";
@@ -66,19 +69,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
     get skills(): CreatureSkills {
         return Object.entries(this.system.skills).reduce((current, [shortForm, skill]) => {
             if (!objectHasKey(this.system.skills, shortForm)) return current;
-            const longForm = skill.name;
-            const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.name;
+            const longForm = skill.slug;
+            const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.slug;
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
 
             current[longForm] = new Statistic(this, {
                 slug: longForm,
                 label: skillName,
+                lore: !!skill.lore,
                 proficient: skill.visible,
                 domains,
-                check: { adjustments: skill.adjustments, type: "skill-check" },
-                dc: {},
+                check: { type: "skill-check" },
                 modifiers: [...skill.modifiers],
-                notes: skill.notes,
             });
 
             if (shortForm !== longForm) {
@@ -139,14 +141,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const senses = this.system.traits.senses;
         if (!Array.isArray(senses)) return VisionLevels.NORMAL;
 
-        const senseTypes = senses
-            .map((sense) => sense.type)
-            .filter((senseType) => ["lowLightVision", "darkvision"].includes(senseType));
+        const senseTypes = new Set(senses.map((sense) => sense.type));
+
         return this.getCondition("blinded")
             ? VisionLevels.BLINDED
-            : senseTypes.includes("darkvision")
+            : senseTypes.has("darkvision") || senseTypes.has("greaterDarkvision")
             ? VisionLevels.DARKVISION
-            : senseTypes.includes("lowLightVision")
+            : senseTypes.has("lowLightVision")
             ? VisionLevels.LOWLIGHT
             : VisionLevels.NORMAL;
     }
@@ -170,27 +171,28 @@ export abstract class CreaturePF2e extends ActorPF2e {
     override get canAct(): boolean {
         // Accomodate eidolon play with the Companion Compendia module (typically is run with zero hit points)
         const traits = this.system.traits.value;
-        const aliveOrEidolon = this.hitPoints.value > 0 || traits.some((t) => t === "eidolon");
+        const aliveOrEidolon = !this.isDead || traits.some((t) => t === "eidolon");
 
-        const conditions = this.itemTypes.condition;
-        const cannotAct = ["paralyzed", "stunned", "unconscious"];
-
-        return aliveOrEidolon && !conditions.some((c) => cannotAct.includes(c.slug));
+        return aliveOrEidolon && !this.hasCondition("paralyzed", "stunned", "unconscious");
     }
 
     override get canAttack(): boolean {
         return this.type !== "familiar" && this.canAct;
     }
 
-    get isDead(): boolean {
-        const deathIcon = game.settings.get("pf2e", "deathIcon");
-        const tokens = this.getActiveTokens(false, true);
-        const hasDeathOverlay = tokens.length > 0 && tokens.every((t) => t.overlayEffect === deathIcon);
+    override get isDead(): boolean {
+        const { hitPoints } = this;
+        if (hitPoints.max > 0 && hitPoints.value === 0 && !this.hasCondition("dying", "unconscious")) {
+            return true;
+        }
 
-        return (
-            hasDeathOverlay ||
-            (this.hitPoints.value === 0 && !this.hasCondition("dying") && !this.hasCondition("unconscious"))
-        );
+        const token = this.token ?? this.getActiveTokens(false, true).shift();
+        return !!token?.hasStatusEffect("dead");
+    }
+
+    /** Whether the creature emits sound: overridable by AE-like */
+    override get emitsSound(): boolean {
+        return this.system.attributes.emitsSound;
     }
 
     get isSpellcaster(): boolean {
@@ -250,12 +252,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
             const rollOptions = this.getRollOptions();
             if (typeof flanking.flatFootable === "number") {
                 flanking.flatFootable = !PredicatePF2e.test(
-                    { any: [{ lte: ["origin:level", flanking.flatFootable] }] },
+                    [{ lte: ["origin:level", flanking.flatFootable] }],
                     rollOptions
                 );
             }
 
-            return flanking.flatFootable && PredicatePF2e.test({ all: ["origin:flanking"] }, rollOptions);
+            return flanking.flatFootable && PredicatePF2e.test(["origin:flanking"], rollOptions);
         }
 
         return false;
@@ -368,6 +370,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // Set whether this actor is wearing armor
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
 
+        // Set whether this creature emits sound
+        this.system.attributes.emitsSound = !this.isDead;
+
         this.prepareSynthetics();
 
         const sizeIndex = SIZES.indexOf(this.size);
@@ -435,7 +440,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
             roll: async (args: InitiativeRollParams): Promise<InitiativeRollResult | null> => {
                 if (!("initiative" in this.system.attributes)) return null;
                 const rollOptions = new Set([...this.getRollOptions(domains), ...(args.options ?? []), proficiency]);
-                if (this.isOfType("character")) ensureProficiencyOption(rollOptions, initStat.rank ?? -1);
+                if (this.isOfType("character")) {
+                    const rank =
+                        checkType === "perception"
+                            ? this.system.attributes.perception.rank
+                            : this.system.skills[checkType].rank;
+                    ensureProficiencyOption(rollOptions, rank);
+                }
 
                 // Get or create the combatant
                 const combatant = await (async (): Promise<Embedded<CombatantPF2e> | null> => {
@@ -576,42 +587,50 @@ export abstract class CreaturePF2e extends ActorPF2e {
      */
     async addCustomModifier(
         stat: string,
-        name: string,
+        label: string,
         value: number,
         type: string,
-        predicate?: RawPredicate,
+        predicate: RawPredicate = [],
         damageType?: DamageType,
         damageCategory?: string
     ): Promise<void> {
-        const customModifiers = duplicate(this.system.customModifiers ?? {});
-        if (!(customModifiers[stat] ?? []).find((m) => m.label === name)) {
-            const modifier = new ModifierPF2e({ label: name, modifier: value, type });
+        if (!this.isOfType("character", "npc")) return;
+        if (stat.length === 0) throw ErrorPF2e("A custom modifier's statistic must be a non-empty string");
+        if (label.length === 0) throw ErrorPF2e("A custom modifier's label must be a non-empty string");
+
+        const customModifiers = this.toObject().system.customModifiers ?? {};
+        const modifiers = customModifiers[stat] ?? [];
+        if (!modifiers.some((m) => m.label === label)) {
+            const modifierType = setHasElement(MODIFIER_TYPES, type) ? type : "untyped";
+            const modifier = new ModifierPF2e({
+                label,
+                modifier: value,
+                type: modifierType,
+                predicate,
+                custom: true,
+            }).toObject();
             if (damageType) {
                 modifier.damageType = damageType;
             }
             if (damageCategory) {
                 modifier.damageCategory = damageCategory;
             }
-            modifier.custom = true;
 
-            // modifier predicate
-            modifier.predicate = predicate instanceof PredicatePF2e ? predicate : new PredicatePF2e(predicate);
-            modifier.ignored = !modifier.predicate.test([]);
-
-            customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
-            await this.update({ "system.customModifiers": customModifiers });
+            await this.update({ [`system.customModifiers.${stat}`]: [...modifiers, modifier] });
         }
     }
 
     /** Removes a custom modifier by slug */
-    async removeCustomModifier(stat: string, modifier: number | string): Promise<void> {
-        const customModifiers = duplicate(this.system.customModifiers ?? {});
-        if (typeof modifier === "number" && customModifiers[stat] && customModifiers[stat].length > modifier) {
-            customModifiers[stat].splice(modifier, 1);
-            await this.update({ "system.customModifiers": customModifiers });
-        } else if (typeof modifier === "string" && customModifiers[stat]) {
-            customModifiers[stat] = customModifiers[stat].filter((m) => m.slug !== modifier);
-            await this.update({ "system.customModifiers": customModifiers });
+    async removeCustomModifier(stat: string, slug: string): Promise<void> {
+        if (stat.length === 0) throw ErrorPF2e("A custom modifier's statistic must be a non-empty string");
+
+        const customModifiers = this.toObject().system.customModifiers ?? {};
+        const modifiers = customModifiers[stat] ?? [];
+        if (modifiers.length === 0) return;
+
+        if (typeof slug === "string") {
+            const withRemoved = modifiers.filter((m) => m.slug !== slug);
+            await this.update({ [`system.customModifiers.${stat}`]: withRemoved });
         } else {
             throw ErrorPF2e("Custom modifiers can only be removed by slug (string) or index (number)");
         }
@@ -699,43 +718,56 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const rollOptions = this.getRollOptions(selectors);
 
         if (movementType === "land") {
-            const label = game.i18n.localize("PF2E.SpeedTypesLand");
-            const base = Number(systemData.attributes.speed.value ?? 0);
-            const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: label });
+            const landSpeed = systemData.attributes.speed;
+            landSpeed.value = Number(landSpeed.value) || 0;
+
+            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d() ?? []).flat();
+            landSpeed.value = [landSpeed.value, ...fromSynthetics.map((s) => s.value)].sort().pop()!;
+
+            const base = landSpeed.value;
             const modifiers = extractModifiers(this.synthetics, selectors);
-            const stat = mergeObject(
-                new StatisticModifier(statLabel, modifiers, rollOptions),
-                systemData.attributes.speed,
+            const stat: CreatureSpeeds = mergeObject(
+                new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions),
+                landSpeed,
                 { overwrite: false }
             );
-            stat.total = base + stat.totalModifier;
-            stat.type = "land";
-            stat.breakdown = [`${game.i18n.format("PF2E.SpeedBaseLabel", { type: label })} ${base}`]
-                .concat(
-                    stat.modifiers
+            const typeLabel = game.i18n.localize("PF2E.SpeedTypesLand");
+            const statLabel = game.i18n.format("PF2E.SpeedLabel", { type: typeLabel });
+            const otherData = {
+                type: "land",
+                label: statLabel,
+                total: base + stat.totalModifier,
+                breakdown: [
+                    `${game.i18n.format("PF2E.SpeedBaseLabel", { type: typeLabel })} ${landSpeed.value}`,
+                    ...stat.modifiers
                         .filter((m) => m.enabled)
-                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                )
-                .join(", ");
-            return stat;
+                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
+                ].join(", "),
+            };
+
+            return mergeObject(stat, otherData);
         } else {
             const speeds = systemData.attributes.speed;
-            const otherSpeeds: { value: number; type: string }[] = speeds.otherSpeeds;
-            const existing = otherSpeeds.find((speed) => speed.type === movementType);
-            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d());
-            const bestValue = [existing ?? [], fromSynthetics]
+            const { otherSpeeds } = speeds;
+            const existing = otherSpeeds.find((s) => s.type === movementType) ?? [];
+            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d() ?? []).flat();
+            const fastest: UnlabeledSpeed | null = [existing, fromSynthetics]
                 .flat()
-                .reduce((best, speed) => (Number(speed?.value) > best ? Number(speed?.value) : best), 0);
-            if (!bestValue) return null;
+                .reduce(
+                    (best: UnlabeledSpeed | null, speed) => (!best ? speed : speed?.value > best.value ? speed : best),
+                    null
+                );
+            if (!fastest) return null;
 
-            const label = game.i18n.format("PF2E.SpeedLabel", { type: movementType });
-            const speed =
-                existing?.value === bestValue
-                    ? { ...existing, type: movementType, value: existing.value, label }
-                    : { type: movementType, label, value: bestValue };
+            const label = game.i18n.format("PF2E.SpeedLabel", {
+                type: game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]),
+            });
+            const speed: LabeledSpeed = { type: movementType, label, value: fastest.value };
+            if (fastest.source) speed.source = fastest.source;
+
             const base = speed.value;
             const modifiers = extractModifiers(this.synthetics, selectors);
-            const stat = mergeObject(new StatisticModifier(movementType, modifiers, rollOptions), speed, {
+            const stat = mergeObject(new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions), speed, {
                 overwrite: false,
             });
             stat.total = base + stat.totalModifier;
@@ -750,13 +782,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
     }
 
-    /** Create a deep copy of a synthetics record of the form Record<string, object[]> */
-    protected cloneSyntheticsRecord<T extends { clone(): T }>(record: Record<string, T[]>): Record<string, T[]> {
-        return Object.fromEntries(
-            Object.entries(record).map(([key, synthetics]) => [key, synthetics.map((s) => s.clone())])
-        );
-    }
-
     /* -------------------------------------------- */
     /*  Rolls                                       */
     /* -------------------------------------------- */
@@ -767,10 +792,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
      * but more can be added via the options.
      */
     getAttackRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): AttackRollContext<this, I> {
-        params.domains ??= [];
-        const rollDomains = ["all", "attack-roll", params.domains ?? []].flat();
-        const context = this.getStrikeRollContext({ ...params, domains: rollDomains });
+        const context = this.getStrikeRollContext(params);
         const targetActor = context.target?.actor;
+        const rangeIncrement = context.target?.rangeIncrement ?? null;
+
+        const rangePenalty = calculateRangePenalty(this, rangeIncrement, params.domains, context.options);
+        if (rangePenalty) context.self.modifiers.push(rangePenalty);
 
         return {
             ...context,
@@ -787,7 +814,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     protected getDamageRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
     ): StrikeRollContext<this, I> {
-        return this.getStrikeRollContext({ ...params, domains: ["all", "strike-damage", "damage-roll"] });
+        return this.getStrikeRollContext(params);
     }
 
     protected getStrikeRollContext<I extends AttackItem>(
@@ -849,14 +876,20 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
         const rollOptions = new Set([
+            ...params.options,
             ...selfOptions,
             ...targetOptions,
+            ...selfItem.getRollOptions("weapon"),
             // Backward compatibility for predication looking for an "attack" trait by its lonesome
             "attack",
         ]);
-        // Calculate distance and set as a roll option
+
+        // Calculate distance and range increment, set as a roll option
         const distance = selfToken && targetToken && !!canvas.grid ? selfToken.distanceTo(targetToken) : null;
         rollOptions.add(`target:distance:${distance}`);
+
+        const rangeIncrement = getRangeIncrement(selfItem, distance);
+        if (rangeIncrement) rollOptions.add(`target:range-increment:${rangeIncrement}`);
 
         const self = {
             actor: selfActor,
@@ -867,7 +900,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const target =
             targetActor && targetToken && distance !== null
-                ? { actor: targetActor, token: targetToken.document, distance }
+                ? { actor: targetActor, token: targetToken.document, distance, rangeIncrement }
                 : null;
 
         return {

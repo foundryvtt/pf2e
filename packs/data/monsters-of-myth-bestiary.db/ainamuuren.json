@@ -728,12 +728,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "necromancy",
-                                "evil"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "necromancy",
+                                    "evil"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -980,12 +982,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "In Forest or Snow",
-                        "predicate": {
-                            "any": [
-                                "terrain:forest",
-                                "terrain:snow"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:forest",
+                                    "terrain:snow"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 1
                     }
@@ -1010,12 +1014,6 @@
         }
     ],
     "name": "Ainamuuren",
-    "prototypeToken": {
-        "name": "Ainamuuren",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

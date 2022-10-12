@@ -27,7 +27,7 @@ import {
 import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
 import { FeatPF2e, WeaponPF2e } from "@item";
-import { ArmorCategory } from "@item/armor/data";
+import { ArmorCategory } from "@item/armor/types";
 import { ProficiencyRank } from "@item/data";
 import { DeitySystemData } from "@item/deity/data";
 import { DeityDomain } from "@item/deity/types";
@@ -36,6 +36,7 @@ import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types"
 import { ZeroToFour } from "@module/data";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
+import { StatisticTraceData } from "@system/statistic";
 import type { CharacterPF2e } from "..";
 import { CharacterSheetTabVisibility } from "./sheet";
 
@@ -70,6 +71,8 @@ interface CharacterSkillData extends SkillData {
     rank: ZeroToFour;
     /** Whether this skill is subject to an armor check penalty */
     armor: boolean;
+    /** Is this skill a Lore skill? */
+    lore?: boolean;
 }
 
 /** The raw information contained within the actor data object for characters. */
@@ -125,6 +128,9 @@ interface CharacterSystemData extends CreatureSystemData {
 
     /** A catch-all for character proficiencies */
     proficiencies: {
+        /** Zero or more class DCs, used for saves related to class abilities. */
+        classDCs: Record<string, ClassDCData>;
+        /** Spellcasting attack modifiers and DCs for each magical tradition */
         traditions: MagicTraditionProficiencies;
         /** Aliased path components for use by rule element during property injection */
         aliases?: Record<string, string | undefined>;
@@ -211,14 +217,18 @@ type MartialProficiencies = CategoryProficiencies &
 type MartialProficiencyKey = keyof Required<MartialProficiencies>;
 
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
-interface ClassDCData extends StatisticModifier, AbilityBasedStatistic {
+interface ClassDCData extends Required<AbilityBasedStatistic>, StatisticTraceData {
+    label: string;
     rank: ZeroToFour;
+    primary: boolean;
 }
 
 /** The full data for a character action (used primarily for strikes.) */
 interface CharacterStrike extends StrikeData {
     item: Embedded<WeaponPF2e>;
-    slug: string | null;
+    slug: string;
+    /** Whether this attack is visible on the sheet */
+    visible: boolean;
     adjustments?: DegreeOfSuccessAdjustment[];
     altUsages: CharacterStrike[];
     auxiliaryActions: AuxiliaryAction[];
@@ -350,10 +360,10 @@ type DeityDetails = Pick<DeitySystemData, "alignment" | "skill"> & {
 };
 
 interface CharacterAttributes extends CreatureAttributes {
-    /** The perception skill. */
+    /** The perception statistic */
     perception: CharacterPerception;
-    /** The class DC, used for saves related to class abilities. */
-    classDC: ClassDCData;
+    /** Used for saves related to class abilities */
+    classDC: ClassDCData | null;
     /** The best spell DC, used for certain saves related to feats */
     spellDC: { rank: number; value: number } | null;
     /** The higher between highest spellcasting DC and (if present) class DC */
@@ -446,6 +456,7 @@ export {
     CharacterProficiency,
     CharacterResources,
     CharacterSaves,
+    CharacterSaveData,
     CharacterSkillData,
     CharacterSource,
     CharacterStrike,

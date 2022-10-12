@@ -1291,15 +1291,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1347,11 +1349,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "mental"
-                            ]
-                        },
+                        "predicate": [
+                            "mental"
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -1682,12 +1682,6 @@
         }
     ],
     "name": "Salaisa Malthulas",
-    "prototypeToken": {
-        "name": "Salaisa Malthulas",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

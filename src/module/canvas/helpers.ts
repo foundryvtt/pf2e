@@ -197,16 +197,9 @@ function highlightGrid({ type, object, colors, document, collisionType = "move" 
             const distance = measureDistance(destination, origin);
             if (distance > document.distance) continue;
 
-            const hasCollision = canvas.ready && canvas.walls.checkCollision(ray, { type: collisionType });
+            const hasCollision = canvas.ready && canvas.walls.checkCollision(ray, { type: collisionType, mode: "any" });
 
-            if (!hasCollision) {
-                grid.grid.highlightGridPosition(highlightLayer, {
-                    x: gx,
-                    y: gy,
-                    border: colors.border,
-                    color: colors.fill,
-                });
-            } else {
+            if (hasCollision) {
                 grid.grid.highlightGridPosition(highlightLayer, {
                     x: gx,
                     y: gy,
@@ -218,6 +211,13 @@ function highlightGrid({ type, object, colors, document, collisionType = "move" 
                     .moveTo(gx, gy)
                     .lineTo(gx + dimensions.size, gy + dimensions.size)
                     .endFill();
+            } else {
+                grid.grid.highlightGridPosition(highlightLayer, {
+                    x: gx,
+                    y: gy,
+                    border: colors.border,
+                    color: colors.fill,
+                });
             }
         }
     }

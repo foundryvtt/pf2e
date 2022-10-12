@@ -21,21 +21,20 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "panache"
-                    ],
-                    "any": [
-                        "action:perform"
-                    ]
-                },
+                "predicate": [
+                    "panache",
+                    {
+                        "or": [
+                            "action:perform"
+                        ]
+                    }
+                ],
                 "selector": "performance",
                 "type": "circumstance",
                 "value": 1
@@ -48,11 +47,9 @@
             },
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "all": [
-                        "class:swashbuckler"
-                    ]
-                },
+                "predicate": [
+                    "class:swashbuckler"
+                ],
                 "uuid": "Compendium.pf2e.feats-srd.Fascinating Performance"
             }
         ],

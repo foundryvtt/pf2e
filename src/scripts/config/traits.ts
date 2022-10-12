@@ -74,6 +74,7 @@ const elementalTraits = {
     air: "PF2E.TraitAir",
     earth: "PF2E.TraitEarth",
     fire: "PF2E.TraitFire",
+    metal: "PF2E.TraitMetal",
     water: "PF2E.TraitWater",
 };
 
@@ -223,6 +224,7 @@ const creatureTraits = {
     wayang: "PF2E.TraitWayang",
     werecreature: "PF2E.TraitWerecreature",
     wight: "PF2E.TraitWight",
+    "wild-hunt": "PF2E.TraitWildHunt",
     wraith: "PF2E.TraitWraith",
     wyrwood: "PF2E.TraitWyrwood",
     xulgath: "PF2E.TraitXulgath",
@@ -361,6 +363,7 @@ const weaponTraits = {
     alchemical: "PF2E.TraitAlchemical",
     agile: "PF2E.TraitAgile",
     artifact: "PF2E.TraitArtifact",
+    attached: "PF2E.TraitAttached",
     "attached-to-shield": "PF2E.TraitAttachedToShield",
     "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
     auditory: "PF2E.TraitAuditory",
@@ -442,6 +445,7 @@ const weaponTraits = {
     splash: "PF2E.TraitSplash",
     staff: "PF2E.TraitStaff",
     sweep: "PF2E.TraitSweep",
+    tech: "PF2E.TraitTech",
     teleportation: "PF2E.TraitTeleportation",
     tethered: "PF2E.TraitTethered",
     thrown: "PF2E.TraitThrown",
@@ -495,6 +499,8 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     peachwood: "PF2E.PreciousMaterialPeachwood",
     siccatite: "PF2E.PreciousMaterialSiccatite",
     silver: "PF2E.PreciousMaterialSilver",
+    "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
+    "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
     sovereignSteel: "PF2E.PreciousMaterialSovereignSteel",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };

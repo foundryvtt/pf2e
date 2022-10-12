@@ -716,11 +716,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "action:feint"
-                            ]
-                        },
+                        "predicate": [
+                            "action:feint"
+                        ],
                         "selector": "deception",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
@@ -810,23 +808,23 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1074,12 +1072,6 @@
         }
     ],
     "name": "Irkem Dresh",
-    "prototypeToken": {
-        "name": "Irkem Dresh",
-        "texture": {
-            "src": "modules/pf2e-ap178-punks-in-a-powderkeg/assets/art/punks-irken-dresh.webp"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {
@@ -1145,15 +1137,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": "8"
+                "value": 8
             },
             "reflex": {
                 "saveDetail": "",
-                "value": "9"
+                "value": 9
             },
             "will": {
                 "saveDetail": "",
-                "value": "8"
+                "value": 8
             }
         },
         "traits": {

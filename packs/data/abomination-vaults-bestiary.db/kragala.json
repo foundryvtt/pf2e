@@ -2181,15 +2181,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -2243,11 +2245,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "knockItAway"
-                            ]
-                        },
+                        "predicate": [
+                            "knockItAway"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -2566,12 +2566,6 @@
         }
     ],
     "name": "Kragala",
-    "prototypeToken": {
-        "name": "Kragala",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

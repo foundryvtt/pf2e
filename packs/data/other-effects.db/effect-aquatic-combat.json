@@ -19,22 +19,22 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "fire"
-                    ]
-                },
+                "predicate": [
+                    "fire"
+                ],
                 "selector": "all",
                 "text": "You can't cast fire spells or use actions with the fire trait underwater."
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "weapon:damage:type:slashing",
-                        "weapon:damage:type:bludgeoning"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "weapon:damage:type:slashing",
+                            "weapon:damage:type:bludgeoning"
+                        ]
+                    }
+                ],
                 "selector": "attack",
                 "type": "circumstance",
                 "value": -2
@@ -50,11 +50,9 @@
                 "value": 5
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:damage:type:piercing"
-                    ]
-                },
+                "definition": [
+                    "weapon:damage:type:piercing"
+                ],
                 "key": "AdjustStrike",
                 "mode": "multiply",
                 "property": "range-increment",
@@ -62,11 +60,9 @@
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "ranged"
-                    ]
-                },
+                "predicate": [
+                    "ranged"
+                ],
                 "selector": "attack",
                 "text": "Ranged attacks that deal bludgeoning or slashing damage automatically miss if the attacker or target is underwater, and piercing ranged attacks made by an underwater creature or against an underwater target have their range increments halved."
             }

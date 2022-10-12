@@ -257,12 +257,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "To Leap or Swim",
-                        "predicate": {
-                            "any": [
-                                "action:leap",
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:leap",
+                                    "action:swim"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 3
                     }
@@ -315,12 +317,6 @@
         }
     ],
     "name": "Throttled Blindheim",
-    "prototypeToken": {
-        "name": "Throttled Blindheim",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

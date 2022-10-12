@@ -157,15 +157,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -259,11 +261,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "extend-strands"
-                            ]
-                        },
+                        "predicate": [
+                            "extend-strands"
+                        ],
                         "selector": "stealth",
                         "type": "circumstance",
                         "value": -4
@@ -454,11 +454,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.AboutCaves",
-                        "predicate": {
-                            "all": [
-                                "terrain:cave"
-                            ]
-                        },
+                        "predicate": [
+                            "terrain:cave"
+                        ],
                         "selector": "nature",
                         "value": 4
                     }
@@ -528,12 +526,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.StonyOrIcyAreas",
-                        "predicate": {
-                            "any": [
-                                "terrain:stony",
-                                "terrain:icy"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:stony",
+                                    "terrain:icy"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 8
                     }
@@ -558,12 +558,6 @@
         }
     ],
     "name": "Roper",
-    "prototypeToken": {
-        "name": "Roper",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

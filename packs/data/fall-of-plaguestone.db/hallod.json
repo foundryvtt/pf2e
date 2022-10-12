@@ -985,11 +985,9 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "all": [
-                                "melee"
-                            ]
-                        },
+                        "predicate": [
+                            "melee"
+                        ],
                         "selector": "strike-damage",
                         "text": "<div class='compact-text' data-visibility='gm'><p><strong>{item|name}</strong> <span class=\"pf2-icon\">F</span></p><p><strong>Trigger</strong> Hallod scores a critical hit with a melee attack.</p><p><strong>Effect</strong> Hallod can attempt an Athletics check to @Compendium[pf2e.actionspf2e.Shove]{Shove} or @Compendium[pf2e.actionspf2e.Trip]{Trip} the target of his attack. This uses the same multiple attack penalty as the attack, but it does not count as an additional attack for that penalty</p></div>"
                     }
@@ -1084,23 +1082,23 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1264,12 +1262,6 @@
         }
     ],
     "name": "Hallod",
-    "prototypeToken": {
-        "name": "Hallod",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

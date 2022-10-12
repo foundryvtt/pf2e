@@ -217,12 +217,14 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "target:condition:frightened",
-                                "clawing-fear"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:frightened",
+                                    "clawing-fear"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -316,12 +318,6 @@
         }
     ],
     "name": "Scarecrow",
-    "prototypeToken": {
-        "name": "Scarecrow",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

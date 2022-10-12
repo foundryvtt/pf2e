@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules";
-import { RawPredicate } from "@system/predication";
+import { PredicateStatement } from "@system/predication";
 import { MigrationBase } from "../base";
 
 /** Convert weapon familiarity `ActiveEffect`s to Rule Elements */
@@ -58,9 +58,15 @@ interface AEFamiliarityValue {
     category: string;
 }
 
-interface LinkedProficiencySource extends RuleElementSource {
+interface LinkedProficiencySource extends Omit<RuleElementSource, "predicate"> {
     key: "LinkedProficiency";
     slug: string;
-    predicate: RawPredicate;
+    predicate: OldRawPredicate;
     sameAs: string;
+}
+
+interface OldRawPredicate {
+    all?: PredicateStatement[];
+    any?: PredicateStatement[];
+    not?: PredicateStatement[];
 }

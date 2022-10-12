@@ -41,6 +41,11 @@ class ScenePF2e extends Scene<
         return this.lightLevel <= LightLevels.DARKNESS;
     }
 
+    get hasHexGrid(): boolean {
+        const squareOrGridless: number[] = [CONST.GRID_TYPES.GRIDLESS, CONST.GRID_TYPES.SQUARE];
+        return !squareOrGridless.includes(this.grid.type);
+    }
+
     /** Check for auras containing newly-placed or moved tokens */
     async checkAuras(): Promise<void> {
         if (!(canvas.ready && this.active && this.grid.type === CONST.GRID_TYPES.SQUARE)) {

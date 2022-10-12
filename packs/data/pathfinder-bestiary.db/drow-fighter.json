@@ -1304,15 +1304,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1365,11 +1367,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "mental"
-                            ]
-                        },
+                        "predicate": [
+                            "mental"
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -1553,22 +1553,18 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "skewer"
-                            ]
-                        },
+                        "predicate": [
+                            "skewer"
+                        ],
                         "selector": "rapier-attack",
                         "type": "circumstance",
                         "value": 1
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "skewer"
-                            ]
-                        },
+                        "predicate": [
+                            "skewer"
+                        ],
                         "selector": "rapier-attack",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
@@ -1706,12 +1702,6 @@
         }
     ],
     "name": "Drow Fighter",
-    "prototypeToken": {
-        "name": "Drow Fighter",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

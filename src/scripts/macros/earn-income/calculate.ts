@@ -1,6 +1,6 @@
-import { ProficiencyRank } from "@item/data";
 import { Coins } from "@item/physical/data";
 import { CoinsPF2e } from "@item/physical/helpers";
+import { OneToFour } from "@module/data";
 import { calculateDC } from "@module/dc";
 import { DegreeIndex, DegreeOfSuccess, RollBrief } from "@system/degree-of-success";
 
@@ -9,8 +9,7 @@ import { DegreeIndex, DegreeOfSuccess, RollBrief } from "@system/degree-of-succe
  */
 
 // you have to be at least trained to earn income
-type TrainedProficiency = Exclude<ProficiencyRank, "untrained">;
-type Rewards = Record<TrainedProficiency, CoinsPF2e>;
+type Rewards = Record<OneToFour, CoinsPF2e>;
 
 /**
  * There is a cap at each level for a certain proficiency
@@ -20,10 +19,10 @@ type Rewards = Record<TrainedProficiency, CoinsPF2e>;
 function buildRewards(...rewards: Coins[]): Rewards {
     const [trained, expert, master, legendary] = rewards;
     return {
-        trained: new CoinsPF2e(trained),
-        expert: new CoinsPF2e(expert ?? trained),
-        master: new CoinsPF2e(master ?? expert ?? trained),
-        legendary: new CoinsPF2e(legendary ?? master ?? expert ?? trained),
+        1: new CoinsPF2e(trained),
+        2: new CoinsPF2e(expert ?? trained),
+        3: new CoinsPF2e(master ?? expert ?? trained),
+        4: new CoinsPF2e(legendary ?? master ?? expert ?? trained),
     };
 }
 
@@ -59,12 +58,7 @@ function getIncomeForLevel(level: number): IncomeForLevel {
     const income = earnIncomeTable[Math.clamped(level, 0, 21) as IncomeEarnerLevel];
     return {
         failure: new CoinsPF2e(income.failure),
-        rewards: {
-            trained: income.rewards.trained,
-            expert: income.rewards.expert,
-            master: income.rewards.master,
-            legendary: income.rewards.legendary,
-        },
+        rewards: income.rewards,
     };
 }
 
@@ -86,7 +80,7 @@ function applyIncomeOptions({ result, options, level, proficiency }: ApplyIncome
         if (result.degreeOfSuccess === DegreeOfSuccess.CRITICAL_FAILURE) {
             result.degreeOfSuccess = DegreeOfSuccess.FAILURE;
             result.rewards = new CoinsPF2e(getIncomeForLevel(level).failure);
-        } else if (result.degreeOfSuccess === DegreeOfSuccess.FAILURE && proficiency !== "trained") {
+        } else if (result.degreeOfSuccess === DegreeOfSuccess.FAILURE && proficiency !== 1) {
             result.rewards = new CoinsPF2e(result.rewards).scale(2);
         }
     }
@@ -96,7 +90,7 @@ interface ApplyIncomeOptionsParams {
     result: PerDayEarnIncomeResult;
     options: EarnIncomeOptions;
     level: number;
-    proficiency: TrainedProficiency;
+    proficiency: OneToFour;
 }
 
 /**
@@ -138,7 +132,7 @@ interface EarnIncomeParams {
     level: number;
     days: number;
     rollBrief: RollBrief;
-    proficiency: TrainedProficiency;
+    proficiency: OneToFour;
     options: EarnIncomeOptions;
     dc: number;
 }
@@ -155,12 +149,4 @@ interface EarnIncomeResult {
     roll: number;
 }
 
-export {
-    EarnIncomeOptions,
-    EarnIncomeResult,
-    PerDayEarnIncomeResult,
-    TrainedProficiency,
-    calculateDC,
-    earnIncome,
-    getIncomeForLevel,
-};
+export { EarnIncomeOptions, EarnIncomeResult, PerDayEarnIncomeResult, calculateDC, earnIncome, getIncomeForLevel };

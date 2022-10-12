@@ -21,47 +21,37 @@
                 "choices": [
                     {
                         "label": "PF2E.BattleForm.Attack.Claw",
-                        "predicate": {
-                            "all": [
-                                "living-weapon:claw"
-                            ]
-                        },
+                        "predicate": [
+                            "living-weapon:claw"
+                        ],
                         "value": "claw"
                     },
                     {
                         "label": "PF2E.BattleForm.Attack.Horn",
-                        "predicate": {
-                            "all": [
-                                "living-weapon:horn"
-                            ]
-                        },
+                        "predicate": [
+                            "living-weapon:horn"
+                        ],
                         "value": "horn"
                     },
                     {
                         "label": "PF2E.BattleForm.Attack.Jaws",
-                        "predicate": {
-                            "all": [
-                                "living-weapon:jaws"
-                            ]
-                        },
+                        "predicate": [
+                            "living-weapon:jaws"
+                        ],
                         "value": "jaws"
                     },
                     {
                         "label": "PF2E.BattleForm.Attack.Tusk",
-                        "predicate": {
-                            "all": [
-                                "living-weapon:tusk"
-                            ]
-                        },
+                        "predicate": [
+                            "living-weapon:tusk"
+                        ],
                         "value": "tusk"
                     },
                     {
                         "label": "PF2E.BattleForm.Attack.Tail",
-                        "predicate": {
-                            "all": [
-                                "living-weapon:tail"
-                            ]
-                        },
+                        "predicate": [
+                            "living-weapon:tail"
+                        ],
                         "value": "tail"
                     }
                 ],
@@ -93,29 +83,23 @@
                 "rollOption": "mutate-weapon-bonus"
             },
             {
-                "definition": {
-                    "all": [
-                        "weapon:{item|flags.pf2e.rulesSelections.mutateWeaponTarget}"
-                    ]
-                },
+                "definition": [
+                    "weapon:{item|flags.pf2e.rulesSelections.mutateWeaponTarget}"
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
-                "predicate": {
-                    "all": [
-                        "mutate-weapon-bonus:reach"
-                    ]
-                },
+                "predicate": [
+                    "mutate-weapon-bonus:reach"
+                ],
                 "property": "weapon-traits",
                 "value": "reach"
             },
             {
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "mutate-weapon-bonus:accuracy"
-                    ]
-                },
+                "predicate": [
+                    "mutate-weapon-bonus:accuracy"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.mutateWeaponTarget}-attack-roll",
                 "type": "status",
                 "value": 1

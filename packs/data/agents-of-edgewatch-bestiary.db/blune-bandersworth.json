@@ -4070,7 +4070,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @Compendium[pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@Compendium[pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -4327,12 +4327,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "Ring of Maniacal Devices (Disable Devices and Pick a Lock)",
-                        "predicate": {
-                            "any": [
-                                "action:disable-devices",
-                                "action:pick-a-lock"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disable-devices",
+                                    "action:pick-a-lock"
+                                ]
+                            }
+                        ],
                         "selector": "thievery",
                         "type": "item",
                         "value": 3
@@ -4340,15 +4342,15 @@
                     {
                         "key": "FlatModifier",
                         "label": "Ring of Maniacal Devices (Craft snares and traps)",
-                        "predicate": {
-                            "all": [
-                                "action:craft"
-                            ],
-                            "any": [
-                                "snare",
-                                "trap"
-                            ]
-                        },
+                        "predicate": [
+                            "action:craft",
+                            {
+                                "or": [
+                                    "snare",
+                                    "trap"
+                                ]
+                            }
+                        ],
                         "selector": "crafting",
                         "type": "item",
                         "value": 3
@@ -4356,15 +4358,15 @@
                     {
                         "key": "FlatModifier",
                         "label": "Ring of Maniacal Devices (Repair snares and traps)",
-                        "predicate": {
-                            "all": [
-                                "action:repair"
-                            ],
-                            "any": [
-                                "snare",
-                                "trap"
-                            ]
-                        },
+                        "predicate": [
+                            "action:repair",
+                            {
+                                "or": [
+                                    "snare",
+                                    "trap"
+                                ]
+                            }
+                        ],
                         "selector": "crafting",
                         "type": "item",
                         "value": 3
@@ -4929,23 +4931,23 @@
                         "diceNumber": 4,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -5193,12 +5195,6 @@
         }
     ],
     "name": "Blune Bandersworth",
-    "prototypeToken": {
-        "name": "Blune Bandersworth",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

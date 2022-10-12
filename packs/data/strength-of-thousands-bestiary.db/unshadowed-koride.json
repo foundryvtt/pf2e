@@ -4272,11 +4272,9 @@
                         "override": {
                             "dieSize": "d8"
                         },
-                        "predicate": {
-                            "all": [
-                                "two-handed"
-                            ]
-                        },
+                        "predicate": [
+                            "two-handed"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -4358,12 +4356,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "shadow",
-                                "acid"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "shadow",
+                                    "acid"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 4
@@ -4652,12 +4652,6 @@
         }
     ],
     "name": "Unshadowed Koride",
-    "prototypeToken": {
-        "name": "Unshadowed Koride",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

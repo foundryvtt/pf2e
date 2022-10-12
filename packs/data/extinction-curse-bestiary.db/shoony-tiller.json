@@ -217,12 +217,14 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "any": [
-                                "inhaled",
-                                "olfactory"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "inhaled",
+                                    "olfactory"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "text": "When you roll a saving throw against an olfactory or inhaled effect, you get the outcome one degree of success better than the result of your roll.",
                         "title": "{item|name}"
@@ -232,12 +234,14 @@
                             "all": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "any": [
-                                "olfactory",
-                                "inhaled"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "olfactory",
+                                    "inhaled"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "save"
                     }
@@ -469,12 +473,6 @@
         }
     ],
     "name": "Shoony Tiller",
-    "prototypeToken": {
-        "name": "Shoony Tiller",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -1808,22 +1808,18 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "prickly-defense"
-                            ]
-                        },
+                        "predicate": [
+                            "prickly-defense"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "prickly-defense"
-                            ]
-                        },
+                        "predicate": [
+                            "prickly-defense"
+                        ],
                         "selector": "spine-attack",
                         "type": "circumstance",
                         "value": 2
@@ -1919,23 +1915,23 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -2004,22 +2000,18 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Climb",
-                        "predicate": {
-                            "all": [
-                                "action:climb"
-                            ]
-                        },
+                        "predicate": [
+                            "action:climb"
+                        ],
                         "selector": "athletics",
                         "value": 2
                     },
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Swim",
-                        "predicate": {
-                            "all": [
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            "action:swim"
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -2216,12 +2208,6 @@
         }
     ],
     "name": "Avarek",
-    "prototypeToken": {
-        "name": "Avarek",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

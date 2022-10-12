@@ -19,19 +19,21 @@
             {
                 "key": "FlatModifier",
                 "label": "Salve of Slipperiness (Escape or Squeeze",
-                "predicate": {
-                    "any": [
-                        "action:escape",
-                        "action:squeeze"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:escape",
+                            "action:squeeze"
+                        ]
+                    }
+                ],
                 "selector": "acrobatics",
                 "type": "item",
                 "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,

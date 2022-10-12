@@ -1805,15 +1805,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1987,11 +1989,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "suddenBetrayal"
-                            ]
-                        },
+                        "predicate": [
+                            "suddenBetrayal"
+                        ],
                         "selector": "deception",
                         "type": "circumstance",
                         "value": 2
@@ -2313,12 +2313,6 @@
         }
     ],
     "name": "Glabrezu",
-    "prototypeToken": {
-        "name": "Glabrezu",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

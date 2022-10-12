@@ -1488,15 +1488,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1796,11 +1798,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Swamps",
-                        "predicate": {
-                            "all": [
-                                "terrain:swamp"
-                            ]
-                        },
+                        "predicate": [
+                            "terrain:swamp"
+                        ],
                         "selector": "stealth",
                         "value": 4
                     }
@@ -1825,12 +1825,6 @@
         }
     ],
     "name": "Hezrou",
-    "prototypeToken": {
-        "name": "Hezrou",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

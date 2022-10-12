@@ -176,6 +176,10 @@ declare global {
 
         readonly parent: TParent | null;
 
+        readonly items: foundry.abstract.EmbeddedCollection<Item>;
+
+        readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffect>;
+
         prototypeToken: foundry.data.PrototypeToken;
 
         get collection(): Actors<this>;

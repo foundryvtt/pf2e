@@ -21,19 +21,20 @@
         "level": {
             "value": 14
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "poison",
-                        "disease"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "disease"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 2

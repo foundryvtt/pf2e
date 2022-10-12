@@ -1,7 +1,7 @@
 import { ItemSummaryData } from "@item/data";
+import { PhysicalItemPF2e } from "@item/physical";
 import { LocalizePF2e } from "@module/system/localize";
 import { objectHasKey, sluggify } from "@util";
-import { PhysicalItemPF2e } from "../physical";
 import { EquipmentData, EquipmentTrait } from "./data";
 import { OtherEquipmentTag } from "./types";
 

@@ -2624,7 +2624,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You instill within a creature the touch of the grave. For the duration, <em>@Compendium[pf2e.spells-srd.Harm]{Harm}</em> spells treat the creature as undead and <em>@Compendium[pf2e.spells-srd.Heal]{Heal}</em> spells treat the creature as living. In addition, harm spells gain a +2 status bonus to the Hit Points restored to the target.</p>\n<p>If the target wishes to avoid the spell, it can attempt a Will save to reduce the effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target heals half as much from <em>heal</em> and takes half as much damage from <em>harm</em> for 1 round.</p>\n<p><strong>Failure</strong> Effects as described in the text.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The status bonus to the Hit Points restored increases by 2.</p>"
+                    "value": "<p>You instill within a creature the touch of the grave. For the duration, <em>@Compendium[pf2e.spells-srd.Harm]{Harm}</em> spells treat the creature as undead and <em>@Compendium[pf2e.spells-srd.Heal]{Heal}</em> spells treat the creature as living. In addition, <em>harm</em> spells gain a +2 status bonus to the Hit Points restored to the target.</p>\n<p>If the target wishes to avoid the spell, it can attempt a Will save to reduce the effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target heals half as much from <em>heal</em> and takes half as much damage from <em>harm</em> for 1 round.</p>\n<p><strong>Failure</strong> Effects as described in the text.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The status bonus to the Hit Points restored increases by 2.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2797,12 +2797,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "Staff of Necromancy (identify necromancy magic)",
-                        "predicate": {
-                            "all": [
-                                "action:identify-magic",
-                                "necromancy"
-                            ]
-                        },
+                        "predicate": [
+                            "action:identify-magic",
+                            "necromancy"
+                        ],
                         "selector": "skill-check",
                         "type": "circumstance",
                         "value": 2
@@ -2881,11 +2879,9 @@
                         "override": {
                             "dieSize": "d8"
                         },
-                        "predicate": {
-                            "all": [
-                                "twoHanded"
-                            ]
-                        },
+                        "predicate": [
+                            "twoHanded"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -3125,12 +3121,6 @@
         }
     ],
     "name": "Azi",
-    "prototypeToken": {
-        "name": "Azi",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

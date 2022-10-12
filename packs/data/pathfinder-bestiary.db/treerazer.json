@@ -1910,11 +1910,9 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "label": "vs. plants",
-                        "predicate": {
-                            "all": [
-                                "target:trait:plant"
-                            ]
-                        },
+                        "predicate": [
+                            "target:trait:plant"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -2005,12 +2003,14 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "label": "PF2E.NPCAbility.TreerazerPlantAttack",
-                        "predicate": {
-                            "any": [
-                                "target:trait:plant",
-                                "plantAttack"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:plant",
+                                    "plantAttack"
+                                ]
+                            }
+                        ],
                         "selector": "blackaxe-damage"
                     },
                     {
@@ -2311,15 +2311,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -2713,11 +2715,11 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "not": [
-                                "range"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "range"
+                            }
+                        ],
                         "selector": "attack",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
@@ -2967,12 +2969,6 @@
         }
     ],
     "name": "Treerazer",
-    "prototypeToken": {
-        "name": "Treerazer",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

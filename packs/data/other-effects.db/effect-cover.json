@@ -35,6 +35,7 @@
                         "value": 4
                     }
                 ],
+                "flag": "coverBonus",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Cover.Prompt",
                 "rollOption": "self:cover-bonus"
@@ -43,46 +44,44 @@
                 "key": "FlatModifier",
                 "selector": "ac",
                 "type": "circumstance",
-                "value": "@item.flags.pf2e.rulesSelections.cover"
+                "value": "@item.flags.pf2e.rulesSelections.coverBonus"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "area-effect"
-                    ]
-                },
+                "predicate": [
+                    "area-effect"
+                ],
                 "selector": "reflex",
                 "type": "circumstance",
-                "value": "@item.flags.pf2e.rulesSelections.cover"
+                "value": "@item.flags.pf2e.rulesSelections.coverBonus"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "action:hide",
-                        "action:sneak",
-                        "avoid-detection"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak",
+                            "avoid-detection"
+                        ]
+                    }
+                ],
                 "selector": "stealth",
                 "type": "circumstance",
-                "value": "@item.flags.pf2e.rulesSelections.cover"
+                "value": "@item.flags.pf2e.rulesSelections.coverBonus"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "action:avoid-notice"
-                    ]
-                },
+                "predicate": [
+                    "action:avoid-notice"
+                ],
                 "selector": "initiative",
                 "type": "circumstance",
-                "value": "@item.flags.pf2e.rulesSelections.cover"
+                "value": "@item.flags.pf2e.rulesSelections.coverBonus"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,

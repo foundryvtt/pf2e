@@ -28,52 +28,52 @@
         "rules": [
             {
                 "allowedDrops": {
-                    "all": [
+                    "label": "1st-level Bard class feature",
+                    "predicate": [
                         "item:level:1",
                         "item:trait:bard",
                         "item:type:feature"
-                    ],
-                    "label": "1st-level Bard class feature"
+                    ]
                 },
                 "choices": [
                     {
                         "img": "systems/pf2e/icons/features/classes/enigma.webp",
                         "label": "Enigma",
-                        "predicate": {
-                            "not": [
-                                "feature:enigma"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feature:enigma"
+                            }
+                        ],
                         "value": "enigma"
                     },
                     {
                         "img": "systems/pf2e/icons/features/classes/maestro.webp",
                         "label": "Maestro",
-                        "predicate": {
-                            "not": [
-                                "feature:maestro"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feature:maestro"
+                            }
+                        ],
                         "value": "maestro"
                     },
                     {
                         "img": "systems/pf2e/icons/features/classes/polymath.webp",
                         "label": "Polymath",
-                        "predicate": {
-                            "not": [
-                                "feature:polymath"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feature:polymath"
+                            }
+                        ],
                         "value": "polymath"
                     },
                     {
                         "img": "systems/pf2e/icons/features/classes/warrior.webp",
                         "label": "Warrior",
-                        "predicate": {
-                            "not": [
-                                "feature:warrior"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "feature:warrior"
+                            }
+                        ],
                         "value": "warrior"
                     }
                 ],

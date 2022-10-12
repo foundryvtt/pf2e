@@ -6,6 +6,12 @@ export class StrikeAttackRoll extends CheckRoll {
     override async render(this: Rolled<StrikeAttackRoll>, options: RollRenderOptions = {}): Promise<string> {
         if (!this._evaluated) await this.evaluate({ async: true });
         const { isPrivate, flavor, template } = options;
+
+        // Temporarily fill missing property
+        if (this.data.strike) {
+            this.data.strike.damaging ??= true;
+        }
+
         const chatData: Record<string, unknown> = {
             formula: isPrivate ? "???" : this._formula,
             flavor: isPrivate ? null : flavor,

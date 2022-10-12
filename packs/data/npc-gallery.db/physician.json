@@ -374,12 +374,10 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "beside-manner",
-                                "action:make-an-impression"
-                            ]
-                        },
+                        "predicate": [
+                            "beside-manner",
+                            "action:make-an-impression"
+                        ],
                         "selector": "diplomacy",
                         "value": 2
                     }
@@ -429,13 +427,15 @@
                             "criticalFailure": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "any": [
-                                "action:treat-wounds",
-                                "action:treat-disease",
-                                "action:treat-poison"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:treat-wounds",
+                                    "action:treat-disease",
+                                    "action:treat-poison"
+                                ]
+                            }
+                        ],
                         "selector": "medicine",
                         "type": "skill"
                     }
@@ -544,12 +544,6 @@
         }
     ],
     "name": "Physician",
-    "prototypeToken": {
-        "name": "Physician",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

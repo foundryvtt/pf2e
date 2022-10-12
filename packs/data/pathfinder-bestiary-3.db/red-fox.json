@@ -195,11 +195,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Escape",
-                        "predicate": {
-                            "all": [
-                                "action:escape"
-                            ]
-                        },
+                        "predicate": [
+                            "action:escape"
+                        ],
                         "selector": "acrobatics",
                         "value": 2
                     }
@@ -241,12 +239,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.HighJumpOrLongJump",
-                        "predicate": {
-                            "any": [
-                                "action:high-jump",
-                                "action:long-jump"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:high-jump",
+                                    "action:long-jump"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -327,12 +327,6 @@
         }
     ],
     "name": "Red Fox",
-    "prototypeToken": {
-        "name": "Red Fox",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

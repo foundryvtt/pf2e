@@ -23,9 +23,9 @@ import {
 } from "@item";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionSlug } from "@item/condition/data";
-import { WEAPON_PROPERTY_RUNES } from "@item/runes";
+import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes";
 import { PreciousMaterialGrade } from "@item/physical/types";
-import { DamageCategory, DamageType } from "@system/damage/calculation";
+import { DamageCategory, DamageType } from "@system/damage/types";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
@@ -88,6 +88,7 @@ const senses: Record<SenseType, string> = {
     motionsense: "PF2E.Actor.Creature.Sense.Type.Motionsense",
     scent: "PF2E.Actor.Creature.Sense.Type.Scent",
     seeInvisibility: "PF2E.Actor.Creature.Sense.Type.SeeInvisibility",
+    spiritsense: "PF2E.Actor.Creature.Sense.Type.Spiritsense",
     tremorsense: "PF2E.Actor.Creature.Sense.Type.Tremorsense",
     wavesense: "PF2E.Actor.Creature.Sense.Type.Wavesense",
 };
@@ -99,13 +100,19 @@ const senseAcuity: Record<SenseAcuity, string> = {
     vague: "PF2E.Actor.Creature.Sense.Acuity.Vague",
 };
 
+const weaponPropertyRunes = {
+    ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
+        return { ...accumulated, [slug]: rune.name };
+    }, {} as Record<WeaponPropertyRuneType, string>),
+};
+
 const damageCategories: Record<DamageCategory, string> = {
     alignment: "PF2E.Alignment",
     adamantine: "PF2E.PreciousMaterialAdamantine",
     coldiron: "PF2E.PreciousMaterialColdIron",
     darkwood: "PF2E.PreciousMaterialDarkwood",
     energy: "PF2E.TraitEnergy",
-    ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
+    ghostTouch: weaponPropertyRunes.ghostTouch,
     mithral: "PF2E.PreciousMaterialMithral",
     orichalcum: "PF2E.PreciousMaterialOrichalcum",
     physical: "PF2E.TraitPhysical",
@@ -113,6 +120,8 @@ const damageCategories: Record<DamageCategory, string> = {
     salt: "PF2E.TraitSalt",
     "salt-water": "PF2E.TraitSaltWater",
     silver: "PF2E.PreciousMaterialSilver",
+    "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
+    "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
@@ -167,6 +176,7 @@ const tokenHUDConditions = {
     stunned: "PF2E.ConditionTypeStunned",
     stupefied: "PF2E.ConditionTypeStupefied",
     unconscious: "PF2E.ConditionTypeUnconscious",
+    undetected: "PF2E.ConditionTypeUndetected",
     wounded: "PF2E.ConditionTypeWounded",
 };
 
@@ -178,7 +188,6 @@ const conditionTypes: Record<ConditionSlug, string> = {
     hostile: "PF2E.ConditionTypeHostile",
     indifferent: "PF2E.ConditionTypeIndifferent",
     observed: "PF2E.ConditionTypeObserved",
-    undetected: "PF2E.ConditionTypeUndetected",
     unfriendly: "PF2E.ConditionTypeUnfriendly",
     unnoticed: "PF2E.ConditionTypeUnnoticed",
 };
@@ -199,7 +208,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     disease: "PF2E.TraitDisease",
     emotion: "PF2E.TraitEmotion",
     "fear-effects": "PF2E.TraitFearEffects",
-    ghostTouch: "PF2E.WeaponPropertyRuneGhostTouch",
+    ghostTouch: weaponPropertyRunes.ghostTouch,
     healing: "PF2E.TraitHealing",
     inhaled: "PF2E.TraitInhaled",
     light: "PF2E.TraitLight",
@@ -234,7 +243,7 @@ const weaknessTypes: Record<WeaknessType, string> = {
     "salt-water": "PF2E.TraitSaltWater",
     "splash-damage": "PF2E.TraitSplashDamage",
     "vampire-weaknesses": "PF2E.TraitVampireWeaknesses",
-    vorpal: "PF2E.WeaponPropertyRuneVorpal",
+    vorpal: weaponPropertyRunes.vorpal,
     "vorpal-fear": "PF2E.TraitVorpalFear",
     "vulnerable-to-sunlight": "PF2E.TraitVulnerableToSunlight",
     unarmed: "PF2E.TraitUnarmed",
@@ -252,7 +261,7 @@ const resistanceTypes: Record<ResistanceType, string> = {
     "persistent-damage": "PF2E.ConditionTypePersistent",
     "protean anatomy": "PF2E.TraitProteanAnatomy",
     unarmed: "PF2E.TraitUnarmed",
-    vorpal: "PF2E.WeaponPropertyRuneVorpal",
+    vorpal: weaponPropertyRunes.vorpal,
     weapons: "PF2E.TraitWeapons",
 };
 
@@ -298,6 +307,8 @@ const preciousMaterialDescriptions = {
     orichalcum: "PF2E.PreciousMaterialOrichalcumDescription",
     siccatite: "PF2E.PreciousMaterialSiccatiteDescription",
     silver: "PF2E.PreciousMaterialSilverDescription",
+    "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDescription",
+    "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneDescription",
     sovereignSteel: "PF2E.PreciousMaterialSovereignSteelDescription",
     warpglass: "PF2E.PreciousMaterialWarpglassDescription",
 };
@@ -498,6 +509,7 @@ const traitsDescriptions = {
     manipulate: "PF2E.TraitDescriptionManipulate",
     mechanical: "PF2E.TraitDescriptionMechanical",
     mental: "PF2E.TraitDescriptionMental",
+    metal: "PF2E.TraitDescriptionMetal",
     metamagic: "PF2E.TraitDescriptionMetamagic",
     mindless: "PF2E.TraitDescriptionMindless",
     minion: "PF2E.TraitDescriptionMinion",
@@ -603,6 +615,7 @@ const traitsDescriptions = {
     sylph: "PF2E.TraitDescriptionSylph",
     talisman: "PF2E.TraitDescriptionTalisman",
     tattoo: "PF2E.TraitDescriptionTattoo",
+    tech: "PF2E.TraitDescriptionTech",
     telepathy: "PF2E.TraitDescriptionTelepathy",
     teleportation: "PF2E.TraitDescriptionTeleportation",
     tengu: "PF2E.TraitDescriptionTengu",
@@ -689,12 +702,6 @@ const weaponGroups: Record<WeaponGroup, string> = {
     bow: "PF2E.WeaponGroupBow",
     firearm: "PF2E.WeaponGroupFirearm",
     sling: "PF2E.WeaponGroupSling",
-};
-
-const weaponPropertyRunes = {
-    ...Object.entries(WEAPON_PROPERTY_RUNES).reduce((accumulated, [slug, rune]) => {
-        return { ...accumulated, [slug]: rune.name };
-    }, {} as Record<WeaponPropertyRuneType, string>),
 };
 
 // Creature and Equipment Sizes
@@ -887,6 +894,7 @@ export const PF2ECONFIG = {
         greaterSlick: "PF2E.ArmorPropertyRuneGreaterSlick",
         invisibility: "PF2E.ArmorPropertyRuneInvisibility",
         sinisterKnight: "PF2E.ArmorPropertyRuneSinisterKnight",
+        greaterDread: "PF2E.ArmorPropertyRuneGreaterDread",
         greaterReady: "PF2E.ArmorPropertyRuneGreaterReady",
         greaterShadow: "PF2E.ArmorPropertyRuneGreaterShadow",
         greaterInvisibility: "PF2E.ArmorPropertyRuneGreaterInvisibility",
@@ -902,6 +910,7 @@ export const PF2ECONFIG = {
         majorSlick: "PF2E.ArmorPropertyRuneMajorSlick",
         ethereal: "PF2E.ArmorPropertyRuneEthereal",
         majorShadow: "PF2E.ArmorPropertyRuneMajorShadow",
+        moderateDread: "PF2E.ArmorPropertyRuneModerateDread",
         greaterFortification: "PF2E.ArmorPropertyRuneGreaterFortification",
         greaterWinged: "PF2E.ArmorPropertyRuneGreaterWinged",
         deathless: "PF2E.ArmorPropertyRuneDeathless",
@@ -1194,6 +1203,7 @@ export const PF2ECONFIG = {
         innate: "PF2E.PreparationTypeInnate",
         focus: "PF2E.SpellCategoryFocus",
         ritual: "PF2E.SpellCategoryRitual",
+        items: "PF2E.PreparationTypeItems",
     },
 
     areaTypes: {
@@ -1449,6 +1459,7 @@ export const PF2ECONFIG = {
         alghollthu: "PF2E.LanguageAlghollthu",
         amurrun: "PF2E.LanguageAmurrun",
         anadi: "PF2E.LanguageAnadi",
+        "ancient-osiriani": "PF2E.LanguageAncientOsiriani",
         anugobu: "PF2E.LanguageAnugobu",
         arcadian: "PF2E.LanguageArcadian",
         aquan: "PF2E.LanguageAquan",
@@ -1461,6 +1472,7 @@ export const PF2ECONFIG = {
         cyclops: "PF2E.LanguageCyclops",
         daemonic: "PF2E.LanguageDaemonic",
         destrachan: "PF2E.LanguageDestrachan",
+        drooni: "PF2E.LanguageDrooni",
         dziriak: "PF2E.LanguageDziriak",
         ekujae: "PF2E.LanguageEkujae",
         erutaki: "PF2E.LanguageErutaki",
@@ -1472,6 +1484,7 @@ export const PF2ECONFIG = {
         grippli: "PF2E.LanguageGrippli",
         hallit: "PF2E.LanguageHallit",
         hwan: "PF2E.LanguageHwan",
+        iblydan: "PF2E.LanguageIblydan",
         ignan: "PF2E.LanguageIgnan",
         ikeshti: "PF2E.LanguageIkeshti",
         infernal: "PF2E.LanguageInfernal",
@@ -1984,4 +1997,11 @@ export const PF2ECONFIG = {
     },
 
     JournalEntry: { sheetClass: JournalSheetPF2e },
+
+    Canvas: {
+        darkness: {
+            default: CONFIG.Canvas.darknessColor,
+            gmVision: 0x76739e,
+        },
+    },
 };

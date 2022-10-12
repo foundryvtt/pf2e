@@ -1419,15 +1419,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1742,22 +1744,18 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "entrench"
-                            ]
-                        },
+                        "predicate": [
+                            "entrench"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "entrench"
-                            ]
-                        },
+                        "predicate": [
+                            "entrench"
+                        ],
                         "selector": "reflex",
                         "type": "circumstance",
                         "value": 2
@@ -1942,12 +1940,6 @@
         }
     ],
     "name": "Bastion Archon",
-    "prototypeToken": {
-        "name": "Bastion Archon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

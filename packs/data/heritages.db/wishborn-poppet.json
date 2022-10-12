@@ -16,12 +16,14 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "any": [
-                        "emotion",
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "emotion",
+                            "fear"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             }

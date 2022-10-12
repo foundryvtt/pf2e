@@ -60,6 +60,11 @@ interface HazardAttributes extends BaseActorAttributes {
         value: number | null;
         details: string;
     };
+    /**
+     * Whether the hazard emits sound and can therefore be detected via hearing. A value of "encounter" indicates it is
+     * silent until an encounter begins.
+     */
+    emitsSound: boolean | "encounter";
 }
 
 interface HazardDetailsSource {

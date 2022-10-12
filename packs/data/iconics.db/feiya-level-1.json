@@ -110,12 +110,12 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops",
+                            "predicate": [
                                 "item:type:feat",
                                 "item:level:1",
                                 "item:trait:general"
-                            ],
-                            "label": "PF2E.SpecificRule.GeneralTraining.AllowedDrops"
+                            ]
                         },
                         "choices": {
                             "query": "{\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"general\"}}"
@@ -188,17 +188,17 @@
                     {
                         "key": "FlatModifier",
                         "label": "Oddity Identification (identify magic with specific traits)",
-                        "predicate": {
-                            "all": [
-                                "action:identify-magic"
-                            ],
-                            "any": [
-                                "mental",
-                                "possession",
-                                "prediction",
-                                "scrying"
-                            ]
-                        },
+                        "predicate": [
+                            "action:identify-magic",
+                            {
+                                "or": [
+                                    "mental",
+                                    "possession",
+                                    "prediction",
+                                    "scrying"
+                                ]
+                            }
+                        ],
                         "selector": "occultism",
                         "type": "circumstance",
                         "value": 2
@@ -264,11 +264,9 @@
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
                         "path": "system.proficiencies.traditions.{actor|system.proficiencies.aliases.witch}.rank",
-                        "predicate": {
-                            "all": [
-                                "class:witch"
-                            ]
-                        },
+                        "predicate": [
+                            "class:witch"
+                        ],
                         "value": {
                             "brackets": [
                                 {
@@ -297,11 +295,11 @@
                     {
                         "adjustName": false,
                         "allowedDrops": {
-                            "all": [
+                            "label": "level 1 Witch feature",
+                            "predicate": [
                                 "item:trait:witch",
                                 "item:level:1"
-                            ],
-                            "label": "level 1 Witch feature"
+                            ]
                         },
                         "choices": [
                             {
@@ -624,109 +622,94 @@
                 "hp": 6,
                 "items": {
                     "1ddf6": {
-                        "id": "TUOeATt52P43r5W0",
                         "img": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
                         "level": 9,
                         "name": "Lightning Reflexes",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.TUOeATt52P43r5W0"
                     },
                     "568ec": {
-                        "id": "9XLUh9iMepZesdmc",
                         "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
                         "level": 11,
                         "name": "Weapon Expertise",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.9XLUh9iMepZesdmc"
                     },
                     "58uhg": {
-                        "id": "l1InYvhnQSz6Ucxc",
                         "img": "systems/pf2e/icons/features/classes/master-spellcaster.webp",
                         "level": 15,
                         "name": "Master Spellcaster",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.l1InYvhnQSz6Ucxc"
                     },
                     "5a5an": {
-                        "id": "Hfaa7TuLn3nE8lr3",
                         "img": "systems/pf2e/icons/features/classes/legendary-spellcaster.webp",
                         "level": 19,
                         "name": "Legendary Spellcaster",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.Hfaa7TuLn3nE8lr3"
                     },
                     "ac5cq": {
-                        "id": "gU7epgcPSm0TD1UK",
                         "img": "systems/pf2e/icons/features/classes/defensive-robes.webp",
                         "level": 13,
                         "name": "Defensive Robes",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.gU7epgcPSm0TD1UK"
                     },
                     "dmo5u": {
-                        "id": "9EqIasqfI8YIM3Pt",
                         "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
                         "level": 13,
                         "name": "Weapon Specialization",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.9EqIasqfI8YIM3Pt"
                     },
                     "jj4q5": {
-                        "id": "JQAujUXjczVnYDEI",
                         "img": "systems/pf2e/icons/features/classes/resolve.webp",
                         "level": 17,
                         "name": "Resolve",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.JQAujUXjczVnYDEI"
                     },
                     "q4i1v": {
-                        "id": "zT6QiTMxxj8JYoN9",
                         "img": "systems/pf2e/icons/features/classes/witch-spellcasting.webp",
                         "level": 1,
                         "name": "Witch Spellcasting",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.zT6QiTMxxj8JYoN9"
                     },
                     "qo3f2": {
-                        "id": "D8CSi8c9XiRpVc5M",
                         "img": "systems/pf2e/icons/features/classes/alertness.webp",
                         "level": 11,
                         "name": "Alertness",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.D8CSi8c9XiRpVc5M"
                     },
                     "rmucq": {
-                        "id": "yksPhweBZYVCsE1A",
                         "img": "systems/pf2e/icons/features/classes/familiar.webp",
                         "level": 1,
                         "name": "Familiar (Witch)",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.yksPhweBZYVCsE1A"
                     },
                     "sbys9": {
-                        "id": "9uLh5z2uPo6LDFRY",
                         "img": "systems/pf2e/icons/features/classes/hexes.webp",
                         "level": 1,
                         "name": "Hexes",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.9uLh5z2uPo6LDFRY"
                     },
                     "tasue": {
-                        "id": "KPtF29AaeX2sJW0K",
                         "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
                         "level": 1,
                         "name": "Patron",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.KPtF29AaeX2sJW0K"
                     },
                     "vkt9a": {
-                        "id": "70jqXP2eS4tRZ0Ok",
                         "img": "systems/pf2e/icons/features/classes/magical-fortitude.webp",
                         "level": 5,
                         "name": "Magical Fortitude",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.70jqXP2eS4tRZ0Ok"
                     },
                     "vq6ja": {
-                        "id": "cD3nSupdCvONuHiE",
                         "img": "systems/pf2e/icons/features/classes/expert-spellcaster.webp",
                         "level": 7,
                         "name": "Expert Spellcaster",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.cD3nSupdCvONuHiE"
                     },
                     "x762n": {
-                        "id": "cDnFXfl3i5Z2l7JP",
                         "img": "systems/pf2e/icons/features/classes/patrons-gift.webp",
                         "level": 19,
                         "name": "Patron's Gift",
-                        "pack": "pf2e.classfeatures"
+                        "uuid": "Compendium.pf2e.classfeatures.cDnFXfl3i5Z2l7JP"
                     }
                 },
                 "keyAbility": {
@@ -940,11 +923,10 @@
                 },
                 "items": {
                     "hvaw7": {
-                        "id": "lEgYzFHransLkSvI",
                         "img": "systems/pf2e/icons/features/feats/feats.webp",
                         "level": "1",
                         "name": "Schooled In Secrets",
-                        "pack": "pf2e.feats-srd"
+                        "uuid": "Compendium.pf2e.feats-srd.lEgYzFHransLkSvI"
                     }
                 },
                 "rules": [],
@@ -1535,11 +1517,9 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -1570,11 +1550,9 @@
                     {
                         "damageType": "fire",
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "selector": "{item|_id}-damage",
                         "value": 1
                     },
@@ -1587,11 +1565,9 @@
                     },
                     {
                         "key": "TokenEffectIcon",
-                        "predicate": {
-                            "all": [
-                                "lit-torch"
-                            ]
-                        },
+                        "predicate": [
+                            "lit-torch"
+                        ],
                         "value": "systems/pf2e/icons/equipment/held-items/everburning-torch.webp"
                     }
                 ],
@@ -2886,28 +2862,32 @@
                     {
                         "adjustName": false,
                         "choices": {
-                            "postFilter": {
-                                "any": [
-                                    "feature:dragon-instinct",
-                                    {
-                                        "not": "item:draconic-arrogance"
-                                    }
-                                ],
-                                "not": [
-                                    "item:animal-companion",
-                                    "item:animal-companion-druid",
-                                    "item:bardic-lore",
-                                    "item:fire-lung",
-                                    "item:lingering-composition",
-                                    "item:leshy-familiar",
-                                    "item:martial-performance",
-                                    "item:shore-step",
-                                    "item:steadying-stone",
-                                    "item:storm-born",
-                                    "item:versatile-performance",
-                                    "item:wild-shape"
-                                ]
-                            },
+                            "postFilter": [
+                                {
+                                    "or": [
+                                        "feature:dragon-instinct",
+                                        {
+                                            "not": "item:draconic-arrogance"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:animal-companion",
+                                        "item:animal-companion-druid",
+                                        "item:bardic-lore",
+                                        "item:fire-lung",
+                                        "item:lingering-composition",
+                                        "item:leshy-familiar",
+                                        "item:martial-performance",
+                                        "item:shore-step",
+                                        "item:steadying-stone",
+                                        "item:storm-born",
+                                        "item:versatile-performance",
+                                        "item:wild-shape"
+                                    ]
+                                }
+                            ],
                             "query": "{\"system.featType.value\":\"class\",\"system.level.value\":1,\"system.traits.value\":{\"$elemMatch\":\"{actor|system.details.class.trait}\"}}"
                         },
                         "flag": "naturalAmbition",
@@ -3854,7 +3834,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @Compendium[pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@Compendium[pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"

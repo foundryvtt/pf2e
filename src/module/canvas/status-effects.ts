@@ -210,6 +210,7 @@ export class StatusEffects {
      * @param event The window click event
      */
     static async #setStatusValue(event: MouseEvent, token: TokenPF2e): Promise<void> {
+        event.preventDefault();
         event.stopImmediatePropagation();
 
         const icon = event.currentTarget;
@@ -227,9 +228,7 @@ export class StatusEffects {
             if (typeof condition?.value === "number") {
                 await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value + 1);
             } else if (objectHasKey(CONFIG.PF2E.conditionTypes, slug)) {
-                const newCondition = game.pf2e.ConditionManager.getCondition(slug).toObject();
-                newCondition.system.sources.hud = true;
-                await game.pf2e.ConditionManager.addConditionToToken(newCondition, token);
+                await token.actor?.increaseCondition(slug);
             } else {
                 this.#toggleStatus(event, token);
             }
@@ -238,13 +237,15 @@ export class StatusEffects {
             if (event.ctrlKey) {
                 // Remove all conditions
                 const conditionIds = actor.itemTypes.condition.filter((c) => c.slug === slug).map((c) => c.id);
-                await game.pf2e.ConditionManager.removeConditionFromToken(conditionIds, token);
+                await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
             } else if (condition?.value) {
                 await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value - 1);
             } else {
                 this.#toggleStatus(event, token);
             }
         }
+
+        await canvas.hud?.token.render();
     }
 
     static async #toggleStatus(event: MouseEvent, token: TokenPF2e): Promise<void> {
@@ -263,7 +264,7 @@ export class StatusEffects {
             if (objectHasKey(CONFIG.PF2E.conditionTypes, slug)) {
                 const newCondition = game.pf2e.ConditionManager.getCondition(slug).toObject();
                 newCondition.system.sources.hud = true;
-                await game.pf2e.ConditionManager.addConditionToToken(newCondition, token);
+                await token.actor?.createEmbeddedDocuments("Item", [newCondition]);
             } else if (iconSrc && (event.shiftKey || icon.dataset.statusId === "dead")) {
                 await token.toggleEffect(iconSrc, { overlay: true, active: true });
                 await canvas.tokens.hud.render();
@@ -272,7 +273,7 @@ export class StatusEffects {
             if (affecting) conditionIds.push(affecting.id);
 
             if (conditionIds.length > 0) {
-                await game.pf2e.ConditionManager.removeConditionFromToken(conditionIds, token);
+                await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
             } else if (token.document.overlayEffect === iconSrc) {
                 await token.toggleEffect(iconSrc, { overlay: true, active: false });
                 await canvas.tokens.hud.render();
@@ -291,7 +292,7 @@ export class StatusEffects {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = conditionInfo.summary ?? "";
             const conditionValue = condition.value ?? "";
-            const iconPath = `${iconFolder}${condition.system.hud.statusName}.webp`;
+            const iconPath = `${iconFolder}${condition.slug}.webp`;
             return `
                 <li><img src="${iconPath}" title="${summary}">
                     <span class="statuseffect-li">
@@ -307,7 +308,7 @@ export class StatusEffects {
             <div class="dice-roll">
                 <div class="dice-result">
                     <div class="dice-total statuseffect-message">
-                        <ul>${statusEffectList.join(", ")}</ul>
+                        <ul>${statusEffectList.join("")}</ul>
                     </div>
                 </div>
             </div>

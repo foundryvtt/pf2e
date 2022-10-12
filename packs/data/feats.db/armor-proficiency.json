@@ -21,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "maxTakable": 3,
         "prerequisites": {
             "value": []
@@ -31,18 +30,21 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.martial.heavy.rank",
+                "priority": 41,
                 "value": "max(min(1,@actor.system.martial.light.rank)*min(1,@actor.system.martial.medium.rank))"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.martial.medium.rank",
+                "priority": 41,
                 "value": "min(1,@actor.system.martial.light.rank)"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.martial.light.rank",
+                "priority": 41,
                 "value": 1
             }
         ],

@@ -203,11 +203,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "leapingCharge"
-                            ]
-                        },
+                        "predicate": [
+                            "leapingCharge"
+                        ],
                         "selector": "talon-attack",
                         "type": "circumstance",
                         "value": 1
@@ -263,11 +261,9 @@
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "packAttack"
-                            ]
-                        },
+                        "predicate": [
+                            "packAttack"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -342,12 +338,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.HighJumpOrLongJump",
-                        "predicate": {
-                            "any": [
-                                "action:long-jump",
-                                "action:high-jump"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:long-jump",
+                                    "action:high-jump"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 3
                     }
@@ -400,12 +398,6 @@
         }
     ],
     "name": "Velociraptor",
-    "prototypeToken": {
-        "name": "Velociraptor",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

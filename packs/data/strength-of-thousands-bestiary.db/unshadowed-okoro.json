@@ -4626,7 +4626,7 @@
         {
             "_id": "xfqu4h4qvq9m5jap",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Shadow’s Displeasure",
+            "name": "Shadow's Displeasure",
             "sort": 4100000,
             "system": {
                 "actionCategory": {
@@ -4684,12 +4684,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "shadow",
-                                "acid"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "shadow",
+                                    "acid"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 4
@@ -5057,12 +5059,6 @@
         }
     ],
     "name": "Unshadowed Okoro",
-    "prototypeToken": {
-        "name": "Unshadowed Okoro",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -11,18 +11,18 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
-import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
+import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
-import { CharacterSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
+import { CharacterSheetData, ClassDCSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { CharacterConfig } from "./config";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { InitialFeatFilters } from "@module/apps/compendium-browser/tabs/data";
+import { PROFICIENCY_RANKS } from "@module/data";
 
 class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -98,9 +98,25 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.heroPoints
         );
 
-        // Update class DC label
-        sheetData.data.attributes.classDC.icon = this.getProficiencyIcon(sheetData.data.attributes.classDC.rank);
-        sheetData.data.attributes.classDC.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.classDC.rank];
+        // Class DCs
+        const classDCs = Object.values(sheetData.data.proficiencies.classDCs)
+            .map(
+                (classDC): ClassDCSheetData => ({
+                    ...classDC,
+                    icon: this.getProficiencyIcon(classDC.rank),
+                    hover: CONFIG.PF2E.proficiencyLevels[classDC.rank],
+                    rankSlug: PROFICIENCY_RANKS[classDC.rank],
+                    rankName: game.i18n.format(`PF2E.ProficiencyLevel${classDC.rank}`),
+                })
+            )
+            .sort((a, b) => (a.primary ? -1 : b.primary ? 1 : a.slug.localeCompare(b.slug)));
+        const primaryClassDC = sheetData.data.attributes.classDC?.slug ?? null;
+
+        sheetData.classDCs = {
+            dcs: classDCs,
+            primary: primaryClassDC,
+            perDCDetails: classDCs.length > 1 || !primaryClassDC,
+        };
 
         // Spell Details
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
@@ -117,15 +133,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             reflex: sheetData.data.saves.reflex,
             will: sheetData.data.saves.will,
         };
-        for (const save of Object.values(sheetData.data.saves as Record<any, any>)) {
+        for (const save of Object.values(sheetData.data.saves)) {
             save.rankName = game.i18n.format(`PF2E.ProficiencyLevel${save.rank}`);
         }
-        sheetData.data.attributes.classDC.rankName = game.i18n.format(
-            `PF2E.ProficiencyLevel${sheetData.data.attributes.classDC.rank}`
-        );
 
         // limiting the amount of characters for the save labels
-        for (const save of Object.values(sheetData.data.saves as Record<any, any>)) {
+        for (const save of Object.values(sheetData.data.saves)) {
             save.short = game.i18n.format(`PF2E.Saves${save.label}Short`);
         }
 
@@ -189,11 +202,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             )
         ) as Record<SkillAbbreviation, CharacterSkillData>;
 
-        // Hide basic unarmed attack if configured so
-        if (!this.actor.flags.pf2e.showBasicUnarmed) {
-            sheetData.data.actions.findSplice((s: CharacterStrike) => s.item.id === "xxPF2ExUNARMEDxx");
-        }
-
         // Show hints for some things being modified
         const baseData = this.actor.toObject();
         sheetData.adjustedBonusEncumbranceBulk =
@@ -223,33 +231,14 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             free: { label: game.i18n.localize("PF2E.ActionsFreeActionsHeader"), actions: [] },
         };
 
-        const readonlyEquipment: unknown[] = [];
-
         // Skills
         const lores: LoreData[] = [];
 
         for (const itemData of sheetData.items) {
             const item = this.actor.items.get(itemData._id, { strict: true });
-            if (item.isOfType("physical")) {
-                const { isEquipped, isIdentified, isInvested, isTemporary } = item;
-                itemData.isEquipped = isEquipped;
-                itemData.isIdentified = isIdentified;
-                itemData.isInvested = isInvested;
-                itemData.isTemporary = isTemporary;
-                itemData.showEdit = sheetData.user.isGM || isIdentified;
-                itemData.img ||= CONST.DEFAULT_TOKEN;
-                itemData.assetValue = item.assetValue;
-                itemData.isInvestable = isEquipped && isIdentified && isInvested !== null;
-
-                // Read-Only Equipment
-                if (item.isOfType("armor", "consumable", "equipment", "backpack")) {
-                    readonlyEquipment.push(itemData);
-                    actorData.hasEquipment = true;
-                }
-            }
 
             // Feats
-            else if (itemData.type === "feat") {
+            if (itemData.type === "feat") {
                 const actionType = itemData.system.actionType.value || "passive";
                 if (Object.keys(actions).includes(actionType)) {
                     itemData.feat = true;
@@ -305,7 +294,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.pfsBoons = this.actor.pfsBoons;
         actorData.deityBoonsCurses = this.actor.deityBoonsCurses;
         actorData.actions = actions;
-        actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
     }
 
@@ -388,10 +376,10 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         // Left/right-click adjustments (increment or decrement) of actor and item stats
-        $html.find(".adjust-stat").on("click contextmenu", (event) => this.onClickAdjustStat(event));
-        $html.find(".adjust-stat-select").on("change", (event) => this.onChangeAdjustStat(event));
-        $html.find(".adjust-item-stat").on("click contextmenu", (event) => this.onClickAdjustItemStat(event));
-        $html.find(".adjust-item-stat-select").on("change", (event) => this.onChangeAdjustItemStat(event));
+        $html.find(".adjust-stat").on("click contextmenu", (event) => this.#onClickAdjustStat(event));
+        $html.find(".adjust-stat-select").on("change", (event) => this.#onChangeAdjustStat(event));
+        $html.find(".adjust-item-stat").on("click contextmenu", (event) => this.#onClickAdjustItemStat(event));
+        $html.find(".adjust-item-stat-select").on("change", (event) => this.#onChangeAdjustItemStat(event));
 
         {
             // ensure correct tab name is displayed after actor update
@@ -499,10 +487,10 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (weapon) weapon.update({ system: { selectedAmmoId: ammo?.id ?? null } });
         });
 
-        $html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.onIncrementModifierValue(event));
-        $html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.onDecrementModifierValue(event));
-        $html.find(".add-modifier .add-modifier-submit").on("click", (event) => this.onAddCustomModifier(event));
-        $html.find(".modifier-list .remove-modifier").on("click", (event) => this.onRemoveCustomModifier(event));
+        $html.find(".add-modifier .fas.fa-plus-circle").on("click", (event) => this.#onIncrementModifierValue(event));
+        $html.find(".add-modifier .fas.fa-minus-circle").on("click", (event) => this.#onDecrementModifierValue(event));
+        $html.find(".add-modifier .add-modifier-submit").on("click", (event) => this.#onAddCustomModifier(event));
+        $html.find(".modifier-list .remove-modifier").on("click", (event) => this.#onRemoveCustomModifier(event));
 
         // Toggle invested state
         $html.find(".item-toggle-invest").on("click", (event) => {
@@ -520,15 +508,20 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         {
             // Add and remove combat proficiencies
-            const $tab = $html.find(".tab.proficiencies");
-            const $header = $tab.find("ol.combat-proficiencies");
-            $header.find("a.add").on("click", (event) => {
-                ManageCombatProficiencies.add(this.actor, event);
-            });
-            const $list = $tab.find("ol.combat-list");
-            $list.find("li.skill.custom a.delete").on("click", (event) => {
-                ManageCombatProficiencies.remove(this.actor, event);
-            });
+            const tab = html.querySelector(".tab.proficiencies");
+            const header = tab?.querySelector("h3.attacks-defenses");
+            header
+                ?.querySelector<HTMLElement>("button[data-action=add-attack-proficiency]")
+                ?.addEventListener("click", (event) => {
+                    ManageAttackProficiencies.add(this.actor, event);
+                });
+            const list = tab?.querySelector("ol.combat-list") ?? null;
+            const links = htmlQueryAll(list, "li.custom a[data-action=remove-attack-proficiency]");
+            for (const link of links) {
+                link.addEventListener("click", (event) => {
+                    ManageAttackProficiencies.remove(this.actor, event);
+                });
+            }
         }
 
         $html.find(".hover").tooltipster({
@@ -558,7 +551,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // SPELLCASTING
         const $castingTab = $html.find(".tab.spellcasting");
 
-        $castingTab.find(".focus-pool .pips").on("click contextmenu", (event) => {
+        $castingTab.find(".focus-pool").on("click contextmenu", (event) => {
             const change = event.type === "click" ? 1 : -1;
             const points = (this.actor.system.resources.focus?.value ?? 0) + change;
             this.actor.update({ "system.resources.focus.value": points });
@@ -755,12 +748,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Feat Browser shortcut links
         for (const link of html.querySelectorAll<HTMLElement>(".feat-browse").values()) {
-            link.addEventListener("click", (event) => this.onClickBrowseFeats(event));
+            link.addEventListener("click", (event) => this.#onClickBrowseFeats(event));
         }
     }
 
     /** Contextually search the feats tab of the Compendium Browser */
-    private async onClickBrowseFeats(event: MouseEvent): Promise<void> {
+    async #onClickBrowseFeats(event: MouseEvent): Promise<void> {
         if (!(event.currentTarget instanceof HTMLElement)) return;
 
         const maxLevel = Number(event.currentTarget.dataset.level) || this.actor.level;
@@ -769,23 +762,27 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (checkboxesFilterCodes.includes("feattype-general")) checkboxesFilterCodes.push("feattype-skill");
         if (checkboxesFilterCodes.includes("feattype-class")) checkboxesFilterCodes.push("feattype-archetype");
 
-        const filter: InitialFeatFilters = { level: { max: maxLevel }, traits: [] };
+        const feattype: string[] = [];
+        const traits: string[] = [];
         for (const filterCode of checkboxesFilterCodes) {
             const [filterType, value] = filterCode.split("-");
             if (!(filterType && value)) {
                 const codesData = JSON.stringify(checkboxesFilterCodes);
                 throw ErrorPF2e(`Invalid filter value for opening the compendium browser:\n${codesData}`);
             }
-            if (filterType === "traits") {
-                filter.traits?.push(value);
+            if (filterType === "feattype") {
+                feattype.push(value);
+            } else if (filterType === "traits") {
+                traits.push(value);
             }
         }
 
+        const filter = { level: { max: maxLevel }, feattype, traits };
         await game.pf2e.compendiumBrowser.openTab("feat", filter);
     }
 
     /** Handle changing of proficiency-rank via dropdown */
-    private async onChangeAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+    async #onChangeAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $select = $(event.delegateTarget);
         const propertyKey = $select.attr("data-property") ?? "";
         const currentValue = getProperty(this.actor, propertyKey);
@@ -802,7 +799,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Handle clicking of proficiency-rank adjustment buttons */
-    private async onClickAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+    async #onClickAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $button = $(event.delegateTarget);
         const propertyKey = $button.attr("data-property") ?? "";
         const currentValue = getProperty(this.actor, propertyKey);
@@ -818,7 +815,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Handle changing of lore and spellcasting entry proficiency-rank via dropdown */
-    private async onChangeAdjustItemStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+    async #onChangeAdjustItemStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $select = $(event.delegateTarget);
         const propertyKey = $select.attr("data-item-property") ?? "";
         const selectedValue = Number($select.val());
@@ -850,7 +847,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Handle clicking of lore and spellcasting entry adjustment buttons */
-    private async onClickAdjustItemStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+    async #onClickAdjustItemStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $button = $(event.delegateTarget);
         const itemId = $button.closest(".item").attr("data-item-id") ?? "";
         const item = this.actor.items.get(itemId);
@@ -880,17 +877,17 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private onIncrementModifierValue(event: JQuery.ClickEvent): void {
+    #onIncrementModifierValue(event: JQuery.ClickEvent): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         (parent.find(".add-modifier-value input[type=number]")[0] as HTMLInputElement).stepUp();
     }
 
-    private onDecrementModifierValue(event: JQuery.ClickEvent): void {
+    #onDecrementModifierValue(event: JQuery.ClickEvent): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         (parent.find(".add-modifier-value input[type=number]")[0] as HTMLInputElement).stepDown();
     }
 
-    private onAddCustomModifier(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>): void {
+    #onAddCustomModifier(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>): void {
         const parent = $(event.currentTarget).parents(".add-modifier");
         const stat = $(event.currentTarget).attr("data-stat") ?? "";
         const modifier = Number(parent.find(".add-modifier-value input[type=number]").val()) || 1;
@@ -914,7 +911,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private onRemoveCustomModifier(event: JQuery.ClickEvent): void {
+    #onRemoveCustomModifier(event: JQuery.ClickEvent): void {
         const stat = $(event.currentTarget).attr("data-stat") ?? "";
         const slug = $(event.currentTarget).attr("data-slug") ?? "";
         const errors: string[] = [];
@@ -931,7 +928,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private getNearestFeatSlotId(event: ElementDragEvent) {
+    #getNearestFeatSlotId(event: ElementDragEvent) {
         const categoryId = event.target?.closest<HTMLElement>("[data-category-id]")?.dataset.categoryId;
         const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
         return typeof categoryId === "string" ? { slotId, categoryId: categoryId } : null;
@@ -949,7 +946,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         if (item.isOfType("feat")) {
-            const featSlot = this.getNearestFeatSlotId(event) ?? { categoryId: "" };
+            const featSlot = this.#getNearestFeatSlotId(event) ?? { categoryId: "" };
             return await this.actor.feats.insertFeat(item, featSlot);
         }
 
@@ -967,8 +964,16 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     protected override async _onDrop(event: ElementDragEvent): Promise<boolean | void> {
         const dataString = event.dataTransfer?.getData("text/plain");
-        const dropData = JSON.parse(dataString ?? "");
-        if ("pf2e" in dropData && dropData.pf2e.type === "CraftingFormula") {
+        const dropData = ((): Record<string, unknown> | null => {
+            try {
+                return JSON.parse(dataString ?? "");
+            } catch {
+                return null;
+            }
+        })();
+        if (!dropData) return;
+
+        if (isObject<Record<string, unknown>>(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
             // Prepare formula if dropped on a crafting entry.
             const $containerEl = $(event.target).closest(".item-container");
             const dropContainerType = $containerEl.attr("data-container-type");
@@ -979,7 +984,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 if (!craftingEntry) return;
 
                 const craftingFormulas = await this.actor.getCraftingFormulas();
-                const formula = craftingFormulas.find((f) => f.uuid === dropData.pf2e.itemUuid);
+                const uuid = dropData.pf2e.itemUuid;
+                const formula = craftingFormulas.find((f) => f.uuid === uuid);
 
                 if (formula) return craftingEntry.prepareFormula(formula);
             }
@@ -992,7 +998,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         const item = this.actor.items.get(itemData._id);
         if (item?.isOfType("feat")) {
-            const featSlot = this.getNearestFeatSlotId(event);
+            const featSlot = this.#getNearestFeatSlotId(event);
             if (!featSlot) return [];
 
             const group = this.actor.feats.get(featSlot.categoryId) ?? null;

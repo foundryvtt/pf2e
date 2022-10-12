@@ -8,9 +8,7 @@ export function senseDirection(options: SkillActionOptions) {
         new ModifierPF2e({
             label: "PF2E.Actions.SenseDirection.Modifier.NoCompass",
             modifier: -2,
-            predicate: {
-                not: ["compass-in-possession"],
-            },
+            predicate: [{ not: "compass-in-possession" }],
         })
     );
 

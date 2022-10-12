@@ -56,7 +56,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -114,7 +114,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -187,7 +187,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -245,7 +245,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -386,7 +386,9 @@
                     "value": [
                         "deadly-d8",
                         "disarm",
-                        "finesse"
+                        "evocation",
+                        "finesse",
+                        "magical"
                     ]
                 },
                 "usage": {
@@ -462,20 +464,20 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "resiliencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "rules": [],
                 "size": "med",
@@ -493,7 +495,11 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "abjuration",
+                        "invested",
+                        "magical"
+                    ]
                 },
                 "usage": {
                     "value": "wornarmor"
@@ -926,25 +932,21 @@
                 "rules": [
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "agile",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "agile",
+                            "hunted-prey"
+                        ],
                         "selector": "attack",
                         "value": -2
                     },
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ],
-                            "not": [
-                                "agile"
-                            ]
-                        },
+                        "predicate": [
+                            "hunted-prey",
+                            {
+                                "not": "agile"
+                            }
+                        ],
                         "selector": "attack",
                         "value": -3
                     }
@@ -983,7 +985,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Dmiri designates a single creature as her prey and focuses her attacks against that creature. Dmiri must be able to see or hear the prey, or she must be tracking the prey during exploration.</p>\n<p>Dmiri gains a +2 circumstance bonus to Perception checks when she @Compendium[pf2e.actionspf2e.Seek]{Seeks} her prey and a +2 circumstance bonus to Survival checks when she @Compendium[pf2e.actionspf2e.Track]{Tracks} her prey. Dmiri also ignores the penalty for making ranged attacks within her second range increment against the prey she is hunting.</p>\n<p>Dmiri can have only one creature designated as prey at a time. If she uses Hunt Prey against a creature when she already has a creature designated, the prior creature loses the designation and the new prey gains the designation. Dmiri's designation lasts until her next daily preparations.</p>"
+                    "value": "<p>Dmiri designates a single creature as her prey and focuses her attacks against that creature. Dmiri must be able to see or hear the prey, or she must be tracking the prey during exploration.</p>\n<p>Dmiri gains a +2 circumstance bonus to Perception checks when she @UUID[Compendium.pf2e.actionspf2e.BlAOM2X92SI6HMtJ]{Seeks} her prey and a +2 circumstance bonus to Survival checks when she @UUID[Compendium.pf2e.actionspf2e.EA5vuSgJfiHH7plD]{Tracks} her prey. Dmiri also ignores the penalty for making ranged attacks within her second range increment against the prey she is hunting.</p>\n<p>Dmiri can have only one creature designated as prey at a time. If she uses Hunt Prey against a creature when she already has a creature designated, the prior creature loses the designation and the new prey gains the designation. Dmiri's designation lasts until her next daily preparations.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -999,12 +1001,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
-                        "predicate": {
-                            "all": [
-                                "action:seek",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "action:seek",
+                            "hunted-prey"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 2
@@ -1012,12 +1012,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
-                        "predicate": {
-                            "all": [
-                                "action:track",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "action:track",
+                            "hunted-prey"
+                        ],
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
@@ -1026,11 +1024,9 @@
                         "domain": "ranged-attack-roll",
                         "key": "RollOption",
                         "option": "ignore-range-penalty:2",
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ]
-                        }
+                        "predicate": [
+                            "hunted-prey"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -1067,7 +1063,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>When Dmiri focuses on aiming, her attack becomes particularly accurate. Make a ranged weapon Strike against her hunted prey. On this Strike, Dmiri gains a +2 circumstance bonus to the attack roll and ignores her prey's @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition.</p>"
+                    "value": "<p>When Dmiri focuses on aiming, her attack becomes particularly accurate. Make a ranged weapon Strike against her hunted prey. On this Strike, Dmiri gains a +2 circumstance bonus to the attack roll and ignores her prey's @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1081,31 +1077,27 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "hunters-aim",
-                                "hunted-prey"
-                            ],
-                            "not": [
-                                "melee"
-                            ]
-                        },
+                        "predicate": [
+                            "hunters-aim",
+                            "hunted-prey",
+                            {
+                                "not": "melee"
+                            }
+                        ],
                         "selector": "attack",
                         "type": "circumstance",
                         "value": 2
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "hunters-aim",
-                                "hunted-prey",
-                                "target:condition:concealed"
-                            ],
-                            "not": [
-                                "melee"
-                            ]
-                        },
+                        "predicate": [
+                            "hunters-aim",
+                            "hunted-prey",
+                            "target:condition:concealed",
+                            {
+                                "not": "melee"
+                            }
+                        ],
                         "selector": "attack",
                         "text": "Ignore your prey's @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition.",
                         "title": "{item|name}"
@@ -1148,7 +1140,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Dmiri is wielding two melee weapons, one in each hand</p>\n<hr />\n<p>Dmiri uses her two weapons to parry attacks. Dmiri gains a +1 circumstance bonus to AC until the start of her next turn, or a +2 circumstance bonus if either weapon has the parry trait. Dmiri loses this circumstance bonus if she no longer meet this ability's requirement.</p>\n<hr />\n<p>@Compendium[pf2e.feat-effects.Effect: Twin Parry]{Effect: Twin Parry}</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Twin Parry (Parry Trait)]{Effect: Twin Parry (Parry Trait)}</p>"
+                    "value": "<p><strong>Requirements</strong> Dmiri is wielding two melee weapons, one in each hand</p>\n<hr />\n<p>Dmiri uses her two weapons to parry attacks. Dmiri gains a +1 circumstance bonus to AC until the start of her next turn, or a +2 circumstance bonus if either weapon has the parry trait. Dmiri loses this circumstance bonus if she no longer meet this ability's requirement.</p>\n<hr />\n<p>@UUID[Compendium.pf2e.feat-effects.eu2HidLHaGKe4MPn]{Effect: Twin Parry}</p>\n<p>@UUID[Compendium.pf2e.feat-effects.EDpjey6SCdvIYqEc]{Effect: Twin Parry (Parry Trait)}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1410,12 +1402,6 @@
         }
     ],
     "name": "Dmiri Yoltosha",
-    "prototypeToken": {
-        "name": "Dmiri Yoltosha",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

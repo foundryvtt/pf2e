@@ -21,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -39,20 +38,18 @@
             },
             {
                 "key": "AdjustModifier",
-                "predicate": {
-                    "all": [
-                        "substitute:assurance"
-                    ],
-                    "not": [
-                        "bonus:type:proficiency"
-                    ]
-                },
+                "predicate": [
+                    "substitute:assurance",
+                    {
+                        "not": "bonus:type:proficiency"
+                    }
+                ],
                 "selector": "stealth",
                 "suppress": true
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",

@@ -1,7 +1,8 @@
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
-import { sluggify } from "@util";
+import { isObject, sluggify } from "@util";
 import { RuleElementSource } from "@module/rules";
+import { PredicateStatement } from "@system/predication";
 
 /** Remove bulwark armor rule elements */
 export class Migration673RemoveBulwarkREs extends MigrationBase {
@@ -12,7 +13,8 @@ export class Migration673RemoveBulwarkREs extends MigrationBase {
             (r) =>
                 typeof r.key === "string" &&
                 r.key.endsWith("FlatModifier") &&
-                r.predicate?.all?.includes("self:armor:trait:bulwark")
+                isObject<OldRawPredicate>(r.predicate) &&
+                !!r.predicate.all?.includes("self:armor:trait:bulwark")
         );
     }
 
@@ -54,4 +56,10 @@ export class Migration673RemoveBulwarkREs extends MigrationBase {
 interface RESourceWithAbility extends RuleElementSource {
     selector?: string;
     type?: string;
+}
+
+interface OldRawPredicate {
+    all?: PredicateStatement[];
+    any?: PredicateStatement[];
+    not?: PredicateStatement[];
 }

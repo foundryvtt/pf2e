@@ -15,7 +15,7 @@ class CritSpecRuleElement extends RuleElementPF2e {
     private text: string | null;
 
     constructor(data: CritSpecSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        data.predicate ??= {};
+        data.predicate ??= [];
         super(data, item, options);
 
         data.text ??= null;
@@ -31,7 +31,7 @@ class CritSpecRuleElement extends RuleElementPF2e {
 
     private isValid(data: CritSpecSource): data is CritSpecData {
         const validations = {
-            predicate: PredicatePF2e.validate(data.predicate),
+            predicate: PredicatePF2e.isValid(data.predicate),
             alternate: typeof data.alternate === "boolean",
             text: data.text === null || (typeof data.text === "string" && data.text.trim().length > 0),
         };
@@ -70,10 +70,6 @@ class CritSpecRuleElement extends RuleElementPF2e {
         };
         critSpecs[this.alternate ? "alternate" : "standard"].push(synthetic);
     }
-}
-
-interface CritSpecRuleElement extends RuleElementPF2e {
-    get predicate(): PredicatePF2e;
 }
 
 interface CritSpecSource extends RuleElementSource {

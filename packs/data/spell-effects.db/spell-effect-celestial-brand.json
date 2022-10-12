@@ -3,6 +3,7 @@
     "img": "systems/pf2e/icons/spells/celestial-brand.webp",
     "name": "Spell Effect: Celestial Brand",
     "system": {
+        "badge": null,
         "description": {
             "value": "<p>Granted by attacking a target under the effect of <em>@Compendium[pf2e.spells-srd.Celestial Brand]{Celestial Brand}</em></p>"
         },
@@ -25,37 +26,22 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "Celestial Brand",
-                "predicate": {
-                    "all": [
-                        "celestial-brand"
-                    ]
-                },
-                "selector": "attack",
+                "predicate": [
+                    "celestial-brand"
+                ],
+                "selector": [
+                    "attack",
+                    "skill-check"
+                ],
                 "type": "status",
                 "value": 1
             },
             {
+                "damageType": "good",
                 "key": "FlatModifier",
-                "label": "Celestial Brand",
-                "predicate": {
-                    "all": [
-                        "celestial-brand"
-                    ]
-                },
-                "selector": "skill-check",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "damagetype": "good",
-                "key": "FlatModifier",
-                "label": "Celestial Brand",
-                "predicate": {
-                    "all": [
-                        "celestial-brand"
-                    ]
-                },
+                "predicate": [
+                    "celestial-brand"
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [
@@ -83,16 +69,14 @@
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "label": "Celestial Brand",
-                "predicate": {
-                    "all": [
-                        "celestial-brand"
-                    ]
-                },
+                "predicate": [
+                    "celestial-brand"
+                ],
                 "selector": "strike-damage"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,

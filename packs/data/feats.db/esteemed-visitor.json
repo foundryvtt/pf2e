@@ -21,7 +21,6 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -31,26 +30,28 @@
                     "criticalFailure": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        "terrain:settlement"
-                    ],
-                    "any": [
-                        "action:gather-information",
-                        "action:make-an-impression"
-                    ]
-                },
+                "predicate": [
+                    "terrain:settlement",
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "skill"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "action:gather-information",
-                        "action:make-an-impression"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:gather-information",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "text": "@Localize[PF2E.SpecificRule.Shoony.EsteemedVisitor.Note]",
                 "title": "{item|name}"

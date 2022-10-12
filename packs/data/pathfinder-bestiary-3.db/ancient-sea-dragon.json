@@ -1125,15 +1125,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1321,21 +1323,17 @@
                     },
                     {
                         "key": "Resistance",
-                        "predicate": {
-                            "all": [
-                                "liquefy"
-                            ]
-                        },
+                        "predicate": [
+                            "liquefy"
+                        ],
                         "type": "fire",
                         "value": 25
                     },
                     {
                         "key": "Resistance",
-                        "predicate": {
-                            "all": [
-                                "liquefy"
-                            ]
-                        },
+                        "predicate": [
+                            "liquefy"
+                        ],
                         "type": "physical",
                         "value": 25
                     }
@@ -1970,12 +1968,6 @@
         }
     ],
     "name": "Ancient Sea Dragon",
-    "prototypeToken": {
-        "name": "Ancient Sea Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

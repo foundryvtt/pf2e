@@ -722,23 +722,23 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.DisarmGrappleOrAvoidDisarmed",
-                        "predicate": {
-                            "any": [
-                                "action:grapple",
-                                "action:disarm"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:grapple",
+                                    "action:disarm"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     },
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.DisarmGrappleOrAvoidDisarmed",
-                        "predicate": {
-                            "any": [
-                                "action:disarm"
-                            ]
-                        },
+                        "predicate": [
+                            "action:disarm"
+                        ],
                         "selector": "reflex",
                         "value": 2
                     }
@@ -763,12 +763,6 @@
         }
     ],
     "name": "Gold Tank Broker",
-    "prototypeToken": {
-        "name": "Clockwork Handler",
-        "texture": {
-            "src": "modules/pf2e-ap178-punks-in-a-powderkeg/assets/art/punks-clockwork-tank-broker.webp"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {
@@ -834,15 +828,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": "10"
+                "value": 10
             },
             "reflex": {
                 "saveDetail": "",
-                "value": "7"
+                "value": 7
             },
             "will": {
                 "saveDetail": "",
-                "value": "6"
+                "value": 6
             }
         },
         "traits": {

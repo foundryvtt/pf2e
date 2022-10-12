@@ -1,6 +1,6 @@
 {
     "_id": "939OHjW9y8uCmDk3",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/features/classes/unleash-psyche.webp",
     "name": "Effect: Unleash Psyche",
     "system": {
         "badge": null,
@@ -19,13 +19,11 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "unleash-psyche-damage",
-                        "item:duration:0",
-                        "damaging-effect"
-                    ]
-                },
+                "predicate": [
+                    "unleash-psyche-damage",
+                    "item:duration:0",
+                    "damaging-effect"
+                ],
                 "selector": "spell-damage",
                 "type": "status",
                 "value": "2*@spell.level"
@@ -35,7 +33,8 @@
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Psychic.UnleashPsyche.DamageLabel",
                 "option": "unleash-psyche-damage",
-                "toggleable": true
+                "toggleable": true,
+                "value": true
             }
         ],
         "source": {

@@ -2339,14 +2339,16 @@
                     {
                         "key": "FlatModifier",
                         "label": "Persona Mask (acting, orating, comedy, singing)",
-                        "predicate": {
-                            "any": [
-                                "acting",
-                                "orating",
-                                "performing-comedy",
-                                "singing"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "acting",
+                                    "orating",
+                                    "performing-comedy",
+                                    "singing"
+                                ]
+                            }
+                        ],
                         "selector": "performance",
                         "type": "item",
                         "value": 1
@@ -2863,12 +2865,6 @@
         }
     ],
     "name": "Ruanna Nyamma",
-    "prototypeToken": {
-        "name": "Ruanna Nyamma",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -1,6 +1,6 @@
 {
     "_id": "qKh6MxgE0cwde6mC",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "systems/pf2e/icons/spells/blistering-invective.webp",
     "name": "Flammable",
     "system": {
         "actionCategory": {
@@ -21,18 +21,17 @@
         "level": {
             "value": 0
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "Weakness",
-                "predicate": {
-                    "not": [
-                        "feat:sealed-poppet"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "feat:sealed-poppet"
+                    }
+                ],
                 "type": "fire",
                 "value": "max(1,floor(@actor.level/3))"
             }

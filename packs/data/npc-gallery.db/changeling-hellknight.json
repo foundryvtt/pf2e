@@ -1782,12 +1782,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "dream",
-                                "sleep"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "dream",
+                                    "sleep"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
@@ -1953,12 +1955,6 @@
         }
     ],
     "name": "Changeling Hellknight",
-    "prototypeToken": {
-        "name": "Changeling Hellknight",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

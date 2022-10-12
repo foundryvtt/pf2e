@@ -19,20 +19,21 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Blunt the Final Blade (Critical Success Boon)",
-                "predicate": {
-                    "any": [
-                        "death",
-                        "fear"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "death",
+                            "fear"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Adventure: Night of the Gray Death"
         },
         "start": {
             "initiative": null,

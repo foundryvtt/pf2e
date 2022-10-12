@@ -1,6 +1,6 @@
 {
     "_id": "cvQmPkJtybMcHinK",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "systems/pf2e/icons/features/classes/esoteric-lore.webp",
     "name": "Esoteric Lore",
     "system": {
         "actionCategory": {
@@ -21,45 +21,30 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "ability": "cha",
+                "force": true,
                 "key": "FlatModifier",
                 "selector": "esoteric",
                 "type": "ability"
             },
             {
                 "ability": "cha",
+                "force": true,
                 "key": "FlatModifier",
                 "selector": "esoteric-lore",
                 "type": "ability"
             },
             {
                 "ability": "cha",
+                "force": true,
                 "key": "FlatModifier",
                 "selector": "lore-esoteric",
                 "type": "ability"
-            },
-            {
-                "key": "AdjustModifier",
-                "predicate": {
-                    "all": [
-                        "modifier:type:ability"
-                    ],
-                    "not": [
-                        "modifier:ability:cha"
-                    ]
-                },
-                "selectors": [
-                    "esoteric",
-                    "esoteric-lore",
-                    "lore-esoteric"
-                ],
-                "suppress": true
             },
             {
                 "key": "GrantItem",

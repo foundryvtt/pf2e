@@ -343,12 +343,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.HighJumpOrLongJump",
-                        "predicate": {
-                            "any": [
-                                "action:long-jump",
-                                "action:high-jump"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:long-jump",
+                                    "action:high-jump"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 4
                     }
@@ -430,12 +432,6 @@
         }
     ],
     "name": "Gibtas Bounder",
-    "prototypeToken": {
-        "name": "Gibtas Bounder",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

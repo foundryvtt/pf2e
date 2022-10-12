@@ -1,6 +1,7 @@
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
+import { isObject } from "@util";
 import { RuleElementPF2e, RuleElementData, RuleElementSource } from "./";
 import { RuleElementOptions } from "./base";
 
@@ -29,7 +30,7 @@ class TempHPRuleElement extends RuleElementPF2e {
                 ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
             ])
         );
-        if (this.data.predicate && !this.data.predicate.test(rollOptions)) {
+        if (!this.predicate.test(rollOptions)) {
             return;
         }
 
@@ -57,7 +58,7 @@ class TempHPRuleElement extends RuleElementPF2e {
                 ...this.actor.itemTypes.weapon.flatMap((w) => (w.isEquipped ? w.getRollOptions("self:weapon") : [])),
             ])
         );
-        if (this.data.predicate && !this.data.predicate.test(rollOptions)) {
+        if (!this.predicate.test(rollOptions)) {
             return;
         }
 
@@ -81,7 +82,10 @@ class TempHPRuleElement extends RuleElementPF2e {
             mergeObject(actorUpdates, {
                 "system.attributes.hp.temp": 0,
             });
-            getProperty(actorUpdates, "system.attributes.hp")["-=tempsource"] = null;
+            const hpData = getProperty(actorUpdates, "system.attributes.hp");
+            if (isObject<{ "-=tempsource": unknown }>(hpData)) {
+                hpData["-=tempsource"] = null;
+            }
         }
     }
 

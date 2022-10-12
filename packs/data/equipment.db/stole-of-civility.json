@@ -46,11 +46,9 @@
             {
                 "key": "FlatModifier",
                 "label": "Stole of Civility (humans)",
-                "predicate": {
-                    "all": [
-                        "target:trait:human"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:human"
+                ],
                 "selector": "intimidation",
                 "type": "item",
                 "value": 2
@@ -58,15 +56,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Stole of Civility (Impress or Request humans)",
-                "predicate": {
-                    "all": [
-                        "target:trait:human"
-                    ],
-                    "any": [
-                        "action:make-a-request",
-                        "action:make-an-impression"
-                    ]
-                },
+                "predicate": [
+                    "target:trait:human",
+                    {
+                        "or": [
+                            "action:make-a-request",
+                            "action:make-an-impression"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "item",
                 "value": 2

@@ -249,6 +249,54 @@
             "type": "action"
         },
         {
+            "_id": "mc7S9a4Bp8WEv5k8",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Flesh Tearer",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The zombie hound's Strikes deal [[/r {1d4}[precision]]]{1d4 extra damage} to @Compendium[pf2e.conditionitems.Prone]{Prone} creatures.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "damageType": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:prone"
+                        ],
+                        "selector": "damage"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "ha4G0jIzcuUNT5zS",
             "flags": {
                 "core": {
@@ -257,7 +305,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Knockdown",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -294,56 +342,6 @@
             "type": "action"
         },
         {
-            "_id": "mc7S9a4Bp8WEv5k8",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Flesh Tearer",
-            "sort": 700000,
-            "system": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The zombie hound's Strikes deal [[/r {1d4}[precision]]]{1d4 extra damage} to @Compendium[pf2e.conditionitems.Prone]{Prone} creatures.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "damageType": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d4",
-                        "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:prone"
-                            ]
-                        },
-                        "selector": "damage"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "3PyRK9RR7lo1PFUx",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
@@ -373,12 +371,6 @@
         }
     ],
     "name": "Zombie Hound",
-    "prototypeToken": {
-        "name": "Zombie Hound",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

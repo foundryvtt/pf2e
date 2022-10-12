@@ -1563,15 +1563,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1845,11 +1847,11 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "not": [
-                                "infuseWeaponsChaotic"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "infuseWeaponsChaotic"
+                            }
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -1857,11 +1859,9 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "infuseWeaponsChaotic"
-                            ]
-                        },
+                        "predicate": [
+                            "infuseWeaponsChaotic"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -2251,12 +2251,6 @@
         }
     ],
     "name": "Balor",
-    "prototypeToken": {
-        "name": "Balor",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

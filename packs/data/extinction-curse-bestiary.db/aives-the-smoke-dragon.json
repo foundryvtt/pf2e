@@ -781,20 +781,16 @@
                         "diceNumber": 1,
                         "dieSize": "d8",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "smoke-exhalation"
-                            ]
-                        },
+                        "predicate": [
+                            "smoke-exhalation"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "smoke-exhalation"
-                            ]
-                        },
+                        "predicate": [
+                            "smoke-exhalation"
+                        ],
                         "selector": "strike-damage",
                         "text": "Until the cloud dissipates at the start of his next turn, Aives is @Compendium[pf2e.conditionitems.Concealed]{Concealed}, his Strikes deal an extra [[/r {1d8}[poison]]]{1d8 poison damage}, and targets of his Strikes must succeed at a @Check[type:fortitude|dc:22] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.",
                         "title": "{item|name}"
@@ -852,23 +848,23 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1060,12 +1056,6 @@
         }
     ],
     "name": "Aives The Smoke Dragon",
-    "prototypeToken": {
-        "name": "Aives The Smoke Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

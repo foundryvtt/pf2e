@@ -14,12 +14,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Seer Elf (Identity Magic or Decipher Writing)",
-                "predicate": {
-                    "any": [
-                        "action:identify-magic",
-                        "action:decipher-writing"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:identify-magic",
+                            "action:decipher-writing"
+                        ]
+                    }
+                ],
                 "selector": "skill-check",
                 "type": "circumstance",
                 "value": 1

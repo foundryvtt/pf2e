@@ -26,98 +26,94 @@
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Moderate",
-                        "predicate": {
-                            "all": [
-                                "class:oracle"
-                            ]
-                        },
+                        "predicate": [
+                            "class:oracle"
+                        ],
                         "value": "moderate"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Major",
-                        "predicate": {
-                            "all": [
-                                "feature:major-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:major-curse"
+                        ],
                         "value": "major"
                     },
                     {
                         "label": "PF2E.OracleCurses.Label.Extreme",
-                        "predicate": {
-                            "all": [
-                                "feature:extreme-curse"
-                            ]
-                        },
+                        "predicate": [
+                            "feature:extreme-curse"
+                        ],
                         "value": "extreme"
                     }
                 ],
                 "key": "ChoiceSet",
-                "predicate": {
-                    "any": [
-                        "class:oracle",
-                        "feat:first-revelation"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:first-revelation"
+                        ]
+                    }
+                ],
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
                 "rollOption": "oracular-curse:stage"
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        {
-                            "or": [
-                                "oracular-curse:stage:moderate",
-                                "oracular-curse:stage:major",
-                                "oracular-curse:stage:extreme"
-                            ]
-                        }
-                    ],
-                    "any": [
-                        "disease",
-                        "poison",
-                        "death"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "death"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 4
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        {
-                            "or": [
-                                "oracular-curse:stage:moderate",
-                                "oracular-curse:stage:major",
-                                "oracular-curse:stage:extreme"
-                            ]
-                        }
-                    ],
-                    "any": [
-                        "disease",
-                        "poison",
-                        "death"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "death"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "PF2E.OracleCurses.Bones.ModerateUpgrade",
                 "title": "{item|name}"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "all": [
-                        "oracular-curse:stage:moderate"
-                    ],
-                    "any": [
-                        "disease",
-                        "poison",
-                        "death"
-                    ]
-                },
+                "predicate": [
+                    "oracular-curse:stage:moderate",
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "death"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "PF2E.OracleCurses.Bones.MajorUpgrade",
                 "title": "{item|name}"
@@ -127,21 +123,21 @@
                     "criticalFailure": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        {
-                            "or": [
-                                "oracular-curse:stage:major",
-                                "oracular-curse:stage:extreme"
-                            ]
-                        }
-                    ],
-                    "any": [
-                        "disease",
-                        "poison",
-                        "death"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "death"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             },
@@ -150,33 +146,35 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "all": [
-                        {
-                            "or": [
-                                "oracular-curse:stage:moderate",
-                                "oracular-curse:stage:major",
-                                "oracular-curse:stage:extreme"
-                            ]
-                        }
-                    ],
-                    "any": [
-                        "disease",
-                        "poison",
-                        "death"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "disease",
+                            "poison",
+                            "death"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             },
             {
                 "key": "Resistance",
-                "predicate": {
-                    "any": [
-                        "oracular-curse:stage:moderate",
-                        "oracular-curse:stage:major"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major"
+                        ]
+                    }
+                ],
                 "type": "poison",
                 "value": "floor(@actor.level/2)"
             }

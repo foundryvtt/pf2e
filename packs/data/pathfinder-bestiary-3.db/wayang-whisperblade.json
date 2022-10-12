@@ -353,12 +353,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "darkness",
-                                "shadow"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "darkness",
+                                    "shadow"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -664,12 +666,6 @@
         }
     ],
     "name": "Wayang Whisperblade",
-    "prototypeToken": {
-        "name": "Wayang Whisperblade",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

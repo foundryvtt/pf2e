@@ -733,11 +733,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "whipWhirlwind"
-                            ]
-                        },
+                        "predicate": [
+                            "whipWhirlwind"
+                        ],
                         "selector": "{item|_id}-attack",
                         "type": "circumstance",
                         "value": -2
@@ -917,11 +915,9 @@
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "packAttack"
-                            ]
-                        },
+                        "predicate": [
+                            "packAttack"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -970,15 +966,15 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "whipWhirlwind"
-                            ],
-                            "any": [
-                                "action:trip",
-                                "action:disarm"
-                            ]
-                        },
+                        "predicate": [
+                            "whipWhirlwind",
+                            {
+                                "or": [
+                                    "action:trip",
+                                    "action:disarm"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "type": "circumstance",
                         "value": -2
@@ -1197,12 +1193,6 @@
         }
     ],
     "name": "Bristlebane",
-    "prototypeToken": {
-        "name": "Bristlebane",
-        "texture": {
-            "src": "modules/pf2e-ap178-punks-in-a-powderkeg/assets/tokens/punks-bristlebane.png"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {
@@ -1268,15 +1258,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": "7"
+                "value": 7
             },
             "reflex": {
                 "saveDetail": "",
-                "value": "5"
+                "value": 5
             },
             "will": {
                 "saveDetail": "",
-                "value": "6"
+                "value": 6
             }
         },
         "traits": {

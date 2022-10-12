@@ -287,7 +287,7 @@
                 "containerId": null,
                 "damage": {
                     "damageType": "bludgeoning",
-                    "dice": 1,
+                    "dice": 0,
                     "die": "",
                     "value": ""
                 },
@@ -367,7 +367,8 @@
                             "success"
                         ],
                         "selector": "{item|_id}-attack",
-                        "text": "PF2E.BombNotes.TanglefootBag.Moderate.success"
+                        "text": "PF2E.BombNotes.TanglefootBag.Moderate.success",
+                        "title": "ITEM.TypeEffect"
                     },
                     {
                         "key": "Note",
@@ -375,7 +376,8 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-attack",
-                        "text": "PF2E.BombNotes.TanglefootBag.Moderate.criticalSuccess"
+                        "text": "PF2E.BombNotes.TanglefootBag.Moderate.criticalSuccess",
+                        "title": "ITEM.TypeEffect"
                     }
                 ],
                 "size": "med",
@@ -973,11 +975,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "nimble-dodge"
-                            ]
-                        },
+                        "predicate": [
+                            "nimble-dodge"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -1198,23 +1198,23 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1462,12 +1462,6 @@
         }
     ],
     "name": "Gang Leader",
-    "prototypeToken": {
-        "name": "Gang Leader",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

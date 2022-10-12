@@ -1310,15 +1310,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "untyped",
                         "value": 1
@@ -1590,10 +1592,7 @@
     ],
     "name": "The Ascendant (3-4)",
     "prototypeToken": {
-        "name": "The Ascendant",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "The Ascendant"
     },
     "system": {
         "abilities": {

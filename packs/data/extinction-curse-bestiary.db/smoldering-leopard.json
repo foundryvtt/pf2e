@@ -339,23 +339,23 @@
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -452,12 +452,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "In Dim Light or Darker",
-                        "predicate": {
-                            "any": [
-                                "terrain:lighting:dimLight",
-                                "terrain:lighting:darkness"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:lighting:dimLight",
+                                    "terrain:lighting:darkness"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 3
                     }
@@ -482,12 +484,6 @@
         }
     ],
     "name": "Smoldering Leopard",
-    "prototypeToken": {
-        "name": "Smoldering Leopard",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

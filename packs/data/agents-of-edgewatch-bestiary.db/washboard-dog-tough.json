@@ -785,15 +785,17 @@
                     {
                         "diceNumber": 1,
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "bullyrag-beatdown",
-                                "target:condition:frightened"
-                            ],
-                            "not": [
-                                "ranged"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "bullyrag-beatdown",
+                                    "target:condition:frightened"
+                                ]
+                            },
+                            {
+                                "not": "ranged"
+                            }
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -1001,12 +1003,6 @@
         }
     ],
     "name": "Washboard Dog Tough",
-    "prototypeToken": {
-        "name": "Washboard Dog Tough",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

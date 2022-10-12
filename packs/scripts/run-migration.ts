@@ -18,6 +18,15 @@ import { Migration779EliteWeak } from "@module/migration/migrations/779-elite-we
 import { Migration780NumifySpeeds } from "@module/migration/migrations/780-numify-speeds";
 import { Migration781SuppressNoCrowbar } from "@module/migration/migrations/781-suppress-no-crowbar";
 import { Migration782UnnestActorTraits } from "@module/migration/migrations/782-unnest-actor-traits";
+import { Migration783RemoveClassSkillAELikes } from "@module/migration/migrations/783-remove-class-skill-ae-likes";
+import { Migration785ABCKitItemUUIDs } from "@module/migration/migrations/785-abc-kit-items";
+import { Migration787ResolvablesToSystem } from "@module/migration/migrations/787-resolvables-to-system";
+import { Migration788UpdateTanglefootBags } from "@module/migration/migrations/788-update-tanglefoot-bags";
+import { Migration789UpdatePreciseStrike } from "@module/migration/migrations/789-update-precise-strike";
+import { Migration790MultipleClassDCs } from "@module/migration/migrations/790-multiple-class-dcs";
+import { Migration791RuffianHands } from "@module/migration/migrations/791-ruffian-hands";
+import { Migration793MakePredicatesArrays } from "@module/migration/migrations/793-make-predicates-arrays";
+
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -38,6 +47,14 @@ const migrations: MigrationBase[] = [
     new Migration780NumifySpeeds(),
     new Migration781SuppressNoCrowbar(),
     new Migration782UnnestActorTraits(),
+    new Migration783RemoveClassSkillAELikes(),
+    new Migration785ABCKitItemUUIDs(),
+    new Migration787ResolvablesToSystem(),
+    new Migration788UpdateTanglefootBags(),
+    new Migration789UpdatePreciseStrike(),
+    new Migration790MultipleClassDCs(),
+    new Migration791RuffianHands(),
+    new Migration793MakePredicatesArrays(),
 ];
 
 global.deepClone = <T>(original: T): T => {

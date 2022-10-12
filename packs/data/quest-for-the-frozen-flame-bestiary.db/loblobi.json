@@ -960,37 +960,43 @@
                             "success": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "any": [
-                                "emotion",
-                                "controlled"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "emotion",
+                                    "controlled"
+                                ]
+                            }
+                        ],
                         "selector": "will",
                         "type": "save"
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "action:lie",
-                                "action:make-an-impression",
-                                "action:request"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:lie",
+                                    "action:make-an-impression",
+                                    "action:request"
+                                ]
+                            }
+                        ],
                         "selector": "will",
                         "type": "circumstance",
                         "value": -4
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "action:lie",
-                                "action:make-an-impression",
-                                "action:request"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:lie",
+                                    "action:make-an-impression",
+                                    "action:request"
+                                ]
+                            }
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": -4
@@ -1223,12 +1229,6 @@
         }
     ],
     "name": "Loblobi",
-    "prototypeToken": {
-        "name": "Loblobi",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

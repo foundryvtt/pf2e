@@ -2137,15 +2137,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -2249,22 +2251,18 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "twistingTail"
-                            ]
-                        },
+                        "predicate": [
+                            "twistingTail"
+                        ],
                         "selector": "tail-attack",
                         "type": "untyped",
                         "value": -2
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "twistingTail"
-                            ]
-                        },
+                        "predicate": [
+                            "twistingTail"
+                        ],
                         "selector": "tail-attack",
                         "text": "PF2E.AttackEffects.InterruptAction",
                         "title": "{item|name}",
@@ -2533,10 +2531,7 @@
     ],
     "name": "Young Copper Dragon (Spellcaster)",
     "prototypeToken": {
-        "name": "Young Copper Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Young Copper Dragon"
     },
     "system": {
         "abilities": {

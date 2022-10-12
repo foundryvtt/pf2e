@@ -495,11 +495,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "nimble-dodge"
-                            ]
-                        },
+                        "predicate": [
+                            "nimble-dodge"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -551,11 +549,9 @@
                             "criticalSuccess",
                             "success"
                         ],
-                        "predicate": {
-                            "all": [
-                                "action:disarm"
-                            ]
-                        },
+                        "predicate": [
+                            "action:disarm"
+                        ],
                         "selector": "athletics",
                         "text": "{item|system.description.value}"
                     }
@@ -610,23 +606,23 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -830,12 +826,6 @@
         }
     ],
     "name": "Agile Warrior",
-    "prototypeToken": {
-        "name": "Agile Warrior",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

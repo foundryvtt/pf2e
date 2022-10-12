@@ -32,11 +32,11 @@
                 "dieSize": "d4",
                 "key": "DamageDice",
                 "label": "Emblazon Energy (Electricity)",
-                "predicate": {
-                    "not": [
-                        "electricity-domain"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "electricity-domain"
+                    }
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponElectricity}-damage"
             },
             {
@@ -45,16 +45,14 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "Emblazon Energy (Electricity Domain)",
-                "predicate": {
-                    "all": [
-                        "electricity-domain"
-                    ]
-                },
+                "predicate": [
+                    "electricity-domain"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.effectEmblazonEnergyWeaponElectricity}-damage"
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,

@@ -1935,15 +1935,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -2113,7 +2115,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Each time the marut makes a fist Strike, it chooses either lightning or thunder.</p>\n<ul>\n<li>If it chooses lightning, the attack deals an additional [[/r {2d12}[electricity]]]{2d12 electricity damage} and the target must succeed at a @Check[type:fortitude|dc:33|traits:damaging-effect] save or be @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute.</li>\n<li>If it chooses thunder, the attack deals an additional [[/r {3d8}[sonic]]]{3d8 sonic damage} and the target must succeed at a @Check[type:fortitude|dc:36|traits:damaging-effect] save or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute.</li>\n</ul>"
+                    "value": "<p>Each time the marut makes a fist Strike, it chooses either lightning or thunder.</p>\n<ul>\n<li>If it chooses lightning, the attack deals an additional [[/r {2d12}[electricity]]]{2d12 electricity damage} and the target must succeed at a @Check[type:fortitude|dc:33] save or be @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute.</li>\n<li>If it chooses thunder, the attack deals an additional [[/r {3d8}[sonic]]]{3d8 sonic damage} and the target must succeed at a @Check[type:fortitude|dc:36] save or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute.</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -2139,11 +2141,9 @@
                         "dieSize": "d12",
                         "key": "DamageDice",
                         "label": "Fists of Lightning",
-                        "predicate": {
-                            "all": [
-                                "lightning-fists"
-                            ]
-                        },
+                        "predicate": [
+                            "lightning-fists"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -2152,11 +2152,9 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "label": "Fists of Thunder",
-                        "predicate": {
-                            "all": [
-                                "thunder-fists"
-                            ]
-                        },
+                        "predicate": [
+                            "thunder-fists"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -2352,12 +2350,6 @@
         }
     ],
     "name": "Marut",
-    "prototypeToken": {
-        "name": "Marut",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -26,24 +26,25 @@
         },
         "items": {
             "15iku": {
-                "id": "urQZwmzg2kS53vd5",
                 "img": "systems/pf2e/icons/features/feats/feats.webp",
                 "level": "1",
                 "name": "Experienced Tracker",
-                "pack": "pf2e.feats-srd"
+                "uuid": "Compendium.pf2e.feats-srd.urQZwmzg2kS53vd5"
             }
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Muckruckers, mercenaries, and adventurers (Grizzled Muckrucker)",
-                "predicate": {
-                    "any": [
-                        "target:muckrucker",
-                        "target:mercenary",
-                        "target:adventurer"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:muckrucker",
+                            "target:mercenary",
+                            "target:adventurer"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1
@@ -51,13 +52,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Muckruckers, mercenaries, and adventurers (Grizzled Muckrucker)",
-                "predicate": {
-                    "any": [
-                        "target:muckrucker",
-                        "target:mercenary",
-                        "target:adventurer"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:muckrucker",
+                            "target:mercenary",
+                            "target:adventurer"
+                        ]
+                    }
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
@@ -65,13 +68,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Muckruckers, mercenaries, and adventurers (Grizzled Muckrucker)",
-                "predicate": {
-                    "any": [
-                        "target:muckrucker",
-                        "target:mercenary",
-                        "target:adventurer"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:muckrucker",
+                            "target:mercenary",
+                            "target:adventurer"
+                        ]
+                    }
+                ],
                 "selector": "intimidate",
                 "type": "circumstance",
                 "value": 1

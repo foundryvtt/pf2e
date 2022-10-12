@@ -199,11 +199,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "avoid-fall"
-                            ]
-                        },
+                        "predicate": [
+                            "avoid-fall"
+                        ],
                         "selector": "reflex",
                         "value": 4
                     }
@@ -273,14 +271,16 @@
                     {
                         "key": "FlatModifier",
                         "label": "To Climb, High Jump, Long Jump, and Swim",
-                        "predicate": {
-                            "any": [
-                                "action:long-jump",
-                                "action:swim",
-                                "action:climb",
-                                "action:high-jump"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:long-jump",
+                                    "action:swim",
+                                    "action:climb",
+                                    "action:high-jump"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 6
                     }
@@ -305,12 +305,6 @@
         }
     ],
     "name": "Spear Frog",
-    "prototypeToken": {
-        "name": "Spear Frog",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

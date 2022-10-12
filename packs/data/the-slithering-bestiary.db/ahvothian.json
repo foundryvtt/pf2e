@@ -1382,12 +1382,14 @@
                         "dieSize": "d10",
                         "key": "DamageDice",
                         "label": "Wicked Trophies",
-                        "predicate": {
-                            "any": [
-                                "target:trait:humanoid",
-                                "wicked-trophies"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:humanoid",
+                                    "wicked-trophies"
+                                ]
+                            }
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -1440,12 +1442,14 @@
                         "dieSize": "d10",
                         "key": "DamageDice",
                         "label": "Wicked Trophies",
-                        "predicate": {
-                            "any": [
-                                "target:trait:humanoid",
-                                "wicked-trophies"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:humanoid",
+                                    "wicked-trophies"
+                                ]
+                            }
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -1717,11 +1721,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "wicked-trophies"
-                            ]
-                        },
+                        "predicate": [
+                            "wicked-trophies"
+                        ],
                         "selector": "intimidation",
                         "type": "status",
                         "value": 2
@@ -1820,11 +1822,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Against Humanoids",
-                        "predicate": {
-                            "all": [
-                                "target:trait:humanoid"
-                            ]
-                        },
+                        "predicate": [
+                            "target:trait:humanoid"
+                        ],
                         "selector": "intimidation",
                         "value": 2
                     }
@@ -1905,12 +1905,6 @@
         }
     ],
     "name": "Ahvothian",
-    "prototypeToken": {
-        "name": "Ahvothian",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

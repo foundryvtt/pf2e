@@ -1,19 +1,20 @@
+import type { ActorPF2e } from "@actor/base";
+import { ActorSourcePF2e } from "@actor/data";
+import { NPCSystemData } from "@actor/npc/data";
+import type { ItemPF2e } from "@item/base";
+import { ActionItemSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
+import { isPhysicalData } from "@item/data/helpers";
+import { MacroPF2e } from "@module/macro";
+import { isObject, sluggify } from "@util";
 import * as fs from "fs";
+import { JSDOM } from "jsdom";
+import Datastore from "nedb-promises";
 import * as path from "path";
 import * as process from "process";
-import Datastore from "nedb-promises";
-import yargs from "yargs";
-import { JSDOM } from "jsdom";
-import type { ActorPF2e } from "@actor/base";
-import type { ItemPF2e } from "@item/base";
-import { isObject, sluggify } from "@util";
-import systemJSON from "system.json";
 import templateJSON from "static/template.json";
-import { ActionItemSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
-import { NPCSystemData } from "@actor/npc/data";
+import systemJSON from "system.json";
+import yargs from "yargs";
 import { CompendiumPack, isActorSource, isItemSource } from "./packman/compendium-pack";
-import { isPhysicalData } from "@item/data/helpers";
-import { ActorSourcePF2e } from "@actor/data";
 
 declare global {
     interface Global {
@@ -115,7 +116,7 @@ const linkPatterns = {
     components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/,
 };
 
-type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | Macro | RollTable;
+type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | MacroPF2e | RollTable;
 type PackEntry = CompendiumDocumentPF2e["data"]["_source"];
 
 function assertDocIdSame(newSource: PackEntry, jsonPath: string): void {
@@ -140,6 +141,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
         if (key === "_id") {
             topLevel = docSource;
             delete docSource.folder;
+            delete (docSource as { _stats?: unknown })._stats;
 
             docSource.img &&= docSource.img.replace(
                 "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
@@ -159,21 +161,24 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     delete (docSource as { ownership?: unknown }).ownership;
                     delete (docSource as { effects?: unknown }).effects;
                     delete (docSource.system as { schema?: unknown }).schema;
-                    delete (docSource as { _stats?: unknown })._stats;
                 }
 
                 if (isActorSource(docSource)) {
                     lastActor = docSource;
 
-                    (docSource.prototypeToken as DeepPartial<foundry.data.PrototypeTokenSource>) = {
-                        texture: {
-                            src: docSource.prototypeToken.texture.src.replace(
-                                "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
-                                "systems/pf2e/"
-                            ) as ImagePath | VideoPath,
-                        },
-                        name: docSource.prototypeToken.name,
-                    };
+                    if (docSource.prototypeToken?.name === docSource.name) {
+                        delete (docSource as { prototypeToken?: unknown }).prototypeToken;
+                    } else if (docSource.prototypeToken) {
+                        const withToken: {
+                            img: ImagePath;
+                            prototypeToken: DeepPartial<foundry.data.PrototypeTokenSource>;
+                        } = docSource;
+                        withToken.prototypeToken = { name: docSource.prototypeToken.name };
+                        // Iconics have special tokens
+                        if (withToken.img?.includes("iconics")) {
+                            withToken.prototypeToken.texture = { src: withToken.img.replace("Full", "") as ImagePath };
+                        }
+                    }
 
                     if (docSource.type === "npc") {
                         const { source } = docSource.system.details;
@@ -195,6 +200,9 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     docSource.system.description = { value: docSource.system.description.value };
                     if (isPhysicalData(docSource)) {
                         delete (docSource.system as { identification?: unknown }).identification;
+                        if (docSource.system.traits.otherTags?.length === 0) {
+                            delete (docSource.system.traits as { otherTags?: unknown }).otherTags;
+                        }
                         if (docSource.type === "consumable" && !docSource.system.spell) {
                             delete (docSource.system as { spell?: unknown }).spell;
                         }
@@ -252,7 +260,7 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
             docSource.flags = docSource.type === "condition" ? { pf2e: { condition: true } } : {};
             if (isPhysicalData(docSource)) {
                 delete (docSource.system as { equipped?: unknown }).equipped;
-            } else if (["feat", "spell"].includes(docSource.type)) {
+            } else if (docSource.type === "spell" || (docSource.type === "feat" && !docSource.system.location)) {
                 delete (docSource.system as { location?: unknown }).location;
             }
         }

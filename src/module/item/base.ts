@@ -1,10 +1,8 @@
 import { ActorPF2e } from "@actor";
-import { HazardSystemData } from "@actor/hazard/data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { preImportJSON } from "@module/doc-helpers";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { UserPF2e } from "@module/user";
-import { DicePF2e } from "@scripts/dice";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "../rules";
@@ -12,10 +10,11 @@ import { ContainerPF2e } from "./container";
 import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
 import { ItemTrait } from "./data/base";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
-import { MeleeSystemData } from "./melee/data";
+import { processGrantDeletions } from "../rules/rule-element/grant-item/helpers";
 import type { PhysicalItemPF2e } from "./physical";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -88,6 +87,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         const options = [
             `${delimitedPrefix}id:${this.id}`,
             `${delimitedPrefix}${slug}`,
+            `${delimitedPrefix}slug:${slug}`,
             ...traitOptions.map((t) => `${delimitedPrefix}${t}`),
         ];
 
@@ -134,7 +134,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         const chatData: PreCreate<foundry.data.ChatMessageSource> = {
             speaker: ChatMessagePF2e.getSpeaker({
                 actor: this.actor,
-                token: this.actor.getActiveTokens()[0]?.document,
+                token: this.actor.getActiveTokens(false, true)[0] ?? null,
             }),
             flags: {
                 core: {
@@ -190,7 +190,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
         const grants = (flags.pf2e.itemGrants ??= []);
         for (const grant of grants) {
-            if (isObject(grant)) grant.onDelete ??= "detach";
+            grant.onDelete ??= "detach";
         }
     }
 
@@ -271,10 +271,10 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using enrichHTML.
      */
-    protected async processChatData(
+    protected async processChatData<T extends ItemSummaryData>(
         htmlOptions: EnrichHTMLOptionsPF2e = {},
-        data: ItemSummaryData
-    ): Promise<ItemSummaryData> {
+        data: T
+    ): Promise<T> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
@@ -322,99 +322,6 @@ class ItemPF2e extends Item<ActorPF2e> {
         return traitChatLabels;
     }
 
-    /* -------------------------------------------- */
-    /*  Roll Attacks                                */
-    /* -------------------------------------------- */
-
-    /**
-     * Roll a NPC Attack
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollNPCAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1): void {
-        if (this.type !== "melee") throw ErrorPF2e("Wrong item type!");
-        if (!this.actor?.isOfType("hazard")) {
-            throw ErrorPF2e("Attempted to roll an attack without an actor!");
-        }
-        // Prepare roll data
-        const itemData: any = this.getChatData();
-        const rollData: HazardSystemData & { item?: unknown; itemBonus?: number } = deepClone(this.actor.system);
-        const parts = ["@itemBonus"];
-        const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ""}`;
-
-        rollData.item = itemData;
-        rollData.itemBonus = Number(itemData.bonus.value) || 0;
-
-        if (multiAttackPenalty === 2) parts.push(itemData.map2);
-        else if (multiAttackPenalty === 3) parts.push(itemData.map3);
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            actor: this.actor,
-            data: rollData as unknown as Record<string, unknown>,
-            rollType: "attack-roll",
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event ? event.clientY - 80 : 400,
-                left: window.innerWidth - 710,
-            },
-        });
-    }
-
-    /**
-     * Roll NPC Damage
-     * Rely upon the DicePF2e.damageRoll logic for the core implementation
-     */
-    rollNPCDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, critical = false): void {
-        if (!this.isOfType("melee")) throw ErrorPF2e("Wrong item type!");
-        if (!this.actor.isOfType("hazard")) {
-            throw ErrorPF2e("Attempted to roll an attack without an actor!");
-        }
-
-        // Get item and actor data and format it for the damage roll
-        const systemData = this.system;
-        const rollData: HazardSystemData & { item?: MeleeSystemData } = this.actor.toObject(false).system;
-        let parts: (string | number)[] = [];
-        const partsType: string[] = [];
-
-        // If the NPC is using the updated NPC Attack data object
-        if (systemData.damageRolls && typeof systemData.damageRolls === "object") {
-            Object.keys(systemData.damageRolls).forEach((key) => {
-                if (systemData.damageRolls[key].damage) parts.push(systemData.damageRolls[key].damage);
-                partsType.push(`${systemData.damageRolls[key].damage} ${systemData.damageRolls[key].damageType}`);
-            });
-        }
-
-        // Set the title of the roll
-        const title = `${this.name}: ${partsType.join(", ")}`;
-
-        // do nothing if no parts are provided in the damage roll
-        if (parts.length === 0) {
-            console.warn("PF2e System | No damage parts provided in damage roll");
-            parts = ["0"];
-        }
-
-        // Call the roll helper utility
-        rollData.item = systemData;
-        DicePF2e.damageRoll({
-            event,
-            parts,
-            critical,
-            actor: this.actor,
-            data: rollData as unknown as Record<string, unknown>,
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
-        });
-    }
-
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
     static override async createDialog(
         data: { folder?: string } = {},
@@ -438,11 +345,27 @@ class ItemPF2e extends Item<ActorPF2e> {
         return processed ? super.importFromJSON(processed) : this;
     }
 
-    static override async createDocuments<T extends ConstructorOf<ItemPF2e>>(
-        this: T,
-        data: PreCreate<InstanceType<T>["_source"]>[] = [],
-        context: DocumentModificationContext<InstanceType<T>> = {}
-    ): Promise<InstanceType<T>[]> {
+    static override async createDocuments<T extends foundry.abstract.Document>(
+        this: ConstructorOf<T>,
+        data?: PreCreate<T["_source"]>[],
+        context?: DocumentModificationContext<T>
+    ): Promise<T[]>;
+    static override async createDocuments(
+        data: PreCreate<ItemSourcePF2e>[] = [],
+        context: DocumentModificationContext<ItemPF2e> = {}
+    ): Promise<Item[]> {
+        // Migrate source in case of importing from an old compendium
+        for (const source of [...data]) {
+            if (Object.keys(source).length === 2 && "name" in source && "type" in source) {
+                // The item consists of only a `name` and `type`: set schema version and skip
+                source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
+                continue;
+            }
+            const item = new ItemPF2e(source);
+            await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
+            data.splice(data.indexOf(source), 1, item.toObject());
+        }
+
         if (context.parent) {
             const validTypes = context.parent.allowedItemTypes;
             if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
@@ -491,7 +414,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
             // Pre-sort unnested, class features according to their sorting from the class
             if (nonKits.length > 1 && nonKits.some((i) => i.type === "class")) {
-                type PartialSourceWithLevel = PreCreate<InstanceType<T>["_source"]> & {
+                type PartialSourceWithLevel = PreCreate<ItemSourcePF2e> & {
                     system: { level: { value: number } };
                 };
                 const classFeatures = nonKits.filter(
@@ -506,10 +429,10 @@ class ItemPF2e extends Item<ActorPF2e> {
                 }
             }
 
-            return super.createDocuments(nonKits, context) as Promise<InstanceType<T>[]>;
+            return super.createDocuments(nonKits, context);
         }
 
-        return super.createDocuments(data, context) as Promise<InstanceType<T>[]>;
+        return super.createDocuments(data, context);
     }
 
     static override async deleteDocuments<T extends ConstructorOf<ItemPF2e>>(
@@ -529,10 +452,12 @@ class ItemPF2e extends Item<ActorPF2e> {
             }
 
             // Run RE pre-delete callbacks
-            for (const item of items) {
+            for (const item of [...items]) {
                 for (const rule of item.rules) {
                     await rule.preDelete?.({ pendingItems: items, context });
                 }
+
+                await processGrantDeletions(item, items);
             }
             ids = Array.from(new Set(items.map((i) => i.id))).filter((id) => actor.items.has(id));
         }
@@ -570,11 +495,6 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
 
         await super._preCreate(data, options, user);
-
-        // Ensure imported items are current on their schema version
-        if (!options.parent) {
-            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
-        }
 
         // Remove any rule elements that request their own removal upon item creation
         this._source.system.rules = this._source.system.rules.filter((r) => !r.removeUponCreate);

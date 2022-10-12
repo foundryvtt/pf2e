@@ -21,17 +21,14 @@
         "level": {
             "value": 2
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
-                "craftableItems": {
-                    "all": [
-                        "item:trait:talisman"
-                    ]
-                },
+                "craftableItems": [
+                    "item:trait:talisman"
+                ],
                 "isDailyPrep": true,
                 "key": "CraftingEntry",
                 "label": "PF2E.SpecificRule.Thaumaturge.TalismanEsoterica",
@@ -42,12 +39,10 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.crafting.entries.talismanEsoterica.maxItemLevel",
-                "phase": "afterDerived",
-                "predicate": {
-                    "all": [
-                        "crafting:entry:talisman-esoterica"
-                    ]
-                },
+                "phase": "beforeDerived",
+                "predicate": [
+                    "crafting:entry:talisman-esoterica"
+                ],
                 "value": "floor(@actor.level / 2)"
             }
         ],

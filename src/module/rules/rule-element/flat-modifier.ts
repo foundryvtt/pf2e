@@ -21,11 +21,17 @@ class FlatModifierRuleElement extends RuleElementPF2e {
     /** If this is an ability modifier, the ability score it modifies */
     ability: AbilityString | null = null;
 
+    /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
+    force: boolean;
+
     /** Hide this modifier from breakdown tooltips if it is disabled */
     hideIfDisabled: boolean;
 
     /** Whether this modifier comes from equipment or an equipment effect */
     fromEquipment: boolean;
+
+    /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
+    critical: boolean | null;
 
     constructor(data: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
@@ -40,9 +46,11 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             this.failValidation(`A flat modifier must have one of the following types: ${validTypes}`);
         }
 
+        this.force = !!data.force;
+
         this.selectors =
-            typeof this.data.selector === "string"
-                ? [this.data.selector]
+            typeof data.selector === "string"
+                ? [data.selector]
                 : Array.isArray(data.selector) && data.selector.every((s): s is string => typeof s === "string")
                 ? data.selector
                 : [];
@@ -59,8 +67,20 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                 this.failValidation(
                     'A flat modifier of type "ability" must also have an "ability" property with an ability abbreviation'
                 );
-                return;
             }
+        }
+
+        this.critical =
+            typeof data.critical === "boolean" && this.selectors.some((s) => s.includes("damage"))
+                ? data.critical
+                : null;
+
+        if (this.force && this.type === "untyped") {
+            this.failValidation("A forced bonus or penalty must have a type");
+        }
+
+        if (data.damageCategory && data.damageCategory !== "precision") {
+            this.failValidation('category must be "precision" or omitted');
         }
     }
 
@@ -94,19 +114,17 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                     return null;
                 }
 
-                if (this.data.predicate) {
-                    this.data.predicate = this.resolveInjectedProperties(this.data.predicate);
-                }
-
                 const modifier = new ModifierPF2e({
                     slug,
                     label,
                     modifier: finalValue,
                     type: this.type,
                     ability: this.type === "ability" ? this.ability : null,
-                    predicate: this.data.predicate,
+                    predicate: this.resolveInjectedProperties(this.predicate),
+                    force: this.force,
                     damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
                     damageCategory: this.data.damageCategory || undefined,
+                    critical: this.critical,
                     hideIfDisabled: this.hideIfDisabled,
                     source: this.item.uuid,
                 });
@@ -128,7 +146,6 @@ interface FlatModifierRuleElement {
 }
 
 interface FlatModifierData extends RuleElementData {
-    selector: string | string[];
     min?: number;
     max?: number;
     damageType?: string;
@@ -142,10 +159,12 @@ interface FlatModifierSource extends RuleElementSource {
     max?: unknown;
     type?: unknown;
     ability?: unknown;
+    force?: unknown;
     damageType?: unknown;
     damageCategory?: unknown;
+    critical?: unknown;
     hideIfDisabled?: unknown;
     fromEquipment?: unknown;
 }
 
-export { FlatModifierRuleElement };
+export { FlatModifierRuleElement, FlatModifierSource };

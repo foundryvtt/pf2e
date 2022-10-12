@@ -14,15 +14,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Witch Gnoll (voice bonus only)",
-                "predicate": {
-                    "all": [
-                        "auditory"
-                    ],
-                    "any": [
-                        "action:impersonate",
-                        "action:create-a-diversion"
-                    ]
-                },
+                "predicate": [
+                    "auditory",
+                    {
+                        "or": [
+                            "action:impersonate",
+                            "action:create-a-diversion"
+                        ]
+                    }
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1

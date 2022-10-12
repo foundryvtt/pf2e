@@ -21,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -34,22 +33,20 @@
                 "key": "ActiveEffectLike",
                 "mode": "downgrade",
                 "path": "system.attributes.dying.recoveryDC",
-                "predicate": {
-                    "not": [
-                        "feat:toughness"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "feat:toughness"
+                    }
+                ],
                 "value": 9
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "downgrade",
                 "path": "system.attributes.dying.recoveryDC",
-                "predicate": {
-                    "all": [
-                        "feat:toughness"
-                    ]
-                },
+                "predicate": [
+                    "feat:toughness"
+                ],
                 "value": 8
             }
         ],

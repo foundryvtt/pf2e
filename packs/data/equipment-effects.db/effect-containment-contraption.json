@@ -19,12 +19,14 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "inhaled",
-                        "olfactory"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "inhaled",
+                            "olfactory"
+                        ]
+                    }
+                ],
                 "requireInvestment": false,
                 "selector": "saving-throw",
                 "type": "circumstance",
@@ -32,7 +34,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder #179: Cradle of Quartz"
         },
         "start": {
             "initiative": null,

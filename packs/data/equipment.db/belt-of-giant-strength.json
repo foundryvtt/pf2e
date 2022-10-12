@@ -45,13 +45,15 @@
             {
                 "key": "FlatModifier",
                 "label": "Belt of Giant Strength (lift heavy objects, Escape, Force Open)",
-                "predicate": {
-                    "any": [
-                        "action:lift-heavy-object",
-                        "action:escape",
-                        "action:force-open"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "action:lift-heavy-object",
+                            "action:escape",
+                            "action:force-open"
+                        ]
+                    }
+                ],
                 "selector": "athletics",
                 "type": "circumstance",
                 "value": 2

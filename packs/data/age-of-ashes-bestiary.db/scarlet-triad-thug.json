@@ -658,12 +658,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "action:shove",
-                                "action:trip"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
@@ -832,7 +834,7 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "label": "Target is Within Range of At Least Two Allies",
+                        "label": "PF2E.SpecificRule.PackAttack.Label",
                         "option": "pack-attack",
                         "toggleable": true
                     },
@@ -841,11 +843,9 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "label": "Pack Attack",
-                        "predicate": {
-                            "all": [
-                                "pack-attack"
-                            ]
-                        },
+                        "predicate": [
+                            "pack-attack"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1009,12 +1009,6 @@
         }
     ],
     "name": "Scarlet Triad Thug",
-    "prototypeToken": {
-        "name": "Scarlet Triad Thug",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

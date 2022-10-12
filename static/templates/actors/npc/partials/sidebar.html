@@ -7,7 +7,7 @@
     {{#with data.attributes.ac as |ac|}}
         <div class="side-bar-section-header" title="{{ac.breakdown}}">
             <div class="side-bar-label armor-label">
-                <i class="fas fa-shield-alt"></i>
+                <i class="fas fa-fw fa-shield-alt"></i>
                 <h4>{{localize "PF2E.ArmorClassShortLabel"}}</h4>
             </div>
             <div class="armor-base labelled-field">
@@ -31,7 +31,7 @@
     <div class="side-bar-section shield-section{{#if data.attributes.shield.broken}} broken" title="{{localize "PF2E.Item.Physical.Broken"}}{{/if}}">
         <div class="side-bar-section-header">
             <div class="side-bar-label shield-label">
-                <i class="fas fa-user-shield{{#if data.attributes.shield.broken}} broken{{/if}}"></i>
+                <i class="fas fa-fw fa-user-shield{{#if data.attributes.shield.broken}} broken{{/if}}"></i>
                 <h4>{{localize "PF2E.ShieldLabel"}}</h4>
                 <div class="hit-points">
                     <input type="number" name="system.attributes.shield.hp.value" value="{{data.attributes.shield.hp.value}}" class="current" placeholder="0" />
@@ -55,7 +55,7 @@
 <div class="health-section side-bar-section">
     <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
         <div class="side-bar-label">
-            <i class="fas fa-heart"></i>
+            <i class="fas fa-fw fa-heart"></i>
             <h4>{{localize "PF2E.HitPointsShortLabel"}}</h4>
             <div class="hit-points">
                 {{#with data.attributes.hp as |hp|}}
@@ -80,7 +80,7 @@
 <div class="initiative side-bar-section">
     <div class="side-bar-section-header">
         <div class="side-bar-label">
-            <i class="fas fa-fist-raised"></i>
+            <i class="fa-solid fa-swords fa-fw"></i>
             <h4>{{localize "PF2E.InitiativeLabel"}}</h4>
             <a class="roll-icon roll-init">
                 <i class="fas fa-dice-d20"></i>
@@ -99,11 +99,31 @@
         </select>
     </div>
 </div>
-<!-- WEAKNESSES -->
+
+<!-- IMMUNITIES, WEAKNESSES, AND RESISTANCES -->
+<div class="immunities side-bar-section">
+    <div class="side-bar-section-header{{#unless hasImmunities}} disabled{{/unless}}">
+        <div class="side-bar-label">
+            <i class="fas fa-fw fa-ankh"></i>
+            <h4>{{localize "PF2E.ImmunitiesLabel"}}</h4>
+        </div>
+        {{#if options.editable}}
+            <div class="immunities-controls controls">
+                <a class="trait-edit edit" data-tag-selector="basic" data-title="PF2E.ImmunitiesLabel" data-config-types="immunityTypes" data-property="system.traits.di" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fas {{#if hasImmunities}}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+            </div>
+        {{/if}}
+    </div>
+
+    <div class="side-bar-section-content">
+        {{#each immunities as |immunity type|}}
+            <div class="tag-legacy immunity" data-immunity="{{type}}">{{immunity.label}}</div>
+        {{/each}}
+    </div>
+</div>
 <div class="weaknesses side-bar-section">
     <div class="side-bar-section-header{{#unless data.traits.dv}} disabled{{/unless}}">
         <div class="side-bar-label">
-            <i class="fas fa-heart-broken"></i>
+            <i class="fas fa-fw fa-heart-broken"></i>
             <h4>{{ localize "PF2E.WeaknessesLabel"}}</h4>
         </div>
         {{#if options.editable}}
@@ -121,7 +141,7 @@
 <div class="resistances side-bar-section">
     <div class="side-bar-section-header {{#unless data.traits.dr}} disabled {{/unless}}">
         <div class="side-bar-label">
-            <i class="fas fa-shield-virus"></i>
+            <i class="fas fa-fw fa-shield-virus"></i>
             <h4>{{localize "PF2E.ResistancesLabel"}}</h4>
         </div>
         {{#if options.editable}}
@@ -132,29 +152,11 @@
     </div>
     <div class="side-bar-section-content">
         {{#each data.traits.dr as |resistance|}}
-            <div class="tag-legacy resistance" data-weakness="{{resistance.type}}">{{localize resistance.label}} {{resistance.value}}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
+            <div class="tag-legacy resistance" data-resistance="{{resistance.type}}">{{localize resistance.label}} {{resistance.value}}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
         {{/each}}
     </div>
 </div>
-<div class="immunities side-bar-section">
-    <div class="side-bar-section-header{{#unless hasImmunities}} disabled{{/unless}}">
-        <div class="side-bar-label">
-            <i class="fas fa-ankh"></i>
-            <h4>{{localize "PF2E.ImmunitiesLabel"}}</h4>
-        </div>
-        {{#if options.editable}}
-            <div class="immunities-controls controls">
-                <a class="trait-edit edit" data-tag-selector="basic" data-title="PF2E.ImmunitiesLabel" data-config-types="immunityTypes" data-property="system.traits.di" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fas {{#if hasImmunities}}fa-edit {{else}}fa-plus{{/if}}"></i></a>
-            </div>
-        {{/if}}
-    </div>
 
-    <div class="side-bar-section-content">
-        {{#each immunities as |immunity type|}}
-            <div class="tag-legacy immunity" data-weakness="{{type}}">{{immunity.label}}</div>
-        {{/each}}
-    </div>
-</div>
 <div class="saves">
     {{#each data.saves as |save saveType|}}
         <div class="container" data-save="{{saveType}}">
@@ -168,11 +170,12 @@
         <input type="text" name="system.attributes.allSaves.value" value="{{data.attributes.allSaves.value}}" title="{{data.attributes.allSaves.value}}" placeholder="{{localize "PF2E.NPC.SavesExtraInfoLabelPlaceholder"}}"/>
     </div>
 </div>
+
 <!-- MOVEMENT -->
 <div class="speed-section side-bar-section">
     <div class="side-bar-section-header">
         <div class="side-bar-label">
-            <i class="fas fa-shoe-prints"></i>
+            <i class="fas fa-fw fa-shoe-prints"></i>
             <h4>{{localize "PF2E.NPC.SpeedLabel"}}</h4>
         </div>
         {{#if options.editable}}
@@ -188,8 +191,8 @@
         </div>
         <div class="other-speeds">
             {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}
-                {{#if speed.value }}
-                    <div class="tag-legacy speed" data-speed="{{localize speed.type}}">
+                {{#if speed.value}}
+                    <div class="tag-legacy speed" data-speed="{{speed.type}}">
                         {{localize speed.label}} {{speed.value}}
                     </div>
                 {{/if}}

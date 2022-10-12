@@ -579,13 +579,15 @@
                         "diceNumber": 1,
                         "dieSize": "d12",
                         "key": "DamageDice",
-                        "predicate": {
-                            "not": [
-                                "countered-by-fire",
-                                "divine-lighning-good",
-                                "divine-lightning-positive"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "countered-by-fire",
+                                    "divine-lighning-good",
+                                    "divine-lightning-positive"
+                                ]
+                            }
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -859,15 +861,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1154,15 +1158,15 @@
                         "dieSize": "d12",
                         "key": "DamageDice",
                         "label": "PF2E.NPCAbility.SkyDragon.DivineLightningGood",
-                        "predicate": {
-                            "all": [
-                                "divine-lightning-good"
-                            ],
-                            "not": [
-                                "countered-by-fire",
-                                "divine-lightning-positive"
-                            ]
-                        },
+                        "predicate": [
+                            "divine-lightning-good",
+                            {
+                                "nor": [
+                                    "countered-by-fire",
+                                    "divine-lightning-positive"
+                                ]
+                            }
+                        ],
                         "selector": "jaws-damage"
                     },
                     {
@@ -1171,15 +1175,15 @@
                         "dieSize": "d12",
                         "key": "DamageDice",
                         "label": "PF2E.NPCAbility.SkyDragon.DivineLightningPositive",
-                        "predicate": {
-                            "all": [
-                                "divine-lightning-positive"
-                            ],
-                            "not": [
-                                "countered-by-fire",
-                                "divine-lightning-good"
-                            ]
-                        },
+                        "predicate": [
+                            "divine-lightning-positive",
+                            {
+                                "nor": [
+                                    "countered-by-fire",
+                                    "divine-lightning-good"
+                                ]
+                            }
+                        ],
                         "selector": "jaws-damage"
                     }
                 ],
@@ -1609,12 +1613,6 @@
         }
     ],
     "name": "Adult Sky Dragon",
-    "prototypeToken": {
-        "name": "Adult Sky Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

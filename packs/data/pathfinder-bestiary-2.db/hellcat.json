@@ -247,15 +247,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -356,12 +358,14 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "fearful-attack",
-                                "target:condition:frightened"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "fearful-attack",
+                                    "target:condition:frightened"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -413,11 +417,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "infernal-mindlink"
-                            ]
-                        },
+                        "predicate": [
+                            "infernal-mindlink"
+                        ],
                         "selector": "will",
                         "type": "status",
                         "value": 2
@@ -673,12 +675,6 @@
         }
     ],
     "name": "Hellcat",
-    "prototypeToken": {
-        "name": "Hellcat",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

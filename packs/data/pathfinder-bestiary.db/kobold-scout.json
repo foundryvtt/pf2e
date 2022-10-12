@@ -715,11 +715,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "hurriedRetreat"
-                            ]
-                        },
+                        "predicate": [
+                            "hurriedRetreat"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -775,23 +773,23 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -860,11 +858,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Traps",
-                        "predicate": {
-                            "all": [
-                                "trap"
-                            ]
-                        },
+                        "predicate": [
+                            "trap"
+                        ],
                         "selector": "crafting",
                         "value": 2
                     }
@@ -973,12 +969,6 @@
         }
     ],
     "name": "Kobold Scout",
-    "prototypeToken": {
-        "name": "Kobold Scout",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -31,12 +31,25 @@
         "rules": [
             {
                 "key": "GrantItem",
-                "predicate": {
-                    "all": [
-                        "self:level:1"
-                    ]
-                },
+                "predicate": [
+                    "self:level:1"
+                ],
                 "uuid": "Compendium.pf2e.equipment-srd.Pilgrim's Token"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.initiative.tiebreakPriority",
+                "predicate": [
+                    {
+                        "or": [
+                            "has-pilgrims-token",
+                            "has-religious-symbol"
+                        ]
+                    }
+                ],
+                "priority": 51,
+                "value": 0
             }
         ],
         "source": {

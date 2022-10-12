@@ -260,11 +260,11 @@
                 "rules": [
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "not": [
-                                "suppress-aura"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "suppress-aura"
+                            }
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -278,11 +278,9 @@
                     },
                     {
                         "key": "TokenLight",
-                        "predicate": {
-                            "all": [
-                                "suppress-aura"
-                            ]
-                        },
+                        "predicate": [
+                            "suppress-aura"
+                        ],
                         "value": {
                             "animation": {
                                 "intensity": 4,
@@ -581,12 +579,6 @@
         }
     ],
     "name": "Bright Walker",
-    "prototypeToken": {
-        "name": "Bright Walker",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

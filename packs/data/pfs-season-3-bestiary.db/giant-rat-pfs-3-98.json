@@ -227,12 +227,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.ClimbOrSwim",
-                        "predicate": {
-                            "any": [
-                                "action:climb",
-                                "action:swim"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:climb",
+                                    "action:swim"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -286,10 +288,7 @@
     ],
     "name": "Giant Rat (PFS 3-98)",
     "prototypeToken": {
-        "name": "Giant Rat",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Giant Rat"
     },
     "system": {
         "abilities": {

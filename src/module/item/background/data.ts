@@ -1,6 +1,6 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString } from "@actor/types";
-import { ABCSystemData } from "@item/abc/data";
+import { ABCSystemData, ABCSystemSource } from "@item/abc/data";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemTraits } from "@item/data/base";
 import { BackgroundPF2e } from ".";
 
@@ -9,7 +9,7 @@ type BackgroundSource = BaseItemSourcePF2e<"background", BackgroundSystemSource>
 type BackgroundData = Omit<BackgroundSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<BackgroundPF2e, "background", BackgroundSystemData, BackgroundSource>;
 
-interface BackgroundSystemSource extends ABCSystemData {
+interface BackgroundSystemSource extends ABCSystemSource {
     traits: ItemTraits;
     boosts: Record<number, { value: AbilityString[]; selected: AbilityString | null }>;
     trainedLore: string;
@@ -18,6 +18,6 @@ interface BackgroundSystemSource extends ABCSystemData {
     };
 }
 
-type BackgroundSystemData = BackgroundSystemSource;
+interface BackgroundSystemData extends Omit<BackgroundSystemSource, "items">, Omit<ABCSystemData, "traits"> {}
 
 export { BackgroundData, BackgroundSource };

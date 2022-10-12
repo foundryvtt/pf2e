@@ -173,12 +173,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "Amid Decaying Plant Matter of Fungus",
-                        "predicate": {
-                            "any": [
-                                "terrain:fungus",
-                                "terrain:plant"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:fungus",
+                                    "terrain:plant"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 2
                     }
@@ -203,12 +205,6 @@
         }
     ],
     "name": "Slime Mold",
-    "prototypeToken": {
-        "name": "Slime Mold",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

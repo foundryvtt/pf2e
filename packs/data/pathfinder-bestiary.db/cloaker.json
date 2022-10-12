@@ -278,16 +278,16 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.ImpersonateCloakSheetRay",
-                        "predicate": {
-                            "all": [
-                                "action:impersonate"
-                            ],
-                            "any": [
-                                "cloak",
-                                "sheet",
-                                "ray"
-                            ]
-                        },
+                        "predicate": [
+                            "action:impersonate",
+                            {
+                                "or": [
+                                    "cloak",
+                                    "sheet",
+                                    "ray"
+                                ]
+                            }
+                        ],
                         "selector": "deception",
                         "value": 2
                     }
@@ -368,12 +368,6 @@
         }
     ],
     "name": "Cloaker",
-    "prototypeToken": {
-        "name": "Cloaker",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

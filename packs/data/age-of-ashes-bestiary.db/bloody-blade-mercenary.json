@@ -56,7 +56,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -114,7 +114,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -186,7 +186,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -244,7 +244,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -312,7 +312,7 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -326,20 +326,20 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "resiliencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "rules": [],
                 "size": "med",
@@ -546,7 +546,7 @@
                     "value": ""
                 },
                 "weight": {
-                    "value": "-"
+                    "value": 0
                 }
             },
             "type": "treasure"
@@ -653,7 +653,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The bloody blade mercenary designates a single creature as their prey and focuses their attacks against that creature. The mercenary must be able to see or hear the prey, or must be tracking the prey during exploration.</p>\n<p>The mercenary gains a +2 circumstance bonus to Perception checks to @Compendium[pf2e.actionspf2e.Seek]{Seeks} their prey and a +2 circumstance bonus to Survival checks when they @Compendium[pf2e.actionspf2e.Track]{Tracks} their prey. The mercenary also ignores the penalty for making ranged attacks within their second range increment against the prey they are hunting.</p>\n<p>The mercenary can have only one creature designated as their prey at a time. If they use Hunt Prey against a creature when they already have a creature designated, the prior creature loses the designation and the new prey gains the designation. This designation lasts until their next daily preparations.</p>"
+                    "value": "<p>The bloody blade mercenary designates a single creature as their prey and focuses their attacks against that creature. The mercenary must be able to see or hear the prey, or must be tracking the prey during exploration.</p>\n<p>The mercenary gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.BlAOM2X92SI6HMtJ]{Seeks} their prey and a +2 circumstance bonus to Survival checks when they @UUID[Compendium.pf2e.actionspf2e.EA5vuSgJfiHH7plD]{Tracks} their prey. The mercenary also ignores the penalty for making ranged attacks within their second range increment against the prey they are hunting.</p>\n<p>The mercenary can have only one creature designated as their prey at a time. If they use Hunt Prey against a creature when they already have a creature designated, the prior creature loses the designation and the new prey gains the designation. This designation lasts until their next daily preparations.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -669,12 +669,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
-                        "predicate": {
-                            "all": [
-                                "action:seek",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "action:seek",
+                            "hunted-prey"
+                        ],
                         "selector": "perception",
                         "type": "circumstance",
                         "value": 2
@@ -682,12 +680,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
-                        "predicate": {
-                            "all": [
-                                "action:track",
-                                "hunted-prey"
-                            ]
-                        },
+                        "predicate": [
+                            "action:track",
+                            "hunted-prey"
+                        ],
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
@@ -696,11 +692,9 @@
                         "domain": "ranged-attack-roll",
                         "key": "RollOption",
                         "option": "ignore-range-penalty:2",
-                        "predicate": {
-                            "all": [
-                                "hunted-prey"
-                            ]
-                        }
+                        "predicate": [
+                            "hunted-prey"
+                        ]
                     }
                 ],
                 "slug": null,
@@ -796,11 +790,9 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "label": "PF2E.SpecificRule.HuntPrey.FirstHitDamage",
-                        "predicate": {
-                            "all": [
-                                "first-attack"
-                            ]
-                        },
+                        "predicate": [
+                            "first-attack"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1020,12 +1012,6 @@
         }
     ],
     "name": "Bloody Blade Mercenary",
-    "prototypeToken": {
-        "name": "Bloody Blade Mercenary",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

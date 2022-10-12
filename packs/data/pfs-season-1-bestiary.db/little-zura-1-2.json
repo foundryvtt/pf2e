@@ -153,12 +153,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "action:grapple",
-                                "action:shove"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:grapple",
+                                    "action:shove"
+                                ]
+                            }
+                        ],
                         "selector": "fortitude",
                         "type": "untyped",
                         "value": 2
@@ -278,11 +280,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Escape",
-                        "predicate": {
-                            "all": [
-                                "action:escape"
-                            ]
-                        },
+                        "predicate": [
+                            "action:escape"
+                        ],
                         "selector": "acrobatics",
                         "type": "untyped",
                         "value": 2
@@ -365,10 +365,7 @@
     ],
     "name": "Little Zura (1-2)",
     "prototypeToken": {
-        "name": "Little Zura",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Little Zura"
     },
     "system": {
         "abilities": {

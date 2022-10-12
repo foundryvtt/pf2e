@@ -1,7 +1,6 @@
 import { MystifiedTraits } from "@item/data/values";
-import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
+import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
-import { PlayerListPF2e } from "@module/apps/ui/player-list";
 import {
     AmbientLightPF2e,
     EffectsCanvasGroupPF2e,
@@ -14,6 +13,7 @@ import {
 import { setPerceptionModes } from "@module/canvas/perception/modes";
 import { PF2ECONFIG } from "@scripts/config";
 import { registerHandlebarsHelpers } from "@scripts/handlebars";
+import { registerFonts } from "@scripts/register-fonts";
 import { registerKeybindings } from "@scripts/register-keybindings";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
@@ -55,11 +55,11 @@ export const Init = {
             CONFIG.Combat.initiative.decimals = 0;
 
             // Assign the PF2e Sidebar subclasses
+            CONFIG.ui.actors = ActorDirectoryPF2e;
             CONFIG.ui.combat = EncounterTrackerPF2e;
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
             CONFIG.ui.hotbar = HotbarPF2e;
-            CONFIG.ui.players = PlayerListPF2e;
 
             // The condition in Pathfinder 2e is "blinded" rather than "blind"
             CONFIG.specialStatusEffects.BLIND = "blinded";
@@ -146,10 +146,11 @@ export const Init = {
             // schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;
 
             // Register stuff with the Foundry client
-            registerSettings();
-            registerKeybindings();
-            registerTemplates();
+            registerFonts();
             registerHandlebarsHelpers();
+            registerKeybindings();
+            registerSettings();
+            registerTemplates();
 
             MystifiedTraits.compile();
 

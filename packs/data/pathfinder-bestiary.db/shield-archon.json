@@ -1184,11 +1184,9 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "all": [
-                                "target:trait:evil"
-                            ]
-                        },
+                        "predicate": [
+                            "target:trait:evil"
+                        ],
                         "selector": "holy-striking-spear-attack",
                         "text": "PF2E.WeaponPropertyRune.holy.Note.criticalSuccess",
                         "title": "{item|name}",
@@ -1335,15 +1333,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1758,12 +1758,6 @@
         }
     ],
     "name": "Shield Archon",
-    "prototypeToken": {
-        "name": "Shield Archon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

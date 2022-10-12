@@ -167,11 +167,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "refusePile"
-                            ]
-                        },
+                        "predicate": [
+                            "refusePile"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -366,12 +364,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.TrashAndRubbish",
-                        "predicate": {
-                            "any": [
-                                "terrain:trash",
-                                "terrain:rubbish"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:trash",
+                                    "terrain:rubbish"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 4
                     }
@@ -396,12 +396,6 @@
         }
     ],
     "name": "Ofalth",
-    "prototypeToken": {
-        "name": "Ofalth",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

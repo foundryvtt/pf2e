@@ -279,12 +279,10 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.HighJumpOrLongJump",
-                        "predicate": {
-                            "all": [
-                                "action:high-jump",
-                                "action:long-jump"
-                            ]
-                        },
+                        "predicate": [
+                            "action:high-jump",
+                            "action:long-jump"
+                        ],
                         "selector": "acrobatics",
                         "type": "untyped",
                         "value": 2
@@ -327,12 +325,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "In undergrowth or rocky terrain",
-                        "predicate": {
-                            "any": [
-                                "terrain:undergrowth",
-                                "terrain:rocky"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:undergrowth",
+                                    "terrain:rocky"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 2
                     }
@@ -357,12 +357,6 @@
         }
     ],
     "name": "Chupacabra",
-    "prototypeToken": {
-        "name": "Chupacabra",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

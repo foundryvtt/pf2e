@@ -1238,15 +1238,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1300,11 +1302,9 @@
                             "success": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
-                        "predicate": {
-                            "all": [
-                                "trap"
-                            ]
-                        },
+                        "predicate": [
+                            "trap"
+                        ],
                         "selector": "saving-throw",
                         "type": "skill"
                     }
@@ -1647,12 +1647,6 @@
         }
     ],
     "name": "Crucidaemon",
-    "prototypeToken": {
-        "name": "Crucidaemon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -2,13 +2,12 @@ import { AbilityString } from "@actor/types";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e, ItemPF2e } from "@item";
 import { ABCFeatureEntryData } from "@item/abc/data";
 import { FeatType } from "@item/feat/data";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 import { LocalizePF2e } from "@system/localize";
+import { ABCItemPF2e } from ".";
 import { ItemSheetPF2e } from "../sheet/base";
-import { ABCSheetData } from "../sheet/data-types";
 
-type ABCItem = AncestryPF2e | BackgroundPF2e | ClassPF2e;
-
-export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> {
+abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
@@ -22,7 +21,12 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
 
         const sheetData = await super.getData(options);
         // Exclude any added during data preparation
-        sheetData.data.items = this.item.toObject().system.items;
+        const features = Object.entries(this.item.toObject().system.items)
+            .map(([key, ref]) => ({
+                key,
+                item: { ...ref, fromWorld: ref.uuid.startsWith("Item.") },
+            }))
+            .sort((a, b) => a.item.level - b.item.level);
 
         return {
             ...sheetData,
@@ -30,6 +34,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemType}-sidebar.html`,
             hasDetails: true,
             detailsTemplate: () => `systems/pf2e/templates/items/${itemType}-details.html`,
+            features,
         };
     }
 
@@ -43,7 +48,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
     }
 
     /** Is the dropped feat or feature valid for the given section? */
-    private isValidDrop(event: ElementDragEvent, feat: FeatPF2e): boolean {
+    #isValidDrop(event: ElementDragEvent, feat: FeatPF2e): boolean {
         const validFeatTypes: FeatType[] = $(event.target).closest(".abc-list").data("valid-drops")?.split(" ") ?? [];
         if (validFeatTypes.includes(feat.featType)) {
             return true;
@@ -70,13 +75,12 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         const dropData = JSON.parse(dataString ?? "");
         const item = await ItemPF2e.fromDropData(dropData);
 
-        if (!(item instanceof FeatPF2e) || !this.isValidDrop(event, item)) {
+        if (!item?.isOfType("feat") || !this.#isValidDrop(event, item)) {
             return;
         }
 
         const entry: ABCFeatureEntryData = {
-            pack: dropData.pack || undefined,
-            id: dropData.id,
+            uuid: item.uuid,
             img: item.img,
             name: item.name,
             level: item.level,
@@ -114,3 +118,16 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         $html.on("click", "[data-action=remove]", (ev) => this.removeItem(ev));
     }
 }
+
+type ABCItem = AncestryPF2e | BackgroundPF2e | ClassPF2e;
+
+interface ABCSheetData<TItem extends ABCItemPF2e> extends ItemSheetDataPF2e<TItem> {
+    hasDetails: true;
+    features: { key: string; item: FeatureSheetData }[];
+}
+
+interface FeatureSheetData extends ABCFeatureEntryData {
+    fromWorld: boolean;
+}
+
+export { ABCSheetData, ABCSheetPF2e };

@@ -1,0 +1,79 @@
+{
+    "_id": "MIRkyAjyBeXivMa7",
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/enfeebled.webp",
+    "name": "Enfeebled",
+    "system": {
+        "active": true,
+        "alsoApplies": {
+            "linked": [],
+            "unlinked": []
+        },
+        "base": "Enfeebled",
+        "description": {
+            "value": "<p>You're physically weakened. Enfeebled always includes a value. When you are enfeebled, you take a status penalty equal to the condition value to Strength-based rolls and DCs, including Strength-based melee attack rolls, Strength-based damage rolls, and Athletics checks.</p>"
+        },
+        "duration": {
+            "perpetual": true,
+            "text": "",
+            "value": 0
+        },
+        "group": "abilities",
+        "hud": {
+            "img": {
+                "useStatusName": true,
+                "value": "systems/pf2e/icons/conditions-2/enfeebled.webp"
+            },
+            "selectable": true,
+            "statusName": "enfeebled"
+        },
+        "modifiers": [],
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "removable": true,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "str-based",
+                "slug": "enfeebled",
+                "type": "status",
+                "value": "-@item.badge.value"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "str-damage",
+                "slug": "enfeebled",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "sources": {
+            "hud": true,
+            "values": []
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "value": {
+            "immutable": false,
+            "isValued": true,
+            "modifiers": [],
+            "value": 1
+        }
+    },
+    "type": "condition"
+}

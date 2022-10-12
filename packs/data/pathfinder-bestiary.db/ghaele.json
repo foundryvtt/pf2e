@@ -3053,11 +3053,11 @@
                     {
                         "except": "see Choose Weakness",
                         "key": "Resistance",
-                        "predicate": {
-                            "not": [
-                                "self:effect:choose-weakness"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "self:effect:choose-weakness"
+                            }
+                        ],
                         "type": "energy",
                         "value": 15
                     }
@@ -3157,11 +3157,9 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "all": [
-                                "target:trait:evil"
-                            ]
-                        },
+                        "predicate": [
+                            "target:trait:evil"
+                        ],
                         "selector": "holy-greatsword-attack",
                         "text": "PF2E.WeaponPropertyRune.holy.Note.criticalSuccess",
                         "title": "{item|name}",
@@ -3387,12 +3385,6 @@
         }
     ],
     "name": "Ghaele",
-    "prototypeToken": {
-        "name": "Ghaele",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

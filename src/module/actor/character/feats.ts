@@ -44,9 +44,7 @@ class CharacterFeats extends Collection<FeatCategory> {
         this.createCategory({
             id: "ancestry",
             label: "PF2E.FeatAncestryHeader",
-            featFilter: actor.system.details.ancestry?.trait
-                ? `ancestry-${actor.system.details.ancestry?.trait}`
-                : null,
+            featFilter: actor.system.details.ancestry?.trait ? `traits-${actor.system.details.ancestry.trait}` : null,
             supported: ["ancestry"],
             slots: classFeatSlots?.ancestry ?? [],
         });

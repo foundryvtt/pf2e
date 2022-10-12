@@ -7,10 +7,17 @@ import { FlattenedCondition } from "@system/conditions";
 import { BonusFeat, CharacterSystemData, SlottedFeat } from ".";
 import { CreatureSheetData, SpellcastingSheetData } from "@actor/creature/types";
 import { CHARACTER_SHEET_TABS } from "./values";
+import { CharacterSaveData, ClassDCData } from "./types";
+import { SaveType } from "@actor/types";
 
 type CharacterSheetOptions = ActorSheetOptions;
 
 type CharacterSystemSheetData = CharacterSystemData & {
+    attributes: {
+        perception: {
+            rankName: string;
+        };
+    };
     details: CharacterSystemData["details"] & {
         keyability: {
             value: keyof typeof CONFIG.PF2E.abilities;
@@ -26,6 +33,13 @@ type CharacterSystemSheetData = CharacterSystemData & {
             hover: string;
         };
     };
+    saves: Record<
+        SaveType,
+        CharacterSaveData & {
+            rankName?: string;
+            short?: string;
+        }
+    >;
 };
 
 export interface CraftingEntriesSheetData {
@@ -58,6 +72,13 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     adjustedBonusEncumbranceBulk: boolean;
     adjustedBonusLimitBulk: boolean;
     class: Embedded<ClassPF2e> | null;
+    classDCs: {
+        dcs: ClassDCSheetData[];
+        /** The slug of the character's primary class DC */
+        primary: string | null;
+        /** Show class label and individual modifier lists for each class DC */
+        perDCDetails: boolean;
+    };
     crafting: CraftingSheetData;
     data: CharacterSystemSheetData;
     deity: Embedded<DeityPF2e> | null;
@@ -73,6 +94,13 @@ interface CharacterSheetData extends CreatureSheetData<CharacterPF2e> {
     feats: FeatCategorySheetData[];
 }
 
+interface ClassDCSheetData extends ClassDCData {
+    icon: string;
+    hover: string;
+    rankSlug: string;
+    rankName: string;
+}
+
 interface FeatCategorySheetData {
     id: string;
     label: string;
@@ -81,4 +109,4 @@ interface FeatCategorySheetData {
     featFilter?: string | null;
 }
 
-export { CharacterSheetData, CharacterSheetTabVisibility, FeatCategorySheetData };
+export { CharacterSheetData, CharacterSheetTabVisibility, ClassDCSheetData, FeatCategorySheetData };

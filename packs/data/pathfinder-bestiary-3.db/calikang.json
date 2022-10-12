@@ -764,40 +764,32 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "suspended-animation-enter"
-                            ]
-                        },
+                        "predicate": [
+                            "suspended-animation-enter"
+                        ],
                         "selector": "fortitude",
                         "type": "status",
                         "value": 4
                     },
                     {
                         "key": "Immunity",
-                        "predicate": {
-                            "all": [
-                                "suspended-animation-enter"
-                            ]
-                        },
+                        "predicate": [
+                            "suspended-animation-enter"
+                        ],
                         "type": "disease"
                     },
                     {
                         "key": "Immunity",
-                        "predicate": {
-                            "all": [
-                                "suspended-animation-enter"
-                            ]
-                        },
+                        "predicate": [
+                            "suspended-animation-enter"
+                        ],
                         "type": "poison"
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "suspended-animation-exit"
-                            ]
-                        },
+                        "predicate": [
+                            "suspended-animation-exit"
+                        ],
                         "selector": "initiative",
                         "type": "circumstance",
                         "value": 2
@@ -942,15 +934,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1158,12 +1152,6 @@
         }
     ],
     "name": "Calikang",
-    "prototypeToken": {
-        "name": "Calikang",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

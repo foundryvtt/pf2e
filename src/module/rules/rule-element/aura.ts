@@ -1,7 +1,7 @@
 import { AuraColors, AuraEffectData } from "@actor/types";
 import { ItemPF2e } from "@item";
 import { ItemTrait } from "@item/data/base";
-import { PredicatePF2e, RawPredicate } from "@system/predication";
+import { PredicatePF2e } from "@system/predication";
 import { isObject, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
@@ -27,8 +27,6 @@ export class AuraRuleElement extends RuleElementPF2e {
     constructor(data: AuraRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
-        data.predicate ??= {};
-        this.data.predicate ??= new PredicatePF2e();
         data.effects ??= [];
         data.traits ??= [];
         data.colors ??= null;
@@ -66,7 +64,7 @@ export class AuraRuleElement extends RuleElementPF2e {
 
     #isValid(data: AuraRuleElementSource): data is AuraRuleElementData {
         const validations = {
-            predicate: PredicatePF2e.validate(data.predicate),
+            predicate: PredicatePF2e.isValid(data.predicate ?? []),
             radius: ["number", "string"].includes(typeof data.radius),
             effects: Array.isArray(data.effects) && data.effects.every(this.#isEffectData),
             colors: data.colors === null || this.#isAuraColors(data.colors),
@@ -115,7 +113,6 @@ export class AuraRuleElement extends RuleElementPF2e {
 }
 
 interface AuraRuleElementSource extends RuleElementSource {
-    predicate?: RawPredicate;
     radius?: unknown;
     effects?: unknown;
     traits?: unknown;
@@ -123,7 +120,6 @@ interface AuraRuleElementSource extends RuleElementSource {
 }
 
 interface AuraRuleElementData extends RuleElementSource {
-    predicate: PredicatePF2e;
     radius: string | number;
     effects: AuraREEffectData[];
     traits: ItemTrait[];

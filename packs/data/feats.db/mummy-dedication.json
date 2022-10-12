@@ -21,7 +21,6 @@
         "level": {
             "value": 2
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -95,11 +94,11 @@
             },
             {
                 "key": "Weakness",
-                "predicate": {
-                    "not": [
-                        "feat:sealed-poppet"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "feat:sealed-poppet"
+                    }
+                ],
                 "type": "fire",
                 "value": "floor(@actor.level/2)"
             }

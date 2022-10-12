@@ -422,12 +422,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "Thieves' Tools (Pick Lock & Disable Devices)",
-                        "predicate": {
-                            "any": [
-                                "action:disable-device",
-                                "action:pick-a-lock"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disable-device",
+                                    "action:pick-a-lock"
+                                ]
+                            }
+                        ],
                         "selector": "thievery",
                         "type": "item",
                         "value": 1
@@ -684,11 +686,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "return-fire"
-                            ]
-                        },
+                        "predicate": [
+                            "return-fire"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 4
@@ -790,23 +790,23 @@
                         "diceNumber": 4,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1026,12 +1026,6 @@
         }
     ],
     "name": "Scarlet Triad Boss",
-    "prototypeToken": {
-        "name": "Scarlet Triad Boss",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

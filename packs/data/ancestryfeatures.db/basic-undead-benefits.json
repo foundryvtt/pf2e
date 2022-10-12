@@ -1,6 +1,6 @@
 {
     "_id": "SAbzItAI4uwbdnQk",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "systems/pf2e/icons/spells/deaths-call.webp",
     "name": "Basic Undead Benefits",
     "system": {
         "actionCategory": {
@@ -21,7 +21,6 @@
         "level": {
             "value": 0
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
@@ -34,11 +33,9 @@
             {
                 "key": "Sense",
                 "label": "PF2E.SensesDarkvision",
-                "predicate": {
-                    "all": [
-                        "self:low-light-vision:from-ancestry"
-                    ]
-                },
+                "predicate": [
+                    "self:low-light-vision:from-ancestry"
+                ],
                 "selector": "darkvision"
             },
             {
@@ -49,12 +46,14 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "disease",
+                            "poison"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1

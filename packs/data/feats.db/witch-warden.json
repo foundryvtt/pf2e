@@ -21,19 +21,20 @@
         "level": {
             "value": 1
         },
-        "location": null,
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "any": [
-                        "curse",
-                        "origin:trait:hag"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "curse",
+                            "origin:trait:hag"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
@@ -43,23 +44,27 @@
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
-                "predicate": {
-                    "any": [
-                        "curse",
-                        "origin:trait:hag"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "curse",
+                            "origin:trait:hag"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "type": "save"
             },
             {
                 "key": "Note",
-                "predicate": {
-                    "any": [
-                        "curse",
-                        "origin:trait:hag"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "curse",
+                            "origin:trait:hag"
+                        ]
+                    }
+                ],
                 "selector": "saving-throw",
                 "text": "PF2E.SpecificRule.Human.WitchWarden.SaveNote",
                 "title": "{item|name}"

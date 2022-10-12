@@ -418,11 +418,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "Nervous Retreat (Sythi Only)",
-                        "predicate": {
-                            "all": [
-                                "nervous-retreat"
-                            ]
-                        },
+                        "predicate": [
+                            "nervous-retreat"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -470,44 +468,36 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "claw-attack",
                         "type": "status",
                         "value": 1
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "jaws-attack",
                         "type": "status",
                         "value": 1
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "claw-damage",
                         "type": "status",
                         "value": 4
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "jaws-damage",
                         "type": "status",
                         "value": 4
@@ -520,11 +510,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "self:effect:blood-frenzy"
-                            ]
-                        },
+                        "predicate": [
+                            "self:effect:blood-frenzy"
+                        ],
                         "selector": "ac",
                         "type": "status",
                         "value": -2
@@ -574,11 +562,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
                         "selector": "attack",
                         "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|system.description.value}</div>"
                     },
@@ -587,11 +573,11 @@
                         "outcome": [
                             "criticalSuccess"
                         ],
-                        "predicate": {
-                            "not": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "target:condition:flat-footed"
+                            }
+                        ],
                         "selector": "attack",
                         "text": "<div data-visibility='gm'><p><strong>{item|name}</strong></p>{item|system.description.value}</div>"
                     }
@@ -686,11 +672,9 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -920,10 +904,7 @@
     ],
     "name": "The Saboteur (3-4)",
     "prototypeToken": {
-        "name": "The Saboteur",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "The Saboteur"
     },
     "system": {
         "abilities": {

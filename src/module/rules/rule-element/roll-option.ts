@@ -44,8 +44,8 @@ class RollOptionRuleElement extends RuleElementPF2e {
         this.option = String(data.option).trim();
         this.toggleable = !!data.toggleable;
         this.value = typeof data.value === "string" ? data.value : !!(data.value ?? !this.toggleable);
-        if (this.toggleable && data.disabledIf instanceof Object) {
-            this.disabledIf = new PredicatePF2e(data.disabledIf);
+        if (this.toggleable && Array.isArray(data.disabledIf)) {
+            this.disabledIf = new PredicatePF2e(...data.disabledIf);
             this.disabledValue =
                 data.disabledValue === null || typeof data.disabledValue === "boolean" ? data.disabledValue : false;
         }
@@ -134,7 +134,9 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 domainRecord[`${option}:1`] = true;
             }
         } else {
-            const value = (domainRecord[option] = !!this.resolveValue(this.value));
+            const value = !!this.resolveValue(this.value);
+            if (value) domainRecord[option] = value;
+
             const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
 
             if (this.toggleable) {

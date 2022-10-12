@@ -1,11 +1,14 @@
 import { sluggify } from "@util";
 import { CompendiumBrowser } from "..";
 import { CompendiumBrowserTab } from "./base";
-import { FeatFilters } from "./data";
+import { CompendiumBrowserIndexData, FeatFilters } from "./data";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     override filterData!: FeatFilters;
     override templatePath = "systems/pf2e/templates/compendium-browser/partials/feat.html";
+    /* MiniSearch */
+    override searchFields = ["name"];
+    override storeFields = ["type", "name", "img", "uuid", "level", "featType", "skills", "traits", "rarity", "source"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser, "feat");
@@ -14,72 +17,10 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         this.prepareFilterData();
     }
 
-    protected override prepareFilterData(): void {
-        this.filterData = {
-            checkboxes: {
-                feattype: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterCategory",
-                    options: {},
-                    selected: [],
-                },
-                skills: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSkills",
-                    options: {},
-                    selected: [],
-                },
-                rarity: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterRarities",
-                    options: {},
-                    selected: [],
-                },
-                source: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSource",
-                    options: {},
-                    selected: [],
-                },
-            },
-            multiselects: {
-                traits: {
-                    label: "PF2E.BrowserFilterTraits",
-                    options: [],
-                    selected: [],
-                },
-            },
-            order: {
-                by: "name",
-                direction: "asc",
-                options: {
-                    name: "PF2E.BrowserSortyByNameLabel",
-                    level: "PF2E.BrowserSortyByLevelLabel",
-                },
-            },
-            sliders: {
-                level: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterLevels",
-                    values: {
-                        lowerLimit: 0,
-                        upperLimit: 20,
-                        min: 0,
-                        max: 20,
-                        step: 1,
-                    },
-                },
-            },
-            search: {
-                text: "",
-            },
-        };
-    }
-
     protected override async loadData() {
         console.debug("PF2e System | Compendium Browser | Started loading feats");
 
-        const feats: CompendiumIndexData[] = [];
+        const feats: CompendiumBrowserIndexData[] = [];
         const skills: Set<string> = new Set();
         const sources: Set<string> = new Set();
         const indexFields = [
@@ -141,11 +82,10 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
 
                     // Only store essential data
                     feats.push({
-                        _id: featData._id,
                         type: featData.type,
                         name: featData.name,
                         img: featData.img,
-                        compendium: pack.collection,
+                        uuid: `Compendium.${pack.collection}.${featData._id}`,
                         level: featData.system.level.value,
                         featType: featData.system.featType.value,
                         skills: featData.system.skills.value,
@@ -170,16 +110,11 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
     }
 
-    protected override filterIndexData(entry: CompendiumIndexData): boolean {
-        const { checkboxes, multiselects, search, sliders } = this.filterData;
+    protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
+        const { checkboxes, multiselects, sliders } = this.filterData;
 
         // Level
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
-        // Name
-        if (search.text) {
-            if (!entry.name.toLocaleLowerCase(game.i18n.lang).includes(search.text.toLocaleLowerCase(game.i18n.lang)))
-                return false;
-        }
         // Feat types
         if (checkboxes.feattype.selected.length) {
             if (!checkboxes.feattype.selected.includes(entry.featType)) return false;
@@ -203,5 +138,67 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
         }
         return true;
+    }
+
+    protected override prepareFilterData(): void {
+        this.filterData = {
+            checkboxes: {
+                feattype: {
+                    isExpanded: false,
+                    label: "PF2E.BrowserFilterCategory",
+                    options: {},
+                    selected: [],
+                },
+                skills: {
+                    isExpanded: false,
+                    label: "PF2E.BrowserFilterSkills",
+                    options: {},
+                    selected: [],
+                },
+                rarity: {
+                    isExpanded: false,
+                    label: "PF2E.BrowserFilterRarities",
+                    options: {},
+                    selected: [],
+                },
+                source: {
+                    isExpanded: false,
+                    label: "PF2E.BrowserFilterSource",
+                    options: {},
+                    selected: [],
+                },
+            },
+            multiselects: {
+                traits: {
+                    label: "PF2E.BrowserFilterTraits",
+                    options: [],
+                    selected: [],
+                },
+            },
+            order: {
+                by: "level",
+                direction: "asc",
+                options: {
+                    name: "PF2E.BrowserSortyByNameLabel",
+                    level: "PF2E.BrowserSortyByLevelLabel",
+                },
+            },
+            sliders: {
+                level: {
+                    isExpanded: false,
+                    label: "PF2E.BrowserFilterLevels",
+                    values: {
+                        lowerLimit: 0,
+                        upperLimit: 20,
+                        min: 0,
+                        max: 20,
+                        step: 1,
+                    },
+                },
+            },
+            search: {
+                text: "",
+            },
+        };
     }
 }

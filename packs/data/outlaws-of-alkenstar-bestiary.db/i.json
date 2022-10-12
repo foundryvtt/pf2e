@@ -529,12 +529,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "auditory",
-                                "visual"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "auditory",
+                                    "visual"
+                                ]
+                            }
+                        ],
                         "requireInvestment": false,
                         "selector": "perception",
                         "type": "circumstance",
@@ -542,12 +544,14 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "auditory",
-                                "visual"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "auditory",
+                                    "visual"
+                                ]
+                            }
+                        ],
                         "requireInvestment": false,
                         "selector": "saving-throw",
                         "type": "circumstance",
@@ -1159,12 +1163,6 @@
         }
     ],
     "name": "I",
-    "prototypeToken": {
-        "name": "I",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

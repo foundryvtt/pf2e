@@ -1,11 +1,13 @@
-import { ActorPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { objectHasKey } from "@util";
+import { htmlQueryAll, objectHasKey } from "@util";
 
-const UserVisibilityPF2e = {
+class UserVisibilityPF2e {
     /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
-    process: ($html: JQuery, options: ProcessOptions = {}) => {
-        const visibilityElements = Array.from($html[0].querySelectorAll<HTMLElement>("[data-visibility]"));
+    static process($html: HTMLElement | JQuery, options: ProcessOptions = {}): void {
+        const html = $html instanceof HTMLElement ? $html : $html[0]!;
+        if ($html instanceof HTMLElement) $html = $($html);
+
+        const visibilityElements = htmlQueryAll(html, "[data-visibility]");
 
         // Remove all visibility=none elements
         for (const element of visibilityElements.filter((e) => e.dataset.visibility === "none")) {
@@ -14,7 +16,7 @@ const UserVisibilityPF2e = {
 
         // Process all other visibility elements according to originating document ownership
         const { message } = options;
-        const document = options.actor ?? message?.actor ?? message?.journalEntry ?? null;
+        const document = options.document ?? message?.actor ?? message?.journalEntry ?? message ?? null;
         if (document) {
             const elements = visibilityElements.filter((e) => e.dataset.visibility === "owner");
             for (const element of elements) {
@@ -68,29 +70,32 @@ const UserVisibilityPF2e = {
                 element.remove();
             }
         }
+    }
 
+    static processMessageSender(message: ChatMessagePF2e, html: HTMLElement): void {
         // Hide the sender name from the card if it can't be seen from the canvas
         const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
-        if (message?.token && tokenSetsNameVisibility) {
-            const $sender = $html.find("h4.message-sender");
-            const nameToHide = message.token.name.trim();
-            const shouldHideName = !message.token.playersCanSeeName && $sender.text().trim() === nameToHide;
-            if (shouldHideName) {
+        const token = message?.token;
+        if (token && tokenSetsNameVisibility) {
+            const sender = html.querySelector<HTMLElement>("h4.message-sender");
+            const nameToHide = token.name.trim();
+            const shouldHideName = !token.playersCanSeeName && sender?.innerText.trim() === nameToHide;
+            if (sender && shouldHideName) {
                 if (game.user.isGM) {
-                    $sender.attr({ "data-visibility": "gm" });
+                    sender.dataset.visibility = "gm";
                 } else {
-                    $sender.text(message.user?.name ?? "Gamemaster");
+                    sender.innerText = message.user?.name ?? "Gamemaster";
                 }
             }
         }
-    },
-};
+    }
+}
 
 type UserVisibility = "all" | "owner" | "gm" | "none";
 
 interface ProcessOptions {
+    document?: ClientDocument | null;
     message?: ChatMessagePF2e;
-    actor?: ActorPF2e | null;
 }
 
 export { UserVisibilityPF2e, UserVisibility };

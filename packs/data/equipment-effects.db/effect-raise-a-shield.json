@@ -20,20 +20,20 @@
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "system.attributes.shield.raised",
-                "predicate": {
-                    "all": [
-                        "self:shield:equipped"
-                    ],
-                    "not": [
-                        "self:shield:broken",
-                        "self:shield:destroyed"
-                    ]
-                },
+                "predicate": [
+                    "self:shield:equipped",
+                    {
+                        "nor": [
+                            "self:shield:broken",
+                            "self:shield:destroyed"
+                        ]
+                    }
+                ],
                 "value": true
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "start": {
             "initiative": null,

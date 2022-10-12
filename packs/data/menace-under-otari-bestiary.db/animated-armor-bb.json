@@ -166,22 +166,20 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "construct-armor"
-                            ]
-                        },
+                        "predicate": [
+                            "construct-armor"
+                        ],
                         "selector": "ac",
                         "slug": "construct-armor-critical",
                         "value": -4
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "not": [
-                                "construct-armor"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "construct-armor"
+                            }
+                        ],
                         "selector": "ac",
                         "slug": "construct-armor-health",
                         "value": "4*(min(max(-9+@actor.attributes.hp.value,0),1)-1)"
@@ -236,10 +234,7 @@
     ],
     "name": "Animated Armor (BB)",
     "prototypeToken": {
-        "name": "Animated Armor",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Animated Armor"
     },
     "system": {
         "abilities": {

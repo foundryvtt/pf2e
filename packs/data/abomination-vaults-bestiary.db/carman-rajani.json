@@ -236,11 +236,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Aid",
-                        "predicate": {
-                            "all": [
-                                "action:aid"
-                            ]
-                        },
+                        "predicate": [
+                            "action:aid"
+                        ],
                         "selector": "skill-check",
                         "type": "item",
                         "value": 2
@@ -691,11 +689,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "skillfulCatch"
-                            ]
-                        },
+                        "predicate": [
+                            "skillfulCatch"
+                        ],
                         "selector": "ac",
                         "type": "circumstance",
                         "value": 2
@@ -751,23 +747,23 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1069,12 +1065,6 @@
         }
     ],
     "name": "Carman Rajani",
-    "prototypeToken": {
-        "name": "Carman Rajani",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

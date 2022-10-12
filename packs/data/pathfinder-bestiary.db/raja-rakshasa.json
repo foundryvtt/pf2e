@@ -3179,15 +3179,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -3240,11 +3242,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            "divine"
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 3
@@ -3573,12 +3573,6 @@
         }
     ],
     "name": "Raja Rakshasa",
-    "prototypeToken": {
-        "name": "Raja Rakshasa",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

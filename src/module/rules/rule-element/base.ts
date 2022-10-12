@@ -1,13 +1,13 @@
 import { ActorPF2e } from "@actor";
-import type { ActorType } from "@actor/data";
-import { EffectPF2e, ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
+import { ActorType } from "@actor/data";
 import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
-import { TokenDocumentPF2e } from "@scene";
-import { PredicatePF2e } from "@system/predication";
-import { BracketedValue, RuleElementSource, RuleElementData, RuleValue } from "./data";
-import { isObject, sluggify, tupleHasValue } from "@util";
-import { CheckRoll } from "@system/check/roll";
+import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
+import { TokenDocumentPF2e } from "@scene";
+import { CheckRoll } from "@system/check/roll";
+import { PredicatePF2e } from "@system/predication";
+import { isObject, sluggify, tupleHasValue } from "@util";
+import { BracketedValue, RuleElementData, RuleElementSource, RuleValue } from "./data";
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
@@ -33,6 +33,9 @@ abstract class RuleElementPF2e {
     /** A list of actor types on which this rule element can operate (all unless overridden) */
     protected static validActorTypes: ActorType[] = ["character", "npc", "familiar", "hazard", "loot", "vehicle"];
 
+    /** A test of whether the rules element is to be applied */
+    readonly predicate: PredicatePF2e;
+
     /**
      * @param data unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
@@ -54,14 +57,17 @@ abstract class RuleElementPF2e {
         this.data = {
             priority: 100,
             ...data,
-            predicate: data.predicate ? new PredicatePF2e(data.predicate) : undefined,
+            key: this.key,
+            predicate: Array.isArray(data.predicate) ? data.predicate : undefined,
             label: game.i18n.localize(this.resolveInjectedProperties(label)),
             ignored: Boolean(data.ignored ?? false),
             removeUponCreate: Boolean(data.removeUponCreate ?? false),
         } as RuleElementData;
 
-        if (this.data.predicate && !this.data.predicate.isValid) {
-            console.debug(`Invalid predicate on ${this.item.name} (${this.item.uuid})`);
+        this.predicate = new PredicatePF2e(...(this.data.predicate ?? []));
+
+        if (!this.predicate.isValid) {
+            this.failValidation(`Malformed predicate: must be an array of predication statements`);
         }
 
         if (item instanceof PhysicalItemPF2e) {
@@ -88,10 +94,6 @@ abstract class RuleElementPF2e {
         return this.data.label;
     }
 
-    get predicate(): this["data"]["predicate"] {
-        return this.data.predicate;
-    }
-
     /** The place in order of application (ascending), among an actor's list of rule elements */
     get priority(): number {
         return this.data.priority;
@@ -102,9 +104,6 @@ abstract class RuleElementPF2e {
         if (this.data.ignored) return true;
 
         const { item } = this;
-        if (game.settings.get("pf2e", "automation.effectExpiration") && item instanceof EffectPF2e && item.isExpired) {
-            return (this.data.ignored = true);
-        }
         if (!(item instanceof PhysicalItemPF2e)) return (this.data.ignored = false);
 
         return (this.data.ignored =
@@ -117,10 +116,13 @@ abstract class RuleElementPF2e {
 
     /** Test this rule element's predicate, if present */
     test(rollOptions?: string[] | Set<string>): boolean {
-        if (this.data.ignored) return false;
-        if (!this.data.predicate) return true;
+        if (this.ignored) return false;
+        if (this.predicate.length === 0) return true;
 
-        return this.resolveInjectedProperties(this.data.predicate).test(rollOptions ?? this.actor.getRollOptions());
+        const optionSet =
+            rollOptions instanceof Set ? rollOptions : new Set(rollOptions ?? this.actor.getRollOptions());
+
+        return this.resolveInjectedProperties(this.predicate).test(optionSet);
     }
 
     /** Send a deferred warning to the console indicating that a rule element's validation failed */
@@ -153,25 +155,20 @@ abstract class RuleElementPF2e {
      * }
      *
      * @param source string that should be parsed
-     * @param ruleData current rule data
-     * @param itemData current item data
-     * @param actorData current actor data
      * @return the looked up value on the specific object
      */
-    resolveInjectedProperties<T extends object>(source: T): T;
-    resolveInjectedProperties(source?: string): string;
-    resolveInjectedProperties(source: string | object): string | object;
-    resolveInjectedProperties(source: string | object = ""): string | object {
+    resolveInjectedProperties<T extends string | object | null | undefined>(source: T): T;
+    resolveInjectedProperties(source: string | object | undefined): string | object | undefined {
         if (typeof source === "string" && !source.includes("{")) return source;
 
         // Walk the object tree and resolve any string values found
-        if (isObject<Record<string, unknown>>(source)) {
+        if (Array.isArray(source)) {
+            for (let i = 0; i < source.length; i++) {
+                source[i] = this.resolveInjectedProperties(source[i]);
+            }
+        } else if (isObject<Record<string, unknown>>(source)) {
             for (const [key, value] of Object.entries(source)) {
-                if (Array.isArray(value)) {
-                    source[key] = value.map((e: unknown) =>
-                        typeof e === "string" || isObject(e) ? this.resolveInjectedProperties(e) : e
-                    );
-                } else if (typeof value === "string" || isObject(value)) {
+                if (typeof value === "string" || isObject(value)) {
                     source[key] = this.resolveInjectedProperties(value);
                 }
             }
@@ -184,7 +181,7 @@ abstract class RuleElementPF2e {
                 if (value === undefined) {
                     this.failValidation("Failed to resolve injected property");
                 }
-                return value;
+                return String(value);
             });
         }
 
@@ -203,9 +200,6 @@ abstract class RuleElementPF2e {
      *          {start: 1, end: 4, value: 5}],
      *          {start: 5, end: 9, value: 10}],
      *   }: compares the value from field to >= start and <= end of a bracket and uses that value
-     * @param ruleData current rule data
-     * @param item current item data
-     * @param actorData current actor data
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
@@ -286,8 +280,12 @@ abstract class RuleElementPF2e {
             : value;
     }
 
-    private isBracketedValue(value: RuleValue | BracketedValue | undefined): value is BracketedValue {
-        return value instanceof Object && "brackets" in value && Array.isArray(value.brackets);
+    protected isBracketedValue(value: unknown): value is BracketedValue {
+        return (
+            isObject<BracketedValue>(value) &&
+            Array.isArray(value.brackets) &&
+            (typeof value.field === "string" || !("fields" in value))
+        );
     }
 }
 

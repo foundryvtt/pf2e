@@ -1030,19 +1030,19 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ],
-                            "not": [
-                                "deceivers-surprise"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "finesse",
+                                    "agile",
+                                    "ranged"
+                                ]
+                            },
+                            {
+                                "not": "deceivers-surprise"
+                            }
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -1050,17 +1050,17 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                "deceivers-surprise"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            "deceivers-surprise",
+                            {
+                                "or": [
+                                    "finesse",
+                                    "agile",
+                                    "ranged"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1292,12 +1292,6 @@
         }
     ],
     "name": "False Priest",
-    "prototypeToken": {
-        "name": "False Priest",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -1255,15 +1255,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1631,11 +1633,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Track",
-                        "predicate": {
-                            "all": [
-                                "action:track"
-                            ]
-                        },
+                        "predicate": [
+                            "action:track"
+                        ],
                         "selector": "survival",
                         "value": 4
                     }
@@ -1660,12 +1660,6 @@
         }
     ],
     "name": "Horned Archon",
-    "prototypeToken": {
-        "name": "Horned Archon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

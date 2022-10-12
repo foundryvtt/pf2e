@@ -21,21 +21,20 @@
         "level": {
             "value": 1
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
         "rules": [
             {
-                "craftableItems": {
-                    "all": [
-                        "item:trait:alchemical"
-                    ],
-                    "any": [
-                        "item:trait:bomb",
-                        "item:subtype:ammo"
-                    ]
-                },
+                "craftableItems": [
+                    "item:trait:alchemical",
+                    {
+                        "or": [
+                            "item:trait:bomb",
+                            "item:subtype:ammo"
+                        ]
+                    }
+                ],
                 "isAlchemical": true,
                 "isDailyPrep": true,
                 "key": "CraftingEntry",
@@ -54,7 +53,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Guns & Gears"
         },
         "traits": {
             "custom": "",

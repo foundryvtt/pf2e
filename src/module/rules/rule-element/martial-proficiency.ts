@@ -11,12 +11,17 @@ import { PredicatePF2e, RawPredicate } from "@system/predication";
 class MartialProficiencyRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character"];
 
+    /** Predication test for whether a weapon matches this proficiency */
+    definition: PredicatePF2e;
+
     constructor(data: MartialProficiencySource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data.priority = 9;
         data.immutable = Boolean(data.immutable ?? true);
         data.value ??= 1;
 
         super(data, item, options);
+
+        this.definition = new PredicatePF2e(Array.isArray(data.definition) ? data.definition : []);
     }
 
     private validateData(): void {
@@ -26,12 +31,8 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
             this.failValidation("A martial proficiency must have a slug");
         }
 
-        if (!(this.data.definition instanceof Object)) {
+        if (!Array.isArray(data.definition)) {
             this.failValidation("A martial proficiency must have a definition");
-        }
-
-        if (!PredicatePF2e.validate(data.definition)) {
-            this.failValidation('The "definition" property is invalid');
         }
 
         if ("sameAs" in data) {
@@ -59,7 +60,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e {
     private createValue(): MartialProficiency {
         const rank = Math.clamped(Number(this.resolveValue()), 1, 4) as ZeroToFour;
         const proficiency: MartialProficiency = {
-            definition: new PredicatePF2e(this.resolveInjectedProperties(this.data.definition)),
+            definition: this.resolveInjectedProperties(this.definition),
             immutable: this.data.immutable ?? true,
             label: this.label,
             rank,

@@ -567,15 +567,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -679,11 +681,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "tailLash"
-                            ]
-                        },
+                        "predicate": [
+                            "tailLash"
+                        ],
                         "selector": "tail-attack",
                         "value": -2
                     }
@@ -1054,12 +1054,6 @@
         }
     ],
     "name": "Adult Black Dragon",
-    "prototypeToken": {
-        "name": "Adult Black Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -1,14 +1,19 @@
-import { ItemSheetPF2e } from "../sheet/base";
-import { PhysicalItemPF2e } from "@item/physical";
-import { ItemSheetDataPF2e, MaterialSheetData, PhysicalItemSheetData } from "@item/sheet/data-types";
-import { BasePhysicalItemSource, ItemActivation } from "./data";
-import { createSheetTags } from "@module/sheet/helpers";
-import { CoinsPF2e } from "@item/physical/helpers";
-import { MaterialValuationData } from "./materials";
-import { PRECIOUS_MATERIAL_GRADES } from "./values";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { objectHasKey } from "@util";
+import {
+    BasePhysicalItemSource,
+    CoinsPF2e,
+    ItemActivation,
+    MaterialGradeData,
+    MaterialValuationData,
+    PhysicalItemPF2e,
+    PreciousMaterialGrade,
+    PRECIOUS_MATERIAL_GRADES,
+} from ".";
+import { ItemSheetPF2e } from "../sheet/base";
 
-export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
+class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
     /** Show the identified data for editing purposes */
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<PhysicalItemSheetData<TItem>> {
         const sheetData: ItemSheetDataPF2e<TItem> = await super.getData(options);
@@ -27,6 +32,17 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             sheetData.item.system.identification.unidentified.data.description.value,
             { rollData, async: true }
         );
+        const activations: PhysicalItemSheetData<TItem>["activations"] = [];
+        for (const action of this.item.activations) {
+            const description = await TextEditor.enrichHTML(action.description.value, { rollData, async: true });
+            activations.push({
+                action,
+                id: action.id,
+                base: `system.activations.${action.id}`,
+                description,
+                traits: createSheetTags(actionTraits, action.traits ?? { value: [] }),
+            });
+        }
 
         return {
             ...sheetData,
@@ -41,13 +57,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             stackGroups: CONFIG.PF2E.stackGroups,
             usage: CONFIG.PF2E.usageTraits,
             isPhysical: true,
-            activations: this.item.activations.map((action) => ({
-                action,
-                id: action.id,
-                base: `system.activations.${action.id}`,
-                traits: createSheetTags(actionTraits, action.traits ?? { value: [] }),
-            })),
-
+            activations,
             // Do not let user set bulk if in a stack group because the group determines bulk
             bulkDisabled: !!sheetData.data?.stackGroup?.trim(),
         };
@@ -63,7 +73,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             if (value !== undefined && !Array.isArray(value)) {
                 $input.attr("data-value", value);
             }
-            const baseValue = $input.attr("data-value-base") ?? getProperty(this.item._source, propertyPath);
+            const baseValue = $input.attr("data-value-base") ?? String(getProperty(this.item._source, propertyPath));
             $input.val(baseValue).attr({ name: propertyPath });
         });
 
@@ -71,7 +81,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             const $input = $(event.target);
             $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
             const propertyPath = $input.attr("data-property") ?? "";
-            const preparedValue = $input.attr("data-value") ?? getProperty(this.item, propertyPath);
+            const preparedValue = $input.attr("data-value") ?? String(getProperty(this.item, propertyPath));
             $input.val(preparedValue);
         });
 
@@ -122,7 +132,7 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         });
     }
 
-    protected prepareMaterials(valuationData: MaterialValuationData) {
+    protected prepareMaterials(valuationData: MaterialValuationData): PreparedMaterials {
         const { material } = this.item;
         const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
         const materials = Object.entries(valuationData).reduce((result, [materialKey, materialData]) => {
@@ -145,14 +155,14 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
             return result;
         }, {} as MaterialSheetData["materials"]);
 
-        const value = material.precious ? `${material.precious.type}-${material.precious.grade}` : "";
+        const value = material.precious ? `${material.precious.type}|${material.precious.grade}` : "";
         return { value, materials };
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Process precious-material selection
         if (typeof formData["preciousMaterial"] === "string") {
-            const typeGrade = formData["preciousMaterial"].split("-");
+            const typeGrade = formData["preciousMaterial"].split("|");
             const isValidSelection =
                 objectHasKey(CONFIG.PF2E.preciousMaterials, typeGrade[0] ?? "") &&
                 objectHasKey(CONFIG.PF2E.preciousMaterialGrades, typeGrade[1] ?? "");
@@ -200,3 +210,41 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         return super._updateObject(event, flattenObject(expanded));
     }
 }
+
+interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
+    isPhysical: true;
+    basePriceString: string;
+    priceString: string;
+    actionTypes: ConfigPF2e["PF2E"]["actionTypes"];
+    actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
+    bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];
+    frequencies: ConfigPF2e["PF2E"]["frequencies"];
+    sizes: ConfigPF2e["PF2E"]["actorSizes"];
+    stackGroups: ConfigPF2e["PF2E"]["stackGroups"];
+    usage: ConfigPF2e["PF2E"]["usageTraits"];
+    bulkDisabled: boolean;
+    activations: {
+        action: ItemActivation;
+        id: string;
+        base: string;
+        description: string;
+        traits: SheetOptions;
+    }[];
+}
+
+interface PreparedMaterials {
+    value: string;
+    materials: Record<string, { label: string; grades: { [K in PreciousMaterialGrade]?: MaterialGradeData } }>;
+}
+
+type MaterialSheetEntry = {
+    label: string;
+    grades: Partial<Record<PreciousMaterialGrade, MaterialGradeData>>;
+};
+
+type MaterialSheetData = {
+    value: string;
+    materials: Record<string, MaterialSheetEntry>;
+};
+
+export { MaterialSheetData, MaterialSheetEntry, PhysicalItemSheetData, PhysicalItemSheetPF2e, PreparedMaterials };

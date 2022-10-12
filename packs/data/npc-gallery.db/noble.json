@@ -185,11 +185,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "High-Fashion Clothes (Make an Impression on nobility)",
-                        "predicate": {
-                            "any": [
-                                "action:make-an-impression"
-                            ]
-                        },
+                        "predicate": [
+                            "action:make-an-impression"
+                        ],
                         "selector": "diplomacy",
                         "type": "item",
                         "value": 1
@@ -606,23 +604,23 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "weapon:trait:agile",
-                                "weapon:trait:finesse",
-                                {
-                                    "and": [
-                                        "weapon:ranged",
-                                        {
-                                            "not": "weapon:thrown-melee"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "weapon:trait:agile",
+                                    "weapon:trait:finesse",
+                                    {
+                                        "and": [
+                                            "weapon:ranged",
+                                            {
+                                                "not": "weapon:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -758,12 +756,6 @@
         }
     ],
     "name": "Noble",
-    "prototypeToken": {
-        "name": "Noble",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

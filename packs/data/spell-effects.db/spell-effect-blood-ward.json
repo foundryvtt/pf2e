@@ -3,6 +3,7 @@
     "img": "systems/pf2e/icons/spells/blood-ward.webp",
     "name": "Spell Effect: Blood Ward",
     "system": {
+        "badge": null,
         "description": {
             "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Blood Ward]{Blood Ward}</em></p>"
         },
@@ -25,38 +26,13 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "Defending vs. target of Blood Ward",
-                "predicate": {
-                    "all": [
-                        "blood-ward"
-                    ]
-                },
-                "selector": "ac",
-                "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 1,
-                            "value": 1
-                        },
-                        {
-                            "start": 5,
-                            "value": 2
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Defending vs. target of Blood Ward",
-                "predicate": {
-                    "all": [
-                        "blood-ward"
-                    ]
-                },
-                "selector": "saving-throw",
+                "predicate": [
+                    "blood-ward"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
                 "type": "status",
                 "value": {
                     "brackets": [
@@ -75,7 +51,7 @@
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Advanced Player's Guide"
         },
         "start": {
             "initiative": null,

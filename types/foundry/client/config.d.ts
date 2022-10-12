@@ -5,6 +5,7 @@ declare global {
         TAmbientLightDocument extends AmbientLightDocument = AmbientLightDocument,
         TActiveEffect extends ActiveEffect = ActiveEffect,
         TActor extends Actor = Actor,
+        TActorDirectory extends ActorDirectory<TActor> = ActorDirectory<TActor>,
         TChatLog extends ChatLog = ChatLog,
         TChatMessage extends ChatMessage = ChatMessage,
         TCombat extends Combat = Combat,
@@ -329,9 +330,13 @@ declare global {
             };
             lightLevels: {
                 dark: number;
+                halfdark: number;
                 dim: number;
                 bright: number;
             };
+
+            losBackend: typeof ClockwiseSweepPolygon;
+
             normalLightColor: number;
             maxZoom: number;
             objectBorderThickness: number;
@@ -476,8 +481,11 @@ declare global {
             [key: string]: string | undefined;
         };
 
-        /** Suggested font families that are displayed wherever a choice is presented */
-        fontFamilies: string[];
+        /** A collection of fonts to load either from the user's local system, or remotely. */
+        fontDefinitions: Record<string, FontFamilyDefinition>;
+
+        /** deprecated since v10. */
+        _fontFamilies: string[];
 
         /** The default font family used for text labels on the PIXI Canvas */
         defaultFontFamily: string;
@@ -529,7 +537,7 @@ declare global {
         };
 
         ui: {
-            actors: typeof ActorDirectory;
+            actors: ConstructorOf<TActorDirectory>;
             chat: ConstructorOf<TChatLog>;
             combat: ConstructorOf<TCombatTracker>;
             compendium: ConstructorOf<TCompendiumDirectory>;
@@ -556,5 +564,19 @@ declare global {
         id: string;
         label: string;
         icon: ImagePath | VideoPath;
+    }
+
+    interface FontFamilyDefinition {
+        /** Whether the font is available in the rich text editor. This will also enable it for notes and drawings. */
+        editor: boolean;
+        fonts: FontDefinition[];
+    }
+
+    interface FontDefinition extends FontFaceDescriptors {
+        /**
+         * Individual font face definitions for this font family. If this is empty, the font family may only be loaded
+         * from the client's OS-installed fonts.
+         */
+        urls: string[];
     }
 }

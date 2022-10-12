@@ -13,9 +13,11 @@ import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions
 export class CreatureSizeRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
+    resizeEquipment: boolean;
+
     constructor(data: CreatureSizeConstructionData, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
-        this.data.resizeEquipment ??= false;
+        this.resizeEquipment = !!data.resizeEquipment;
     }
 
     private static wordToAbbreviation: Record<string, Size | undefined> = {
@@ -42,10 +44,7 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
     }
 
     override beforePrepareData(): void {
-        if (this.ignored) return;
-        if (!(this.data.predicate?.test(this.actor.getRollOptions()) ?? true)) {
-            return;
-        }
+        if (!this.test()) return;
 
         const value = this.resolveValue();
         if (!(typeof value === "string" || typeof value === "number")) {
@@ -85,7 +84,7 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
             return;
         }
 
-        if (this.data.resizeEquipment) {
+        if (this.resizeEquipment) {
             const sizeDifference = originalSize.difference(this.actor.system.traits.size);
             for (const item of this.actor.inventory.filter((i) => !(i instanceof TreasurePF2e && i.isCoinage))) {
                 if (sizeDifference < 0) {

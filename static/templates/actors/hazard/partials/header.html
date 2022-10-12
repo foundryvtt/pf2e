@@ -3,7 +3,9 @@
     <div class="frame-container">
         <div class="frame">
             <img class="player-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
-            <div class="edit-mode-button"><i class="fas {{#if editing}}fa-lock-open{{else}}fa-lock{{/if}}"></i></div>
+            {{#if editable}}
+                <div class="edit-mode-button" title="{{localize "PF2E.EditHazardLabel"}}"><i class="fas {{#if editing}}fa-lock-open{{else}}fa-lock{{/if}}"></i></div>
+            {{/if}}
         </div>
     </div>
 

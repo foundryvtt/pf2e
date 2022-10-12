@@ -69,12 +69,11 @@ export class RollNoteRuleElement extends RuleElementPF2e {
         const title = this.title ? this.resolveInjectedProperties(this.title) : null;
         const text = this.resolveInjectedProperties(String(this.resolveValue(this.text, "", { evaluate: false })));
         if (selector && text) {
-            const predicate = this.data.predicate ?? {};
             const note = new RollNotePF2e({
                 selector,
                 title,
                 text,
-                predicate,
+                predicate: this.predicate,
                 outcome: this.outcomes,
                 visibility: this.visibility,
             });

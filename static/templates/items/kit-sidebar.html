@@ -1,30 +1,5 @@
 <div class="inventory-details">
     <div class="form-group">
-        <label>{{localize "PF2E.BulkLabel"}}</label>
-        <select name="system.weight.value">
-            {{#select data.weight.value}}
-                <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
-                {{#each bulkTypes as |name type|}}
-                    <option value="{{type}}">{{name}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.EquippedBulkLabel"}}</label>
-        <select name="system.equippedBulk.value" {{disabled bulkDisabled}}>
-            {{#select data.equippedBulk.value}}
-                <option value="">{{localize "PF2E.EquippedSameBulkValue"}}</option>
-                <option value="0">{{localize "PF2E.NegligibleOption"}}</option>
-                {{#each bulkTypes as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </div>
-
-    <div class="form-group">
         <label>{{localize "PF2E.PriceLabel"}}</label>
         <input type="text" name="system.price.value" value="{{priceString}}" />
     </div>

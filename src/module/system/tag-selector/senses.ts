@@ -29,7 +29,7 @@ export class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TAc
                 ...accum,
                 [type]: {
                     acuity: sense?.acuity ?? "precise",
-                    disabled: sense?.source ? "disabled" : "",
+                    disabled: !!sense?.source,
                     label,
                     selected: !!sense,
                     value: sense?.value ?? "",
@@ -92,10 +92,10 @@ interface SenseSelectorData<TActor extends ActorPF2e> extends FormApplicationDat
 }
 
 interface SenseChoiceData {
-    acuity: string;
-    disabled: string;
-    label: string;
     selected: boolean;
+    disabled: boolean;
+    acuity: string;
+    label: string;
     value: string;
 }
 

@@ -18,7 +18,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
     prompt: string;
 
     /** A predicate validating a dragged & dropped item selection */
-    allowedDrops: PredicatePF2e;
+    allowedDrops: { label: string | null; predicate: PredicatePF2e };
 
     constructor(data: ChoiceSetPromptData) {
         super(data);
@@ -71,6 +71,12 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
             return (this.selection = firstChoice);
         }
 
+        // Exit early if there are no valid choices
+        if (this.choices.length === 0 && !this.containsUUIDs) {
+            await this.close({ force: true });
+            return null;
+        }
+
         return super.resolveSelection();
     }
 
@@ -86,7 +92,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
         const droppedItem = await ItemPF2e.fromDropData(dropData);
         if (!droppedItem) throw ErrorPF2e("Unexpected error resolving drop");
 
-        const isAllowedDrop = this.allowedDrops.test(droppedItem.getRollOptions("item"));
+        const isAllowedDrop = this.allowedDrops.predicate.test(droppedItem.getRollOptions("item"));
         if (!isAllowedDrop) {
             ui.notifications.error(
                 game.i18n.format("PF2E.Item.ABC.InvalidDrop", {
@@ -146,7 +152,7 @@ interface ChoiceSetPromptData extends PickAThingConstructorArgs<string | number 
     prompt: string;
     choices?: PickableThing[];
     containsUUIDs: boolean;
-    allowedDrops: PredicatePF2e;
+    allowedDrops: { label: string | null; predicate: PredicatePF2e };
 }
 
 interface ChoiceSetTemplateData extends PromptTemplateData {

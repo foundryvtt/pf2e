@@ -549,11 +549,9 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "evil"
-                            ]
-                        },
+                        "predicate": [
+                            "evil"
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -739,50 +737,42 @@
                     },
                     {
                         "key": "BaseSpeed",
-                        "predicate": {
-                            "not": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "inhabit-vessel"
+                            }
+                        ],
                         "selector": "fly-speed",
                         "value": 40
                     },
                     {
                         "key": "BaseSpeed",
-                        "predicate": {
-                            "all": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            "inhabit-vessel"
+                        ],
                         "selector": "land-speed",
                         "value": 30
                     },
                     {
                         "key": "Immunity",
-                        "predicate": {
-                            "all": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            "inhabit-vessel"
+                        ],
                         "type": "healing"
                     },
                     {
                         "key": "Immunity",
-                        "predicate": {
-                            "all": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            "inhabit-vessel"
+                        ],
                         "type": "nonlethal"
                     },
                     {
-                        "except": "except bludgeoning",
+                        "except": "PF2E.ResistanceException.Bludgeoning",
                         "key": "Resistance",
-                        "predicate": {
-                            "all": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            "inhabit-vessel"
+                        ],
                         "type": "physical",
                         "value": 5
                     }
@@ -830,13 +820,13 @@
                 },
                 "rules": [
                     {
-                        "except": "except force, or ghost touch; double resistance vs. non-magical",
+                        "except": "PF2E.ResistanceException.ForceGhostTouchDoubleNonMagical",
                         "key": "Resistance",
-                        "predicate": {
-                            "not": [
-                                "inhabit-vessel"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "not": "inhabit-vessel"
+                            }
+                        ],
                         "type": "all",
                         "value": 5
                     }
@@ -973,12 +963,6 @@
         }
     ],
     "name": "Stone Lion",
-    "prototypeToken": {
-        "name": "Stone Lion",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

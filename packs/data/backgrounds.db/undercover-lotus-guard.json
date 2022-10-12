@@ -26,23 +26,24 @@
         },
         "items": {
             "hqa2u": {
-                "id": "B6HbYsLBWb1RR6Fx",
                 "img": "systems/pf2e/icons/features/feats/feats.webp",
                 "level": "1",
                 "name": "Charming Liar",
-                "pack": "pf2e.feats-srd"
+                "uuid": "Compendium.pf2e.feats-srd.B6HbYsLBWb1RR6Fx"
             }
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Lotus Guards and high-ranking criminals (Undercover Lotus Guard)",
-                "predicate": {
-                    "any": [
-                        "target:lotus-guard",
-                        "target:high-rank-criminal"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:lotus-guard",
+                            "target:high-rank-criminal"
+                        ]
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "circumstance",
                 "value": 1
@@ -50,12 +51,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Lotus Guards and high-ranking criminals (Undercover Lotus Guard)",
-                "predicate": {
-                    "any": [
-                        "target:lotus-guard",
-                        "target:high-rank-criminal"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:lotus-guard",
+                            "target:high-rank-criminal"
+                        ]
+                    }
+                ],
                 "selector": "intimidation",
                 "type": "circumstance",
                 "value": 1
@@ -63,12 +66,14 @@
             {
                 "key": "FlatModifier",
                 "label": "Interacting with Lotus Guards and high-ranking criminals (Undercover Lotus Guard)",
-                "predicate": {
-                    "any": [
-                        "target:lotus-guard",
-                        "target:high-rank-criminal"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "target:lotus-guard",
+                            "target:high-rank-criminal"
+                        ]
+                    }
+                ],
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1

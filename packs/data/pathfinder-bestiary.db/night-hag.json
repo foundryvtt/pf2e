@@ -3808,15 +3808,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -3875,11 +3877,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "lostHeartstone"
-                            ]
-                        },
+                        "predicate": [
+                            "lostHeartstone"
+                        ],
                         "selector": "saving-throw",
                         "value": -2
                     }
@@ -4062,11 +4062,9 @@
                 "rules": [
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flatFooted"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flatFooted"
+                        ],
                         "selector": "spell-attack",
                         "text": "{item|system.description.value}",
                         "title": "{item|name}"
@@ -4260,12 +4258,6 @@
         }
     ],
     "name": "Night Hag",
-    "prototypeToken": {
-        "name": "Night Hag",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

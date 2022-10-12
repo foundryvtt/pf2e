@@ -11,30 +11,30 @@ export class Migration670AncestryVision extends MigrationBase {
     private DARKVISION_ID = "HHVQDp61ehcpdiU8";
     private LOWLIGHTVISION_ID = "DRtaqOHXTRtGRIUT";
 
-    override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
-        if (actorSource.type !== "character") return;
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+        if (source.type !== "character") return;
 
-        const ancestry = actorSource.items.find((item): item is AncestrySource => item.type === "ancestry");
+        const ancestry = source.items.find((item): item is AncestrySource => item.type === "ancestry");
         if (ancestry) {
-            this.setAncestryVision(ancestry);
+            this.#setAncestryVision(ancestry);
             for (const vision of ["darkvision", "low-light-vision"]) {
-                const index = actorSource.items.findIndex(
+                const index = source.items.findIndex(
                     (item) => item.type === "feat" && (item.system.slug ?? sluggify(item.name)) === vision
                 );
-                if (index !== -1) actorSource.items.splice(index, 1);
+                if (index !== -1) source.items.splice(index, 1);
             }
         }
     }
 
     /** Only update independent world items */
-    override async updateItem(itemSource: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void> {
-        if (itemSource.type === "ancestry" && !actor) {
-            this.setAncestryVision(itemSource);
+    override async updateItem(source: ItemSourcePF2e, actor?: ActorSourcePF2e): Promise<void> {
+        if (source.type === "ancestry" && !actor) {
+            this.#setAncestryVision(source);
         }
     }
 
-    private setAncestryVision(ancestry: AncestrySource): void {
-        const features: Record<string, ABCFeatureEntryData | null> = ancestry.system.items;
+    #setAncestryVision(ancestry: AncestrySource): void {
+        const features: Record<string, MaybeOldABCFeatureEntryData | null> = ancestry.system.items;
         for (const [key, value] of Object.entries(features)) {
             if (value?.id === this.LOWLIGHTVISION_ID) {
                 "game" in globalThis ? (features[`-=${key}`] = null) : delete features[key];
@@ -47,4 +47,9 @@ export class Migration670AncestryVision extends MigrationBase {
         }
         ancestry.system.vision ??= "normal";
     }
+}
+
+interface MaybeOldABCFeatureEntryData extends ABCFeatureEntryData {
+    pack?: string;
+    id?: string;
 }

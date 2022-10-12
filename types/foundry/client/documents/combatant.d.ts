@@ -54,6 +54,9 @@ declare global {
         /** An array of User documents who have ownership of this Document */
         get players(): User[];
 
+        /** Has this combatant been marked as defeated? */
+        get isDefeated(): boolean;
+
         /* -------------------------------------------- */
         /*  Methods                                     */
         /* -------------------------------------------- */

@@ -4,7 +4,7 @@ import { WeaponDamage } from "@item/weapon/data";
 import { WeaponRangeIncrement } from "@item/weapon/types";
 import { combineTerms } from "@scripts/dice";
 import { WeaponDamagePF2e } from "@system/damage";
-import { MeleeData, NPCAttackTrait } from "./data";
+import { MeleeData, MeleeSystemData, NPCAttackTrait } from "./data";
 
 export class MeleePF2e extends ItemPF2e {
     get traits(): Set<NPCAttackTrait> {
@@ -68,6 +68,11 @@ export class MeleePF2e extends ItemPF2e {
         }
 
         return WeaponDamagePF2e.npcDamageToWeaponDamage(instance);
+    }
+
+    get dealsDamage(): boolean {
+        const { baseDamage } = this;
+        return baseDamage.dice > 0 || baseDamage.modifier > 0;
     }
 
     /** Additional effects that are part of this attack */
@@ -151,7 +156,7 @@ export class MeleePF2e extends ItemPF2e {
     override async getChatData(
         this: Embedded<MeleePF2e>,
         htmlOptions: EnrichHTMLOptions = {}
-    ): Promise<ItemSummaryData> {
+    ): Promise<ItemSummaryData & { map2: string; map3: string } & Omit<MeleeSystemData, "traits">> {
         const systemData = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
 

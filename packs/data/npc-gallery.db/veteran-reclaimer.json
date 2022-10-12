@@ -776,11 +776,9 @@
                         "override": {
                             "dieSize": "d12"
                         },
-                        "predicate": {
-                            "all": [
-                                "twoHanded"
-                            ]
-                        },
+                        "predicate": [
+                            "twoHanded"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -1147,25 +1145,21 @@
                     },
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "agile",
-                                "vengeful-edge"
-                            ]
-                        },
+                        "predicate": [
+                            "agile",
+                            "vengeful-edge"
+                        ],
                         "selector": "attack",
                         "value": -2
                     },
                     {
                         "key": "MultipleAttackPenalty",
-                        "predicate": {
-                            "all": [
-                                "vengeful-edge"
-                            ],
-                            "not": [
-                                "agile"
-                            ]
-                        },
+                        "predicate": [
+                            "vengeful-edge",
+                            {
+                                "not": "agile"
+                            }
+                        ],
                         "selector": "attack",
                         "value": -3
                     }
@@ -1463,12 +1457,6 @@
         }
     ],
     "name": "Veteran Reclaimer",
-    "prototypeToken": {
-        "name": "Veteran Reclaimer",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

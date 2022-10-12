@@ -143,12 +143,19 @@ const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|(?:${wordBou
 
 /**
  * The system's sluggification algorithm for labels and other terms.
- * @param [camel=null] The sluggification style to use: null is default, and there are otherwise two camel options.
+ * @param text The text to sluggify
+ * @param [options.camel=null] The sluggification style to use
  */
-function sluggify(str: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
+function sluggify(text: string, { camel = null }: { camel?: "dromedary" | "bactrian" | null } = {}): string {
+    // Sanity check
+    if (typeof text !== "string") {
+        console.warn("Non-string argument passed to `sluggify`");
+        return "";
+    }
+
     switch (camel) {
         case null:
-            return str
+            return text
                 .replace(lowerCaseThenUpperCaseRE, "$1-$2")
                 .toLowerCase()
                 .replace(/['’]/g, "")
@@ -156,11 +163,11 @@ function sluggify(str: string, { camel = null }: { camel?: "dromedary" | "bactri
                 .trim()
                 .replace(/[-\s]+/g, "-");
         case "bactrian": {
-            const dromedary = sluggify(str, { camel: "dromedary" });
+            const dromedary = sluggify(text, { camel: "dromedary" });
             return dromedary.charAt(0).toUpperCase() + dromedary.slice(1);
         }
         case "dromedary":
-            return str
+            return text
                 .replace(nonWordCharacterHyphenOrSpaceRE, "")
                 .replace(/[-_]+/g, " ")
                 .replace(upperOrWordBoundariedLowerRE, (part, index) =>
@@ -274,7 +281,7 @@ function localizeList(items: string[]) {
 
 /** Generate and return an HTML element for a FontAwesome icon */
 function fontAwesomeIcon(glyph: string, style: "solid" | "regular" = "solid"): HTMLElement {
-    const styleClass = style === "regular" ? "far" : "fas";
+    const styleClass = `fa-${style}`;
     const glyphClass = glyph.startsWith("fa-") ? glyph : `fa-${glyph}`;
     const icon = document.createElement("i");
     icon.classList.add(styleClass, glyphClass);

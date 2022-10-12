@@ -1,5 +1,5 @@
 import { LabeledResistance, ResistanceType } from "@actor/data/base";
-import { IWRRuleElement, IWRRuleElementData } from "./base";
+import { IWRRuleElement } from "./base";
 
 /** @category RuleElement */
 class ResistanceRuleElement extends IWRRuleElement {
@@ -9,33 +9,32 @@ class ResistanceRuleElement extends IWRRuleElement {
         return this.actor.system.traits.dr;
     }
 
-    getIWR(value: number): LabeledResistance | null {
+    getIWR(value: number): LabeledResistance[] {
         const resistances = this.property;
-        const current = resistances.find((resistance) => resistance.type === this.data.type);
-        if (current) {
-            if (this.data.override) {
-                resistances.splice(resistances.indexOf(current), 1);
-            } else {
-                current.value = Math.max(current.value, value);
-                return null;
+
+        for (const resistanceType of this.type) {
+            const current = resistances.find((r) => r.type === resistanceType);
+            if (current) {
+                if (this.data.override) {
+                    resistances.splice(resistances.indexOf(current), 1);
+                } else {
+                    current.value = Math.max(current.value, value);
+                    this.type.splice(this.type.indexOf(resistanceType), 1);
+                }
             }
         }
 
-        return {
-            label: this.dictionary[this.data.type],
-            type: this.data.type,
+        return this.type.map((t) => ({
+            label: this.dictionary[t],
+            type: t,
             value,
-            exceptions: this.data.except,
-        };
+            exceptions: this.data.except ? game.i18n.localize(this.data.except) : undefined,
+        }));
     }
 }
 
 interface ResistanceRuleElement extends IWRRuleElement {
-    data: ResistanceData;
-}
-
-interface ResistanceData extends IWRRuleElementData {
-    type: ResistanceType;
+    type: ResistanceType[];
 }
 
 export { ResistanceRuleElement };

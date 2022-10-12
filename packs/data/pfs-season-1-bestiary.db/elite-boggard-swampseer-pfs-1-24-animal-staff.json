@@ -1285,15 +1285,15 @@
                     {
                         "key": "FlatModifier",
                         "label": "Animal Staff (identify animals)",
-                        "predicate": {
-                            "all": [
-                                "target:trait:animal"
-                            ],
-                            "any": [
-                                "action:recall-knowledge",
-                                "action:identify"
-                            ]
-                        },
+                        "predicate": [
+                            "target:trait:animal",
+                            {
+                                "or": [
+                                    "action:recall-knowledge",
+                                    "action:identify"
+                                ]
+                            }
+                        ],
                         "selector": "nature",
                         "type": "circumstance",
                         "value": 2
@@ -1372,11 +1372,9 @@
                         "override": {
                             "dieSize": "d8"
                         },
-                        "predicate": {
-                            "all": [
-                                "twoHanded"
-                            ]
-                        },
+                        "predicate": [
+                            "twoHanded"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -1864,10 +1862,7 @@
     ],
     "name": "Elite Boggard Swampseer (PFS 1-24, Animal Staff)",
     "prototypeToken": {
-        "name": "Elite Boggard Swampseer",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Elite Boggard Swampseer"
     },
     "system": {
         "abilities": {

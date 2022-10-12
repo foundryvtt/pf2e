@@ -8,8 +8,8 @@ import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
  * Implementation used to populate item summaries, toggle visibility
  * of item summaries, and save expanded/collapsed state of item summaries.
  */
-export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
-    constructor(protected sheet: Application & { get actor(): AType }) {}
+export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
+    constructor(protected sheet: Application & { get actor(): TActor }) {}
 
     activateListeners($html: JQuery) {
         $html.find(".item .item-name h4, .item .melee-name h4, .item .action-name h4").on("click", async (event) => {
@@ -68,10 +68,10 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             const chatData = await item.getChatData({ secrets: actor.isOwner }, $element.data());
             this.renderItemSummary($summary, item, chatData);
             if (options.instant) {
-                InlineRollLinks.listen($summary);
+                InlineRollLinks.listen($summary, actor);
             } else {
                 $summary.hide().slideDown(200, () => {
-                    InlineRollLinks.listen($summary);
+                    InlineRollLinks.listen($summary, actor);
                 });
             }
         }
@@ -96,12 +96,13 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
               })()
             : null;
 
-        const $priceLabel =
+        const $levelPriceLabel =
             itemIsIdentifiedOrUserIsGM && item.system.stackGroup !== "coins"
                 ? ((): JQuery => {
                       const price = item.price.value.toString();
                       const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
-                      return $(`<p>${priceLabel}</p>`);
+                      const levelLabel = game.i18n.format("PF2E.LevelN", { level: item.level });
+                      return $(`<p>${levelLabel}<br/>${priceLabel}</p>`);
                   })()
                 : $();
 
@@ -141,7 +142,7 @@ export class ItemSummaryRendererPF2e<AType extends ActorPF2e> {
             ? chatData.description.value
             : await game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
 
-        $div.append($properties, $priceLabel, `<div class="item-description">${description}</div>`);
+        $div.append($properties, $levelPriceLabel, `<div class="item-description">${description}</div>`);
     }
 
     /**

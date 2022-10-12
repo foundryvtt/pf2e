@@ -22,6 +22,7 @@ import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
 import { MeleePF2e } from "@item";
 import { Rarity, Size, ValueAndMax } from "@module/data";
+import { IdentifyCreatureData } from "@module/recall-knowledge";
 import type { NPCPF2e } from ".";
 
 interface NPCSource extends BaseCreatureSource<"npc", NPCSystemSource> {
@@ -157,6 +158,8 @@ interface NPCDetails extends NPCDetailsSource {
     };
 
     alliance: ActorAlliance;
+
+    identification: IdentifyCreatureData;
 }
 
 /** The full data for a NPC action (used primarily for strikes.) */
@@ -199,6 +202,7 @@ interface NPCHitPoints extends CreatureHitPoints {
 
 /** Perception data with an additional "base" value */
 interface NPCPerception extends PerceptionData {
+    rank?: number;
     base?: number;
 }
 
@@ -206,6 +210,8 @@ interface NPCPerception extends PerceptionData {
 interface NPCSkillData extends SkillData {
     base?: number;
     visible?: boolean;
+    isLore?: boolean;
+    itemID?: string;
     ability: AbilityString;
     label: string;
     expanded: string;

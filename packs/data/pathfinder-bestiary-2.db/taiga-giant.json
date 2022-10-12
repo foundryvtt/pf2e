@@ -477,12 +477,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "enchantment",
-                                "illusion"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "enchantment",
+                                    "illusion"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -621,11 +623,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "ancestral-guardian"
-                            ]
-                        },
+                        "predicate": [
+                            "ancestral-guardian"
+                        ],
                         "selector": "ac",
                         "value": 2
                     }
@@ -841,11 +841,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Undergrowth",
-                        "predicate": {
-                            "all": [
-                                "terrain:undergrowth"
-                            ]
-                        },
+                        "predicate": [
+                            "terrain:undergrowth"
+                        ],
                         "selector": "stealth",
                         "value": 12
                     }
@@ -898,12 +896,6 @@
         }
     ],
     "name": "Taiga Giant",
-    "prototypeToken": {
-        "name": "Taiga Giant",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

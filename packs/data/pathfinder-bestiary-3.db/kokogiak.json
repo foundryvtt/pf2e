@@ -330,25 +330,23 @@
                         "diceNumber": 2,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed",
-                                {
-                                    "or": [
-                                        "finesse",
-                                        "agile",
-                                        {
-                                            "and": [
-                                                "ranged",
-                                                {
-                                                    "not": "thrown"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "finesse",
+                                    "agile",
+                                    {
+                                        "and": [
+                                            "ranged",
+                                            {
+                                                "not": "thrown"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -530,11 +528,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Snow",
-                        "predicate": {
-                            "all": [
-                                "terrain:snow"
-                            ]
-                        },
+                        "predicate": [
+                            "terrain:snow"
+                        ],
                         "selector": "stealth",
                         "value": 4
                     }
@@ -587,12 +583,6 @@
         }
     ],
     "name": "Kokogiak",
-    "prototypeToken": {
-        "name": "Kokogiak",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

@@ -1,0 +1,79 @@
+{
+    "_id": "i3OJZU2nk64Df3xm",
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/clumsy.webp",
+    "name": "Clumsy",
+    "system": {
+        "active": true,
+        "alsoApplies": {
+            "linked": [],
+            "unlinked": []
+        },
+        "base": "Clumsy",
+        "description": {
+            "value": "<p>Your movements become clumsy and inexact. Clumsy always includes a value. You take a status penalty equal to the condition value to Dexterity-based checks and DCs, including AC, Reflex saves, ranged attack rolls, and skill checks using Acrobatics, Stealth, and Thievery.</p>"
+        },
+        "duration": {
+            "perpetual": true,
+            "text": "",
+            "value": 0
+        },
+        "group": "abilities",
+        "hud": {
+            "img": {
+                "useStatusName": true,
+                "value": "systems/pf2e/icons/conditions-2/clumsy.webp"
+            },
+            "selectable": true,
+            "statusName": "clumsy"
+        },
+        "modifiers": [],
+        "overrides": [],
+        "references": {
+            "children": [],
+            "immunityFrom": [],
+            "overriddenBy": [],
+            "overrides": []
+        },
+        "removable": true,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "dex-based",
+                "slug": "clumsy",
+                "type": "status",
+                "value": "-@item.badge.value"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "dex-damage",
+                "slug": "clumsy",
+                "type": "status",
+                "value": "-@item.badge.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "sources": {
+            "hud": true,
+            "values": []
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "value": {
+            "immutable": false,
+            "isValued": true,
+            "modifiers": [],
+            "value": 1
+        }
+    },
+    "type": "condition"
+}

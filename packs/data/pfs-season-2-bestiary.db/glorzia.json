@@ -448,11 +448,9 @@
                         "override": {
                             "dieSize": "d12"
                         },
-                        "predicate": {
-                            "all": [
-                                "twoHanded"
-                            ]
-                        },
+                        "predicate": [
+                            "twoHanded"
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -670,12 +668,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "Mauler",
-                        "predicate": {
-                            "any": [
-                                "target:condition:grabbed",
-                                "target:condition:restrained"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:grabbed",
+                                    "target:condition:restrained"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage",
                         "type": "circumstance",
                         "value": 3
@@ -813,12 +813,6 @@
         }
     ],
     "name": "Glorzia",
-    "prototypeToken": {
-        "name": "Glorzia",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

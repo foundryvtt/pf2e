@@ -785,19 +785,19 @@
                         "diceNumber": 1,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ],
-                            "not": [
-                                "target:condition:prone"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "finesse",
+                                    "agile",
+                                    "ranged"
+                                ]
+                            },
+                            {
+                                "not": "target:condition:prone"
+                            }
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -805,16 +805,16 @@
                         "diceNumber": 1,
                         "dieSize": "d10",
                         "key": "DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:condition:prone"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:prone",
+                            {
+                                "or": [
+                                    "finesse",
+                                    "agile",
+                                    "ranged"
+                                ]
+                            }
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -928,11 +928,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Traps",
-                        "predicate": {
-                            "all": [
-                                "action:craft:trap"
-                            ]
-                        },
+                        "predicate": [
+                            "action:craft:trap"
+                        ],
                         "selector": "crafting",
                         "value": 2
                     }
@@ -1013,12 +1011,6 @@
         }
     ],
     "name": "Nuglub",
-    "prototypeToken": {
-        "name": "Nuglub",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

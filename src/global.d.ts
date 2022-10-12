@@ -8,7 +8,7 @@ import { ActiveEffectPF2e } from "@module/active-effect";
 import { CompendiumBrowser, CompendiumBrowserSettings } from "@module/apps/compendium-browser";
 import { EffectsPanel } from "@module/apps/effects-panel";
 import { LicenseViewer } from "@module/apps/license-viewer";
-import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
+import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { HotbarPF2e } from "@module/apps/ui/hotbar";
 import { WorldClock } from "@module/apps/world-clock";
 import { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas";
@@ -27,16 +27,14 @@ import {
 import { UserPF2e } from "@module/user";
 import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
-import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
-import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
-import { calculateXP } from "@scripts/macros/xp";
-import { ModuleArt } from "@scripts/register-module-art";
+import { calculateXP, launchTravelSheet, perceptionForSelected, rollActionMacro, rollItemMacro } from "@scripts/macros";
+import { ModuleArt, registerModuleArt } from "@scripts/register-module-art";
 import { remigrate } from "@scripts/system/remigrate";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { EffectTracker } from "@system/effect-tracker";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { CheckPF2e } from "@system/rolls";
-import type { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
+import { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
@@ -56,9 +54,13 @@ declare global {
             gm: {
                 calculateXP: typeof calculateXP;
                 launchTravelSheet: typeof launchTravelSheet;
+                perceptionForSelected: typeof perceptionForSelected;
             };
             system: {
-                moduleArt: Map<ActorUUID, ModuleArt>;
+                moduleArt: {
+                    map: Map<ActorUUID, ModuleArt>;
+                    refresh: typeof registerModuleArt;
+                };
                 remigrate: typeof remigrate;
                 sluggify: typeof sluggify;
             };
@@ -101,7 +103,7 @@ declare global {
         var game: Game<ActorPF2e, ActorsPF2e, ChatMessagePF2e, EncounterPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
 
         // eslint-disable-next-line no-var
-        var ui: FoundryUI<ActorPF2e, ItemPF2e, ChatLogPF2e, CompendiumDirectoryPF2e>;
+        var ui: FoundryUI<ActorPF2e, ActorDirectoryPF2e, ItemPF2e, ChatLogPF2e, CompendiumDirectoryPF2e>;
     }
 
     interface Window {
@@ -157,6 +159,7 @@ declare global {
         get(module: "pf2e", setting: "deathIcon"): ImagePath;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
+        get(module: "pf2e", setting: "gmVision"): boolean;
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
         get(module: "pf2e", setting: "nathMode"): boolean;
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
@@ -185,6 +188,7 @@ type ConfiguredConfig = Config<
     AmbientLightDocumentPF2e,
     ActiveEffectPF2e,
     ActorPF2e,
+    ActorDirectoryPF2e,
     ChatLogPF2e,
     ChatMessagePF2e,
     EncounterPF2e,

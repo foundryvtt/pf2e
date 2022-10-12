@@ -1,4 +1,4 @@
-import { Abilities, AbilityData, SkillAbbreviation } from "@actor/creature/data";
+import { Abilities, AbilityData } from "@actor/creature/data";
 import { CreatureSheetPF2e } from "@actor/creature/sheet";
 import { CreatureSheetData } from "@actor/creature/types";
 import { ALIGNMENT_TRAITS } from "@actor/creature/values";
@@ -8,7 +8,6 @@ import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
 import { EffectData } from "@item/data";
 import { Size } from "@module/data";
-import { identifyCreature, IdentifyCreatureData } from "@module/recall-knowledge";
 import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { getActionGlyph, getActionIcon, objectHasKey, setHasElement, tagify } from "@util";
@@ -86,13 +85,8 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         sheetData.spellcastingEntries = await this.prepareSpellcasting();
     }
 
-    private getIdentifyCreatureData(): IdentifyCreatureData {
-        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
-        return identifyCreature(this.actor, { proficiencyWithoutLevel });
-    }
-
     override async getData(): Promise<NPCSheetData<TActor>> {
-        const sheetData: PrePrepSheetData<TActor> = await super.getData();
+        const sheetData = (await super.getData()) as PrePrepSheetData<TActor>;
 
         // Show the token's name as the actor's name if the user has limited permission or this NPC is dead and lootable
         if (this.actor.limited || this.isLootSheet) {
@@ -105,13 +99,13 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         actorTraits.value = actorTraits.value.filter((t: string) => !alignmentTraits.has(t));
 
         // recall knowledge DCs
-        const identifyCreatureData = (sheetData.identifyCreatureData = this.getIdentifyCreatureData());
+        const identifyCreatureData = (sheetData.identifyCreatureData = sheetData.data.details.identification);
         sheetData.identifySkillDC = identifyCreatureData.skill.dc;
         sheetData.identifySkillAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.skill.start];
         sheetData.identifySkillProgression = identifyCreatureData.skill.progression.join("/");
         sheetData.identificationSkills = Array.from(sheetData.identifyCreatureData.skills)
             .sort()
-            .map((skillAcronym) => CONFIG.PF2E.skills[skillAcronym as SkillAbbreviation]);
+            .map((skill) => CONFIG.PF2E.skillList[skill]);
 
         sheetData.specificLoreDC = identifyCreatureData.specificLoreDC.dc;
         sheetData.specificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.specificLoreDC.start];
@@ -227,7 +221,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
         $html.find(".recall-knowledge button.breakdown").on("click", (event) => {
             event.preventDefault();
-            const identifyCreatureData = this.getIdentifyCreatureData();
+            const identifyCreatureData = this.actor.system.details.identification;
             new RecallKnowledgePopup({}, identifyCreatureData).render(true);
         });
 
@@ -301,7 +295,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             const skill = skills[skillId];
             skill.label = objectHasKey(CONFIG.PF2E.skillList, skill.expanded)
                 ? game.i18n.localize(CONFIG.PF2E.skillList[skill.expanded])
-                : skill.label ?? skill.name;
+                : skill.label ?? skill.slug;
             skill.adjustedHigher = skill.value > Number(skill.base);
             skill.adjustedLower = skill.value < Number(skill.base);
         }

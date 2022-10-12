@@ -21,7 +21,6 @@
         "level": {
             "value": 5
         },
-        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -42,18 +41,20 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.martial.martial.rank",
-                "predicate": {
-                    "any": [
-                        "class:champion",
-                        "class:investigator",
-                        "class:magus"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "or": [
+                            "class:champion",
+                            "class:investigator",
+                            "class:magus"
+                        ]
+                    }
+                ],
                 "value": 2
             }
         ],
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "traits": {
             "custom": "",

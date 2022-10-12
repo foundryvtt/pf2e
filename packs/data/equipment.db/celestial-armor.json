@@ -39,10 +39,10 @@
             "value": 2
         },
         "preciousMaterial": {
-            "value": ""
+            "value": null
         },
         "preciousMaterialGrade": {
-            "value": ""
+            "value": null
         },
         "price": {
             "value": {
@@ -50,16 +50,16 @@
             }
         },
         "propertyRune1": {
-            "value": ""
+            "value": null
         },
         "propertyRune2": {
-            "value": ""
+            "value": null
         },
         "propertyRune3": {
-            "value": ""
+            "value": null
         },
         "propertyRune4": {
-            "value": ""
+            "value": null
         },
         "quantity": 1,
         "resiliencyRune": {
@@ -68,43 +68,23 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Celestial Armor (vs. fiends)",
-                "predicate": {
-                    "all": [
-                        "origin:trait:fiend"
-                    ]
-                },
-                "selector": "ac",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Attacker is a fiend",
-                "option": "origin:trait:fiend",
-                "toggleable": true
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Celestial Armor (vs. fiends)",
-                "predicate": {
-                    "all": [
-                        "origin:trait:fiend"
-                    ]
-                },
-                "selector": "saving-throw",
+                "predicate": [
+                    "origin:trait:fiend"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
                 "type": "circumstance",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "label": "Celestial Armor (non-fiends)",
-                "predicate": {
-                    "not": [
-                        "origin:trait:fiend"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "not": "target:trait:fiend"
+                    }
+                ],
                 "selector": "diplomacy",
                 "type": "item",
                 "value": 2
@@ -125,6 +105,7 @@
             "custom": "",
             "rarity": "common",
             "value": [
+                "abjuration",
                 "divine",
                 "flexible",
                 "good",

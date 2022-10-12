@@ -5,21 +5,21 @@ import { extractModifiers } from "@module/rules/util";
 import { Statistic } from "@system/statistic";
 import { BaseSpellcastingEntry } from "./data";
 
-export const TRICK_MAGIC_SKILLS = ["arc", "nat", "occ", "rel"] as const;
+export const TRICK_MAGIC_SKILLS = ["arcana", "nature", "occultism", "religion"] as const;
 export type TrickMagicItemSkill = typeof TRICK_MAGIC_SKILLS[number];
 
 const TrickMagicTradition = {
-    arc: "arcane",
-    nat: "primal",
-    occ: "occult",
-    rel: "divine",
+    arcana: "arcane",
+    nature: "primal",
+    occultism: "occult",
+    religion: "divine",
 } as const;
 
 export const traditionSkills = {
-    arcane: "arc",
-    divine: "rel",
-    occult: "occ",
-    primal: "nat",
+    arcane: "arcana",
+    divine: "religion",
+    occult: "occultism",
+    primal: "nature",
 } as const;
 
 /** A pseudo spellcasting entry used to trick magic item for a single skill */
@@ -59,11 +59,14 @@ export class TrickMagicItemEntry implements BaseSpellcastingEntry {
         ];
         const saveSelectors = [`${tradition}-spell-dc`, "spell-dc"];
 
+        const skillRank = actor.skills[skill].rank;
+        const trickRank = skillRank === 4 ? 2 : skillRank === 3 ? 1 : 0;
+
         this.statistic = new Statistic(actor, {
             slug: `trick-${tradition}`,
             label: CONFIG.PF2E.magicTraditions[tradition],
             ability,
-            rank: actor.system.skills[skill].rank,
+            rank: trickRank || "untrained-level",
             modifiers: extractModifiers(actor.synthetics, selectors),
             domains: selectors,
             check: {

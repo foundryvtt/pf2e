@@ -1307,15 +1307,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "primal",
+                                    "occult",
+                                    "divine"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -1600,11 +1602,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "When Tracking",
-                        "predicate": {
-                            "all": [
-                                "action:track"
-                            ]
-                        },
+                        "predicate": [
+                            "action:track"
+                        ],
                         "selector": "survival",
                         "value": 2
                     }
@@ -1629,12 +1629,6 @@
         }
     ],
     "name": "Zelekhut",
-    "prototypeToken": {
-        "name": "Zelekhut",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

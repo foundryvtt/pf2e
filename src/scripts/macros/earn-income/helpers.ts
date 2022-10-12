@@ -1,12 +1,11 @@
 import { CharacterPF2e } from "@actor";
-import { SkillAbbreviation } from "@actor/creature/data";
-import { ProficiencyRank } from "@item/data";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { ZeroToFour } from "@module/data";
+import { OneToFour } from "@module/data";
 import { calculateDC } from "@module/dc";
 import { DegreeIndex, DEGREE_OF_SUCCESS_STRINGS, RollBrief } from "@system/degree-of-success";
-import { earnIncome, EarnIncomeResult, TrainedProficiency } from "./calculate";
+import { Statistic } from "@system/statistic";
+import { earnIncome, EarnIncomeResult } from "./calculate";
 
 function escapeHtml(text: string): string {
     const p = document.createElement("p");
@@ -16,20 +15,6 @@ function escapeHtml(text: string): string {
 
 function isExperiencedProfessional(actor: CharacterPF2e) {
     return actor.itemTypes.feat.some((i) => i.slug === "experienced-professional");
-}
-
-function rankToProficiency(rank: number): ProficiencyRank {
-    if (rank === 0) {
-        return "untrained";
-    } else if (rank === 1) {
-        return "trained";
-    } else if (rank === 2) {
-        return "expert";
-    } else if (rank === 3) {
-        return "master";
-    } else {
-        return "legendary";
-    }
 }
 
 function degreeOfSuccessLabel(degreeIndex: DegreeIndex): string {
@@ -87,16 +72,17 @@ function isProficiencyWithoutLevel() {
 
 function calculateIncome({ actor, skill, rollBrief, level, days, dc }: CalculateIncomeParams): void {
     const options = {
-        useLoreAsExperiencedProfessional: isExperiencedProfessional(actor) && skill.isLore,
+        useLoreAsExperiencedProfessional: isExperiencedProfessional(actor) && !!skill.lore,
     };
-    const result = earnIncome({ level, days, rollBrief, proficiency: skill.proficiency, options, dc });
+    const proficiency = Math.max(1, skill.rank ?? 1) as OneToFour; // earn income is a trained check
+    const result = earnIncome({ level, days, rollBrief, proficiency, options, dc });
 
-    postToChat(skill.name, result);
+    postToChat(skill.label, result);
 }
 
 interface CalculateIncomeParams {
     actor: CharacterPF2e;
-    skill: SkillBrief;
+    skill: Statistic;
     rollBrief: RollBrief;
     level: number;
     days: number;
@@ -105,15 +91,11 @@ interface CalculateIncomeParams {
 
 function runEarnIncome({ actor, event, skill, level, days }: RunEarnIncomeParams): void {
     const dc = calculateDC(level, { proficiencyWithoutLevel: isProficiencyWithoutLevel() });
-    const options = new Set(actor.getRollOptions(["all", "skill-check", skill.name]));
+    const options = new Set(actor.getRollOptions(["all", "skill-check", skill.slug]));
     options.add("action:earn-income");
 
     game.pf2e.Check.roll(
-        new game.pf2e.CheckModifier(
-            '<span style="font-family: Pathfinder2eActions">A</span> Earn Income',
-            actor.system.skills[skill.acronym],
-            []
-        ),
+        new game.pf2e.CheckModifier(`Earn Income: ${skill.label}`, skill, []),
         { actor, type: "skill-check", dc: { value: dc }, options },
         event,
         (roll): void => {
@@ -127,38 +109,21 @@ function runEarnIncome({ actor, event, skill, level, days }: RunEarnIncomeParams
 interface RunEarnIncomeParams {
     actor: CharacterPF2e;
     event: JQuery.TriggeredEvent | undefined;
-    skill: SkillBrief;
+    skill: Statistic;
     level: number;
     days: number;
 }
 
-function getSkills(actor: CharacterPF2e): SkillBrief[] {
-    return (
-        Object.entries(actor.system.skills)
-            .map(([acronym, value]) => {
-                return {
-                    acronym: acronym as SkillAbbreviation,
-                    name: value.name.capitalize(),
-                    isLore: value.lore === true,
-                    proficiency: rankToProficiency(value.rank),
-                    rank: value.rank,
-                };
-            })
-            // earn income is a trained action
-            .filter((s): s is SkillBrief => s.proficiency !== "untrained")
-    );
-}
-
-function askSkillPopupTemplate(skills: SkillBrief[]): string {
+function askSkillPopupTemplate(skills: Statistic[]): string {
     const level = Number(localStorage.getItem("earnIncomeLevel")) || 0;
     const days = Number(localStorage.getItem("earnIncomeDays")) || 1;
     const skillAcronym = localStorage.getItem("earnIncomeSkillAcronym");
     const assurance = localStorage.getItem("earnIncomeAssurance") === "true";
     const skillOptions = skills
         .map((skill): string => {
-            const skillName = escapeHtml(skill.name);
-            const selected = skillAcronym === skill.acronym ? "selected" : "";
-            return `<option value="${skill.acronym}" ${selected}>${skillName}</option>`;
+            const skillName = escapeHtml(skill.label);
+            const selected = skillAcronym === skill.slug ? "selected" : "";
+            return `<option value="${skill.slug}" ${selected}>${skillName}</option>`;
         })
         .join("");
 
@@ -193,12 +158,4 @@ function askSkillPopupTemplate(skills: SkillBrief[]): string {
     `;
 }
 
-interface SkillBrief {
-    acronym: SkillAbbreviation;
-    name: string;
-    isLore: boolean;
-    proficiency: TrainedProficiency;
-    rank: ZeroToFour;
-}
-
-export { askSkillPopupTemplate, getSkills, runEarnIncome };
+export { askSkillPopupTemplate, runEarnIncome };

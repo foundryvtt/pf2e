@@ -29,15 +29,15 @@
                 "damageCategory": "precision",
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "one-shot-one-kill"
-                    ],
-                    "any": [
-                        "weapon:group:firearm",
-                        "weapon:tag:crossbow"
-                    ]
-                },
+                "predicate": [
+                    "one-shot-one-kill",
+                    {
+                        "or": [
+                            "weapon:group:firearm",
+                            "weapon:tag:crossbow"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "value": {
                     "brackets": [

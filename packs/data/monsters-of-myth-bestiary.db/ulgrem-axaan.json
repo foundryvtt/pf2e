@@ -36,20 +36,16 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "label": "Territorial Rage",
-                        "predicate": {
-                            "all": [
-                                "territorial-rage"
-                            ]
-                        },
+                        "predicate": [
+                            "territorial-rage"
+                        ],
                         "selector": "{item|_id}-damage"
                     },
                     {
                         "key": "Note",
-                        "predicate": {
-                            "all": [
-                                "territorial-rage"
-                            ]
-                        },
+                        "predicate": [
+                            "territorial-rage"
+                        ],
                         "selector": "{item|_id}-attack",
                         "text": "The creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to this attack."
                     }
@@ -273,14 +269,12 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "emotion"
-                            ],
-                            "not": [
-                                "primal"
-                            ]
-                        },
+                        "predicate": [
+                            "emotion",
+                            {
+                                "not": "primal"
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 2
@@ -603,22 +597,18 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "target:trait:undead"
-                            ]
-                        },
+                        "predicate": [
+                            "target:trait:undead"
+                        ],
                         "selector": "attack",
                         "type": "circumstance",
                         "value": 1
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "target:trait:undead"
-                            ]
-                        },
+                        "predicate": [
+                            "target:trait:undead"
+                        ],
                         "selector": "strike-damage",
                         "type": "circumstance",
                         "value": 1
@@ -826,11 +816,9 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.Water",
-                        "predicate": {
-                            "all": [
-                                "terrain:water"
-                            ]
-                        },
+                        "predicate": [
+                            "terrain:water"
+                        ],
                         "selector": "stealth",
                         "type": "untyped",
                         "value": 4
@@ -856,12 +844,6 @@
         }
     ],
     "name": "Ulgrem-Axaan",
-    "prototypeToken": {
-        "name": "Ulgrem-Axaan",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

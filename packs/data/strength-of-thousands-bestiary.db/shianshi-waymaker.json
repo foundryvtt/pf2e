@@ -3505,13 +3505,15 @@
                         "diceNumber": 2,
                         "dieSize": "d8",
                         "key": "DamageDice",
-                        "predicate": {
-                            "any": [
-                                "target:condition:drained",
-                                "target:condition:frightened",
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:drained",
+                                    "target:condition:frightened",
+                                    "target:condition:flat-footed"
+                                ]
+                            }
+                        ],
                         "selector": "greatsword-damage"
                     }
                 ],
@@ -3533,7 +3535,7 @@
         {
             "_id": "2ydazja8ihmn5gye",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Hunter’s Leap",
+            "name": "Hunter's Leap",
             "sort": 3600000,
             "system": {
                 "actionCategory": {
@@ -3827,12 +3829,6 @@
         }
     ],
     "name": "Shianshi Waymaker",
-    "prototypeToken": {
-        "name": "Shianshi Waymaker",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

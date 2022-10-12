@@ -10,7 +10,7 @@ function createEmptySpellcastingEntry(actor: ActorPF2e): Embedded<SpellcastingEn
             type: "spellcastingEntry",
             system: {
                 ability: { value: "cha" },
-                spelldc: { value: 0, dc: 0, mod: 0 },
+                spelldc: { value: 0, dc: 0 },
                 tradition: { value: "arcane" },
                 prepared: { value: "innate" },
             },
@@ -47,11 +47,19 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
         return {
             ...(await super.getData()),
             actor: this.actor,
-            data: this.object.toObject(false).system,
+            data: this.object.toObject().system,
             magicTraditions: CONFIG.PF2E.magicTraditions,
             spellcastingTypes: CONFIG.PF2E.preparationType,
             abilities: CONFIG.PF2E.abilities,
+            hasAbility: this.#canSetAbility(),
         };
+    }
+
+    /** Returns whether or not the spellcasting data can include an ability */
+    #canSetAbility(): boolean {
+        const slug = this.object._source.system.proficiency.slug;
+        const baseStat = this.actor.isOfType("character") ? this.actor.getProficiencyStatistic(slug) : null;
+        return !slug || (!!baseStat && !baseStat.ability);
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -60,16 +68,36 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
         // Unflatten the form data, so that we may make some modifications
         const inputData: DeepPartial<SpellcastingEntrySource> = expandObject(formData);
 
-        // When swapping to innate, convert to cha, but don't force it
-        if (inputData.system?.prepared?.value === "innate" && !wasInnate && inputData.system?.ability) {
-            inputData.system.ability.value = "cha";
+        // We may disable certain form data, so reinject it
+        const system = mergeObject(
+            inputData.system ?? {},
+            {
+                prepared: {
+                    value: this.object.system.prepared.value,
+                },
+                ability: { value: "cha" },
+            },
+            { overwrite: false }
+        );
+
+        inputData.system = system;
+
+        // When swapping to innate convert to cha, but allow changes after
+        if (system.prepared.value === "innate" && !wasInnate) {
+            system.ability.value = "cha";
         }
 
-        if (inputData.system?.autoHeightenLevel) {
-            inputData.system.autoHeightenLevel.value ||= null;
+        // If the proficiency is being set to a value, remove the selected ability
+        if (system.proficiency?.slug) {
+            system.ability.value = "";
+        }
+
+        if (system?.autoHeightenLevel) {
+            system.autoHeightenLevel.value ||= null;
         }
 
         this.object.updateSource(inputData);
+        this.object.reset();
 
         // If this wasn't a submit, only re-render and exit
         if (event.type !== "submit") {
@@ -93,17 +121,28 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
         }
 
         if (this.object.id === null) {
-            const preparationType =
-                game.i18n.localize(CONFIG.PF2E.preparationType[updateData.system.prepared.value]) ?? "";
-            const traditionSpells = game.i18n.localize(CONFIG.PF2E.magicTraditions[this.object.tradition]);
-            updateData.name = this.object.isRitual
-                ? preparationType
-                : game.i18n.format("PF2E.SpellCastingFormat", { preparationType, traditionSpells });
+            updateData.name = (() => {
+                const preparationType =
+                    game.i18n.localize(CONFIG.PF2E.preparationType[updateData.system.prepared.value]) ?? "";
+                const magicTraditions: Record<string, string> = CONFIG.PF2E.magicTraditions;
+                const traditionSpells = game.i18n.localize(magicTraditions[this.object.tradition ?? ""]);
+                if (this.object.isRitual || !traditionSpells) {
+                    return preparationType;
+                } else {
+                    return game.i18n.format("PF2E.SpellCastingFormat", { preparationType, traditionSpells });
+                }
+            })();
 
             await this.actor.createEmbeddedDocuments("Item", [updateData]);
         } else {
             const actualEntry = this.actor.spellcasting.get(this.object.id);
-            const system = pick(updateData.system, ["prepared", "tradition", "ability", "autoHeightenLevel"]);
+            const system = pick(updateData.system, [
+                "prepared",
+                "tradition",
+                "ability",
+                "proficiency",
+                "autoHeightenLevel",
+            ]);
             await actualEntry?.update({ system });
         }
 
@@ -117,12 +156,10 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<E
     magicTraditions: ConfigPF2e["PF2E"]["magicTraditions"];
     spellcastingTypes: ConfigPF2e["PF2E"]["preparationType"];
     abilities: ConfigPF2e["PF2E"]["abilities"];
+    hasAbility: boolean;
 }
 
-export async function createSpellcastingDialog(
-    event: JQuery.ClickEvent,
-    object: ActorPF2e | Embedded<SpellcastingEntryPF2e>
-) {
+export async function createSpellcastingDialog(event: MouseEvent, object: ActorPF2e | Embedded<SpellcastingEntryPF2e>) {
     const dialog = new SpellcastingCreateAndEditDialog(object, {
         top: event.clientY - 80,
         left: window.innerWidth - 710,

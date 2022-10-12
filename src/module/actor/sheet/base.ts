@@ -2,13 +2,12 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
-import { SpellPreparationSheet } from "@item/spellcasting-entry/sheet";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
@@ -36,7 +35,6 @@ import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
-import { createSpellcastingDialog } from "./spellcasting-dialog";
 import { ActorSizePF2e } from "../data/size";
 
 /**
@@ -146,17 +144,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const itemSize = new ActorSizePF2e({ value: item.size });
             const sizeDifference = itemSize.difference(actorSize, { smallIsMedium: true });
 
+            const canBeEquipped = !item.isInContainer;
+
             return {
                 item: item,
                 itemSize: sizeDifference !== 0 ? itemSize : null,
                 editable,
                 isContainer: item.isOfType("backpack"),
-                canBeEquipped: !item.isInContainer,
+                canBeEquipped,
                 isInvestable:
-                    this.actor.isOfType("character") &&
-                    item.isEquipped &&
-                    item.isIdentified &&
-                    item.isInvested !== null,
+                    this.actor.isOfType("character") && canBeEquipped && item.isIdentified && item.isInvested !== null,
                 isSellable: editable && item.isOfType("treasure") && !item.isCoinage,
                 hasCharges: item.isOfType("consumable") && item.uses.max > 0,
                 heldItems,
@@ -195,13 +192,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        // Pad field width
-        $html.find("[data-wpad]").each((_i, e) => {
-            const text = e.tagName === "INPUT" ? (e as HTMLInputElement).value : e.innerText;
-            const w = (text.length * Number(e?.getAttribute("data-wpad"))) / 2;
-            e.setAttribute("style", `flex: 0 0 ${w}px`);
-        });
-
         // Item summaries
         this.itemRenderer.activateListeners($html);
 
@@ -212,7 +202,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
 
-        if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html);
+        if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html, this.actor);
 
         $html.find("[data-action=show-image]").on("click", () => {
             const actor = this.actor;
@@ -327,17 +317,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Spell Create
         $spellControls.filter(".spell-create").on("click", (event) => this.onClickCreateItem(event));
 
-        // Adding/Editing/Removing Spellcasting entries
-        $spellcasting
-            .find("[data-action=spellcasting-create]")
-            .on("click", (event) => this.createSpellcastingEntry(event));
-        $spellControls
-            .filter("a[data-action=spellcasting-edit]")
-            .on("click", (event) => this.editSpellcastingEntry(event));
-        $spellControls
-            .filter("a[data-action=spellcasting-remove]")
-            .on("click", (event) => this.removeSpellcastingEntry(event));
-
         /* -------------------------------------------- */
         /*  Inventory                                   */
         /* -------------------------------------------- */
@@ -363,9 +342,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         $html.find(".item-edit").on("click", (event) => {
             const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
             const item = this.actor.items.get(itemId ?? "");
-            if (item) {
-                item.sheet.render(true);
-            }
+            item?.sheet.render(true, { focus: true });
         });
 
         // Toggle identified
@@ -445,30 +422,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             ]);
         });
 
-        // Update max slots for Spell Items
-        $html.find(".prepared-toggle").on("click", async (event) => {
-            event.preventDefault();
-            const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            this.openSpellPreparationSheet(itemId);
-        });
-
-        $html.find(".slotless-level-toggle").on("click", async (event) => {
-            event.preventDefault();
-
-            const itemId = $(event.currentTarget).parents(".item-container").attr("data-container-id") ?? "";
-            const itemToEdit = this.actor.items.get(itemId);
-            if (!itemToEdit?.isOfType("spellcastingEntry"))
-                throw new Error("Tried to toggle visibility of slotless levels on a non-spellcasting entry");
-            const bool = !(itemToEdit.system.showSlotlessLevels || {}).value;
-
-            await this.actor.updateEmbeddedDocuments("Item", [
-                {
-                    _id: itemId ?? "",
-                    "system.showSlotlessLevels.value": bool,
-                },
-            ]);
-        });
-
         // Select all text in an input field on focus
         $html.find<HTMLInputElement>("input[type=text], input[type=number]").on("focus", (event) => {
             event.currentTarget.select();
@@ -481,17 +434,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (match) target.value = match[0];
             else target.value = "";
         });
-    }
-
-    /** Opens the spell preparation sheet, but only if its a prepared entry */
-    openSpellPreparationSheet(entryId: string) {
-        const entry = this.actor.items.get(entryId);
-        if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
-            const $book = this.element.find(`.item-container[data-container-id="${entry.id}"] .prepared-toggle`);
-            const offset = $book.offset() ?? { left: 0, top: 0 };
-            const sheet = new SpellPreparationSheet(entry, { top: offset.top - 60, left: offset.left + 200 });
-            sheet.render(true);
-        }
     }
 
     async onClickDeleteItem(event: JQuery.TriggeredEvent): Promise<void> {
@@ -617,22 +559,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (previewElement && targetElement && targetElement !== previewElement) {
             const { x, y } = previewElement.getBoundingClientRect();
             event.dataTransfer.setDragImage(previewElement, event.pageX - x, event.pageY - y);
-            mergeObject(targetElement.dataset, previewElement.dataset);
         }
+
+        const itemId = $itemRef.attr("data-item-id");
+        const item = this.actor.items.get(itemId ?? "");
 
         const baseDragData: { [key: string]: unknown } = {
             actorId: this.actor.id,
             sceneId: canvas.scene?.id ?? null,
             tokenId: this.actor.token?.id ?? null,
+            ...item?.toDragData(),
         };
-
-        // Owned Items
-        const itemId = $itemRef.attr("data-item-id");
-        const item = this.actor.items.get(itemId ?? "");
-        if (item) {
-            baseDragData.type = "Item";
-            baseDragData.uuid = item.uuid;
-        }
 
         // Dragging ...
         const supplementalData = (() => {
@@ -645,10 +582,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             // ... an action?
             if (actionIndex) {
                 return {
-                    pf2e: {
-                        type: "Action",
-                        index: Number(actionIndex),
-                    },
+                    type: "Action",
+                    index: Number(actionIndex),
                 };
             }
 
@@ -678,95 +613,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             return null;
         })();
 
-        return supplementalData
-            ? event.dataTransfer.setData(
-                  "text/plain",
-                  JSON.stringify({
-                      ...baseDragData,
-                      ...supplementalData,
-                  })
-              )
-            : super._onDragStart(event);
+        event.dataTransfer.setData("text/plain", JSON.stringify({ ...baseDragData, ...supplementalData }));
     }
 
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(event: ElementDragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        const $dropItemEl = $(event.target).closest(".item");
-        const $dropContainerEl = $(event.target).closest(".item-container");
-
-        const dropSlotType = $dropItemEl.attr("data-item-type");
-        const dropContainerType = $dropContainerEl.attr("data-container-type");
         const item = this.actor.items.get(itemSource._id);
         if (!item) return [];
 
-        // if they are dragging onto another spell, it's just sorting the spells
-        // or moving it from one spellcastingEntry to another
-        if (item.isOfType("spell")) {
-            const targetLocation = $dropContainerEl.attr("data-container-id") ?? "";
-            const collection = this.actor.spellcasting.collections.get(targetLocation, { strict: true });
-
-            if (dropSlotType === "spellLevel") {
-                const { level } = $dropItemEl.data();
-                const spell = await collection.addSpell(item, { slotLevel: Number(level) });
-                this.openSpellPreparationSheet(collection.id);
-                return [spell ?? []].flat();
-            } else if ($dropItemEl.attr("data-slot-id")) {
-                const dropId = Number($dropItemEl.attr("data-slot-id"));
-                const slotLevel = Number($dropItemEl.attr("data-slot-level"));
-
-                if (Number.isInteger(dropId) && Number.isInteger(slotLevel)) {
-                    const allocated = await collection.prepareSpell(item, slotLevel, dropId);
-                    if (allocated) return [allocated];
-                }
-            } else if (dropSlotType === "spell") {
-                const dropId = $dropItemEl.attr("data-item-id") ?? "";
-                const target = this.actor.items.get(dropId);
-                if (target?.isOfType("spell") && item.id !== dropId) {
-                    const sourceLocation = item.system.location.value;
-
-                    // Inner helper to test if two spells are siblings
-                    const testSibling = (item: SpellPF2e, test: SpellPF2e) => {
-                        if (item.isCantrip !== test.isCantrip) return false;
-                        if (item.isCantrip && test.isCantrip) return true;
-                        if (item.isFocusSpell && test.isFocusSpell) return true;
-                        if (item.level === test.level) return true;
-                        return false;
-                    };
-
-                    if (sourceLocation === targetLocation && testSibling(item, target)) {
-                        const siblings = collection.filter((spell) => testSibling(item, spell));
-                        await item.sortRelative({ target, siblings });
-                        return [target];
-                    } else {
-                        const spell = await collection.addSpell(item, { slotLevel: target.level });
-                        this.openSpellPreparationSheet(collection.id);
-                        return [spell ?? []].flat();
-                    }
-                }
-            } else if (dropContainerType === "spellcastingEntry") {
-                // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
-                // if the dragged item is a spell and is from the same actor
-                if (CONFIG.debug.hooks)
-                    console.debug("PF2e System | ***** spell from same actor dropped on a spellcasting entry *****");
-
-                const dropId = $(event.target).parents(".item-container").attr("data-container-id");
-                return dropId ? [await item.update({ "system.location.value": dropId })] : [];
-            }
-        } else if (item.isOfType("spellcastingEntry")) {
-            // target and source are spellcastingEntries and need to be sorted
-            if (dropContainerType === "spellcastingEntry") {
-                const sourceId = item.id;
-                const dropId = $dropContainerEl.attr("data-container-id") ?? "";
-                const source = this.actor.items.get(sourceId);
-                const target = this.actor.items.get(dropId);
-
-                if (source && target && source.id !== target.id) {
-                    const siblings = this.actor.spellcasting.contents;
-                    source.sortRelative({ target, siblings });
-                    return [target];
-                }
-            }
-        } else if (item.isOfType("physical")) {
+        if (item.isOfType("physical")) {
             const $target = $(event.target).closest("[data-item-id]");
             const targetId = $target.attr("data-item-id") ?? "";
             const target = this.actor.inventory.get(targetId);
@@ -806,7 +661,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return await this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
     }
 
-    /** Extend the base _onDropItem method to handle dragging spells onto spell slots. */
     protected override async _onDropItem(event: ElementDragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
         event.preventDefault();
 
@@ -833,6 +687,21 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             return [item];
         }
 
+        return this._handleDroppedItem(event, item, data);
+    }
+
+    /**
+     * PF2e specific method called by _onDropItem() when this is a new item that needs to be dropped into the actor
+     * that isn't already on the actor or transferring to another actor.
+     */
+    protected async _handleDroppedItem(
+        event: ElementDragEvent,
+        item: ItemPF2e,
+        data: DropCanvasItemDataPF2e
+    ): Promise<ItemPF2e[]> {
+        const { actor } = this;
+        const itemSource = item.toObject();
+
         // mystify the item if the alt key was pressed
         if (event.altKey && item.isOfType("physical") && isPhysicalData(itemSource)) {
             itemSource.system.identification.unidentified = item.getMystifiedData("unidentified");
@@ -840,7 +709,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         // get the item type of the drop target
-        const $itemEl = $(event.target).closest(".item");
         const $containerEl = $(event.target).closest(".item-container");
         const containerAttribute = $containerEl.attr("data-container-type");
         const unspecificInventory = this._tabs[0]?.active === "inventory" && !containerAttribute;
@@ -850,15 +718,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
         if (item.isOfType("spell") && itemSource.type === "spell") {
-            if (dropContainerType === "spellcastingEntry") {
-                const entryId = $containerEl.attr("data-container-id") ?? "";
-                const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
-                const level = Math.max(Number($itemEl.attr("data-level")) || 0, item.baseLevel);
-                this.openSpellPreparationSheet(collection.id);
-                return [(await collection.addSpell(item, { slotLevel: level })) ?? []].flat();
-            } else if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
+            if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
                 const popup = new ScrollWandPopup(
-                    this.actor,
+                    actor,
                     {},
                     async (heightenedLevel, itemType, spell) => {
                         if (!(itemType === "scroll" || itemType === "wand")) return;
@@ -880,20 +742,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (typeof value === "number" && itemSource.system.value.isValued) {
                 itemSource.system.value.value = value;
             }
-            const token = actor.token?.object
-                ? actor.token.object
-                : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor?.id === actor.id);
 
             if (!actor.canUserModify(game.user, "update")) {
                 const translations = LocalizePF2e.translations.PF2E;
                 ui.notifications.error(translations.ErrorMessage.NoUpdatePermission);
                 return [];
-            } else if (token) {
-                const condition = await game.pf2e.ConditionManager.addConditionToToken(itemSource, token);
-                return condition ? [condition] : [];
             } else {
-                await actor.increaseCondition(itemSource.system.slug, { min: itemSource.system.value.value });
-                return [item];
+                const updated = await actor.increaseCondition(itemSource.system.slug, {
+                    min: itemSource.system.value.value,
+                });
+                return [updated ?? []].flat();
             }
         } else if (itemSource.type === "effect" && data && "level" in data) {
             const level = data.level;
@@ -1018,7 +876,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     private onClickCreateItem(event: JQuery.ClickEvent) {
         event.preventDefault();
         const header = event.currentTarget;
-        const data: any = duplicate(header.dataset);
+        const data = duplicate(header.dataset);
         data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
 
         if (data.type === "action") {
@@ -1049,66 +907,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         this.actor.createEmbeddedDocuments("Item", [data]);
-    }
-
-    /** Handle creating a new spellcasting entry for the actor */
-    private createSpellcastingEntry(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        createSpellcastingDialog(event, this.actor);
-    }
-
-    private editSpellcastingEntry(event: JQuery.ClickEvent): void {
-        const { containerId } = $(event.target).closest("[data-container-id]").data();
-        const entry = this.actor.spellcasting.get(containerId, { strict: true });
-        createSpellcastingDialog(event, entry as Embedded<SpellcastingEntryPF2e>);
-    }
-
-    /**
-     * Handle removing an existing spellcasting entry for the actor
-     */
-    private removeSpellcastingEntry(event: JQuery.ClickEvent): void {
-        event.preventDefault();
-
-        const li = $(event.currentTarget).parents("[data-container-id]");
-        const itemId = li.attr("data-container-id") ?? "";
-        const item = this.actor.items.get(itemId);
-        if (!item) {
-            return;
-        }
-
-        // Render confirmation modal dialog
-        renderTemplate("systems/pf2e/templates/actors/delete-spellcasting-dialog.html").then((html) => {
-            new Dialog({
-                title: "Delete Confirmation",
-                content: html,
-                buttons: {
-                    Yes: {
-                        icon: '<i class="fa fa-check"></i>',
-                        label: "Yes",
-                        callback: async () => {
-                            console.debug("PF2e System | Deleting Spell Container: ", item.name);
-                            // Delete all child objects
-                            const itemsToDelete: string[] = [];
-                            for (const item of this.actor.itemTypes.spell) {
-                                if (item.system.location.value === itemId) {
-                                    itemsToDelete.push(item.id);
-                                }
-                            }
-                            // Delete item container
-                            itemsToDelete.push(item.id);
-                            await this.actor.deleteEmbeddedDocuments("Item", itemsToDelete);
-
-                            li.slideUp(200, () => this.render(false));
-                        },
-                    },
-                    cancel: {
-                        icon: '<i class="fas fa-times"></i>',
-                        label: "Cancel",
-                    },
-                },
-                default: "Yes",
-            }).render(true);
-        });
     }
 
     private onAddCoinsPopup(event: JQuery.ClickEvent) {
@@ -1236,7 +1034,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const strValue = el.value.trim();
                 const value = Number(strValue);
                 if ((strValue.startsWith("+") || strValue.startsWith("-")) && !Number.isNaN(value))
-                    data[el.name] = getProperty(this.actor, el.name) + value;
+                    data[el.name] = Number(getProperty(this.actor, el.name)) + value;
             }
         }
 

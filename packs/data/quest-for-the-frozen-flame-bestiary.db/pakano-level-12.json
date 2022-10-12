@@ -406,12 +406,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.IceAndSnow",
-                        "predicate": {
-                            "any": [
-                                "terrain:ice",
-                                "terrain:snow"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:ice",
+                                    "terrain:snow"
+                                ]
+                            }
+                        ],
                         "selector": "stealth",
                         "value": 4
                     }
@@ -437,10 +439,7 @@
     ],
     "name": "Pakano (Level 12)",
     "prototypeToken": {
-        "name": "Pakano",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Pakano"
     },
     "system": {
         "abilities": {

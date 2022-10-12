@@ -68,7 +68,7 @@ declare global {
         /*  Rendering                                   */
         /* -------------------------------------------- */
 
-        override draw(): Promise<this>;
+        protected _draw(): Promise<void>;
 
         override destroy(options: object): void;
 

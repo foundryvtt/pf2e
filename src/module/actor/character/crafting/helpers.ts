@@ -1,9 +1,9 @@
 import { CoinsPF2e } from "@item/physical/helpers";
 import { DegreeOfSuccess } from "@system/degree-of-success";
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { getIncomeForLevel, TrainedProficiency } from "@scripts/macros/earn-income";
+import { getIncomeForLevel } from "@scripts/macros/earn-income";
 import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
-import { OneToTen, ZeroToFour } from "@module/data";
+import { OneToTen } from "@module/data";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { CheckRoll } from "@system/check/roll";
 import { ChatMessagePF2e } from "@module/chat-message";
@@ -50,7 +50,7 @@ function calculateCosts(
     const lostMaterials = new CoinsPF2e();
     const reductionPerDay = new CoinsPF2e();
 
-    const proficiency = skillRankToProficiency(actor.system.skills.cra.rank);
+    const proficiency = actor.skills.crafting.rank;
     if (!proficiency) return null;
 
     if (degreeOfSuccess === DegreeOfSuccess.CRITICAL_SUCCESS) {
@@ -67,21 +67,6 @@ function calculateCosts(
         lostMaterials: lostMaterials,
         reductionPerDay: reductionPerDay,
     };
-}
-
-function skillRankToProficiency(rank: ZeroToFour): TrainedProficiency | null {
-    switch (rank) {
-        case 1:
-            return "trained";
-        case 2:
-            return "expert";
-        case 3:
-            return "master";
-        case 4:
-            return "legendary";
-        default:
-            return null;
-    }
 }
 
 export async function craftItem(

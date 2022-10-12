@@ -223,24 +223,28 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "action:shove",
-                                "action:trip"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            }
+                        ],
                         "selector": "fortitude",
                         "type": "circumstance",
                         "value": 2
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "action:shove",
-                                "action:trip"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            }
+                        ],
                         "selector": "reflex",
                         "type": "circumstance",
                         "value": 2
@@ -291,11 +295,9 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "haymaker"
-                            ]
-                        },
+                        "predicate": [
+                            "haymaker"
+                        ],
                         "selector": "strike-damage",
                         "type": "circumstance",
                         "value": 3
@@ -463,12 +465,6 @@
         }
     ],
     "name": "Pruana Two-punch",
-    "prototypeToken": {
-        "name": "Pruana Two-punch",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

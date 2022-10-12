@@ -6,6 +6,7 @@ type DiceExpression = `${OneToFour | ""}d${DieFaceCount}`;
 interface EffectBadgeCounter {
     type: "counter";
     value: number;
+    labels?: string[];
 }
 
 // currently unused until specifices can be figured out

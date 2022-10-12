@@ -1,4 +1,5 @@
 import { MigrationSummary } from "@module/apps/migration-summary";
+import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
 import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
 import { MigrationList } from "@module/migration";
 import { MigrationRunner } from "@module/migration/runner";
@@ -50,11 +51,12 @@ export const Ready = {
                 const subV9Modules = Array.from(game.modules.values()).filter(
                     (m) =>
                         m.active &&
-                        // Foundry does not enforce the presence of `ModuleData#compatibleCoreVersion`, but modules
+                        (m.esmodules.size > 0 || m.scripts.size > 0) &&
+                        // Foundry does not enforce the presence of `Module#compatibility.verified`, but modules
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
-                        (abandonedModules.has(m.id) ||
-                            !foundry.utils.isNewerVersion(m.compatibility.verified ?? 9, "0.8.9"))
+                        !!m.compatibility.verified &&
+                        (abandonedModules.has(m.id) || !foundry.utils.isNewerVersion(m.compatibility.verified, "0.8.9"))
                 );
 
                 for (const badModule of subV9Modules) {
@@ -77,8 +79,22 @@ export const Ready = {
             // Some of game.pf2e must wait until the ready phase
             SetGamePF2e.onReady();
 
+            // Set darkness color according to GM Vision setting
+            if (
+                canvas.ready &&
+                game.user.isGM &&
+                !game.modules.get("perfect-vision")?.active &&
+                game.settings.get("pf2e", "gmVision")
+            ) {
+                CONFIG.Canvas.darknessColor = CONFIG.PF2E.Canvas.darkness.gmVision;
+                canvas.colorManager.initialize();
+            }
+
             // In case there's no canvas, run Condition Manager initialization from this hook as well
             game.pf2e.ConditionManager.initialize();
+
+            // Add Scene Darkness Adjuster to `Scenes` apps list so that it will re-render on scene update
+            game.scenes.apps.push(SceneDarknessAdjuster.instance);
 
             // Sort item types for display in sidebar create-item dialog
             game.system.documentTypes.Item.sort((typeA, typeB) => {

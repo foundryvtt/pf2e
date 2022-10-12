@@ -21,7 +21,6 @@
         "level": {
             "value": 10
         },
-        "location": null,
         "prerequisites": {
             "value": [
                 {
@@ -35,19 +34,17 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        {
-                            "lte": [
-                                "self:level",
-                                13
-                            ]
-                        }
-                    ],
-                    "not": [
-                        "weapon:fist"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:level",
+                            13
+                        ]
+                    },
+                    {
+                        "not": "weapon:fist"
+                    }
+                ],
                 "selector": "strike-damage",
                 "text": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.Base",
                 "title": "{item|name}"
@@ -57,25 +54,25 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        {
-                            "gte": [
-                                "self:level",
-                                14
-                            ]
-                        }
-                    ],
-                    "not": [
-                        {
-                            "gte": [
-                                "self:level",
-                                20
-                            ]
-                        },
-                        "weapon:fist"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            14
+                        ]
+                    },
+                    {
+                        "nor": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    20
+                                ]
+                            },
+                            "weapon:fist"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
                 "text": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.FourteenthLevel",
                 "title": "{item|name}"
@@ -85,19 +82,17 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "predicate": {
-                    "all": [
-                        {
-                            "gte": [
-                                "self:level",
-                                20
-                            ]
-                        }
-                    ],
-                    "not": [
-                        "weapon:fist"
-                    ]
-                },
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            20
+                        ]
+                    },
+                    {
+                        "not": "weapon:fist"
+                    }
+                ],
                 "selector": "strike-damage",
                 "text": "PF2E.SpecificRule.Mummy.AccursedTouch.Note.TwentiethLevel",
                 "title": "{item|name}"

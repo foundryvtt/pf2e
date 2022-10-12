@@ -21,7 +21,6 @@
         "level": {
             "value": 10
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -32,20 +31,47 @@
         "rules": [
             {
                 "key": "Resistance",
-                "predicate": {
-                    "all": [
-                        "spell-effect-wild-shape"
-                    ],
-                    "any": [
-                        "battle-form",
-                        "spell-effect-humanoid-form"
-                    ],
-                    "not": [
-                        "spell-effect-plant-form"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:wild-shape",
+                    {
+                        "not": "self:effect:plant-form"
+                    }
+                ],
                 "type": "poison",
                 "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.tu8FyCtmL3YYR2jL"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.JrNHFNxJayevlv2G"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.fIloZhZVH1xTnX4B"
+                }
             }
         ],
         "source": {

@@ -541,7 +541,8 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "<p class='compact-text'><strong>Little Love</strong> <span class='pf2-icon'>f</span> Interact; <strong>Frequency</strong> once per 10 minutes; <strong>Effect</strong> You @Compendium[pf2e.actionspf2e.Leap]{Leap} (or Vault, if you're Spring-Heeled Jack).</p>"
+                        "text": "<span class=\"pf2-icon\">f</span> Interact; <strong>Frequency</strong> once per 10 minutes; <strong>Effect</strong> You @Compendium[pf2e.actionspf2e.Leap]{Leap} (or Vault, if you're Spring-Heeled Jack).",
+                        "title": "{item|name}"
                     }
                 ],
                 "size": "med",
@@ -1046,11 +1047,9 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "label": "Malicious Stab (Flat-Footed)",
-                        "predicate": {
-                            "all": [
-                                "target:condition:flat-footed"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:flat-footed"
+                        ],
                         "selector": "strike-damage"
                     },
                     {
@@ -1059,11 +1058,9 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "label": "Malicious Stab (Frightened)",
-                        "predicate": {
-                            "all": [
-                                "target:condition:frightened"
-                            ]
-                        },
+                        "predicate": [
+                            "target:condition:frightened"
+                        ],
                         "selector": "strike-damage"
                     }
                 ],
@@ -1168,12 +1165,14 @@
                     {
                         "key": "FlatModifier",
                         "label": "PF2E.SkillVariant.HighJumpOrLongJump",
-                        "predicate": {
-                            "any": [
-                                "action:high-jump",
-                                "action:long-jump"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:high-jump",
+                                    "action:long-jump"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 4
                     }
@@ -1311,10 +1310,7 @@
     ],
     "name": "Spring-Heeled Jack",
     "prototypeToken": {
-        "name": "Spring-heeled Jack",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Spring-heeled Jack"
     },
     "system": {
         "abilities": {

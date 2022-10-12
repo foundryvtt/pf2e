@@ -38,25 +38,21 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "kickback"
-                    ]
-                },
+                "predicate": [
+                    "kickback"
+                ],
                 "selector": "strike-damage",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "scatter"
-                    ],
-                    "not": [
-                        "kickback"
-                    ]
-                },
+                "predicate": [
+                    "scatter",
+                    {
+                        "not": "kickback"
+                    }
+                ],
                 "selector": "attack",
                 "slug": "large-bore-scatter",
                 "value": {
@@ -76,11 +72,9 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "kickback"
-                    ]
-                },
+                "predicate": [
+                    "kickback"
+                ],
                 "selector": "attack",
                 "slug": "large-bore-kickback",
                 "type": "circumstance",
@@ -101,12 +95,10 @@
             },
             {
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "kickback",
-                        "scatter"
-                    ]
-                },
+                "predicate": [
+                    "kickback",
+                    "scatter"
+                ],
                 "selector": "attack",
                 "slug": "large-bore-scatter-kickback",
                 "value": {

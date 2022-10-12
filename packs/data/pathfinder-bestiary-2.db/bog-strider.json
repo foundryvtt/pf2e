@@ -601,15 +601,15 @@
                     {
                         "key": "FlatModifier",
                         "label": "To Leap while Water Striding or Swimming",
-                        "predicate": {
-                            "all": [
-                                "action:leap"
-                            ],
-                            "any": [
-                                "action:swim",
-                                "water-stride"
-                            ]
-                        },
+                        "predicate": [
+                            "action:leap",
+                            {
+                                "or": [
+                                    "action:swim",
+                                    "water-stride"
+                                ]
+                            }
+                        ],
                         "selector": "athletics",
                         "value": 2
                     }
@@ -690,12 +690,6 @@
         }
     ],
     "name": "Bog Strider",
-    "prototypeToken": {
-        "name": "Bog Strider",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

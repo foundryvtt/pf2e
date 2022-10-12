@@ -28,7 +28,7 @@ declare class Note<TDocument extends NoteDocument = NoteDocument> extends Placea
     /* Rendering                                    */
     /* -------------------------------------------- */
 
-    override draw(): Promise<this>;
+    protected _draw(): Promise<void>;
 
     /** Draw the ControlIcon for the Map Note */
     protected _drawControlIcon(): ControlIcon;

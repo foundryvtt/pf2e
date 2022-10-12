@@ -1,22 +1,22 @@
 import { WeaponPF2e } from "@item";
 import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
 import { PredicatePF2e } from "@system/predication";
-import { objectHasKey, setHasElement } from "@util";
-import { DAMAGE_DIE_FACES } from "@system/damage";
+import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
+import { DAMAGE_DIE_FACES } from "@system/damage/values";
 import { extractModifierAdjustments } from "@module/rules/util";
-import { CharacterPF2e } from ".";
+import { type CharacterPF2e } from ".";
 
 /** Handle weapon traits that introduce modifiers or add other weapon traits */
 class StrikeWeaponTraits {
     static adjustWeapon(weapon: WeaponPF2e): void {
         const traits = weapon.system.traits.value;
-        for (const trait of traits) {
+        for (const trait of [...traits]) {
             switch (trait.replace(/-d?\d{1,3}$/, "")) {
                 case "fatal-aim": {
                     if (weapon.rangeIncrement && weapon.handsHeld === 2) {
                         const fatal = trait.replace("-aim", "");
-                        if (objectHasKey(CONFIG.PF2E.weaponTraits, fatal)) {
-                            weapon.system.traits.value.push(fatal);
+                        if (objectHasKey(CONFIG.PF2E.weaponTraits, fatal) && !traits.includes(fatal)) {
+                            traits.push(fatal);
                         }
                     }
                     break;
@@ -36,7 +36,10 @@ class StrikeWeaponTraits {
         }
     }
 
-    static createAttackModifiers(weapon: Embedded<WeaponPF2e>, domains: string[]): ModifierPF2e[] {
+    static createAttackModifiers(weapon: WeaponPF2e, domains: string[]): ModifierPF2e[] {
+        const { actor } = weapon;
+        if (!actor) throw ErrorPF2e("The weapon must be embedded");
+
         const traitsAndTags = [weapon.system.traits.value, weapon.system.traits.otherTags].flat();
 
         const getLabel = (traitOrTag: string): string => {
@@ -57,7 +60,7 @@ class StrikeWeaponTraits {
                             label: CONFIG.PF2E.weaponTraits.kickback,
                             modifier: -2,
                             type: MODIFIER_TYPE.CIRCUMSTANCE,
-                            predicate: new PredicatePF2e({ all: [{ lt: ["ability:str:score", 14] }] }),
+                            predicate: new PredicatePF2e({ lt: ["ability:str:score", 14] }),
                         });
                     }
                     case "volley": {
@@ -70,10 +73,10 @@ class StrikeWeaponTraits {
                             modifier: -2,
                             type: MODIFIER_TYPE.UNTYPED,
                             ignored: true,
-                            predicate: new PredicatePF2e({
-                                all: [{ lte: ["target:distance", penaltyRange] }],
-                                not: ["self:ignore-volley-penalty"],
-                            }),
+                            predicate: new PredicatePF2e(
+                                { lte: ["target:distance", penaltyRange] },
+                                { not: "self:ignore-volley-penalty" }
+                            ),
                         });
                     }
                     case "improvised": {
@@ -82,7 +85,7 @@ class StrikeWeaponTraits {
                             label: getLabel(trait),
                             modifier: -2,
                             type: MODIFIER_TYPE.ITEM,
-                            predicate: new PredicatePF2e({ not: ["self:ignore-improvised-penalty"] }),
+                            predicate: new PredicatePF2e({ not: "self:ignore-improvised-penalty" }),
                         });
                     }
                     case "sweep": {
@@ -91,7 +94,7 @@ class StrikeWeaponTraits {
                             label: getLabel(trait),
                             modifier: 1,
                             type: MODIFIER_TYPE.CIRCUMSTANCE,
-                            predicate: new PredicatePF2e({ all: ["self:sweep-bonus"] }),
+                            predicate: new PredicatePF2e("self:sweep-bonus"),
                         });
                     }
                     case "backswing": {
@@ -100,7 +103,7 @@ class StrikeWeaponTraits {
                             label: getLabel(trait),
                             modifier: 1,
                             type: MODIFIER_TYPE.CIRCUMSTANCE,
-                            predicate: new PredicatePF2e({ all: ["self:backswing-bonus"] }),
+                            predicate: new PredicatePF2e("self:backswing-bonus"),
                         });
                     }
                     default:
@@ -108,7 +111,7 @@ class StrikeWeaponTraits {
                 }
             })
             .map((modifier) => {
-                const synthetics = weapon.actor.synthetics.modifierAdjustments;
+                const synthetics = actor.synthetics.modifierAdjustments;
                 modifier.adjustments = extractModifierAdjustments(synthetics, domains, modifier.slug);
                 return modifier;
             });
@@ -124,7 +127,7 @@ function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): Modifi
         label: "PF2E.Actions.ForceOpen.NoCrowbarPenalty",
         type: "item",
         modifier: -2,
-        predicate: { all: ["action:force-open"] },
+        predicate: ["action:force-open"],
         hideIfDisabled: true,
         adjustments: extractModifierAdjustments(synthetics, domains, slug),
     });

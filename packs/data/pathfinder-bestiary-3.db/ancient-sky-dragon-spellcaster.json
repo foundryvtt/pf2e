@@ -4285,7 +4285,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @Compendium[pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@Compendium[pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -4502,13 +4502,15 @@
                         "diceNumber": 1,
                         "dieSize": "d12",
                         "key": "DamageDice",
-                        "predicate": {
-                            "not": [
-                                "countered-by-fire",
-                                "divine-lighning-good",
-                                "divine-lightning-positive"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "countered-by-fire",
+                                    "divine-lighning-good",
+                                    "divine-lightning-positive"
+                                ]
+                            }
+                        ],
                         "selector": "{item|_id}-damage"
                     }
                 ],
@@ -4782,15 +4784,17 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "predicate": {
-                            "any": [
-                                "magical",
-                                "arcane",
-                                "divine",
-                                "primal",
-                                "occult"
-                            ]
-                        },
+                        "predicate": [
+                            {
+                                "or": [
+                                    "magical",
+                                    "arcane",
+                                    "divine",
+                                    "primal",
+                                    "occult"
+                                ]
+                            }
+                        ],
                         "selector": "saving-throw",
                         "type": "status",
                         "value": 1
@@ -5037,15 +5041,15 @@
                         "dieSize": "d12",
                         "key": "DamageDice",
                         "label": "PF2E.NPCAbility.SkyDragon.DivineLightningGood",
-                        "predicate": {
-                            "all": [
-                                "divine-lightning-good"
-                            ],
-                            "not": [
-                                "countered-by-fire",
-                                "divine-lightning-positive"
-                            ]
-                        },
+                        "predicate": [
+                            "divine-lightning-good",
+                            {
+                                "nor": [
+                                    "countered-by-fire",
+                                    "divine-lightning-positive"
+                                ]
+                            }
+                        ],
                         "selector": "jaws-damage"
                     },
                     {
@@ -5054,15 +5058,15 @@
                         "dieSize": "d12",
                         "key": "DamageDice",
                         "label": "PF2E.NPCAbility.SkyDragon.DivineLightningPositive",
-                        "predicate": {
-                            "all": [
-                                "divine-lightning-positive"
-                            ],
-                            "not": [
-                                "countered-by-fire",
-                                "divine-lightning-good"
-                            ]
-                        },
+                        "predicate": [
+                            "divine-lightning-positive",
+                            {
+                                "nor": [
+                                    "countered-by-fire",
+                                    "divine-lightning-good"
+                                ]
+                            }
+                        ],
                         "selector": "jaws-damage"
                     }
                 ],
@@ -5488,10 +5492,7 @@
     ],
     "name": "Ancient Sky Dragon (Spellcaster)",
     "prototypeToken": {
-        "name": "Ancient Sky Dragon",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
+        "name": "Ancient Sky Dragon"
     },
     "system": {
         "abilities": {

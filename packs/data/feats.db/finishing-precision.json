@@ -21,7 +21,6 @@
         "level": {
             "value": 4
         },
-        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -41,22 +40,32 @@
             {
                 "damageCategory": "precision",
                 "key": "FlatModifier",
-                "predicate": {
-                    "all": [
-                        "panache",
-                        "melee"
-                    ],
-                    "any": [
-                        "finesse",
-                        "agile"
-                    ],
-                    "not": [
-                        "finisher",
-                        "class:swashbuckler"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:panache",
+                    {
+                        "or": [
+                            "weapon:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "weapon:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse"
+                        ]
+                    },
+                    {
+                        "not": "finisher"
+                    }
+                ],
                 "selector": "strike-damage",
-                "slug": "dedication-precise-strike",
+                "slug": "finishing-precision",
                 "value": 1
             },
             {
@@ -64,22 +73,30 @@
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": {
-                    "all": [
-                        "finisher",
-                        "panache",
-                        "melee"
-                    ],
-                    "any": [
-                        "finesse",
-                        "agile"
-                    ],
-                    "not": [
-                        "class:swashbuckler"
-                    ]
-                },
+                "predicate": [
+                    "self:effect:panache",
+                    "finisher",
+                    {
+                        "or": [
+                            "weapon:melee",
+                            {
+                                "and": [
+                                    "feat:flying-blade",
+                                    "weapon:thrown",
+                                    "target:range-increment:1"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "weapon:trait:agile",
+                            "weapon:trait:finesse"
+                        ]
+                    }
+                ],
                 "selector": "strike-damage",
-                "slug": "dedication-finisher"
+                "slug": "finishing-precision"
             }
         ],
         "source": {

@@ -455,14 +455,12 @@
                     {
                         "key": "FlatModifier",
                         "label": "Taken a swig of alcohol in past minute",
-                        "predicate": {
-                            "all": [
-                                "swig"
-                            ],
-                            "not": [
-                                "range"
-                            ]
-                        },
+                        "predicate": [
+                            "swig",
+                            {
+                                "not": "range"
+                            }
+                        ],
                         "selector": "strike-damage",
                         "type": "item",
                         "value": 2
@@ -602,12 +600,6 @@
         }
     ],
     "name": "Dockhand Cultist",
-    "prototypeToken": {
-        "name": "Dockhand Cultist",
-        "texture": {
-            "src": "systems/pf2e/icons/default-icons/npc.svg"
-        }
-    },
     "system": {
         "abilities": {
             "cha": {

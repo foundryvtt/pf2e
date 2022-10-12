@@ -25,7 +25,7 @@ class KitPF2e extends ItemPF2e {
         entries = this.entries,
         containerId = null,
     }: { entries?: KitEntryData[]; containerId?: string | null } = {}): Promise<PhysicalItemPF2e[]> {
-        const itemUUIDs = entries.map((e): ItemUUID => (e.pack ? `Compendium.${e.pack}.${e.id}` : `Item.${e.id}`));
+        const itemUUIDs = entries.map((e): ItemUUID => e.uuid);
         const items: unknown[] = await fromUUIDs(itemUUIDs);
         if (entries.length !== items.length) throw ErrorPF2e(`Some items from ${this.name} were not found`);
         if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
