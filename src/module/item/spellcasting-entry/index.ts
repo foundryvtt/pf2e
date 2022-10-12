@@ -93,14 +93,13 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         }
     }
 
-    override prepareActorData(this: Embedded<SpellcastingEntryPF2e>): void {
-        const actor = this.actor;
+    override prepareActorData(): void {
+        const { actor, tradition } = this;
 
         // Upgrade the actor proficiency using the internal ones
         // Innate spellcasting will always be elevated by other spellcasting proficiencies but never do
         // the elevating itself
-        const tradition = this.tradition;
-        if (actor.isOfType("character") && !this.isInnate && tradition) {
+        if (actor?.isOfType("character") && !this.isInnate && tradition) {
             const proficiency = actor.system.proficiencies.traditions[tradition];
             const rank = this.system.proficiency.value;
             proficiency.rank = Math.max(rank, proficiency.rank) as OneToFour;
@@ -273,7 +272,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         };
     }
 
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix: string = this.type): string[] {
         return [`${prefix}:${this.ability}`, `${prefix}:${this.tradition}`, `${prefix}:${this.system.prepared.value}`];
     }
 
@@ -308,6 +307,8 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 }
 
 interface SpellcastingEntryPF2e {
+    readonly type: "spellcastingEntry";
+
     readonly data: SpellcastingEntryData;
 }
 

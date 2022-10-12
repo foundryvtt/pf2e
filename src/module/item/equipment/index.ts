@@ -26,10 +26,7 @@ class EquipmentPF2e extends PhysicalItemPF2e {
         }
     }
 
-    override async getChatData(
-        this: Embedded<EquipmentPF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
-    ): Promise<ItemSummaryData> {
+    override async getChatData(htmlOptions: EnrichHTMLOptions = {}): Promise<ItemSummaryData> {
         const data = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
         const properties = [this.isEquipped ? game.i18n.localize("PF2E.EquipmentEquippedLabel") : null].filter(
@@ -58,6 +55,8 @@ class EquipmentPF2e extends PhysicalItemPF2e {
 }
 
 interface EquipmentPF2e {
+    readonly type: "equipment";
+
     readonly data: EquipmentData;
 
     get traits(): Set<EquipmentTrait>;

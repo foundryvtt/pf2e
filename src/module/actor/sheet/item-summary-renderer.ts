@@ -24,7 +24,7 @@ export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
      * Returns true if it the item is valid and it was toggled.
      */
     async toggleSummary($element: JQuery, options: { instant?: boolean } = {}) {
-        const actor = this.sheet.actor;
+        const { actor } = this.sheet;
 
         const itemId = $element.attr("data-item-id");
         const itemType = $element.attr("data-item-type");

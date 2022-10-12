@@ -119,15 +119,15 @@ declare global {
                  * @param [options.keepId=false]  Keep the original Document ID? Otherwise the ID will become undefined
                  * @returns The cloned Document instance
                  */
-                clone<T extends this>(
+                clone(
                     data: DocumentUpdateData<this> | undefined,
                     options: { save: true; keepId?: boolean }
-                ): Promise<T>;
-                clone<T extends this>(data?: DocumentUpdateData<this>, options?: { save?: false; keepId?: boolean }): T;
-                clone<T extends this>(
+                ): Promise<this>;
+                clone(data?: DocumentUpdateData<this>, options?: { save?: false; keepId?: boolean }): this;
+                clone(
                     data?: DocumentUpdateData<this>,
                     options?: { save?: boolean; keepId?: boolean }
-                ): T | Promise<T>;
+                ): this | Promise<this>;
 
                 /**
                  * Get the permission level that a specific User has over this Document, a value in CONST.ENTITY_PERMISSIONS.

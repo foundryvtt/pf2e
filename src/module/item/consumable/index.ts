@@ -38,10 +38,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         }) as Embedded<SpellPF2e>;
     }
 
-    override async getChatData(
-        this: Embedded<ConsumablePF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
-    ): Promise<ItemSummaryData> {
+    override async getChatData(htmlOptions: EnrichHTMLOptions = {}): Promise<ItemSummaryData> {
         const systemData = this.system;
         const translations = LocalizePF2e.translations.PF2E;
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
@@ -183,6 +180,8 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 }
 
 interface ConsumablePF2e {
+    readonly type: "consumable";
+
     readonly data: ConsumableData;
 }
 

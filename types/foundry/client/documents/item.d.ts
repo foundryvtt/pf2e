@@ -14,6 +14,8 @@ declare global {
 
         img: ImagePath;
 
+        readonly type: string;
+
         /** A convenience alias of Item#isEmbedded which is preserves legacy support */
         get isOwned(): boolean;
 
@@ -22,9 +24,6 @@ declare global {
          * The returned instances are the ActiveEffect instances which exist on the Item itself.
          */
         get transferredEffects(): CollectionValue<this["data"]["effects"]>[];
-
-        /** A convenience reference to the item type (data.type) of this Item */
-        get type(): string;
 
         /** Prepare a data object which defines the data schema used by dice roll commands against this Item */
         getRollData(): object;

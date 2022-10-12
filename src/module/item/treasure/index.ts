@@ -22,10 +22,7 @@ class TreasurePF2e extends PhysicalItemPF2e {
         }
     }
 
-    override async getChatData(
-        this: Embedded<TreasurePF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
-    ): Promise<ItemSummaryData> {
+    override async getChatData(htmlOptions: EnrichHTMLOptions = {}): Promise<ItemSummaryData> {
         const systemData = this.system;
         const traits = this.traitChatData({});
 
@@ -34,6 +31,8 @@ class TreasurePF2e extends PhysicalItemPF2e {
 }
 
 interface TreasurePF2e {
+    readonly type: "treasure";
+
     readonly data: TreasureData;
 }
 

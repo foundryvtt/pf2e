@@ -110,7 +110,7 @@ class EffectPF2e extends AbstractEffectPF2e {
     }
 
     /** Include a trimmed version of the "slug" roll option (e.g., effect:rage instead of effect:effect-rage) */
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix: string = this.type): string[] {
         const slug = this.slug ?? sluggify(this.name);
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const trimmedSlug = slug.replace(/^(?:spell-)?(?:effect|stance)-/, "");
@@ -196,6 +196,8 @@ class EffectPF2e extends AbstractEffectPF2e {
 }
 
 interface EffectPF2e {
+    readonly type: "effect";
+
     readonly data: EffectData;
 }
 

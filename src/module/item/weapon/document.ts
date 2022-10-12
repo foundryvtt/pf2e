@@ -1,7 +1,7 @@
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
-import { ItemSummaryData, MeleeSource } from "@item/data";
+import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll, NPCAttackTrait } from "@item/melee/data";
 import {
     Bulk,
@@ -10,6 +10,7 @@ import {
     IdentificationStatus,
     MaterialGradeData,
     MystifiedData,
+    PhysicalItemSummaryData,
     RuneValuationData,
     WeaponPropertyRuneData,
     WEAPON_MATERIAL_VALUATION_DATA,
@@ -363,10 +364,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         return materialData?.[material.precious?.grade ?? "low"] ?? null;
     }
 
-    override async getChatData(
-        this: Embedded<WeaponPF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
-    ): Promise<ItemSummaryData> {
+    override async getChatData(htmlOptions: EnrichHTMLOptions = {}): Promise<PhysicalItemSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const chatData = await super.getChatData();
         return this.processChatData(htmlOptions, {
@@ -468,15 +466,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
         ].flat();
     }
 
-    override clone<T extends this>(
+    override clone(
         data: DocumentUpdateData<this> | undefined,
         options: Omit<WeaponCloneOptions, "save"> & { save: true }
-    ): Promise<T>;
-    override clone<T extends this>(
+    ): Promise<this>;
+    override clone(
         data?: DocumentUpdateData<this>,
         options?: Omit<WeaponCloneOptions, "save"> & { save?: false }
-    ): T;
-    override clone<T extends this>(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): T | Promise<T>;
+    ): this;
+    override clone(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): this | Promise<this>;
     override clone(data?: DocumentUpdateData<this>, options?: WeaponCloneOptions): this | Promise<this> {
         const clone = super.clone(data, options);
         if (options?.altUsage && clone instanceof WeaponPF2e) {
@@ -651,6 +649,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
 }
 
 interface WeaponPF2e {
+    readonly type: "weapon";
+
     readonly data: WeaponData;
 
     get traits(): Set<WeaponTrait>;

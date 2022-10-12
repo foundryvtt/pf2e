@@ -1,4 +1,4 @@
-import { ItemPF2e } from "@item";
+import { EffectSubclass, ItemPF2e } from "@item";
 import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data";
 
@@ -30,7 +30,7 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
         const badge = this.badge;
         if (typeof badge?.value === "number") {
             const otherEffects = actor.items.filter(
-                (i): i is Embedded<AbstractEffectPF2e> =>
+                (i): i is Embedded<EffectSubclass> =>
                     i instanceof AbstractEffectPF2e && i.rollOptionSlug === this.rollOptionSlug
             );
             const values = otherEffects
