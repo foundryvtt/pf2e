@@ -22,13 +22,13 @@ export async function treatWounds(options: ActionDefaultOptions) {
     const chirurgeon = CheckFeat(actor, "chirurgeon");
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
     const dialog = new Dialog({
-        title: "Treat Wounds",
+        title: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
         content: `
-<div>Select a target DC. Remember that you can't attempt a heal above your proficiency. Attempting to do so will downgrade the DC and amount healed to the highest you're capable of.</div>
+<div>${game.i18n.localize("PF2E.Actions.TreatWounds.Label")}</div>
 <hr/>
 <form>
 <div class="form-group">
-<label>Treat Wounds Skill:</label>
+<label>${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
 <select id="skill" name="skill"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
 <option value="medicine">Medicine</option>
 ${chirurgeon ? `<option value="crafting">Crafting</option>` : ``}
@@ -40,23 +40,23 @@ ${naturalMedicine ? `<option value="nature">Nature</option>` : ``}
 <div class="form-group">
 <label>Medicine DC:</label>
 <select id="dc-type" name="dc-type">
-<option value="1">Trained DC 15</option>
-<option value="2">Expert DC 20, +10 Healing</option>
-<option value="3">Master DC 30, +30 Healing</option>
-<option value="4">Legendary DC 40, +50 Healing</option>
+<option value="1">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Trained")}</option>
+<option value="2">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Expert")}</option>
+<option value="3">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Master")}</option>
+<option value="4">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Legendary")}</option>
 </select>
 </div>
 </form>
 <form>
 <div class="form-group">
-<label>DC Modifier:</label>
+<label>${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Mod")}</label>
 <input id="modifier" name="modifier" type="number"/>
 </div>
 </form>
 ${
     CheckFeat(actor, "risky-surgery")
         ? `<form><div class="form-group">
-<label>Risky Surgery</label>
+<label>${game.i18n.localize("PF2E.Actions.TreatWounds.Feats.RiskySurgery")}</label>
 <input type="checkbox" id="risky_surgery_bool" name="risky_surgery_bool"></input>
 </div></form>`
         : ``
@@ -64,7 +64,7 @@ ${
 ${
     CheckFeat(actor, "mortal-healing")
         ? `<form><div class="form-group">
-<label>Mortal Healing</label>
+<label>${game.i18n.localize("PF2E.Actions.TreatWounds.Feats.MortalHealing")}</label>
 <input type="checkbox" id="mortal_healing_bool" name="mortal_healing_bool" checked></input>
 </div></form>`
         : ``
@@ -74,12 +74,12 @@ ${
         buttons: {
             yes: {
                 icon: `<i class="fas fa-hand-holding-medical"></i>`,
-                label: "Treat Wounds",
+                label: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
                 callback: ($html) => applyChanges(actor, $html, options.event),
             },
             no: {
                 icon: `<i class="fas fa-times"></i>`,
-                label: "Cancel",
+                label: game.i18n.localize("PF2E.Actions.TreatWounds.Cancel"),
             },
         },
         default: "yes",
@@ -97,7 +97,7 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
 
     const skill = actor.skills[skillName];
     if (!skill?.proficient) {
-        ui.notifications.warn(`Token ${name} does not have the medicine skill`);
+        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name: name }));
         return;
     }
 
@@ -144,7 +144,7 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
             if (riskysurgery) {
                 ChatMessagePF2e.create({
                     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                    flavor: `<strong>Damage Roll: Risky Surgery</strong>`,
+                    flavor: `<strong>${game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.RiskySurgery")}</strong>`,
                     roll: (await new Roll("{1d8}[slashing]").roll({ async: true })).toJSON(),
                     speaker,
                 });
@@ -152,10 +152,13 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
 
             if (healFormula) {
                 const healRoll = await new Roll(`{${healFormula}}[healing]`).roll({ async: true });
-                const rollType = outcome !== "criticalFailure" ? "Healing" : "Damage";
+                const rollType =
+                    outcome !== "criticalFailure"
+                        ? game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWounds")
+                        : game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWoundsCriticalFailure");
                 ChatMessagePF2e.create({
                     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                    flavor: `<strong>${rollType} Roll: Treat Wounds</strong> (${successLabel})`,
+                    flavor: `<strong>${rollType}</strong> (${successLabel})`,
                     roll: healRoll.toJSON(),
                     speaker,
                 });
