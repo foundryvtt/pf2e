@@ -3,6 +3,7 @@ import { ItemSummaryData } from "@item/data";
 import { EquipmentTrait } from "@item/equipment/data";
 import { PhysicalItemPF2e } from "@item/physical";
 import { Bulk, weightToBulk } from "@item/physical/bulk";
+import { ErrorPF2e } from "@util";
 import { ContainerData } from "./data";
 import { hasExtraDimensionalParent } from "./helpers";
 
@@ -38,7 +39,9 @@ class ContainerPF2e extends PhysicalItemPF2e {
     }
 
     /** Reload this container's contents following Actor embedded-document preparation */
-    override prepareSiblingData(this: Embedded<ContainerPF2e>): void {
+    override prepareSiblingData(): void {
+        if (!this.actor) throw ErrorPF2e("prepareSiblingData may only be called from an embedded item");
+
         this.contents = new Collection(
             this.actor.inventory.filter((item) => item.container?.id === this.id).map((item) => [item.id, item])
         );
@@ -52,10 +55,7 @@ class ContainerPF2e extends PhysicalItemPF2e {
         await this.actor.updateEmbeddedDocuments("Item", updates, { render: false });
     }
 
-    override async getChatData(
-        this: Embedded<ContainerPF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
-    ): Promise<ItemSummaryData> {
+    override async getChatData(htmlOptions: EnrichHTMLOptions = {}): Promise<ItemSummaryData> {
         const systemData = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
 
@@ -64,6 +64,8 @@ class ContainerPF2e extends PhysicalItemPF2e {
 }
 
 interface ContainerPF2e {
+    readonly type: "backpack";
+
     readonly data: ContainerData;
 
     get traits(): Set<EquipmentTrait>;

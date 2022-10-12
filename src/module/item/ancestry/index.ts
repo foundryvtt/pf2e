@@ -1,5 +1,4 @@
 import { CreatureTrait } from "@actor/creature/data";
-import { CharacterPF2e } from "@actor";
 import { Size } from "@module/data";
 import { ABCItemPF2e, FeatPF2e } from "@item";
 import { AncestryData } from "./data";
@@ -70,14 +69,14 @@ class AncestryPF2e extends ABCItemPF2e {
     }
 
     /** Prepare a character's data derived from their ancestry */
-    override prepareActorData(this: Embedded<AncestryPF2e>): void {
+    override prepareActorData(): void {
         const { actor } = this;
-        if (!(actor instanceof CharacterPF2e)) {
+        if (!actor?.isOfType("character")) {
             console.error("PF2e System | Only a character can have an ancestry");
             return;
         }
 
-        actor.ancestry = this;
+        actor.ancestry = this as Embedded<AncestryPF2e>;
 
         actor.system.attributes.ancestryhp = this.hitPoints;
         this.logAutoChange("system.attributes.ancestryhp", this.hitPoints);
@@ -139,6 +138,8 @@ class AncestryPF2e extends ABCItemPF2e {
 }
 
 interface AncestryPF2e {
+    readonly type: "ancestry";
+
     readonly data: AncestryData;
 }
 

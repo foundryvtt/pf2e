@@ -1,12 +1,12 @@
 import { ItemPF2e } from "@item/base";
-import { ItemSummaryData } from "@item/data";
+import { ItemSummaryData, TraitChatData } from "@item/data";
 import { WeaponDamage } from "@item/weapon/data";
 import { WeaponRangeIncrement } from "@item/weapon/types";
 import { combineTerms } from "@scripts/dice";
 import { WeaponDamagePF2e } from "@system/damage";
-import { MeleeData, MeleeSystemData, NPCAttackTrait } from "./data";
+import { MeleeData, NPCAttackTrait } from "./data";
 
-export class MeleePF2e extends ItemPF2e {
+class MeleePF2e extends ItemPF2e {
     get traits(): Set<NPCAttackTrait> {
         return new Set(this.system.traits.value);
     }
@@ -137,7 +137,7 @@ export class MeleePF2e extends ItemPF2e {
     }
 
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix: string = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const otherOptions = Object.entries({
@@ -153,21 +153,27 @@ export class MeleePF2e extends ItemPF2e {
         return [baseOptions, otherOptions].flat().sort();
     }
 
-    override async getChatData(
-        this: Embedded<MeleePF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
-    ): Promise<ItemSummaryData & { map2: string; map3: string } & Omit<MeleeSystemData, "traits">> {
-        const systemData = this.system;
+    override async getChatData(htmlOptions: EnrichHTMLOptions = {}): Promise<MeleeSummaryData> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
-
         const isAgile = this.traits.has("agile");
         const map2 = isAgile ? "-4" : "-5";
         const map3 = isAgile ? "-8" : "-10";
 
-        return this.processChatData(htmlOptions, { ...systemData, traits, map2, map3 });
+        return this.processChatData(htmlOptions, { ...this.system, traits, map2, map3 });
     }
 }
 
-export interface MeleePF2e {
+interface MeleePF2e {
+    readonly type: "melee";
+
     readonly data: MeleeData;
 }
+
+interface MeleeSummaryData extends ItemSummaryData {
+    traits: TraitChatData[];
+    map2: string;
+    map3: string;
+    bonus: { value: number };
+}
+
+export { MeleePF2e };

@@ -1,5 +1,5 @@
 import { RuleElementPF2e, RuleElementOptions } from "../";
-import { FeatPF2e, ItemPF2e } from "@item";
+import { FeatPF2e, ItemPF2e, ItemSubclassPF2e } from "@item";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e, isObject, objectHasKey, sluggify } from "@util";
@@ -305,7 +305,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 type: itemType,
             };
             const items = (await pack?.getDocuments(query)) ?? [];
-            if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) {
+            if (!items.every((i): i is ItemSubclassPF2e => i instanceof ItemPF2e)) {
                 return [];
             }
 

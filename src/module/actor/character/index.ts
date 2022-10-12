@@ -914,7 +914,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         // Set number of hands free
         const heldItems = this.inventory.filter((i) => i.isHeld);
-        const handsFree = heldItems.reduce((count, item) => {
+        const handsFree = heldItems.reduce((count, item: PhysicalItemPF2e) => {
             const handsOccupied = item.traits.has("free-hand") ? 0 : item.handsHeld;
             return Math.max(count - handsOccupied, 0);
         }, 2);

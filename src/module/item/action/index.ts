@@ -3,7 +3,7 @@ import { ActionItemData, ActionItemSource } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { ActionCost, Frequency } from "@item/data/base";
-import { ItemSummaryData } from "@item/data";
+import { ItemSummaryData, TraitChatData } from "@item/data";
 
 class ActionItemPF2e extends ItemPF2e {
     get actionCost(): ActionCost | null {
@@ -29,10 +29,7 @@ class ActionItemPF2e extends ItemPF2e {
         }
     }
 
-    override async getChatData(
-        this: Embedded<ActionItemPF2e>,
-        htmlOptions: EnrichHTMLOptions = {}
-    ): Promise<ItemSummaryData> {
+    override async getChatData(htmlOptions: EnrichHTMLOptions = {}): Promise<ActionSummaryData> {
         const systemData = this.system;
 
         // Feat properties
@@ -70,7 +67,13 @@ class ActionItemPF2e extends ItemPF2e {
 }
 
 interface ActionItemPF2e {
+    readonly type: "action";
+
     readonly data: ActionItemData;
+}
+
+interface ActionSummaryData extends ItemSummaryData {
+    traits: TraitChatData[];
 }
 
 export { ActionItemPF2e };

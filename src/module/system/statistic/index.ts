@@ -9,7 +9,7 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
-import { ItemPF2e } from "@item";
+import { ItemSubclassPF2e } from "@item";
 import { ZeroToFour } from "@module/data";
 import {
     extractDegreeOfSuccessAdjustments,
@@ -39,7 +39,7 @@ export interface StatisticRollParameters {
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
     /** The originating item of this attack, if any */
-    item?: Embedded<ItemPF2e> | null;
+    item?: Embedded<ItemSubclassPF2e> | null;
     /** Is this a secret roll? */
     secret?: boolean;
     /** Should the dialog be skipped */
@@ -52,7 +52,7 @@ export interface StatisticRollParameters {
 
 interface RollOptionParameters {
     extraRollOptions?: string[];
-    item?: ItemPF2e | null;
+    item?: ItemSubclassPF2e | null;
     target?: ActorPF2e | null;
 }
 

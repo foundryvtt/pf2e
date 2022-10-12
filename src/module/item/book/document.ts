@@ -4,6 +4,8 @@ import { BookData } from "./data";
 class BookPF2e extends PhysicalItemPF2e {}
 
 interface BookPF2e extends PhysicalItemPF2e {
+    readonly type: "book";
+
     readonly data: BookData;
 }
 

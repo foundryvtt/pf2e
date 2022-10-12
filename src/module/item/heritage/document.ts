@@ -15,8 +15,13 @@ class HeritagePF2e extends ItemPF2e {
     }
 
     /** Prepare a character's data derived from their heritage */
-    override prepareActorData(this: Embedded<HeritagePF2e>): void {
-        this.actor.heritage = this;
+    override prepareActorData(): void {
+        if (!this.actor?.isOfType("character")) {
+            console.error("PF2e System | Only a character can have an ancestry");
+            return;
+        }
+
+        this.actor.heritage = this as Embedded<HeritagePF2e>;
 
         // Add and remove traits as specified
         this.actor.system.traits.value.push(...this.traits);
@@ -34,6 +39,8 @@ class HeritagePF2e extends ItemPF2e {
 
 interface HeritagePF2e extends ItemPF2e {
     readonly parent: CharacterPF2e | null;
+
+    readonly type: "heritage";
 
     readonly data: HeritageData;
 }
