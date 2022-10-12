@@ -79,7 +79,7 @@ ${
             },
             no: {
                 icon: `<i class="fas fa-times"></i>`,
-                label: game.i18n.localize("PF2E.Actions.TreatWounds.Cancel"),
+                label: game.i18n.localize("Cancel"),
             },
         },
         default: "yes",
