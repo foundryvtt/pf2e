@@ -3,8 +3,8 @@
 ## Version 4.2.6
 
 ### Bugfixes
+* (Drental) Accommodate macros ending with single-line comments
 * (stwlam) Fix aura colors getting inverted
-* (stwlam) Accommodate macros ending with single-line comments
 * (stwlam) Restore setting self:condition roll options
 * (stwlam) Refrain from highlighting measured templates invisible to players
 * (stwlam) Fix issue causing some auras to fall behind in rendering
