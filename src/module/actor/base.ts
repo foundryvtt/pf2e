@@ -4,7 +4,7 @@ import {
     ArmorPF2e,
     ContainerPF2e,
     ItemPF2e,
-    ItemSubclassPF2e,
+    ItemUnionPF2e,
     PhysicalItemPF2e,
     PhysicalItemSubclass,
     type ConditionPF2e,
@@ -1246,7 +1246,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     readonly data: ActorDataPF2e;
 
-    readonly items: foundry.abstract.EmbeddedCollection<ItemSubclassPF2e>;
+    readonly items: foundry.abstract.EmbeddedCollection<ItemUnionPF2e>;
 
     readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e>;
 

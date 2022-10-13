@@ -35,7 +35,7 @@ type PhysicalItemSubclass =
     | TreasurePF2e
     | WeaponPF2e;
 
-type ItemSubclassPF2e =
+type ItemUnionPF2e =
     | ABCItemSubclass
     | EffectSubclass
     | PhysicalItemSubclass
@@ -70,7 +70,7 @@ export {
     HeritagePF2e,
     ItemConstructionContextPF2e,
     ItemPF2e,
-    ItemSubclassPF2e,
+    ItemUnionPF2e,
     KitPF2e,
     LorePF2e,
     MeleePF2e,

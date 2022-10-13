@@ -1,7 +1,7 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { AttackTarget } from "@actor/creature/types";
 import { StrikeData, TraitViewData } from "@actor/data/base";
-import { ItemPF2e, ItemSubclassPF2e, WeaponPF2e } from "@item";
+import { ItemPF2e, ItemUnionPF2e, WeaponPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { ZeroToThree } from "@module/data";
@@ -110,7 +110,7 @@ interface CheckRollContext extends BaseRollContext {
     /** The token which initiated this roll. */
     token?: TokenDocumentPF2e;
     /** The originating item of this attack, if any */
-    item?: Embedded<ItemSubclassPF2e> | null;
+    item?: Embedded<ItemUnionPF2e> | null;
     /** Optional title of the roll options dialog; defaults to the check name */
     title?: string;
     /** Optional DC data for the check */

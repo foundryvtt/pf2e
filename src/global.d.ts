@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor/base";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { FeatCategoryOptions } from "@actor/character/feats";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
-import { ItemPF2e, ItemSubclassPF2e } from "@item";
+import { ItemPF2e, ItemUnionPF2e } from "@item";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { CompendiumBrowser, CompendiumBrowserSettings } from "@module/apps/compendium-browser";
@@ -105,7 +105,7 @@ declare global {
             ActorsPF2e,
             ChatMessagePF2e,
             EncounterPF2e,
-            ItemSubclassPF2e,
+            ItemUnionPF2e,
             MacroPF2e,
             ScenePF2e,
             UserPF2e
@@ -115,7 +115,7 @@ declare global {
         var ui: FoundryUI<
             ActorPF2e,
             ActorDirectoryPF2e<ActorPF2e>,
-            ItemSubclassPF2e,
+            ItemUnionPF2e,
             ChatLogPF2e,
             CompendiumDirectoryPF2e
         >;
