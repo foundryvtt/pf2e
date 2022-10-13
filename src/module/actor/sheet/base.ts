@@ -2,12 +2,9 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
+import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { Coins } from "@item/physical/data";
-import { DENOMINATIONS } from "@item/physical/values";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
@@ -28,6 +25,7 @@ import {
     WeaknessSelector,
 } from "@system/tag-selector";
 import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
+import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
 import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
@@ -35,7 +33,6 @@ import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
-import { ActorSizePF2e } from "../data/size";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!

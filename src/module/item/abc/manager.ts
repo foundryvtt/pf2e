@@ -7,11 +7,7 @@ import { ErrorPF2e, sluggify } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
 import { MigrationList, MigrationRunner } from "@module/migration";
 
-export interface ABCManagerOptions {
-    assurance?: string[];
-}
-
-export class AncestryBackgroundClassManager {
+class AncestryBackgroundClassManager {
     static async addABCItem(
         source: AncestrySource | BackgroundSource | ClassSource,
         actor: CharacterPF2e,
@@ -189,3 +185,9 @@ export class AncestryBackgroundClassManager {
         return actor.createEmbeddedDocuments("Item", itemsToCreate, { keepId: true });
     }
 }
+
+interface ABCManagerOptions {
+    assurance?: string[];
+}
+
+export { ABCManagerOptions, AncestryBackgroundClassManager };
