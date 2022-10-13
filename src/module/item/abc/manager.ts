@@ -1,4 +1,4 @@
-import { FeatPF2e, ClassPF2e, ItemPF2e, ABCItemSubclass } from "@item/index";
+import { FeatPF2e, ClassPF2e, ItemPF2e, ABCItemPF2e } from "@item/index";
 import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e } from "@item/data";
 import { ABCFeatureEntryData } from "@item/abc/data";
 import { CharacterPF2e } from "@actor/index";
@@ -90,7 +90,7 @@ export class AncestryBackgroundClassManager {
         name: string
     ): Promise<AncestrySource | BackgroundSource | ClassSource | FeatSource> {
         const slug = sluggify(name);
-        const pack = game.packs.get<CompendiumCollection<ABCItemSubclass>>(packName, { strict: true });
+        const pack = game.packs.get<CompendiumCollection<ABCItemPF2e>>(packName, { strict: true });
         const docs = await pack.getDocuments({ "system.slug": { $in: [slug] } });
         if (docs.length === 1) {
             return docs[0].toObject();

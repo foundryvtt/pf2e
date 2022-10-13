@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
-import { ItemPF2e, ItemSubclassPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
@@ -89,10 +89,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     /** Get the owned item associated with this chat message */
-    get item(): Embedded<ItemSubclassPF2e> | null {
+    get item(): Embedded<ItemPF2e> | null {
         // If this is a strike, we usually want the strike's item
         const strike = this._strike;
-        if (strike?.item) return strike.item as Embedded<ItemSubclassPF2e>;
+        if (strike?.item) return strike.item as Embedded<ItemPF2e>;
 
         const item = (() => {
             const domItem = this.getItemFromDOM();
@@ -148,7 +148,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     /** Get stringified item source from the DOM-rendering of this chat message */
-    getItemFromDOM(): Embedded<ItemSubclassPF2e> | null {
+    getItemFromDOM(): Embedded<ItemPF2e> | null {
         const $domMessage = $("ol#chat-log").children(`li[data-message-id="${this.id}"]`);
         const sourceString = $domMessage.find("div.pf2e.item-card").attr("data-embedded-item") ?? "null";
         try {
@@ -159,7 +159,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
                       fromConsumable: this.flags?.pf2e?.isFromConsumable,
                   })
                 : null;
-            return item as Embedded<ItemSubclassPF2e> | null;
+            return item as Embedded<ItemPF2e> | null;
         } catch (_error) {
             return null;
         }

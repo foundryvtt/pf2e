@@ -11,10 +11,10 @@ import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData 
 import { ItemTrait } from "./data/base";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { processGrantDeletions } from "../rules/rule-element/grant-item/helpers";
+import type { PhysicalItemPF2e } from "./physical";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { PhysicalItemSubclass } from "@item";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -60,13 +60,11 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Check this item's type (or whether it's one among multiple types) without a call to `instanceof` */
-    isOfType(type: "physical"): this is PhysicalItemSubclass;
+    isOfType(type: "physical"): this is PhysicalItemPF2e;
     isOfType<T extends ItemType>(...types: T[]): this is InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][T]>;
     isOfType<T extends "physical" | ItemType>(
         ...types: T[]
-    ): this is
-        | PhysicalItemSubclass
-        | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][Exclude<T, "physical">]>;
+    ): this is PhysicalItemPF2e | InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][Exclude<T, "physical">]>;
     isOfType(...types: (ItemType | "physical")[]): boolean {
         return types.some((t) => (t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, this.type) : this.type === t));
     }
@@ -273,10 +271,10 @@ class ItemPF2e extends Item<ActorPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using enrichHTML.
      */
-    protected async processChatData<TData extends ItemSummaryData>(
+    protected async processChatData<T extends ItemSummaryData>(
         htmlOptions: EnrichHTMLOptionsPF2e = {},
-        data: TData
-    ): Promise<TData> {
+        data: T
+    ): Promise<T> {
         data.properties = data.properties?.filter((property) => property !== null) ?? [];
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
@@ -294,7 +292,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     async getChatData(
         htmlOptions: EnrichHTMLOptionsPF2e = {},
-        _rollOptions?: Record<string, unknown>
+        _rollOptions: Record<string, unknown> = {}
     ): Promise<ItemSummaryData> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned item ${this.name}`);
         const systemData: Record<string, unknown> = { ...this.system, traits: this.traitChatData() };
@@ -448,7 +446,7 @@ class ItemPF2e extends Item<ActorPF2e> {
             const items = ids.flatMap((id) => actor.items.get(id) ?? []);
 
             // If a container is being deleted, its contents need to have their containerId references updated
-            const containers = items.filter((i): i is Embedded<ContainerPF2e> => i.type === "backpack");
+            const containers = items.filter((i): i is Embedded<ContainerPF2e> => i.isOfType("backpack"));
             for (const container of containers) {
                 await container.ejectContents();
             }
@@ -611,9 +609,9 @@ interface ItemPF2e {
 
     get sheet(): ItemSheetPF2e<this>;
 
-    prepareSiblingData?(): void;
+    prepareSiblingData?(this: Embedded<ItemPF2e>): void;
 
-    prepareActorData?(): void;
+    prepareActorData?(this: Embedded<ItemPF2e>): void;
 }
 
 export { ItemPF2e, ItemConstructionContextPF2e };

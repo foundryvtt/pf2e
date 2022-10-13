@@ -1,6 +1,6 @@
 import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { SAVE_TYPES } from "@actor/values";
-import { ItemSubclassPF2e, PhysicalItemPF2e } from "@item";
+import { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
@@ -211,7 +211,7 @@ export const ChatCards = {
      */
     rollActorSaves: async (
         event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>,
-        item: Embedded<ItemSubclassPF2e>
+        item: Embedded<ItemPF2e>
     ): Promise<void> => {
         if (canvas.tokens.controlled.length > 0) {
             const saveType = event.currentTarget.dataset.save;

@@ -92,8 +92,6 @@ class KitPF2e extends ItemPF2e {
 }
 
 interface KitPF2e {
-    readonly type: "kit";
-
     readonly data: KitData;
 }
 

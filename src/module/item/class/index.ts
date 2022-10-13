@@ -75,13 +75,13 @@ class ClassPF2e extends ABCItemPF2e {
     }
 
     /** Prepare a character's data derived from their class */
-    override prepareActorData(): void {
-        if (!this.actor?.isOfType("character")) {
+    override prepareActorData(this: Embedded<ClassPF2e>): void {
+        if (!this.actor.isOfType("character")) {
             console.error("Only a character can have a class");
             return;
         }
 
-        this.actor.class = this as Embedded<ClassPF2e>;
+        this.actor.class = this;
         const { attributes, build, details, martial, proficiencies, saves, skills } = this.actor.system;
         const slug = this.slug ?? sluggify(this.name);
 
@@ -137,8 +137,6 @@ class ClassPF2e extends ABCItemPF2e {
 }
 
 interface ClassPF2e {
-    readonly type: "class";
-
     readonly data: ClassData;
 
     get slug(): ClassTrait | null;

@@ -30,14 +30,14 @@ class DeityPF2e extends ItemPF2e {
         }
     }
 
-    override prepareActorData(): void {
-        if (!this.actor?.isOfType("character")) {
+    override prepareActorData(this: Embedded<DeityPF2e>): void {
+        if (!this.actor.isOfType("character")) {
             // This should never happen, but ...
             this.delete({ render: false });
             return;
         }
 
-        this.actor.deity = this as Embedded<DeityPF2e>;
+        this.actor.deity = this;
 
         const { deities } = this.actor.system.details;
         const systemData = this.system;
@@ -97,7 +97,7 @@ class DeityPF2e extends ItemPF2e {
         }
     }
 
-    override getRollOptions(prefix: string = this.type): string[] {
+    override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         return [...baseOptions, `${delimitedPrefix}category:${this.category}`].sort();
@@ -105,8 +105,6 @@ class DeityPF2e extends ItemPF2e {
 }
 
 interface DeityPF2e extends ItemPF2e {
-    readonly type: "deity";
-
     readonly data: DeityData;
 }
 

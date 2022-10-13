@@ -2,7 +2,7 @@ import { ItemPF2e } from "..";
 import { FeatData, FeatSource, FeatTrait, FeatType } from "./data";
 import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
-import { ErrorPF2e, sluggify } from "@util";
+import { sluggify } from "@util";
 import { FeatCategory } from "@actor/character/feats";
 import { Frequency } from "@item/data/base";
 import { ItemSummaryData } from "@item/data";
@@ -105,15 +105,16 @@ class FeatPF2e extends ItemPF2e {
     }
 
     /** Set a self roll option for this feat(ure) */
-    override prepareActorData(): void {
-        if (!this.actor) throw ErrorPF2e("prepareSiblingData may only be called from an embedded item");
-
+    override prepareActorData(this: Embedded<FeatPF2e>): void {
         const prefix = this.isFeature ? "feature" : "feat";
         const slug = this.slug ?? sluggify(this.name);
         this.actor.rollOptions.all[`${prefix}:${slug}`] = true;
     }
 
-    override async getChatData(htmlOptions: EnrichHTMLOptions = {}): Promise<ItemSummaryData> {
+    override async getChatData(
+        this: Embedded<FeatPF2e>,
+        htmlOptions: EnrichHTMLOptions = {}
+    ): Promise<ItemSummaryData> {
         const systemData = this.system;
         const properties = [
             `Level ${systemData.level.value || 0}`,
@@ -217,8 +218,6 @@ class FeatPF2e extends ItemPF2e {
 }
 
 interface FeatPF2e {
-    readonly type: "feat";
-
     readonly data: FeatData;
 }
 

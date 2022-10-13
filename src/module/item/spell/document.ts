@@ -23,7 +23,15 @@ import { CheckPF2e } from "@system/rolls";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionIcon, objectHasKey, ordinal, traitSlugToObject } from "@util";
-import { SpellData, SpellHeightenLayer, SpellOverlay, SpellOverlayType, SpellSource, SpellSystemSource } from "./data";
+import {
+    SpellData,
+    SpellHeightenLayer,
+    SpellOverlay,
+    SpellOverlayType,
+    SpellSource,
+    SpellSystemData,
+    SpellSystemSource,
+} from "./data";
 import { applyDamageDice } from "./helpers";
 import { SpellOverlayCollection } from "./overlay";
 import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
@@ -381,16 +389,14 @@ class SpellPF2e extends ItemPF2e {
         this.overlays = new SpellOverlayCollection(this, this.system.overlays);
     }
 
-    override prepareSiblingData(): void {
-        if (!this.actor) throw ErrorPF2e("prepareSiblingData may only be called from an embedded item");
-
+    override prepareSiblingData(this: Embedded<SpellPF2e>): void {
         this.system.traits.value.push(this.school, ...this.traditions);
         if (this.spellcasting?.isInnate) {
             mergeObject(this.system.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
         }
     }
 
-    override getRollOptions(prefix: string = this.type): string[] {
+    override getRollOptions(prefix = this.type): string[] {
         const options = new Set<string>();
 
         const entryHasSlots = this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous;
@@ -457,7 +463,7 @@ class SpellPF2e extends ItemPF2e {
     override async getChatData(
         htmlOptions: EnrichHTMLOptionsPF2e = {},
         rollOptions: { castLevel?: number | string } = {}
-    ): Promise<ItemSummaryData> {
+    ): Promise<Omit<ItemSummaryData, "traits">> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
         const slotLevel = Number(rollOptions.castLevel) || this.level;
         const castLevel = this.computeCastLevel(slotLevel);
@@ -489,7 +495,7 @@ class SpellPF2e extends ItemPF2e {
         rollData.item ??= this;
 
         const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
-        const systemData = this.system;
+        const systemData: SpellSystemData = this.system;
 
         const options = { ...htmlOptions, rollData };
         const description = await game.pf2e.TextEditor.enrichHTML(this.description, { ...options, async: true });
@@ -500,7 +506,7 @@ class SpellPF2e extends ItemPF2e {
             console.warn(
                 `PF2e System | Orphaned spell ${this.name} (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
             );
-            return { ...systemData, traits: [] };
+            return { ...systemData };
         }
 
         const statistic = trickData?.statistic || spellcasting?.statistic;
@@ -508,7 +514,7 @@ class SpellPF2e extends ItemPF2e {
             console.warn(
                 `PF2e System | Spell ${this.name} is missing a statistic to cast with (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
             );
-            return { ...systemData, traits: [] };
+            return { ...systemData };
         }
 
         const statisticChatData = statistic.getChatData({ item: this });
@@ -768,8 +774,6 @@ class SpellPF2e extends ItemPF2e {
 }
 
 interface SpellPF2e {
-    readonly type: "spell";
-
     readonly data: SpellData;
 
     overlays: SpellOverlayCollection;

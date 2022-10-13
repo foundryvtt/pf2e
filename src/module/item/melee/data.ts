@@ -60,4 +60,4 @@ interface MeleeDamageRoll {
 export type NPCAttackTrait = keyof ConfigPF2e["PF2E"]["npcAttackTraits"];
 export type NPCAttackTraits = ItemTraits<NPCAttackTrait>;
 
-export { MeleeDamageRoll, MeleeData, MeleeSource, MeleeSystemSource };
+export { MeleeDamageRoll, MeleeData, MeleeSource, MeleeSystemData, MeleeSystemSource };

@@ -5,8 +5,7 @@ import { CoinsPF2e } from "@item/physical/helpers";
 import { Rarity, Size } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
-import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
-import { ErrorPF2e, isObject, sluggify } from "@util";
+import { isObject, sluggify } from "@util";
 import { getUnidentifiedPlaceholderImage } from "../identification";
 import { Bulk, stackDefinitions, weightToBulk } from "./bulk";
 import { IdentificationStatus, ItemCarryType, MystifiedData, PhysicalItemTrait, Price } from "./data";
@@ -124,7 +123,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         if (this.system.containerId === null) return (this._container = null);
 
         const container = this._container ?? this.actor?.items.get(this.system.containerId ?? "");
-        if (container?.type === "backpack") this._container = container;
+        if (container?.isOfType("backpack")) this._container = container;
 
         return this._container;
     }
@@ -154,7 +153,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix: string = this.type): string[] {
+    override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const physicalItemOptions = Object.entries({
@@ -262,9 +261,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.identification.unidentified = this.getMystifiedData("unidentified");
     }
 
-    override prepareSiblingData(): void {
-        if (!this.actor) throw ErrorPF2e("prepareSiblingData may only be called from an embedded item");
-
+    override prepareSiblingData(this: Embedded<PhysicalItemPF2e>): void {
         if (this.isStowed) {
             this.system.equipped.carryType = "stowed";
             delete this.system.equipped.inSlot;
@@ -283,7 +280,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             this.type === item.type &&
             this.name === item.name &&
             this.isIdentified === item.isIdentified &&
-            ![this, item].some((i) => i.isHeld || i.type === "backpack");
+            ![this, item].some((i) => i.isHeld || i.isOfType("backpack"));
         if (!preCheck) return false;
 
         const thisData = this.toObject().system;
@@ -327,11 +324,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         };
     }
 
-    override async getChatData(
-        _htmlOptions?: EnrichHTMLOptionsPF2e,
-        _rollOptions?: Record<string, unknown>
-    ): Promise<PhysicalItemSummaryData> {
-        super.getChatData;
+    override async getChatData(): Promise<ItemSummaryData> {
         const { precious } = this.material;
         const material = precious
             ? game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
@@ -388,7 +381,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     /* -------------------------------------------- */
-    /*  Event Handlers                              */
+    /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
     /** Set to unequipped upon acquiring */
@@ -473,14 +466,4 @@ interface PhysicalItemPF2e {
     computeAdjustedPrice?(): CoinsPF2e | null;
 }
 
-interface PhysicalItemSummaryData extends ItemSummaryData {
-    rarity?: {
-        name: Rarity;
-        label: string;
-        description: string;
-    };
-
-    material?: string | null;
-}
-
-export { PhysicalItemPF2e, PhysicalItemSummaryData };
+export { PhysicalItemPF2e };

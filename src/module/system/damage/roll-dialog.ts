@@ -90,7 +90,7 @@ export class DamageRollModifiersDialog extends Application {
                 : "";
 
             const properties = ((): string => {
-                if (item?.type === "weapon" && item.isRanged) {
+                if (item?.isOfType("weapon") && item.isRanged) {
                     // Show the range increment for ranged weapons
                     const { rangeIncrement } = item;
                     const slug = `range-increment-${rangeIncrement}`;

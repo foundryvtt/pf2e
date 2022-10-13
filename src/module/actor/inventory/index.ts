@@ -1,13 +1,13 @@
 import { ActorPF2e } from "@actor";
-import { PhysicalItemSubclass, TreasurePF2e } from "@item";
+import { PhysicalItemPF2e, TreasurePF2e } from "@item";
 import { Coins } from "@item/physical/data";
 import { DENOMINATIONS } from "@item/physical/values";
 import { coinCompendiumIds, CoinsPF2e } from "@item/physical/helpers";
 import { ErrorPF2e, groupBy } from "@util";
 import { InventoryBulk } from "./bulk";
 
-class ActorInventory extends Collection<Embedded<PhysicalItemSubclass>> {
-    constructor(public readonly actor: ActorPF2e, entries?: Embedded<PhysicalItemSubclass>[]) {
+class ActorInventory extends Collection<Embedded<PhysicalItemPF2e>> {
+    constructor(public readonly actor: ActorPF2e, entries?: Embedded<PhysicalItemPF2e>[]) {
         super(entries?.map((entry) => [entry.id, entry]));
     }
 
@@ -50,13 +50,13 @@ class ActorInventory extends Collection<Embedded<PhysicalItemSubclass>> {
                     await item.update({ "system.quantity": item.quantity + quantity });
                 } else {
                     const compendiumId = coinCompendiumIds[denomination];
-                    const pack = game.packs.find<CompendiumCollection<PhysicalItemSubclass>>(
+                    const pack = game.packs.find<CompendiumCollection<PhysicalItemPF2e>>(
                         (p) => p.collection === "pf2e.equipment-srd"
                     );
                     if (!pack) throw ErrorPF2e("Unexpected error retrieving equipment compendium");
 
                     const item = (await pack.getDocument(compendiumId))?.clone();
-                    if (item?.type === "treasure") {
+                    if (item?.isOfType("treasure")) {
                         item.updateSource({ "system.quantity": quantity });
                         await this.actor.createEmbeddedDocuments("Item", [item.toObject()]);
                     }

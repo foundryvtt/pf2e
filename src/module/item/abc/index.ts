@@ -12,8 +12,8 @@ abstract class ABCItemPF2e extends ItemPF2e {
         return this.actor.itemTypes.feat.filter((f) => existingABCIds.includes(f.system.location ?? ""));
     }
 
-    protected logAutoChange(path: string, value: string | number): void {
-        if (!this.actor || value === 0) return;
+    protected logAutoChange(this: Embedded<ABCItemPF2e>, path: string, value: string | number): void {
+        if (value === 0) return;
         this.actor.system.autoChanges[path] = [
             {
                 mode: "upgrade",
