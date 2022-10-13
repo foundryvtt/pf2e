@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.iYiA6CMR1N2E2Ny2]{Earplugs (PFS Guide)}</p>"
+            "value": "<p>Grants a +1 item bonus to saves vs. auditory effects and a -2 penalty to perception checks that rely on hearing.</p><p>Granted by @UUID[Compendium.pf2e.equipment-srd.iYiA6CMR1N2E2Ny2]{Earplugs (PFS Guide)}</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -19,7 +19,6 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Earplugs (vs. auditory)",
                 "predicate": [
                     "auditory"
                 ],
@@ -29,9 +28,8 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "Earplugs (hearing)",
                 "predicate": [
-                    "hearing"
+                    "auditory"
                 ],
                 "selector": "perception",
                 "type": "item",
