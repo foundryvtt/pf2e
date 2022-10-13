@@ -2,19 +2,19 @@ import { ActorPF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { preImportJSON } from "@module/doc-helpers";
 import { MigrationList, MigrationRunner } from "@module/migration";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { UserPF2e } from "@module/user";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
-import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "../rules";
+import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "@module/rules";
+import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers";
 import { ContainerPF2e } from "./container";
 import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
 import { ItemTrait } from "./data/base";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
-import { processGrantDeletions } from "../rules/rule-element/grant-item/helpers";
-import type { PhysicalItemPF2e } from "./physical";
+import { PhysicalItemPF2e } from "./physical/document";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
-import { MigrationRunnerBase } from "@module/migration/runner/base";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
