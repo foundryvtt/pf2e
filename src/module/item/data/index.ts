@@ -20,9 +20,8 @@ import type { SpellData, SpellSource } from "@item/spell/data";
 import type { SpellcastingEntryData, SpellcastingEntrySource } from "@item/spellcasting-entry/data";
 import type { TreasureData, TreasureSource } from "@item/treasure/data";
 import type { WeaponData, WeaponSource } from "@item/weapon/data";
-import { PROFICIENCY_RANKS, TraitsWithRarity } from "@module/data";
+import { PROFICIENCY_RANKS } from "@module/data";
 import { PhysicalItemTraits } from "../physical/data";
-import { ItemTrait } from "./base";
 
 export type ProficiencyRank = typeof PROFICIENCY_RANKS[number];
 
@@ -77,15 +76,16 @@ export type ItemDataPF2e =
 export type PhysicalItemSource = PhysicalItemData["_source"];
 export type ItemSourcePF2e = ItemDataPF2e["_source"];
 
-interface ItemSummaryData {
+export interface ItemSummaryData {
+    [key: string]: unknown;
     description?: {
         value: string;
     };
-    traits?: TraitChatData[] | TraitsWithRarity<ItemTrait>;
+    traits?: TraitChatData[];
     properties?: (string | number | null)[];
 }
 
-interface TraitChatData {
+export interface TraitChatData {
     value: string;
     label: string;
     description?: string;
@@ -129,13 +129,11 @@ export {
     EffectSource,
     EquipmentSource,
     FeatSource,
-    ItemSummaryData,
     KitSource,
     LoreSource,
     MeleeSource,
-    SpellSource,
     SpellcastingEntrySource,
-    TraitChatData,
+    SpellSource,
     TreasureSource,
     WeaponSource,
 };

@@ -54,7 +54,7 @@ export class ConditionManager {
         const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
         const condition = actor?.items.get(itemId);
 
-        if (condition?.type === "condition") {
+        if (condition?.isOfType("condition")) {
             if (value === 0) {
                 // Value is zero, remove the condition
                 await condition.delete();

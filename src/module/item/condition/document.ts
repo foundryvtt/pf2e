@@ -183,8 +183,6 @@ class ConditionPF2e extends AbstractEffectPF2e {
 }
 
 interface ConditionPF2e {
-    readonly type: "condition";
-
     readonly data: ConditionData;
 
     get slug(): ConditionSlug;

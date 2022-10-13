@@ -1,5 +1,4 @@
 import { SpellPF2e } from "@item";
-import { ItemSummaryData } from "@item/data";
 import { MagicTradition } from "@item/spell/types";
 import { ZeroToTen } from "@module/data";
 import { StatisticChatData } from "@system/statistic";
@@ -53,7 +52,7 @@ export interface SpellPrepEntry {
 
 export interface ActiveSpell {
     spell: Embedded<SpellPF2e>;
-    chatData: ItemSummaryData;
+    chatData: Record<string, unknown>;
     expended?: boolean;
     /** Is this spell marked as signature/collection */
     signature?: boolean;

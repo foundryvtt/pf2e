@@ -1,7 +1,7 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { AttackTarget } from "@actor/creature/types";
 import { StrikeData, TraitViewData } from "@actor/data/base";
-import { ItemPF2e, ItemSubclassPF2e, WeaponPF2e } from "@item";
+import { ItemPF2e, WeaponPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data";
 import { ZeroToThree } from "@module/data";
@@ -110,7 +110,7 @@ interface CheckRollContext extends BaseRollContext {
     /** The token which initiated this roll. */
     token?: TokenDocumentPF2e;
     /** The originating item of this attack, if any */
-    item?: Embedded<ItemSubclassPF2e> | null;
+    item?: Embedded<ItemPF2e> | null;
     /** Optional title of the roll options dialog; defaults to the check name */
     title?: string;
     /** Optional DC data for the check */
@@ -314,7 +314,7 @@ class CheckPF2e {
                 return parseHTML(note.text);
             };
             const incapacitation =
-                item?.type === "spell" && item.traits.has("incapacitation") ? incapacitationNote() : "";
+                item?.isOfType("spell") && item.traits.has("incapacitation") ? incapacitationNote() : "";
 
             const header = document.createElement("h4");
             header.classList.add("action");
@@ -432,7 +432,7 @@ class CheckPF2e {
             : [];
 
         const properties = ((): HTMLElement[] => {
-            if (item?.type === "weapon" && item.isRanged) {
+            if (item?.isOfType("weapon") && item.isRanged) {
                 // Show the range increment for ranged weapons
                 const range = item.rangeIncrement ?? 10;
                 const label = game.i18n.format("PF2E.Item.Weapon.RangeIncrementN.Label", { range });

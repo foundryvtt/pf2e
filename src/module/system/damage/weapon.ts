@@ -130,7 +130,7 @@ class WeaponDamagePF2e {
                     : Math.floor(strengthModValue / 2)
                 : null;
 
-            if (weapon.type === "weapon" && typeof modifierValue === "number") {
+            if (weapon.isOfType("weapon") && typeof modifierValue === "number") {
                 const strModifier = new ModifierPF2e({
                     label: CONFIG.PF2E.abilities.str,
                     ability: "str",
@@ -166,7 +166,7 @@ class WeaponDamagePF2e {
             rule.beforeRoll?.(selectors, options);
         }
 
-        if (weapon.type === "weapon") {
+        if (weapon.isOfType("weapon")) {
             // Kickback trait
             if (weaponTraits.includes("kickback")) {
                 // For NPCs, subtract from the base damage and add back as an untype bonus
@@ -246,7 +246,7 @@ class WeaponDamagePF2e {
             });
 
             // find best striking source
-            const strikingRune = weapon.type === "weapon" ? weapon.system.runes.striking : null;
+            const strikingRune = weapon.isOfType("weapon") ? weapon.system.runes.striking : null;
             if (strikingRune) {
                 strikingList.push({
                     label: "PF2E.StrikingRuneLabel",
@@ -427,7 +427,7 @@ class WeaponDamagePF2e {
             dice.ignored = !dice.enabled;
         }
 
-        const excludeFrom = weapon.type === "weapon" ? weapon : null;
+        const excludeFrom = weapon.isOfType("weapon") ? weapon : null;
         this.excludeDamage({ actor, weapon: excludeFrom, modifiers: [...numericModifiers, ...diceModifiers], options });
 
         return {
@@ -687,7 +687,7 @@ class WeaponDamagePF2e {
             "damage",
         ];
 
-        if (weapon.type === "melee") {
+        if (weapon.isOfType("melee")) {
             if (this.strengthBasedDamage(weapon)) {
                 selectors.push("str-damage");
             }
@@ -757,7 +757,7 @@ class WeaponDamagePF2e {
 
     /** Determine whether a strike's damage includes the actor's strength modifier */
     static strengthModToDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
-        return weapon.type === "weapon" && this.strengthBasedDamage(weapon);
+        return weapon.isOfType("weapon") && this.strengthBasedDamage(weapon);
     }
 }
 

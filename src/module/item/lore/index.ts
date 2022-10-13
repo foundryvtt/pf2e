@@ -4,7 +4,5 @@ import { LoreData } from "./data";
 export class LorePF2e extends ItemPF2e {}
 
 export interface LorePF2e {
-    readonly type: "lore";
-
     readonly data: LoreData;
 }

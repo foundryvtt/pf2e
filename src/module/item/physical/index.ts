@@ -1,6 +1,6 @@
 export * from "./bulk";
 export * from "./data";
-export { PhysicalItemPF2e, PhysicalItemSummaryData } from "./document";
+export { PhysicalItemPF2e } from "./document";
 export * from "./helpers";
 export * from "./materials";
 export * from "./runes";

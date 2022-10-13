@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor/base";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { FeatCategoryOptions } from "@actor/character/feats";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
-import { ItemPF2e, ItemSubclassPF2e } from "@item";
+import { ItemPF2e } from "@item/base";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { CompendiumBrowser, CompendiumBrowserSettings } from "@module/apps/compendium-browser";
@@ -100,25 +100,10 @@ declare global {
 
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<
-            ActorPF2e,
-            ActorsPF2e,
-            ChatMessagePF2e,
-            EncounterPF2e,
-            ItemSubclassPF2e,
-            MacroPF2e,
-            ScenePF2e,
-            UserPF2e
-        >;
+        var game: Game<ActorPF2e, ActorsPF2e, ChatMessagePF2e, EncounterPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
 
         // eslint-disable-next-line no-var
-        var ui: FoundryUI<
-            ActorPF2e,
-            ActorDirectoryPF2e<ActorPF2e>,
-            ItemSubclassPF2e,
-            ChatLogPF2e,
-            CompendiumDirectoryPF2e
-        >;
+        var ui: FoundryUI<ActorPF2e, ActorDirectoryPF2e, ItemPF2e, ChatLogPF2e, CompendiumDirectoryPF2e>;
     }
 
     interface Window {
@@ -203,7 +188,7 @@ type ConfiguredConfig = Config<
     AmbientLightDocumentPF2e,
     ActiveEffectPF2e,
     ActorPF2e,
-    ActorDirectoryPF2e<ActorPF2e>,
+    ActorDirectoryPF2e,
     ChatLogPF2e,
     ChatMessagePF2e,
     EncounterPF2e,

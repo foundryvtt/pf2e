@@ -1,14 +1,6 @@
 import { ModeOfBeing } from "@actor/creature/types";
 import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types";
-import {
-    ArmorPF2e,
-    ContainerPF2e,
-    ItemPF2e,
-    ItemSubclassPF2e,
-    PhysicalItemPF2e,
-    PhysicalItemSubclass,
-    type ConditionPF2e,
-} from "@item";
+import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
 import { ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
@@ -517,7 +509,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
-        const physicalItems = this.items.filter((i): i is Embedded<PhysicalItemSubclass> => i.isOfType("physical"));
+        const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
+            (item) => item instanceof PhysicalItemPF2e
+        );
         this.inventory = new ActorInventory(this, physicalItems);
 
         const spellcastingEntries = this.itemTypes.spellcastingEntry;
@@ -1246,7 +1240,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     readonly data: ActorDataPF2e;
 
-    readonly items: foundry.abstract.EmbeddedCollection<ItemSubclassPF2e>;
+    readonly items: foundry.abstract.EmbeddedCollection<ItemPF2e>;
 
     readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e>;
 
