@@ -208,6 +208,34 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         sheetData.tabVisibility = deepClone(this.actor.flags.pf2e.sheetTabs);
 
+        // Enrich content
+        const rollData = this.actor.getRollData();
+        const { biography } = this.actor.system.details;
+        sheetData.enrichedContent.appearance = await TextEditor.enrichHTML(biography.appearance, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.backstory = await TextEditor.enrichHTML(biography.backstory, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.campaignNotes = await TextEditor.enrichHTML(biography.campaignNotes, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.allies = await TextEditor.enrichHTML(biography.allies, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.enemies = await TextEditor.enrichHTML(biography.enemies, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.organaizations = await TextEditor.enrichHTML(biography.organaizations, {
+            rollData,
+            async: true,
+        });
+
         // Return data for rendering
         return sheetData;
     }
