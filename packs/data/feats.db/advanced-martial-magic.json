@@ -29,7 +29,35 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Prompt.AdvancedMulticlassFeat",
+                    "predicate": [
+                        "item:type:feat",
+                        "item:trait:magus"
+                    ]
+                },
+                "choices": {
+                    "postFilter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                "self:half-level"
+                            ]
+                        }
+                    ],
+                    "query": "{\"system.traits.value\":{\"$elemMatch\":\"magus\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.AdvancedMulticlassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.advancedMartialMagic}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Secrets of Magic"
         },

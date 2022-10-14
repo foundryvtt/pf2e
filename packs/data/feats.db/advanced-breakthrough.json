@@ -29,7 +29,35 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Prompt.AdvancedMulticlassFeat",
+                    "predicate": [
+                        "item:type:feat",
+                        "item:trait:inventor"
+                    ]
+                },
+                "choices": {
+                    "postFilter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                "self:half-level"
+                            ]
+                        }
+                    ],
+                    "query": "{\"system.traits.value\":{\"$elemMatch\":\"inventor\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.AdvancedMulticlassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.advancedBreakthrough}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },

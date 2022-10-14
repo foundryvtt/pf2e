@@ -431,6 +431,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;
+        this.rollOptions.all[`self:half-level:${Math.floor(this.level / 2)}`] = true;
     }
 
     /** After AE-likes have been applied, set numeric roll options */

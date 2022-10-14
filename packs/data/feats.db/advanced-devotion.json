@@ -35,6 +35,33 @@
                 "mode": "add",
                 "path": "system.custom.modifiers.champion-dedication-count",
                 "value": 1
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Prompt.AdvancedMulticlassFeat",
+                    "predicate": [
+                        "item:type:feat",
+                        "item:trait:champion"
+                    ]
+                },
+                "choices": {
+                    "postFilter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                "self:half-level"
+                            ]
+                        }
+                    ],
+                    "query": "{\"system.traits.value\":{\"$elemMatch\":\"champion\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.AdvancedMulticlassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.advancedDevotion}"
             }
         ],
         "source": {

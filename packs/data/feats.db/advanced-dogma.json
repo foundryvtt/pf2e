@@ -12,7 +12,7 @@
         "actions": {
             "value": null
         },
-        "description": {
+        "descriptiaon": {
             "value": "<p>You gain one cleric feat. For the purpose of meeting its prerequisites, your cleric level is equal to half your character level.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you select it, you gain another cleric feat.</p>"
         },
         "featType": {
@@ -29,7 +29,35 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Prompt.AdvancedMulticlassFeat",
+                    "predicate": [
+                        "item:type:feat",
+                        "item:trait:cleric"
+                    ]
+                },
+                "choices": {
+                    "postFilter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                "self:half-level"
+                            ]
+                        }
+                    ],
+                    "query": "{\"system.traits.value\":{\"$elemMatch\":\"cleric\"}}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.AdvancedMulticlassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.advancedDogma}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },
