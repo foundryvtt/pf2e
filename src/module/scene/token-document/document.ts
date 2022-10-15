@@ -373,11 +373,18 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
         // Handle ephemeral changes from synthetic actor
         if (!this.actorLink && this.parent && changed.actorData) {
+            const preUpdateIcon = this.texture.src;
             // If the Actor data override changed, simulate updating the synthetic Actor
             this._onUpdateTokenActor(changed.actorData, options, userId);
             this.reset();
+
+            // Fake some updates to trigger redraw
             changed.light = {} as foundry.data.LightSource;
-            changed.texture = { src: this.texture.src } as foundry.data.TokenSource["texture"];
+            if (preUpdateIcon !== this.texture.src) {
+                changed.texture = mergeObject(changed.texture ?? {}, {
+                    src: this.texture.src,
+                }) as foundry.data.TokenSource["texture"];
+            }
             delete changed.actorData; // Prevent upstream from doing so a second time
         }
 
