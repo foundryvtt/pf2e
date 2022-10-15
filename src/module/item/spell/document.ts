@@ -40,12 +40,6 @@ interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
 }
 
-interface SpellToMessageOptions extends ToMessageOptions {
-    data?: {
-        castLevel?: number;
-    };
-}
-
 class SpellPF2e extends ItemPF2e {
     readonly isFromConsumable: boolean;
 
@@ -427,9 +421,9 @@ class SpellPF2e extends ItemPF2e {
 
     override async toMessage(
         event?: JQuery.TriggeredEvent,
-        { create = true, data = {} }: SpellToMessageOptions = {}
+        { create = true, data = {}, rollMode }: SpellToMessageOptions = {}
     ): Promise<ChatMessagePF2e | undefined> {
-        const message = await super.toMessage(event, { create: false, data });
+        const message = await super.toMessage(event, { create: false, data, rollMode });
         if (!message) return undefined;
 
         const messageSource = message.toObject();
@@ -786,9 +780,10 @@ interface SpellVariantChatData {
     sort: number;
 }
 
-interface ToMessageOptions {
+interface SpellToMessageOptions {
     create?: boolean;
-    data?: Record<string, unknown> & { slotLevel?: number; castLevel?: number };
+    rollMode?: RollMode;
+    data?: { castLevel?: number };
 }
 
-export { SpellPF2e };
+export { SpellPF2e, SpellToMessageOptions };
