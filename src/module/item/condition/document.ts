@@ -97,7 +97,10 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
     /** Log self in parent's conditions map */
     override prepareActorData(): void {
-        if (this.isActive) this.actor?.conditions.set(this.slug, this);
+        super.prepareActorData();
+        if (this.isActive) {
+            this.actor?.conditions.set(this.slug, this);
+        }
     }
 
     /** Withhold all rule elements if this condition is inactive */

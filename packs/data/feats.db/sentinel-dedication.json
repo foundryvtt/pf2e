@@ -24,7 +24,62 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.heavy.rank",
+                "priority": 41,
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 12,
+                            "value": "min(1,@actor.system.martial.light.rank)*min(1,@actor.system.martial.medium.rank)*max(@actor.system.martial.light.rank, @actor.system.martial.medium.rank)"
+                        },
+                        {
+                            "start": 13,
+                            "value": "min(1,@actor.system.martial.light.rank)*min(1,@actor.system.martial.medium.rank)*max(@actor.system.martial.light.rank,@actor.system.martial.medium.rank,min(2,@actor.system.martial.unarmored.rank))"
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.medium.rank",
+                "priority": 41,
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 12,
+                            "value": "max(1,@actor.system.martial.light.rank)"
+                        },
+                        {
+                            "start": 13,
+                            "value": "max(1,@actor.system.martial.light.rank,min(2,@actor.system.martial.unarmored.rank))"
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.light.rank",
+                "priority": 41,
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 12,
+                            "value": 1
+                        },
+                        {
+                            "start": 13,
+                            "value": "max(1,min(2,@actor.system.martial.unarmored.rank))"
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },

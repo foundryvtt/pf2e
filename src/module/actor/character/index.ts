@@ -769,7 +769,7 @@ class CharacterPF2e extends CreaturePF2e {
                 ability: entry.ability,
                 rank: entry.rank,
                 rollOptions: entry.getRollOptions("spellcasting"),
-                domains: ["spell-attack-dc"],
+                domains: ["spell-attack-dc", `${entry.ability}-based`],
                 check: {
                     type: "spell-attack-roll",
                     domains: ["spell-attack", "spell-attack-roll", "attack", "attack-roll"],

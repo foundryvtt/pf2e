@@ -497,49 +497,49 @@ class StatisticModifier {
                 modifier.test(rollOptions);
             }
 
-            this.applyAdjustments(rollOptions);
+            adjustModifiers(this._modifiers, rollOptions);
         }
 
         applyStackingRules(this._modifiers);
 
         this.totalModifier = this._modifiers.filter((m) => m.enabled).reduce((total, m) => total + m.modifier, 0);
     }
+}
 
-    private applyAdjustments(rollOptions: Set<string>): void {
-        for (const modifier of this._modifiers) {
-            const adjustments = modifier.adjustments.filter((a) =>
-                a.predicate.test([...rollOptions, ...modifier.getRollOptions()])
-            );
+function adjustModifiers(modifiers: ModifierPF2e[], rollOptions: Set<string>): void {
+    for (const modifier of modifiers) {
+        const adjustments = modifier.adjustments.filter((a) =>
+            a.predicate.test([...rollOptions, ...modifier.getRollOptions()])
+        );
 
-            if (adjustments.some((a) => a.suppress)) {
-                modifier.ignored = true;
-                continue;
-            }
-
-            type ResolvedAdjustment = { value: number; relabel: string | null };
-            const resolvedAdjustment = adjustments.reduce(
-                (resolved: ResolvedAdjustment, adjustment) => {
-                    const newValue = adjustment.getNewValue?.(resolved.value) ?? resolved.value;
-                    if (newValue !== resolved.value) {
-                        resolved.value = newValue;
-                        resolved.relabel = adjustment.relabel ?? null;
-                    }
-                    return resolved;
-                },
-                { value: modifier.modifier, relabel: null }
-            );
-            modifier.modifier = resolvedAdjustment.value;
-
-            if (resolvedAdjustment.relabel) {
-                modifier.label = game.i18n.localize(resolvedAdjustment.relabel);
-            }
-
-            // If applicable, change the damage type of this modifier, using only the final adjustment found
-            modifier.damageType = adjustments.reduce(
-                (damageType: DamageType | null, adjustment) => adjustment.getDamageType?.(damageType) ?? damageType,
-                modifier.damageType
-            );
+        if (adjustments.some((a) => a.suppress)) {
+            modifier.ignored = true;
+            continue;
         }
+
+        type ResolvedAdjustment = { value: number; relabel: string | null };
+        const resolvedAdjustment = adjustments.reduce(
+            (resolved: ResolvedAdjustment, adjustment) => {
+                const newValue = adjustment.getNewValue?.(resolved.value) ?? resolved.value;
+                if (newValue !== resolved.value) {
+                    resolved.value = newValue;
+                    resolved.relabel = adjustment.relabel ?? null;
+                }
+                return resolved;
+            },
+            { value: modifier.modifier, relabel: null }
+        );
+        modifier.modifier = resolvedAdjustment.value;
+
+        if (resolvedAdjustment.relabel) {
+            modifier.label = game.i18n.localize(resolvedAdjustment.relabel);
+        }
+
+        // If applicable, change the damage type of this modifier, using only the final adjustment found
+        modifier.damageType = adjustments.reduce(
+            (damageType: DamageType | null, adjustment) => adjustment.getDamageType?.(damageType) ?? damageType,
+            modifier.damageType
+        );
     }
 }
 
@@ -557,7 +557,7 @@ class CheckModifier extends StatisticModifier {
         slug: string,
         statistic: { modifiers: readonly ModifierPF2e[] },
         modifiers: ModifierPF2e[] = [],
-        rollOptions: string[] = []
+        rollOptions: string[] | Set<string> = new Set()
     ) {
         super(slug, statistic.modifiers.map((modifier) => modifier.clone()).concat(modifiers), rollOptions);
     }
@@ -674,6 +674,7 @@ export {
     ProficiencyModifier,
     RawModifier,
     StatisticModifier,
+    adjustModifiers,
     applyStackingRules,
     createAbilityModifier,
     ensureProficiencyOption,

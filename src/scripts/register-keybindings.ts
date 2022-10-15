@@ -13,8 +13,18 @@ export function registerKeybindings(): void {
             hint: "PF2E.Keybinding.GMVision.Hint",
             editable: [{ key: "KeyG", modifiers: ["Control"] }],
             restricted: true,
+            onDown: (context: KeyboardEventContext): boolean => {
+                context.event.preventDefault();
+                return true;
+            },
             onUp: (): boolean => {
-                game.settings.set("pf2e", "gmVision", !game.settings.get("pf2e", "gmVision"));
+                if (ui.controls.control?.name === "lighting") {
+                    // Ensure the toggle in lighting controls continues to reflect the current status
+                    const toggle = ui.controls.control.tools.find((t) => t.name === "gm-vision");
+                    toggle?.onClick?.(); // Does the same as below
+                } else {
+                    game.settings.set("pf2e", "gmVision", !game.settings.get("pf2e", "gmVision"));
+                }
                 return true;
             },
         });

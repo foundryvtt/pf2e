@@ -112,18 +112,19 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
      * Due to a bug in the core BaseGrid class, black (0) is treated as the color being excluded
      */
     #convertColors(colors: AuraColors | null): TokenAuraColors {
+        const user =
+            game.users.find((u) => !!u.character && u.character.id === this.token.actor?.id) ??
+            game.users.find((u) => u.isGM && u.active) ??
+            game.user;
+        const userColor = Number(foundry.utils.Color.fromString(user.color ?? "#0000000")) || 0;
+
         if (colors) {
             return {
-                border: foundry.utils.Color.fromString(colors.border).littleEndian || 0,
-                fill: foundry.utils.Color.fromString(colors.fill).littleEndian || 0,
+                border: Number(foundry.utils.Color.fromString(colors.border)) || 0,
+                fill: Number(foundry.utils.Color.fromString(colors.fill)) || userColor,
             };
         } else {
-            const user =
-                game.users.find((u) => u.character?.id === this.token.actor?.id) ??
-                game.users.find((u) => u.isGM && u.active) ??
-                game.user;
-
-            return { border: 1, fill: foundry.utils.Color.fromString(user.color ?? "#0000000").littleEndian || 0 };
+            return { border: 0, fill: userColor };
         }
     }
 

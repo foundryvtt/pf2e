@@ -1,5 +1,5 @@
 import { LabeledWeakness, WeaknessType } from "@actor/data/base";
-import { IWRRuleElement, IWRRuleElementData } from "./base";
+import { IWRRuleElement } from "./base";
 
 /** @category RuleElement */
 class WeaknessRuleElement extends IWRRuleElement {
@@ -9,33 +9,31 @@ class WeaknessRuleElement extends IWRRuleElement {
         return this.actor.system.traits.dv;
     }
 
-    getIWR(value: number): LabeledWeakness | null {
+    getIWR(value: number): LabeledWeakness[] {
         const weaknesses = this.property;
-        const current = weaknesses.find((weakness) => weakness.type === this.data.type);
-        if (current) {
-            if (this.data.override) {
-                weaknesses.splice(weaknesses.indexOf(current), 1);
-            } else {
-                current.value = Math.max(current.value, value);
-                return null;
+        for (const weaknessType of this.type) {
+            const current = weaknesses.find((w) => w.type === weaknessType);
+            if (current) {
+                if (this.data.override) {
+                    weaknesses.splice(weaknesses.indexOf(current), 1);
+                } else {
+                    current.value = Math.max(current.value, value);
+                    this.type.splice(this.type.indexOf(weaknessType), 1);
+                }
             }
         }
 
-        return {
-            label: this.dictionary[this.data.type],
-            type: this.data.type,
+        return this.type.map((t) => ({
+            label: this.dictionary[t],
+            type: t,
             value,
-            exceptions: this.data.except,
-        };
+            exceptions: this.data.except ? game.i18n.localize(this.data.except) : undefined,
+        }));
     }
 }
 
 interface WeaknessRuleElement extends IWRRuleElement {
-    data: WeaknessData;
-}
-
-interface WeaknessData extends IWRRuleElementData {
-    type: WeaknessType;
+    type: WeaknessType[];
 }
 
 export { WeaknessRuleElement };

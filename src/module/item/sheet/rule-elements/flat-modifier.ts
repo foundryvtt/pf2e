@@ -1,7 +1,7 @@
 import { MODIFIER_TYPES } from "@actor/modifiers";
 import { FlatModifierSource } from "@module/rules/rule-element/flat-modifier";
 import { isBracketedValue } from "@module/rules/util";
-import { htmlQuery, isObject, tagify } from "@util";
+import { htmlQuery, isObject, tagify, tupleHasValue } from "@util";
 import { coerceNumber, RuleElementForm } from "./base";
 
 /** Form handler for the flat modifier rule element */
@@ -62,12 +62,16 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource> {
             ? "object"
             : "primitive";
 
+        const selectors = [this.rule.selector ?? []].flat();
+        const isDamage = selectors.some((s) => String(s).endsWith("damage"));
+
         return {
             ...data,
             selectorIsArray: Array.isArray(this.rule.selector),
             abilities: CONFIG.PF2E.abilities,
             types: [...MODIFIER_TYPES].filter((type) => type !== "untyped"),
             damageCategories: CONFIG.PF2E.damageCategories,
+            isDamage,
             value: {
                 mode: valueMode,
                 data: this.rule.value,
@@ -94,22 +98,16 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource> {
         }
 
         // Flat Modifier types may have mutually exclusive properties
-        if (formData.type === "ability") {
-            delete formData.value;
-        } else {
-            delete formData.ability;
+        delete formData[formData.type === "ability" ? "value" : "ability"];
+
+        // `critical` is a tri-state of false, true, and null (default).
+        formData.critical = tupleHasValue([false, "false"], formData.critical) ? false : !!formData.critical || null;
+        if (formData.critical === null) {
+            delete formData.critical;
         }
 
         // Remove empty string, null, or falsy values for certain optional parameters
-        for (const optional of [
-            "label",
-            "type",
-            "min",
-            "max",
-            "damageType",
-            "damageCategory",
-            "hideIfDisabled",
-        ] as const) {
+        for (const optional of ["label", "type", "damageType", "damageCategory", "hideIfDisabled"] as const) {
             if (!formData[optional]) {
                 delete formData[optional];
             }

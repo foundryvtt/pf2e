@@ -353,7 +353,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Hero Point Deck © 2021, Paizo Inc.; Author: Jason Bulmahn
 
 *  Paizo Blog
-    *  No-Prep Character: Gristleburst © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
+    *  Kineticist Playtest Analysis © 2022, Paizo Inc.; Author: Logan Bonner; Illustrator: Wayne Reynolds.
+	*  No-Prep Character: Gristleburst © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
     *  No-Prep Character: Duhgik © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Dominik Derow.
     *  No-Prep Character: Wendlyn © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
     *  No-Prep Character: Zhang Yong © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Gislaine Avila.

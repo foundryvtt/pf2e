@@ -602,6 +602,28 @@
                 },
                 "Title": "Treat Poison"
             },
+            "TreatWounds": {
+                "Content": "Select a target DC. Remember that you can't attempt a heal above your proficiency. Attempting to do so will downgrade the DC and amount healed to the highest you're capable of.",
+                "DC": {
+                    "Mod": "DC Modifier:",
+                    "Trained": "Trained DC 15",
+                    "Expert": "Expert DC 20, +10 Healing",
+                    "Master": "Master DC 30, +30 Healing",
+                    "Legendary": "Legendary DC 40, +50 Healing"
+                },
+                "Error": "Token {name} does not have the medicine skill",
+                "Feats": {
+                    "RiskySurgery": "Risky Surgery",
+                    "MortalHealing": "Mortal Healing"
+                },
+                "Label": "Treat Wounds",
+                "Rolls": {
+                    "RiskySurgery": "Damage Roll: Risky Surgery",
+                    "TreatWounds": "Healing Roll: Treat Wounds",
+                    "TreatWoundsCriticalFailure": "Damage Roll: Treat Wounds"
+                },
+                "SkillSelect": "Treat Wounds Skill:"
+            },
             "Trip": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> The target falls and lands @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone} and takes [[/r 1d6[bludgeoning] # Bludgeoning damage]]{1d6} bludgeoning damage.",
@@ -1979,9 +2001,9 @@
             },
             "Heritage": {
                 "AncestryNotFound": "The referenced ancestry item was not found.",
-                "DragAncestryHere": "Drag an ancestry item here to set this heritage's required ancestry.",
+                "DragAncestryHere": "Drag an ancestry item here to set this heritage's prerequisite ancestry.",
                 "NoneVersatile": "None (Versatile)",
-                "RemoveAncestry": "Remove required ancestry"
+                "RemoveAncestry": "Remove prerequisite ancestry"
             },
             "IconLabel": "Icon",
             "NameLabel": "Name",
@@ -2132,7 +2154,8 @@
             "Rules": {
                 "Apply": "Apply",
                 "Close": "Close"
-            }
+            },
+            "WorldItemWarning": "This is a World Item and will not work if saved in a compendium"
         },
         "ItemBonus0": "0",
         "ItemBonus1": "+1 Weapon Potency",
@@ -2178,6 +2201,7 @@
         "LanguageAlghollthu": "Alghollthu",
         "LanguageAmurrun": "Amurrun",
         "LanguageAnadi": "Anadi",
+        "LanguageAncientOsiriani": "Ancient Osiriani",
         "LanguageAndroffan": "Androffan",
         "LanguageAnugobu": "Anugobu",
         "LanguageAquan": "Aquan",
@@ -3597,6 +3621,7 @@
         "TraitDescriptionManipulate": "You must physically manipulate an item or make gestures to use an action with this trait. Creatures without a suitable appendage can't perform actions with this trait. Manipulate actions often trigger reactions.",
         "TraitDescriptionMechanical": "A hazard with this trait is a constructed physical object.",
         "TraitDescriptionMental": "A mental effect can alter the target's mind. It has no effect on an object or a mindless creature.",
+        "TraitDescriptionMetal": "Effects with the metal trait either manipulate or conjure metal. Those that manipulate metal have no effect in an area without metal. Creatures with this trait consist primarily of metal or have a magical connection to that element.",
         "TraitDescriptionMetamagic": "Actions with the metamagic trait, usually from metamagic feats, tweak the properties of your spells. You must use a metamagic action directly before Casting the Spell you want to alter. If you use any action (including free actions and reactions) other than Cast a Spell directly after, you waste the benefits of the metamagic action. Any additional effects added by a metamagic action are part of the spell's effect, not of the metamagic action itself.",
         "TraitDescriptionMindless": "A mindless creature has either programmed or rudimentary mental attributes. Most, if not all, of their mental ability modifiers are -5. They are immune to all mental effects.",
         "TraitDescriptionMindshift": "An action with this trait can always be altered to use the raw power of your mind. When you take this action, you can choose to replace any damage it deals with mental damage, give it the mental trait, and replace any save it requires with a Will save. The action loses any traits matching damage types it no longer deals.",
@@ -3864,6 +3889,7 @@
         "TraitMechanical": "Mechanical",
         "TraitMental": "Mental",
         "TraitMerfolk": "Merfolk",
+        "TraitMetal": "Metal",
         "TraitMetamagic": "Metamagic",
         "TraitMindless": "Mindless",
         "TraitMinion": "Minion",
@@ -4078,7 +4104,7 @@
         "TraitTane": "Tane",
         "TraitTanggal": "Tanggal",
         "TraitTattoo": "Tattoo",
-        "TraitTech":  "Tech",
+        "TraitTech": "Tech",
         "TraitTechnological": "Technological",
         "TraitTelepathy": "Telepathy",
         "TraitTeleportation": "Teleportation",

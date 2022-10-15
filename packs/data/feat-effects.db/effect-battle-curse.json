@@ -199,8 +199,12 @@
                 "key": "AdjustModifier",
                 "mode": "override",
                 "predicate": [
-                    "oracular-curse:stage:major",
-                    "oracular-curse:stage:extreme"
+                    {
+                         "or":  [
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    }
                 ],
                 "selectors": [
                     "strike-damage"
@@ -211,8 +215,12 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "oracular-curse:stage:major",
-                    "oracular-curse:stage:extreme"
+                    {
+                         "or":  [
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    }
                 ],
                 "selector": "attack",
                 "slug": "battle-curse-attack",

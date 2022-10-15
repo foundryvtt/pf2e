@@ -496,21 +496,18 @@ class WeaponDamagePF2e {
             }
         }
 
-        // Apply stacking rules here and distribute on dice pools
+        // Apply stacking rules and distribute on dice pools
         {
             const modifiers = damage.numericModifiers.flatMap((modifier): ModifierPF2e | never[] => {
                 modifier.damageType ??= base.damageType;
                 modifier.damageCategory ??= DamageCategorization.fromDamageType(modifier.damageType);
-                return modifier.enabled && outcomeMatches(modifier) ? modifier : [];
+                return outcomeMatches(modifier) ? modifier : [];
             });
 
-            const numericModifiers = Array.from(
-                groupBy(modifiers, (m) => m.damageType ?? base.damageType).entries()
-            ).flatMap(
-                ([damageType, modifiers]) =>
-                    // Apply stacking rules for numeric modifiers of each damage type separately
-                    new StatisticModifier(`${damageType}-damage-stacking-rules`, modifiers).modifiers
-            );
+            // Apply stacking rules for numeric modifiers of each damage type separately
+            const numericModifiers = Array.from(groupBy(modifiers, (m) => m.damageType ?? base.damageType).entries())
+                .flatMap(([t, m]) => new StatisticModifier(`${t}-damage`, m).modifiers)
+                .filter((m) => m.enabled);
 
             for (const modifier of numericModifiers) {
                 const damageType = modifier.damageType ?? base.damageType;

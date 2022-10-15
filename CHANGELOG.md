@@ -1,5 +1,73 @@
 # Changelog
 
+## Version 4.2.6
+
+### Bugfixes
+* (Drental) Accommodate macros ending with single-line comments
+* (stwlam) Fix aura colors getting inverted
+* (stwlam) Restore setting self:condition roll options
+* (stwlam) Refrain from highlighting measured templates invisible to players
+* (stwlam) Fix issue causing some auras to fall behind in rendering
+* (Supe) Fix double weak/elite adjustments on statistic rolls
+* (Supe) Fix issue preventing modifier adjustments from applying via spellcasting attack and DC selectors
+
+### Data Updates
+* (dogstarrb) Add missing automation to Inventor Weapon Mastery
+* (MySurvive) Remove some unnecessary labels from REs on equipment
+* (redeux1) Updated Iconics/Pregens to use action-based Heal/Harm spell
+* (Tikael) Fix rule elements on Elemental Assault effect
+
+
+## Version 4.2.5
+
+### Bugfixes
+* (stwlam) Work around upstream issue introduced in 10.287 preventing execution of some macros
+* (stwlam) Fix TokenImage rule element for unlinked tokens
+* (stwlam) Fix issue causing multiple ability modifiers to stack for some damage rolls
+* (stwlam) Restore re-rendering token HUD after mouse interactions
+* (Supe) Fix predication for spell/class/save dc modifiers
+* (Supe) Restore ability-based domains for spellcasting
+* (Supe) Fix flat modifier editor adding critical: false to newly added rules
+
+### Data Updates
+* (JDCalvert) Automate Sentinel Dedication feat
+* (stwlam) Add toggle for Ostovite's bone chariotR
+
+
+## Version 4.2.4
+
+### System Improvements
+* (stwlam) Add lighting control tool to toggle GM vision
+* (Supe) Add critical field to FlatModifier form
+
+### Bugfixes
+* (stwlam) Fix issue causing TokenImage rule element to fail
+* (stwlam) Re-render actor directory when world actors' levels are changed
+* (Supe) Fix issue causing duplicate feats/features to be created from ancestry/background/class items under certain circumstances
+* (Supe) Fix strike macros
+
+### Data Updates
+* (LebombJames) Fix Mountain Quake requirement
+* (Tikael) Fix usage of Crown of the Companion
+
+
+## Version 4.2.3
+
+### System Improvements
+* (stwlam) Improve performance when moving multiple tokens with vision
+* (Supe) Only show FlatModifier damage row for damage selectors in form
+
+### Bugfixes
+* (JDCalvert) Fix damage dice validation for damageType and dieSize overrides
+* (stwlam) Prevent browser-defined default actions for CTRL-G keypress
+
+### Data Updates
+* (LebombJames) Fix Battle Oracle Curse Effect predicates
+* (redeux) Fix minor errors in Iconic sheets
+* (Tikael) Link Treat Wounds macro in Treat Wounds action
+* (TMun) Add Damaj's Gloves
+
+
 ## Version 4.2.2
 
 ### New Features

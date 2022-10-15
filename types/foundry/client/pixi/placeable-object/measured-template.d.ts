@@ -51,6 +51,12 @@ declare class MeasuredTemplate<
     /** A flag for whether the current User has full ownership over the MeasuredTemplate document. */
     get owner(): boolean;
 
+    /** Is this MeasuredTemplate currently visible on the Canvas? */
+    get isVisible(): boolean;
+
+    /** A unique identifier which is used to uniquely identify related objects like a template effect or grid highlight. */
+    get highlightId(): string;
+
     /* -------------------------------------------- */
     /*  Rendering                                   */
     /* -------------------------------------------- */

@@ -431,7 +431,38 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         this.conditions = new Map();
         this.auras = new Map();
 
+        const preparationWarnings: Set<string> = new Set();
+        this.synthetics = {
+            criticalSpecalizations: { standard: [], alternate: [] },
+            damageDice: { damage: [] },
+            degreeOfSuccessAdjustments: {},
+            dexterityModifierCaps: [],
+            modifierAdjustments: { all: [], damage: [] },
+            movementTypes: {},
+            multipleAttackPenalties: {},
+            rollNotes: {},
+            rollSubstitutions: {},
+            rollTwice: {},
+            senses: [],
+            statisticsModifiers: { all: [], damage: [] },
+            strikeAdjustments: [],
+            strikes: new Map(),
+            striking: {},
+            tokenOverrides: {},
+            weaponPotency: {},
+            preparationWarnings: {
+                add: (warning: string) => preparationWarnings.add(warning),
+                flush: foundry.utils.debounce(() => {
+                    for (const warning of preparationWarnings) {
+                        console.warn(warning);
+                    }
+                    preparationWarnings.clear();
+                }, 10), // 10ms also handles separate module executions
+            },
+        };
+
         super._initialize();
+
         this.initialized = true;
 
         if (game._documentsReady) {
@@ -473,40 +504,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         flags.pf2e.rollOptions = { all: rollOptionsAll };
 
         this.setEncounterRollOptions();
-
-        const preparationWarnings: Set<string> = new Set();
-
-        this.synthetics = {
-            criticalSpecalizations: { standard: [], alternate: [] },
-            damageDice: { damage: [] },
-            degreeOfSuccessAdjustments: {},
-            dexterityModifierCaps: [],
-            modifierAdjustments: { all: [], damage: [] },
-            movementTypes: {},
-            multipleAttackPenalties: {},
-            rollNotes: {},
-            rollSubstitutions: {},
-            rollTwice: {},
-            senses: [],
-            statisticsModifiers: { all: [], damage: [] },
-            strikeAdjustments: [],
-            strikes: new Map(),
-            striking: {},
-            tokenOverrides: {},
-            weaponPotency: {},
-            preparationWarnings: {
-                add: (warning: string) => preparationWarnings.add(warning),
-                flush: foundry.utils.debounce(() => {
-                    for (const warning of preparationWarnings) {
-                        console.warn(warning);
-                    }
-                    preparationWarnings.clear();
-                }, 10), // 10ms also handles separate module executions
-            },
-        };
-
-        // Reset auras from rule elements
-        this.auras.clear();
     }
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
@@ -1225,17 +1222,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
+        // Send any accrued warnings to the console
+        this.synthetics.preparationWarnings.flush();
+
         if (this.isToken) {
             return super._onEmbeddedDocumentChange(embeddedName);
         }
 
-        for (const tokenDoc of this.getActiveTokens(true, true)) {
-            tokenDoc._onUpdateBaseActor();
+        // For linked tokens, replace parent method with alternative workflow to control canvas re-rendering
+        const tokenDocs = this.getActiveTokens(true, true);
+        for (const tokenDoc of tokenDocs) {
+            tokenDoc.onActorEmbeddedItemChange();
         }
-
-        // Send any accrued warnings to the console
-        this.synthetics.preparationWarnings.flush();
-        super._onEmbeddedDocumentChange(embeddedName);
     }
 }
 

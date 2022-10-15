@@ -509,6 +509,7 @@ const traitsDescriptions = {
     manipulate: "PF2E.TraitDescriptionManipulate",
     mechanical: "PF2E.TraitDescriptionMechanical",
     mental: "PF2E.TraitDescriptionMental",
+    metal: "PF2E.TraitDescriptionMetal",
     metamagic: "PF2E.TraitDescriptionMetamagic",
     mindless: "PF2E.TraitDescriptionMindless",
     minion: "PF2E.TraitDescriptionMinion",
@@ -1458,6 +1459,7 @@ export const PF2ECONFIG = {
         alghollthu: "PF2E.LanguageAlghollthu",
         amurrun: "PF2E.LanguageAmurrun",
         anadi: "PF2E.LanguageAnadi",
+        "ancient-osiriani": "PF2E.LanguageAncientOsiriani",
         anugobu: "PF2E.LanguageAnugobu",
         arcadian: "PF2E.LanguageArcadian",
         aquan: "PF2E.LanguageAquan",
@@ -1999,7 +2001,7 @@ export const PF2ECONFIG = {
     Canvas: {
         darkness: {
             default: CONFIG.Canvas.darknessColor,
-            gmVision: 0x6a6791,
+            gmVision: 0x76739e,
         },
     },
 };

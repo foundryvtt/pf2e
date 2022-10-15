@@ -3,10 +3,21 @@ import { ItemPF2e } from "@item";
 
 /** @category RuleElement */
 abstract class IWRRuleElement extends RuleElementPF2e {
+    type: string[];
+
     constructor(data: IWRRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
-        if (typeof data.type !== "string") this.ignored = true;
+        this.type =
+            Array.isArray(data.type) && data.type.every((t): t is string => typeof t === "string")
+                ? [...data.type]
+                : typeof data.type === "string"
+                ? [data.type]
+                : [];
+
+        if (this.type.length === 0) {
+            this.failValidation("type must be a string or array of strings");
+        }
     }
 
     abstract dictionary: Record<string, string | undefined>;
@@ -15,26 +26,25 @@ abstract class IWRRuleElement extends RuleElementPF2e {
 
     validate(value: unknown): boolean {
         return (
-            this.data.type in this.dictionary &&
+            this.type.every((t) => t in this.dictionary) &&
             ((typeof value === "number" && Number.isInteger(value) && value > 0) || typeof value === "string") &&
             (!this.data.except || typeof this.data.except === "string")
         );
     }
 
-    abstract getIWR(value?: unknown): string | object | null;
+    abstract getIWR(value?: unknown): string[] | object[];
 
     override beforePrepareData(): void {
         if (!this.test()) return;
 
-        this.data.type = this.resolveInjectedProperties(this.data.type);
+        this.type = this.resolveInjectedProperties(this.type);
 
         const value: unknown = this.resolveValue();
-        if (!(this.validate(value) && typeof this.data.type === "string" && this.data.type in this.dictionary)) {
+        if (!this.validate(value)) {
             this.ignored = true;
             return;
         }
-        const iwrElement = this.getIWR(value);
-        if (iwrElement) this.property.push(iwrElement);
+        this.property.push(...this.getIWR(value));
     }
 }
 
@@ -48,8 +58,7 @@ interface IWRRuleElementSource extends RuleElementSource {
     override?: unknown;
 }
 
-export interface IWRRuleElementData extends RuleElementData {
-    type: string;
+interface IWRRuleElementData extends RuleElementData {
     /** Exceptions to the IWR */
     except?: string;
     /** Whether to override an existing value even if it's higher */

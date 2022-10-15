@@ -44,7 +44,6 @@ export class SceneDarknessAdjuster extends Application {
         if (this.rendered) return super.render(force, options);
 
         await super.render(force, options);
-        console.log(`Rendered?: ${this.rendered}`);
         const $element = $("#darkness-adjuster");
         await $element.hide(0).fadeIn().promise();
 

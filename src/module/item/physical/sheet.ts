@@ -1,5 +1,5 @@
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
-import { createSheetTags } from "@module/sheet/helpers";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { objectHasKey } from "@util";
 import {
     BasePhysicalItemSource,
@@ -32,6 +32,17 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> e
             sheetData.item.system.identification.unidentified.data.description.value,
             { rollData, async: true }
         );
+        const activations: PhysicalItemSheetData<TItem>["activations"] = [];
+        for (const action of this.item.activations) {
+            const description = await TextEditor.enrichHTML(action.description.value, { rollData, async: true });
+            activations.push({
+                action,
+                id: action.id,
+                base: `system.activations.${action.id}`,
+                description,
+                traits: createSheetTags(actionTraits, action.traits ?? { value: [] }),
+            });
+        }
 
         return {
             ...sheetData,
@@ -46,13 +57,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> e
             stackGroups: CONFIG.PF2E.stackGroups,
             usage: CONFIG.PF2E.usageTraits,
             isPhysical: true,
-            activations: this.item.activations.map((action) => ({
-                action,
-                id: action.id,
-                base: `system.activations.${action.id}`,
-                traits: createSheetTags(actionTraits, action.traits ?? { value: [] }),
-            })),
-
+            activations,
             // Do not let user set bulk if in a stack group because the group determines bulk
             bulkDisabled: !!sheetData.data?.stackGroup?.trim(),
         };
@@ -218,7 +223,13 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     stackGroups: ConfigPF2e["PF2E"]["stackGroups"];
     usage: ConfigPF2e["PF2E"]["usageTraits"];
     bulkDisabled: boolean;
-    activations: { action: ItemActivation; id: string; base: string }[];
+    activations: {
+        action: ItemActivation;
+        id: string;
+        base: string;
+        description: string;
+        traits: SheetOptions;
+    }[];
 }
 
 interface PreparedMaterials {

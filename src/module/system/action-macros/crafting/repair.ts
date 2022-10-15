@@ -207,7 +207,7 @@ async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMess
         });
     } else if (repair === "damage") {
         const hardness = Math.max(0, item.system.hardness);
-        const damage = (message?.roll?.total ?? 0) - hardness;
+        const damage = (message?.rolls.at(0)?.total ?? 0) - hardness;
         if (damage > 0) {
             const beforeDamage = item.system.hp.value;
             const afterDamage = Math.max(0, item.system.hp.value - damage);
@@ -224,7 +224,7 @@ async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMess
             const content = await renderTemplate(templatePath, {
                 damage: {
                     dealt: 0,
-                    rolled: message?.roll?.total ?? 0,
+                    rolled: message?.rolls.at(0)?.total ?? 0,
                 },
                 item,
             });
