@@ -6,7 +6,7 @@
         "baseItem": null,
         "containerId": "null",
         "description": {
-            "value": "<p>Nosois serve as scribes and messengers to psychopomps. They are rare outside of the Boneyard, so it's common for psychopomps venturing to other planes to carry a nosoi facsimile to aid in their travels. This tiny icon of a masked raven emits twittering sounds in perfect accompaniment to your performances. You gain a +3 item bonus to Performance checks to play an instrument, orate, or sing. You can cast <em>@Compendium[pf2e.spells-srd.Sending]{Sending}</em> once per day as a divine innate spell.</p>\n<p>You gain lifesense as an imprecise sense with a range of 30 feet as long as you continue holding the charm. This allows you to sense the life force that animates living creatures and the perverse force that animates the dead, though you can't distinguish between the two.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Nosoi Charm (Greater) (Performance)]{Effect: Nosoi Charm (Greater) (Performance)}</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Nosoi Charm (Greater) (Lifesense)]{Effect: Nosoi Charm (Greater) (Lifesense)}</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">3</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You twist the base of the charm, and the twittering it emits becomes helpful words to boost your arguments. You lose the item bonus to Performance checks and gain a +3 item bonus to Diplomacy checks to make Requests until you use this activation again.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Nosoi Charm (Greater) (Diplomacy)]{Effect: Nosoi Charm (Greater) (Diplomacy)}</p>"
+            "value": "<p>Nosois serve as scribes and messengers to psychopomps. They are rare outside of the Boneyard, so it's common for psychopomps venturing to other planes to carry a nosoi facsimile to aid in their travels. This tiny icon of a masked raven emits twittering sounds in perfect accompaniment to your performances. You gain a +3 item bonus to Performance checks to play an instrument, orate, or sing. You can cast <em>@Compendium[pf2e.spells-srd.Sending]{Sending}</em> once per day as a divine innate spell.</p>\n<p>You gain lifesense as an imprecise sense with a range of 30 feet as long as you continue holding the charm. This allows you to sense the life force that animates living creatures and the perverse force that animates the dead, though you can't distinguish between the two.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">3</span> Interact</p>\n<hr />\n<p><strong>Effect</strong> You twist the base of the charm, and the twittering it emits becomes helpful words to boost your arguments. You lose the item bonus to Performance checks and gain a +3 item bonus to Diplomacy checks to make Requests until you use this activation again.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Nosoi Charm (Greater) (Diplomacy)]{Effect: Nosoi Charm (Greater) (Diplomacy)}</p>"
         },
         "equippedBulk": {
             "value": ""
@@ -18,7 +18,7 @@
             "value": 0
         },
         "level": {
-            "value": 12
+            "value": 18
         },
         "negateBulk": {
             "value": "0"
@@ -31,11 +31,37 @@
         },
         "price": {
             "value": {
-                "gp": 1900
+                "gp": 19000
             }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 30,
+                "selector": "lifesense"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Equipment.NosoiCharm.PerformanceLabel",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:performance:play-an-instrument",
+                            "action:performance:orate",
+                            "action:performance:sing"
+                        ]
+                    },
+                    {
+                        "not": "self:effect:nosoi-charm-greater-diplomacy"
+                    }
+                ],
+                "selector": "performance",
+                "type": "item",
+                "value": 3
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Adventure: Night of the Gray Death"
