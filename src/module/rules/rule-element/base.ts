@@ -157,9 +157,13 @@ abstract class RuleElementPF2e {
      * @param source string that should be parsed
      * @return the looked up value on the specific object
      */
-    resolveInjectedProperties<T extends string | object | null | undefined>(source: T): T;
-    resolveInjectedProperties(source: string | object | undefined): string | object | undefined {
-        if (typeof source === "string" && !source.includes("{")) return source;
+    resolveInjectedProperties<T extends string | number | object | null | undefined>(source: T): T;
+    resolveInjectedProperties(
+        source: string | number | object | null | undefined
+    ): string | number | object | null | undefined {
+        if (source === null || typeof source === "number" || (typeof source === "string" && !source.includes("{"))) {
+            return source;
+        }
 
         // Walk the object tree and resolve any string values found
         if (Array.isArray(source)) {

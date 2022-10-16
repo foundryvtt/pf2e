@@ -115,7 +115,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
             rule.onApplyActiveEffects?.();
         }
 
-        this.applyChoiceSelections(tempGranted);
+        this.#applyChoiceSelections(tempGranted);
 
         // Set the self:class and self:feat(ure) roll option for predication from subsequent pending items
         for (const item of [this.item, tempGranted]) {
@@ -187,7 +187,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         }
     }
 
-    private applyChoiceSelections(grantedItem: Embedded<ItemPF2e>): void {
+    #applyChoiceSelections(grantedItem: Embedded<ItemPF2e>): void {
         const source = grantedItem._source;
         for (const [flag, selection] of Object.entries(this.preselectChoices ?? {})) {
             const rule = grantedItem.rules.find(
@@ -195,8 +195,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
             );
             if (rule) {
                 const ruleSource = source.system.rules[grantedItem.rules.indexOf(rule)] as ChoiceSetSource;
-                const resolvedSelection =
-                    typeof selection === "string" ? this.resolveInjectedProperties(selection) : selection;
+                const resolvedSelection = this.resolveInjectedProperties(selection);
                 rule.data.selection = ruleSource.selection = resolvedSelection;
             }
         }
