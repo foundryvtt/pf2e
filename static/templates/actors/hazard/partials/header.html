@@ -11,14 +11,14 @@
 
     <div class="details">
         <div class="title">
-            <input name="name" class="name" type="text" value="{{actor.name}}" placeholder="{{localize 'PF2E.CharacterNamePlaceholder'}}"/>
+            <input name="name" class="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"/>
             <label>{{localize "ACTOR.TypeHazard"}}</label>
-            <input class="level" name="system.details.level.value" type="number" value="{{data.details.level.value}}" data-dtype="Number" placeholder="1" />
+            <input class="level" name="system.details.level.value" type="number" value="{{data.details.level.value}}" placeholder="1" />
         </div>
 
         {{#if editing}}
             <template class="traits-extra">
-                <select class="tag" name="system.traits.rarity" value="{{data.traits.rarity}}" data-dtype="String">
+                <select class="tag" name="system.traits.rarity" value="{{data.traits.rarity}}">
                     {{#select data.traits.rarity}}
                         {{#each rarity as |label key|}}
                             <option value="{{key}}">{{localize label}}</option>
@@ -27,21 +27,22 @@
                 </select>
                 <select class="tag" name="system.details.isComplex" data-dtype="Boolean">
                     {{#select data.details.isComplex}}
-                        <option value="false">Simple</option>
-                        <option value="true">Complex</option>
+                        <option value="false">{{localize "PF2E.Actor.Hazard.Simple"}}</option>
+                        <option value="true">{{localize "PF2E.TraitComplex"}}</option>
                     {{/select}}
                 </select>
             </template>
-            <input class="tags paizo-style" name="system.traits.value" value="{{json data.traits.value}}" data-dtype="JSON" />
+            <input class="tags paizo-style" name="system.traits.value" value="{{json data.traits.value}}" data-dtype="JSON"
+                {{#if (eq data.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
         {{else}}
-        <div class="tags paizo-style">
-            {{#unless (eq data.details.isComplex "common")}}<span class="tag" value="{{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}
-            {{#if data.details.isComplex}}<span class="tag">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
+            <div class="tags paizo-style">
+                {{#unless (eq data.details.isComplex "common")}}<span class="tag" value="{{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}
+                {{#if data.details.isComplex}}<span class="tag">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
 
-            {{#each actorTraits as |trait id|}}
-                <span class="tag">{{trait}}</span>
-            {{/each}}
-        </div>
+                {{#each actorTraits as |trait id|}}
+                    <span class="tag">{{trait}}</span>
+                {{/each}}
+            </div>
         {{/if}}
     </div>
 </header>

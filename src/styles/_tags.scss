@@ -160,7 +160,7 @@ li.chat-message .tags .tag {
 }
 
 tags.tags.paizo-style {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.075);
     --tag-bg: var(--primary);
     --tag-hover: var(--primary);
     --tag-remove-btn-color: var(--color-text-trait);
@@ -168,10 +168,23 @@ tags.tags.paizo-style {
     --tags-border-color: var(--color-border-light-tertiary);
     --tags-focus-border-color: var(--color-border-light-tertiary);
     --tags-hover-border-color: var(--color-border-light-tertiary);
-
     .tagify__input {
         margin: 0;
         padding: 0.1em 0.5em;
+
+        // Placeholder
+        &::before {
+            align-items: center;
+            color: var(--color-text-dark-secondary);
+            display: flex;
+            font: 500 var(--font-size-10) var(--sans-serif);
+            letter-spacing: 0.05em;
+            margin: 0;
+            min-height: 22px;
+            text-rendering: optimizeLegibility;
+            text-transform: uppercase;
+            width: fit-content;
+        }
     }
 }
 
