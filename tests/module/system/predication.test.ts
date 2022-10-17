@@ -59,6 +59,36 @@ describe("Predication with numeric-comparison atomics return correct results", (
     });
 });
 
+describe("Predication with numeric-comparison with mathematic operations return correct results", () => {
+    test("add", () => {
+        const predicate = new PredicatePF2e({ eq: ["foo", { add: ["bar", 2] }] });
+        expect(predicate.test(["foo:1", "bar:1"])).toEqual(false);
+        expect(predicate.test(["foo:2", "bar:1"])).toEqual(false);
+        expect(predicate.test(["foo:3", "bar:1"])).toEqual(true);
+    });
+
+    test("subtract", () => {
+        const predicate = new PredicatePF2e({ eq: ["foo", { sub: ["bar", 2] }] });
+        expect(predicate.test(["foo:0", "bar:3"])).toEqual(false);
+        expect(predicate.test(["foo:1", "bar:3"])).toEqual(true);
+        expect(predicate.test(["foo:2", "bar:3"])).toEqual(false);
+    });
+
+    test("multiply", () => {
+        const predicate = new PredicatePF2e({ eq: ["foo", { mult: ["bar", 2] }] });
+        expect(predicate.test(["foo:1", "bar:1"])).toEqual(false);
+        expect(predicate.test(["foo:2", "bar:1"])).toEqual(true);
+        expect(predicate.test(["foo:3", "bar:1"])).toEqual(false);
+    });
+
+    test("divide", () => {
+        const predicate = new PredicatePF2e({ eq: ["foo", { div: ["bar", 2] }] });
+        expect(predicate.test(["foo:1", "bar:2"])).toEqual(true);
+        expect(predicate.test(["foo:2", "bar:2"])).toEqual(false);
+        expect(predicate.test(["foo:3", "bar:2"])).toEqual(false);
+    });
+});
+
 describe("Predication with conjunction and negation return correct results", () => {
     test("conjunction operator", () => {
         const predicate = new PredicatePF2e({ and: ["foo", "bar", "baz"] });

@@ -83,31 +83,57 @@ class PredicatePF2e extends Array<PredicateStatement> {
     }
 
     private testBinaryOp(statement: BinaryOperation, domain: Set<string>): boolean {
-        if ("eq" in statement) {
-            return domain.has(`${statement.eq[0]}:${statement.eq[1]}`);
-        } else {
-            const operator = Object.keys(statement)[0];
+        const operator = Object.keys(statement)[0];
 
-            const [left, right] = Object.values(statement)[0];
-            const domainArray = Array.from(domain);
-            const leftValues = domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
-            const rightValues = domainArray.flatMap((d) =>
-                typeof right === "number" ? right : d.startsWith(right) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []
-            );
+        const [left, right] = Object.values(statement)[0];
+        const domainArray = Array.from(domain);
+        const leftValues = domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
+        const rightValues = StatementValidator.isMathOperation(right)
+            ? this.resolveMathOperation(right, domain)
+            : typeof right === "number"
+            ? [right]
+            : domainArray.flatMap((d) => (d.startsWith(right) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
 
-            switch (operator) {
-                case "gt":
-                    return leftValues.some((l) => rightValues.every((r) => l > r));
-                case "gte":
-                    return leftValues.some((l) => rightValues.every((r) => l >= r));
-                case "lt":
-                    return leftValues.some((l) => rightValues.every((r) => l < r));
-                case "lte":
-                    return leftValues.some((l) => rightValues.every((r) => l <= r));
-                default:
-                    console.warn("PF2e System | Malformed binary operation encounter");
-                    return false;
-            }
+        switch (operator) {
+            case "eq":
+                return leftValues.some((l) => rightValues.every((r) => l === r));
+            case "gt":
+                return leftValues.some((l) => rightValues.every((r) => l > r));
+            case "gte":
+                return leftValues.some((l) => rightValues.every((r) => l >= r));
+            case "lt":
+                return leftValues.some((l) => rightValues.every((r) => l < r));
+            case "lte":
+                return leftValues.some((l) => rightValues.every((r) => l <= r));
+            default:
+                console.warn("PF2e System | Malformed binary operation encounter");
+                return false;
+        }
+    }
+
+    private resolveMathOperation(statement: MathOperation, domain: Set<string>): number[] {
+        const operator = Object.keys(statement)[0];
+
+        const [left, right] = Object.values(statement)[0];
+        const domainArray = Array.from(domain);
+        const leftValues = domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
+        const rightValues =
+            typeof right === "number"
+                ? [right]
+                : domainArray.flatMap((d) => (d.startsWith(right) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
+
+        switch (operator) {
+            case "add":
+                return leftValues.flatMap((l) => rightValues.flatMap((r) => l + r));
+            case "sub":
+                return leftValues.flatMap((l) => rightValues.flatMap((r) => l - r));
+            case "mult":
+                return leftValues.flatMap((l) => rightValues.flatMap((r) => l * r));
+            case "div":
+                return leftValues.flatMap((l) => rightValues.flatMap((r) => l / r));
+            default:
+                console.warn("PF2e System | Malformed math operation encounter");
+                return [];
         }
     }
 
@@ -150,6 +176,22 @@ class StatementValidator {
         const [operator, operands]: [string, unknown] = entries[0];
         return (
             this.binaryOperators.has(operator) &&
+            Array.isArray(operands) &&
+            operands.length === 2 &&
+            typeof operands[0] === "string" &&
+            (["string", "number"].includes(typeof operands[1]) || this.isMathOperation(operands[1]))
+        );
+    }
+
+    private static mathOperators = new Set(["add", "sub", "mult", "div"]);
+
+    static isMathOperation(statement: unknown): statement is MathOperation {
+        if (!isObject(statement)) return false;
+        const entries = Object.entries(statement);
+        if (entries.length > 1) return false;
+        const [operator, operands]: [string, unknown] = entries[0];
+        return (
+            this.mathOperators.has(operator) &&
             Array.isArray(operands) &&
             operands.length === 2 &&
             typeof operands[0] === "string" &&
@@ -233,11 +275,17 @@ interface OldRawPredicate {
     not?: PredicateStatement[];
 }
 
-type EqualTo = { eq: [string, string | number] };
-type GreaterThan = { gt: [string, string | number] };
-type GreaterThanEqualTo = { gte: [string, string | number] };
-type LessThan = { lt: [string, string | number] };
-type LessThanEqualTo = { lte: [string, string | number] };
+type Add = { add: [string, string | number] };
+type Subtract = { sub: [string, string | number] };
+type Multiply = { mult: [string, string | number] };
+type Divide = { div: [string, string | number] };
+type MathOperation = Add | Subtract | Multiply | Divide;
+
+type EqualTo = { eq: [string, string | number | MathOperation] };
+type GreaterThan = { gt: [string, string | number | MathOperation] };
+type GreaterThanEqualTo = { gte: [string, string | number | MathOperation] };
+type LessThan = { lt: [string, string | number | MathOperation] };
+type LessThanEqualTo = { lte: [string, string | number | MathOperation] };
 type BinaryOperation = EqualTo | GreaterThan | GreaterThanEqualTo | LessThan | LessThanEqualTo;
 type Atom = string | BinaryOperation;
 

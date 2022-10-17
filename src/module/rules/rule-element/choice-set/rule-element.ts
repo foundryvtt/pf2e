@@ -311,8 +311,15 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
             // Apply the followup predication filter if there is one
             const actorRollOptions = this.actor.getRollOptions();
+            const baseItemRollOptions = this.item.getRollOptions("base-item");
             const filtered = choices.postFilter
-                ? items.filter((i) => choices.postFilter!.test([...actorRollOptions, ...i.getRollOptions("item")]))
+                ? items.filter((i) =>
+                      choices.postFilter!.test([
+                          ...actorRollOptions,
+                          ...baseItemRollOptions,
+                          ...i.getRollOptions("item"),
+                      ])
+                  )
                 : items;
 
             // Exclude any feat of which the character already has its maximum number and return final list

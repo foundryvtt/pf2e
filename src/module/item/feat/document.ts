@@ -132,7 +132,15 @@ class FeatPF2e extends ItemPF2e {
         const featTypeInfix = this.isFeature ? "feature-type" : "feat-type";
         const featTypeSuffix = this.featType.replace("feature", "");
 
-        return [...baseOptions, `${delimitedPrefix}${featTypeInfix}:${featTypeSuffix}`];
+        const rollOptions = [...baseOptions, `${delimitedPrefix}${featTypeInfix}:${featTypeSuffix}`];
+
+        const locationMatch = this.system.location?.match(/^([a-z-]*)-([0-9]*)$/);
+        if (locationMatch) {
+            rollOptions.push(`${delimitedPrefix}location:category:${locationMatch[1]}`);
+            rollOptions.push(`${delimitedPrefix}location:level:${locationMatch[2]}`);
+        }
+
+        return rollOptions;
     }
 
     /* -------------------------------------------- */
