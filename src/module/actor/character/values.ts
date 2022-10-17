@@ -1,4 +1,4 @@
-export const CHARACTER_SHEET_TABS = [
+const CHARACTER_SHEET_TABS = [
     "character",
     "actions",
     "inventory",
@@ -10,3 +10,5 @@ export const CHARACTER_SHEET_TABS = [
     "biography",
     "pfs",
 ] as const;
+
+export { CHARACTER_SHEET_TABS };

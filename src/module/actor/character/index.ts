@@ -106,7 +106,7 @@ import {
     WeaponGroupProficiencyKey,
 } from "./data";
 import { CharacterSheetTabVisibility } from "./data/sheet";
-import { CHARACTER_SHEET_TABS } from "./data/values";
+import { CHARACTER_SHEET_TABS } from "./values";
 import { CharacterFeats } from "./feats";
 import { createForceOpenPenalty, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
