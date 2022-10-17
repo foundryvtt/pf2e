@@ -20,6 +20,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
     protected reevaluateOnUpdate: boolean;
     /** Allow multiple of the same item (as determined by source ID) to be granted */
     protected allowDuplicate: boolean;
+    /** The id of the granted item */
+    grantedId: string | null;
     /**
      * If the granted item has a `ChoiceSet`, its selection may be predetermined. The key of the record must be the
      * `ChoiceSet`'s designated `flag` property.
@@ -36,6 +38,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
         this.reevaluateOnUpdate = !!data.reevaluateOnUpdate;
         this.allowDuplicate = !!(data.allowDuplicate ?? true);
         this.onDeleteActions = this.#getOnDeleteActions(data);
+
+        this.grantedId = typeof data.grantedId === "string" && data.grantedId.length === 16 ? data.grantedId : null;
 
         const isValidPreselect = (p: Record<string, unknown>): p is Record<string, string | number> =>
             Object.values(p).every((v) => ["string", "number"].includes(typeof v));
@@ -59,10 +63,11 @@ class GrantItemRuleElement extends RuleElementPF2e {
         return null;
     }
 
-    override async preCreate(args: Omit<RuleElementPF2e.PreCreateParams, "ruleSource">): Promise<void> {
+    override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (!this.test()) return;
 
         const { itemSource, pendingItems, context } = args;
+        const ruleSource: GrantItemSource = args.ruleSource;
 
         const uuid = this.resolveInjectedProperties(this.uuid);
         const grantedItem: ClientDocument | null = await (async () => {
@@ -82,23 +87,24 @@ class GrantItemRuleElement extends RuleElementPF2e {
         }
 
         // If we shouldn't allow duplicates, check for an existing item with this source ID
-        if (!this.allowDuplicate && this.actor.items.some((i) => i.sourceId === uuid)) {
+        const existingItem = this.actor.items.find((i) => i.sourceId === uuid);
+        if (!this.allowDuplicate && existingItem) {
             if (this.replaceSelf) {
                 pendingItems.splice(pendingItems.indexOf(itemSource), 1);
             }
-            ui.notifications.info(
+            ruleSource.grantedId = existingItem.id;
+            return ui.notifications.info(
                 game.i18n.format("PF2E.UI.RuleElements.GrantItem.AlreadyHasItem", {
                     actor: this.actor.name,
                     item: grantedItem.name,
                 })
             );
-            return;
         }
 
         // Set ids and flags on the granting and granted items
         itemSource._id ??= randomID();
         const grantedSource = grantedItem.toObject();
-        grantedSource._id = randomID();
+        grantedSource._id = ruleSource.grantedId = randomID();
 
         // Special case until configurable item alterations are supported:
         if (itemSource.type === "effect" && grantedSource.type === "effect") {
@@ -176,9 +182,10 @@ class GrantItemRuleElement extends RuleElementPF2e {
         this.replaceSelf = false;
 
         const itemSource = this.item.toObject();
+        const ruleSource = itemSource.system.rules[this.item.rules.indexOf(this)];
         const pendingItems: ItemSourcePF2e[] = [];
         const context = { parent: this.actor, render: false };
-        await this.preCreate({ itemSource, pendingItems, context, reevaluation: true });
+        await this.preCreate({ itemSource, pendingItems, ruleSource, context, reevaluation: true });
 
         if (pendingItems.length > 0) {
             const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? [];
@@ -228,6 +235,8 @@ interface GrantItemSource extends RuleElementSource {
     reevaluateOnUpdate?: unknown;
     allowDuplicate?: unknown;
     onDeleteActions?: unknown;
+    flag?: unknown;
+    grantedId?: unknown;
 }
 
 interface OnDeleteActions {
