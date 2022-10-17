@@ -1227,6 +1227,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         if (this.isToken) {
             return super._onEmbeddedDocumentChange(embeddedName);
+        } else if (game.combat?.getCombatantByActor(this.id)) {
+            // Needs to be done since `super._onEmbeddedDocumentChange` isn't called
+            ui.combat.render();
         }
 
         // For linked tokens, replace parent method with alternative workflow to control canvas re-rendering
