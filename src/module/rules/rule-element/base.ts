@@ -72,7 +72,8 @@ abstract class RuleElementPF2e {
 
         if (item instanceof PhysicalItemPF2e) {
             this.requiresEquipped = !!(data.requiresEquipped ?? true);
-            this.requiresInvestment = item.isInvested === null ? null : !!(data.requiresInvestment ?? true);
+            this.requiresInvestment =
+                item.isInvested === null ? null : !!(data.requiresInvestment ?? this.requiresEquipped);
         }
     }
 
