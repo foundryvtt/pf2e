@@ -20,8 +20,11 @@ class RollOptionRuleElement extends RuleElementPF2e {
      */
     private value: string | boolean;
 
-    /** Whether this roll option can be toggled by the user on an actor sheet */
-    private toggleable: boolean;
+    /**
+     * Whether this roll option can be toggled by the user on an actor sheet: "totm" indicates it will only be present
+     * if the Theather of the Mind Toggles setting is enabled
+     */
+    private toggleable: boolean | "totm";
 
     /** An optional predicate to determine whether the toggle is interactable by the user */
     private disabledIf?: PredicatePF2e;
@@ -42,7 +45,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
 
         this.domain = String(data.domain).trim();
         this.option = String(data.option).trim();
-        this.toggleable = !!data.toggleable;
+        this.toggleable = data.toggleable === "totm" ? "totm" : !!data.toggleable;
         this.value = typeof data.value === "string" ? data.value : !!(data.value ?? !this.toggleable);
         if (this.toggleable && Array.isArray(data.disabledIf)) {
             this.disabledIf = new PredicatePF2e(...data.disabledIf);
@@ -62,8 +65,8 @@ class RollOptionRuleElement extends RuleElementPF2e {
             this.failValidation('The "value" property must be a boolean, string, or otherwise omitted.');
         }
 
-        if ("toggleable" in data && typeof data.toggleable !== "boolean") {
-            this.failValidation('The "togglable" property must be a boolean or otherwise omitted.');
+        if ("toggleable" in data && typeof data.toggleable !== "boolean" && data.toggleable !== "totm") {
+            this.failValidation('The "togglable" property must be a boolean, the string "totm", or otherwise omitted.');
         }
 
         if ("disabledIf" in data) {
@@ -134,7 +137,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 domainRecord[`${option}:1`] = true;
             }
         } else {
-            const value = !!this.resolveValue(this.value);
+            const value = this.resolveValue(this.value);
             if (value) domainRecord[option] = value;
 
             const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
@@ -159,6 +162,14 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 this.actor.system.toggles.push(toggle);
             }
         }
+    }
+
+    /** Force false totm toggleable roll options if the totmToggles setting is disabled */
+    override resolveValue(value: string | boolean): boolean {
+        if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
+            return false;
+        }
+        return !!super.resolveValue(value);
     }
 
     /**

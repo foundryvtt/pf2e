@@ -103,7 +103,7 @@ declare global {
         var game: Game<ActorPF2e, ActorsPF2e, ChatMessagePF2e, EncounterPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
 
         // eslint-disable-next-line no-var
-        var ui: FoundryUI<ActorPF2e, ActorDirectoryPF2e, ItemPF2e, ChatLogPF2e, CompendiumDirectoryPF2e>;
+        var ui: FoundryUI<ActorPF2e, ActorDirectoryPF2e<ActorPF2e>, ItemPF2e, ChatLogPF2e, CompendiumDirectoryPF2e>;
     }
 
     interface Window {
@@ -163,6 +163,7 @@ declare global {
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
         get(module: "pf2e", setting: "nathMode"): boolean;
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
+        get(module: "pf2e", setting: "totmToggles"): boolean;
         get(module: "pf2e", setting: "worldSchemaVersion"): number;
         get(module: "pf2e", setting: "worldSystemVersion"): string;
     }
