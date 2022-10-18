@@ -304,16 +304,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Toggles
-        const flatFootedOption = "target:condition:flat-footed";
-        this.system.toggles = [
-            {
-                label: "PF2E.TargetFlatFootedLabel",
-                domain: "all",
-                option: flatFootedOption,
-                checked: !!this.rollOptions.all[flatFootedOption],
-                enabled: true,
-            },
-        ];
+        this.system.toggles = [];
 
         attributes.doomed = { value: 0, max: 3 };
         attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
