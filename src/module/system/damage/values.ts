@@ -69,12 +69,33 @@ const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, DamageCategory>> 
     lawful: "alignment",
 } as const;
 
+const DAMAGE_TYPE_ICONS: Record<string, string | undefined> = {
+    acid: "vial",
+    bludgeoning: "hammer",
+    chaotic: "dizzy",
+    cold: "snowflake",
+    electricity: "bolt",
+    evil: "crow",
+    fire: "fire",
+    force: "hand-sparkles",
+    good: "dove",
+    lawful: "balance-scale",
+    mental: "brain",
+    negative: "skull",
+    piercing: "bow-arrow",
+    poison: "spider",
+    positive: "sun",
+    slashing: "swords",
+    sonic: "volume-up",
+};
+
 export {
     ALIGNMENT_DAMAGE_TYPES,
     BASE_DAMAGE_TYPES_TO_CATEGORIES,
     DAMAGE_CATEGORIES,
     DAMAGE_DIE_FACES,
     DAMAGE_DIE_FACES_TUPLE,
+    DAMAGE_TYPE_ICONS,
     DAMAGE_TYPES,
     ENERGY_DAMAGE_TYPES,
     PHYSICAL_DAMAGE_TYPES,
