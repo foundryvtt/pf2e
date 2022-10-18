@@ -3,30 +3,11 @@ import { ItemType } from "@item/data";
 import { ChatMessagePF2e, DamageRollFlag } from "@module/chat-message";
 import { DamageRollContext } from "./helpers";
 import { DamageCategory, DamageRollRenderData, DamageType } from "./types";
+import { DAMAGE_TYPE_ICONS } from "./values";
 import { DamageTemplate } from "./weapon";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
 export class DamageRollModifiersDialog extends Application {
-    private static DAMAGE_TYPE_ICONS: Record<string, string | undefined> = {
-        acid: "vial",
-        bludgeoning: "hammer",
-        chaotic: "dizzy",
-        cold: "snowflake",
-        electricity: "bolt",
-        evil: "crow",
-        fire: "fire",
-        force: "hand-sparkles",
-        good: "dove",
-        lawful: "balance-scale",
-        mental: "brain",
-        negative: "skull",
-        piercing: "bow-arrow",
-        poison: "spider",
-        positive: "sun",
-        slashing: "swords",
-        sonic: "volume-up",
-    };
-
     static async roll(damage: DamageTemplate, context: DamageRollContext, callback?: Function): Promise<void> {
         const outcome = context.outcome ?? "success";
 
@@ -189,7 +170,7 @@ export class DamageRollModifiersDialog extends Application {
             rollData.diceResults[damageType] = {};
             renderData.damageTypes[damageType] = {
                 categories: {},
-                icon: DamageRollModifiersDialog.getDamageTypeIcon(damageType),
+                icon: DAMAGE_TYPE_ICONS[damageType] ?? damageType,
                 label: damageTypes[damageType as DamageType] ?? damageType,
             };
             for (const [damageCategory, partial] of Object.entries(categories)) {
@@ -258,9 +239,5 @@ export class DamageRollModifiersDialog extends Application {
         );
         Hooks.call(`pf2e.damageRoll`, rollData);
         if (callback) callback(rollData);
-    }
-
-    private static getDamageTypeIcon(damageType: string): string {
-        return DamageRollModifiersDialog.DAMAGE_TYPE_ICONS[damageType] ?? damageType;
     }
 }
