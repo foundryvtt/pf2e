@@ -130,7 +130,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         // Get the strike index from either the flags or the DOM. In the case of roll macros, it's in the DOM
         const roll = this.rolls.at(0);
         const strikeIndex = (() => {
-            if (roll instanceof StrikeAttackRoll) return roll.data.strike?.index;
+            if (roll instanceof StrikeAttackRoll) return roll.options.strike?.index;
             const messageHTML = htmlQuery(ui.chat.element[0], `li[data-message-id="${this.id}"]`);
             const chatCard = htmlQuery(messageHTML, ".chat-card");
             return chatCard?.dataset.strikeIndex === undefined ? undefined : Number(chatCard?.dataset.strikeIndex);

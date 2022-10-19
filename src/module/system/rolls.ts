@@ -15,7 +15,7 @@ import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify, traitSlu
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "../actor/modifiers";
 import { Check } from "./check";
 import { CheckModifiersDialog } from "./check-modifiers-dialog";
-import { CheckRoll } from "./check/roll";
+import { CheckRoll, CheckRollDataPF2e } from "./check/roll";
 import {
     CheckDC,
     DegreeOfSuccess,
@@ -30,7 +30,6 @@ import { TextEditorPF2e } from "./text-editor";
 interface RollDataPF2e extends RollData {
     rollerId?: string;
     totalModifier?: number;
-    isReroll?: boolean;
     degreeOfSuccess?: ZeroToThree;
     strike?: {
         actor: ActorUUID | TokenDocumentUUID;
@@ -245,8 +244,8 @@ class CheckPF2e {
         const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
         const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
 
-        const rollData: RollDataPF2e = (() => {
-            const data: RollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
+        const options: CheckRollDataPF2e = (() => {
+            const data: CheckRollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
 
             const contextItem = context.item;
             if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
@@ -270,7 +269,7 @@ class CheckPF2e {
         })();
 
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
-        const roll = await new RollCls(`${dice}${totalModifierPart}`, rollData).evaluate({ async: true });
+        const roll = await new RollCls(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
 
         const degree = context.dc ? new DegreeOfSuccess(roll, context.dc) : null;
 

@@ -33,12 +33,16 @@ type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
 
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
-    rollMode: RollMode;
     total: number;
     traits: string[];
     types: Record<string, Record<string, number>>;
-    diceResults: Record<string, Record<string, number[]>>;
+    diceResults: Record<string, Record<string, DieResult[]>>;
     baseDamageDice: number;
+}
+
+interface DieResult {
+    faces: number;
+    result: number;
 }
 
 export { ChatMessageDataPF2e, ChatMessageSourcePF2e, ChatMessageFlagsPF2e, DamageRollFlag };
