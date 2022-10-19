@@ -192,3 +192,4 @@ export { Migration791RuffianHands } from "./791-ruffian-hands";
 export { Migration792RemoveTokenAELikes } from "./792-remove-token-ae-likes";
 export { Migration793MakePredicatesArrays } from "./793-make-predicates-arrays";
 export { Migration794AddWildShapeChoices } from "./794-add-wild-shape-choices";
+export { Migration795CleanupFlatFootedToggle } from "./795-cleanup-flat-footed-toggle";
