@@ -496,12 +496,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const traits: BaseTraitsData<string> | undefined = this.system.traits;
         if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
 
-        // Setup the basic structure of pf2e flags with roll options, preserving options in the "all" domain
-        const { flags } = this;
-        const rollOptionsAll = flags.pf2e?.rollOptions?.all ?? {};
-        rollOptionsAll[`self:type:${this.type}`] = true;
-        flags.pf2e = mergeObject({}, flags.pf2e ?? {});
-        flags.pf2e.rollOptions = { all: rollOptionsAll };
+        // Setup the basic structure of pf2e flags with roll options
+        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, {
+            rollOptions: {
+                all: { [`self:type:${this.type}`]: true },
+            },
+        });
 
         this.setEncounterRollOptions();
     }
