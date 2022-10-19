@@ -163,7 +163,8 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             [`material:${this.material.precious?.type}`]: !!this.material.precious,
         })
             .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => `${delimitedPrefix}${key}`);
+            .map(([key]) => `${delimitedPrefix}${key}`)
+            .concat(this.system.traits.otherTags.map((t) => `${delimitedPrefix}tag:${t}`));
 
         return [baseOptions, physicalItemOptions].flat();
     }
