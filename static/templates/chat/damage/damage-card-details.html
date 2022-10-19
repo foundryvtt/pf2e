@@ -1,0 +1,23 @@
+<div class="dice-tooltip">
+    {{#each damageTypes as |data type|}}
+    <div class="damage-type {{type}}">
+        <h3 class="flexrow"><span>{{localize data.label}}</span><i class="fa fa-{{data.icon}}"></i></h3>
+        {{#each data.categories as |category|}}
+        <section class="tooltip-part">
+            <div class="dice">
+                <header class="part-header flexrow">
+                    <span class="part-formula">{{category.formula}}</span>
+                    <span class="part-flavor">{{localize category.label}}</span>
+                    <span class="part-total">{{category.total}}</span>
+                </header>
+            </div>
+            <ol class="dice-rolls">
+                {{#each category.dice as |die|}}
+                    <li class="roll die d{{die.faces}}">{{die.result}}</li>
+                {{/each}}
+            </ol>
+        </section>
+        {{/each}}
+    </div>
+    {{/each}}
+</div>
