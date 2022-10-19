@@ -6,7 +6,6 @@ import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, PhysicalItem
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
@@ -233,13 +232,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const { domain, option, itemId } = event.target.dataset;
             if (domain && option) {
                 const value = !!event.target.checked;
-                await RollOptionRuleElement.toggleOption({
-                    domain,
-                    option,
-                    actor: this.actor,
-                    itemId: itemId ?? null,
-                    value,
-                });
+                this.actor.toggleRollOption(domain, option, itemId ?? null, value);
             }
         });
 

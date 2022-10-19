@@ -180,36 +180,29 @@ class RollOptionRuleElement extends RuleElementPF2e {
         domain,
         option,
         actor,
-        itemId = null,
+        itemId,
         value = !actor.rollOptions[domain]?.[option],
     }: ToggleParameters): Promise<boolean | null> {
         domain = domain.replace(/[^-\w]/g, "");
         option = option.replace(/[^-:\w]/g, "");
+        if (!itemId) return null;
 
-        const flatFootedOption = "target:condition:flat-footed";
-        if (domain === "all" && option === flatFootedOption) {
-            const updateKey = value
-                ? `flags.pf2e.rollOptions.all.${flatFootedOption}`
-                : `flags.pf2e.rollOptions.all.-=${flatFootedOption}`;
-            return (await actor.update({ [updateKey]: value })) ? value : null;
-        } else if (itemId) {
-            // Directly update the rule element on the item
-            const item = actor.items.get(itemId, { strict: true });
-            const rules = item.toObject().system.rules;
-            const rule = rules.find(
-                (r: RollOptionSource) =>
-                    r.key === "RollOption" &&
-                    typeof r.toggleable === "boolean" &&
-                    r.toggleable &&
-                    r.domain === domain &&
-                    r.option === option &&
-                    r.value !== value
-            );
-            if (rule) {
-                rule.value = value;
-                const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "system.rules": rules }]);
-                return result.length === 1 ? value : null;
-            }
+        // Directly update the rule element on the item
+        const item = actor.items.get(itemId, { strict: true });
+        const rules = item.toObject().system.rules;
+        const rule = rules.find(
+            (r: RollOptionSource) =>
+                r.key === "RollOption" &&
+                typeof r.toggleable === "boolean" &&
+                r.toggleable &&
+                r.domain === domain &&
+                r.option === option &&
+                r.value !== value
+        );
+        if (rule) {
+            rule.value = value;
+            const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "system.rules": rules }]);
+            return result.length === 1 ? value : null;
         }
 
         return null;
