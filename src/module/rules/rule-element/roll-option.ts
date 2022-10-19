@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { RollToggle } from "@actor/data/base";
 import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication";
+import { tupleHasValue } from "@util";
 import { RuleElementOptions, RuleElementPF2e } from "./base";
 import { RuleElementSource } from "./data";
 
@@ -193,8 +194,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
         const rule = rules.find(
             (r: RollOptionSource) =>
                 r.key === "RollOption" &&
-                typeof r.toggleable === "boolean" &&
-                r.toggleable &&
+                tupleHasValue([true, "totm"], r.toggleable) &&
                 r.domain === domain &&
                 r.option === option &&
                 r.value !== value
