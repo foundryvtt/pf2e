@@ -1,11 +1,11 @@
 {
-    "_id": "4uy4Ygf5KD2WrtGW",
+    "_id": "MesQvxSazhl7Xvg8",
     "img": "systems/pf2e/icons/equipment/held-items/nosoi-charm.webp",
-    "name": "Effect: Nosoi Charm (Diplomacy)",
+    "name": "Effect: Nosoi Charm (Performance)",
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>You gain a +2 item bonus to Diplomacy checks to make a request.</p>"
+            "value": "<p>You gain a +2 item bonus to Performance checks to play an instrument, orate, or sing.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -19,11 +19,17 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Nosoi Charm (Make A request)",
+                "label": "Nosoi Charm (Play an instrument, orate or sing)",
                 "predicate": [
-                    "action:make-a-request"
+                    {
+                        "or": [
+                            "action:play-an-instrument",
+                            "action:orate",
+                            "action:sing"
+                        ]
+                    }
                 ],
-                "selector": "diplomacy",
+                "selector": "performance",
                 "type": "item",
                 "value": 2
             }

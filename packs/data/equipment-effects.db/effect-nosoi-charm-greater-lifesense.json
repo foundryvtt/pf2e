@@ -1,31 +1,27 @@
 {
-    "_id": "4uy4Ygf5KD2WrtGW",
+    "_id": "0rkg7SVzs2AetUXw",
     "img": "systems/pf2e/icons/equipment/held-items/nosoi-charm.webp",
-    "name": "Effect: Nosoi Charm (Diplomacy)",
+    "name": "Effect: Nosoi Charm (Greater) (Lifesense)",
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>You gain a +2 item bonus to Diplomacy checks to make a request.</p>"
+            "value": "<p>You gain lifesense as an imprecise sense with a range of 30 feet as long as you are holding the charm, and do not need to activate it. This allows you to sense the life force that animates living creatures and the perverse force that animates the dead, though you can't distinguish between the two.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": "turn-end",
             "sustained": false,
             "unit": "unlimited",
             "value": -1
         },
         "level": {
-            "value": 12
+            "value": 18
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "Nosoi Charm (Make A request)",
-                "predicate": [
-                    "action:make-a-request"
-                ],
-                "selector": "diplomacy",
-                "type": "item",
-                "value": 2
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 30,
+                "selector": "lifesense"
             }
         ],
         "source": {
