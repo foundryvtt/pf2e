@@ -72,11 +72,17 @@ export class EffectsPanel extends Application {
 
         // Remove an effect on right-click
         $icons.on("contextmenu", async (event) => {
+            const actor = this.actor;
             const $target = $(event.currentTarget);
+            const effect = actor?.items.get($target.attr("data-item-id") ?? "");
+
+            if (event.ctrlKey) {
+                effect?.toMessage(undefined, { create: true });
+                return;
+            }
+
             if ($target.attr("data-locked")) return;
 
-            const actor = this.actor;
-            const effect = actor?.items.get($target.attr("data-item-id") ?? "");
             if (effect instanceof AbstractEffectPF2e) {
                 await effect.decrease();
             } else {
@@ -86,11 +92,17 @@ export class EffectsPanel extends Application {
         });
 
         $icons.on("click", async (event) => {
+            const actor = this.actor;
             const $target = $(event.currentTarget);
+            const effect = actor?.items.get($target.attr("data-item-id") ?? "");
+
+            if (event.ctrlKey) {
+                effect?.sheet?.render(true);
+                return;
+            }
+
             if ($target.attr("data-locked")) return;
 
-            const actor = this.actor;
-            const effect = actor?.items.get($target.attr("data-item-id") ?? "");
             if (effect instanceof AbstractEffectPF2e) {
                 await effect.increase();
             }
