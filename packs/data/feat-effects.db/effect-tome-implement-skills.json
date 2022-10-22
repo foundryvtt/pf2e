@@ -1,0 +1,1847 @@
+{
+    "_id": "sgmsXQftylFKK06k",
+    "img": "systems/pf2e/icons/features/classes/gathered-lore.webp",
+    "name": "Effect: Tome Implement Skills",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>This effect will allow you to pick 2 skills to apply temporary efficiencies to.</p>\n<p>The proficiency levels are determined automatically.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcrobatics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:acr:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArcana",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:arc:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAthletics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ath:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillCrafting",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:cra:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillDeception",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dec:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDiplomacy",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dip:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillIntimidation",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:int:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "int"
+                    },
+                    {
+                        "label": "PF2E.SkillMedicine",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:med:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNature",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:nat:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOccultism",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:occ:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillPerformance",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:per:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "per"
+                    },
+                    {
+                        "label": "PF2E.SkillReligion",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:rel:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSociety",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:soc:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillStealth",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ste:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSurvival",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:sur:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThievery",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:thi:rank",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "thi"
+                    }
+                ],
+                "flag": "tomeSkillOne",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "paragon:tome"
+                ],
+                "prompt": "PF2E.SpecificRule.Thaumaturge.TomeSkills.Prompt.Legendary",
+                "rollOption": "implement:tome:skill:legendary"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcrobatics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:acr:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:acr"
+                            }
+                        ],
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArcana",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:arc:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:arc"
+                            }
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAthletics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ath:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:ath"
+                            }
+                        ],
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillCrafting",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:cra:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:cra"
+                            }
+                        ],
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillDeception",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dec:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:dec"
+                            }
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDiplomacy",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dip:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:dip"
+                            }
+                        ],
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillIntimidation",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:int:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:int"
+                            }
+                        ],
+                        "value": "int"
+                    },
+                    {
+                        "label": "PF2E.SkillMedicine",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:med:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:med"
+                            }
+                        ],
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNature",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:nat:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:nat"
+                            }
+                        ],
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOccultism",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:occ:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:occ"
+                            }
+                        ],
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillPerformance",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:per:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:per"
+                            }
+                        ],
+                        "value": "per"
+                    },
+                    {
+                        "label": "PF2E.SkillReligion",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:rel:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:rel"
+                            }
+                        ],
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSociety",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:soc:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:soc"
+                            }
+                        ],
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillStealth",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ste:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:ste"
+                            }
+                        ],
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSurvival",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:sur:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:sur"
+                            }
+                        ],
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThievery",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:thi:rank",
+                                    3
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:legendary:thi"
+                            }
+                        ],
+                        "value": "thi"
+                    }
+                ],
+                "flag": "tomeSkillTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "paragon:tome"
+                ],
+                "prompt": "PF2E.SpecificRule.Thaumaturge.TomeSkills.Prompt.Legendary",
+                "rollOption": "implement:tome:skill:legendary"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcrobatics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:acr:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArcana",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:arc:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAthletics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ath:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillCrafting",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:cra:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillDeception",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dec:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDiplomacy",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dip:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillIntimidation",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:int:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "int"
+                    },
+                    {
+                        "label": "PF2E.SkillMedicine",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:med:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNature",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:nat:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOccultism",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:occ:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillPerformance",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:per:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "per"
+                    },
+                    {
+                        "label": "PF2E.SkillReligion",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:rel:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSociety",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:soc:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillStealth",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ste:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSurvival",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:sur:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThievery",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:thi:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "thi"
+                    }
+                ],
+                "flag": "tomeSkillOne",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "adept:tome",
+                    {
+                        "not": "adept:paragon"
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Thaumaturge.TomeSkills.Prompt.Master",
+                "rollOption": "implement:tome:skill:master"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcrobatics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:acr:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:acr"
+                            }
+                        ],
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArcana",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:arc:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:arc"
+                            }
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAthletics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ath:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:ath"
+                            }
+                        ],
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillCrafting",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:cra:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:cra"
+                            }
+                        ],
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillDeception",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dec:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:dec"
+                            }
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDiplomacy",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dip:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:dip"
+                            }
+                        ],
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillIntimidation",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:int:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:int"
+                            }
+                        ],
+                        "value": "int"
+                    },
+                    {
+                        "label": "PF2E.SkillMedicine",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:med:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:med"
+                            }
+                        ],
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNature",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:nat:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:nat"
+                            }
+                        ],
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOccultism",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:occ:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:occ"
+                            }
+                        ],
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillPerformance",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:per:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:per"
+                            }
+                        ],
+                        "value": "per"
+                    },
+                    {
+                        "label": "PF2E.SkillReligion",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:rel:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:rel"
+                            }
+                        ],
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSociety",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:soc:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:soc"
+                            }
+                        ],
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillStealth",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ste:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:ste"
+                            }
+                        ],
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSurvival",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:sur:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:sur"
+                            }
+                        ],
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThievery",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:thi:rank",
+                                    2
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:master:thi"
+                            }
+                        ],
+                        "value": "thi"
+                    }
+                ],
+                "flag": "tomeSkillTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "adept:tome",
+                    {
+                        "gte": [
+                            "self:level",
+                            9
+                        ]
+                    },
+                    {
+                        "not": "adept:paragon"
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Thaumaturge.TomeSkills.Prompt.Master",
+                "rollOption": "implement:tome:skill:master"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcrobatics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:acr:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArcana",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:arc:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAthletics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ath:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillCrafting",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:cra:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillDeception",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dec:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDiplomacy",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dip:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillIntimidation",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:int:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "int"
+                    },
+                    {
+                        "label": "PF2E.SkillMedicine",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:med:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNature",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:nat:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOccultism",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:occ:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillPerformance",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:per:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "per"
+                    },
+                    {
+                        "label": "PF2E.SkillReligion",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:rel:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSociety",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:soc:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillStealth",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ste:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSurvival",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:sur:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThievery",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:thi:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "thi"
+                    }
+                ],
+                "flag": "tomeSkillOne",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            3
+                        ]
+                    },
+                    {
+                        "or": [
+                            {
+                                "not": "adept:tome"
+                            },
+                            {
+                                "and": [
+                                    "adept:tome",
+                                    {
+                                        "lte": [
+                                            "self:level",
+                                            6
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Thaumaturge.TomeSkills.Prompt.Expert",
+                "rollOption": "implement:tome:skill:expert"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcrobatics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:acr:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:acr"
+                            }
+                        ],
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArcana",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:arc:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:arc"
+                            }
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAthletics",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ath:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:ath"
+                            }
+                        ],
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillCrafting",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:cra:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:cra"
+                            }
+                        ],
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillDeception",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dec:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:dec"
+                            }
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDiplomacy",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:dip:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:dip"
+                            }
+                        ],
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillIntimidation",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:int:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:int"
+                            }
+                        ],
+                        "value": "int"
+                    },
+                    {
+                        "label": "PF2E.SkillMedicine",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:med:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:med"
+                            }
+                        ],
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNature",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:nat:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:nat"
+                            }
+                        ],
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOccultism",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:occ:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:occ"
+                            }
+                        ],
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillPerformance",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:per:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:per"
+                            }
+                        ],
+                        "value": "per"
+                    },
+                    {
+                        "label": "PF2E.SkillReligion",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:rel:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:rel"
+                            }
+                        ],
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSociety",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:soc:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:soc"
+                            }
+                        ],
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillStealth",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:ste:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:ste"
+                            }
+                        ],
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSurvival",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:sur:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:sur"
+                            }
+                        ],
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThievery",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:thi:rank",
+                                    1
+                                ]
+                            },
+                            {
+                                "not": "implement:tome:skill:expert:thi"
+                            }
+                        ],
+                        "value": "thi"
+                    }
+                ],
+                "flag": "tomeSkillTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            {
+                                "not": "adept:tome"
+                            },
+                            {
+                                "and": [
+                                    {
+                                        "lte": [
+                                            "self:level",
+                                            8
+                                        ]
+                                    },
+                                    "adept:tome"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Thaumaturge.TomeSkills.Prompt.Expert",
+                "rollOption": "implement:tome:skill:expert"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcrobatics",
+                        "predicate": [
+                            "skill:acr:rank:0"
+                        ],
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArcana",
+                        "predicate": [
+                            "skill:arc:rank:0"
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAthletics",
+                        "predicate": [
+                            "skill:ath:rank:0"
+                        ],
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillCrafting",
+                        "predicate": [
+                            "skill:cra:rank:0"
+                        ],
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillDeception",
+                        "predicate": [
+                            "skill:dec:rank:0"
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDiplomacy",
+                        "predicate": [
+                            "skill:dip:rank:0"
+                        ],
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillIntimidation",
+                        "predicate": [
+                            "skill:int:rank:0"
+                        ],
+                        "value": "int"
+                    },
+                    {
+                        "label": "PF2E.SkillMedicine",
+                        "predicate": [
+                            "skill:med:rank:0"
+                        ],
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNature",
+                        "predicate": [
+                            "skill:nat:rank:0"
+                        ],
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOccultism",
+                        "predicate": [
+                            "skill:occ:rank:0"
+                        ],
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillPerformance",
+                        "predicate": [
+                            "skill:per:rank:0"
+                        ],
+                        "value": "per"
+                    },
+                    {
+                        "label": "PF2E.SkillReligion",
+                        "predicate": [
+                            "skill:rel:rank:0"
+                        ],
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSociety",
+                        "predicate": [
+                            "skill:soc:rank:0"
+                        ],
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillStealth",
+                        "predicate": [
+                            "skill:ste:rank:0"
+                        ],
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSurvival",
+                        "predicate": [
+                            "skill:sur:rank:0"
+                        ],
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThievery",
+                        "predicate": [
+                            "skill:thi:rank:0"
+                        ],
+                        "value": "thi"
+                    }
+                ],
+                "flag": "tomeSkillOne",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:level",
+                            2
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Thaumaturge.TomeSkills.Prompt.Trained",
+                "rollOption": "implement:tome:skill:trained"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcrobatics",
+                        "predicate": [
+                            "skill:acr:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:acr"
+                            }
+                        ],
+                        "value": "acr"
+                    },
+                    {
+                        "label": "PF2E.SkillArcana",
+                        "predicate": [
+                            "skill:arc:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:arc"
+                            }
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillAthletics",
+                        "predicate": [
+                            "skill:ath:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:ath"
+                            }
+                        ],
+                        "value": "ath"
+                    },
+                    {
+                        "label": "PF2E.SkillCrafting",
+                        "predicate": [
+                            "skill:cra:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:cra"
+                            }
+                        ],
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillDeception",
+                        "predicate": [
+                            "skill:dec:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:dec"
+                            }
+                        ],
+                        "value": "dec"
+                    },
+                    {
+                        "label": "PF2E.SkillDiplomacy",
+                        "predicate": [
+                            "skill:dip:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:dip"
+                            }
+                        ],
+                        "value": "dip"
+                    },
+                    {
+                        "label": "PF2E.SkillIntimidation",
+                        "predicate": [
+                            "skill:int:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:int"
+                            }
+                        ],
+                        "value": "int"
+                    },
+                    {
+                        "label": "PF2E.SkillMedicine",
+                        "predicate": [
+                            "skill:med:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:med"
+                            }
+                        ],
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillNature",
+                        "predicate": [
+                            "skill:nat:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:nat"
+                            }
+                        ],
+                        "value": "nat"
+                    },
+                    {
+                        "label": "PF2E.SkillOccultism",
+                        "predicate": [
+                            "skill:occ:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:occ"
+                            }
+                        ],
+                        "value": "occ"
+                    },
+                    {
+                        "label": "PF2E.SkillPerformance",
+                        "predicate": [
+                            "skill:per:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:per"
+                            }
+                        ],
+                        "value": "per"
+                    },
+                    {
+                        "label": "PF2E.SkillReligion",
+                        "predicate": [
+                            "skill:rel:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:rel"
+                            }
+                        ],
+                        "value": "rel"
+                    },
+                    {
+                        "label": "PF2E.SkillSociety",
+                        "predicate": [
+                            "skill:soc:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:soc"
+                            }
+                        ],
+                        "value": "soc"
+                    },
+                    {
+                        "label": "PF2E.SkillStealth",
+                        "predicate": [
+                            "skill:ste:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:ste"
+                            }
+                        ],
+                        "value": "ste"
+                    },
+                    {
+                        "label": "PF2E.SkillSurvival",
+                        "predicate": [
+                            "skill:sur:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:sur"
+                            }
+                        ],
+                        "value": "sur"
+                    },
+                    {
+                        "label": "PF2E.SkillThievery",
+                        "predicate": [
+                            "skill:thi:rank:0",
+                            {
+                                "not": "implement:tome:first-skill:trained:thi"
+                            }
+                        ],
+                        "value": "thi"
+                    }
+                ],
+                "flag": "tomeSkillTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:level",
+                            4
+                        ]
+                    },
+                    [
+                        "implement:tome:skil"
+                    ]
+                ],
+                "prompt": "PF2E.SpecificRule.Thaumaturge.TomeSkills.Prompt.Trained",
+                "rollOption": "implement:tome:skill:trained"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "note": "upgrade skill 1 to legendary",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.tomeSkillOne}.rank",
+                "predicate": [
+                    "implement:tome:skill:legendary:{item|flags.pf2e.rulesSelections.tomeSkillOne}"
+                ],
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "note": "upgrade skill 2 to legendary",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.tomeSkillTwo}.rank",
+                "predicate": [
+                    "implement:tome:skill:legendary:{item|flags.pf2e.rulesSelections.tomeSkillTwo}"
+                ],
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "note": "upgrade skill 1 to master",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.tomeSkillOne}.rank",
+                "predicate": [
+                    "implement:tome:skill:master:{item|flags.pf2e.rulesSelections.tomeSkillOne}"
+                ],
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "note": "upgrade skill 2 to master",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.tomeSkillTwo}.rank",
+                "predicate": [
+                    "implement:tome:skill:master:{item|flags.pf2e.rulesSelections.tomeSkillTwo}"
+                ],
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "note": "upgrade skill 1 to expert",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.tomeSkillOne}.rank",
+                "predicate": [
+                    "implement:tome:skill:expert:{item|flags.pf2e.rulesSelections.tomeSkillOne}"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "note": "upgrade skill 2 to expert",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.tomeSkillTwo}.rank",
+                "predicate": [
+                    "implement:tome:skill:expert:{item|flags.pf2e.rulesSelections.tomeSkillTwo}"
+                ],
+                "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "note": "upgrade skill 1 to trained",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.tomeSkillOne}.rank",
+                "predicate": [
+                    "implement:tome:skill:trained:{item|flags.pf2e.rulesSelections.tomeSkillOne}"
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "note": "upgrade skill 2 to trained",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.tomeSkillTwo}.rank",
+                "predicate": [
+                    "implement:tome:skill:trained:{item|flags.pf2e.rulesSelections.tomeSkillTwo}"
+                ],
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
