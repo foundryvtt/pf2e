@@ -274,14 +274,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
             html.querySelector<HTMLDivElement>(".rule-editing .editor-placeholder")?.replaceWith(view.dom);
 
-            html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=close]")?.addEventListener(
-                "click",
-                (event) => {
-                    event.preventDefault();
-                    this.editingRuleElementIndex = null;
-                    this.render();
-                }
-            );
+            const closeBtn = html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=close]");
+            closeBtn?.addEventListener("click", (event) => {
+                event.preventDefault();
+                this.editingRuleElementIndex = null;
+                this.render();
+            });
+            closeBtn?.removeAttribute("disabled");
 
             html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")?.addEventListener(
                 "click",
