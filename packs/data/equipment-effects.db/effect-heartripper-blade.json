@@ -1,11 +1,11 @@
 {
-    "_id": "hD0dUWYKM8FrVDZY",
+    "_id": "r6hDgfVLod0AmU7J",
     "img": "systems/pf2e/icons/default-icons/effect.svg",
-    "name": "Effect: Crown of the Kobold King",
+    "name": "Effect: Heartripper Blade",
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>The crown infuses you with the glorious conviction that you're meant to rule, granting you a +1 status bonus to attack rolls, saving throws, and Charisma-based skill checks for 1 minute.</p>"
+            "value": "<p>The <em>heartripper blade</em> draws power from the devastating strike, causing its blade to erupt in black flames. For 1 minute, Strikes with the <em>heartripper blade</em> inflict an additional [[/r {1d6}[negative]]]{1d6 negative damage} to living creatures.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -14,24 +14,22 @@
             "value": 1
         },
         "level": {
-            "value": 9
+            "value": 1
         },
         "rules": [
             {
-                "critical": false,
-                "key": "FlatModifier",
-                "label": "Crown of the Kobold King",
-                "selector": [
-                    "attack",
-                    "saving-throw",
-                    "cha-based"
+                "damageType": "negative",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:living"
                 ],
-                "type": "status",
-                "value": 1
+                "selector": "{item|_id}-damage"
             }
         ],
         "source": {
-            "value": "Pathfinder Adventure: Crown of the Kobold King"
+            "value": ""
         },
         "start": {
             "initiative": null,
