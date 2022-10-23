@@ -1789,11 +1789,12 @@ class CharacterPF2e extends CreaturePF2e {
                     );
 
                     const checkContext: CheckRollContext = {
+                        type: "attack-roll",
                         actor: context.self.actor,
                         target: context.target,
                         item: context.self.item,
-                        type: "attack-roll",
                         altUsage: params.altUsage ?? null,
+                        domains: selectors,
                         options: context.options,
                         notes: attackRollNotes,
                         dc,

@@ -616,10 +616,11 @@ class NPCPF2e extends CreaturePF2e {
                             const roll = await CheckPF2e.roll(
                                 new CheckModifier(checkName, action, otherModifiers),
                                 {
+                                    type: "attack-roll",
                                     actor: context.self.actor,
                                     item: context.self.item,
                                     target: context.target,
-                                    type: "attack-roll",
+                                    domains,
                                     options: context.options,
                                     notes: rollNotes,
                                     dc: params.dc ?? context.dc,
