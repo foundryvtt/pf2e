@@ -75,7 +75,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
         const reach = context.reach ?? this.actor.getReach({ action: "attack" });
 
-        return this.actor.canAttack && reach >= this.distanceTo(flankee, { reach });
+        return this.actor.canAttack && reach >= this.distanceTo(flankee, { reach })  && !this.checkCollision(flankee.center, {mode: "any", type: "move"});
     }
 
     /** Determine whether this token is in fact flanking another */
