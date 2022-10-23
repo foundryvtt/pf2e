@@ -6,30 +6,36 @@
         </div>
     {{/if}}
 </section>
-<section class="roll-options">
-    <h3>{{localize "PF2E.ChatRollDetails.RollOptions"}}</h3>
-    <ul>
-        {{#each rollOptions}}
-            <li>{{this}}</li>
-        {{/each}}
-    </ul>
-</section>
-<section class="modifiers">
-    <h3>{{localize "PF2E.ModifiersTitle"}}</h3>
-    <div class="modifier-list">
-        {{#unless modifiers}}
-            <div class="empty">
-                {{localize "PF2E.ChatRollDetails.ModifiersEmpty"}}
+
+<div class="body">
+    <section class="roll-options">
+        <h3>{{localize "PF2E.ChatRollDetails.RollOptions"}}</h3>
+        <ul>
+            {{#each rollOptions}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </section>
+
+    {{#if hasModifiers}}
+        <section class="modifiers">
+            <h3>{{localize "PF2E.ModifiersTitle"}}</h3>
+            <div class="modifier-list">
+                {{#unless modifiers}}
+                    <div class="empty">
+                        {{localize "PF2E.ChatRollDetails.ModifiersEmpty"}}
+                    </div>
+                {{/unless}}
+                {{#each modifiers as |m|}}
+                    <div class="modifier {{disabled (not m.enabled)}}">
+                        <h4>{{m.label}} <span class="slug">({{m.slug}})</span></h4>
+                        <div>
+                            <span>{{m.type}} {{numberFormat m.modifier sign=true}}</span>
+                            <span>{{m.ability}}</span>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
-        {{/unless}}
-        {{#each modifiers as |m|}}
-            <div class="modifier {{disabled (not m.enabled)}}">
-                <h4>{{m.label}} <span class="slug">({{m.slug}})</span></h4>
-                <div>
-                    <span>{{m.type}} {{numberFormat m.modifier sign=true}}</span>
-                    <span>{{m.ability}}</span>
-                </div>
-            </div>
-        {{/each}}
-    </div>
-</section>
+        </section>
+    {{/if}}
+</div>

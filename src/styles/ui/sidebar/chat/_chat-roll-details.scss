@@ -1,9 +1,7 @@
 .chat-roll-details {
     .window-content {
-        display: grid;
-        grid-template: "summary summary" max-content
-                        "options modifiers" 1fr
-                        / 1fr 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 1em;
         width: 100%;
         flex: 1 1 auto;
@@ -11,7 +9,7 @@
     }
 
     .summary {
-        grid-area: summary;
+        flex: 0 1 auto;
         .type {
             display: flex;
             align-items: baseline;
@@ -27,8 +25,16 @@
         }
     }
 
+    .body {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        width: 100%;
+    }
+
     .roll-options, .modifiers {
         display: flex;
+        flex: 1;
         flex-direction: column;
         height: 100%;
         overflow: hidden;

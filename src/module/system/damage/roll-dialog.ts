@@ -1,6 +1,7 @@
 import { ModifierPF2e } from "@actor/modifiers";
 import { ItemType } from "@item/data";
 import { ChatMessagePF2e } from "@module/chat-message";
+import { DamageRollContextFlag } from "@system/rolls";
 import { DamageRollContext } from "./helpers";
 import { DamageRoll } from "./roll";
 import { DamageType } from "./types";
@@ -158,6 +159,24 @@ export class DamageRollModifiersDialog extends Application {
         const roll = await new DamageRoll("", {}, { rollerId: game.userId, damage }).evaluate({ async: true });
         const rollData = roll.options.result;
 
+        const rollMode = context.rollMode ?? "publicroll";
+
+        const contextFlag: DamageRollContextFlag = {
+            type: context.type,
+            actor: context.self?.actor.id ?? null,
+            token: context.self?.token?.id ?? null,
+            target: targetFlag,
+            domains: context.domains ?? [],
+            options: Array.from(context.options).sort(),
+            notes: context.notes ?? [],
+            secret: context.secret ?? false,
+            rollMode,
+            traits: context.traits ?? [],
+            skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
+            outcome: context.outcome ?? "success",
+            unadjustedOutcome: context.unadjustedOutcome ?? null,
+        };
+
         // For now rolls are pre-rendered, but swap to roll.toMessage() when the damage roll refactor is further along
         await ChatMessagePF2e.create(
             {
@@ -170,6 +189,7 @@ export class DamageRollModifiersDialog extends Application {
                 flags: {
                     core: { canPopout: true },
                     pf2e: {
+                        context: contextFlag,
                         damageRoll: rollData,
                         target: targetFlag,
                         origin,
@@ -177,7 +197,7 @@ export class DamageRollModifiersDialog extends Application {
                     },
                 },
             },
-            { rollMode: context.rollMode ?? "publicroll" }
+            { rollMode }
         );
 
         Hooks.call(`pf2e.damageRoll`, rollData);

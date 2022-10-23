@@ -23,7 +23,7 @@ class ChatRollDetails extends Application {
         const remainingOptions = allOptions.filter((option) => option.includes(":"));
         const rollOptions = [...topLevelOptions.sort(), ...remainingOptions.sort()];
         const domains = context?.domains.sort();
-        return { context, domains, modifiers, rollOptions };
+        return { context, domains, modifiers, rollOptions, hasModifiers: !!modifiers };
     }
 }
 
