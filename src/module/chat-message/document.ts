@@ -35,6 +35,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (!firstRoll || firstRoll.terms.some((t) => t instanceof FateDie || t instanceof Coin)) {
             return false;
         }
+
+        if (this.flags.pf2e.context?.type === "damage-roll") {
+            return true;
+        }
+
         const fromRollTable = !!this.flags.core.RollTable;
         const isD20 = firstRoll.dice[0]?.faces === 20 || !!this.flags.pf2e.context;
         return !(isD20 || fromRollTable);
@@ -74,7 +79,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Does the message include a rerolled check? */
     get isReroll(): boolean {
-        return !!this.flags.pf2e.context?.isReroll;
+        const context = this.flags.pf2e.context;
+        return !!context && context.type !== "damage-roll" && !!context.isReroll;
     }
 
     /** Does the message include a check that hasn't been rerolled? */
@@ -137,7 +143,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         })();
 
         if (typeof strikeIndex === "number") {
-            const altUsage = this.flags.pf2e.context?.altUsage ?? null;
+            const context = this.flags.pf2e.context;
+            const altUsage = context && context.type !== "damage-roll" ? context?.altUsage : null;
             const action = actor.system.actions.at(strikeIndex) ?? null;
             return altUsage
                 ? action?.altUsages?.find((w) => (altUsage === "thrown" ? w.item.isThrown : w.item.isMelee)) ?? null

@@ -1823,11 +1823,12 @@ class CharacterPF2e extends CreaturePF2e {
 
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: StrikeRollParams = {}): Promise<string | void> => {
+                const domains = ["all", "strike-damage", "damage-roll"];
                 params.options ??= [];
                 const context = this.getDamageRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
-                    domains: ["all", "strike-damage", "damage-roll"],
+                    domains,
                     options: new Set([...params.options, ...baseOptions, ...action.options]),
                 });
 
@@ -1875,9 +1876,14 @@ class CharacterPF2e extends CreaturePF2e {
                     return damage.formula[outcome].formula;
                 } else {
                     const { self, target, options } = context;
-
-                    const damageContext: DamageRollContext = { type: "damage-roll", self, target, outcome, options };
-
+                    const damageContext: DamageRollContext = {
+                        type: "damage-roll",
+                        self,
+                        target,
+                        outcome,
+                        options,
+                        domains,
+                    };
                     await DamageRollPF2e.roll(damage, damageContext, params.callback);
                 }
             };

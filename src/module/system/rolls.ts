@@ -124,7 +124,7 @@ interface CheckRollContext extends BaseRollContext {
     altUsage?: "thrown" | "melee" | null;
 }
 
-interface CheckTargetFlag {
+interface TargetFlag {
     actor: ActorUUID | TokenDocumentUUID;
     token?: TokenDocumentUUID;
 }
@@ -134,8 +134,17 @@ interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFl
     actor: string | null;
     token: string | null;
     item?: undefined;
-    target: CheckTargetFlag | null;
+    target: TargetFlag | null;
     altUsage?: "thrown" | "melee" | null;
+    notes: RollNoteSource[];
+    options: string[];
+}
+
+interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self">> {
+    actor: string | null;
+    token: string | null;
+    item?: undefined;
+    target: TargetFlag | null;
     notes: RollNoteSource[];
     options: string[];
 }
@@ -501,7 +510,7 @@ class CheckPF2e {
 
         const systemFlags = deepClone(message.flags.pf2e);
         const context = systemFlags.context;
-        if (!context) return;
+        if (!context || context.type === "damage-roll") return;
 
         context.skipDialog = true;
         context.isReroll = true;
@@ -533,7 +542,7 @@ class CheckPF2e {
         rerollIcon.classList.add("pf2e-reroll-indicator");
         rerollIcon.setAttribute("title", rerollFlavor);
 
-        const dc = message.flags.pf2e.context?.dc ?? null;
+        const dc = context.dc ?? null;
         const oldFlavor = message.flavor ?? "";
         const degree = dc ? new DegreeOfSuccess(newRoll, dc) : null;
         const createNewFlavor = keptRoll === newRoll && !!degree;
@@ -541,7 +550,7 @@ class CheckPF2e {
         const newFlavor = createNewFlavor
             ? await (async (): Promise<string> => {
                   const $parsedFlavor = $("<div>").append(oldFlavor);
-                  const target = message.flags.pf2e.context?.target ?? null;
+                  const target = context.target ?? null;
                   const flavor = await this.createResultFlavor({ degree, target });
                   if (flavor) $parsedFlavor.find(".target-dc-result").replaceWith(flavor);
                   return $parsedFlavor.html();
@@ -780,7 +789,7 @@ class CheckPF2e {
 
 interface CreateResultFlavorParams {
     degree: DegreeOfSuccess | null;
-    target?: AttackTarget | CheckTargetFlag | null;
+    target?: AttackTarget | TargetFlag | null;
 }
 
 interface ResultFlavorTemplateData {
@@ -828,6 +837,7 @@ export {
     CheckRollContext,
     CheckRollContextFlag,
     CheckType,
+    DamageRollContextFlag,
     DamageRollPF2e,
     RollDataPF2e,
     RollParameters,

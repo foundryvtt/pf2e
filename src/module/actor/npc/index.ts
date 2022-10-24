@@ -690,7 +690,7 @@ class NPCPF2e extends CreaturePF2e {
 
                         await DamageRollPF2e.roll(
                             damage,
-                            { type: "damage-roll", self, target, outcome, options },
+                            { type: "damage-roll", self, target, outcome, options, domains },
                             params.callback
                         );
                     };
