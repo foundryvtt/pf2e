@@ -2,7 +2,7 @@
 
 ## Welcome All
 
-If you would like to contribute to the project then I welcome all support. If you are a developer (or would like to be) the hit us up on discord (#pf2e in https://discord.gg/foundryvtt for all foundry, or https://discord.gg/pf2e for pf2e specific) and we can help get you up and running. Merge requests are welcome and there are plenty of issues logged if you want to sink your teeth into something.
+If you would like to contribute to the project then I welcome all support. If you are a developer (or would like to be) the hit us up on discord (https://discord.gg/pf2e) and we can help get you up and running. Merge requests are welcome and there are plenty of issues logged if you want to sink your teeth into something.
 
 ## Setup
 
