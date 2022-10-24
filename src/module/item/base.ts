@@ -188,8 +188,8 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (isObject(flags.pf2e.grantedBy)) {
             flags.pf2e.grantedBy.onDelete ??= this.isOfType("physical") ? "detach" : "cascade";
         }
-        const grants = (flags.pf2e.itemGrants ??= []);
-        for (const grant of grants) {
+        const grants = (flags.pf2e.itemGrants ??= {});
+        for (const grant of Object.values(grants)) {
             grant.onDelete ??= "detach";
         }
     }
