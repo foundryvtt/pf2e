@@ -553,7 +553,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             })();
 
             return {
-                damage: `${dice}${weaponDamage.die}${constant}`,
+                damage: weaponDamage.die ? `${dice}${weaponDamage.die}${constant}` : dice.toString(),
                 damageType: weaponDamage.damageType,
             };
         })();
