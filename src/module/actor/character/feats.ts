@@ -115,8 +115,8 @@ class CharacterFeats extends Collection<FeatCategory> {
     }
 
     private combineGrants(feat: FeatPF2e): { feat: FeatPF2e; grants: GrantedFeat[] } {
-        const getGrantedItems = (grants: ItemGrantData[]): GrantedFeat[] => {
-            return grants.flatMap((grant) => {
+        const getGrantedItems = (grants: Record<string, ItemGrantData>): GrantedFeat[] => {
+            return Object.values(grants).flatMap((grant) => {
                 const item = this.actor.items.get(grant.id);
                 return item?.isOfType("feat") && !item.system.location
                     ? { feat: item, grants: getGrantedItems(item.flags.pf2e.itemGrants) }
