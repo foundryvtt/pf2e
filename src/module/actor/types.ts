@@ -36,6 +36,7 @@ interface AuraEffectData {
         dc: number;
     } | null;
     removeOnExit: boolean;
+    noDurationCoercion: boolean;
 }
 
 interface AuraColors {

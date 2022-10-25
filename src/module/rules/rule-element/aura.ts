@@ -94,6 +94,7 @@ export class AuraRuleElement extends RuleElementPF2e {
         effect.affects ??= "all";
         effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;
         effect.save ??= null;
+        effect.noDurationCoercion ??= false;
 
         return (
             typeof effect.uuid === "string" &&
