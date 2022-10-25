@@ -356,7 +356,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
             rollOptions.all["self:caster"] = true;
         }
 
-        if (this.hitPoints.negativeHealing) rollOptions.all["self:negative-healing"];
+        if (this.hitPoints.negativeHealing) {
+            rollOptions.all["self:negative-healing"] = true;
+        }
 
         // Set whether this actor is wearing armor
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
