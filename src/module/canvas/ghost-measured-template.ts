@@ -2,6 +2,8 @@ import { MeasuredTemplatePF2e } from "./measured-template";
 
 export class GhostTemplate extends MeasuredTemplatePF2e {
     moveTime = 0;
+    // Workaround for https://github.com/microsoft/TypeScript/issues/32912
+    #wheelListenerOptions: AddEventListenerOptions & EventListenerOptions = { passive: true };
 
     private _onMouseMove = (event: PIXI.InteractionEvent) => {
         event.stopPropagation();
@@ -28,7 +30,6 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
 
     override _onMouseWheel = (event: WheelEvent) => {
         if (event.ctrlKey) {
-            event.preventDefault();
             event.stopPropagation();
             const delta = canvas.grid.type > CONST.GRID_TYPES.SQUARE ? 30 : 15;
             const snap = event.shiftKey ? delta : 5;
@@ -36,7 +37,6 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
             this.document.direction += snap * Math.sign(event.deltaY);
             this.refresh();
         } else if (event.shiftKey) {
-            event.preventDefault();
             event.stopPropagation();
             const snap = 45;
             this.document._source.direction += snap * Math.sign(event.deltaY);
@@ -49,7 +49,7 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
         canvas.stage.off("mousemove", this._onMouseMove);
         canvas.stage.off("mousedown", this._onLeftClick);
         canvas.stage.off("rightdown", this.destroy);
-        canvas.app.view.onwheel = null;
+        canvas.app.view.removeEventListener("wheel", this._onMouseWheel, this.#wheelListenerOptions);
         canvas.tokens.activate();
         super.destroy(options);
     }
@@ -65,6 +65,6 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
         canvas.stage.on("mousemove", this._onMouseMove);
         canvas.stage.on("mousedown", this._onLeftClick);
         canvas.stage.on("rightdown", this.destroy.bind(this));
-        canvas.app.view.onwheel = this._onMouseWheel;
+        canvas.app.view.addEventListener("wheel", this._onMouseWheel, this.#wheelListenerOptions);
     }
 }
