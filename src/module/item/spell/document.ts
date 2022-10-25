@@ -362,7 +362,7 @@ class SpellPF2e extends ItemPF2e {
         };
 
         if (areaType === "ray") {
-            templateData.width = CONFIG.MeasuredTemplate.defaults.width;
+            templateData.width = CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
         } else if (areaType === "cone") {
             templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
         }
