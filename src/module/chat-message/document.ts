@@ -11,6 +11,7 @@ import { StrikeData } from "@actor/data/base";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { StrikeAttackRoll } from "@system/check/strike/attack-roll";
 import { htmlQuery } from "@util";
+import { DamageButtons } from "./listeners/damage-buttons";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -40,9 +41,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             return true;
         }
 
+        const isCheck = firstRoll instanceof CheckRoll || firstRoll.dice[0]?.faces === 20;
         const fromRollTable = !!this.flags.core.RollTable;
-        const isD20 = firstRoll.dice[0]?.faces === 20 || !!this.flags.pf2e.context;
-        return !(isD20 || fromRollTable);
+        return !(isCheck || fromRollTable);
     }
 
     /** Get the actor associated with this chat message */
@@ -201,6 +202,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
         const $html = await super.getHTML();
         const html = $html[0]!;
+        if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
+            await DamageButtons.append(this, $html);
+        }
+        CriticalHitAndFumbleCards.appendButtons(this, $html);
+
         html.addEventListener("mouseenter", () => this.onHoverIn());
         html.addEventListener("mouseleave", () => this.onHoverOut());
 
