@@ -216,7 +216,8 @@ export const InlineRollLinks = {
                 templateData.t = templateConversion[pf2EffectArea];
 
                 if (templateData.t === "ray") {
-                    templateData.width = Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width;
+                    templateData.width =
+                        Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
                 } else if (templateData.t === "cone") {
                     templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
                 }
