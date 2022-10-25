@@ -1,6 +1,8 @@
 import { ModifierPF2e } from "@actor/modifiers";
 import { ItemType } from "@item/data";
 import { ChatMessagePF2e } from "@module/chat-message";
+import { ZeroToThree } from "@module/data";
+import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { DamageRollContextFlag } from "@system/rolls";
 import { DamageRollContext } from "./helpers";
 import { DamageRoll } from "./roll";
@@ -155,12 +157,13 @@ export class DamageRollModifiersDialog extends Application {
         const origin = item ? { uuid: item.uuid, type: item.type as ItemType } : null;
         const targetFlag = target ? { actor: target.actor.uuid, token: target.token.uuid } : null;
 
-        // Combine the rolls into a single roll of a dice pool
-        const roll = await new DamageRoll("", {}, { rollerId: game.userId, damage }).evaluate({ async: true });
+        // Create the damage roll, roll it, and pull the result
+        const rollerId = game.userId;
+        const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
+        const roll = await new DamageRoll("", {}, { rollerId, damage, degreeOfSuccess }).evaluate({ async: true });
         const rollData = roll.options.result;
 
         const rollMode = context.rollMode ?? "publicroll";
-
         const contextFlag: DamageRollContextFlag = {
             type: context.type,
             actor: context.self?.actor.id ?? null,
@@ -173,7 +176,7 @@ export class DamageRollModifiersDialog extends Application {
             rollMode,
             traits: context.traits ?? [],
             skipDialog: context.skipDialog ?? !game.user.settings.showRollDialogs,
-            outcome: context.outcome ?? "success",
+            outcome,
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };
 
