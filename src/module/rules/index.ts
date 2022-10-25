@@ -38,6 +38,7 @@ import { TokenImageRuleElement } from "./rule-element/token-image";
 import { TokenLightRuleElement } from "./rule-element/token-light";
 import { TokenNameRuleElement } from "./rule-element/token-name";
 import { WeaponPotencyRuleElement } from "./rule-element/weapon-potency";
+import { AdjustTextRuleElement } from "./rule-element/adjust-text";
 export { RuleElementSynthetics } from "./synthetics";
 
 /**
@@ -50,6 +51,7 @@ class RuleElements {
         AdjustDegreeOfSuccess: AdjustDegreeOfSuccessRuleElement,
         AdjustModifier: AdjustModifierRuleElement,
         AdjustStrike: AdjustStrikeRuleElement,
+        AdjustText: AdjustTextRuleElement,
         Aura: AuraRuleElement,
         BaseSpeed: BaseSpeedRuleElement,
         BattleForm: BattleFormRuleElement,
