@@ -139,6 +139,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const shieldIsAssigned = ownerIsPCOrNPC && actor.attributes.shield.itemId !== null;
 
         if (this.isArmor && this.isEquipped) {
+            // Set the armor item's ID as a roll option
+            actor.rollOptions.all[`armor:id:${this.id}`] = true;
             // Set roll options for certain armor traits
             const traits = this.traits;
             for (const [trait, domain] of [
