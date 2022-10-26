@@ -18,6 +18,7 @@ import {
     rollActionMacro,
     rollItemMacro,
     showEarnIncomePopup,
+    stealthForSelected,
     steelYourResolve,
     treatWounds,
 } from "@scripts/macros";
@@ -60,7 +61,7 @@ export const SetGamePF2e = {
             actions,
             effectPanel: new EffectsPanel(),
             effectTracker: new EffectTracker(),
-            gm: { calculateXP, launchTravelSheet, perceptionForSelected },
+            gm: { calculateXP, launchTravelSheet, perceptionForSelected, stealthForSelected },
             importer: { actor: ActorImporter },
             licenseViewer: new LicenseViewer(),
             rollActionMacro,

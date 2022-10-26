@@ -27,7 +27,14 @@ import {
 import { UserPF2e } from "@module/user";
 import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
-import { calculateXP, launchTravelSheet, perceptionForSelected, rollActionMacro, rollItemMacro } from "@scripts/macros";
+import {
+    calculateXP,
+    launchTravelSheet,
+    perceptionForSelected,
+    rollActionMacro,
+    rollItemMacro,
+    stealthForSelected,
+} from "@scripts/macros";
 import { ModuleArt, registerModuleArt } from "@scripts/register-module-art";
 import { remigrate } from "@scripts/system/remigrate";
 import { UserVisibility } from "@scripts/ui/user-visibility";
@@ -55,6 +62,7 @@ declare global {
                 calculateXP: typeof calculateXP;
                 launchTravelSheet: typeof launchTravelSheet;
                 perceptionForSelected: typeof perceptionForSelected;
+                stealthForSelected: typeof stealthForSelected;
             };
             system: {
                 moduleArt: {
