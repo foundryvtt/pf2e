@@ -1,9 +1,9 @@
 import { ActorType } from "@actor/data";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, PHYSICAL_ITEM_TYPES } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { ItemGrantDeleteAction } from "@item/data/base";
 import { MigrationList, MigrationRunner } from "@module/migration";
-import { isObject, pick, sluggify, tupleHasValue } from "@util";
+import { isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
 import { RuleElementPF2e, RuleElementSource } from "..";
 import { RuleElementOptions } from "../base";
 import { ChoiceSetSource } from "../choice-set/data";
@@ -89,6 +89,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
                 pendingItems.splice(pendingItems.indexOf(itemSource), 1);
             }
             ruleSource.grantedId = existingItem.id;
+            this.#setGrantFlags(itemSource, existingItem);
+
             return ui.notifications.info(
                 game.i18n.format("PF2E.UI.RuleElements.GrantItem.AlreadyHasItem", {
                     actor: this.actor.name,
@@ -149,23 +151,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
         context.keepId = true;
 
-        const flags = mergeObject(itemSource.flags ?? {}, { pf2e: { itemGrants: {} } });
-        flags.pf2e.itemGrants[this.flag] = {
-            // The granting item records the granted item's ID in an array at `flags.pf2e.itemGrants`
-            id: grantedSource._id,
-            // The on-delete action determines what will happen to the granter item when the granted item is deleted:
-            // Default to "detach" (do nothing).
-            onDelete: this.onDeleteActions?.grantee ?? "detach",
-        };
-
-        // The granted item records its granting item's ID at `flags.pf2e.grantedBy`
-        const grantedBy = {
-            id: itemSource._id,
-            // The on-delete action determines what will happen to the granted item when the granter is deleted:
-            // Default to "cascade" (delete the granted item) unless the granted item is physical.
-            onDelete: this.onDeleteActions?.granter ?? (tempGranted.isOfType("physical") ? "detach" : "cascade"),
-        };
-        grantedSource.flags = mergeObject(grantedSource.flags ?? {}, { pf2e: { grantedBy } });
+        this.#setGrantFlags(itemSource, grantedSource);
 
         // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
         if (!args.reevaluation) {
@@ -220,6 +206,37 @@ class GrantItemRuleElement extends RuleElementPF2e {
                 const resolvedSelection = this.resolveInjectedProperties(selection);
                 rule.data.selection = ruleSource.selection = resolvedSelection;
             }
+        }
+    }
+
+    /** Set flags on granting and grantee items to indicate relationship between the two */
+    #setGrantFlags(granter: PreCreate<ItemSourcePF2e>, grantee: ItemSourcePF2e | ItemPF2e): void {
+        const flags = mergeObject(granter.flags ?? {}, { pf2e: { itemGrants: {} } });
+        flags.pf2e.itemGrants[this.flag] = {
+            // The granting item records the granted item's ID in an array at `flags.pf2e.itemGrants`
+            id: grantee instanceof ItemPF2e ? grantee.id : grantee._id,
+            // The on-delete action determines what will happen to the granter item when the granted item is deleted:
+            // Default to "detach" (do nothing).
+            onDelete: this.onDeleteActions?.grantee ?? "detach",
+        };
+
+        // The granted item records its granting item's ID at `flags.pf2e.grantedBy`
+        const grantedBy = {
+            id: granter._id,
+            // The on-delete action determines what will happen to the granted item when the granter is deleted:
+            // Default to "cascade" (delete the granted item) unless the granted item is physical.
+            onDelete:
+                this.onDeleteActions?.granter ?? setHasElement(PHYSICAL_ITEM_TYPES, grantee.type)
+                    ? "detach"
+                    : "cascade",
+        };
+
+        if (grantee instanceof ItemPF2e) {
+            // This is a previously granted item: update its grantedBy flag
+            // Don't await since it will trigger a data reset, possibly wiping temporary roll options
+            grantee.update({ "flags.pf2e.grantedBy": grantedBy }, { render: false });
+        } else {
+            grantee.flags = mergeObject(grantee.flags ?? {}, { pf2e: { grantedBy } });
         }
     }
 
