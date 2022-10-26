@@ -25,6 +25,13 @@ export class FamiliarPF2e extends CreaturePF2e {
         return null;
     }
 
+    get spellcastingAbilityModifier(): number | null {
+        const master = this.master;
+        if (!master) return null;
+        this.system.master.ability ||= "cha";
+        return master.system.abilities[this.system.master.ability].mod;
+    }
+
     override prepareData({ fromMaster = false } = {}): void {
         super.prepareData();
         if (fromMaster) this.sheet.render(false);
@@ -102,8 +109,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         const masterLevel =
             game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" ? 0 : master.level;
 
-        systemData.master.ability ||= "cha";
-        const spellcastingAbilityModifier = master.system.abilities[systemData.master.ability].mod;
+        const spellcastingAbilityModifier = this.spellcastingAbilityModifier!;
 
         const { synthetics } = this;
         this.stripInvalidModifiers();

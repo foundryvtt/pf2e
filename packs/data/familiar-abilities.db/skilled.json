@@ -3,6 +3,7 @@
     "img": "systems/pf2e/icons/actions/Passive.webp",
     "name": "Skilled",
     "system": {
+        "badge": null,
         "description": {
             "value": "<p>Choose a skill other than Acrobatics or Stealth. Your familiar's modifier for that skill is equal to your level plus your key spellcasting ability modifier, rather than just your level. You can select this ability repeatedly, choosing a different skill each time.</p>"
         },
@@ -15,7 +16,60 @@
         "level": {
             "value": 1
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Arcana)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Athletics)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Crafting)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Deception)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Diplomacy)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Intimidation)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Medicine)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Nature)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Occultism)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Performance)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Religion)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Society)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Survival)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.familiar-abilities.Skilled (Thievery)"
+                    }
+                ],
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "GrantItem",
+                "replaceSelf": true,
+                "uuid": "{item|flags.pf2e.rulesSelections.skilled}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
