@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemPF2e } from "@item";
-import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data";
+import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { UserPF2e } from "@module/user";
@@ -9,7 +9,6 @@ import { CheckRoll } from "@system/check/roll";
 import { ChatRollDetails } from "./chat-roll-details";
 import { StrikeData } from "@actor/data/base";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { StrikeAttackRoll } from "@system/check/strike/attack-roll";
 import { htmlQuery } from "@util";
 import { DamageButtons } from "./listeners/damage-buttons";
 
@@ -135,18 +134,17 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (!actor?.isOfType("character", "npc")) return null;
 
         // Get the strike index from either the flags or the DOM. In the case of roll macros, it's in the DOM
-        const roll = this.rolls.at(0);
-        const strikeIndex = (() => {
-            if (roll instanceof StrikeAttackRoll) return roll.options.strike?.index;
+        const strikeData = ((): Pick<StrikeLookupData, "index" | "altUsage"> | null => {
+            if (this.flags.pf2e.strike) return this.flags.pf2e.strike;
             const messageHTML = htmlQuery(ui.chat.element[0], `li[data-message-id="${this.id}"]`);
             const chatCard = htmlQuery(messageHTML, ".chat-card");
-            return chatCard?.dataset.strikeIndex === undefined ? undefined : Number(chatCard?.dataset.strikeIndex);
+            const index = chatCard?.dataset.strikeIndex === undefined ? null : Number(chatCard?.dataset.strikeIndex);
+            return typeof index === "number" ? { index } : null;
         })();
 
-        if (typeof strikeIndex === "number") {
-            const context = this.flags.pf2e.context;
-            const altUsage = context && context.type !== "damage-roll" ? context?.altUsage : null;
-            const action = actor.system.actions.at(strikeIndex) ?? null;
+        if (strikeData) {
+            const { index, altUsage } = strikeData;
+            const action = actor.system.actions.at(index) ?? null;
             return altUsage
                 ? action?.altUsages?.find((w) => (altUsage === "thrown" ? w.item.isThrown : w.item.isMelee)) ?? null
                 : action;

@@ -26,10 +26,20 @@ type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
         isFromConsumable?: boolean;
         journalEntry?: DocumentUUID;
         spellVariant?: { overlayIds: string[] };
+        strike?: StrikeLookupData | null;
         [key: string]: unknown;
     };
     core: NonNullable<foundry.data.ChatMessageFlags["core"]>;
 };
+
+/** Data used to lookup a strike on an actor */
+interface StrikeLookupData {
+    actor: ActorUUID | TokenDocumentUUID;
+    index: number;
+    damaging?: boolean;
+    name: string;
+    altUsage?: "thrown" | "melee" | null;
+}
 
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
@@ -45,4 +55,4 @@ interface DieResult {
     result: number;
 }
 
-export { ChatMessageDataPF2e, ChatMessageSourcePF2e, ChatMessageFlagsPF2e, DamageRollFlag };
+export { ChatMessageDataPF2e, ChatMessageSourcePF2e, ChatMessageFlagsPF2e, DamageRollFlag, StrikeLookupData };
