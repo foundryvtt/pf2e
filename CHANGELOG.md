@@ -33,6 +33,7 @@
 * (TMun) Correct aura from 5 to 10 feet for Elemental Avalanche
 * (TMun) Standardize predicates for Virtuosic Performer rule elements
 * (TMun) Update sly striker rule elements to function in V10
+* (TMun) Add NPCs from PFS 4-05
 * (Tikael) Add localization keys for some equipment effects
 * (Tikael) Automate Life Oracle curse effects
 * (Tikael) Fix and standardize precision damage REs
