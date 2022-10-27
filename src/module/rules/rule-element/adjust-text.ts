@@ -3,11 +3,10 @@ import { tupleHasValue } from "@util";
 import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
 /**
- * Change text of an item.
+ * Change the description text of an item.
  * @category RuleElement
  */
- class AdjustTextRuleElement extends RuleElementPF2e {
-
+class AdjustTextRuleElement extends RuleElementPF2e {
     target: AdjustTextTarget;
     mode: AdjustTextChangeMode;
     text: string;
@@ -16,7 +15,7 @@ import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource
 
     static CHANGE_MODES = ["add", "replace"] as const;
 
-    constructor(data: AdjustTextSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions){
+    constructor(data: AdjustTextSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
         this.target = tupleHasValue(AdjustTextRuleElement.TARGETS, data.target) ? data.target : "self";
@@ -25,7 +24,7 @@ import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource
     }
 
     #resolveTarget(): Embedded<ItemPF2e> | null {
-        switch(this.target) {
+        switch (this.target) {
             case "self": {
                 return this.item;
             }
@@ -38,13 +37,13 @@ import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource
     }
 
     protected validateData(): void {
-        if(!tupleHasValue(AdjustTextRuleElement.TARGETS, this.data.target)){
+        if (!tupleHasValue(AdjustTextRuleElement.TARGETS, this.data.target)) {
             return this.failValidation(`target property is missing or invalid`);
         }
-        if(!tupleHasValue(AdjustTextRuleElement.CHANGE_MODES, this.data.mode)){
+        if (!tupleHasValue(AdjustTextRuleElement.CHANGE_MODES, this.data.mode)) {
             return this.failValidation(`mode property is missing or invalid`);
         }
-        if(this.data.target == "granted-by" && !this.item.flags.pf2e.grantedBy){
+        if (this.data.target === "granted-by" && !this.item.flags.pf2e.grantedBy) {
             return this.failValidation(`Item is not granted by another item`);
         }
     }
@@ -53,13 +52,13 @@ import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource
         this.validateData();
 
         const targetItem = this.#resolveTarget();
-        if(targetItem == null){
+        if (targetItem === null) {
             return this.failValidation(`Target item does not exist`);
         }
 
-        if(this.mode == "add"){
+        if (this.mode === "add") {
             targetItem.system.description.value += this.text;
-        }else if (this.mode == "replace"){
+        } else if (this.mode === "replace") {
             targetItem.system.description.value = this.text;
         }
     }
@@ -83,4 +82,4 @@ interface AdjustTextSource extends RuleElementSource {
     text?: unknown;
 }
 
-export {AdjustTextData, AdjustTextRuleElement, AdjustTextSource}
+export { AdjustTextData, AdjustTextRuleElement, AdjustTextSource };
