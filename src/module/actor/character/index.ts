@@ -617,6 +617,9 @@ class CharacterPF2e extends CreaturePF2e {
             systemData.attributes.perception = stat;
         }
 
+        // Skills
+        systemData.skills = this.prepareSkills();
+
         // Senses
         this.system.traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
@@ -736,9 +739,6 @@ class CharacterPF2e extends CreaturePF2e {
             statisticsModifiers.speed ??= [];
             statisticsModifiers.speed.push(() => speedPenalty);
         }
-
-        // Skills
-        systemData.skills = this.prepareSkills();
 
         // Speeds
         const speeds = (systemData.attributes.speed = this.prepareSpeed("land"));
