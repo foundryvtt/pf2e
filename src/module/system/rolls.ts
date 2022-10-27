@@ -125,6 +125,7 @@ interface TargetFlag {
 }
 
 type ContextFlagOmission = "actor" | "altUsage" | "createMessage" | "item" | "notes" | "options" | "target" | "token";
+
 interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
@@ -561,6 +562,14 @@ class CheckPF2e {
         if (initiativeRoll) {
             const combatant = message.token?.combatant;
             await combatant?.parent.setInitiative(combatant.id, newRoll.total);
+        }
+
+        if (
+            systemFlags.context?.outcome &&
+            degree?.value &&
+            systemFlags.context?.outcome !== DEGREE_OF_SUCCESS_STRINGS[degree.value]
+        ) {
+            systemFlags.context.outcome = DEGREE_OF_SUCCESS_STRINGS[degree.value];
         }
 
         await message.delete({ render: false });
