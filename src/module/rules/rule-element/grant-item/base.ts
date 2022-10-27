@@ -171,7 +171,9 @@ class GrantItemRuleElement extends RuleElementPF2e {
         this.replaceSelf = false;
 
         const itemSource = this.item.toObject();
-        const ruleSource = itemSource.system.rules[this.item.rules.indexOf(this)];
+        const ruleSource = itemSource.system.rules[this.sourceIndex ?? -1];
+        if (!ruleSource) return;
+
         const pendingItems: ItemSourcePF2e[] = [];
         const context = { parent: this.actor, render: false };
         await this.preCreate({ itemSource, pendingItems, ruleSource, context, reevaluation: true });
