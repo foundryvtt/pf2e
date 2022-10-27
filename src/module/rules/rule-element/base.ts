@@ -22,6 +22,8 @@ abstract class RuleElementPF2e {
 
     slug: string | null;
 
+    sourceIndex: number | null;
+
     protected suppressWarnings: boolean;
 
     /** Must the parent item be equipped for this rule element to apply (`null` for non-physical items)? */
@@ -44,6 +46,7 @@ abstract class RuleElementPF2e {
         this.key = String(data.key);
         this.slug = typeof data.slug === "string" ? sluggify(data.slug) : null;
         this.suppressWarnings = options.suppressWarnings ?? false;
+        this.sourceIndex = options.sourceIndex ?? null;
 
         const validActorType = tupleHasValue(this.constructor.validActorTypes, item.actor.type);
         if (!validActorType) {
@@ -327,6 +330,8 @@ namespace RuleElementPF2e {
 }
 
 interface RuleElementOptions {
+    /** If created from an item, the index in the source data */
+    sourceIndex?: number;
     /** If data validation fails for any reason, do not emit console warnings */
     suppressWarnings?: boolean;
 }
