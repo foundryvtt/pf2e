@@ -1,4 +1,6 @@
+import { StrikeData } from "@actor/data/base";
 import { ModifierPF2e } from "@actor/modifiers";
+import { ItemPF2e } from "@item";
 import { ItemType } from "@item/data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
@@ -157,6 +159,29 @@ export class DamageRollModifiersDialog extends Application {
         const origin = item ? { uuid: item.uuid, type: item.type as ItemType } : null;
         const targetFlag = target ? { actor: target.actor.uuid, token: target.token.uuid } : null;
 
+        // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
+        const strike = (() => {
+            const isStrike = item?.isOfType("melee", "weapon");
+            if (isStrike && item && self?.actor?.isOfType("character", "npc")) {
+                const strikes: StrikeData[] = self.actor.system.actions;
+                const strike = strikes.find(
+                    (a): a is StrikeData & { item: ItemPF2e } => a.item?.id === item.id && a.item.slug === item.slug
+                );
+
+                if (strike) {
+                    return {
+                        actor: self.actor.uuid,
+                        index: strikes.indexOf(strike),
+                        damaging: true,
+                        name: strike.item.name,
+                        altUsage: item.isOfType("weapon") ? item.altUsageType : null,
+                    };
+                }
+            }
+
+            return null;
+        })();
+
         // Create the damage roll, roll it, and pull the result
         const rollerId = game.userId;
         const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
@@ -196,6 +221,7 @@ export class DamageRollModifiersDialog extends Application {
                         damageRoll: rollData,
                         target: targetFlag,
                         origin,
+                        strike,
                         preformatted: "both",
                     },
                 },

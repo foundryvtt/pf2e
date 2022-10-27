@@ -3,7 +3,7 @@ import { AttackTarget } from "@actor/creature/types";
 import { StrikeData, TraitViewData } from "@actor/data/base";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { ChatMessageSourcePF2e } from "@module/chat-message/data";
+import { ChatMessageSourcePF2e, StrikeLookupData } from "@module/chat-message/data";
 import { ZeroToThree } from "@module/data";
 import { RollNotePF2e, RollNoteSource } from "@module/notes";
 import { RollSubstitution } from "@module/rules/synthetics";
@@ -31,12 +31,7 @@ interface RollDataPF2e extends RollData {
     rollerId?: string;
     totalModifier?: number;
     degreeOfSuccess?: ZeroToThree;
-    strike?: {
-        actor: ActorUUID | TokenDocumentUUID;
-        index: number;
-        damaging?: boolean;
-        name: string;
-    };
+    strike?: StrikeLookupData;
 }
 
 /** Possible parameters of a RollFunction */
@@ -253,9 +248,8 @@ class CheckPF2e {
         const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
         const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
 
-        const options: CheckRollDataPF2e = (() => {
-            const data: CheckRollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
-
+        // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
+        const strike = (() => {
             const contextItem = context.item;
             if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
                 const strikes: StrikeData[] = context.actor.system.actions;
@@ -265,17 +259,21 @@ class CheckPF2e {
                 );
 
                 if (strike) {
-                    data.strike = {
+                    return {
                         actor: context.actor.uuid,
                         index: strikes.indexOf(strike),
                         damaging: !contextItem.isOfType("melee", "weapon") || contextItem.dealsDamage,
                         name: strike.item.name,
+                        altUsage: context.altUsage,
                     };
                 }
             }
 
-            return data;
+            return null;
         })();
+
+        const options: CheckRollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
+        if (strike) options.strike = strike;
 
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
         const roll = await new RollCls(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
@@ -372,6 +370,7 @@ class CheckPF2e {
                     modifierName: check.slug,
                     modifiers: check.modifiers,
                     origin,
+                    strike,
                 },
             };
 
