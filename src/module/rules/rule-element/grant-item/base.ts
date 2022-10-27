@@ -4,7 +4,7 @@ import { ItemSourcePF2e } from "@item/data";
 import { ItemGrantDeleteAction } from "@item/data/base";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementSource } from "..";
+import { BracketedValue, RuleElementPF2e, RuleElementSource } from "..";
 import { RuleElementOptions } from "../base";
 import { ChoiceSetSource } from "../choice-set/data";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element";
@@ -20,6 +20,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
     protected reevaluateOnUpdate: boolean;
     /** Allow multiple of the same item (as determined by source ID) to be granted */
     protected allowDuplicate: boolean;
+    /** Set the granted item's badge value to a specific number */
+    protected badgeValue: number | string | BracketedValue | null;
     /** The id of the granted item */
     grantedId: string | null;
     /** A flag for referencing the granted item ID in other rule elements */
@@ -41,6 +43,17 @@ class GrantItemRuleElement extends RuleElementPF2e {
         this.reevaluateOnUpdate = !!data.reevaluateOnUpdate;
         this.allowDuplicate = !!(data.allowDuplicate ?? true);
         this.onDeleteActions = this.#getOnDeleteActions(data);
+        this.badgeValue = null;
+
+        if (
+            typeof data.badgeValue === "string" ||
+            typeof data.badgeValue === "number" ||
+            this.isBracketedValue(data.badgeValue)
+        ) {
+            this.badgeValue = data.badgeValue;
+        } else if ("badgeValue" in data) {
+            this.failValidation("Badge value must be a number, string, bracketed value or omitted");
+        }
 
         this.grantedId = typeof data.grantedId === "string" && data.grantedId.length === 16 ? data.grantedId : null;
 
@@ -121,6 +134,20 @@ class GrantItemRuleElement extends RuleElementPF2e {
             grantedSource.system.level.value = itemSource.system?.level?.value ?? grantedSource.system.level.value;
         }
 
+        const badgeValue = Number(this.resolveValue(this.badgeValue)) || null;
+
+        if (badgeValue !== null) {
+            // Effects store their badge values in system.badge.value.
+            if ("badge" in grantedSource.system && grantedSource.system.badge) {
+                grantedSource.system.badge.value = badgeValue;
+            }
+
+            // Conditions store their badge values in system.value.value.
+            if ("value" in grantedSource.system && grantedSource.system.value) {
+                grantedSource.system.value.value = badgeValue;
+            }
+        }
+
         // Guarantee future alreadyGranted checks pass in all cases by re-assigning sourceId
         grantedSource.flags = mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
 
@@ -182,6 +209,28 @@ class GrantItemRuleElement extends RuleElementPF2e {
             const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? [];
             await this.item.update({ "flags.pf2e.itemGrants": updatedGrants }, { render: false });
             await this.actor.createEmbeddedDocuments("Item", pendingItems, context);
+        }
+    }
+
+    /** Update the badges of granted items if applicable. */
+    override afterPrepareData() {
+        if (!this.reevaluateOnUpdate) return;
+        if (!this.grantedId) return;
+
+        const grantedItem = this.actor.items.find((item) => item.id === this.grantedId);
+        if (!grantedItem) return;
+
+        const badgeValue = Number(this.resolveValue(this.badgeValue)) || null;
+        if (badgeValue !== null) {
+            // Effects store their badge values in system.badge.value.
+            if ("badge" in grantedItem.system && grantedItem.system.badge) {
+                grantedItem.update({ "system.badge.value": badgeValue });
+            }
+
+            // Conditions store their badge values in system.value.value.
+            if ("value" in grantedItem.system && grantedItem.system.value) {
+                grantedItem.update({ "system.value.value": badgeValue });
+            }
         }
     }
 
@@ -268,6 +317,7 @@ interface GrantItemSource extends RuleElementSource {
     preselectChoices?: unknown;
     reevaluateOnUpdate?: unknown;
     allowDuplicate?: unknown;
+    badgeValue?: unknown;
     onDeleteActions?: unknown;
     flag?: unknown;
     grantedId?: unknown;

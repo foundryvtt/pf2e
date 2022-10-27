@@ -17,10 +17,10 @@
     <div class="details-container-flex-row">
         <input type="text" name="system.rules.{{index}}.uuid" value="{{rule.uuid}}" />
         {{#if granted}}
-            <a class="granted content-link" data-uuid="{{granted.uuid}}">
-                <img src="{{granted.img}}"/>
-                {{granted.name}}
-            </a>
+        <a class="granted content-link" data-uuid="{{granted.uuid}}">
+            <img src="{{granted.img}}"/>
+            {{granted.name}}
+        </a>
         {{/if}}
     </div>
 
@@ -28,4 +28,8 @@
 <div class="form-group">
     <label class="short">{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
     <input type="text" name="system.rules.{{index}}.predicate" value="{{json rule.predicate}}" />
+</div>
+<div class="form-group">
+    <label class="short">{{localize "PF2E.RuleEditor.GrantItem.BadgeValue"}}</label>
+    <input type="text" name="system.rules.{{index}}.badgeValue" value="{{rule.badgeValue}}"/>
 </div>
