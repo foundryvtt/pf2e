@@ -564,13 +564,7 @@ class CheckPF2e {
             await combatant?.parent.setInitiative(combatant.id, newRoll.total);
         }
 
-        if (
-            systemFlags.context?.outcome &&
-            degree?.value &&
-            systemFlags.context?.outcome !== DEGREE_OF_SUCCESS_STRINGS[degree.value]
-        ) {
-            systemFlags.context.outcome = DEGREE_OF_SUCCESS_STRINGS[degree.value];
-        }
+        context.outcome = degree ? DEGREE_OF_SUCCESS_STRINGS[degree.value] : null;
 
         await message.delete({ render: false });
         await keptRoll.toMessage(
