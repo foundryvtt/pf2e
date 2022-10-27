@@ -48,8 +48,9 @@ class AdjustTextRuleElement extends RuleElementPF2e {
         }
     }
 
-    override beforePrepareData(): void {
+    override beforePrepareData(rollOptions = new Set(this.actor.getRollOptions())): void {
         this.validateData();
+        if (!this.test(rollOptions)) return;
 
         const targetItem = this.#resolveTarget();
         if (targetItem === null) {
