@@ -1,6 +1,6 @@
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
 import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { ItemSummaryData } from "@item/data";
+import { ItemSummaryData, ItemType } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ValueAndMax } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
@@ -119,16 +119,27 @@ class ConsumablePF2e extends PhysicalItemPF2e {
 
             // If using this consumable creates a roll, we need to show it
             const formula = this.system.consume.value;
+            const flags = {
+                pf2e: {
+                    origin: {
+                        sourceId: this.flags.core?.sourceId,
+                        uuid: this.uuid,
+                        type: this.type as ItemType,
+                    },
+                },
+            };
             if (formula) {
                 new Roll(formula).toMessage({
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: content,
+                    flags,
                 });
             } else if (this.consumableType !== "ammo") {
                 ChatMessage.create({
                     user: game.user.id,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     content,
+                    flags,
                 });
             }
         }
