@@ -3,7 +3,7 @@
 ## Version 4.3.1
 
 ### System Improvements
-* (xdy) Adds pf2e flags with sourceId, uuid and type to consumable-usage chat messages
+* (xdy) Add pf2e flags with sourceId, uuid and type to consumable-usage chat messages
 
 ### Bugfixes
 * (Supe) Increase reliability of rule source lookup in grant item
@@ -17,7 +17,7 @@
 * (dogstarrb) Fix some details in NPCs Agents of Edgewatch 1
 * (stwlam) Remove disabling of damage-doubling on crit for dragon claws effect
 * (SkepticRobot) Add star grenades
-* (SkepticRobot) Automate Skilled familiar ability
+* (SkepticRobot) Automate Skilled Familiar ability
 * (Tikael) Add damage to Sea Surge spell
 * (Tikael) Fix formulas in Phlogistonic Regulator
 * (Tikael) Set Psyche trait description
@@ -61,7 +61,7 @@
 * (Tikael) Automate Life Oracle curse effects
 * (Tikael) Fix and standardize precision damage REs
 * (Tikael) Fix quantity of sacks
-* (VestOfHolding) Add NPCS and player options from Crown of the Kobold King
+* (VestOfHolding) Add NPCs and player options from Crown of the Kobold King
 
 
 ## Version 4.2.6
