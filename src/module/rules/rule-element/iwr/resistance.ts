@@ -12,7 +12,7 @@ class ResistanceRuleElement extends IWRRuleElement {
     getIWR(value: number): LabeledResistance[] {
         const resistances = this.property;
 
-        for (const resistanceType of this.type) {
+        for (const resistanceType of [...this.type]) {
             const current = resistances.find((r) => r.type === resistanceType);
             if (current) {
                 if (this.data.override) {
