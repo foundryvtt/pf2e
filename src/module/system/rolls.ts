@@ -545,9 +545,10 @@ class CheckPF2e {
         const dc = context.dc ?? null;
         const oldFlavor = message.flavor ?? "";
         const degree = dc ? new DegreeOfSuccess(newRoll, dc) : null;
-        const createNewFlavor = keptRoll === newRoll && !!degree;
+        const useNewRoll = keptRoll === newRoll && !!degree;
+        context.outcome = useNewRoll ? DEGREE_OF_SUCCESS_STRINGS[degree.value] : context.outcome;
 
-        const newFlavor = createNewFlavor
+        const newFlavor = useNewRoll
             ? await (async (): Promise<string> => {
                   const $parsedFlavor = $("<div>").append(oldFlavor);
                   const target = context.target ?? null;
@@ -563,8 +564,6 @@ class CheckPF2e {
             const combatant = message.token?.combatant;
             await combatant?.parent.setInitiative(combatant.id, newRoll.total);
         }
-
-        context.outcome = degree ? DEGREE_OF_SUCCESS_STRINGS[degree.value] : null;
 
         await message.delete({ render: false });
         await keptRoll.toMessage(
