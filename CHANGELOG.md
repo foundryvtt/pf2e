@@ -1,5 +1,28 @@
 # Changelog
 
+## Version 4.3.1
+
+### System Improvements
+* (xdy) Adds pf2e flags with sourceId, uuid and type to consumable-usage chat messages
+
+### Bugfixes
+* (Supe) Increase reliability of rule source lookup in grant item
+* (Supe) No longer return damage dice from rule element if damage type resolving fails
+* (Supe) Fix issue causing weapon item to not be retrievable from strike damage messages
+* (In3luki) Fix measured template rotation triggering the browser zoom in Firefox and Edge
+* (xdy) Adjust context.outcome based on result of reroll
+
+### Data Updates
+* (Abaddon) Localize Risky Surgery toggle and Dragon Claws spell effect
+* (dogstarrb) Fix some details in NPCs Agents of Edgewatch 1
+* (stwlam) Remove disabling of damage-doubling on crit for dragon claws effect
+* (SkepticRobot) Add star grenades
+* (SkepticRobot) Automate Skilled familiar ability
+* (Tikael) Add damage to Sea Surge spell
+* (Tikael) Fix formulas in Phlogistonic Regulator
+* (Tikael) Set Psyche trait description
+
+
 ## Version 4.3.0
 
 ### System Improvements
