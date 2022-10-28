@@ -41,6 +41,10 @@ class ConditionPF2e extends AbstractEffectPF2e {
         return this.system.sources.hud;
     }
 
+    override get secret(): boolean {
+        return false;
+    }
+
     override async increase(): Promise<void> {
         if (this.actor && this.system.removable) {
             await this.actor.increaseCondition(this as Embedded<ConditionPF2e>);

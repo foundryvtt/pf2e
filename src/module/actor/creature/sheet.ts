@@ -475,6 +475,17 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 await effect.increase();
             }
         });
+
+        // Change whether an effect is secret to players or not
+        $html.find("a[data-action=effect-toggle-secret]").on("click", async (event) => {
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = this.actor?.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof AbstractEffectPF2e) {
+                const isSecret = effect.secret;
+                await effect.update({ "system.secret": !isSecret });
+            }
+        });
     }
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */

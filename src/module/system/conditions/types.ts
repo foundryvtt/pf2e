@@ -9,6 +9,7 @@ interface FlattenedCondition {
     description: string;
     enrichedDescription?: string;
     img: ImagePath;
+    secret: boolean;
     locked: boolean;
     references: boolean;
     breakdown?: string;
