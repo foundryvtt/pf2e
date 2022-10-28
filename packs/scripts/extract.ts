@@ -206,6 +206,9 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         if (docSource.type === "consumable" && !docSource.system.spell) {
                             delete (docSource.system as { spell?: unknown }).spell;
                         }
+                        if (docSource.type === "weapon") {
+                            delete (docSource.system as { property1?: unknown }).property1;
+                        }
                     } else if (docSource.type === "action" && !docSource.system.deathNote) {
                         delete (docSource.system as { deathNote?: boolean }).deathNote;
                     } else if (docSource.type === "feat") {
