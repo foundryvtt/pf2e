@@ -13,7 +13,9 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
     abstract decrease(): Promise<void>;
 
     /** If true, the AbstractEffect should be hidden from the user unless they are a GM */
-    abstract get secret(): boolean;
+    get secret(): boolean {
+        return false;
+    }
 
     override prepareBaseData(): void {
         super.prepareBaseData();
