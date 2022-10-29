@@ -1,5 +1,22 @@
 # Changelog
 
+## Version 4.3.2
+
+### Bugfixes
+* (stwlam) Fix upgrading existing weaknesses and resistances
+* (stwlam) Fix issue causing Theather of the Mind toggles to appear when setting is disabled
+
+### Data Updates
+* (Far2Casual) Fix inline check of Acidic Poison Cloud Trap
+* (simonward) Fix Peryton Heart Ripper ability
+* (stwlam) Add TotM toggle for Flying Blade
+* (Tikael) Fix REs and prerequisites on Hellknight Armiger Dedication
+* (Tikael) Fully automate Hellknight Signifier Dedication
+* (TMun) Correct action cost of Thylacine's Hunting Cry
+* (TMun) Correct duration of Time Beacon
+* (TMun) Correct CON modifier for Aecora Silverfire
+
+
 ## Version 4.3.1
 
 ### System Improvements
