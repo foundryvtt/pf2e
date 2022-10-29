@@ -179,8 +179,11 @@ class GrantItemRuleElement extends RuleElementPF2e {
         await this.preCreate({ itemSource, pendingItems, ruleSource, context, reevaluation: true });
 
         if (pendingItems.length > 0) {
-            const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? [];
-            await this.item.update({ "flags.pf2e.itemGrants": updatedGrants }, { render: false });
+            const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? {};
+            await this.item.update(
+                { "system.rules": itemSource.system.rules, "flags.pf2e.itemGrants": updatedGrants },
+                { render: false }
+            );
             await this.actor.createEmbeddedDocuments("Item", pendingItems, context);
         }
     }
