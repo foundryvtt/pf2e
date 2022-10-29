@@ -13,6 +13,10 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
         const snapped = canvas.grid.getSnappedPosition(center.x, center.y, 2);
         this.document.x = snapped.x;
         this.document.y = snapped.y;
+        if ((this.moveTime == 0) && (canvas.grid.type == CONST.GRID_TYPES.HEXODDR || canvas.grid.type == CONST.GRID_TYPES.HEXEVENR)) {
+            this.document._source.direction += 30;
+            this.document.direction = this.document._source.direction;
+        }
         this.refresh();
         this.moveTime = now;
     };
@@ -32,16 +36,15 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
         if (event.ctrlKey) {
             event.preventDefault();
             event.stopPropagation();
-            const delta = canvas.grid.type > CONST.GRID_TYPES.SQUARE ? 30 : 15;
-            const snap = event.shiftKey ? delta : 5;
+            const snap = event.shiftKey ? 15 : 5;
             this.document._source.direction += snap * Math.sign(event.deltaY);
-            this.document.direction += snap * Math.sign(event.deltaY);
+            this.document.direction = this.document._source.direction;
             this.refresh();
         } else if (event.shiftKey) {
             event.stopPropagation();
-            const snap = 45;
+            const snap = (canvas.grid.type >= CONST.GRID_TYPES.HEXODDR && canvas.grid.type <= CONST.GRID_TYPES.HEXEVENQ) ? 60 : 45;
             this.document._source.direction += snap * Math.sign(event.deltaY);
-            this.document.direction += snap * Math.sign(event.deltaY);
+            this.document.direction = this.document._source.direction;
             this.refresh();
         }
     };
