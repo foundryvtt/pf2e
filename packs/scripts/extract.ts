@@ -15,6 +15,7 @@ import templateJSON from "static/template.json";
 import systemJSON from "system.json";
 import yargs from "yargs";
 import { CompendiumPack, isActorSource, isItemSource } from "./packman/compendium-pack";
+import { ItemDeflater } from "./embedded-items";
 
 declare global {
     interface Global {
@@ -683,40 +684,51 @@ function sortSpells(spells: Set<ItemSourcePF2e>): SpellSource[] {
     }) as SpellSource[];
 }
 
+/** Pretty print JSON data */
+function JSONstringifyOrder(preparedSource: PackEntry): string {
+    const idPattern = /^[a-z0-9]{20,}$/g;
+    const allKeys: Set<string> = new Set();
+    const idKeys: string[] = [];
+
+    JSON.stringify(preparedSource, (key, value) => {
+        if (idPattern.test(key)) {
+            idKeys.push(key);
+        } else {
+            allKeys.add(key);
+        }
+
+        return value;
+    });
+
+    const sortedKeys = Array.from(allKeys).sort().concat(idKeys);
+
+    const newJson = JSON.stringify(preparedSource, sortedKeys, 4);
+    return `${newJson}\n`;
+}
+
 async function extractPack(filePath: string, packFilename: string) {
     console.log(`Extracting pack: ${packFilename} (Presorting: ${args.disablePresort ? "Disabled" : "Enabled"})`);
     const outPath = path.resolve(tempDataPath, packFilename);
 
     const packSources = await getAllData(filePath);
-    const idPattern = /^[a-z0-9]{20,}$/g;
+
+    const deflater = new ItemDeflater({
+        idsToNames,
+        JSONstringifyOrder,
+        sanitizeDocument,
+    });
 
     for (const source of packSources) {
         // Remove or replace unwanted values from the document source
         const preparedSource = convertLinks(source, packFilename);
-        if ("items" in preparedSource && preparedSource.type === "npc" && !args.disablePresort) {
-            preparedSource.items = sortDataItems(preparedSource);
+        if ("items" in preparedSource) {
+            if (preparedSource.type === "npc" && !args.disablePresort) {
+                preparedSource.items = sortDataItems(preparedSource);
+            }
+            preparedSource.items = preparedSource.items.map((itemSource) => deflater.process(itemSource));
         }
 
-        // Pretty print JSON data
-        const outData = (() => {
-            const allKeys: Set<string> = new Set();
-            const idKeys: string[] = [];
-
-            JSON.stringify(preparedSource, (key, value) => {
-                if (idPattern.test(key)) {
-                    idKeys.push(key);
-                } else {
-                    allKeys.add(key);
-                }
-
-                return value;
-            });
-
-            const sortedKeys = Array.from(allKeys).sort().concat(idKeys);
-
-            const newJson = JSON.stringify(preparedSource, sortedKeys, 4);
-            return `${newJson}\n`;
-        })();
+        const outData = JSONstringifyOrder(preparedSource);
 
         // Remove all non-alphanumeric characters from the name
         const slug = sluggify(source.name);

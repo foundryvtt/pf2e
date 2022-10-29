@@ -76,6 +76,10 @@ export class MigrationRunnerBase {
 
         for (const migration of migrations) {
             for (const currentItem of currentActor.items) {
+                if ("baseItem" in currentItem) {
+                    // Migration is running on a pack item that is based on another pack item
+                    continue;
+                }
                 await migration.preUpdateItem?.(currentItem, currentActor);
                 if (currentItem.type === "consumable" && currentItem.system.spell) {
                     await migration.preUpdateItem?.(currentItem.system.spell);
@@ -87,6 +91,10 @@ export class MigrationRunnerBase {
             await migration.updateActor?.(currentActor);
 
             for (const currentItem of currentActor.items) {
+                if ("baseItem" in currentItem) {
+                    // Migration is running on a pack item that is based on another pack item
+                    continue;
+                }
                 await migration.updateItem?.(currentItem, currentActor);
                 // Handle embedded spells
                 if (currentItem.type === "consumable" && currentItem.system.spell) {

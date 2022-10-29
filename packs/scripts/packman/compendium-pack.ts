@@ -8,6 +8,7 @@ import { ActorSourcePF2e } from "@actor/data";
 import { RuleElementSource } from "@module/rules";
 import { FEAT_TYPES } from "@item/feat/values";
 import { SIZES } from "@module/data";
+import { ItemInflater } from "../embedded-items";
 
 export interface PackMetadata {
     system: string;
@@ -89,6 +90,7 @@ export class CompendiumPack {
             return a._id > b._id ? 1 : -1;
         });
 
+        const inflater = new ItemInflater();
         this.data = parsedData;
 
         for (const docSource of this.data) {
@@ -120,6 +122,9 @@ export class CompendiumPack {
                         throw PackError(`${documentName} (${this.name}) references a non-WEBP/SVG image: ${imgPath}`);
                     }
                 }
+            }
+            if ("items" in docSource) {
+                docSource.items = docSource.items.map((itemSource) => inflater.process(itemSource as ItemSourcePF2e));
             }
             if ("type" in docSource && docSource.type === "script") {
                 docSource.ownership ??= { default: 1 };
