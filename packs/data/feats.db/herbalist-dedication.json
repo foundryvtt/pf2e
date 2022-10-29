@@ -40,8 +40,17 @@
             },
             {
                 "craftableItems": [
-                    "item:trait:alchemical",
-                    "item:trait:healing"
+                    {
+                        "or": [
+                            "item:tag:herbal",
+                            {
+                                "and": [
+                                    "item:trait:alchemical",
+                                    "item:trait:healing"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "isAlchemical": true,
                 "isDailyPrep": true,

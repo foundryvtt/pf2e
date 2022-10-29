@@ -6,8 +6,19 @@ import { ValueAndMax } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e } from "@util";
 import { ConsumableData, ConsumableType } from "./data";
+import { OtherConsumableTag } from "./types";
 
 class ConsumablePF2e extends PhysicalItemPF2e {
+    get otherTags(): Set<OtherConsumableTag> {
+        return new Set(this.system.traits.otherTags);
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        this.system.traits.otherTags ??= [];
+    }
+
     get consumableType(): ConsumableType {
         return this.system.consumableType.value;
     }

@@ -23,3 +23,18 @@
     <label>{{localize "PF2E.ConsumableAutoDestroyLabel"}}</label>
     <input type="checkbox" name="system.autoDestroy.value" {{checked data.autoDestroy.value}} />
 </div>
+
+<div class="form-group-stacked">
+    <label>
+        {{localize "PF2E.Item.Physical.OtherTags.Label"}}
+        <i class="fas fa-info-circle other-tags-hint" title="PF2E.Item.Physical.OtherTags.Hint"></i>
+        {{#if editable}}
+            <a class="tag-selector" data-tag-selector="basic" data-config-types="otherConsumableTags" data-title="PF2E.Item.Physical.OtherTags.Label" data-property="system.traits.otherTags"><i class="fas fa-edit"></i></a>
+        {{/if}}
+    </label>
+    <ul class="traits-list tags">
+        {{#each otherTags as |tag|}}
+            <li class="tag tag_alt">{{tag.label}}</li>
+        {{/each}}
+    </ul>
+</div>
