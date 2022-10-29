@@ -143,7 +143,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
 
             const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
 
-            if (this.toggleable) {
+            if (this.toggleable === true || (this.toggleable === "totm" && game.settings.get("pf2e", "totmToggles"))) {
                 const toggle: RollToggle = {
                     itemId: this.item.id,
                     label,
