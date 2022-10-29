@@ -13,7 +13,10 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
         const snapped = canvas.grid.getSnappedPosition(center.x, center.y, 2);
         this.document.x = snapped.x;
         this.document.y = snapped.y;
-        if ((this.moveTime == 0) && (canvas.grid.type == CONST.GRID_TYPES.HEXODDR || canvas.grid.type == CONST.GRID_TYPES.HEXEVENR)) {
+        if (
+            this.moveTime === 0 &&
+            (canvas.grid.type === CONST.GRID_TYPES.HEXODDR || canvas.grid.type === CONST.GRID_TYPES.HEXEVENR)
+        ) {
             this.document._source.direction += 30;
             this.document.direction = this.document._source.direction;
         }
@@ -42,7 +45,8 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
             this.refresh();
         } else if (event.shiftKey) {
             event.stopPropagation();
-            const snap = (canvas.grid.type >= CONST.GRID_TYPES.HEXODDR && canvas.grid.type <= CONST.GRID_TYPES.HEXEVENQ) ? 60 : 45;
+            const snap =
+                canvas.grid.type >= CONST.GRID_TYPES.HEXODDR && canvas.grid.type <= CONST.GRID_TYPES.HEXEVENQ ? 60 : 45;
             this.document._source.direction += snap * Math.sign(event.deltaY);
             this.document.direction = this.document._source.direction;
             this.refresh();
