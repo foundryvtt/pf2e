@@ -11,7 +11,7 @@
 </section>
 
 {{#*inline "effect"}}
-{{#if (or (not effect.secret) @root.isGM)}}
+{{#if (or (not effect.secret) @root.user.isGM)}}
 <div class="effect-item">
     <div class="effect-info">
         <h1>{{effect.name}}</h1>

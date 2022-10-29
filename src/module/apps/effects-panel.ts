@@ -25,7 +25,7 @@ export class EffectsPanel extends Application {
     override async getData(options?: ApplicationOptions): Promise<EffectsPanelData> {
         const { actor } = this;
         if (!actor || !game.user.settings.showEffectPanel) {
-            return { conditions: [], effects: [], actor: null, isGM: false };
+            return { conditions: [], effects: [], actor: null, user: { isGM: false } };
         }
 
         const effects =
@@ -62,7 +62,9 @@ export class EffectsPanel extends Application {
             actor,
             effects,
             conditions,
-            isGM: game.user.isGM,
+            user: {
+                isGM: game.user.isGM,
+            },
         };
     }
 
@@ -163,5 +165,7 @@ interface EffectsPanelData {
     conditions: FlattenedCondition[];
     effects: EffectPF2e[];
     actor: ActorPF2e | null;
-    isGM: boolean;
+    user: {
+        isGM: boolean;
+    };
 }
