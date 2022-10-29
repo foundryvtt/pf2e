@@ -122,6 +122,7 @@ export function registerSettings() {
                 (a): a is CreatureSheetPF2e<CreaturePF2e> => a instanceof CreatureSheetPF2e
             );
             for (const sheet of actorSheets) {
+                sheet.actor.reset();
                 sheet.render();
             }
         },
