@@ -26,7 +26,7 @@ import {
 import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
 import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
-import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
+import { ItemSummaryRenderer } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
@@ -49,7 +49,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /** Implementation used to handle the toggling and rendering of item summaries */
-    itemRenderer: ItemSummaryRendererPF2e<TActor> = new ItemSummaryRendererPF2e(this);
+    itemRenderer: ItemSummaryRenderer<TActor> = new ItemSummaryRenderer(this);
 
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
