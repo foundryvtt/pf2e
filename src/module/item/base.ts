@@ -190,7 +190,9 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
         const grants = (flags.pf2e.itemGrants ??= {});
         for (const grant of Object.values(grants)) {
-            grant.onDelete ??= "detach";
+            if (isObject(grant)) {
+                grant.onDelete ??= "detach";
+            }
         }
     }
 
