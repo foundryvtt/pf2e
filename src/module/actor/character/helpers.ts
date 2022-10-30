@@ -127,7 +127,7 @@ function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): Modifi
         label: "PF2E.Actions.ForceOpen.NoCrowbarPenalty",
         type: "item",
         modifier: -2,
-        predicate: ["action:force-open"],
+        predicate: ["action:force-open", "action:force-open:prying"],
         hideIfDisabled: true,
         adjustments: extractModifierAdjustments(synthetics, domains, slug),
     });
