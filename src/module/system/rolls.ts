@@ -319,8 +319,7 @@ class CheckPF2e {
                 });
                 return parseHTML(note.text);
             };
-            const incapacitation =
-                item?.isOfType("spell") && item.traits.has("incapacitation") ? incapacitationNote() : "";
+            const incapacitation = rollOptions.has("incapacitation") ? incapacitationNote() : "";
 
             const header = document.createElement("h4");
             header.classList.add("action");
