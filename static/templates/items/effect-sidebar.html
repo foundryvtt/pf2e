@@ -44,12 +44,14 @@
             <input type="checkbox" name="system.tokenIcon.show" {{checked data.tokenIcon.show}} />
         </div>
     </div>
+    {{#if user.isGM}}
     <div class="form-group">
         <label for="data.secret">{{localize "PF2E.Item.Effect.Secret"}}</label>
         <div class="form-fields">
             <input type="checkbox" name="system.secret" {{checked data.secret}} />
         </div>
     </div>
+    {{/if}}
     <hr/>
     <div class="form-group">
         {{#if data.badge}}
