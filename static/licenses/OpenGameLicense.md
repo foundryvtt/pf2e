@@ -121,7 +121,6 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Kingmaker Player's Guide © 2022, Paizo Inc.; Author: James Jacobs, with Jason Nelson and Victoria Jaczko.
 	*  Pathfinder Kingmaker Adventure Path © 2022, Paizo Inc.; Authors: Steven T. Helt, Tim Hitchcock, James Jacobs, Ron Lundeen, Rob McCreary, Jason Nelson, Richard Pett, Tom Phillips, Neil Spicer, and Greg A. Vaughan
 	*  Pathfinder Kingmaker Companion Guide © 2022, Paizo Inc.; Authors: Alex Augunas, Russ Brown, Jeremy Corff, Steven T. Helt, Eric Hindley, James Jacobs, Victoria Jaczko, Jeff Lee, Tom McQueen, Jason Nelson, Chris Perrin, Richard Pett, David N. Ross, and Mike Welham
-	
     *  Pathfinder Adventure: The Dead God's Hand © 2022, Paizo Inc.; Author: Erik Mona
     *  Age of Ashes Player's Guide © 2019, Paizo Inc.; Authors: James Jacobs, with Amanda Hamon.
     *  Pathfinder Adventure Path #145: Hellknight Hill © 2019, Paizo Inc.; Authors: Amanda Hamon, with Logan Bonner, James Jacobs, and Jason Tondro.
@@ -353,7 +352,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Hero Point Deck © 2021, Paizo Inc.; Author: Jason Bulmahn
 
 *  Paizo Blog
-    *  No-Prep Character: Gristleburst © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
+    *  Kineticist Playtest Analysis © 2022, Paizo Inc.; Author: Logan Bonner; Illustrator: Wayne Reynolds.
+	*  No-Prep Character: Gristleburst © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
     *  No-Prep Character: Duhgik © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Dominik Derow.
     *  No-Prep Character: Wendlyn © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
     *  No-Prep Character: Zhang Yong © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Gislaine Avila.

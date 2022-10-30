@@ -1,12 +1,11 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ActionItemPF2e, ItemPF2e } from "@item";
-import { AncestryBackgroundClassManager } from "@item/abc/manager";
-import { isSpellConsumable } from "@item/consumable/spell-consumables";
+import { ActionItemPF2e, AncestryBackgroundClassManager, isSpellConsumable, ItemPF2e, WEAPON_CATEGORIES } from "@item";
 import { ItemSourcePF2e, LoreData } from "@item/data";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
-import { WEAPON_CATEGORIES } from "@item/weapon/values";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
+import { PROFICIENCY_RANKS } from "@module/data";
 import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
@@ -14,15 +13,13 @@ import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
+import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
+import { CharacterConfig } from "./config";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
 import { CharacterSheetData, ClassDCSheetData, CraftingEntriesSheetData, FeatCategorySheetData } from "./data/sheet";
 import { PCSheetTabManager } from "./tab-manager";
-import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
-import { CharacterConfig } from "./config";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { PROFICIENCY_RANKS } from "@module/data";
 
 class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected readonly actorConfigClass = CharacterConfig;
@@ -210,6 +207,34 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.attributes.bonusLimitBulk !== baseData.system.attributes.bonusLimitBulk;
 
         sheetData.tabVisibility = deepClone(this.actor.flags.pf2e.sheetTabs);
+
+        // Enrich content
+        const rollData = this.actor.getRollData();
+        const { biography } = this.actor.system.details;
+        sheetData.enrichedContent.appearance = await TextEditor.enrichHTML(biography.appearance, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.backstory = await TextEditor.enrichHTML(biography.backstory, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.campaignNotes = await TextEditor.enrichHTML(biography.campaignNotes, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.allies = await TextEditor.enrichHTML(biography.allies, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.enemies = await TextEditor.enrichHTML(biography.enemies, {
+            rollData,
+            async: true,
+        });
+        sheetData.enrichedContent.organaizations = await TextEditor.enrichHTML(biography.organaizations, {
+            rollData,
+            async: true,
+        });
 
         // Return data for rendering
         return sheetData;

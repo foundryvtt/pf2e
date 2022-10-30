@@ -7,25 +7,14 @@ import { JSDOM } from "jsdom";
 import { sluggify } from "@util";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration772V10EmbeddedSpellData } from "@module/migration/migrations/772-v10-embedded-spell-data";
-import { Migration773ReligiousSymbolUsage } from "@module/migration/migrations/773-religious-symbol-usage";
-import { Migration774UnpersistCraftingEntries } from "@module/migration/migrations/774-unpersist-crafting-entries";
-import { Migration775AgileFinesseRanged } from "@module/migration/migrations/775-agile-finesse-ranged";
-import { Migration776SlugifyConditionOverrides } from "@module/migration/migrations/776-sluggify-condition-overrides";
-import { Migration777HandOfTheApprentice } from "@module/migration/migrations/777-hand-of-the-apprentice";
-import { Migration778RenameRetiredPackRefs } from "@module/migration/migrations/778-rename-feature-effects-refs";
-import { Migration779EliteWeak } from "@module/migration/migrations/779-elite-weak";
-import { Migration780NumifySpeeds } from "@module/migration/migrations/780-numify-speeds";
-import { Migration781SuppressNoCrowbar } from "@module/migration/migrations/781-suppress-no-crowbar";
-import { Migration782UnnestActorTraits } from "@module/migration/migrations/782-unnest-actor-traits";
-import { Migration783RemoveClassSkillAELikes } from "@module/migration/migrations/783-remove-class-skill-ae-likes";
-import { Migration785ABCKitItemUUIDs } from "@module/migration/migrations/785-abc-kit-items";
 import { Migration787ResolvablesToSystem } from "@module/migration/migrations/787-resolvables-to-system";
 import { Migration788UpdateTanglefootBags } from "@module/migration/migrations/788-update-tanglefoot-bags";
 import { Migration789UpdatePreciseStrike } from "@module/migration/migrations/789-update-precise-strike";
 import { Migration790MultipleClassDCs } from "@module/migration/migrations/790-multiple-class-dcs";
 import { Migration791RuffianHands } from "@module/migration/migrations/791-ruffian-hands";
 import { Migration793MakePredicatesArrays } from "@module/migration/migrations/793-make-predicates-arrays";
+import { Migration795CleanupFlatFootedToggle } from "@module/migration/migrations/795-cleanup-flat-footed-toggle";
+import { Migration796ItemGrantsToObjects } from "@module/migration/migrations/796-item-grants-to-objects";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -36,25 +25,14 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration772V10EmbeddedSpellData(),
-    new Migration773ReligiousSymbolUsage(),
-    new Migration774UnpersistCraftingEntries(),
-    new Migration775AgileFinesseRanged(),
-    new Migration776SlugifyConditionOverrides(),
-    new Migration777HandOfTheApprentice(),
-    new Migration778RenameRetiredPackRefs(),
-    new Migration779EliteWeak(),
-    new Migration780NumifySpeeds(),
-    new Migration781SuppressNoCrowbar(),
-    new Migration782UnnestActorTraits(),
-    new Migration783RemoveClassSkillAELikes(),
-    new Migration785ABCKitItemUUIDs(),
     new Migration787ResolvablesToSystem(),
     new Migration788UpdateTanglefootBags(),
     new Migration789UpdatePreciseStrike(),
     new Migration790MultipleClassDCs(),
     new Migration791RuffianHands(),
     new Migration793MakePredicatesArrays(),
+    new Migration795CleanupFlatFootedToggle(),
+    new Migration796ItemGrantsToObjects(),
 ];
 
 global.deepClone = <T>(original: T): T => {

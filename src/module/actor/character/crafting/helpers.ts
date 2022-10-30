@@ -154,7 +154,7 @@ export async function renderCraftingInline(
 ): Promise<string | null> {
     if (!actor.isOfType("character")) return null;
 
-    const degreeOfSuccess = roll.data.degreeOfSuccess ?? 0;
+    const degreeOfSuccess = roll.options.degreeOfSuccess ?? 0;
     const costs = calculateCosts(item, quantity, actor, degreeOfSuccess);
     if (!costs) return null;
 

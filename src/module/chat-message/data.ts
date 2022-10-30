@@ -2,7 +2,7 @@ import { ItemType } from "@item/data";
 import { MagicTradition } from "@item/spell/types";
 import { RawModifier } from "@actor/modifiers";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
-import { CheckRollContextFlag } from "@system/rolls";
+import { CheckRollContextFlag, DamageRollContextFlag } from "@system/rolls";
 import { ChatMessagePF2e } from ".";
 
 interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e = ChatMessagePF2e>
@@ -17,7 +17,7 @@ interface ChatMessageSourcePF2e extends foundry.data.ChatMessageSource {
 type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
     pf2e: {
         damageRoll?: DamageRollFlag;
-        context?: CheckRollContextFlag;
+        context?: CheckRollContextFlag | DamageRollContextFlag;
         origin?: { type: ItemType; uuid: string } | null;
         casting?: { id: string; level: number; tradition: MagicTradition } | null;
         modifierName?: string;
@@ -26,19 +26,33 @@ type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
         isFromConsumable?: boolean;
         journalEntry?: DocumentUUID;
         spellVariant?: { overlayIds: string[] };
+        strike?: StrikeLookupData | null;
         [key: string]: unknown;
     };
     core: NonNullable<foundry.data.ChatMessageFlags["core"]>;
 };
 
+/** Data used to lookup a strike on an actor */
+interface StrikeLookupData {
+    actor: ActorUUID | TokenDocumentUUID;
+    index: number;
+    damaging?: boolean;
+    name: string;
+    altUsage?: "thrown" | "melee" | null;
+}
+
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
-    rollMode: RollMode;
     total: number;
     traits: string[];
     types: Record<string, Record<string, number>>;
-    diceResults: Record<string, Record<string, number[]>>;
+    diceResults: Record<string, Record<string, DieResult[]>>;
     baseDamageDice: number;
 }
 
-export { ChatMessageDataPF2e, ChatMessageSourcePF2e, ChatMessageFlagsPF2e, DamageRollFlag };
+interface DieResult {
+    faces: number;
+    result: number;
+}
+
+export { ChatMessageDataPF2e, ChatMessageSourcePF2e, ChatMessageFlagsPF2e, DamageRollFlag, StrikeLookupData };

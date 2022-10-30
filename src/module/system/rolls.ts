@@ -3,7 +3,7 @@ import { AttackTarget } from "@actor/creature/types";
 import { StrikeData, TraitViewData } from "@actor/data/base";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { ChatMessageSourcePF2e } from "@module/chat-message/data";
+import { ChatMessageSourcePF2e, StrikeLookupData } from "@module/chat-message/data";
 import { ZeroToThree } from "@module/data";
 import { RollNotePF2e, RollNoteSource } from "@module/notes";
 import { RollSubstitution } from "@module/rules/synthetics";
@@ -15,7 +15,7 @@ import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify, traitSlu
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "../actor/modifiers";
 import { Check } from "./check";
 import { CheckModifiersDialog } from "./check-modifiers-dialog";
-import { CheckRoll } from "./check/roll";
+import { CheckRoll, CheckRollDataPF2e } from "./check/roll";
 import {
     CheckDC,
     DegreeOfSuccess,
@@ -30,14 +30,8 @@ import { TextEditorPF2e } from "./text-editor";
 interface RollDataPF2e extends RollData {
     rollerId?: string;
     totalModifier?: number;
-    isReroll?: boolean;
     degreeOfSuccess?: ZeroToThree;
-    strike?: {
-        actor: ActorUUID | TokenDocumentUUID;
-        index: number;
-        damaging?: boolean;
-        name: string;
-    };
+    strike?: StrikeLookupData;
 }
 
 /** Possible parameters of a RollFunction */
@@ -125,18 +119,28 @@ interface CheckRollContext extends BaseRollContext {
     altUsage?: "thrown" | "melee" | null;
 }
 
-interface CheckTargetFlag {
+interface TargetFlag {
     actor: ActorUUID | TokenDocumentUUID;
     token?: TokenDocumentUUID;
 }
 
 type ContextFlagOmission = "actor" | "altUsage" | "createMessage" | "item" | "notes" | "options" | "target" | "token";
+
 interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
     item?: undefined;
-    target: CheckTargetFlag | null;
+    target: TargetFlag | null;
     altUsage?: "thrown" | "melee" | null;
+    notes: RollNoteSource[];
+    options: string[];
+}
+
+interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self">> {
+    actor: string | null;
+    token: string | null;
+    item?: undefined;
+    target: TargetFlag | null;
     notes: RollNoteSource[];
     options: string[];
 }
@@ -245,9 +249,8 @@ class CheckPF2e {
         const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
         const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
 
-        const rollData: RollDataPF2e = (() => {
-            const data: RollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
-
+        // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
+        const strike = (() => {
             const contextItem = context.item;
             if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
                 const strikes: StrikeData[] = context.actor.system.actions;
@@ -257,20 +260,24 @@ class CheckPF2e {
                 );
 
                 if (strike) {
-                    data.strike = {
+                    return {
                         actor: context.actor.uuid,
                         index: strikes.indexOf(strike),
                         damaging: !contextItem.isOfType("melee", "weapon") || contextItem.dealsDamage,
                         name: strike.item.name,
+                        altUsage: context.altUsage,
                     };
                 }
             }
 
-            return data;
+            return null;
         })();
 
+        const options: CheckRollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
+        if (strike) options.strike = strike;
+
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
-        const roll = await new RollCls(`${dice}${totalModifierPart}`, rollData).evaluate({ async: true });
+        const roll = await new RollCls(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
 
         const degree = context.dc ? new DegreeOfSuccess(roll, context.dc) : null;
 
@@ -364,6 +371,7 @@ class CheckPF2e {
                     modifierName: check.slug,
                     modifiers: check.modifiers,
                     origin,
+                    strike,
                 },
             };
 
@@ -502,15 +510,15 @@ class CheckPF2e {
 
         const systemFlags = deepClone(message.flags.pf2e);
         const context = systemFlags.context;
-        if (!context) return;
+        if (!context || context.type === "damage-roll") return;
 
         context.skipDialog = true;
         context.isReroll = true;
 
-        const oldRoll = message.roll;
+        const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
 
-        const RollCls = message.roll.constructor as typeof Check.Roll;
+        const RollCls = oldRoll.constructor as typeof Check.Roll;
         const newData = { ...oldRoll.data, isReroll: true };
         const newRoll = await new RollCls(oldRoll.formula, newData).evaluate({ async: true });
 
@@ -534,15 +542,16 @@ class CheckPF2e {
         rerollIcon.classList.add("pf2e-reroll-indicator");
         rerollIcon.setAttribute("title", rerollFlavor);
 
-        const dc = message.flags.pf2e.context?.dc ?? null;
+        const dc = context.dc ?? null;
         const oldFlavor = message.flavor ?? "";
         const degree = dc ? new DegreeOfSuccess(newRoll, dc) : null;
-        const createNewFlavor = keptRoll === newRoll && !!degree;
+        const useNewRoll = keptRoll === newRoll && !!degree;
+        context.outcome = useNewRoll ? DEGREE_OF_SUCCESS_STRINGS[degree.value] : context.outcome;
 
-        const newFlavor = createNewFlavor
+        const newFlavor = useNewRoll
             ? await (async (): Promise<string> => {
                   const $parsedFlavor = $("<div>").append(oldFlavor);
-                  const target = message.flags.pf2e.context?.target ?? null;
+                  const target = context.target ?? null;
                   const flavor = await this.createResultFlavor({ degree, target });
                   if (flavor) $parsedFlavor.find(".target-dc-result").replaceWith(flavor);
                   return $parsedFlavor.html();
@@ -781,7 +790,7 @@ class CheckPF2e {
 
 interface CreateResultFlavorParams {
     degree: DegreeOfSuccess | null;
-    target?: AttackTarget | CheckTargetFlag | null;
+    target?: AttackTarget | TargetFlag | null;
 }
 
 interface ResultFlavorTemplateData {
@@ -829,6 +838,7 @@ export {
     CheckRollContext,
     CheckRollContextFlag,
     CheckType,
+    DamageRollContextFlag,
     DamageRollPF2e,
     RollDataPF2e,
     RollParameters,

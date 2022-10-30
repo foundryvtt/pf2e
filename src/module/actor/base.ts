@@ -431,7 +431,38 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         this.conditions = new Map();
         this.auras = new Map();
 
+        const preparationWarnings: Set<string> = new Set();
+        this.synthetics = {
+            criticalSpecalizations: { standard: [], alternate: [] },
+            damageDice: { damage: [] },
+            degreeOfSuccessAdjustments: {},
+            dexterityModifierCaps: [],
+            modifierAdjustments: { all: [], damage: [] },
+            movementTypes: {},
+            multipleAttackPenalties: {},
+            rollNotes: {},
+            rollSubstitutions: {},
+            rollTwice: {},
+            senses: [],
+            statisticsModifiers: { all: [], damage: [] },
+            strikeAdjustments: [],
+            strikes: new Map(),
+            striking: {},
+            tokenOverrides: {},
+            weaponPotency: {},
+            preparationWarnings: {
+                add: (warning: string) => preparationWarnings.add(warning),
+                flush: foundry.utils.debounce(() => {
+                    for (const warning of preparationWarnings) {
+                        console.warn(warning);
+                    }
+                    preparationWarnings.clear();
+                }, 10), // 10ms also handles separate module executions
+            },
+        };
+
         super._initialize();
+
         this.initialized = true;
 
         if (game._documentsReady) {
@@ -465,48 +496,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const traits: BaseTraitsData<string> | undefined = this.system.traits;
         if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
 
-        // Setup the basic structure of pf2e flags with roll options, preserving options in the "all" domain
-        const { flags } = this;
-        const rollOptionsAll = flags.pf2e?.rollOptions?.all ?? {};
-        rollOptionsAll[`self:type:${this.type}`] = true;
-        flags.pf2e = mergeObject({}, flags.pf2e ?? {});
-        flags.pf2e.rollOptions = { all: rollOptionsAll };
+        // Setup the basic structure of pf2e flags with roll options
+        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, {
+            rollOptions: {
+                all: { [`self:type:${this.type}`]: true },
+            },
+        });
 
         this.setEncounterRollOptions();
-
-        const preparationWarnings: Set<string> = new Set();
-
-        this.synthetics = {
-            criticalSpecalizations: { standard: [], alternate: [] },
-            damageDice: { damage: [] },
-            degreeOfSuccessAdjustments: {},
-            dexterityModifierCaps: [],
-            modifierAdjustments: { all: [], damage: [] },
-            movementTypes: {},
-            multipleAttackPenalties: {},
-            rollNotes: {},
-            rollSubstitutions: {},
-            rollTwice: {},
-            senses: [],
-            statisticsModifiers: { all: [], damage: [] },
-            strikeAdjustments: [],
-            strikes: new Map(),
-            striking: {},
-            tokenOverrides: {},
-            weaponPotency: {},
-            preparationWarnings: {
-                add: (warning: string) => preparationWarnings.add(warning),
-                flush: foundry.utils.debounce(() => {
-                    for (const warning of preparationWarnings) {
-                        console.warn(warning);
-                    }
-                    preparationWarnings.clear();
-                }, 10), // 10ms also handles separate module executions
-            },
-        };
-
-        // Reset auras from rule elements
-        this.auras.clear();
     }
 
     /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
@@ -755,11 +752,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (hpDamage !== 0) {
             await this.update(hpUpdate.updates);
         }
-        if (this.hitPoints?.value === 0) {
-            const deadAtZero = game.settings.get("pf2e", "automation.actorsDeadAtZero");
-            if (this.type === "npc" && ["npcsOnly", "both"].includes(deadAtZero) && !token.combatant?.isDefeated) {
-                token.combatant?.toggleDefeated();
-            }
+        const deadAtZero = ["npcsOnly", "both"].includes(game.settings.get("pf2e", "automation.actorsDeadAtZero"));
+        if (this.isOfType("npc") && deadAtZero && this.isDead !== token.combatant?.isDefeated) {
+            token.combatant?.toggleDefeated();
         }
 
         // Send chat message
@@ -1227,17 +1222,21 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     protected override _onEmbeddedDocumentChange(embeddedName: "Item" | "ActiveEffect"): void {
-        if (this.isToken) {
-            return super._onEmbeddedDocumentChange(embeddedName);
-        }
-
-        for (const tokenDoc of this.getActiveTokens(true, true)) {
-            tokenDoc._onUpdateBaseActor();
-        }
-
         // Send any accrued warnings to the console
         this.synthetics.preparationWarnings.flush();
-        super._onEmbeddedDocumentChange(embeddedName);
+
+        if (this.isToken) {
+            return super._onEmbeddedDocumentChange(embeddedName);
+        } else if (game.combat?.getCombatantByActor(this.id)) {
+            // Needs to be done since `super._onEmbeddedDocumentChange` isn't called
+            ui.combat.render();
+        }
+
+        // For linked tokens, replace parent method with alternative workflow to control canvas re-rendering
+        const tokenDocs = this.getActiveTokens(true, true);
+        for (const tokenDoc of tokenDocs) {
+            tokenDoc.onActorEmbeddedItemChange();
+        }
     }
 }
 

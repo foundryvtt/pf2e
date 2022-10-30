@@ -1,5 +1,181 @@
 # Changelog
 
+## Version 4.3.2
+
+### Bugfixes
+* (stwlam) Fix upgrading existing weaknesses and resistances
+* (stwlam) Fix issue causing Theather of the Mind toggles to appear when setting is disabled
+
+### Data Updates
+* (Far2Casual) Fix inline check of Acidic Poison Cloud Trap
+* (simonward) Fix Peryton Heart Ripper ability
+* (stwlam) Add TotM toggle for Flying Blade
+* (Tikael) Fix REs and prerequisites on Hellknight Armiger Dedication
+* (Tikael) Fully automate Hellknight Signifier Dedication
+* (TMun) Correct action cost of Thylacine's Hunting Cry
+* (TMun) Correct duration of Time Beacon
+* (TMun) Correct CON modifier for Aecora Silverfire
+
+
+## Version 4.3.1
+
+### System Improvements
+* (xdy) Add pf2e flags with sourceId, uuid and type to consumable-usage chat messages
+
+### Bugfixes
+* (Supe) Increase reliability of rule source lookup in grant item
+* (Supe) No longer return damage dice from rule element if damage type resolving fails
+* (Supe) Fix issue causing weapon item to not be retrievable from strike damage messages
+* (In3luki) Fix measured template rotation triggering the browser zoom in Firefox and Edge
+* (xdy) Adjust context.outcome based on result of reroll
+
+### Data Updates
+* (Abaddon) Localize Risky Surgery toggle and Dragon Claws spell effect
+* (dogstarrb) Fix some details in NPCs Agents of Edgewatch 1
+* (stwlam) Remove disabling of damage-doubling on crit for dragon claws effect
+* (SkepticRobot) Add star grenades
+* (SkepticRobot) Automate Skilled Familiar ability
+* (Tikael) Add damage to Sea Surge spell
+* (Tikael) Fix formulas in Phlogistonic Regulator
+* (Tikael) Set Psyche trait description
+
+
+## Version 4.3.0
+
+### System Improvements
+* (LebombJames) Remove double borders from some image frames
+* (stwlam) Move flat-footed toggle to relevant features, add "Theater of the Mind Toggles" setting to show/hide
+* (Supe) Add roll-inspector support for strike damage rolls
+* (Supe) Add roll mode param to cast() function
+* (Supe) Put top-level roll options at top in roll inspector
+
+### Bugfixes
+* (In3luki) Fix default width of line measured templates created from some workflows
+* (KSops) Fix close button for rules editing
+* (stwlam) Restore death-note icon for actions on NPC sheets
+
+### Data Updates
+* (Abaddon) Add journal page for Mummy archetype
+* (Abaddon) Fix 8th level permanent items rollable table
+* (Abaddon) Localize Treat Wounds macro
+* (Fin) Removed outdated duplicate README.md file, Update CONTRIBUTING.md to direct contributors to the pf2e foundry discord server
+* (LebombJames) Correct Greater Nosoi Charm, and touch up REs
+* (LebombJames) Correct Rebounding Barrier Requirement to Trigger
+* (rectulo) Add basic Reflex save in acid storm
+* (rectulo) Fix key for Android trait description
+* (SpartanCPA, Tikael, TMun) Add content from Kingmaker adventure path
+* (stwlam) Add effect for Calculate Threats action
+* (stwlam) Add inventor's innovation class features, initial armor modifications
+* (stwlam) Default pregen PCs to be in party alliance
+* (TMun) Add Psychic multiclass dedication feat as an option for Eldritch Trickster Rogue
+* (TMun) Add variant effect to PFS earplugs and correct links between effects and items
+* (TMun) Fix issue causing Eternal Wings to receive double bonuses and penalties
+* (TMun) Correct aura from 5 to 10 feet for Elemental Avalanche
+* (TMun) Standardize predicates for Virtuosic Performer rule elements
+* (TMun) Update sly striker rule elements to function in V10
+* (TMun) Add NPCs from PFS 4-05
+* (Tikael) Add localization keys for some equipment effects
+* (Tikael) Automate Life Oracle curse effects
+* (Tikael) Fix and standardize precision damage REs
+* (Tikael) Fix quantity of sacks
+* (VestOfHolding) Add NPCs and player options from Crown of the Kobold King
+
+
+## Version 4.2.6
+
+### Bugfixes
+* (Drental) Accommodate macros ending with single-line comments
+* (stwlam) Fix aura colors getting inverted
+* (stwlam) Restore setting self:condition roll options
+* (stwlam) Refrain from highlighting measured templates invisible to players
+* (stwlam) Fix issue causing some auras to fall behind in rendering
+* (Supe) Fix double weak/elite adjustments on statistic rolls
+* (Supe) Fix issue preventing modifier adjustments from applying via spellcasting attack and DC selectors
+
+### Data Updates
+* (dogstarrb) Add missing automation to Inventor Weapon Mastery
+* (MySurvive) Remove some unnecessary labels from REs on equipment
+* (redeux1) Updated Iconics/Pregens to use action-based Heal/Harm spell
+* (Tikael) Fix rule elements on Elemental Assault effect
+
+
+## Version 4.2.5
+
+### Bugfixes
+* (stwlam) Work around upstream issue introduced in 10.287 preventing execution of some macros
+* (stwlam) Fix TokenImage rule element for unlinked tokens
+* (stwlam) Fix issue causing multiple ability modifiers to stack for some damage rolls
+* (stwlam) Restore re-rendering token HUD after mouse interactions
+* (Supe) Fix predication for spell/class/save dc modifiers
+* (Supe) Restore ability-based domains for spellcasting
+* (Supe) Fix flat modifier editor adding critical: false to newly added rules
+
+### Data Updates
+* (JDCalvert) Automate Sentinel Dedication feat
+* (stwlam) Add toggle for Ostovite's bone chariotR
+
+
+## Version 4.2.4
+
+### System Improvements
+* (stwlam) Add lighting control tool to toggle GM vision
+* (Supe) Add critical field to FlatModifier form
+
+### Bugfixes
+* (stwlam) Fix issue causing TokenImage rule element to fail
+* (stwlam) Re-render actor directory when world actors' levels are changed
+* (Supe) Fix issue causing duplicate feats/features to be created from ancestry/background/class items under certain circumstances
+* (Supe) Fix strike macros
+
+### Data Updates
+* (LebombJames) Fix Mountain Quake requirement
+* (Tikael) Fix usage of Crown of the Companion
+
+
+## Version 4.2.3
+
+### System Improvements
+* (stwlam) Improve performance when moving multiple tokens with vision
+* (Supe) Only show FlatModifier damage row for damage selectors in form
+
+### Bugfixes
+* (JDCalvert) Fix damage dice validation for damageType and dieSize overrides
+* (stwlam) Prevent browser-defined default actions for CTRL-G keypress
+
+### Data Updates
+* (LebombJames) Fix Battle Oracle Curse Effect predicates
+* (redeux) Fix minor errors in Iconic sheets
+* (Tikael) Link Treat Wounds macro in Treat Wounds action
+* (TMun) Add Damaj's Gloves
+
+
+## Version 4.2.2
+
+### New Features
+* (stwlam) Add GM Vision (keybinding defaults to CTRL-G) as means of brightening dark scenes
+
+### System Improvements
+* (stwlam) Have wild shape effect grant battle form effect
+* (xdy) Show players the total bulk for Loot actors they own
+* (xdy) Toggle defeated state for npcs when healed to above 0 hp when defeated
+
+### Bugfixes
+* (stwlam) Prevent multiple conditions of the same type from being created from token HUD
+* (stwlam) Defer validation of damage dice overrides
+* (stwlam) Fix display of level in actor directory for level-zero actors
+* (Supe) Restore modifier acquisition for spell attack modifiers and DCs
+* (Supe) Fix display of drag gap and mystified name in encounter view popouts
+* (Supe) Fix start of turn status message
+
+### Data Updates
+* (Manni) Localize label for Pack Attack
+* (rectulo) Fix prereq format in psychic duelist dedication
+* (stwlam) Set range of Spined Azerketi's unarmed attack
+* (Surge) Remove incorrect label from Death Ward spell effect
+* (Tikael) Add Hispanic Heritage Month Paizo blog items
+* (Tikael) Fix inline check in Psi Burst
+
+
 ## Version 4.2.1
 
 ### Bugfixes

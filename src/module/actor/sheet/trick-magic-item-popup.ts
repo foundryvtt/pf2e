@@ -1,9 +1,8 @@
-import { calculateTrickMagicItemCheckDC, TrickMagicItemDifficultyData } from "@item/consumable/spell-consumables";
-import type { ConsumablePF2e } from "@item";
 import { CharacterPF2e } from "@actor";
+import { calculateTrickMagicItemCheckDC, ConsumablePF2e, TrickMagicItemDifficultyData } from "@item";
+import { TrickMagicItemEntry, TrickMagicItemSkill, TRICK_MAGIC_SKILLS } from "@item/spellcasting-entry/trick";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e } from "@util";
-import { TrickMagicItemEntry, TrickMagicItemSkill, TRICK_MAGIC_SKILLS } from "@item/spellcasting-entry/trick";
 
 export class TrickMagicItemPopup {
     /** The wand or scroll being "tricked" */

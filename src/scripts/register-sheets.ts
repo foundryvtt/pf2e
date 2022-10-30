@@ -1,36 +1,38 @@
 import { CharacterSheetPF2e } from "@actor/character/sheet";
-import { ActionSheetPF2e } from "@item/action/sheet";
+import { FamiliarSheetPF2e } from "@actor/familiar/sheet";
 import { HazardSheetPF2e } from "@actor/hazard/sheet";
 import { LootSheetPF2e } from "@actor/loot/sheet";
-import { FamiliarSheetPF2e } from "@actor/familiar/sheet";
-import { VehicleSheetPF2e } from "@actor/vehicle/sheet";
 import { NPCSheetPF2e } from "@actor/npc/sheet";
-import { ItemSheetPF2e } from "@item/sheet/base";
-import { KitSheetPF2e } from "@item/kit/sheet";
-import { AncestrySheetPF2e } from "@item/ancestry/sheet";
-import { BackgroundSheetPF2e } from "@item/background/sheet";
-import { ClassSheetPF2e } from "@item/class/sheet";
-import { SpellSheetPF2e } from "@item/spell/sheet";
-import { LocalizePF2e } from "@system/localize";
-import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
-import { FeatSheetPF2e } from "@item/feat/sheet";
-import { PHYSICAL_ITEM_TYPES } from "@item/physical/values";
-import { WeaponSheetPF2e } from "@item/weapon/sheet";
-import { EffectSheetPF2e } from "@item/effect/sheet";
-import { BookSheetPF2e } from "@item/book/sheet";
-import { DeitySheetPF2e } from "@item/deity/sheet";
-import { ArmorSheetPF2e } from "@item/armor/sheet";
-import { HeritageSheetPF2e } from "@item/heritage";
+import { VehicleSheetPF2e } from "@actor/vehicle/sheet";
+import {
+    ActionSheetPF2e,
+    AncestrySheetPF2e,
+    ArmorSheetPF2e,
+    BackgroundSheetPF2e,
+    BookSheetPF2e,
+    ClassSheetPF2e,
+    ConsumableSheetPF2e,
+    ContainerSheetPF2e,
+    DeitySheetPF2e,
+    EffectSheetPF2e,
+    EquipmentSheetPF2e,
+    FeatSheetPF2e,
+    HeritageSheetPF2e,
+    ItemSheetPF2e,
+    KitSheetPF2e,
+    MeleeSheetPF2e,
+    PhysicalItemSheetPF2e,
+    PHYSICAL_ITEM_TYPES,
+    SpellSheetPF2e,
+    TreasureSheetPF2e,
+    WeaponSheetPF2e,
+} from "@item";
 import { JournalSheetPF2e, JournalTextTinyMCESheetPF2e } from "@module/journal-entry/sheet";
-import { SceneConfigPF2e } from "@scene/sheet";
-import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
-import { EquipmentSheetPF2e } from "@item/equipment/sheet";
-import { ContainerSheetPF2e } from "@item/container/sheet";
-import { MeleeSheetPF2e } from "@item/melee/sheet";
-import { ConsumableSheetPF2e } from "@item/consumable/sheet";
-import { TreasureSheetPF2e } from "@item/treasure/sheet";
 import { UserPF2e } from "@module/user";
 import { UserConfigPF2e } from "@module/user/sheet";
+import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
+import { SceneConfigPF2e } from "@scene/sheet";
+import { LocalizePF2e } from "@system/localize";
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;

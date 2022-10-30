@@ -6,7 +6,6 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
 import { PrototypeTokenPF2e } from "@actor/data/base";
 import { TokenAura } from "./aura";
-import { ActorSourcePF2e } from "@actor/data";
 import { objectHasKey, sluggify } from "@util";
 import { LightLevels } from "@scene/data";
 
@@ -351,28 +350,6 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    /**
-     * Temporary workaround of upstream issue:
-     * _preCreate source updates are dropped for embedded documents created on synthetic actors
-     * https://github.com/foundryvtt/foundryvtt/issues/8287
-     */
-    protected override async _preUpdateTokenActor(
-        data: DeepPartial<TActor["_source"]> & { items?: { _id?: string }[] },
-        options: TokenUpdateContext<this>,
-        userId: string
-    ): Promise<void> {
-        if (game.release.build > 286) return super._preUpdateTokenActor(data, options, userId);
-
-        if (options.embedded?.embeddedName === "Item" && options.action === "create") {
-            const { hookData } = options.embedded;
-            for (let i = 0; i < options.embedded.hookData.length; i++) {
-                hookData[i] = data.items?.find((s) => s._id === hookData[i]?._id) ?? {};
-            }
-        }
-
-        return super._preUpdateTokenActor(data, options, userId);
-    }
-
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
         data: this["_source"],
@@ -396,10 +373,18 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
         // Handle ephemeral changes from synthetic actor
         if (!this.actorLink && this.parent && changed.actorData) {
+            const preUpdateIcon = this.texture.src;
             // If the Actor data override changed, simulate updating the synthetic Actor
             this._onUpdateTokenActor(changed.actorData, options, userId);
             this.reset();
+
+            // Fake some updates to trigger redraw
             changed.light = {} as foundry.data.LightSource;
+            if (preUpdateIcon !== this.texture.src) {
+                changed.texture = mergeObject(changed.texture ?? {}, {
+                    src: this.texture.src,
+                }) as foundry.data.TokenSource["texture"];
+            }
             delete changed.actorData; // Prevent upstream from doing so a second time
         }
 
@@ -415,37 +400,37 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
     }
 
-    /**
-     * Since token properties may be changed during data preparation, rendering called by the parent method must be
-     * based on the diff between pre- and post-data-preparation.
-     */
-    override _onUpdateBaseActor(
-        updates: DeepPartial<ActorSourcePF2e> = {},
-        options: DocumentModificationContext<ActorPF2e> = {}
-    ): void {
-        if (this.isLinked) {
+    /** Re-render token placeable if REs have ephemerally changed any visuals of this token */
+    onActorEmbeddedItemChange(): void {
+        if (!(this.isLinked && this.rendered && this.object.visible)) return;
+
+        this.object.drawEffects().then(() => {
             const preUpdate = this.toObject(false);
             const preUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
             this.reset();
             const postUpdate = this.toObject(false);
             const postUpdateAuras = Array.from(this.auras.values()).map((a) => duplicate(a));
             const changes = diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
-            const auraChanges = mergeObject(
-                diffObject(preUpdateAuras, postUpdateAuras),
-                diffObject(postUpdateAuras, preUpdateAuras)
-            );
+
+            // Assess the full diff using `diffObject`: additions, removals, and changes
+            const aurasChanged = ((): boolean => {
+                const preToPost = diffObject(preUpdateAuras, postUpdateAuras);
+                const postToPre = diffObject(postUpdateAuras, preUpdateAuras);
+                return Object.keys(preToPost).length > 0 || Object.keys(postToPre).length > 0;
+            })();
+            if (aurasChanged) changes.effects = []; // Nudge upstream to redraw effects
 
             if (Object.keys(changes).length > 0) {
-                this._onUpdate(changes, options, game.user.id);
+                this._onUpdate(changes, {}, game.user.id);
             }
 
-            if (Object.keys(auraChanges).length > 0) {
+            if (aurasChanged || "width" in changes || "height" in changes) {
                 this.scene?.checkAuras();
             }
-        }
 
-        // Parent method will perform effects redrawing
-        super._onUpdateBaseActor(updates, options);
+            // Update combat tracker with changed effects
+            if (this.combatant?.parent.active) ui.combat.render;
+        });
     }
 }
 

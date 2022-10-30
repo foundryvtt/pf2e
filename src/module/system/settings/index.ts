@@ -5,6 +5,8 @@ import { StatusEffects } from "@module/canvas/status-effects";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { MetagameSettings } from "./metagame";
+import { CreatureSheetPF2e } from "@actor/creature/sheet";
+import { CreaturePF2e } from "@actor";
 
 export function registerSettings() {
     if (BUILD_MODE === "development") {
@@ -106,6 +108,23 @@ export function registerSettings() {
         choices: iconChoices,
         onChange: (iconType) => {
             StatusEffects.migrateStatusEffectUrls(iconType);
+        },
+    });
+
+    game.settings.register("pf2e", "totmToggles", {
+        name: "PF2E.SETTINGS.TOTMToggles.Name",
+        hint: "PF2E.SETTINGS.TOTMToggles.Hint",
+        config: true,
+        default: false,
+        type: Boolean,
+        onChange: () => {
+            const actorSheets = Object.values(ui.windows).filter(
+                (a): a is CreatureSheetPF2e<CreaturePF2e> => a instanceof CreatureSheetPF2e
+            );
+            for (const sheet of actorSheets) {
+                sheet.actor.reset();
+                sheet.render();
+            }
         },
     });
 
@@ -230,6 +249,20 @@ export function registerSettings() {
         config: false,
         default: true,
         type: Boolean,
+    });
+
+    // Increase brightness of darkness color for GMs
+    game.settings.register("pf2e", "gmVision", {
+        name: "PF2E.SETTINGS.GMVision",
+        scope: "client",
+        config: false,
+        default: false,
+        type: Boolean,
+        onChange: (value) => {
+            const color = value ? CONFIG.PF2E.Canvas.darkness.gmVision : CONFIG.PF2E.Canvas.darkness.default;
+            CONFIG.Canvas.darknessColor = color;
+            canvas.colorManager.initialize();
+        },
     });
 
     if (BUILD_MODE === "production") {

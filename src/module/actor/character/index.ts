@@ -106,7 +106,7 @@ import {
     WeaponGroupProficiencyKey,
 } from "./data";
 import { CharacterSheetTabVisibility } from "./data/sheet";
-import { CHARACTER_SHEET_TABS } from "./data/values";
+import { CHARACTER_SHEET_TABS } from "./values";
 import { CharacterFeats } from "./feats";
 import { createForceOpenPenalty, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
@@ -617,6 +617,9 @@ class CharacterPF2e extends CreaturePF2e {
             systemData.attributes.perception = stat;
         }
 
+        // Skills
+        systemData.skills = this.prepareSkills();
+
         // Senses
         this.system.traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
@@ -737,9 +740,6 @@ class CharacterPF2e extends CreaturePF2e {
             statisticsModifiers.speed.push(() => speedPenalty);
         }
 
-        // Skills
-        systemData.skills = this.prepareSkills();
-
         // Speeds
         const speeds = (systemData.attributes.speed = this.prepareSpeed("land"));
         speeds.otherSpeeds = (["burrow", "climb", "fly", "swim"] as const).flatMap((m) => this.prepareSpeed(m) ?? []);
@@ -769,7 +769,7 @@ class CharacterPF2e extends CreaturePF2e {
                 ability: entry.ability,
                 rank: entry.rank,
                 rollOptions: entry.getRollOptions("spellcasting"),
-                domains: ["spell-attack-dc"],
+                domains: ["spell-attack-dc", `${entry.ability}-based`],
                 check: {
                     type: "spell-attack-roll",
                     domains: ["spell-attack", "spell-attack-roll", "attack", "attack-roll"],
@@ -1789,11 +1789,12 @@ class CharacterPF2e extends CreaturePF2e {
                     );
 
                     const checkContext: CheckRollContext = {
+                        type: "attack-roll",
                         actor: context.self.actor,
                         target: context.target,
                         item: context.self.item,
-                        type: "attack-roll",
                         altUsage: params.altUsage ?? null,
+                        domains: selectors,
                         options: context.options,
                         notes: attackRollNotes,
                         dc,
@@ -1822,11 +1823,12 @@ class CharacterPF2e extends CreaturePF2e {
 
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: StrikeRollParams = {}): Promise<string | void> => {
+                const domains = ["all", "strike-damage", "damage-roll"];
                 params.options ??= [];
                 const context = this.getDamageRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
-                    domains: ["all", "strike-damage", "damage-roll"],
+                    domains,
                     options: new Set([...params.options, ...baseOptions, ...action.options]),
                 });
 
@@ -1874,9 +1876,14 @@ class CharacterPF2e extends CreaturePF2e {
                     return damage.formula[outcome].formula;
                 } else {
                     const { self, target, options } = context;
-
-                    const damageContext: DamageRollContext = { type: "damage-roll", self, target, outcome, options };
-
+                    const damageContext: DamageRollContext = {
+                        type: "damage-roll",
+                        self,
+                        target,
+                        outcome,
+                        options,
+                        domains,
+                    };
                     await DamageRollPF2e.roll(damage, damageContext, params.callback);
                 }
             };

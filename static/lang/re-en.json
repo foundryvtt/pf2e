@@ -556,6 +556,9 @@
                 "Major": "Major",
                 "Extreme": "Extreme"
             },
+            "Life": {
+                "ToggleLabel": "All targets of Heal are living creatures"
+            },
             "Time": {
                 "ACLabel": "Defending against reactions or free actions while moving"
             }
@@ -849,7 +852,12 @@
                 "Primitive": "Primitive",
                 "Range": "Range",
                 "Selector": "Selector",
-                "Value": "Value"
+                "Value": "Value",
+                "CriticalBehavior": {
+                    "null": "2x Damage on Crit",
+                    "false": "1x Damage on Crit",
+                    "true": "Critical Damage Only"
+                }
             },
             "GrantItem": {
                 "AllowDuplicate": "Allow Duplicates",
@@ -901,6 +909,7 @@
             "ImpersonateCloakSheetRay": "To Impersonate a Cloak, Sheet, or Ray",
             "Jungles": "In Jungles",
             "JunkOrDebris": "In Junk or Debris",
+            "Lava": "In Lava",
             "Lair": "In Lair",
             "Lie": "To Lie",
             "MakeAnImpression": "To Make an Impression",
@@ -911,6 +920,7 @@
             "NighttimeWithMoonVisible": "Nighttime, with the Moon Visible",
             "Orate": "To Orate",
             "Paint": "To Paint",
+            "Rocky": "In Rocky Terrain",
             "Sand": "In Sand",
             "SenseMotive": "to Sense Motive",
             "Sewers": "In Sewers",
@@ -1133,6 +1143,34 @@
                     "Note": "When in a forest or jungle environment, if you roll a critical failure on a Survival skill check to Sense Direction, Subsist, or Cover Tracks, you get a failure instead, and if you roll a success, you get a critical success instead."
                 }
             },
+            "Equipment": {
+                "BravosBrew": {
+                    "Greater": {
+                        "FearLabel": "Greater Bravo's Brew (Vs. Fear)"
+                    },
+                    "Lesser": {
+                        "FearLabel": "Lesser Bravo's Brew (Vs. Fear)"
+                    },
+                    "Moderate": {
+                        "FearLabel": "Moderate Bravo's Brew (Vs. Fear)"
+                    }
+                },
+                "EagleEyeElixir": {
+                    "Greater": {
+                        "SecretLabel": "Greater Eagle Eye Elixir (To Find Secret Doors or Traps)"
+                    },
+                    "Lesser": {
+                        "SecretLabel": "Lesser Eagle Eye Elixir (To Find Secret Doors or Traps)"
+                    },
+                    "Moderate": {
+                        "SecretLabel": "Moderate Eagle Eye Elixir (To Find Secret Doors or Traps)"
+                    }
+                },
+                "NosoiCharm": {
+                    "RequestLabel": "Nosoi Charm (Request)",
+                    "PerformanceLabel": "Nosoi Charm (Play an instrument, orate or sing)"
+                }
+            },
             "Fetchling": {
                 "DeepFetchling": {
                     "Prompt": "Select a type of energy to resist"
@@ -1286,6 +1324,28 @@
                 "FirstHitDamage": "First Hit on Hunted Prey",
                 "FirstHitSwitch": "Hitting Hunted Prey for the First Time This Round"
             },
+            "Inventor": {
+                "Innovation": {
+                    "Prompt": "Select an innovation.",
+                    "Armor": {
+                        "AllowedDrops": "level-zero unique armor",
+                        "Prompt": "Select an armor innovation."
+                    },
+                    "Construct": {
+                        "Prompt": "Select a construct innovation."
+                    },
+                    "Weapon": {
+                        "AllowedDrops": "level 0 or 1 simple or martial weapon",
+                        "Prompt": "Select a weapon innovation."
+                    }
+                },
+                "Modification": {
+                    "Initial": {
+                        "AllowedDrops": "1st-level inventor class feature",
+                        "Prompt": "Select an initial modification."
+                    }
+                }
+            },
             "Kobold": {
                 "DragonsPresence": {
                     "Note": "When you roll a success on a saving throw against a fear effect, you get a critical success instead. When you roll a failure against a fear effect, you get a critical failure instead."
@@ -1427,6 +1487,9 @@
                     "Swamp": "Swamp"
                 }
             },
+            "PackAttack": {
+                "Label": "Target is Within Range of At Least Two Allies"
+            },
             "PreciseStrike": {
                 "Finisher": "Finisher"
             },
@@ -1451,6 +1514,7 @@
                 "ThirdImplement": "Select your third Implement.",
                 "Weapon": "Select a weapon.",
                 "WeaponGroup": "Select a weapon group.",
+                "WildShape": "Select a form effect.",
                 "UnarmedAttack": "Select an unarmed attack."
             },
             "Orc": {
@@ -1588,6 +1652,12 @@
                 "GourdHead": "Gourd Head: Increase perception DC",
                 "TagTeam": "Flanking with another member of the Secret Society"
             },
+            "TOTMToggle": {
+                "FirstRangeIncrement": "Enable abilities that require a target within the first range increment.",
+                "FlatFooted": "Enable abilities that require a flat-footed target",
+                "Vampire": "Enable abilities that require a vampire target",
+                "Undead": "Enable abilities that require an undead target"
+            },
             "TwoHanded": {
                 "BastardSword": "Use Bastard Sword Two-Handed",
                 "BattleLute": "Use Battle Lute Two-Handed",
@@ -1645,7 +1715,7 @@
                     "NoValidOptions": "{actor} has no valid options for {item}."
                 },
                 "GrantItem": {
-                    "AlreadyHasItem": "{actor} already has {item} so it has not been added again."
+                    "AlreadyHasItem": "{actor} already has {item}, so it has not been added again."
                 }
             }
         }

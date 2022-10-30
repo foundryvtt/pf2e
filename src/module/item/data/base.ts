@@ -43,7 +43,7 @@ type ItemTraits<T extends ItemTrait = ItemTrait> = TraitsWithRarity<T>;
 interface ItemFlagsPF2e extends foundry.data.ItemFlags {
     pf2e: {
         rulesSelections: Record<string, string | number | object>;
-        itemGrants: ItemGrantData[];
+        itemGrants: Record<string, ItemGrantData>;
         grantedBy: ItemGrantData | null;
         [key: string]: unknown;
     };
@@ -52,7 +52,7 @@ interface ItemFlagsPF2e extends foundry.data.ItemFlags {
 interface ItemSourceFlagsPF2e extends DeepPartial<foundry.data.ItemFlags> {
     pf2e?: {
         rulesSelections?: Record<string, string | number | object>;
-        itemGrants?: ItemGrantSource[];
+        itemGrants?: Record<string, ItemGrantSource>;
         grantedBy?: ItemGrantSource | null;
         [key: string]: unknown;
     };

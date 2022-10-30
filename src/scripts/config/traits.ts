@@ -74,6 +74,7 @@ const elementalTraits = {
     air: "PF2E.TraitAir",
     earth: "PF2E.TraitEarth",
     fire: "PF2E.TraitFire",
+    metal: "PF2E.TraitMetal",
     water: "PF2E.TraitWater",
 };
 
@@ -223,6 +224,7 @@ const creatureTraits = {
     wayang: "PF2E.TraitWayang",
     werecreature: "PF2E.TraitWerecreature",
     wight: "PF2E.TraitWight",
+    "wild-hunt": "PF2E.TraitWildHunt",
     wraith: "PF2E.TraitWraith",
     wyrwood: "PF2E.TraitWyrwood",
     xulgath: "PF2E.TraitXulgath",

@@ -1,8 +1,7 @@
 import { ActorPF2e } from "@actor";
-import { RollDataPF2e } from "@system/rolls";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemPF2e } from "@item";
-import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data";
+import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { UserPF2e } from "@module/user";
@@ -10,7 +9,8 @@ import { CheckRoll } from "@system/check/roll";
 import { ChatRollDetails } from "./chat-roll-details";
 import { StrikeData } from "@actor/data/base";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { StrikeAttackRoll } from "@system/check/strike/attack-roll";
+import { htmlQuery } from "@util";
+import { DamageButtons } from "./listeners/damage-buttons";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -35,9 +35,14 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (!firstRoll || firstRoll.terms.some((t) => t instanceof FateDie || t instanceof Coin)) {
             return false;
         }
+
+        if (this.flags.pf2e.context?.type === "damage-roll") {
+            return true;
+        }
+
+        const isCheck = firstRoll instanceof CheckRoll || firstRoll.dice[0]?.faces === 20;
         const fromRollTable = !!this.flags.core.RollTable;
-        const isD20 = firstRoll.dice[0]?.faces === 20 || !!this.flags.pf2e.context;
-        return !(isD20 || fromRollTable);
+        return !(isCheck || fromRollTable);
     }
 
     /** Get the actor associated with this chat message */
@@ -74,7 +79,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Does the message include a rerolled check? */
     get isReroll(): boolean {
-        return !!this.flags.pf2e.context?.isReroll;
+        const context = this.flags.pf2e.context;
+        return !!context && context.type !== "damage-roll" && !!context.isReroll;
     }
 
     /** Does the message include a check that hasn't been rerolled? */
@@ -127,11 +133,18 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const actor = this.actor;
         if (!actor?.isOfType("character", "npc")) return null;
 
-        const roll = this.rolls.at(0);
-        if (roll instanceof StrikeAttackRoll && roll.data.strike) {
-            const strikeIndex = roll.data.strike.index;
-            const altUsage = this.flags.pf2e.context?.altUsage ?? null;
-            const action = actor.system.actions.at(strikeIndex) ?? null;
+        // Get the strike index from either the flags or the DOM. In the case of roll macros, it's in the DOM
+        const strikeData = ((): Pick<StrikeLookupData, "index" | "altUsage"> | null => {
+            if (this.flags.pf2e.strike) return this.flags.pf2e.strike;
+            const messageHTML = htmlQuery(ui.chat.element[0], `li[data-message-id="${this.id}"]`);
+            const chatCard = htmlQuery(messageHTML, ".chat-card");
+            const index = chatCard?.dataset.strikeIndex === undefined ? null : Number(chatCard?.dataset.strikeIndex);
+            return typeof index === "number" ? { index } : null;
+        })();
+
+        if (strikeData) {
+            const { index, altUsage } = strikeData;
+            const action = actor.system.actions.at(index) ?? null;
             return altUsage
                 ? action?.altUsages?.find((w) => (altUsage === "thrown" ? w.item.isThrown : w.item.isMelee)) ?? null
                 : action;
@@ -187,6 +200,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
         const $html = await super.getHTML();
         const html = $html[0]!;
+        if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
+            await DamageButtons.append(this, $html);
+        }
+        CriticalHitAndFumbleCards.appendButtons(this, $html);
+
         html.addEventListener("mouseenter", () => this.onHoverIn());
         html.addEventListener("mouseleave", () => this.onHoverOut());
 
@@ -247,8 +265,6 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     blind: this["data"]["blind"];
     type: this["data"]["type"];
     whisper: this["data"]["whisper"];
-
-    get roll(): Rolled<Roll<RollDataPF2e>>;
 
     get user(): UserPF2e;
 }

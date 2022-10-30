@@ -1,19 +1,20 @@
+import type { ActorPF2e } from "@actor/base";
+import { ActorSourcePF2e } from "@actor/data";
+import { NPCSystemData } from "@actor/npc/data";
+import type { ItemPF2e } from "@item/base";
+import { ActionItemSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
+import { isPhysicalData } from "@item/data/helpers";
+import { MacroPF2e } from "@module/macro";
+import { isObject, sluggify } from "@util";
 import * as fs from "fs";
+import { JSDOM } from "jsdom";
+import Datastore from "nedb-promises";
 import * as path from "path";
 import * as process from "process";
-import Datastore from "nedb-promises";
-import yargs from "yargs";
-import { JSDOM } from "jsdom";
-import type { ActorPF2e } from "@actor/base";
-import type { ItemPF2e } from "@item/base";
-import { isObject, sluggify } from "@util";
-import systemJSON from "system.json";
 import templateJSON from "static/template.json";
-import { ActionItemSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
-import { NPCSystemData } from "@actor/npc/data";
+import systemJSON from "system.json";
+import yargs from "yargs";
 import { CompendiumPack, isActorSource, isItemSource } from "./packman/compendium-pack";
-import { isPhysicalData } from "@item/data/helpers";
-import { ActorSourcePF2e } from "@actor/data";
 
 declare global {
     interface Global {
@@ -115,7 +116,7 @@ const linkPatterns = {
     components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/,
 };
 
-type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | Macro | RollTable;
+type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | MacroPF2e | RollTable;
 type PackEntry = CompendiumDocumentPF2e["data"]["_source"];
 
 function assertDocIdSame(newSource: PackEntry, jsonPath: string): void {
@@ -204,6 +205,9 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         }
                         if (docSource.type === "consumable" && !docSource.system.spell) {
                             delete (docSource.system as { spell?: unknown }).spell;
+                        }
+                        if (docSource.type === "weapon") {
+                            delete (docSource.system as { property1?: unknown }).property1;
                         }
                     } else if (docSource.type === "action" && !docSource.system.deathNote) {
                         delete (docSource.system as { deathNote?: boolean }).deathNote;

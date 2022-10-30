@@ -304,16 +304,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Toggles
-        const flatFootedOption = "target:condition:flat-footed";
-        this.system.toggles = [
-            {
-                label: "PF2E.TargetFlatFootedLabel",
-                domain: "all",
-                option: flatFootedOption,
-                checked: !!this.rollOptions.all[flatFootedOption],
-                enabled: true,
-            },
-        ];
+        this.system.toggles = [];
 
         attributes.doomed = { value: 0, max: 3 };
         attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
@@ -365,7 +356,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
             rollOptions.all["self:caster"] = true;
         }
 
-        if (this.hitPoints.negativeHealing) rollOptions.all["self:negative-healing"];
+        if (this.hitPoints.negativeHealing) {
+            rollOptions.all["self:negative-healing"] = true;
+        }
 
         // Set whether this actor is wearing armor
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";

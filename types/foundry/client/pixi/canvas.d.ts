@@ -125,6 +125,9 @@ declare global {
         /** The color manager class bound to this canvas */
         get colorManager(): CanvasColorManager;
 
+        /** The colors bound to this scene and handled by the color manager. */
+        get colors(): CanvasColorManager["colors"];
+
         /** A mapping of named CanvasLayer classes which defines the layers which comprise the Scene. */
         static get layers(): Record<string, CanvasLayer>;
 

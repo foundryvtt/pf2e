@@ -211,7 +211,7 @@ export class StatusEffects {
      */
     static async #setStatusValue(event: MouseEvent, token: TokenPF2e): Promise<void> {
         event.preventDefault();
-        event.stopImmediatePropagation();
+        event.stopPropagation();
 
         const icon = event.currentTarget;
         if (!(icon instanceof HTMLPictureElement)) return;
@@ -228,9 +228,7 @@ export class StatusEffects {
             if (typeof condition?.value === "number") {
                 await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value + 1);
             } else if (objectHasKey(CONFIG.PF2E.conditionTypes, slug)) {
-                const newCondition = game.pf2e.ConditionManager.getCondition(slug).toObject();
-                newCondition.system.sources.hud = true;
-                await token.actor?.createEmbeddedDocuments("Item", [newCondition]);
+                await token.actor?.increaseCondition(slug);
             } else {
                 this.#toggleStatus(event, token);
             }
@@ -246,6 +244,9 @@ export class StatusEffects {
                 this.#toggleStatus(event, token);
             }
         }
+
+        // An update of a synthetic actor is a token update, which will trigger the HUD re-render
+        if (token.document.isLinked) await canvas.hud?.token.render();
     }
 
     static async #toggleStatus(event: MouseEvent, token: TokenPF2e): Promise<void> {
@@ -308,7 +309,7 @@ export class StatusEffects {
             <div class="dice-roll">
                 <div class="dice-result">
                     <div class="dice-total statuseffect-message">
-                        <ul>${statusEffectList.join(", ")}</ul>
+                        <ul>${statusEffectList.join("")}</ul>
                     </div>
                 </div>
             </div>

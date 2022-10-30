@@ -56,7 +56,7 @@ declare global {
          */
         protected static _sortAlphabetical(a: WorldDocument, b: WorldDocument): number;
 
-        protected override _render(force?: boolean, options?: RenderOptions): Promise<void>;
+        protected override _render(force?: boolean, context?: SidebarDirectoryRenderOptions): Promise<void>;
 
         protected override _renderInner(data: object): Promise<JQuery>;
 
@@ -87,5 +87,10 @@ declare global {
         renderUpdateKeys: string[];
         /** The CSS selector that activates the context menu for displayed Documents. */
         contextMenuSelector: string;
+    }
+
+    interface SidebarDirectoryRenderOptions extends RenderOptions {
+        documentType?: string;
+        data?: Record<string, unknown>[];
     }
 }

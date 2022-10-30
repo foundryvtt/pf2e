@@ -56,5 +56,6 @@ declare global {
     > extends ClientDocument<TDocument> {
         x: number;
         y: number;
+        hidden: boolean;
     }
 }

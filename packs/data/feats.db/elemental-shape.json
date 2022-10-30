@@ -32,24 +32,62 @@
             {
                 "key": "Resistance",
                 "predicate": [
-                    "spell-effect-wild-shape",
-                    {
-                        "or": [
-                            "battle-form",
-                            "spell-effect-humanoid-form"
-                        ]
-                    },
+                    "self:effect:wild-shape",
                     {
                         "nor": [
-                            "spell-effect-elemental-form-air",
-                            "spell-effect-elemental-form-earth",
-                            "spell-effect-elemental-form-fire",
-                            "spell-effect-elemental-form-water"
+                            "self:effect:elemental-form-air",
+                            "self:effect:elemental-form-earth",
+                            "self:effect:elemental-form-fire",
+                            "self:effect:elemental-form-water"
                         ]
                     }
                 ],
                 "type": "fire",
                 "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.DliizYpHcmBG130w"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.8eWLR0WCf5258z8X"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.phIoucsDa3iplMm2"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.wildShapeForms",
+                "predicate": [
+                    "feat:wild-shape"
+                ],
+                "value": {
+                    "value": "Compendium.pf2e.spell-effects.kxMBdANwCcF841uA"
+                }
             }
         ],
         "source": {
