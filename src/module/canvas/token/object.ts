@@ -1,3 +1,4 @@
+import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@module/scene";
 import { pick } from "@util";
 import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
@@ -217,6 +218,12 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Emit floaty text from this tokens */
     async showFloatyText(params: number | ShowFloatyEffectParams): Promise<void> {
         if (!this.isVisible) return;
+        if (!game.user.isGM && typeof params !== "number") {
+            const [change, document] = Object.entries(params)[0];
+            if (document.type === "effect" && (change === "create" || change === "delete")) {
+                if ((document as EffectPF2e).system.gmOnly) return;
+            }
+        }
 
         const scrollingTextArgs = ((): Parameters<CanvasPF2e["interface"]["createScrollingText"]> | null => {
             if (typeof params === "number") {
@@ -430,7 +437,7 @@ interface TokenImage extends PIXI.Sprite {
     src?: VideoPath;
 }
 
-type NumericFloatyEffect = { name: string; value?: number | null };
+type NumericFloatyEffect = { name: string; value?: number | null; type?: string };
 type ShowFloatyEffectParams =
     | number
     | { create: NumericFloatyEffect }

@@ -757,6 +757,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             return [item];
         }
 
+        if (game.user.isGM && itemSource.type === "effect") {
+            const ctrlHeld = game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.CONTROL);
+            if (ctrlHeld) itemSource.system.gmOnly = true;
+        }
+
         if (isPhysicalData(itemSource)) {
             const containerId =
                 $(event.target).closest('[data-item-is-container="true"]').attr("data-item-id")?.trim() || null;

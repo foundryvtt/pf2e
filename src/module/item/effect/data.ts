@@ -35,6 +35,7 @@ interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
         sustained: boolean;
         expiry: EffectExpiryType | null;
     };
+    gmOnly: boolean;
     tokenIcon: {
         show: boolean;
     };

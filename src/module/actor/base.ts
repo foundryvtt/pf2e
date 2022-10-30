@@ -89,7 +89,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Cache the return data before passing it to the caller */
     override get itemTypes(): { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] } {
-        return (this._itemTypes ??= super.itemTypes);
+        const items = (this._itemTypes ??= super.itemTypes);
+        if (game.user.isGM) return items;
+        items.effect = items.effect.filter((effect) => !effect.system.gmOnly);
+        return items;
     }
 
     get allowedItemTypes(): (ItemType | "physical")[] {
