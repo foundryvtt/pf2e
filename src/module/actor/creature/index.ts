@@ -514,12 +514,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     protected applyItemRollNotes(): void {
+        const actorRollOptions = this.getRollOptions();
         this.items.forEach((item) => {
-            const rollOptions = item.getRollOptions();
-            const notes = extractNotes(this.synthetics.rollNotes, rollOptions);
+            const itemRollOptions = item.getRollOptions();
+            const notes = extractNotes(this.synthetics.rollNotes, itemRollOptions);
+            const combinedRollOptions = actorRollOptions.concat(itemRollOptions);
             const notesText =
                 notes
-                    .filter((note) => note.predicate.test(rollOptions))
+                    .filter((note) => note.predicate.test(combinedRollOptions))
                     .map((n) => n.text)
                     .join("\n") ?? "";
             item.system.description.value += notesText;
