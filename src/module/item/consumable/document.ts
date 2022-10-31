@@ -13,12 +13,6 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         return new Set(this.system.traits.otherTags);
     }
 
-    override prepareBaseData(): void {
-        super.prepareBaseData();
-
-        this.system.traits.otherTags ??= [];
-    }
-
     get consumableType(): ConsumableType {
         return this.system.consumableType.value;
     }
