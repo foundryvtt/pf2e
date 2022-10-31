@@ -16,7 +16,7 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
             this.moveTime === 0 && hexTypes.includes(canvas.grid.type)
                 ? this.document.direction + 30
                 : this.document.direction;
-        this.document.updateSource({ x: snapped.x, y: snapped.y, direction });
+        this.document.updateSource({ ...snapped, direction });
 
         this.refresh();
         this.moveTime = now;
