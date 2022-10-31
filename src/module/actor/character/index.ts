@@ -108,7 +108,7 @@ import {
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CHARACTER_SHEET_TABS } from "./values";
 import { CharacterFeats } from "./feats";
-import { createForceOpenPenalty, StrikeWeaponTraits } from "./helpers";
+import { createForceOpenPenalty, createShoddyPenalty, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 
 class CharacterPF2e extends CreaturePF2e {
@@ -679,12 +679,15 @@ class CharacterPF2e extends CreaturePF2e {
                 modifiers.unshift(
                     new ModifierPF2e({
                         label: wornArmor.name,
-                        type: MODIFIER_TYPE.ITEM,
+                        type: "item",
                         slug,
                         modifier: wornArmor.acBonus,
                         adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
                     })
                 );
+
+                const shoddyPenalty = createShoddyPenalty(this, wornArmor, ["all", "ac"]);
+                if (shoddyPenalty) modifiers.push(shoddyPenalty);
             }
 
             // Proficiency bonus
@@ -1581,6 +1584,9 @@ class CharacterPF2e extends CreaturePF2e {
             modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, weaponPotency.type));
             weaponTraits.add("magical");
         }
+
+        const shoddyPenalty = createShoddyPenalty(this, weapon, selectors);
+        if (shoddyPenalty) modifiers.push(shoddyPenalty);
 
         // Everything from relevant synthetics
         modifiers.push(
