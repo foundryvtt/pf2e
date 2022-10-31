@@ -11,13 +11,13 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
         if (now - this.moveTime <= 20) return;
         const center = event.data.getLocalPosition(this.layer);
         const snapped = canvas.grid.getSnappedPosition(center.x, center.y, 2);
-        if (
-            this.moveTime === 0 &&
-            (canvas.grid.type === CONST.GRID_TYPES.HEXODDR || canvas.grid.type === CONST.GRID_TYPES.HEXEVENR)
-        ) {
-            this.document.updateSource({ direction: this.document.direction + 30 });
-        }
-        this.document.updateSource({ x: snapped.x, y: snapped.y });
+        const hexTypes: number[] = [CONST.GRID_TYPES.HEXODDR, CONST.GRID_TYPES.HEXEVENR];
+        const direction =
+            this.moveTime === 0 && hexTypes.includes(canvas.grid.type)
+                ? this.document.direction + 30
+                : this.document.direction;
+        this.document.updateSource({ x: snapped.x, y: snapped.y, direction });
+
         this.refresh();
         this.moveTime = now;
     };
