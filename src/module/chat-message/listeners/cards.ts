@@ -163,7 +163,7 @@ export const ChatCards = {
 
                     ChatMessagePF2e.create({
                         user: game.user.id,
-                        content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
+                        content: game.i18n.format("PF2E.Actions.Craft.Information.LoseMaterials", {
                             actorName: actor.name,
                             cost: coinsToRemove.toString(),
                             quantity: quantity,
