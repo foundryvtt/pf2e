@@ -1,6 +1,7 @@
 import { AlignmentTrait } from "@actor/creature/types";
 import { OtherArmorTag } from "@item/armor/types";
 import { ClassTrait } from "@item/class/data";
+import { OtherConsumableTag } from "@item/consumable/types";
 import { RANGE_TRAITS } from "@item/data/values";
 import { OtherEquipmentTag } from "@item/equipment/types";
 import { PreciousMaterialType } from "@item/physical/types";
@@ -509,6 +510,10 @@ const otherArmorTags: Record<OtherArmorTag, string> = {
     innovation: "PF2E.Item.Physical.OtherTag.Innovation",
 };
 
+const otherConsumableTags: Record<OtherConsumableTag, string> = {
+    herbal: "PF2E.Item.Physical.OtherTag.Herbal",
+};
+
 const otherEquipmentTags: Record<OtherEquipmentTag, string> = {
     implement: "PF2E.Item.Physical.OtherTag.Implement",
 };
@@ -805,6 +810,7 @@ export {
     magicTraditions,
     npcAttackTraits,
     otherArmorTags,
+    otherConsumableTags,
     otherEquipmentTags,
     otherWeaponTags,
     preciousMaterials,
