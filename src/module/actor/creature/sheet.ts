@@ -477,13 +477,13 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         });
 
         // Change whether an effect is secret to players or not
-        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-secret]") ?? []) {
+        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]") ?? []) {
             element.addEventListener("click", async (event) => {
                 const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
                 const effect = this.actor.items.get(effectId, { strict: true });
                 if (effect instanceof AbstractEffectPF2e) {
-                    const isSecret = effect.secret;
-                    await effect.update({ "system.secret": !isSecret });
+                    const isUnidentified = effect.unidentified;
+                    await effect.update({ "system.unidentified": !isUnidentified });
                 }
             });
         }

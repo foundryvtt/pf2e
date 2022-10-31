@@ -239,7 +239,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         const effectTokenEffects = this.itemTypes.effect
             .filter((effect) => effect.system.tokenIcon?.show)
-            .filter((effect) => !effect.secret || game.user.isGM)
+            .filter((effect) => !effect.unidentified || game.user.isGM)
             .map((effect) => new TokenEffect(effect.img));
 
         return super.temporaryEffects

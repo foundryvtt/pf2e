@@ -1,6 +1,6 @@
 {{#each conditions as |item ii|}}
-{{#if (or (not item.secret) @root.user.isGM)}}
-<li class="item effects expandable {{#if item.secret}}secret{{/if}}" data-item-id="{{item.id}}"
+{{#if (or (not item.unidentified) @root.user.isGM)}}
+<li class="item effects expandable {{#if item.unidentified}}unidentified{{/if}}" data-item-id="{{item.id}}"
     data-action-index="{{ii}}">
     <div class="item-name rollable">
         <div class="item-image" style="background-image: url({{item.img}})">
@@ -20,7 +20,7 @@
                 class="fas fa-minus"></i></a>
         {{/if}}
         {{#if (and (eq item.type "effect") @root.user.isGM)}}
-            <a class="item-control" data-action="effect-toggle-secret" title="{{localize 'PF2E.ToggleEffectSecrecy'}}"><i
+            <a class="item-control" data-action="effect-toggle-unidentified" title="{{localize 'PF2E.ToggleEffectUnidentified'}}"><i
                 class="fas fa-fw fa-eye"></i></a>
         {{/if}}
         {{#if (eq item.type "effect")}}

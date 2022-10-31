@@ -11,7 +11,7 @@
 </section>
 
 {{#*inline "effect"}}
-{{#if (or (not effect.secret) @root.user.isGM)}}
+{{#if (or (not effect.unidentified) @root.user.isGM)}}
 <div class="effect-item">
     <div class="effect-info">
         <h1>{{effect.name}}</h1>
@@ -20,8 +20,8 @@
                 {{#if (and effect.system.duration.sustained (not effect.system.expired))}}
                     <div class="tag tag_secondary">{{localize "PF2E.EffectPanel.Sustained"}}</div>
                 {{/if}}
-                {{#if effect.secret}}
-                    <div class="tag tag_secondary">{{localize "PF2E.EffectPanel.Secret"}}</div>
+                {{#if effect.unidentified}}
+                    <div class="tag tag_secondary">{{localize "PF2E.EffectPanel.Unidentified"}}</div>
                 {{/if}}
                 {{#if effect.breakdown}}
                     <div class="tag tag_secondary">{{effect.breakdown}}</div>
@@ -42,7 +42,7 @@
             {{/if}}
         </div>
     </div>
-    <div class="icon {{#if effect.secret}}secret{{/if}}" data-item-id="{{effect.id}}" data-locked="{{#if effect.locked}}true{{/if}}" style="background-image: url({{effect.img}})">
+    <div class="icon {{#if effect.unidentified}}unidentified{{/if}}" data-item-id="{{effect.id}}" data-locked="{{#if effect.locked}}true{{/if}}" style="background-image: url({{effect.img}})">
         {{#if effect.locked}}
             <div class="linked"><i class="fas fa-link"></i></div>
         {{/if}}

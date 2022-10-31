@@ -213,8 +213,8 @@
                     <ol class="effects-list item-list">
                         {{#each items as |item idx|}}
                         {{#if (eq item.type "effect")}}
-                        {{#if (or (not item.system.secret) @root.user.isGM)}}
-                            <li class="item effects {{#if item.system.secret}}secret{{/if}}" data-item-id="{{item._id}}">
+                        {{#if (or (not item.system.unidentified) @root.user.isGM)}}
+                            <li class="item effects {{#if item.system.unidentified}}unidentified{{/if}}" data-item-id="{{item._id}}">
                                 <div class="item-name">
                                     <div class="item-image" style="background-image: url({{item.img}})">
                                         <i class="fas fa-comment-alt"></i>
@@ -224,7 +224,7 @@
                                 {{#if ../owner}}
                                 <div class="item-controls">
                                     {{#if @root.user.isGM}}
-                                    <a class="item-control" data-action="effect-toggle-secret" title="{{localize 'PF2E.ToggleEffectSecrecy'}}"><i
+                                    <a class="item-control" data-action="effect-toggle-unidentified" title="{{localize 'PF2E.ToggleEffectUnidentified'}}"><i
                                         class="fas fa-fw fa-eye"></i></a>
                                     {{/if}}
                                     <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i

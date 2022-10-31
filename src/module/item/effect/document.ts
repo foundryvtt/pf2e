@@ -63,8 +63,8 @@ class EffectPF2e extends AbstractEffectPF2e {
         }
     }
 
-    override get secret(): boolean {
-        return this.system.secret ?? false;
+    override get unidentified(): boolean {
+        return this.system.unidentified ?? false;
     }
 
     /** Does this effect originate from an aura? */
