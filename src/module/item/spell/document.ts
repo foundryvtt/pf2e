@@ -432,6 +432,11 @@ class SpellPF2e extends ItemPF2e {
         const message = await super.toMessage(event, { create: false, data, rollMode });
         if (!message) return undefined;
 
+        // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
+        // If nothing except spells need it, consider removing that handling and pass castLevel directly
+        const nearestItem = event ? event.currentTarget.closest(".item") : {};
+        const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
+
         const messageSource = message.toObject();
         const entry = this.trickMagicEntry ?? this.spellcasting;
         if (entry) {
@@ -439,7 +444,7 @@ class SpellPF2e extends ItemPF2e {
             const tradition = Array.from(this.traditions).at(0);
             messageSource.flags.pf2e.casting = {
                 id: entry.id,
-                level: data.castLevel ?? this.level,
+                level: data.castLevel ?? (Number(contextualData.castLevel) || this.level),
                 tradition: entry.tradition ?? tradition ?? "arcane",
             };
         }
@@ -462,11 +467,11 @@ class SpellPF2e extends ItemPF2e {
 
     override async getChatData(
         htmlOptions: EnrichHTMLOptionsPF2e = {},
-        rollOptions: { castLevel?: number | string } = {}
+        rollOptions: { castLevel?: number | string; slotLevel?: number | string } = {}
     ): Promise<Omit<ItemSummaryData, "traits">> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
-        const slotLevel = Number(rollOptions.castLevel) || this.level;
-        const castLevel = this.computeCastLevel(slotLevel);
+        const slotLevel = Number(rollOptions.slotLevel) || this.level;
+        const castLevel = Number(rollOptions.castLevel) || this.computeCastLevel(slotLevel);
 
         // Load the heightened version of the spell if one exists
         if (!this.isVariant) {

@@ -840,7 +840,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
         const item = this.actor.items.get(itemId ?? "", { strict: true });
         if (item.isOfType("physical") && !item.isIdentified) return;
-        await item.toChat(event);
+        await item.toMessage(event, { create: true });
     }
 
     /** Attempt to repair the item */
