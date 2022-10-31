@@ -503,7 +503,8 @@ class SpellPF2e extends ItemPF2e {
         const systemData: SpellSystemData = this.system;
 
         const options = { ...htmlOptions, rollData };
-        const description = await game.pf2e.TextEditor.enrichHTML(this.description, { ...options, async: true });
+        const combindedDescription = this.addRollNotesText(this.description);
+        const description = await game.pf2e.TextEditor.enrichHTML(combindedDescription, { ...options, async: true });
 
         const trickData = this.trickMagicEntry;
         const spellcasting = this.spellcasting;

@@ -25,7 +25,7 @@ import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules";
-import { extractModifierAdjustments, extractModifiers, extractNotes, extractRollTwice } from "@module/rules/util";
+import { extractModifierAdjustments, extractModifiers, extractRollTwice } from "@module/rules/util";
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
@@ -372,8 +372,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         rollOptions.all[`self:size:${sizeIndex}`] = true;
         rollOptions.all[`self:size:${sizeSlug}`] = true;
 
-        this.applyItemRollNotes();
-
         // Add modifiers from being flanked
         if (this.isFlatFooted({ dueTo: "flanking" })) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
@@ -511,21 +509,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
             const syntheticModifiers = (statisticsModifiers[selector] ??= []);
             syntheticModifiers.push(...modifiers.map((m) => () => m));
         }
-    }
-
-    protected applyItemRollNotes(): void {
-        const actorRollOptions = this.getRollOptions();
-        this.items.forEach((item) => {
-            const itemRollOptions = item.getRollOptions();
-            const notes = extractNotes(this.synthetics.rollNotes, itemRollOptions);
-            const combinedRollOptions = actorRollOptions.concat(itemRollOptions);
-            const notesText =
-                notes
-                    .filter((note) => note.predicate.test(combinedRollOptions))
-                    .map((n) => n.text)
-                    .join("\n") ?? "";
-            item.system.description.value += notesText;
-        });
     }
 
     /** Add a circumstance bonus if this creature has a raised shield */

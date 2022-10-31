@@ -8,6 +8,7 @@ import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "@module/rules";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers";
+import { extractNotes } from "@module/rules/util";
 import { ContainerPF2e } from "./container";
 import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
 import { ItemTrait } from "./data/base";
@@ -322,6 +323,20 @@ class ItemPF2e extends Item<ActorPF2e> {
         });
 
         return traitChatLabels;
+    }
+
+    addRollNotesText(description = ""): string {
+        if (!this.actor) return description;
+        const actorRollOptions = this.actor.getRollOptions();
+        const itemRollOptions = this.getRollOptions();
+        const notes = extractNotes(this.actor.synthetics.rollNotes, itemRollOptions);
+        const combinedRollOptions = actorRollOptions.concat(itemRollOptions);
+        const notesText =
+            notes
+                .filter((note) => note.predicate.test(combinedRollOptions))
+                .map((n) => n.text)
+                .join("\n") ?? "";
+        return description + notesText;
     }
 
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
