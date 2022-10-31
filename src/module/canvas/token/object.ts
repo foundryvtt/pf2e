@@ -221,7 +221,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (!game.user.isGM && typeof params !== "number") {
             const [change, document] = Object.entries(params)[0];
             if (document.type === "effect" && (change === "create" || change === "delete")) {
-                if ((document as EffectPF2e).system.gmOnly) return;
+                if ((document as EffectPF2e).system.unidentified) return;
             }
         }
 

@@ -91,7 +91,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     override get itemTypes(): { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] } {
         const items = (this._itemTypes ??= super.itemTypes);
         if (game.user.isGM) return items;
-        items.effect = items.effect.filter((effect) => !effect.system.gmOnly);
+        items.effect = items.effect.filter((effect) => !effect.system.unidentified);
         return items;
     }
 

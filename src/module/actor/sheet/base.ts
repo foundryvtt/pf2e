@@ -759,7 +759,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         if (game.user.isGM && itemSource.type === "effect") {
             const ctrlHeld = game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.CONTROL);
-            if (ctrlHeld) itemSource.system.gmOnly = true;
+            if (ctrlHeld) itemSource.system.unidentified = true;
         }
 
         if (isPhysicalData(itemSource)) {
