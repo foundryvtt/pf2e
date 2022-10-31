@@ -303,9 +303,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
             };
         }
 
-        // Always add the actor's ID to the rolloptions.
-        this.rollOptions.all[`self:id:${this.id}`] = true;
-
         // Toggles
         this.system.toggles = [];
 
