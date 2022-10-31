@@ -11,17 +11,18 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
         if (now - this.moveTime <= 20) return;
         const center = event.data.getLocalPosition(this.layer);
         const snapped = canvas.grid.getSnappedPosition(center.x, center.y, 2);
-        this.document.x = snapped.x;
-        this.document.y = snapped.y;
+        const hexTypes: number[] = [CONST.GRID_TYPES.HEXODDR, CONST.GRID_TYPES.HEXEVENR];
+        const direction =
+            this.moveTime === 0 && hexTypes.includes(canvas.grid.type)
+                ? this.document.direction + 30
+                : this.document.direction;
+        this.document.updateSource({ ...snapped, direction });
+
         this.refresh();
         this.moveTime = now;
     };
 
     private _onLeftClick = () => {
-        const destination = canvas.grid.getSnappedPosition(this.x, this.y, 2);
-        this.document._source.x = destination.x;
-        this.document._source.y = destination.y;
-
         if (canvas.scene) {
             canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.document.toObject()]);
         }
@@ -32,16 +33,14 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
         if (event.ctrlKey) {
             event.preventDefault();
             event.stopPropagation();
-            const delta = canvas.grid.type > CONST.GRID_TYPES.SQUARE ? 30 : 15;
-            const snap = event.shiftKey ? delta : 5;
-            this.document._source.direction += snap * Math.sign(event.deltaY);
-            this.document.direction += snap * Math.sign(event.deltaY);
+            const snap = event.shiftKey ? 15 : 5;
+            this.document.updateSource({ direction: this.document.direction + snap * Math.sign(event.deltaY) });
             this.refresh();
         } else if (event.shiftKey) {
             event.stopPropagation();
-            const snap = 45;
-            this.document._source.direction += snap * Math.sign(event.deltaY);
-            this.document.direction += snap * Math.sign(event.deltaY);
+            const snap =
+                canvas.grid.type >= CONST.GRID_TYPES.HEXODDR && canvas.grid.type <= CONST.GRID_TYPES.HEXEVENQ ? 60 : 45;
+            this.document.updateSource({ direction: this.document.direction + snap * Math.sign(event.deltaY) });
             this.refresh();
         }
     };
