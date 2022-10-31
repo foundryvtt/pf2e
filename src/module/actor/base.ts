@@ -504,7 +504,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         });
 
         // Always add the actor's ID to the rolloptions.
-        this.rollOptions.all[`self:id:${this.id}`] = true;
+        if (this.id) {
+            this.rollOptions.all[`self:id:${this.id}`] = true;
+        }
 
         this.setEncounterRollOptions();
     }
