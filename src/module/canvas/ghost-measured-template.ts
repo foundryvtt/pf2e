@@ -17,7 +17,7 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
         ) {
             this.document.updateSource({ direction: this.document.direction + 30 });
         }
-        this.document.updateSource({ direction: this.document.direction, x: snapped.x, y: snapped.y });
+        this.document.updateSource({ x: snapped.x, y: snapped.y });
         this.refresh();
         this.moveTime = now;
     };
@@ -34,21 +34,13 @@ export class GhostTemplate extends MeasuredTemplatePF2e {
             event.preventDefault();
             event.stopPropagation();
             const snap = event.shiftKey ? 15 : 5;
-            this.document.updateSource({
-                direction: this.document.direction + snap * Math.sign(event.deltaY),
-                x: this.document.x,
-                y: this.document.y,
-            });
+            this.document.updateSource({ direction: this.document.direction + snap * Math.sign(event.deltaY) });
             this.refresh();
         } else if (event.shiftKey) {
             event.stopPropagation();
             const snap =
                 canvas.grid.type >= CONST.GRID_TYPES.HEXODDR && canvas.grid.type <= CONST.GRID_TYPES.HEXEVENQ ? 60 : 45;
-            this.document.updateSource({
-                direction: this.document.direction + snap * Math.sign(event.deltaY),
-                x: this.document.x,
-                y: this.document.y,
-            });
+            this.document.updateSource({ direction: this.document.direction + snap * Math.sign(event.deltaY) });
             this.refresh();
         }
     };
