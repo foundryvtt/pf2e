@@ -1,5 +1,27 @@
 # Changelog
 
+## Version 4.3.3
+
+### System Improvements
+* (Forgent) Improve rotation behavior of measured template previews on hex grids
+* (KSops) Add "herbal" as a consumable tag, integrate with Herbalist archetype
+
+### Bugfixes
+* (stwlam) Fix item grants being duplicated given `reevaluateOnUpdate`
+* (stwlam) Default no-crowbar penalty to disabled
+* (Supe) Fix spell heightening for non-casted spell messages
+* (Supe) Correctly heighten spells retrieved from chat messages
+
+### Data Updates
+* (Manni) Fix targets  of Swarming Wasp Stings spell
+* (rectulo) Fix the format of Phantasmal protagonist
+* (simonward) Fix Staff Nexus source
+* (TMun) Correct errors following statistical outlier review
+* (TMun) Correct reference and text for spiked pit damage
+* (Tikael) Remove old individual archetype journals
+* (xdy) Add variants for bludgeoning, piercing and slashing damage to Telekinetic Projectile
+
+
 ## Version 4.3.2
 
 ### Bugfixes
@@ -155,7 +177,6 @@
 * (stwlam) Add GM Vision (keybinding defaults to CTRL-G) as means of brightening dark scenes
 
 ### System Improvements
-* (stwlam) Have wild shape effect grant battle form effect
 * (xdy) Show players the total bulk for Loot actors they own
 * (xdy) Toggle defeated state for npcs when healed to above 0 hp when defeated
 
@@ -171,6 +192,7 @@
 * (Manni) Localize label for Pack Attack
 * (rectulo) Fix prereq format in psychic duelist dedication
 * (stwlam) Set range of Spined Azerketi's unarmed attack
+* (stwlam) Have wild shape effect grant battle form effect
 * (Surge) Remove incorrect label from Death Ward spell effect
 * (Tikael) Add Hispanic Heritage Month Paizo blog items
 * (Tikael) Fix inline check in Psi Burst
