@@ -284,7 +284,7 @@ class CheckPF2e {
         if (degree) {
             context.outcome = DEGREE_OF_SUCCESS_STRINGS[degree.value];
             context.unadjustedOutcome = DEGREE_OF_SUCCESS_STRINGS[degree.unadjusted];
-            roll.data.degreeOfSuccess = degree.value;
+            roll.options.degreeOfSuccess = degree.value;
         }
 
         const notes = context.notes?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n))) ?? [];
