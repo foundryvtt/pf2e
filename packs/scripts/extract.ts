@@ -110,12 +110,6 @@ const npcSystemKeys = new Set(Object.keys({ ...templateJSON.Actor.templates.comm
 
 const idsToNames: Map<string, Map<string, string>> = new Map();
 
-const linkPatterns = {
-    world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/g,
-    compendium: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/g,
-    components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/,
-};
-
 type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | MacroPF2e | RollTable;
 type PackEntry = CompendiumDocumentPF2e["data"]["_source"];
 
@@ -333,9 +327,12 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
             .trim();
     };
 
-    if ("system" in docSource && "description" in docSource.system) {
-        const description = docSource.system.description;
-        description.value = cleanDescription(description.value);
+    if ("system" in docSource) {
+        if ("description" in docSource.system) {
+            docSource.system.description.value = cleanDescription(docSource.system.description.value);
+        } else if ("details" in docSource.system && "publicNotes" in docSource.system.details) {
+            docSource.system.details.publicNotes = cleanDescription(docSource.system.details.publicNotes);
+        }
     } else if ("content" in docSource) {
         docSource.content = cleanDescription(docSource.content);
     }
@@ -360,29 +357,38 @@ function convertLinks(docSource: PackEntry, packName: string): PackEntry {
     const docJSON = JSON.stringify(sanitized);
 
     // Link checks
-    const worldItemLinks = Array.from(docJSON.matchAll(linkPatterns.world));
+    const { LINK_PATTERNS } = CompendiumPack;
+    const worldItemLinks = Array.from(docJSON.matchAll(LINK_PATTERNS.world));
     if (worldItemLinks.length > 0) {
         const linkString = worldItemLinks.map((match) => match[0]).join(", ");
         console.warn(`${docSource.name} (${packName}) has links to world items: ${linkString}`);
     }
 
-    const compendiumLinks = Array.from(docJSON.matchAll(linkPatterns.compendium)).map((match) => match[0]);
+    const compendiumLinks = [
+        ...Array.from(docJSON.matchAll(LINK_PATTERNS.uuid)),
+        ...Array.from(docJSON.matchAll(LINK_PATTERNS.compendium)),
+    ]
+        .map((match) => match[0])
+        .filter((l) => !l.includes("JournalEntryPage."));
 
     // Convert links by ID to links by name
     const notFound: string[] = [];
-    const convertedJson = compendiumLinks.reduce((partiallyConverted, linkById) => {
-        const parts = linkPatterns.components.exec(linkById);
+    const convertedJson = compendiumLinks.reduce((partiallyConverted, linkById): string => {
+        const pattern: RegExp = linkById.startsWith("@Compendium") ? LINK_PATTERNS.compendium : LINK_PATTERNS.uuid;
+        const components = new RegExp(pattern.source);
+        const parts = components.exec(linkById);
         if (!Array.isArray(parts)) {
             throw PackError("Unexpected error parsing compendium link");
         }
+
         const [packId, docId] = parts.slice(1, 3);
         const packMap = idsToNames.get(packId);
-        if (packMap === undefined) {
+        if (!packMap) {
             throw PackError(`Pack ${packId} has no ID-to-name map.`);
         }
 
         const docName = packMap.get(docId) ?? newDocIdMap[docId];
-        if (docName === undefined) {
+        if (!docName) {
             notFound.push(parts[0].replace(/\{$/, ""));
             return partiallyConverted;
         }
