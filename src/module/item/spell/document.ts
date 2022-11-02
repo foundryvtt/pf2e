@@ -13,7 +13,7 @@ import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToTen } from "@module/data";
-import { extractDamageDice, extractModifiers } from "@module/rules/util";
+import { extractDamageDice, extractModifiers, addRollNotesText } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { combineTerms, DicePF2e } from "@scripts/dice";
@@ -503,7 +503,7 @@ class SpellPF2e extends ItemPF2e {
         const systemData: SpellSystemData = this.system;
 
         const options = { ...htmlOptions, rollData };
-        const combindedDescription = this.addRollNotesText(this.description);
+        const combindedDescription = addRollNotesText(this, this.actor, this.description);
         const description = await game.pf2e.TextEditor.enrichHTML(combindedDescription, { ...options, async: true });
 
         const trickData = this.trickMagicEntry;

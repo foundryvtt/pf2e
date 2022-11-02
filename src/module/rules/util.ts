@@ -1,4 +1,6 @@
+import { ActorPF2e } from "@actor";
 import { DamageDicePF2e, DeferredValueParams, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
+import { ItemPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { RollTwiceOption } from "@system/rolls";
@@ -80,6 +82,24 @@ function isBracketedValue(value: unknown): value is BracketedValue {
     return isObject<{ brackets?: unknown }>(value) && Array.isArray(value.brackets);
 }
 
+/** Aadd roll notes to a description */
+function addRollNotesText(item: ItemPF2e, actor: ActorPF2e, description = ""): string {
+    if(!description) {
+        description = item.system.description.value;
+    }
+    const actorRollOptions = actor.getRollOptions();
+    const itemRollOptions = item.getRollOptions();
+    const notes = extractNotes(actor.synthetics.rollNotes, itemRollOptions);
+    const combinedRollOptions = actorRollOptions.concat(itemRollOptions);
+    const notesText =
+        notes
+            .filter((note) => note.predicate.test(combinedRollOptions))
+            .map((n) => n.text)
+            .join("\n") ?? "";
+    return description + notesText;
+}
+
+
 export {
     extractDamageDice,
     extractDegreeOfSuccessAdjustments,
@@ -89,4 +109,5 @@ export {
     extractRollSubstitutions,
     extractRollTwice,
     isBracketedValue,
+    addRollNotesText,
 };
