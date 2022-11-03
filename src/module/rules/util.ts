@@ -83,14 +83,14 @@ function isBracketedValue(value: unknown): value is BracketedValue {
 }
 
 /** Add roll notes to a description */
-function addRollNotesText(item: ItemPF2e, actor: ActorPF2e | null, description = ""): string {
+function addRollNotesText(item: ItemPF2e, actor: ActorPF2e | null, selectors: string[], description = ""): string {
     if (!actor) {
         return description;
     }
     const actorRollOptions = actor.getRollOptions();
     const itemRollOptions = item.getRollOptions();
-    const notes = extractNotes(actor.synthetics.rollNotes, itemRollOptions);
     const combinedRollOptions = actorRollOptions.concat(itemRollOptions);
+    const notes = extractNotes(actor.synthetics.rollNotes, selectors);
     const notesText =
         notes
             .filter((note) => note.predicate.test(combinedRollOptions))
