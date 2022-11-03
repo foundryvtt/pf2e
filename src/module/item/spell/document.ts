@@ -631,9 +631,8 @@ class SpellPF2e extends ItemPF2e {
         this: Embedded<SpellPF2e>,
         event: JQuery.ClickEvent<unknown, unknown, HTMLElement>
     ): Promise<void> {
-        const slotLevel =
-            Number(event.currentTarget.closest<HTMLElement>("*[data-slot-level]")?.dataset.slotLevel) || 0;
-        const castLevel = this.computeCastLevel(slotLevel);
+        const castLevel =
+            Number(event.currentTarget.closest<HTMLElement>("*[data-cast-level]")?.dataset.castLevel) || this.level;
         const rollData = this.getRollData({ castLevel });
         const formula = this.getDamageFormula(castLevel, rollData);
 
