@@ -84,6 +84,7 @@ export class ConditionManager {
                 value: condition.value,
                 description: condition.description,
                 img: condition.img,
+                unidentified: condition.unidentified,
                 references: false,
                 locked: condition.isLocked,
                 parents: [],
