@@ -278,7 +278,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -547,7 +547,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The vrykolakas moves at full Speed while @Compendium[pf2e.actionspf2e.Track]{Tracking}.</p>"
+                    "value": "<p>The vrykolakas moves at full Speed while @UUID[Compendium.pf2e.actionspf2e.Track]{Tracking}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -640,7 +640,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The vrykolakas is reduced to 0 Hit Points, and an animal is within 100 feet</p>\n<hr />\n<p><strong>Effect</strong> Unlike most other undead, a vrykolakas isn't destroyed when it reaches 0 HP. Instead, it attempts to cast its spirit into an animal within 100 feet, which must attempt a Will save (DC 33). On a failure, the animal is possessed. This has the effects of the <em>@Compendium[pf2e.spells-srd.Possession]{Possession}</em> spell, but it lasts a number of days equal to the vrykolakas's level. This possession can't be counteracted with magic (though remove curse works against it normally).</p>\n<p>If the animal succeeds at its save, the vrykolakas can attempt to possess a different animal within 100 feet. If at any point an animal critically succeeds at its save or no animal is within 100 feet, the vrykolakas fails to possess anything and is destroyed.</p>\n<p>A vrykolakas possessing an animal seeks out its burial site (see Burial Site Bound) immediately, burying itself there. While the vrykolakas is in this state of recovery, its animal host is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, and beheading it destroys the vrykolakas and kills its host. Removing the curse destroys the vrykolakas and returns the animal to normal.</p>\n<p>After [[/r 1d4 #days]]{1d4 days}, if the vrykolakas hasn't been destroyed, the animal dies and the vrykolakas rises in a new body that's identical to its previous one, formed from the animal's remains.</p>"
+                    "value": "<p><strong>Trigger</strong> The vrykolakas is reduced to 0 Hit Points, and an animal is within 100 feet</p>\n<hr />\n<p><strong>Effect</strong> Unlike most other undead, a vrykolakas isn't destroyed when it reaches 0 HP. Instead, it attempts to cast its spirit into an animal within 100 feet, which must attempt a Will save (DC 33). On a failure, the animal is possessed. This has the effects of the <em>@UUID[Compendium.pf2e.spells-srd.Possession]{Possession}</em> spell, but it lasts a number of days equal to the vrykolakas's level. This possession can't be counteracted with magic (though remove curse works against it normally).</p>\n<p>If the animal succeeds at its save, the vrykolakas can attempt to possess a different animal within 100 feet. If at any point an animal critically succeeds at its save or no animal is within 100 feet, the vrykolakas fails to possess anything and is destroyed.</p>\n<p>A vrykolakas possessing an animal seeks out its burial site (see Burial Site Bound) immediately, burying itself there. While the vrykolakas is in this state of recovery, its animal host is @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed}, and beheading it destroys the vrykolakas and kills its host. Removing the curse destroys the vrykolakas and returns the animal to normal.</p>\n<p>After [[/r 1d4 #days]]{1d4 days}, if the vrykolakas hasn't been destroyed, the animal dies and the vrykolakas rises in a new body that's identical to its previous one, formed from the animal's remains.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -688,7 +688,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>5 feet, @Check[type:fortitude|dc:33]</p>\n<p>Creatures beginning their turn in the area while the vrykolakas is in its true form are exposed to bubonic plague.</p>\n<hr />\n<p><strong>Bubonic Plague</strong></p>\n<p>This widespread illness can sweep through entire communities, leaving few unaffected. The first indication of the disease is a telltale swelling of glands. In some cases, the disease can move into your lungs (pneumonic plague) or blood (septicemic plague), which is even more fatal.</p>\n<p>If you have bubonic plague, you can't remove the @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} condition while affected.</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> fatigued (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and fatigued (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}, fatigued, and take @Localize[PF2E.PersistentDamage.Bleed1d6.success] every [[/r 1d20 #minutes]]{1d20 minutes}</p>"
+                    "value": "<p>5 feet, @Check[type:fortitude|dc:33]</p>\n<p>Creatures beginning their turn in the area while the vrykolakas is in its true form are exposed to bubonic plague.</p>\n<hr />\n<p><strong>Bubonic Plague</strong></p>\n<p>This widespread illness can sweep through entire communities, leaving few unaffected. The first indication of the disease is a telltale swelling of glands. In some cases, the disease can move into your lungs (pneumonic plague) or blood (septicemic plague), which is even more fatal.</p>\n<p>If you have bubonic plague, you can't remove the @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued} condition while affected.</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> fatigued (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} and fatigued (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 3}, fatigued, and take @Localize[PF2E.PersistentDamage.Bleed1d6.success] every [[/r 1d20 #minutes]]{1d20 minutes}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -732,7 +732,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Vrykolakas all have the following vulnerabilities.</p><ul><li><strong>Burial Site Bound</strong> A vrykolakas is bound to the place of its death or interment. It must return to this location once per week and bury itself in the earth for 24 hours, during which time it is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} and can be beheaded. If it is unable to return to this site, it is reduced to 0 Hit Points and attempts to use Feral Corruption; if this host animal can't return to the burial site before the possession effect ends, the vrykolakas is destroyed and the animal host returns to normal.</li><li><strong>Vulnerable to Decapitation</strong> A vrykolakas that is beheaded can't use its Feral Possession, and a beheaded corpse cannot rise as a vrykolakas.</li></ul>"
+                    "value": "<p>Vrykolakas all have the following vulnerabilities.</p><ul><li><strong>Burial Site Bound</strong> A vrykolakas is bound to the place of its death or interment. It must return to this location once per week and bury itself in the earth for 24 hours, during which time it is @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} and can be beheaded. If it is unable to return to this site, it is reduced to 0 Hit Points and attempts to use Feral Corruption; if this host animal can't return to the burial site before the possession effect ends, the vrykolakas is destroyed and the animal host returns to normal.</li><li><strong>Vulnerable to Decapitation</strong> A vrykolakas that is beheaded can't use its Feral Possession, and a beheaded corpse cannot rise as a vrykolakas.</li></ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -777,7 +777,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>A vrykolakas ancient can transform into a form resembling the body it had in life, with the effects of <em>@Compendium[pf2e.spells-srd.Humanoid Form]{Humanoid Form}</em> but with unlimited duration. It loses its fangs and claw Strikes but gains a +2 circumstance bonus to Deception checks to @Compendium[pf2e.action-macros.Impersonate: Deception]{Impersonate} in this form.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<p>A vrykolakas ancient can transform into a form resembling the body it had in life, with the effects of <em>@UUID[Compendium.pf2e.spells-srd.Humanoid Form]{Humanoid Form}</em> but with unlimited duration. It loses its fangs and claw Strikes but gains a +2 circumstance bonus to Deception checks to @UUID[Compendium.pf2e.action-macros.Impersonate: Deception]{Impersonate} in this form.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -884,7 +884,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>DC 33,</p>\n<p>The vrykolakas can cast <em>@Compendium[pf2e.spells-srd.Dominate]{Dominate}</em> at will as a divine innate spell that affects only animals. A creature that succeeds is immune to that vrykolakas's Dominate Animal for 24 hours. Destroying the vrykolakas ends the effect, but reducing it to 0 HP does not.</p>\n<p>A dominated animal takes a -4 circumstance penalty to saving throws against the vrykolakas's Feral Possession.</p>"
+                    "value": "<p>DC 33,</p>\n<p>The vrykolakas can cast <em>@UUID[Compendium.pf2e.spells-srd.Dominate]{Dominate}</em> at will as a divine innate spell that affects only animals. A creature that succeeds is immune to that vrykolakas's Dominate Animal for 24 hours. Destroying the vrykolakas ends the effect, but reducing it to 0 HP does not.</p>\n<p>A dominated animal takes a -4 circumstance penalty to saving throws against the vrykolakas's Feral Possession.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -929,7 +929,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The vrykolakas' last action was a successful fangs Strike</p>\n<hr />\n<p><strong>Effect</strong> The vrykolakas sinks its fangs into that creature to drink its blood. This requires an Athletics check against the creature's Fortitude DC. On a success, the creature becomes @Compendium[pf2e.conditionitems.Drained]{Drained 2}, and the vrykolakas regains 25 HP, gaining any excess HP as temporary Hit Points.</p>\n<p>Drinking Blood from a creature that's already drained doesn't restore any HP to the vampire, but it increases the creature's drained condition value by 1. A vrykolakas can also consume blood that's been emptied into a vessel for sustenance, but it gains no HP from doing so.</p>\n<p>The target creature's drained condition value decreases by 1 per week.</p>\n<p>A blood transfusion, which requires a successful @Check[type:medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained value by 1 after 10 minutes.</p>"
+                    "value": "<p><strong>Requirements</strong> The vrykolakas' last action was a successful fangs Strike</p>\n<hr />\n<p><strong>Effect</strong> The vrykolakas sinks its fangs into that creature to drink its blood. This requires an Athletics check against the creature's Fortitude DC. On a success, the creature becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2}, and the vrykolakas regains 25 HP, gaining any excess HP as temporary Hit Points.</p>\n<p>Drinking Blood from a creature that's already drained doesn't restore any HP to the vampire, but it increases the creature's drained condition value by 1. A vrykolakas can also consume blood that's been emptied into a vessel for sustenance, but it gains no HP from doing so.</p>\n<p>The target creature's drained condition value decreases by 1 per week.</p>\n<p>A blood transfusion, which requires a successful @Check[type:medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained value by 1 after 10 minutes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1057,7 +1057,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The vrykolakas ancient is adjacent to an @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} creature</p>\n<hr />\n<p><strong>Effect</strong> The vrykolakas ancient steals the creature's breath. The unconscious creature begins suffocating, can't be awakened for 1 round, and must attempt a @Check[type:fortitude|dc:33] save. If a creature is targeted with this ability in consecutive rounds, the save DC decreases by 2 each round after the first.</p>\n<hr />\n<p><strong>Critical Success</strong> The target immediately awakens and is then temporarily immune to Steal Breath for 24 hours.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target takes [[/r 1d10]] damage.</p>\n<p><strong>Critical Failure</strong> The target is reduced to 0 HP and becomes @Compendium[pf2e.conditionitems.Dying]{Dying 1}.</p>"
+                    "value": "<p><strong>Requirements</strong> The vrykolakas ancient is adjacent to an @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} creature</p>\n<hr />\n<p><strong>Effect</strong> The vrykolakas ancient steals the creature's breath. The unconscious creature begins suffocating, can't be awakened for 1 round, and must attempt a @Check[type:fortitude|dc:33] save. If a creature is targeted with this ability in consecutive rounds, the save DC decreases by 2 each round after the first.</p>\n<hr />\n<p><strong>Critical Success</strong> The target immediately awakens and is then temporarily immune to Steal Breath for 24 hours.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target takes [[/r 1d10]] damage.</p>\n<p><strong>Critical Failure</strong> The target is reduced to 0 HP and becomes @UUID[Compendium.pf2e.conditionitems.Dying]{Dying 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
