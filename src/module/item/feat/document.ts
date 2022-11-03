@@ -6,6 +6,7 @@ import { sluggify } from "@util";
 import { FeatCategory } from "@actor/character/feats";
 import { Frequency } from "@item/data/base";
 import { ItemSummaryData } from "@item/data";
+import { addRollNotesText } from "@module/rules/util";
 
 class FeatPF2e extends ItemPF2e {
     category!: FeatCategory | null;
@@ -121,7 +122,13 @@ class FeatPF2e extends ItemPF2e {
             systemData.actionType.value ? CONFIG.PF2E.actionTypes[systemData.actionType.value] : null,
         ].filter((p) => p);
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-        return this.processChatData(htmlOptions, { ...systemData, properties, traits });
+        const description = addRollNotesText(this, this.actor, this.description);
+        return this.processChatData(htmlOptions, {
+            ...systemData,
+            description: { value: description },
+            properties,
+            traits,
+        });
     }
 
     /** Generate a list of strings for use in predication */

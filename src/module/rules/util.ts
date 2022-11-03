@@ -82,10 +82,10 @@ function isBracketedValue(value: unknown): value is BracketedValue {
     return isObject<{ brackets?: unknown }>(value) && Array.isArray(value.brackets);
 }
 
-/** Aadd roll notes to a description */
-function addRollNotesText(item: ItemPF2e, actor: ActorPF2e, description = ""): string {
-    if(!description) {
-        description = item.system.description.value;
+/** Add roll notes to a description */
+function addRollNotesText(item: ItemPF2e, actor: ActorPF2e | null, description = ""): string {
+    if (!actor) {
+        return description;
     }
     const actorRollOptions = actor.getRollOptions();
     const itemRollOptions = item.getRollOptions();
@@ -98,7 +98,6 @@ function addRollNotesText(item: ItemPF2e, actor: ActorPF2e, description = ""): s
             .join("\n") ?? "";
     return description + notesText;
 }
-
 
 export {
     extractDamageDice,

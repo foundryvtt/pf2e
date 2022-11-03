@@ -4,6 +4,7 @@ import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { ActionCost, Frequency } from "@item/data/base";
 import { ItemSummaryData } from "@item/data";
+import { addRollNotesText } from "@module/rules/util";
 
 class ActionItemPF2e extends ItemPF2e {
     get actionCost(): ActionCost | null {
@@ -38,7 +39,8 @@ class ActionItemPF2e extends ItemPF2e {
         // Feat properties
         const properties = [CONFIG.PF2E.actionTypes[systemData.actionType.value]].filter((property) => property);
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-        return this.processChatData(htmlOptions, { ...systemData, properties, traits });
+        const description = { value: addRollNotesText(this, this.actor, this.description) };
+        return this.processChatData(htmlOptions, { ...systemData, description: description, properties, traits });
     }
 
     protected override async _preCreate(
