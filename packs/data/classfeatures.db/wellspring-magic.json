@@ -28,7 +28,51 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "selector": "initiative",
+                "text": "PF2E.SpecificRule.WellspringMage.Initiative",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "wellspring-magic"
+                ],
+                "selector": "flat-check",
+                "text": "PF2E.SpecificRule.WellspringMage.CriticalSuccess",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "wellspring-magic"
+                ],
+                "selector": "flat-check",
+                "text": "PF2E.SpecificRule.WellspringMage.Success",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure",
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "wellspring-magic"
+                ],
+                "selector": "flat-check",
+                "text": "PF2E.SpecificRule.WellspringMage.Failure",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Secrets of Magic"
         },
