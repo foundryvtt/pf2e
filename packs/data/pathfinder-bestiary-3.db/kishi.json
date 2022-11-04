@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "pA5TynsLDBYSmYld",
+            "_id": "9x6UoyWK1LPpP2M1",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Arcane Innate Spells",
             "sort": 100000,
@@ -16,15 +16,14 @@
                 },
                 "displayLevels": {},
                 "prepared": {
-                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -32,62 +31,62 @@
                 "slots": {
                     "slot0": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot1": {
-                        "max": 1,
-                        "prepared": {},
-                        "value": 1
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
                     },
                     "slot10": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot11": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot2": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot3": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot4": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot5": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot6": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot7": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot8": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     },
                     "slot9": {
                         "max": 0,
-                        "prepared": {},
+                        "prepared": [],
                         "value": 0
                     }
                 },
@@ -97,12 +96,10 @@
                 },
                 "spelldc": {
                     "dc": 27,
-                    "item": 0,
-                    "mod": 0,
                     "value": 19
                 },
                 "tradition": {
-                    "value": "divine"
+                    "value": "arcane"
                 },
                 "traits": {
                     "custom": "",
@@ -113,7 +110,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "pcwqYqybBEzsllSW",
+            "_id": "it8V6trXRaEs8bg1",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
@@ -128,7 +125,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -157,11 +154,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "pA5TynsLDBYSmYld"
+                    "heightenedLevel": 1,
+                    "value": "9x6UoyWK1LPpP2M1"
                 },
                 "materials": {
                     "value": ""
@@ -191,7 +199,7 @@
                 },
                 "slug": "charm",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -216,6 +224,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "arcane",
                         "emotion",
                         "incapacitation",
                         "mental"
@@ -421,7 +430,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d10+9}[piercing]]]{1d10+9 piercing damage}, @Check[type:fortitude|dc:26|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {1d10+9}[piercing]]]{1d10+9 piercing}, @Check[type:fortitude|dc:26|basic:true] (@UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by jaws only)</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -541,7 +550,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature grabbed in the kishi's jaws can barely speak; a creature must succeed at a @Check[type:flat|dc:8] check to provide verbal components for spells, doing so in a choked whisper.</p>"
+                    "value": "<p>A creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} in the kishi's jaws can barely speak; a creature must succeed at a @Check[type:flat|dc:8] check to provide verbal components for spells, doing so in a choked whisper.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -842,13 +851,13 @@
             "dr": [
                 {
                     "exceptions": "",
-                    "label": "Piercing",
                     "type": "piercing",
                     "value": 10
                 }
             ],
             "dv": [
                 {
+                    "exceptions": "",
                     "type": "coldiron",
                     "value": 10
                 }
