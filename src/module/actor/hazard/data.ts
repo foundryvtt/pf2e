@@ -70,10 +70,10 @@ interface HazardAttributes extends BaseActorAttributes {
 interface HazardDetailsSource {
     isComplex: boolean;
     level: { value: number };
-    disable: string;
-    description: string;
-    reset: string;
-    routine: string;
+    disable?: string;
+    description?: string;
+    reset?: string;
+    routine?: string;
 }
 
 interface HazardDetailsData extends HazardDetailsSource {
