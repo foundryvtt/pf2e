@@ -694,8 +694,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Set effect to unidentified if ctrl key is held
         if (game.user.isGM && itemSource.type === "effect") {
-            const ctrlHeld = event.ctrlKey || game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.CONTROL);
-            if (ctrlHeld) itemSource.system.unidentified = true;
+            const altHeld = event.altKey || game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.ALT);
+            if (altHeld) itemSource.system.unidentified = true;
         }
 
         // mystify the item if the alt key was pressed
