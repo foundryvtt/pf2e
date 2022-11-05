@@ -15,15 +15,13 @@ export class ActorDirectoryPF2e<TDocument extends ActorPF2e> extends ActorDirect
         };
     }
 
-    /** Flatten update data objects so parent method can read nested update keys */
+    /** Include flattened update data so parent method can read nested update keys */
     protected override async _render(force?: boolean, context: SidebarDirectoryRenderOptions = {}): Promise<void> {
         // Create new reference in case other applications are using the same context object
         context = deepClone(context);
 
-        if (context.action === "update" && context.documentType === "Actor" && context.data?.length) {
-            for (let i = 0; i < context.data.length; i++) {
-                context.data[i] = flattenObject(context.data[i]);
-            }
+        if (context.action === "update" && context.documentType === "Actor" && context.data) {
+            context.data = context.data.map((d) => ({ ...d, ...flattenObject(d) }));
         }
 
         return super._render(force, context);
