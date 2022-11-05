@@ -267,6 +267,16 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 4
                 },
@@ -326,6 +336,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "teleportation"
                     ]
                 }
@@ -377,11 +388,20 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "heightenedLevel": 4,
                     "value": "Ww4pKd6IZaOBRAbN"
                 },
                 "materials": {
@@ -436,6 +456,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "teleportation"
                     ]
                 }
@@ -458,7 +479,7 @@
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 20
+                    "value": "20"
                 },
                 "areasize": {
                     "value": "20-foot burst"
@@ -548,7 +569,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "darkness"
+                        "darkness",
+                        "divine"
                     ]
                 }
             },
@@ -591,18 +613,13 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>"
+                    "value": "<p>You can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: See Invisibility]{Spell Effect: See Invisibility}</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
                     "value": false
-                },
-                "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 2
@@ -664,6 +681,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "revelation"
                     ]
                 }
@@ -686,7 +704,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -770,7 +788,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "uncommon",
-                    "value": []
+                    "value": [
+                        "arcane"
+                    ]
                 }
             },
             "type": "spell"
@@ -808,8 +828,8 @@
                     "value": "<p>This very long spear, sometimes called a pike, is purely for thrusting rather than throwing. Used by many soldiers and city watch for crowd control and defense against charging enemies, it must be wielded with two hands.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 2,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -873,12 +893,14 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "evocation",
+                        "magical",
                         "reach"
                     ]
                 },
@@ -892,10 +914,61 @@
             "type": "weapon"
         },
         {
+            "_id": "qKK0LceTMsO2nTaw",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spell-effects.T5bk6UH7yuYog1Fp"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/see-invisibility.webp",
+            "name": "Spell Effect: See Invisibility",
+            "sort": 900000,
+            "system": {
+                "badge": null,
+                "description": {
+                    "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.See Invisibility]{See Invisibility}.</p>\n<p>You can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} to you.</p>"
+                },
+                "duration": {
+                    "expiry": "turn-start",
+                    "sustained": false,
+                    "unit": "minutes",
+                    "value": 10
+                },
+                "level": {
+                    "value": 1
+                },
+                "rules": [
+                    {
+                        "key": "Sense",
+                        "selector": "seeInvisibility"
+                    }
+                ],
+                "slug": "spell-effect-see-invisibility",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "start": {
+                    "initiative": null,
+                    "value": 0
+                },
+                "target": null,
+                "tokenIcon": {
+                    "show": true
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "unidentified": false
+            },
+            "type": "effect"
+        },
+        {
             "_id": "5pTxW5pvTdGLWj2C",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longspear",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "attack": {
                     "value": ""
@@ -943,7 +1016,7 @@
             "_id": "Csc3FpAiT4LS7zI7",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -990,7 +1063,7 @@
             "_id": "hoeJkPRGT9A1gfra",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -1043,7 +1116,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1088,7 +1161,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1133,7 +1206,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1178,7 +1251,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1236,7 +1309,7 @@
             "_id": "iKOLPcoDilY7HLdL",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mercy Vulnerability",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1277,7 +1350,7 @@
             "_id": "7XZ5d79YD3f0pWUk",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Reactive Slime",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1318,7 +1391,7 @@
             "_id": "FWCaUjBmQQkZbFfs",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Grievous Strike",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1382,7 +1455,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1900000,
+            "sort": 2000000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1454,7 +1527,7 @@
             "_id": "XpE0ByHCTNqk8JIh",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2000000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1482,7 +1555,7 @@
             "_id": "RTYXGPpQp0yjv0Wi",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2100000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1510,7 +1583,7 @@
             "_id": "CKpfyoK8Uo5Upu59",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2200000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1538,7 +1611,7 @@
             "_id": "7YMQ7cZIJe9spFuC",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2300000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1566,7 +1639,7 @@
             "_id": "y8TcqemGrCecBgf7",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2400000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1594,7 +1667,7 @@
             "_id": "KX9n6oNAl6CYfwD7",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2500000,
+            "sort": 2600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1712,10 +1785,12 @@
             "dr": [],
             "dv": [
                 {
-                    "type": "coldIron",
+                    "exceptions": "",
+                    "type": "coldiron",
                     "value": 5
                 },
                 {
+                    "exceptions": "",
                     "type": "good",
                     "value": 5
                 }

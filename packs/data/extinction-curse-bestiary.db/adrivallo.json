@@ -24,7 +24,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -127,7 +127,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -156,11 +156,20 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "heightenedLevel": 4,
                     "value": "W6tZElfSPD000KNK"
                 },
                 "materials": {
@@ -217,7 +226,8 @@
                     "value": [
                         "incapacitation",
                         "linguistic",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -329,7 +339,8 @@
                         "composition",
                         "emotion",
                         "fear",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -440,7 +451,8 @@
                         "cantrip",
                         "composition",
                         "emotion",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -462,7 +474,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -490,6 +502,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -553,7 +575,8 @@
                     "value": [
                         "emotion",
                         "incapacitation",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -575,7 +598,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -664,8 +687,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "cantrip",
                         "light",
-                        "cantrip"
+                        "primal"
                     ]
                 }
             },
@@ -687,7 +711,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -715,6 +739,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -779,7 +813,8 @@
                     "value": [
                         "emotion",
                         "fear",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -801,7 +836,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -829,6 +864,21 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "120 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -889,7 +939,8 @@
                     "rarity": "common",
                     "value": [
                         "auditory",
-                        "cantrip"
+                        "cantrip",
+                        "primal"
                     ]
                 }
             },
@@ -911,7 +962,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1000,7 +1051,8 @@
                         "cantrip",
                         "composition",
                         "emotion",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -1111,7 +1163,8 @@
                         "cantrip",
                         "composition",
                         "emotion",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -1133,7 +1186,7 @@
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 5
+                    "value": "5"
                 },
                 "areasize": {
                     "value": "5-foot burst"
@@ -1223,6 +1276,7 @@
                     "value": [
                         "incapacitation",
                         "mental",
+                        "primal",
                         "sleep"
                     ]
                 }
@@ -1262,8 +1316,8 @@
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1283,7 +1337,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -1327,7 +1381,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -1365,8 +1419,8 @@
                     "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1435,6 +1489,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
