@@ -14,7 +14,9 @@ function isItemSystemData(data: unknown): data is ItemSystemData {
 }
 
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
-function isPhysicalData(source: ItemSourcePF2e): source is PhysicalItemSource {
+function isPhysicalData(source: ItemSourcePF2e): source is PhysicalItemSource;
+function isPhysicalData(source: PreCreate<ItemSourcePF2e>): source is PreCreate<PhysicalItemSource>;
+function isPhysicalData(source: ItemSourcePF2e | PreCreate<ItemSourcePF2e>): boolean {
     return setHasElement(PHYSICAL_ITEM_TYPES, source.type);
 }
 

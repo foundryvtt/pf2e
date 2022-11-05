@@ -239,13 +239,13 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         const visionMode = this.hasDarkvision ? "darkvision" : "basic";
         this.sight.visionMode = visionMode;
         const { defaults } = CONFIG.Canvas.visionModes[visionMode].vision;
-        this.sight.brightness = defaults.brightness;
-        this.sight.saturation = defaults.saturation;
+        this.sight.brightness = defaults.brightness ?? 0;
+        this.sight.saturation = defaults.saturation ?? 0;
 
         if (visionMode === "darkvision" || this.scene.lightLevel > LightLevels.DARKNESS) {
             const basicDetection = this.detectionModes.at(0);
             if (!basicDetection) return;
-            this.sight.range = basicDetection.range = defaults.range;
+            this.sight.range = basicDetection.range = defaults.range ?? null;
 
             // Temporary hard-coded fetchling check for initial release
             if (this.actor.isOfType("character") && this.actor.ancestry?.slug === "fetchling") {
