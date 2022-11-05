@@ -253,7 +253,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "plant"
+                        "plant",
+                        "primal"
                     ]
                 }
             },
@@ -379,7 +380,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "fire"
+                        "fire",
+                        "primal"
                     ]
                 }
             },
@@ -422,7 +424,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You conjure an elemental to fight for you. This works like summon animal, except you summon a common creature that has the elemental trait and whose level is 1 or lower.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> Level 2</p>\n<p><strong>Heightened (4th)</strong> Level 3</p>\n<p><strong>Heightened (5th)</strong> Level 5</p>\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
+                    "value": "<p>You conjure an elemental to fight for you. This works like <em>@UUID[Compendium.pf2e.spells-srd.Summon Animal]{Summon Animal}</em>, except you summon a common creature that has the elemental trait and whose level is 1 or lower.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> Level 2</p>\n<p><strong>Heightened (4th)</strong> Level 3</p>\n<p><strong>Heightened (5th)</strong> Level 5</p>\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -487,7 +489,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "primal"
+                    ]
                 }
             },
             "type": "spell"
@@ -508,7 +512,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -536,6 +540,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -599,7 +613,8 @@
                     "value": [
                         "emotion",
                         "fear",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -620,8 +635,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "emanation",
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "varies"
@@ -641,8 +656,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d8"
@@ -650,7 +667,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, somatic, verbal)</strong> You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -674,6 +691,119 @@
                 "materials": {
                     "value": ""
                 },
+                "overlays": {
+                    "37gy7l19tik74o4s": {
+                        "_id": "37gy7l19tik74o4s",
+                        "name": "Heal (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "value": "1d8+8"
+                                    }
+                                }
+                            },
+                            "heightenedLevel": {},
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "7qdtetowq348s9oc": {
+                        "_id": "7qdtetowq348s9oc",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true
+                            },
+                            "heightenedLevel": {},
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "7vbvdrv2cl87sqta": {
+                        "_id": "7vbvdrv2cl87sqta",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "heightenedLevel": {},
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "lfxcoz2d3f8j2zq1": {
+                        "_id": "lfxcoz2d3f8j2zq1",
+                        "name": "Heal (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "heightenedLevel": {},
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "spellType": {
+                                "value": "save"
+                            },
+                            "target": {
+                                "value": "1 undead"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    }
+                },
                 "prepared": {
                     "value": ""
                 },
@@ -685,8 +815,8 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "fortitude"
                 },
                 "school": {
                     "value": "necromancy"
@@ -725,7 +855,8 @@
                     "rarity": "common",
                     "value": [
                         "healing",
-                        "positive"
+                        "positive",
+                        "primal"
                     ]
                 }
             },
@@ -768,7 +899,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Light]{Spell Effect: Light}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -837,8 +968,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "cantrip",
                         "light",
-                        "cantrip"
+                        "primal"
                     ]
                 }
             },
@@ -860,7 +992,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -883,6 +1015,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
                             "value": "1d4"
@@ -965,8 +1098,9 @@
                     "rarity": "common",
                     "value": [
                         "attack",
+                        "cantrip",
                         "fire",
-                        "cantrip"
+                        "primal"
                     ]
                 }
             },
@@ -1008,8 +1142,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "poison"
                             },
                             "value": "1d4"
@@ -1083,7 +1219,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "poison"
+                        "poison",
+                        "primal"
                     ]
                 }
             },
@@ -1105,7 +1242,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1171,7 +1308,7 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "heal"
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
@@ -1193,9 +1330,10 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "positive",
+                        "cantrip",
                         "healing",
-                        "cantrip"
+                        "positive",
+                        "primal"
                     ]
                 }
             },
@@ -1217,7 +1355,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1303,7 +1441,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "primal"
+                    ]
                 }
             },
             "type": "spell"
@@ -1414,7 +1554,8 @@
                     "value": [
                         "attack",
                         "cantrip",
-                        "plant"
+                        "plant",
+                        "primal"
                     ]
                 }
             },
@@ -1477,10 +1618,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1488,16 +1629,16 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -1518,7 +1659,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -1564,6 +1705,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -1585,13 +1727,13 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1599,20 +1741,20 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "resiliencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "rules": [],
                 "size": "med",
@@ -1642,19 +1784,24 @@
             "type": "armor"
         },
         {
-            "_id": "I5SLtGjhDIWIIufs",
-            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/clandestine-cloak.webp",
-            "name": "Gray Robes",
+            "_id": "ROfK1SKRZK5bHSNe",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.plplsXJsqrdqNQVI"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-wooden.webp",
+            "name": "Religious Symbol of Gozreh (Wooden, Defaced with Demonic Runes)",
             "sort": 1500000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": ""
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1679,14 +1826,23 @@
                     "value": ""
                 },
                 "price": {
-                    "value": {}
+                    "value": {
+                        "sp": 1
+                    }
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
                 "size": "med",
-                "slug": null,
+                "slug": "religious-symbol-wooden",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1698,30 +1854,30 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
             "type": "equipment"
         },
         {
-            "_id": "ROfK1SKRZK5bHSNe",
+            "_id": "ZiFwoApOZ8V32uzv",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.plplsXJsqrdqNQVI"
+                    "sourceId": "Compendium.pf2e.equipment-srd.ilbLQNy6TbBPW7sQ"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-wooden.webp",
-            "name": "Religious Symbol of Gozreh (Wooden, defaced with demonic runes)",
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/clandestine-cloak.webp",
+            "name": "Gray Robes",
             "sort": 1600000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                    "value": "<p>Ordinary clothing is functional with basic tailoring, such as peasant garb, monk's robes, or work clothes.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": true,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1753,9 +1909,9 @@
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "religious-symbol-wooden",
+                "slug": "clothing-ordinary",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1764,10 +1920,10 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "worn"
                 },
                 "weight": {
-                    "value": "L"
+                    "value": "-"
                 }
             },
             "type": "equipment"
