@@ -134,7 +134,7 @@ export class DamageRollModifiersDialog extends Application {
                 const label = m instanceof ModifierPF2e ? m.originalLabel : m.label;
                 const unidentified = m instanceof ModifierPF2e ? m.unidentified : false;
                 const unidentifiedDataset = unidentified
-                    ? ` data-unidentified="${game.i18n.localize("PF2E.identification.Unidentified")} ${signedModifier}"`
+                    ? ` data-unidentified="${ModifierPF2e.UNIDENTIFIED} ${signedModifier}"`
                     : "";
 
                 return `<span class="tag tag_transparent"${unidentifiedDataset}>${label} ${signedModifier}</span>`;

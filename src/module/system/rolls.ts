@@ -473,9 +473,7 @@ class CheckPF2e {
                 const sign = modifier.modifier < 0 ? "" : "+";
                 const signedValue = `${sign}${modifier.modifier}`;
                 const label = `${modifier.originalLabel} ${signedValue}`;
-                const unidentified = modifier.unidentified
-                    ? `${game.i18n.localize("PF2E.identification.Unidentified")} ${signedValue}`
-                    : undefined;
+                const unidentified = modifier.unidentified ? `${ModifierPF2e.UNIDENTIFIED} ${signedValue}` : undefined;
                 return toTagElement({ name: modifier.slug, label, unidentified }, "transparent");
             });
         const tagsFromOptions = extraTags.map((t) => toTagElement({ label: game.i18n.localize(t) }, "transparent"));

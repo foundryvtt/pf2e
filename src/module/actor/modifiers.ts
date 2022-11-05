@@ -143,6 +143,10 @@ class ModifierPF2e implements RawModifier {
     unidentified: boolean;
     originalLabel: string;
 
+    static get UNIDENTIFIED() {
+        return game.i18n.localize("PF2E.identification.Unidentified");
+    }
+
     /**
      * Create a new modifier.
      * Legacy parameters:
@@ -199,7 +203,7 @@ class ModifierPF2e implements RawModifier {
 
         this.originalLabel = this.label;
         this.unidentified = params.unidentified ?? false;
-        if (this.unidentified && !game.user.isGM) this.label = "Unidentified";
+        if (this.unidentified && !game.user.isGM) this.label = ModifierPF2e.UNIDENTIFIED;
 
         if (this.force && this.type === "untyped") {
             throw ErrorPF2e("A forced modifier must have a type");
