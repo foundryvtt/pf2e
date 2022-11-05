@@ -8,6 +8,7 @@
 ### Bugfixes
 * (In3luki) Localize skill names in Compendium Browser filter
 * (stwlam) Fix crafting check rolls reporting incorrect degree of success
+* (stwlam) Restore DC adjustments to inline checks from elite/weak NPCs
 * (Supe) Fix damage rolls from heightened spells
 * (Supe) Fix issue causing some hazard sheets to not be openable
 
