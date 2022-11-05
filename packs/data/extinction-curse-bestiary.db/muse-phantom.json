@@ -9,7 +9,7 @@
             "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
-                    "value": null
+                    "value": 2
                 },
                 "description": {
                     "value": ""
@@ -24,7 +24,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -127,7 +127,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -160,7 +160,6 @@
                     "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 2,
                     "value": "BPZQ1dC6ouU0B3Ud"
                 },
                 "materials": {
@@ -216,7 +215,8 @@
                     "rarity": "common",
                     "value": [
                         "emotion",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -271,7 +271,6 @@
                     "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 2,
                     "value": "BPZQ1dC6ouU0B3Ud"
                 },
                 "materials": {
@@ -311,7 +310,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "self"
+                    "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
@@ -325,7 +324,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "occult"
+                    ]
                 }
             },
             "type": "spell"
@@ -346,7 +347,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -375,11 +376,20 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
                     "value": "BPZQ1dC6ouU0B3Ud"
                 },
                 "materials": {
@@ -437,7 +447,8 @@
                     "value": [
                         "emotion",
                         "incapacitation",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -459,7 +470,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -488,11 +499,20 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
                     "value": "BPZQ1dC6ouU0B3Ud"
                 },
                 "materials": {
@@ -551,7 +571,8 @@
                     "value": [
                         "emotion",
                         "fear",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -573,7 +594,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -601,6 +622,21 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "120 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -661,7 +697,8 @@
                     "rarity": "common",
                     "value": [
                         "auditory",
-                        "cantrip"
+                        "cantrip",
+                        "occult"
                     ]
                 }
             },
@@ -683,7 +720,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -716,7 +753,6 @@
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
                     "value": "BPZQ1dC6ouU0B3Ud"
                 },
                 "materials": {
@@ -770,7 +806,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -815,6 +852,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
                             "value": "1d6"
@@ -845,6 +883,59 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "2I469pfbYcmFvzOA": {
+                        "_id": "2I469pfbYcmFvzOA",
+                        "name": "Telekinetic Projectile (bludgeoning)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "bludgeoning"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "cUFX7ExSLeoa3vIF": {
+                        "_id": "cUFX7ExSLeoa3vIF",
+                        "name": "Telekinetic Projectile (piercing)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "piercing"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "zFWsMjoeCnLxqJaV": {
+                        "_id": "zFWsMjoeCnLxqJaV",
+                        "name": "Telekinetic Projectile (slashing)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "slashing"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -896,7 +987,8 @@
                     "rarity": "common",
                     "value": [
                         "attack",
-                        "cantrip"
+                        "cantrip",
+                        "occult"
                     ]
                 }
             },
