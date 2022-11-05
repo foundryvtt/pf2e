@@ -11,6 +11,7 @@ class UserVisibilityPF2e {
             const unidentifiedElements = htmlQueryAll(html, "[data-unidentified]");
             for (const element of unidentifiedElements) {
                 element.innerHTML = element.dataset.unidentified as string;
+                delete element.dataset.unidentified;
             }
         }
 
