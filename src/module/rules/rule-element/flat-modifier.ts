@@ -127,6 +127,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                     critical: this.critical,
                     hideIfDisabled: this.hideIfDisabled,
                     source: this.item.uuid,
+                    unidentified: this.item.isOfType("effect") && this.item.system.unidentified,
                 });
                 if (options.test) modifier.test(options.test);
 

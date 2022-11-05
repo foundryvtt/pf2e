@@ -140,6 +140,9 @@ class ModifierPF2e implements RawModifier {
     notes: string;
     hideIfDisabled: boolean;
 
+    unidentified: boolean;
+    originalLabel: string;
+
     /**
      * Create a new modifier.
      * Legacy parameters:
@@ -194,6 +197,10 @@ class ModifierPF2e implements RawModifier {
         // Force splash damage into being critical-only or not doubling on critical hits
         this.critical = this.damageCategory === "splash" ? !!params.critical : params.critical ?? null;
 
+        this.originalLabel = this.label;
+        this.unidentified = params.unidentified ?? false;
+        if (this.unidentified && !game.user.isGM) this.label = "Unidentified";
+
         if (this.force && this.type === "untyped") {
             throw ErrorPF2e("A forced modifier must have a type");
         }
@@ -203,8 +210,8 @@ class ModifierPF2e implements RawModifier {
     clone(options: { test?: Set<string> | string[] } = {}): ModifierPF2e {
         const clone =
             this.modifier === this.#originalValue
-                ? new ModifierPF2e(this)
-                : new ModifierPF2e({ ...this, modifier: this.#originalValue });
+                ? new ModifierPF2e({ ...this, label: this.originalLabel })
+                : new ModifierPF2e({ ...this, modifier: this.#originalValue, label: this.originalLabel });
         if (options.test) clone.test(options.test);
 
         return clone;
@@ -244,6 +251,7 @@ class ModifierPF2e implements RawModifier {
 
 type ModifierObjectParams = RawModifier & {
     name?: string;
+    unidentified?: boolean;
 };
 
 type ModifierOrderedParams = [

@@ -130,8 +130,14 @@ export class DamageRollModifiersDialog extends Application {
                         ? game.i18n.localize(damageTypes[m.damageType as DamageType] ?? m.damageType)
                         : null;
                 const typeLabel = damageType ? ` ${damageType}` : "";
+                const signedModifier = modifier + typeLabel;
+                const label = m instanceof ModifierPF2e ? m.originalLabel : m.label;
+                const unidentified = m instanceof ModifierPF2e ? m.unidentified : false;
+                const unidentifiedDataset = unidentified
+                    ? ` data-unidentified="${game.i18n.localize("PF2E.identification.Unidentified")} ${signedModifier}"`
+                    : "";
 
-                return `<span class="tag tag_transparent">${m.label} ${modifier}${typeLabel}</span>`;
+                return `<span class="tag tag_transparent"${unidentifiedDataset}>${label} ${signedModifier}</span>`;
             })
             .join("");
         flavor += `<div class="tags">${baseBreakdown}${modifierBreakdown}</div>`;
