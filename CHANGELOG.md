@@ -1,5 +1,26 @@
 # Changelog
 
+## Version 4.3.4
+
+### System Improvements
+* (Cerapter) Allow effects to be hidden from players
+
+### Bugfixes
+* (In3luki) Localize skill names in Compendium Browser filter
+* (stwlam) Fix crafting check rolls reporting incorrect degree of success
+* (Supe) Fix damage rolls from heightened spells
+* (Supe) Fix issue causing some hazard sheets to not be openable
+
+### Data Updates
+* (Abaddon) Fix unique swords from Book of the Dead
+* (Abaddon) Review Blood Hag, Winter Hag, and Moon Hag, House Spirits, Huldra, Hyakume, Incutilis, Jorogumo, Kami, Kangaroo, Kappa, Kirin, Kishi, Kitsune Trickster, Kokogiak, Kongamato, and Kovintus Geomancer
+* (Abaddon) Add android infiltrator automation
+* (dogstarrb) Add missing Archetypes from DA, QftFF, NotGD, OoA, and BotD to Archetype Journal
+* (dogstarrb) Adds links from dedication feats to archetype journal
+* (MrVauxs) Correct typo in "Magic Warrior Dedication"
+* (Tikael) Automate Wellspring Magic feature
+
+
 ## Version 4.3.3
 
 ### System Improvements
