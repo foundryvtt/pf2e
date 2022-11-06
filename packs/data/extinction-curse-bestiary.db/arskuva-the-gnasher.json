@@ -3,15 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "vMr7QBuJLguvRUVV",
+            "_id": "uaaG12pu60ISNsjL",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.mVxA9E2ernBL6fM6"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/war-flail.webp",
-            "name": "War Flail (+2 greater striking flaming)",
+            "name": "War Flail",
             "sort": 100000,
             "system": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "war-flail",
                 "bonus": {
                     "value": 0
                 },
@@ -54,10 +59,10 @@
                     "value": 2
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -65,16 +70,16 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": "flaming"
+                    "value": "greaterFlaming"
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -83,9 +88,9 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "war-flail",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -102,12 +107,14 @@
                     "rarity": "common",
                     "value": [
                         "disarm",
+                        "evocation",
+                        "magical",
                         "sweep",
                         "trip"
                     ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
                     "value": "2"
@@ -116,7 +123,12 @@
             "type": "weapon"
         },
         {
-            "_id": "QL39Zc6P259KccpC",
+            "_id": "a3tpnhwtz3xNm2K9",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.GAu6v14pCSgLJh2D"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/noxious-jerkin.webp",
             "name": "Noxious Jerkin",
             "sort": 200000,
@@ -124,7 +136,7 @@
                 "armor": {
                     "value": 1
                 },
-                "baseItem": null,
+                "baseItem": "padded-armor",
                 "category": "light",
                 "check": {
                     "value": 0
@@ -138,8 +150,8 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": false
+                    "inSlot": false,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": "L"
@@ -172,36 +184,6 @@
                         "gp": 2800
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -220,9 +202,9 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "noxious-jerkin",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder #154: Siege of the Dinosaurs"
                 },
                 "speed": {
                     "value": 0
@@ -381,10 +363,55 @@
             "type": "melee"
         },
         {
+            "_id": "YipuNZHZBcVwsMOX",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "iS4LzcMaMI840LrK",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Minion",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -424,7 +451,7 @@
             "_id": "zH4GXibRnBjzfkbV",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -452,7 +479,7 @@
             "_id": "ARN4e5ZdBPM6I6Ez",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -477,7 +504,7 @@
             "type": "lore"
         }
     ],
-    "name": "Arskuva The Gnasher",
+    "name": "Arskuva the Gnasher",
     "system": {
         "abilities": {
             "cha": {
