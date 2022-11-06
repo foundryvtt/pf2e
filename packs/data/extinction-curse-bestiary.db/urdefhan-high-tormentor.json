@@ -234,7 +234,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -262,6 +262,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "9": {
+                            "target": {
+                                "value": "10 creatures that aren't on their home plane"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 5
@@ -297,7 +307,7 @@
                 },
                 "slug": "banishment",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -323,6 +333,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "incapacitation"
                     ]
                 }
@@ -366,7 +377,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You conjure a fiend to fight on your behalf. This works like summon animal, except you summon a common creature that has the fiend trait and whose level is 5 or lower. You can't summon a creature unless its alignment is one of your deity's preferred alignments (or, if you don't have a deity, is within one step of your alignment). At the GM's discretion, some deities might restrict specific types of fiends, even if their alignments match.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
+                    "value": "<p>You conjure a fiend to fight on your behalf. This works like <em>@UUID[Compendium.pf2e.spells-srd.Summon Animal]{Summon Animal}</em>, except you summon a common creature that has the fiend trait and whose level is 5 or lower. You can't summon a creature unless its alignment is one of your deity's preferred alignments (or, if you don't have a deity, is within one step of your alignment). At the GM's discretion, some deities might restrict specific types of fiends, even if their alignments match.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -430,20 +441,22 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "divine"
+                    ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "PgzGNcGcnEEcRnZ1",
+            "_id": "Y54Qc7RqEnX3zhqt",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.f8hRqLJaxBVhF1u0"
+                    "sourceId": "Compendium.pf2e.spells-srd.tlcrVRqW1MSKJ5IC"
                 }
             },
-            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
-            "name": "Acid Arrow",
+            "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
+            "name": "Phantasmal Killer",
             "sort": 500000,
             "system": {
                 "ability": {
@@ -471,133 +484,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "value": "acid"
-                            },
-                            "value": "5d8"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 5d8 acid damage plus [[/r {2d6}[persistent,acid]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d8"
-                    },
-                    "interval": 2,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "iH7yVlvaFJF7bjNQ"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "acid-arrow",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "acid",
-                        "attack"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "Y54Qc7RqEnX3zhqt",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.tlcrVRqW1MSKJ5IC"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
-            "name": "Phantasmal Killer",
-            "sort": 600000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
+                                "subtype": "",
                                 "value": "mental"
                             },
                             "value": "8d6"
@@ -654,7 +544,7 @@
                 },
                 "slug": "phantasmal-killer",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -679,261 +569,10 @@
                     "rarity": "common",
                     "value": [
                         "death",
+                        "divine",
                         "emotion",
                         "fear",
                         "mental"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "uiFZjeau89Ft7Bht",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Fq9yCbqI2RDt6Orw"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/spiritual-weapon.webp",
-            "name": "Spiritual Weapon",
-            "sort": 700000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": true,
-                            "type": {
-                                "categories": [],
-                                "value": "force"
-                            },
-                            "value": "2d8"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>A weapon made of pure magical force materializes and attacks foes you designate within range. This weapon has a ghostly appearance and manifests as a club, a dagger, or your deity's favored weapon.</p>\n<p>When you cast the spell, the weapon appears next to a foe you choose within range and makes a Strike against it. Each time you Sustain the Spell, you can move the weapon to a new target within range (if needed) and Strike with it. The spiritual weapon uses and contributes to your multiple attack penalty.</p>\n<p>The weapon's Strikes are melee spell attacks. Regardless of its appearance, the weapon deals force damage equal to 2d8 plus your spellcasting ability modifier. You can deal damage of the type normally dealt by the weapon instead of force damage (or any of the available damage types for a versatile weapon). No other statistics or traits of the weapon apply, and even a ranged weapon attacks adjacent creatures only. Despite making a spell attack, the spiritual weapon is a weapon for purposes of triggers, resistances, and so forth.</p>\n<p>The weapon doesn't take up space, grant flanking, or have any other attributes a creature would. The weapon can't make any attack other than its Strike, and feats or spells that affect weapons do not apply to it.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The weapon's damage increases by 1d8.</p>"
-                },
-                "duration": {
-                    "value": "sustained up to 1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 2,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "iH7yVlvaFJF7bjNQ"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "spiritual-weapon",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "force"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "TWnv9U5MYNVgJjMT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/harm.webp",
-            "name": "Harm",
-            "sort": 800000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "varies"
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "negative"
-                            },
-                            "value": "3d8"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 3d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": {
-                    "uses": {
-                        "max": 2,
-                        "value": 2
-                    },
-                    "value": "iH7yVlvaFJF7bjNQ"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "varies"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "harm",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 living creature or 1 willing undead creature"
-                },
-                "time": {
-                    "value": "1 to 3"
-                },
-                "traditions": {
-                    "value": [
-                        "divine"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "negative"
                     ]
                 }
             },
@@ -948,14 +587,14 @@
             },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
-            "sort": 900000,
+            "sort": 600000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -983,6 +622,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "7": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 3
@@ -1022,7 +671,7 @@
                 },
                 "slug": "paralyze",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1047,8 +696,138 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "incapacitation",
                         "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "PgzGNcGcnEEcRnZ1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.f8hRqLJaxBVhF1u0"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
+            "name": "Acid Arrow",
+            "sort": 700000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "acid"
+                            },
+                            "value": "3d8"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Localize[PF2E.PersistentDamage.Acid1d6.success]. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases by 1d6.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d8"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "iH7yVlvaFJF7bjNQ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "acid-arrow",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "attack"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "attack",
+                        "divine"
                     ]
                 }
             },
@@ -1063,14 +842,14 @@
             },
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
-            "sort": 1000000,
+            "sort": 800000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 20
+                    "value": "20"
                 },
                 "areasize": {
                     "value": "20-foot burst"
@@ -1133,7 +912,7 @@
                 },
                 "slug": "darkness",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1159,7 +938,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "darkness"
+                        "darkness",
+                        "divine"
                     ]
                 }
             },
@@ -1174,7 +954,7 @@
             },
             "img": "systems/pf2e/icons/spells/death-knell.webp",
             "name": "Death Knell",
-            "sort": 1100000,
+            "sort": 900000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1244,7 +1024,7 @@
                 },
                 "slug": "death-knell",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1268,7 +1048,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "death"
+                        "death",
+                        "divine"
                     ]
                 }
             },
@@ -1283,14 +1064,14 @@
             },
             "img": "systems/pf2e/icons/spells/false-life.webp",
             "name": "False Life",
-            "sort": 1200000,
+            "sort": 1000000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1353,7 +1134,7 @@
                 },
                 "slug": "false-life",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1376,7 +1157,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "divine"
+                    ]
                 }
             },
             "type": "spell"
@@ -1390,14 +1173,14 @@
             },
             "img": "systems/pf2e/icons/spells/silence.webp",
             "name": "Silence",
-            "sort": 1300000,
+            "sort": 1100000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1460,7 +1243,7 @@
                 },
                 "slug": "silence",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1483,7 +1266,137 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "uiFZjeau89Ft7Bht",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Fq9yCbqI2RDt6Orw"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/spiritual-weapon.webp",
+            "name": "Spiritual Weapon",
+            "sort": 1200000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "applyMod": true,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "force"
+                            },
+                            "value": "1d8"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p>A weapon made of pure magical force materializes and attacks foes you designate within range. This weapon has a ghostly appearance and manifests as a club, a dagger, or your deity's favored weapon.</p>\n<p>When you cast the spell, the weapon appears next to a foe you choose within range and makes a Strike against it. Each time you Sustain the Spell, you can move the weapon to a new target within range (if needed) and Strike with it. The spiritual weapon uses and contributes to your multiple attack penalty.</p>\n<p>The weapon's Strikes are melee spell attacks. Regardless of its appearance, the weapon deals force damage equal to 1d8 plus your spellcasting ability modifier. You can deal damage of the type normally dealt by the weapon instead of force damage (or any of the available damage types for a versatile weapon). No other statistics or traits of the weapon apply, and even a ranged weapon attacks adjacent creatures only. Despite making a spell attack, the spiritual weapon is a weapon for purposes of triggers, resistances, and so forth.</p>\n<p>The weapon doesn't take up space, grant flanking, or have any other attributes a creature would. The weapon can't make any attack other than its Strike, and feats or spells that affect weapons do not apply to it.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The weapon's damage increases by 1d8.</p>"
+                },
+                "duration": {
+                    "value": "sustained up to 1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "iH7yVlvaFJF7bjNQ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "spiritual-weapon",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "attack"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "force"
+                    ]
                 }
             },
             "type": "spell"
@@ -1497,14 +1410,14 @@
             },
             "img": "systems/pf2e/icons/spells/daemonic-pact.webp",
             "name": "Daemonic Pact",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1567,7 +1480,7 @@
                 },
                 "slug": "daemonic-pact",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary 2"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1588,7 +1501,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "uncommon",
-                    "value": []
+                    "value": [
+                        "arcane"
+                    ]
                 }
             },
             "type": "spell"
@@ -1601,8 +1516,8 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/feather-fall.webp",
-            "name": "Feather Fall (Self only)",
-            "sort": 1500000,
+            "name": "Feather Fall (Self Only)",
+            "sort": 1400000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1654,7 +1569,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "self"
+                    "value": "60 feet"
                 },
                 "rules": [],
                 "save": {
@@ -1672,7 +1587,7 @@
                 },
                 "slug": "feather-fall",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1681,7 +1596,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "self"
+                    "value": "1 falling creature"
                 },
                 "time": {
                     "value": "reaction"
@@ -1695,7 +1610,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "divine"
+                    ]
                 }
             },
             "type": "spell"
@@ -1709,14 +1626,14 @@
             },
             "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
             "name": "Grim Tendrils",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "line",
-                    "value": 30
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "30-foot line"
@@ -1736,8 +1653,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "2d4"
@@ -1794,7 +1713,7 @@
                 },
                 "slug": "grim-tendrils",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1818,6 +1737,250 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
+                        "negative"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "TWnv9U5MYNVgJjMT",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/harm.webp",
+            "name": "Harm",
+            "sort": 1600000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "emanation",
+                    "value": "30"
+                },
+                "areasize": {
+                    "value": "varies"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "negative"
+                            },
+                            "value": "1d8"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, verbal, somatic)</strong> You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "heightenedLevel": 3,
+                    "uses": {
+                        "max": 2,
+                        "value": 2
+                    },
+                    "value": "iH7yVlvaFJF7bjNQ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "overlays": {
+                    "4gyp3qlsv5ywdyjq": {
+                        "_id": "4gyp3qlsv5ywdyjq",
+                        "name": "Harm (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "value": "1d8+8"
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "spellType": {
+                                "value": "heal"
+                            },
+                            "target": {
+                                "value": "1 willing undead creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "pq7cxntbz4s8g5ik": {
+                        "_id": "pq7cxntbz4s8g5ik",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true
+                            },
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "rvhoa43rqqqp8izn": {
+                        "_id": "rvhoa43rqqqp8izn",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "z04svm1cvfcxtplb": {
+                        "_id": "z04svm1cvfcxtplb",
+                        "name": "Harm (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "1 living creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    }
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "value": "fortitude"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "harm",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 living creature or 1 willing undead creature"
+                },
+                "time": {
+                    "value": "1 to 3"
+                },
+                "traditions": {
+                    "value": [
+                        "divine"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "divine",
                         "negative"
                     ]
                 }
@@ -1840,7 +2003,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1907,7 +2070,7 @@
                 },
                 "slug": "ray-of-enfeeblement",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "attack"
@@ -1932,7 +2095,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "attack"
+                        "attack",
+                        "divine"
                     ]
                 }
             },
@@ -1971,8 +2135,9 @@
                     "value": "<p>This weapon has a wooden shaft ending in a large, heavy metal head. Thehead of the hammer might be single‑sided or double‑sided, but it's always capable of delivering powerful bludgeoning blows.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "-=inSlot": null,
+                    "carryType": "held",
+                    "handsHeld": 2,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1986,7 +2151,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 4
+                    "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
@@ -1995,27 +2160,27 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
-                        "gp": 100
+                        "gp": 1
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -2026,7 +2191,7 @@
                 "size": "med",
                 "slug": "warhammer",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -2042,6 +2207,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "evocation",
+                        "magical",
                         "shove"
                     ]
                 },
