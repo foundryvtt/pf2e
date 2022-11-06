@@ -13,6 +13,9 @@
         <select name="itemType" data-dtype="String">
             <option value="scroll">{{ localize "PF2E.ScrollWandPopup.scroll" }}</option>
             <option value="wand">{{ localize "PF2E.ScrollWandPopup.wand" }}</option>
+            {{#if isCantrip}}
+            <option value="cantrip-deck-5">{{ localize "PF2E.ScrollWandPopup.cantripDeck5" }}</option>
+            {{/if}}
         </select></p>
     </div>
     <button type="submit"><i class="far fa-save"></i>{{ localize "PF2E.ScrollWandPopup.submit" }}</button>

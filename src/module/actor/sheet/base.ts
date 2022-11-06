@@ -2,7 +2,14 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, PhysicalItemPF2e } from "@item";
+import {
+    Coins,
+    createConsumableFromSpell,
+    isSpellConsumableItemType,
+    DENOMINATIONS,
+    ItemPF2e,
+    PhysicalItemPF2e,
+} from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -759,7 +766,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     actor,
                     {},
                     async (heightenedLevel, itemType, spell) => {
-                        if (!(itemType === "scroll" || itemType === "wand")) return;
+                        if (!isSpellConsumableItemType(itemType)) return;
                         const item = await createConsumableFromSpell(itemType, spell, heightenedLevel);
                         await this._onDropItemCreate(item);
                     },

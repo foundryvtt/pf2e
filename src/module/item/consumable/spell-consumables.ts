@@ -6,6 +6,8 @@ import { traditionSkills } from "@item/spellcasting-entry/trick";
 import { calculateDC, DCOptions } from "@module/dc";
 import { ErrorPF2e, setHasElement } from "@util";
 
+const cantripDeckId = "tLa4bewBhyqzi6Ow";
+
 const scrollCompendiumIds: Record<number, string | undefined> = {
     1: "RjuupS9xyXDLgyIr",
     2: "Y7UD64foDbDMV9sx",
@@ -19,6 +21,9 @@ const scrollCompendiumIds: Record<number, string | undefined> = {
     10: "o1XIHJ4MJyroAHfF",
 };
 
+const spellConsumableItemTypes = ["cantrip-deck-5", "scroll", "wand"] as const;
+type SpellConsumableItemType = typeof spellConsumableItemTypes[number];
+
 const wandCompendiumIds: Record<number, string | undefined> = {
     1: "UJWiN0K3jqVjxvKk",
     2: "vJZ49cgi8szuQXAD",
@@ -31,26 +36,50 @@ const wandCompendiumIds: Record<number, string | undefined> = {
     9: "Fgv722039TVM5JTc",
 };
 
-function getIdForSpellConsumable(type: "scroll" | "wand", heightenedLevel: number): string | null {
-    return type === "scroll"
-        ? scrollCompendiumIds[heightenedLevel] ?? null
-        : wandCompendiumIds[heightenedLevel] ?? null;
+function getIdForSpellConsumable(type: SpellConsumableItemType, heightenedLevel: number): string | null {
+    let id = null;
+    switch (type) {
+        case "cantrip-deck-5":
+            id = cantripDeckId;
+            break;
+        case "scroll":
+            id = scrollCompendiumIds[heightenedLevel] ?? null;
+            break;
+        default:
+            id = wandCompendiumIds[heightenedLevel] ?? null;
+    }
+    return id;
 }
 
-function getNameForSpellConsumable(type: "scroll" | "wand", spellName: string, heightenedLevel: number): string {
-    if (type === "scroll") {
-        return game.i18n.format("PF2E.ScrollFromSpell", { name: spellName, level: heightenedLevel });
-    } else {
-        return game.i18n.format("PF2E.WandFromSpell", { name: spellName, level: heightenedLevel });
+function getNameForSpellConsumable(type: SpellConsumableItemType, spellName: string, heightenedLevel: number): string {
+    let name;
+    switch (type) {
+        case "cantrip-deck-5":
+            name = game.i18n.format("PF2E.CantripDeckFromSpell", { name: spellName });
+            break;
+        case "scroll":
+            name = game.i18n.format("PF2E.ScrollFromSpell", { name: spellName, level: heightenedLevel });
+            break;
+        default:
+            name = game.i18n.format("PF2E.WandFromSpell", { name: spellName, level: heightenedLevel });
     }
+    return name;
 }
 
 function isSpellConsumable(itemId: string): boolean {
-    return Object.values(scrollCompendiumIds).includes(itemId) || Object.values(wandCompendiumIds).includes(itemId);
+    return (
+        itemId === cantripDeckId ||
+        Object.values(scrollCompendiumIds).includes(itemId) ||
+        Object.values(wandCompendiumIds).includes(itemId)
+    );
+}
+
+function isSpellConsumableItemType(type: string): type is SpellConsumableItemType {
+    return spellConsumableItemTypes.includes(type as SpellConsumableItemType);
 }
 
 async function createConsumableFromSpell(
-    type: "scroll" | "wand",
+    type: SpellConsumableItemType,
     spell: SpellPF2e,
     heightenedLevel = spell.baseLevel
 ): Promise<ConsumableSource> {
@@ -67,7 +96,11 @@ async function createConsumableFromSpell(
     const description = consumableSource.system.description.value;
     consumableSource.system.description.value =
         (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr />${description}`;
-    consumableSource.system.spell = spell.clone({ "system.location.heightenedLevel": heightenedLevel }).toObject();
+
+    // Cantrip deck casts at level 1
+    if (type !== "cantrip-deck-5") {
+        consumableSource.system.spell = spell.clone({ "system.location.heightenedLevel": heightenedLevel }).toObject();
+    }
 
     return consumableSource;
 }
@@ -93,4 +126,11 @@ function calculateTrickMagicItemCheckDC(
     return Object.fromEntries(skills);
 }
 
-export { calculateTrickMagicItemCheckDC, createConsumableFromSpell, isSpellConsumable, TrickMagicItemDifficultyData };
+export {
+    calculateTrickMagicItemCheckDC,
+    createConsumableFromSpell,
+    isSpellConsumable,
+    isSpellConsumableItemType,
+    SpellConsumableItemType,
+    TrickMagicItemDifficultyData,
+};

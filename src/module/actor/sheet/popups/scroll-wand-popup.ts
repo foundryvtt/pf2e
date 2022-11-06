@@ -3,6 +3,11 @@ import { SpellPF2e } from "@item";
 import { OneToTen } from "@module/data";
 import { ErrorPF2e } from "@util";
 
+type FormData = {
+    isCantrip?: boolean;
+    validLevels?: number[];
+};
+
 export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     onSubmitCallback: ScrollWandCallback;
     spell?: SpellPF2e;
@@ -31,14 +36,17 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     }
 
     override async getData(): Promise<FormApplicationData<ActorPF2e>> {
-        const sheetData: FormApplicationData<ActorPF2e> & { validLevels?: number[] } = await super.getData();
+        const sheetData: FormApplicationData<ActorPF2e> & FormData = await super.getData();
 
         if (!this.spell) {
             throw ErrorPF2e("ScrollWandPopup | Could not read spelldata");
         }
 
+        sheetData.isCantrip = this.spell.system.traits.value.includes("cantrip") ?? false;
         const minimumLevel = this.spell.baseLevel;
-        const levels = Array.from(Array(11 - minimumLevel).keys()).map((index) => minimumLevel + index);
+        const levels = sheetData.isCantrip
+            ? [1]
+            : Array.from(Array(11 - minimumLevel).keys()).map((index) => minimumLevel + index);
         sheetData.validLevels = levels;
         return sheetData;
     }
