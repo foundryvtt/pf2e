@@ -3,15 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "ZfRC0QBLxLwPvVuf",
+            "_id": "8RPQcKk5nVK3FA75",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.dUC8Fsa6FZtVikS3"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
-            "name": "Composite Longbow (+1 striking)",
+            "name": "Composite Longbow",
             "sort": 100000,
             "system": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "composite-longbow",
                 "bonus": {
                     "value": 0
                 },
@@ -54,10 +59,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -65,27 +70,27 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": 100,
                 "reload": {
-                    "value": ""
+                    "value": "0"
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "composite-longbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -102,12 +107,14 @@
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
+                        "evocation",
+                        "magical",
                         "propulsive",
                         "volley-30"
                     ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-one-plus-hands"
                 },
                 "weight": {
                     "value": "2"
@@ -116,15 +123,20 @@
             "type": "weapon"
         },
         {
-            "_id": "Anw6nELq79bfz7PG",
+            "_id": "JWOeDn8Ac9CuPeuW",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.LJdbVTOZog39EEbi"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
-            "name": "Longsword (+2 greater striking)",
+            "name": "Longsword",
             "sort": 200000,
             "system": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "longsword",
                 "bonus": {
                     "value": 0
                 },
@@ -143,8 +155,8 @@
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -167,10 +179,10 @@
                     "value": 2
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -178,16 +190,16 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -196,9 +208,9 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "longsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -214,6 +226,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "evocation",
+                        "magical",
                         "versatile-p"
                     ]
                 },
@@ -227,15 +241,20 @@
             "type": "weapon"
         },
         {
-            "_id": "ik6rv5dN8dRhfv5f",
+            "_id": "sEaF4nsMtPcn2Tid",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.MPcM4Wt6KmWE2kGL"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
-            "name": "Chain Shirt (+1 resilient)",
+            "name": "+1 Resilient Chain Shirt",
             "sort": 300000,
             "system": {
                 "armor": {
                     "value": 2
                 },
-                "baseItem": null,
+                "baseItem": "chain-shirt",
                 "category": "light",
                 "check": {
                     "value": -1
@@ -250,7 +269,8 @@
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "invested": false
+                    "inSlot": true,
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": "1"
@@ -273,57 +293,27 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 5
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "resiliencyRune": {
@@ -331,9 +321,9 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "chain-shirt",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -346,7 +336,10 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "abjuration",
                         "flexible",
+                        "invested",
+                        "magical",
                         "noisy"
                     ]
                 },
@@ -360,7 +353,12 @@
             "type": "armor"
         },
         {
-            "_id": "tvWYnzODR35qpo74",
+            "_id": "6MTJBKsh8JTlJnLo",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.14rbefsoClgClRQ8"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/ring-of-sustenance.webp",
             "name": "Ring of Sustenance",
             "sort": 400000,
@@ -372,8 +370,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
-                    "invested": false
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
@@ -404,9 +401,9 @@
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "ring-of-sustenance",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -419,7 +416,7 @@
                     ]
                 },
                 "usage": {
-                    "value": "wornring"
+                    "value": "worn"
                 },
                 "weight": {
                     "value": "-"
@@ -428,120 +425,15 @@
             "type": "equipment"
         },
         {
-            "_id": "w4PfeAKCfCQtGxbF",
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
-            "name": "Arrows",
-            "sort": 500000,
-            "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
-                "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "baseItem": null,
-                "charges": {
-                    "_deprecated": true,
-                    "max": 0,
-                    "value": 0
-                },
-                "consumableType": {
-                    "value": "ammo"
-                },
-                "consume": {
-                    "_deprecated": true,
-                    "value": ""
-                },
-                "containerId": null,
-                "description": {
-                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "per": 10,
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "quantity": 40,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": "arrows",
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
-                "weight": {
-                    "value": "L"
+            "_id": "FN0mXZhQ7fOY5VPG",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.G7haQ5gDt30ftJLC"
                 }
             },
-            "type": "consumable"
-        },
-        {
-            "_id": "fxKKemiWIa4OdEHx",
             "img": "systems/pf2e/icons/equipment/consumables/potions/healing-potion.webp",
             "name": "Healing Potion (Moderate)",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "activation": {
                     "condition": "",
@@ -578,8 +470,7 @@
                     "value": null
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
+                    "carryType": "worn"
                 },
                 "equippedBulk": {
                     "value": ""
@@ -615,9 +506,9 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "healing-potion-moderate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "target": {
@@ -633,8 +524,123 @@
                         "healing",
                         "magical",
                         "necromancy",
+                        "positive",
                         "potion"
                     ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "Mo5d1CxvqRoX0LT1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "sort": 600000,
+            "system": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "quantity": 10,
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "arrows",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": "arrows",
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
