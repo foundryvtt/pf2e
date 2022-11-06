@@ -194,3 +194,4 @@ export { Migration793MakePredicatesArrays } from "./793-make-predicates-arrays";
 export { Migration794AddWildShapeChoices } from "./794-add-wild-shape-choices";
 export { Migration795CleanupFlatFootedToggle } from "./795-cleanup-flat-footed-toggle";
 export { Migration796ItemGrantsToObjects } from "./796-item-grants-to-objects";
+export { Migration797MetagameSetting } from "./797-metagame-settings";

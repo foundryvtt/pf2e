@@ -140,12 +140,12 @@ declare global {
         get(module: "pf2e", setting: "proficiencyMasterModifier"): number;
         get(module: "pf2e", setting: "proficiencyLegendaryModifier"): number;
 
-        get(module: "pf2e", setting: "metagame.partyVision"): boolean;
-        get(module: "pf2e", setting: "metagame.secretCondition"): boolean;
-        get(module: "pf2e", setting: "metagame.secretDamage"): boolean;
-        get(module: "pf2e", setting: "metagame.showDC"): UserVisibility;
-        get(module: "pf2e", setting: "metagame.showResults"): UserVisibility;
-        get(module: "pf2e", setting: "metagame.tokenSetsNameVisibility"): boolean;
+        get(module: "pf2e", setting: "metagame_partyVision"): boolean;
+        get(module: "pf2e", setting: "metagame_secretCondition"): boolean;
+        get(module: "pf2e", setting: "metagame_secretDamage"): boolean;
+        get(module: "pf2e", setting: "metagame_showDC"): boolean;
+        get(module: "pf2e", setting: "metagame_showResults"): boolean;
+        get(module: "pf2e", setting: "metagame_tokenSetsNameVisibility"): boolean;
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;
 

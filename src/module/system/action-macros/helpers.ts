@@ -54,8 +54,8 @@ export class ActionMacroHelpers {
         outcome: DegreeOfSuccessString,
         translationKey?: string
     ): RollNotePF2e {
-        const visibility = game.settings.get("pf2e", "metagame.showResults");
-        const outcomes = visibility === "all" ? [outcome] : [];
+        const visible = game.settings.get("pf2e", "metagame_showResults");
+        const outcomes = visible ? [outcome] : [];
         return new RollNotePF2e({
             selector,
             text: game.i18n.localize(translationKey ?? `${translationPrefix}.Notes.${outcome}`),

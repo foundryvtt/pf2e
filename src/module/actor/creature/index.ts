@@ -650,7 +650,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
             }),
             value: recoveryDC + dying.value,
-            visibility: "all",
+            visible: true,
         };
 
         const notes = [

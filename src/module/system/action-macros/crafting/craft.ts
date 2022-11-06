@@ -30,7 +30,7 @@ export async function craft(options: CraftActionOptions) {
     const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
     const dc: CheckDC = options.difficultyClass ?? {
         value: calculateDC(item.level, { proficiencyWithoutLevel }),
-        visibility: "all",
+        visible: true,
     };
 
     // whether the player needs to pay crafting costs
