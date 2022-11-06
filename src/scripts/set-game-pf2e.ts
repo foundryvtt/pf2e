@@ -26,7 +26,6 @@ import { remigrate } from "@scripts/system/remigrate";
 import { ActionMacros } from "@system/action-macros";
 import { ConditionManager } from "@system/conditions";
 import { EffectTracker } from "@system/effect-tracker";
-import { ActorImporter } from "@system/importer/actor-importer";
 import { CheckPF2e } from "@system/rolls";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
@@ -62,7 +61,6 @@ export const SetGamePF2e = {
             effectPanel: new EffectsPanel(),
             effectTracker: new EffectTracker(),
             gm: { calculateXP, launchTravelSheet, perceptionForSelected, stealthForSelected },
-            importer: { actor: ActorImporter },
             licenseViewer: new LicenseViewer(),
             rollActionMacro,
             rollItemMacro,
