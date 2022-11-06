@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "9kv8fbHEQiC1Wm6G",
+            "_id": "I07i3Rw3iXrxS2A9",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Innate Spells",
             "sort": 100000,
@@ -19,14 +19,14 @@
                     "value": "innate"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "slots": {
                     "slot0": {
@@ -96,7 +96,6 @@
                 },
                 "spelldc": {
                     "dc": 40,
-                    "mod": 0,
                     "value": 32
                 },
                 "tradition": {
@@ -111,7 +110,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "3gjhAW9ZvHGVA54s",
+            "_id": "dHqF5qqvagKODWQ4",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Rituals",
             "sort": 200000,
@@ -127,14 +126,14 @@
                     "value": "ritual"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
                     "value": true
                 },
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "slots": {
                     "slot0": {
@@ -204,7 +203,6 @@
                 },
                 "spelldc": {
                     "dc": 40,
-                    "mod": 0,
                     "value": 32
                 },
                 "tradition": {
@@ -219,7 +217,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "beHOpuYgHPDE3W0F",
+            "_id": "Oz8BxcTXWi4XHPiV",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.10VcmSYNBrvBphu1"
@@ -254,8 +252,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "9d6"
@@ -271,12 +271,32 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "10": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "negative"
+                                        },
+                                        "value": "10d6"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 9
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -306,7 +326,7 @@
                 },
                 "slug": "massacre",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -339,7 +359,7 @@
             "type": "spell"
         },
         {
-            "_id": "ulc1zRbIeA2T7gLc",
+            "_id": "81IsOnrGCumV607l",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.nsQvjNyg4Whw2mek"
@@ -388,7 +408,7 @@
                 },
                 "location": {
                     "heightenedLevel": 8,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -418,7 +438,7 @@
                 },
                 "slug": "divine-aura",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -440,13 +460,15 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "aura"
+                    ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "Jhf8RRQbOUZkqp1r",
+            "_id": "axtYEWDx9kSBIiQV",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.x7SPrsRxGb2Vy2nu"
@@ -481,8 +503,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "11d6"
@@ -498,12 +522,26 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "10": {
+                            "area": {
+                                "areaType": "burst",
+                                "value": "1320"
+                            },
+                            "range": {
+                                "value": "half a mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 8
                 },
                 "location": {
                     "heightenedLevel": 8,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -533,7 +571,7 @@
                 },
                 "slug": "earthquake",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -564,7 +602,7 @@
             "type": "spell"
         },
         {
-            "_id": "9oNWJPgGoBlUvMBH",
+            "_id": "VzIjC1rRAiqDrIFq",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.7PJSqUeKxTqOVrPk"
@@ -613,7 +651,7 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -643,7 +681,7 @@
                 },
                 "slug": "power-word-stun",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -674,7 +712,7 @@
             "type": "spell"
         },
         {
-            "_id": "GxQZGaWODYEgQs6A",
+            "_id": "ZFiTj9wIygm9oA2s",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
@@ -718,12 +756,17 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
+                "heightening": {
+                    "damage": {},
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 6
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -753,7 +796,7 @@
                 },
                 "slug": "true-seeing",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -779,6 +822,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "revelation"
                     ]
                 }
@@ -786,7 +830,7 @@
             "type": "spell"
         },
         {
-            "_id": "vlPjYGA3btRTiGMk",
+            "_id": "I930m9sSYIjNyTU6",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
@@ -801,7 +845,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -830,12 +874,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
                     "heightenedLevel": 5,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -865,7 +919,7 @@
                 },
                 "slug": "dimension-door",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -896,7 +950,7 @@
             "type": "spell"
         },
         {
-            "_id": "i5XMdJS2ULpzUesI",
+            "_id": "McibEQTz4fAE3b7p",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
@@ -940,12 +994,25 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
                     "heightenedLevel": 4,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -975,7 +1042,7 @@
                 },
                 "slug": "dimension-door",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -999,6 +1066,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "teleportation"
                     ]
                 }
@@ -1006,7 +1074,7 @@
             "type": "spell"
         },
         {
-            "_id": "XMrETD2JVHDplHQS",
+            "_id": "3mY1WFp56t00EUSp",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.hVU9msO9yGkxKZ3J"
@@ -1020,8 +1088,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": ""
+                    "areaType": "burst",
+                    "value": "20"
                 },
                 "areasize": {
                     "value": "20-foot burst"
@@ -1041,8 +1109,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
                             "value": "4d10"
@@ -1070,7 +1140,7 @@
                 },
                 "location": {
                     "heightenedLevel": 8,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -1100,7 +1170,7 @@
                 },
                 "slug": "divine-wrath",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1122,13 +1192,15 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "divine"
+                    ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "Wf5r2vOjh8EJyCOl",
+            "_id": "rfKpNBAAm40aGr7Q",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.tsKnoBuBbKMXkiz5"
@@ -1176,7 +1248,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "3gjhAW9ZvHGVA54s"
+                    "value": "dHqF5qqvagKODWQ4"
                 },
                 "materials": {
                     "value": ""
@@ -1206,7 +1278,7 @@
                 },
                 "slug": "abyssal-pact",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1233,7 +1305,7 @@
             "type": "spell"
         },
         {
-            "_id": "x2mWsBVbDUrRYIjF",
+            "_id": "KL9YUyuWFl7evAwr",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.UfurZQK6H6SgOjqe"
@@ -1317,10 +1389,10 @@
                     "value": ""
                 },
                 "rules": [],
-                "size": "med",
+                "size": "huge",
                 "slug": "ranseur",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -1337,6 +1409,8 @@
                     "rarity": "common",
                     "value": [
                         "disarm",
+                        "evocation",
+                        "magical",
                         "reach"
                     ]
                 },
@@ -1350,7 +1424,7 @@
             "type": "weapon"
         },
         {
-            "_id": "DqXqkU3tGCFwawCR",
+            "_id": "AROmbsIdW16qYomq",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.r0ifJfoz8aqf0mwk"
@@ -1377,6 +1451,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -1401,10 +1476,10 @@
                     "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1428,10 +1503,10 @@
                     "value": ""
                 },
                 "rules": [],
-                "size": "med",
+                "size": "huge",
                 "slug": "breastplate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": -5
