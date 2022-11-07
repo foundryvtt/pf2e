@@ -39,7 +39,6 @@ import { ModuleArt, registerModuleArt } from "@scripts/register-module-art";
 import { remigrate } from "@scripts/system/remigrate";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { EffectTracker } from "@system/effect-tracker";
-import { ActorImporter } from "@system/importer/actor-importer";
 import { CheckPF2e } from "@system/rolls";
 import { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
@@ -71,9 +70,6 @@ declare global {
                 };
                 remigrate: typeof remigrate;
                 sluggify: typeof sluggify;
-            };
-            importer: {
-                actor: typeof ActorImporter;
             };
             variantRules: {
                 AutomaticBonusProgression: typeof AutomaticBonusProgression;
