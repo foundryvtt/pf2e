@@ -52,7 +52,6 @@ import {
     npcAttackTraits,
     otherArmorTags,
     otherConsumableTags,
-    otherEquipmentTags,
     otherWeaponTags,
     preciousMaterials,
     spellOtherTraits,
@@ -1110,13 +1109,11 @@ export const PF2ECONFIG = {
     otherArmorTags,
 
     equipmentTraits,
-    otherEquipmentTags,
-
-    actionTraits,
 
     consumableTraits,
     otherConsumableTags,
 
+    actionTraits,
     spellTraits,
     featTraits,
     creatureTraits,

@@ -206,7 +206,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
         systemData.reload.value ||= null;
-        systemData.traits.otherTags ??= [];
         systemData.selectedAmmoId ||= null;
         systemData.damage.die ||= null;
         systemData.damage.modifier ??= 0;
