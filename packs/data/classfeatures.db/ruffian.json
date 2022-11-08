@@ -32,19 +32,19 @@
                 "label": "PF2E.SpecificRule.SneakAttack",
                 "predicate": [
                     "target:condition:flat-footed",
-                    "weapon:category:simple",
+                    "item:category:simple",
                     {
                         "nor": [
                             {
                                 "and": [
-                                    "weapon:ranged",
+                                    "item:ranged",
                                     {
-                                        "not": "weapon:thrown-melee"
+                                        "not": "item:thrown-melee"
                                     }
                                 ]
                             },
-                            "weapon:trait:agile",
-                            "weapon:trait:finesse"
+                            "item:trait:agile",
+                            "item:trait:finesse"
                         ]
                     }
                 ],
@@ -96,10 +96,10 @@
                 "key": "CriticalSpecialization",
                 "predicate": [
                     "target:condition:flat-footed",
-                    "weapon:category:simple",
+                    "item:category:simple",
                     {
                         "lte": [
-                            "weapon:damage:die:faces",
+                            "item:damage:die:faces",
                             8
                         ]
                     }
