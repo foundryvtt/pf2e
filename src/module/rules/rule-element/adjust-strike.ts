@@ -65,7 +65,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                                     'A strike adjustment of material effects must be used with "add" mode.'
                                 );
                             }
-                            if (!definition.test(weapon.getRollOptions("weapon"))) {
+                            if (!definition.test(weapon.getRollOptions("item"))) {
                                 return;
                             }
                             if (!setHasElement(WEAPON_MATERIAL_EFFECTS, change)) {

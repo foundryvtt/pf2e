@@ -872,7 +872,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             ...params.options,
             ...selfOptions,
             ...targetOptions,
-            ...selfItem.getRollOptions("weapon"),
+            ...selfItem.getRollOptions("item"),
             // Backward compatibility for predication looking for an "attack" trait by its lonesome
             "attack",
         ]);

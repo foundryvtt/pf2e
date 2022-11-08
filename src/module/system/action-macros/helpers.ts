@@ -117,7 +117,7 @@ export class ActionMacroHelpers {
                     ].shift() ?? null
                 );
             })();
-            combinedOptions.push(...(weapon?.getRollOptions("weapon") ?? []));
+            combinedOptions.push(...(weapon?.getRollOptions("item") ?? []));
 
             const stat = getProperty(selfActor, options.statName) as StatisticModifier & { rank?: number };
             const itemBonus =
