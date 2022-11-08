@@ -115,7 +115,7 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
     }
 
     const modifiers = riskysurgery || mortalhealing ? ({ success: "one-degree-better" } as const) : undefined;
-    const dc: CheckDC = { value: dcValue, visibility: "all", modifiers };
+    const dc: CheckDC = { value: dcValue, visible: true, modifiers };
 
     skill.check.roll({
         dc,

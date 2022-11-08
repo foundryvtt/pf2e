@@ -366,7 +366,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         userId: string
     ): void {
         // Possibly re-render encounter tracker if token's `displayName` property has changed
-        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
+        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
         if ("displayName" in changed && tokenSetsNameVisibility && this.combatant) {
             ui.combat.render();
         }

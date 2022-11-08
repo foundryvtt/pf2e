@@ -9,7 +9,6 @@ import { RollNotePF2e, RollNoteSource } from "@module/notes";
 import { RollSubstitution } from "@module/rules/synthetics";
 import { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { UserVisibility } from "@scripts/ui/user-visibility";
 import { DamageCategorization, DamageRollContext, DamageRollModifiersDialog, DamageTemplate } from "@system/damage";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify, traitSlugToObject } from "@util";
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "../actor/modifiers";
@@ -625,7 +624,7 @@ class CheckPF2e {
         })();
 
         // Not actually included in the template, but used for creating other template data
-        const targetData = await (async (): Promise<{ name: string; visibility: UserVisibility } | null> => {
+        const targetData = await (async (): Promise<{ name: string; visible: boolean } | null> => {
             if (!target) return null;
 
             const token = await (async (): Promise<TokenDocumentPF2e | null> => {
@@ -639,11 +638,11 @@ class CheckPF2e {
 
             const canSeeTokenName = (token ?? new TokenDocumentPF2e(targetActor?.prototypeToken.toObject() ?? {}))
                 .playersCanSeeName;
-            const canSeeName = canSeeTokenName || !game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
+            const canSeeName = canSeeTokenName || !game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
 
             return {
                 name: token?.name ?? targetActor?.name ?? "",
-                visibility: canSeeName ? "all" : "gm",
+                visible: !!canSeeName,
             };
         })();
 
@@ -668,9 +667,7 @@ class CheckPF2e {
                     ? targetAC.value - circumstances.reduce((total, c) => total + c.modifier, 0)
                     : targetAC?.value ?? null;
 
-            const visibility = targetActor?.hasPlayerOwner
-                ? "all"
-                : dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
+            const visible = targetActor?.hasPlayerOwner || dc.visible || game.settings.get("pf2e", "metagame_showDC");
 
             if (typeof preadjustedDC !== "number" || circumstances.length === 0) {
                 const labelKey = targetData
@@ -679,7 +676,7 @@ class CheckPF2e {
                 const dcValue = dc.slug === "ac" && targetAC ? targetAC.value : dc.value;
                 const markup = game.i18n.format(labelKey, { dcType, dc: dcValue, target: targetData?.name ?? null });
 
-                return { markup, visibility };
+                return { markup, visible };
             }
 
             const adjustment = {
@@ -702,7 +699,7 @@ class CheckPF2e {
                 adjusted: dc.value,
             });
 
-            return { markup, visibility, adjustment };
+            return { markup, visible, adjustment };
         })();
 
         // The result: degree of success (with adjustment if applicable) and visibility setting
@@ -713,7 +710,7 @@ class CheckPF2e {
                     signDisplay: "always",
                     useGrouping: false,
                 }).format(degree.rollTotal - dc.value),
-                visibility: dc.visibility,
+                visible: dc.visible,
             };
 
             const adjustment = ((): string | null => {
@@ -737,9 +734,9 @@ class CheckPF2e {
 
             const resultKey = adjustment ? "PF2E.Check.Result.AdjustedLabel" : "PF2E.Check.Result.Label";
             const markup = game.i18n.format(resultKey, { degree: degreeLabel, offset: offset.value, adjustment });
-            const visibility = game.settings.get("pf2e", "metagame.showResults");
+            const visible = game.settings.get("pf2e", "metagame_showResults");
 
-            return { markup, visibility };
+            return { markup, visible };
         })();
 
         // Render the template and replace quasi-XML nodes with visibility-data-containing HTML elements
@@ -753,9 +750,9 @@ class CheckPF2e {
         const { convertXMLNode } = TextEditorPF2e;
 
         if (targetData) {
-            convertXMLNode(html, "target", { visibility: targetData.visibility, whose: "target" });
+            convertXMLNode(html, "target", { visible: targetData.visible, whose: "target" });
         }
-        convertXMLNode(html, "dc", { visibility: dcData.visibility, whose: "target" });
+        convertXMLNode(html, "dc", { visible: dcData.visible, whose: "target" });
         if (dcData.adjustment) {
             const { adjustment } = dcData;
             convertXMLNode(html, "preadjusted", { classes: ["preadjusted-dc"] });
@@ -768,19 +765,19 @@ class CheckPF2e {
             adjustedNode.dataset.circumstances = JSON.stringify(adjustment.circumstances);
         }
         convertXMLNode(html, "degree", {
-            visibility: resultData.visibility,
+            visible: resultData.visible,
             classes: [DEGREE_OF_SUCCESS_STRINGS[degree.value]],
         });
-        convertXMLNode(html, "offset", { visibility: dcData.visibility, whose: "target" });
+        convertXMLNode(html, "offset", { visible: dcData.visible, whose: "target" });
 
-        if (["gm", "owner"].includes(dcData.visibility) && targetData?.visibility === dcData.visibility) {
-            // If target and DC are both hidden from view, hide both
+        // If target and DC are both hidden from view, hide both
+        if (!targetData?.visible && !dcData.visible) {
             const targetDC = html.querySelector<HTMLElement>(".target-dc");
-            if (targetDC) targetDC.dataset.visibility = dcData.visibility;
+            if (targetDC) targetDC.dataset.visibility = "gm";
 
             // If result is also hidden, hide everything
-            if (resultData.visibility === dcData.visibility) {
-                html.dataset.visibility = dcData.visibility;
+            if (!resultData.visible) {
+                html.dataset.visibility = "gm";
             }
         }
 
@@ -796,7 +793,7 @@ interface CreateResultFlavorParams {
 interface ResultFlavorTemplateData {
     dc: {
         markup: string;
-        visibility: UserVisibility;
+        visible: boolean;
         adjustment?: {
             preadjusted: number;
             direction: "increased" | "decreased" | "no-change";
@@ -805,7 +802,7 @@ interface ResultFlavorTemplateData {
     };
     result: {
         markup: string;
-        visibility: UserVisibility;
+        visible: boolean;
     };
 }
 

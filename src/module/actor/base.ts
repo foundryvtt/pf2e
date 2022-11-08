@@ -793,7 +793,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             content: `<p>${statements}</p>`,
             type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
             whisper:
-                game.settings.get("pf2e", "metagame.secretDamage") && !token.actor?.hasPlayerOwner
+                game.settings.get("pf2e", "metagame_secretDamage") && !token.actor?.hasPlayerOwner
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
                     : [],
         });
@@ -1198,7 +1198,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     ): void {
         super._onUpdate(changed, options, userId);
         const hideFromUser =
-            !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.secretDamage");
+            !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame_secretDamage");
         if (options.damageTaken && !hideFromUser) {
             const tokens = super.getActiveTokens();
             for (const token of tokens) {
