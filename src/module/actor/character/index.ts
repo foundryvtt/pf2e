@@ -1446,7 +1446,7 @@ class CharacterPF2e extends CreaturePF2e {
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustWeapon?.(weapon);
         }
-        const weaponRollOptions = weapon.getRollOptions();
+        const weaponRollOptions = weapon.getRollOptions("item");
         const weaponTraits = weapon.traits;
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
@@ -1462,7 +1462,7 @@ class CharacterPF2e extends CreaturePF2e {
         // If a weapon matches against a linked proficiency, temporarily add the `sameAs` category to the weapon's
         // item roll options
         const equivalentCategories = Object.values(systemData.martial).flatMap((p) =>
-            "sameAs" in p && p.definition.test(weaponRollOptions) ? `weapon:category:${p.sameAs}` : []
+            "sameAs" in p && p.definition.test(weaponRollOptions) ? `item:category:${p.sameAs}` : []
         );
         const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
 
@@ -1472,7 +1472,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
-        weaponRollOptions.push(`weapon:proficiency:rank:${proficiencyRank}`);
+        weaponRollOptions.push(`item:proficiency:rank:${proficiencyRank}`);
 
         const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";

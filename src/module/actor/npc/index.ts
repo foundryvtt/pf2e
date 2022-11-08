@@ -665,7 +665,7 @@ class NPCPF2e extends CreaturePF2e {
                         const options = new Set([
                             ...context.options,
                             ...traits,
-                            ...context.self.item.getRollOptions("weapon"),
+                            ...context.self.item.getRollOptions("item"),
                         ]);
 
                         if (!context.self.item.dealsDamage) {
