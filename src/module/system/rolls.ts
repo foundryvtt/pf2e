@@ -518,8 +518,9 @@ class CheckPF2e {
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
 
         const RollCls = oldRoll.constructor as typeof Check.Roll;
-        const newData = { ...oldRoll.data, isReroll: true };
-        const newRoll = await new RollCls(oldRoll.formula, newData).evaluate({ async: true });
+        const newData = deepClone(oldRoll.data);
+        const newOptions = { ...oldRoll.options, isReroll: true };
+        const newRoll = await new RollCls(oldRoll.formula, newData, newOptions).evaluate({ async: true });
 
         // Keep the new roll by default; Old roll is discarded
         let keptRoll = newRoll;
