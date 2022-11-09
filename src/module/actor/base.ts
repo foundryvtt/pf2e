@@ -874,6 +874,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         return targetActor.addToInventory(newItemData, container, newStack);
     }
 
+    transferItemWillCharge(_item: Embedded<ItemPF2e>) {
+        return false;
+    }
+
     async addToInventory(
         itemSource: PhysicalItemSource,
         container?: Embedded<ContainerPF2e>,

@@ -4,6 +4,7 @@ interface MoveLootOptions extends FormApplicationOptions {
     maxQuantity: number;
     newStack: boolean;
     lockStack: boolean;
+    isPurchase: boolean;
 }
 interface MoveLootFormData extends FormData {
     quantity: number;
@@ -17,6 +18,9 @@ export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
     constructor(object: ActorPF2e, options: Partial<MoveLootOptions>, callback: MoveLootCallback) {
         super(object, options);
 
+        this.options.title = this.options.isPurchase
+            ? game.i18n.localize("PF2E.loot.PurchaseLootPopupTitle")
+            : game.i18n.localize("PF2E.loot.MoveLootPopupTitle");
         this.onSubmitCallback = callback;
     }
 
@@ -26,6 +30,7 @@ export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
             maxQuantity: this.options.maxQuantity,
             newStack: this.options.newStack,
             lockStack: this.options.lockStack,
+            isPurchase: this.options.isPurchase,
         };
     }
 
@@ -40,6 +45,7 @@ export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
             maxQuantity: 1,
             newStack: false,
             lockStack: false,
+            isPurchase: false,
         };
     }
 

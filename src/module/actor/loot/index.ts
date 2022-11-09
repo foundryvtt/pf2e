@@ -62,8 +62,8 @@ export class LootPF2e extends ActorPF2e {
         if (!(this.isOwner && targetActor.isOwner)) {
             return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
         }
-        if (this.isMerchant && item.isOfType("physical")) {
-            const itemValue = CoinsPF2e.fromPrice(item.price, quantity);
+        if (this.transferItemWillCharge(item)) {
+            const itemValue = CoinsPF2e.fromPrice((item as PhysicalItemPF2e).price, quantity);
             if (await targetActor.inventory.removeCoins(itemValue)) {
                 await item.actor.inventory.addCoins(itemValue);
                 return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
@@ -75,6 +75,10 @@ export class LootPF2e extends ActorPF2e {
         }
 
         return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
+    }
+
+    override transferItemWillCharge(item: Embedded<ItemPF2e>) {
+        return this.isMerchant && item.isOfType("physical");
     }
 
     /** Hide this actor's token(s) when in loot (rather than merchant) mode, empty, and configured thus */

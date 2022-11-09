@@ -28,6 +28,7 @@ import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
 import { ItemSummaryRenderer } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
+import { purchaseConfirmationDialog } from "./loot/purchase-confirmation-dialog";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
@@ -825,19 +826,32 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
         const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.findStackableItem(targetActor, item._source);
+        const isPaidTransaction = sourceActor.transferItemWillCharge(item);
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
             const popup = new MoveLootPopup(
                 sourceActor,
-                { maxQuantity: sourceItemQuantity, lockStack: !stackable },
+                { maxQuantity: sourceItemQuantity, lockStack: !stackable, isPurchase: isPaidTransaction },
                 (quantity, newStack) => {
-                    sourceActor.transferItemToActor(targetActor, item, quantity, containerId, newStack);
+                    if (isPaidTransaction) {
+                        purchaseConfirmationDialog(item, quantity, () => {
+                            sourceActor.transferItemToActor(targetActor, item, quantity, containerId, newStack);
+                        });
+                    } else {
+                        sourceActor.transferItemToActor(targetActor, item, quantity, containerId, newStack);
+                    }
                 }
             );
 
             popup.render(true);
         } else {
-            sourceActor.transferItemToActor(targetActor, item, 1, containerId);
+            if (isPaidTransaction) {
+                purchaseConfirmationDialog(item, 1, () => {
+                    sourceActor.transferItemToActor(targetActor, item, 1, containerId);
+                });
+            } else {
+                sourceActor.transferItemToActor(targetActor, item, 1, containerId);
+            }
         }
     }
 
