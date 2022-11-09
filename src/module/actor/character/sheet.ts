@@ -149,7 +149,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         const flags = this.actor.flags.pf2e;
-        const hasQuickAlchemy = !!this.actor.rollOptions.all["feature:quick-alchemy"];
+        const hasQuickAlchemy = !!(
+            this.actor.rollOptions.all["feature:quick-alchemy"] || this.actor.rollOptions.all["feat:quick-alchemy"]
+        );
         const useQuickAlchemy = hasQuickAlchemy && flags.quickAlchemy;
 
         sheetData.crafting = {
