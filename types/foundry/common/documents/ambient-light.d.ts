@@ -12,7 +12,7 @@ declare module foundry {
         interface BaseAmbientLight {
             config: foundry.data.LightData;
 
-            readonly data: data.AmbientLightData<BaseAmbientLight>;
+            readonly data: data.AmbientLightData<this>;
 
             readonly parent: BaseScene | null;
         }

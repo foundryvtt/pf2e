@@ -24,28 +24,28 @@ declare global {
                 flags: Record<string, Record<string, unknown>>;
 
                 /** A reference to the Collection of Drawing instances in the Scene document, indexed by _id. */
-                readonly drawings: this["data"]["drawings"];
+                readonly drawings: abstract.EmbeddedCollection<BaseDrawing>;
 
                 /** A reference to the Collection of AmbientLight instances in the Scene document, indexed by _id. */
-                readonly lights: this["data"]["lights"];
+                readonly lights: abstract.EmbeddedCollection<BaseAmbientLight>;
 
                 /** A reference to the Collection of Note instances in the Scene document, indexed by _id. */
-                readonly notes: this["data"]["notes"];
+                readonly notes: abstract.EmbeddedCollection<BaseNote>;
 
                 /** A reference to the Collection of AmbientSound instances in the Scene document, indexed by _id. */
-                readonly sounds: this["data"]["sounds"];
+                readonly sounds: abstract.EmbeddedCollection<BaseAmbientSound>;
 
                 /** A reference to the Collection of MeasuredTemplate instances in the Scene document, indexed by _id. */
-                readonly templates: this["data"]["templates"];
+                readonly templates: abstract.EmbeddedCollection<BaseMeasuredTemplate>;
 
                 /** A reference to the Collection of Token instances in the Scene document, indexed by _id. */
-                readonly tokens: this["data"]["tokens"];
+                readonly tokens: abstract.EmbeddedCollection<BaseToken>;
 
                 /** A reference to the Collection of Tile instances in the Scene document, indexed by _id. */
-                readonly tiles: this["data"]["tiles"];
+                readonly tiles: abstract.EmbeddedCollection<BaseTile>;
 
                 /** A reference to the Collection of Wall instances in the Scene document, indexed by _id. */
-                readonly walls: this["data"]["walls"];
+                readonly walls: abstract.EmbeddedCollection<BaseWall>;
 
                 static override get schema(): typeof data.SceneData;
 
