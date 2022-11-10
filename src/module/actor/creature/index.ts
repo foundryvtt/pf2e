@@ -25,7 +25,12 @@ import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules";
-import { extractModifierAdjustments, extractModifiers, extractRollTwice } from "@module/rules/util";
+import {
+    extractModifierAdjustments,
+    extractModifiers,
+    extractRollTwice,
+    extractRollSubstitutions,
+} from "@module/rules/util";
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
@@ -461,6 +466,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 if (!combatant) return null;
 
                 const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
+                const substitutions = extractRollSubstitutions(this.synthetics.rollSubstitutions, domains, rollOptions);
                 const context: CheckRollContext = {
                     actor: this,
                     type: "initiative",
@@ -470,6 +476,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                     rollTwice,
                     skipDialog: args.skipDialog,
                     rollMode: args.rollMode,
+                    substitutions,
                 };
                 if (combatant.hidden) {
                     context.rollMode = CONST.DICE_ROLL_MODES.PRIVATE;
