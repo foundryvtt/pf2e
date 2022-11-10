@@ -2,12 +2,7 @@ import { LightLevels, SceneDataPF2e } from "./data";
 import { SceneConfigPF2e } from "./sheet";
 import { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, TileDocumentPF2e, TokenDocumentPF2e } from ".";
 
-class ScenePF2e extends Scene<
-    AmbientLightDocumentPF2e,
-    MeasuredTemplateDocumentPF2e,
-    TileDocumentPF2e,
-    TokenDocumentPF2e
-> {
+class ScenePF2e extends Scene {
     /** A promise to prevent concurrent executions of #checkAuras() */
     auraCheckLock?: Promise<void>;
 
@@ -116,8 +111,13 @@ class ScenePF2e extends Scene<
     }
 }
 
-interface ScenePF2e {
+interface ScenePF2e extends Scene {
     _sheet: SceneConfigPF2e<this> | null;
+
+    readonly lights: foundry.abstract.EmbeddedCollection<AmbientLightDocumentPF2e>;
+    readonly templates: foundry.abstract.EmbeddedCollection<MeasuredTemplateDocumentPF2e>;
+    readonly tokens: foundry.abstract.EmbeddedCollection<TokenDocumentPF2e>;
+    readonly tiles: foundry.abstract.EmbeddedCollection<TileDocumentPF2e>;
 
     flags: {
         pf2e: {
