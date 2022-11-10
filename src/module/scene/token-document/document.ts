@@ -442,8 +442,9 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             }
 
             // Update combat tracker with changed effects
-            if (this.combatant?.parent.active) ui.combat.render;
+            if (this.combatant?.parent.active) ui.combat.render();
         });
+        this.object.drawBars();
     }
 }
 
