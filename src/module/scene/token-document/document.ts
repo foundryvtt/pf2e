@@ -391,6 +391,19 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         return super._onUpdate(changed, options, userId);
     }
 
+    /** Reinitialize vision if the actor's senses were updated directly */
+    override _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<Actor>): void {
+        super._onUpdateBaseActor(update, options);
+        if (!this.isLinked) return;
+
+        if (Object.keys(flattenObject(update ?? {})).some((k) => k.startsWith("system.traits.senses"))) {
+            this.reset();
+            if (canvas.effects.visionSources.some((s) => s.object === this.object)) {
+                canvas.perception.update({ initializeVision: true }, true);
+            }
+        }
+    }
+
     /** Check area effects, removing any from this token's actor if the actor has no other tokens in the scene */
     protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
         super._onDelete(options, userId);
