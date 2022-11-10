@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "zVt24DCFtj13gSdF",
+            "_id": "gfMG9GR7q2Nmo3c2",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.rQWaJhI5Bko5x14Z"
@@ -35,8 +35,8 @@
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -307,10 +307,55 @@
             "type": "melee"
         },
         {
+            "_id": "nCMY5ROefFFtABDw",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 600000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "vd0T6m7E9RIQTVJH",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Resin Crust",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -353,7 +398,7 @@
             "_id": "DBng7QU65qzXSOrS",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Resin Spray",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -365,7 +410,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The resin-seep xulgath flexes its pores and emits a @Template[type:line|distance:30] of resin that deals [[/r {3d12}[poison]]]{3d12 poison damage} and knocks the target 5 feet back (@Check[type:reflex|dc:28|basic:true] save; on a success or critical success the target isn't knocked back, and on a critical failure the target is knocked back 10 feet). The resin-seep xulgath can't use again for [[/br 1d4]]{1d4 rounds}.</p>"
+                    "value": "<p>The resin-seep xulgath flexes its pores and emits a @Template[type:line|distance:30] of resin that deals [[/r {3d12}[poison]]]{3d12 poison damage} and knocks the target 5 feet back (@Check[type:reflex|dc:28|basic:true] save; on a success or critical success the target isn't knocked back, and on a critical failure the target is knocked back 10 feet). The resin-seep xulgath can't use Resin Spray again for [[/br 1d4]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -395,7 +440,7 @@
             "_id": "Ui0JxPyP262iI9kF",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Xulgath Bile",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -407,7 +452,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:28]</p>\n<p><strong>Maximum Duration</strong> 1 hour</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued} and @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious}.</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:28]</p>\n<p><strong>Maximum Duration</strong> 1 hour</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued} (1 minute).</p>\n<p><strong>Stage 2</strong> Fatigued and @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} (1 minute).</p>\n<p><em><strong>Dev Note</strong>: Xulgath Bile is not included on this creature's original stat block except for the ranged dagger strike. We have included it here to allow GMs to choose to use it. It is a copy from Xulgath Bilebearer and the DC has been increased to match this level.</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -421,7 +466,9 @@
                     "custom": "",
                     "rarity": "common",
                     "selected": {},
-                    "value": []
+                    "value": [
+                        "poison"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -436,7 +483,7 @@
             "_id": "ZwqjxYqJNTXTOkOH",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -464,7 +511,7 @@
             "_id": "EWc87c5nlqu08hE7",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -492,7 +539,7 @@
             "_id": "zJC7vbCnng6nssot",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -520,7 +567,7 @@
             "_id": "aXExhcDz56eCkHFR",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -548,7 +595,7 @@
             "_id": "PHN6hr7d6UjWV4Pk",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -659,14 +706,14 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Acid",
+                    "exceptions": "",
                     "type": "acid",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Slashing",
+                    "exceptions": "",
                     "type": "slashing",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {
