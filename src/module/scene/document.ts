@@ -109,6 +109,25 @@ class ScenePF2e extends Scene {
         this.flags.pf2e ??= { syncDarkness: "default" };
         this.flags.pf2e.syncDarkness ??= "default";
     }
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
+
+    /** Redraw auras if the scene was activated while being viewed */
+    override _onUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+
+        if (changed.active && canvas.scene === this) {
+            for (const token of canvas.tokens.placeables) {
+                token.auras.draw();
+            }
+        }
+    }
 }
 
 interface ScenePF2e extends Scene {
