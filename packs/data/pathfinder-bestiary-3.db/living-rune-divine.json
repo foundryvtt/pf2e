@@ -3,9 +3,9 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "9LoC4wms9vPfLRli",
+            "_id": "VSLTIQMCHCfLxq1H",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Divine Spells",
+            "name": "Divine Innate Spells",
             "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
@@ -16,18 +16,17 @@
                 },
                 "displayLevels": {},
                 "prepared": {
-                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "slots": {
                     "slot0": {
@@ -66,19 +65,19 @@
                         "value": 0
                     },
                     "slot5": {
-                        "max": 3,
+                        "max": 0,
                         "prepared": [],
-                        "value": 3
+                        "value": 0
                     },
                     "slot6": {
-                        "max": 3,
+                        "max": 0,
                         "prepared": [],
-                        "value": 3
+                        "value": 0
                     },
                     "slot7": {
-                        "max": 2,
+                        "max": 0,
                         "prepared": [],
-                        "value": 2
+                        "value": 0
                     },
                     "slot8": {
                         "max": 0,
@@ -97,8 +96,6 @@
                 },
                 "spelldc": {
                     "dc": 35,
-                    "item": 0,
-                    "mod": 0,
                     "value": 27
                 },
                 "tradition": {
@@ -113,7 +110,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "d0FZ3LpsSfh0Vau6",
+            "_id": "YKXidEz2ZmIPmY5d",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.sX2o0HH4RjJDAZ8C"
@@ -148,8 +145,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
                             "value": "7d10"
@@ -169,11 +168,12 @@
                     "value": 7
                 },
                 "location": {
+                    "heightenedLevel": 7,
                     "uses": {
                         "max": 2,
                         "value": 2
                     },
-                    "value": "9LoC4wms9vPfLRli"
+                    "value": "VSLTIQMCHCfLxq1H"
                 },
                 "materials": {
                     "value": ""
@@ -203,7 +203,7 @@
                 },
                 "slug": "divine-decree",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -231,7 +231,7 @@
             "type": "spell"
         },
         {
-            "_id": "lGh57nPe6cLGshFe",
+            "_id": "fbiP99LnYQCdKq78",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.peCF6VArm8urfwxZ"
@@ -294,7 +294,8 @@
                     "value": 6
                 },
                 "location": {
-                    "value": "9LoC4wms9vPfLRli"
+                    "heightenedLevel": 6,
+                    "value": "VSLTIQMCHCfLxq1H"
                 },
                 "materials": {
                     "value": ""
@@ -324,7 +325,7 @@
                 },
                 "slug": "blade-barrier",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -354,116 +355,7 @@
             "type": "spell"
         },
         {
-            "_id": "FNNg2oD9GaUo5NJq",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.o0l57UfBm9ScEUMW"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/glyph-of-warding.webp",
-            "name": "Glyph of Warding (At Will)",
-            "sort": 400000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You craft a trap by binding a hostile spell into a symbol. While Casting this Spell, you also Cast a Spell of a lower spell level to store in the glyph. The stored spell must take 3 actions or fewer to cast, have a hostile effect, and target one creature or have an area. You can set a password, a trigger, or both for the glyph. Any creature that moves, opens, or touches the target container or enters the target area that doesn't speak the password or that matches the trigger activates the glyph, releasing the harmful spell within.</p>\n<p>Once a spell is stored in the glyph, the glyph gains all the traits of that spell. If the stored spell targets one or more creatures, it targets the creature that set off the glyph. If it has an area, that area is centered on the creature that set off the glyph. Glyph of warding's duration ends when the glyph is triggered. The glyph counts as a magical trap, using your spell DC for both the Perception check to notice it and the Thievery check to disable it; both checks require the creature attempting them to be trained in order to succeed.</p>\n<p>You can Dismiss glyph of warding. The maximum number of glyphs of warding you can have active at a time is equal to your spellcasting ability modifier.</p>"
-                },
-                "duration": {
-                    "value": "unlimited"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "9LoC4wms9vPfLRli"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "abjuration"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "glyph-of-warding",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 container or a 10-foot-by-10-foot area"
-                },
-                "time": {
-                    "value": "10 minutes"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "xZypR1x6EORe5iaI",
+            "_id": "gGw1jqVEOkONVyMl",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.yrZA4k2VAqEP8xx7"
@@ -471,7 +363,7 @@
             },
             "img": "systems/pf2e/icons/spells/repulsion.webp",
             "name": "Repulsion",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "ability": {
                     "value": ""
@@ -511,7 +403,8 @@
                     "value": 6
                 },
                 "location": {
-                    "value": "9LoC4wms9vPfLRli"
+                    "heightenedLevel": 6,
+                    "value": "VSLTIQMCHCfLxq1H"
                 },
                 "materials": {
                     "value": ""
@@ -541,7 +434,7 @@
                 },
                 "slug": "repulsion",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -574,7 +467,7 @@
             "type": "spell"
         },
         {
-            "_id": "GnXnt77hm7Qeo55v",
+            "_id": "sahF5vBLenUhZb37",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.PHVHBbdHeQRfjLmE"
@@ -582,14 +475,14 @@
             },
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -609,8 +502,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "force"
                             },
                             "value": "16d6"
@@ -626,11 +521,19 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 6
                 },
                 "location": {
-                    "value": "9LoC4wms9vPfLRli"
+                    "heightenedLevel": 6,
+                    "value": "VSLTIQMCHCfLxq1H"
                 },
                 "materials": {
                     "value": ""
@@ -660,7 +563,7 @@
                 },
                 "slug": "spirit-blast",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -691,7 +594,133 @@
             "type": "spell"
         },
         {
-            "_id": "JhwwiifLDRGnKfv9",
+            "_id": "D9Oiv6eEPodQsXsQ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.E3X2RbzWHCdz7gsk"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/rain-of-fire.webp",
+            "name": "Flame Strike",
+            "sort": 600000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "burst",
+                    "value": "10"
+                },
+                "areasize": {
+                    "value": "10-foot radius, 40-foot-tall cylinder"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "fire"
+                            },
+                            "value": "8d6"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p><strong>Area:</strong> 10-foot radius, 40-foot-tall cylinder</p>\n<hr />\n<p>You call a rain of divine fire that plummets down from above, dealing 8d6 fire damage. Because the flame is infused with divine energy, creatures in the area apply only half their usual fire resistance. Creatures that are immune to fire, instead of gaining the usual benefit of immunity, treat the results of their saving throws as one degree of success better.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "heightenedLevel": 5,
+                    "value": "VSLTIQMCHCfLxq1H"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "value": "reflex"
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "flame-strike",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "fire"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "qReJFKQRFmAwpDr7",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.hVU9msO9yGkxKZ3J"
@@ -726,11 +755,13 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
-                            "value": "5d10"
+                            "value": "4d10"
                         }
                     }
                 },
@@ -751,14 +782,15 @@
                     "type": "interval"
                 },
                 "level": {
-                    "value": 5
+                    "value": 4
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "uses": {
                         "max": 2,
                         "value": 2
                     },
-                    "value": "9LoC4wms9vPfLRli"
+                    "value": "VSLTIQMCHCfLxq1H"
                 },
                 "materials": {
                     "value": ""
@@ -788,7 +820,7 @@
                 },
                 "slug": "divine-wrath",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -810,20 +842,22 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "divine"
+                    ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "fZVDjvX8PPEYnQlF",
+            "_id": "PCyOFsdSGo2P3emN",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.E3X2RbzWHCdz7gsk"
+                    "sourceId": "Compendium.pf2e.spells-srd.o0l57UfBm9ScEUMW"
                 }
             },
-            "img": "systems/pf2e/icons/spells/rain-of-fire.webp",
-            "name": "Flame Strike",
+            "img": "systems/pf2e/icons/spells/glyph-of-warding.webp",
+            "name": "Glyph of Warding (At Will)",
             "sort": 800000,
             "system": {
                 "ability": {
@@ -831,140 +865,17 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
-                    "value": "10-foot radius, 40-foot-tall cylinder"
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
                     "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "fire"
-                            },
-                            "value": "8d6"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You call a rain of divine fire that plummets down from above, dealing 8d6 fire damage. Because the flame is infused with divine energy, creatures in the area apply only half their usual fire resistance. Creatures that are immune to fire, instead of gaining the usual benefit of immunity, treat the results of their saving throws as one degree of success better.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": {
-                    "value": "9LoC4wms9vPfLRli"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "reflex"
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "flame-strike",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "divine"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "fire"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "dJocqjJJg5wX9ZXe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/detect-magic.webp",
-            "name": "Detect Magic",
-            "sort": 900000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "emanation",
-                    "value": 30
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
+                    "material": true,
                     "somatic": true,
                     "verbal": true
                 },
@@ -975,19 +886,20 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You craft a trap by binding a hostile spell into a symbol. While Casting this Spell, you also Cast a Spell of a lower spell level to store in the glyph. The stored spell must take 3 actions or fewer to cast, have a hostile effect, and target one creature or have an area. You can set a password, a trigger, or both for the glyph. Any creature that moves, opens, or touches the target container or enters the target area that doesn't speak the password or that matches the trigger activates the glyph, releasing the harmful spell within.</p>\n<p>Once a spell is stored in the glyph, the glyph gains all the traits of that spell. If the stored spell targets one or more creatures, it targets the creature that set off the glyph. If it has an area, that area is centered on the creature that set off the glyph. Glyph of warding's duration ends when the glyph is triggered. The glyph counts as a magical trap, using your spell DC for both the Perception check to notice it and the Thievery check to disable it; both checks require the creature attempting them to be trained in order to succeed.</p>\n<p>You can Dismiss glyph of warding. The maximum number of glyphs of warding you can have active at a time is equal to your spellcasting ability modifier.</p>"
                 },
                 "duration": {
-                    "value": ""
+                    "value": "unlimited"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "value": 1
+                    "value": 3
                 },
                 "location": {
-                    "value": "9LoC4wms9vPfLRli"
+                    "heightenedLevel": 6,
+                    "value": "VSLTIQMCHCfLxq1H"
                 },
                 "materials": {
                     "value": ""
@@ -999,7 +911,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": ""
+                    "value": "touch"
                 },
                 "rules": [],
                 "save": {
@@ -1007,7 +919,7 @@
                     "value": ""
                 },
                 "school": {
-                    "value": "divination"
+                    "value": "abjuration"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -1015,9 +927,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "detect-magic",
+                "slug": "glyph-of-warding",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1026,13 +938,12 @@
                     "value": false
                 },
                 "target": {
-                    "value": ""
+                    "value": "1 container or a 10-foot-by-10-foot area"
                 },
                 "time": {
-                    "value": "2"
+                    "value": "10 minutes"
                 },
                 "traditions": {
-                    "custom": "",
                     "value": [
                         "arcane",
                         "divine",
@@ -1044,8 +955,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "detection",
-                        "cantrip"
+                        "divine"
                     ]
                 }
             },
@@ -1055,7 +965,7 @@
             "_id": "Tp8OXXguuWM7iKK6",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Electrical Blast",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "attack": {
                     "value": ""
@@ -1105,7 +1015,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1142,7 +1052,47 @@
             "type": "action"
         },
         {
-            "_id": "nyVgRtyjT3c8xnz7",
+            "_id": "DLKqB3QVep4jRNGS",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Truescript",
+            "sort": 1100000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A living rune can't speak, but it can sculpt its form into complicated scripts and pictographs that can be understood by any creature with the ability to read written language. A living rune can also understand any written or spoken language.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ljmD4eOFLneTqsb9",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
@@ -1202,7 +1152,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a creature attempts to Strike an arcane living rune and critically misses, the attacker hits the surface (a canvas, wall, or so on) behind the arcane living rune. This might damage the surface or the attacker's weapon, at the GM's discretion.</p>"
+                    "value": "<p>When a creature attempts to Strike a living rune and critically misses, the attacker hits the surface (a canvas, wall, or so on) behind the living rune. This might damage the surface or the attacker's weapon, at the GM's discretion.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1242,47 +1192,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A divine living rune can move only along flat surfaces. If the surface it's on is destroyed (such as a portrait hit by a <em>@UUID[Compendium.pf2e.spells-srd.Fireball]{Fireball}</em> spell or a wall being smashed), the living rune takes [[/r 7d6]] damage and is shunted to the nearest flat surface. If there is no flat surface within 5 feet, the living rune is destroyed.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DLKqB3QVep4jRNGS",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Truescript",
-            "sort": 1500000,
-            "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A living rune can't speak, but it can sculpt its form into complicated scripts and pictographs that can be understood by any creature with the ability to read written language. A living rune can also understand any written or spoken language.</p>"
+                    "value": "<p>A living rune can move only along flat surfaces. If the surface it's on is destroyed (such as a portrait hit by a <em>@UUID[Compendium.pf2e.spells-srd.Fireball]{Fireball}</em> spell or a wall being smashed), the rune takes [[/r {7d6}]]{7d6 damage} and is shunted to the nearest flat surface. If there is no flat surface within 5 feet, the rune is destroyed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1310,7 +1220,7 @@
             "_id": "pbaTi43HiVMdbVWJ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1335,10 +1245,10 @@
             "type": "lore"
         },
         {
-            "_id": "4s3zCoN531Wx7IE7",
+            "_id": "xJduprrGUIiFLkXi",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1366,7 +1276,7 @@
             "_id": "kry7QWW5PONsNRlw",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1380,20 +1290,15 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Sneak among inscriptions",
+                        "label": "PF2E.SkillVariant.HideSneakInscriptions",
                         "predicate": [
                             "inscription",
-                            "action:sneak"
-                        ],
-                        "selector": "stealth",
-                        "value": 6
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Hide among inscriptions",
-                        "predicate": [
-                            "inscription",
-                            "action:hide"
+                            {
+                                "or": [
+                                    "action:hide",
+                                    "action:sneak"
+                                ]
+                            }
                         ],
                         "selector": "stealth",
                         "value": 6
@@ -1410,12 +1315,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+31 to Hide",
-                        "options": "action:hide,inscription"
-                    },
-                    "1": {
-                        "label": "or Sneak , among inscriptions",
-                        "options": "action:sneak,inscription"
+                        "label": "+31 to Hide or Sneak among inscriptions",
+                        "options": "action:hide,action:sneak,inscription"
                     }
                 }
             },
@@ -1424,7 +1325,7 @@
     ],
     "name": "Living Rune (Divine)",
     "prototypeToken": {
-        "name": "Divine Living Rune"
+        "name": "Living Rune"
     },
     "system": {
         "abilities": {
@@ -1453,7 +1354,7 @@
                 "value": 34
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -1482,15 +1383,15 @@
                 "value": 13
             },
             "privateNotes": "",
-            "publicNotes": "<p>The most famous living runes are those of the ancient Runelords of Thassilon, resurging as Thassilon rebuilds in the modern era. Other living runes can be found, however, each with its own particular abilities. Living runes can also be crafted to deal different types of energy damage with their Strikes.</p>\n<p>Divine living runes are crafted by various churches and sects and typically bear the symbol of a deity, archdevil, or other divine force.</p>",
+            "publicNotes": "<p>The most famous living runes are those of the ancient Runelords of Thassilon, resurging as Thassilon rebuilds in the modern era. Other living runes can be found, however, each with its own particular abilities. Living runes can also be crafted to deal different types of energy damage with their Strikes.</p>\n<hr />\n<p>Magic is a complex thing to begin with, and at a certain level of sophistication, the differences between a spell and an autonomous creature become increasingly blurry. Living symbols are constructed creatures of reified and reinforced magic, held together by glyphs, runes, and eldritch formulae.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
         },
         "resources": {
             "focus": {
-                "max": 1,
-                "value": 1
+                "max": 0,
+                "value": 0
             }
         },
         "saves": {
@@ -1532,11 +1433,9 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "Truescript",
                 "selected": [],
-                "value": [
-                    "truescript"
-                ]
+                "value": []
             },
             "rarity": "rare",
             "senses": {

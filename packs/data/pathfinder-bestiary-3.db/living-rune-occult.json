@@ -3,9 +3,9 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "jyH2kc7JoydCbfpr",
+            "_id": "tWOZ4o9V5cviyUJD",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Occult Spells",
+            "name": "Occult Innate Spells",
             "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
@@ -16,18 +16,17 @@
                 },
                 "displayLevels": {},
                 "prepared": {
-                    "flexible": false,
                     "value": "innate"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "slots": {
                     "slot0": {
@@ -66,19 +65,19 @@
                         "value": 0
                     },
                     "slot5": {
-                        "max": 4,
+                        "max": 0,
                         "prepared": [],
-                        "value": 4
+                        "value": 0
                     },
                     "slot6": {
-                        "max": 3,
+                        "max": 0,
                         "prepared": [],
-                        "value": 3
+                        "value": 0
                     },
                     "slot7": {
-                        "max": 2,
+                        "max": 0,
                         "prepared": [],
-                        "value": 2
+                        "value": 0
                     },
                     "slot8": {
                         "max": 0,
@@ -97,8 +96,6 @@
                 },
                 "spelldc": {
                     "dc": 35,
-                    "item": 0,
-                    "mod": 0,
                     "value": 27
                 },
                 "tradition": {
@@ -113,7 +110,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "tpzHRTlM1IMlnkUi",
+            "_id": "McKBoBfs57yshvko",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.jBGAYmR0BkkbpJvG"
@@ -128,7 +125,7 @@
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": "30"
+                    "value": 30
                 },
                 "areasize": {
                     "value": "30-foot burst"
@@ -157,7 +154,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>An illusion of horrific creatures fills the spell's area. The creatures look like Tiny swarming monsters with a specific appearance of your choice, such as Hellish flies or animated saw blades. The burst deals 8d8 mental damage to each creature that's inside the burst when it's created, enters the burst, or starts its turn inside the burst. A creature that critically succeeds at its will save can immediately attempt to disbelieve the illusion. A creature that tries to Interact with the monsters or observes one with a Seek action can attempt to disbelieve the illusion. Creatures that disbelieve the illusion take no damage from the illusion thereafter.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The mental damage increases by 1d8.</p>"
+                    "value": "<p>An illusion of horrific creatures fills the spell's area. The creatures look like Tiny swarming monsters with a specific appearance of your choice, such as Hellish flies or animated saw blades. The burst deals 8d8 mental damage (basic Will save) to each creature that's inside the burst when it's created, enters the burst, or starts its turn inside the burst. A creature that critically succeeds at its will save can immediately attempt to disbelieve the illusion. A creature that tries to Interact with the monsters or observes one with a Seek action can attempt to disbelieve the illusion. Creatures that disbelieve the illusion take no damage from the illusion thereafter.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The mental damage increases by 1d8.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -176,11 +173,12 @@
                     "value": 7
                 },
                 "location": {
+                    "heightenedLevel": 7,
                     "uses": {
                         "max": 2,
                         "value": 2
                     },
-                    "value": "jyH2kc7JoydCbfpr"
+                    "value": "tWOZ4o9V5cviyUJD"
                 },
                 "materials": {
                     "value": ""
@@ -196,7 +194,7 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "value": "will"
                 },
                 "school": {
@@ -210,7 +208,7 @@
                 },
                 "slug": "visions-of-danger",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -241,7 +239,7 @@
             "type": "spell"
         },
         {
-            "_id": "LBNCljwaJsnypQfW",
+            "_id": "1PSh6s4jwVeEL1ur",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.5BbU1V6wGSGbrmRD"
@@ -256,7 +254,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -277,7 +275,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You drastically reduce the target's mental faculties. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected. The effects of this curse can be removed only through remove curse or another effect that targets curses.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 4} with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The target's intellect is permanently reduced below that of an animal, and it treats its Charisma, Intelligence, and Wisdom modifiers as -5. It loses all class abilities that require mental faculties, including all spellcasting. If the target is a PC, they become an NPC under the GM's control.</p>"
+                    "value": "<p>You drastically reduce the target's mental faculties. The target must attempt a Will save. The effects of this curse can be removed only through remove curse or another effect that targets curses.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 4} with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The target's intellect is permanently reduced below that of an animal, and it treats its Charisma, Intelligence, and Wisdom modifiers as -5. It loses all class abilities that require mental faculties, including all spellcasting. If the target is a PC, they become an NPC under the GM's control.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -289,7 +287,8 @@
                     "value": 6
                 },
                 "location": {
-                    "value": "jyH2kc7JoydCbfpr"
+                    "heightenedLevel": 6,
+                    "value": "tWOZ4o9V5cviyUJD"
                 },
                 "materials": {
                     "value": ""
@@ -319,7 +318,7 @@
                 },
                 "slug": "feeblemind",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -352,116 +351,7 @@
             "type": "spell"
         },
         {
-            "_id": "BPadP0h4k6ktcH30",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.o0l57UfBm9ScEUMW"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/glyph-of-warding.webp",
-            "name": "Glyph of Warding (At Will)",
-            "sort": 400000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You craft a trap by binding a hostile spell into a symbol. While Casting this Spell, you also Cast a Spell of a lower spell level to store in the glyph. The stored spell must take 3 actions or fewer to cast, have a hostile effect, and target one creature or have an area. You can set a password, a trigger, or both for the glyph. Any creature that moves, opens, or touches the target container or enters the target area that doesn't speak the password or that matches the trigger activates the glyph, releasing the harmful spell within.</p>\n<p>Once a spell is stored in the glyph, the glyph gains all the traits of that spell. If the stored spell targets one or more creatures, it targets the creature that set off the glyph. If it has an area, that area is centered on the creature that set off the glyph. Glyph of warding's duration ends when the glyph is triggered. The glyph counts as a magical trap, using your spell DC for both the Perception check to notice it and the Thievery check to disable it; both checks require the creature attempting them to be trained in order to succeed.</p>\n<p>You can Dismiss glyph of warding. The maximum number of glyphs of warding you can have active at a time is equal to your spellcasting ability modifier.</p>"
-                },
-                "duration": {
-                    "value": "unlimited"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "jyH2kc7JoydCbfpr"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "abjuration"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "glyph-of-warding",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 container or a 10-foot-by-10-foot area"
-                },
-                "time": {
-                    "value": "10 minutes"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "nWwjneTW4nIJFA89",
+            "_id": "dEH8WUan3dpdZnGM",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.0XP2XOxT9VSiXFDr"
@@ -469,7 +359,7 @@
             },
             "img": "systems/pf2e/icons/spells/phantasmal-calamity.webp",
             "name": "Phantasmal Calamity",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "ability": {
                     "value": ""
@@ -496,8 +386,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "mental"
                             },
                             "value": "11d6"
@@ -524,7 +416,8 @@
                     "value": 6
                 },
                 "location": {
-                    "value": "jyH2kc7JoydCbfpr"
+                    "heightenedLevel": 6,
+                    "value": "tWOZ4o9V5cviyUJD"
                 },
                 "materials": {
                     "value": ""
@@ -554,7 +447,7 @@
                 },
                 "slug": "phantasmal-calamity",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -585,7 +478,7 @@
             "type": "spell"
         },
         {
-            "_id": "6ZN6J5IlG0k8iQW1",
+            "_id": "OcXCtZyWYIL0Reqo",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
@@ -593,14 +486,14 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -633,7 +526,8 @@
                     "value": 6
                 },
                 "location": {
-                    "value": "jyH2kc7JoydCbfpr"
+                    "heightenedLevel": 6,
+                    "value": "tWOZ4o9V5cviyUJD"
                 },
                 "materials": {
                     "value": ""
@@ -663,7 +557,7 @@
                 },
                 "slug": "true-seeing",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -689,6 +583,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "occult",
                         "revelation"
                     ]
                 }
@@ -696,7 +591,7 @@
             "type": "spell"
         },
         {
-            "_id": "Zasxr733FGTIb79t",
+            "_id": "c2wBHVGUw5ErNApK",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.RQjSQVZRG497cJhX"
@@ -704,7 +599,7 @@
             },
             "img": "systems/pf2e/icons/spells/vibrant-pattern.webp",
             "name": "Vibrant Pattern",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "ability": {
                     "value": ""
@@ -744,7 +639,8 @@
                     "value": 6
                 },
                 "location": {
-                    "value": "jyH2kc7JoydCbfpr"
+                    "heightenedLevel": 6,
+                    "value": "tWOZ4o9V5cviyUJD"
                 },
                 "materials": {
                     "value": ""
@@ -774,7 +670,7 @@
                 },
                 "slug": "vibrant-pattern",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -806,7 +702,7 @@
             "type": "spell"
         },
         {
-            "_id": "17Yxf0YyRUETVIdP",
+            "_id": "E4aCjC6cMGX1R4Vt",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.GaRQlC9Yw1BGKHfN"
@@ -814,7 +710,7 @@
             },
             "img": "systems/pf2e/icons/spells/chrusing-dispair.webp",
             "name": "Crushing Despair",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "ability": {
                     "value": ""
@@ -850,15 +746,27 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "7": {
+                            "area": {
+                                "areaType": "cone",
+                                "value": "60"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "uses": {
                         "max": 2,
                         "value": 2
                     },
-                    "value": "jyH2kc7JoydCbfpr"
+                    "value": "tWOZ4o9V5cviyUJD"
                 },
                 "materials": {
                     "value": ""
@@ -920,7 +828,7 @@
             "type": "spell"
         },
         {
-            "_id": "qhxowqItBBfJLObo",
+            "_id": "APoh0dwnRwzTxxuA",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.OAt2ZEns1gIOCgrn"
@@ -928,14 +836,14 @@
             },
             "img": "systems/pf2e/icons/spells/synesthesia.webp",
             "name": "Synesthesia",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -956,7 +864,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The target's senses are suddenly rewired in unexpected ways, causing them to process noises as bursts of color, smells as sounds, and so on. This has three effects, and the target must attempt a Will save. Due to the distraction, the target must succeed at a @Check[type:flat|dc:5] each time it uses a concentrate action, or the action fails and is wasted. The target's difficulty processing visual input makes all creatures and objects @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} from it. The creature has trouble moving, making it @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 3} and giving it a -10-foot status penalty to its Speeds.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is affected for 1 round.</p>\n<p><strong>Failure</strong> The target is affected for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the target is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2} as it attempts to process the sensory shifts.</p>\n<hr />\n<p><strong>Heightened (9th)</strong></p>"
+                    "value": "<p>The target's senses are suddenly rewired in unexpected ways, causing them to process noises as bursts of color, smells as sounds, and so on. This has three effects, and the target must attempt a Will save. Due to the distraction, the target must succeed at a @Check[type:flat|dc:5] each time it uses a concentrate action, or the action fails and is wasted. The target's difficulty processing visual input makes all creatures and objects @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} from it. The creature has trouble moving, making it @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 3} and giving it a -10-foot status penalty to its Speeds.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is affected for 1 round.</p>\n<p><strong>Failure</strong> The target is affected for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the target is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2} as it attempts to process the sensory shifts.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -964,15 +872,26 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "9": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 5
                 },
                 "location": {
+                    "heightenedLevel": 5,
                     "uses": {
                         "max": 2,
                         "value": 2
                     },
-                    "value": "jyH2kc7JoydCbfpr"
+                    "value": "tWOZ4o9V5cviyUJD"
                 },
                 "materials": {
                     "value": ""
@@ -1002,7 +921,7 @@
                 },
                 "slug": "synesthesia",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1032,7 +951,119 @@
             "type": "spell"
         },
         {
-            "_id": "dJocqjJJg5wX9ZXe",
+            "_id": "hR5BG9TXTZY8EKQh",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.o0l57UfBm9ScEUMW"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/glyph-of-warding.webp",
+            "name": "Glyph of Warding (At Will)",
+            "sort": 900000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You craft a trap by binding a hostile spell into a symbol. While Casting this Spell, you also Cast a Spell of a lower spell level to store in the glyph. The stored spell must take 3 actions or fewer to cast, have a hostile effect, and target one creature or have an area. You can set a password, a trigger, or both for the glyph. Any creature that moves, opens, or touches the target container or enters the target area that doesn't speak the password or that matches the trigger activates the glyph, releasing the harmful spell within.</p>\n<p>Once a spell is stored in the glyph, the glyph gains all the traits of that spell. If the stored spell targets one or more creatures, it targets the creature that set off the glyph. If it has an area, that area is centered on the creature that set off the glyph. Glyph of warding's duration ends when the glyph is triggered. The glyph counts as a magical trap, using your spell DC for both the Perception check to notice it and the Thievery check to disable it; both checks require the creature attempting them to be trained in order to succeed.</p>\n<p>You can Dismiss glyph of warding. The maximum number of glyphs of warding you can have active at a time is equal to your spellcasting ability modifier.</p>"
+                },
+                "duration": {
+                    "value": "unlimited"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 6,
+                    "value": "tWOZ4o9V5cviyUJD"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "abjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "glyph-of-warding",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 container or a 10-foot-by-10-foot area"
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "dj0LP45omi25chlD",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
@@ -1047,7 +1078,7 @@
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "30-foot emanation"
@@ -1080,7 +1111,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "jyH2kc7JoydCbfpr"
+                    "value": "tWOZ4o9V5cviyUJD"
                 },
                 "materials": {
                     "value": ""
@@ -1110,7 +1141,7 @@
                 },
                 "slug": "detect-magic",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1235,7 +1266,47 @@
             "type": "action"
         },
         {
-            "_id": "VAigsB3VKLeJJ9J0",
+            "_id": "DLKqB3QVep4jRNGS",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Truescript",
+            "sort": 1300000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A living rune can't speak, but it can sculpt its form into complicated scripts and pictographs that can be understood by any creature with the ability to read written language. A living rune can also understand any written or spoken language.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ljmD4eOFLneTqsb9",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
@@ -1243,7 +1314,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1280,7 +1351,7 @@
             "type": "action"
         },
         {
-            "_id": "wnU6uJTmKOXIQ2vc",
+            "_id": "A7emqw5XPEaVatWu",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
@@ -1288,7 +1359,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -1328,7 +1399,7 @@
             "_id": "2cVkSactyUiKGzdD",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Backdrop",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1340,7 +1411,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a creature attempts to Strike an arcane living rune and critically misses, the attacker hits the surface (a canvas, wall, or so on) behind the arcane living rune. This might damage the surface or the attacker's weapon, at the GM's discretion.</p>"
+                    "value": "<p>When a creature attempts to Strike a living rune and critically misses, the attacker hits the surface (a canvas, wall, or so on) behind the living rune. This might damage the surface or the attacker's weapon, at the GM's discretion.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1368,46 +1439,6 @@
             "_id": "Dy4ItmxMvWZNtvIJ",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Surface-Bound",
-            "sort": 1600000,
-            "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>An occult living rune can move only along flat surfaces. If the surface it's on is destroyed (such as a portrait hit by a <em>@UUID[Compendium.pf2e.spells-srd.Fireball]{Fireball}</em> spell or a wall being smashed), the living rune takes [[/r 7d6]] damage and is shunted to the nearest flat surface. If there is no flat surface within 5 feet, the living rune is destroyed.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "DLKqB3QVep4jRNGS",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Truescript",
             "sort": 1700000,
             "system": {
                 "actionCategory": {
@@ -1420,7 +1451,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A living rune can't speak, but it can sculpt its form into complicated scripts and pictographs that can be understood by any creature with the ability to read written language. A living rune can also understand any written or spoken language.</p>"
+                    "value": "<p>A living rune can move only along flat surfaces. If the surface it's on is destroyed (such as a portrait hit by a <em>@UUID[Compendium.pf2e.spells-srd.Fireball]{Fireball}</em> spell or a wall being smashed), the rune takes [[/r {7d6}]]{7d6 damage} and is shunted to the nearest flat surface. If there is no flat surface within 5 feet, the rune is destroyed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1473,7 +1504,7 @@
             "type": "lore"
         },
         {
-            "_id": "xMwvu2xD5cXdWEyZ",
+            "_id": "TiyCa4H5XvUhm1xk",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
             "sort": 1900000,
@@ -1482,7 +1513,7 @@
                     "value": ""
                 },
                 "mod": {
-                    "value": 27
+                    "value": 0
                 },
                 "proficient": {
                     "value": 0
@@ -1501,7 +1532,7 @@
             "type": "lore"
         },
         {
-            "_id": "IIWhwxSGoqwW1XMC",
+            "_id": "kry7QWW5PONsNRlw",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 2000000,
@@ -1518,20 +1549,15 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Sneak among inscriptions",
+                        "label": "PF2E.SkillVariant.HideSneakInscriptions",
                         "predicate": [
                             "inscription",
-                            "action:sneak"
-                        ],
-                        "selector": "stealth",
-                        "value": 6
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Hide among inscriptions",
-                        "predicate": [
-                            "inscription",
-                            "action:hide"
+                            {
+                                "or": [
+                                    "action:hide",
+                                    "action:sneak"
+                                ]
+                            }
                         ],
                         "selector": "stealth",
                         "value": 6
@@ -1548,12 +1574,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+31 to Hide",
-                        "options": "action:hide,inscription"
-                    },
-                    "1": {
-                        "label": "or Sneak , among inscriptions",
-                        "options": "action:sneak,inscription"
+                        "label": "+31 to Hide or Sneak among inscriptions",
+                        "options": "action:hide,action:sneak,inscription"
                     }
                 }
             },
@@ -1562,7 +1584,7 @@
     ],
     "name": "Living Rune (Occult)",
     "prototypeToken": {
-        "name": "Occult Living Rune"
+        "name": "Living Rune"
     },
     "system": {
         "abilities": {
@@ -1591,7 +1613,7 @@
                 "value": 34
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -1620,15 +1642,15 @@
                 "value": 13
             },
             "privateNotes": "",
-            "publicNotes": "<p>The most famous living runes are those of the ancient Runelords of Thassilon, resurging as Thassilon rebuilds in the modern era. Other living runes can be found, however, each with its own particular abilities. Living runes can also be crafted to deal different types of energy damage with their Strikes.</p>\n<p>These runes are crafted by unknown hands and often left in out-of-the-way places.</p>",
+            "publicNotes": "<p>The most famous living runes are those of the ancient Runelords of Thassilon, resurging as Thassilon rebuilds in the modern era. Other living runes can be found, however, each with its own particular abilities. Living runes can also be crafted to deal different types of energy damage with their Strikes.</p>\n<hr />\n<p>Magic is a complex thing to begin with, and at a certain level of sophistication, the differences between a spell and an autonomous creature become increasingly blurry. Living symbols are constructed creatures of reified and reinforced magic, held together by glyphs, runes, and eldritch formulae.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
         },
         "resources": {
             "focus": {
-                "max": 1,
-                "value": 1
+                "max": 0,
+                "value": 0
             }
         },
         "saves": {
@@ -1670,11 +1692,9 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "Truescript",
                 "selected": [],
-                "value": [
-                    "truescript"
-                ]
+                "value": []
             },
             "rarity": "rare",
             "senses": {
