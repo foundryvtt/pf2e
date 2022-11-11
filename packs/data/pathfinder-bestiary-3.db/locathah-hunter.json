@@ -692,35 +692,34 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "PF2E.NPCAbility.LocathahHuntPrey.Checks",
-                        "option": "hunt-prey-checks",
-                        "toggleable": true
+                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                        "option": "hunted-prey",
+                        "toggleable": true,
+                        "value": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "hunt-prey-checks",
-                            "action:seek"
+                            "hunted-prey",
+                            {
+                                "or": [
+                                    "action:seek",
+                                    "action:track"
+                                ]
+                            }
                         ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "hunt-prey-checks",
-                            "action:track"
+                        "selector": [
+                            "perception",
+                            "survival"
                         ],
-                        "selector": "survival",
                         "type": "circumstance",
                         "value": 2
                     },
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "label": "PF2E.NPCAbility.LocathahHuntPrey.Damage",
-                        "option": "hunt-prey-damage",
+                        "label": "PF2E.SpecificRule.HuntPrey.FirstHitSwitch",
+                        "option": "first-attack",
                         "toggleable": true
                     },
                     {
@@ -728,10 +727,11 @@
                         "diceNumber": 1,
                         "dieSize": "d8",
                         "key": "DamageDice",
+                        "label": "PF2E.SpecificRule.HuntPrey.FirstHitDamage",
                         "predicate": [
-                            "hunt-prey-damage"
+                            "first-attack"
                         ],
-                        "selector": "damage"
+                        "selector": "strike-damage"
                     }
                 ],
                 "slug": null,
