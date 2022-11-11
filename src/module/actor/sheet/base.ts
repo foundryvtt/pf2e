@@ -647,7 +647,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return super._onSortItem(event, itemSource);
     }
 
-    async onDropItem(data: DropCanvasItemDataPF2e) {
+    /** Emulate a sheet item drop from the canvas */
+    async emulateItemDrop(data: DropCanvasItemDataPF2e) {
         return await this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
     }
 
