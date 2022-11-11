@@ -1,4 +1,4 @@
-import type { EffectPF2e } from "@item";
+import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@module/scene";
 import { pick } from "@util";
 import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
@@ -216,7 +216,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /** Emit floaty text from this tokens */
-    async showFloatyText(params: number | ShowFloatyEffectParams): Promise<void> {
+    async showFloatyText(params: ShowFloatyEffectParams): Promise<void> {
         if (!this.isVisible) return;
 
         /**
@@ -225,8 +225,8 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
          */
         if (!game.user.isGM && typeof params !== "number") {
             const [change, document] = Object.entries(params)[0];
-            if (document.type === "effect" && (change === "create" || change === "delete")) {
-                if ((document as EffectPF2e).system.unidentified) return;
+            if ((change === "create" || change === "delete") && document instanceof EffectPF2e) {
+                if (document.system.unidentified) return;
             }
         }
 
@@ -442,7 +442,7 @@ interface TokenImage extends PIXI.Sprite {
     src?: VideoPath;
 }
 
-type NumericFloatyEffect = { name: string; value?: number | null; type?: string };
+type NumericFloatyEffect = { name: string; value?: number | null };
 type ShowFloatyEffectParams =
     | number
     | { create: NumericFloatyEffect }
