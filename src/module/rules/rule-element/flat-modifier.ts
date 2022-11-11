@@ -2,7 +2,7 @@ import { ActorType } from "@actor/data";
 import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS } from "@actor/values";
-import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { AbstractEffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { setHasElement, sluggify } from "@util";
 import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
@@ -127,7 +127,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                     critical: this.critical,
                     hideIfDisabled: this.hideIfDisabled,
                     source: this.item.uuid,
-                    unidentified: this.item.isOfType("effect") && this.item.system.unidentified,
+                    unidentified: this.item instanceof AbstractEffectPF2e && this.item.unidentified,
                 });
                 if (options.test) modifier.test(options.test);
 
