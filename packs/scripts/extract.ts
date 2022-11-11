@@ -299,17 +299,6 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
             });
         }
 
-        // Sometimes Foundry's conversion of document links to anchor tags makes it into an export: convert them back
-        const $anchors = $description.find("a.content-link");
-        $anchors.each((_i, anchor) => {
-            const $anchor = $(anchor);
-            const label = $anchor.text().trim();
-            const packName = $anchor.attr("data-pack");
-            const docId = $anchor.attr("data-id");
-            $anchor.text(`@Compendium[${packName}.${docId}]{${label}}`);
-            $anchor.contents().unwrap();
-        });
-
         return $("<div>")
             .append($description)
             .html()
@@ -354,7 +343,7 @@ function convertLinks(docSource: PackEntry, packName: string): PackEntry {
         CompendiumPack.convertRuleUUIDs(sanitized, { to: "names", map: idsToNames });
     }
 
-    const docJSON = JSON.stringify(sanitized);
+    const docJSON = JSON.stringify(sanitized).replace(/@Compendium\[/g, "@UUID[Compendium.");
 
     // Link checks
     const { LINK_PATTERNS } = CompendiumPack;
@@ -364,18 +353,14 @@ function convertLinks(docSource: PackEntry, packName: string): PackEntry {
         console.warn(`${docSource.name} (${packName}) has links to world items: ${linkString}`);
     }
 
-    const compendiumLinks = [
-        ...Array.from(docJSON.matchAll(LINK_PATTERNS.uuid)),
-        ...Array.from(docJSON.matchAll(LINK_PATTERNS.compendium)),
-    ]
+    const compendiumLinks = Array.from(docJSON.matchAll(LINK_PATTERNS.uuid))
         .map((match) => match[0])
         .filter((l) => !l.includes("JournalEntryPage."));
 
     // Convert links by ID to links by name
     const notFound: string[] = [];
     const convertedJson = compendiumLinks.reduce((partiallyConverted, linkById): string => {
-        const pattern: RegExp = linkById.startsWith("@Compendium") ? LINK_PATTERNS.compendium : LINK_PATTERNS.uuid;
-        const components = new RegExp(pattern.source);
+        const components = new RegExp(LINK_PATTERNS.uuid.source);
         const parts = components.exec(linkById);
         if (!Array.isArray(parts)) {
             throw PackError("Unexpected error parsing compendium link");
