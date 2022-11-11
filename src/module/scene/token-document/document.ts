@@ -371,6 +371,11 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             ui.combat.render();
         }
 
+        // Workaround for actor-data preparation issue: release token if this is made unlinked while controlled
+        if (changed.actorLink === false && this.rendered && this.object.controlled) {
+            this.object.release();
+        }
+
         // Handle ephemeral changes from synthetic actor
         if (!this.actorLink && this.parent && changed.actorData) {
             const preUpdateIcon = this.texture.src;
