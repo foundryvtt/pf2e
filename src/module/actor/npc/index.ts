@@ -125,6 +125,9 @@ class NPCPF2e extends CreaturePF2e {
 
         const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
         details.identification = identifyCreature(this, { proficiencyWithoutLevel });
+
+        // Exclude troops from being flankable
+        this.system.attributes.flanking.flankable = !systemData.traits.value.includes("troop");
     }
 
     /** The NPC level needs to be known before the rest of the weak/elite adjustments */
