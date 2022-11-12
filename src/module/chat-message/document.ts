@@ -5,7 +5,7 @@ import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, Strik
 import { TokenDocumentPF2e } from "@scene";
 import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { UserPF2e } from "@module/user";
-import { CheckRoll } from "@system/check/roll";
+import { CheckRoll } from "@system/check";
 import { ChatRollDetails } from "./chat-roll-details";
 import { StrikeData } from "@actor/data/base";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";

@@ -28,7 +28,7 @@ import { RuleElementSynthetics } from "@module/rules";
 import { extractModifierAdjustments, extractModifiers, extractRollTwice } from "@module/rules/util";
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
-import { CheckRoll } from "@system/check/roll";
+import { CheckRoll } from "@system/check";
 import { DamageType } from "@system/damage";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
