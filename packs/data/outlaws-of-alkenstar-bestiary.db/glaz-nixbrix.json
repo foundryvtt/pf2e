@@ -302,31 +302,27 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.NPCAbility.CustomArmor.BrokenArmor",
                         "predicate": [
                             {
-                                "not": "broken-armor"
+                                "or": [
+                                    "broken-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "selector": "ac",
-                        "slug": "broken-from-damage",
-                        "value": "4*(min(round(@actor.system.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.NPCAbility.CustomArmor.BrokenArmor",
-                        "predicate": [
-                            "broken-armor"
-                        ],
-                        "selector": "ac",
-                        "slug": "broken-from-critical",
-                        "value": "-4"
+                        "value": -4
                     },
                     {
                         "domain": "ac",
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.CustomArmor.CriticalHit",
-                        "option": "brokenArmor",
+                        "option": "broken-armor",
                         "toggleable": true
                     }
                 ],
@@ -370,13 +366,13 @@
                     {
                         "domain": "ac",
                         "key": "RollOption",
-                        "option": "leapAway",
+                        "option": "leap-away",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "leapAway"
+                            "leap-away"
                         ],
                         "selector": "ac",
                         "type": "circumstance",
