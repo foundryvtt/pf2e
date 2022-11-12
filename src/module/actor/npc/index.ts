@@ -19,8 +19,8 @@ import {
     extractRollTwice,
 } from "@module/rules/util";
 import { WeaponDamagePF2e } from "@module/system/damage";
-import { CheckPF2e, CheckRollContext, DamageRollPF2e } from "@module/system/rolls";
-import { CheckRoll } from "@system/check";
+import { DamageRollPF2e } from "@module/system/rolls";
+import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
 import { DamageType } from "@system/damage";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e } from "@system/predication";

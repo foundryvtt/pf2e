@@ -28,12 +28,11 @@ import { RuleElementSynthetics } from "@module/rules";
 import { extractModifierAdjustments, extractModifiers, extractRollTwice } from "@module/rules/util";
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
-import { CheckRoll } from "@system/check";
+import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
 import { DamageType } from "@system/damage";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { CheckPF2e, CheckRollContext } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { ErrorPF2e, objectHasKey, setHasElement, traitSlugToObject } from "@util";
 import {

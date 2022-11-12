@@ -70,10 +70,10 @@ import {
     extractRollTwice,
 } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
-import { CheckRoll } from "@system/check";
+import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
 import { DamageRollContext, WeaponDamagePF2e } from "@system/damage";
 import { PredicatePF2e } from "@system/predication";
-import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
+import { DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import {
     ErrorPF2e,
