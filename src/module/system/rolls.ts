@@ -12,9 +12,9 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { DamageCategorization, DamageRollContext, DamageRollModifiersDialog, DamageTemplate } from "@system/damage";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify, traitSlugToObject } from "@util";
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "../actor/modifiers";
-import { Check } from "./check";
+import { CheckRoll, StrikeAttackRoll } from "./check";
 import { CheckModifiersDialog } from "./check-modifiers-dialog";
-import { CheckRoll, CheckRollDataPF2e } from "./check/roll";
+import { CheckRollDataPF2e } from "./check/roll";
 import {
     CheckDC,
     DegreeOfSuccess,
@@ -246,7 +246,7 @@ class CheckPF2e {
         extraTags.push(...tagsFromDice);
 
         const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
-        const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
+        const RollCls = isStrike ? StrikeAttackRoll : CheckRoll;
 
         // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
         const strike = (() => {
@@ -516,7 +516,7 @@ class CheckPF2e {
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
 
-        const RollCls = oldRoll.constructor as typeof Check.Roll;
+        const RollCls = oldRoll.constructor as typeof CheckRoll;
         const newData = deepClone(oldRoll.data);
         const newOptions = { ...oldRoll.options, isReroll: true };
         const newRoll = await new RollCls(oldRoll.formula, newData, newOptions).evaluate({ async: true });

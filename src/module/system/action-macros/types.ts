@@ -3,7 +3,7 @@ import { ModifierPF2e } from "@actor/modifiers";
 import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
 import { TokenDocumentPF2e } from "@scene";
-import { CheckRoll } from "@system/check/roll";
+import { CheckRoll } from "@system/check";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
 import { CheckType } from "@system/rolls";
 import { Statistic } from "@system/statistic";

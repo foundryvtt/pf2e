@@ -4,7 +4,7 @@ import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
 import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { TokenDocumentPF2e } from "@scene";
-import { CheckRoll } from "@system/check/roll";
+import { CheckRoll } from "@system/check";
 import { PredicatePF2e } from "@system/predication";
 import { isObject, sluggify, tupleHasValue } from "@util";
 import { BracketedValue, RuleElementData, RuleElementSource, RuleValue } from "./data";

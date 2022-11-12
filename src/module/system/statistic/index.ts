@@ -19,7 +19,7 @@ import {
     extractRollTwice,
 } from "@module/rules/util";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { CheckRoll } from "@system/check/roll";
+import { CheckRoll } from "@system/check";
 import { CheckDC } from "@system/degree-of-success";
 import { CheckPF2e, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
 import { isObject, Optional } from "@util";
