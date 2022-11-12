@@ -4,7 +4,7 @@ import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
 import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { TokenDocumentPF2e } from "@scene";
-import { CheckRoll } from "@system/check/roll";
+import { CheckRoll } from "@system/check";
 import { PredicatePF2e } from "@system/predication";
 import { isObject, sluggify, tupleHasValue } from "@util";
 import { BracketedValue, RuleElementData, RuleElementSource, RuleValue } from "./data";
@@ -21,6 +21,8 @@ abstract class RuleElementPF2e {
     key: string;
 
     slug: string | null;
+
+    sourceIndex: number | null;
 
     protected suppressWarnings: boolean;
 
@@ -44,6 +46,7 @@ abstract class RuleElementPF2e {
         this.key = String(data.key);
         this.slug = typeof data.slug === "string" ? sluggify(data.slug) : null;
         this.suppressWarnings = options.suppressWarnings ?? false;
+        this.sourceIndex = options.sourceIndex ?? null;
 
         const validActorType = tupleHasValue(this.constructor.validActorTypes, item.actor.type);
         if (!validActorType) {
@@ -72,7 +75,8 @@ abstract class RuleElementPF2e {
 
         if (item instanceof PhysicalItemPF2e) {
             this.requiresEquipped = !!(data.requiresEquipped ?? true);
-            this.requiresInvestment = item.isInvested === null ? null : !!(data.requiresInvestment ?? true);
+            this.requiresInvestment =
+                item.isInvested === null ? null : !!(data.requiresInvestment ?? this.requiresEquipped);
         }
     }
 
@@ -326,6 +330,8 @@ namespace RuleElementPF2e {
 }
 
 interface RuleElementOptions {
+    /** If created from an item, the index in the source data */
+    sourceIndex?: number;
     /** If data validation fails for any reason, do not emit console warnings */
     suppressWarnings?: boolean;
 }

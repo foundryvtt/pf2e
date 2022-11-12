@@ -2,12 +2,7 @@ import { LightLevels, SceneDataPF2e } from "./data";
 import { SceneConfigPF2e } from "./sheet";
 import { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, TileDocumentPF2e, TokenDocumentPF2e } from ".";
 
-class ScenePF2e extends Scene<
-    AmbientLightDocumentPF2e,
-    MeasuredTemplateDocumentPF2e,
-    TileDocumentPF2e,
-    TokenDocumentPF2e
-> {
+class ScenePF2e extends Scene {
     /** A promise to prevent concurrent executions of #checkAuras() */
     auraCheckLock?: Promise<void>;
 
@@ -114,10 +109,34 @@ class ScenePF2e extends Scene<
         this.flags.pf2e ??= { syncDarkness: "default" };
         this.flags.pf2e.syncDarkness ??= "default";
     }
+
+    /* -------------------------------------------- */
+    /*  Event Handlers                              */
+    /* -------------------------------------------- */
+
+    /** Redraw auras if the scene was activated while being viewed */
+    override _onUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentModificationContext,
+        userId: string
+    ): void {
+        super._onUpdate(changed, options, userId);
+
+        if (changed.active && canvas.scene === this) {
+            for (const token of canvas.tokens.placeables) {
+                token.auras.draw();
+            }
+        }
+    }
 }
 
-interface ScenePF2e {
+interface ScenePF2e extends Scene {
     _sheet: SceneConfigPF2e<this> | null;
+
+    readonly lights: foundry.abstract.EmbeddedCollection<AmbientLightDocumentPF2e>;
+    readonly templates: foundry.abstract.EmbeddedCollection<MeasuredTemplateDocumentPF2e>;
+    readonly tokens: foundry.abstract.EmbeddedCollection<TokenDocumentPF2e>;
+    readonly tiles: foundry.abstract.EmbeddedCollection<TileDocumentPF2e>;
 
     flags: {
         pf2e: {

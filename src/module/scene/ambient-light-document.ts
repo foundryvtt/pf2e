@@ -9,8 +9,6 @@ class AmbientLightDocumentPF2e extends AmbientLightDocument {
 }
 
 interface AmbientLightDocumentPF2e extends AmbientLightDocument {
-    readonly data: foundry.data.AmbientLightData<AmbientLightDocumentPF2e>;
-
     readonly parent: ScenePF2e | null;
 
     get object(): AmbientLightPF2e;

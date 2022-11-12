@@ -129,22 +129,20 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "construct-armor"
-                        ],
-                        "selector": "ac",
-                        "slug": "construct-armor-critical",
-                        "value": -4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
                             {
-                                "not": "construct-armor"
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "selector": "ac",
-                        "slug": "construct-armor-health",
-                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.attributes.hp.max),1)-1)"
+                        "value": -4
                     }
                 ],
                 "slug": null,
@@ -181,7 +179,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The animated fireplace coughs out a cloud of soot, filling a @Template[type:emanation|distance:20]; creatures within the soot are @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and creatures outside the cloud are concealed to creatures within it. Creatures that begin their turn within the cloud must succeed at a @Check[type:fortitude|dc:19] save or be @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure); creatures immune to inhaled effects automatically succeed at this save. The fireplace can't Bellow Soot again for [[/br 1d4 #Bellow Soot Recharge]]{1d4 rounds}.</p>"
+                    "value": "<p>The animated fireplace coughs out a cloud of soot, filling a @Template[type:emanation|distance:20]; creatures within the soot are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and creatures outside the cloud are concealed to creatures within it. Creatures that begin their turn within the cloud must succeed at a @Check[type:fortitude|dc:19] save or be @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure); creatures immune to inhaled effects automatically succeed at this save. The fireplace can't Bellow Soot again for [[/br 1d4 #Bellow Soot Recharge]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

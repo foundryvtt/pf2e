@@ -69,20 +69,6 @@
                         "sp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -201,20 +187,6 @@
                     "value": {
                         "gp": 2
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -611,7 +583,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The commander is resistant to mind-affecting magics due to their repeated exposure to Marcien Blakros's enchantments. Whenever the commander rolls a success on a Will save against an enchantment or fear effect, they get a critical success instead, unless that effect originated from Marcien. In addition, anytime they gain the @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition, reduce its value by 1.</p>"
+                    "value": "<p>The commander is resistant to mind-affecting magics due to their repeated exposure to Marcien Blakros's enchantments. Whenever the commander rolls a success on a Will save against an enchantment or fear effect, they get a critical success instead, unless that effect originated from Marcien. In addition, anytime they gain the @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened} condition, reduce its value by 1.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -752,7 +724,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The commander deals an extra 2d6 precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>The commander deals an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -767,6 +739,13 @@
                             "target:condition:flat-footed"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

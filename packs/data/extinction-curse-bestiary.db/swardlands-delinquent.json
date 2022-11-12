@@ -35,8 +35,8 @@
                     "value": "<p>This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -56,7 +56,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -66,20 +66,6 @@
                 },
                 "price": {
                     "value": {}
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -112,7 +98,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -184,7 +170,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -196,20 +182,6 @@
                     "value": {
                         "sp": 2
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -242,7 +214,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -292,7 +264,7 @@
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "inSlot": false,
+                    "inSlot": true,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -313,7 +285,7 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -327,20 +299,20 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "resiliencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "rules": [],
                 "size": "med",
@@ -371,7 +343,7 @@
         },
         {
             "_id": "wgAgCBHThMqRAxPI",
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "img": "systems/pf2e/icons/equipment/consumables/oils/shielding-salve.webp",
             "name": "A Brush and Pot of Red Paint",
             "sort": 400000,
             "system": {
@@ -665,7 +637,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The delinquent draws a weapon with an @Compendium[pf2e.actionspf2e.Interact]{Interact} action, then @Compendium[pf2e.actionspf2e.Strike]{Strikes} with the weapon they just drew.</p>"
+                    "value": "<p>The delinquent draws a weapon with an @UUID[Compendium.pf2e.actionspf2e.Interact]{Interact} action, then @UUID[Compendium.pf2e.actionspf2e.Strike]{Strikes} with the weapon they just drew.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -706,7 +678,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Creatures the delinquent critically hits are @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and can't make reactions until the end of the delinquent's next turn.</p>"
+                    "value": "<p>Creatures the delinquent critically hits are @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} and can't make reactions until the end of the delinquent's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -718,7 +690,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "attack",
-                        "text": "Creatures the delinquent critically hits are @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and can't make reactions until the end of the delinquent's next turn."
+                        "text": "Creatures the delinquent critically hits are @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} and can't make reactions until the end of the delinquent's next turn."
                     }
                 ],
                 "slug": null,
@@ -776,13 +748,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -790,6 +762,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

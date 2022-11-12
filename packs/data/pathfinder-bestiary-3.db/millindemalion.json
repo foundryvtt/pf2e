@@ -3,14 +3,14 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "MJPJEMFd6xecmXUX",
+            "_id": "MGFv64yTRt7JOqf8",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.rQWaJhI5Bko5x14Z"
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
-            "name": "+1 Striking Felt Shears (as dagger)",
+            "name": "+1 Striking Felt Shears (as Dagger)",
             "sort": 100000,
             "system": {
                 "MAP": {
@@ -35,8 +35,8 @@
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -59,41 +59,27 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "sp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -101,10 +87,10 @@
                     "value": "-"
                 },
                 "rules": [],
-                "size": "med",
+                "size": "sm",
                 "slug": "dagger",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -121,7 +107,9 @@
                     "rarity": "common",
                     "value": [
                         "agile",
+                        "evocation",
                         "finesse",
+                        "magical",
                         "thrown-10",
                         "versatile-s"
                     ]
@@ -175,7 +163,7 @@
                     "value": [
                         "agile",
                         "finesse",
-                        "magic",
+                        "magical",
                         "versatile-s"
                     ]
                 },
@@ -224,7 +212,7 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "magic",
+                        "magical",
                         "thrown-10"
                     ]
                 },
@@ -287,7 +275,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity (Modified)",
+            "name": "Attack of Opportunity",
             "sort": 500000,
             "system": {
                 "actionCategory": {
@@ -300,7 +288,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The millindemalion can use Hat Toss against the triggering creature instead of making a Strike, making a melee attack roll with a [[/r 1d20+27 #Hat Toss]]{+27 modifier} to do so.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                    "value": "<p>The millindemalion can use Hat Toss against the triggering creature instead of making a Strike, making a melee attack roll with a +27 modifier to do so.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -345,7 +333,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "mental"
+                        ],
+                        "selector": "saving-throw",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -380,7 +383,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The millindemalion quickly crafts a mind-altering hat in combat and tosses it onto a target with a flick of their wrist. The millindemalion chooses one of the effects below and makes a ranged attack roll with a [[/r 1d20+27]] modifier and a range increment of 20 feet.</p>\n<p>On a hit, the target must succeed at a @Check[type:will|dc:33] saving throw or experience the listed effect for [[/br 1d4+1 #rounds]]{1d4+1 rounds}. If the millindemalion critically succeeds at the ranged Strike, the target takes a -4 circumstance penalty on the save.</p>\n<p>A target can only wear one millindemalion hat at a time; a new hat replaces any previous hat. The hat can't be removed before the condition ends, but when the condition ends (or on a successful save), the hat falls to pieces.</p>\n<ul>\n<li><strong>Befuddling Bowler</strong> The hat clouds the target's mind; the target becomes @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2}.</li>\n<li><strong>Bewitching Beret</strong> The target is infatuated with their new hat and its creator, becoming @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the millindemalion and the beret.</li>\n<li><strong>Dazzling Deerstalker</strong> The target can barely see with the hat falling down over its eyes and gains the @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} condition.</li>\n<li><strong>Fettering Fedora</strong> The target feels a heavy weight pressing down on them from the hat and takes a -10-foot circumstance penalty to their Speeds.</li>\n<li><strong>Tiring Tricorne</strong> The target grows sleepy and becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</li>\n</ul>"
+                    "value": "<p>The millindemalion quickly crafts a mind-altering hat in combat and tosses it onto a target with a flick of their wrist. The millindemalion chooses one of the effects below and makes a ranged attack roll with a [[/r 1d20+27 #Hat Toss]]{+27} modifier and a range increment of 20 feet.</p>\n<p>On a hit, the target must succeed at a @Check[type:will|dc:33] saving throw or experience the listed effect for [[/br 1d4+1 #Duration Hat Toss]]{1d4+1 rounds}. If the millindemalion critically succeeds at the ranged Strike, the target takes a -4 circumstance penalty on the save.</p>\n<p>A target can only wear one millindemalion hat at a time; a new hat replaces any previous hat. The hat can't be removed before the condition ends, but when the condition ends (or on a successful save), the hat falls to pieces.</p>\n<ul>\n<li><strong>Befuddling Bowler</strong> The hat clouds the target's mind; the target becomes @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2}.</li>\n<li><strong>Bewitching Beret</strong> The target is infatuated with their new hat and its creator, becoming @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} by the millindemalion and the beret.</li>\n<li><strong>Dazzling Deerstalker</strong> The target can barely see with the hat falling down over its eyes and gains the @UUID[Compendium.pf2e.conditionitems.Dazzled]{Dazzled} condition.</li>\n<li><strong>Fettering Fedora</strong> The target feels a heavy weight pressing down on them from the hat and takes a -10-foot circumstance penalty to their Speeds.</li>\n<li><strong>Tiring Tricorne</strong> The target grows sleepy and becomes @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1}.</li>\n</ul>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Fettering Fedora]{Effect: Fettering Fedora}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -410,7 +413,12 @@
             "type": "action"
         },
         {
-            "_id": "VhHPHnq8mOa0YC7b",
+            "_id": "sIbPX7HRtLZsZC7R",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 800000,
@@ -425,7 +433,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A millindemalion deals an extra 4d6 precision damage to flat-footed creatures.</p>"
+                    "value": "<p>A millindemalion deals an extra 4d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -440,13 +448,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "finesse",
-                                    "agile",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "thrown"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -454,11 +462,18 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
-                "slug": null,
+                "slug": "sneak-attack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -643,7 +658,7 @@
                 "value": 34
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -704,6 +719,7 @@
             "dr": [],
             "dv": [
                 {
+                    "exceptions": "",
                     "type": "coldiron",
                     "value": 10
                 }

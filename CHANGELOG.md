@@ -1,5 +1,130 @@
 # Changelog
 
+## Version 4.3.4
+
+### System Improvements
+* (Cerapter) Allow effects to be hidden from players
+
+### Bugfixes
+* (In3luki) Localize skill names in Compendium Browser filter
+* (stwlam) Fix crafting check rolls reporting incorrect degree of success
+* (stwlam) Restore DC adjustments to inline checks from elite/weak NPCs
+* (Supe) Fix damage rolls from heightened spells
+* (Supe) Fix issue causing some hazard sheets to not be openable
+
+### Data Updates
+* (Abaddon) Fix unique swords from Book of the Dead
+* (Abaddon) Review Blood Hag, Winter Hag, and Moon Hag, House Spirits, Huldra, Hyakume, Incutilis, Jorogumo, Kami, Kangaroo, Kappa, Kirin, Kishi, Kitsune Trickster, Kokogiak, Kongamato, and Kovintus Geomancer
+* (Abaddon) Add android infiltrator automation
+* (dogstarrb) Add missing Archetypes from DA, QftFF, NotGD, OoA, and BotD to Archetype Journal
+* (dogstarrb) Adds links from dedication feats to archetype journal
+* (MrVauxs) Correct typo in "Magic Warrior Dedication"
+* (Tikael) Automate Wellspring Magic feature
+
+
+## Version 4.3.3
+
+### System Improvements
+* (Forgent) Improve rotation behavior of measured template previews on hex grids
+* (KSops) Add "herbal" as a consumable tag, integrate with Herbalist archetype
+
+### Bugfixes
+* (stwlam) Fix item grants being duplicated given `reevaluateOnUpdate`
+* (stwlam) Default no-crowbar penalty to disabled
+* (Supe) Fix spell heightening for non-casted spell messages
+* (Supe) Correctly heighten spells retrieved from chat messages
+
+### Data Updates
+* (Manni) Fix targets  of Swarming Wasp Stings spell
+* (rectulo) Fix the format of Phantasmal protagonist
+* (simonward) Fix Staff Nexus source
+* (TMun) Correct errors following statistical outlier review
+* (TMun) Correct reference and text for spiked pit damage
+* (Tikael) Remove old individual archetype journals
+* (xdy) Add variants for bludgeoning, piercing and slashing damage to Telekinetic Projectile
+
+
+## Version 4.3.2
+
+### Bugfixes
+* (stwlam) Fix upgrading existing weaknesses and resistances
+* (stwlam) Fix issue causing Theather of the Mind toggles to appear when setting is disabled
+
+### Data Updates
+* (Far2Casual) Fix inline check of Acidic Poison Cloud Trap
+* (simonward) Fix Peryton Heart Ripper ability
+* (stwlam) Add TotM toggle for Flying Blade
+* (Tikael) Fix REs and prerequisites on Hellknight Armiger Dedication
+* (Tikael) Fully automate Hellknight Signifier Dedication
+* (TMun) Correct action cost of Thylacine's Hunting Cry
+* (TMun) Correct duration of Time Beacon
+* (TMun) Correct CON modifier for Aecora Silverfire
+
+
+## Version 4.3.1
+
+### System Improvements
+* (xdy) Add pf2e flags with sourceId, uuid and type to consumable-usage chat messages
+
+### Bugfixes
+* (Supe) Increase reliability of rule source lookup in grant item
+* (Supe) No longer return damage dice from rule element if damage type resolving fails
+* (Supe) Fix issue causing weapon item to not be retrievable from strike damage messages
+* (In3luki) Fix measured template rotation triggering the browser zoom in Firefox and Edge
+* (xdy) Adjust context.outcome based on result of reroll
+
+### Data Updates
+* (Abaddon) Localize Risky Surgery toggle and Dragon Claws spell effect
+* (dogstarrb) Fix some details in NPCs Agents of Edgewatch 1
+* (stwlam) Remove disabling of damage-doubling on crit for dragon claws effect
+* (SkepticRobot) Add star grenades
+* (SkepticRobot) Automate Skilled Familiar ability
+* (Tikael) Add damage to Sea Surge spell
+* (Tikael) Fix formulas in Phlogistonic Regulator
+* (Tikael) Set Psyche trait description
+
+
+## Version 4.3.0
+
+### System Improvements
+* (LebombJames) Remove double borders from some image frames
+* (stwlam) Move flat-footed toggle to relevant features, add "Theater of the Mind Toggles" setting to show/hide
+* (Supe) Add roll-inspector support for strike damage rolls
+* (Supe) Add roll mode param to cast() function
+* (Supe) Put top-level roll options at top in roll inspector
+
+### Bugfixes
+* (In3luki) Fix default width of line measured templates created from some workflows
+* (KSops) Fix close button for rules editing
+* (stwlam) Restore death-note icon for actions on NPC sheets
+
+### Data Updates
+* (Abaddon) Add journal page for Mummy archetype
+* (Abaddon) Fix 8th level permanent items rollable table
+* (Abaddon) Localize Treat Wounds macro
+* (Fin) Removed outdated duplicate README.md file, Update CONTRIBUTING.md to direct contributors to the pf2e foundry discord server
+* (LebombJames) Correct Greater Nosoi Charm, and touch up REs
+* (LebombJames) Correct Rebounding Barrier Requirement to Trigger
+* (rectulo) Add basic Reflex save in acid storm
+* (rectulo) Fix key for Android trait description
+* (SpartanCPA, Tikael, TMun) Add content from Kingmaker adventure path
+* (stwlam) Add effect for Calculate Threats action
+* (stwlam) Add inventor's innovation class features, initial armor modifications
+* (stwlam) Default pregen PCs to be in party alliance
+* (TMun) Add Psychic multiclass dedication feat as an option for Eldritch Trickster Rogue
+* (TMun) Add variant effect to PFS earplugs and correct links between effects and items
+* (TMun) Fix issue causing Eternal Wings to receive double bonuses and penalties
+* (TMun) Correct aura from 5 to 10 feet for Elemental Avalanche
+* (TMun) Standardize predicates for Virtuosic Performer rule elements
+* (TMun) Update sly striker rule elements to function in V10
+* (TMun) Add NPCs from PFS 4-05
+* (Tikael) Add localization keys for some equipment effects
+* (Tikael) Automate Life Oracle curse effects
+* (Tikael) Fix and standardize precision damage REs
+* (Tikael) Fix quantity of sacks
+* (VestOfHolding) Add NPCs and player options from Crown of the Kobold King
+
+
 ## Version 4.2.6
 
 ### Bugfixes
@@ -74,7 +199,6 @@
 * (stwlam) Add GM Vision (keybinding defaults to CTRL-G) as means of brightening dark scenes
 
 ### System Improvements
-* (stwlam) Have wild shape effect grant battle form effect
 * (xdy) Show players the total bulk for Loot actors they own
 * (xdy) Toggle defeated state for npcs when healed to above 0 hp when defeated
 
@@ -90,6 +214,7 @@
 * (Manni) Localize label for Pack Attack
 * (rectulo) Fix prereq format in psychic duelist dedication
 * (stwlam) Set range of Spined Azerketi's unarmed attack
+* (stwlam) Have wild shape effect grant battle form effect
 * (Surge) Remove incorrect label from Death Ward spell effect
 * (Tikael) Add Hispanic Heritage Month Paizo blog items
 * (Tikael) Fix inline check in Psi Burst

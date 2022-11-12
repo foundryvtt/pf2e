@@ -15,7 +15,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
         const encounter = this.viewed;
         if (!encounter) return super.activateListeners($html);
 
-        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
+        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
         for (const row of tracker.querySelectorAll<HTMLLIElement>("li.combatant").values()) {
             const combatantId = row.dataset.combatantId ?? "";
             const combatant = encounter.combatants.get(combatantId, { strict: true });

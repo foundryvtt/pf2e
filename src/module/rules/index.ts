@@ -93,7 +93,7 @@ class RuleElements {
 
     static fromOwnedItem(item: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
         const rules: RuleElementPF2e[] = [];
-        for (const data of item.system.rules) {
+        for (const [sourceIndex, data] of item.system.rules.entries()) {
             if (typeof data.key !== "string") {
                 console.error(
                     `PF2e System | Missing key in rule element ${data.key} on item ${item.name} (${item.uuid})`
@@ -105,7 +105,7 @@ class RuleElements {
             if (REConstructor) {
                 const rule = ((): RuleElementPF2e | null => {
                     try {
-                        return new REConstructor(data, item, options);
+                        return new REConstructor(data, item, { ...(options ?? {}), sourceIndex });
                     } catch (error) {
                         if (!options?.suppressWarnings) {
                             console.warn(

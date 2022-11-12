@@ -3,19 +3,18 @@ import { AttackTarget } from "@actor/creature/types";
 import { StrikeData, TraitViewData } from "@actor/data/base";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { ChatMessageSourcePF2e } from "@module/chat-message/data";
+import { ChatMessageSourcePF2e, StrikeLookupData } from "@module/chat-message/data";
 import { ZeroToThree } from "@module/data";
 import { RollNotePF2e, RollNoteSource } from "@module/notes";
 import { RollSubstitution } from "@module/rules/synthetics";
 import { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { UserVisibility } from "@scripts/ui/user-visibility";
 import { DamageCategorization, DamageRollContext, DamageRollModifiersDialog, DamageTemplate } from "@system/damage";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify, traitSlugToObject } from "@util";
 import { CheckModifier, ModifierPF2e, StatisticModifier } from "../actor/modifiers";
-import { Check } from "./check";
+import { CheckRoll, StrikeAttackRoll } from "./check";
 import { CheckModifiersDialog } from "./check-modifiers-dialog";
-import { CheckRoll } from "./check/roll";
+import { CheckRollDataPF2e } from "./check/roll";
 import {
     CheckDC,
     DegreeOfSuccess,
@@ -30,14 +29,8 @@ import { TextEditorPF2e } from "./text-editor";
 interface RollDataPF2e extends RollData {
     rollerId?: string;
     totalModifier?: number;
-    isReroll?: boolean;
     degreeOfSuccess?: ZeroToThree;
-    strike?: {
-        actor: ActorUUID | TokenDocumentUUID;
-        index: number;
-        damaging?: boolean;
-        name: string;
-    };
+    strike?: StrikeLookupData;
 }
 
 /** Possible parameters of a RollFunction */
@@ -125,18 +118,28 @@ interface CheckRollContext extends BaseRollContext {
     altUsage?: "thrown" | "melee" | null;
 }
 
-interface CheckTargetFlag {
+interface TargetFlag {
     actor: ActorUUID | TokenDocumentUUID;
     token?: TokenDocumentUUID;
 }
 
 type ContextFlagOmission = "actor" | "altUsage" | "createMessage" | "item" | "notes" | "options" | "target" | "token";
+
 interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
     item?: undefined;
-    target: CheckTargetFlag | null;
+    target: TargetFlag | null;
     altUsage?: "thrown" | "melee" | null;
+    notes: RollNoteSource[];
+    options: string[];
+}
+
+interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self">> {
+    actor: string | null;
+    token: string | null;
+    item?: undefined;
+    target: TargetFlag | null;
     notes: RollNoteSource[];
     options: string[];
 }
@@ -243,11 +246,10 @@ class CheckPF2e {
         extraTags.push(...tagsFromDice);
 
         const isStrike = context.type === "attack-roll" && context.item?.isOfType("weapon", "melee");
-        const RollCls = isStrike ? Check.StrikeAttackRoll : Check.Roll;
+        const RollCls = isStrike ? StrikeAttackRoll : CheckRoll;
 
-        const rollData: RollDataPF2e = (() => {
-            const data: RollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
-
+        // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
+        const strike = (() => {
             const contextItem = context.item;
             if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
                 const strikes: StrikeData[] = context.actor.system.actions;
@@ -257,27 +259,31 @@ class CheckPF2e {
                 );
 
                 if (strike) {
-                    data.strike = {
+                    return {
                         actor: context.actor.uuid,
                         index: strikes.indexOf(strike),
                         damaging: !contextItem.isOfType("melee", "weapon") || contextItem.dealsDamage,
                         name: strike.item.name,
+                        altUsage: context.altUsage,
                     };
                 }
             }
 
-            return data;
+            return null;
         })();
 
+        const options: CheckRollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
+        if (strike) options.strike = strike;
+
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
-        const roll = await new RollCls(`${dice}${totalModifierPart}`, rollData).evaluate({ async: true });
+        const roll = await new RollCls(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
 
         const degree = context.dc ? new DegreeOfSuccess(roll, context.dc) : null;
 
         if (degree) {
             context.outcome = DEGREE_OF_SUCCESS_STRINGS[degree.value];
             context.unadjustedOutcome = DEGREE_OF_SUCCESS_STRINGS[degree.unadjusted];
-            roll.data.degreeOfSuccess = degree.value;
+            roll.options.degreeOfSuccess = degree.value;
         }
 
         const notes = context.notes?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n))) ?? [];
@@ -313,8 +319,7 @@ class CheckPF2e {
                 });
                 return parseHTML(note.text);
             };
-            const incapacitation =
-                item?.isOfType("spell") && item.traits.has("incapacitation") ? incapacitationNote() : "";
+            const incapacitation = rollOptions.has("incapacitation") ? incapacitationNote() : "";
 
             const header = document.createElement("h4");
             header.classList.add("action");
@@ -364,6 +369,7 @@ class CheckPF2e {
                     modifierName: check.slug,
                     modifiers: check.modifiers,
                     origin,
+                    strike,
                 },
             };
 
@@ -502,7 +508,7 @@ class CheckPF2e {
 
         const systemFlags = deepClone(message.flags.pf2e);
         const context = systemFlags.context;
-        if (!context) return;
+        if (!context || context.type === "damage-roll") return;
 
         context.skipDialog = true;
         context.isReroll = true;
@@ -510,9 +516,10 @@ class CheckPF2e {
         const oldRoll = message.rolls.at(0);
         if (!(oldRoll instanceof CheckRoll)) throw ErrorPF2e("Unexpected error retrieving prior roll");
 
-        const RollCls = oldRoll.constructor as typeof Check.Roll;
-        const newData = { ...oldRoll.data, isReroll: true };
-        const newRoll = await new RollCls(oldRoll.formula, newData).evaluate({ async: true });
+        const RollCls = oldRoll.constructor as typeof CheckRoll;
+        const newData = deepClone(oldRoll.data);
+        const newOptions = { ...oldRoll.options, isReroll: true };
+        const newRoll = await new RollCls(oldRoll.formula, newData, newOptions).evaluate({ async: true });
 
         // Keep the new roll by default; Old roll is discarded
         let keptRoll = newRoll;
@@ -534,15 +541,16 @@ class CheckPF2e {
         rerollIcon.classList.add("pf2e-reroll-indicator");
         rerollIcon.setAttribute("title", rerollFlavor);
 
-        const dc = message.flags.pf2e.context?.dc ?? null;
+        const dc = context.dc ?? null;
         const oldFlavor = message.flavor ?? "";
         const degree = dc ? new DegreeOfSuccess(newRoll, dc) : null;
-        const createNewFlavor = keptRoll === newRoll && !!degree;
+        const useNewRoll = keptRoll === newRoll && !!degree;
+        context.outcome = useNewRoll ? DEGREE_OF_SUCCESS_STRINGS[degree.value] : context.outcome;
 
-        const newFlavor = createNewFlavor
+        const newFlavor = useNewRoll
             ? await (async (): Promise<string> => {
                   const $parsedFlavor = $("<div>").append(oldFlavor);
-                  const target = message.flags.pf2e.context?.target ?? null;
+                  const target = context.target ?? null;
                   const flavor = await this.createResultFlavor({ degree, target });
                   if (flavor) $parsedFlavor.find(".target-dc-result").replaceWith(flavor);
                   return $parsedFlavor.html();
@@ -616,7 +624,7 @@ class CheckPF2e {
         })();
 
         // Not actually included in the template, but used for creating other template data
-        const targetData = await (async (): Promise<{ name: string; visibility: UserVisibility } | null> => {
+        const targetData = await (async (): Promise<{ name: string; visible: boolean } | null> => {
             if (!target) return null;
 
             const token = await (async (): Promise<TokenDocumentPF2e | null> => {
@@ -630,11 +638,11 @@ class CheckPF2e {
 
             const canSeeTokenName = (token ?? new TokenDocumentPF2e(targetActor?.prototypeToken.toObject() ?? {}))
                 .playersCanSeeName;
-            const canSeeName = canSeeTokenName || !game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
+            const canSeeName = canSeeTokenName || !game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
 
             return {
                 name: token?.name ?? targetActor?.name ?? "",
-                visibility: canSeeName ? "all" : "gm",
+                visible: !!canSeeName,
             };
         })();
 
@@ -659,9 +667,7 @@ class CheckPF2e {
                     ? targetAC.value - circumstances.reduce((total, c) => total + c.modifier, 0)
                     : targetAC?.value ?? null;
 
-            const visibility = targetActor?.hasPlayerOwner
-                ? "all"
-                : dc.visibility ?? game.settings.get("pf2e", "metagame.showDC");
+            const visible = targetActor?.hasPlayerOwner || dc.visible || game.settings.get("pf2e", "metagame_showDC");
 
             if (typeof preadjustedDC !== "number" || circumstances.length === 0) {
                 const labelKey = targetData
@@ -670,7 +676,7 @@ class CheckPF2e {
                 const dcValue = dc.slug === "ac" && targetAC ? targetAC.value : dc.value;
                 const markup = game.i18n.format(labelKey, { dcType, dc: dcValue, target: targetData?.name ?? null });
 
-                return { markup, visibility };
+                return { markup, visible };
             }
 
             const adjustment = {
@@ -693,7 +699,7 @@ class CheckPF2e {
                 adjusted: dc.value,
             });
 
-            return { markup, visibility, adjustment };
+            return { markup, visible, adjustment };
         })();
 
         // The result: degree of success (with adjustment if applicable) and visibility setting
@@ -704,7 +710,7 @@ class CheckPF2e {
                     signDisplay: "always",
                     useGrouping: false,
                 }).format(degree.rollTotal - dc.value),
-                visibility: dc.visibility,
+                visible: dc.visible,
             };
 
             const adjustment = ((): string | null => {
@@ -728,9 +734,9 @@ class CheckPF2e {
 
             const resultKey = adjustment ? "PF2E.Check.Result.AdjustedLabel" : "PF2E.Check.Result.Label";
             const markup = game.i18n.format(resultKey, { degree: degreeLabel, offset: offset.value, adjustment });
-            const visibility = game.settings.get("pf2e", "metagame.showResults");
+            const visible = game.settings.get("pf2e", "metagame_showResults");
 
-            return { markup, visibility };
+            return { markup, visible };
         })();
 
         // Render the template and replace quasi-XML nodes with visibility-data-containing HTML elements
@@ -744,9 +750,9 @@ class CheckPF2e {
         const { convertXMLNode } = TextEditorPF2e;
 
         if (targetData) {
-            convertXMLNode(html, "target", { visibility: targetData.visibility, whose: "target" });
+            convertXMLNode(html, "target", { visible: targetData.visible, whose: "target" });
         }
-        convertXMLNode(html, "dc", { visibility: dcData.visibility, whose: "target" });
+        convertXMLNode(html, "dc", { visible: dcData.visible, whose: "target" });
         if (dcData.adjustment) {
             const { adjustment } = dcData;
             convertXMLNode(html, "preadjusted", { classes: ["preadjusted-dc"] });
@@ -759,19 +765,19 @@ class CheckPF2e {
             adjustedNode.dataset.circumstances = JSON.stringify(adjustment.circumstances);
         }
         convertXMLNode(html, "degree", {
-            visibility: resultData.visibility,
+            visible: resultData.visible,
             classes: [DEGREE_OF_SUCCESS_STRINGS[degree.value]],
         });
-        convertXMLNode(html, "offset", { visibility: dcData.visibility, whose: "target" });
+        convertXMLNode(html, "offset", { visible: dcData.visible, whose: "target" });
 
-        if (["gm", "owner"].includes(dcData.visibility) && targetData?.visibility === dcData.visibility) {
-            // If target and DC are both hidden from view, hide both
+        // If target and DC are both hidden from view, hide both
+        if (!targetData?.visible && !dcData.visible) {
             const targetDC = html.querySelector<HTMLElement>(".target-dc");
-            if (targetDC) targetDC.dataset.visibility = dcData.visibility;
+            if (targetDC) targetDC.dataset.visibility = "gm";
 
             // If result is also hidden, hide everything
-            if (resultData.visibility === dcData.visibility) {
-                html.dataset.visibility = dcData.visibility;
+            if (!resultData.visible) {
+                html.dataset.visibility = "gm";
             }
         }
 
@@ -781,13 +787,13 @@ class CheckPF2e {
 
 interface CreateResultFlavorParams {
     degree: DegreeOfSuccess | null;
-    target?: AttackTarget | CheckTargetFlag | null;
+    target?: AttackTarget | TargetFlag | null;
 }
 
 interface ResultFlavorTemplateData {
     dc: {
         markup: string;
-        visibility: UserVisibility;
+        visible: boolean;
         adjustment?: {
             preadjusted: number;
             direction: "increased" | "decreased" | "no-change";
@@ -796,7 +802,7 @@ interface ResultFlavorTemplateData {
     };
     result: {
         markup: string;
-        visibility: UserVisibility;
+        visible: boolean;
     };
 }
 
@@ -829,6 +835,7 @@ export {
     CheckRollContext,
     CheckRollContextFlag,
     CheckType,
+    DamageRollContextFlag,
     DamageRollPF2e,
     RollDataPF2e,
     RollParameters,

@@ -9,7 +9,7 @@
             "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
-                    "value": null
+                    "value": 2
                 },
                 "description": {
                     "value": ""
@@ -24,7 +24,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -127,7 +127,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -148,7 +148,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laugher. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @Compendium[pf2e.conditionitems.Prone]{Prone} and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
+                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laugher. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -160,7 +160,6 @@
                     "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 2,
                     "value": "BPZQ1dC6ouU0B3Ud"
                 },
                 "materials": {
@@ -216,7 +215,8 @@
                     "rarity": "common",
                     "value": [
                         "emotion",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -259,7 +259,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible}. This makes it @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -271,7 +271,6 @@
                     "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 2,
                     "value": "BPZQ1dC6ouU0B3Ud"
                 },
                 "materials": {
@@ -311,7 +310,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "self"
+                    "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
@@ -325,7 +324,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "occult"
+                    ]
                 }
             },
             "type": "spell"
@@ -346,7 +347,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -367,7 +368,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @UUID[Compendium.pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @UUID[Compendium.pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -375,11 +376,20 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
                     "value": "BPZQ1dC6ouU0B3Ud"
                 },
                 "materials": {
@@ -437,7 +447,8 @@
                     "value": [
                         "emotion",
                         "incapacitation",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -459,7 +470,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -480,7 +491,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -488,11 +499,20 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
                     "value": "BPZQ1dC6ouU0B3Ud"
                 },
                 "materials": {
@@ -551,7 +571,8 @@
                     "value": [
                         "emotion",
                         "fear",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -573,7 +594,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -601,6 +622,21 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "120 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -661,7 +697,8 @@
                     "rarity": "common",
                     "value": [
                         "auditory",
-                        "cantrip"
+                        "cantrip",
+                        "occult"
                     ]
                 }
             },
@@ -683,7 +720,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -716,7 +753,6 @@
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
                     "value": "BPZQ1dC6ouU0B3Ud"
                 },
                 "materials": {
@@ -770,7 +806,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -815,6 +852,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
                             "value": "1d6"
@@ -845,6 +883,59 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "2I469pfbYcmFvzOA": {
+                        "_id": "2I469pfbYcmFvzOA",
+                        "name": "Telekinetic Projectile (bludgeoning)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "bludgeoning"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "cUFX7ExSLeoa3vIF": {
+                        "_id": "cUFX7ExSLeoa3vIF",
+                        "name": "Telekinetic Projectile (piercing)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "piercing"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "zFWsMjoeCnLxqJaV": {
+                        "_id": "zFWsMjoeCnLxqJaV",
+                        "name": "Telekinetic Projectile (slashing)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "slashing"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -896,7 +987,8 @@
                     "rarity": "common",
                     "value": [
                         "attack",
-                        "cantrip"
+                        "cantrip",
+                        "occult"
                     ]
                 }
             },
@@ -1051,7 +1143,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The muse phantom inspires a supernatural emotional response-either comedy or drama. Each creature that begins its turn in the aura must attempt a @Check[type:will|dc:20] save; on a failure, the creature is affected as long as it remains within the aura. If the muse phantom is emitting a comedic aura, affected creatures become @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}; if it is emitting a dramatic aura, affected creatures instead become @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1}.</p>\n<p>The muse phantom can change its aura from comedic to dramatic or vice-versa, or cease or activate this aura, by spending a single action, which has the concentrate trait. A creature possessed by a muse phantom is immune to this aura.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The muse phantom inspires a supernatural emotional response-either comedy or drama. Each creature that begins its turn in the aura must attempt a @Check[type:will|dc:20] save; on a failure, the creature is affected as long as it remains within the aura. If the muse phantom is emitting a comedic aura, affected creatures become @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}; if it is emitting a dramatic aura, affected creatures instead become @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1}.</p>\n<p>The muse phantom can change its aura from comedic to dramatic or vice-versa, or cease or activate this aura, by spending a single action, which has the concentrate trait. A creature possessed by a muse phantom is immune to this aura.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1193,7 +1285,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The muse phantom's thespian aura is active</p>\n<hr />\n<p><strong>Effect</strong> The muse ceases its thespian aura and deals [[/r {4d8}[mental]]]{4d8 mental damage} to creatures in a @Template[type:burst|distance:30], including the creature it is possessing, if any (@Check[type:will|dc:22|basic:true] save). Creatures that fail their Will saves are @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the muse phantom for 1 minute.</p>\n<p data-pf2-show-dc=\"gm\">The muse phantom can't use Grand Finale again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Requirements</strong> The muse phantom's thespian aura is active</p>\n<hr />\n<p><strong>Effect</strong> The muse ceases its thespian aura and deals [[/r {4d8}[mental]]]{4d8 mental damage} to creatures in a @Template[type:burst|distance:30], including the creature it is possessing, if any (@Check[type:will|dc:22|basic:true] save). Creatures that fail their Will saves are @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} by the muse phantom for 1 minute.</p>\n<p data-pf2-show-dc=\"gm\">The muse phantom can't use Grand Finale again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1236,7 +1328,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The phantom muse attempts to possess an adjacent corporeal creature. This has the same effect as the <em>@Compendium[pf2e.spells-srd.Possession]{Possession}</em> spell (@Check[type:will|dc:20|traits:mental,incapacitation,possession]), except the duration is [[/r 1d4 #hours]]{1d4 hours}, and since the phantom muse doesn't have a physical body, it is unaffected by that restriction of the spell. If the target is at least trained in Performance, the DC of this ability is @Check[type:will|dc:24|traits:mental,incapacitation,possession].</p>"
+                    "value": "<p>The phantom muse attempts to possess an adjacent corporeal creature. This has the same effect as the <em>@UUID[Compendium.pf2e.spells-srd.Possession]{Possession}</em> spell (@Check[type:will|dc:20|traits:mental,incapacitation,possession]), except the duration is [[/r 1d4 #hours]]{1d4 hours}, and since the phantom muse doesn't have a physical body, it is unaffected by that restriction of the spell. If the target is at least trained in Performance, the DC of this ability is @Check[type:will|dc:24|traits:mental,incapacitation,possession].</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -94,6 +94,10 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.system.temporary;
     }
 
+    get isShoddy(): boolean {
+        return this.system.traits.otherTags.includes("shoddy");
+    }
+
     get isDamaged(): boolean {
         return this.system.hp.value > 0 && this.system.hp.value < this.system.hp.max;
     }
@@ -163,7 +167,8 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             [`material:${this.material.precious?.type}`]: !!this.material.precious,
         })
             .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => `${delimitedPrefix}${key}`);
+            .map(([key]) => `${delimitedPrefix}${key}`)
+            .concat(this.system.traits.otherTags.map((t) => `${delimitedPrefix}tag:${t}`));
 
         return [baseOptions, physicalItemOptions].flat();
     }
@@ -249,6 +254,11 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
             const modifiedIsHigher = adjustedPrice.copperValue > basePrice.copperValue;
             const highestPrice = modifiedIsHigher ? adjustedPrice : basePrice;
             systemData.price.value = highestPrice;
+        }
+        if (this.isShoddy) {
+            systemData.price.value = systemData.price.value.scale(0.5);
+            systemData.hp.max = Math.floor(systemData.hp.max / 2);
+            systemData.hp.brokenThreshold = Math.floor(systemData.hp.brokenThreshold / 2);
         }
 
         // Update properties according to identification status

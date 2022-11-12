@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ItemSummaryRendererPF2e } from "@actor/sheet/item-summary-renderer";
+import { ItemSummaryRenderer } from "@actor/sheet/item-summary-renderer";
 import { ItemPF2e, SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/data";
 import { SpellcastingAbilityData } from "@item/spellcasting-entry/data";
@@ -11,7 +11,7 @@ import { SpellcastingEntryPF2e } from "../../item/spellcasting-entry";
  */
 class SpellPreparationSheet extends ActorSheet<ActorPF2e, ItemPF2e> {
     /** Implementation used to handle the toggling and rendering of item summaries */
-    itemRenderer: ItemSummaryRendererPF2e<ActorPF2e> = new ItemSummaryRendererPF2e(this);
+    itemRenderer: ItemSummaryRenderer<ActorPF2e> = new ItemSummaryRenderer(this);
 
     constructor(public item: Embedded<SpellcastingEntryPF2e>, options: Partial<ActorSheetOptions>) {
         super(item.actor, options);

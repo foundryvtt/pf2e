@@ -57,6 +57,40 @@
                 ],
                 "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
                 "rollOption": "oracular-curse:stage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d12"
+                },
+                "predicate": [
+                    "item:slug:heal",
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    },
+                    "all-living-targets"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.OracleCurses.Life.ToggleLabel",
+                "option": "all-living-targets",
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "toggleable": true
             }
         ],
         "source": {

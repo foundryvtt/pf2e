@@ -65,20 +65,6 @@
                         "sp": 9
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -192,20 +178,6 @@
                     "value": {
                         "sp": 1
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -710,7 +682,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The kobold trapmaster deals an extra [[/r {1d6}]]{1d6 damage} to creatures that have the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition.</p>"
+                    "value": "<p>The kobold trapmaster deals an extra [[/r {1d6}]]{1d6 damage} to creatures that have the @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -724,13 +696,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -738,6 +710,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

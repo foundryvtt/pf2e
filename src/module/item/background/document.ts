@@ -6,7 +6,7 @@ class BackgroundPF2e extends ABCItemPF2e {
     /** Set a skill feat granted by a GrantItem RE as one of this background's configured items */
     override prepareSiblingData(this: Embedded<BackgroundPF2e>): void {
         if (Object.keys(this.system.items).length > 0) return;
-        const grantedSkillFeat = this.flags.pf2e.itemGrants
+        const grantedSkillFeat = Object.values(this.flags.pf2e.itemGrants)
             .flatMap((g) => this.actor.items.get(g.id) ?? [])
             .find((i: Embedded<ItemPF2e> & { featType?: unknown }): i is Embedded<FeatPF2e> => i.featType === "skill");
 

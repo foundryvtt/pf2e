@@ -8,7 +8,7 @@ import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
  * Implementation used to populate item summaries, toggle visibility
  * of item summaries, and save expanded/collapsed state of item summaries.
  */
-export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
+export class ItemSummaryRenderer<TActor extends ActorPF2e> {
     constructor(protected sheet: Application & { get actor(): TActor }) {}
 
     activateListeners($html: JQuery) {
@@ -45,8 +45,7 @@ export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
             return;
         }
 
-        if (!(item instanceof ItemPF2e)) return;
-        if (!item || ["condition", "spellcastingEntry"].includes(item.type)) return;
+        if (!(item instanceof ItemPF2e) || ["condition", "spellcastingEntry"].includes(item.type)) return;
 
         // Toggle summary
         if ($element.hasClass("expanded")) {
@@ -183,7 +182,7 @@ export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
     }
 }
 
-export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemSummaryRendererPF2e<AType> {
+export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemSummaryRenderer<AType> {
     override async renderItemSummary(
         $div: JQuery,
         item: Embedded<ItemPF2e>,

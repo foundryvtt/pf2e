@@ -12,7 +12,7 @@ export const DropCanvasData = {
                 });
 
             if (dropTarget?.actor && data.type === "Item") {
-                dropTarget.actor.sheet.onDropItem(data as DropCanvasItemDataPF2e);
+                dropTarget.actor.sheet.emulateItemDrop(data as DropCanvasItemDataPF2e);
                 return false; // Prevent modules from doing anything further
             }
             return true;

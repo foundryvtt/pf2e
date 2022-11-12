@@ -161,7 +161,7 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
                         if (spell) {
                             active[Number(key)] = {
                                 spell,
-                                chatData: await spell.getChatData(),
+                                chatData: await spell.getChatData({}, { slotLevel: level }),
                                 expended: !!value.expended,
                             };
                         }
@@ -254,7 +254,7 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
                     if (existing) {
                         existing.signature = true;
                     } else {
-                        const chatData = await spell.getChatData({}, { castLevel: result.level });
+                        const chatData = await spell.getChatData({}, { slotLevel: result.level });
                         result.active.push({ spell, chatData, signature: true, virtual: true });
                     }
                 }

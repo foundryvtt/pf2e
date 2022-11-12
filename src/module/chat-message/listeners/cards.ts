@@ -33,7 +33,8 @@ export const ChatCards = {
             // Handle strikes
             const strikeAction = message._strike;
             if (strikeAction && action?.startsWith("strike-")) {
-                const altUsage = message.flags.pf2e.context?.altUsage;
+                const context = message.flags.pf2e.context;
+                const altUsage = context && context.type !== "damage-roll" ? context?.altUsage : null;
                 const options = actor.getRollOptions(["all", "attack-roll"]);
                 switch (sluggify(action ?? "")) {
                     case "strike-attack":
@@ -162,7 +163,7 @@ export const ChatCards = {
 
                     ChatMessagePF2e.create({
                         user: game.user.id,
-                        content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
+                        content: game.i18n.format("PF2E.Actions.Craft.Information.LoseMaterials", {
                             actorName: actor.name,
                             cost: coinsToRemove.toString(),
                             quantity: quantity,

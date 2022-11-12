@@ -69,20 +69,6 @@
                         "gp": 1
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -369,7 +355,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The glass buccaneer is affected by the <em>@Compendium[pf2e.spells-srd.Shatter]{Shatter}</em> spell as though it were an unattended object.</p>"
+                    "value": "<p>The glass buccaneer is affected by the <em>@UUID[Compendium.pf2e.spells-srd.Shatter]{Shatter}</em> spell as though it were an unattended object.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -406,7 +392,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the buccaneer makes a critical hit with a firearm, the target must succeed at a @Check[type:fortitude|dc:28] save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
+                    "value": "<p>When the buccaneer makes a critical hit with a firearm, the target must succeed at a @Check[type:fortitude|dc:28] save or be @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -453,7 +439,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The clockwork buccaneer @Compendium[pf2e.actionspf2e.Feint]{Feints}. If the target becomes @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the buccaneer's melee attacks, it becomes flat-footed to the buccaneer's ranged attacks as well.</p>"
+                    "value": "<p>The clockwork buccaneer @UUID[Compendium.pf2e.actionspf2e.Feint]{Feints}. If the target becomes @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the buccaneer's melee attacks, it becomes flat-footed to the buccaneer's ranged attacks as well.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -549,13 +535,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -563,6 +549,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

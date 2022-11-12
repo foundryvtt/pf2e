@@ -69,20 +69,6 @@
                         "gp": 10500
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": "shock"
                 },
@@ -177,7 +163,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Upon drinking this effervescent concoction, you gain a fly Speed of 40 feet for 1 hour.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Potion of Flying (Greater)]{Effect: Potion of Flying (Greater)}</p>"
+                    "value": "<p>Upon drinking this effervescent concoction, you gain a fly Speed of 40 feet for 1 hour.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Potion of Flying (Greater)]{Effect: Potion of Flying (Greater)}</p>"
                 },
                 "duration": {
                     "units": "",
@@ -608,7 +594,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Hakusa rapidly strikes at pressure points to debilitate a foe. She makes a fingers Strike. On a hit, the target takes damage as normal and must attempt a @Check[type:fortitude|dc:43] save. Regardless of the result of the save, the target is then temporarily immune to Pressure Point Attack for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's muscles become temporarily weaker. For 1 round, the target is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and any time it attempts to take an action with the manipulate trait, the action is disrupted unless it succeeds at a flat check with a DC equal to 5 + its enfeebled value.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As success, but the duration is 1 minute, the flat check is DC 11, and the target takes a -10-foot status penalty to all Speeds for the duration.</p>"
+                    "value": "<p>Hakusa rapidly strikes at pressure points to debilitate a foe. She makes a fingers Strike. On a hit, the target takes damage as normal and must attempt a @Check[type:fortitude|dc:43] save. Regardless of the result of the save, the target is then temporarily immune to Pressure Point Attack for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's muscles become temporarily weaker. For 1 round, the target is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and any time it attempts to take an action with the manipulate trait, the action is disrupted unless it succeeds at a flat check with a DC equal to 5 + its enfeebled value.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As success, but the duration is 1 minute, the flat check is DC 11, and the target takes a -10-foot status penalty to all Speeds for the duration.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -668,13 +654,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -682,6 +668,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

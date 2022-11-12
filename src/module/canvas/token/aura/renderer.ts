@@ -63,19 +63,25 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         return getAreaSquares(this);
     }
 
-    /** Whether this aura should be rendered to the user */
+    /**
+     * Whether this aura should be rendered to the user:
+     * The scene must be active, have an active combat, or a GM must be the only user logged in.
+     */
     get shouldRender(): boolean {
-        const sceneOfFocus = game.combats.active?.combatant?.token?.scene ?? game.scenes.active ?? null;
-        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE || !(canvas.scene && canvas.scene === sceneOfFocus)) {
+        if (canvas.scene?.grid.type !== CONST.GRID_TYPES.SQUARE || !canvas.scene.tokenVision) {
             return false;
         }
 
+        const soleUserIsGM = game.user.isGM && game.users.filter((u) => u.active).length === 1;
+        const sceneOfFocus = game.combats.active?.combatant?.token?.scene ?? game.scenes.active ?? null;
+        const sceneIsInFocus = canvas.scene === sceneOfFocus;
+
         return (
-            this.token.actor?.alliance === "party" ||
-            !this.token.scene?.tokenVision ||
-            this.traits.has("visual") ||
-            this.traits.has("auditory") ||
-            game.user.isGM
+            (sceneIsInFocus || soleUserIsGM) &&
+            (this.token.actor?.alliance === "party" ||
+                this.traits.has("visual") ||
+                this.traits.has("auditory") ||
+                game.user.isGM)
         );
     }
 
@@ -96,10 +102,13 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     highlight(): void {
         const { dimensions, grid } = canvas;
         if (!dimensions) return;
-        if (!game.combats.active?.started) return this.#drawLabel();
+
+        // For now, only highlight if there is an active combat
+        const { shouldRender } = this;
+        if (!game.combats.active?.started && shouldRender) return this.#drawLabel();
 
         const highlightLayer = grid.getHighlightLayer(this.highlightId)?.clear();
-        if (!(highlightLayer && this.shouldRender)) return;
+        if (!(highlightLayer && shouldRender)) return;
 
         for (const square of this.squares) {
             square.highlight(highlightLayer, this.colors);

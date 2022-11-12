@@ -239,13 +239,13 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         const visionMode = this.hasDarkvision ? "darkvision" : "basic";
         this.sight.visionMode = visionMode;
         const { defaults } = CONFIG.Canvas.visionModes[visionMode].vision;
-        this.sight.brightness = defaults.brightness;
-        this.sight.saturation = defaults.saturation;
+        this.sight.brightness = defaults.brightness ?? 0;
+        this.sight.saturation = defaults.saturation ?? 0;
 
         if (visionMode === "darkvision" || this.scene.lightLevel > LightLevels.DARKNESS) {
             const basicDetection = this.detectionModes.at(0);
             if (!basicDetection) return;
-            this.sight.range = basicDetection.range = defaults.range;
+            this.sight.range = basicDetection.range = defaults.range ?? null;
 
             // Temporary hard-coded fetchling check for initial release
             if (this.actor.isOfType("character") && this.actor.ancestry?.slug === "fetchling") {
@@ -366,9 +366,14 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         userId: string
     ): void {
         // Possibly re-render encounter tracker if token's `displayName` property has changed
-        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame.tokenSetsNameVisibility");
+        const tokenSetsNameVisibility = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
         if ("displayName" in changed && tokenSetsNameVisibility && this.combatant) {
             ui.combat.render();
+        }
+
+        // Workaround for actor-data preparation issue: release token if this is made unlinked while controlled
+        if (changed.actorLink === false && this.rendered && this.object.controlled) {
+            this.object.release();
         }
 
         // Handle ephemeral changes from synthetic actor
@@ -389,6 +394,19 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
 
         return super._onUpdate(changed, options, userId);
+    }
+
+    /** Reinitialize vision if the actor's senses were updated directly */
+    override _onUpdateBaseActor(update?: Record<string, unknown>, options?: DocumentModificationContext<Actor>): void {
+        super._onUpdateBaseActor(update, options);
+        if (!this.isLinked) return;
+
+        if (Object.keys(flattenObject(update ?? {})).some((k) => k.startsWith("system.traits.senses"))) {
+            this.reset();
+            if (canvas.effects.visionSources.some((s) => s.object === this.object)) {
+                canvas.perception.update({ initializeVision: true }, true);
+            }
+        }
     }
 
     /** Check area effects, removing any from this token's actor if the actor has no other tokens in the scene */
@@ -429,8 +447,9 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             }
 
             // Update combat tracker with changed effects
-            if (this.combatant?.parent.active) ui.combat.render;
+            if (this.combatant?.parent.active) ui.combat.render();
         });
+        this.object.drawBars();
     }
 }
 

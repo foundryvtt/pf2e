@@ -1,7 +1,5 @@
 import { ChatMessagePF2e } from "@module/chat-message";
-import { CriticalHitAndFumbleCards } from "@module/chat-message/crit-fumble-cards";
 import { ChatCards } from "@module/chat-message/listeners/cards";
-import { DamageButtons } from "@module/chat-message/listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "@module/chat-message/listeners/degree-of-success";
 import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
@@ -18,15 +16,6 @@ export const RenderChatMessage = {
             if (targetDC?.innerHTML.trim() === "") targetDC.remove();
             const dcResult = html.querySelector<HTMLElement>(".dc-result");
             if (dcResult?.innerHTML.trim() === "") dcResult.remove();
-
-            if (!message.flags.pf2e.suppressDamageButtons && message.isDamageRoll && message.isContentVisible) {
-                await DamageButtons.append(message, $html);
-
-                // Clean up styling of old damage messages
-                $html.find(".flavor-text > div:has(.tags)").removeAttr("style").attr({ "data-pf2e-deprecated": true });
-            }
-
-            CriticalHitAndFumbleCards.appendButtons(message, $html);
 
             ChatCards.listen($html);
             InlineRollLinks.listen($html[0], message);

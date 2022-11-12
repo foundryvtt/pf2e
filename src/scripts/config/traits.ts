@@ -1,8 +1,8 @@
 import { AlignmentTrait } from "@actor/creature/types";
 import { OtherArmorTag } from "@item/armor/types";
 import { ClassTrait } from "@item/class/data";
+import { OtherConsumableTag } from "@item/consumable/types";
 import { RANGE_TRAITS } from "@item/data/values";
-import { OtherEquipmentTag } from "@item/equipment/types";
 import { PreciousMaterialType } from "@item/physical/types";
 import { MagicSchool, MagicTradition } from "@item/spell/types";
 import { OtherWeaponTag } from "@item/weapon/types";
@@ -506,16 +506,17 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
 };
 
 const otherArmorTags: Record<OtherArmorTag, string> = {
-    innovation: "PF2E.Item.Physical.OtherTag.Innovation",
+    shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
 
-const otherEquipmentTags: Record<OtherEquipmentTag, string> = {
-    implement: "PF2E.Item.Physical.OtherTag.Implement",
+const otherConsumableTags: Record<OtherConsumableTag, string> = {
+    herbal: "PF2E.Item.Physical.OtherTag.Herbal",
 };
 
 const otherWeaponTags: Record<OtherWeaponTag, string> = {
     crossbow: "PF2E.Weapon.Base.crossbow",
-    improvised: "PF2E.Item.Weapon.Improvised",
+    improvised: "PF2E.Item.Physical.OtherTag.Improvised",
+    shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
@@ -805,7 +806,7 @@ export {
     magicTraditions,
     npcAttackTraits,
     otherArmorTags,
-    otherEquipmentTags,
+    otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
     spellOtherTraits,

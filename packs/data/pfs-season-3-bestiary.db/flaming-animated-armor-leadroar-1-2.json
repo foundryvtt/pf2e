@@ -69,20 +69,6 @@
                         "gp": 8
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -308,22 +294,20 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "construct-armor"
-                        ],
-                        "selector": "ac",
-                        "slug": "construct-armor-critical",
-                        "value": -4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
                             {
-                                "not": "construct-armor"
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "selector": "ac",
-                        "slug": "construct-armor-health",
-                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
+                        "value": -4
                     }
                 ],
                 "slug": null,

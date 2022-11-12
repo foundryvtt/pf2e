@@ -637,20 +637,6 @@
                         "sp": 9
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -741,7 +727,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Lethargy poison is commonly used in hit-and-run tactics by drow and others who want their victims alive; the ambusher retreats until the poison sets in and the victim falls unconscious. Further exposure to lethargy poison does not require the target to attempt additional saving throws; only failing an saving throw against an ongoing exposure can progress its stage.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> DC 18 Fortitude</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> slowed 1 (1 minute)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} with no Perception check to wake up (1 round)</p>\n<p><strong>Stage 4</strong> unconscious with no Perception check to wake up ([[/br 1d4 #hours]]{1d4 hours}).</p>"
+                    "value": "<p>Lethargy poison is commonly used in hit-and-run tactics by drow and others who want their victims alive; the ambusher retreats until the poison sets in and the victim falls unconscious. Further exposure to lethargy poison does not require the target to attempt additional saving throws; only failing an saving throw against an ongoing exposure can progress its stage.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> DC 18 Fortitude</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 2</strong> slowed 1 (1 minute)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} with no Perception check to wake up (1 round)</p>\n<p><strong>Stage 4</strong> unconscious with no Perception check to wake up ([[/br 1d4 #hours]]{1d4 hours}).</p>"
                 },
                 "duration": {
                     "units": "",
@@ -986,7 +972,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The quickling takes a -2 status penalty to saving throws against effects that cause the @Compendium[pf2e.conditionitems.Slowed]{Slowed} condition. If the quickling ever becomes slowed, they lose their supernatural speed, can't Fade from View, and become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} for the duration of the slow. They also can't reduce this sickened condition for the duration of the slowed effect.</p>"
+                    "value": "<p>The quickling takes a -2 status penalty to saving throws against effects that cause the @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed} condition. If the quickling ever becomes slowed, they lose their supernatural speed, can't Fade from View, and become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} for the duration of the slow. They also can't reduce this sickened condition for the duration of the slowed effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1026,7 +1012,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The quickling used no attack, manipulate, or move actions in the previous round</p>\n<hr />\n<p><strong>Effect</strong> The quickling becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible} until it uses an attack, manipulate, or move action.</p>\n<p>The quickling can't use Fade from View again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Requirements</strong> The quickling used no attack, manipulate, or move actions in the previous round</p>\n<hr />\n<p><strong>Effect</strong> The quickling becomes @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} until it uses an attack, manipulate, or move action.</p>\n<p>The quickling can't use Fade from View again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1086,13 +1072,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -1100,6 +1086,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

@@ -67,20 +67,6 @@
                 "price": {
                     "value": {}
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": "",
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": "",
-                    "damageType": "",
-                    "dice": "",
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -194,20 +180,6 @@
                 },
                 "price": {
                     "value": {}
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -723,7 +695,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Cog's brutality shakes foes' confidence. When Cog deals damage on a critical hit, the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}, and Cog can knock the target up to 10 feet away (this is forced movement).</p>"
+                    "value": "<p>Cog's brutality shakes foes' confidence. When Cog deals damage on a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}, and Cog can knock the target up to 10 feet away (this is forced movement).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -735,7 +707,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "strike-damage",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> The ruffian's brutality shakes foes' confidence.</p>\n<p class='compact-text'>When the ruffian deals damage on a critical hit, the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}, and the ruffian can knock the target up to 10 feet away (this is forced movement).</p>"
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> The ruffian's brutality shakes foes' confidence.</p>\n<p class='compact-text'>When the ruffian deals damage on a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}, and the ruffian can knock the target up to 10 feet away (this is forced movement).</p>"
                     }
                 ],
                 "slug": null,
@@ -809,7 +781,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Cog has one hand free, and its target is within reach of that hand.</p>\n<hr />\n<p><strong>Effect</strong> Cog makes a melee Strike while keeping one hand free. If this Strike hits, the target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of Cog's next turn or until it leaves Cog's reach, whichever comes first.</p>"
+                    "value": "<p><strong>Trigger</strong> Cog has one hand free, and its target is within reach of that hand.</p>\n<hr />\n<p><strong>Effect</strong> Cog makes a melee Strike while keeping one hand free. If this Strike hits, the target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of Cog's next turn or until it leaves Cog's reach, whichever comes first.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -854,7 +826,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Cog deals an extra 1d6 precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>Cog deals an extra 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -869,6 +841,13 @@
                             "target:condition:flat-footed"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

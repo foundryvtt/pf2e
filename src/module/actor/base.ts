@@ -239,6 +239,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         const effectTokenEffects = this.itemTypes.effect
             .filter((effect) => effect.system.tokenIcon?.show)
+            .filter((effect) => !effect.unidentified || game.user.isGM)
             .map((effect) => new TokenEffect(effect.img));
 
         return super.temporaryEffects
@@ -496,12 +497,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const traits: BaseTraitsData<string> | undefined = this.system.traits;
         if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
 
-        // Setup the basic structure of pf2e flags with roll options, preserving options in the "all" domain
-        const { flags } = this;
-        const rollOptionsAll = flags.pf2e?.rollOptions?.all ?? {};
-        rollOptionsAll[`self:type:${this.type}`] = true;
-        flags.pf2e = mergeObject({}, flags.pf2e ?? {});
-        flags.pf2e.rollOptions = { all: rollOptionsAll };
+        // Setup the basic structure of pf2e flags with roll options
+        this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, {
+            rollOptions: {
+                all: { [`self:type:${this.type}`]: true },
+            },
+        });
 
         this.setEncounterRollOptions();
     }
@@ -792,7 +793,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             content: `<p>${statements}</p>`,
             type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
             whisper:
-                game.settings.get("pf2e", "metagame.secretDamage") && !token.actor?.hasPlayerOwner
+                game.settings.get("pf2e", "metagame_secretDamage") && !token.actor?.hasPlayerOwner
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
                     : [],
         });
@@ -1197,7 +1198,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     ): void {
         super._onUpdate(changed, options, userId);
         const hideFromUser =
-            !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.secretDamage");
+            !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame_secretDamage");
         if (options.damageTaken && !hideFromUser) {
             const tokens = super.getActiveTokens();
             for (const token of tokens) {

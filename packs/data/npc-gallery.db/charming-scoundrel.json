@@ -69,20 +69,6 @@
                         "gp": 3
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -196,20 +182,6 @@
                     "value": {
                         "sp": 1
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": "",
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": "",
-                    "damageType": "",
-                    "dice": "",
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": "",
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -671,7 +643,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The charming scoundrel isn't @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to flanking, @Compendium[pf2e.conditionitems.Hidden]{Hidden}, or @Compendium[pf2e.conditionitems.Undetected]{Undetected} creatures of 4th-level or lower, or creatures of 4th-level or lower using surprise attack.</p>"
+                    "value": "<p>The charming scoundrel isn't @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to flanking, @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, or @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected} creatures of 4th-level or lower, or creatures of 4th-level or lower using surprise attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -718,7 +690,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The charming scoundrel Strides twice. If they end their movement within melee reach of an enemy, they can @Compendium[pf2e.actionspf2e.Feint]{Feint}.</p>"
+                    "value": "<p>The charming scoundrel Strides twice. If they end their movement within melee reach of an enemy, they can @UUID[Compendium.pf2e.actionspf2e.Feint]{Feint}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -763,7 +735,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>2d6</p>\n<hr />\n<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>2d6</p>\n<hr />\n<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -778,13 +750,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -792,6 +764,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

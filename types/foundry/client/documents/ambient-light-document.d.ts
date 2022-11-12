@@ -7,8 +7,6 @@ declare global {
     }
 
     interface AmbientLightDocument {
-        readonly data: foundry.data.AmbientLightData<AmbientLightDocument>;
-
         readonly parent: Scene | null;
     }
 }
