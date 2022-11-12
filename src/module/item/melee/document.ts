@@ -1,3 +1,4 @@
+import { SIZE_TO_REACH } from "@actor/creature/values";
 import { ItemPF2e } from "@item/base";
 import { ItemSummaryData } from "@item/data";
 import { WeaponDamage } from "@item/weapon/data";
@@ -31,6 +32,12 @@ class MeleePF2e extends ItemPF2e {
 
     get attackModifier(): number {
         return Number(this.system.bonus.value) || 0;
+    }
+
+    get reach(): number | null {
+        if (this.isRanged) return null;
+        const reachTrait = this.system.traits.value.find((t) => /^reach-\d+$/.test(t));
+        return reachTrait ? Number(reachTrait.replace("reach-", "")) : SIZE_TO_REACH[this.actor?.size ?? "med"];
     }
 
     /** The range increment of this attack, or null if a melee attack */

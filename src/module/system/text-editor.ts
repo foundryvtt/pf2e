@@ -75,7 +75,7 @@ class TextEditorPF2e extends TextEditor {
     static convertXMLNode(
         html: HTMLElement,
         name: string,
-        { visibility = null, whose = "self", classes = [] }: ConvertXMLNodeOptions
+        { visible = undefined, visibility = null, whose = "self", classes = [] }: ConvertXMLNodeOptions
     ): HTMLElement | null {
         const node = html.querySelector(name);
         if (!node) return null;
@@ -83,6 +83,7 @@ class TextEditorPF2e extends TextEditor {
         const span = document.createElement("span");
         const { dataset, classList } = span;
 
+        if (visible !== undefined) visibility = visible ? "all" : "gm";
         if (visibility) dataset.visibility = visibility;
         if (whose) dataset.whose = whose;
         for (const cssClass of classes) {
@@ -412,6 +413,9 @@ interface EnrichHTMLOptionsPF2e extends EnrichHTMLOptions {
 interface ConvertXMLNodeOptions {
     /** The value of the data-visibility attribute to add to the span element */
     visibility?: UserVisibility | null;
+
+    /** Whether or not it should be visible or not, which maps to visibility (for this release) */
+    visible?: boolean;
     /**
      * Whether this piece of data belongs to the "self" actor or the target: used by UserVisibilityPF2e to
      * determine which actor's ownership to check

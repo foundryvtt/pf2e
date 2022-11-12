@@ -650,7 +650,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
             }),
             value: recoveryDC + dying.value,
-            visibility: "all",
+            visible: true,
         };
 
         const notes = [
@@ -818,12 +818,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const selfToken =
             canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null;
-        const [reach, isMelee] = !params.item.isOfType("spell")
-            ? [this.getReach({ action: "attack", weapon: params.item }), params.item.isMelee]
-            : [undefined, false];
+        const reach = params.item.isOfType("melee")
+            ? params.item.reach
+            : params.item.isOfType("weapon")
+            ? this.getReach({ action: "attack", weapon: params.item })
+            : null;
 
         const selfOptions = this.getRollOptions(params.domains ?? []);
-        if (targetToken && isMelee && selfToken?.isFlanking(targetToken, { reach })) {
+        if (targetToken && typeof reach === "number" && selfToken?.isFlanking(targetToken, { reach })) {
             selfOptions.push("self:flanking");
         }
 
@@ -872,7 +874,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             ...params.options,
             ...selfOptions,
             ...targetOptions,
-            ...selfItem.getRollOptions("weapon"),
+            ...selfItem.getRollOptions("item"),
             // Backward compatibility for predication looking for an "attack" trait by its lonesome
             "attack",
         ]);

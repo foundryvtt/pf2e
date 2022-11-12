@@ -108,7 +108,7 @@ import {
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CHARACTER_SHEET_TABS } from "./values";
 import { CharacterFeats } from "./feats";
-import { createForceOpenPenalty, StrikeWeaponTraits } from "./helpers";
+import { createForceOpenPenalty, createShoddyPenalty, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 
 class CharacterPF2e extends CreaturePF2e {
@@ -679,12 +679,15 @@ class CharacterPF2e extends CreaturePF2e {
                 modifiers.unshift(
                     new ModifierPF2e({
                         label: wornArmor.name,
-                        type: MODIFIER_TYPE.ITEM,
+                        type: "item",
                         slug,
                         modifier: wornArmor.acBonus,
                         adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
                     })
                 );
+
+                const shoddyPenalty = createShoddyPenalty(this, wornArmor, ["all", "ac"]);
+                if (shoddyPenalty) modifiers.push(shoddyPenalty);
             }
 
             // Proficiency bonus
@@ -1446,7 +1449,7 @@ class CharacterPF2e extends CreaturePF2e {
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustWeapon?.(weapon);
         }
-        const weaponRollOptions = weapon.getRollOptions();
+        const weaponRollOptions = weapon.getRollOptions("item");
         const weaponTraits = weapon.traits;
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
@@ -1462,7 +1465,7 @@ class CharacterPF2e extends CreaturePF2e {
         // If a weapon matches against a linked proficiency, temporarily add the `sameAs` category to the weapon's
         // item roll options
         const equivalentCategories = Object.values(systemData.martial).flatMap((p) =>
-            "sameAs" in p && p.definition.test(weaponRollOptions) ? `weapon:category:${p.sameAs}` : []
+            "sameAs" in p && p.definition.test(weaponRollOptions) ? `item:category:${p.sameAs}` : []
         );
         const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
 
@@ -1472,7 +1475,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
-        weaponRollOptions.push(`weapon:proficiency:rank:${proficiencyRank}`);
+        weaponRollOptions.push(`item:proficiency:rank:${proficiencyRank}`);
 
         const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
@@ -1581,6 +1584,9 @@ class CharacterPF2e extends CreaturePF2e {
             modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, weaponPotency.type));
             weaponTraits.add("magical");
         }
+
+        const shoddyPenalty = createShoddyPenalty(this, weapon, selectors);
+        if (shoddyPenalty) modifiers.push(shoddyPenalty);
 
         // Everything from relevant synthetics
         modifiers.push(

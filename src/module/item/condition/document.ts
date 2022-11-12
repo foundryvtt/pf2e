@@ -129,7 +129,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     ): void {
         super._onCreate(data, options, userId);
 
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
             return;
         }
 
@@ -150,7 +150,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     ): void {
         super._onUpdate(changed, options, userId);
 
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
             return;
         }
 
@@ -166,7 +166,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
         super._onDelete(options, userId);
 
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
             return;
         }
 

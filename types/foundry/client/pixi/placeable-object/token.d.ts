@@ -251,7 +251,7 @@ declare global {
          * Refresh the display of Token attribute bars, rendering latest resource data
          * If the bar attribute is valid (has a value and max), draw the bar. Otherwise hide it.
          */
-        protected drawBars(): void;
+        drawBars(): void;
 
         /**
          * Draw a single resource bar, given provided data

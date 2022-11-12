@@ -647,7 +647,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return super._onSortItem(event, itemSource);
     }
 
-    async onDropItem(data: DropCanvasItemDataPF2e) {
+    /** Emulate a sheet item drop from the canvas */
+    async emulateItemDrop(data: DropCanvasItemDataPF2e) {
         return await this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
     }
 
@@ -753,6 +754,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const level = data.level;
             if (typeof level === "number" && level >= 0) {
                 itemSource.system.level.value = level;
+            }
+        } else if (itemSource.type === "effect" && data && itemSource.system.badge) {
+            const value = data.value;
+            if (typeof value === "number" && itemSource.system.badge.type === "counter") {
+                itemSource.system.badge.value = value;
             }
         } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
             const actorFormulas = deepClone(actor.system.crafting.formulas);

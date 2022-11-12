@@ -196,7 +196,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
     protected override _isVisionSource(): boolean {
         const partyVisionEnabled =
-            !!this.actor?.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.partyVision");
+            !!this.actor?.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame_partyVision");
         return partyVisionEnabled || super._isVisionSource();
     }
 

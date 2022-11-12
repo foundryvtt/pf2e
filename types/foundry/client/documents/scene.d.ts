@@ -6,12 +6,7 @@ declare global {
      * Each Scene document contains SceneData which defines its data schema.
      * @param [data={}]        Initial data provided to construct the Scene document
      */
-    class Scene<
-        TAmbientLightDocument extends AmbientLightDocument = AmbientLightDocument,
-        TMeasuredTemplateDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument,
-        TTileDocument extends TileDocument = TileDocument,
-        TTokenDocument extends TokenDocument = TokenDocument
-    > extends SceneConstructor {
+    class Scene extends SceneConstructor {
         constructor(data: PreCreate<foundry.data.SceneSource>, context?: DocumentConstructionContext<Scene>);
 
         /** Track whether the scene is the active view */
@@ -112,7 +107,7 @@ declare global {
 
         protected override _onCreateEmbeddedDocuments(
             embeddedName: "Token",
-            documents: TTokenDocument[],
+            documents: TokenDocument[],
             result: foundry.data.TokenSource[],
             options: SceneEmbeddedModificationContext,
             userId: string
@@ -134,15 +129,15 @@ declare global {
 
         protected override _onUpdateEmbeddedDocuments(
             embeddedName: "Token",
-            documents: TTokenDocument[],
-            result: TTokenDocument["_source"][],
+            documents: TokenDocument[],
+            result: TokenDocument["_source"][],
             options: SceneEmbeddedModificationContext,
             userId: string
         ): void;
 
         protected override _preDeleteEmbeddedDocuments(
             embeddedName: "Token",
-            result: TTokenDocument["_source"][],
+            result: TokenDocument["_source"][],
             options: SceneEmbeddedModificationContext,
             userId: string
         ): void;
@@ -183,23 +178,27 @@ declare global {
         }): Promise<Record<string, unknown>>;
     }
 
-    interface Scene<
-        TAmbientLightDocument extends AmbientLightDocument = AmbientLightDocument,
-        TMeasuredTemplateDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument,
-        TTileDocument extends TileDocument = TileDocument,
-        TTokenDocument extends TokenDocument = TokenDocument
-    > {
+    interface Scene {
         readonly data: foundry.data.SceneData<
             this,
-            TTokenDocument,
-            TAmbientLightDocument,
+            TokenDocument,
+            AmbientLightDocument,
             AmbientSoundDocument,
             DrawingDocument,
-            TMeasuredTemplateDocument,
+            MeasuredTemplateDocument,
             NoteDocument,
-            TTileDocument,
+            TileDocument,
             WallDocument
         >;
+
+        readonly drawings: foundry.abstract.EmbeddedCollection<DrawingDocument>;
+        readonly lights: foundry.abstract.EmbeddedCollection<AmbientLightDocument>;
+        readonly notes: foundry.abstract.EmbeddedCollection<NoteDocument>;
+        readonly sounds: foundry.abstract.EmbeddedCollection<AmbientSoundDocument>;
+        readonly templates: foundry.abstract.EmbeddedCollection<MeasuredTemplateDocument>;
+        readonly tokens: foundry.abstract.EmbeddedCollection<TokenDocument>;
+        readonly tiles: foundry.abstract.EmbeddedCollection<TileDocument>;
+        readonly walls: foundry.abstract.EmbeddedCollection<WallDocument>;
 
         _sheet: SceneConfig<this> | null;
 
@@ -211,12 +210,12 @@ declare global {
 
         updateEmbeddedDocuments(
             embeddedName: "Token",
-            updateData: EmbeddedDocumentUpdateData<TTokenDocument>[],
+            updateData: EmbeddedDocumentUpdateData<TokenDocument>[],
             options?: SceneEmbeddedModificationContext
         ): Promise<CollectionValue<this["data"]["tokens"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "AmbientLight",
-            updateData: EmbeddedDocumentUpdateData<TAmbientLightDocument>[],
+            updateData: EmbeddedDocumentUpdateData<AmbientLightDocument>[],
             options?: SceneEmbeddedModificationContext
         ): Promise<CollectionValue<this["data"]["lights"]>[]>;
         updateEmbeddedDocuments(
@@ -231,7 +230,7 @@ declare global {
         ): Promise<CollectionValue<this["data"]["drawings"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "MeasuredTemplate",
-            updateData: EmbeddedDocumentUpdateData<TMeasuredTemplateDocument>[],
+            updateData: EmbeddedDocumentUpdateData<MeasuredTemplateDocument>[],
             options?: SceneEmbeddedModificationContext
         ): Promise<CollectionValue<this["data"]["tokens"]>[]>;
         updateEmbeddedDocuments(
@@ -241,7 +240,7 @@ declare global {
         ): Promise<CollectionValue<this["data"]["notes"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Tile",
-            updateData: EmbeddedDocumentUpdateData<TTileDocument>[],
+            updateData: EmbeddedDocumentUpdateData<TileDocument>[],
             options?: SceneEmbeddedModificationContext
         ): Promise<CollectionValue<this["data"]["tiles"]>[]>;
         updateEmbeddedDocuments(
@@ -260,13 +259,13 @@ declare global {
                 | "Tile"
                 | "Wall",
             updateData:
-                | EmbeddedDocumentUpdateData<TTokenDocument>[]
-                | EmbeddedDocumentUpdateData<TAmbientLightDocument>[]
+                | EmbeddedDocumentUpdateData<TokenDocument>[]
+                | EmbeddedDocumentUpdateData<AmbientLightDocument>[]
                 | EmbeddedDocumentUpdateData<AmbientSoundDocument>[]
                 | EmbeddedDocumentUpdateData<DrawingDocument>[]
-                | EmbeddedDocumentUpdateData<TMeasuredTemplateDocument>[]
+                | EmbeddedDocumentUpdateData<MeasuredTemplateDocument>[]
                 | EmbeddedDocumentUpdateData<NoteDocument>[]
-                | EmbeddedDocumentUpdateData<TTileDocument>[]
+                | EmbeddedDocumentUpdateData<TileDocument>[]
                 | EmbeddedDocumentUpdateData<WallDocument>[],
             options?: SceneEmbeddedModificationContext
         ): Promise<
