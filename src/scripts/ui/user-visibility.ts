@@ -7,6 +7,14 @@ class UserVisibilityPF2e {
         const html = $html instanceof HTMLElement ? $html : $html[0]!;
         if ($html instanceof HTMLElement) $html = $($html);
 
+        if (!game.user.isGM) {
+            const unidentifiedElements = htmlQueryAll(html, "[data-unidentified]");
+            for (const element of unidentifiedElements) {
+                element.innerHTML = element.dataset.unidentified as string;
+                delete element.dataset.unidentified;
+            }
+        }
+
         const visibilityElements = htmlQueryAll(html, "[data-visibility]");
 
         // Remove all visibility=none elements

@@ -401,12 +401,14 @@ class CheckPF2e {
             label: string;
             name?: string;
             description?: string;
+            unidentified?: string;
         }
 
         const toTagElement = (tag: TagObject, cssClass: string | null = null): HTMLElement => {
             const span = document.createElement("span");
             span.classList.add("tag");
             if (cssClass) span.classList.add(`tag_${cssClass}`);
+            if (tag.unidentified) span.dataset.unidentified = tag.unidentified;
 
             span.innerText = tag.label;
 
@@ -467,8 +469,10 @@ class CheckPF2e {
             .filter((m) => m.enabled)
             .map((modifier) => {
                 const sign = modifier.modifier < 0 ? "" : "+";
-                const label = `${modifier.label} ${sign}${modifier.modifier}`;
-                return toTagElement({ name: modifier.slug, label }, "transparent");
+                const signedValue = `${sign}${modifier.modifier}`;
+                const label = `${modifier.originalLabel} ${signedValue}`;
+                const unidentified = modifier.unidentified ? `${ModifierPF2e.UNIDENTIFIED} ${signedValue}` : undefined;
+                return toTagElement({ name: modifier.slug, label, unidentified }, "transparent");
             });
         const tagsFromOptions = extraTags.map((t) => toTagElement({ label: game.i18n.localize(t) }, "transparent"));
         const modifiersAndExtras = document.createElement("div");
