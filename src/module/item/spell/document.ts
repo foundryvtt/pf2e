@@ -19,7 +19,7 @@ import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { combineTerms, DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { DamageCategorization, DamageType } from "@system/damage";
-import { CheckPF2e } from "@system/rolls";
+import { CheckPF2e } from "@system/check";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionIcon, objectHasKey, ordinal, traitSlugToObject } from "@util";

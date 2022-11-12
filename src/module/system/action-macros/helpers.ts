@@ -12,11 +12,11 @@ import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
 import { extractModifierAdjustments, extractRollSubstitutions } from "@module/rules/util";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
-import { CheckPF2e, CheckType } from "@system/rolls";
 import { setHasElement, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { SimpleRollActionCheckOptions } from "./types";
 import { getRangeIncrement } from "@actor/helpers";
+import { CheckPF2e, CheckType } from "@system/check";
 
 export class ActionMacroHelpers {
     static resolveStat(stat: string): {

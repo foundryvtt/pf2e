@@ -1,8 +1,9 @@
 import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifiers";
 import { RollSubstitution } from "@module/rules/synthetics";
 import { ErrorPF2e, setHasElement, tupleHasValue } from "@util";
+import { CheckRollContext } from "./check/types";
 import { LocalizePF2e } from "./localize";
-import { CheckRollContext, RollTwiceOption } from "./rolls";
+import { RollTwiceOption } from "./rolls";
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.

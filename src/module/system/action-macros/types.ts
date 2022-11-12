@@ -3,9 +3,8 @@ import { ModifierPF2e } from "@actor/modifiers";
 import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
 import { TokenDocumentPF2e } from "@scene";
-import { CheckRoll } from "@system/check";
+import { CheckRoll, CheckType } from "@system/check";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
-import { CheckType } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 
 type ActionGlyph = "A" | "D" | "T" | "R" | "F" | "a" | "d" | "t" | "r" | "f" | 1 | 2 | 3 | "1" | "2" | "3";

@@ -26,7 +26,7 @@ import { remigrate } from "@scripts/system/remigrate";
 import { ActionMacros } from "@system/action-macros";
 import { ConditionManager } from "@system/conditions";
 import { EffectTracker } from "@system/effect-tracker";
-import { CheckPF2e } from "@system/rolls";
+import { CheckPF2e } from "@system/check";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { registerModuleArt } from "./register-module-art";

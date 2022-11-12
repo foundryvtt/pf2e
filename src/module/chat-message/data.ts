@@ -2,8 +2,10 @@ import { ItemType } from "@item/data";
 import { MagicTradition } from "@item/spell/types";
 import { RawModifier } from "@actor/modifiers";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
-import { CheckRollContextFlag, DamageRollContextFlag } from "@system/rolls";
 import { ChatMessagePF2e } from ".";
+import { RollNoteSource } from "@module/notes";
+import { CheckRollContext } from "@system/check";
+import { DamageRollContext } from "@system/damage";
 
 interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e = ChatMessagePF2e>
     extends foundry.data.ChatMessageData<TChatMessage> {
@@ -55,4 +57,39 @@ interface DieResult {
     result: number;
 }
 
-export { ChatMessageDataPF2e, ChatMessageSourcePF2e, ChatMessageFlagsPF2e, DamageRollFlag, StrikeLookupData };
+interface TargetFlag {
+    actor: ActorUUID | TokenDocumentUUID;
+    token?: TokenDocumentUUID;
+}
+
+type ContextFlagOmission = "actor" | "altUsage" | "createMessage" | "item" | "notes" | "options" | "target" | "token";
+
+interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
+    actor: string | null;
+    token: string | null;
+    item?: undefined;
+    target: TargetFlag | null;
+    altUsage?: "thrown" | "melee" | null;
+    notes: RollNoteSource[];
+    options: string[];
+}
+
+interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self">> {
+    actor: string | null;
+    token: string | null;
+    item?: undefined;
+    target: TargetFlag | null;
+    notes: RollNoteSource[];
+    options: string[];
+}
+
+export {
+    ChatMessageDataPF2e,
+    ChatMessageSourcePF2e,
+    ChatMessageFlagsPF2e,
+    CheckRollContextFlag,
+    DamageRollFlag,
+    DamageRollContextFlag,
+    StrikeLookupData,
+    TargetFlag,
+};
