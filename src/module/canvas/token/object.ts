@@ -224,10 +224,8 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
          * We do not display it if the effect is unidentified
          */
         if (!game.user.isGM && typeof params !== "number") {
-            const [change, document] = Object.entries(params)[0];
-            if ((change === "create" || change === "delete") && document instanceof EffectPF2e) {
-                if (document.system.unidentified) return;
-            }
+            const [_, document] = Object.entries(params)[0];
+            if (document instanceof EffectPF2e && document.system.unidentified) return;
         }
 
         const scrollingTextArgs = ((): Parameters<CanvasPF2e["interface"]["createScrollingText"]> | null => {
