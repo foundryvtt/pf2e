@@ -134,6 +134,55 @@
             "type": "action"
         },
         {
+            "_id": "Jt5uw27Ef9hVZ8D5",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.JcaIJLGGmst79f1Y"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Thoughtsense (Precise) 60 feet",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Thoughtsense]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "thoughtsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "divination",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "BKsoNNVMI5d9mEhL",
             "flags": {
                 "core": {
@@ -142,7 +191,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "All-Around Vision",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -193,8 +242,8 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity (Tail Only)",
-            "sort": 500000,
+            "name": "Attack of Opportunity",
+            "sort": 600000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -206,7 +255,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                    "value": "<p>Tail Only</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -234,7 +283,7 @@
             "_id": "oGImpwgKAU80AN98",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Faceless",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -271,50 +320,6 @@
             "type": "action"
         },
         {
-            "_id": "EAEiThdtasRoiVzJ",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Thoughtsense (Precise) 60 feet",
-            "sort": 700000,
-            "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A nightgaunt senses all non-mindless creatures at the listed range.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "divination",
-                        "mental",
-                        "occult"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "pGQDgZ3Sme2JsoNm",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Clutches",
@@ -330,7 +335,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A nightgaunt can Fly at full Speed while it has a Medium or smaller creature grabbed or restrained in its claws, carrying that creature along with it.</p>"
+                    "value": "<p>A nightgaunt can Fly at full Speed while it has a Medium or smaller creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} in its claws, carrying that creature along with it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -370,7 +375,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The nightgaunt can use its tail to tickle a foe with horrible efficiency. A creature hit by its tail Strike must attempt a @Check[type:fortitude|dc:21] save; if the creature is grabbed by the nightgaunt, it uses the outcome one degree of success worse than the result it rolled.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature is overcome with laughter and can't perform reactions for 1 round.</p>\n<p><strong>Failure</strong> As success, and the creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> As success, and the creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} and can't speak for 1 round.</p>"
+                    "value": "<p>The nightgaunt can use its tail to tickle a foe with horrible efficiency. A creature hit by its tail Strike must attempt a @Check[type:fortitude|dc:21] save; if the creature is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the nightgaunt, it uses the outcome one degree of success worse than the result it rolled.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature is overcome with laughter and can't perform reactions for 1 round.</p>\n<p><strong>Failure</strong> As success, and the creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> As success, and the creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} and can't speak for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -552,7 +557,7 @@
                 "value": 21
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -617,6 +622,7 @@
             },
             "dr": [
                 {
+                    "exceptions": "",
                     "type": "cold",
                     "value": 5
                 }
