@@ -28,23 +28,20 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
                 "predicate": [
-                    "action:seek",
-                    "hunted-prey"
+                    "hunted-prey",
+                    {
+                        "or": [
+                            "action:seek",
+                            "action:track"
+                        ]
+                    }
                 ],
-                "selector": "perception",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
-                "predicate": [
-                    "action:track",
-                    "hunted-prey"
+                "selector": [
+                    "perception",
+                    "survival"
                 ],
-                "selector": "survival",
                 "type": "circumstance",
                 "value": 2
             },
