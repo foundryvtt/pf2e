@@ -16,6 +16,7 @@ import { Migration793MakePredicatesArrays } from "@module/migration/migrations/7
 import { Migration795CleanupFlatFootedToggle } from "@module/migration/migrations/795-cleanup-flat-footed-toggle";
 import { Migration796ItemGrantsToObjects } from "@module/migration/migrations/796-item-grants-to-objects";
 import { Migration798WeaponToItemStatements } from "@module/migration/migrations/798-weapon-to-item-statements";
+import { Migration799RMRecallKnowledgeDuplicates } from "@module/migration/migrations/799-rm-recall-knowledge-duplicates";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -35,6 +36,7 @@ const migrations: MigrationBase[] = [
     new Migration795CleanupFlatFootedToggle(),
     new Migration796ItemGrantsToObjects(),
     new Migration798WeaponToItemStatements(),
+    new Migration799RMRecallKnowledgeDuplicates(),
 ];
 
 global.deepClone = <T>(original: T): T => {

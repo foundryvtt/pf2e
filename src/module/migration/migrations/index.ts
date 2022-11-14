@@ -196,3 +196,4 @@ export { Migration795CleanupFlatFootedToggle } from "./795-cleanup-flat-footed-t
 export { Migration796ItemGrantsToObjects } from "./796-item-grants-to-objects";
 export { Migration797MetagameSetting } from "./797-metagame-settings";
 export { Migration798WeaponToItemStatements } from "./798-weapon-to-item-statements";
+export { Migration799RMRecallKnowledgeDuplicates } from "./799-rm-recall-knowledge-duplicates";
