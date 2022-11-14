@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor";
+import { TraitViewData } from "@actor/data/base";
 import { calculateMAPs } from "@actor/helpers";
 import {
     CheckModifier,
@@ -21,7 +22,7 @@ import {
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckPF2e, CheckRoll, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/check";
 import { CheckDC } from "@system/degree-of-success";
-import { isObject, Optional } from "@util";
+import { isObject, Optional, traitSlugToObject } from "@util";
 import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data";
 
 export * from "./data";
@@ -45,6 +46,8 @@ export interface StatisticRollParameters {
     skipDialog?: boolean;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
+    /** Any traits for the check */
+    traits?: (TraitViewData | string)[];
     /** Callback called when the roll occurs. */
     callback?: CheckRollCallback;
 }
@@ -362,6 +365,14 @@ class StatisticCheck {
             }
         }
 
+        // Process any given action traits, then add to roll options
+        const traits = args.traits?.map((t) =>
+            typeof t === "string" ? traitSlugToObject(t, CONFIG.PF2E.actionTraits) : t
+        );
+        for (const trait of traits ?? []) {
+            options.add(trait.name);
+        }
+
         // Create parameters for the check roll function
         const context: CheckRollContext = {
             actor,
@@ -376,6 +387,7 @@ class StatisticCheck {
             skipDialog,
             rollTwice: args.rollTwice || extractRollTwice(actor.synthetics.rollTwice, domains, options),
             substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
+            traits,
         };
 
         const roll = await CheckPF2e.roll(
