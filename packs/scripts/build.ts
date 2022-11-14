@@ -3,7 +3,8 @@ import * as fs from "fs";
 import { CompendiumPack, PackError } from "./packman/compendium-pack";
 
 const packsDataPath = path.resolve(__dirname, "../data");
-const packDirPaths = fs.readdirSync(packsDataPath)
+const packDirPaths = fs
+    .readdirSync(packsDataPath)
     .filter((dirName) => dirName !== ".DS_Store") // Filter out Mac .DS_Store files
     .map((dirName) => path.resolve(__dirname, packsDataPath, dirName));
 
