@@ -43,8 +43,6 @@ interface BaseRollContext {
     options?: Set<string>;
     /** Any notes which should be shown for the roll. */
     notes?: (RollNotePF2e | RollNoteSource)[];
-    /** If true, this is a secret roll which should only be seen by the GM. */
-    secret?: boolean;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode;
     /** If this is an attack, the target of that attack */

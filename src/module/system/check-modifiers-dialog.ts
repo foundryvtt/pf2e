@@ -32,12 +32,6 @@ export class CheckModifiersDialog extends Application {
         this.resolve = resolve;
         this.substitutions = context?.substitutions ?? [];
         this.context = context;
-
-        if (this.context.secret) {
-            this.context.rollMode = "blindroll";
-        } else {
-            this.context.rollMode ??= game.settings.get("core", "rollMode");
-        }
     }
 
     static override get defaultOptions(): ApplicationOptions {
