@@ -35,7 +35,7 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Interacting with Token guard or convicted criminal (Ex-Con Token Guard)",
+                "label": "Interacting with Token Guards or convicted criminals (Ex-Con Token Guard)",
                 "predicate": [
                     {
                         "or": [
@@ -44,37 +44,11 @@
                         ]
                     }
                 ],
-                "selector": "diplomacy",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Interacting with Token guard or convicted criminal (Ex-Con Token Guard)",
-                "predicate": [
-                    {
-                        "or": [
-                            "target:token-guard",
-                            "target:convict"
-                        ]
-                    }
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
                 ],
-                "selector": "deception",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Interacting with Token guard or convicted criminal (Ex-Con Token Guard)",
-                "predicate": [
-                    {
-                        "or": [
-                            "target:token-guard",
-                            "target:convict"
-                        ]
-                    }
-                ],
-                "selector": "intimidation",
                 "type": "circumstance",
                 "value": 1
             }
