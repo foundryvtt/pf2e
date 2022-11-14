@@ -812,8 +812,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     protected getStrikeRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
     ): StrikeRollContext<this, I> {
-        const targets = Array.from(game.user.targets).filter((token) => token.actor instanceof CreaturePF2e);
-        const targetToken = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : null;
+        const targetToken = Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature")) ?? null;
 
         const selfToken =
             canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null;
@@ -869,6 +868,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
+        if (targetToken && targetOptions.length > 0) {
+            const mark = this.synthetics.targetMarks.get(targetToken.document.uuid);
+            if (mark) targetOptions.push(`target:mark:${mark}`);
+        }
+
         const rollOptions = new Set([
             ...params.options,
             ...selfOptions,
