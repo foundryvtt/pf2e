@@ -41,7 +41,7 @@
                     "rarity": "common",
                     "value": [
                         "finesse",
-                        "magic"
+                        "magical"
                     ]
                 },
                 "weaponType": {
@@ -173,30 +173,76 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Ostovites build and inhabit moving shells of bone. The ostovite's base statistics, particularly its immunities, assume the ostovite is safely inside its bone chariot. The bone chariot is destroyed when the ostovite is reduced to less than half its Hit Points or immediately after it takes damage from a critical hit. Damage that can specifically affect the ostovite controlling the chariot even while it's inside (such as the spell <em>spirit blast</em>) doesn't destroy the bone chariot, and it bypasses the ostovite's immunities.</p>\n<p>Without the bone chariot, the ostovite loses its immunities and bone spike Strike, and it is reduced to Tiny size. It also gains weakness 5 to good, mental, and physical damage. Building a new bone chariot requires the skeleton of a Small or larger creature and 10 minutes. An ostovite in a bone chariot is normally Small, though larger bone chariots are possible, especially when ostovites work together.</p>"
+                    "value": "<p>Ostovites build and inhabit moving shells of bone. The ostovite's base statistics, particularly its immunities, assume the ostovite is safely inside its bone chariot. The bone chariot is destroyed when the ostovite is reduced to less than half its Hit Points or immediately after it takes damage from a critical hit. Damage that can specifically affect the ostovite controlling the chariot even while it's inside (such as the spell <em>@UUID[Compendium.pf2e.spells-srd.Spirit Blast]{Spirit Blast}</em>) doesn't destroy the bone chariot, and it bypasses the ostovite's immunities.</p>\n<p>Without the bone chariot, the ostovite loses its immunities and bone spike Strike, and it is reduced to Tiny size. It also gains weakness 5 to good, mental, and physical damage. Building a new bone chariot requires the skeleton of a Small or larger creature and 10 minutes. An ostovite in a bone chariot is normally Small, though larger bone chariots are possible, especially when ostovites work together.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "bone-chariot",
-                        "toggleable": true,
-                        "value": true
-                    },
-                    {
                         "key": "CreatureSize",
                         "predicate": [
-                            "bone-chariot"
+                            {
+                                "or": [
+                                    "bone-chariot",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
                         ],
-                        "value": "small"
+                        "value": "tiny"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.OstoviteBoneChariot",
+                        "option": "bone-chariot",
+                        "priority": 50,
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "bone-chariot",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": [
+                            "good",
+                            "mental",
+                            "physical"
+                        ],
+                        "value": 5
                     },
                     {
                         "key": "Immunity",
                         "predicate": [
-                            "bone-chariot"
+                            {
+                                "and": [
+                                    {
+                                        "not": "bone-chariot"
+                                    },
+                                    {
+                                        "gte": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
                         ],
                         "type": [
                             "bleed",
@@ -216,20 +262,6 @@
                             "sickened",
                             "unconscious"
                         ]
-                    },
-                    {
-                        "key": "Weakness",
-                        "predicate": [
-                            {
-                                "not": "bone-chariot"
-                            }
-                        ],
-                        "type": [
-                            "good",
-                            "mental",
-                            "physical"
-                        ],
-                        "value": 5
                     }
                 ],
                 "slug": null,
@@ -242,9 +274,6 @@
                     "value": []
                 },
                 "trigger": {
-                    "value": ""
-                },
-                "weapon": {
                     "value": ""
                 }
             },
@@ -308,7 +337,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "When using bone",
+                        "label": "PF2E.SkillVariant.CraftBone",
                         "predicate": [
                             "action:craft",
                             "bone"
@@ -392,7 +421,7 @@
                 "value": 15
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -464,7 +493,7 @@
                 "value": "darkvision"
             },
             "size": {
-                "value": "tiny"
+                "value": "sm"
             },
             "value": [
                 "fiend"
