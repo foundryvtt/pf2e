@@ -40,8 +40,8 @@ export interface StatisticRollParameters {
     modifiers?: ModifierPF2e[];
     /** The originating item of this attack, if any */
     item?: Embedded<ItemPF2e> | null;
-    /** Is this a secret roll? */
-    secret?: boolean;
+    /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
+    rollMode?: RollMode;
     /** Should the dialog be skipped */
     skipDialog?: boolean;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
@@ -305,11 +305,12 @@ class StatisticCheck {
 
     async roll(args: StatisticRollParameters = {}): Promise<Rolled<CheckRoll> | null> {
         // Allow use of events for modules and macros but don't allow it for internal system use
-        const { secret, skipDialog } = (() => {
+        const { rollMode, skipDialog } = (() => {
             if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
                 const event = args.event?.originalEvent ?? args.event;
                 if (event instanceof MouseEvent) {
-                    return mergeObject({ secret: args.secret, skipDialog: args.skipDialog }, eventToRollParams(event));
+                    const { rollMode, skipDialog } = args;
+                    return mergeObject({ rollMode, skipDialog }, eventToRollParams(event));
                 }
             }
 
@@ -383,7 +384,7 @@ class StatisticCheck {
             notes: extractNotes(actor.synthetics.rollNotes, this.domains),
             options,
             type: this.type,
-            secret,
+            rollMode,
             skipDialog,
             rollTwice: args.rollTwice || extractRollTwice(actor.synthetics.rollTwice, domains, options),
             substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),

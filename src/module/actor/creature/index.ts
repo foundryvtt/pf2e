@@ -469,6 +469,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                     dc: args.dc,
                     rollTwice,
                     skipDialog: args.skipDialog,
+                    rollMode: args.rollMode,
                 };
                 if (combatant.hidden) {
                     context.rollMode = CONST.DICE_ROLL_MODES.PRIVATE;

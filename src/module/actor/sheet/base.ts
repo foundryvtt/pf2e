@@ -221,9 +221,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const $target = $(event.currentTarget);
             const { attributes } = this.actor.system;
             if (!$target.hasClass("disabled") && "initiative" in attributes) {
-                const { skipDialog, secret } = eventToRollParams(event);
-                const options = secret ? ["secret"] : [];
-                attributes.initiative.roll?.({ skipDialog, options });
+                attributes.initiative.roll?.(eventToRollParams(event));
             }
         });
 
