@@ -149,12 +149,36 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The giant pangolin ignores the resistances of swarms, and its tongue Strike deals an additional [[/r 2d6]] damage against swarms.</p>"
+                    "value": "<p>The giant pangolin ignores the resistances of swarms, and its tongue Strike deals an additional [[/r {2d6}]]{2d6 damage} against swarms.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "2d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:trait:swarm"
+                        ],
+                        "selector": "tongue-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "target:trait:swarm"
+                        ],
+                        "selector": "attack-roll",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -189,7 +213,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The giant pangolin releases a disorienting and repulsive musk within a @Template[type:emanation|distance:5]. Each creature in the area must attempt a @Check[type:fortitude|dc:20] save.</p>\n<p>The pangolin can't Emit Musk again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature becomes temporarily immune to pangolin musk for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} and is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until no longer sickened.</p>"
+                    "value": "<p>The giant pangolin releases a disorienting and repulsive musk within a @Template[type:emanation|distance:5]. Each creature in the area must attempt a @Check[type:fortitude|dc:20] save.</p>\n<p>The pangolin can't Emit Musk again for [[/br 1d4 #Recharge Emit Musk]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature becomes temporarily immune to pangolin musk for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature becomes sickened 1 and is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until no longer sickened.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -236,7 +260,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "roll-up",
+                        "priority": 50,
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "roll-up"
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -415,7 +456,7 @@
                 "value": 21
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
