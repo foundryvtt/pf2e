@@ -39,7 +39,7 @@ class ActionItemPF2e extends ItemPF2e {
         // Feat properties
         const properties = [CONFIG.PF2E.actionTypes[systemData.actionType.value]].filter((property) => property);
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-        const description = { value: addRollNotesText(this, this.actor, ["action-description"], this.description) };
+        const description = { value: addRollNotesText(this, this.actor, ["action-used"], this.description) };
         return this.processChatData(htmlOptions, { ...systemData, description: description, properties, traits });
     }
 

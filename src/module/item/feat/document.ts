@@ -122,7 +122,7 @@ class FeatPF2e extends ItemPF2e {
             systemData.actionType.value ? CONFIG.PF2E.actionTypes[systemData.actionType.value] : null,
         ].filter((p) => p);
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
-        const description = addRollNotesText(this, this.actor, ["feat-description"], this.description);
+        const description = addRollNotesText(this, this.actor, ["feat-used"], this.description);
         return this.processChatData(htmlOptions, {
             ...systemData,
             description: { value: description },
