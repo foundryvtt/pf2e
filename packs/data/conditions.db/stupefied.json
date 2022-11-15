@@ -43,21 +43,11 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "int-based",
-                "slug": "stupefied",
-                "type": "status",
-                "value": "-@item.badge.value"
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "wis-based",
-                "slug": "stupefied",
-                "type": "status",
-                "value": "-@item.badge.value"
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "cha-based",
+                "selector": [
+                    "cha-based",
+                    "int-based",
+                    "wis-based"
+                ],
                 "slug": "stupefied",
                 "type": "status",
                 "value": "-@item.badge.value"
