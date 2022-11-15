@@ -4,7 +4,7 @@
     "name": "Spell Effect: Physical Boost",
     "system": {
         "description": {
-            "value": "<p>Granted by casting <em>@UUID[Compendium.pf2e.spells-srd.Physical Boost]{Physical Boost}</em></p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Physical Boost]{Physical Boost}</em></p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -18,25 +18,12 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "athletics",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "acrobatics",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "fortitude",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "reflex",
+                "selector": [
+                    "acrobatics",
+                    "athletics",
+                    "fortitude",
+                    "reflex"
+                ],
                 "type": "status",
                 "value": 2
             }

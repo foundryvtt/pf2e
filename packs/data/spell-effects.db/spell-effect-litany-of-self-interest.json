@@ -4,7 +4,7 @@
     "name": "Spell Effect: Litany of Self-Interest",
     "system": {
         "description": {
-            "value": "<p>Granted by failing the save against <em>@UUID[Compendium.pf2e.spells-srd.Litany of Self-Interest]{Litany of Self-Interest}</em>.</p>"
+            "value": "<p>Granted by failing the save against <em>@UUID[Compendium.pf2e.spells-srd.Litany of Self-Interest]{Litany of Self-Interest}</em></p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -19,28 +19,12 @@
             {
                 "key": "FlatModifier",
                 "label": "Litany of Self-Interest",
-                "selector": "attack",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Litany of Self-Interest",
-                "selector": "perception",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Litany of Self-Interest",
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Litany of Self-Interest",
-                "selector": "skill-check",
+                "selector": [
+                    "attack",
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
+                ],
                 "type": "status",
                 "value": 2
             }
