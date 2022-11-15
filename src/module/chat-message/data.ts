@@ -38,7 +38,7 @@ type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
 interface StrikeLookupData {
     actor: ActorUUID | TokenDocumentUUID;
     index: number;
-    damaging?: boolean;
+    damaging: boolean;
     name: string;
     altUsage?: "thrown" | "melee" | null;
 }
