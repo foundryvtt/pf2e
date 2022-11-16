@@ -1,0 +1,44 @@
+{
+    "_id": "pJ395g22dKNoufIK",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Nascent",
+    "system": {
+        "ancestry": {
+            "name": "Kashrishi",
+            "uuid": "Compendium.pf2e.ancestries.dw2K1AJR9mQ25nDP"
+        },
+        "description": {
+            "value": "<p>While most kashrishi are fully adapted to their environment by the time they reach adulthood, some retain unrealized potential well into adulthood before unlocking it. You gain a 1st-level kashrishi ancestry feat for which you meet the prerequisites, if any.</p>"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.AncestralParagon.AllowedDrops",
+                    "predicate": [
+                        "item:feat-type:ancestry",
+                        "item:level:1"
+                    ]
+                },
+                "choices": {
+                    "query": "{\"system.featType.value\":\"ancestry\",\"system.level.value\":1,\"system.traits.value\":\"kashrishi\"}"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AncestralParagon.Prompt"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.nascent}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Lost Omens: Impossible Lands"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}
