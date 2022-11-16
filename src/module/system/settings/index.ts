@@ -5,10 +5,8 @@ import { StatusEffects } from "@module/canvas/status-effects";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { MetagameSettings } from "./metagame";
-import { CreatureSheetPF2e } from "@actor/creature/sheet";
-import { CreaturePF2e } from "@actor";
 
-export function registerSettings() {
+export function registerSettings(): void {
     if (BUILD_MODE === "development") {
         registerWorldSchemaVersion();
     }
@@ -118,12 +116,15 @@ export function registerSettings() {
         default: false,
         type: Boolean,
         onChange: () => {
-            const actorSheets = Object.values(ui.windows).filter(
-                (a): a is CreatureSheetPF2e<CreaturePF2e> => a instanceof CreatureSheetPF2e
-            );
-            for (const sheet of actorSheets) {
-                sheet.actor.reset();
-                sheet.render();
+            for (const actor of game.actors) {
+                actor.reset();
+                ui.windows[actor.sheet.appId]?.render();
+            }
+            for (const token of game.scenes.contents.flatMap((s) => s.tokens.contents)) {
+                if (!token.actorLink && token.actor) {
+                    token.actor.reset();
+                    ui.windows[token.actor.sheet.appId]?.render();
+                }
             }
         },
     });
