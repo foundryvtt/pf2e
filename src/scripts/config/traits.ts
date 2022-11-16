@@ -31,6 +31,7 @@ const ancestryTraits = {
     fleshwarp: "PF2E.TraitFleshwarp",
     ganzi: "PF2E.TraitGanzi",
     geniekin: "PF2E.TraitGeniekin",
+    ghoran: "PF2E.TraitGhoran",
     gnoll: "PF2E.TraitGnoll",
     gnome: "PF2E.TraitGnome",
     goblin: "PF2E.TraitGoblin",
@@ -40,10 +41,12 @@ const ancestryTraits = {
     hobgoblin: "PF2E.TraitHobgoblin",
     human: "PF2E.TraitHuman",
     ifrit: "PF2E.TraitIfrit",
+    kashrishi: "PF2E.TraitKashrishi",
     kitsune: "PF2E.TraitKitsune",
     kobold: "PF2E.TraitKobold",
     leshy: "PF2E.TraitLeshy",
     lizardfolk: "PF2E.TraitLizardfolk",
+    nagaji: "PF2E.TraitNagaji",
     orc: "PF2E.TraitOrc",
     oread: "PF2E.TraitOread",
     poppet: "PF2E.TraitPoppet",
@@ -58,6 +61,8 @@ const ancestryTraits = {
     tengu: "PF2E.TraitTengu",
     tiefling: "PF2E.TraitTiefling",
     undine: "PF2E.TraitUndine",
+    vanara: "PF2E.TraitVanara",
+    vishkanya: "PF2E.TraitVishkanya",
 };
 
 // Secondary traits of ancestries and heritages
