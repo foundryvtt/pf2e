@@ -19,7 +19,7 @@ import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { combineTerms, DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { DamageCategorization, DamageType } from "@system/damage";
-import { CheckPF2e } from "@system/rolls";
+import { CheckPF2e } from "@system/check";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionIcon, objectHasKey, ordinal, traitSlugToObject } from "@util";
@@ -38,12 +38,6 @@ import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
-}
-
-interface SpellToMessageOptions extends ToMessageOptions {
-    data?: {
-        castLevel?: number;
-    };
 }
 
 class SpellPF2e extends ItemPF2e {
@@ -316,6 +310,12 @@ class SpellPF2e extends ItemPF2e {
                 mergeObject(source.system, overlay.system);
             }
 
+            // Set the spell as heightened if necessary
+            const currentLevel = source.system.location.heightenedLevel ?? source.system.level.value;
+            if (castLevel && castLevel > currentLevel) {
+                source.system.location.heightenedLevel = castLevel;
+            }
+
             return source;
         })();
         if (!override) return null;
@@ -368,7 +368,7 @@ class SpellPF2e extends ItemPF2e {
         };
 
         if (areaType === "ray") {
-            templateData.width = CONFIG.MeasuredTemplate.defaults.width;
+            templateData.width = CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
         } else if (areaType === "cone") {
             templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
         }
@@ -427,10 +427,15 @@ class SpellPF2e extends ItemPF2e {
 
     override async toMessage(
         event?: JQuery.TriggeredEvent,
-        { create = true, data = {} }: SpellToMessageOptions = {}
+        { create = true, data = {}, rollMode }: SpellToMessageOptions = {}
     ): Promise<ChatMessagePF2e | undefined> {
-        const message = await super.toMessage(event, { create: false, data });
+        const message = await super.toMessage(event, { create: false, data, rollMode });
         if (!message) return undefined;
+
+        // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
+        // If nothing except spells need it, consider removing that handling and pass castLevel directly
+        const nearestItem = event ? event.currentTarget.closest(".item") : {};
+        const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
 
         const messageSource = message.toObject();
         const entry = this.trickMagicEntry ?? this.spellcasting;
@@ -439,7 +444,7 @@ class SpellPF2e extends ItemPF2e {
             const tradition = Array.from(this.traditions).at(0);
             messageSource.flags.pf2e.casting = {
                 id: entry.id,
-                level: data.castLevel ?? this.level,
+                level: data.castLevel ?? (Number(contextualData.castLevel) || this.level),
                 tradition: entry.tradition ?? tradition ?? "arcane",
             };
         }
@@ -462,11 +467,11 @@ class SpellPF2e extends ItemPF2e {
 
     override async getChatData(
         htmlOptions: EnrichHTMLOptionsPF2e = {},
-        rollOptions: { castLevel?: number | string } = {}
+        rollOptions: { castLevel?: number | string; slotLevel?: number | string } = {}
     ): Promise<Omit<ItemSummaryData, "traits">> {
         if (!this.actor) throw ErrorPF2e(`Cannot retrieve chat data for unowned spell ${this.name}`);
-        const slotLevel = Number(rollOptions.castLevel) || this.level;
-        const castLevel = this.computeCastLevel(slotLevel);
+        const slotLevel = Number(rollOptions.slotLevel) || this.level;
+        const castLevel = Number(rollOptions.castLevel) || this.computeCastLevel(slotLevel);
 
         // Load the heightened version of the spell if one exists
         if (!this.isVariant) {
@@ -626,9 +631,8 @@ class SpellPF2e extends ItemPF2e {
         this: Embedded<SpellPF2e>,
         event: JQuery.ClickEvent<unknown, unknown, HTMLElement>
     ): Promise<void> {
-        const slotLevel =
-            Number(event.currentTarget.closest<HTMLElement>("*[data-slot-level]")?.dataset.slotLevel) || 0;
-        const castLevel = this.computeCastLevel(slotLevel);
+        const castLevel =
+            Number(event.currentTarget.closest<HTMLElement>("*[data-cast-level]")?.dataset.castLevel) || this.level;
         const rollData = this.getRollData({ castLevel });
         const formula = this.getDamageFormula(castLevel, rollData);
 
@@ -786,9 +790,10 @@ interface SpellVariantChatData {
     sort: number;
 }
 
-interface ToMessageOptions {
+interface SpellToMessageOptions {
     create?: boolean;
-    data?: Record<string, unknown> & { slotLevel?: number; castLevel?: number };
+    rollMode?: RollMode;
+    data?: { castLevel?: number };
 }
 
-export { SpellPF2e };
+export { SpellPF2e, SpellToMessageOptions };

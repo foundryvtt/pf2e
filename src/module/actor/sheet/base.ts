@@ -2,14 +2,10 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
+import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
-import { Coins } from "@item/physical/data";
-import { DENOMINATIONS } from "@item/physical/values";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
@@ -28,14 +24,14 @@ import {
     WeaknessSelector,
 } from "@system/tag-selector";
 import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
+import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
-import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
+import { ItemSummaryRenderer } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
-import { ActorSizePF2e } from "../data/size";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -53,7 +49,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /** Implementation used to handle the toggling and rendering of item summaries */
-    itemRenderer: ItemSummaryRendererPF2e<TActor> = new ItemSummaryRendererPF2e(this);
+    itemRenderer: ItemSummaryRenderer<TActor> = new ItemSummaryRenderer(this);
 
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
@@ -225,9 +221,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const $target = $(event.currentTarget);
             const { attributes } = this.actor.system;
             if (!$target.hasClass("disabled") && "initiative" in attributes) {
-                const { skipDialog, secret } = eventToRollParams(event);
-                const options = secret ? ["secret"] : [];
-                attributes.initiative.roll?.({ skipDialog, options });
+                attributes.initiative.roll?.(eventToRollParams(event));
             }
         });
 
@@ -236,13 +230,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const { domain, option, itemId } = event.target.dataset;
             if (domain && option) {
                 const value = !!event.target.checked;
-                await RollOptionRuleElement.toggleOption({
-                    domain,
-                    option,
-                    actor: this.actor,
-                    itemId: itemId ?? null,
-                    value,
-                });
+                this.actor.toggleRollOption(domain, option, itemId ?? null, value);
             }
         });
 
@@ -657,7 +645,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return super._onSortItem(event, itemSource);
     }
 
-    async onDropItem(data: DropCanvasItemDataPF2e) {
+    /** Emulate a sheet item drop from the canvas */
+    async emulateItemDrop(data: DropCanvasItemDataPF2e) {
         return await this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
     }
 
@@ -701,6 +690,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     ): Promise<ItemPF2e[]> {
         const { actor } = this;
         const itemSource = item.toObject();
+
+        // Set effect to unidentified if alt key is held
+        if (game.user.isGM && itemSource.type === "effect") {
+            const altHeld = event.altKey || game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.ALT);
+            itemSource.system.unidentified ||= altHeld;
+        }
 
         // mystify the item if the alt key was pressed
         if (event.altKey && item.isOfType("physical") && isPhysicalData(itemSource)) {
@@ -757,6 +752,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const level = data.level;
             if (typeof level === "number" && level >= 0) {
                 itemSource.system.level.value = level;
+            }
+        } else if (itemSource.type === "effect" && data && itemSource.system.badge) {
+            const value = data.value;
+            if (typeof value === "number" && itemSource.system.badge.type === "counter") {
+                itemSource.system.badge.value = value;
             }
         } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
             const actorFormulas = deepClone(actor.system.crafting.formulas);
@@ -829,11 +829,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
         const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.findStackableItem(targetActor, item._source);
+        const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant && !sourceActor.isOwner;
+
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
             const popup = new MoveLootPopup(
                 sourceActor,
-                { maxQuantity: sourceItemQuantity, lockStack: !stackable },
+                { maxQuantity: sourceItemQuantity, lockStack: !stackable, isPurchase },
                 (quantity, newStack) => {
                     sourceActor.transferItemToActor(targetActor, item, quantity, containerId, newStack);
                 }
@@ -850,7 +852,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
         const item = this.actor.items.get(itemId ?? "", { strict: true });
         if (item.isOfType("physical") && !item.isIdentified) return;
-        await item.toChat(event);
+        await item.toMessage(event, { create: true });
     }
 
     /** Attempt to repair the item */

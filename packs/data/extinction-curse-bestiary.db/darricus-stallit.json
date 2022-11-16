@@ -69,20 +69,6 @@
                         "gp": 4
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -120,6 +106,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "evocation",
+                        "magical",
                         "two-hand-d12"
                     ]
                 },
@@ -186,7 +174,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -198,20 +186,6 @@
                     "value": {
                         "gp": 14
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -244,7 +218,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -291,6 +265,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -312,13 +287,13 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -326,20 +301,20 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "resiliencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "rules": [],
                 "size": "med",
@@ -396,6 +371,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -416,13 +392,13 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -430,20 +406,20 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "resiliencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "rules": [],
                 "size": "med",
@@ -474,7 +450,7 @@
         },
         {
             "_id": "yjqHfRdCFN6ZTk5o",
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/diplomats-badge.webp",
             "name": "Constable's Badge",
             "sort": 500000,
             "system": {
@@ -580,7 +556,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -677,7 +654,7 @@
                         "domain": "damage-roll",
                         "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.BastardSword",
-                        "option": "twoHanded",
+                        "option": "two-handed",
                         "toggleable": true
                     },
                     {
@@ -687,7 +664,7 @@
                             "dieSize": "d12"
                         },
                         "predicate": [
-                            "twoHanded"
+                            "two-handed"
                         ],
                         "selector": "{item|_id}-damage"
                     }
@@ -770,7 +747,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Darricus doesn't need to succeed at a flat check to target @Compendium[pf2e.conditionitems.Concealed]{Concealed} creatures, and he is not @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures that are @Compendium[pf2e.conditionitems.Hidden]{Hidden} from him.</p>"
+                    "value": "<p>Darricus doesn't need to succeed at a flat check to target @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} creatures, and he is not @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures that are @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden} from him.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -869,7 +846,7 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "option": "powerAttack",
+                        "option": "power-attack",
                         "toggleable": true
                     },
                     {
@@ -877,7 +854,7 @@
                         "key": "DamageDice",
                         "predicate": [
                             "melee",
-                            "powerAttack"
+                            "power-attack"
                         ],
                         "selector": "strike-damage"
                     }

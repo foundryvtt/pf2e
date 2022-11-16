@@ -19,8 +19,8 @@ import {
     extractRollTwice,
 } from "@module/rules/util";
 import { WeaponDamagePF2e } from "@module/system/damage";
-import { CheckPF2e, CheckRollContext, DamageRollPF2e } from "@module/system/rolls";
-import { CheckRoll } from "@system/check/roll";
+import { DamageRollPF2e } from "@module/system/rolls";
+import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
 import { DamageType } from "@system/damage";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e } from "@system/predication";
@@ -125,6 +125,9 @@ class NPCPF2e extends CreaturePF2e {
 
         const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
         details.identification = identifyCreature(this, { proficiencyWithoutLevel });
+
+        // Exclude troops from being flankable
+        this.system.attributes.flanking.flankable = !systemData.traits.value.includes("troop");
     }
 
     /** The NPC level needs to be known before the rest of the weak/elite adjustments */
@@ -616,10 +619,11 @@ class NPCPF2e extends CreaturePF2e {
                             const roll = await CheckPF2e.roll(
                                 new CheckModifier(checkName, action, otherModifiers),
                                 {
+                                    type: "attack-roll",
                                     actor: context.self.actor,
                                     item: context.self.item,
                                     target: context.target,
-                                    type: "attack-roll",
+                                    domains,
                                     options: context.options,
                                     notes: rollNotes,
                                     dc: params.dc ?? context.dc,
@@ -664,7 +668,7 @@ class NPCPF2e extends CreaturePF2e {
                         const options = new Set([
                             ...context.options,
                             ...traits,
-                            ...context.self.item.getRollOptions("weapon"),
+                            ...context.self.item.getRollOptions("item"),
                         ]);
 
                         if (!context.self.item.dealsDamage) {
@@ -689,7 +693,7 @@ class NPCPF2e extends CreaturePF2e {
 
                         await DamageRollPF2e.roll(
                             damage,
-                            { type: "damage-roll", self, target, outcome, options },
+                            { type: "damage-roll", self, target, outcome, options, domains },
                             params.callback
                         );
                     };

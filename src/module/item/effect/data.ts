@@ -38,6 +38,7 @@ interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
     tokenIcon: {
         show: boolean;
     };
+    unidentified: boolean;
     target: string | null;
     expired?: boolean;
     badge: EffectBadge | null;

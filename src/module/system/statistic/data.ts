@@ -1,7 +1,7 @@
 import { ModifierPF2e, RawModifier } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { ZeroToFour } from "@module/data";
-import { CheckType } from "@system/rolls";
+import { CheckType } from "@system/check";
 
 export interface StatisticCheckData {
     type: CheckType;

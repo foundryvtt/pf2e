@@ -211,7 +211,7 @@ export class StatusEffects {
      */
     static async #setStatusValue(event: MouseEvent, token: TokenPF2e): Promise<void> {
         event.preventDefault();
-        event.stopImmediatePropagation();
+        event.stopPropagation();
 
         const icon = event.currentTarget;
         if (!(icon instanceof HTMLPictureElement)) return;
@@ -245,7 +245,8 @@ export class StatusEffects {
             }
         }
 
-        await canvas.hud?.token.render();
+        // An update of a synthetic actor is a token update, which will trigger the HUD re-render
+        if (token.document.isLinked) await canvas.hud?.token.render();
     }
 
     static async #toggleStatus(event: MouseEvent, token: TokenPF2e): Promise<void> {
@@ -321,7 +322,7 @@ export class StatusEffects {
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
         const isNPCEvent = !token.actor?.hasPlayerOwner;
-        const hideNPCEvent = isNPCEvent && game.settings.get("pf2e", "metagame.secretCondition");
+        const hideNPCEvent = isNPCEvent && game.settings.get("pf2e", "metagame_secretCondition");
         if (hideNPCEvent || whisper) {
             messageSource.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
         }

@@ -26,14 +26,14 @@ declare global {
      * // The total resulting from the roll
      * console.log(r.total);    // 22
      */
-    class Roll<TData extends RollData = RollData> {
-        constructor(formula: string, data?: Partial<TData>, options?: Partial<TData>);
+    class Roll<TOptions extends RollData = RollData> {
+        constructor(formula: string, data?: Record<string, unknown>, options?: Partial<TOptions>);
 
         /** The original provided data object which substitutes into attributes of the roll formula */
-        data: TData;
+        data: Record<string, unknown>;
 
         /** Options which modify or describe the Roll */
-        options: Record<string, unknown>;
+        options: TOptions;
 
         /** The identified terms of the Roll */
         terms: RollTerm[];
@@ -65,7 +65,7 @@ declare global {
          * @param data Provided roll data
          * @returns The prepared data object
          */
-        protected _prepareData(data: TData): TData;
+        protected _prepareData(data: TOptions): TOptions;
 
         /* -------------------------------------------- */
         /*  Roll Attributes                             */
@@ -175,7 +175,7 @@ declare global {
          * @param terms An array of terms to represent as a formula
          * @returns The string representation of the formula
          */
-        static getFormula(terms: RollTerm): string;
+        static getFormula(terms: RollTerm[]): string;
 
         /**
          * A sandbox-safe evaluation function to execute user-input code with access to scoped Math methods.

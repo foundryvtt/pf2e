@@ -152,7 +152,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The leopard makes two claw Strikes against a creature it has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}. The second attack uses the same multiple attack penalty as the first, but attacks it makes after this take a -10 multiple attack penalty (or a -8 multiple attack penalty for its claws).</p>"
+                    "value": "<p>The leopard makes two claw Strikes against a creature it has @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}. The second attack uses the same multiple attack penalty as the first, but attacks it makes after this take a -10 multiple attack penalty (or a -8 multiple attack penalty for its claws).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -192,7 +192,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The leopard Strides and makes a Strike at the end of that movement. If the leopard successfully used @Compendium[pf2e.actionspf2e.Hide]{Hide} before this action, the target has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition against this Strike.</p>"
+                    "value": "<p>The leopard Strides and makes a Strike at the end of that movement. If the leopard successfully used @UUID[Compendium.pf2e.actionspf2e.Hide]{Hide} before this action, the target has the @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition against this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -237,7 +237,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The leopard deals an extra [[/r {1d4}]]{1d4 damage} to creatures that have the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition.</p>"
+                    "value": "<p>The leopard deals an extra [[/r {1d4}]]{1d4 damage} to creatures that have the @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -251,13 +251,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -265,6 +265,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",
@@ -306,7 +313,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>When the leopard succeeds at its jaws Strike, it can use this action immediately after to automatically give the target the @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} condition until the end of its next turn.</p>"
+                    "value": "<p>When the leopard succeeds at its jaws Strike, it can use this action immediately after to automatically give the target the @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} condition until the end of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""

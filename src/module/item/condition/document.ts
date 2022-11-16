@@ -32,7 +32,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
         if (this.system.references.parent?.id) return true;
 
         const granter = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
-        return granter?.flags.pf2e.itemGrants.find((g) => g.id === this.id)?.onDelete === "restrict";
+        const grants = Object.values(granter?.flags.pf2e.itemGrants ?? {});
+        return grants.find((g) => g.id === this.id)?.onDelete === "restrict";
     }
 
     /** Is the condition found in the token HUD menu? */
@@ -128,7 +129,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     ): void {
         super._onCreate(data, options, userId);
 
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
             return;
         }
 
@@ -149,7 +150,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     ): void {
         super._onUpdate(changed, options, userId);
 
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
             return;
         }
 
@@ -165,7 +166,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
         super._onDelete(options, userId);
 
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
             return;
         }
 

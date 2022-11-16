@@ -69,20 +69,6 @@
                         "gp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -365,7 +351,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The executioner is adjacent to a dying creature or a creature specifically prepared for a killing blow</p>\n<hr />\n<p><strong>Effect</strong> The executioner Strikes the creature with their greataxe. On a hit, in addition to taking damage, the target must attempt a @Check[type:fortitude|dc:24] save or be reduced to 0 HP and become @Compendium[pf2e.conditionitems.Dying]{Dying 1}. If the creature was already dying (including if it was reduced to 0 HP by the Strike's damage), the creature's dying value increases by 1, in addition to any increase from the Strike. On a critical failure, the creature dies instantly.</p>\n<p>If the executioner's Strike was a critical hit, the target uses the outcome for one degree of success worse than the result of their saving throw.</p>"
+                    "value": "<p><strong>Requirements</strong> The executioner is adjacent to a dying creature or a creature specifically prepared for a killing blow</p>\n<hr />\n<p><strong>Effect</strong> The executioner Strikes the creature with their greataxe. On a hit, in addition to taking damage, the target must attempt a @Check[type:fortitude|dc:24] save or be reduced to 0 HP and become @UUID[Compendium.pf2e.conditionitems.Dying]{Dying 1}. If the creature was already dying (including if it was reduced to 0 HP by the Strike's damage), the creature's dying value increases by 1, in addition to any increase from the Strike. On a critical failure, the creature dies instantly.</p>\n<p>If the executioner's Strike was a critical hit, the target uses the outcome for one degree of success worse than the result of their saving throw.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -405,7 +391,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The executioner makes a melee Strike. If it hits and deals damage, the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}, or @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical hit.</p>"
+                    "value": "<p>The executioner makes a melee Strike. If it hits and deals damage, the target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}, or @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2} on a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -464,7 +450,7 @@
                         "toggleable": true
                     },
                     {
-                        "damageType": "precision",
+                        "category": "precision",
                         "diceNumber": 1,
                         "dieSize": "d12",
                         "key": "DamageDice",

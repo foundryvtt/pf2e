@@ -69,20 +69,6 @@
                         "gp": 3
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -219,20 +205,6 @@
                     "value": {
                         "gp": 6
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -427,7 +399,7 @@
                 },
                 "containerId": "null",
                 "description": {
-                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @Compendium[pf2e.feats-srd.Alchemical Crafting]{Alchemical Crafting} skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
+                    "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Alchemical Crafting]{Alchemical Crafting} skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -727,7 +699,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The Powderkeg Punk takes fire damage</p>\n<p>The Powderkeg Punk @Compendium[pf2e.actionspf2e.Demoralize]{Demoralizes} the creature that dealt the fire damage. Demoralize loses the auditory trait and gains the visual trait, and the Powderkeg Punk doesn't take a penalty if the creature doesn't understand their language. The Powderkeg Punk can use this reaction even if the triggering damage reduced the Punk to 0 Hit Points.</p>"
+                    "value": "<p><strong>Trigger</strong> The Powderkeg Punk takes fire damage</p>\n<p>The Powderkeg Punk @UUID[Compendium.pf2e.actionspf2e.Demoralize]{Demoralizes} the creature that dealt the fire damage. Demoralize loses the auditory trait and gains the visual trait, and the Powderkeg Punk doesn't take a penalty if the creature doesn't understand their language. The Powderkeg Punk can use this reaction even if the triggering damage reduced the Punk to 0 Hit Points.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -770,7 +742,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The gunner is flanked by two or more creatures and the gunner's pistol is loaded</p>\n<hr />\n<p><strong>Effect</strong> The gunner turns their pistol on themself and pulls the trigger, firing through their own gut to catch the foe behind them unawares. The gunner makes a flintlock pistol Strike against an adjacent creature, who becomes @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against this Strike. The gunner takes [[/r {1d4}[piercing]]]{1d4 piercing damage}.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The gunner is flanked by two or more creatures and the gunner's pistol is loaded</p>\n<hr />\n<p><strong>Effect</strong> The gunner turns their pistol on themself and pulls the trigger, firing through their own gut to catch the foe behind them unawares. The gunner makes a flintlock pistol Strike against an adjacent creature, who becomes @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against this Strike. The gunner takes [[/r {1d4}[piercing]]]{1d4 piercing damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -827,13 +799,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -841,6 +813,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

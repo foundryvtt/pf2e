@@ -1,5 +1,7 @@
 {{#each conditions as |item ii|}}
-<li class="item effects expandable" data-item-id="{{item.id}}" data-action-index="{{ii}}">
+{{#if (or (not item.unidentified) @root.user.isGM)}}
+<li class="item effects expandable {{#if item.unidentified}}unidentified{{/if}}" data-item-id="{{item.id}}"
+    data-action-index="{{ii}}">
     <div class="item-name rollable">
         <div class="item-image" style="background-image: url({{item.img}})">
             <i class="fas fa-comment-alt"></i>
@@ -16,6 +18,10 @@
                 class="fas fa-plus"></i></a>
             <a class="item-control decrement" title="{{localize 'PF2E.DecrementEffectTitle'}}"><i
                 class="fas fa-minus"></i></a>
+        {{/if}}
+        {{#if (and (eq item.type "effect") @root.user.isGM)}}
+            <a class="item-control" data-action="effect-toggle-unidentified" title="{{localize 'PF2E.ToggleEffectUnidentified'}}"><i
+                class="fas fa-fw fa-eye"></i></a>
         {{/if}}
         {{#if (eq item.type "effect")}}
             <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i
@@ -57,4 +63,5 @@
         </div>
     {{/if}}
 </li>
+{{/if}}
 {{/each}}

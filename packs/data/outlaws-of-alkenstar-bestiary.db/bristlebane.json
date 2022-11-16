@@ -69,20 +69,6 @@
                         "sp": 5
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -200,20 +186,6 @@
                     "value": {
                         "sp": 1
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -473,7 +445,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {1d6}[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {1d6}[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
                 },
                 "duration": {
                     "units": "",
@@ -734,7 +706,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "whipWhirlwind"
+                            "whip-whirlwind"
                         ],
                         "selector": "{item|_id}-attack",
                         "type": "circumstance",
@@ -907,7 +879,7 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "option": "packAttack",
+                        "option": "pack-attack",
                         "toggleable": true
                     },
                     {
@@ -916,7 +888,7 @@
                         "dieSize": "d4",
                         "key": "DamageDice",
                         "predicate": [
-                            "packAttack"
+                            "pack-attack"
                         ],
                         "selector": "strike-damage"
                     }
@@ -952,7 +924,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Bristlebane uses her whip to @Compendium[pf2e.actionspf2e.Disarm]{Disarm}, Strike, or @Compendium[pf2e.actionspf2e.Trip]{Trip} each creature within her reach. She can select a different action for each target. She takes a -2 circumstance penalty on the check for each action, and each action counts against her multiple attack penalty, but her multiple attack penalty doesn't increase until after all the actions.</p>"
+                    "value": "<p>Bristlebane uses her whip to @UUID[Compendium.pf2e.actionspf2e.Disarm]{Disarm}, Strike, or @UUID[Compendium.pf2e.actionspf2e.Trip]{Trip} each creature within her reach. She can select a different action for each target. She takes a -2 circumstance penalty on the check for each action, and each action counts against her multiple attack penalty, but her multiple attack penalty doesn't increase until after all the actions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -961,13 +933,13 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "option": "whipWhirlwind",
+                        "option": "whip-whirlwind",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "whipWhirlwind",
+                            "whip-whirlwind",
                             {
                                 "or": [
                                     "action:trip",

@@ -2,7 +2,7 @@ import { AncestryPF2e } from "@item/ancestry";
 import { ABCSheetData, ABCSheetPF2e } from "@item/abc/sheet";
 import { createSheetOptions, SheetOptions } from "@module/sheet/helpers";
 
-export class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
+class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<AncestrySheetData> {
         const data: ABCSheetData<AncestryPF2e> = await super.getData(options);
         const itemData = data.item;
@@ -29,3 +29,5 @@ interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {
     languages: SheetOptions;
     additionalLanguages: SheetOptions;
 }
+
+export { AncestrySheetPF2e };

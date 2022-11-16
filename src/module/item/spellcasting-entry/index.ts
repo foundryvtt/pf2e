@@ -8,7 +8,13 @@ import { UserPF2e } from "@module/user";
 import { Statistic } from "@system/statistic";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { SpellCollection } from "./collection";
-import { SpellcastingAbilityData, SpellcastingEntry, SpellcastingEntryData, SpellcastingEntryListData } from "./data";
+import {
+    SpellcastingAbilityData,
+    SpellcastingEntry,
+    SpellcastingEntryData,
+    SpellcastingEntryListData,
+    SpellcastingEntryPF2eCastOptions,
+} from "./data";
 
 class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     spells!: SpellCollection | null;
@@ -134,17 +140,14 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 
     /** Casts the given spell as if it was part of this spellcasting entry */
-    async cast(
-        spell: Embedded<SpellPF2e>,
-        options: { slot?: number; level?: number; consume?: boolean; message?: boolean } = {}
-    ): Promise<void> {
+    async cast(spell: Embedded<SpellPF2e>, options: SpellcastingEntryPF2eCastOptions = {}): Promise<void> {
         const consume = options.consume ?? true;
         const message = options.message ?? true;
         const slotLevel = options.level ?? spell.level;
         const valid = !consume || spell.isCantrip || (await this.consume(spell, slotLevel, options.slot));
         if (message && valid) {
             const castLevel = spell.computeCastLevel(slotLevel);
-            await spell.toMessage(undefined, { data: { castLevel } });
+            await spell.toMessage(undefined, { rollMode: options.rollMode, data: { castLevel } });
         }
     }
 

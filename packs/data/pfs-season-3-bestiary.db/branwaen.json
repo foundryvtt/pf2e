@@ -69,20 +69,6 @@
                         "gp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -202,20 +188,6 @@
                         "gp": 3
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -329,20 +301,6 @@
                     "value": {
                         "sp": 1
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": "",
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": "",
-                    "damageType": "",
-                    "dice": "",
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": "",
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -660,7 +618,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
+                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -754,7 +712,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Antidote (Lesser)]{Effect: Antidote (Lesser)}</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Antidote (Lesser)]{Effect: Antidote (Lesser)}</p>"
                 },
                 "duration": {
                     "units": "",
@@ -873,7 +831,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {1d6}[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {1d6}[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
                 },
                 "duration": {
                     "units": "",
@@ -1405,7 +1363,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Branwaen deals an extra [[/r {1d6}[precision]]]{1d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>Branwaen deals an extra [[/r {1d6}[precision]]]{1d6 precision damage} to @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1420,6 +1378,13 @@
                             "target:condition:flat-footed"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

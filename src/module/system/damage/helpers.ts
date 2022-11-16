@@ -44,6 +44,8 @@ interface DamageRollContext extends BaseRollContext {
     target?: AttackTarget | null;
     options: Set<string>;
     secret?: boolean;
+    /** The domains this roll had, for reporting purposes */
+    domains?: string[];
 }
 
 export { DamageCategorization, DamageRollContext, nextDamageDieSize };

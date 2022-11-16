@@ -51,7 +51,7 @@ import {
     magicTraditions,
     npcAttackTraits,
     otherArmorTags,
-    otherEquipmentTags,
+    otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
     spellOtherTraits,
@@ -549,6 +549,7 @@ const traitsDescriptions = {
     press: "PF2E.TraitDescriptionPress",
     primal: "PF2E.TraitDescriptionPrimal",
     propulsive: "PF2E.TraitDescriptionPropulsive",
+    psyche: "PF2E.TraitDescriptionPsyche",
     psychic: "PF2E.TraitDescriptionPsychic",
     rage: "PF2E.TraitDescriptionRage",
     ranger: "PF2E.TraitDescriptionRanger",
@@ -1108,10 +1109,11 @@ export const PF2ECONFIG = {
     otherArmorTags,
 
     equipmentTraits,
-    otherEquipmentTags,
+
+    consumableTraits,
+    otherConsumableTags,
 
     actionTraits,
-    consumableTraits,
     spellTraits,
     featTraits,
     creatureTraits,

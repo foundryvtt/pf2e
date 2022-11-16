@@ -1,29 +1,25 @@
 import { UserPF2e } from "@module/user";
 import { RollDataPF2e } from "@system/rolls";
 
-class CheckRoll extends Roll<RollDataPF2e> {
+class CheckRoll extends Roll<CheckRollDataPF2e> {
     roller: UserPF2e | null;
 
     isReroll: boolean;
 
     isRerollable: boolean;
 
-    constructor(formula: string, data: Partial<RollDataPF2e> = {}, options?: Partial<RollDataPF2e>) {
+    constructor(formula: string, data = {}, options: Partial<CheckRollDataPF2e> = {}) {
         super(formula, data, options);
 
-        this.isReroll = data.isReroll ?? false;
+        this.isReroll = options.isReroll ?? false;
         this.isRerollable =
             !this.isReroll && !this.dice.some((d) => d.modifiers.includes("kh") || d.modifiers.includes("kl"));
-        this.roller = game.users.get(this.data.rollerId ?? "") ?? null;
-    }
-
-    override toJSON(): CheckRollJSON {
-        return mergeObject(super.toJSON(), { data: { isReroll: this.isReroll, rollerId: this.roller?.id } });
+        this.roller = game.users.get(this.options.rollerId ?? "") ?? null;
     }
 }
 
-interface CheckRollJSON extends RollJSON {
-    data?: Partial<RollDataPF2e>;
+interface CheckRollDataPF2e extends RollDataPF2e {
+    isReroll?: boolean;
 }
 
-export { CheckRoll, CheckRollJSON };
+export { CheckRoll, CheckRollDataPF2e };

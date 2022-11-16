@@ -340,7 +340,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The visitant Strides and makes a Strike at the end of that movement. If the visitant began this action @Compendium[pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after the ability's Strike.</p>"
+                    "value": "<p>The visitant Strides and makes a Strike at the end of that movement. If the visitant began this action @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after the ability's Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -385,7 +385,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The visitant lets out a loud and horrifying roar. Each creature within @Template[type:emanation|distance:100]{100 feet} must attempt at a @Check[type:will|dc:19] save.</p>\n<p>No matter the result, affected creatures are then temporarily immune to the effect for 1 minute.</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3}.</p>"
+                    "value": "<p>The visitant lets out a loud and horrifying roar. Each creature within @Template[type:emanation|distance:100]{100 feet} must attempt at a @Check[type:will|dc:19] save.</p>\n<p>No matter the result, affected creatures are then temporarily immune to the effect for 1 minute.</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -450,13 +450,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -464,6 +464,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

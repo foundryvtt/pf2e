@@ -69,20 +69,6 @@
                         "sp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -201,20 +187,6 @@
                     "value": {
                         "gp": 2
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -517,7 +489,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
+                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -841,7 +813,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The sneak isn't @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to @Compendium[pf2e.conditionitems.Hidden]{Hidden}, @Compendium[pf2e.conditionitems.Undetected]{Undetected}, or flanking creatures of 6th level or lower, or creatures of 6th level or lower using surprise attack.</p>"
+                    "value": "<p>The sneak isn't @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected}, or flanking creatures of 6th level or lower, or creatures of 6th level or lower using surprise attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -937,13 +909,13 @@
                     {
                         "domain": "ac",
                         "key": "RollOption",
-                        "option": "nimbleDodge",
+                        "option": "nimble-dodge",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "nimbleDodge"
+                            "nimble-dodge"
                         ],
                         "selector": "ac",
                         "type": "circumstance",
@@ -1047,13 +1019,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -1061,6 +1033,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",
@@ -1097,7 +1076,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>In the first round of combat, creatures that haven't acted yet are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the sneak.</p>"
+                    "value": "<p>In the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the sneak.</p>"
                 },
                 "requirements": {
                     "value": ""

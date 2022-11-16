@@ -5,8 +5,8 @@ import { applyStackingRules, CheckModifier, ModifierPF2e, MODIFIER_TYPE, Statist
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
 import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/util";
-import { CheckRoll } from "@system/check/roll";
-import { CheckPF2e, RollParameters } from "@system/rolls";
+import { CheckPF2e, CheckRoll } from "@system/check";
+import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { FamiliarData, FamiliarSystemData } from "./data";
 
@@ -23,6 +23,13 @@ export class FamiliarPF2e extends CreaturePF2e {
         }
 
         return null;
+    }
+
+    get masterAbilityModifier(): number | null {
+        const master = this.master;
+        if (!master) return null;
+        this.system.master.ability ||= "cha";
+        return master.system.abilities[this.system.master.ability].mod;
     }
 
     override prepareData({ fromMaster = false } = {}): void {
@@ -102,8 +109,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         const masterLevel =
             game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel" ? 0 : master.level;
 
-        systemData.master.ability ||= "cha";
-        const spellcastingAbilityModifier = master.system.abilities[systemData.master.ability].mod;
+        const masterAbilityModifier = this.masterAbilityModifier!;
 
         const { synthetics } = this;
         this.stripInvalidModifiers();
@@ -225,7 +231,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 new ModifierPF2e("PF2E.MasterLevel", masterLevel, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(
                     `PF2E.MasterAbility.${systemData.master.ability}`,
-                    spellcastingAbilityModifier,
+                    masterAbilityModifier,
                     MODIFIER_TYPE.UNTYPED
                 ),
                 ...extractModifiers(synthetics, domains),
@@ -269,7 +275,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 modifiers.push(
                     new ModifierPF2e(
                         `PF2E.MasterAbility.${systemData.master.ability}`,
-                        spellcastingAbilityModifier,
+                        masterAbilityModifier,
                         MODIFIER_TYPE.UNTYPED
                     )
                 );

@@ -69,20 +69,6 @@
                         "sp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -421,7 +407,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the acrobat rolls a success on an Acrobatics check, they get a critical success instead.</p>\n<p>They aren't @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} when attempting to @Compendium[pf2e.actionspf2e.Balance]{Balance} and can attempt an Acrobatics check instead of a Reflex save to @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge}.</p>"
+                    "value": "<p>When the acrobat rolls a success on an Acrobatics check, they get a critical success instead.</p>\n<p>They aren't @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} when attempting to @UUID[Compendium.pf2e.actionspf2e.Balance]{Balance} and can attempt an Acrobatics check instead of a Reflex save to @UUID[Compendium.pf2e.actionspf2e.Grab an Edge]{Grab an Edge}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -593,13 +579,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -607,6 +593,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

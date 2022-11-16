@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "qeyY4CEQu0GLYoOT",
+            "_id": "KeuZBLboNz2Rx0ou",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Occult Innate Spells",
             "sort": 100000,
@@ -19,14 +19,14 @@
                     "value": "innate"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "slots": {
                     "slot0": {
@@ -70,9 +70,9 @@
                         "value": 0
                     },
                     "slot6": {
-                        "max": 2,
+                        "max": 0,
                         "prepared": [],
-                        "value": 2
+                        "value": 0
                     },
                     "slot7": {
                         "max": 0,
@@ -80,9 +80,9 @@
                         "value": 0
                     },
                     "slot8": {
-                        "max": 1,
+                        "max": 0,
                         "prepared": [],
-                        "value": 1
+                        "value": 0
                     },
                     "slot9": {
                         "max": 0,
@@ -96,7 +96,6 @@
                 },
                 "spelldc": {
                     "dc": 36,
-                    "mod": 0,
                     "value": 28
                 },
                 "tradition": {
@@ -111,7 +110,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "bVJK7EDFwE9ZtckI",
+            "_id": "qo02kBbCRfUoSrjY",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.fd31tAHSSGXyOxW6"
@@ -125,8 +124,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": ""
+                    "areaType": "cone",
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "30-foot cone"
@@ -150,12 +149,12 @@
                                 "categories": [],
                                 "value": "negative"
                             },
-                            "value": "16d6"
+                            "value": "12d6"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You draw in the blood and life force of other creatures through your outstretched arms. You deal 16d6 negative damage to living creatures in the area. You gain temporary Hit Points equal to half the damage a single creature takes from this spell; calculate these temporary Hit Points using the creature that took the most damage. You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You draw in the blood and life force of other creatures through your outstretched arms. You deal 12d6 negative damage to living creatures in the area. You gain temporary Hit Points equal to half the damage a single creature takes from this spell; calculate these temporary Hit Points using the creature that took the most damage. You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -171,10 +170,11 @@
                     "type": "interval"
                 },
                 "level": {
-                    "value": 8
+                    "value": 6
                 },
                 "location": {
-                    "value": "qeyY4CEQu0GLYoOT"
+                    "heightenedLevel": 8,
+                    "value": "KeuZBLboNz2Rx0ou"
                 },
                 "materials": {
                     "value": ""
@@ -204,7 +204,7 @@
                 },
                 "slug": "vampiric-exsanguination",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -237,15 +237,142 @@
             "type": "spell"
         },
         {
-            "_id": "5tVCAnimadCCJdMD",
+            "_id": "VIrnhCa9yWnaX24F",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.N1Z1oLPdBxaSgrEE"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
+            "name": "Vampiric Touch",
+            "sort": 300000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {
+                        "0": {
+                            "type": {
+                                "categories": [],
+                                "value": "negative"
+                            },
+                            "value": "6d6"
+                        }
+                    }
+                },
+                "description": {
+                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 6d6 negative damage to the target. You gain temporary Hit Points equal to half the negative damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 6,
+                    "value": "KeuZBLboNz2Rx0ou"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "value": "fortitude"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "vampiric-touch",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 living creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "death",
+                        "negative"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "GYiPe3ECi5SLXoPJ",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.HTou8cG05yuSkesj"
                 }
             },
             "img": "systems/pf2e/icons/spells/status.webp",
-            "name": "Status (At will)",
-            "sort": 300000,
+            "name": "Status (At Will)",
+            "sort": 400000,
             "system": {
                 "ability": {
                     "value": ""
@@ -276,16 +403,33 @@
                     "value": "<p>As long as you and the target are on the same plane of existence and both alive, you remain aware of its present state. You know the target's direction from you, distance from you, and any conditions affecting it.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell's range increases to 30 feet, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
-                    "value": "1 day"
+                    "value": "until the next time you make your daily preparations"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "10 willing living creatures"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
-                    "value": 6
+                    "value": 2
                 },
                 "location": {
-                    "value": "qeyY4CEQu0GLYoOT"
+                    "heightenedLevel": 6,
+                    "value": "KeuZBLboNz2Rx0ou"
                 },
                 "materials": {
                     "value": ""
@@ -315,7 +459,7 @@
                 },
                 "slug": "status",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -340,133 +484,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "detection"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "eItGan4MxxrtC8Fu",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.N1Z1oLPdBxaSgrEE"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/vampiric-touch.webp",
-            "name": "Vampiric Touch",
-            "sort": 400000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "negative"
-                            },
-                            "value": "12d6"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 12d6 negative damage to the target. You gain temporary Hit Points equal to half the negative damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 6
-                },
-                "location": {
-                    "value": "qeyY4CEQu0GLYoOT"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "vampiric-touch",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 living creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
+                        "detection",
                         "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "death",
-                        "negative"
                     ]
                 }
             },
@@ -797,7 +816,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature lands a critical hit with a melee Strike against the vitalia</p>\n<hr />\n<p><strong>Effect</strong> The vitalia sprays blood at the triggering creature. The creature must succeed at a @Check[type:reflex|dc:39] save or become @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round (or @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round on a critical failure).</p>"
+                    "value": "<p><strong>Trigger</strong> A creature lands a critical hit with a melee Strike against the vitalia</p>\n<hr />\n<p><strong>Effect</strong> The vitalia sprays blood at the triggering creature. The creature must succeed at a @Check[type:reflex|dc:39] save or become @UUID[Compendium.pf2e.conditionitems.Dazzled]{Dazzled} for 1 round (or @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -882,7 +901,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The vitalia is @Compendium[pf2e.conditionitems.Grabbed]{Grabbing} a creature</p>\n<hr />\n<p><strong>Effect</strong> The vitalia inserts some of its veins into the grabbed creature and pumps violently, rapidly exchanging the victim's blood with its own. Any diseases or poisons affecting the vitalia can be transmitted to the target creature, which must make a saving throw as though it had just been targeted with the original affliction. The inverse is true as well; the vitalia must successfully save against any diseases or poisons affecting the target or contract the affliction.</p>"
+                    "value": "<p><strong>Requirements</strong> The vitalia is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbing} a creature</p>\n<hr />\n<p><strong>Effect</strong> The vitalia inserts some of its veins into the grabbed creature and pumps violently, rapidly exchanging the victim's blood with its own. Any diseases or poisons affecting the vitalia can be transmitted to the target creature, which must make a saving throw as though it had just been targeted with the original affliction. The inverse is true as well; the vitalia must successfully save against any diseases or poisons affecting the target or contract the affliction.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -922,7 +941,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The vitalia pumps copious amounts of blood into the air, creating a cascading rain of vital fluids in a @Template[type:emanation|distance:15].</p>\n<p>All creatures in the area are concealed from one another. A creature that benefits from consuming blood (such as bloodseekers or vampires) gains @Compendium[pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing 10} while in the area. While in the area, a creature taking @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} cannot end that condition, even if it spends actions to attempt a flat check to do so.</p>\n<p>The rain lasts for 1 minute.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The vitalia pumps copious amounts of blood into the air, creating a cascading rain of vital fluids in a @Template[type:emanation|distance:15].</p>\n<p>All creatures in the area are concealed from one another. A creature that benefits from consuming blood (such as bloodseekers or vampires) gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing 10} while in the area. While in the area, a creature taking @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} cannot end that condition, even if it spends actions to attempt a flat check to do so.</p>\n<p>The rain lasts for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1048,7 +1067,7 @@
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 10
+                "value": 39
             },
             "allSaves": {
                 "value": ""
@@ -1099,15 +1118,15 @@
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 0
+                "value": 35
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 0
+                "value": 25
             },
             "will": {
                 "saveDetail": "",
-                "value": 0
+                "value": 24
             }
         },
         "traits": {

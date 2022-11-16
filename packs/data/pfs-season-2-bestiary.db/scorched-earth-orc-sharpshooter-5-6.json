@@ -69,20 +69,6 @@
                         "gp": 14
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -199,20 +185,6 @@
                     "value": {
                         "sp": 9
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -730,7 +702,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Scorched Earth orcs deal an extra 2d6 precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>Scorched Earth orcs deal an extra 2d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -745,6 +717,13 @@
                             "target:condition:flat-footed"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",
@@ -781,7 +760,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p>The Scorched Earth sharpshooter makes a ranged Strike, firing an arrow attached to a line at a creature in range.</p>\n<p>If it hits, in addition to taking [[/r {1d8+4}[piercing]]]{1d8+4 piercing damage}, that creature must attempt a @Check[type:reflex|dc:20] save, with the following effects.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 minute or until it @Compendium[pf2e.actionspf2e.Escape]{Escapes}(DC 20).</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is pulled 5 feet toward the sharpshooter.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p>The Scorched Earth sharpshooter makes a ranged Strike, firing an arrow attached to a line at a creature in range.</p>\n<p>If it hits, in addition to taking [[/r {1d8+4}[piercing]]]{1d8+4 piercing damage}, that creature must attempt a @Check[type:reflex|dc:20] save, with the following effects.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 minute or until it @UUID[Compendium.pf2e.actionspf2e.Escape]{Escapes}(DC 20).</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is pulled 5 feet toward the sharpshooter.</p>"
                 },
                 "requirements": {
                     "value": ""

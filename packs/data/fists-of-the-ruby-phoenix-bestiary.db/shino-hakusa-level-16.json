@@ -69,20 +69,6 @@
                         "cp": 1
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": "returning"
                 },
@@ -202,20 +188,6 @@
                         "gp": 35
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": "greaterShock"
                 },
@@ -310,7 +282,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Upon drinking this effervescent concoction, you gain a fly Speed of 40 feet for 1 minute.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Potion of Flying (Standard)]{Effect: Potion of Flying (Standard)}</p>"
+                    "value": "<p>Upon drinking this effervescent concoction, you gain a fly Speed of 40 feet for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Potion of Flying (Standard)]{Effect: Potion of Flying (Standard)}</p>"
                 },
                 "duration": {
                     "units": "",
@@ -560,7 +532,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Hakusa leaps around and over her foes in combat. When she successfully @Compendium[pf2e.actionspf2e.Tumble Through]{Tumbles Through} a creature's space, that creature becomes @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of Hakusa's turn.</p>"
+                    "value": "<p>Hakusa leaps around and over her foes in combat. When she successfully @UUID[Compendium.pf2e.actionspf2e.Tumble Through]{Tumbles Through} a creature's space, that creature becomes @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of Hakusa's turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -640,7 +612,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Hakusa makes precise attacks that can debilitate a foe's movements. Hakusa makes a fist Strike. On a hit, the target takes damage as normal and must attempt a @Check[type:fortitude|dc:38] save. Regardless of the result of the save, the target is temporarily immune to Pressure Point Attack for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's muscles become temporarily weaker. For 1 round, the target is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and must succeed at a @Check[type:flat|dc:5] check when attempting to use actions with the manipulate trait or the action is lost.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As success, but the duration is 1 minute, the flat check is DC 11, and the target also takes -10-foot status penalty to their Speed for the duration.</p>"
+                    "value": "<p>Hakusa makes precise attacks that can debilitate a foe's movements. Hakusa makes a fist Strike. On a hit, the target takes damage as normal and must attempt a @Check[type:fortitude|dc:38] save. Regardless of the result of the save, the target is temporarily immune to Pressure Point Attack for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's muscles become temporarily weaker. For 1 round, the target is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} and must succeed at a @Check[type:flat|dc:5] check when attempting to use actions with the manipulate trait or the action is lost.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As success, but the duration is 1 minute, the flat check is DC 11, and the target also takes -10-foot status penalty to their Speed for the duration.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -700,13 +672,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -714,6 +686,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

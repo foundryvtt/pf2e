@@ -69,20 +69,6 @@
                         "gp": 3
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -196,20 +182,6 @@
                     "value": {
                         "gp": 35
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -410,7 +382,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>The shaft of this bolt is scorched and blackened, and handling it coats your fingers with a fine black powder. When an activated <em>disintegration bolt</em> hits a target, it is subject to a <em>@Compendium[pf2e.spells-srd.Disintegrate]{Disintegrate}</em> spell requiring a @Check[type:fortitude|dc:34] save. As with the spell, a critical hit on the attack roll causes the target's saving throw outcome to be one degree worse.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p><strong>Craft Requirements</strong> Supply one casting of <em>disintegrate</em>.</p>"
+                    "value": "<p>The shaft of this bolt is scorched and blackened, and handling it coats your fingers with a fine black powder. When an activated <em>disintegration bolt</em> hits a target, it is subject to a <em>@UUID[Compendium.pf2e.spells-srd.Disintegrate]{Disintegrate}</em> spell requiring a @Check[type:fortitude|dc:34] save. As with the spell, a critical hit on the attack roll causes the target's saving throw outcome to be one degree worse.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p><strong>Craft Requirements</strong> Supply one casting of <em>disintegrate</em>.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -756,7 +728,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> Skartitch can't use this reaction while encumbered</p>\n<p><strong>Trigger</strong> Skartitch is hit or critically hit by an attack made by a creature she can see</p>\n<hr />\n<p><strong>Effect</strong> Skartitch gains a +2 circumstance bonus to her Armor Class against the triggering attack.</p>"
+                    "value": "<p><strong>Requirements</strong> Skartitch can't use this reaction while encumbered</p>\n<p><strong>Trigger</strong> Skartitch is hit or critically hit by an attack made by a creature she can see</p>\n<hr />\n<p><strong>Effect</strong> Skartitch gains a +2 circumstance bonus to her Armor Class against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -810,7 +782,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Skartitch attempts a Recall Knowledge check against an opponent using the standard DC for a creature of that level. On a success, that opponent is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against Skartitch's attacks until the start of her next turn; on a critical success, the opponent is flat‑footed against Skartitch's attacks for 1 minute.</p>"
+                    "value": "<p>Skartitch attempts a Recall Knowledge check against an opponent using the standard DC for a creature of that level. On a success, that opponent is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against Skartitch's attacks until the start of her next turn; on a critical success, the opponent is flat‑footed against Skartitch's attacks for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -847,7 +819,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Skartitch attempts a Deception check to @Compendium[pf2e.actionspf2e.Feint]{Feint} against an opponent she can see. On a success, Skartitch can immediately Strike with one unarmed attack and one ranged weapon attack against the target. The ranged attack does not trigger reactions from the target of the Feint.</p>\n<p>Both of these attacks count toward her multiple attack penalty, but do not apply the penalty until both attacks are completed.</p>"
+                    "value": "<p>Skartitch attempts a Deception check to @UUID[Compendium.pf2e.actionspf2e.Feint]{Feint} against an opponent she can see. On a success, Skartitch can immediately Strike with one unarmed attack and one ranged weapon attack against the target. The ranged attack does not trigger reactions from the target of the Feint.</p>\n<p>Both of these attacks count toward her multiple attack penalty, but do not apply the penalty until both attacks are completed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -904,13 +876,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -918,6 +890,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

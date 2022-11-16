@@ -162,6 +162,7 @@ class StatementValidator {
             isObject(statement) &&
             (this.isAnd(statement) ||
                 this.isOr(statement) ||
+                this.isNand(statement) ||
                 this.isNor(statement) ||
                 this.isNot(statement) ||
                 this.isIf(statement))
@@ -173,6 +174,14 @@ class StatementValidator {
             Object.keys(statement).length === 1 &&
             Array.isArray(statement.and) &&
             statement.and.every((subProp) => this.isStatement(subProp))
+        );
+    }
+
+    static isNand(statement: { nand?: unknown }): statement is AlternativeDenial {
+        return (
+            Object.keys(statement).length === 1 &&
+            Array.isArray(statement.nand) &&
+            statement.nand.every((subProp) => this.isStatement(subProp))
         );
     }
 

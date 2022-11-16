@@ -1,4 +1,4 @@
-import { WeaponPF2e } from "@item";
+import { ArmorPF2e, WeaponPF2e } from "@item";
 import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
@@ -121,16 +121,34 @@ class StrikeWeaponTraits {
 /** Create a penalty for attempting to Force Open without a crowbar or equivalent tool */
 function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): ModifierPF2e {
     const slug = "no-crowbar";
-    const synthetics = actor.synthetics.modifierAdjustments;
+    const { modifierAdjustments } = actor.synthetics;
     return new ModifierPF2e({
         slug,
         label: "PF2E.Actions.ForceOpen.NoCrowbarPenalty",
         type: "item",
         modifier: -2,
-        predicate: ["action:force-open"],
+        predicate: ["action:force-open", "action:force-open:prying"],
         hideIfDisabled: true,
-        adjustments: extractModifierAdjustments(synthetics, domains, slug),
+        adjustments: extractModifierAdjustments(modifierAdjustments, domains, slug),
     });
 }
 
-export { createForceOpenPenalty, StrikeWeaponTraits };
+function createShoddyPenalty(
+    actor: CharacterPF2e,
+    item: WeaponPF2e | ArmorPF2e,
+    domains: string[]
+): ModifierPF2e | null {
+    if (!item.isShoddy) return null;
+
+    const slug = "shoddy";
+    const { modifierAdjustments } = actor.synthetics;
+    return new ModifierPF2e({
+        label: "PF2E.Item.Physical.OtherTag.Shoddy",
+        type: "item",
+        slug,
+        modifier: -2,
+        adjustments: extractModifierAdjustments(modifierAdjustments, domains, slug),
+    });
+}
+
+export { createForceOpenPenalty, createShoddyPenalty, StrikeWeaponTraits };

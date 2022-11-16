@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "9kv8fbHEQiC1Wm6G",
+            "_id": "I07i3Rw3iXrxS2A9",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Innate Spells",
             "sort": 100000,
@@ -19,14 +19,14 @@
                     "value": "innate"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "slots": {
                     "slot0": {
@@ -96,7 +96,6 @@
                 },
                 "spelldc": {
                     "dc": 40,
-                    "mod": 0,
                     "value": 32
                 },
                 "tradition": {
@@ -111,7 +110,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "3gjhAW9ZvHGVA54s",
+            "_id": "dHqF5qqvagKODWQ4",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Rituals",
             "sort": 200000,
@@ -127,14 +126,14 @@
                     "value": "ritual"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
                     "value": true
                 },
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "slots": {
                     "slot0": {
@@ -204,7 +203,6 @@
                 },
                 "spelldc": {
                     "dc": 40,
-                    "mod": 0,
                     "value": 32
                 },
                 "tradition": {
@@ -219,7 +217,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "beHOpuYgHPDE3W0F",
+            "_id": "Oz8BxcTXWi4XHPiV",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.10VcmSYNBrvBphu1"
@@ -254,8 +252,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "9d6"
@@ -271,12 +271,32 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "10": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "negative"
+                                        },
+                                        "value": "10d6"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 9
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -306,7 +326,7 @@
                 },
                 "slug": "massacre",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -339,7 +359,7 @@
             "type": "spell"
         },
         {
-            "_id": "ulc1zRbIeA2T7gLc",
+            "_id": "81IsOnrGCumV607l",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.nsQvjNyg4Whw2mek"
@@ -375,7 +395,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Divine power wards the targets, granting each a +1 status bonus to AC and saves while in the area.</p>\n<p>Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. The bonuses granted by the spell increase to +2 against attacks by-and effects created by-creatures with an alignment opposite to the spell (lawful if you chose chaotic, evil if you chose good). These bonuses increase to +4 against effects created by such creatures that attempt to impose the @Compendium[pf2e.conditionitems.Controlled]{Controlled} condition on a target of your divine aura, as well as against attacks made by creatures summoned by anything opposite in alignment to your divine aura.</p>\n<p>When a creature of opposite alignment hits a target with a melee attack, the creature must succeed at a Will save or be @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute. It's then temporarily immune for 1 minute.</p>\n<p>The first time you Sustain the Spell each round, the divine aura's radius grows 10 feet.</p>"
+                    "value": "<p>Divine power wards the targets, granting each a +1 status bonus to AC and saves while in the area.</p>\n<p>Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. The bonuses granted by the spell increase to +2 against attacks by-and effects created by-creatures with an alignment opposite to the spell (lawful if you chose chaotic, evil if you chose good). These bonuses increase to +4 against effects created by such creatures that attempt to impose the @UUID[Compendium.pf2e.conditionitems.Controlled]{Controlled} condition on a target of your divine aura, as well as against attacks made by creatures summoned by anything opposite in alignment to your divine aura.</p>\n<p>When a creature of opposite alignment hits a target with a melee attack, the creature must succeed at a Will save or be @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 minute. It's then temporarily immune for 1 minute.</p>\n<p>The first time you Sustain the Spell each round, the divine aura's radius grows 10 feet.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -388,7 +408,7 @@
                 },
                 "location": {
                     "heightenedLevel": 8,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -418,7 +438,7 @@
                 },
                 "slug": "divine-aura",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -440,13 +460,15 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "aura"
+                    ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "Jhf8RRQbOUZkqp1r",
+            "_id": "axtYEWDx9kSBIiQV",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.x7SPrsRxGb2Vy2nu"
@@ -481,8 +503,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "11d6"
@@ -490,7 +514,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You shake the ground, topple creatures into fissures, and collapse structures. The GM might add additional effects in certain areas. Cliffs might collapse, causing creatures to fall, or a lake might drain as fissures open up below its surface, leaving a morass of quicksand.</p>\n<ul>\n<li><strong>Shaking Ground</strong> The ground is difficult terrain, and creatures on it take a -2 circumstance penalty to attack rolls, AC, and skill checks.</li>\n<li><strong>Fissures</strong> Each creature on the ground must attempt a Reflex save at the start of its turn to keep its footing and avoid falling into 40-foot-deep fissures that open beneath it. The fissures are permanent, and their sides require successful @Check[type:athletics|dc:15|traits:action:climb] to Climb.</li>\n<li><strong>Collapse</strong> Structures and ceilings might collapse. The GM rolls a flat check for each (@Check[type:flat|dc:16] for a sturdy structure, @Check[type:flat|dc:14] for an average structure and most natural formations, @Check[type:flat|dc:9] for a shoddy structure, all adjusted higher or lower as the GM sees fit). A collapse deals 11d6 bludgeoning damage; each creature caught in a collapse must attempt a Reflex save to avoid it.</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> The creature takes half the collapse damage.</p>\n<p><strong>Success</strong> The creature takes half the collapse damage and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Failure</strong> The creature takes the full collapse damage and falls Prone.</p>\n<p><strong>Critical Failure</strong> The creature takes the full collapse damage and falls into a fissure.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> You create a massive earthquake that can devastate a settlement. The range increases to half a mile and the area to a quarter-mile burst.</p>"
+                    "value": "<p>You shake the ground, topple creatures into fissures, and collapse structures. The GM might add additional effects in certain areas. Cliffs might collapse, causing creatures to fall, or a lake might drain as fissures open up below its surface, leaving a morass of quicksand.</p>\n<ul>\n<li><strong>Shaking Ground</strong> The ground is difficult terrain, and creatures on it take a -2 circumstance penalty to attack rolls, AC, and skill checks.</li>\n<li><strong>Fissures</strong> Each creature on the ground must attempt a Reflex save at the start of its turn to keep its footing and avoid falling into 40-foot-deep fissures that open beneath it. The fissures are permanent, and their sides require successful @Check[type:athletics|dc:15|traits:action:climb] to Climb.</li>\n<li><strong>Collapse</strong> Structures and ceilings might collapse. The GM rolls a flat check for each (@Check[type:flat|dc:16] for a sturdy structure, @Check[type:flat|dc:14] for an average structure and most natural formations, @Check[type:flat|dc:9] for a shoddy structure, all adjusted higher or lower as the GM sees fit). A collapse deals 11d6 bludgeoning damage; each creature caught in a collapse must attempt a Reflex save to avoid it.</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> The creature takes half the collapse damage.</p>\n<p><strong>Success</strong> The creature takes half the collapse damage and falls @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Failure</strong> The creature takes the full collapse damage and falls Prone.</p>\n<p><strong>Critical Failure</strong> The creature takes the full collapse damage and falls into a fissure.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> You create a massive earthquake that can devastate a settlement. The range increases to half a mile and the area to a quarter-mile burst.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -498,12 +522,26 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "10": {
+                            "area": {
+                                "areaType": "burst",
+                                "value": "1320"
+                            },
+                            "range": {
+                                "value": "half a mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 8
                 },
                 "location": {
                     "heightenedLevel": 8,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -533,7 +571,7 @@
                 },
                 "slug": "earthquake",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -564,7 +602,7 @@
             "type": "spell"
         },
         {
-            "_id": "9oNWJPgGoBlUvMBH",
+            "_id": "VzIjC1rRAiqDrIFq",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.7PJSqUeKxTqOVrPk"
@@ -600,7 +638,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You stun the target with an arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes.</p>\n<p>The effect of the spell depends on the target's level.</p>\n<ul>\n<li><strong>13th or Lower</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} for [[/r 1d6 #rounds]]{1d6 rounds}.</li>\n<li><strong>14th-15th</strong> The target is Stunned for 1 round.</li>\n<li><strong>16th or Higher</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The levels at which each outcome applies increase by 2.</p>"
+                    "value": "<p>You stun the target with an arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes.</p>\n<p>The effect of the spell depends on the target's level.</p>\n<ul>\n<li><strong>13th or Lower</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned} for [[/r 1d6 #rounds]]{1d6 rounds}.</li>\n<li><strong>14th-15th</strong> The target is Stunned for 1 round.</li>\n<li><strong>16th or Higher</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The levels at which each outcome applies increase by 2.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -613,7 +651,7 @@
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -643,7 +681,7 @@
                 },
                 "slug": "power-word-stun",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -674,7 +712,7 @@
             "type": "spell"
         },
         {
-            "_id": "GxQZGaWODYEgQs6A",
+            "_id": "ZFiTj9wIygm9oA2s",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
@@ -718,12 +756,17 @@
                 "hasCounteractCheck": {
                     "value": true
                 },
+                "heightening": {
+                    "damage": {},
+                    "interval": 1,
+                    "type": "interval"
+                },
                 "level": {
                     "value": 6
                 },
                 "location": {
                     "heightenedLevel": 9,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -753,7 +796,7 @@
                 },
                 "slug": "true-seeing",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -779,6 +822,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "revelation"
                     ]
                 }
@@ -786,7 +830,7 @@
             "type": "spell"
         },
         {
-            "_id": "vlPjYGA3btRTiGMk",
+            "_id": "I930m9sSYIjNyTU6",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
@@ -801,7 +845,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -830,12 +874,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
                     "heightenedLevel": 5,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -865,7 +919,7 @@
                 },
                 "slug": "dimension-door",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -896,7 +950,7 @@
             "type": "spell"
         },
         {
-            "_id": "i5XMdJS2ULpzUesI",
+            "_id": "McibEQTz4fAE3b7p",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
@@ -940,12 +994,25 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
                     "heightenedLevel": 4,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -975,7 +1042,7 @@
                 },
                 "slug": "dimension-door",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -999,6 +1066,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "teleportation"
                     ]
                 }
@@ -1006,7 +1074,7 @@
             "type": "spell"
         },
         {
-            "_id": "XMrETD2JVHDplHQS",
+            "_id": "3mY1WFp56t00EUSp",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.hVU9msO9yGkxKZ3J"
@@ -1020,8 +1088,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": ""
+                    "areaType": "burst",
+                    "value": "20"
                 },
                 "areasize": {
                     "value": "20-foot burst"
@@ -1041,8 +1109,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
                             "value": "4d10"
@@ -1050,7 +1120,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You can channel the fury of your deity against foes of opposed alignment. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. You deal 4d10 damage of the alignment you chose; each creature in the area must attempt a Fortitude save. Creatures that match the alignment you chose are unaffected. Those that neither match nor oppose it treat the result of their saving throw as one degree better.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}; while it is sickened, it is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
+                    "value": "<p>You can channel the fury of your deity against foes of opposed alignment. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. You deal 4d10 damage of the alignment you chose; each creature in the area must attempt a Fortitude save. Creatures that match the alignment you chose are unaffected. Those that neither match nor oppose it treat the result of their saving throw as one degree better.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}; while it is sickened, it is also @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1070,7 +1140,7 @@
                 },
                 "location": {
                     "heightenedLevel": 8,
-                    "value": "9kv8fbHEQiC1Wm6G"
+                    "value": "I07i3Rw3iXrxS2A9"
                 },
                 "materials": {
                     "value": ""
@@ -1100,7 +1170,7 @@
                 },
                 "slug": "divine-wrath",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -1122,13 +1192,15 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "divine"
+                    ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "Wf5r2vOjh8EJyCOl",
+            "_id": "rfKpNBAAm40aGr7Q",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.tsKnoBuBbKMXkiz5"
@@ -1176,7 +1248,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "3gjhAW9ZvHGVA54s"
+                    "value": "dHqF5qqvagKODWQ4"
                 },
                 "materials": {
                     "value": ""
@@ -1206,7 +1278,7 @@
                 },
                 "slug": "abyssal-pact",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "spellType": {
                     "value": "utility"
@@ -1233,7 +1305,7 @@
             "type": "spell"
         },
         {
-            "_id": "x2mWsBVbDUrRYIjF",
+            "_id": "KL9YUyuWFl7evAwr",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.UfurZQK6H6SgOjqe"
@@ -1299,20 +1371,6 @@
                         "gp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -1331,10 +1389,10 @@
                     "value": ""
                 },
                 "rules": [],
-                "size": "med",
+                "size": "huge",
                 "slug": "ranseur",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -1351,6 +1409,8 @@
                     "rarity": "common",
                     "value": [
                         "disarm",
+                        "evocation",
+                        "magical",
                         "reach"
                     ]
                 },
@@ -1364,7 +1424,7 @@
             "type": "weapon"
         },
         {
-            "_id": "DqXqkU3tGCFwawCR",
+            "_id": "AROmbsIdW16qYomq",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.r0ifJfoz8aqf0mwk"
@@ -1391,6 +1451,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -1415,10 +1476,10 @@
                     "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -1442,10 +1503,10 @@
                     "value": ""
                 },
                 "rules": [],
-                "size": "med",
+                "size": "huge",
                 "slug": "breastplate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": -5
@@ -1943,7 +2004,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, @Check[type:will|dc:37]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, @Check[type:will|dc:37]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1988,7 +2049,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A vavakia is repulsed by the restoration of souls.</p>\n<p>The demon takes [[/r {3d10+10}[mental]]]{3d10+10 mental damage} the first time each round that a creature within 100 feet of it is restored to life or loses the @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition.</p>"
+                    "value": "<p>A vavakia is repulsed by the restoration of souls.</p>\n<p>The demon takes [[/r {3d10+10}[mental]]]{3d10+10 mental damage} the first time each round that a creature within 100 feet of it is restored to life or loses the @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed} condition.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2025,7 +2086,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature damaged by the vavakia's jaws is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} from the rank smell of vapors from the wound.</p>"
+                    "value": "<p>A creature damaged by the vavakia's jaws is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} from the rank smell of vapors from the wound.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2062,7 +2123,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The vavakia exhales ghostly green fire in a @Template[type:cone|distance:60].</p>\n<p>Living creatures in the area take [[/r {20d6}[negative]]]{20d6 negative damage} (@Check[type:reflex|dc:42|basic:true] save). A good creature that fails this save is becomes @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 minute (@Compendium[pf2e.conditionitems.Stupefied]{Stupefied 4} on a critical failure).</p>\n<p>A creature slain by Soulfire Breath can't be resurrected except by powerful magic such as a <em>@Compendium[pf2e.spells-srd.Wish]{Wish}</em> spell.</p>\n<p>The vavakia can't use Soulfire Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The vavakia exhales ghostly green fire in a @Template[type:cone|distance:60].</p>\n<p>Living creatures in the area take [[/r {20d6}[negative]]]{20d6 negative damage} (@Check[type:reflex|dc:42|basic:true] save). A good creature that fails this save is becomes @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 4} on a critical failure).</p>\n<p>A creature slain by Soulfire Breath can't be resurrected except by powerful magic such as a <em>@UUID[Compendium.pf2e.spells-srd.Wish]{Wish}</em> spell.</p>\n<p>The vavakia can't use Soulfire Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2145,7 +2206,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If the vavakia critically hits with its tail Strike, the target must succeed at a @Check[type:fortitude|dc:40] save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1 round ([[/br 1d4 #rounds]]{1d4 rounds} on a critical failure).</p>"
+                    "value": "<p>If the vavakia critically hits with its tail Strike, the target must succeed at a @Check[type:fortitude|dc:40] save or be @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned} for 1 round ([[/br 1d4 #rounds]]{1d4 rounds} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""

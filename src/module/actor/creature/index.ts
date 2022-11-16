@@ -25,15 +25,19 @@ import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules";
-import { extractModifierAdjustments, extractModifiers, extractRollTwice } from "@module/rules/util";
+import {
+    extractModifierAdjustments,
+    extractModifiers,
+    extractRollTwice,
+    extractRollSubstitutions,
+} from "@module/rules/util";
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
-import { CheckRoll } from "@system/check/roll";
+import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
 import { DamageType } from "@system/damage";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { CheckPF2e, CheckRollContext } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { ErrorPF2e, objectHasKey, setHasElement, traitSlugToObject } from "@util";
 import {
@@ -304,16 +308,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Toggles
-        const flatFootedOption = "target:condition:flat-footed";
-        this.system.toggles = [
-            {
-                label: "PF2E.TargetFlatFootedLabel",
-                domain: "all",
-                option: flatFootedOption,
-                checked: !!this.rollOptions.all[flatFootedOption],
-                enabled: true,
-            },
-        ];
+        this.system.toggles = [];
 
         attributes.doomed = { value: 0, max: 3 };
         attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
@@ -365,7 +360,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
             rollOptions.all["self:caster"] = true;
         }
 
-        if (this.hitPoints.negativeHealing) rollOptions.all["self:negative-healing"];
+        if (this.hitPoints.negativeHealing) {
+            rollOptions.all["self:negative-healing"] = true;
+        }
 
         // Set whether this actor is wearing armor
         rollOptions.all["self:armored"] = !!this.wornArmor && this.wornArmor.category !== "unarmored";
@@ -469,6 +466,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 if (!combatant) return null;
 
                 const rollTwice = extractRollTwice(this.synthetics.rollTwice, domains, rollOptions);
+                const substitutions = extractRollSubstitutions(this.synthetics.rollSubstitutions, domains, rollOptions);
                 const context: CheckRollContext = {
                     actor: this,
                     type: "initiative",
@@ -477,6 +475,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
                     dc: args.dc,
                     rollTwice,
                     skipDialog: args.skipDialog,
+                    rollMode: args.rollMode,
+                    substitutions,
                 };
                 if (combatant.hidden) {
                     context.rollMode = CONST.DICE_ROLL_MODES.PRIVATE;
@@ -657,7 +657,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 dc: "{dc}", // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
             }),
             value: recoveryDC + dying.value,
-            visibility: "all",
+            visible: true,
         };
 
         const notes = [
@@ -820,17 +820,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
     protected getStrikeRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
     ): StrikeRollContext<this, I> {
-        const targets = Array.from(game.user.targets).filter((token) => token.actor instanceof CreaturePF2e);
-        const targetToken = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : null;
+        const targetToken = Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature")) ?? null;
 
         const selfToken =
             canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null;
-        const [reach, isMelee] = !params.item.isOfType("spell")
-            ? [this.getReach({ action: "attack", weapon: params.item }), params.item.isMelee]
-            : [undefined, false];
+        const reach = params.item.isOfType("melee")
+            ? params.item.reach
+            : params.item.isOfType("weapon")
+            ? this.getReach({ action: "attack", weapon: params.item })
+            : null;
 
         const selfOptions = this.getRollOptions(params.domains ?? []);
-        if (targetToken && isMelee && selfToken?.isFlanking(targetToken, { reach })) {
+        if (targetToken && typeof reach === "number" && selfToken?.isFlanking(targetToken, { reach })) {
             selfOptions.push("self:flanking");
         }
 
@@ -875,11 +876,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
+        if (targetToken && targetOptions.length > 0) {
+            const mark = this.synthetics.targetMarks.get(targetToken.document.uuid);
+            if (mark) targetOptions.push(`target:mark:${mark}`);
+        }
+
         const rollOptions = new Set([
             ...params.options,
             ...selfOptions,
             ...targetOptions,
-            ...selfItem.getRollOptions("weapon"),
+            ...selfItem.getRollOptions("item"),
             // Backward compatibility for predication looking for an "attack" trait by its lonesome
             "attack",
         ]);

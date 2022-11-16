@@ -17,8 +17,10 @@ import { registerFonts } from "@scripts/register-fonts";
 import { registerKeybindings } from "@scripts/register-keybindings";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
-import { Check } from "@system/check";
+import { CheckRoll, StrikeAttackRoll } from "@system/check";
+import { DamageRoll } from "@system/damage/roll";
 import { registerSettings } from "@system/settings";
+import { htmlQueryAll } from "@util";
 
 export const Init = {
     listen: (): void => {
@@ -28,7 +30,7 @@ export const Init = {
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
 
-            CONFIG.Dice.rolls.push(Check.Roll, Check.StrikeAttackRoll);
+            CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll);
 
             // Assign canvas layer and placeable classes
             CONFIG.AmbientLight.layerClass = LightingLayerPF2e;
@@ -156,6 +158,14 @@ export const Init = {
 
             // Create and populate initial game.pf2e interface
             SetGamePF2e.onInit();
+
+            // Disable tagify style sheets from modules
+            for (const element of htmlQueryAll(document.head, "link[rel=stylesheet]")) {
+                const href = element.getAttribute("href");
+                if (href?.startsWith("modules/") && href.endsWith("tagify.css")) {
+                    element.setAttribute("disabled", "");
+                }
+            }
         });
     },
 };

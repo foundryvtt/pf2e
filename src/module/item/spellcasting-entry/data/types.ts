@@ -14,7 +14,7 @@ interface BaseSpellcastingEntry {
     ability: AbilityString;
     tradition: MagicTradition | null;
     statistic: Statistic;
-    cast(spell: SpellPF2e, options: {}): Promise<void>;
+    cast(spell: SpellPF2e, options: CastOptions): Promise<void>;
 }
 
 interface SpellcastingEntry extends BaseSpellcastingEntry {
@@ -22,6 +22,18 @@ interface SpellcastingEntry extends BaseSpellcastingEntry {
     isSpontaneous: boolean;
     isInnate: boolean;
     isFocusPool: boolean;
+}
+
+interface CastOptions {
+    message?: boolean;
+    rollMode?: RollMode;
+}
+
+interface SpellcastingEntryPF2eCastOptions extends CastOptions {
+    consume?: boolean;
+    /** The slot level to consume to cast the spell at */
+    level?: number;
+    slot?: number;
 }
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
@@ -91,12 +103,14 @@ interface SpellcastingEntrySystemData extends ItemSystemData {
 
 export {
     BaseSpellcastingEntry,
+    CastOptions,
     PreparationType,
     SlotKey,
     SpellAttackRollModifier,
     SpellDifficultyClass,
     SpellcastingEntry,
     SpellcastingEntryData,
+    SpellcastingEntryPF2eCastOptions,
     SpellcastingEntrySource,
     SpellcastingEntrySystemData,
 };

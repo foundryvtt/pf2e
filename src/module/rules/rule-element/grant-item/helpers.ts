@@ -5,7 +5,7 @@ async function processGrantDeletions(item: Embedded<ItemPF2e>, pendingItems: Emb
     const { actor } = item;
 
     // First, process the items granted by the to-be-deleted item:
-    for (const grant of item.flags.pf2e.itemGrants) {
+    for (const grant of Object.values(item.flags.pf2e.itemGrants)) {
         const grantee = actor.items.get(grant.id);
         if (grantee?.flags.pf2e.grantedBy?.id !== item.id) continue;
 
@@ -36,7 +36,7 @@ async function processGrantDeletions(item: Embedded<ItemPF2e>, pendingItems: Emb
 
     // Second, process the item that granted the to-be-deleted item
     const granter = actor.items.get(item.flags.pf2e.grantedBy?.id ?? "");
-    const grant = granter?.flags.pf2e.itemGrants.find((g) => g.id === item.id);
+    const grant = Object.values(granter?.flags.pf2e.itemGrants ?? {}).find((g) => g.id === item.id);
     if (!(granter && grant)) return;
 
     switch (grant.onDelete) {
@@ -58,7 +58,7 @@ async function processGrantDeletions(item: Embedded<ItemPF2e>, pendingItems: Emb
         }
         default: {
             // Remove the grant from the granter's `itemGrants` array
-            const itemGrants = granter.flags.pf2e.itemGrants.filter((g) => g.id !== item.id);
+            const itemGrants = Object.values(granter.flags.pf2e.itemGrants).filter((g) => g.id !== item.id);
             await granter.update({ "flags.pf2e.itemGrants": itemGrants }, { render: false });
             break;
         }

@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>When you critically hit with this weapon, the target becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}</p>"
+            "value": "<p>When you critically hit with this weapon, the target becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -42,8 +42,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
-                            "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                            "item:category:{item|flags.pf2e.rulesSelections.weapon}",
+                            "item:id:{item|flags.pf2e.rulesSelections.weapon}"
                         ]
                     }
                 ]

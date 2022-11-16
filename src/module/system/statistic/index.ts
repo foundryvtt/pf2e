@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor";
+import { TraitViewData } from "@actor/data/base";
 import { calculateMAPs } from "@actor/helpers";
 import {
     CheckModifier,
@@ -19,10 +20,9 @@ import {
     extractRollTwice,
 } from "@module/rules/util";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { CheckRoll } from "@system/check/roll";
+import { CheckPF2e, CheckRoll, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/check";
 import { CheckDC } from "@system/degree-of-success";
-import { CheckPF2e, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
-import { isObject, Optional } from "@util";
+import { isObject, Optional, traitSlugToObject } from "@util";
 import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data";
 
 export * from "./data";
@@ -40,12 +40,14 @@ export interface StatisticRollParameters {
     modifiers?: ModifierPF2e[];
     /** The originating item of this attack, if any */
     item?: Embedded<ItemPF2e> | null;
-    /** Is this a secret roll? */
-    secret?: boolean;
+    /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
+    rollMode?: RollMode;
     /** Should the dialog be skipped */
     skipDialog?: boolean;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
+    /** Any traits for the check */
+    traits?: (TraitViewData | string)[];
     /** Callback called when the roll occurs. */
     callback?: CheckRollCallback;
 }
@@ -303,11 +305,12 @@ class StatisticCheck {
 
     async roll(args: StatisticRollParameters = {}): Promise<Rolled<CheckRoll> | null> {
         // Allow use of events for modules and macros but don't allow it for internal system use
-        const { secret, skipDialog } = (() => {
+        const { rollMode, skipDialog } = (() => {
             if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
                 const event = args.event?.originalEvent ?? args.event;
                 if (event instanceof MouseEvent) {
-                    return mergeObject({ secret: args.secret, skipDialog: args.skipDialog }, eventToRollParams(event));
+                    const { rollMode, skipDialog } = args;
+                    return mergeObject({ rollMode, skipDialog }, eventToRollParams(event));
                 }
             }
 
@@ -363,6 +366,14 @@ class StatisticCheck {
             }
         }
 
+        // Process any given action traits, then add to roll options
+        const traits = args.traits?.map((t) =>
+            typeof t === "string" ? traitSlugToObject(t, CONFIG.PF2E.actionTraits) : t
+        );
+        for (const trait of traits ?? []) {
+            options.add(trait.name);
+        }
+
         // Create parameters for the check roll function
         const context: CheckRollContext = {
             actor,
@@ -373,10 +384,11 @@ class StatisticCheck {
             notes: extractNotes(actor.synthetics.rollNotes, this.domains),
             options,
             type: this.type,
-            secret,
+            rollMode,
             skipDialog,
             rollTwice: args.rollTwice || extractRollTwice(actor.synthetics.rollTwice, domains, options),
             substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
+            traits,
         };
 
         const roll = await CheckPF2e.roll(

@@ -21,9 +21,14 @@ interface DamageTypeRenderData {
 }
 
 interface DamageRollRenderData {
-    formula: string;
     damageTypes: Record<string, DamageTypeRenderData>;
-    total: number;
 }
 
-export { DamageCategory, DamageDieSize, DamageRollRenderData, DamageType };
+export {
+    DamageCategory,
+    DamageCategoryRenderData,
+    DamageDieSize,
+    DamageRollRenderData,
+    DamageType,
+    DamageTypeRenderData,
+};

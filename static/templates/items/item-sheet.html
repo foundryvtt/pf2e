@@ -24,7 +24,8 @@
                 {{/if}}
             </template>
             {{#if showTraits}}
-                <input class="paizo-style tags" name="system.traits.value" value="{{json traitSlugs}}" data-dtype="JSON" />
+                <input class="paizo-style tags" name="system.traits.value" value="{{json traitSlugs}}" data-dtype="JSON"
+                    {{#if (eq data.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
             {{else if rarity}}
                 <div class="paizo-style tags"></div>
             {{/if}}

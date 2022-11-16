@@ -253,7 +253,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The @Compendium[pf2e.conditionitems.Sickened]{Sickened} and @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} conditions from filth fever don't improve on their own until the disease is cured.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect ([[/br 1d4 #Incubation]]{1d4 hours})</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 3</strong> Sickened 1 and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} as long as the affected creature remains sickened (1 day)</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (1 day)</p>\n<p><strong>Stage 5</strong> dead</p>"
+                    "value": "<p>The @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened} and @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} conditions from filth fever don't improve on their own until the disease is cured.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect ([[/br 1d4 #Incubation]]{1d4 hours})</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 3</strong> Sickened 1 and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} as long as the affected creature remains sickened (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} (1 day)</p>\n<p><strong>Stage 5</strong> dead</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -295,7 +295,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Otari fades away, momentarily emerges from the shadow of another creature within 30 feet, and makes a ghostly hand Strike against a single target within reach of this creature (but not against the creature whose shadow he infests).</p>\n<p>On a successful Strike, the target is also @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of Otari's next turn. Otari then reappears at his starting point.</p>\n<p>The creature whose shadow Otari infests is exposed to filth fever.</p>"
+                    "value": "<p>Otari fades away, momentarily emerges from the shadow of another creature within 30 feet, and makes a ghostly hand Strike against a single target within reach of this creature (but not against the creature whose shadow he infests).</p>\n<p>On a successful Strike, the target is also @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of Otari's next turn. Otari then reappears at his starting point.</p>\n<p>The creature whose shadow Otari infests is exposed to filth fever.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -359,13 +359,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -373,6 +373,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",

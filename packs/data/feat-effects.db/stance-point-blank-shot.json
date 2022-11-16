@@ -4,7 +4,7 @@
     "name": "Stance: Point-Blank Shot",
     "system": {
         "description": {
-            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Point-Blank Shot]{Point-Blank Shot}.</p>\n<p>When using a ranged weapon that doesn't have the volley trait, you gain a +2 circumstance bonus to damage rolls on attacks against targets within the weapon's first range increment.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Point-Blank Shot]{Point-Blank Shot}.</p>\n<p>When using a ranged weapon that doesn't have the volley trait, you gain a +2 circumstance bonus to damage rolls on attacks against targets within the weapon's first range increment.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -25,12 +25,12 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "target:range-increment:1",
-                    "weapon:ranged",
+                    "item:ranged",
                     {
                         "nor": [
-                            "weapon:trait:volley-20",
-                            "weapon:trait:volley-30",
-                            "weapon:trait:volley-50"
+                            "item:trait:volley-20",
+                            "item:trait:volley-30",
+                            "item:trait:volley-50"
                         ]
                     }
                 ],

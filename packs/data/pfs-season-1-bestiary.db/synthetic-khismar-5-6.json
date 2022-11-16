@@ -70,20 +70,6 @@
                         "gp": 35
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -210,7 +196,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>plus @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}</p>"
+                    "value": "<p>plus @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -307,22 +293,20 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "construct-armor"
-                        ],
-                        "selector": "ac",
-                        "slug": "construct-armor-critical",
-                        "value": -4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
                             {
-                                "not": "construct-armor"
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "selector": "ac",
-                        "slug": "construct-armor-health",
-                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
+                        "value": -4
                     }
                 ],
                 "slug": null,
@@ -359,7 +343,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Synthetic Khismar takes electricity damage</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar gains resistance 20 to electricity against the triggering attack and becomes @Compendium[pf2e.conditionitems.Quickened]{Quickened} for [[/br 1d4 #Quickened Duration]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Trigger</strong> Synthetic Khismar takes electricity damage</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar gains resistance 20 to electricity against the triggering attack and becomes @UUID[Compendium.pf2e.conditionitems.Quickened]{Quickened} for [[/br 1d4 #Quickened Duration]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -396,7 +380,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Synthetic Khismar makes two storm-fist Strikes against a single target. If either of the attacks deals damage, the target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the beginning of Synthetic Khismar's next turn. His multiple attack penalty increases after making both attacks.</p>"
+                    "value": "<p>Synthetic Khismar makes two storm-fist Strikes against a single target. If either of the attacks deals damage, the target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the beginning of Synthetic Khismar's next turn. His multiple attack penalty increases after making both attacks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -471,7 +455,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Range</strong> 100 feet</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar chooses the target of one technological construct or hazard; if this would cause the technological construct or hazard to attack a creature it would not normally attack, it takes a -2 circumstance penalty to its attack rolls and DCs against that creature.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Technology Control]{Effect: Technology Control}</p>"
+                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Range</strong> 100 feet</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar chooses the target of one technological construct or hazard; if this would cause the technological construct or hazard to attack a creature it would not normally attack, it takes a -2 circumstance penalty to its attack rolls and DCs against that creature.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Technology Control]{Effect: Technology Control}</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -23,6 +23,7 @@ import { ImmunityRuleElement } from "./rule-element/iwr/immunity";
 import { ResistanceRuleElement } from "./rule-element/iwr/resistance";
 import { WeaknessRuleElement } from "./rule-element/iwr/weakness";
 import { LoseHitPointsRuleElement } from "./rule-element/lose-hit-points";
+import { MarkTokenRuleElement } from "./rule-element/mark-token/rule-element";
 import { MartialProficiencyRuleElement } from "./rule-element/martial-proficiency";
 import { MultipleAttackPenaltyRuleElement } from "./rule-element/multiple-attack-penalty";
 import { RollNoteRuleElement } from "./rule-element/roll-note";
@@ -66,6 +67,7 @@ class RuleElements {
         GrantItem: GrantItemRuleElement,
         Immunity: ImmunityRuleElement,
         LoseHitPoints: LoseHitPointsRuleElement,
+        MarkToken: MarkTokenRuleElement,
         MartialProficiency: MartialProficiencyRuleElement,
         MultipleAttackPenalty: MultipleAttackPenaltyRuleElement,
         Note: RollNoteRuleElement,
@@ -93,7 +95,7 @@ class RuleElements {
 
     static fromOwnedItem(item: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
         const rules: RuleElementPF2e[] = [];
-        for (const data of item.system.rules) {
+        for (const [sourceIndex, data] of item.system.rules.entries()) {
             if (typeof data.key !== "string") {
                 console.error(
                     `PF2e System | Missing key in rule element ${data.key} on item ${item.name} (${item.uuid})`
@@ -105,7 +107,7 @@ class RuleElements {
             if (REConstructor) {
                 const rule = ((): RuleElementPF2e | null => {
                     try {
-                        return new REConstructor(data, item, options);
+                        return new REConstructor(data, item, { ...(options ?? {}), sourceIndex });
                     } catch (error) {
                         if (!options?.suppressWarnings) {
                             console.warn(

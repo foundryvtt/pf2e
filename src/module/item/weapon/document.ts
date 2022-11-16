@@ -185,7 +185,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => `${delimitedPrefix}${key}`),
-            this.system.traits.otherTags.map((tag) => `${delimitedPrefix}tag:${tag}`),
         ]
             .flat()
             .sort();
@@ -207,7 +206,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
         systemData.reload.value ||= null;
-        systemData.traits.otherTags ??= [];
         systemData.selectedAmmoId ||= null;
         systemData.damage.die ||= null;
         systemData.damage.modifier ??= 0;
@@ -245,7 +243,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
             if (traitSet.has("combination")) this.system.group = "firearm";
 
             // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
-            if (this.group === "bow" && setHasElement(CROSSBOW_WEAPONS, this.baseType)) {
+            const { otherTags } = systemData.traits;
+            const isCrossbow = this.group === "bow" && setHasElement(CROSSBOW_WEAPONS, this.baseType);
+            if (isCrossbow && !otherTags.includes("crossbow")) {
                 systemData.traits.otherTags.push("crossbow");
             }
         }
@@ -552,7 +552,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             })();
 
             return {
-                damage: `${dice}${weaponDamage.die}${constant}`,
+                damage: weaponDamage.die ? `${dice}${weaponDamage.die}${constant}` : dice.toString(),
                 damageType: weaponDamage.damageType,
             };
         })();
