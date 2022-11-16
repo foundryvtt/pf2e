@@ -43,10 +43,100 @@
             "type": "melee"
         },
         {
+            "_id": "9GD9cU7HYaHGStvx",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1PpMA6kgFuFqrS88",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Scent]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "jMeQhmA9WidXyyaB",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Churning Frenzy",
-            "sort": 200000,
+            "sort": 400000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -63,7 +153,41 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "item:jaws",
+                            "churning-frenzy"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "The gahlepod is spurred into a frenzy by the others. For the rest of the round, their jaws Strike deals @Localize[PF2E.PersistentDamage.Bleed1d6.criticalSuccess] in addition to the listed damage.",
+                        "title": "Churning Frenzy"
+                    },
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "churning-frenzy",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "predicate": [
+                            "item:jaws",
+                            "churning-frenzy"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "The gahlepod is spurred into a frenzy by the others. For the rest of the round, their jaws Strike deals @Localize[PF2E.PersistentDamage.Bleed1d6.success] in addition to the listed damage.",
+                        "title": "Churning Frenzy"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -86,7 +210,7 @@
             "_id": "jfPpeD4tNHyNCw4q",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 500000,
             "system": {
                 "description": {
                     "value": ""
@@ -114,7 +238,7 @@
             "_id": "BSwEGR2JSKpN9oBP",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "description": {
                     "value": ""
@@ -201,7 +325,7 @@
                 "value": 7
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>The youngest brughadatches resemble overlarge tadpoles about 2 feet long.</p>\n<hr />\n<p>Brughadatches are malevolent fey tricksters with distinct stages of life: they spawn from the First World's primal energies as esurient tadpoles, grow into humanoids capable of creating enticing illusions, then finally evolve into huge, slothful toads that warp their environs with mere thoughts.</p>",
             "source": {
                 "value": "Pathfinder #154: Siege of the Dinosaurs"
             }
@@ -230,13 +354,13 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold Iron",
+                    "exceptions": "",
                     "type": "coldiron",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {
-                "custom": "",
+                "custom": "Can't Speak Any Language",
                 "selected": [],
                 "value": [
                     "sylvan"
