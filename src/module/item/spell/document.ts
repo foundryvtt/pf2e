@@ -600,6 +600,7 @@ class SpellPF2e extends ItemPF2e {
             formula,
             properties,
             spellTraits,
+            traits: spellTraits,
             actionTraits: this.castingTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
             areaSize,
             areaType,
