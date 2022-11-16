@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "DFiGS5d2rqA5p3Cc",
+            "_id": "RFVHeM61eFQI1Y9j",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.dgWxsYm0DWHb27h6"
@@ -35,8 +35,8 @@
                     "value": "<p>This polearm has a relatively short, 5‑foot shaft. The business end is a long spike with an axe blade attached.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 2,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -122,7 +122,7 @@
             "type": "weapon"
         },
         {
-            "_id": "iLTzgtrXMssltoOt",
+            "_id": "wZHNKhEaI20J8yDq",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.JNt7GmLCCVz5BiEI"
@@ -178,10 +178,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": null
+                    "value": ""
                 },
                 "preciousMaterialGrade": {
-                    "value": null
+                    "value": ""
                 },
                 "price": {
                     "value": {
@@ -189,16 +189,16 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": null
+                    "value": ""
                 },
                 "propertyRune2": {
-                    "value": null
+                    "value": ""
                 },
                 "propertyRune3": {
-                    "value": null
+                    "value": ""
                 },
                 "propertyRune4": {
-                    "value": null
+                    "value": ""
                 },
                 "quantity": 6,
                 "range": 30,
@@ -219,7 +219,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": null
+                    "value": ""
                 },
                 "traits": {
                     "custom": "",
@@ -238,7 +238,7 @@
             "type": "weapon"
         },
         {
-            "_id": "OOm1kvpi2YZkJKli",
+            "_id": "g1FLGoCuyi8AgD2B",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.AnwzlOs0njF9Jqnr"
@@ -265,8 +265,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
-                    "inSlot": true,
+                    "inSlot": false,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -376,7 +375,6 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "disarm",
                         "magical",
                         "reach",
                         "versatile-s"
@@ -513,10 +511,55 @@
             "type": "melee"
         },
         {
+            "_id": "hd8pBhwAE36GIvt7",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 800000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "mnxX8zV7Y41pDoeS",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Hasty Sacrifice",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -559,7 +602,7 @@
             "_id": "CfGyCIUgQSgrIVyE",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Powerful Stench",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -571,12 +614,25 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. A creature that enters the area must attempt a @Check[type:fortitude|dc:30] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}, and on a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for as long as it is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened}. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened} condition. A creature that succeeds at its save is temporarily immune to all xulgaths' stenches for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters the area must attempt a @Check[type:fortitude|dc:30] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}, and on a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for as long as it is sickened. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to all xulgaths' stenches for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "colors": {
+                            "border": "#00FF00",
+                            "fill": "#00FF00"
+                        },
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "powerful-stench",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -602,7 +658,7 @@
             "_id": "om85FhVgReT8plPu",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Feral Directive",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -614,7 +670,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The xulgath attempts to Command an Animal on their mount, but instead of demanding a specific action such as Stride or Strike, the xulgath gives a general directive, such as to return to camp or to attack a small group the mount can see. The mount and the xulgath each retain 3 actions on their turns, but the mount doesn't change its general tactics until the xulgath uses Feral Directive or Command an Animal again.</p>"
+                    "value": "<p>The xulgath attempts to @UUID[Compendium.pf2e.actionspf2e.Command an Animal]{Command an Animal} on their mount, but instead of demanding a specific action such as Stride or Strike, the xulgath gives a general directive, such as to return to camp or to attack a small group the mount can see. The mount and the xulgath each retain 3 actions on their turns, but the mount doesn't change its general tactics until the xulgath uses Feral Directive or Command an Animal again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -642,7 +698,7 @@
             "_id": "c9zfJMOOSFj5Gqcb",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mounted Superiority",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -659,7 +715,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "mounted-superiority",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "mounted-superiority"
+                        ],
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -682,7 +755,7 @@
             "_id": "eyGe6AKPY7GMEpMq",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -710,7 +783,7 @@
             "_id": "Bi7Me2jFWdkLUHb7",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -735,37 +808,9 @@
             "type": "lore"
         },
         {
-            "_id": "wttNLCoZ27CIgUP1",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Initmidation",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "lore"
-        },
-        {
             "_id": "Zlt4tx3zlotDVMMd",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore: Dinosaur",
+            "name": "Dinosaur Lore",
             "sort": 1500000,
             "system": {
                 "description": {
@@ -791,16 +836,16 @@
             "type": "lore"
         },
         {
-            "_id": "95CKFjM06B8fViVX",
+            "_id": "Qw6QyDlpbLVrovgf",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature )",
+            "name": "Intimidation",
             "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 21
+                    "value": 18
                 },
                 "proficient": {
                     "value": 0
@@ -819,10 +864,54 @@
             "type": "lore"
         },
         {
+            "_id": "U2pZ9Ib09IyARwgZ",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Nature",
+            "sort": 1700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Command an Animal",
+                        "predicate": [
+                            "action:command-an-animal"
+                        ],
+                        "selector": "nature",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+23 to Command an Animal",
+                        "options": "action:command-an-animal"
+                    }
+                }
+            },
+            "type": "lore"
+        },
+        {
             "_id": "RHhLss64TUmRrjht",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
