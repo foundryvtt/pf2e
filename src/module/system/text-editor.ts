@@ -210,6 +210,8 @@ class TextEditorPF2e extends TextEditor {
             if (param.startsWith("traits:")) {
                 // Special case for "traits" that may be roll options
                 params.traits = param.substring(7);
+            } else if (param === "showDC") {
+                params.showDC = "all";
             } else {
                 const paramParts = param.split(":");
                 if (paramParts.length !== 2) {
