@@ -7,6 +7,7 @@ import {
     ItemSystemData,
     ItemSystemSource,
 } from "@item/data/base";
+import { CheckRoll } from "@system/check";
 import { EffectPF2e } from ".";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
@@ -41,7 +42,10 @@ interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
     unidentified: boolean;
     target: string | null;
     expired?: boolean;
+    /** A numeric value or dice expression of some rules significance to the effect */
     badge: EffectBadge | null;
+    /** Origin, target, and roll context of the action that spawned this effect */
+    context: EffectContextData | null;
 }
 
 interface EffectSystemData extends EffectSystemSource, ItemSystemData {
@@ -57,4 +61,16 @@ interface EffectAuraData {
     removeOnExit: boolean;
 }
 
-export { EffectData, EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };
+interface EffectContextData {
+    origin: {
+        actor: ActorUUID | TokenDocumentUUID;
+        token: TokenDocumentUUID | null;
+    };
+    target: {
+        actor: ActorUUID | TokenDocumentUUID;
+        token: TokenDocumentUUID | null;
+    } | null;
+    roll: Pick<CheckRoll, "total" | "degreeOfSuccess"> | null;
+}
+
+export { EffectData, EffectExpiryType, EffectFlags, EffectContextData, EffectSource, EffectSystemData };
