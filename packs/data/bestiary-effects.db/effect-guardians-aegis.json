@@ -18,7 +18,6 @@
         },
         "rules": [
             {
-                "hideIfDisabled": true,
                 "key": "FlatModifier",
                 "predicate": [
                     {
@@ -29,40 +28,17 @@
                             "primal",
                             "occult"
                         ]
-                    },
-                    {
-                        "not": {
-                            "or": [
-                                "origin:trait:demon",
-                                {
-                                    "and": [
-                                        "origin:trait:fiend",
-                                        "origin:trait:chaotic",
-                                        "origin:trait:evil"
-                                    ]
-                                }
-                            ]
-                        }
                     }
                 ],
                 "selector": "saving-throw",
-                "slug": "guardians-aegis-1",
+                "slug": "guardians-aegis",
                 "type": "status",
                 "value": 1
             },
             {
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "override",
                 "predicate": [
-                    {
-                        "or": [
-                            "magical",
-                            "arcane",
-                            "divine",
-                            "primal",
-                            "occult"
-                        ]
-                    },
                     {
                         "or": [
                             "origin:trait:demon",
@@ -77,8 +53,7 @@
                     }
                 ],
                 "selector": "saving-throw",
-                "slug": "guardians-aegis-2",
-                "type": "status",
+                "slug": "guardians-aegis",
                 "value": 2
             }
         ],
