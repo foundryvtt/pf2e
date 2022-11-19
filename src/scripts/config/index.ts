@@ -145,7 +145,6 @@ const damageTypes: Record<DamageType, string> = {
 /** Non-detection- and attitude- related conditions added to the Token HUD */
 const tokenHUDConditions = {
     blinded: "PF2E.ConditionTypeBlinded",
-    broken: "PF2E.ConditionTypeBroken",
     clumsy: "PF2E.ConditionTypeClumsy",
     concealed: "PF2E.ConditionTypeConcealed",
     confused: "PF2E.ConditionTypeConfused",
@@ -163,6 +162,7 @@ const tokenHUDConditions = {
     fleeing: "PF2E.ConditionTypeFleeing",
     frightened: "PF2E.ConditionTypeFrightened",
     grabbed: "PF2E.ConditionTypeGrabbed",
+    hidden: "PF2E.ConditionTypeHidden",
     immobilized: "PF2E.ConditionTypeImmobilized",
     invisible: "PF2E.ConditionTypeInvisible",
     paralyzed: "PF2E.ConditionTypeParalyzed",
@@ -182,9 +182,9 @@ const tokenHUDConditions = {
 
 const conditionTypes: Record<ConditionSlug, string> = {
     ...tokenHUDConditions,
+    broken: "PF2E.ConditionTypeBroken",
     friendly: "PF2E.ConditionTypeFriendly",
     helpful: "PF2E.ConditionTypeHelpful",
-    hidden: "PF2E.ConditionTypeHidden",
     hostile: "PF2E.ConditionTypeHostile",
     indifferent: "PF2E.ConditionTypeIndifferent",
     observed: "PF2E.ConditionTypeObserved",
