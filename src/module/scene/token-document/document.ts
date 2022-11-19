@@ -409,12 +409,18 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         }
     }
 
-    /** Check area effects, removing any from this token's actor if the actor has no other tokens in the scene */
     protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
         super._onDelete(options, userId);
+        if (!this.actor) return;
 
-        if (this.isLinked && !this.scene?.tokens.some((t) => t.actor === this.actor)) {
-            this.actor?.checkAreaEffects();
+        if (this.isLinked) {
+            // Check area effects, removing any from this token's actor if the actor has no other tokens in the scene
+            if (!this.scene?.tokens.some((t) => t.actor === this.actor)) this.actor.checkAreaEffects();
+        } else {
+            // Actor#_onDelete won't be called, so unregister effects in the effects tracker
+            for (const effect of this.actor.itemTypes.effect) {
+                game.pf2e.effectTracker.unregister(effect);
+            }
         }
     }
 
