@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>You gain a +2 status bonus to attack rolls and skill checks.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Emotional Surge]{Emotional Surge}</p>\n<p>You gain a +2 status bonus to attack rolls and skill checks.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -19,13 +19,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "attack",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "skill-check",
+                "selector": [
+                    "attack",
+                    "skill-check"
+                ],
                 "type": "status",
                 "value": 2
             }

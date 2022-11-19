@@ -4,7 +4,7 @@
     "name": "Effect: Distracting Feint",
     "system": {
         "description": {
-            "value": "<p>While a creature is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} by your Feint, it also takes a -2 circumstance penalty to Perception checks and Reflex saves.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Distracting Feint]{Distracting Feint}</p>\n<p>While a creature is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} by your Feint, it also takes a -2 circumstance penalty to Perception checks and Reflex saves.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -18,13 +18,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "reflex",
-                "type": "circumstance",
-                "value": -2
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "perception",
+                "selector": [
+                    "perception",
+                    "reflex"
+                ],
                 "type": "circumstance",
                 "value": -2
             }
