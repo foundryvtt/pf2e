@@ -157,7 +157,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -621,7 +621,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Giant centipede venom causes severe muscle stiffness.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:17]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d8}[poison]]]{1d8 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {1d12}[poison]]]{1d12 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>"
+                    "value": "<p>Giant centipede venom causes severe muscle stiffness.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:17]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d8}[poison]]]{1d8 poison damage} and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {1d12}[poison]]]{1d12 poison damage}, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>"
                 },
                 "duration": {
                     "units": "",
@@ -1011,7 +1011,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The dero stalker is not @Compendium[pf2e.conditionitems.Encumbered]{Encumbered}.</p>\n<p><strong>Trigger</strong> A creature targets the dero with an attack and the dero can see the attacker.</p>\n<hr />\n<p><strong>Effect</strong> The dero dodges out of the way, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Requirements</strong> The dero stalker is not @UUID[Compendium.pf2e.conditionitems.Encumbered]{Encumbered}.</p>\n<p><strong>Trigger</strong> A creature targets the dero with an attack and the dero can see the attacker.</p>\n<hr />\n<p><strong>Effect</strong> The dero dodges out of the way, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1020,13 +1020,13 @@
                     {
                         "domain": "ac",
                         "key": "RollOption",
-                        "option": "nimbleDodge",
+                        "option": "nimble-dodge",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "nimbleDodge"
+                            "nimble-dodge"
                         ],
                         "selector": "ac",
                         "type": "circumstance",
@@ -1124,13 +1124,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }

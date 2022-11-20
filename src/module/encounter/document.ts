@@ -134,6 +134,7 @@ class EncounterPF2e extends Combat {
     #resetActorAndSceneData(): void {
         for (const actor of this.combatants.contents.flatMap((c) => c.actor ?? [])) {
             actor.reset();
+            actor.sheet.render();
         }
 
         if (this.scene) {
@@ -172,11 +173,6 @@ class EncounterPF2e extends Combat {
 
         game.pf2e.StatusEffects.onUpdateEncounter(this);
 
-        // Reset actor/scene data and refresh perception if the turn has changed
-        if (changed.round && typeof changed.turn === "number") {
-            this.#resetActorAndSceneData();
-        }
-
         // No updates necessary if combat hasn't started or this combatant has already had a turn this round
         const combatant = this.combatant;
         const actor = combatant?.actor;
@@ -193,24 +189,29 @@ class EncounterPF2e extends Combat {
 
         // Update the combatant's data (if necessary), run any turn start events, then update the effect panel
         Promise.resolve().then(async (): Promise<void> => {
-            if (!noActor && !alreadyWent && (isNextRound || isNextTurn)) {
-                const actorUpdates: Record<string, unknown> = {};
+            if (isNextRound || isNextTurn) {
+                if (!noActor && !alreadyWent) {
+                    const actorUpdates: Record<string, unknown> = {};
 
-                // Run any turn start events before the effect tracker updates.
-                // In PF2e rules, the order is interchangeable. We'll need to be more dynamic with this later.
-                for (const rule of actor.rules) {
-                    await rule.onTurnStart?.(actorUpdates);
+                    // Run any turn start events before the effect tracker updates.
+                    // In PF2e rules, the order is interchangeable. We'll need to be more dynamic with this later.
+                    for (const rule of actor.rules) {
+                        await rule.onTurnStart?.(actorUpdates);
+                    }
+
+                    // Now that a user has been found, make the updates if there are any
+                    await combatant.update({ "flags.pf2e.roundOfLastTurn": this.round });
+                    if (Object.keys(actorUpdates).length > 0) {
+                        await actor.update(actorUpdates, { render: false });
+                    }
                 }
 
-                // Now that a user has been found, make the updates if there are any
-                await combatant.update({ "flags.pf2e.roundOfLastTurn": this.round });
-                if (Object.keys(actorUpdates).length > 0) {
-                    await actor.update(actorUpdates);
-                }
+                // Reset all participating actors' data to get updated encounter roll options
+                this.#resetActorAndSceneData();
+
+                await game.pf2e.effectTracker.refresh();
+                game.pf2e.effectPanel.refresh();
             }
-
-            await game.pf2e.effectTracker.refresh();
-            game.pf2e.effectPanel.refresh();
         });
     }
 

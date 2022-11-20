@@ -146,7 +146,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You travel to the Ethereal Plane, which overlaps the Material Plane. Material Plane creatures can't see you, and you can move through things on the Material Plane. You move at half your normal Speeds, but can move in any direction (including up and down). You can see onto the Material Plane within a radius of 60 feet; it is gray, hazy, and @Compendium[pf2e.conditionitems.Concealed]{Concealed} from you. You can't affect the Material Plane, and you can't be affected by the Material Plane except by force effects and abjurations originating there. When the spell ends, you return to the Material Plane. If you're in the air, you fall (unless you can fly), and if you're inside an object, you're pushed into the nearest open space and take 1d6 damage per 5 feet you were pushed. If you cast this spell when not on the Material Plane, it is lost.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can target up to five additional willing creatures at a range of 30 feet. The duration is up to 10 minutes.</p>"
+                    "value": "<p>You travel to the Ethereal Plane, which overlaps the Material Plane. Material Plane creatures can't see you, and you can move through things on the Material Plane. You move at half your normal Speeds, but can move in any direction (including up and down). You can see onto the Material Plane within a radius of 60 feet; it is gray, hazy, and @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} from you. You can't affect the Material Plane, and you can't be affected by the Material Plane except by force effects and abjurations originating there. When the spell ends, you return to the Material Plane. If you're in the air, you fall (unless you can fly), and if you're inside an object, you're pushed into the nearest open space and take 1d6 damage per 5 feet you were pushed. If you cast this spell when not on the Material Plane, it is lost.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can target up to five additional willing creatures at a range of 30 feet. The duration is up to 10 minutes.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -382,7 +382,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The area increases to a 60-foot cone.</p>"
+                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The area increases to a 60-foot cone.</p>"
                 },
                 "duration": {
                     "value": "1 or more rounds"
@@ -731,7 +731,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You afflict the target with a curse that makes its presence abrasive and off-putting. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> For 10 minutes, the target must roll twice and use the worse result whenever attempting a Deception, Diplomacy, Intimidation, or Performance check, and creatures they encounter have an initial attitude toward them of one step worse (for instance, @Compendium[pf2e.conditionitems.Unfriendly]{Unfriendly} instead of @Compendium[pf2e.conditionitems.Indifferent]{Indifferent}).</p>\n<p><strong>Failure</strong> As success, but the effect is permanent.</p>\n<p><strong>Critical Failure</strong> As failure, and creatures that the target encounters have an initial attitude toward them of two steps worse.</p>"
+                    "value": "<p>You afflict the target with a curse that makes its presence abrasive and off-putting. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> For 10 minutes, the target must roll twice and use the worse result whenever attempting a Deception, Diplomacy, Intimidation, or Performance check, and creatures they encounter have an initial attitude toward them of one step worse (for instance, @UUID[Compendium.pf2e.conditionitems.Unfriendly]{Unfriendly} instead of @UUID[Compendium.pf2e.conditionitems.Indifferent]{Indifferent}).</p>\n<p><strong>Failure</strong> As success, but the effect is permanent.</p>\n<p><strong>Critical Failure</strong> As failure, and creatures that the target encounters have an initial attitude toward them of two steps worse.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1056,19 +1056,27 @@
         {
             "_id": "X41cWt7idOHqasPx",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "New Attack",
+            "name": "Greatsword",
             "sort": 1000000,
             "system": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "bloodbird"
+                    ]
                 },
                 "bonus": {
-                    "value": 0
+                    "value": 36
                 },
-                "damageRolls": {},
+                "damageRolls": {
+                    "IC8BLNxjLOxDZ5aV": {
+                        "damage": "4d12+16",
+                        "damageType": "slashing"
+                    }
+                },
                 "description": {
                     "value": ""
                 },
@@ -1080,7 +1088,10 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "magical",
+                        "versatile-p"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -1091,19 +1102,27 @@
         {
             "_id": "yaWanh7jgvzb4bNA",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "New Attack",
+            "name": "Jaws",
             "sort": 1100000,
             "system": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "bloodbird"
+                    ]
                 },
                 "bonus": {
-                    "value": 0
+                    "value": 36
                 },
-                "damageRolls": {},
+                "damageRolls": {
+                    "FesoUZS1tXdkMMnL": {
+                        "damage": "4d8+16",
+                        "damageType": "piercing"
+                    }
+                },
                 "description": {
                     "value": ""
                 },
@@ -1115,7 +1134,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "magical"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -1126,19 +1147,27 @@
         {
             "_id": "KEm1y8hEl4sjQ6Cv",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "New Attack",
+            "name": "Talon",
             "sort": 1200000,
             "system": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "bloodbird"
+                    ]
                 },
                 "bonus": {
-                    "value": 0
+                    "value": 36
                 },
-                "damageRolls": {},
+                "damageRolls": {
+                    "D1pBHEYYT3H9Im9R": {
+                        "damage": "4d8+16",
+                        "damageType": "slashing"
+                    }
+                },
                 "description": {
                     "value": ""
                 },
@@ -1150,7 +1179,10 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile",
+                        "magical"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -1354,7 +1386,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:35]</p>\n<p>As @Compendium[pf2e.bestiary-ability-glossary-srd.Frightful Presence]{Frightful Presence}, plus a creature frightened by the aura becomes suspicious: it doesn't count any other creature as its ally, and it can't @Compendium[pf2e.actionspf2e.Aid]{Aid} or flank. On a critical failure, the creature also can't be a willing target for harmless or helpful magic. The vilderavn can activate or deactivate this aura using a single action, which has the concentrate trait.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:35]</p>\n<p>As @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Frightful Presence]{Frightful Presence}, plus a creature frightened by the aura becomes suspicious: it doesn't count any other creature as its ally, and it can't @UUID[Compendium.pf2e.actionspf2e.Aid]{Aid} or flank. On a critical failure, the creature also can't be a willing target for harmless or helpful magic. The vilderavn can activate or deactivate this aura using a single action, which has the concentrate trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1396,7 +1428,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by a vilderavn's melee attack becomes cursed, taking [[/r {2d6}[persistent,bleed]]]{2d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage} that's difficult to stanch: the DC to stop the bleeding using Administer First Aid is 35, and healing the creature to full HP doesn't automatically end the bleeding. Removing the curse ends the bleeding.</p>"
+                    "value": "<p>A creature hit by a vilderavn's melee attack becomes cursed, taking [[/r {2d6}[persistent,bleed]]]{2d6} @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage} that's difficult to stanch: the DC to stop the bleeding using Administer First Aid is 35, and healing the creature to full HP doesn't automatically end the bleeding. Removing the curse ends the bleeding.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1452,7 +1484,7 @@
                     "value": "Pathfinder Bestiary"
                 },
                 "traits": {
-                    "custom": "[magical tradition]",
+                    "custom": "",
                     "rarity": "common",
                     "value": [
                         "concentrate",

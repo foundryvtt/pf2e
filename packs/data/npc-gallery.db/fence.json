@@ -322,7 +322,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
+                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -416,7 +416,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong><span class=\"pf2-icon\">1</span> Interact</p>\n<p>After you drink this elixir, your sight becomes sharper in darkness. You gain darkvision for 10 minutes.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Darkvision Elixir (Lesser)]{Effect: Darkvision Elixir (Lesser)}</p>"
+                    "value": "<p><strong>Activate</strong><span class=\"pf2-icon\">1</span> Interact</p>\n<p>After you drink this elixir, your sight becomes sharper in darkness. You gain darkvision for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Darkvision Elixir (Lesser)]{Effect: Darkvision Elixir (Lesser)}</p>"
                 },
                 "duration": {
                     "units": "",
@@ -879,7 +879,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Fences live by their ability to recognize a viable trade. They can use Underworld Lore to identify an item's value and @Compendium[pf2e.actionspf2e.Identify Magic]{Identify Magic} on an item. They gain a +2 circumstance bonus to Underworld Lore checks when doing so, and to Underworld Lore checks to determine whether an item was stolen, whether a stolen item would be too recognizable to easily move, and who would be interested in purchasing such an item.</p>"
+                    "value": "<p>Fences live by their ability to recognize a viable trade. They can use Underworld Lore to identify an item's value and @UUID[Compendium.pf2e.actionspf2e.Identify Magic]{Identify Magic} on an item. They gain a +2 circumstance bonus to Underworld Lore checks when doing so, and to Underworld Lore checks to determine whether an item was stolen, whether a stolen item would be too recognizable to easily move, and who would be interested in purchasing such an item.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -929,7 +929,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The fence always has a few items close at hand. The fence @Compendium[pf2e.actionspf2e.Interact]{Interacts} to draw a weapon or item that takes a single action to activate, and then @Compendium[pf2e.actionspf2e.Strike]{Strikes} with the weapon or activates the item.</p>"
+                    "value": "<p>The fence always has a few items close at hand. The fence @UUID[Compendium.pf2e.actionspf2e.Interact]{Interacts} to draw a weapon or item that takes a single action to activate, and then @UUID[Compendium.pf2e.actionspf2e.Strike]{Strikes} with the weapon or activates the item.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -969,7 +969,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the fence successfully @Compendium[pf2e.actionspf2e.Feint]{Feints}, their target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the fence's attacks until the end of the fence's next turn. On a critical success, the target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against all attacks until the end of the fence's next turn.</p>"
+                    "value": "<p>When the fence successfully @UUID[Compendium.pf2e.actionspf2e.Feint]{Feints}, their target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the fence's attacks until the end of the fence's next turn. On a critical success, the target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against all attacks until the end of the fence's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1029,13 +1029,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }

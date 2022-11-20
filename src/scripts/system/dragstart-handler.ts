@@ -1,28 +1,51 @@
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
+import { CheckRoll } from "@system/check";
+import { htmlClosest } from "@util";
 
 /**
  * Extends all drag and drop events on entity links to contain PF2e specific information
  * such as condition value and spell level.
  */
-export function extendDragData() {
-    $("body").on("dragstart", "a.content-link", (event: JQuery.DragStartEvent) => {
-        const dataTransfer = event?.originalEvent?.dataTransfer;
-        if (!dataTransfer) return;
+export function extendDragData(): void {
+    document.body.addEventListener("dragstart", (event): void => {
+        const { dataTransfer, target } = event;
+        if (!(dataTransfer && target instanceof HTMLAnchorElement && target.classList.contains("content-link"))) {
+            return;
+        }
 
         const data: DropCanvasItemDataPF2e = JSON.parse(dataTransfer.getData("text/plain"));
         if (data.type !== "Item") return;
 
         // Add value field to TextEditor#_onDragEntityLink data. This is mainly used for conditions.
-        const name = event?.currentTarget?.innerText?.trim() ?? "";
+        const name = target.innerText.trim();
         const match = name.match(/[0-9]+/);
-        if (match !== null) {
-            data.value = Number(match[0]);
-        }
+        if (match) data.value = Number(match[0]);
 
         // Detect spell level of containing element, if available
-        const containerElement = event.target.closest("[data-cast-level]");
+        const containerElement = htmlClosest(target, "[data-cast-level]");
         const castLevel = Number(containerElement?.dataset.castLevel);
         if (castLevel > 0) data.level = castLevel;
+
+        const messageId = htmlClosest(target, "li.chat-message")?.dataset.messageId;
+        const message = game.messages.get(messageId ?? "");
+        if (message?.actor) {
+            const { actor, token, target } = message;
+            const roll = message.rolls.at(-1);
+
+            data.context = {
+                origin: {
+                    actor: actor.uuid,
+                    token: token?.uuid ?? null,
+                },
+                target: target ? { actor: target.actor.uuid, token: target.token.uuid } : null,
+                roll: roll
+                    ? {
+                          total: roll.total,
+                          degreeOfSuccess: roll instanceof CheckRoll ? roll.degreeOfSuccess ?? null : null,
+                      }
+                    : null,
+            };
+        }
 
         dataTransfer.setData("text/plain", JSON.stringify(data));
     });

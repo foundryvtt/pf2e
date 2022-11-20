@@ -143,7 +143,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ArmorCheckLabel"}}</label>
-    <input type="number" name="system.check.value" value="{{data.check.value}}" />
+    <input type="number"{{#if (and document.isArmor document.isShoddy)}} class="adjusted-lower"{{/if}} data-property="system.check.value" data-value-base="{{document._source.system.check.value}}" value="{{data.check.value}}" />
 </div>
 
 <div class="form-group">
@@ -158,7 +158,7 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.MaxHitPointsHeader"}}</label>
-    <input type="number" name="system.hp.max" value="{{data.hp.max}}" />
+    <input type="number"{{#if document.isShoddy}} class="adjusted-lower"{{/if}} data-property="system.hp.max" data-value-base="{{document._source.system.hp.max}}" value="{{data.hp.max}}" />
 </div>
 
 <div class="form-group">
@@ -168,9 +168,24 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.ShieldBrokenThresholdLabel"}}</label>
-    <input type="number" name="system.hp.brokenThreshold" value="{{data.hp.brokenThreshold}}" />
+    <input type="number"{{#if document.isShoddy}} class="adjusted-lower"{{/if}} data-property="system.hp.brokenThreshold" data-value-base="{{document._source.system.hp.brokenThreshold}}" value="{{data.hp.brokenThreshold}}" />
 </div>
 <div class="form-group">
     <label>{{localize "PF2E.ShieldHardnessLabel"}}</label>
     <input type="number" name="system.hardness" value="{{data.hardness}}" />
+</div>
+
+<div class="form-group-stacked">
+    <label>
+        {{localize "PF2E.Item.Physical.OtherTags.Label"}}
+        <i class="fas fa-info-circle other-tags-hint" title="PF2E.Item.Physical.OtherTags.Hint"></i>
+        {{#if editable}}
+            <a class="tag-selector" data-tag-selector="basic" data-config-types="otherArmorTags" data-title="PF2E.Item.Physical.OtherTags.Label" data-property="system.traits.otherTags"><i class="fas fa-edit"></i></a>
+        {{/if}}
+    </label>
+    <ul class="traits-list tags">
+        {{#each otherTags as |tag|}}
+            <li class="tag tag_alt">{{tag.label}}</li>
+        {{/each}}
+    </ul>
 </div>

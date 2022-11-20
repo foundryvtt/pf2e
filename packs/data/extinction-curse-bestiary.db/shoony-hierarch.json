@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "OERIXrGF7QcibH4t",
+            "_id": "PaiVsn6tW2f0pLxu",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.MVAWttmT0QDa7LsV"
@@ -120,7 +120,7 @@
             "type": "weapon"
         },
         {
-            "_id": "JRUfd8Cc5Js0L63E",
+            "_id": "0qx1qYhdnfIwIVF3",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.FVjTuBCIefAgloUU"
@@ -234,7 +234,7 @@
             "type": "weapon"
         },
         {
-            "_id": "TYwzYYQ05o3nQHco",
+            "_id": "gvU1q6bUnN5I1s2m",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
@@ -349,7 +349,12 @@
             "type": "consumable"
         },
         {
-            "_id": "vNPLM2jXcu4cfVOe",
+            "_id": "tgKfIAeJLnZoj24L",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
             "name": "Signal Arrows",
             "sort": 400000,
@@ -374,7 +379,7 @@
                     "value": 0
                 },
                 "consumableType": {
-                    "value": "potion"
+                    "value": "ammo"
                 },
                 "consume": {
                     "_deprecated": true,
@@ -382,7 +387,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": ""
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -408,12 +413,13 @@
                     "value": "0"
                 },
                 "preciousMaterial": {
-                    "value": null
+                    "value": ""
                 },
                 "preciousMaterialGrade": {
-                    "value": null
+                    "value": ""
                 },
                 "price": {
+                    "per": 10,
                     "value": {}
                 },
                 "quantity": 5,
@@ -424,11 +430,11 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "arrows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
-                "stackGroup": "",
+                "stackGroup": "arrows",
                 "target": {
                     "type": "",
                     "units": "",
@@ -450,7 +456,7 @@
                     "value": 0
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
             "type": "consumable"
@@ -484,8 +490,9 @@
                         "domain": "damage-roll",
                         "key": "RollOption",
                         "label": "PF2E.SpecificRule.TwoHanded.Staff",
-                        "option": "twoHanded",
-                        "toggleable": true
+                        "option": "two-handed",
+                        "toggleable": true,
+                        "value": false
                     },
                     {
                         "key": "DamageDice",
@@ -494,7 +501,7 @@
                             "dieSize": "d8"
                         },
                         "predicate": [
-                            "twoHanded"
+                            "two-handed"
                         ],
                         "selector": "{item|_id}-damage"
                     }
@@ -517,7 +524,7 @@
             "type": "melee"
         },
         {
-            "_id": "bZ3GybAG2fRwlpiv",
+            "_id": "FJAtShazGIV67CZM",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longbow",
             "sort": 600000,
@@ -532,7 +539,7 @@
                     "value": 11
                 },
                 "damageRolls": {
-                    "qwgaoeij2f86664u4xtg": {
+                    "zQp7O1xGT9eTS5dM": {
                         "damage": "1d8+2",
                         "damageType": "piercing"
                     }
@@ -550,18 +557,18 @@
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
-                        "range-100",
+                        "range-increment-100",
                         "volley-30"
                     ]
                 },
                 "weaponType": {
-                    "value": "melee"
+                    "value": "ranged"
                 }
             },
             "type": "melee"
         },
         {
-            "_id": "1Zq9ohLHp9lKj5Nu",
+            "_id": "YMzo8b4ZWBJo3wFO",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
@@ -689,7 +696,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>You hail from shoonies who have lived long and successfully among the reeds and cattails of swamps and marshes, and have adapted to the challenges of living near waterlogged ares. You ignore difficult terrain and greater difficult terrain from bogs. When you roll a success to @Compendium[pf2e.actionspf2e.Swim]{Swim}, you get a critical success instead.</p>"
+                    "value": "<p>You hail from shoonies who have lived long and successfully among the reeds and cattails of swamps and marshes, and have adapted to the challenges of living near waterlogged ares. You ignore difficult terrain and greater difficult terrain from bogs. When you roll a success to @UUID[Compendium.pf2e.actionspf2e.Swim]{Swim}, you get a critical success instead.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -974,7 +981,7 @@
                 "value": 4
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>For all their advancement in agriculture, horticulture, and animal husbandry, shoonies subscribe to a remarkably antiquated form of leadership; the role of hierarch is normally inherited, passed on to the oldest living child of the village's previous hierarch. In the instance that the village's hierarch does not produce an heir, the village holds a general election. Elected hierarchs hold the term for life and are just as highly regarded as hierarchs raised from birth. When the settlement comes under attack, it is up to the hierarch to decide when to fight and when to flee. In most cases, shoonies prefer to elect individuals with a preference toward the latter.</p>",
             "source": {
                 "value": "Pathfinder #153: Life's Long Shadows"
             }

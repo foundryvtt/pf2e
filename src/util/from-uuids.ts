@@ -3,10 +3,10 @@ import { ItemPF2e } from "@item";
 import { ErrorPF2e } from "./misc";
 
 /** Retrieve multiple documents by UUID */
-export async function fromUUIDs(uuids: Exclude<ActorUUID | TokenDocumentUUID, CompendiumUUID>[]): Promise<ActorPF2e[]>;
-export async function fromUUIDs(uuids: Exclude<ItemUUID, CompendiumUUID>[]): Promise<ItemPF2e[]>;
-export async function fromUUIDs(uuids: string[]): Promise<ClientDocument[]>;
-export async function fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
+async function fromUUIDs(uuids: Exclude<ActorUUID | TokenDocumentUUID, CompendiumUUID>[]): Promise<ActorPF2e[]>;
+async function fromUUIDs(uuids: Exclude<ItemUUID, CompendiumUUID>[]): Promise<ItemPF2e[]>;
+async function fromUUIDs(uuids: string[]): Promise<ClientDocument[]>;
+async function fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
     const actors: ActorPF2e[] = [];
     const items: ItemPF2e[] = [];
 
@@ -30,7 +30,7 @@ export async function fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
     return actors.length > 0 ? actors : items;
 }
 
-export function isItemUUID(uuid: unknown): uuid is ItemUUID {
+function isItemUUID(uuid: unknown): uuid is ItemUUID {
     if (typeof uuid !== "string") return false;
     if (uuid.startsWith("Item.")) return true;
 
@@ -41,3 +41,9 @@ export function isItemUUID(uuid: unknown): uuid is ItemUUID {
     const pack = game.packs.get(`${scope}.${packId}`);
     return pack?.documentName === "Item";
 }
+
+function isTokenUUID(uuid: unknown): uuid is TokenDocumentUUID {
+    return typeof uuid === "string" && /^Scene\.[A-Za-z0-9]{16}\.Token\.[A-Za-z0-9]{16}$/.test(uuid);
+}
+
+export { fromUUIDs, isItemUUID, isTokenUUID };

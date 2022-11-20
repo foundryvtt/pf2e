@@ -1,8 +1,9 @@
 import { ActorPF2e } from "@actor";
+import { ModifierPF2e } from "@actor/modifiers";
 import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
 import { ItemPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
-import { extractModifiers } from "@module/rules/util";
+import { extractModifierAdjustments, extractModifiers } from "@module/rules/util";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { objectHasKey, sluggify } from "@util";
 import { Statistic } from "./statistic";
@@ -74,7 +75,7 @@ class TextEditorPF2e extends TextEditor {
     static convertXMLNode(
         html: HTMLElement,
         name: string,
-        { visibility = null, whose = "self", classes = [] }: ConvertXMLNodeOptions
+        { visible = undefined, visibility = null, whose = "self", classes = [] }: ConvertXMLNodeOptions
     ): HTMLElement | null {
         const node = html.querySelector(name);
         if (!node) return null;
@@ -82,6 +83,7 @@ class TextEditorPF2e extends TextEditor {
         const span = document.createElement("span");
         const { dataset, classList } = span;
 
+        if (visible !== undefined) visibility = visible ? "all" : "gm";
         if (visibility) dataset.visibility = visibility;
         if (whose) dataset.whose = whose;
         for (const cssClass of classes) {
@@ -208,6 +210,8 @@ class TextEditorPF2e extends TextEditor {
             if (param.startsWith("traits:")) {
                 // Special case for "traits" that may be roll options
                 params.traits = param.substring(7);
+            } else if (param === "showDC") {
+                params.showDC = "all";
             } else {
                 const paramParts = param.split(":");
                 if (paramParts.length !== 2) {
@@ -353,17 +357,20 @@ function getCheckDC({
 
     if (base) {
         const getStatisticValue = (selectors: string[]): string => {
-            if (item?.isOwned && params.immutable !== "true") {
-                const actor = item.actor!;
-
+            if (item?.actor && params.immutable !== "true") {
+                const { actor } = item;
+                const { synthetics } = actor;
+                const modifier = new ModifierPF2e({
+                    slug: "base",
+                    label: "PF2E.ModifierTitle",
+                    modifier: base - 10,
+                    adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, selectors, "base"),
+                });
                 const stat = new Statistic(actor, {
                     slug: type,
                     label: name,
                     domains: selectors,
-                    modifiers: [...extractModifiers(actor.synthetics, selectors)],
-                    dc: {
-                        base,
-                    },
+                    modifiers: [modifier, ...extractModifiers(synthetics, selectors)],
                 });
 
                 return String(stat.dc.value);
@@ -408,6 +415,9 @@ interface EnrichHTMLOptionsPF2e extends EnrichHTMLOptions {
 interface ConvertXMLNodeOptions {
     /** The value of the data-visibility attribute to add to the span element */
     visibility?: UserVisibility | null;
+
+    /** Whether or not it should be visible or not, which maps to visibility (for this release) */
+    visible?: boolean;
     /**
      * Whether this piece of data belongs to the "self" actor or the target: used by UserVisibilityPF2e to
      * determine which actor's ownership to check

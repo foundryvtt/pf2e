@@ -112,7 +112,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature hits or touches the flytrap.</p>\n<hr />\n<p><strong>Effect</strong> The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} in that leaf.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature hits or touches the flytrap.</p>\n<hr />\n<p><strong>Effect</strong> The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} in that leaf.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -161,7 +161,7 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "option": "focusedAssault",
+                        "option": "focused-assault",
                         "toggleable": true
                     },
                     {
@@ -169,7 +169,7 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "focusedAssault"
+                            "focused-assault"
                         ],
                         "selector": "leaf-damage"
                     }
@@ -217,13 +217,13 @@
                     {
                         "domain": "attack-roll",
                         "key": "RollOption",
-                        "option": "hungryFlurry",
+                        "option": "hungry-flurry",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "hungryFlurry"
+                            "hungry-flurry"
                         ],
                         "selector": "leaf-attack",
                         "value": -2

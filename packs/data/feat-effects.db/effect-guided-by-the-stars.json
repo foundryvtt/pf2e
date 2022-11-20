@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>You roll twice and take the better result on your next skill check or saving throw. If it's night and you can see the stars, you gain a +1 circumstance bonus to the triggering roll.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Guided by the Stars]{Guided by the Stars}</p>\n<p>You roll twice and take the better result on your next skill check or saving throw. If it's night and you can see the stars, you gain a +1 circumstance bonus to the triggering roll.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -56,17 +56,10 @@
                     "night-time",
                     "can-see-stars"
                 ],
-                "selector": "skill-check",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "night-time",
-                    "can-see-stars"
+                "selector": [
+                    "saving-throw",
+                    "skill-check"
                 ],
-                "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
             }

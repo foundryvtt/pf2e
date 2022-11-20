@@ -373,22 +373,20 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "construct-armor"
-                        ],
-                        "selector": "ac",
-                        "slug": "construct-armor-critical",
-                        "value": -4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
                             {
-                                "not": "construct-armor"
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "selector": "ac",
-                        "slug": "construct-armor-health",
-                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
+                        "value": -4
                     }
                 ],
                 "slug": null,
@@ -425,7 +423,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a tupilaq is created, the curse imparted by its creator manifests in the form of a single 3rd-level primal spell the tupilaq can cast three times per day. The particular spell is a reflection of the creator's wish for vengeance. By default, and for a found or summoned tupilaq, this spell is <em>@Compendium[pf2e.spells-srd.Fireball]{Fireball}</em>.</p>"
+                    "value": "<p>When a tupilaq is created, the curse imparted by its creator manifests in the form of a single 3rd-level primal spell the tupilaq can cast three times per day. The particular spell is a reflection of the creator's wish for vengeance. By default, and for a found or summoned tupilaq, this spell is <em>@UUID[Compendium.pf2e.spells-srd.Fireball]{Fireball}</em>.</p>"
                 },
                 "requirements": {
                     "value": ""

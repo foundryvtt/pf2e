@@ -5,7 +5,7 @@ import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, Strik
 import { TokenDocumentPF2e } from "@scene";
 import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { UserPF2e } from "@module/user";
-import { CheckRoll } from "@system/check/roll";
+import { CheckRoll } from "@system/check";
 import { ChatRollDetails } from "./chat-roll-details";
 import { StrikeData } from "@actor/data/base";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
@@ -118,11 +118,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             item.trickMagicEntry = trick;
         }
 
-        const spellVariant = this.flags.pf2e.spellVariant;
-        if (spellVariant && item?.isOfType("spell")) {
-            return item.loadVariant({
-                overlayIds: spellVariant.overlayIds,
-            });
+        if (item?.isOfType("spell")) {
+            const spellVariant = this.flags.pf2e.spellVariant;
+            const castLevel = this.flags.pf2e.casting?.level ?? item.level;
+            const modifiedSpell = item.loadVariant({ overlayIds: spellVariant?.overlayIds, castLevel });
+            return modifiedSpell ?? item.clone({ "system.location.heightenedLevel": castLevel }, { keepId: true });
         }
 
         return item;

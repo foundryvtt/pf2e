@@ -17,7 +17,7 @@ import { registerFonts } from "@scripts/register-fonts";
 import { registerKeybindings } from "@scripts/register-keybindings";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
-import { Check } from "@system/check";
+import { CheckRoll, StrikeAttackRoll } from "@system/check";
 import { DamageRoll } from "@system/damage/roll";
 import { registerSettings } from "@system/settings";
 import { htmlQueryAll } from "@util";
@@ -30,7 +30,7 @@ export const Init = {
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
 
-            CONFIG.Dice.rolls.push(Check.Roll, Check.StrikeAttackRoll, DamageRoll);
+            CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll);
 
             // Assign canvas layer and placeable classes
             CONFIG.AmbientLight.layerClass = LightingLayerPF2e;

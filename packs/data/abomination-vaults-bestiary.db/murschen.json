@@ -498,7 +498,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Murschen gains the benefit of the @Compendium[pf2e.actionspf2e.Cover Tracks]{Cover Tracks} action in forests and subterranean settings without moving at half Speed.</p>"
+                    "value": "<p>Murschen gains the benefit of the @UUID[Compendium.pf2e.actionspf2e.Cover Tracks]{Cover Tracks} action in forests and subterranean settings without moving at half Speed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -538,7 +538,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Murschen's skin shifts and changes to match the surroundings. As long as most of his body isn't covered by clothing or armor, he gains a +2 circumstance bonus to Stealth checks to @Compendium[pf2e.actionspf2e.Hide]{Hide}.</p>"
+                    "value": "<p>Murschen's skin shifts and changes to match the surroundings. As long as most of his body isn't covered by clothing or armor, he gains a +2 circumstance bonus to Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Hide]{Hide}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -547,13 +547,13 @@
                     {
                         "domain": "skill-check",
                         "key": "RollOption",
-                        "option": "chameleonSkin",
+                        "option": "chameleon-skin",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "chameleonSkin",
+                            "chameleon-skin",
                             "action:hide"
                         ],
                         "selector": "stealth",
@@ -635,7 +635,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> Murschen is unarmored</p>\n<hr />\n<p><strong>Effect</strong> Murschen takes the stance of the red ruin, designed to tear away chunks of flesh like a ferocious beast. Murschen can make red claw unarmed attacks. These attacks deal [[/r {1d10}[slashing]]]{1d10 slashing damage}; are in the brawling group; and have the finesse, sweep, and unarmed traits.</p>\n<p>While in this stance, when Murschen would reduce his @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition value by 1, he reduces it to 0.</p>"
+                    "value": "<p><strong>Requirement</strong> Murschen is unarmored</p>\n<hr />\n<p><strong>Effect</strong> Murschen takes the stance of the red ruin, designed to tear away chunks of flesh like a ferocious beast. Murschen can make red claw unarmed attacks. These attacks deal [[/r {1d10}[slashing]]]{1d10 slashing damage}; are in the brawling group; and have the finesse, sweep, and unarmed traits.</p>\n<p>While in this stance, when Murschen would reduce his @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened} condition value by 1, he reduces it to 0.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -697,13 +697,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }

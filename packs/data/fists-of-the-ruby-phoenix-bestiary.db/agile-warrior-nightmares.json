@@ -727,7 +727,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The agile warrior's Strikes deal an additional [[/r {2d6}[precision]]]{2d6 extra precision damage} damage to flat-footed creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>The agile warrior's Strikes deal an additional [[/r {2d6}[precision]]]{2d6 extra precision damage} damage to flat-footed creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -742,13 +742,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -799,7 +799,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The agile warrior Strides up to their Speed. During this movement, they can move through the space of one creature without triggering reactions. When the agile warrior moves through a creature's space in this way, that creature becomes @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of the agile warrior's turn. If the agile warrior ends their movement within melee reach of at least one enemy, they can make a melee Strike against that enemy.</p>"
+                    "value": "<p>The agile warrior Strides up to their Speed. During this movement, they can move through the space of one creature without triggering reactions. When the agile warrior moves through a creature's space in this way, that creature becomes @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of the agile warrior's turn. If the agile warrior ends their movement within melee reach of at least one enemy, they can make a melee Strike against that enemy.</p>"
                 },
                 "requirements": {
                     "value": ""

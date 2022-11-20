@@ -317,7 +317,7 @@
                     "dc": 28,
                     "item": 0,
                     "mod": 0,
-                    "value": null
+                    "value": 20
                 },
                 "tradition": {
                     "value": ""
@@ -331,7 +331,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "pvQ4dqsFw4xMTRmT",
+            "_id": "y4FzMRUJzi32QlMi",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.VDWIZuLOJqwBthHc"
@@ -346,7 +346,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": ""
+                    "value": null
                 },
                 "areasize": {
                     "value": ""
@@ -367,7 +367,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You evoke @Compendium[pf2e.deities.Zevgavizeb]{Zevgavizeb's} unceasing hunger and inflict it upon your target. The target becomes overwhelmed with cannibalistic hunger and can restore its vitality by feasting on the flesh of the fallen. On its turn, the target can use 2 actions (these actions have the manipulate trait) to cannibalize an adjacent @Compendium[pf2e.conditionitems.Dying]{Dying} or dead creature. If the cannibalized creature is Dying, it dies. If the cannibalized creature is an ally of the target, the target regains [[/r 5d8]]{5d8 HP}; otherwise, the target regains [[/r 5d4]]{5d4 HP}. Certain monsters (such as those whose blood is acidic or magical) might inflict additional effects on those who cannibalize them at the GM's discretion. Once cannibalized, a particular creature's body doesn't have enough meat to cannibalize again. During any round that there's a Dying or dead creature within 30 feet of the target, if the target can't or doesn't cannibalize a creature, the target takes [[/r {5d4}[mental]]]{5d4 mental damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of HP restored by cannibalizing a creature increases by 1d8 for eating an ally and 1d4 otherwise, and the mental damage increases by 1d4.</p>"
+                    "value": "<p>You evoke Zevgavizeb's unceasing hunger and inflict it upon your target. The target becomes overwhelmed with cannibalistic hunger and can restore its vitality by feasting on the flesh of the fallen. On its turn, the target can use 2 actions (these actions have the manipulate trait) to cannibalize an adjacent @UUID[Compendium.pf2e.conditionitems.Dying]{Dying} or dead creature. If the cannibalized creature is Dying, it dies. If the cannibalized creature is an ally of the target, the target regains 5d8 HP; otherwise, the target regains 5d4 HP. Certain monsters (such as those whose blood is acidic or magical) might inflict additional effects on those who cannibalize them at the GM's discretion. Once cannibalized, a particular creature's body doesn't have enough meat to cannibalize again. During any round that there's a Dying or dead creature within 30 feet of the target, if the target can't or doesn't cannibalize a creature, the target takes 5d4 mental damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of HP restored by cannibalizing a creature increases by 1d8 for eating an ally and 1d4 otherwise, and the mental damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "value": "3 rounds"
@@ -444,7 +444,7 @@
             "type": "spell"
         },
         {
-            "_id": "0lpTRLtnGyTBQzE9",
+            "_id": "KrtEaB90Y09xK7CE",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.eG1fBodYwolaXK98"
@@ -480,13 +480,16 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An attack or effect would deal damage to you.</p>\n<hr />\n<p>Your own might mingles with divine power to protect you. You gain resistance equal to 8 plus your Strength modifier against all damage from the triggering attack or effect.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Enduring Might]{Spell Effect: Enduring Might}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The resistance increases by 2.</p>"
+                    "value": "<p><strong>Trigger</strong> An attack or effect would deal damage to you.</p>\n<hr />\n<p>Your own might mingles with divine power to protect you. You gain resistance equal to 8 plus your Strength modifier against all damage from the triggering attack or effect.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Enduring Might]{Spell Effect: Enduring Might}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The resistance increases by 2.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "damage": {}
                 },
                 "level": {
                     "value": 4
@@ -543,14 +546,15 @@
                     "custom": "",
                     "rarity": "uncommon",
                     "value": [
-                        "cleric"
+                        "cleric",
+                        "divine"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "7esULKNcA66DcCBA",
+            "_id": "7i3V9wwStai63E2H",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.vSSKyUdrHu86E5Gk"
@@ -667,6 +671,7 @@
                     "rarity": "uncommon",
                     "value": [
                         "cleric",
+                        "divine",
                         "plant",
                         "positive"
                     ]
@@ -675,7 +680,7 @@
             "type": "spell"
         },
         {
-            "_id": "R8f6q502xmQUkbUh",
+            "_id": "n04kXQMfSPvOrlKb",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.3x6eUCm17n6ROzUa"
@@ -719,7 +724,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You assault the target's faith, riddling the creature with doubt and mental turmoil that deal 6d6 mental damage, or 6d8 mental damage if it can cast divine spells. The effects are determined by its Will save.</p>\n<p>To many deities, casting this spell on a follower of your own deity without significant cause is anathema.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage; if the target can cast divine spells, it's @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round, and can't cast divine spells for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 (or by 2d8 if the target is a divine spellcaster).</p>"
+                    "value": "<p>You assault the target's faith, riddling the creature with doubt and mental turmoil that deal 6d6 mental damage, or 6d8 mental damage if it can cast divine spells. The effects are determined by its Will save.</p>\n<p>To many deities, casting this spell on a follower of your own deity without significant cause is anathema.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage; if the target can cast divine spells, it's @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round, and can't cast divine spells for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 (or by 2d8 if the target is a divine spellcaster).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -799,7 +804,7 @@
             "type": "spell"
         },
         {
-            "_id": "hVcOnDjtTfNcABjW",
+            "_id": "gmWHXJaWjVC3zovq",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.vh1RpbWfqdNC4L3P"
@@ -909,7 +914,7 @@
             "type": "spell"
         },
         {
-            "_id": "FVFVjtfQj39AdwnK",
+            "_id": "ijjCadEM1uIMqSia",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.Dbd5W6G8U2vzWolN"
@@ -945,7 +950,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You consecrate a site to your deity, chanting praises and creating a sacred space. While within the area, worshippers of your deity gain a +1 status bonus to attack rolls, skill checks, saving throws, and Perception checks, and creatures anathema to your deity (such as undead for @Compendium[pf2e.deities.Pharasma]{Pharasma} or @Compendium[pf2e.deities.Sarenrae]{Sarenrae}) take a -1 status penalty to those checks. Attacks made by worshippers of your deity within the area deal 1 damage of one of your deity's alignment types (your choice); if your deity is true neutral, you don't gain this benefit.</p>\n<hr />\n<p><strong>Critical Success</strong> The consecration succeeds, and it either lasts for 10 years instead of 1 or covers an area with twice the radius. Occasionally, with your deity's favor, this might produce an even more amazing effect, such as a permanently consecrated area or the effect covering an entire cathedral.</p>\n<p><strong>Success</strong> The consecration succeeds.</p>\n<p><strong>Failure</strong> The consecration fails.</p>\n<p><strong>Critical Failure</strong> The consecration fails spectacularly and angers your deity, who sends a sign of displeasure. For at least 1 year, further attempts to consecrate the site fail.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The consecrated area also gains the effects of the <em>@Compendium[pf2e.spells-srd.Dimensional Lock]{Dimensional Lock}</em> spell, but the effect doesn't attempt to counteract teleportation by worshippers of your deity. The cost increases to 200 gp × the spell level.</p>"
+                    "value": "<p>You consecrate a site to your deity, chanting praises and creating a sacred space. While within the area, worshippers of your deity gain a +1 status bonus to attack rolls, skill checks, saving throws, and Perception checks, and creatures anathema to your deity (such as undead for @UUID[Compendium.pf2e.deities.Pharasma]{Pharasma} or @UUID[Compendium.pf2e.deities.Sarenrae]{Sarenrae}) take a -1 status penalty to those checks. Attacks made by worshippers of your deity within the area deal 1 damage of one of your deity's alignment types (your choice); if your deity is true neutral, you don't gain this benefit.</p>\n<hr />\n<p><strong>Critical Success</strong> The consecration succeeds, and it either lasts for 10 years instead of 1 or covers an area with twice the radius. Occasionally, with your deity's favor, this might produce an even more amazing effect, such as a permanently consecrated area or the effect covering an entire cathedral.</p>\n<p><strong>Success</strong> The consecration succeeds.</p>\n<p><strong>Failure</strong> The consecration fails.</p>\n<p><strong>Critical Failure</strong> The consecration fails spectacularly and angers your deity, who sends a sign of displeasure. For at least 1 year, further attempts to consecrate the site fail.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The consecrated area also gains the effects of the <em>@UUID[Compendium.pf2e.spells-srd.Dimensional Lock]{Dimensional Lock}</em> spell, but the effect doesn't attempt to counteract teleportation by worshippers of your deity. The cost increases to 200 gp × the spell level.</p>"
                 },
                 "duration": {
                     "value": "1 year"
@@ -1016,7 +1021,7 @@
             "type": "spell"
         },
         {
-            "_id": "IPCHlnnTTcuprmik",
+            "_id": "ZOnVGJriwQLDAsWo",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.4GE2ZdODgIQtg51c"
@@ -1052,7 +1057,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1132,7 +1137,7 @@
             "type": "spell"
         },
         {
-            "_id": "1YqXeAi07sXZXwN6",
+            "_id": "7PaVXiDCwao2ZHou",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.UGJzJRJDoonfWqqI"
@@ -1168,7 +1173,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Your body fills with physical power and skill.</p>\n<p>You gain a +10-foot status bonus to Speed and a +2 status bonus to Athletics checks. As a part of Casting this Spell, you can use a Stride, Leap, Climb, or Swim action. The spell's bonuses apply during that action.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Athletic Rush]{Spell Effect: Athletic Rush}</p>"
+                    "value": "<p>Your body fills with physical power and skill.</p>\n<p>You gain a +10-foot status bonus to Speed and a +2 status bonus to Athletics checks. As a part of Casting this Spell, you can use a Stride, Leap, Climb, or Swim action. The spell's bonuses apply during that action.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Athletic Rush]{Spell Effect: Athletic Rush}</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -1231,14 +1236,15 @@
                     "custom": "",
                     "rarity": "uncommon",
                     "value": [
-                        "cleric"
+                        "cleric",
+                        "divine"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "YEqFBKwAftPX4gxK",
+            "_id": "0uWgmxpffv5a1h3J",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.QnTtGCAvdWRU4spv"
@@ -1341,21 +1347,22 @@
                     "custom": "",
                     "rarity": "uncommon",
                     "value": [
-                        "detection"
+                        "detection",
+                        "divine"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "JgXgpyyb54t6hzTr",
+            "_id": "JNfFOPN58ILPiAjU",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
                 }
             },
             "img": "systems/pf2e/icons/spells/harm.webp",
-            "name": "Harm (At Will)",
+            "name": "Harm (At-Will)",
             "sort": 1300000,
             "system": {
                 "ability": {
@@ -1394,7 +1401,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> (somatic) The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8. [[/r (@item.level)d8[negative]+@item.level*8[healing]]]{2-Action Negative Healing}</p>\n<p><span class=\"pf2-icon\">3</span> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, verbal, somatic)</strong> You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1414,14 +1421,122 @@
                 },
                 "location": {
                     "heightenedLevel": 3,
-                    "uses": {
-                        "max": 50,
-                        "value": 50
-                    },
                     "value": "2oeiSTDdWeqdi1Ew"
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "4gyp3qlsv5ywdyjq": {
+                        "_id": "4gyp3qlsv5ywdyjq",
+                        "name": "Harm (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "value": "1d8+8"
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "spellType": {
+                                "value": "heal"
+                            },
+                            "target": {
+                                "value": "1 willing undead creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "pq7cxntbz4s8g5ik": {
+                        "_id": "pq7cxntbz4s8g5ik",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true
+                            },
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "rvhoa43rqqqp8izn": {
+                        "_id": "rvhoa43rqqqp8izn",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "z04svm1cvfcxtplb": {
+                        "_id": "z04svm1cvfcxtplb",
+                        "name": "Harm (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "1 living creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -1471,6 +1586,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "negative"
                     ]
                 }
@@ -1478,7 +1594,7 @@
             "type": "spell"
         },
         {
-            "_id": "9X9LTrEKV8IHMsuA",
+            "_id": "o7TxXZaeJHdK7MFO",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.J7Y7tl0bbdz7TcCc"
@@ -1514,7 +1630,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>A ray that saps a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save to determine the spell's effect. If your attack roll is a critical success, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
+                    "value": "<p>A ray that saps a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save to determine the spell's effect. If your attack roll is a critical success, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1589,7 +1705,7 @@
             "type": "spell"
         },
         {
-            "_id": "SWZBis2WFN5G2DM3",
+            "_id": "rpnplFZ5J97TnD2D",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.nnSipUPNd3sm5vYL"
@@ -1604,7 +1720,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": ""
+                    "value": null
                 },
                 "areasize": {
                     "value": ""
@@ -1697,7 +1813,7 @@
             "type": "spell"
         },
         {
-            "_id": "eIgos7hdNgT7iYsc",
+            "_id": "teoYBsXeF4ePoNS9",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.YFfG2fMyaIAXkmtr"
@@ -1801,7 +1917,9 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "free-hand"
+                        "evocation",
+                        "free-hand",
+                        "magical"
                     ]
                 },
                 "usage": {
@@ -1861,7 +1979,7 @@
             "type": "melee"
         },
         {
-            "_id": "2eI8HOlpjwbzPlaB",
+            "_id": "k0Pbu3xoSfQc9iEi",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -1926,7 +2044,55 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "in-a-cabal",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.resources.focus.max",
+                        "predicate": [
+                            "in-a-cabal"
+                        ],
+                        "priority": 51,
+                        "value": 3
+                    },
+                    {
+                        "key": "FastHealing",
+                        "predicate": [
+                            "in-a-cabal"
+                        ],
+                        "type": "fast-healing",
+                        "value": 10
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "in-a-cabal"
+                        ],
+                        "selector": "perception",
+                        "type": "status",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "downgrade",
+                        "path": "system.resources.focus.max",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "in-a-cabal"
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1986,7 +2152,97 @@
             "type": "action"
         },
         {
-            "_id": "kIVS3dz69I2rbWb9",
+            "_id": "nyPjPPwEThfAJoow",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 2100000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7jb5XLgHQFBJzvra",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 2200000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ConstantSpells]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "gi1EHeu40BAEjrvS",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
@@ -1994,7 +2250,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
-            "sort": 2100000,
+            "sort": 2300000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2041,7 +2297,7 @@
             "_id": "HAq5bDyta4z3yz98",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Perverse Prayer",
-            "sort": 2200000,
+            "sort": 2400000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2085,7 +2341,7 @@
             "_id": "nN899egloBXvGHGV",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Assault the Soul",
-            "sort": 2300000,
+            "sort": 2500000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2097,7 +2353,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The herecite is in a cabal of three or more members, two of which are within 60 feet and have used Cabal Communion within the last round</p>\n<hr />\n<p><strong>Effect</strong> The herecite casts @Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul}, @Compendium[pf2e.spells-srd.Spirit Blast]{Spirit Blast}, or @Compendium[pf2e.spells-srd.Spiritual Epidemic]{Spiritual Epidemic} (DC 31). Once a herecite has used this ability (whether or not it was successful), the cabal must wait 24 hours before one of its members can use Assault the Soul again.</p>"
+                    "value": "<p><strong>Requirements</strong> The herecite is in a cabal of three or more members, two of which are within 60 feet and have used Cabal Communion within the last round</p>\n<hr />\n<p><strong>Effect</strong> The herecite casts <em>@UUID[Compendium.pf2e.spells-srd.Bind Soul]{Bind Soul}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Spirit Blast]{Spirit Blast}</em>, or <em>@UUID[Compendium.pf2e.spells-srd.Spiritual Epidemic]{Spiritual Epidemic}</em> (DC 31). Once a herecite has used this ability (whether or not it was successful), the cabal must wait 24 hours before one of its members can use Assault the Soul again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2130,7 +2386,7 @@
             "_id": "PQ4Thk0ntFSWU7Gz",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Cabal Communion",
-            "sort": 2400000,
+            "sort": 2600000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2173,7 +2429,7 @@
             "_id": "luzb0P0GAIgFEHxS",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Curse of Defiled Idols",
-            "sort": 2500000,
+            "sort": 2700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2185,7 +2441,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Recalling the cruelty of the foul ritual that birthed it, the herecite curses an enemy with a fragment of its blasphemy. The herecite targets one creature within 30 feet, which must attempt a @Check[type:will|dc:29] save. On a failure, the creature is cursed. As long as the creature is cursed, any art object, symbol, or implement of religious significance in the creature's possession-such as a divine spellcasting focus, holy text, fetish, or rendering of a deity-becomes physically corrupted in a way that debases the deity's tenets (a depiction of Shelyn's songbird, for example, might lose its beautiful plumage to reveal a hideous skeletal form beneath). While these items continue to function normally, the cursed creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupified 2} as long as it possesses an object corrupted in this fashion. The creature can cast off its corrupted objects to remove the stupefied condition, but any new religious objects it takes into its possession become similarly corrupted. The curse can be lifted by a remove curse spell or by an atone ritual. After a creature is targeted with this ability, regardless of whether it was affected, it becomes immune to herecites' Curse of Defiled Idols for 1 day.</p>"
+                    "value": "<p>Recalling the cruelty of the foul ritual that birthed it, the herecite curses an enemy with a fragment of its blasphemy. The herecite targets one creature within 30 feet, which must attempt a @Check[type:will|dc:29] save. On a failure, the creature is cursed. As long as the creature is cursed, any art object, symbol, or implement of religious significance in the creature's possession-such as a divine spellcasting focus, holy text, fetish, or rendering of a deity-becomes physically corrupted in a way that debases the deity's tenets (a depiction of Shelyn's songbird, for example, might lose its beautiful plumage to reveal a hideous skeletal form beneath). While these items continue to function normally, the cursed creature is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupified 2} as long as it possesses an object corrupted in this fashion. The creature can cast off its corrupted objects to remove the stupefied condition, but any new religious objects it takes into its possession become similarly corrupted. The curse can be lifted by a remove curse spell or by an atone ritual. After a creature is targeted with this ability, regardless of whether it was affected, it becomes immune to herecites' Curse of Defiled Idols for 1 day.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2217,7 +2473,7 @@
             "_id": "4AFLHeG3wSuQ2giO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2600000,
+            "sort": 2800000,
             "system": {
                 "description": {
                     "value": ""
@@ -2245,7 +2501,7 @@
             "_id": "iZRZWlngbbYp7FPB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2700000,
+            "sort": 2900000,
             "system": {
                 "description": {
                     "value": ""
@@ -2273,7 +2529,7 @@
             "_id": "oubEQ2b45AxAQp9c",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2800000,
+            "sort": 3000000,
             "system": {
                 "description": {
                     "value": ""
@@ -2301,7 +2557,7 @@
             "_id": "tp9ORpYsDj2Yd3XE",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Zevgavizeb Lore",
-            "sort": 2900000,
+            "sort": 3100000,
             "system": {
                 "description": {
                     "value": ""
@@ -2386,7 +2642,7 @@
                 "value": 10
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Secreted away in the dark corners of unnamed libraries, necromancer's dens, and heretical scriptoriums, obscure texts describe a horrifying ritual that combines sacrifice and suffering to create a powerful undead being known as a herecite. These monsters, stripped of personal will or desire, are born into the service of an evil god whom they worship unerringly and untiringly, often in spite of any opposing religious leanings they may have had in life. Every herecite harbors an unquenchable self-hatred because it was defiled by such a foul resurrection-a rage it turns outward in an attempt to rob others of their faith and lives.</p>\n<p>Herecites often outlast the cults that create them. Stranded herecites are drawn to others of their kind, even if they are dedicated to different evil deities, and when brought together they perform rites to magically bind themselves in a group known as a cabal. While cabal members share enhanced magic and defenses, induction into a cabal appears to hold even deeper significance for herecites. The presence of others of their kind with whom they can pray-in verses warped to venerate wicked gods-seems the only solace these tormented beings can find in undeath. Such a fellowship of sorrow is nigh unbreakable, as many an overzealous crusader has discovered far too late.</p>\n<p>Customarily found within heavily modified temples to the pantheon of gods they collectively worship, herecites act in service to their creators or as protectors of unholy ground. High priests of different evil gods may even trade herecites among themselves, allowing their minions to form cabals strengthened by their varied faiths. A lone herecite cut off from its creators-often because it is the sole remnant of a destroyed temple or its master has perished-may wander far and wide in search of a cabal to join. Other times, the herecite seeks out a place sacred to the deity it worshipped in life. Whether motivated by a desire for contrition or vengeance, the end result of this baleful pilgrimage is always the desecration of the holy site and the slaughter of its congregants, who may in turn rise as lesser forms of undead.</p>",
             "source": {
                 "value": "Pathfinder #153: Life's Long Shadows"
             }

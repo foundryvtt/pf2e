@@ -1,8 +1,8 @@
 import { AlignmentTrait } from "@actor/creature/types";
 import { OtherArmorTag } from "@item/armor/types";
 import { ClassTrait } from "@item/class/data";
+import { OtherConsumableTag } from "@item/consumable/types";
 import { RANGE_TRAITS } from "@item/data/values";
-import { OtherEquipmentTag } from "@item/equipment/types";
 import { PreciousMaterialType } from "@item/physical/types";
 import { MagicSchool, MagicTradition } from "@item/spell/types";
 import { OtherWeaponTag } from "@item/weapon/types";
@@ -31,6 +31,7 @@ const ancestryTraits = {
     fleshwarp: "PF2E.TraitFleshwarp",
     ganzi: "PF2E.TraitGanzi",
     geniekin: "PF2E.TraitGeniekin",
+    ghoran: "PF2E.TraitGhoran",
     gnoll: "PF2E.TraitGnoll",
     gnome: "PF2E.TraitGnome",
     goblin: "PF2E.TraitGoblin",
@@ -40,10 +41,12 @@ const ancestryTraits = {
     hobgoblin: "PF2E.TraitHobgoblin",
     human: "PF2E.TraitHuman",
     ifrit: "PF2E.TraitIfrit",
+    kashrishi: "PF2E.TraitKashrishi",
     kitsune: "PF2E.TraitKitsune",
     kobold: "PF2E.TraitKobold",
     leshy: "PF2E.TraitLeshy",
     lizardfolk: "PF2E.TraitLizardfolk",
+    nagaji: "PF2E.TraitNagaji",
     orc: "PF2E.TraitOrc",
     oread: "PF2E.TraitOread",
     poppet: "PF2E.TraitPoppet",
@@ -58,6 +61,8 @@ const ancestryTraits = {
     tengu: "PF2E.TraitTengu",
     tiefling: "PF2E.TraitTiefling",
     undine: "PF2E.TraitUndine",
+    vanara: "PF2E.TraitVanara",
+    vishkanya: "PF2E.TraitVishkanya",
 };
 
 // Secondary traits of ancestries and heritages
@@ -506,16 +511,17 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
 };
 
 const otherArmorTags: Record<OtherArmorTag, string> = {
-    innovation: "PF2E.Item.Physical.OtherTag.Innovation",
+    shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
 
-const otherEquipmentTags: Record<OtherEquipmentTag, string> = {
-    implement: "PF2E.Item.Physical.OtherTag.Implement",
+const otherConsumableTags: Record<OtherConsumableTag, string> = {
+    herbal: "PF2E.Item.Physical.OtherTag.Herbal",
 };
 
 const otherWeaponTags: Record<OtherWeaponTag, string> = {
     crossbow: "PF2E.Weapon.Base.crossbow",
-    improvised: "PF2E.Item.Weapon.Improvised",
+    improvised: "PF2E.Item.Physical.OtherTag.Improvised",
+    shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
@@ -805,7 +811,7 @@ export {
     magicTraditions,
     npcAttackTraits,
     otherArmorTags,
-    otherEquipmentTags,
+    otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
     spellOtherTraits,

@@ -4,7 +4,7 @@
     "name": "Spell Effect: Arcane Countermeasure",
     "system": {
         "description": {
-            "value": "<p>Granted by casting <em>@Compendium[pf2e.spells-srd.Arcane Countermeasure]{Arcane Countermeasure}</em></p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Arcane Countermeasure]{Arcane Countermeasure}</em></p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -19,21 +19,11 @@
             {
                 "key": "FlatModifier",
                 "label": "Arcane Countermeasure (vs. target spell)",
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Arcane Countermeasure (vs. target spell)",
-                "selector": "skill-check",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Arcane Countermeasure (vs. target spell)",
-                "selector": "ac",
+                "selector": [
+                    "ac",
+                    "saving-throw",
+                    "skill-check"
+                ],
                 "type": "status",
                 "value": 2
             }

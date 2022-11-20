@@ -56,7 +56,7 @@ const SELECTABLE_TAG_FIELDS = [
     "monsterTraits",
     "npcAttackTraits",
     "otherArmorTags",
-    "otherEquipmentTags",
+    "otherConsumableTags",
     "otherWeaponTags",
     "preciousMaterialGrades",
     "preciousMaterials",

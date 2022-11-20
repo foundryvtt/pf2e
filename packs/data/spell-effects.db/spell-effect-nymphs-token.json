@@ -4,7 +4,7 @@
     "name": "Spell Effect: Nymph's Token",
     "system": {
         "description": {
-            "value": "<p>Granted by holding the token created by <em>@Compendium[pf2e.spells-srd.Nymph's Token]{Nymph's Token}</em></p>"
+            "value": "<p>Granted by holding the token created by <em>@UUID[Compendium.pf2e.spells-srd.Nymph's Token]{Nymph's Token}</em></p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -18,13 +18,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "performance",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "will",
+                "selector": [
+                    "performance",
+                    "will"
+                ],
                 "type": "status",
                 "value": 1
             }

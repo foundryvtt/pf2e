@@ -41,7 +41,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get checkPenalty(): number | null {
-        return this.isShield ? null : this.system.check.value;
+        return this.isShield ? null : this.system.check.value || null;
     }
 
     get speedPenalty(): number {
@@ -114,7 +114,6 @@ class ArmorPF2e extends PhysicalItemPF2e {
 
         const { traits } = this.system;
         traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
-        traits.otherTags ??= [];
     }
 
     override prepareDerivedData(): void {
@@ -129,6 +128,12 @@ class ArmorPF2e extends PhysicalItemPF2e {
                 (rune): rune is string => !!rune
             ),
         };
+
+        // Work around upstream double data-preparation bug
+        // https://github.com/foundryvtt/foundryvtt/issues/7987
+        if (this.isShoddy && this._source.system.check.value) {
+            this.system.check.value = this._source.system.check.value - 2;
+        }
     }
 
     override prepareActorData(): void {

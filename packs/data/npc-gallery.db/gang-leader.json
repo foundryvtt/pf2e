@@ -264,7 +264,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>A tanglefoot bag is filled with sticky substances. When you hit a creature with a tanglefoot bag, that creature takes a -15-foot status penalty to its Speeds for 1 minute. You gain a +1 item bonus to attack rolls, and the Escape DC is 19.</p>\n<p>On a critical hit, a creature in contact with a solid surface becomes stuck to the surface and @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round, and a creature flying via wings has its wings tangled, causing it to fall safely to the ground and become unable to Fly again for 1 round. Tanglefoot bags are not effective when used on a creature that is in water.</p>\n<p>The target can end any effects by Escaping or spending a total of 3 actions to carefully remove the sticky substances. These Interact actions don't have to be consecutive, and other creatures can provide the actions as well.</p>"
+                    "value": "<p>A tanglefoot bag is filled with sticky substances. When you hit a creature with a tanglefoot bag, that creature takes a -15-foot status penalty to its Speeds for 1 minute. You gain a +1 item bonus to attack rolls, and the Escape DC is 19.</p>\n<p>On a critical hit, a creature in contact with a solid surface becomes stuck to the surface and @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} for 1 round, and a creature flying via wings has its wings tangled, causing it to fall safely to the ground and become unable to Fly again for 1 round. Tanglefoot bags are not effective when used on a creature that is in water.</p>\n<p>The target can end any effects by Escaping or spending a total of 3 actions to carefully remove the sticky substances. These Interact actions don't have to be consecutive, and other creatures can provide the actions as well.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -816,7 +816,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The gang leader isn't @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures of 7th level or lower that are @Compendium[pf2e.conditionitems.Hidden]{Hidden}, @Compendium[pf2e.conditionitems.Undetected]{Undetected}, flanking, or using surprise attack.</p>"
+                    "value": "<p>The gang leader isn't @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures of 7th level or lower that are @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected}, flanking, or using surprise attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -975,7 +975,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>On the first round of combat, if the gang leader rolls Deception or Stealth for initiative, creatures who haven't acted are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the gang leader.</p>"
+                    "value": "<p>On the first round of combat, if the gang leader rolls Deception or Stealth for initiative, creatures who haven't acted are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the gang leader.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1015,7 +1015,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The gang leader rolls a critical hit against a creature</p>\n<hr />\n<p><strong>Effect</strong> All allies that can see the gang leader gain a +1 circumstance bonus to attack rolls until the start of the gang leader's next turn.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Brutal Rally]{Effect: Brutal Rally}</p>"
+                    "value": "<p><strong>Trigger</strong> The gang leader rolls a critical hit against a creature</p>\n<hr />\n<p><strong>Effect</strong> All allies that can see the gang leader gain a +1 circumstance bonus to attack rolls until the start of the gang leader's next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Brutal Rally]{Effect: Brutal Rally}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1060,7 +1060,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any enemy is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the gang leader's melee attacks due to flanking as long as the enemy is within melee reach of both the gang leader and one of the gang leader's allies.</p>"
+                    "value": "<p>Any enemy is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the gang leader's melee attacks due to flanking as long as the enemy is within melee reach of both the gang leader and one of the gang leader's allies.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1100,7 +1100,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The gang leader @Compendium[pf2e.actionspf2e.Interact]{Interacts} to draw a weapon, then Strikes with that weapon.</p>"
+                    "value": "<p>The gang leader @UUID[Compendium.pf2e.actionspf2e.Interact]{Interacts} to draw a weapon, then Strikes with that weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1160,13 +1160,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }

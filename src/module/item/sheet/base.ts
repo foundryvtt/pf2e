@@ -9,7 +9,6 @@ import {
     SelectableTagField,
     SELECTABLE_TAG_FIELDS,
     TagSelectorBasic,
-    TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
 import {
     ErrorPF2e,
@@ -158,7 +157,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     protected onTagSelector(anchor: HTMLAnchorElement): void {
         const selectorType = anchor.dataset.tagSelector ?? "";
-        if (!(selectorType === "basic" && tupleHasValue(TAG_SELECTOR_TYPES, selectorType))) {
+        if (selectorType !== "basic") {
             throw ErrorPF2e("Item sheets can only use the basic tag selector");
         }
         const propertyIsFlat = anchor.dataset.flat === "true";
@@ -185,14 +184,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         new TagSelectorBasic(this.item, selectorOptions).render(true);
     }
 
-    /**
-     * Get NPC attack effect options
-     */
+    /** Get NPC attack effect options */
     protected getAttackEffectOptions(): Record<string, string> {
         // Melee attack effects can be chosen from the NPC's actions and consumable items
         const attackEffectOptions: Record<string, string> =
             this.actor?.items
-                .filter((item) => item.type === "action" || item.type === "consumable")
+                .filter((i) => i.type === "action" || i.type === "consumable")
                 .reduce((options, item) => {
                     const key = item.slug ?? sluggify(item.name);
                     return mergeObject(options, { [key]: item.name }, { inplace: false });

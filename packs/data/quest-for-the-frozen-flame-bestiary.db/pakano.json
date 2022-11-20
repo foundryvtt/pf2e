@@ -175,7 +175,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>A mixture of rendered animal fat and acids designed to ignite the fat when exposed to air, a tallow bomb creates a splash of burning oil that adheres to skin, clothes, and hair. A tallow bomb deals the listed fire damage, persistent fire damage, and splash damage.</p>\n<p>On a critical hit, a living creature taking persistent fire damage from a tallow bomb is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} from the stench of burning fat and can't reduce its sickened value below 1 while the persistent fire damage lasts.</p>\n<p>You gain a +1 item bonus to attack rolls. The bomb deals 2d4 persistent fire damage and 2 fire splash damage.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>A mixture of rendered animal fat and acids designed to ignite the fat when exposed to air, a tallow bomb creates a splash of burning oil that adheres to skin, clothes, and hair. A tallow bomb deals the listed fire damage, persistent fire damage, and splash damage.</p>\n<p>On a critical hit, a living creature taking persistent fire damage from a tallow bomb is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} from the stench of burning fat and can't reduce its sickened value below 1 while the persistent fire damage lasts.</p>\n<p>You gain a +1 item bonus to attack rolls. The bomb deals 2d4 persistent fire damage and 2 fire splash damage.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -712,7 +712,7 @@
                 },
                 "damageRolls": {},
                 "description": {
-                    "value": "<p>[[/r {2d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>\n<p>[[/r {2}[splash,fire]]]{2 splash fire damage}</p>"
+                    "value": "<p>[[/r {2d4}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>\n<p>[[/r {2}[splash,fire]]]{2 splash fire damage}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -876,7 +876,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Pakano designates a single creature he can see and hear, or one he's Tracking, as his prey. He gains a +2 circumstance bonus to Perception checks to @Compendium[pf2e.actionspf2e.Seek]{Seek} his prey and to Survival checks to @Compendium[pf2e.actionspf2e.Track]{Track} his prey.</p>\n<p>The first time Pakano hits his designated prey in a round, he deals an additional [[/r {1d8}[precision]]]{1d8 precision damage}. Pakano also ignores the penalty for making ranged attacks within his second range increment.</p>\n<p>These effects last until Pakano uses Hunt Prey again.</p>"
+                    "value": "<p>Pakano designates a single creature he can see and hear, or one he's Tracking, as his prey. He gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek} his prey and to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Track]{Track} his prey.</p>\n<p>The first time Pakano hits his designated prey in a round, he deals an additional [[/r {1d8}[precision]]]{1d8 precision damage}. Pakano also ignores the penalty for making ranged attacks within his second range increment.</p>\n<p>These effects last until Pakano uses Hunt Prey again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -886,7 +886,7 @@
                         "domain": "all",
                         "key": "RollOption",
                         "label": "Target is your Hunted Prey",
-                        "option": "huntedPrey",
+                        "option": "hunted-prey",
                         "toggleable": true
                     },
                     {
@@ -894,7 +894,7 @@
                         "label": "To Seek hunted prey",
                         "predicate": [
                             "action:seek",
-                            "huntedPrey"
+                            "hunted-prey"
                         ],
                         "selector": "perception",
                         "type": "circumstance",
@@ -905,7 +905,7 @@
                         "label": "To Track hunted prey",
                         "predicate": [
                             "action:track",
-                            "huntedPrey"
+                            "hunted-prey"
                         ],
                         "selector": "survival",
                         "type": "circumstance",
@@ -915,7 +915,7 @@
                         "domain": "all",
                         "key": "RollOption",
                         "label": "First attack on hunted prey this round",
-                        "option": "firstAttack",
+                        "option": "first-attack",
                         "toggleable": true
                     },
                     {
@@ -924,8 +924,8 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "huntedPrey",
-                            "firstAttack"
+                            "hunted-prey",
+                            "first-attack"
                         ],
                         "selector": "strike-damage"
                     }
@@ -963,7 +963,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Pakano's spear has the parry weapon trait, and his Strikes with the spear deal an additional [[/r {1d6}]]{1d6 damage}. If he critically hits a creature with a spear, the creature is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of Pakano's next turn.</p>"
+                    "value": "<p>Pakano's spear has the parry weapon trait, and his Strikes with the spear deal an additional [[/r {1d6}]]{1d6 damage}. If he critically hits a creature with a spear, the creature is @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of Pakano's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -975,7 +975,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "spear-attack",
-                        "text": "If he critically hits a creature with a spear, the creature is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of Pakano's next turn.",
+                        "text": "If he critically hits a creature with a spear, the creature is @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of Pakano's next turn.",
                         "title": "{item|name}"
                     }
                 ],

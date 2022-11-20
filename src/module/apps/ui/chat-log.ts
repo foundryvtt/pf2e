@@ -1,5 +1,5 @@
 import { ChatMessagePF2e } from "@module/chat-message";
-import { CheckPF2e } from "@system/rolls";
+import { CheckPF2e } from "@system/check";
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
 
 export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {

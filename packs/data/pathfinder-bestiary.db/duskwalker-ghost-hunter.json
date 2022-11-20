@@ -710,7 +710,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The duskwalker's weapons have the benefits of the <em>@Compendium[pf2e.equipment-srd.Ghost Touch]{Ghost Touch}</em> property rune on attacks against incorporeal undead.</p>"
+                    "value": "<p>The duskwalker's weapons have the benefits of the <em>@UUID[Compendium.pf2e.equipment-srd.Ghost Touch]{Ghost Touch}</em> property rune on attacks against incorporeal undead.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -762,7 +762,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The duskwalker designates as its prey a single creature that it can see and hear or that it is Tracking. It gains a +2 circumstance bonus to Perception checks when it @Compendium[pf2e.actionspf2e.Seek]{Seeks} its prey and a +2 circumstance bonus to Survival checks when it @Compendium[pf2e.actionspf2e.Track]{Tracks} its prey. It also ignores the penalty for making ranged attacks within its second range increment against its prey.</p>\n<p>Lastly, it gains a +2 circumstance bonus to Deception checks, Intimidation checks, and Stealth checks against its prey and to any check to Recall Knowledge about its prey, as well as a +1 circumstance bonus to AC against its prey's attacks. The duskwalker can have only one prey designated at a time.</p>"
+                    "value": "<p>The duskwalker designates as its prey a single creature that it can see and hear or that it is Tracking. It gains a +2 circumstance bonus to Perception checks when it @UUID[Compendium.pf2e.actionspf2e.Seek]{Seeks} its prey and a +2 circumstance bonus to Survival checks when it @UUID[Compendium.pf2e.actionspf2e.Track]{Tracks} its prey. It also ignores the penalty for making ranged attacks within its second range increment against its prey.</p>\n<p>Lastly, it gains a +2 circumstance bonus to Deception checks, Intimidation checks, and Stealth checks against its prey and to any check to Recall Knowledge about its prey, as well as a +1 circumstance bonus to AC against its prey's attacks. The duskwalker can have only one prey designated at a time.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -772,20 +772,20 @@
                         "domain": "ac",
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.DuskwalkerHuntPrey.AC",
-                        "option": "huntPreyAC",
+                        "option": "hunt-prey-ac",
                         "toggleable": true
                     },
                     {
                         "domain": "all",
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.DuskwalkerHuntPrey.Checks",
-                        "option": "huntPreyChecks",
+                        "option": "hunt-prey-checks",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "huntPreyChecks",
+                            "hunt-prey-checks",
                             "action:seek"
                         ],
                         "selector": "perception",
@@ -795,7 +795,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "huntPreyChecks",
+                            "hunt-prey-checks",
                             "action:track"
                         ],
                         "selector": "survival",
@@ -805,7 +805,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "huntPreyChecks"
+                            "hunt-prey-checks"
                         ],
                         "selector": "deception",
                         "type": "circumstance",
@@ -814,7 +814,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "huntPreyChecks"
+                            "hunt-prey-checks"
                         ],
                         "selector": "intimidation",
                         "type": "circumstance",
@@ -823,7 +823,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "huntPreyChecks"
+                            "hunt-prey-checks"
                         ],
                         "selector": "stealth",
                         "type": "circumstance",
@@ -832,7 +832,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "huntPreyAC"
+                            "hunt-prey-ac"
                         ],
                         "selector": "ac",
                         "type": "circumstance",

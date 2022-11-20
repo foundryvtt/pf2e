@@ -190,7 +190,8 @@ interface CreatureHitPoints extends HitPointsData {
 interface InitiativeRollParams extends RollParameters {
     /** Whether the encounter tracker should be updated with the roll result */
     updateTracker?: boolean;
-    skipDialog: boolean;
+    skipDialog?: boolean;
+    rollMode?: RollMode;
 }
 
 interface InitiativeRollResult {

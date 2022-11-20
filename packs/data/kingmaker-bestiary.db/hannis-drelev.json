@@ -965,7 +965,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> Baron Drelev hasn't attempted a Strike during this turn.</p>\n<hr />\n<p><strong>Effect</strong> Baron Drelev assumes a defensive position with his weapons out, then attempts a melee Strike. He takes a -2 status penalty on all Strikes (including this one) and gains a +2 status bonus to his AC until the start of his next turn.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Defensive Slice]{Effect: Defensive Slice}</p>"
+                    "value": "<p><strong>Requirement</strong> Baron Drelev hasn't attempted a Strike during this turn.</p>\n<hr />\n<p><strong>Effect</strong> Baron Drelev assumes a defensive position with his weapons out, then attempts a melee Strike. He takes a -2 status penalty on all Strikes (including this one) and gains a +2 status bonus to his AC until the start of his next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Defensive Slice]{Effect: Defensive Slice}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1002,7 +1002,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If Baron Drelev scores a critical success on an Athletics check to @UUID[Compendium.pf2e.action-macros.ooiO59Ch2QaebOmc]{Disarm} an opponent, he can choose to have the disarmed item fly [[/r {1d4}*5 #feet]]{1d4 × 5 feet} in a random direction rather than have it fall to the ground in the opponent's space. If this causes the item to land in a space occupied by a creature with at least one free hand, that creature can attempt a @Check[type:reflex|dc:20] save to catch the item (otherwise it falls to the ground in that space).</p>"
+                    "value": "<p>If Baron Drelev scores a critical success on an Athletics check to @UUID[Compendium.pf2e.action-macros.Disarm: Athletics]{Disarm} an opponent, he can choose to have the disarmed item fly [[/r {1d4}*5 #feet]]{1d4 × 5 feet} in a random direction rather than have it fall to the ground in the opponent's space. If this causes the item to land in a space occupied by a creature with at least one free hand, that creature can attempt a @Check[type:reflex|dc:20] save to catch the item (otherwise it falls to the ground in that space).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1049,8 +1049,8 @@
                         "definition": [
                             {
                                 "or": [
-                                    "weapon:longsword",
-                                    "weapon:shortsword"
+                                    "item:longsword",
+                                    "item:shortsword"
                                 ]
                             }
                         ],
@@ -1148,13 +1148,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }

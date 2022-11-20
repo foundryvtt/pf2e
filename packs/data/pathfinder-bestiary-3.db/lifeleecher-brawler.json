@@ -3,14 +3,14 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "VQhxvu8yYOgneeGy",
+            "_id": "iZEu9jYTf7nhB7z5",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.e4NwsnPnpQKbDZ9F"
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/composite-shortbow.webp",
-            "name": "+1 Striking Composite Shortbow",
+            "name": "Composite Shortbow",
             "sort": 100000,
             "system": {
                 "MAP": {
@@ -35,8 +35,8 @@
                     "value": "<p>This shortbow is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Its compact size and power make it a favorite of mounted archers. Any time an ability is specifically restricted to a shortbow, it also applies to composite shortbows unless otherwise stated.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -59,10 +59,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -70,16 +70,16 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": 60,
@@ -90,7 +90,7 @@
                 "size": "med",
                 "slug": "composite-shortbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -107,6 +107,8 @@
                     "rarity": "common",
                     "value": [
                         "deadly-d10",
+                        "evocation",
+                        "magical",
                         "propulsive"
                     ]
                 },
@@ -120,7 +122,7 @@
             "type": "weapon"
         },
         {
-            "_id": "lqLPrHnTyZl7qpGB",
+            "_id": "xiIBUJgRX2fZjaBP",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.r0ifJfoz8aqf0mwk"
@@ -147,7 +149,8 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
+                    "handsHeld": 0,
+                    "inSlot": true,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -171,10 +174,10 @@
                     "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -201,7 +204,7 @@
                 "size": "med",
                 "slug": "breastplate",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": -5
@@ -225,7 +228,7 @@
             "type": "armor"
         },
         {
-            "_id": "HGkaZnZHTkqt1jNs",
+            "_id": "9vEzBgO9fx9do6ix",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
@@ -310,7 +313,7 @@
                 "size": "med",
                 "slug": "arrows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": "arrows",
                 "target": {
@@ -603,7 +606,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A lifeleecher in a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by <em>@Compendium[pf2e.spells-srd.Sanctified Ground]{Sanctified Ground}</em>, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</p>"
+                    "value": "<p>A lifeleecher in a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by <em>@UUID[Compendium.pf2e.spells-srd.Sanctified Ground]{Sanctified Ground}</em>, is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -628,7 +631,12 @@
             "type": "action"
         },
         {
-            "_id": "On5yCVi7oQHcPmMk",
+            "_id": "BySVNQG4P1lbNbyJ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.N1kstYbHScxgUQtN"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Mortic Ferocity",
             "sort": 1000000,
@@ -642,16 +650,17 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
-                    "value": "<p>The lifeleecher is also surrounded by visibly flickering fragments of the souls they've consumed, becoming @Compendium[pf2e.conditionitems.Concealed]{Concealed} until the end of their next turn.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
+                    "value": "<p>The lifeleecher is also surrounded by visibly flickering fragments of the souls they've consumed, becoming @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} until the end of their next turn.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Ferocity]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ferocity",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -727,7 +736,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The lifeleecher draws in a deep breath and holds it, temporarily suspending their biological processes and becoming undead.</p>\n<p>The lifeleecher gains the undead trait and becomes immune to bleed, death effects, disease, paralyzed, poison, and sleep. Any such effects the angheuvore is currently suffering from are suspended, but take effect again once they take a breath.</p>\n<p>Death Gasp lasts as long as the lifeleechere holds their breath (up to 11 rounds).</p>"
+                    "value": "<p>The lifeleecher draws in a deep breath and holds it, temporarily suspending their biological processes and becoming undead.</p>\n<p>The lifeleecher gains the undead trait and becomes immune to bleed, death effects, disease, paralyzed, poison, and sleep. Any such effects the angheuvore is currently suffering from are suspended, but take effect again once they take a breath.</p>\n<p>Death Gasp lasts as long as the lifeleecher holds their breath (up to 11 rounds).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Death Gasp]{Effect: Death Gasp}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -767,12 +776,27 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The lifeleecher's tusks have the effects of the @Compendium[pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune on attacks against incorporeal undead.</p>"
+                    "value": "<p>The lifeleecher's tusks have the effects of the @UUID[Compendium.pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune on attacks against incorporeal undead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "target:trait:incorporeal"
+                        ],
+                        "selector": "tusk-attack",
+                        "text": "PF2E.WeaponPropertyRune.ghostTouch.Note",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -807,7 +831,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the lifeleecher damages a living or undead creature with their jaws Strike, they drain the target's life essence.</p>\n<p>The lifeleecher gains [[/r 5]] temporary Hit Points that last for 1 minute, and the target must succeed at a @Check[type:fortitude|dc:24] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1} if living, or @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} if undead. If the target was already drained or stunned, the value of this condition instead increases by 1, to a maximum of 3.</p>"
+                    "value": "<p>When the lifeleecher damages a living or undead creature with their jaws Strike, they drain the target's life essence.</p>\n<p>The lifeleecher gains [[/r 5 #Temporary Hit Points]]{5 temporary Hit Points} that last for 1 minute, and the target must succeed at a @Check[type:fortitude|dc:24] save or become @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} if living, or @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1} if undead. If the target was already drained or stunned, the value of this condition instead increases by 1, to a maximum of 3.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -947,7 +971,7 @@
                 "value": 25
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "negative healing",
@@ -976,7 +1000,7 @@
                 "value": 8
             },
             "privateNotes": "",
-            "publicNotes": "<p>Mortics are humanoids overwhelmed by negative energy who still cling to life, surviving as twisted amalgams of living and undead. Though they feel unnatural cravings and resemble corpses, mortics live, breathe, eat, sleep, and procreate. However, a mortic can suspend their living functions simply by holding their breath, becoming more like a true undead.</p>\n<p>Mortics are largely new to Golarion, with most created in droves when the Whispering Tyrant destroyed entire cities with his Radiant Fire, a magical explosion fueled by the collision of negative and positive energy. From among the corpses of these tragedies rose mortics, living survivors mistaken for corpses and left behind as a result. They found themselves in a twilight state-neither fully alive or undead. The necrotic pollutants of the Gravelands and the Isle of Terror continue to create mortics, seeping into neighboring lands through the air, earth, and water to infect the populace. Though most of the living in these lands fear becoming transformed, some believe becoming a mortic is their best chance of survival in the face of the encroaching hordes of the dead.</p>\n<p>A mortic's powers differ by ancestry, though they do have a few commonalities. Reading or hearing scripture induces headaches, and they experience great discomfort when treading upon sacred ground. For those who were religious in life, these new changes can be devastating.</p>\n<hr />\n<p>Lifeleechers are mortic orcs with gray flesh, sharp claws, and protruding tusks. Resilient and strong, they devour the vital essence of their enemies, which heals their wounds and shackles those souls to the lifeleecher.</p>\n<p>Many orcs believe lifeleechers are possessed by the spirits of fallen orc warriors too stubborn to die. Feared and revered, lifeleechers often rise to positions of power in their holds and battle on the front lines against the undead armies of the Whispering Tyrant.</p>",
+            "publicNotes": "<p>Lifeleechers are mortic orcs with gray flesh, sharp claws, and protruding tusks. Resilient and strong, they devour the vital essence of their enemies, which heals their wounds and shackles those souls to the lifeleecher.</p>\n<p>Many orcs believe lifeleechers are possessed by the spirits of fallen orc warriors too stubborn to die. Feared and revered, lifeleechers often rise to positions of power in their holds and battle on the front lines against the undead armies of the Whispering Tyrant.</p>\n<hr />\n<p>Mortics are humanoids overwhelmed by negative energy who still cling to life, surviving as twisted amalgams of living and undead. Though they feel unnatural cravings and resemble corpses, mortics live, breathe, eat, sleep, and procreate. However, a mortic can suspend their living functions simply by holding their breath, becoming more like a true undead.</p>\n<p>Mortics are largely new to Golarion, with most created in droves when the Whispering Tyrant destroyed entire cities with his Radiant Fire, a magical explosion fueled by the collision of negative and positive energy. From among the corpses of these tragedies rose mortics, living survivors mistaken for corpses and left behind as a result. They found themselves in a twilight state-neither fully alive or undead. The necrotic pollutants of the Gravelands and the Isle of Terror continue to create mortics, seeping into neighboring lands through the air, earth, and water to infect the populace. Though most of the living in these lands fear becoming transformed, some believe becoming a mortic is their best chance of survival in the face of the encroaching hordes of the dead.</p>\n<p>A mortic's powers differ by ancestry, though they do have a few commonalities. Reading or hearing scripture induces headaches, and they experience great discomfort when treading upon sacred ground. For those who were religious in life, these new changes can be devastating.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }

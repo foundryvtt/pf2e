@@ -359,7 +359,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
+                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -798,7 +798,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Calmont's eyes are sharp, allowing him to make out small details about @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} or even @UUID[Compendium.pf2e.conditionitems.zJxUflt9np0q4yML]{Invisible} creatures that others might miss. He gains a +2 circumstance bonus when using the @UUID[Compendium.pf2e.actionspf2e.BlAOM2X92SI6HMtJ]{Seek} action to find @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden} or @UUID[Compendium.pf2e.conditionitems.VRSef5y1LmL2Hkjf]{Undetected} creatures within 30 feet of him. When Calmont target an opponent that is concealed from him or hidden from him, reduce the DC of the flat check to 3 for a concealed target or 9 for a hidden one.</p>"
+                    "value": "<p>Calmont's eyes are sharp, allowing him to make out small details about @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} or even @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures that others might miss. He gains a +2 circumstance bonus when using the @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek} action to find @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden} or @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected} creatures within 30 feet of him. When Calmont target an opponent that is concealed from him or hidden from him, reduce the DC of the flat check to 3 for a concealed target or 9 for a hidden one.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -827,7 +827,7 @@
                             "target:condition:concealed"
                         ],
                         "selector": "attack",
-                        "text": "The target is @Compendium[pf2e.conditionitems.Concealed]{Concealed}, make a @Check[type:flat|dc:3|traits:target:condition:concealed] check",
+                        "text": "The target is @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, make a @Check[type:flat|dc:3|traits:target:condition:concealed] check",
                         "title": "{item|name}"
                     },
                     {
@@ -836,7 +836,7 @@
                             "target:condition:hidden"
                         ],
                         "selector": "attack",
-                        "text": "The target is @Compendium[pf2e.conditionitems.Hidden]{Hidden}, make a @Check[type:flat|dc:9|traits:target:condition:hidden] check",
+                        "text": "The target is @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, make a @Check[type:flat|dc:9|traits:target:condition:hidden] check",
                         "title": "{item|name}"
                     }
                 ],
@@ -871,7 +871,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Calmont isn't @UUID[Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} to @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, @UUID[Compendium.pf2e.conditionitems.VRSef5y1LmL2Hkjf]{Undetected}, or flanking creatures of level 3 or lower.</p>"
+                    "value": "<p>Calmont isn't @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected}, or flanking creatures of level 3 or lower.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -918,7 +918,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature targets Calmont with an attack and he can see the attacker.</p>\n<p><strong>Requirements</strong> Calmont is not @UUID[Compendium.pf2e.conditionitems.D5mg6Tc7Jzrj6ro7]{Encumbered}</p>\n<p>Calmont deftly dodges out of the way, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature targets Calmont with an attack and he can see the attacker.</p>\n<p><strong>Requirements</strong> Calmont is not @UUID[Compendium.pf2e.conditionitems.Encumbered]{Encumbered}</p>\n<p>Calmont deftly dodges out of the way, gaining a +2 circumstance bonus to AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1034,13 +1034,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -1091,7 +1091,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If Calmont used Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} to Calmont on the first round of combat.</p>"
+                    "value": "<p>If Calmont used Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to Calmont on the first round of combat.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1425,7 +1425,7 @@
                 "value": 3
             },
             "privateNotes": "",
-            "publicNotes": null,
+            "publicNotes": "",
             "source": {
                 "value": "Pathfinder #145: Hellknight Hill"
             }

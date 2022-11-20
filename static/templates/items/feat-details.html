@@ -57,7 +57,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.Item.Feat.TakeMultiple.Label"}}</label>
         <div class="details-container-flex-row">
-            <select name="system.maxTakable" data-dtype="Number" {{disabled mandatoryTakeOnce}}>
+            <select{{#unless mandatoryTakeOnce}} name="system.maxTakable"{{/unless}} data-dtype="Number" {{disabled mandatoryTakeOnce}}>
                 {{#select data.maxTakable}}
                     <option value="1">{{localize "No"}}</option>
                     <option value="2">{{localize "PF2E.Item.Feat.TakeMultiple.Two"}}</option>
