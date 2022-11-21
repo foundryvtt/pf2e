@@ -45,10 +45,47 @@
             "type": "melee"
         },
         {
+            "_id": "o204NA9EFmplkmbF",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense (60 feet)",
+            "sort": 200000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A tallow ooze can sense nearby motion through vibration and air movement.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "6T41uBvYSdsd3etb",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Congealed",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -60,7 +97,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever the tallow ooze takes fire damage, it becomes quickened for 1 round (it can only Stride or Strike with the extra action). Whenever the tallow ooze is dealt cold damage (even if that damage is prevented by its resistance), it becomes slowed 1 for 1 round and can't use its Engulf ability (but creatures already engulfed are still engulfed).</p>"
+                    "value": "<p>Whenever the tallow ooze takes fire damage, it becomes @UUID[Compendium.pf2e.conditionitems.Quickened]{Quickened} for 1 round (it can only Stride or Strike with the extra action).</p>\n<p>Whenever the tallow ooze is dealt cold damage (even if that damage is prevented by its resistance), it becomes @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round and can't use its Engulf ability (but creatures already engulfed are still engulfed).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -88,7 +125,7 @@
             "_id": "dCh3xhDcX6ef0gtU",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greasy Seepage",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -100,12 +137,17 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>10 feet. Any creature that starts its turn in or enters a square in the area must attempt a <span data-pf2-action=\"balance\" data-pf2-dc=\"30\" data-pf2-traits=\"aura\" data-pf2-glyph=\"A\" data-pf2-label=\"Greasy Seepage DC\" data-pf2-show-dc=\"gm\">Acrobatics</span> check to Balance. A creature that takes a Step doesn't need to roll this check.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Any creature that starts its turn in or enters a square in the area must attempt a @Check[type:acrobatics|dc:30|traits:aura,action:balance] check to Balance. A creature that takes a Step doesn't need to roll this check.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -127,10 +169,15 @@
             "type": "action"
         },
         {
-            "_id": "8kNg53i0CquI08Bo",
+            "_id": "MCrT1usrhDxwMWCc",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.zU3Ovaet4xQ5Gmvy"
+                }
+            },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Engulf",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -142,15 +189,15 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>DC 30, 4d10 bludgeoning, Escape DC 26, Rupture 25</p>"
+                    "value": "<p>@Check[type:reflex|dc:30], [[/r {4d10}[bludgeoning]]]{4d10 bludgeoning}, Escape DC 26, Rupture 25</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "engulf",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -170,7 +217,7 @@
             "_id": "JW7pj6pjhMG4D95l",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Residual Grease",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -210,7 +257,7 @@
             "_id": "CIaWl6lT5hduxe9Q",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -297,7 +344,7 @@
                 "value": 11
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Pale yellow and smelling of meat, this unnatural, globular monster is composed entirely of rendered animal fat. A tallow ooze typically results from magical mishaps during the creation of enchanted candles or soaps, or while rendering the fat of a magical beast, though occasionally spellcasters create these beings intentionally.</p>\n<p>A tallow ooze hunts other creatures to subsume them into its own body and absorb their fat. Since tallow is solid at room temperature, tallow oozes must metabolize their own bodies to produce enough heat to remain gelatinous. A tallow ooze that cannot replenish itself with absorbed fat will either consume itself or solidify, though a tallow ooze exposed to too much heat might melt entirely.</p>",
             "source": {
                 "value": "Pathfinder #154: Siege of the Dinosaurs"
             }
