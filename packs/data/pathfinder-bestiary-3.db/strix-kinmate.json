@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "udTLQILPUBOZnQOl",
+            "_id": "r8Ref4IF3JHQYtwW",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.hIgqLgH3YcLZBeoT"
@@ -35,8 +35,8 @@
                     "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -56,13 +56,13 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -70,16 +70,16 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": 60,
@@ -90,7 +90,7 @@
                 "size": "med",
                 "slug": "shortbow",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -119,7 +119,7 @@
             "type": "weapon"
         },
         {
-            "_id": "FepSSsZJ8pwsugKI",
+            "_id": "jGEJYs9itYMHVXYj",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.7tKkkF8eZ4iCLJtp"
@@ -151,8 +151,8 @@
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -206,7 +206,7 @@
                 "size": "med",
                 "slug": "shortsword",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -237,7 +237,7 @@
             "type": "weapon"
         },
         {
-            "_id": "VVpISVd9X930ukSO",
+            "_id": "DkwseRe0DxFqZLvn",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
@@ -264,6 +264,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "inSlot": true,
                     "invested": null
                 },
@@ -318,7 +319,7 @@
                 "size": "med",
                 "slug": "leather-armor",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
                     "value": 0
@@ -342,7 +343,7 @@
             "type": "armor"
         },
         {
-            "_id": "huedrRjqpWpYJncL",
+            "_id": "Ank3ixOTdxeyUAC2",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
@@ -427,7 +428,7 @@
                 "size": "med",
                 "slug": "arrows",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": "arrows",
                 "target": {
@@ -690,12 +691,29 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> The kinmate or a strix ally they can see is damaged by an enemy's critical hit</p>\n<hr />\n<p><strong>Effect</strong> Until the end of their next turn, the kinmate gains a +[[/r 1d6]] status bonus to damage rolls on Strikes they make against the triggering enemy.</p>"
+                    "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Trigger</strong> The kinmate or a strix ally they can see is damaged by an enemy's critical hit</p>\n<hr />\n<p><strong>Effect</strong> Until the end of their next turn, the kinmate gains a +[[/r {1d6}]]{1d6} status bonus to damage rolls on Strikes they make against the triggering enemy.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "strike-damage",
+                        "key": "RollOption",
+                        "option": "strix-vengeance",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "strix-vengeance"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -830,7 +848,7 @@
                 "value": 18
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",

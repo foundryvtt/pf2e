@@ -401,6 +401,7 @@ const weaponTraits = {
     "deadly-2d12": "PF2E.TraitDeadly2D12",
     "deadly-3d12": "PF2E.TraitDeadly3D12",
     "deadly-4d12": "PF2E.TraitDeadly4D12",
+    death: "PF2E.TraitDeath",
     disarm: "PF2E.TraitDisarm",
     disease: "PF2E.TraitDisease",
     "double-barrel": "PF2E.TraitDoubleBarrel",
