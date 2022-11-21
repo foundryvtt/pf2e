@@ -978,9 +978,7 @@ class CharacterPF2e extends CreaturePF2e {
                 rank: save.rank,
                 modifiers,
                 domains: selectors,
-                check: {
-                    type: "saving-throw",
-                },
+                check: { type: "saving-throw" },
             });
 
             saves[saveType] = stat;
