@@ -74,12 +74,14 @@ class EffectPF2e extends AbstractEffectPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const { duration } = this.system;
-        if (["unlimited", "encounter"].includes(duration.unit)) {
-            duration.expiry = null;
+
+        const { system } = this;
+        if (["unlimited", "encounter"].includes(system.duration.unit)) {
+            system.duration.expiry = null;
         } else {
-            duration.expiry ||= "turn-start";
+            system.duration.expiry ||= "turn-start";
         }
+        system.expired = this.remainingDuration.expired;
     }
 
     /** Unless this effect is temporarily constructed, ignore rule elements if it is expired */

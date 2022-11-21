@@ -1,4 +1,4 @@
-import type { ActorPF2e } from "@actor/base";
+import { ActorPF2e } from "@actor";
 import type { EffectPF2e } from "@item/index";
 import { EncounterPF2e } from "@module/encounter";
 
@@ -8,7 +8,7 @@ export class EffectTracker {
     /** A separate collection of aura effects, including ones with unlimited duration */
     auraEffects: Collection<Embedded<EffectPF2e>> = new Collection();
 
-    private insert(effect: Embedded<EffectPF2e>, duration: { expired: boolean; remaining: number }) {
+    private insert(effect: Embedded<EffectPF2e>, duration: { expired: boolean; remaining: number }): void {
         if (this.trackedEffects.length === 0) {
             this.trackedEffects.push(effect);
         } else {
@@ -78,63 +78,30 @@ export class EffectTracker {
     }
 
     async refresh(): Promise<void> {
-        const expired: Embedded<EffectPF2e>[] = [];
-        for (const effect of this.trackedEffects) {
-            const duration = effect.remainingDuration;
-            if (effect.system.expired !== duration.expired) {
-                expired.push(effect);
-            } else if (!duration.expired) {
-                break;
-            }
-        }
-
-        // Only update each actor once, and only the ones with effect expiry changes
-        const updatedActors = expired
-            .map((effect) => effect.actor)
-            .reduce((actors: ActorPF2e[], actor) => {
-                if (actor.isToken || !actors.some((other) => !other.isToken && other.id === actor.id)) {
-                    actors.push(actor);
-                }
-                return actors;
-            }, []);
-
-        for (const actor of updatedActors) {
-            actor.reset();
-            actor.sheet.render(false);
-            if (actor.isOfType("creature")) {
-                for (const token of actor.getActiveTokens()) {
-                    await token.drawEffects();
-                }
-            }
-        }
+        const actorsToUpdate = new Set(this.trackedEffects.filter((e) => e.isExpired).map((e) => e.actor));
 
         if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
-            for (const actor of updatedActors) {
-                await this.removeExpired(actor);
+            for (const actor of actorsToUpdate) {
+                await this.#removeExpired(actor);
+            }
+        } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
+            for (const actor of actorsToUpdate) {
+                actor.reset();
+                await actor.sheet.render(false);
+                if (actor.isOfType("creature")) {
+                    for (const token of actor.getActiveTokens()) {
+                        await token.drawEffects();
+                    }
+                }
             }
         }
     }
 
-    async removeExpired(actor?: ActorPF2e): Promise<void> {
-        const expired: Embedded<EffectPF2e>[] = [];
-        for (const effect of this.trackedEffects) {
-            if (actor && effect.actor !== actor) continue;
-
-            const duration = effect.remainingDuration;
-            if (duration.expired) {
-                expired.push(effect);
-            } else {
-                break;
-            }
-        }
-
-        const owners = actor
-            ? [actor]
-            : [...new Set(expired.map((effect) => effect.actor))].filter((owner) => game.actors.has(owner.id));
-        for (const owner of owners.filter((a) => game.user === a.primaryUpdater)) {
-            await owner.deleteEmbeddedDocuments(
+    async #removeExpired(actor: ActorPF2e): Promise<void> {
+        if (actor.primaryUpdater === game.user) {
+            await actor.deleteEmbeddedDocuments(
                 "Item",
-                expired.flatMap((effect) => (owner.items.has(effect.id) ? effect.id : []))
+                actor.itemTypes.effect.filter((e) => e.isExpired).map((e) => e.id)
             );
         }
     }
