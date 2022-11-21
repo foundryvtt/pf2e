@@ -37,25 +37,6 @@ class AncestryBackgroundClassManager {
         const itemsToCreate = [source, ...(await item.getFeatures({ level: actor.level }))];
         return actor.createEmbeddedDocuments("Item", itemsToCreate, { keepId: true });
     }
-
-    /** Add or remove class features as appropriate to the PC's level */
-    static async ensureClassFeaturesForLevel(actor: CharacterPF2e, newLevel: number): Promise<void> {
-        const actorClass = actor.class;
-        if (!actorClass) return;
-
-        const current = actor.itemTypes.feat.filter((feat) => feat.featType === "classfeature");
-        if (newLevel > actor.level) {
-            const classFeaturesToCreate = (await actorClass.getFeatures({ level: newLevel })).filter(
-                (feature) =>
-                    feature.system.level.value > actor.level &&
-                    !current.some((currentFeature) => currentFeature.sourceId === feature.flags.core?.sourceId)
-            );
-            await actor.createEmbeddedDocuments("Item", classFeaturesToCreate, { keepId: true, render: false });
-        } else if (newLevel < actor.level) {
-            const classFeaturestoDelete = current.filter((feat) => feat.level > newLevel).map((feat) => feat.id);
-            await actor.deleteEmbeddedDocuments("Item", classFeaturestoDelete, { render: false });
-        }
-    }
 }
 
 export { AncestryBackgroundClassManager };

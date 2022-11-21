@@ -41,7 +41,6 @@ import {
     PhysicalItemPF2e,
     WeaponPF2e,
 } from "@item";
-import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { ActionTrait } from "@item/action/data";
 import { ARMOR_CATEGORIES } from "@item/armor";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
@@ -2100,10 +2099,22 @@ class CharacterPF2e extends CreaturePF2e {
             }
         }
 
-        // Add or remove class features as necessary
+        // Add or remove class features as necessary, appropriate to the PC's level
         const newLevel = changed.system?.details?.level?.value ?? this.level;
-        if (newLevel !== this.level) {
-            await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(this, newLevel);
+        const actorClass = this.class;
+        if (actorClass && newLevel !== this.level) {
+            const current = this.itemTypes.feat.filter((feat) => feat.featType === "classfeature");
+            if (newLevel > this.level) {
+                const classFeaturesToCreate = (await actorClass.getFeatures({ level: newLevel })).filter(
+                    (feature) =>
+                        feature.system.level.value > this.level &&
+                        !current.some((currentFeature) => currentFeature.sourceId === feature.flags.core?.sourceId)
+                );
+                await this.createEmbeddedDocuments("Item", classFeaturesToCreate, { keepId: true, render: false });
+            } else if (newLevel < this.level) {
+                const classFeaturestoDelete = current.filter((feat) => feat.level > newLevel).map((feat) => feat.id);
+                await this.deleteEmbeddedDocuments("Item", classFeaturestoDelete, { render: false });
+            }
         }
 
         // Constrain PFS player and character numbers
