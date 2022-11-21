@@ -15,7 +15,7 @@ export class Migration801ColorDarkvision extends MigrationBase {
         const isResonantLight =
             source.type === "feat" && source.system.slug === "resonant-reflection-reflection-of-light";
         const getsColorDarkvision = isFetchling || isResonantLight;
-        if (getsColorDarkvision) {
+        if (getsColorDarkvision && !source.system.rules.some((r) => r.key === "ActiveEffectLike")) {
             source.system.rules.push(this.#colorDarkvision);
         }
     }
