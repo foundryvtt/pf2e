@@ -127,7 +127,13 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             if (this.adjustName) {
                 const effectName = this.item._source.name;
                 const label = game.i18n.localize(selection.label);
-                this.item._source.name = `${effectName} (${label})`;
+                const name = `${effectName} (${label})`;
+                // Deduplicate if parenthetical is already present
+                const pattern = ((): RegExp => {
+                    const escaped = RegExp.escape(label);
+                    return new RegExp(`\\(${escaped}\\) \\(${escaped}\\)$`);
+                })();
+                this.item._source.name = name.replace(pattern, `(${label})`);
             }
 
             // Set the item flag in case other preCreate REs need it
