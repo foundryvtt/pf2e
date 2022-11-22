@@ -269,6 +269,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Fill gaps in unidentified data with defaults
         systemData.identification.unidentified = this.getMystifiedData("unidentified");
+        systemData.identification.misidentified = this.getMystifiedData("misidentified");
     }
 
     override prepareSiblingData(this: Embedded<PhysicalItemPF2e>): void {
@@ -312,7 +313,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this);
 
         const description =
-            mystifiedData.data.description.value ||
+            mystifiedData.data?.description.value ||
             (() => {
                 if (status === "identified") return this.description;
 
@@ -360,6 +361,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         await this.update({
             "system.identification.status": status,
             "system.identification.unidentified": this.getMystifiedData("unidentified"),
+            "system.identification.misidentified": this.getMystifiedData("misidentified"),
         });
     }
 

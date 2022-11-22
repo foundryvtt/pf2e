@@ -1,10 +1,14 @@
 import { SkillAbbreviation } from "@actor/creature/data";
+import { ItemPF2e } from "@item";
 import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs, GenericIdentifyDCs } from "@item/identification";
 import { PhysicalItemPF2e } from "@item/physical";
+import { DropCanvasDataPF2e } from "@module/canvas/drop-canvas-data";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { objectHasKey } from "@util";
+import { objectHasKey, ErrorPF2e } from "@util";
 
 export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
+    misidentifiedItem?: PhysicalItemPF2e;
+
     static override get defaultOptions(): FormApplicationOptions {
         return {
             ...super.defaultOptions,
@@ -13,6 +17,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
             template: "systems/pf2e/templates/actors/identify-item.html",
             width: "auto",
             classes: ["identify-popup"],
+            dragDrop: [{ dropSelector: ".drop-zone" }],
         };
     }
 
@@ -74,7 +79,46 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
         const status = formData["status"];
         if (status === "identified") {
             await this.item.setIdentificationStatus(status);
+        } else if (status === "misidentified") {
+            if (this.misidentifiedItem) {
+                this.item.system.identification.misidentified.img = this.misidentifiedItem.img;
+                this.item.system.identification.misidentified.name = this.misidentifiedItem.name;
+                this.item.system.identification.misidentified.data.description.value =
+                    this.misidentifiedItem.description;
+            }
+            await this.item.setIdentificationStatus(status);
         }
+    }
+
+    override async _onDrop(event: ElementDragEvent): Promise<void> {
+        event.preventDefault();
+        const dataString = event.dataTransfer?.getData("text/plain");
+        const dropData: DropCanvasDataPF2e<"Item"> | undefined = JSON.parse(dataString ?? "");
+        if (dropData?.type !== "Item") {
+            ui.notifications.error("Only an item can be dropped here.");
+            return;
+        }
+        const droppedItem = await ItemPF2e.fromDropData(dropData);
+        if (!droppedItem) throw ErrorPF2e("Unexpected error resolving drop");
+        if (!droppedItem.isOfType("physical")) {
+            ui.notifications.error("Only an physical item can be dropped here.");
+            return;
+        }
+        this.misidentifiedItem = droppedItem;
+
+        const prompt = document.querySelector<HTMLElement>(`#${this.id}`);
+        const dropZone = prompt?.querySelector(".drop-zone");
+        if (!prompt || !dropZone) throw ErrorPF2e("Unexpected error retrieving identification dialog");
+
+        // The dialog will resize when the following DOM change occurs, so allow it to dynamically adjust
+        prompt.style.height = "unset";
+
+        $(dropZone).empty();
+        $(dropZone).append($("<img>").attr({ src: droppedItem.img }), $("<span>").text(droppedItem.name));
+    }
+
+    override _canDragDrop(_selector: string): boolean {
+        return game.user.isGM;
     }
 }
 

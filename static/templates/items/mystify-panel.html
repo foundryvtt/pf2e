@@ -6,6 +6,7 @@
                 {{#select data.identification.status}}
                     <option value="identified">{{localize "PF2E.identification.Identified"}}</option>
                     <option value="unidentified">{{localize "PF2E.identification.Unidentified"}}</option>
+                    <option value="misidentified">{{localize "PF2E.identification.Misidentified"}}</option>
                 {{/select}}
             </select>
         </div>
@@ -15,5 +16,11 @@
         <img class="mystify-control image-picker" src="{{data.identification.unidentified.img}}" data-edit="system.identification.unidentified.img" title="{{localize PF2E.Item.NameLabel}}" />
         <input type="text" name="system.identification.unidentified.name" value="{{data.identification.unidentified.name}}" class="mystify-control" title="{{localize PF2E.Item.IconLabel}}" />
         {{editor enrichedContent.unidentifiedDescription target="system.identification.unidentified.data.description.value" button=true owner=owner editable=editable}}
+    </div>
+    <p>{{localize "PF2E.identification.MisidentifiedHint"}}</p>
+    <div class="identification-data misidentified">
+        <img class="mystify-control image-picker" src="{{data.identification.misidentified.img}}" data-edit="system.identification.misidentified.img" title="{{localize PF2E.Item.NameLabel}}" />
+        <input type="text" name="system.identification.misidentified.name" value="{{data.identification.misidentified.name}}" class="mystify-control" title="{{localize PF2E.Item.IconLabel}}" />
+        {{editor enrichedContent.misidentifiedDescription target="system.identification.misidentified.data.description.value" button=true owner=owner editable=editable}}
     </div>
 </div>

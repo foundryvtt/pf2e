@@ -36,6 +36,10 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> e
             sheetData.item.system.identification.unidentified.data.description.value,
             { rollData, async: true }
         );
+        sheetData.enrichedContent.misidentifiedDescription = await TextEditor.enrichHTML(
+            sheetData.item.system.identification.misidentified.data.description.value,
+            { rollData, async: true }
+        );
         const activations: PhysicalItemSheetData<TItem>["activations"] = [];
         for (const action of this.item.activations) {
             const description = await TextEditor.enrichHTML(action.description.value, { rollData, async: true });

@@ -126,7 +126,7 @@ interface ActivatedEffectData {
     };
 }
 
-type IdentificationStatus = "identified" | "unidentified";
+type IdentificationStatus = "identified" | "unidentified" | "misidentified";
 
 interface MystifiedData {
     name: string;
@@ -143,7 +143,7 @@ type IdentifiedData = DeepPartial<MystifiedData>;
 interface IdentificationSource {
     status: IdentificationStatus;
     unidentified: MystifiedData;
-    misidentified: {};
+    misidentified: MystifiedData;
 }
 
 interface IdentificationData extends IdentificationSource {
