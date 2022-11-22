@@ -44,7 +44,9 @@ function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, u
         const inputValue = data[path];
         const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
         if (Array.isArray(selections)) {
-            data[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
+            data[path] = selections
+                .filter((s: { id?: string; value?: string; readonly?: boolean }) => !s.readonly)
+                .map((s: { id?: string; value?: string }) => s.id ?? s.value);
         }
     }
 }

@@ -22,7 +22,7 @@
                 <span class="level">
                     {{#if adjustedLevelHint}}<i class="fas fa-info-circle small" title="{{adjustedLevelHint}}"></i>{{/if}}
                     <span>{{itemType}}</span>
-                    <input type="number" {{#if adjustedLevelHint}}class="adjusted"{{/if}} {{#if isPhysical}}data-property="system.level.value"{{else}}name="system.level.value"{{/if}} value="{{data.level.value}}" />
+                    <input type="number"{{#if adjustedLevelHint}} class="adjusted"{{/if}}{{#if isPhysical}} data-property="system.level.value"{{else}}name="system.level.value"{{/if}} value="{{data.level.value}}" />
                 </span>
             {{/if}}
             <template class="traits-extra">
@@ -36,6 +36,7 @@
                     </select>
                 {{/if}}
             </template>
+            <!-- showTraits {{showTraits}} -->
             {{#if showTraits}}
                 <input class="paizo-style tags" name="system.traits.value" value="{{json traitSlugs}}" data-dtype="JSON"
                     {{#if (eq data.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
