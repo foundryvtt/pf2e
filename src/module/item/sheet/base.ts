@@ -57,7 +57,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     private ruleElementForms: Record<number, RuleElementForm> = {};
 
-    get editingRuleElement() {
+    get editingRuleElement(): RuleElementSource | null {
         if (this.editingRuleElementIndex === null) return null;
         return this.item.toObject().system.rules[this.editingRuleElementIndex] ?? null;
     }
@@ -97,6 +97,19 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             this.ruleElementForms[Number(idx)] = new FormClass(this.item, idx, rule);
         }
 
+        // This variable name is obviously no longer accurate: needs sweep through item sheet templates for refactor
+        const traitSlugs = ((): { id: string; value: string; readonly: boolean }[] => {
+            const readonlyTraits: string[] =
+                this.item.system.traits?.value.filter((t) => {
+                    const sourceTraits: string[] = this.item._source.system.traits?.value ?? [];
+                    return !sourceTraits.includes(t);
+                }) ?? [];
+            return Object.keys(traits ?? {}).map((slug) => {
+                const label = game.i18n.localize(validTraits?.[slug] ?? slug);
+                return { id: slug, value: label, readonly: readonlyTraits.includes(slug) };
+            });
+        })();
+
         return {
             itemType: null,
             showTraits: this.validTraits !== null,
@@ -120,7 +133,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rarity: hasRarity ? this.item.system.traits?.rarity ?? "common" : null,
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
-            traitSlugs: Object.keys(traits ?? {}),
+            traitSlugs,
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
