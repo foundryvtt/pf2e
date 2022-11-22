@@ -24,7 +24,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": false
+                    "value": true
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -112,7 +112,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "MAYNgYnf49OU5P3j",
+            "_id": "mH9WDo5EI4ZZJuTb",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.69L70wKfGDY66Mk9"
@@ -155,11 +155,6 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
-                },
-                "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 6
@@ -228,7 +223,7 @@
             "type": "spell"
         },
         {
-            "_id": "E89nNlP8WqKZrHPJ",
+            "_id": "J9r3EGdiW0V79wgo",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
@@ -349,7 +344,7 @@
             "type": "spell"
         },
         {
-            "_id": "faPAyUzH9dTwjDmF",
+            "_id": "4Ct2SmjptIVcbVSy",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.4GE2ZdODgIQtg51c"
@@ -602,10 +597,55 @@
             "type": "melee"
         },
         {
+            "_id": "QkXcthXHJxRMKAFf",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 800000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "u6AGWAaIUZZF6DmM",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Psionic Scent",
-            "sort": 800000,
+            "name": "Psionic Scent (Imprecise) 120 feet",
+            "sort": 900000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -642,7 +682,7 @@
             "type": "action"
         },
         {
-            "_id": "YPSk5i18PJwZVnsh",
+            "_id": "kWxHjxdCg01V9cxk",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
@@ -650,7 +690,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -687,7 +727,7 @@
             "type": "action"
         },
         {
-            "_id": "I645EtM90eriSndG",
+            "_id": "4xdwD1vWSCPYxjVQ",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
@@ -695,7 +735,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -735,7 +775,7 @@
             "_id": "o7xu8uge6T0IT23h",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Hypnotic Stench",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -747,12 +787,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. A creature that begins its turn in the area must succeed at a @Check[type:will|dc:32] save or become fascinated with the xilvirek. If the creature is already fascinated by the xilvirek and fails its save, the creature is compelled to approach the xilvirek and allow itself to be grabbed, which ends the fascination.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that begins its turn in the area must succeed at a @Check[type:will|dc:32] save or become @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} with the xilvirek. If the creature is already fascinated by the xilvirek and fails its save, the creature is compelled to approach the xilvirek and allow itself to be @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}, which ends the fascination.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "hypnotic-stench",
+                        "traits": [
+                            "emotion",
+                            "enchantment",
+                            "incapacitation",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -781,7 +833,7 @@
             "_id": "R8Kt7N2ubdHBIdow",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Disgorge Bile",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -793,7 +845,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The xilvirek retches a small pool of debilitating, acrid bile onto itself. All creatures within 30 feet take [[/r {4d6}[acid]]]{4d6 acid damage} as they inhale the bile's noxious fumes (@Check[type:fortitude|dc:32|basic:true] save; on a failure, the creature is sickened 1, or sickened 2 on a critical failure). The xilvirek can't Disgorge Bile again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The xilvirek retches a small pool of debilitating, acrid bile onto itself. All creatures within 30 feet take [[/r {4d6}[acid]]]{4d6 acid damage} as they inhale the bile's noxious fumes (@Check[type:fortitude|dc:32|basic:true] save; on a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}, or @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). The xilvirek can't Disgorge Bile again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -824,7 +876,7 @@
             "_id": "xNolyNRgNNCS7SrY",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Feasting Tentacles",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -836,7 +888,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The xilvirek has two tentacles on its back that it can use to suck the life from its prey. A creature that starts its turn grabbed by the xilvirek becomes drained 1, and the xilvirek regains 20 HP. The drained value increases by 1 on each subsequent round that the creature starts its turn grabbed, but the xilvirek doesn't regain additional HP from draining the same creature more than once per day.</p>"
+                    "value": "<p>The xilvirek has two tentacles on its back that it can use to suck the life from its prey. A creature that starts its turn @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the xilvirek becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}, and the xilvirek regains [[/r 20 #Hit Points]]{20 HP}. The drained value increases by 1 on each subsequent round that the creature starts its turn grabbed, but the xilvirek doesn't regain additional HP from draining the same creature more than once per day.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -861,10 +913,100 @@
             "type": "action"
         },
         {
+            "_id": "eWuV67fIWoPIYMfp",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1500000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "DfLYFCPstsIKpqse",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 1600000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "i68C8iJgXpWDLxvs",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1400000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -892,7 +1034,7 @@
             "_id": "K1oAtfD1Gpftl0CI",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1500000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -920,7 +1062,7 @@
             "_id": "QidMkIXJ3rE4ES3M",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1600000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -948,7 +1090,7 @@
             "_id": "ymM3qjfrkbDK7WAu",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1700000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1035,7 +1177,7 @@
                 "value": 12
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Xilvireks are the result of the strange evolution that takes place in Zevgavizeb's Abyssal realm. These fiends resemble their dread demon lord and claim to be living embodiments of the Lord of Reptiles's snapping jaws.</p>",
             "source": {
                 "value": "Pathfinder #154: Siege of the Dinosaurs"
             }
