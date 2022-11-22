@@ -27,6 +27,7 @@ export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             isFeat: this.item.isFeat,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
             hasLineageTrait,
+            hasAction: this.item.system.actionType.value !== "passive" ? true : false,
         };
     }
 

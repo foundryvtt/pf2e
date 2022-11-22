@@ -57,6 +57,7 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     isFeat: boolean;
     mandatoryTakeOnce: boolean;
     hasLineageTrait: boolean;
+    hasAction: boolean;
 }
 
 export interface HeritageSheetData extends ItemSheetDataPF2e<HeritagePF2e> {
