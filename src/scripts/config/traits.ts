@@ -463,6 +463,7 @@ const weaponTraits = {
     "thrown-60": "PF2E.TraitThrown60",
     "thrown-80": "PF2E.TraitThrown80",
     "thrown-100": "PF2E.TraitThrown100",
+    "thrown-200": "PF2E.TraitThrown200",
     trip: "PF2E.TraitTrip",
     twin: "PF2E.TraitTwin",
     "two-hand-d6": "PF2E.TraitTwoHandD6",

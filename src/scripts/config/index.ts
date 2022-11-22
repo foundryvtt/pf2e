@@ -630,6 +630,7 @@ const traitsDescriptions = {
     "thrown-100": "PF2E.TraitDescriptionThrown",
     "thrown-15": "PF2E.TraitDescriptionThrown",
     "thrown-20": "PF2E.TraitDescriptionThrown",
+    "thrown-200": "PF2E.TraitDescriptionThrown",
     "thrown-25": "PF2E.TraitDescriptionThrown",
     "thrown-30": "PF2E.TraitDescriptionThrown",
     "thrown-40": "PF2E.TraitDescriptionThrown",
