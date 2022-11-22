@@ -12,9 +12,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "push",
-                        "punishing-tail"
+                        "punishing-tail",
+                        "push"
                     ]
                 },
                 "bonus": {
@@ -27,7 +28,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(backswing, reach 10 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -89,10 +90,60 @@
             "type": "melee"
         },
         {
-            "_id": "7EiLOsJLtvd6Mv5w",
+            "_id": "ZwdP3qwfYd4W0BZ7",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Fza6vai8Wr7r8P6I",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.nZMQh4AaBr291TUf"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Buck",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -104,15 +155,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>DC 32</p>"
+                    "value": "<p>@Check[type:reflex|dc:32]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "buck",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -132,7 +183,7 @@
             "_id": "VCPQniFfaKaaW5dO",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Dogged Persistence",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -144,7 +195,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Trigger</strong> The war sauropelta would be affected by the immobilized, paralyzed, slowed, or stunned conditions, or by an effect that would give it a penalty to its Speeds, from a source of 14th level or less</p>\n<hr />\n<p><strong>Effect</strong> The war sauropelta negates the triggering condition or effect.</p>"
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Trigger</strong> The war sauropelta would be affected by the @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed}, @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed}, or @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned} conditions, or by an effect that would give it a penalty to its Speeds, from a source of 14th level or less</p>\n<hr />\n<p><strong>Effect</strong> The war sauropelta negates the triggering condition or effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -172,7 +223,7 @@
             "_id": "Ulxj8gjRkhtCZWc1",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Punishing Tail",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -184,7 +235,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature struck by the war sauropelta's tail must attempt a @Check[type:fortitude|dc:32] save. On a failure, it's stunned 1; on a critical failure, it's stunned 3.</p>"
+                    "value": "<p>A creature struck by the war sauropelta's tail must attempt a @Check[type:fortitude|dc:32] save. On a failure, it's @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}; on a critical failure, it's @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -217,7 +268,7 @@
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Trample",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -254,10 +305,55 @@
             "type": "action"
         },
         {
+            "_id": "eTns0wXwB8nrvDuF",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push",
+            "sort": 800000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "push",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "EjloWjjLXuWKTzzf",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -282,7 +378,10 @@
             "type": "lore"
         }
     ],
-    "name": "War Sauropeltas",
+    "name": "War Sauropelta",
+    "prototypeToken": {
+        "name": "War Sauropeltas"
+    },
     "system": {
         "abilities": {
             "cha": {
