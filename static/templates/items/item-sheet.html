@@ -6,15 +6,9 @@
         <div class="details">
             <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF2E.ItemNamePlaceholder"}}" spellcheck="false" />
 
-            {{#if (or (eq itemType "Feat")(eq itemType "Level"))}}
+            {{#if (and document.actionCost (not (eq document.type "action")))}}
                 <span class="feat-action-cost">
-                    {{#if (eq data.actionType.value "free")}}
-                        <span class="pf2-icon">F</span>
-                    {{else if (eq data.actionType.value "reaction")}}
-                        <span class="pf2-icon">R</span>
-                    {{else if (eq data.actionType.value "action")}}
-                        <span class="item-summary">{{{actionGlyph data.actions.value fallback=true}}}</span>
-                    {{/if}}
+                    {{{actionGlyph document.actionCost}}}
                 </span>
             {{/if}}
 
