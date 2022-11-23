@@ -4,6 +4,39 @@ import { extractModifierAdjustments } from "@module/rules/util";
 import { AttackItem } from "./creature/types";
 import { ModifierPF2e, MODIFIER_TYPE } from "./modifiers";
 
+/** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
+async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<void> {
+    actors ??= [
+        game.actors.contents,
+        game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
+    ].flat();
+
+    for (const actor of actors) {
+        actor.reset();
+        ui.windows[actor.sheet.appId]?.render();
+    }
+    game.pf2e.effectPanel.refresh();
+
+    // If expired effects are automatically removed, the actor update cycle will reinitialize vision
+    const refreshScenes =
+        game.settings.get("pf2e", "automation.effectExpiration") &&
+        !game.settings.get("pf2e", "automation.removeExpiredEffects");
+
+    if (refreshScenes) {
+        const scenes = new Set(
+            Array.from(actors)
+                .flatMap((a) => a.getActiveTokens(false, true))
+                .flatMap((t) => t.scene)
+        );
+        for (const scene of scenes) {
+            scene.reset();
+            if (scene.isView) {
+                canvas.perception.update({ initializeVision: true }, true);
+            }
+        }
+    }
+}
+
 /** Find the lowest multiple attack penalty for an attack with a given item */
 function calculateMAPs(
     item: ItemPF2e,
@@ -82,4 +115,4 @@ interface MAPData {
     map2: number;
 }
 
-export { calculateMAPs, calculateRangePenalty, getRangeIncrement };
+export { calculateMAPs, calculateRangePenalty, getRangeIncrement, resetAndRerenderActors };
