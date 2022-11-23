@@ -80,13 +80,13 @@ export class EffectTracker {
 
     async refresh(): Promise<void> {
         const actorsToUpdate = new Set(this.effects.filter((e) => e.isExpired).map((e) => e.actor));
+        resetAndRerenderActors(actorsToUpdate);
 
         if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
             for (const actor of actorsToUpdate) {
                 await this.#removeExpired(actor);
             }
         } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
-            resetAndRerenderActors(actorsToUpdate);
             for (const actor of actorsToUpdate) {
                 if (actor.isOfType("creature")) {
                     for (const token of actor.getActiveTokens()) {
