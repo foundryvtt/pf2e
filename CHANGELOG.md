@@ -1,5 +1,31 @@
 # Changelog
 
+## Version 4.4.1
+
+### System Improvements
+* (LebombJames) Add Action cost glyphs to feat and class feature sheet headers
+
+### Bugfixes
+* (stwlam) Fix functionality of effect expiration settings
+* (stwlam) Prevent double name adjustments from ChoiceSets when transfering physical items
+* (Tikael) Fix selector lookup for AdjustStrike REs
+
+### Data Updates
+* (Abaddon) Continue reviewing creatures from Bestiary 3
+* (Dire Weasel) Add Perfect Weaponry archetype feat
+* (Dire Weasel) Fix FlatModifier selector for Brevic Outcast
+* (Dire Weasel) Fix Cognitive Mutagen effect descriptions
+* (LebombJames) Create new base weapon type for injection spear
+* (LebombJames) Set Skill Training AE-like to upgrade
+* (rectulo) Fix typo in Soul Chain in description, formatting in Azarim and Grasp of Droskar descriptions
+* (Roxim) Brushup EC Book 4 NPCs
+* (Tikael) Add PFS level bump effect for NPCs
+* (Tikael) Add effect to track Spined Shield spines
+* (Tikael) Automate Fearsome Brute
+* (Tikael) Fix selector on Fast Recovery
+* (Tikael) Update AV spells to hardcover versions
+
+
 ## Version 4.4.0
 
 ### System Improvements
