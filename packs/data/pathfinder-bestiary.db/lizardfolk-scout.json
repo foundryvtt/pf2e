@@ -69,20 +69,6 @@
                         "sp": 1
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -437,7 +423,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:17]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d8}[poison]]]{1d8 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {1d12}[poison]]]{1d12 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:17]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d8}[poison]]]{1d8 poison damage} and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {1d12}[poison]]]{1d12 poison damage}, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -479,7 +465,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If the lizardfolk scout starts its turn @Compendium[pf2e.conditionitems.Undetected]{Undetected} by a creature or @Compendium[pf2e.conditionitems.Hidden]{Hidden} from it, that creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the scout's attacks until the end of the scout's turn.</p>"
+                    "value": "<p>If the lizardfolk scout starts its turn @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected} by a creature or @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden} from it, that creature is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the scout's attacks until the end of the scout's turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -539,13 +525,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -596,7 +582,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Non-lizardfolk creatures in difficult terrain and non-lizardfolk creatures that are in water and lack a swim Speed are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the lizardfolk scout.</p>"
+                    "value": "<p>Non-lizardfolk creatures in difficult terrain and non-lizardfolk creatures that are in water and lack a swim Speed are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the lizardfolk scout.</p>"
                 },
                 "requirements": {
                     "value": ""

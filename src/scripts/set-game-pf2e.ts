@@ -18,6 +18,7 @@ import {
     rollActionMacro,
     rollItemMacro,
     showEarnIncomePopup,
+    stealthForSelected,
     steelYourResolve,
     treatWounds,
 } from "@scripts/macros";
@@ -25,8 +26,7 @@ import { remigrate } from "@scripts/system/remigrate";
 import { ActionMacros } from "@system/action-macros";
 import { ConditionManager } from "@system/conditions";
 import { EffectTracker } from "@system/effect-tracker";
-import { ActorImporter } from "@system/importer/actor-importer";
-import { CheckPF2e } from "@system/rolls";
+import { CheckPF2e } from "@system/check";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { registerModuleArt } from "./register-module-art";
@@ -60,8 +60,7 @@ export const SetGamePF2e = {
             actions,
             effectPanel: new EffectsPanel(),
             effectTracker: new EffectTracker(),
-            gm: { calculateXP, launchTravelSheet, perceptionForSelected },
-            importer: { actor: ActorImporter },
+            gm: { calculateXP, launchTravelSheet, perceptionForSelected, stealthForSelected },
             licenseViewer: new LicenseViewer(),
             rollActionMacro,
             rollItemMacro,

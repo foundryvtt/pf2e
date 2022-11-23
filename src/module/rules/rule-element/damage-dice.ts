@@ -124,6 +124,9 @@ class DamageDiceRuleElement extends RuleElementPF2e {
                 }
             }
 
+            // If this failed validation partway through (such as in resolveInjectedProperties), return null
+            if (this.ignored) return null;
+
             return new DamageDicePF2e({
                 selector,
                 slug: this.slug,

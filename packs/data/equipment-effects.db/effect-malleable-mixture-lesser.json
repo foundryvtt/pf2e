@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>You gain a +2 item bonus to your Fortitude and Reflex DCs against attempts to Grapple, Shove, or Trip you for 1 minute.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Malleable Mixture (Lesser)]{Malleable Mixture (Lesser)}</p>\n<p>You gain a +2 item bonus to your Fortitude and Reflex DCs against attempts to Grapple, Shove, or Trip you for 1 minute.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -14,38 +14,24 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 8
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Inspire Courage (vs fear)",
                 "predicate": [
                     {
                         "or": [
                             "action:grapple",
-                            "action:trip",
-                            "action:shove"
+                            "action:shove",
+                            "action:trip"
                         ]
                     }
                 ],
-                "selector": "fortitude",
-                "type": "item",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Inspire Courage (vs fear)",
-                "predicate": [
-                    {
-                        "or": [
-                            "action:grapple",
-                            "action:trip",
-                            "action:shove"
-                        ]
-                    }
+                "selector": [
+                    "fortitude",
+                    "reflex"
                 ],
-                "selector": "reflex",
                 "type": "item",
                 "value": 2
             }

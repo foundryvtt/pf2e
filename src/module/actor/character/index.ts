@@ -41,7 +41,6 @@ import {
     PhysicalItemPF2e,
     WeaponPF2e,
 } from "@item";
-import { AncestryBackgroundClassManager } from "@item/abc/manager";
 import { ActionTrait } from "@item/action/data";
 import { ARMOR_CATEGORIES } from "@item/armor";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
@@ -70,10 +69,10 @@ import {
     extractRollTwice,
 } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
-import { CheckRoll } from "@system/check/roll";
+import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
 import { DamageRollContext, WeaponDamagePF2e } from "@system/damage";
 import { PredicatePF2e } from "@system/predication";
-import { CheckPF2e, CheckRollContext, DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
+import { DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import {
     ErrorPF2e,
@@ -108,7 +107,7 @@ import {
 import { CharacterSheetTabVisibility } from "./data/sheet";
 import { CHARACTER_SHEET_TABS } from "./values";
 import { CharacterFeats } from "./feats";
-import { createForceOpenPenalty, StrikeWeaponTraits } from "./helpers";
+import { createForceOpenPenalty, createShoddyPenalty, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 
 class CharacterPF2e extends CreaturePF2e {
@@ -617,6 +616,9 @@ class CharacterPF2e extends CreaturePF2e {
             systemData.attributes.perception = stat;
         }
 
+        // Skills
+        systemData.skills = this.prepareSkills();
+
         // Senses
         this.system.traits.senses = this.prepareSenses(this.system.traits.senses, synthetics);
 
@@ -676,12 +678,15 @@ class CharacterPF2e extends CreaturePF2e {
                 modifiers.unshift(
                     new ModifierPF2e({
                         label: wornArmor.name,
-                        type: MODIFIER_TYPE.ITEM,
+                        type: "item",
                         slug,
                         modifier: wornArmor.acBonus,
                         adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, ["all", "ac"], slug),
                     })
                 );
+
+                const shoddyPenalty = createShoddyPenalty(this, wornArmor, ["all", "ac"]);
+                if (shoddyPenalty) modifiers.push(shoddyPenalty);
             }
 
             // Proficiency bonus
@@ -736,9 +741,6 @@ class CharacterPF2e extends CreaturePF2e {
             statisticsModifiers.speed ??= [];
             statisticsModifiers.speed.push(() => speedPenalty);
         }
-
-        // Skills
-        systemData.skills = this.prepareSkills();
 
         // Speeds
         const speeds = (systemData.attributes.speed = this.prepareSpeed("land"));
@@ -976,9 +978,7 @@ class CharacterPF2e extends CreaturePF2e {
                 rank: save.rank,
                 modifiers,
                 domains: selectors,
-                check: {
-                    type: "saving-throw",
-                },
+                check: { type: "saving-throw" },
             });
 
             saves[saveType] = stat;
@@ -1446,7 +1446,7 @@ class CharacterPF2e extends CreaturePF2e {
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustWeapon?.(weapon);
         }
-        const weaponRollOptions = weapon.getRollOptions();
+        const weaponRollOptions = weapon.getRollOptions("item");
         const weaponTraits = weapon.traits;
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
@@ -1462,7 +1462,7 @@ class CharacterPF2e extends CreaturePF2e {
         // If a weapon matches against a linked proficiency, temporarily add the `sameAs` category to the weapon's
         // item roll options
         const equivalentCategories = Object.values(systemData.martial).flatMap((p) =>
-            "sameAs" in p && p.definition.test(weaponRollOptions) ? `weapon:category:${p.sameAs}` : []
+            "sameAs" in p && p.definition.test(weaponRollOptions) ? `item:category:${p.sameAs}` : []
         );
         const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
 
@@ -1472,7 +1472,7 @@ class CharacterPF2e extends CreaturePF2e {
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
-        weaponRollOptions.push(`weapon:proficiency:rank:${proficiencyRank}`);
+        weaponRollOptions.push(`item:proficiency:rank:${proficiencyRank}`);
 
         const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
@@ -1581,6 +1581,9 @@ class CharacterPF2e extends CreaturePF2e {
             modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, weaponPotency.type));
             weaponTraits.add("magical");
         }
+
+        const shoddyPenalty = createShoddyPenalty(this, weapon, selectors);
+        if (shoddyPenalty) modifiers.push(shoddyPenalty);
 
         // Everything from relevant synthetics
         modifiers.push(
@@ -1789,11 +1792,12 @@ class CharacterPF2e extends CreaturePF2e {
                     );
 
                     const checkContext: CheckRollContext = {
+                        type: "attack-roll",
                         actor: context.self.actor,
                         target: context.target,
                         item: context.self.item,
-                        type: "attack-roll",
                         altUsage: params.altUsage ?? null,
+                        domains: selectors,
                         options: context.options,
                         notes: attackRollNotes,
                         dc,
@@ -1822,11 +1826,12 @@ class CharacterPF2e extends CreaturePF2e {
 
         for (const method of ["damage", "critical"] as const) {
             action[method] = async (params: StrikeRollParams = {}): Promise<string | void> => {
+                const domains = ["all", "strike-damage", "damage-roll"];
                 params.options ??= [];
                 const context = this.getDamageRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
-                    domains: ["all", "strike-damage", "damage-roll"],
+                    domains,
                     options: new Set([...params.options, ...baseOptions, ...action.options]),
                 });
 
@@ -1874,9 +1879,14 @@ class CharacterPF2e extends CreaturePF2e {
                     return damage.formula[outcome].formula;
                 } else {
                     const { self, target, options } = context;
-
-                    const damageContext: DamageRollContext = { type: "damage-roll", self, target, outcome, options };
-
+                    const damageContext: DamageRollContext = {
+                        type: "damage-roll",
+                        self,
+                        target,
+                        outcome,
+                        options,
+                        domains,
+                    };
                     await DamageRollPF2e.roll(damage, damageContext, params.callback);
                 }
             };
@@ -2087,10 +2097,22 @@ class CharacterPF2e extends CreaturePF2e {
             }
         }
 
-        // Add or remove class features as necessary
+        // Add or remove class features as necessary, appropriate to the PC's level
         const newLevel = changed.system?.details?.level?.value ?? this.level;
-        if (newLevel !== this.level) {
-            await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(this, newLevel);
+        const actorClass = this.class;
+        if (actorClass && newLevel !== this.level) {
+            const current = this.itemTypes.feat.filter((feat) => feat.featType === "classfeature");
+            if (newLevel > this.level) {
+                const classFeaturesToCreate = (await actorClass.getFeatures({ level: newLevel })).filter(
+                    (feature) =>
+                        feature.system.level.value > this.level &&
+                        !current.some((currentFeature) => currentFeature.sourceId === feature.flags.core?.sourceId)
+                );
+                await this.createEmbeddedDocuments("Item", classFeaturesToCreate, { keepId: true, render: false });
+            } else if (newLevel < this.level) {
+                const classFeaturestoDelete = current.filter((feat) => feat.level > newLevel).map((feat) => feat.id);
+                await this.deleteEmbeddedDocuments("Item", classFeaturestoDelete, { render: false });
+            }
         }
 
         // Constrain PFS player and character numbers

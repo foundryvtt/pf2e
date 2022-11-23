@@ -41,7 +41,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Upon drinking this mutagen, you can feel your blood surge through your body and hear a low-pitched humming in your ears. These sensations subside as the flesh and muscles of your arm loosen and stretch, the fibers of your very being reaching out to combine with the base of one melee weapon you're holding.</p>\n<p><strong>Benefit</strong> Choose one melee weapon you're holding in one or both hands. You gain a +2 item bonus to your attack rolls with this weapon and to Will saves against fear effects for 10 minutes. Any attempt to @Compendium[pf2e.actionspf2e.Disarm]{Disarm} or otherwise remove the weapon from your hands must exceed DC 30 or the attempt fails.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: War Blood Mutagen (Moderate)]{Effect: War Blood Mutagen (Moderate)}</p>\n<p><strong>Drawback</strong> You can't voluntarily remove the weapon unless you succeed at a @Check[type:athletics|dc:30], which ends the war blood mutagen's effects; this check takes a single action. If you perform an action with the concentrate trait, you must succeed at a @Check[type:flat|dc:5] or the action is lost.</p>"
+                    "value": "<p>Upon drinking this mutagen, you can feel your blood surge through your body and hear a low-pitched humming in your ears. These sensations subside as the flesh and muscles of your arm loosen and stretch, the fibers of your very being reaching out to combine with the base of one melee weapon you're holding.</p>\n<p><strong>Benefit</strong> Choose one melee weapon you're holding in one or both hands. You gain a +2 item bonus to your attack rolls with this weapon and to Will saves against fear effects for 10 minutes. Any attempt to @UUID[Compendium.pf2e.actionspf2e.Disarm]{Disarm} or otherwise remove the weapon from your hands must exceed DC 30 or the attempt fails.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: War Blood Mutagen (Moderate)]{Effect: War Blood Mutagen (Moderate)}</p>\n<p><strong>Drawback</strong> You can't voluntarily remove the weapon unless you succeed at a @Check[type:athletics|dc:30], which ends the war blood mutagen's effects; this check takes a single action. If you perform an action with the concentrate trait, you must succeed at a @Check[type:flat|dc:5] or the action is lost.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -302,31 +302,27 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.NPCAbility.CustomArmor.BrokenArmor",
                         "predicate": [
                             {
-                                "not": "broken-armor"
+                                "or": [
+                                    "broken-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "selector": "ac",
-                        "slug": "broken-from-damage",
-                        "value": "4*(min(round(@actor.system.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.NPCAbility.CustomArmor.BrokenArmor",
-                        "predicate": [
-                            "broken-armor"
-                        ],
-                        "selector": "ac",
-                        "slug": "broken-from-critical",
-                        "value": "-4"
+                        "value": -4
                     },
                     {
                         "domain": "ac",
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.CustomArmor.CriticalHit",
-                        "option": "brokenArmor",
+                        "option": "broken-armor",
                         "toggleable": true
                     }
                 ],
@@ -370,13 +366,13 @@
                     {
                         "domain": "ac",
                         "key": "RollOption",
-                        "option": "leapAway",
+                        "option": "leap-away",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "leapAway"
+                            "leap-away"
                         ],
                         "selector": "ac",
                         "type": "circumstance",
@@ -490,7 +486,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Nixbrix Strides, @Compendium[pf2e.actionspf2e.Climb]{Climbs}, or @Compendium[pf2e.actionspf2e.Leap]{Leaps} once, then Strikes with his buzz-saw knuckles. As long as this Strike is a success, he unleashes a devastating black powder explosion afterward that deals [[/r {1d6}[fire]]]{1d6 fire damage} to both him and the target of the Strike. He then Strides or Leaps once more, propelled by the blast.</p>"
+                    "value": "<p>Nixbrix Strides, @UUID[Compendium.pf2e.actionspf2e.Climb]{Climbs}, or @UUID[Compendium.pf2e.actionspf2e.Leap]{Leaps} once, then Strikes with his buzz-saw knuckles. As long as this Strike is a success, he unleashes a devastating black powder explosion afterward that deals [[/r {1d6}[fire]]]{1d6 fire damage} to both him and the target of the Strike. He then Strides or Leaps once more, propelled by the blast.</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -4,7 +4,7 @@
     "name": "Effect: Golden Legion Epaulet",
     "system": {
         "description": {
-            "value": "<p>Granted by @Compendium[pf2e.equipment-srd.Golden Legion Epaulet]{Golden Legion Epaulet}.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Golden Legion Epaulet]{Golden Legion Epaulet}</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -18,13 +18,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "attack",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "strike-damage",
+                "selector": [
+                    "attack",
+                    "strike-damage"
+                ],
                 "type": "status",
                 "value": 1
             },

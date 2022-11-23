@@ -51,12 +51,73 @@
                 ],
                 "flag": "armorInnovation",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Inventor.Innovation.Armor.Prompt"
+                "prompt": "PF2E.SpecificRule.Inventor.Innovation.Armor.Prompt",
+                "recordSlug": true,
+                "rollOption": "armor-innovation"
             },
             {
                 "allowDuplicate": false,
+                "flag": "armorInnovation",
                 "key": "GrantItem",
                 "uuid": "{item|flags.pf2e.rulesSelections.armorInnovation}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.armorInnovationId",
+                "value": "{item|flags.pf2e.itemGrants.armorInnovation.id}"
+            },
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Inventor.Modification.Initial.AllowedDrops",
+                    "predicate": [
+                        "item:level:1",
+                        "item:type:feature",
+                        "item:trait:inventor"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Harmonic Oscillator"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Metallic Reactance"
+                    },
+                    {
+                        "predicate": [
+                            "armor-innovation:power-suit"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Muscular Exoskeleton"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Otherworldly Protection"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Phlogistonic Regulator"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Speed Boosters"
+                    },
+                    {
+                        "predicate": [
+                            "armor-innovation:subterfuge-suit"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Subtle Dampeners"
+                    }
+                ],
+                "flag": "initialModification",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:inventor"
+                ],
+                "prompt": "PF2E.SpecificRule.Inventor.Modification.Initial.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "flag": "initialModification",
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.initialModification}"
             }
         ],
         "source": {

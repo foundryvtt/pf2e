@@ -114,22 +114,20 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "construct-armor"
-                        ],
-                        "selector": "ac",
-                        "slug": "construct-armor-critical",
-                        "value": -4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
                             {
-                                "not": "construct-armor"
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "selector": "ac",
-                        "slug": "construct-armor-health",
-                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
+                        "value": -4
                     }
                 ],
                 "slug": null,
@@ -163,7 +161,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by the anatomical model's guts attack is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until it takes an action to remove the guts. A creature critically hit by the anatomical model's guts attack is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until it @Compendium[pf2e.actionspf2e.Escape]{Escapes}.</p>"
+                    "value": "<p>A creature hit by the anatomical model's guts attack is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until it takes an action to remove the guts. A creature critically hit by the anatomical model's guts attack is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} until it @UUID[Compendium.pf2e.actionspf2e.Escape]{Escapes}.</p>"
                 },
                 "requirements": {
                     "value": ""

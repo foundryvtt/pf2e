@@ -5,7 +5,7 @@ import { getIncomeForLevel } from "@scripts/macros/earn-income";
 import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { OneToTen } from "@module/data";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { CheckRoll } from "@system/check/roll";
+import { CheckRoll } from "@system/check";
 import { ChatMessagePF2e } from "@module/chat-message";
 
 /** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */

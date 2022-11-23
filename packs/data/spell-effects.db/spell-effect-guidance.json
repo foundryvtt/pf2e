@@ -4,7 +4,7 @@
     "name": "Spell Effect: Guidance",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Guidance]{Guidance}</em></p>\n<p>You have divine guidance, granting you a +1 status bonus to one attack roll, Perception check, saving throw, or skill check you attempt before the duration ends. You choose which roll to use the bonus on before rolling. If you use the bonus, the spell ends. Either way, you are then temporarily immune for 1 hour.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Guidance]{Guidance}</em></p>\n<p>You have divine guidance, granting you a +1 status bonus to one attack roll, Perception check, saving throw, or skill check you attempt before the duration ends. You choose which roll to use the bonus on before rolling. If you use the bonus, the spell ends. Either way, you are then temporarily immune for 1 hour.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,37 +22,12 @@
                 "predicate": [
                     "guidance"
                 ],
-                "selector": "attack",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Guidance",
-                "predicate": [
-                    "guidance"
+                "selector": [
+                    "attack",
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
                 ],
-                "selector": "perception",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Guidance",
-                "predicate": [
-                    "guidance"
-                ],
-                "selector": "skill-check",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Guidance",
-                "predicate": [
-                    "guidance"
-                ],
-                "selector": "saving-throw",
                 "type": "status",
                 "value": 1
             }

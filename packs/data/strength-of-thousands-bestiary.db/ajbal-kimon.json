@@ -69,20 +69,6 @@
                         "sp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -201,20 +187,6 @@
                     "value": {
                         "gp": 1
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": "returning"
@@ -563,7 +535,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Ajbal isn't @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures of 13th level or lower that are @Compendium[pf2e.conditionitems.Hidden]{Hidden}, undetected, flanking, or using surprise attack.</p>"
+                    "value": "<p>Ajbal isn't @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to creatures of 13th level or lower that are @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, undetected, flanking, or using surprise attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -669,13 +641,13 @@
                         "domain": "all",
                         "key": "RollOption",
                         "label": "Use Nimble Dodge",
-                        "option": "nimbleDodge",
+                        "option": "nimble-dodge",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "nimbleDodge"
+                            "nimble-dodge"
                         ],
                         "selector": "ac",
                         "type": "circumstance",
@@ -713,7 +685,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Ajbal designates a single creature he can see and hear, or one he's Tracking, as his prey. Ajbal gains a +2 circumstance bonus to Perception checks to @Compendium[pf2e.actionspf2e.Seek]{Seek} his prey and Survival checks to @Compendium[pf2e.actionspf2e.Track]{Track} his prey.</p>\n<p>The first time Ajbal hits his designated prey in a round, he deals an additional [[/r {2d8}[precision]]]{2d8 precision damage}. Ajbal also ignores the penalty for making ranged attacks within the second range increment when attacking his prey.</p>\n<p>These effects last until Ajbal uses Hunt Prey again.</p>"
+                    "value": "<p>Ajbal designates a single creature he can see and hear, or one he's Tracking, as his prey. Ajbal gains a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek} his prey and Survival checks to @UUID[Compendium.pf2e.actionspf2e.Track]{Track} his prey.</p>\n<p>The first time Ajbal hits his designated prey in a round, he deals an additional [[/r {2d8}[precision]]]{2d8 precision damage}. Ajbal also ignores the penalty for making ranged attacks within the second range increment when attacking his prey.</p>\n<p>These effects last until Ajbal uses Hunt Prey again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -752,7 +724,7 @@
                         "domain": "all",
                         "key": "RollOption",
                         "label": "First attack on hunted prey this round",
-                        "option": "firstAttack",
+                        "option": "first-attack",
                         "toggleable": true
                     },
                     {
@@ -761,7 +733,7 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "firstAttack"
+                            "first-attack"
                         ],
                         "selector": "strike-damage"
                     }
@@ -819,13 +791,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -876,7 +848,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Ajbal's last action was a melee Strike that dealt sneak attack damage to a @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} target</p>\n<hr />\n<p><strong>Effect</strong> Ajbal deals [[/r {6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to the target creature, and the target is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as it's bleeding.</p>"
+                    "value": "<p><strong>Requirements</strong> Ajbal's last action was a melee Strike that dealt sneak attack damage to a @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} target</p>\n<hr />\n<p><strong>Effect</strong> Ajbal deals [[/r {6}[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to the target creature, and the target is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as it's bleeding.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -913,7 +885,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A trident Ajbal is using gains the shove trait, and any creature Ajbal critically hits with a trident is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of Ajbal's next turn.</p>"
+                    "value": "<p>A trident Ajbal is using gains the shove trait, and any creature Ajbal critically hits with a trident is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of Ajbal's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""

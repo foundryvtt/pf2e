@@ -13,7 +13,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You're particularly skilled at helping others with a task. You gain a +2 circumstance bonus on checks to Aid, and you don't give your ally a -1 circumstance penalty to their check if you critically fail your attempt to Aid.</p>"
+            "value": "<p>You're particularly skilled at helping others with a task. You gain a +2 circumstance bonus on checks to @UUID[Compendium.pf2e.actionspf2e.Aid]{Aid}, and you don't give your ally a -1 circumstance penalty to their check if you critically fail your attempt to Aid.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -30,16 +30,10 @@
                 "predicate": [
                     "action:aid"
                 ],
-                "selector": "skill-check",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "action:aid"
+                "selector": [
+                    "attack",
+                    "skill-check"
                 ],
-                "selector": "attack",
                 "type": "circumstance",
                 "value": 2
             }

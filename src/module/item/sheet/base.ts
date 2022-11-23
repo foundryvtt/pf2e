@@ -9,7 +9,6 @@ import {
     SelectableTagField,
     SELECTABLE_TAG_FIELDS,
     TagSelectorBasic,
-    TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
 import {
     ErrorPF2e,
@@ -58,7 +57,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     private ruleElementForms: Record<number, RuleElementForm> = {};
 
-    get editingRuleElement() {
+    get editingRuleElement(): RuleElementSource | null {
         if (this.editingRuleElementIndex === null) return null;
         return this.item.toObject().system.rules[this.editingRuleElementIndex] ?? null;
     }
@@ -98,6 +97,19 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             this.ruleElementForms[Number(idx)] = new FormClass(this.item, idx, rule);
         }
 
+        // This variable name is obviously no longer accurate: needs sweep through item sheet templates for refactor
+        const traitSlugs = ((): { id: string; value: string; readonly: boolean }[] => {
+            const readonlyTraits: string[] =
+                this.item.system.traits?.value.filter((t) => {
+                    const sourceTraits: string[] = this.item._source.system.traits?.value ?? [];
+                    return !sourceTraits.includes(t);
+                }) ?? [];
+            return Object.keys(traits ?? {}).map((slug) => {
+                const label = game.i18n.localize(validTraits?.[slug] ?? slug);
+                return { id: slug, value: label, readonly: readonlyTraits.includes(slug) };
+            });
+        })();
+
         return {
             itemType: null,
             showTraits: this.validTraits !== null,
@@ -121,7 +133,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rarity: hasRarity ? this.item.system.traits?.rarity ?? "common" : null,
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
-            traitSlugs: Object.keys(traits ?? {}),
+            traitSlugs,
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
@@ -158,7 +170,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     protected onTagSelector(anchor: HTMLAnchorElement): void {
         const selectorType = anchor.dataset.tagSelector ?? "";
-        if (!(selectorType === "basic" && tupleHasValue(TAG_SELECTOR_TYPES, selectorType))) {
+        if (selectorType !== "basic") {
             throw ErrorPF2e("Item sheets can only use the basic tag selector");
         }
         const propertyIsFlat = anchor.dataset.flat === "true";
@@ -185,14 +197,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         new TagSelectorBasic(this.item, selectorOptions).render(true);
     }
 
-    /**
-     * Get NPC attack effect options
-     */
+    /** Get NPC attack effect options */
     protected getAttackEffectOptions(): Record<string, string> {
         // Melee attack effects can be chosen from the NPC's actions and consumable items
         const attackEffectOptions: Record<string, string> =
             this.actor?.items
-                .filter((item) => item.type === "action" || item.type === "consumable")
+                .filter((i) => i.type === "action" || i.type === "consumable")
                 .reduce((options, item) => {
                     const key = item.slug ?? sluggify(item.name);
                     return mergeObject(options, { [key]: item.name }, { inplace: false });
@@ -274,14 +284,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
             html.querySelector<HTMLDivElement>(".rule-editing .editor-placeholder")?.replaceWith(view.dom);
 
-            html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=close]")?.addEventListener(
-                "click",
-                (event) => {
-                    event.preventDefault();
-                    this.editingRuleElementIndex = null;
-                    this.render();
-                }
-            );
+            const closeBtn = html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=close]");
+            closeBtn?.addEventListener("click", (event) => {
+                event.preventDefault();
+                this.editingRuleElementIndex = null;
+                this.render();
+            });
+            closeBtn?.removeAttribute("disabled");
 
             html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")?.addEventListener(
                 "click",

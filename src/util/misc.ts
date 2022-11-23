@@ -280,11 +280,16 @@ function localizeList(items: string[]) {
 }
 
 /** Generate and return an HTML element for a FontAwesome icon */
-function fontAwesomeIcon(glyph: string, style: "solid" | "regular" = "solid"): HTMLElement {
+function fontAwesomeIcon(
+    glyph: string,
+    { style = "solid", fixedWidth = false }: { style?: "solid" | "regular"; fixedWidth?: boolean } = {}
+): HTMLElement {
     const styleClass = `fa-${style}`;
     const glyphClass = glyph.startsWith("fa-") ? glyph : `fa-${glyph}`;
     const icon = document.createElement("i");
     icon.classList.add(styleClass, glyphClass);
+    if (fixedWidth) icon.classList.add("fa-fw");
+
     return icon;
 }
 

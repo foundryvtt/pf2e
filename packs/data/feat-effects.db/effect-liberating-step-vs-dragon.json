@@ -4,7 +4,7 @@
     "name": "Effect: Liberating Step (vs. Dragon)",
     "system": {
         "description": {
-            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Dragonslayer Oath (Liberator)]{Dragonslayer Oath (Liberator)}</p>\n<p>If you use Liberating Step triggered by an evil dragon, your ally gains a +4 circumstance bonus to checks granted by your Liberating Step, and the ally can Step twice afterward.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Dragonslayer Oath (Liberator)]{Dragonslayer Oath (Liberator)}</p>\n<p>If you use Liberating Step triggered by an evil dragon, your ally gains a +4 circumstance bonus to checks granted by your Liberating Step, and the ally can Step twice afterward.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,17 +22,11 @@
                 "predicate": [
                     "action:escape"
                 ],
-                "selector": "athletics",
-                "type": "circumstance",
-                "value": 4
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Liberating Step (vs. dragon)",
-                "predicate": [
-                    "action:escape"
+                "selector": [
+                    "acrobatics",
+                    "athletics",
+                    "saving-throw"
                 ],
-                "selector": "acrobatics",
                 "type": "circumstance",
                 "value": 4
             },
@@ -44,16 +38,6 @@
                     "unarmed"
                 ],
                 "selector": "attack",
-                "type": "circumstance",
-                "value": 4
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Liberating Step (vs. dragon)",
-                "predicate": [
-                    "action:escape"
-                ],
-                "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 4
             }

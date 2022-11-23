@@ -7,11 +7,6 @@ export class StrikeAttackRoll extends CheckRoll {
         if (!this._evaluated) await this.evaluate({ async: true });
         const { isPrivate, flavor, template } = options;
 
-        // Temporarily fill missing property
-        if (this.options.strike) {
-            this.options.strike.damaging ??= true;
-        }
-
         const chatData: Record<string, unknown> = {
             formula: isPrivate ? "???" : this._formula,
             flavor: isPrivate ? null : flavor,

@@ -70,20 +70,6 @@
                         "sp": 3
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -164,7 +150,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>This <em>+1 striking longsword</em> has a mirror-like blade free of tarnish despite being millennia old.</p>\n<p>While wielding it, you gain a +2 item bonus to checks to @Compendium[pf2e.actionspf2e.Aid]{Aid}. If you're an expert with the skill or attack roll you're using to Aid and you critically succeed, you grant your ally a +3 circumstance bonus to the triggering check instead of a +2 bonus.</p>"
+                    "value": "<p>This <em>+1 striking longsword</em> has a mirror-like blade free of tarnish despite being millennia old.</p>\n<p>While wielding it, you gain a +2 item bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Aid]{Aid}. If you're an expert with the skill or attack roll you're using to Aid and you critically succeed, you grant your ally a +3 circumstance bonus to the triggering check instead of a +2 bonus.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -200,20 +186,6 @@
                     "value": {
                         "gp": 250
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -402,7 +374,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
+                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -684,13 +656,13 @@
                     {
                         "domain": "ac",
                         "key": "RollOption",
-                        "option": "skillfulCatch",
+                        "option": "skillful-catch",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "skillfulCatch"
+                            "skillful-catch"
                         ],
                         "selector": "ac",
                         "type": "circumstance",
@@ -751,13 +723,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -808,7 +780,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Carman quickly draws a thrown weapon and makes a ranged Strike with it. His target must succeed at a @Check[type:perception|dc:22] check or be caught @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} by the attack.</p>"
+                    "value": "<p>Carman quickly draws a thrown weapon and makes a ranged Strike with it. His target must succeed at a @Check[type:perception|dc:22] check or be caught @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} by the attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -850,7 +822,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to Carman.</p>"
+                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to Carman.</p>"
                 },
                 "requirements": {
                     "value": ""

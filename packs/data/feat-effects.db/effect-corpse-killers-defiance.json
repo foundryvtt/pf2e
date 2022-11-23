@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>You gain a +2 status bonus to attack and damage rolls against undead.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Corpse-Killer's Defiance]{Corpse-Killer's Defiance}</p>\n<p>You gain a +2 status bonus to attack and damage rolls against undead.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,16 +22,10 @@
                 "predicate": [
                     "target:trait:undead"
                 ],
-                "selector": "attack",
-                "type": "status",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "target:trait:undead"
+                "selector": [
+                    "attack",
+                    "damage"
                 ],
-                "selector": "damage",
                 "type": "status",
                 "value": 2
             }

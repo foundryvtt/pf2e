@@ -63,6 +63,10 @@ class EffectPF2e extends AbstractEffectPF2e {
         }
     }
 
+    override get unidentified(): boolean {
+        return this.system.unidentified ?? false;
+    }
+
     /** Does this effect originate from an aura? */
     get fromAura(): boolean {
         return !!this.flags.pf2e.aura;
@@ -70,19 +74,21 @@ class EffectPF2e extends AbstractEffectPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const { duration } = this.system;
-        if (["unlimited", "encounter"].includes(duration.unit)) {
-            duration.expiry = null;
+
+        const { system } = this;
+        if (["unlimited", "encounter"].includes(system.duration.unit)) {
+            system.duration.expiry = null;
         } else {
-            duration.expiry ||= "turn-start";
+            system.duration.expiry ||= "turn-start";
         }
+        system.expired = this.remainingDuration.expired;
     }
 
     /** Unless this effect is temporarily constructed, ignore rule elements if it is expired */
     override prepareRuleElements(options?: RuleElementOptions): RuleElementPF2e[] {
         const autoExpireEffects = game.settings.get("pf2e", "automation.effectExpiration");
         if (autoExpireEffects && this.isExpired && this.actor?.items.has(this.id)) {
-            for (const rule of this.rules) {
+            for (const rule of this.system.rules) {
                 rule.ignored = true;
             }
         }

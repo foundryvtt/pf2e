@@ -46,7 +46,7 @@ export function isItemSource(docSource: CompendiumSource): docSource is ItemSour
 }
 
 export class CompendiumPack {
-    name: string;
+    packId: string;
     packDir: string;
     documentType: string;
     systemId: string;
@@ -55,9 +55,12 @@ export class CompendiumPack {
     static outDir = path.resolve(process.cwd(), "static/packs");
     private static namesToIds = new Map<string, Map<string, string>>();
     private static packsMetadata = JSON.parse(fs.readFileSync("system.json", "utf-8")).packs as PackMetadata[];
-    private static worldItemLinkPattern = new RegExp(
-        /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/
-    );
+
+    static LINK_PATTERNS = {
+        world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]{16}\]|@UUID\[(?:Item|JournalEntry|Actor)/g,
+        compendium: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/g,
+        uuid: /@UUID\[Compendium\.pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/g,
+    };
 
     constructor(packDir: string, parsedData: unknown[]) {
         const metadata = CompendiumPack.packsMetadata.find(
@@ -67,24 +70,24 @@ export class CompendiumPack {
             throw PackError(`Compendium at ${packDir} has no metadata in the local system.json file.`);
         }
         this.systemId = metadata.system;
-        this.name = metadata.name;
+        this.packId = metadata.name;
         this.documentType = metadata.type;
 
         if (!this.isPackData(parsedData)) {
-            throw PackError(`Data supplied for ${this.name} does not resemble Foundry document source data.`);
+            throw PackError(`Data supplied for ${this.packId} does not resemble Foundry document source data.`);
         }
 
         this.packDir = packDir;
 
-        CompendiumPack.namesToIds.set(this.name, new Map());
-        const packMap = CompendiumPack.namesToIds.get(this.name);
+        CompendiumPack.namesToIds.set(this.packId, new Map());
+        const packMap = CompendiumPack.namesToIds.get(this.packId);
         if (!packMap) {
-            throw PackError(`Compendium ${this.name} (${packDir}) was not found.`);
+            throw PackError(`Compendium ${this.packId} (${packDir}) was not found.`);
         }
 
         parsedData.sort((a, b) => {
             if (a._id === b._id) {
-                throw PackError(`_id collision in ${this.name}: ${a._id}`);
+                throw PackError(`_id collision in ${this.packId}: ${a._id}`);
             }
             return a._id > b._id ? 1 : -1;
         });
@@ -104,7 +107,7 @@ export class CompendiumPack {
                 for (const imgPath of imgPaths) {
                     if (imgPath.startsWith("data:image")) {
                         const imgData = imgPath.slice(0, 64);
-                        const msg = `${documentName} (${this.name}) has base64-encoded image data: ${imgData}...`;
+                        const msg = `${documentName} (${this.packId}) has base64-encoded image data: ${imgData}...`;
                         throw PackError(msg);
                     }
 
@@ -114,10 +117,10 @@ export class CompendiumPack {
                         decodeURIComponent(imgPath).replace("systems/pf2e/", "")
                     );
                     if (!imgPath.match(/^\/?icons\/svg/) && !fs.existsSync(repoImgPath)) {
-                        throw PackError(`${documentName} (${this.name}) has a broken image link: ${imgPath}`);
+                        throw PackError(`${documentName} (${this.packId}) has a broken image link: ${imgPath}`);
                     }
                     if (!(imgPath === "" || imgPath.match(/\.(?:svg|webp)$/))) {
-                        throw PackError(`${documentName} (${this.name}) references a non-WEBP/SVG image: ${imgPath}`);
+                        throw PackError(`${documentName} (${this.packId}) references a non-WEBP/SVG image: ${imgPath}`);
                     }
                 }
             }
@@ -165,11 +168,11 @@ export class CompendiumPack {
     }
 
     private finalize(docSource: CompendiumSource) {
-        // Replace all compendium entities linked by name to links by ID
+        // Replace all compendium documents linked by name to links by ID
         const stringified = JSON.stringify(docSource);
-        const worldItemLink = CompendiumPack.worldItemLinkPattern.exec(stringified);
+        const worldItemLink = CompendiumPack.LINK_PATTERNS.world.exec(stringified);
         if (worldItemLink !== null) {
-            throw PackError(`${docSource.name} (${this.name}) has a link to a world item: ${worldItemLink[0]}`);
+            throw PackError(`${docSource.name} (${this.packId}) has a link to a world item: ${worldItemLink[0]}`);
         }
 
         docSource.flags ??= {};
@@ -199,30 +202,32 @@ export class CompendiumPack {
             CompendiumPack.convertRuleUUIDs(docSource, { to: "ids", map: CompendiumPack.namesToIds });
         }
 
-        return JSON.stringify(docSource).replace(
-            /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<documentName>[^\]]+)\]\{?/g,
-            (match, packName: string, documentName: string) => {
-                const namesToIds = CompendiumPack.namesToIds.get(packName);
-                const link = match.replace(/\{$/, "");
-                if (namesToIds === undefined) {
-                    throw PackError(`${docSource.name} (${this.name}) has a bad pack reference: ${link}`);
-                }
+        const replace = (match: string, packId: string, docName: string): string => {
+            if (match.includes("JournalEntryPage")) return match;
 
-                const documentId: string | undefined = namesToIds.get(documentName);
-                if (documentId === undefined) {
-                    throw PackError(
-                        `${docSource.name} (${this.name}) has broken link to ${documentName} (${packName}).`
-                    );
-                }
-                const labelBrace = match.endsWith("{") ? "{" : "";
-
-                return `@Compendium[pf2e.${packName}.${documentId}]${labelBrace}`;
+            const namesToIds = CompendiumPack.namesToIds.get(packId);
+            const link = match.replace(/\{$/, "");
+            if (namesToIds === undefined) {
+                throw PackError(`${docSource.name} (${this.packId}) has a bad pack reference: ${link}`);
             }
-        );
+
+            const documentId: string | undefined = namesToIds.get(docName);
+            if (documentId === undefined) {
+                throw PackError(`${docSource.name} (${this.packId}) has broken link to ${docName} (${packId}).`);
+            }
+            const sourceId = this.sourceIdOf(documentId, { packId });
+            const labelBrace = match.endsWith("{") ? "{" : "";
+
+            return `@UUID[${sourceId}]${labelBrace}`;
+        };
+
+        return JSON.stringify(docSource)
+            .replace(CompendiumPack.LINK_PATTERNS.uuid, replace)
+            .replace(CompendiumPack.LINK_PATTERNS.compendium, replace);
     }
 
-    private sourceIdOf(documentId: string): string {
-        return `Compendium.${this.systemId}.${this.name}.${documentId}`;
+    private sourceIdOf(documentId: string, { packId = this.packId } = {}): string {
+        return `Compendium.${this.systemId}.${packId}.${documentId}`;
     }
 
     /** Convert UUIDs in REs to resemble links by name or back again */
@@ -286,7 +291,7 @@ export class CompendiumPack {
                 .join("\n")
                 .concat("\n")
         );
-        console.log(`Pack "${this.name}" with ${this.data.length} entries built successfully.`);
+        console.log(`Pack "${this.packId}" with ${this.data.length} entries built successfully.`);
 
         return this.data.length;
     }
@@ -309,7 +314,7 @@ export class CompendiumPack {
 
         if (failedChecks.length > 0) {
             throw PackError(
-                `Document source in (${this.name}) has invalid or missing keys: ${failedChecks.join(", ")}`
+                `Document source in (${this.packId}) has invalid or missing keys: ${failedChecks.join(", ")}`
             );
         }
 

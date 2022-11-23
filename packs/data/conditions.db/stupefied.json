@@ -15,7 +15,7 @@
         },
         "base": "Stupefied",
         "description": {
-            "value": "<p>Your thoughts and instincts are clouded. Stupefied always includes a value. You take a status penalty equal to this value on Intelligence-, Wisdom-, and Charisma-based checks and DCs, including Will saving throws, spell attack rolls, spell DCs, and skill checks that use these ability scores. Any time you attempt to @Compendium[pf2e.actionspf2e.Cast a Spell]{Cast a Spell} while stupefied, the spell is disrupted unless you succeed at a flat check with a DC equal to 5 + your stupefied value.</p>"
+            "value": "<p>Your thoughts and instincts are clouded. Stupefied always includes a value. You take a status penalty equal to this value on Intelligence-, Wisdom-, and Charisma-based checks and DCs, including Will saving throws, spell attack rolls, spell DCs, and skill checks that use these ability scores. Any time you attempt to @UUID[Compendium.pf2e.actionspf2e.Cast a Spell]{Cast a Spell} while stupefied, the spell is disrupted unless you succeed at a flat check with a DC equal to 5 + your stupefied value.</p>"
         },
         "duration": {
             "perpetual": true,
@@ -43,21 +43,11 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "int-based",
-                "slug": "stupefied",
-                "type": "status",
-                "value": "-@item.badge.value"
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "wis-based",
-                "slug": "stupefied",
-                "type": "status",
-                "value": "-@item.badge.value"
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "cha-based",
+                "selector": [
+                    "cha-based",
+                    "int-based",
+                    "wis-based"
+                ],
                 "slug": "stupefied",
                 "type": "status",
                 "value": "-@item.badge.value"

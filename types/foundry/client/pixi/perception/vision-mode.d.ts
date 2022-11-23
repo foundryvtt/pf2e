@@ -48,7 +48,9 @@ declare global {
             darkness: {
                 adaptive: boolean;
             };
-            defaults: Pick<TokenDocument["sight"], "attenuation" | "brightness" | "saturation" | "contrast" | "range">;
+            defaults: Partial<
+                Pick<TokenDocument["sight"], "attenuation" | "brightness" | "saturation" | "contrast" | "range">
+            >;
         };
 
         /** The lighting illumination levels which are supported. */

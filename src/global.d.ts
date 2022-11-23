@@ -27,13 +27,19 @@ import {
 import { UserPF2e } from "@module/user";
 import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
-import { calculateXP, launchTravelSheet, perceptionForSelected, rollActionMacro, rollItemMacro } from "@scripts/macros";
+import {
+    calculateXP,
+    launchTravelSheet,
+    perceptionForSelected,
+    rollActionMacro,
+    rollItemMacro,
+    stealthForSelected,
+} from "@scripts/macros";
 import { ModuleArt, registerModuleArt } from "@scripts/register-module-art";
 import { remigrate } from "@scripts/system/remigrate";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { EffectTracker } from "@system/effect-tracker";
-import { ActorImporter } from "@system/importer/actor-importer";
-import { CheckPF2e } from "@system/rolls";
+import { CheckPF2e } from "@system/check";
 import { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
@@ -55,6 +61,7 @@ declare global {
                 calculateXP: typeof calculateXP;
                 launchTravelSheet: typeof launchTravelSheet;
                 perceptionForSelected: typeof perceptionForSelected;
+                stealthForSelected: typeof stealthForSelected;
             };
             system: {
                 moduleArt: {
@@ -63,9 +70,6 @@ declare global {
                 };
                 remigrate: typeof remigrate;
                 sluggify: typeof sluggify;
-            };
-            importer: {
-                actor: typeof ActorImporter;
             };
             variantRules: {
                 AutomaticBonusProgression: typeof AutomaticBonusProgression;
@@ -132,12 +136,12 @@ declare global {
         get(module: "pf2e", setting: "proficiencyMasterModifier"): number;
         get(module: "pf2e", setting: "proficiencyLegendaryModifier"): number;
 
-        get(module: "pf2e", setting: "metagame.partyVision"): boolean;
-        get(module: "pf2e", setting: "metagame.secretCondition"): boolean;
-        get(module: "pf2e", setting: "metagame.secretDamage"): boolean;
-        get(module: "pf2e", setting: "metagame.showDC"): UserVisibility;
-        get(module: "pf2e", setting: "metagame.showResults"): UserVisibility;
-        get(module: "pf2e", setting: "metagame.tokenSetsNameVisibility"): boolean;
+        get(module: "pf2e", setting: "metagame_partyVision"): boolean;
+        get(module: "pf2e", setting: "metagame_secretCondition"): boolean;
+        get(module: "pf2e", setting: "metagame_secretDamage"): boolean;
+        get(module: "pf2e", setting: "metagame_showDC"): boolean;
+        get(module: "pf2e", setting: "metagame_showResults"): boolean;
+        get(module: "pf2e", setting: "metagame_tokenSetsNameVisibility"): boolean;
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;
 

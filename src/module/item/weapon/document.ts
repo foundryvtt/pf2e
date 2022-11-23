@@ -206,7 +206,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
         systemData.reload.value ||= null;
-        systemData.traits.otherTags ??= [];
         systemData.selectedAmmoId ||= null;
         systemData.damage.die ||= null;
         systemData.damage.modifier ??= 0;
@@ -489,7 +488,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     /** Generate a clone of this thrown melee weapon with its thrown usage overlain, or `null` if not applicable */
     private toThrownUsage(): this | null {
-        const traits = this.system.traits.value;
+        const traits = this._source.system.traits.value;
         const thrownTrait = traits.find((t) => /^thrown-\d{1,3}$/.test(t));
         if (this.isRanged || !thrownTrait) return null;
 
@@ -553,7 +552,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             })();
 
             return {
-                damage: `${dice}${weaponDamage.die}${constant}`,
+                damage: weaponDamage.die ? `${dice}${weaponDamage.die}${constant}` : dice.toString(),
                 damageType: weaponDamage.damageType,
             };
         })();

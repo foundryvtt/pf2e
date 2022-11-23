@@ -65,7 +65,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                                     'A strike adjustment of material effects must be used with "add" mode.'
                                 );
                             }
-                            if (!definition.test(weapon.getRollOptions("weapon"))) {
+                            if (!definition.test(weapon.getRollOptions("item"))) {
                                 return;
                             }
                             if (!setHasElement(WEAPON_MATERIAL_EFFECTS, change)) {
@@ -83,7 +83,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                                 return this.failValidation("Change value is not a number.");
                             }
 
-                            if (!definition.test(weapon.getRollOptions("weapon"))) {
+                            if (!definition.test(weapon.getRollOptions("item"))) {
                                 return;
                             }
 
@@ -110,7 +110,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             if (!objectHasKey(CONFIG.PF2E.actionTraits, change)) {
                                 return this.failValidation(`"${change} is not a recognized action trait.`);
                             }
-                            if (!definition.test(weapon.getRollOptions("weapon"))) {
+                            if (!definition.test(weapon.getRollOptions("item"))) {
                                 return;
                             }
 
@@ -128,7 +128,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             if (!objectHasKey(CONFIG.PF2E.weaponTraits, change)) {
                                 return this.failValidation(`"${change} is not a recognized weapon trait.`);
                             }
-                            if (!definition.test(weapon.getRollOptions("weapon"))) {
+                            if (!definition.test(weapon.getRollOptions("item"))) {
                                 return;
                             }
 

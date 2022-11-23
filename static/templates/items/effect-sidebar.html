@@ -44,6 +44,14 @@
             <input type="checkbox" name="system.tokenIcon.show" {{checked data.tokenIcon.show}} />
         </div>
     </div>
+    {{#if user.isGM}}
+    <div class="form-group">
+        <label for="data.unidentified">{{localize "PF2E.Item.Effect.Unidentified"}}</label>
+        <div class="form-fields">
+            <input type="checkbox" name="system.unidentified" {{checked data.unidentified}} />
+        </div>
+    </div>
+    {{/if}}
     <hr/>
     <div class="form-group">
         {{#if data.badge}}

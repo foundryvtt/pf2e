@@ -149,7 +149,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         const flags = this.actor.flags.pf2e;
-        const hasQuickAlchemy = !!this.actor.rollOptions.all["feature:quick-alchemy"];
+        const hasQuickAlchemy = !!(
+            this.actor.rollOptions.all["feature:quick-alchemy"] || this.actor.rollOptions.all["feat:quick-alchemy"]
+        );
         const useQuickAlchemy = hasQuickAlchemy && flags.quickAlchemy;
 
         sheetData.crafting = {
@@ -661,7 +663,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             const difficultyClass: CheckDC = {
                 value: formula.dc,
-                visibility: "all",
+                visible: true,
                 adjustments: this.actor.system.skills.cra.adjustments,
                 scope: "check",
             };
@@ -975,15 +977,10 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             return await this.actor.feats.insertFeat(item, featSlot);
         }
 
-        const source = item.toObject();
-
-        switch (source.type) {
-            case "ancestry":
-            case "background":
-            case "class":
-                return AncestryBackgroundClassManager.addABCItem(source, actor);
-            default:
-                return super._onDropItem(event, data);
+        if (item.isOfType("ancestry", "background", "class")) {
+            return AncestryBackgroundClassManager.addABCItem(item, actor);
+        } else {
+            return super._onDropItem(event, data);
         }
     }
 

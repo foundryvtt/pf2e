@@ -235,7 +235,34 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "kick-back",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "kick-back"
+                        ],
+                        "selector": "hoof-attack",
+                        "type": "circumstance",
+                        "value": -2
+                    },
+                    {
+                        "damageType": "bludgeoning",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "kick-back"
+                        ],
+                        "selector": "hoof-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -270,12 +297,34 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The moose Strides twice and then makes an antler Strike. A Medium or smaller creature damaged by this attack must succeed at a @Check[type:fortitude|dc:18] save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
+                    "value": "<p>The moose Strides twice and then makes an antler Strike. A Medium or smaller creature damaged by this attack must succeed at a @Check[type:fortitude|dc:18] save or be @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "thundering-charge",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "thundering-charge"
+                        ],
+                        "selector": "antler-attack",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -354,7 +403,17 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Swim",
+                        "predicate": [
+                            "action:swim"
+                        ],
+                        "selector": "skill-check",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -363,6 +422,12 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+14 to Swim",
+                        "options": "action:swim"
+                    }
                 }
             },
             "type": "lore"
@@ -424,7 +489,7 @@
                 "value": 18
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",

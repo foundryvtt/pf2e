@@ -4,7 +4,7 @@
     "name": "Effect: Gecko Potion",
     "system": {
         "description": {
-            "value": "<p>Granted by @Compendium[pf2e.equipment-srd.Gecko Potion]{Gecko Potion}</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+1 item bonus to Athletics checks to @Compendium[pf2e.actionspf2e.Climb]{Climb}</li>\n<li>+1 item bonus to Thievery checks to @Compendium[pf2e.actionspf2e.Palm an Object]{Palm an Object}</li>\n<li>+1 item bonus to Reflex DC against @Compendium[pf2e.actionspf2e.Disarm]{Disarm} attempts</li>\n</ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Gecko Potion]{Gecko Potion}</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+1 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Climb]{Climb}</li>\n<li>+1 item bonus to Thievery checks to @UUID[Compendium.pf2e.actionspf2e.Palm an Object]{Palm an Object}</li>\n<li>+1 item bonus to Reflex DC against @UUID[Compendium.pf2e.actionspf2e.Disarm]{Disarm} attempts</li>\n</ul>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -18,21 +18,27 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Gecko Potion (to Climb)",
+                "predicate": [
+                    "action:climb"
+                ],
                 "selector": "athletics",
                 "type": "item",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "label": "Gecko Potion (to Palm an Object)",
+                "predicate": [
+                    "action:palm-an-object"
+                ],
                 "selector": "thievery",
                 "type": "item",
                 "value": 1
             },
             {
                 "key": "FlatModifier",
-                "label": "Gecko Potion (vs Disarm)",
+                "predicate": [
+                    "avoid-disarm"
+                ],
                 "selector": "reflex",
                 "type": "item",
                 "value": 1

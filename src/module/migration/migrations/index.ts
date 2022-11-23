@@ -193,3 +193,8 @@ export { Migration792RemoveTokenAELikes } from "./792-remove-token-ae-likes";
 export { Migration793MakePredicatesArrays } from "./793-make-predicates-arrays";
 export { Migration794AddWildShapeChoices } from "./794-add-wild-shape-choices";
 export { Migration795CleanupFlatFootedToggle } from "./795-cleanup-flat-footed-toggle";
+export { Migration796ItemGrantsToObjects } from "./796-item-grants-to-objects";
+export { Migration797MetagameSetting } from "./797-metagame-settings";
+export { Migration798WeaponToItemStatements } from "./798-weapon-to-item-statements";
+export { Migration799RMRecallKnowledgeDuplicates } from "./799-rm-recall-knowledge-duplicates";
+export { Migration800SelfEffectPanacheRage } from "./800-self-effect-panache-rage";

@@ -55,9 +55,10 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
         // Enrich content
         const rollData = this.actor.getRollData();
-        const enrich = async (content: string): Promise<string> => {
-            return TextEditor.enrichHTML(content, { rollData, async: true });
+        const enrich = async (content?: string): Promise<string> => {
+            return TextEditor.enrichHTML(content ?? "", { rollData, async: true });
         };
+
         sheetData.enrichedContent = mergeObject(sheetData.enrichedContent, {
             stealthDetails: await enrich(systemData.attributes.stealth.details),
             description: await enrich(systemData.details.description),
@@ -84,10 +85,10 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             hasIWR,
             hasStealth: stealthDC !== null || hasStealthDescription,
             hasStealthDescription,
-            hasDescription: !!systemData.details.description.trim(),
-            hasDisable: !!systemData.details.disable.trim(),
-            hasRoutineDetails: !!systemData.details.routine.trim(),
-            hasResetDetails: !!systemData.details.reset.trim(),
+            hasDescription: !!systemData.details.description?.trim(),
+            hasDisable: !!systemData.details.disable?.trim(),
+            hasRoutineDetails: !!systemData.details.routine?.trim(),
+            hasResetDetails: !!systemData.details.reset?.trim(),
         };
     }
 

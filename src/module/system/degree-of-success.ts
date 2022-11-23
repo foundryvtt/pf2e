@@ -140,7 +140,7 @@ interface CheckDC {
     scope?: "attack" | "check";
     adjustments?: DegreeOfSuccessAdjustment[];
     value: number;
-    visibility?: "none" | "gm" | "owner" | "all";
+    visible?: boolean;
 }
 
 type DegreeIndex = ZeroToThree;

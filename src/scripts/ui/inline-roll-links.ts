@@ -149,8 +149,11 @@ export const InlineRollLinks = {
                 case "will":
                 case "fortitude":
                 case "reflex": {
+                    // Get the origin actor if any
+                    const document = documentFromDOM(html);
+
                     for (const actor of actors) {
-                        const savingThrow = actor.saves?.[pf2Check ?? ""];
+                        const savingThrow = actor.saves?.[pf2Check];
                         if (pf2Check && savingThrow) {
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? { label: pf2Label, value: Number(pf2Dc) }
@@ -158,6 +161,7 @@ export const InlineRollLinks = {
                             savingThrow.check.roll({
                                 ...eventRollParams,
                                 extraRollOptions: parsedTraits,
+                                origin: document instanceof ActorPF2e ? document : null,
                                 dc,
                             });
                         } else {
@@ -216,7 +220,8 @@ export const InlineRollLinks = {
                 templateData.t = templateConversion[pf2EffectArea];
 
                 if (templateData.t === "ray") {
-                    templateData.width = Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width;
+                    templateData.width =
+                        Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
                 } else if (templateData.t === "cone") {
                     templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
                 }

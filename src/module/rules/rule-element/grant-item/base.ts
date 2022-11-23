@@ -1,9 +1,9 @@
 import { ActorType } from "@actor/data";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, PHYSICAL_ITEM_TYPES } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { ItemGrantDeleteAction } from "@item/data/base";
 import { MigrationList, MigrationRunner } from "@module/migration";
-import { isObject, pick, sluggify, tupleHasValue } from "@util";
+import { isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
 import { RuleElementPF2e, RuleElementSource } from "..";
 import { RuleElementOptions } from "../base";
 import { ChoiceSetSource } from "../choice-set/data";
@@ -22,6 +22,9 @@ class GrantItemRuleElement extends RuleElementPF2e {
     protected allowDuplicate: boolean;
     /** The id of the granted item */
     grantedId: string | null;
+    /** A flag for referencing the granted item ID in other rule elements */
+    flag: string;
+
     /**
      * If the granted item has a `ChoiceSet`, its selection may be predetermined. The key of the record must be the
      * `ChoiceSet`'s designated `flag` property.
@@ -47,21 +50,14 @@ class GrantItemRuleElement extends RuleElementPF2e {
             isObject<string>(data.preselectChoices) && isValidPreselect(data.preselectChoices)
                 ? deepClone(data.preselectChoices)
                 : {};
+
+        this.flag =
+            typeof data.flag === "string" && data.flag.length > 0
+                ? sluggify(data.flag, { camel: "dromedary" })
+                : sluggify(item.name, { camel: "dromedary" });
     }
 
     static ON_DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
-
-    #getOnDeleteActions(data: GrantItemSource): Partial<OnDeleteActions> | null {
-        const actions = data.onDeleteActions;
-        if (isObject<OnDeleteActions>(actions)) {
-            const ACTIONS = GrantItemRuleElement.ON_DELETE_ACTIONS;
-            return tupleHasValue(ACTIONS, actions.granter) || tupleHasValue(ACTIONS, actions.grantee)
-                ? pick(actions, ([actions.granter ? "granter" : [], actions.grantee ? "grantee" : []] as const).flat())
-                : null;
-        }
-
-        return null;
-    }
 
     override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (!this.test()) return;
@@ -93,6 +89,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
                 pendingItems.splice(pendingItems.indexOf(itemSource), 1);
             }
             ruleSource.grantedId = existingItem.id;
+            this.#setGrantFlags(itemSource, existingItem);
+
             return ui.notifications.info(
                 game.i18n.format("PF2E.UI.RuleElements.GrantItem.AlreadyHasItem", {
                     actor: this.actor.name,
@@ -105,6 +103,18 @@ class GrantItemRuleElement extends RuleElementPF2e {
         itemSource._id ??= randomID();
         const grantedSource = grantedItem.toObject();
         grantedSource._id = ruleSource.grantedId = randomID();
+
+        this.flag = ruleSource.flag =
+            typeof ruleSource.flag === "string" && ruleSource.flag.length > 0
+                ? sluggify(ruleSource.flag, { camel: "dromedary" })
+                : ((): string => {
+                      const defaultFlag = sluggify(this.item.name, { camel: "dromedary" });
+                      const flagPattern = new RegExp(`^${defaultFlag}\\d*$`);
+                      const itemGrants = itemSource.flags?.pf2e?.itemGrants ?? {};
+                      const nthGrant = Object.keys(itemGrants).filter((g) => flagPattern.test(g)).length;
+
+                      return nthGrant > 0 ? `${defaultFlag}${nthGrant + 1}` : defaultFlag;
+                  })();
 
         // Special case until configurable item alterations are supported:
         if (itemSource.type === "effect" && grantedSource.type === "effect") {
@@ -141,24 +151,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
         context.keepId = true;
 
-        const flags = mergeObject(itemSource.flags ?? {}, { pf2e: {} });
-        flags.pf2e.itemGrants ??= [];
-        flags.pf2e.itemGrants.push({
-            // The granting item records the granted item's ID in an array at `flags.pf2e.itemGrants`
-            id: grantedSource._id,
-            // The on-delete action determines what will happen to the granter item when the granted item is deleted:
-            // Default to "detach" (do nothing).
-            onDelete: this.onDeleteActions?.grantee ?? "detach",
-        });
-
-        // The granted item records its granting item's ID at `flags.pf2e.grantedBy`
-        const grantedBy = {
-            id: itemSource._id,
-            // The on-delete action determines what will happen to the granted item when the granter is deleted:
-            // Default to "cascade" (delete the granted item) unless the granted item is physical.
-            onDelete: this.onDeleteActions?.granter ?? (tempGranted.isOfType("physical") ? "detach" : "cascade"),
-        };
-        grantedSource.flags = mergeObject(grantedSource.flags ?? {}, { pf2e: { grantedBy } });
+        this.#setGrantFlags(itemSource, grantedSource);
 
         // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
         if (!args.reevaluation) {
@@ -172,26 +165,39 @@ class GrantItemRuleElement extends RuleElementPF2e {
     override async preUpdateActor(): Promise<void> {
         if (!this.reevaluateOnUpdate) return;
 
-        const uuid = this.resolveInjectedProperties(this.uuid);
-        const alreadyGranted = this.item.flags.pf2e.itemGrants.some(
-            (g) => this.actor.items.get(g.id)?.sourceId === uuid
-        );
-        if (alreadyGranted) return;
+        if (this.grantedId) return;
 
         // A granted item can't replace its granter when done on actor update
         this.replaceSelf = false;
 
         const itemSource = this.item.toObject();
-        const ruleSource = itemSource.system.rules[this.item.rules.indexOf(this)];
+        const ruleSource = itemSource.system.rules[this.sourceIndex ?? -1];
+        if (!ruleSource) return;
+
         const pendingItems: ItemSourcePF2e[] = [];
         const context = { parent: this.actor, render: false };
         await this.preCreate({ itemSource, pendingItems, ruleSource, context, reevaluation: true });
 
         if (pendingItems.length > 0) {
-            const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? [];
-            await this.item.update({ "flags.pf2e.itemGrants": updatedGrants }, { render: false });
+            const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? {};
+            await this.item.update(
+                { "system.rules": itemSource.system.rules, "flags.pf2e.itemGrants": updatedGrants },
+                { render: false }
+            );
             await this.actor.createEmbeddedDocuments("Item", pendingItems, context);
         }
+    }
+
+    #getOnDeleteActions(data: GrantItemSource): Partial<OnDeleteActions> | null {
+        const actions = data.onDeleteActions;
+        if (isObject<OnDeleteActions>(actions)) {
+            const ACTIONS = GrantItemRuleElement.ON_DELETE_ACTIONS;
+            return tupleHasValue(ACTIONS, actions.granter) || tupleHasValue(ACTIONS, actions.grantee)
+                ? pick(actions, ([actions.granter ? "granter" : [], actions.grantee ? "grantee" : []] as const).flat())
+                : null;
+        }
+
+        return null;
     }
 
     #applyChoiceSelections(grantedItem: Embedded<ItemPF2e>): void {
@@ -205,6 +211,37 @@ class GrantItemRuleElement extends RuleElementPF2e {
                 const resolvedSelection = this.resolveInjectedProperties(selection);
                 rule.data.selection = ruleSource.selection = resolvedSelection;
             }
+        }
+    }
+
+    /** Set flags on granting and grantee items to indicate relationship between the two */
+    #setGrantFlags(granter: PreCreate<ItemSourcePF2e>, grantee: ItemSourcePF2e | ItemPF2e): void {
+        const flags = mergeObject(granter.flags ?? {}, { pf2e: { itemGrants: {} } });
+        flags.pf2e.itemGrants[this.flag] = {
+            // The granting item records the granted item's ID in an array at `flags.pf2e.itemGrants`
+            id: grantee instanceof ItemPF2e ? grantee.id : grantee._id,
+            // The on-delete action determines what will happen to the granter item when the granted item is deleted:
+            // Default to "detach" (do nothing).
+            onDelete: this.onDeleteActions?.grantee ?? "detach",
+        };
+
+        // The granted item records its granting item's ID at `flags.pf2e.grantedBy`
+        const grantedBy = {
+            id: granter._id,
+            // The on-delete action determines what will happen to the granted item when the granter is deleted:
+            // Default to "cascade" (delete the granted item) unless the granted item is physical.
+            onDelete:
+                this.onDeleteActions?.granter ?? setHasElement(PHYSICAL_ITEM_TYPES, grantee.type)
+                    ? "detach"
+                    : "cascade",
+        };
+
+        if (grantee instanceof ItemPF2e) {
+            // This is a previously granted item: update its grantedBy flag
+            // Don't await since it will trigger a data reset, possibly wiping temporary roll options
+            grantee.update({ "flags.pf2e.grantedBy": grantedBy }, { render: false });
+        } else {
+            grantee.flags = mergeObject(grantee.flags ?? {}, { pf2e: { grantedBy } });
         }
     }
 

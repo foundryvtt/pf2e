@@ -4,6 +4,7 @@ import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values";
 import { ABCItemPF2e, FeatPF2e } from "@item";
 import { ARMOR_CATEGORIES } from "@item/armor/values";
+import { FeatSource } from "@item/data";
 import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { ZeroToFour } from "@module/data";
 import { setHasElement, sluggify } from "@util";
@@ -65,6 +66,18 @@ class ClassPF2e extends ABCItemPF2e {
                 ...this.actor.itemTypes.feat.filter((f) => f.featType === "classfeature"),
             ])
         );
+    }
+
+    /** Pulls the features that should be granted by this class, sorted by level and choice set */
+    override async getFeatures(options: { level?: number } = {}): Promise<FeatSource[]> {
+        const hasChoiceSet = (f: FeatSource) => f.system.rules.some((re) => re.key === "ChoiceSet");
+        return (await super.getFeatures(options)).sort((a, b) => {
+            const [aLevel, bLevel] = [a.system.level.value, b.system.level.value];
+            if (aLevel !== bLevel) return aLevel - bLevel;
+            const [aHasSet, bHasSet] = [hasChoiceSet(a), hasChoiceSet(b)];
+            if (aHasSet !== bHasSet) return aHasSet ? -1 : 1;
+            return a.name.localeCompare(b.name, game.i18n.lang);
+        });
     }
 
     override prepareBaseData(): void {
