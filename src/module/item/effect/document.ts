@@ -88,7 +88,7 @@ class EffectPF2e extends AbstractEffectPF2e {
     override prepareRuleElements(options?: RuleElementOptions): RuleElementPF2e[] {
         const autoExpireEffects = game.settings.get("pf2e", "automation.effectExpiration");
         if (autoExpireEffects && this.isExpired && this.actor?.items.has(this.id)) {
-            for (const rule of this.rules) {
+            for (const rule of this.system.rules) {
                 rule.ignored = true;
             }
         }
