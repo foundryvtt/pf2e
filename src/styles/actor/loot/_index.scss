@@ -1,4 +1,4 @@
-.pf2e.actor.loot {
+.sheet.actor.loot {
     @import "inventory";
 
     .inventory-list .item .item-controls a.item-toggle-equip,
@@ -6,33 +6,19 @@
         display: none;
     }
 
-    .sheet-header {
-        h1.charname {
-            padding-left: 0.5em;
-        }
-        .traits-bar {
-            flex: 0 0 auto;
-            margin-left: auto;
-            align-self: center;
-            font-size: 1.25em;
-            margin-right: 0.5em;
-
-            > .trait {
-                padding: 0.1em 0.4em;
-            }
-        }
-
-        .currency {
-            margin-bottom: 8px;
-        }
+    form {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
     }
 
     section.sidebar {
-        float: left;
         display: flex;
         flex-direction: column;
         width: 200px;
-        height: calc(100% - 48px);
+        height: 100%;
+        border-right: 1px solid #888;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 
         > * {
             flex: 0;
@@ -43,61 +29,131 @@
             border: none;
             border-bottom: 1px solid var(--primary-background);
         }
+
+        .gm-settings, .sidebar-meta {
+            display: flex;
+            flex-direction: column;
+            padding: 0.25rem;
+        }
+
+        .gm-settings {
+            border-bottom: 1px solid #888;
+            .loot-distribution {
+                @include button;
+                background-color: var(--tertiary);
+            }
+            label {
+                display: flex;
+                align-items: center;
+                font-weight: bold;
+            }
+        }
+
+        .sidebar-meta {
+            border-top: 1px solid #888;
+        }
+
+        .hidden-when-empty, .bulk {
+            align-self: end;
+        }
+
+        .bulk {
+            line-height: 1.5em;
+            margin-right: 8px;
+        }
+
         > .editor, .description {
             flex-basis: auto;
             min-height: 40px;
-            margin-top: 4px;
+            flex: 1;
         }
 
         > .editor {
             > .tox-tinymce {
-                height: auto !important; // override inline tinymc styling
                 .tox-edit-area {
                     min-height: 120px;
                 }
             }
         }
 
-        > .loot-distribution {
-            @include button;
-            width: calc(100% - 6px);
-            background-color: var(--tertiary);
+        .description, .editor-content {
+            padding: 0.25rem;
+            @include scrollbar;
         }
+    }
 
-        .bulk {
-            line-height: 1.5em;
-            align-self: end;
-            margin-right: 8px;
-        }
+    section.content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        height: 100%;
+    }
 
-        section.gm-settings {
+    .sheet-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.2rem;
+
+        padding-top: 0.25rem;
+        border-bottom: 1px solid #888;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+
+        h1 {
             margin: 0;
+            border: none;
+            flex: 1;
 
-            h4 {
-                display: flex;
-                align-items: center;
-                margin: 0.5em 0 0.25em;
+            padding-left: 0.5rem;
 
-                &.sheet-type {
-                    i.fas {
-                        padding: 0 2px;
-                    }
-                }
+            > input {
+                height: 40px;
+                width: 100%;
+                margin: 2px;
+                border: none;
+            }
+        }
 
-                > select, input {
-                    margin-left: auto;
-                    margin-right: 0.5em;
-                }
+        h1, input {
+            font-family: var(--sans-serif-condensed);
+            font-size: var(--font-size-36);
+            font-weight: 700;
+            text-transform: capitalize;
+            font-variant-caps: small-caps;
+        }
 
-                > span.eye {
-                    padding-left: 0.25em;
+        .sheet-type {
+            i.fas {
+                padding: 0 2px;
+            }
+        }
+
+        .traits-bar {
+            flex: 0 0 auto;
+            margin-left: auto;
+            align-self: center;
+            font-size: 1.25em;
+            margin-right: 0.5em;
+
+            > .trait {
+                padding: 0.1em 0.4em;
+                height: unset; // this could be a select, which has default height styling
+
+                option {
+                    background-color: #5e0000;
+                    color: white;
                 }
             }
+        }
+
+        .currency {
+            margin-bottom: 8px;
         }
     }
 
     .sheet-body {
-        height: calc(100% - 48px);
+        padding: 0.5rem;
+        @include scrollbar;
     }
 }
 

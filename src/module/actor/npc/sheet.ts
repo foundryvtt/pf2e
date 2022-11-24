@@ -31,7 +31,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 
         // Mix default options with new ones
         mergeObject(options, {
-            classes: options.classes.concat("npc"),
+            classes: [...options.classes, "pf2e", "npc"],
             width: 650,
             height: 680,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "main" }],
