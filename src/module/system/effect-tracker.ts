@@ -74,26 +74,29 @@ export class EffectTracker {
     }
 
     unregister(toRemove: Embedded<EffectPF2e>): void {
-        this.effects = this.effects.filter((effect) => effect !== toRemove);
+        this.effects = this.effects.filter((e) => e !== toRemove);
         this.auraEffects.delete(toRemove.uuid);
     }
 
-    async refresh(): Promise<void> {
+    /**
+     * Check for expired effects, removing or disabling as appropriate according to world settings
+     * @param resetItemData Perform individual item data resets. This is only needed when the world time changes.
+     */
+    async refresh({ resetItemData = false } = {}): Promise<void> {
+        if (resetItemData) {
+            for (const effect of this.effects) {
+                effect.reset();
+            }
+        }
+
         const actorsToUpdate = new Set(this.effects.filter((e) => e.isExpired).map((e) => e.actor));
-        resetAndRerenderActors(actorsToUpdate);
 
         if (game.settings.get("pf2e", "automation.removeExpiredEffects")) {
             for (const actor of actorsToUpdate) {
                 await this.#removeExpired(actor);
             }
         } else if (game.settings.get("pf2e", "automation.effectExpiration")) {
-            for (const actor of actorsToUpdate) {
-                if (actor.isOfType("creature")) {
-                    for (const token of actor.getActiveTokens()) {
-                        await token.drawEffects();
-                    }
-                }
-            }
+            resetAndRerenderActors(actorsToUpdate);
         }
     }
 
