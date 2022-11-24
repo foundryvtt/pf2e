@@ -32,10 +32,7 @@ class EquipmentPF2e extends PhysicalItemPF2e {
     ): Promise<ItemSummaryData> {
         const data = this.system;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
-        const properties = [this.isEquipped ? game.i18n.localize("PF2E.EquipmentEquippedLabel") : null].filter(
-            (p) => p
-        );
-        return this.processChatData(htmlOptions, { ...data, properties, traits });
+        return this.processChatData(htmlOptions, { ...data, traits });
     }
 
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
