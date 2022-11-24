@@ -1,11 +1,11 @@
 {
-    "_id": "lZ4DA81o4kbL8nve",
-    "img": "systems/pf2e/icons/spells/tongues.webp",
-    "name": "Effect: Burned Tongue (Linguistic)",
+    "_id": "HoCUCi2jL1OLfXWR",
+    "img": "systems/pf2e/icons/spells/produce-flame.webp",
+    "name": "Spell Effect: Unblinking Flame Aura",
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Burns tongue, giving a -1 item penalty to linguistic-based checks and DCs for 1 minute.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Unblinking Flame Aura]{Unblinking Flame Aura}</em></p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -14,21 +14,23 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 5
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    "linguistic"
-                ],
-                "selector": "all",
-                "type": "item",
-                "value": -1
+                "selector": "perception",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "Resistance",
+                "type": "cold",
+                "value": "2*@item.level"
             }
         ],
         "source": {
-            "value": "Pathfinder #178: Punks in a Powderkeg"
+            "value": ""
         },
         "start": {
             "initiative": null,
@@ -42,7 +44,8 @@
             "custom": "",
             "rarity": "common",
             "value": []
-        }
+        },
+        "unidentified": false
     },
     "type": "effect"
 }
