@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 4.4.2
+
+### Bugfixes
+* (stwlam) Fix expired effect deletion when out of combat
+
+### Data Updates
+* (Abaddon) Continue reviewing creatures from Bestiary 3
+* (Dire Weasel) Add Unblinking Flame Aura, Unblinking Flame Emblem, Unblinking Flame Ignition focus spells
+* (Drental) Fix Hidden Thorn's weapon group
+* (Roxim) Add Renewed Vigor effect
+* (Roxim) Add missing trait to Tricky Pick
+* (Roxim) Continue reviewing Extinction Curse book 4 NPCs
+* (stwlam) Have Assassin Dedication feat grant Mark for Death action
+* (Tikael) Grant Powerful Fist feature with Monk Dedication
+
+
 ## Version 4.4.1
 
 ### System Improvements
