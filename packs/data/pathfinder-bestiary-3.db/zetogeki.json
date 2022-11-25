@@ -152,7 +152,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The zetogeki has a creature grabbed in its jaws</p>\n<hr />\n<p><strong>Effect</strong> The zetogeki mangles the grabbed creature and slams it about, dealing [[/r {3d8}[bludgeoning]]]{3d8 bludgeoning damage} (@Check[type:fortitude|dc:26|basic:true] save).</p>"
+                    "value": "<p><strong>Requirements</strong> The zetogeki has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} in its jaws</p>\n<hr />\n<p><strong>Effect</strong> The zetogeki mangles the grabbed creature and slams it about, dealing [[/r {3d8}[bludgeoning]]]{3d8 bludgeoning damage} (@Check[type:fortitude|dc:26|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -192,12 +192,46 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The zetogeki shifts the scales that cover its body to better absorb kinetic energy from physical blows. The zetogeki gains resistance 10 to physical damage, but its Speeds are reduced to 10 feet. If the zetogeki gets hit for 20 or more physical damage in a single blow while its scales are tilted (before applying resistance), it stores the kinetic energy of the blow. The zetogeki can realign its scales to their regular position by taking this action again. When it does, it channels any stored kinetic energy into the next Strike it makes before the end of its turn. If the Strike hits, it deals an additional [[/r 2d8]] damage. The energy is expended whether or not the Strike hits.</p>"
+                    "value": "<p>The zetogeki shifts the scales that cover its body to better absorb kinetic energy from physical blows. The zetogeki gains resistance 10 to physical damage, but its Speeds are reduced to 10 feet. If the zetogeki gets hit for 20 or more physical damage in a single blow while its scales are tilted (before applying resistance), it stores the kinetic energy of the blow. The zetogeki can realign its scales to their regular position by taking this action again. When it does, it channels any stored kinetic energy into the next Strike it makes before the end of its turn. If the Strike hits, it deals an additional [[/r {2d8}]]{2d8 damage}. The energy is expended whether or not the Strike hits.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Zetogeki.TiltScalesTilted",
+                        "option": "tilt-scales-tilted",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Zetogeki.TiltScalesChannelEnergy",
+                        "option": "tilt-scales-channel-energy",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "tilt-scales-tilted"
+                        ],
+                        "type": "physical",
+                        "value": 10
+                    },
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "tilt-scales-channel-energy"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -390,7 +424,7 @@
                 "value": 22
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -455,6 +489,7 @@
             },
             "dr": [
                 {
+                    "exceptions": "",
                     "type": "fire",
                     "value": 10
                 }
