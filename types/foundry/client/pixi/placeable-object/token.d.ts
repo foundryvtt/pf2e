@@ -147,20 +147,12 @@ declare global {
         get sourceId(): `Token.${string}`;
 
         /**
-         * Update the light and vision source objects associated with this Token
-         * @param [defer]         Defer refreshing the SightLayer to manually call that refresh later.
-         * @param [deleted]       Indicate that this light source has been deleted.
-         * @param [skipUpdateFog] Never update the Fog exploration progress for this update.
+         * Update the light and vision source objects associated with this Token.
+         * @param [options={}] Options which configure how perception sources are updated
+         * @param [options.defer=false] Defer refreshing the SightLayer to manually call that refresh later
+         * @param [options.deleted=false]Indicate that this light source has been deleted
          */
-        updateSource({
-            defer,
-            deleted,
-            skipUpdateFog,
-        }?: {
-            defer?: boolean;
-            deleted?: boolean;
-            skipUpdateFog?: boolean;
-        }): void;
+        updateSource(options?: { defer?: boolean; deleted?: boolean }): void;
 
         /**
          * Update an emitted light source associated with this Token.
@@ -199,7 +191,7 @@ declare global {
         /** Draw the HUD container which provides an interface for managing this Token */
         protected _drawHUD(): ObjectHUD<this>;
 
-        override destroy(options?: boolean | PIXI.IDestroyOptions): void;
+        protected override _destroy(options?: object): void;
 
         /** Apply initial sanitizations to the provided input data to ensure that a Token has valid required attributes. */
         protected _cleanData(): void;
