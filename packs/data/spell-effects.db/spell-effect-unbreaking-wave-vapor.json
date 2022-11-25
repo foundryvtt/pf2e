@@ -1,16 +1,16 @@
 {
-    "_id": "HoCUCi2jL1OLfXWR",
-    "img": "systems/pf2e/icons/spells/produce-flame.webp",
-    "name": "Spell Effect: Unblinking Flame Aura",
+    "_id": "m6x0IvoeX0a0bZiQ",
+    "img": "systems/pf2e/icons/spells/control-water.webp",
+    "name": "Spell Effect: Unbreaking Wave Vapor",
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Unblinking Flame Aura]{Unblinking Flame Aura}</em></p>\n<p>You gain a +2 status bonus on Perception checks and resistance 10 to cold.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Unbreaking Wave Vapor]{Unbreaking Wave Vapor}</em></p>\n<p>You're concealed against the triggering attack and gain a +2 circumstance bonus to AC against it.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
+            "unit": "rounds",
             "value": 1
         },
         "level": {
@@ -19,14 +19,13 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "perception",
-                "type": "status",
+                "selector": "ac",
+                "type": "circumstance",
                 "value": 2
             },
             {
-                "key": "Resistance",
-                "type": "cold",
-                "value": "2*@item.level"
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Concealed"
             }
         ],
         "source": {

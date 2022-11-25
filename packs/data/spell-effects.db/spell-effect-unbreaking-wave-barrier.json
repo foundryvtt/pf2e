@@ -1,32 +1,27 @@
 {
-    "_id": "HoCUCi2jL1OLfXWR",
-    "img": "systems/pf2e/icons/spells/produce-flame.webp",
-    "name": "Spell Effect: Unblinking Flame Aura",
+    "_id": "v09uwq1eHEAy2bgh",
+    "img": "systems/pf2e/icons/spells/tidal-surge.webp",
+    "name": "Spell Effect: Unbreaking Wave Barrier",
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Unblinking Flame Aura]{Unblinking Flame Aura}</em></p>\n<p>You gain a +2 status bonus on Perception checks and resistance 10 to cold.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Unbreaking Wave Barrier]{Unbreaking Wave Barrier}</em></p>\n<p>You gain a +1 status bonus to AC.</p>"
         },
         "duration": {
             "expiry": "turn-start",
-            "sustained": false,
+            "sustained": true,
             "unit": "minutes",
             "value": 1
         },
         "level": {
-            "value": 5
+            "value": 7
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "perception",
+                "selector": "ac",
                 "type": "status",
-                "value": 2
-            },
-            {
-                "key": "Resistance",
-                "type": "cold",
-                "value": "2*@item.level"
+                "value": 1
             }
         ],
         "source": {
