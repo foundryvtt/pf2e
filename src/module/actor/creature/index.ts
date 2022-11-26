@@ -385,7 +385,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         rollOptions.all[`self:size:${sizeSlug}`] = true;
 
         // make sure "origin:target:condition:flat-footed" works ...
-        rollOptions.all["self:target:condition:flat-footed"] ??= rollOptions.all["target:condition:flat-footed"];
+        if (rollOptions.all["target:condition:flat-footed"]) {
+            rollOptions.all["self:target:condition:flat-footed"] = true;
+        }
 
         // Add modifiers from being flat-footed
         const { isFlatFooted, dueToText } = this.checkFlatFooted();
