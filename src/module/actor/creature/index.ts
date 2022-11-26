@@ -61,7 +61,7 @@ import {
     AttackRollContext,
     CreatureUpdateContext,
     GetReachParameters,
-    IsFlatFootedParams,
+    FlatFootedResult,
     StrikeRollContext,
     StrikeRollContextParams,
 } from "./types";
@@ -244,16 +244,21 @@ export abstract class CreaturePF2e extends ActorPF2e {
               }, heldShields.slice(-1)[0]);
     }
 
-    /** Whether the actor is flat-footed in the current scene context: currently only handles flanking */
-    isFlatFooted({ dueTo }: IsFlatFootedParams): boolean {
+    /** Check whether the actor is flat-footed in the current scene context */
+    checkFlatFooted(): FlatFootedResult {
         // The first data preparation round will occur before the game is ready
-        if (!game.ready) return false;
+        if (!game.ready) return { isFlatFooted: false };
 
-        if (dueTo === "flanking") {
-            const { flanking } = this.attributes;
-            if (!flanking.flankable) return false;
+        const rollOptions = this.getRollOptions();
 
-            const rollOptions = this.getRollOptions();
+        // First check general condition (set by TOTM for now)
+        if (PredicatePF2e.test(["origin:target:condition:flat-footed"], rollOptions)) {
+            return { isFlatFooted: true, dueTo: "other", dueToText: "PF2E.Item.Condition.FlatFooted" };
+        }
+
+        // Check flanking
+        const { flanking } = this.attributes;
+        if (flanking.flankable) {
             if (typeof flanking.flatFootable === "number") {
                 flanking.flatFootable = !PredicatePF2e.test(
                     [{ lte: ["origin:level", flanking.flatFootable] }],
@@ -261,10 +266,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 );
             }
 
-            return flanking.flatFootable && PredicatePF2e.test(["origin:flanking"], rollOptions);
+            if (flanking.flatFootable && PredicatePF2e.test(["origin:flanking"], rollOptions)) {
+                return { isFlatFooted: true, dueTo: "flanking", dueToText: "PF2E.Item.Condition.Flanked" };
+            }
         }
 
-        return false;
+        return { isFlatFooted: false };
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
@@ -377,9 +384,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
         rollOptions.all[`self:size:${sizeIndex}`] = true;
         rollOptions.all[`self:size:${sizeSlug}`] = true;
 
-        // Add modifiers from being flanked
-        if (this.isFlatFooted({ dueTo: "flanking" })) {
-            const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
+        // make sure "origin:target:condition:flat-footed" works ...
+        rollOptions.all["self:target:condition:flat-footed"] ??= rollOptions.all["target:condition:flat-footed"];
+
+        // Add modifiers from being flat-footed
+        const { isFlatFooted, dueToText } = this.checkFlatFooted();
+
+        if (isFlatFooted && dueToText) {
+            const name = game.i18n.localize(dueToText);
             const condition = game.pf2e.ConditionManager.getCondition("flat-footed", { name });
             const flatFooted = new ConditionPF2e(condition.toObject(), { parent: this }) as Embedded<ConditionPF2e>;
 

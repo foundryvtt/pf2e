@@ -67,9 +67,13 @@ interface GetReachParameters {
     weapon?: WeaponPF2e | MeleePF2e | null;
 }
 
-interface IsFlatFootedParams {
+interface FlatFootedResult {
+    isFlatFooted: boolean;
+
     /** The circumstance potentially imposing the flat-footed condition */
-    dueTo: "flanking" | "surprise" | "hidden" | "undetected";
+    dueTo?: "flanking" | "surprise" | "hidden" | "undetected" | "other" | undefined;
+
+    dueToText?: string;
 }
 
 interface CreatureUpdateContext<T extends CreaturePF2e> extends ActorUpdateContext<T> {
@@ -115,7 +119,7 @@ export {
     CreatureSheetData,
     CreatureUpdateContext,
     GetReachParameters,
-    IsFlatFootedParams,
+    FlatFootedResult,
     ModeOfBeing,
     SpellcastingSheetData,
     StrikeRollContext,
