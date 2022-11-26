@@ -156,10 +156,7 @@ export class ActionMacroHelpers {
                     if (dcStat) {
                         const extraRollOptions = combinedOptions.concat(targetOptions);
                         const { dc } = dcStat.withRollOptions({ extraRollOptions });
-                        const dcData: CheckDC = {
-                            value: dc.value,
-                            adjustments: stat.adjustments ?? [],
-                        };
+                        const dcData: CheckDC = { value: dc.value };
                         if (setHasElement(DC_SLUGS, dcStat.slug)) dcData.slug = dcStat.slug;
 
                         return dcData;

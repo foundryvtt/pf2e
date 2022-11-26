@@ -3,7 +3,7 @@ import { AttackTarget } from "@actor/types";
 import { ItemPF2e } from "@item";
 import { RollSubstitution } from "@module/rules/synthetics";
 import { TokenDocumentPF2e } from "@scene/token-document";
-import { CheckDC } from "@system/degree-of-success";
+import { CheckDC, DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { BaseRollContext } from "@system/rolls";
 
 type RollTwiceOption = "keep-higher" | "keep-lower" | false;
@@ -43,6 +43,8 @@ interface CheckRollContext extends BaseRollContext {
     substitutions?: RollSubstitution[];
     /** Is the weapon used in this attack roll an alternative usage? */
     altUsage?: "thrown" | "melee" | null;
+    /** Degree of success adjustments from synthetics and hard-coded sources */
+    dosAdjustments?: DegreeOfSuccessAdjustment[];
 }
 
 export { AttackCheck, CheckType, CheckRollContext, RollTwiceOption };

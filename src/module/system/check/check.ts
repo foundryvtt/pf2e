@@ -12,13 +12,12 @@ import { CheckModifier, StatisticModifier } from "@actor/modifiers";
 import { CheckModifiersDialog } from "../check-modifiers-dialog";
 import { CheckRoll, CheckRollDataPF2e } from "./roll";
 import {
+    DegreeAdjustmentsRecord,
     DegreeOfSuccess,
     DegreeOfSuccessString,
-    DEGREE_ADJUSTMENTS,
     DEGREE_OF_SUCCESS_STRINGS,
 } from "../degree-of-success";
 import { LocalizePF2e } from "../localize";
-import { PredicatePF2e } from "../predication";
 import { TextEditorPF2e } from "../text-editor";
 import { CheckRollContext } from "./types";
 import { StrikeAttackRoll } from "./strike/attack-roll";
@@ -57,20 +56,6 @@ class CheckPF2e {
 
         if (rollOptions.size > 0 && !context.isReroll) {
             check.calculateTotal(rollOptions);
-        }
-
-        if (context.dc) {
-            const { adjustments } = context.dc;
-            if (adjustments) {
-                for (const adjustment of adjustments) {
-                    const merge = adjustment.predicate ? PredicatePF2e.test(adjustment.predicate, rollOptions) : true;
-
-                    if (merge) {
-                        context.dc.modifiers ??= {};
-                        mergeObject(context.dc.modifiers, adjustment.modifiers);
-                    }
-                }
-            }
         }
 
         if (!context.skipDialog) {
@@ -158,7 +143,18 @@ class CheckPF2e {
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
         const roll = await new RollCls(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
 
-        const degree = context.dc ? new DegreeOfSuccess(roll, context.dc) : null;
+        // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
+        // rare--and there are no rules for selecting among multiple adjustments.
+        const dosAdjustments =
+            context.dosAdjustments?.reduce((record, data) => {
+                for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
+                    if (data.adjustments[outcome]) {
+                        record[outcome] = deepClone(data.adjustments[outcome]);
+                    }
+                }
+                return record;
+            }, {} as DegreeAdjustmentsRecord) ?? {};
+        const degree = context.dc ? new DegreeOfSuccess(roll, context.dc, dosAdjustments) : null;
 
         if (degree) {
             context.outcome = DEGREE_OF_SUCCESS_STRINGS[degree.value];
@@ -191,20 +187,10 @@ class CheckPF2e {
             const result = await this.createResultFlavor({ degree, target: context.target ?? null });
             const tags = this.createTagFlavor({ check, context, extraTags });
 
-            const incapacitationNote = (): HTMLElement => {
-                const note = new RollNotePF2e({
-                    selector: "all",
-                    title: game.i18n.localize("PF2E.TraitIncapacitation"),
-                    text: game.i18n.localize("PF2E.TraitDescriptionIncapacitationShort"),
-                });
-                return parseHTML(note.text);
-            };
-            const incapacitation = rollOptions.has("incapacitation") ? incapacitationNote() : "";
-
             const header = document.createElement("h4");
             header.classList.add("action");
             header.innerHTML = check.slug;
-            return [header, result ?? [], tags, notesText, incapacitation]
+            return [header, result ?? [], tags, notesText]
                 .flat()
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
@@ -213,6 +199,7 @@ class CheckPF2e {
         const contextFlag: CheckRollContextFlag = {
             ...context,
             item: undefined,
+            dosAdjustments: undefined,
             actor: context.actor?.id ?? null,
             token: context.token?.id ?? null,
             domains: context.domains ?? [],
@@ -232,6 +219,7 @@ class CheckPF2e {
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };
         delete contextFlag.item;
+        delete contextFlag.dosAdjustments;
 
         type MessagePromise = Promise<ChatMessagePF2e | ChatMessageSourcePF2e>;
         const message = await ((): MessagePromise => {
@@ -590,27 +578,19 @@ class CheckPF2e {
                 visible: dc.visible,
             };
 
-            const adjustment = ((): string | null => {
-                switch (degree.degreeAdjustment) {
-                    case DEGREE_ADJUSTMENTS.INCREASE_BY_TWO:
-                        return game.i18n.localize("PF2E.TwoDegreesBetter");
-                    case DEGREE_ADJUSTMENTS.INCREASE:
-                        return game.i18n.localize("PF2E.OneDegreeBetter");
-                    case DEGREE_ADJUSTMENTS.LOWER:
-                        return game.i18n.localize("PF2E.OneDegreeWorse");
-                    case DEGREE_ADJUSTMENTS.LOWER_BY_TWO:
-                        return game.i18n.localize("PF2E.TwoDegreesWorse");
-                    default:
-                        return null;
-                }
-            })();
-
             const checkOrAttack = sluggify(dc.scope ?? "Check", { camel: "bactrian" });
-            const dosKey = DEGREE_OF_SUCCESS_STRINGS[degree.value];
-            const degreeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.${checkOrAttack}.${dosKey}`);
+            const locPath = (checkOrAttack: string, dosKey: DegreeOfSuccessString) =>
+                `PF2E.Check.Result.Degree.${checkOrAttack}.${dosKey}`;
+            const unadjusted = game.i18n.localize(locPath(checkOrAttack, DEGREE_OF_SUCCESS_STRINGS[degree.unadjusted]));
+            const [adjusted, locKey] = degree.adjustment
+                ? [game.i18n.localize(locPath(checkOrAttack, DEGREE_OF_SUCCESS_STRINGS[degree.value])), "AdjustedLabel"]
+                : [unadjusted, "Label"];
 
-            const resultKey = adjustment ? "PF2E.Check.Result.AdjustedLabel" : "PF2E.Check.Result.Label";
-            const markup = game.i18n.format(resultKey, { degree: degreeLabel, offset: offset.value, adjustment });
+            const markup = game.i18n.format(`PF2E.Check.Result.${locKey}`, {
+                adjusted,
+                unadjusted,
+                offset: offset.value,
+            });
             const visible = game.settings.get("pf2e", "metagame_showResults");
 
             return { markup, visible };
@@ -632,19 +612,28 @@ class CheckPF2e {
         convertXMLNode(html, "dc", { visible: dcData.visible, whose: "target" });
         if (dcData.adjustment) {
             const { adjustment } = dcData;
-            convertXMLNode(html, "preadjusted", { classes: ["preadjusted-dc"] });
+            convertXMLNode(html, "preadjusted", { classes: ["unadjusted"] });
 
             // Add circumstance bonuses/penalties for tooltip content
             const adjustedNode = convertXMLNode(html, "adjusted", {
-                classes: ["adjusted-dc", adjustment.direction],
+                classes: ["adjusted", adjustment.direction],
             });
             if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
             adjustedNode.dataset.circumstances = JSON.stringify(adjustment.circumstances);
         }
-        convertXMLNode(html, "degree", {
+        convertXMLNode(html, "unadjusted", {
             visible: resultData.visible,
-            classes: [DEGREE_OF_SUCCESS_STRINGS[degree.value]],
+            classes: degree.adjustment ? ["unadjusted"] : [DEGREE_OF_SUCCESS_STRINGS[degree.value]],
         });
+        if (degree.adjustment) {
+            const adjustedNode = convertXMLNode(html, "adjusted", {
+                visible: resultData.visible,
+                classes: [DEGREE_OF_SUCCESS_STRINGS[degree.value], "adjusted"],
+            });
+            if (!adjustedNode) throw ErrorPF2e("Unexpected error processing roll template");
+            adjustedNode.dataset.adjustment = game.i18n.localize(degree.adjustment.label);
+        }
+
         convertXMLNode(html, "offset", { visible: dcData.visible, whose: "target" });
 
         // If target and DC are both hidden from view, hide both

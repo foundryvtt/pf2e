@@ -34,7 +34,6 @@ import { DeityDomain } from "@item/deity/types";
 import { MagicTradition } from "@item/spell/types";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types";
 import { ZeroToFour } from "@module/data";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
 import { StatisticTraceData } from "@system/statistic";
 import type { CharacterPF2e } from "..";
@@ -229,7 +228,6 @@ interface CharacterStrike extends StrikeData {
     slug: string;
     /** Whether this attack is visible on the sheet */
     visible: boolean;
-    adjustments?: DegreeOfSuccessAdjustment[];
     altUsages: CharacterStrike[];
     auxiliaryActions: AuxiliaryAction[];
     weaponTraits: TraitViewData[];

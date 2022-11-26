@@ -5,7 +5,6 @@ import { extractModifierAdjustments } from "@module/rules/util";
 import { DamageDieSize, DamageType } from "@system/damage/types";
 import { DamageCategorization } from "@system/damage/helpers";
 import { DAMAGE_TYPES } from "@system/damage/values";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { ZeroToFour } from "@module/data";
@@ -411,8 +410,6 @@ class StatisticModifier {
     breakdown = "";
     /** Optional notes, which are often added to statistic modifiers */
     notes?: RollNotePF2e[];
-
-    adjustments?: DegreeOfSuccessAdjustment[];
 
     /**
      * @param slug The name of this collection of statistic modifiers.

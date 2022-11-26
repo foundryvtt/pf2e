@@ -281,7 +281,6 @@ class NPCPF2e extends CreaturePF2e {
                 system.attributes.perception,
                 { overwrite: false }
             );
-            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.base = base;
             stat.notes = extractNotes(rollNotes, domains);
             stat.value = stat.totalModifier;
@@ -303,6 +302,7 @@ class NPCPF2e extends CreaturePF2e {
                         dc: params.dc,
                         rollTwice,
                         notes: stat.notes,
+                        dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
                     },
                     params.event,
                     params.callback
@@ -357,6 +357,7 @@ class NPCPF2e extends CreaturePF2e {
                             dc: params.dc,
                             rollTwice,
                             notes,
+                            dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
                         };
 
                         const roll = await CheckPF2e.roll(
@@ -376,7 +377,6 @@ class NPCPF2e extends CreaturePF2e {
                 },
                 { overwrite: false }
             );
-            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
@@ -422,7 +422,6 @@ class NPCPF2e extends CreaturePF2e {
                     lore: !objectHasKey(SKILL_EXPANDED, skill),
                     ability,
                     rank: 1,
-                    adjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
                     notes: extractNotes(rollNotes, domains),
                     base,
                     expanded: skill,
@@ -448,6 +447,7 @@ class NPCPF2e extends CreaturePF2e {
                             dc: params.dc,
                             rollTwice,
                             notes: stat.notes,
+                            dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
                         };
 
                         const roll = await CheckPF2e.roll(
