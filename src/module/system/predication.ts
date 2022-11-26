@@ -90,10 +90,13 @@ class PredicatePF2e extends Array<PredicateStatement> {
 
             const [left, right] = Object.values(statement)[0];
             const domainArray = Array.from(domain);
-            const leftValues = domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
-            const rightValues = domainArray.flatMap((d) =>
-                typeof right === "number" ? right : d.startsWith(right) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []
-            );
+            const leftValues = Number.isInteger(Number(left))
+                ? [Number(left)]
+                : domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
+            const rightValues =
+                typeof right === "number" || Number.isInteger(Number(right))
+                    ? [Number(right)]
+                    : domainArray.flatMap((d) => (d.startsWith(right) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
 
             switch (operator) {
                 case "gt":
