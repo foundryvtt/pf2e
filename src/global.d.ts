@@ -193,7 +193,7 @@ type ConfiguredConfig = Config<
     AmbientLightDocumentPF2e,
     ActiveEffectPF2e,
     ActorPF2e,
-    ActorDirectoryPF2e,
+    ActorDirectoryPF2e<ActorPF2e>,
     ChatLogPF2e,
     ChatMessagePF2e,
     EncounterPF2e,
