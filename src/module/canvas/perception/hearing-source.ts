@@ -12,15 +12,16 @@ class HearingSource<TObject extends TokenPF2e> extends PointSource<TObject> {
             radius: canvas.dimensions?.maxR ?? 0,
             walls: true,
         };
+        this.radius = this.data.radius;
         this.los = this._createPolygon();
 
         return this;
     }
 
-    protected override _getPolygonConfiguration() {
+    protected override _getPolygonConfiguration(): PointSourcePolygonConfig {
         return {
             type: "sound",
-            radius: this.data.radius,
+            radius: this.radius,
             density: (
                 PIXI.Circle as typeof PIXI.Circle & { approximateVertexDensity(radius: number): number }
             ).approximateVertexDensity(this.data.radius),
