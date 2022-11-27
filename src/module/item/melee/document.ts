@@ -136,7 +136,7 @@ class MeleePF2e extends ItemPF2e {
                     const operator = new OperatorTerm({ operator: adjustedBase >= 0 ? "+" : "-" });
                     terms.push(operator, modifier);
                 }
-                instance.damage = combineTerms(Roll.fromTerms(terms).formula).formula;
+                instance.damage = combineTerms(Roll.fromTerms(terms).formula);
             } else {
                 instance.damage = roll.formula;
             }
