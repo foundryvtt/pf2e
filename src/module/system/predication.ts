@@ -92,9 +92,10 @@ class PredicatePF2e extends Array<PredicateStatement> {
             // E.g., `{ "gt": ["actor:level", 5] }` would match against "actor:level:6" and "actor:level:7"
             const [left, right] = Object.values(statement)[0];
             const domainArray = Array.from(domain);
-            const leftValues = !Number.isNaN(Number(left))
-                ? [Number(left)]
-                : domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
+            const leftValues =
+                typeof left === "number" || !Number.isNaN(Number(left))
+                    ? [Number(left)]
+                    : domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
             const rightValues =
                 typeof right === "number" || !Number.isNaN(Number(right))
                     ? [Number(right)]
