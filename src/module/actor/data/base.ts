@@ -54,6 +54,7 @@ interface ActorSystemData extends ActorSystemSource {
         level: { value: number };
         alliance: ActorAlliance;
     };
+    actions?: StrikeData[];
     attributes: BaseActorAttributes;
     traits: BaseTraitsData<string>;
     /** Icons appearing in the Effects Tracker application */
@@ -230,7 +231,8 @@ interface StrikeData extends StatisticModifier {
     damage?: RollFunction<StrikeRollParams>;
     /** Roll critical damage for this weapon. */
     critical?: RollFunction<StrikeRollParams>;
-
+    /** Alternative usages of a strike weapon: thrown, combination-melee, etc. */
+    altUsages?: StrikeData[];
     /** A list of attack variants which apply the Multiple Attack Penalty. */
     variants: { label: string; roll: RollFunction<StrikeRollParams> }[];
 

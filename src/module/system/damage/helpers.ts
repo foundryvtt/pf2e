@@ -1,4 +1,4 @@
-import { StrikeSelf, AttackTarget } from "@actor/creature/types";
+import { StrikeSelf, AttackTarget } from "@actor/types";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { BaseRollContext } from "@system/rolls";
 import { DamageDieSize } from "./types";

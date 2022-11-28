@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { AttackTarget } from "@actor/creature/types";
+import { AttackTarget } from "@actor/types";
 import { ItemPF2e } from "@item";
 import { RollSubstitution } from "@module/rules/synthetics";
 import { TokenDocumentPF2e } from "@scene/token-document";

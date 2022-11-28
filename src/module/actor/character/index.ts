@@ -1,12 +1,6 @@
 import { CreaturePF2e, FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, MovementType, SkillAbbreviation } from "@actor/creature/data";
-import {
-    AttackItem,
-    AttackRollContext,
-    CreatureUpdateContext,
-    StrikeRollContext,
-    StrikeRollContextParams,
-} from "@actor/creature/types";
+import { CreatureUpdateContext } from "@actor/creature/types";
 import { ALLIANCES } from "@actor/creature/values";
 import { CharacterSource } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
@@ -20,7 +14,14 @@ import {
     ProficiencyModifier,
     StatisticModifier,
 } from "@actor/modifiers";
-import { AbilityString, SaveType } from "@actor/types";
+import {
+    AbilityString,
+    AttackItem,
+    AttackRollContext,
+    SaveType,
+    StrikeRollContext,
+    StrikeRollContextParams,
+} from "@actor/types";
 import {
     ABILITY_ABBREVIATIONS,
     SAVE_TYPES,
@@ -105,10 +106,10 @@ import {
     WeaponGroupProficiencyKey,
 } from "./data";
 import { CharacterSheetTabVisibility } from "./data/sheet";
-import { CHARACTER_SHEET_TABS } from "./values";
 import { CharacterFeats } from "./feats";
 import { createForceOpenPenalty, createShoddyPenalty, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
+import { CHARACTER_SHEET_TABS } from "./values";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */

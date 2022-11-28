@@ -2,7 +2,6 @@ import { ActorPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base";
 import { CreatureData } from "@actor/data";
 import { StrikeData } from "@actor/data/base";
-import { calculateRangePenalty, getRangeIncrement } from "@actor/helpers";
 import {
     CheckModifier,
     ensureProficiencyOption,
@@ -15,7 +14,6 @@ import {
 import { SaveType } from "@actor/types";
 import { SKILL_DICTIONARY } from "@actor/values";
 import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
-import { ActionTrait } from "@item/action/data";
 import { isCycle } from "@item/container/helpers";
 import { ArmorSource } from "@item/data";
 import { EquippedData, ItemCarryType } from "@item/physical/data";
@@ -39,7 +37,7 @@ import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, objectHasKey, setHasElement, traitSlugToObject } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
 import {
     CreatureSkills,
     CreatureSpeeds,
@@ -54,17 +52,7 @@ import {
     VisionLevels,
 } from "./data";
 import { CreatureSensePF2e } from "./sense";
-import {
-    Alignment,
-    AlignmentTrait,
-    AttackItem,
-    AttackRollContext,
-    CreatureUpdateContext,
-    GetReachParameters,
-    IsFlatFootedParams,
-    StrikeRollContext,
-    StrikeRollContextParams,
-} from "./types";
+import { Alignment, AlignmentTrait, CreatureUpdateContext, GetReachParameters, IsFlatFootedParams } from "./types";
 import { SIZE_TO_REACH } from "./values";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
@@ -388,7 +376,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
             rule.beforePrepareData?.();
 
             this.rollOptions.all["self:condition:flat-footed"] = true;
-            this.rollOptions.all["self:flatFooted"] = true; // legacy support
         }
 
         // Handle caps derived from dying
@@ -780,141 +767,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 .join(", ");
             return stat;
         }
-    }
-
-    /* -------------------------------------------- */
-    /*  Rolls                                       */
-    /* -------------------------------------------- */
-
-    /**
-     * Calculates attack roll target data including the target's DC.
-     * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
-     * but more can be added via the options.
-     */
-    getAttackRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): AttackRollContext<this, I> {
-        const context = this.getStrikeRollContext(params);
-        const targetActor = context.target?.actor;
-        const rangeIncrement = context.target?.rangeIncrement ?? null;
-
-        const rangePenalty = calculateRangePenalty(this, rangeIncrement, params.domains, context.options);
-        if (rangePenalty) context.self.modifiers.push(rangePenalty);
-
-        return {
-            ...context,
-            dc: targetActor?.attributes.ac
-                ? {
-                      scope: "attack",
-                      slug: "ac",
-                      value: targetActor.attributes.ac.value,
-                  }
-                : null,
-        };
-    }
-
-    protected getDamageRollContext<I extends AttackItem>(
-        params: StrikeRollContextParams<I>
-    ): StrikeRollContext<this, I> {
-        return this.getStrikeRollContext(params);
-    }
-
-    protected getStrikeRollContext<I extends AttackItem>(
-        params: StrikeRollContextParams<I>
-    ): StrikeRollContext<this, I> {
-        const targetToken = Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature")) ?? null;
-
-        const selfToken =
-            canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null;
-        const reach = params.item.isOfType("melee")
-            ? params.item.reach
-            : params.item.isOfType("weapon")
-            ? this.getReach({ action: "attack", weapon: params.item })
-            : null;
-
-        const selfOptions = this.getRollOptions(params.domains ?? []);
-        if (targetToken && typeof reach === "number" && selfToken?.isFlanking(targetToken, { reach })) {
-            selfOptions.push("self:flanking");
-        }
-
-        const selfActor = params.viewOnly ? this : this.getContextualClone(selfOptions);
-        const actions: StrikeData[] = selfActor.system.actions?.flatMap((a) => [a, a.altUsages ?? []].flat()) ?? [];
-
-        const selfItem: AttackItem =
-            params.viewOnly || params.item.isOfType("spell")
-                ? params.item
-                : actions
-                      .map((a): AttackItem => a.item)
-                      .find((weapon) => {
-                          // Find the matching weapon or melee item
-                          if (!(params.item.id === weapon.id && weapon.name === params.item.name)) return false;
-                          if (params.item.isOfType("melee") && weapon.isOfType("melee")) return true;
-
-                          // Discriminate between melee/thrown usages by checking that both are either melee or ranged
-                          return (
-                              params.item.isOfType("weapon") &&
-                              weapon.isOfType("weapon") &&
-                              params.item.isMelee === weapon.isMelee
-                          );
-                      }) ?? params.item;
-
-        const traitSlugs: ActionTrait[] = [
-            "attack" as const,
-            // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
-            // the manipulate trait."
-            selfItem.isOfType("weapon") && selfItem.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
-        ].flat();
-        for (const adjustment of this.synthetics.strikeAdjustments) {
-            if (selfItem.isOfType("weapon", "melee")) {
-                adjustment.adjustTraits?.(selfItem, traitSlugs);
-            }
-        }
-        const traits = traitSlugs.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
-
-        // Clone the actor to recalculate its AC with contextual roll options
-        const targetActor = params.viewOnly
-            ? null
-            : targetToken?.actor?.getContextualClone([...selfActor.getSelfRollOptions("origin")]) ?? null;
-
-        // Target roll options
-        const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
-        if (targetToken && targetOptions.length > 0) {
-            const mark = this.synthetics.targetMarks.get(targetToken.document.uuid);
-            if (mark) targetOptions.push(`target:mark:${mark}`);
-        }
-
-        const rollOptions = new Set([
-            ...params.options,
-            ...selfOptions,
-            ...targetOptions,
-            ...selfItem.getRollOptions("item"),
-            // Backward compatibility for predication looking for an "attack" trait by its lonesome
-            "attack",
-        ]);
-
-        // Calculate distance and range increment, set as a roll option
-        const distance = selfToken && targetToken && !!canvas.grid ? selfToken.distanceTo(targetToken) : null;
-        rollOptions.add(`target:distance:${distance}`);
-
-        const rangeIncrement = getRangeIncrement(selfItem, distance);
-        if (rangeIncrement) rollOptions.add(`target:range-increment:${rangeIncrement}`);
-
-        const self = {
-            actor: selfActor,
-            token: selfToken?.document ?? null,
-            item: selfItem as I,
-            modifiers: [],
-        };
-
-        const target =
-            targetActor && targetToken && distance !== null
-                ? { actor: targetActor, token: targetToken.document, distance, rangeIncrement }
-                : null;
-
-        return {
-            options: rollOptions,
-            self,
-            target,
-            traits,
-        };
     }
 
     /* -------------------------------------------- */
