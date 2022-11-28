@@ -17,7 +17,8 @@ import {
 } from "@scene";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹";
 import { CheckRoll, StrikeAttackRoll } from "@system/check";
-import { DamageRoll } from "@system/damage/roll";
+import { DamageInstance, DamageRoll } from "@system/damage/roll";
+import { ArithmeticExpression, Grouping } from "@system/damage/terms";
 
 /** Not an actual hook listener but rather things to run on initial load */
 export const Load = {
@@ -39,7 +40,10 @@ export const Load = {
         CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
         CONFIG.User.documentClass = UserPF2e;
 
-        CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll);
+        CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll, DamageInstance);
+        for (const TermCls of [ArithmeticExpression, Grouping]) {
+            CONFIG.Dice.termTypes[TermCls.name] = TermCls;
+        }
 
         // Mystery Man but with a drop shadow
         Actor.DEFAULT_ICON = "systems/pf2e/icons/default-icons/mystery-man.svg";

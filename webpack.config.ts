@@ -188,6 +188,7 @@ const config: Configuration = {
         new webpack.WatchIgnorePlugin({ paths: ["node_modules/", "packs/", "static/packs/"] }),
         new webpack.DefinePlugin({
             BUILD_MODE: JSON.stringify(buildMode),
+            ROLL_GRAMMAR: JSON.stringify(fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" })),
         }),
         new CopyPlugin({
             patterns: [

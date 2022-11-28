@@ -70,9 +70,10 @@ import {
 } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
-import { DamageRollContext, WeaponDamagePF2e } from "@system/damage";
+import { DamagePF2e, DamageRollContext, WeaponDamagePF2e } from "@system/damage";
+import { DamageRoll } from "@system/damage/roll";
 import { PredicatePF2e } from "@system/predication";
-import { DamageRollPF2e, RollParameters, StrikeRollParams } from "@system/rolls";
+import { RollParameters, StrikeRollParams } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import {
     ErrorPF2e,
@@ -1414,14 +1415,13 @@ class CharacterPF2e extends CreaturePF2e {
         }
     ): CharacterStrike {
         const { synthetics } = this;
-        const { rollNotes, statisticsModifiers, strikeAdjustments } = synthetics;
         const modifiers: ModifierPF2e[] = [];
         const systemData = this.system;
         const { categories } = options;
         const ammos = options.ammos ?? [];
 
         // Apply strike adjustments affecting the weapon
-        for (const adjustment of strikeAdjustments) {
+        for (const adjustment of synthetics.strikeAdjustments) {
             adjustment.adjustWeapon?.(weapon);
         }
         const weaponRollOptions = weapon.getRollOptions("item");
@@ -1521,7 +1521,7 @@ class CharacterPF2e extends CreaturePF2e {
         })();
 
         // Extract weapon roll notes
-        const attackRollNotes = extractNotes(rollNotes, selectors);
+        const attackRollNotes = extractNotes(synthetics.rollNotes, selectors);
         const ABP = game.pf2e.variantRules.AutomaticBonusProgression;
 
         if (weapon.group === "bomb" && !ABP.isEnabled) {
@@ -1678,7 +1678,7 @@ class CharacterPF2e extends CreaturePF2e {
             // the manipulate trait."
             weapon.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
         ].flat();
-        for (const adjustment of this.synthetics.strikeAdjustments) {
+        for (const adjustment of synthetics.strikeAdjustments) {
             adjustment.adjustTraits?.(weapon, actionTraits);
         }
         action.traits = actionTraits.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
@@ -1801,7 +1801,7 @@ class CharacterPF2e extends CreaturePF2e {
         action.attack = action.roll = action.variants[0].roll;
 
         for (const method of ["damage", "critical"] as const) {
-            action[method] = async (params: StrikeRollParams = {}): Promise<string | void> => {
+            action[method] = async (params: StrikeRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
                 const domains = ["all", "strike-damage", "damage-roll"];
                 params.options ??= [];
                 const context = this.getStrikeRollContext({
@@ -1812,26 +1812,22 @@ class CharacterPF2e extends CreaturePF2e {
                 });
 
                 if (!context.self.item.dealsDamage) {
-                    return params.getFormula
-                        ? ""
-                        : ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
+                    if (!params.getFormula) {
+                        ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
+                        return null;
+                    }
+                    return "";
                 }
 
                 const damage = WeaponDamagePF2e.calculate(
                     context.self.item,
                     context.self.actor,
                     context.traits,
-                    deepClone(statisticsModifiers),
-                    deepClone(synthetics.modifierAdjustments),
-                    deepClone(synthetics.damageDice),
                     proficiencyRank,
                     context.options,
-                    deepClone(rollNotes),
-                    weaponPotency,
-                    synthetics.striking,
-                    synthetics.strikeAdjustments
+                    weaponPotency
                 );
-                if (!damage) return;
+                if (!damage) return null;
 
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
 
@@ -1852,7 +1848,7 @@ class CharacterPF2e extends CreaturePF2e {
                 }
 
                 if (params.getFormula) {
-                    return damage.formula[outcome].formula;
+                    return new DamageRoll(damage.formula[outcome]).formula;
                 } else {
                     const { self, target, options } = context;
                     const damageContext: DamageRollContext = {
@@ -1863,7 +1859,8 @@ class CharacterPF2e extends CreaturePF2e {
                         options,
                         domains,
                     };
-                    await DamageRollPF2e.roll(damage, damageContext, params.callback);
+
+                    return DamagePF2e.roll(damage, damageContext, params.callback);
                 }
             };
         }

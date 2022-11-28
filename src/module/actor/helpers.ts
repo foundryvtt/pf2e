@@ -11,8 +11,9 @@ import {
     extractRollTwice,
 } from "@module/rules/util";
 import { CheckPF2e, CheckRoll } from "@system/check";
-import { DamageType, WeaponDamagePF2e } from "@system/damage";
-import { DamageRollPF2e, RollParameters } from "@system/rolls";
+import { DamagePF2e, DamageType, WeaponDamagePF2e } from "@system/damage";
+import { DamageRoll } from "@system/damage/roll";
+import { RollParameters } from "@system/rolls";
 import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
 import { ActorSourcePF2e } from "./data";
 import { RollFunction, TraitViewData } from "./data/base";
@@ -268,7 +269,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
 
     const damageRoll =
         (outcome: "success" | "criticalSuccess"): RollFunction =>
-        async (params: RollParameters = {}) => {
+        async (params: RollParameters = {}): Promise<Rolled<DamageRoll> | null> => {
             const domains = ["all", "strike-damage", "damage-roll"];
             const context = actor.getStrikeRollContext({
                 item,
@@ -280,26 +281,22 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
             const options = new Set([...context.options, ...traits, ...context.self.item.getRollOptions("item")]);
 
             if (!context.self.item.dealsDamage) {
-                return ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
+                ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
+                return null;
             }
 
             const damage = WeaponDamagePF2e.calculateStrikeNPC(
                 context.self.item,
                 context.self.actor,
                 [attackTrait],
-                deepClone(synthetics.statisticsModifiers),
-                deepClone(synthetics.modifierAdjustments),
-                deepClone(synthetics.damageDice),
                 1,
-                options,
-                synthetics.rollNotes,
-                synthetics.strikeAdjustments
+                options
             );
             if (!damage) throw ErrorPF2e("This weapon deals no damage");
 
             const { self, target } = context;
 
-            await DamageRollPF2e.roll(
+            return DamagePF2e.roll(
                 damage,
                 { type: "damage-roll", self, target, outcome, options, domains },
                 params.callback

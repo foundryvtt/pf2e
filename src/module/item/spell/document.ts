@@ -189,7 +189,7 @@ class SpellPF2e extends ItemPF2e {
     }
 
     /** Calculates the full damage formula for a specific spell level */
-    private getDamageFormula(castLevel = this.level, rollData: object = {}): string {
+    private getDamageFormula(castLevel = this.level, rollData: Record<string, unknown> = {}): string {
         // If this isn't a variant, it probably needs to be heightened via overlays
         if (!this.isVariant) {
             const variant = this.loadVariant({ castLevel });

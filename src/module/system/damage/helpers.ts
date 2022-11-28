@@ -1,7 +1,5 @@
-import { StrikeSelf, AttackTarget } from "@actor/types";
-import { DegreeOfSuccessString } from "@system/degree-of-success";
-import { BaseRollContext } from "@system/rolls";
-import { DamageDieSize } from "./types";
+import { fontAwesomeIcon } from "@util";
+import { DamageCategory, DamageDieSize } from "./types";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values";
 
 function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
@@ -17,7 +15,7 @@ const DamageCategorization = {
      * Map a damage type to it's corresponding damage category. If the type has no category, the type itself will be
      * returned.
      */
-    fromDamageType: (damageType: string) => BASE_DAMAGE_TYPES_TO_CATEGORIES[damageType] || damageType,
+    fromDamageType: (damageType: string): DamageCategory | null => BASE_DAMAGE_TYPES_TO_CATEGORIES[damageType] ?? null,
 
     /** Get a set of all damage categories (both base and custom). */
     allCategories: () => new Set(Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES)),
@@ -37,15 +35,16 @@ const DamageCategorization = {
     },
 } as const;
 
-interface DamageRollContext extends BaseRollContext {
-    type: "damage-roll";
-    outcome?: DegreeOfSuccessString;
-    self?: StrikeSelf | null;
-    target?: AttackTarget | null;
-    options: Set<string>;
-    secret?: boolean;
-    /** The domains this roll had, for reporting purposes */
-    domains?: string[];
+/** Create a span element for displaying splash damage */
+function renderSplashDamage(rollTerm: RollTerm): HTMLElement {
+    const span = document.createElement("span");
+    span.className = "splash";
+    span.title = game.i18n.localize("PF2E.TraitSplash");
+    const icon = fontAwesomeIcon("burst");
+    icon.classList.add("icon");
+    span.append(rollTerm.expression, " ", icon);
+
+    return span;
 }
 
-export { DamageCategorization, DamageRollContext, nextDamageDieSize };
+export { DamageCategorization, nextDamageDieSize, renderSplashDamage };

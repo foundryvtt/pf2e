@@ -5,17 +5,25 @@ import { ItemType } from "@item/data";
 import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
-import { DamageRollContext } from "./helpers";
 import { DamageRoll } from "./roll";
-import { DamageType } from "./types";
+import { DamageRollContext, DamageType } from "./types";
 import { DamageTemplate } from "./weapon";
 
-/** Dialog for excluding certain modifiers before rolling for damage. */
-export class DamageRollModifiersDialog extends Application {
-    static async roll(damage: DamageTemplate, context: DamageRollContext, callback?: Function): Promise<void> {
+/** Create a chat message containing a damage roll */
+export class DamagePF2e {
+    static async roll(
+        damage: DamageTemplate,
+        context: DamageRollContext,
+        callback?: Function
+    ): Promise<Rolled<DamageRoll> | null> {
         const outcome = context.outcome ?? "success";
 
         context.rollMode ??= (context.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
+
+        // Change default roll mode to blind GM roll if the "secret" option is specified
+        if (context.options.has("secret")) {
+            context.secret = true;
+        }
 
         const damageBaseModifier = ((): string => {
             if (damage.base.diceNumber > 0 && damage.base.modifier !== 0) {
@@ -110,7 +118,7 @@ export class DamageRollModifiersDialog extends Application {
         const damageTypes = CONFIG.PF2E.damageTypes;
         const damageTypeLabel = game.i18n.localize(damageTypes[damage.base.damageType] ?? damage.base.damageType);
         const baseBreakdown = `<span class="tag tag_transparent">${base} ${damageTypeLabel}</span>`;
-        const modifierBreakdown = [damage.diceModifiers.filter((m) => m.diceNumber !== 0), damage.numericModifiers]
+        const modifierBreakdown = [damage.dice.filter((m) => m.diceNumber !== 0), damage.modifiers]
             .flat()
             .filter((m) => m.enabled && (!m.critical || outcome === "criticalSuccess"))
             .sort((a, b) =>
@@ -147,7 +155,7 @@ export class DamageRollModifiersDialog extends Application {
         const formula = deepClone(damage.formula[outcome]);
         if (!formula) {
             ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
-            return;
+            return null;
         }
 
         const { self, target } = context;
@@ -181,7 +189,7 @@ export class DamageRollModifiersDialog extends Application {
         // Create the damage roll, roll it, and pull the result
         const rollerId = game.userId;
         const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
-        const roll = await new DamageRoll("", {}, { rollerId, damage, degreeOfSuccess }).evaluate({ async: true });
+        const roll = await new DamageRoll(formula, {}, { rollerId, damage, degreeOfSuccess }).evaluate({ async: true });
         const rollData = roll.options.result;
 
         const rollMode = context.rollMode ?? "publicroll";
@@ -227,5 +235,7 @@ export class DamageRollModifiersDialog extends Application {
 
         Hooks.call(`pf2e.damageRoll`, rollData);
         if (callback) callback(rollData);
+
+        return roll;
     }
 }

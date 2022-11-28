@@ -13,6 +13,8 @@ declare global {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type ConstructorOf<T> = new (...args: any[]) => T;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    type AbstractConstructorOf<T> = abstract new (...args: any[]) => T;
 
     type SetElement<TSet extends Set<unknown>> = TSet extends Set<infer TElement> ? TElement : never;
 }

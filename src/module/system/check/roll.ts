@@ -1,3 +1,5 @@
+import { StrikeLookupData } from "@module/chat-message";
+import { ZeroToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success";
 import { RollDataPF2e } from "@system/rolls";
@@ -29,6 +31,8 @@ interface CheckRoll extends Roll {
 
 interface CheckRollDataPF2e extends RollDataPF2e {
     isReroll?: boolean;
+    degreeOfSuccess?: ZeroToThree;
+    strike?: StrikeLookupData;
 }
 
 export { CheckRoll, CheckRollDataPF2e };

@@ -228,9 +228,9 @@ declare global {
          *                  left as-is.
          * @param [warn] Display a warning notification when encountering an un-matched key.
          */
-        static replaceFormulaData<T extends object>(
+        static replaceFormulaData(
             formula: string,
-            data: T,
+            data: Record<string, unknown>,
             { missing, warn }?: { missing?: string; warn?: boolean }
         ): string;
 
@@ -400,7 +400,7 @@ declare global {
          * @param data   Unpacked data representing the Roll
          * @return A reconstructed Roll instance
          */
-        static fromData<T extends Roll>(this: ConstructorOf<T>, data: RollJSON): T;
+        static fromData<T extends Roll>(this: AbstractConstructorOf<T>, data: RollJSON): T;
 
         /**
          * Recreate a Roll instance using a provided JSON string
