@@ -262,6 +262,13 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: 1000 });
         }
 
+        const motionsense = this.actor.isOfType("character")
+            ? this.actor.system.traits.senses.find((s) => s.type === "motionsense" && s.acuity !== "vague")
+            : null;
+        if (motionsense) {
+            this.detectionModes.push({ id: "senseMotion", enabled: true, range: motionsense.range });
+        }
+
         const tremorsense = this.actor.isOfType("character")
             ? this.actor.system.traits.senses.find((s) => s.type === "tremorsense" && s.acuity !== "vague")
             : null;

@@ -570,6 +570,7 @@ function sortInteractions(docName: string, actions: ItemSourcePF2e[]): ItemSourc
         [new RegExp("Low-Light Vision"), "top"],
         [new RegExp("^Darkvision"), "top"],
         [new RegExp("Greater Darkvision"), "top"],
+        [new RegExp("Motionsense"), "top"],
         [new RegExp("Tremorsense"), "top"],
         [new RegExp("Scent"), "top"],
         [new RegExp("Telepathy"), "top"],

@@ -136,6 +136,31 @@ interface CanvasVisibilityTestPF2e extends CanvasVisibilityTest {
     loh?: Map<HearingSource<TokenPF2e>, boolean>;
 }
 
+class DetectionModeMotionPF2e extends DetectionModeAll {
+    constructor() {
+        super({
+            id: "senseMotion",
+            label: "PF2E.Actor.Creature.Sense.Type.Motionsense",
+            walls: false,
+            type: DetectionMode.DETECTION_TYPES.MOVE,
+        });
+    }
+
+    static override getDetectionFilter(): PIXI.Filter {
+        const filter = super.getDetectionFilter();
+        return filter;
+    }
+
+    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+        return (
+            super._canDetect(visionSource, target) &&
+            target instanceof TokenPF2e &&
+            !target.actor?.isOfType("loot") &&
+            !target.actor?.hasCondition("undetected", "unnoticed")
+        );
+    }
+}
+
 class DetectionModeTremorPF2e extends DetectionModeTremor {
     constructor() {
         super({
@@ -166,6 +191,7 @@ function setPerceptionModes(): void {
     CONFIG.Canvas.visionModes.darkvision = darkvision;
     CONFIG.Canvas.detectionModes.basicSight = new VisionDetectionMode();
     CONFIG.Canvas.detectionModes.hearing = new HearingDetectionMode();
+    CONFIG.Canvas.detectionModes.senseMotion = new DetectionModeMotionPF2e();
     CONFIG.Canvas.detectionModes.feelTremor = new DetectionModeTremorPF2e();
 }
 

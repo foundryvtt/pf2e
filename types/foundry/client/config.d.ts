@@ -427,6 +427,9 @@ declare global {
                 // Blindness
                 blindness: VisionMode;
 
+                // Motionsense
+                motionsense: VisionMode;
+
                 // Tremorsense
                 tremorsense: VisionMode;
 
@@ -441,6 +444,7 @@ declare global {
                 basicSight: DetectionModeBasicSight;
                 seeInvisibility: DetectionModeInvisibility;
                 senseInvisibility: DetectionModeInvisibility;
+                senseMotion: DetectionModeAll;
                 feelTremor: DetectionModeTremor;
                 seeAll: DetectionModeAll;
                 senseAll: DetectionModeAll;
