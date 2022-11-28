@@ -316,12 +316,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             actor: this.actor,
             data: item.getRollData(),
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
         });
     }
 
