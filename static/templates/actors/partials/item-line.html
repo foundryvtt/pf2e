@@ -15,11 +15,13 @@
         {{#if (or @root.inventory.showValueAlways (and (eq item.type "treasure") (not item.container)))}}
             <span class="item-sell-value">
                 {{#if (or item.isIdentified @root.user.isGM)}}
-                    {{#if @root.inventory.showIndividualPricing}}
-                        {{item.price.value}}
-                    {{else}}
-                        {{item.assetValue}}
-                    {{/if}}
+                    <span data-visibility="{{#if item.isIdentified}}all{{else}}gm{{/if}}">
+                        {{#if @root.inventory.showIndividualPricing}}
+                            {{item.price.value}}
+                        {{else}}
+                            {{item.assetValue}}
+                        {{/if}}
+                    </span>
                 {{/if}}
             </span>
         {{/if}}
