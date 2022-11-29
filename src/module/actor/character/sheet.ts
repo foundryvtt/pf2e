@@ -32,7 +32,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        options.classes = ["default", "sheet", "actor", "character"];
+        options.classes = [...options.classes, "character"];
         options.width = 750;
         options.height = 800;
         options.scrollY.push(".tab.active .tab-content");

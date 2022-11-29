@@ -13,7 +13,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: ["default", "sheet", "hazard", "actor"],
+            classes: [...options.classes, "hazard"],
             scrollY: [".container > section"],
             width: 700,
             height: 680,
@@ -316,12 +316,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             actor: this.actor,
             data: item.getRollData(),
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
         });
     }
 

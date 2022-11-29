@@ -63,7 +63,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Anytime a wizard sponge would take fire damage, it instead regains [[/r 1d8]] Hit Points (regardless of the amount of damage the fire effect would have caused).</p>"
+                    "value": "<p>Anytime a wizard sponge would take fire damage, it instead regains [[/r {1d8}[healing]]]{1d8 Hit Points} (regardless of the amount of damage the fire effect would have caused).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -253,18 +253,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Amid Decaying Plant Matter",
+                        "label": "PF2E.SkillVariant.DecayingPlantFungus",
                         "predicate": [
-                            "decaying-plants"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Amid Fungus",
-                        "predicate": [
-                            "terrain:fungus"
+                            {
+                                "or": [
+                                    "terrain:decaying-plants",
+                                    "terrain:fungus"
+                                ]
+                            }
                         ],
                         "selector": "stealth",
                         "value": 2
@@ -281,12 +277,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+15 amid decaying plant matter",
-                        "options": "decaying-plants"
-                    },
-                    "1": {
-                        "label": "or fungus",
-                        "options": "terrain:fungus"
+                        "label": "+15 amid decaying plant matter or fungus",
+                        "options": "terrain:decaying-plants, terrain:fungus"
                     }
                 }
             },
@@ -321,7 +313,7 @@
                 "value": 20
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -393,23 +385,23 @@
             "dr": [
                 {
                     "exceptions": "",
-                    "label": "Piercing",
                     "type": "piercing",
                     "value": 5
                 },
                 {
                     "exceptions": "",
-                    "label": "Slashing",
                     "type": "slashing",
                     "value": 5
                 }
             ],
             "dv": [
                 {
+                    "exceptions": "",
                     "type": "area-damage",
                     "value": 5
                 },
                 {
+                    "exceptions": "",
                     "type": "splash-damage",
                     "value": 5
                 }

@@ -88,12 +88,18 @@ class PredicatePF2e extends Array<PredicateStatement> {
         } else {
             const operator = Object.keys(statement)[0];
 
+            // Allow for tests of partial statements against numeric values
+            // E.g., `{ "gt": ["actor:level", 5] }` would match against "actor:level:6" and "actor:level:7"
             const [left, right] = Object.values(statement)[0];
             const domainArray = Array.from(domain);
-            const leftValues = domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
-            const rightValues = domainArray.flatMap((d) =>
-                typeof right === "number" ? right : d.startsWith(right) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []
-            );
+            const leftValues =
+                typeof left === "number" || !Number.isNaN(Number(left))
+                    ? [Number(left)]
+                    : domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
+            const rightValues =
+                typeof right === "number" || !Number.isNaN(Number(right))
+                    ? [Number(right)]
+                    : domainArray.flatMap((d) => (d.startsWith(right) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
 
             switch (operator) {
                 case "gt":

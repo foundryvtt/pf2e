@@ -231,7 +231,7 @@ class SpellPF2e extends ItemPF2e {
 
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
             const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
-            const formula = combineTerms(baseFormulaFixed).formula;
+            const formula = combineTerms(baseFormulaFixed);
             formulas.push(formula);
         }
 
@@ -656,17 +656,11 @@ class SpellPF2e extends ItemPF2e {
         // Call the roll helper utility
         await DicePF2e.damageRoll({
             event,
+            actor: this.actor,
             item: this,
             parts: [formula],
             data: rollData,
-            actor: this.actor,
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
         });
     }
 

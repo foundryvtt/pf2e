@@ -27,19 +27,20 @@ abstract class IWRRuleElement extends RuleElementPF2e {
     validate(value: unknown): boolean {
         return (
             this.type.every((t) => t in this.dictionary) &&
-            ((typeof value === "number" && Number.isInteger(value) && value > 0) || typeof value === "string") &&
+            typeof value === "number" &&
+            value > 0 &&
             (!this.data.except || typeof this.data.except === "string")
         );
     }
 
-    abstract getIWR(value?: unknown): string[] | object[];
+    abstract getIWR(value?: number): string[] | object[];
 
     override beforePrepareData(): void {
         if (!this.test()) return;
 
         this.type = this.resolveInjectedProperties(this.type);
 
-        const value: unknown = this.resolveValue();
+        const value = Math.floor(Number(this.resolveValue()));
         if (!this.validate(value)) {
             this.ignored = true;
             return;
