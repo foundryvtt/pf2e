@@ -1,5 +1,5 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { AttackTarget } from "@actor/creature/types";
+import { AttackTarget } from "@actor/types";
 import { StrikeData, TraitViewData } from "@actor/data/base";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";

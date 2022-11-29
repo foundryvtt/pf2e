@@ -1,4 +1,4 @@
-import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e, HazardPF2e, NPCPF2e } from "@actor";
 import { TraitViewData } from "@actor/data/base";
 import {
     DamageDiceOverride,
@@ -12,8 +12,10 @@ import {
 import { AbilityString } from "@actor/types";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { MeleeDamageRoll } from "@item/melee/data";
-import { getPropertyRuneModifiers } from "@item/physical";
-import { WeaponDamage, WeaponMaterialEffect, WEAPON_MATERIAL_EFFECTS } from "@item/weapon";
+import { getPropertyRuneModifiers } from "@item/physical/runes";
+import { WeaponDamage } from "@item/weapon/data";
+import { WeaponMaterialEffect } from "@item/weapon/types";
+import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { RollNotePF2e } from "@module/notes";
 import {
     DamageDiceSynthetics,
@@ -31,7 +33,7 @@ import { DamageCategorization, DamageDieSize, DamageType, nextDamageDieSize } fr
 class WeaponDamagePF2e {
     static calculateStrikeNPC(
         attack: MeleePF2e,
-        actor: NPCPF2e,
+        actor: NPCPF2e | HazardPF2e,
         traits: TraitViewData[] = [],
         statisticsModifiers: ModifierSynthetics,
         modifierAdjustments: ModifierAdjustmentSynthetics,
@@ -86,7 +88,7 @@ class WeaponDamagePF2e {
 
     static calculate(
         weapon: WeaponPF2e | MeleePF2e,
-        actor: CharacterPF2e | NPCPF2e,
+        actor: CharacterPF2e | NPCPF2e | HazardPF2e,
         traits: TraitViewData[] = [],
         statisticsModifiers: ModifierSynthetics,
         modifierAdjustments: ModifierAdjustmentSynthetics,
@@ -117,10 +119,11 @@ class WeaponDamagePF2e {
             options.add(PROFICIENCY_RANK_OPTION[proficiencyRank]);
         }
 
+        const isMelee = !!weapon.isMelee;
+        options.add(isMelee ? "melee" : "ranged");
+
         // Determine ability modifier
-        {
-            const isMelee = !!weapon.isMelee;
-            options.add(isMelee ? "melee" : "ranged");
+        if (actor.isOfType("character", "npc")) {
             const strengthModValue = actor.abilities.str.mod;
             const modifierValue = WeaponDamagePF2e.strengthModToDamage(weapon)
                 ? strengthModValue

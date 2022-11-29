@@ -1,4 +1,4 @@
-import { AttackTarget } from "@actor/creature/types";
+import { AttackTarget } from "@actor/types";
 import { TraitViewData } from "@actor/data/base";
 import { StrikeLookupData } from "@module/chat-message/data";
 import { ZeroToThree } from "@module/data";

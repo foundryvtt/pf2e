@@ -1,8 +1,7 @@
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { CreaturePF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
 import { SIZE_TO_REACH } from "@actor/creature/values";
-import { RollFunction, TraitViewData } from "@actor/data/base";
-import { calculateMAPs } from "@actor/helpers";
+import { createStrikeStatistic } from "@actor/helpers";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
@@ -15,21 +14,16 @@ import {
     extractModifierAdjustments,
     extractModifiers,
     extractNotes,
-    extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/util";
-import { WeaponDamagePF2e } from "@module/system/damage";
-import { DamageRollPF2e } from "@module/system/rolls";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
-import { DamageType } from "@system/damage";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e } from "@system/predication";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, objectHasKey, sluggify } from "@util";
-import { NPCData, NPCFlags, NPCSource, NPCStrike } from "./data";
+import { objectHasKey, sluggify } from "@util";
+import { NPCData, NPCFlags, NPCSource } from "./data";
 import { NPCSheetPF2e } from "./sheet";
-import { StrikeAttackTraits } from "./strike-attack-traits";
 import { VariantCloneParams } from "./types";
 
 class NPCPF2e extends CreaturePF2e {
@@ -149,7 +143,7 @@ class NPCPF2e extends CreaturePF2e {
 
         // Extract as separate variables for easier use in this method.
         const { synthetics } = this;
-        const { modifierAdjustments, damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
+        const { modifierAdjustments, statisticsModifiers, strikes, rollNotes } = synthetics;
         const itemTypes = this.itemTypes;
         const baseLevel = this.system.details.level.base;
 
@@ -473,234 +467,7 @@ class NPCPF2e extends CreaturePF2e {
 
                 system.skills[shortform] = mergeObject(stat, additionalData);
             } else if (item.isOfType("melee")) {
-                const { ability, traits, isMelee, isThrown } = item;
-
-                // Conditions and Custom modifiers to attack rolls
-                const slug = item.slug ?? sluggify(item.name);
-                const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
-                const meleeOrRanged = isMelee ? "melee" : "ranged";
-
-                const domains = [
-                    "attack",
-                    "mundane-attack",
-                    `${slug}-attack`,
-                    `${ability}-attack`,
-                    `${ability}-based`,
-                    `${item.id}-attack`,
-                    `${unarmedOrWeapon}-attack-roll`,
-                    `${meleeOrRanged}-attack-roll`,
-                    "strike-attack-roll",
-                    "attack-roll",
-                    "all",
-                ];
-
-                const modifiers: ModifierPF2e[] = [
-                    new ModifierPF2e({
-                        slug: "base",
-                        label: "PF2E.ModifierTitle",
-                        modifier: item.attackModifier,
-                        adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
-                    }),
-                ];
-
-                modifiers.push(...extractModifiers(this.synthetics, domains));
-                modifiers.push(...StrikeAttackTraits.createAttackModifiers(item));
-                const notes = extractNotes(rollNotes, domains);
-
-                // action image
-                const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics("action", 1);
-
-                const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
-                const additionalEffects = item.attackEffects.map((tag) => {
-                    const label =
-                        attackEffects[tag] ??
-                        this.items.find((item) => (item.slug ?? sluggify(item.name)) === tag)?.name ??
-                        tag;
-                    return { tag, label };
-                });
-
-                const baseOptions = [...this.getRollOptions(domains), ...item.traits];
-                // Legacy support for "melee", "ranged", and "thrown" roll options
-                if (isMelee) {
-                    baseOptions.push("melee");
-                } else if (isThrown) {
-                    baseOptions.push("ranged", "thrown");
-                } else {
-                    baseOptions.push("ranged");
-                }
-
-                const statistic = new StatisticModifier(`${slug}-strike`, modifiers, baseOptions);
-                statistic.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
-                const traitObjects = Array.from(traits).map(
-                    (t): TraitViewData => ({
-                        name: t,
-                        label: CONFIG.PF2E.npcAttackTraits[t] ?? t,
-                        description: CONFIG.PF2E.traitsDescriptions[t],
-                    })
-                );
-
-                const action: NPCStrike = mergeObject(statistic, {
-                    label: item.name,
-                    type: "strike" as const,
-                    glyph: actionGlyph,
-                    description: item.description,
-                    imageUrl,
-                    sourceId: item.id,
-                    attackRollType: item.isRanged ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee",
-                    additionalEffects,
-                    item,
-                    weapon: item,
-                    traits: traitObjects,
-                    options: [],
-                    variants: [],
-                    success: "",
-                    ready: true,
-                    criticalSuccess: "",
-                });
-
-                action.breakdown = action.modifiers
-                    .filter((m) => m.enabled)
-                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
-                    .join(", ");
-
-                // Add a damage roll breakdown
-                action.damageBreakdown = Object.values(item.system.damageRolls).flatMap((roll) => {
-                    const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[roll.damageType as DamageType]);
-                    return [`${roll.damage} ${damageType}`];
-                });
-
-                const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
-                const multipleAttackPenalty = calculateMAPs(item, { domains, options: baseOptions });
-                const sign = action.totalModifier < 0 ? "" : "+";
-                const attackTrait = {
-                    name: "attack",
-                    label: CONFIG.PF2E.featTraits.attack,
-                    description: CONFIG.PF2E.traitsDescriptions.attack,
-                };
-
-                action.variants = [
-                    null,
-                    new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map1, MODIFIER_TYPE.UNTYPED),
-                    new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
-                ].map((map) => {
-                    const label = map
-                        ? game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: map.modifier })
-                        : `${strikeLabel} ${sign}${action.totalModifier}`;
-                    return {
-                        label,
-                        roll: async (params: RollParameters = {}): Promise<Rolled<CheckRoll> | null> => {
-                            const attackEffects = await this.getAttackEffects(item);
-                            const rollNotes = notes.concat(attackEffects);
-
-                            params.options ??= [];
-                            // Always add all weapon traits as options
-                            const context = this.getAttackRollContext({
-                                item,
-                                viewOnly: false,
-                                domains,
-                                options: new Set([...baseOptions, ...params.options, ...traits]),
-                            });
-
-                            // Check whether target is out of maximum range; abort early if so
-                            if (context.self.item.isRanged && typeof context.target?.distance === "number") {
-                                const maxRange = item.maxRange ?? 10;
-                                if (context.target.distance > maxRange) {
-                                    ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
-                                    return null;
-                                }
-                            }
-
-                            const otherModifiers = [map ?? [], context.self.modifiers].flat();
-                            const checkName = game.i18n.format(
-                                item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
-                                { weapon: item.name }
-                            );
-
-                            const roll = await CheckPF2e.roll(
-                                new CheckModifier(checkName, action, otherModifiers),
-                                {
-                                    type: "attack-roll",
-                                    actor: context.self.actor,
-                                    item: context.self.item,
-                                    target: context.target,
-                                    domains,
-                                    options: context.options,
-                                    notes: rollNotes,
-                                    dc: params.dc ?? context.dc,
-                                    rollTwice: extractRollTwice(this.synthetics.rollTwice, domains, context.options),
-                                    substitutions: extractRollSubstitutions(
-                                        synthetics.rollSubstitutions,
-                                        domains,
-                                        context.options
-                                    ),
-
-                                    traits: [attackTrait],
-                                },
-                                params.event
-                            );
-
-                            for (const rule of this.rules.filter((r) => !r.ignored)) {
-                                await rule.afterRoll?.({
-                                    roll,
-                                    selectors: domains,
-                                    domains,
-                                    rollOptions: context.options,
-                                });
-                            }
-
-                            return roll;
-                        },
-                    };
-                });
-                action.roll = action.attack = action.variants[0].roll;
-
-                const damageRoll =
-                    (outcome: "success" | "criticalSuccess"): RollFunction =>
-                    async (params: RollParameters = {}) => {
-                        const domains = ["all", "strike-damage", "damage-roll"];
-                        const context = this.getDamageRollContext({
-                            item,
-                            viewOnly: false,
-                            domains,
-                            options: new Set(params.options ?? []),
-                        });
-                        // always add all weapon traits as options
-                        const options = new Set([
-                            ...context.options,
-                            ...traits,
-                            ...context.self.item.getRollOptions("item"),
-                        ]);
-
-                        if (!context.self.item.dealsDamage) {
-                            return ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
-                        }
-
-                        const damage = WeaponDamagePF2e.calculateStrikeNPC(
-                            context.self.item,
-                            context.self.actor,
-                            [attackTrait],
-                            deepClone(statisticsModifiers),
-                            deepClone(modifierAdjustments),
-                            deepClone(damageDice),
-                            1,
-                            options,
-                            rollNotes,
-                            this.synthetics.strikeAdjustments
-                        );
-                        if (!damage) throw ErrorPF2e("This weapon deals no damage");
-
-                        const { self, target } = context;
-
-                        await DamageRollPF2e.roll(
-                            damage,
-                            { type: "damage-roll", self, target, outcome, options, domains },
-                            params.callback
-                        );
-                    };
-                action.damage = damageRoll("success");
-                action.critical = damageRoll("criticalSuccess");
-
-                system.actions.push(action);
+                system.actions.push(createStrikeStatistic(item));
             }
         }
 
@@ -808,7 +575,7 @@ class NPCPF2e extends CreaturePF2e {
         this.saves = saves as Record<SaveType, Statistic>;
     }
 
-    protected async getAttackEffects(attack: MeleePF2e): Promise<RollNotePF2e[]> {
+    async getAttackEffects(attack: MeleePF2e): Promise<RollNotePF2e[]> {
         const notes: RollNotePF2e[] = [];
         if (attack.description) {
             notes.push(
