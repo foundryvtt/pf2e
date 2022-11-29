@@ -168,6 +168,8 @@ tags.tags.paizo-style {
     --tags-border-color: var(--color-border-light-tertiary);
     --tags-focus-border-color: var(--color-border-light-tertiary);
     --tags-hover-border-color: var(--color-border-light-tertiary);
+    --readonly-striped: 0;
+
     .tagify__input {
         margin: 0;
         padding: 0.1em 0.5em;
@@ -185,6 +187,11 @@ tags.tags.paizo-style {
             text-transform: uppercase;
             width: fit-content;
         }
+    }
+
+    // In lieu of remove button
+    tag[readonly=true] {
+        padding-right: 2px;
     }
 }
 

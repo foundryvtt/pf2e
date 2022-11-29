@@ -25,8 +25,8 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     rarity: Rarity | null;
     rarities: ConfigPF2e["PF2E"]["rarityTraits"];
     traits: SheetOptions | null;
-    /** The slugs of the item's value sorted trait list */
-    traitSlugs: string[];
+    /** Formerly slugs, now tagify tag objects */
+    traitSlugs: { id: string; value: string; readonly: boolean }[];
     rules: {
         labels: {
             label: string;

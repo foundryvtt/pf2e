@@ -205,6 +205,8 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         }
                     } else if (docSource.type === "action" && !docSource.system.deathNote) {
                         delete (docSource.system as { deathNote?: boolean }).deathNote;
+                    } else if (docSource.type === "effect") {
+                        delete (docSource.system as { context?: unknown }).context;
                     } else if (docSource.type === "feat") {
                         const isFeat = !["ancestryfeature", "classfeature"].includes(docSource.system.featType.value);
                         if (isFeat && docSource.img === "systems/pf2e/icons/default-icons/feat.svg") {

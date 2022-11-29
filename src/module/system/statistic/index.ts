@@ -32,6 +32,8 @@ export interface StatisticRollParameters {
     attackNumber?: number;
     /** Optional target for the roll */
     target?: ActorPF2e | null;
+    /** Optional origin for the roll: only one of target and origin may be provided */
+    origin?: ActorPF2e | null;
     /** Optional DC data for the roll */
     dc?: CheckDC | null;
     /** Any additional options which should be used in the roll. */
@@ -55,6 +57,7 @@ export interface StatisticRollParameters {
 interface RollOptionParameters {
     extraRollOptions?: string[];
     item?: ItemPF2e | null;
+    origin?: ActorPF2e | null;
     target?: ActorPF2e | null;
 }
 
@@ -142,7 +145,7 @@ export class Statistic {
     }
 
     createRollOptions(domains: string[], args: RollOptionParameters = {}): Set<string> {
-        const { item, extraRollOptions, target } = args;
+        const { item, extraRollOptions, origin, target } = args;
 
         const rollOptions: string[] = [];
         if (domains && domains.length) {
@@ -171,7 +174,9 @@ export class Statistic {
             }
         }
 
-        if (target) {
+        if (origin) {
+            rollOptions.push(...origin.getSelfRollOptions("origin"));
+        } else if (target) {
             rollOptions.push(...target.getSelfRollOptions("target"));
         }
 
@@ -338,16 +343,18 @@ class StatisticCheck {
             args.dc.adjustments.push(...extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains));
         }
 
-        const target =
-            args.target ??
-            rollContext?.target?.actor ??
-            Array.from(game.user.targets)
-                .flatMap((t) => t.actor ?? [])
-                .find((a) => a.isOfType("creature"));
+        const { origin } = args;
+        const target = origin
+            ? null
+            : args.target ??
+              rollContext?.target?.actor ??
+              Array.from(game.user.targets)
+                  .flatMap((t) => t.actor ?? [])
+                  .find((a) => a.isOfType("creature"));
 
         const extraModifiers = [...(args.modifiers ?? [])];
         const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
-        const options = this.createRollOptions({ ...args, target, extraRollOptions });
+        const options = this.createRollOptions({ ...args, origin, target, extraRollOptions });
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {

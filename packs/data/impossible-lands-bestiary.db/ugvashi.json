@@ -1,33 +1,33 @@
 {
-    "_id": "2XRzA5GZeDk88Y2z",
+    "_id": "JmGKKXdAxUkJtdTm",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "cI3F9pBXykpzpGpP",
+            "_id": "s9VkD48pnMfkx30o",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
+            "name": "Body",
             "sort": 100000,
             "system": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "push",
-                        "punishing-tail"
+                        "serrated-plates"
                     ]
                 },
                 "bonus": {
-                    "value": 24
+                    "value": 12
                 },
                 "damageRolls": {
-                    "7zzr51ldtk4talm2aru2": {
-                        "damage": "3d8+13",
+                    "KG99WsaBcGvr54ur": {
+                        "damage": "1d12+4",
                         "damageType": "bludgeoning"
                     }
                 },
                 "description": {
-                    "value": "<p>(backswing, reach 10 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -37,10 +37,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": [
-                        "backswing",
-                        "reach-10"
-                    ]
+                    "value": []
                 },
                 "weaponType": {
                     "value": "melee"
@@ -49,9 +46,9 @@
             "type": "melee"
         },
         {
-            "_id": "ab7DMqaYPHB6wIhC",
+            "_id": "mJN86SaFPTByONSb",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Foot",
+            "name": "Claw",
             "sort": 200000,
             "system": {
                 "attack": {
@@ -61,12 +58,12 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 24
+                    "value": 12
                 },
                 "damageRolls": {
-                    "g35eoixwdgbgmgecf6c0": {
-                        "damage": "3d6+13",
-                        "damageType": "bludgeoning"
+                    "duwYX2hfh79bIxKj": {
+                        "damage": "1d10+4",
+                        "damageType": "slashing"
                     }
                 },
                 "description": {
@@ -80,7 +77,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "agile"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -89,27 +88,43 @@
             "type": "melee"
         },
         {
-            "_id": "7EiLOsJLtvd6Mv5w",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Buck",
+            "_id": "geTGlSERKHb2Jjiz",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Defensive Curl",
             "sort": 300000,
             "system": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": null
+                    "value": 1
                 },
                 "description": {
-                    "value": "<p>DC 32</p>"
+                    "value": "<p>The ugvashi coils into a ball to defend itself. It gains a +2 circumstance bonus to AC. Any creatures who make unarmed attacks against the ugvashi while it's in its Defensive Curl are exposed to its serrated plates, as if they'd taken damage from the ugvashi's body. The ugvashi can't move while in its Defensive Curl, but it can unfurl as an action.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "defensive-curl",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "defensive-curl"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -121,58 +136,15 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "type": "action"
         },
         {
-            "_id": "VCPQniFfaKaaW5dO",
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Dogged Persistence",
-            "sort": 400000,
-            "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Trigger</strong> The war sauropelta would be affected by the immobilized, paralyzed, slowed, or stunned conditions, or by an effect that would give it a penalty to its Speeds, from a source of 14th level or less</p>\n<hr />\n<p><strong>Effect</strong> The war sauropelta negates the triggering condition or effect.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "Ulxj8gjRkhtCZWc1",
+            "_id": "raXABiXCuDEiZOMD",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Punishing Tail",
-            "sort": 500000,
+            "name": "Serrated Plates",
+            "sort": 400000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -184,7 +156,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature struck by the war sauropelta's tail must attempt a @Check[type:fortitude|dc:32] save. On a failure, it's stunned 1; on a critical failure, it's stunned 3.</p>"
+                    "value": "<p>Creatures who take damage from an ugvashi's body must attempt a @Check[type:reflex|dc:17] save or take [[/r {1d4}[persistent,bleed]]]{1d4} @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage} ([[/r {2d4}[persistent,bleed]]]{2d4} @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent bleed Damage} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -201,69 +173,49 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "type": "action"
         },
         {
-            "_id": "cJAwzP7ugkINDPvs",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "Trample",
-            "sort": 600000,
-            "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "description": {
-                    "value": "<p>Medium or smaller, foot, @Check[type:reflex|dc:32|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "trample",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "EjloWjjLXuWKTzzf",
+            "_id": "aWAqrLC8FzmSYy4L",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 500000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 25
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "Fg1hfnLjldvsaEab",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 8
                 },
                 "proficient": {
                     "value": 0
@@ -282,51 +234,51 @@
             "type": "lore"
         }
     ],
-    "name": "War Sauropeltas",
+    "name": "Ugvashi",
     "system": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": 1
             },
             "con": {
-                "mod": 7
+                "mod": 4
             },
             "dex": {
-                "mod": 2
+                "mod": 1
             },
             "int": {
-                "mod": -4
+                "mod": -3
             },
             "str": {
-                "mod": 7
+                "mod": 4
             },
             "wis": {
-                "mod": 4
+                "mod": 1
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 34
+                "value": 19
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 220,
+                "max": 40,
                 "temp": 0,
-                "value": 220
+                "value": 40
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 23
+                "value": 8
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": 25
+                "value": 20
             }
         },
         "details": {
@@ -336,36 +288,33 @@
             "blurb": "",
             "creatureType": "",
             "level": {
-                "value": 12
+                "value": 3
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>These razor-plated pangolins—about the size of small ponies—are the traditional pack animals of halflings from Casmaron, though the ugvashi's serrated plates and tendency to curl up make them ill-suited as mounts. Ugvashi first arrived in the Impossible Lands onboard the Thousand and One ships of Maharajah Khiben-Sald, alongside peafowl, giant squirrels, and other fauna from Vudra. In the modern day, ugvashi are such a recognized sight that many people forget they aren't a native species. Though some feral populations exist, mainly on the island of Jalmeray, the hostile environs of Nex and the Mana Wastes mean ugvashi mainly appear in domestic settings, usually as working beasts among the Nearic halflings of western Nex.</p>\n<p>Though ugvashi are mostly harmless, they're somewhat more dangerous than their smaller cousins, causing a stir when reckless citizens attempt to pet the creatures. Ugvashi scales are razor sharp, and their large and blunted digging claws can be deadly due to their size. People who attempt to steal the animals or ride them without training often receive moderate cuts for their trouble. However, ugvashi are generally curious and very friendly, and more than one visitor or wilderness explorer has found a baby ugvashi toddling after them and pawing at their boots.</p>\n<p>Nearic halflings also paint their ugvashi with distinctive warding patterns and sigils, some of which are actually effective and provide a surprise for opportunistic thieves or predators. Though due consideration is spent on protecting an ugvashi's cargo, the animals themselves have proven to be tempting targets as well, especially for their meat. With blighted landscapes making animal husbandry impractical and magical pollution leaving local seafood with a distinct aftertaste, a number of Nexian and Mana Wastes peoples have developed a taste for ugvashi. Since the animals lack an aggressive temperament, it often falls to their caretakers to discourage such predations through whatever means necessary.</p>\n<p>Ugvashi shed their scales each winter, allowing for the plates to be collected safely and turned into quality armor and other pieces of craftwork. Nearic halflings rarely trade or sell these items, however, out of fear that they might lead to more people trying to steal their ugvashi.</p>",
             "source": {
-                "value": "Pathfinder #154: Siege of the Dinosaurs"
+                "value": "Pathfinder Lost Omens: Impossible Lands"
             }
         },
         "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
-                "value": 25
+                "value": 13
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 20
+                "value": 6
             },
             "will": {
                 "saveDetail": "",
-                "value": 22
+                "value": 8
             }
         },
         "traits": {
-            "ci": [],
             "di": {
                 "custom": "",
-                "value": [
-                    "olfactory"
-                ]
+                "value": []
             },
             "dr": [],
             "dv": [],
@@ -374,16 +323,15 @@
                 "selected": [],
                 "value": []
             },
-            "rarity": "uncommon",
+            "rarity": "common",
             "senses": {
-                "value": "low-light vision"
+                "value": ""
             },
             "size": {
-                "value": "lg"
+                "value": "med"
             },
             "value": [
-                "animal",
-                "dinosaur"
+                "animal"
             ]
         }
     },

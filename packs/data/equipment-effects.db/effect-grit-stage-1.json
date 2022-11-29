@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>The creature gains a +1 item bonus to Athletics, Crafting, and Performance checks.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Grit]{Grit}</p>\n<p>The creature gains a +1 item bonus to Athletics, Crafting, and Performance checks.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -19,19 +19,11 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "athletics",
-                "type": "item",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "crafting",
-                "type": "item",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "performance",
+                "selector": [
+                    "athletics",
+                    "crafting",
+                    "performance"
+                ],
                 "type": "item",
                 "value": 1
             }

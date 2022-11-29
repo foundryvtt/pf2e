@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { SAVE_TYPES } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
@@ -120,7 +121,7 @@ export const ChatCards = {
                         }
                     }
                 } else if (action === "save") {
-                    ChatCards.rollActorSaves(event, item);
+                    ChatCards.rollActorSaves({ event, actor, item });
                 }
             } else if (actor.isOfType("character", "npc")) {
                 if (action === "repair-item") {
@@ -210,17 +211,22 @@ export const ChatCards = {
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
-    rollActorSaves: async (
-        event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>,
-        item: Embedded<ItemPF2e>
-    ): Promise<void> => {
+    rollActorSaves: async ({
+        event,
+        actor,
+        item,
+    }: {
+        event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>;
+        actor: ActorPF2e;
+        item: Embedded<ItemPF2e>;
+    }): Promise<void> => {
         if (canvas.tokens.controlled.length > 0) {
             const saveType = event.currentTarget.dataset.save;
             if (!tupleHasValue(SAVE_TYPES, saveType)) {
                 throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
             }
 
-            const dc = Number($(event.currentTarget).attr("data-dc"));
+            const dc = Number(event.currentTarget.dataset.dc ?? "NaN");
             const itemTraits = item.system.traits?.value ?? [];
             for (const t of canvas.tokens.controlled) {
                 const save = t.actor?.saves?.[saveType];
@@ -238,8 +244,9 @@ export const ChatCards = {
 
                 save.check.roll({
                     ...eventToRollParams(event),
-                    dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
+                    dc: Number.isInteger(dc) ? { value: Number(dc) } : null,
                     item,
+                    origin: actor,
                     extraRollOptions: rollOptions,
                 });
             }

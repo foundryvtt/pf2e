@@ -1,5 +1,7 @@
 import { ItemPF2e } from "@item";
+import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, sluggify } from "@util";
+import { isTokenUUID } from "@util/from-uuids";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "..";
 import { MarkTargetPrompt } from "./prompt";
 
@@ -9,7 +11,7 @@ class MarkTokenRuleElement extends RuleElementPF2e {
     override slug;
 
     /** The uuid of the token */
-    tokenUUID: TokenDocumentUUID | null;
+    tokenUUID: string | null;
 
     constructor(data: MarkTokenSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
@@ -21,22 +23,20 @@ class MarkTokenRuleElement extends RuleElementPF2e {
             this.slug = "";
         }
 
-        const uuidPattern = /^Scene\.[A-Za-z0-9]{16}\.Token\.[A-Za-z0-9]{16}$/;
-        if (typeof data.tokenUUID === "string" && uuidPattern.test(data.tokenUUID)) {
-            this.tokenUUID = data.tokenUUID as TokenDocumentUUID;
-        } else {
-            this.tokenUUID = null;
-        }
+        this.tokenUUID = typeof data.tokenUUID === "string" ? data.tokenUUID : null;
     }
 
     override async preCreate({ ruleSource, itemSource, pendingItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (this.ignored) return;
 
+        this.tokenUUID &&= this.resolveInjectedProperties(this.tokenUUID);
+
         const token =
-            game.user.targets.size === 1
+            fromUuidSync(this.tokenUUID ?? "") ??
+            (game.user.targets.size === 1
                 ? Array.from(game.user.targets)[0]!.document
-                : await new MarkTargetPrompt({ prompt: null, requirements: null }).resolveTarget();
-        if (!token) {
+                : await new MarkTargetPrompt({ prompt: null, requirements: null }).resolveTarget());
+        if (!(token instanceof TokenDocumentPF2e)) {
             // No token was targeted: abort creating item
             pendingItems.splice(pendingItems.indexOf(itemSource), 1);
             return;
@@ -48,8 +48,9 @@ class MarkTokenRuleElement extends RuleElementPF2e {
     }
 
     override beforePrepareData(): void {
-        if (!(this.test() && this.tokenUUID)) return;
-        this.actor.synthetics.targetMarks.set(this.tokenUUID, this.slug);
+        if (isTokenUUID(this.tokenUUID) && this.test()) {
+            this.actor.synthetics.targetMarks.set(this.tokenUUID, this.slug);
+        }
     }
 
     #checkRuleSource(source: RuleElementSource): asserts source is MarkTokenSource {

@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>You gain a +1 circumstance bonus to Deception, Diplomacy, and Intimidation checks, and to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Sense Motive]{Sense Motive}</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Psychic Rapport]{Psychic Rapport}</p>\n<p>You gain a +1 circumstance bonus to Deception, Diplomacy, and Intimidation checks, and to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Sense Motive]{Sense Motive}</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -28,19 +28,11 @@
             },
             {
                 "key": "FlatModifier",
-                "selector": "deception",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "diplomacy",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "intimidation",
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
                 "type": "circumstance",
                 "value": 1
             }

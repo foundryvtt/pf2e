@@ -14,7 +14,7 @@ export class FamiliarSheetPF2e extends CreatureSheetPF2e<FamiliarPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: ["sheet", "actor", "familiar"],
+            classes: [...options.classes, "familiar"],
             width: 650,
             height: 680,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "attributes" }],

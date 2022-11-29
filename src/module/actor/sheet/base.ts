@@ -43,7 +43,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const options = super.defaultOptions;
         options.dragDrop.push({ dragSelector: ".drag-handle" }, { dragSelector: ".item[draggable=true]" });
         return mergeObject(options, {
-            classes: options.classes.concat(["pf2e", "actor"]),
+            classes: ["default", "sheet", "actor"],
             scrollY: [".sheet-sidebar", ".tab.active", ".inventory-list"],
         });
     }
@@ -646,8 +646,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /** Emulate a sheet item drop from the canvas */
-    async emulateItemDrop(data: DropCanvasItemDataPF2e) {
-        return await this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
+    async emulateItemDrop(data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
+        return this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
     }
 
     protected override async _onDropItem(event: ElementDragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
@@ -748,16 +748,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 });
                 return [updated ?? []].flat();
             }
-        } else if (itemSource.type === "effect" && data && "level" in data) {
-            const level = data.level;
+        } else if (itemSource.type === "effect") {
+            const { level, value, context } = data;
             if (typeof level === "number" && level >= 0) {
                 itemSource.system.level.value = level;
             }
-        } else if (itemSource.type === "effect" && data && itemSource.system.badge) {
-            const value = data.value;
-            if (typeof value === "number" && itemSource.system.badge.type === "counter") {
+            if (typeof value === "number" && itemSource.system.badge?.type === "counter") {
                 itemSource.system.badge.value = value;
             }
+            itemSource.system.context = context ?? null;
         } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
             const actorFormulas = deepClone(actor.system.crafting.formulas);
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {

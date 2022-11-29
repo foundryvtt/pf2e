@@ -13,7 +13,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You have plenty of practice navigating webs. You gain a +2 circumstance bonus to saves and AC against the web spell, natural webbing, and effects that entrap you in webbing, as well as a +1 circumstance bonus against other effects that snare and entangle you, like the entangle spell. Whenever you roll a success on a saving throw against an effect involving a web, you get a critical success instead.</p>"
+            "value": "<p>You have plenty of practice navigating webs. You gain a +2 circumstance bonus to saves and AC against the <em>@UUID[Compendium.pf2e.spells-srd.Web]{Web}</em> spell, natural webbing, and effects that entrap you in webbing, as well as a +1 circumstance bonus against other effects that snare and entangle you, like the <em>@UUID[Compendium.pf2e.spells-srd.Entangle]{Entangle}</em> spell. Whenever you roll a success on a saving throw against an effect involving a web, you get a critical success instead.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -31,17 +31,10 @@
                 "predicate": [
                     "webbing"
                 ],
-                "selector": "saving-throw",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Web Walker (vs. webs)",
-                "predicate": [
-                    "webbing"
+                "selector": [
+                    "ac",
+                    "saving-throw"
                 ],
-                "selector": "ac",
                 "type": "circumstance",
                 "value": 2
             },

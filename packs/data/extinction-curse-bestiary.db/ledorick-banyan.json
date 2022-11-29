@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "8RPQcKk5nVK3FA75",
+            "_id": "vOSiesS62Grm2PL7",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.dUC8Fsa6FZtVikS3"
@@ -123,7 +123,7 @@
             "type": "weapon"
         },
         {
-            "_id": "JWOeDn8Ac9CuPeuW",
+            "_id": "ix9mbv1z3onh9Lsi",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.LJdbVTOZog39EEbi"
@@ -155,8 +155,8 @@
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -241,7 +241,7 @@
             "type": "weapon"
         },
         {
-            "_id": "sEaF4nsMtPcn2Tid",
+            "_id": "TCAdoYNBMwayH1bw",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.MPcM4Wt6KmWE2kGL"
@@ -269,7 +269,7 @@
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "inSlot": true,
+                    "inSlot": false,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -353,7 +353,7 @@
             "type": "armor"
         },
         {
-            "_id": "6MTJBKsh8JTlJnLo",
+            "_id": "AiOAZQhi7cs0eRiK",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.14rbefsoClgClRQ8"
@@ -425,7 +425,7 @@
             "type": "equipment"
         },
         {
-            "_id": "FN0mXZhQ7fOY5VPG",
+            "_id": "GoPQYa2jvy9ZMiF8",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.G7haQ5gDt30ftJLC"
@@ -545,7 +545,7 @@
             "type": "consumable"
         },
         {
-            "_id": "Mo5d1CxvqRoX0LT1",
+            "_id": "WpzASnS15q1C9Bin",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
@@ -590,7 +590,8 @@
                     "value": null
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "equippedBulk": {
                     "value": ""
@@ -619,7 +620,7 @@
                         "sp": 1
                     }
                 },
-                "quantity": 10,
+                "quantity": 40,
                 "range": {
                     "long": null,
                     "units": "",
@@ -768,7 +769,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(deadly 2d10, magical, propulsive, range increment 100 feet, reload 0, volley 30 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -794,10 +795,61 @@
             "type": "melee"
         },
         {
-            "_id": "DoxGvV5Lg8NWTgKE",
+            "_id": "2zQIifa5JMldE13S",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+26 when using Perception for Initiative",
+            "sort": 1000000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "perception"
+                        ],
+                        "selector": "initiative",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "FBUfRtHdX6pDQqmM",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -809,15 +861,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Ledorick gains an additional reaction at the beginning of each of his turns that he can use only for an Attack of Opportunity.</p>"
+                    "value": "<p>Ledorick gains an additional reaction at the beginning of each of his turns that he can use only for an Attack of Opportunity.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "attack-of-opportunity",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -837,7 +889,7 @@
             "_id": "NZ4q9cv0qu2zI3NC",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Dueling Riposte",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -849,7 +901,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Ledorick is using Dueling Parry</p>\n<p><strong>Trigger</strong> A creature within Ledorick's reach critically fails a Strike against him</p>\n<hr />\n<p><strong>Effect</strong> Ledorick makes a melee Strike against the triggering creature or attempts to Disarm the triggering creature.</p>"
+                    "value": "<p><strong>Requirements</strong> Ledorick is using Dueling Parry</p>\n<p><strong>Trigger</strong> A creature within Ledorick's reach critically fails a Strike against him</p>\n<hr />\n<p><strong>Effect</strong> Ledorick makes a melee Strike against the triggering creature or attempts to @UUID[Compendium.pf2e.actionspf2e.Disarm]{Disarm} the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -877,7 +929,7 @@
             "_id": "FwQ6hfFQbFbTSEWf",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Juggernaut",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -894,7 +946,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "fortitude",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "fortitude",
+                        "type": "save"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -917,7 +984,7 @@
             "_id": "ZwZxW282cbsJVc4E",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Dueling Parry",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -934,7 +1001,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "dueling-parry",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "dueling-parry"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -957,7 +1041,7 @@
             "_id": "mQ8k4znou6fvkiXP",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Guiding Finish",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -969,7 +1053,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Ledorick has a single one-handed melee weapon in one hand and has his other hand free</p>\n<hr />\n<p><strong>Effect</strong> Ledorick Strikes with the required weapon. On a hit, he moves the target up to 10 feet into a space he can reach, even moving the target through his own space. On a failed Strike, Ledorick can still move the target 5 feet in this way. This action can be used only if Ledorick has a multiple attack penalty. Show-Off When Ledorick can see and be seen by at least two allies, his attacks deal [[/r {3d6}[precision]]]{3d6 extra precision damage}.</p>"
+                    "value": "<p><strong>Requirements</strong> Ledorick has a single one-handed melee weapon in one hand and has his other hand free</p>\n<hr />\n<p><strong>Effect</strong> Ledorick Strikes with the required weapon. On a hit, he moves the target up to 10 feet into a space he can reach, even moving the target through his own space. On a failed Strike, Ledorick can still move the target 5 feet in this way. This action can be used only if Ledorick has a multiple attack penalty.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -994,10 +1078,65 @@
             "type": "action"
         },
         {
+            "_id": "qAcFJ6ENZ6hIxnoG",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Show-Off",
+            "sort": 1600000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>When Ledorick can see and be seen by at least two allies, his attacks deal 3d6 extra precision damage.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "damageType": "precision",
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "show-off"
+                        ],
+                        "selector": "damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "show-off",
+                        "toggleable": true,
+                        "value": false
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "VMTjcCiLutAHY3LX",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Sudden Charge",
-            "sort": 1500000,
+            "sort": 1700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1037,7 +1176,7 @@
             "_id": "sFPjANNBVh0L52D9",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1600000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -1062,10 +1201,10 @@
             "type": "lore"
         },
         {
-            "_id": "VDekGAgRyB7GJafS",
+            "_id": "1FdVVIvFCyUYO42c",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics (+27 to Disarm)",
-            "sort": 1700000,
+            "name": "Athletics",
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -1076,7 +1215,17 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Disarm",
+                        "predicate": [
+                            "action:disarm"
+                        ],
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1085,6 +1234,12 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+27 to Disarm",
+                        "options": "action:disarm"
+                    }
                 }
             },
             "type": "lore"
@@ -1093,7 +1248,7 @@
             "_id": "BoQdzt794f7orrzY",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1800000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1121,7 +1276,7 @@
             "_id": "nytoSDZtlhW0h0Vo",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1900000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1149,7 +1304,7 @@
             "_id": "8SWPC29pX3Jcob5T",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2000000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1177,7 +1332,7 @@
             "_id": "VYR8pSk4oT2cjGv4",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 2100000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1205,7 +1360,7 @@
             "_id": "hCTilN2T9gjd8N5c",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Willowside Lore",
-            "sort": 2200000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1281,7 +1436,7 @@
             "alignment": {
                 "value": "N"
             },
-            "blurb": "",
+            "blurb": "Male human folk hero",
             "creatureType": "",
             "level": {
                 "value": 14

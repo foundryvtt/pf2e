@@ -1,5 +1,5 @@
-import { pick } from "@util";
 import { TokenPF2e } from "../token";
+import { HearingSource } from "./hearing-source";
 
 const darkvision = new VisionMode({
     id: "darkvision",
@@ -99,25 +99,31 @@ class HearingDetectionMode extends DetectionMode {
         return !visionSource.object.actor?.hasCondition("deafened");
     }
 
+    /**
+     * A vision source is passed due to lack of core support for non-vision-based detection.
+     * Retrieve hearing source and test against that.
+     */
     protected override _testLOS(
         visionSource: VisionSource<TokenPF2e>,
         _mode: TokenDetectionMode,
         _target: PlaceableObject,
         test: CanvasVisibilityTestPF2e
     ): boolean {
-        if (test.los.get(visionSource)) return true;
-
         test.loh ??= new Map();
-        const hasLOH =
-            test.loh.get(visionSource) ??
-            !CONFIG.Canvas.losBackend.testCollision(pick(visionSource, ["x", "y"]), test.point, {
-                type: "sound",
-                mode: "any",
-                source: visionSource,
-            });
-        test.loh.set(visionSource, hasLOH);
+        const hearingSource = visionSource.object.hearing;
+        const hasLOH = test.loh.get(hearingSource) ?? hearingSource.los.contains(test.point.x, test.point.y);
+        test.loh.set(hearingSource, hasLOH);
 
         return hasLOH;
+    }
+
+    protected override _testRange(
+        _visionSource: VisionSource<Token>,
+        _mode: TokenDetectionMode,
+        _target: PlaceableObject,
+        _test: CanvasVisibilityTest
+    ): boolean {
+        return true;
     }
 }
 
@@ -127,7 +133,7 @@ declare namespace HearingDetectionMode {
 }
 
 interface CanvasVisibilityTestPF2e extends CanvasVisibilityTest {
-    loh?: Map<VisionSource<TokenPF2e>, boolean>;
+    loh?: Map<HearingSource<TokenPF2e>, boolean>;
 }
 
 class DetectionModeTremorPF2e extends DetectionModeTremor {

@@ -1,4 +1,5 @@
 import { UserPF2e } from "@module/user";
+import { DegreeIndex } from "@system/degree-of-success";
 import { RollDataPF2e } from "@system/rolls";
 
 class CheckRoll extends Roll<CheckRollDataPF2e> {
@@ -15,6 +16,10 @@ class CheckRoll extends Roll<CheckRollDataPF2e> {
         this.isRerollable =
             !this.isReroll && !this.dice.some((d) => d.modifiers.includes("kh") || d.modifiers.includes("kl"));
         this.roller = game.users.get(this.options.rollerId ?? "") ?? null;
+    }
+
+    get degreeOfSuccess(): DegreeIndex | null {
+        return this.options.degreeOfSuccess ?? null;
     }
 }
 

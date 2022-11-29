@@ -2,14 +2,20 @@ import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@module/scene";
 import { pick } from "@util";
 import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
+import { HearingSource } from "../perception/hearing-source";
 import { AuraRenderers } from "./aura";
 
 class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
 
+    /** The token's line hearing source */
+    hearing: HearingSource<this>;
+
     constructor(document: TokenDocumentPF2e) {
         super(document);
+
+        this.hearing = new HearingSource(this);
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
     }
@@ -349,6 +355,19 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
     override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptions<this>): Promise<void> {
         await super.animate(updateData, options);
         if (!this._animation) this.onFinishAnimation();
+    }
+
+    /** Hearing should be updated whenever vision is */
+    override updateVisionSource({ defer = false, deleted = false } = {}): void {
+        super.updateVisionSource({ defer, deleted });
+        if (this._isVisionSource() && !deleted) {
+            this.hearing.initialize();
+        }
+    }
+
+    protected override _destroy(): void {
+        super._destroy();
+        this.hearing.destroy();
     }
 
     /* -------------------------------------------- */
