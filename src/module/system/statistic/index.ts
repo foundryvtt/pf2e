@@ -4,8 +4,8 @@ import { calculateMAPs } from "@actor/helpers";
 import {
     CheckModifier,
     createAbilityModifier,
+    createProficiencyModifier,
     ModifierPF2e,
-    ProficiencyModifier,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
 } from "@actor/modifiers";
@@ -103,10 +103,11 @@ export class Statistic {
 
         if (typeof data.rank === "number") {
             this.rank = data.rank;
-            baseModifiers.push(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
+            baseModifiers.push(createProficiencyModifier({ actor, rank: data.rank, domains: data.domains ?? [] }));
         } else if (data.rank === "untrained-level") {
             this.rank = 0;
-            baseModifiers.push(ProficiencyModifier.fromLevelAndRank(actor.level, 0, { addLevel: true }));
+            const domains = data.domains ?? [];
+            baseModifiers.push(createProficiencyModifier({ actor, rank: 0, domains, addLevel: true }));
         }
 
         // Check rank and data to assign proficient, but default to true

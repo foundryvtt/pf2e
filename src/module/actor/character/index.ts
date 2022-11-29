@@ -14,10 +14,10 @@ import { calculateMAPs } from "@actor/helpers";
 import {
     CheckModifier,
     createAbilityModifier,
+    createProficiencyModifier,
     ensureProficiencyOption,
     ModifierPF2e,
     MODIFIER_TYPE,
-    ProficiencyModifier,
     StatisticModifier,
 } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
@@ -559,7 +559,7 @@ class CharacterPF2e extends CreaturePF2e {
             const proficiencyRank = systemData.attributes.perception.rank;
             const modifiers = [
                 createAbilityModifier({ actor: this, ability: "wis", domains }),
-                ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank),
+                createProficiencyModifier({ actor: this, rank: proficiencyRank, domains }),
             ];
 
             modifiers.push(...extractModifiers(synthetics, domains));
@@ -689,11 +689,6 @@ class CharacterPF2e extends CreaturePF2e {
                 if (shoddyPenalty) modifiers.push(shoddyPenalty);
             }
 
-            // Proficiency bonus
-            modifiers.unshift(
-                ProficiencyModifier.fromLevelAndRank(this.level, systemData.martial[proficiency]?.rank ?? 0)
-            );
-
             // DEX modifier is limited by the lowest cap, usually from armor
             const dexModifier = createAbilityModifier({
                 actor: this,
@@ -704,7 +699,6 @@ class CharacterPF2e extends CreaturePF2e {
                 lowest.value > candidate.value ? candidate : lowest
             );
             dexModifier.modifier = Math.min(dexModifier.modifier, dexCap.value);
-            modifiers.unshift(dexModifier);
 
             // In case an ability other than DEX is added, find the best ability modifier and use that as the ability on
             // which AC is based
@@ -713,6 +707,10 @@ class CharacterPF2e extends CreaturePF2e {
                 .reduce((best, modifier) => (modifier.modifier > best.modifier ? modifier : best), dexModifier);
             const acAbility = abilityModifier.ability!;
             const domains = ["all", "ac", `${acAbility}-based`];
+
+            const rank = systemData.martial[proficiency]?.rank ?? 0;
+            modifiers.unshift(createProficiencyModifier({ actor: this, rank, domains }));
+            modifiers.unshift(dexModifier);
             modifiers.push(...extractModifiers(synthetics, domains));
 
             const rollOptions = this.getRollOptions(domains);
@@ -1001,7 +999,7 @@ class CharacterPF2e extends CreaturePF2e {
             const domains = [longForm, `${skill.ability}-based`, "skill-check", `${skill.ability}-skill-check`, "all"];
             const modifiers = [
                 createAbilityModifier({ actor: this, ability: skill.ability, domains }),
-                ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
+                createProficiencyModifier({ actor: this, rank: skill.rank, domains }),
             ];
             for (const modifier of modifiers) {
                 modifier.adjustments = extractModifierAdjustments(
@@ -1123,7 +1121,7 @@ class CharacterPF2e extends CreaturePF2e {
             const domains = [shortForm, "int-based", "skill-check", "lore-skill-check", "int-skill-check", "all"];
             const modifiers = [
                 createAbilityModifier({ actor: this, ability: "int", domains }),
-                ProficiencyModifier.fromLevelAndRank(this.level, rank),
+                createProficiencyModifier({ actor: this, rank, domains }),
             ];
             for (const modifier of modifiers) {
                 modifier.adjustments = extractModifierAdjustments(
@@ -1470,10 +1468,6 @@ class CharacterPF2e extends CreaturePF2e {
             .filter((p): p is MartialProficiency => "definition" in p && p.definition.test(weaponProficiencyOptions))
             .map((p) => p.rank);
 
-        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
-        modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
-        weaponRollOptions.push(`item:proficiency:rank:${proficiencyRank}`);
-
         const unarmedOrWeapon = weapon.category === "unarmed" ? "unarmed" : "weapon";
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
         const slug = weapon.slug ?? sluggify(weapon.name);
@@ -1497,13 +1491,6 @@ class CharacterPF2e extends CreaturePF2e {
             "attack-roll",
             "all",
         ];
-        const baseOptions = new Set([
-            ...this.getRollOptions(baseSelectors),
-            ...weaponTraits, // always add weapon traits as options
-            ...weaponRollOptions,
-            meleeOrRanged,
-        ]);
-        ensureProficiencyOption(baseOptions, proficiencyRank);
 
         // Determine the default ability and score for this attack.
         const defaultAbility = options.defaultAbility ?? (weapon.isMelee ? "str" : "dex");
@@ -1514,6 +1501,18 @@ class CharacterPF2e extends CreaturePF2e {
         if (weapon.isRanged && weaponTraits.has("brutal")) {
             modifiers.push(createAbilityModifier({ actor: this, ability: "str", domains: baseSelectors }));
         }
+
+        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
+        weaponRollOptions.push(`item:proficiency:rank:${proficiencyRank}`);
+        modifiers.push(createProficiencyModifier({ actor: this, rank: proficiencyRank, domains: baseSelectors }));
+
+        const baseOptions = new Set([
+            ...this.getRollOptions(baseSelectors),
+            ...weaponTraits, // always add weapon traits as options
+            ...weaponRollOptions,
+            meleeOrRanged,
+        ]);
+        ensureProficiencyOption(baseOptions, proficiencyRank);
 
         // Determine the ability-based synthetic selectors according to the prevailing ability modifier
         const selectors = (() => {
@@ -1994,7 +1993,7 @@ class CharacterPF2e extends CreaturePF2e {
                 delete systemData.martial[duplicate];
             }
 
-            const proficiencyBonus = ProficiencyModifier.fromLevelAndRank(this.level, proficiency.rank || 0);
+            const proficiencyBonus = createProficiencyModifier({ actor: this, rank: proficiency.rank, domains: [] });
             proficiency.value = proficiencyBonus.modifier;
             const sign = proficiencyBonus.modifier < 0 ? "" : "+";
             proficiency.breakdown = `${proficiencyBonus.label} ${sign}${proficiencyBonus.modifier}`;
