@@ -63,12 +63,6 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         }
     }
 
-    protected async prepareItems(): Promise<void> {
-        // no-op
-    }
-
-    // Events
-
     private async distributeCoins(event: JQuery.ClickEvent): Promise<void> {
         event.preventDefault();
         await new DistributeCoinsPopup(this.actor, {}).render(true);

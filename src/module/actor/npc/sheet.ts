@@ -71,7 +71,7 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
      * Prepares items in the actor for easier access during sheet rendering.
      * @param sheetData Data from the actor associated to this sheet.
      */
-    protected async prepareItems(sheetData: NPCSheetData<TActor>): Promise<void> {
+    override async prepareItems(sheetData: NPCSheetData<TActor>): Promise<void> {
         this.prepareAbilities(sheetData.data.abilities);
         this.prepareSize(sheetData.data);
         this.prepareAlignment(sheetData.data);
