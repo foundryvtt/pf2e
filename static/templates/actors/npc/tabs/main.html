@@ -129,8 +129,8 @@
         </div>
         <div class="section-body">
             <ol class="attacks-list strikes-list item-list">
-                {{#each attacks as |attack index|}}
-                    {{> "systems/pf2e/templates/actors/npc/partials/attack.html" action=attack.attack traits=attack.traits actionId=index isEditable=../options.editable}}
+                {{#each data.actions as |attack index|}}
+                    {{> "systems/pf2e/templates/actors/npc/partials/attack.html" action=attack index=index isEditable=../options.editable}}
                 {{/each}}
             </ol>
         </div>

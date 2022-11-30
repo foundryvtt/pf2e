@@ -1,7 +1,7 @@
 import { CreaturePF2e } from "@actor";
 import { Abilities } from "@actor/creature/data";
 import { SIZE_TO_REACH } from "@actor/creature/values";
-import { createStrikeStatistic } from "@actor/helpers";
+import { strikeFromMeleeItem } from "@actor/helpers";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
@@ -467,7 +467,7 @@ class NPCPF2e extends CreaturePF2e {
 
                 system.skills[shortform] = mergeObject(stat, additionalData);
             } else if (item.isOfType("melee")) {
-                system.actions.push(createStrikeStatistic(item));
+                system.actions.push(strikeFromMeleeItem(item));
             }
         }
 

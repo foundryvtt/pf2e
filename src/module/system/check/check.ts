@@ -1,7 +1,7 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { AttackTarget } from "@actor/types";
 import { StrikeData, TraitViewData } from "@actor/data/base";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import { WeaponPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module/chat-message/data";
 import { RollNotePF2e } from "@module/notes";
@@ -134,12 +134,9 @@ class CheckPF2e {
         // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
         const strike = (() => {
             const contextItem = context.item;
-            if (isStrike && contextItem && context.actor?.isOfType("character", "npc")) {
-                const strikes: StrikeData[] = context.actor.system.actions;
-                const strike = strikes.find(
-                    (a): a is StrikeData & { item: ItemPF2e } =>
-                        a.item?.id === contextItem.id && a.item.slug === contextItem.slug
-                );
+            if (isStrike && contextItem && context.actor) {
+                const strikes: StrikeData[] = context.actor?.system.actions ?? [];
+                const strike = strikes.find((a) => a.item?.id === contextItem.id && a.item.slug === contextItem.slug);
 
                 if (strike) {
                     return {

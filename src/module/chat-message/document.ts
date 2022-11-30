@@ -130,8 +130,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** If this message was for a strike, return the strike. Strikes will change in a future release */
     get _strike(): StrikeData | null {
-        const actor = this.actor;
-        if (!actor?.isOfType("character", "npc")) return null;
+        const { actor } = this;
+        if (!actor?.system.actions) return null;
 
         // Get the strike index from either the flags or the DOM. In the case of roll macros, it's in the DOM
         const strikeData = ((): Pick<StrikeLookupData, "index" | "altUsage"> | null => {

@@ -13,10 +13,9 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { getActionGlyph, getActionIcon, objectHasKey, setHasElement, tagify } from "@util";
 import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
 import { NPCConfig } from "./config";
-import { NPCSkillData } from "./data";
+import { NPCSkillData, NPCStrike } from "./data";
 import {
     NPCActionSheetData,
-    NPCAttackSheetData,
     NPCSheetData,
     NPCSheetItemData,
     NPCSpellcastingSheetData,
@@ -78,7 +77,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         this.prepareSkills(sheetData.data);
         this.prepareSaves(sheetData.data);
         await this.prepareActions(sheetData);
-        sheetData.attacks = await this.prepareAttacks(sheetData.data);
         sheetData.effectItems = sheetData.items.filter(
             (data): data is NPCSheetItemData<EffectData> => data.type === "effect"
         );
@@ -351,6 +349,17 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
      * @param sheetData Data of the actor to be shown in the sheet.
      */
     private async prepareActions(sheetData: NPCSheetData<TActor>): Promise<void> {
+        // Enrich strike descriptions
+        const strikesWithDescriptions: NPCStrike[] = sheetData.data.actions.filter((s) => s.description.length > 0);
+        const actorRollData = this.actor.getRollData();
+        for (const attack of strikesWithDescriptions) {
+            const itemRollData = attack.item.getRollData();
+            attack.description = await TextEditor.enrichHTML(attack.description, {
+                rollData: { ...actorRollData, ...itemRollData },
+                async: true,
+            });
+        }
+
         const actions: NPCActionSheetData = {
             passive: { label: game.i18n.localize("PF2E.ActionTypePassive"), actions: [] },
             free: { label: game.i18n.localize("PF2E.ActionTypeFree"), actions: [] },
@@ -401,32 +410,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
         }
 
         sheetData.actions = actions;
-    }
-
-    private async prepareAttacks(sheetData: NPCSystemSheetData): Promise<NPCAttackSheetData> {
-        const attackTraits: Record<string, string | undefined> = CONFIG.PF2E.npcAttackTraits;
-        const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-        const actorRollData = this.actor.getRollData();
-        return Promise.all(
-            sheetData.actions.map(async (attack) => {
-                const itemRollData = attack.item.getRollData();
-                attack.description = await TextEditor.enrichHTML(attack.description, {
-                    rollData: { ...actorRollData, ...itemRollData },
-                    async: true,
-                });
-                const traits = attack.traits
-                    .map((strikeTrait) => ({
-                        label: attackTraits[strikeTrait.label] ?? strikeTrait.label,
-                        description: traitDescriptions[strikeTrait.name] ?? "",
-                    }))
-                    .sort((a, b) => {
-                        if (a.label < b.label) return -1;
-                        if (a.label > b.label) return 1;
-                        return 0;
-                    });
-                return { attack, traits };
-            })
-        );
     }
 
     private getSizeLocalizedKey(size: string): string {
