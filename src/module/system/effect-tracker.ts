@@ -87,6 +87,7 @@ export class EffectTracker {
             for (const effect of this.effects) {
                 effect.reset();
             }
+            game.pf2e.effectPanel.refresh();
         }
 
         const actorsToUpdate = new Set(this.effects.filter((e) => e.isExpired).map((e) => e.actor));
