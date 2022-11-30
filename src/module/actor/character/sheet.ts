@@ -243,7 +243,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Organize and classify Items for Character sheets */
-    protected async prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): Promise<void> {
+    override async prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): Promise<void> {
         const actorData = sheetData.actor;
 
         // Actions

@@ -1,7 +1,6 @@
 import { CharacterPF2e } from "@actor";
 import { CreatureSheetPF2e } from "@actor/creature/sheet";
 import { FamiliarPF2e } from "@actor/familiar";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { FamiliarSheetData } from "./types";
 
 /**
@@ -57,8 +56,6 @@ export class FamiliarSheetPF2e extends CreatureSheetPF2e<FamiliarPF2e> {
             familiarAbilities,
         };
     }
-
-    protected override async prepareItems(_sheetData: ActorSheetDataPF2e<FamiliarPF2e>): Promise<void> {}
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);

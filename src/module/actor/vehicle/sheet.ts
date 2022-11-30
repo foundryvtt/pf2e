@@ -29,12 +29,10 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
         sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity];
 
-        await this.prepareItems(sheetData);
-
         return sheetData;
     }
 
-    protected async prepareItems(sheetData: VehicleSheetData): Promise<void> {
+    override async prepareItems(sheetData: VehicleSheetData): Promise<void> {
         const actorData = sheetData.actor;
 
         // Actions

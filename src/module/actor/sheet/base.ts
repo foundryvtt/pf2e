@@ -38,7 +38,7 @@ import { ScrollWandPopup } from "./popups/scroll-wand-popup";
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
+abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.dragDrop.push({ dragSelector: ".drag-handle" }, { dragSelector: ".item[draggable=true]" });
@@ -114,12 +114,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             enrichedContent: {},
         };
 
-        await this.prepareItems(sheetData);
+        await this.prepareItems?.(sheetData);
 
         return sheetData;
     }
-
-    protected abstract prepareItems(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
 
     protected prepareInventory(): SheetInventory {
         const sections: SheetInventory["sections"] = {
@@ -1042,3 +1040,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return data;
     }
 }
+
+interface ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
+    prepareItems?(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
+}
+
+export { ActorSheetPF2e };
