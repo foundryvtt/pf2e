@@ -69,7 +69,7 @@ function calculateMAPs(
 }
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */
-function createStrikeStatistic(item: Embedded<MeleePF2e>): NPCStrike {
+function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     const { ability, traits, isMelee, isThrown } = item;
     const { actor } = item;
     if (!actor.isOfType("npc", "hazard")) {
@@ -358,4 +358,4 @@ interface MAPData {
     map2: number;
 }
 
-export { calculateMAPs, calculateRangePenalty, createStrikeStatistic, getRangeIncrement, resetAndRerenderActors };
+export { calculateMAPs, calculateRangePenalty, strikeFromMeleeItem, getRangeIncrement, resetAndRerenderActors };
