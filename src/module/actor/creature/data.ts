@@ -11,6 +11,7 @@ import {
     InitiativeData,
     Rollable,
     StrikeData,
+    WeaknessType,
 } from "@actor/data/base";
 import { CheckModifier, DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types";
@@ -181,10 +182,17 @@ interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
     total?: number;
 }
 
+type RegenerationAbility = "fastHealing" | "regeneration";
+interface LabeledRegenerationAbility extends LabeledNumber {
+    type: RegenerationAbility;
+    deactivate?: WeaknessType;
+};
+
 type UnlabeledSpeed = Omit<LabeledSpeed, "label">;
 
 interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
+    regenerationAbilities: LabeledRegenerationAbility[];
 }
 
 interface InitiativeRollParams extends RollParameters {
@@ -264,6 +272,7 @@ export {
     HeldShieldData,
     InitiativeRollParams,
     InitiativeRollResult,
+    LabeledRegenerationAbility,
     LabeledSpeed,
     Language,
     MovementType,
