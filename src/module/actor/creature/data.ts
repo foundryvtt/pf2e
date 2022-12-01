@@ -186,7 +186,7 @@ type RegenerationAbility = "fastHealing" | "regeneration";
 interface LabeledRegenerationAbility extends LabeledNumber {
     type: RegenerationAbility;
     deactivate?: WeaknessType;
-};
+}
 
 type UnlabeledSpeed = Omit<LabeledSpeed, "label">;
 
