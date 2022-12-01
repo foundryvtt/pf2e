@@ -3,7 +3,10 @@
     "img": "systems/pf2e/icons/spells/summon-animal.webp",
     "name": "Effect: Hydra Heads",
     "system": {
-        "badge": null,
+        "badge": {
+            "type": "counter",
+            "value": 5
+        },
         "description": {
             "value": "<p>The number of heads the hydra currently has.</p>"
         },
@@ -18,53 +21,7 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "01",
-                        "value": 0
-                    },
-                    {
-                        "label": "02",
-                        "value": 1
-                    },
-                    {
-                        "label": "03",
-                        "value": 2
-                    },
-                    {
-                        "label": "04",
-                        "value": 3
-                    },
-                    {
-                        "label": "05",
-                        "value": 4
-                    },
-                    {
-                        "label": "06",
-                        "value": 5
-                    },
-                    {
-                        "label": "07",
-                        "value": 6
-                    },
-                    {
-                        "label": "08",
-                        "value": 7
-                    },
-                    {
-                        "label": "09",
-                        "value": 8
-                    },
-                    {
-                        "label": "10",
-                        "value": 9
-                    }
-                ],
-                "flag": "headCount",
-                "key": "ChoiceSet"
-            },
-            {
-                "diceNumber": "{item|flags.pf2e.rulesSelections.headCount}",
+                "diceNumber": "@item.system.badge.value - 1",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
@@ -82,7 +39,7 @@
         },
         "target": null,
         "tokenIcon": {
-            "show": true
+            "show": false
         },
         "traits": {
             "custom": "",
