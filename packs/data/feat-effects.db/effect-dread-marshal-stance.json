@@ -22,13 +22,38 @@
                 "outcome": [
                     "criticalSuccess"
                 ],
-                "selector": "strike-damage",
-                "text": "When you or an ally in the aura critically hits an enemy with a Strike, that enemy is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}."
+                "selector": "attack-roll",
+                "text": "PF2E.AttackEffects.Frightened.Frightened1",
+                "title": "{item|name}"
             },
             {
-                "key": "Note",
+                "choices": [
+                    {
+                        "label": "1",
+                        "value": 1
+                    },
+                    {
+                        "label": "2",
+                        "value": 2
+                    },
+                    {
+                        "label": "3",
+                        "value": 3
+                    },
+                    {
+                        "label": "4",
+                        "value": 4
+                    }
+                ],
+                "flag": "damageBonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.WeaponBonusDamageLabel"
+            },
+            {
+                "key": "FlatModifier",
                 "selector": "strike-damage",
-                "text": "The Marshal's aura grants you and allies a status bonus to damage rolls equal to the number of weapon damage dice of the unarmed attack or weapon you are wielding that has the most weapon damage dice"
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.damageBonus}"
             }
         ],
         "source": {
@@ -46,7 +71,8 @@
             "custom": "",
             "rarity": "common",
             "value": []
-        }
+        },
+        "unidentified": false
     },
     "type": "effect"
 }
