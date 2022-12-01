@@ -1321,7 +1321,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             const clone = this.clone(changed, { keepId: true });
             this.flags.pf2e.rollOptions = clone.flags.pf2e.rollOptions;
             for (const rule of rules) {
-                await rule.preUpdateActor();
+                if (this.items.has(rule.item.id)) {
+                    await rule.preUpdateActor();
+                }
             }
         }
 
