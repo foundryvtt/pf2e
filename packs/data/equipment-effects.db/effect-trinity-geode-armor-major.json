@@ -21,32 +21,23 @@
                 "choices": [
                     {
                         "label": "PF2E.SpecificRule.TrinityGeode.Cantrip",
-                        "value": "cantrip"
+                        "value": 5
                     },
                     {
                         "label": "PF2E.SpecificRule.TrinityGeode.Non-Cantrip",
-                        "value": "non-cantrip"
+                        "value": 10
                     }
                 ],
                 "key": "ChoiceSet",
                 "label": "PF2E.SpecificRule.TrinityGeode.Label",
                 "prompt": "PF2E.SpecificRule.TrinityGeode.Prompt",
-                "rollOption": "effectTrinityGeodeArmor"
+                "flag": "spellType"
             },
             {
                 "except": "adamantine",
                 "key": "Resistance",
                 "type": "physical",
-                "value": 5
-            },
-            {
-                "except": "adamantine",
-                "key": "Resistance",
-                "predicate": [
-                    "effectTrinityGeodeArmor:non-cantrip"
-                ],
-                "type": "physical",
-                "value": 10
+                "value": "{item|flags.pf2e.ruleSelections.spellType}"
             }
         ],
         "source": {
