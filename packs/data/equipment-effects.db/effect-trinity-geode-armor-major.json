@@ -20,24 +20,24 @@
             {
                 "choices": [
                     {
-                        "label": "PF2E.SpecificRule.TrinityGeode.Cantrip",
+                        "label": "PF2E.SpellCategoryCantripSpell",
                         "value": 5
                     },
                     {
-                        "label": "PF2E.SpecificRule.TrinityGeode.Non-Cantrip",
+                        "label": "PF2E.SpellCategoryNonCantripSpell",
                         "value": 10
                     }
                 ],
                 "key": "ChoiceSet",
-                "label": "PF2E.SpecificRule.TrinityGeode.Label",
-                "prompt": "PF2E.SpecificRule.TrinityGeode.Prompt",
-                "flag": "spellType"
+                "label": "PF2E.SpecificRule.TrinityGeodeLabel",
+                "prompt": "PF2E.SelectCantripOrNonCantrip",
+                "flag": "spellCategory"
             },
             {
                 "except": "adamantine",
                 "key": "Resistance",
                 "type": "physical",
-                "value": "{item|flags.pf2e.ruleSelections.spellType}"
+                "value": "{item|flags.pf2e.rulesSelections.spellCategory}"
             }
         ],
         "source": {
