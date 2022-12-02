@@ -664,7 +664,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const difficultyClass: CheckDC = {
                 value: formula.dc,
                 visible: true,
-                adjustments: this.actor.system.skills.cra.adjustments,
                 scope: "check",
             };
 

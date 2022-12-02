@@ -21,7 +21,7 @@ import {
 } from "@module/rules/util";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckPF2e, CheckRoll, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/check";
-import { CheckDC } from "@system/degree-of-success";
+import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success";
 import { isObject, Optional, traitSlugToObject } from "@util";
 import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data";
 
@@ -337,12 +337,6 @@ class StatisticCheck {
             return null;
         })();
 
-        // Add any degree of success adjustments if we are rolling against a DC
-        if (args.dc) {
-            args.dc.adjustments ??= [];
-            args.dc.adjustments.push(...extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains));
-        }
-
         const { origin } = args;
         const target = origin
             ? null
@@ -359,6 +353,23 @@ class StatisticCheck {
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
             rule.beforeRoll?.(domains, options);
+        }
+
+        // Add any degree of success adjustments if we are rolling against a DC
+        const dosAdjustments = args.dc ? extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains) : [];
+        if (options.has("incapacitation") && args.dc && this.type === "saving-throw") {
+            // Special-case handling for incapacation
+            const effectLevel = item?.isOfType("spell") ? 2 * item.level : args.origin?.level ?? actor.level;
+            if (actor.level > effectLevel) {
+                dosAdjustments.push({
+                    adjustments: {
+                        all: {
+                            label: "PF2E.TraitIncapacitation",
+                            amount: DEGREE_ADJUSTMENT_AMOUNTS.INCREASE,
+                        },
+                    },
+                });
+            }
         }
 
         // Include multiple attack penalty to extra modifiers if given
@@ -395,6 +406,7 @@ class StatisticCheck {
             skipDialog,
             rollTwice: args.rollTwice || extractRollTwice(actor.synthetics.rollTwice, domains, options),
             substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
+            dosAdjustments,
             traits,
         };
 

@@ -2,7 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { ActionDefaultOptions } from "@system/action-macros";
-import { CheckDC } from "@system/degree-of-success";
+import { CheckDC, DegreeOfSuccessAdjustment, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success";
 
 function CheckFeat(actor: ActorPF2e, slug: string) {
     if (actor.items.find((i) => i.slug === slug && i.type === "feat")) {
@@ -89,16 +89,14 @@ ${
 
 async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.TriggeredEvent) {
     const { name } = actor;
-    const mod = Number($html.find('[name="modifier"]').val()) || 0;
-    const requestedProf = Number($html.find('[name="dc-type"]').val()) || 1;
-    const riskysurgery = $html.find('[name="risky_surgery_bool"]').prop("checked");
-    const mortalhealing = $html.find('[name="mortal_healing_bool"]').prop("checked");
-    const skillName = String($html.find('[name="skill"]').val());
-
-    const skill = actor.skills[skillName];
+    const mod = Number($html.find("[name=modifier]").val()) || 0;
+    const requestedProf = Number($html.find("[name=dc-type]").val()) || 1;
+    const riskysurgery = $html.find("[name=risky_surgery_bool]").prop("checked");
+    const mortalhealing = $html.find("[name=mortal_healing_bool]").prop("checked");
+    const skillSlug = String($html.find("[name=skill]").val()) || "medicine";
+    const skill = actor.skills[skillSlug];
     if (!skill?.proficient) {
-        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name: name }));
-        return;
+        return ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name }));
     }
 
     const rank = skill.rank ?? 1;
@@ -108,14 +106,21 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
     const bonus = [0, 10, 30, 50][usedProf - 1] + medicBonus;
 
     const rollOptions = actor.getRollOptions(["all", "skill-check", "medicine"]);
-    rollOptions.push("treat wounds");
     rollOptions.push("action:treat-wounds");
-    if (riskysurgery) {
-        rollOptions.push("risky-surgery");
-    }
+    if (riskysurgery) rollOptions.push("risky-surgery");
+    const dc: CheckDC = { value: dcValue, visible: true };
+    const increaseDoS = (locKey: string): DegreeOfSuccessAdjustment => ({
+        adjustments: {
+            success: {
+                label: `PF2E.Actions.TreatWounds.Rolls.${locKey}`,
+                amount: DEGREE_ADJUSTMENT_AMOUNTS.INCREASE,
+            },
+        },
+    });
 
-    const modifiers = riskysurgery || mortalhealing ? ({ success: "one-degree-better" } as const) : undefined;
-    const dc: CheckDC = { value: dcValue, visible: true, modifiers };
+    (actor.synthetics.degreeOfSuccessAdjustments["medicine"] ??= []).push(
+        ...(riskysurgery ? [increaseDoS("RiskySurgery")] : mortalhealing ? [increaseDoS("MortalHealing")] : [])
+    );
 
     skill.check.roll({
         dc,

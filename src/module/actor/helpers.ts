@@ -131,7 +131,6 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     }
 
     const statistic = new StatisticModifier(`${slug}-strike`, modifiers, baseOptions);
-    statistic.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
     const traitObjects = Array.from(traits).map(
         (t): TraitViewData => ({
             name: t,
@@ -226,12 +225,12 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                         target: context.target,
                         domains,
                         options: context.options,
+                        traits: [attackTrait],
                         notes: rollNotes,
                         dc: params.dc ?? context.dc,
                         rollTwice: extractRollTwice(synthetics.rollTwice, domains, context.options),
                         substitutions: extractRollSubstitutions(synthetics.rollSubstitutions, domains, context.options),
-
-                        traits: [attackTrait],
+                        dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
                     },
                     params.event
                 );

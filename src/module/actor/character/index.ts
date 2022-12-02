@@ -570,7 +570,6 @@ class CharacterPF2e extends CreaturePF2e {
                 systemData.attributes.perception,
                 { overwrite: false }
             );
-            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
@@ -581,9 +580,6 @@ class CharacterPF2e extends CreaturePF2e {
                 const label = game.i18n.localize("PF2E.PerceptionCheck");
                 const rollOptions = new Set(params.options ?? []);
                 ensureProficiencyOption(rollOptions, proficiencyRank);
-                if (params.dc && stat.adjustments) {
-                    params.dc.adjustments = stat.adjustments;
-                }
 
                 // Get just-in-time roll options from rule elements
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
@@ -598,6 +594,7 @@ class CharacterPF2e extends CreaturePF2e {
                     dc: params.dc,
                     rollTwice,
                     notes: stat.notes,
+                    dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
                 };
 
                 const roll = await CheckPF2e.roll(
@@ -1056,7 +1053,6 @@ class CharacterPF2e extends CreaturePF2e {
             const stat = mergeObject(new StatisticModifier(longForm, modifiers, this.getRollOptions(domains)), skill, {
                 overwrite: false,
             });
-            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.breakdown = stat.modifiers
                 .filter((modifier) => modifier.enabled)
                 .map((modifier) => {
@@ -1076,9 +1072,6 @@ class CharacterPF2e extends CreaturePF2e {
                 });
                 const rollOptions = new Set(params.options ?? []);
                 ensureProficiencyOption(rollOptions, skill.rank);
-                if (params.dc && stat.adjustments) {
-                    params.dc.adjustments = stat.adjustments;
-                }
 
                 // Get just-in-time roll options from rule elements
                 for (const rule of this.rules.filter((r) => !r.ignored)) {
@@ -1095,6 +1088,7 @@ class CharacterPF2e extends CreaturePF2e {
                     rollTwice,
                     substitutions,
                     notes: stat.notes,
+                    dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
                 };
 
                 const roll = await CheckPF2e.roll(
@@ -1148,7 +1142,6 @@ class CharacterPF2e extends CreaturePF2e {
                 lore: true,
             };
 
-            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.label = loreItem.name;
             stat.ability = "int";
             stat.notes = extractNotes(synthetics.rollNotes, domains);
@@ -1181,6 +1174,7 @@ class CharacterPF2e extends CreaturePF2e {
                     rollTwice,
                     substitutions,
                     notes: stat.notes,
+                    dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
                 };
 
                 const roll = await CheckPF2e.roll(
@@ -1658,7 +1652,6 @@ class CharacterPF2e extends CreaturePF2e {
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
         const strikeStat = new StatisticModifier(`${slug}-strike`, modifiers, rollOptions);
         const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
-        strikeStat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, selectors);
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             label: weapon.name,
@@ -1780,9 +1773,6 @@ class CharacterPF2e extends CreaturePF2e {
                     }
 
                     const dc = params.dc ?? context.dc;
-                    if (dc && action.adjustments) {
-                        dc.adjustments = action.adjustments;
-                    }
 
                     const rollTwice =
                         params.rollTwice || extractRollTwice(synthetics.rollTwice, selectors, context.options);
@@ -1805,6 +1795,7 @@ class CharacterPF2e extends CreaturePF2e {
                         traits: context.traits,
                         rollTwice,
                         substitutions,
+                        dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, selectors),
                     };
 
                     if (!this.consumeAmmo(context.self.item, params)) return null;
