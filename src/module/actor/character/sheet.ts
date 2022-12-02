@@ -1,7 +1,7 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { createProficiencyModifier, MODIFIER_TYPE } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ActionItemPF2e, AncestryBackgroundClassManager, isSpellConsumable, ItemPF2e, WEAPON_CATEGORIES } from "@item";
+import { ActionItemPF2e, isSpellConsumable, ItemPF2e, WEAPON_CATEGORIES } from "@item";
 import { ItemSourcePF2e, LoreData } from "@item/data";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -971,11 +971,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             return await this.actor.feats.insertFeat(item, featSlot);
         }
 
-        if (item.isOfType("ancestry", "background", "class")) {
-            return AncestryBackgroundClassManager.addABCItem(item, actor);
-        } else {
-            return super._onDropItem(event, data);
-        }
+        return super._onDropItem(event, data);
     }
 
     protected override async _onDrop(event: ElementDragEvent): Promise<boolean | void> {

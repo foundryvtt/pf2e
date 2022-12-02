@@ -33,12 +33,12 @@ class AncestryPF2e extends ABCItemPF2e {
     }
 
     /** Include all ancestry features in addition to any with the expected location ID */
-    override getLinkedFeatures(): Embedded<FeatPF2e>[] {
+    override getLinkedItems(): Embedded<FeatPF2e>[] {
         if (!this.actor) return [];
 
         return Array.from(
             new Set([
-                ...super.getLinkedFeatures(),
+                ...super.getLinkedItems(),
                 ...this.actor.itemTypes.feat.filter((f) => f.featType === "ancestryfeature"),
             ])
         );
