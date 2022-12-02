@@ -1235,6 +1235,7 @@ export const PF2ECONFIG = {
         45: "PF2E.AreaSize45",
         50: "PF2E.AreaSize50",
         60: "PF2E.AreaSize60",
+        65: "PF2E.AreaSize65",
         75: "PF2E.AreaSize75",
         80: "PF2E.AreaSize80",
         90: "PF2E.AreaSize90",

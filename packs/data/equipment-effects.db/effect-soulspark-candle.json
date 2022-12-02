@@ -1,0 +1,80 @@
+{
+    "_id": "5OABp099y6w3didN",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/candle.webp",
+    "name": "Effect: Soulspark Candle",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>Worshippers of Pharasma gain a +3 status bonus to attack rolls, skill checks, saving throws, and Perception checks. Undead creatures and worshippers of Urgathoa within this area take a –3 status penalty to those checks..</p>"
+        },
+        "details": {
+            "source": {
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "deity:primary:pharasma"
+                ],
+                "selector": [
+                    "attack",
+                    "skill-check",
+                    "saving-throw",
+                    "perception"
+                ],
+                "slug": "soulspark-pharasma",
+                "type": "status",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "deity:primary:urgathoa",
+                            "self:mode:undead"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "attack",
+                    "skill-check",
+                    "saving-throw",
+                    "perception"
+                ],
+                "slug": "soulspark-undead",
+                "type": "status",
+                "value": -3
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}

@@ -1,0 +1,177 @@
+{
+    "_id": "2WOpgJyaFE2gNW7H",
+    "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
+    "name": "Spiral Athame",
+    "system": {
+        "MAP": {
+            "value": ""
+        },
+        "baseItem": "dagger",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "category": "simple",
+        "containerId": null,
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d4",
+            "value": ""
+        },
+        "description": {
+            "value": "<p>The pommel of this <em>+4 major striking disruptive ghost touch high-grade silver dagger</em> is a black glass orb that contains a tiny blue comet that spirals through the orb's interior. Strikes with the dagger deal an additional [[/r {1d8}[positive]]]{1d8 positive damage} to worshippers of Urgathoa and to anyone who has ever created or summoned an undead creature. While the dagger is in your possession, you gain a +4 circumstance bonus to Medicine checks and to Midwifery Lore checks. If you're a worshipper of Pharasma, you gain imprecise lifesense with a range of 60 feet while holding the dagger. If you're undead or a worshipper of Urgathoa, you're @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 4} while holding the dagger.</p>\n<p>Despite its utility in combat, the <em>Spiral Athame</em> is intended as a ritual implement, meant to bless newborns and protect them from the predations of undead. If you use the <em>Spiral Athame</em> to cut the umbilical cord of a newly born creature, that creature gains resistance to negative damage equal to their level (minimum 1) and gains a +2 status bonus to saving throws against death effects and necromancy. These bonuses are permanent. Additionally, that creature can never become an undead creature.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command, Interact (divine, necromancy)</p>\n<hr />\n<p><strong>Effect</strong> You point the <em>Spiral Athame</em> at a corpse within 30 feet, shielding it from corruption. The <em>Spiral Athame</em> casts 5th-level <em>@UUID[Compendium.pf2e.spells-srd.Gentle Repose]{Gentle Repose}</em> on the corpse.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> command, interact (divine, necromancy)</p>\n<hr />\n<p><strong>Effect</strong> You point the <em>Spiral Athame</em> to the sky and pray, warding creatures against undead. This has the effect of 3rd-level <em>@UUID[Compendium.pf2e.spells-srd.Circle of Protection]{Circle of Protection}</em>, except it wards against undead creatures rather than creatures of a specified alignment, and the emanation is centered on the <em>Spiral Athame</em>.</p>\n<p><strong>Destruction</strong> If an undead creature uses the <em>Spiral Athame</em> to slay a psychopomp usher while within the Boneyard, the <em>Spiral Athame</em>'s pommel shatters and the <em>Spiral Athame</em> becomes a mundane, high-grade silver dagger with no special abilities.</p>"
+        },
+        "details": {
+            "source": {
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": "knife",
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 22
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 4
+        },
+        "preciousMaterial": {
+            "value": "silver"
+        },
+        "preciousMaterialGrade": {
+            "value": "high"
+        },
+        "price": {
+            "value": {}
+        },
+        "propertyRune1": {
+            "value": "disrupting"
+        },
+        "propertyRune2": {
+            "value": "ghostTouch"
+        },
+        "propertyRune3": {
+            "value": null
+        },
+        "propertyRune4": {
+            "value": null
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": "-"
+        },
+        "rules": [
+            {
+                "damageType": "positive",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:necromancer",
+                            "target:deity:primary:urgathoa"
+                        ]
+                    }
+                ],
+                "selector": "damage"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Target.Necromancer",
+                "option": "target:necromancer",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "medicine",
+                    "midwifery",
+                    "midwifery-lore",
+                    "lore-midwifery"
+                ],
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "deity:primary:pharasma"
+                ],
+                "range": 60,
+                "selector": "lifesense"
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Core Rulebook"
+        },
+        "specific": {
+            "material": {
+                "base": [
+                    {
+                        "thickness": "thin",
+                        "type": "steel"
+                    }
+                ],
+                "precious": {
+                    "grade": "high",
+                    "type": "silver"
+                }
+            },
+            "price": {
+                "cp": 0,
+                "gp": 50125,
+                "pp": 0,
+                "sp": 0
+            },
+            "runes": {
+                "potency": 4,
+                "striking": "majorStriking"
+            },
+            "value": true
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "stackGroup": null,
+        "strikingRune": {
+            "value": "majorStriking"
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "unique",
+            "value": [
+                "abjuration",
+                "agile",
+                "artifact",
+                "finesse",
+                "thrown-10",
+                "versatile-s"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weight": {
+            "value": "L"
+        }
+    },
+    "type": "weapon"
+}
