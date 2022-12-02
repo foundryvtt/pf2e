@@ -1,5 +1,5 @@
 import { SkillAbbreviation } from "@actor/creature/data";
-import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
+import { createProficiencyModifier, MODIFIER_TYPE } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { ActionItemPF2e, AncestryBackgroundClassManager, isSpellConsumable, ItemPF2e, WEAPON_CATEGORIES } from "@item";
 import { ItemSourcePF2e, LoreData } from "@item/data";
@@ -75,10 +75,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             })();
 
             proficiency.label = game.i18n.localize(label);
-            proficiency.value = ProficiencyModifier.fromLevelAndRank(
-                sheetData.data.details.level.value,
-                proficiency.rank || 0
-            ).modifier;
+            const rank = proficiency.rank ?? 0;
+            proficiency.value = createProficiencyModifier({ actor: this.actor, rank, domains: [] }).modifier;
         }
 
         // A(H)BCD
@@ -283,10 +281,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 itemData.system.hover = CONFIG.PF2E.proficiencyLevels[(itemData.system.proficient || {}).value];
 
                 const rank = itemData.system.proficient?.value || 0;
-                const proficiency = ProficiencyModifier.fromLevelAndRank(
-                    actorData.system.details.level.value,
-                    rank
-                ).modifier;
+                const proficiency = createProficiencyModifier({ actor: this.actor, rank, domains: [] }).modifier;
                 const modifier = actorData.system.abilities.int.mod;
                 const itemBonus = Number((itemData.system.item || {}).value || 0);
                 itemData.system.itemBonus = itemBonus;
