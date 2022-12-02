@@ -1,0 +1,113 @@
+{
+    "_id": "I83vD5fNYIC1s3Xg",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Wgd4BX6oolkOPDW3",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Pause",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the area</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature becomes temporarily unmoored from time, becoming @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3}. If the creature succeeds at a @Check[type:will|dc:47] save, they reduce this to @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "incapacitation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Time Rift",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 42
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A time rift focused on the sundial causes time to pass erratically for all creatures in the area.</p>",
+            "disable": "<p>Three @Check[type:thievery|dc:48] (legendary) or @Check[type:occultism|dc:48] (master) checks to mend the time rift.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "reset": "",
+            "routine": "<p>(1 action) On its initiative, the time rift alters each creature's timeline. Each creature in the area rolls a [[/br 1d4 #Time Rift Effect]]{1d4} to randomly determine the effect on them.</p>\n<p><strong>1</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>2</strong> The creature is unaffected.</p>\n<p><strong>3</strong> The creature is affected erratically by time; they're @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} for 1 round.</p>\n<p><strong>4</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Quickened]{Quickened} 1 for 1 round.</p>",
+            "source": {
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "author": "",
+            "value": ""
+        },
+        "statusEffects": [],
+        "traits": {
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": []
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": []
+        }
+    },
+    "type": "hazard"
+}

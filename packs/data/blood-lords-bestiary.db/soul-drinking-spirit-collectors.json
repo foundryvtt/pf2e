@@ -1,0 +1,122 @@
+{
+    "_id": "rAKxH1Jbpx6DSlMi",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "9WeizevdPH15V8ne",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Repulse",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature damages a spirit collector</p>\n<hr />\n<p><strong>Effect</strong> The damaged spirit collector releases a wave of force to repel the triggering creature, dealing [[/r {4d10+20}[force]]]{4d10+20 force damage} to the triggering creature, who must attempt a Reflex save. The trap then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and is pushed back 5 feet.</p>\n<p><strong>Failure</strong> The creature takes full damage, is pushed back 10 feet, and lands @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is pushed back 20 feet, and lands prone.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "divine",
+                        "evocation",
+                        "force"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Soul-Drinking Spirit Collectors",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 43
+            },
+            "emitsSound": "encounter",
+            "hardness": 33,
+            "hp": {
+                "details": "",
+                "max": 130,
+                "temp": 0,
+                "value": 130
+            },
+            "stealth": {
+                "details": "<p>(legendary)</p>",
+                "value": 37
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Four spirit collectors drain the souls from nearby creatures.</p>",
+            "disable": "<p>@Check[type:religion|dc:47] (legendary) to sever the connection between Urgathoa and each spirit collector, @Check[type:thievery|dc:50] (legendary) to deactivate each spirit collector, or <em>@UUID[Compendium.pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (9th level; counteract DC 50) to counteract each spirit collector</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "reset": "",
+            "routine": "<p>(4 actions) This trap loses 1 action each turn for each disabled spirit collector. Each spirit collector uses 1 action to drain the souls of all creatures within 30 feet, dealing [[/r {4d10+20}[force]]]{4d10+20 force damage} (@Check[type:fortitude|dc:46|basic:true]). On a failed save, a creature becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} or increases their drained and stupefied conditions by 1 (by 2 on a critical failure).</p>",
+            "source": {
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 35
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "author": "",
+            "value": ""
+        },
+        "statusEffects": [],
+        "traits": {
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": [
+                    "critical-hits",
+                    "object-immunities",
+                    "precision"
+                ]
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

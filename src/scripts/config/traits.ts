@@ -730,6 +730,7 @@ const equipmentTraits = {
     clockwork: "PF2E.TraitClockwork",
     companion: "PF2E.TraitCompanion",
     contract: "PF2E.TraitContract",
+    consecration: "PF2E.TraitConsecration",
     cursed: "PF2E.TraitCursed",
     darkness: "PF2E.TraitDarkness",
     death: "PF2E.TraitDeath",
