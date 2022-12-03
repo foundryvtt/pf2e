@@ -396,8 +396,6 @@ class ItemPF2e extends Item<ActorPF2e> {
             await actor.deleteEmbeddedDocuments("Item", idsToDelete, { render: false });
         }
 
-        const kits = data.filter((d) => d.type === "kit");
-
         // Convert all non-kit sources to item objects, and recursively extract the simple grants from ABC items
         const items = await (async () => {
             /** Internal function to recursively get all simple granted items */
@@ -411,8 +409,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 return [...reparented, ...(await Promise.all(reparented.map(getSimpleGrants))).flat()];
             }
 
-            const nonKitSources = data.filter((d) => !kits.includes(d));
-            const items = nonKitSources.map((source) => {
+            const items = data.map((source) => {
                 if (!(context.keepId || context.keepEmbeddedIds)) {
                     delete source._id; // Allow a random ID to be set by rule elements, which may toggle on `keepId`
                 }
@@ -448,11 +445,6 @@ class ItemPF2e extends Item<ActorPF2e> {
             }
         }
 
-        for (const kitSource of kits) {
-            const item = new ItemPF2e(kitSource);
-            if (item.isOfType("kit")) await item.dumpContents({ actor: actor });
-        }
-
         // Pre-sort unnested, class features according to their sorting from the class
         if (outputSources.some((i) => i.type === "class")) {
             const classFeatures = outputSources.filter(
@@ -467,7 +459,8 @@ class ItemPF2e extends Item<ActorPF2e> {
             }
         }
 
-        return super.createDocuments(outputSources, context);
+        const nonKits = outputSources.filter((source) => source.type !== "kit");
+        return super.createDocuments(nonKits, context);
     }
 
     static override async deleteDocuments<T extends ConstructorOf<ItemPF2e>>(
