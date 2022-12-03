@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor/base";
+import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectPF2e } from "@item";
-import { FlattenedCondition } from "../system/conditions";
 import { EffectExpiryType } from "@item/effect/data";
+import { FlattenedCondition } from "../system/conditions";
 
 export class EffectsPanel extends Application {
     private get actor(): ActorPF2e | null {
@@ -38,12 +38,10 @@ export class EffectsPanel extends Application {
                             ? game.i18n.localize("PF2E.EffectPanel.Expired")
                             : game.i18n.localize("PF2E.EffectPanel.UntilEncounterEnds");
                     } else {
-                        system.expired = false;
                         system.remaining = game.i18n.localize("PF2E.EffectPanel.UnlimitedDuration");
                     }
                 } else {
                     const duration = effect.remainingDuration;
-                    system.expired = duration.expired;
                     system.remaining = system.expired
                         ? game.i18n.localize("PF2E.EffectPanel.Expired")
                         : EffectsPanel.getRemainingDurationLabel(

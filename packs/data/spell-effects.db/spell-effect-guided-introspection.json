@@ -1,0 +1,77 @@
+{
+    "_id": "Me470HI6inX3Bovh",
+    "img": "systems/pf2e/icons/spells/chromatic-image.webp",
+    "name": "Spell Effect: Guided Introspection",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>The target gains a +1 status bonus to saving throws against emotion and fear.</p>\n<hr />\n<p><strong>Heightened (+3)</strong> The status bonus increases by 1.</p>"
+        },
+        "details": {
+            "source": {
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "emotion",
+                            "fear"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 3,
+                            "start": 1,
+                            "value": 1
+                        },
+                        {
+                            "end": 6,
+                            "start": 4,
+                            "value": 2
+                        },
+                        {
+                            "start": 7,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}

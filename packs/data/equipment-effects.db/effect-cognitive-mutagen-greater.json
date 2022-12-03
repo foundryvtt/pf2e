@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Cognitive Mutagen (Greater)]{Cognitive Mutagen (Greater)}</p>\n<p><strong>Implemented effects</strong></p>\n<ul>\n<li>+3 item bonus to Arcana, Crafting, Occultism and Society checks</li>\n<li>+3 item bonus to all Recall Knowledge checks</li>\n<li>-2 penalty to to Athletics and Acrobatics checks</li>\n<li>-2 penalty to weapon and unarmed attacks</li>\n<li>+3 item bonus to Lore checks</li>\n<li>Treat Recall Knowledge critical failures as failures</li>\n</ul>\n<p><strong>Unimplemented effects</strong></p>\n<ul>\n<li>You can carry 2 less Bulk than normal before becoming encumbered</li>\n<li>The maximum Bulk you can carry is reduced by 4</li>\n</ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Cognitive Mutagen (Greater)]{Cognitive Mutagen (Greater)}</p>\n<p><strong>Implemented effects</strong></p>\n<ul>\n<li>+3 item bonus to Arcana, Crafting, Lore, Occultism and Society checks</li>\n<li>+3 item bonus to all Recall Knowledge checks</li>\n<li>-2 penalty to to Athletics and Acrobatics checks</li>\n<li>-2 penalty to weapon and unarmed attacks</li>\n<li>Treat Recall Knowledge critical failures as failures</li>\n</ul>\n<p><strong>Unimplemented effects</strong></p>\n<ul>\n<li>You can carry 2 less Bulk than normal before becoming encumbered</li>\n<li>The maximum Bulk you can carry is reduced by 4</li>\n</ul>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -19,41 +19,23 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "arcana",
+                "selector": [
+                    "arcana",
+                    "crafting",
+                    "lore-skill-check",
+                    "occultism",
+                    "society"
+                ],
                 "type": "item",
                 "value": 3
             },
             {
                 "key": "FlatModifier",
-                "selector": "crafting",
-                "type": "item",
-                "value": 3
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "occultism",
-                "type": "item",
-                "value": 3
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "society",
-                "type": "item",
-                "value": 3
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "athletics",
-                "value": -2
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "acrobatics",
-                "value": -2
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "mundane-attack",
+                "selector": [
+                    "acrobatics",
+                    "athletics",
+                    "mundane-attack"
+                ],
                 "value": -2
             },
             {
@@ -62,12 +44,6 @@
                     "action:recall-knowledge"
                 ],
                 "selector": "skill-check",
-                "type": "item",
-                "value": 3
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "lore-skill-check",
                 "type": "item",
                 "value": 3
             },

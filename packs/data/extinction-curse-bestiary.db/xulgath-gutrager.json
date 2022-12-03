@@ -133,10 +133,55 @@
             "type": "melee"
         },
         {
+            "_id": "H925aaHFfAyXeLkl",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "vCZP7eeVSKKUB4y7",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Caustic Fog",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -153,7 +198,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "caustic-fog",
+                        "traits": [
+                            "acid"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -179,7 +233,7 @@
             "_id": "yKLg0f7z9z5rM6iA",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Self-Detonate",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -221,7 +275,7 @@
             "_id": "PVSV062yywdBQCMh",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Corrosive Kiss",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -233,7 +287,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The gutrager propels its esophagus out of its body to deliver an acidic blow. It makes an unarmed Strike against a creature or unattended object within 30 feet. On a critical hit, the target also takes [[/r {2d6}[persistent,acid]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}. The gutrager is @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 round as it re-coils its esophagus.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The gutrager propels its esophagus out of its body to deliver an acidic blow. It makes an unarmed Strike against a creature or unattended object within 30 feet with a [[/r 1d20+23 #Attack Roll]]{+23} attack bonus.</p>\n<p>On a hit, the target takes [[/r {2d6+8}[bludgeoning]]]{2d6+8 bludgeoning damage} plus [[/r {4d6}[acid]]]{4d6 acid damage}.</p>\n<p>On a critical hit, the target also takes [[/r {2d6}[persistent,acid]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}.</p>\n<p>The gutrager is @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 round as it re-coils its esophagus.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -263,7 +317,7 @@
             "_id": "BIVZgHhHyJaFSEaI",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -291,7 +345,7 @@
             "_id": "Bh7CIfDnX11kEN8v",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -319,7 +373,7 @@
             "_id": "bUJcBXNiI8FYmEmt",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -401,7 +455,7 @@
                 "value": 10
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>Xulgath gutragers exhibit more extreme developments along the same physiological path as their bilebearer cousins (<em>Pathfinder Adventure Path #151: The Show Must Go On</em>). They are stockier and faster, with necks and limbs corded with muscle. They are also denser, with multiple stomachs full of fluids even more caustic than those of the bilebearer. Like the bilebearer, gutragers lack the distinctive stench typical of most xulgaths.</p>\n<p>A gutrager's torso conceals its most disturbing feature-a densely coiled esophagus. Pressurized bladders and a muscular throat allow the gutrager to propel its esophagus outward in an explosion of yellow flesh and acidic bile; caustic stomach acid coating the esophagus makes even brief physical contact with the organ dangerous. As a last resort, the gutrager can intentionally accelerate the corrosion in its esophagus, releasing vile acid in a burst that also ends its life.</p>",
             "source": {
                 "value": "Pathfinder #154: Siege of the Dinosaurs"
             }
@@ -427,7 +481,13 @@
                 "custom": "",
                 "value": []
             },
-            "dr": [],
+            "dr": [
+                {
+                    "exceptions": "",
+                    "type": "acid",
+                    "value": 10
+                }
+            ],
             "dv": [],
             "languages": {
                 "custom": "",

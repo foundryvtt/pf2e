@@ -1,6 +1,7 @@
-import { ModeOfBeing } from "@actor/creature/types";
+import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/types";
 import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types";
 import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
+import { ActionTrait } from "@item/action/data";
 import { ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
@@ -20,12 +21,14 @@ import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, isObject, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, isObject, objectHasKey, traitSlugToObject, tupleHasValue } from "@util";
 import type { CreaturePF2e } from "./creature";
 import { VisionLevel, VisionLevels } from "./creature/data";
+import { GetReachParameters, ModeOfBeing } from "./creature/types";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
-import { ActorFlagsPF2e, BaseTraitsData, PrototypeTokenPF2e, RollOptionFlags } from "./data/base";
+import { ActorFlagsPF2e, BaseTraitsData, PrototypeTokenPF2e, RollOptionFlags, StrikeData } from "./data/base";
 import { ActorSizePF2e } from "./data/size";
+import { calculateRangePenalty, getRangeIncrement } from "./helpers";
 import { ActorInventory } from "./inventory";
 import { ItemTransfer } from "./item-transfer";
 import { ActorSheetPF2e } from "./sheet/base";
@@ -253,6 +256,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     isOfType<T extends ActorType>(
         ...types: T[]
     ): this is InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][T]>;
+    isOfType<T extends "creature" | ActorType>(
+        ...types: T[]
+    ): this is CreaturePF2e | InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][Exclude<T, "creature">]>;
     isOfType<T extends ActorType | "creature">(...types: T[]): boolean {
         return types.some((t) => (t === "creature" ? tupleHasValue(CREATURE_ACTOR_TYPES, this.type) : this.type === t));
     }
@@ -271,7 +277,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
-    getReach(_options: { action?: "interact" | "attack" }): number {
+    getReach(_options: GetReachParameters): number {
         return 0;
     }
 
@@ -597,6 +603,135 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /* -------------------------------------------- */
     /*  Rolls                                       */
     /* -------------------------------------------- */
+
+    protected getStrikeRollContext<I extends AttackItem>(
+        params: StrikeRollContextParams<I>
+    ): StrikeRollContext<this, I> {
+        const targetToken = Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard")) ?? null;
+
+        const selfToken =
+            canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null;
+        const reach = params.item.isOfType("melee")
+            ? params.item.reach
+            : params.item.isOfType("weapon")
+            ? this.getReach({ action: "attack", weapon: params.item })
+            : null;
+
+        const selfOptions = this.getRollOptions(params.domains ?? []);
+        if (targetToken && typeof reach === "number" && selfToken?.isFlanking(targetToken, { reach })) {
+            selfOptions.push("self:flanking");
+        }
+
+        const selfActor = params.viewOnly ? this : this.getContextualClone(selfOptions);
+        const actions: StrikeData[] = selfActor.system.actions?.flatMap((a) => [a, a.altUsages ?? []].flat()) ?? [];
+
+        const selfItem: AttackItem =
+            params.viewOnly || params.item.isOfType("spell")
+                ? params.item
+                : actions
+                      .map((a): AttackItem => a.item)
+                      .find((weapon) => {
+                          // Find the matching weapon or melee item
+                          if (!(params.item.id === weapon.id && weapon.name === params.item.name)) return false;
+                          if (params.item.isOfType("melee") && weapon.isOfType("melee")) return true;
+
+                          // Discriminate between melee/thrown usages by checking that both are either melee or ranged
+                          return (
+                              params.item.isOfType("weapon") &&
+                              weapon.isOfType("weapon") &&
+                              params.item.isMelee === weapon.isMelee
+                          );
+                      }) ?? params.item;
+
+        const traitSlugs: ActionTrait[] = [
+            "attack" as const,
+            // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
+            // the manipulate trait."
+            selfItem.isOfType("weapon") && selfItem.baseType === "alchemical-bomb" ? ("manipulate" as const) : [],
+        ].flat();
+        for (const adjustment of this.synthetics.strikeAdjustments) {
+            if (selfItem.isOfType("weapon", "melee")) {
+                adjustment.adjustTraits?.(selfItem, traitSlugs);
+            }
+        }
+        const traits = traitSlugs.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+
+        // Clone the actor to recalculate its AC with contextual roll options
+        const targetActor = params.viewOnly
+            ? null
+            : targetToken?.actor?.getContextualClone([...selfActor.getSelfRollOptions("origin")]) ?? null;
+
+        // Target roll options
+        const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
+        if (targetToken && targetOptions.length > 0) {
+            const mark = this.synthetics.targetMarks.get(targetToken.document.uuid);
+            if (mark) targetOptions.push(`target:mark:${mark}`);
+        }
+
+        const rollOptions = new Set([
+            ...params.options,
+            ...selfOptions,
+            ...targetOptions,
+            ...selfItem.getRollOptions("item"),
+            // Backward compatibility for predication looking for an "attack" trait by its lonesome
+            "attack",
+        ]);
+
+        // Calculate distance and range increment, set as a roll option
+        const distance = selfToken && targetToken && !!canvas.grid ? selfToken.distanceTo(targetToken) : null;
+        if (typeof distance === "number") rollOptions.add(`target:distance:${distance}`);
+
+        const rangeIncrement = getRangeIncrement(selfItem, distance);
+        if (rangeIncrement) rollOptions.add(`target:range-increment:${rangeIncrement}`);
+
+        const self = {
+            actor: selfActor,
+            token: selfToken?.document ?? null,
+            item: selfItem as I,
+            modifiers: [],
+        };
+
+        const target =
+            targetActor && targetToken && distance !== null
+                ? { actor: targetActor, token: targetToken.document, distance, rangeIncrement }
+                : null;
+
+        return {
+            options: rollOptions,
+            self,
+            target,
+            traits,
+        };
+    }
+
+    /**
+     * Calculates attack roll target data including the target's DC.
+     * All attack rolls have the "all" and "attack-roll" domains and the "attack" trait,
+     * but more can be added via the options.
+     */
+    getAttackRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): AttackRollContext<this, I> {
+        const context = this.getStrikeRollContext(params);
+        const targetActor = context.target?.actor;
+        const rangeIncrement = context.target?.rangeIncrement ?? null;
+
+        const rangePenalty = calculateRangePenalty(this, rangeIncrement, params.domains, context.options);
+        if (rangePenalty) context.self.modifiers.push(rangePenalty);
+
+        return {
+            ...context,
+            dc: targetActor?.attributes.ac
+                ? {
+                      scope: "attack",
+                      slug: "ac",
+                      value: targetActor.attributes.ac.value,
+                  }
+                : null,
+        };
+    }
+
+    getDamageRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): StrikeRollContext<this, I> {
+        return this.getStrikeRollContext(params);
+    }
 
     /**
      * Roll a Save Check
@@ -1186,7 +1321,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             const clone = this.clone(changed, { keepId: true });
             this.flags.pf2e.rollOptions = clone.flags.pf2e.rollOptions;
             for (const rule of rules) {
-                await rule.preUpdateActor();
+                if (this.items.has(rule.item.id)) {
+                    await rule.preUpdateActor();
+                }
             }
         }
 

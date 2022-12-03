@@ -5,6 +5,7 @@ import { StatusEffects } from "@module/canvas/status-effects";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { MetagameSettings } from "./metagame";
+import { resetAndRerenderActors } from "@actor/helpers";
 
 export function registerSettings(): void {
     if (BUILD_MODE === "development") {
@@ -116,16 +117,7 @@ export function registerSettings(): void {
         default: false,
         type: Boolean,
         onChange: () => {
-            for (const actor of game.actors) {
-                actor.reset();
-                ui.windows[actor.sheet.appId]?.render();
-            }
-            for (const token of game.scenes.contents.flatMap((s) => s.tokens.contents)) {
-                if (!token.actorLink && token.actor) {
-                    token.actor.reset();
-                    ui.windows[token.actor.sheet.appId]?.render();
-                }
-            }
+            resetAndRerenderActors();
         },
     });
 

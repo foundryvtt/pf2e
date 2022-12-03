@@ -1,8 +1,8 @@
 import {
     createAbilityModifier,
+    createProficiencyModifier,
     ensureProficiencyOption,
     ModifierPF2e,
-    ProficiencyModifier,
     StatisticModifier,
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
@@ -231,7 +231,7 @@ class SpellPF2e extends ItemPF2e {
 
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
             const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
-            const formula = combineTerms(baseFormulaFixed).formula;
+            const formula = combineTerms(baseFormulaFixed);
             formulas.push(formula);
         }
 
@@ -656,17 +656,11 @@ class SpellPF2e extends ItemPF2e {
         // Call the roll helper utility
         await DicePF2e.damageRoll({
             event,
+            actor: this.actor,
             item: this,
             parts: [formula],
             data: rollData,
-            actor: this.actor,
             title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
         });
     }
 
@@ -688,7 +682,7 @@ class SpellPF2e extends ItemPF2e {
         modifiers.push(createAbilityModifier({ actor: this.actor, ability, domains }));
 
         const proficiencyRank = spellcastingEntry.rank;
-        modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.level, proficiencyRank));
+        modifiers.push(createProficiencyModifier({ actor: this.actor, rank: proficiencyRank, domains }));
 
         const traits = this.system.traits.value;
 

@@ -1,0 +1,62 @@
+{
+    "_id": "agDVcRyoS4NTHkht",
+    "img": "systems/pf2e/icons/equipment/other/spellhearts/trinity-geode.webp",
+    "name": "Effect: Trinity Geode - Armor (Major)",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Trinity Geode (Major)]{Trinity Geode (Major)}</p>\n<p>After you cast an earth spell by Activating the <em>geode</em>, you gain resistance 5 to physical damage (except adamantine) until the end of your next turn, or double the resistance for a non-cantrip spell.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 12
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpellCantripLabel",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.SpellNonCantripLabel",
+                        "value": 10
+                    }
+                ],
+                "key": "ChoiceSet",
+                "label": "PF2E.SpecificRule.TrinityGeodeLabel",
+                "prompt": "PF2E.SpecificRule.Prompt.CantripOrNonCantrip",
+                "flag": "spellCategory"
+            },
+            {
+                "except": "adamantine",
+                "key": "Resistance",
+                "type": "physical",
+                "value": "{item|flags.pf2e.rulesSelections.spellCategory}"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}

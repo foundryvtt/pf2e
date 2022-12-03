@@ -1,11 +1,10 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
 import { RollNotePF2e } from "@module/notes";
 import { extractModifierAdjustments } from "@module/rules/util";
 import { DamageDieSize, DamageType } from "@system/damage/types";
 import { DamageCategorization } from "@system/damage/helpers";
 import { DAMAGE_TYPES } from "@system/damage/values";
-import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { ZeroToFour } from "@module/data";
@@ -279,33 +278,43 @@ interface CreateAbilityModifierParams {
     domains: string[];
 }
 
-const ProficiencyModifier = {
-    /**
-     * Create a modifier for a given proficiency level of some ability.
-     * @param level The level of the character which this modifier is being applied to.
-     * @param rank 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
-     * @returns The modifier for the given proficiency rank and character level.
-     */
-    fromLevelAndRank: (level: number, rank: ZeroToFour, { addLevel = rank > 0 } = {}): ModifierPF2e => {
-        rank = Math.clamped(rank, 0, 4) as ZeroToFour;
-        const pwolVariant = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
+/**
+ * Create a modifier for a given proficiency level of some ability.
+ * @returns The modifier for the given proficiency rank and character level.
+ */
+function createProficiencyModifier({ actor, rank, domains, addLevel }: CreateProficiencyModifierParams): ModifierPF2e {
+    rank = Math.clamped(rank, 0, 4) as ZeroToFour;
+    addLevel ??= rank > 0;
+    const pwolVariant = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
 
-        const baseBonuses: [number, number, number, number, number] = pwolVariant
-            ? [
-                  game.settings.get("pf2e", "proficiencyUntrainedModifier"),
-                  game.settings.get("pf2e", "proficiencyTrainedModifier"),
-                  game.settings.get("pf2e", "proficiencyExpertModifier"),
-                  game.settings.get("pf2e", "proficiencyMasterModifier"),
-                  game.settings.get("pf2e", "proficiencyLegendaryModifier"),
-              ]
-            : [0, 2, 4, 6, 8];
+    const baseBonuses: [number, number, number, number, number] = pwolVariant
+        ? [
+              game.settings.get("pf2e", "proficiencyUntrainedModifier"),
+              game.settings.get("pf2e", "proficiencyTrainedModifier"),
+              game.settings.get("pf2e", "proficiencyExpertModifier"),
+              game.settings.get("pf2e", "proficiencyMasterModifier"),
+              game.settings.get("pf2e", "proficiencyLegendaryModifier"),
+          ]
+        : [0, 2, 4, 6, 8];
 
-        const addedLevel = addLevel && !pwolVariant ? level : 0;
-        const bonus = baseBonuses[rank] + addedLevel;
+    const addedLevel = addLevel && !pwolVariant ? actor.level : 0;
+    const bonus = baseBonuses[rank] + addedLevel;
 
-        return new ModifierPF2e({ label: `PF2E.ProficiencyLevel${rank}`, modifier: bonus, type: "proficiency" });
-    },
-};
+    return new ModifierPF2e({
+        slug: "proficiency",
+        label: `PF2E.ProficiencyLevel${rank}`,
+        modifier: bonus,
+        type: "proficiency",
+        adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, domains, "proficiency"),
+    });
+}
+
+interface CreateProficiencyModifierParams {
+    actor: ActorPF2e;
+    rank: ZeroToFour;
+    domains: string[];
+    addLevel?: boolean;
+}
 
 /** A comparison which rates the first modifier as better than the second if it's modifier is at least as large. */
 const HIGHER_BONUS = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier >= b.modifier;
@@ -411,8 +420,6 @@ class StatisticModifier {
     breakdown = "";
     /** Optional notes, which are often added to statistic modifiers */
     notes?: RollNotePF2e[];
-
-    adjustments?: DegreeOfSuccessAdjustment[];
 
     /**
      * @param slug The name of this collection of statistic modifiers.
@@ -671,7 +678,7 @@ export {
     ModifierPF2e,
     ModifierType,
     PROFICIENCY_RANK_OPTION,
-    ProficiencyModifier,
+    createProficiencyModifier,
     RawModifier,
     StatisticModifier,
     adjustModifiers,

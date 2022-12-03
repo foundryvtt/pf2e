@@ -62,12 +62,22 @@ interface TargetFlag {
     token?: TokenDocumentUUID;
 }
 
-type ContextFlagOmission = "actor" | "altUsage" | "createMessage" | "item" | "notes" | "options" | "target" | "token";
+type ContextFlagOmission =
+    | "actor"
+    | "altUsage"
+    | "createMessage"
+    | "dosAdjustments"
+    | "item"
+    | "notes"
+    | "options"
+    | "target"
+    | "token";
 
 interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
     item?: undefined;
+    dosAdjustments?: undefined;
     target: TargetFlag | null;
     altUsage?: "thrown" | "melee" | null;
     notes: RollNoteSource[];

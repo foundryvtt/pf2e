@@ -1,6 +1,6 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
-import { RollFunction } from "@actor/data/base";
+import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
 import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
@@ -38,12 +38,12 @@ import { ScrollWandPopup } from "./popups/scroll-wand-popup";
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
+abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.dragDrop.push({ dragSelector: ".drag-handle" }, { dragSelector: ".item[draggable=true]" });
         return mergeObject(options, {
-            classes: options.classes.concat(["pf2e", "actor"]),
+            classes: ["default", "sheet", "actor"],
             scrollY: [".sheet-sidebar", ".tab.active", ".inventory-list"],
         });
     }
@@ -114,12 +114,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             enrichedContent: {},
         };
 
-        await this.prepareItems(sheetData);
+        await this.prepareItems?.(sheetData);
 
         return sheetData;
     }
-
-    protected abstract prepareItems(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
 
     protected prepareInventory(): SheetInventory {
         const sections: SheetInventory["sections"] = {
@@ -179,6 +177,20 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }),
             {} as CoinageSummary
         );
+    }
+
+    protected getStrikeFromDOM(target: HTMLElement): StrikeData | null {
+        const actionIndex = Number(target.closest<HTMLElement>("[data-action-index]")?.dataset.actionIndex);
+        const rootAction = this.actor.system.actions?.[actionIndex];
+        if (!rootAction) return null;
+
+        const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
+            ? target.dataset.altUsage
+            : null;
+
+        return altUsage
+            ? rootAction.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null
+            : rootAction;
     }
 
     /* -------------------------------------------- */
@@ -250,6 +262,36 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             } else {
                 this.actor.rollAttribute(event, key);
             }
+        });
+
+        // Strikes
+        const $strikesList = $html.find("ol.strikes-list");
+
+        $strikesList.find("button[data-action=strike-damage]").on("click", async (event) => {
+            await this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event });
+        });
+
+        $strikesList.find("button[data-action=strike-critical]").on("click", async (event) => {
+            await this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
+        });
+
+        const attackSelectors = ".item-image[data-action=strike-attack], button[data-action=strike-attack]";
+        $strikesList.find(attackSelectors).on("click", (event) => {
+            if (!("actions" in this.actor.system)) {
+                throw ErrorPF2e("Strikes are not supported on this actor");
+            }
+
+            const target = event.currentTarget;
+            const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
+                ? target.dataset.altUsage
+                : null;
+
+            const strike = this.getStrikeFromDOM(event.currentTarget);
+            if (!strike) return;
+            const $button = $(event.currentTarget);
+            const variantIndex = Number($button.attr("data-variant-index"));
+
+            strike.variants[variantIndex]?.roll({ event, altUsage });
         });
 
         // Remove Spell Slot
@@ -1042,3 +1084,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return data;
     }
 }
+
+interface ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
+    prepareItems?(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
+}
+
+export { ActorSheetPF2e };

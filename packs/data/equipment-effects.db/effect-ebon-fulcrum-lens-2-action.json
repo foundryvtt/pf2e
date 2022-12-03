@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>For 1 minute and gain a +1 item bonus to attack rolls, saving throws, and DCs.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Ebon Fulcrum Lens]{Ebon Fulcrum Lens}</p>\n<p>For 1 minute you gain a +1 item bonus to attack rolls, saving throws, and DCs.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -14,42 +14,19 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 12
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "attack",
-                "type": "item",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "saving-throw",
-                "type": "item",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "skill-check",
-                "type": "item",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "ac",
-                "type": "item",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "perception",
-                "type": "item",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "class",
+                "selector": [
+                    "ac",
+                    "attack",
+                    "class",
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
+                ],
                 "type": "item",
                 "value": 1
             }

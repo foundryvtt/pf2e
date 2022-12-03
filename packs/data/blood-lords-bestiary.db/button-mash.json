@@ -1,0 +1,162 @@
+{
+    "_id": "9cYqx6JeqTC6UDIJ",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "sNvSxg1ui8jnr5Ky",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Lockdown",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Noph or another creature arms the trap by pressing a sigil on the console</p>\n<hr />\n<p><strong>Effect</strong> A barrier of force forms from floor to ceiling surrounding the reception desk. The DC to counteract this barrier with <em>@UUID[Compendium.pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> is 43. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "abjuration",
+                        "force"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Gr2USt2VS9frmOS5",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Comet",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "IgyeY1y1QSY1MAe7": {
+                        "damage": "3d12+19",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Button Mash",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 40
+            },
+            "emitsSound": "encounter",
+            "hardness": 28,
+            "hp": {
+                "details": "",
+                "max": 110,
+                "temp": 0,
+                "value": 110
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 24
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>The room floods with harmful effects by pressing a magic sigil on a console. Each sigil causes different results. There are six sigils on the console.</p>",
+            "disable": "<p>@Check[type:arcana|dc:40] (master) to disenchant each sigil (can be done from either side of the reception desk), @Check[type:thievery|dc:43] (master) twice to disable the console (can only be done while behind the reception desk), or <em>@UUID[Compendium.pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (8th level; counteract DC 40) to counteract each sigil; prevent Noph from pressing the buttons by gaining access to the reception desk or other methods</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "reset": "",
+            "routine": "<p>(2 actions) Noph frantically pecks and stomps on the console, using each action to press a random sigil. Roll [[/r 1d6 #Pressed Sigil]] to determine which sigil Noph presses. Psychopomps are immune to the effects of these sigils.</p>\n<p><strong>1</strong> The area is flooded with holy light, dealing [[/r {3d12+19}[positive]]]{3d12+19 positive damage} to each creature in the area (@Check[type:reflex|dc:43|basic:true]).</p>\n<p><strong>2</strong> The area is flooded with unholy darkness, dealing [[/r {3d12+19}[negative]]]{3d12+19 negative damage} to each creature in the area (@Check[type:reflex|dc:43|basic:true]).</p>\n<p><strong>3</strong> The area is flooded with blue flames, dealing [[/r {3d10+19}[fire]]]{3d10+19 fire damage} to each creature in the area (@Check[type:reflex|dc:43|basic:true]). On a critical failure, a creature additionally takes [[/r {1d10}[persistent,fire]]]{1d10} @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent fire Damage}.</p>\n<p><strong>4</strong> A comet streaks through the area, attacking the nearest creature to Noph with a comet Strike.</p>\n<p><strong>5</strong> Force tethers sprout from the floor, grasping at intruders. Each creature in the area is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} for 1 round unless they succeed at a @Check[type:fortitude|dc:43] save.</p>\n<p><strong>6</strong> Ghostly blue mist surrounds each psychopomp in the area, healing them [[/r {3d8+19}[healing]]]{3d8+19} HP and granting them @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealement} for 1 round.</p>",
+            "source": {
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 32
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "author": "",
+            "value": ""
+        },
+        "statusEffects": [],
+        "traits": {
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": [
+                    "critical-hits",
+                    "object-immunities",
+                    "precision"
+                ]
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

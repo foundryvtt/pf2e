@@ -204,7 +204,13 @@ export class FamiliarPF2e extends CreaturePF2e {
 
                     const roll = await CheckPF2e.roll(
                         new CheckModifier("Attack Roll", stat),
-                        { actor: this, type: "attack-roll", options, rollTwice },
+                        {
+                            actor: this,
+                            type: "attack-roll",
+                            options,
+                            rollTwice,
+                            dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
+                        },
                         params.event,
                         params.callback
                     );
@@ -216,7 +222,6 @@ export class FamiliarPF2e extends CreaturePF2e {
                     return roll;
                 },
             });
-            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
                 .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
@@ -239,7 +244,6 @@ export class FamiliarPF2e extends CreaturePF2e {
             const stat = mergeObject(new StatisticModifier("perception", modifiers), systemData.attributes.perception, {
                 overwrite: false,
             });
-            stat.adjustments = extractDegreeOfSuccessAdjustments(synthetics, domains);
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
@@ -253,7 +257,14 @@ export class FamiliarPF2e extends CreaturePF2e {
 
                 const roll = await CheckPF2e.roll(
                     new CheckModifier(label, stat),
-                    { actor: this, type: "perception-check", options: rollOptions, dc: params.dc, rollTwice },
+                    {
+                        actor: this,
+                        type: "perception-check",
+                        options: rollOptions,
+                        dc: params.dc,
+                        rollTwice,
+                        dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
+                    },
                     params.event,
                     params.callback
                 );

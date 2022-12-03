@@ -1,0 +1,201 @@
+{
+    "_id": "5HgUBmFaEWVZhx2g",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "53nspqw7nXEZ4lce",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>[[/r {0}[bludgeoning]]]{0 bludgeoning}, @Check[type:fortitude|dc:|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yhDldk2WLsqfXkIk",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Seize",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature reaches the hall's midpoint</p>\n<hr />\n<p><strong>Effect</strong> The trap attempts a shadow tether Strike against the triggering creature. On a hit, the triggering creature is automatically @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vJvUPyR0P5cMpQEU",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shadow Tether",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 38
+                },
+                "damageRolls": {
+                    "BXvg2s54fAWaYhlz": {
+                        "damage": "4d10+22",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": "<p>Plus the creature is automatically @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}</p>"
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Choking Tethers",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 45
+            },
+            "emitsSound": "encounter",
+            "hardness": 33,
+            "hp": {
+                "details": "",
+                "max": 132,
+                "temp": 0,
+                "value": 132
+            },
+            "stealth": {
+                "details": "<p>(legendary)</p>",
+                "value": 38
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Three shadow tethers form when a creature reaches the hall's midpoint; each lashes, grabs, and crushes creatures in the hall.</p>",
+            "disable": "<p>@Check[type:thievery|dc:48] (legendary) to disable each tether or <em>@UUID[Compendium.pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (10th level, counteract DC 48) to counteract each tether</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "reset": "",
+            "routine": "<p>(six actions) This trap loses 2 actions each turn for each disabled shadow tether. Each shadow tether has 2 actions it can use to either Strike a creature or Constrict a @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} creature, in any combination.</p>",
+            "source": {
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 36
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 30
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "author": "",
+            "value": ""
+        },
+        "statusEffects": [],
+        "traits": {
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": []
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

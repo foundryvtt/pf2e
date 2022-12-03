@@ -6,9 +6,10 @@ import { VehicleSheetData } from "./data";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
+        const options = super.defaultOptions;
         return {
-            ...super.defaultOptions,
-            classes: ["default", "sheet", "actor", "vehicle"],
+            ...options,
+            classes: [...options.classes, "vehicle"],
             width: 670,
             height: 480,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "details" }],
@@ -28,12 +29,10 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
         sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity];
 
-        await this.prepareItems(sheetData);
-
         return sheetData;
     }
 
-    protected async prepareItems(sheetData: VehicleSheetData): Promise<void> {
+    override async prepareItems(sheetData: VehicleSheetData): Promise<void> {
         const actorData = sheetData.actor;
 
         // Actions

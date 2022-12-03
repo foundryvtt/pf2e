@@ -1,6 +1,4 @@
 import { CreaturePF2e } from "@actor";
-import { CharacterStrike } from "@actor/character/data";
-import { NPCStrike } from "@actor/npc/data";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
@@ -11,15 +9,7 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { goesToEleven, ZeroToFour } from "@module/data";
 import { createSheetTags } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
-import {
-    ErrorPF2e,
-    fontAwesomeIcon,
-    htmlClosest,
-    htmlQueryAll,
-    objectHasKey,
-    setHasElement,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, fontAwesomeIcon, htmlClosest, htmlQueryAll, objectHasKey, setHasElement } from "@util";
 import { ActorSheetPF2e } from "../sheet/base";
 import { CreatureConfig } from "./config";
 import { SpellPreparationSheet } from "./spell-preparation-sheet";
@@ -135,7 +125,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     /** Opens the spell preparation sheet, but only if its a prepared entry */
-    openSpellPreparationSheet(entryId: string) {
+    protected openSpellPreparationSheet(entryId: string) {
         const entry = this.actor.items.get(entryId);
         if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
             const $book = this.element.find(`.item-container[data-container-id="${entry.id}"] .prepared-toggle`);
@@ -284,23 +274,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             this.actor.skills[key]?.check.roll(rollParams);
         });
 
-        // strikes
-        const $strikesList = $html.find("ol.strikes-list");
-
-        $strikesList.find("button[data-action=strike-damage]").on("click", async (event) => {
-            if (!this.actor.isOfType("character", "npc")) {
-                throw ErrorPF2e("This sheet only works for characters and NPCs");
-            }
-            await this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event });
-        });
-
-        $strikesList.find("button[data-action=strike-critical]").on("click", async (event) => {
-            if (!this.actor.isOfType("character", "npc")) {
-                throw ErrorPF2e("This sheet only works for characters and NPCs");
-            }
-            await this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
-        });
-
         // Adding/Editing/Removing Spellcasting entries
         for (const section of htmlQueryAll(html, ".tab.spellcasting, .tab.spells") ?? []) {
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-create]") ?? []) {
@@ -318,41 +291,19 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             }
 
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-remove]") ?? []) {
-                element.addEventListener("click", (event) => {
+                element.addEventListener("click", async (event) => {
                     const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
                     const item = this.actor.items.get(itemId, { strict: true });
 
+                    const title = game.i18n.localize("PF2E.DeleteSpellcastEntryTitle");
+                    const content = await renderTemplate(
+                        "systems/pf2e/templates/actors/delete-spellcasting-dialog.html"
+                    );
+
                     // Render confirmation modal dialog
-                    renderTemplate("systems/pf2e/templates/actors/delete-spellcasting-dialog.html").then((html) => {
-                        new Dialog({
-                            title: "Delete Confirmation",
-                            content: html,
-                            buttons: {
-                                Yes: {
-                                    icon: '<i class="fa fa-check"></i>',
-                                    label: "Yes",
-                                    callback: async () => {
-                                        console.debug("PF2e System | Deleting Spell Container: ", item.name);
-                                        // Delete all child objects
-                                        const itemsToDelete: string[] = [];
-                                        for (const item of this.actor.itemTypes.spell) {
-                                            if (item.system.location.value === itemId) {
-                                                itemsToDelete.push(item.id);
-                                            }
-                                        }
-                                        // Delete item container
-                                        itemsToDelete.push(item.id);
-                                        await this.actor.deleteEmbeddedDocuments("Item", itemsToDelete);
-                                    },
-                                },
-                                cancel: {
-                                    icon: '<i class="fas fa-times"></i>',
-                                    label: "Cancel",
-                                },
-                            },
-                            default: "Yes",
-                        }).render(true);
-                    });
+                    if (await Dialog.confirm({ title, content })) {
+                        item.delete();
+                    }
                 });
             }
         }
@@ -419,25 +370,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 if (!max) return;
                 item.update({ "system.location.uses.value": max });
             }
-        });
-
-        const attackSelectors = '.item-image[data-action="strike-attack"], button[data-action="strike-attack"]';
-        $strikesList.find(attackSelectors).on("click", (event) => {
-            if (!("actions" in this.actor.system)) {
-                throw ErrorPF2e("Strikes are not supported on this actor");
-            }
-
-            const target = event.currentTarget;
-            const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
-                ? target.dataset.altUsage
-                : null;
-
-            const strike = this.getStrikeFromDOM(event.currentTarget);
-            if (!strike) return;
-            const $button = $(event.currentTarget);
-            const variantIndex = Number($button.attr("data-variant-index"));
-
-            strike.variants[variantIndex]?.roll({ event, altUsage });
         });
 
         // We can't use form submission for these updates since duplicates force array updates.
@@ -612,20 +544,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     private onConfigureActor(): void {
         if (!this.actorConfigClass) return;
         new this.actorConfigClass(this.actor).render(true);
-    }
-
-    protected getStrikeFromDOM(target: HTMLElement): CharacterStrike | NPCStrike | null {
-        const actionIndex = Number(target.closest<HTMLElement>("[data-action-index]")?.dataset.actionIndex);
-        const rootAction = this.actor.system.actions?.[actionIndex];
-        if (!rootAction) return null;
-
-        const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
-            ? target.dataset.altUsage
-            : null;
-
-        return altUsage
-            ? rootAction.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null
-            : rootAction;
     }
 
     private onToggleSignatureSpell(event: JQuery.ClickEvent): void {

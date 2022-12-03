@@ -1,0 +1,114 @@
+{
+    "_id": "YHDUmGATLSHUgGiM",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "5LvRwLFvFzENTXyc",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shudder",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature reaches the tunnel's midpoint</p>\n<hr />\n<p><strong>Effect</strong> The tunnel shudders, knocking creatures @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} unless they succeed at a @Check[type:reflex|dc:42] save. The trap then rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Compression Tunnel",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(legendary)</p>",
+                "value": 41
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>This shadow tunnel compresses when creatures pass through.</p>",
+            "disable": "<p>@Check[type:athletics|dc:46] (legendary) twice to push back the shadows or @Check[type:thievery|dc:48] (legendary) three times to pierce through the shadows</p>",
+            "isComplex": true,
+            "level": {
+                "value": 20
+            },
+            "reset": "",
+            "routine": "<p>(1 action) The tunnel compresses, crushing all creatures in it and dealing [[/r {4d10+22}[bludgeoning]]]{4d10+22 bludgeoning damage} (@Check[type:fortitude|dc:42|basic:true]). On a failed save, a creature additionally becomes @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} (@UUID[Compendium.pf2e.actionspf2e.Escape]{Escape} DC 42).</p>",
+            "source": {
+                "value": "Pathfinder #186: Ghost King's Rage"
+            }
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "source": {
+            "author": "",
+            "value": ""
+        },
+        "statusEffects": [],
+        "traits": {
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": []
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

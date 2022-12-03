@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor";
+import { strikeFromMeleeItem } from "@actor/helpers";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES } from "@actor/values";
@@ -38,7 +39,6 @@ export class HazardPF2e extends ActorPF2e {
 
         const { attributes, details } = this.system;
         attributes.initiative = { tiebreakPriority: this.hasPlayerOwner ? 2 : 1 };
-
         attributes.hp.negativeHealing = false;
         attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
         attributes.hasHealth = attributes.hp.max > 0;
@@ -74,6 +74,7 @@ export class HazardPF2e extends ActorPF2e {
         }
 
         this.saves = this.prepareSaves();
+        this.system.actions = this.itemTypes.melee.map((m) => strikeFromMeleeItem(m));
     }
 
     protected prepareSaves(): { [K in SaveType]?: Statistic } {

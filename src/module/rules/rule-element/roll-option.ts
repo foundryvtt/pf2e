@@ -96,6 +96,11 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 this.failValidation('The "count" property must be a boolean or otherwise omitted.');
             }
         }
+
+        // Prevent all further processing of this RE
+        if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
+            this.ignored = true;
+        }
     }
 
     private resolveOption(): string {
@@ -143,7 +148,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
 
             const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
 
-            if (this.toggleable === true || (this.toggleable === "totm" && game.settings.get("pf2e", "totmToggles"))) {
+            if (this.toggleable) {
                 const toggle: RollToggle = {
                     itemId: this.item.id,
                     label,

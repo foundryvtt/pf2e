@@ -24,7 +24,7 @@ export const RenderChatMessage = {
 
             // Check DC adjusted by circumstance bonuses or penalties
             try {
-                const $adjustedDC = $html.find(".adjusted-dc[data-circumstances]");
+                const $adjustedDC = $html.find(".adjusted[data-circumstances]");
                 if ($adjustedDC.length === 1) {
                     const circumstances = JSON.parse($adjustedDC.attr("data-circumstances") ?? "");
                     if (!Array.isArray(circumstances)) throw ErrorPF2e("Malformed adjustments array");
@@ -41,6 +41,16 @@ export const RenderChatMessage = {
                 }
             } catch (error) {
                 if (error instanceof Error) console.error(error.message);
+            }
+
+            // Adjusted check degree of success
+            const $degreeOfSuccess = $html.find(".degree-of-success .adjusted");
+            if ($degreeOfSuccess[0]?.dataset.adjustment) {
+                $degreeOfSuccess.tooltipster({
+                    content: game.i18n.localize($degreeOfSuccess[0].dataset.adjustment),
+                    contentAsHTML: true,
+                    theme: "crb-hover",
+                });
             }
 
             // Trait and material tooltips

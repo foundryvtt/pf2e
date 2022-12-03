@@ -1,8 +1,55 @@
 import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
-import { extractModifierAdjustments } from "@module/rules/util";
-import { AttackItem } from "./creature/types";
-import { ModifierPF2e, MODIFIER_TYPE } from "./modifiers";
+import { ItemPF2e, MeleePF2e } from "@item";
+import {
+    extractDegreeOfSuccessAdjustments,
+    extractModifierAdjustments,
+    extractModifiers,
+    extractNotes,
+    extractRollSubstitutions,
+    extractRollTwice,
+} from "@module/rules/util";
+import { CheckPF2e, CheckRoll } from "@system/check";
+import { DamageType, WeaponDamagePF2e } from "@system/damage";
+import { DamageRollPF2e, RollParameters } from "@system/rolls";
+import { ErrorPF2e, sluggify } from "@util";
+import { RollFunction, TraitViewData } from "./data/base";
+import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "./modifiers";
+import { NPCStrike } from "./npc/data";
+import { StrikeAttackTraits } from "./npc/strike-attack-traits";
+import { AttackItem } from "./types";
+
+/** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
+async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<void> {
+    actors ??= [
+        game.actors.contents,
+        game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
+    ].flat();
+
+    for (const actor of actors) {
+        actor.reset();
+        ui.windows[actor.sheet.appId]?.render();
+    }
+    game.pf2e.effectPanel.refresh();
+
+    // If expired effects are automatically removed, the actor update cycle will reinitialize vision
+    const refreshScenes =
+        game.settings.get("pf2e", "automation.effectExpiration") &&
+        !game.settings.get("pf2e", "automation.removeExpiredEffects");
+
+    if (refreshScenes) {
+        const scenes = new Set(
+            Array.from(actors)
+                .flatMap((a) => a.getActiveTokens(false, true))
+                .flatMap((t) => t.scene)
+        );
+        for (const scene of scenes) {
+            scene.reset();
+            if (scene.isView) {
+                canvas.perception.update({ initializeVision: true }, true);
+            }
+        }
+    }
+}
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
 function calculateMAPs(
@@ -19,6 +66,234 @@ function calculateMAPs(
 
     // Find lowest multiple attack penalty: penalties are negative, so actually looking for the highest value
     return [baseMap, ...fromSynthetics].reduce((lowest, p) => (p.map1 > lowest.map1 ? p : lowest));
+}
+
+/** Create a strike statistic from a melee item: for use by NPCs and Hazards */
+function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
+    const { ability, traits, isMelee, isThrown } = item;
+    const { actor } = item;
+    if (!actor.isOfType("npc", "hazard")) {
+        throw ErrorPF2e("Attempted to create melee-item strike statistic for non-NPC/hazard");
+    }
+
+    // Conditions and Custom modifiers to attack rolls
+    const slug = item.slug ?? sluggify(item.name);
+    const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
+    const meleeOrRanged = isMelee ? "melee" : "ranged";
+
+    const domains = [
+        "attack",
+        "mundane-attack",
+        `${slug}-attack`,
+        `${item.id}-attack`,
+        `${unarmedOrWeapon}-attack-roll`,
+        `${meleeOrRanged}-attack-roll`,
+        "strike-attack-roll",
+        "attack-roll",
+        "all",
+    ];
+
+    if (actor.isOfType("npc")) {
+        domains.push(`${ability}-attack`, `${ability}-based`);
+    }
+
+    const { synthetics } = actor;
+    const modifiers: ModifierPF2e[] = [
+        new ModifierPF2e({
+            slug: "base",
+            label: "PF2E.ModifierTitle",
+            modifier: item.attackModifier,
+            adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, "base"),
+        }),
+    ];
+
+    modifiers.push(...extractModifiers(synthetics, domains));
+    modifiers.push(...StrikeAttackTraits.createAttackModifiers(item));
+    const notes = extractNotes(synthetics.rollNotes, domains);
+
+    // action image
+    const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics("action", 1);
+
+    const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
+    const additionalEffects = item.attackEffects.map((tag) => {
+        const label = attackEffects[tag] ?? actor.items.find((i) => (i.slug ?? sluggify(i.name)) === tag)?.name ?? tag;
+        return { tag, label };
+    });
+
+    const baseOptions = [...actor.getRollOptions(domains), ...item.traits];
+    // Legacy support for "melee", "ranged", and "thrown" roll options
+    if (isMelee) {
+        baseOptions.push("melee");
+    } else if (isThrown) {
+        baseOptions.push("ranged", "thrown");
+    } else {
+        baseOptions.push("ranged");
+    }
+
+    const statistic = new StatisticModifier(`${slug}-strike`, modifiers, baseOptions);
+    const traitObjects = Array.from(traits).map(
+        (t): TraitViewData => ({
+            name: t,
+            label: CONFIG.PF2E.npcAttackTraits[t] ?? t,
+            description: CONFIG.PF2E.traitsDescriptions[t],
+        })
+    );
+
+    const strike: NPCStrike = mergeObject(statistic, {
+        label: item.name,
+        type: "strike" as const,
+        glyph: actionGlyph,
+        description: item.description,
+        imageUrl,
+        sourceId: item.id,
+        attackRollType: item.isRanged ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee",
+        additionalEffects,
+        item,
+        weapon: item,
+        traits: traitObjects,
+        options: [],
+        variants: [],
+        success: "",
+        ready: true,
+        criticalSuccess: "",
+    });
+
+    strike.breakdown = strike.modifiers
+        .filter((m) => m.enabled)
+        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+        .join(", ");
+
+    // Add a damage roll breakdown
+    strike.damageBreakdown = Object.values(item.system.damageRolls).flatMap((roll) => {
+        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[roll.damageType as DamageType]);
+        return [`${roll.damage} ${damageType}`];
+    });
+
+    const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
+    const multipleAttackPenalty = calculateMAPs(item, { domains, options: baseOptions });
+    const sign = strike.totalModifier < 0 ? "" : "+";
+    const attackTrait = {
+        name: "attack",
+        label: CONFIG.PF2E.featTraits.attack,
+        description: CONFIG.PF2E.traitsDescriptions.attack,
+    };
+
+    strike.variants = [
+        null,
+        new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map1, MODIFIER_TYPE.UNTYPED),
+        new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
+    ].map((map) => {
+        const label = map
+            ? game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: map.modifier })
+            : `${strikeLabel} ${sign}${strike.totalModifier}`;
+        return {
+            label,
+            roll: async (params: RollParameters = {}): Promise<Rolled<CheckRoll> | null> => {
+                const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
+                const rollNotes = notes.concat(attackEffects);
+
+                params.options ??= [];
+                // Always add all weapon traits as options
+                const context = actor.getAttackRollContext({
+                    item,
+                    viewOnly: false,
+                    domains,
+                    options: new Set([...baseOptions, ...params.options, ...traits]),
+                });
+
+                // Check whether target is out of maximum range; abort early if so
+                if (context.self.item.isRanged && typeof context.target?.distance === "number") {
+                    const maxRange = item.maxRange ?? 10;
+                    if (context.target.distance > maxRange) {
+                        ui.notifications.warn("PF2E.Action.Strike.OutOfRange", { localize: true });
+                        return null;
+                    }
+                }
+
+                const otherModifiers = [map ?? [], context.self.modifiers].flat();
+                const checkName = game.i18n.format(
+                    item.isMelee ? "PF2E.Action.Strike.MeleeLabel" : "PF2E.Action.Strike.RangedLabel",
+                    { weapon: item.name }
+                );
+
+                const roll = await CheckPF2e.roll(
+                    new CheckModifier(checkName, strike, otherModifiers),
+                    {
+                        type: "attack-roll",
+                        actor: context.self.actor,
+                        item: context.self.item,
+                        target: context.target,
+                        domains,
+                        options: context.options,
+                        traits: [attackTrait],
+                        notes: rollNotes,
+                        dc: params.dc ?? context.dc,
+                        rollTwice: extractRollTwice(synthetics.rollTwice, domains, context.options),
+                        substitutions: extractRollSubstitutions(synthetics.rollSubstitutions, domains, context.options),
+                        dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
+                    },
+                    params.event
+                );
+
+                for (const rule of actor.rules.filter((r) => !r.ignored)) {
+                    await rule.afterRoll?.({
+                        roll,
+                        selectors: domains,
+                        domains,
+                        rollOptions: context.options,
+                    });
+                }
+
+                return roll;
+            },
+        };
+    });
+    strike.roll = strike.attack = strike.variants[0].roll;
+
+    const damageRoll =
+        (outcome: "success" | "criticalSuccess"): RollFunction =>
+        async (params: RollParameters = {}) => {
+            const domains = ["all", "strike-damage", "damage-roll"];
+            const context = actor.getDamageRollContext({
+                item,
+                viewOnly: false,
+                domains,
+                options: new Set(params.options ?? []),
+            });
+            // always add all weapon traits as options
+            const options = new Set([...context.options, ...traits, ...context.self.item.getRollOptions("item")]);
+
+            if (!context.self.item.dealsDamage) {
+                return ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
+            }
+
+            const damage = WeaponDamagePF2e.calculateStrikeNPC(
+                context.self.item,
+                context.self.actor,
+                [attackTrait],
+                deepClone(synthetics.statisticsModifiers),
+                deepClone(synthetics.modifierAdjustments),
+                deepClone(synthetics.damageDice),
+                1,
+                options,
+                synthetics.rollNotes,
+                synthetics.strikeAdjustments
+            );
+            if (!damage) throw ErrorPF2e("This weapon deals no damage");
+
+            const { self, target } = context;
+
+            await DamageRollPF2e.roll(
+                damage,
+                { type: "damage-roll", self, target, outcome, options, domains },
+                params.callback
+            );
+        };
+
+    strike.damage = damageRoll("success");
+    strike.critical = damageRoll("criticalSuccess");
+
+    return strike;
 }
 
 function calculateBaseMAP(item: ItemPF2e): MAPData {
@@ -82,4 +357,4 @@ interface MAPData {
     map2: number;
 }
 
-export { calculateMAPs, calculateRangePenalty, getRangeIncrement };
+export { calculateMAPs, calculateRangePenalty, strikeFromMeleeItem, getRangeIncrement, resetAndRerenderActors };

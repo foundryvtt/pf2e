@@ -1,6 +1,7 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
 import { RollInitiativeOptionsPF2e } from "@actor/data";
+import { resetAndRerenderActors } from "@actor/helpers";
 import { SKILL_DICTIONARY } from "@actor/values";
 import { ScenePF2e } from "@scene";
 import { LocalizePF2e } from "@system/localize";
@@ -132,15 +133,8 @@ class EncounterPF2e extends Combat {
 
     /** Rerun data preparation for participating actors and the scene, refresh perception */
     #resetActorAndSceneData(): void {
-        for (const actor of this.combatants.contents.flatMap((c) => c.actor ?? [])) {
-            actor.reset();
-            actor.sheet.render();
-        }
-
-        if (this.scene) {
-            this.scene.reset();
-            canvas.perception.update({ refreshVision: true }, true);
-        }
+        const actors = this.combatants.contents.flatMap((c) => c.actor ?? []);
+        resetAndRerenderActors(actors);
     }
 
     /* -------------------------------------------- */

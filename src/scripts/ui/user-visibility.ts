@@ -27,7 +27,7 @@ class UserVisibilityPF2e {
                 }
 
                 if (message?.target && whoseData === "target") {
-                    element.dataset.visibility = message.target.actor.hasPlayerOwner ?? true ? "all" : "gm";
+                    element.dataset.visibility = message.target.actor.hasPlayerOwner ? "all" : "gm";
                 }
             }
         }

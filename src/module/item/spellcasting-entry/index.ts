@@ -113,6 +113,11 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         }
     }
 
+    /** All spells associated with this spellcasting entry on the actor that should also be deleted */
+    override getLinkedItems() {
+        return this.actor?.itemTypes.spell.filter((i) => i.system.location.value === this.id) ?? [];
+    }
+
     /** Returns if the spell is valid to cast by this spellcasting entry */
     canCastSpell(spell: SpellPF2e, options: { origin?: PhysicalItemPF2e } = {}): boolean {
         // For certain collection-less modes, the spell must come from an item

@@ -13,8 +13,10 @@ declare global {
         /** Keep track of history so that CTRL+Z can undo changes */
         history: CanvasHistory<TObject>[];
 
-        /** Track the PlaceableObject on this layer which is currently being hovered upon */
-        protected hover: TObject | null;
+        /** Track the PlaceableObject on this layer which is currently hovered upon. */
+        get hover(): TObject | null;
+
+        set hover(object: TObject | null);
 
         /** Track the set of PlaceableObjects on this layer which are currently controlled by their id */
         protected _controlled: Record<string, TObject>;
