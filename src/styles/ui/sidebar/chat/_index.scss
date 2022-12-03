@@ -33,7 +33,6 @@
 }
 
 #chat-form textarea#chat-message {
-    background: none;
     @include glass;
     background-color: rgba(white, 0.5);
     border: none;
@@ -46,6 +45,16 @@
 .chat-message {
     @import "../../../reset";
     @import "action", "check", "damage", "reroll";
+
+    .whisper {
+        background-color: var(--blind-roll);
+        background-blend-mode: luminosity;
+    }
+
+    .blind {
+        background-color: #E3E3FF;
+        background-blend-mode: luminosity;
+    }
 
     > .message-header {
         align-items: center;
