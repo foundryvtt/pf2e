@@ -42,17 +42,6 @@
     {{/if}}
 </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.ActionCategoryLabel"}}</label>
-    <select name="system.actionCategory.value">
-        {{#select data.actionCategory.value}}
-            <option value=""></option>
-            {{#each categories as |name type|}}
-                <option value="{{type}}">{{localize name}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
 {{#if isFeat}}
     <div class="form-group">
         <label>{{localize "PF2E.Item.Feat.TakeMultiple.Label"}}</label>
