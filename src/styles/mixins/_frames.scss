@@ -1,12 +1,4 @@
-@mixin gold-border {
-    /* prettier-ignore */
-    box-shadow:
-        0 0 0 1px #9f725b,
-        0 0 0 2px var(--tertiary),
-        0 0 0 3px var(--gold-brown);
-}
-
-@mixin gold-border-alt-shadow {
+@mixin gold-border-shadow {
     /* prettier-ignore */
     border: none;
     margin: 2px;
@@ -16,7 +8,7 @@
         0 0 20px rgba(black, 0.8);
 }
 
-@mixin gold-border-alt {
+@mixin gold-border {
     /* prettier-ignore */
     border: none;
     margin: 2px;
@@ -25,24 +17,18 @@
         0 0 0 2px var(--gold-brown);
 }
 
-@mixin filigree($radius) {
-    box-shadow: var(--gold-and-glow), var(--glassy);
-    margin: 2px;
-    border-radius: $radius;
-}
-
 @mixin sheet {
     border: none;
     background-image: url("../assets/sheet/background.webp");
     background-size: cover;
-    @include gold-border-alt;
+    @include gold-border;
 }
 
 @mixin glass {
     border: none;
     border-radius: 3px;
     background: none;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(20, 20, 20, 0.60);
     box-shadow: var(--glassy);
 }
 
