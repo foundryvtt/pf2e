@@ -1,15 +1,47 @@
+@use 'sass:color';
+@import "chat-roll-details";
+
 #chat-log {
     display: flex;
     flex-direction: column;
+    margin-top: 1px;
+    margin-left: 5px;
 
     > .message {
         &:first-child {
-            margin-top: auto;
+            margin-top: 8px;
         }
     }
 }
 
-@import "chat-roll-details";
+// Chat messages can be popped out, .message is too general and applies to stuff in modules
+.message.chat-message {
+    @include sheet;
+    margin: 5px 3px 3px 3px;
+
+    .pf2e.chat-card .card-buttons button.hidden-to-others {
+        @include colored-button($secondary-color);
+    }
+
+    .pf2e.chat-card .card-buttons .spell-button button {
+        @include colored-button($primary-color);
+    }
+
+     .message-header {
+        line-height: normal;
+    }
+}
+
+#chat-form textarea#chat-message {
+    background: none;
+    @include glass;
+    background-color: rgba(white, 0.5);
+    border: none;
+    margin: 2px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    font-family: var(--font-primary);
+}
 
 .chat-message {
     @import "../../../reset";

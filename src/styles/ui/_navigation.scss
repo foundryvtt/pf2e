@@ -1,0 +1,62 @@
+/* ----------------------------------------- */
+/* Scene Navigation                          */
+/* ----------------------------------------- */
+
+nav#navigation {
+    color: var(--color-text-light-heading);
+
+    #nav-toggle {
+        @include glass;
+        transition: 0.25s;
+        flex: 0 0 32px;
+        height: 32px;
+    }
+
+    ol#scene-list {
+        li.nav-item {
+            @include glass;
+            transition: 0.25s;
+
+            &:hover {
+                background-color: rgb(177 177 177 / 50%);
+                color: black;
+
+                a, a:hover {
+                    text-shadow: 0 0 4px var(--color-text-light-highlight);
+                }
+            }
+
+            &.view {
+                @include glass;
+                background-color: var(--primary);
+                color: var(--color-text-light-highlight);
+
+                &:hover {
+                    color: var(--color-text-light-highlight);
+                    background-color: var(--primary-light);
+                    a, a:hover {
+                        text-shadow: 0 0 4px black;
+                    }
+                }
+            }
+
+            &.gm {
+                @include glass;
+                background-color: var(--secondary-dark);
+
+                &:hover,
+                &.view {
+                    color: var(--color-text-light-highlight);
+                    background-color: var(--secondary-light);
+                    a, a:hover {
+                        text-shadow: 0 0 4px black;
+                    }
+                }
+            }
+
+            &.active {
+                color: var(--color-text-light-highlight);
+            }
+        }
+    }
+}

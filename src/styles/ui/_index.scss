@@ -1,1 +1,49 @@
-@import "windows", "sidebar", "combat", "hover", "dialog", "icons", "token-hud", "traits";
+@import "windows", "sidebar", "combat", "hover", "dialog", "icons", "token-hud", "traits", "app-ui", "controls", "hotbar", "navigation", "notifications", "module-support";
+
+/* ----------------------------------------- */
+/* Sidebar                                   */
+/* ----------------------------------------- */
+
+#sidebar {
+    border: none;
+    border-radius: 6px 3px 3px 3px;
+
+    &.collapsed {
+        border-radius: 3px;
+
+        #sidebar-tabs .item.active {
+            border: none;
+        }
+    }
+
+    #sidebar-tabs {
+        --sidebar-tab-height: 20px;
+        --sidebar-tab-width: 20px;
+        border: none;
+        box-shadow: none;
+        margin: 0px;
+        margin-top: 1px;
+
+        .item {
+            border: none;
+            margin: 2px;
+
+            &.active {
+                border: none;
+                box-shadow: var(--gold-and-glow);
+                border-radius: 3px;
+                text-shadow: none;
+                background-color: var(--primary);
+            }
+        }
+    }
+
+    #chat-controls i.fas {
+        line-height: 24px; // center-aligns icons
+    }
+}
+
+::-webkit-scrollbar-thumb {
+    background: #E6D8A7;
+    border: 1px solid #98745F;
+}

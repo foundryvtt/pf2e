@@ -1,0 +1,23 @@
+/* ----------------------------------------- */
+/* Notifications                             */
+/* ----------------------------------------- */
+
+#notifications .notification {
+    @include glass;
+    text-shadow: var(--pf2e-shadow-is-dark);
+
+    &.info {
+        background-color: var(--secondary);
+    }
+
+    &.error {
+        background-color: var(--primary);
+    }
+
+    &.warning,
+    &.alert {
+        background-color: #ECBF41;
+        color: black;
+        text-shadow: var(--pf2e-shadow-is-light);
+    }
+}

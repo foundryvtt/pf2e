@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 /* ----------------------------------------- */
 /* Color definitions                         */
 /* ----------------------------------------- */
@@ -16,6 +18,7 @@ $tertiary-color: #E9D7A1 !default; /* compliments the primary color, usually use
 
 $alt-color: #786452 !default; /* for all other uses */
 $alt-dark: #443730 !default;
+$gold-brown: #956d58 !default;
 $background-color: #F8F4F1 !default;
 $background-dark: darken($background-color, 10);
 $sub-color: #605856 !default;
@@ -65,13 +68,18 @@ $adjusted-lower: #cc3311 !default;
 :root {
   /* Global */
   --primary: #{$primary-color};
+  --primary-light: #{color.scale($primary-color, $lightness: +20%)};
+  --primary-dark: #{color.scale($primary-color, $lightness: -20%)};
   --secondary: #{$secondary-color};
+  --secondary-light: #{color.scale($secondary-color, $lightness: +20%)};
+  --secondary-dark: #{color.scale($secondary-color, $lightness: -40%)};
   --tertiary: #{$tertiary-color};
 
   --alt: #{$alt-color};
   --alt-dark: #{$alt-dark};
   --bg: #{$background-color};
   --bg-dark: #{$background-dark};
+  --gold-brown: #{$gold-brown};
   --sub: #{$sub-color};
   --color-disabled: #{$light-gray-color};
 
@@ -105,4 +113,22 @@ $adjusted-lower: #cc3311 !default;
   /* Sidebar */
   --sidebar-label: var(--tertiary-dark);
   --sidebar-title: var(--tertiary);
+
+  /* Box shadows */
+  /* prettier-ignore */
+  --gold-and-glow: 0 0 0 1px var(--tertiary),
+                   0 0 0 2px var(--gold-brown), 
+                   0 0 3px rgba(255, 255, 255, .5) inset;
+  --glassy: 0px 0px 2px black, 
+            0px 0px 5px black, 
+            0px 0px 4px hsla(0, 0%, 100%, 50%) inset;
+}
+
+/* ----------------------------------------- */
+/* Overwrite Foundry colors                  */
+/* ----------------------------------------- */
+
+:root {
+  --color-border-highlight: var(--tertiary);
+  --color-border-highlight-alt: var(--tertiary-dark);
 }

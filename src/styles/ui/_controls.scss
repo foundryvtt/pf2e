@@ -1,0 +1,37 @@
+/* ----------------------------------------- */
+/* Controls                                  */
+/* ----------------------------------------- */
+
+nav#controls {
+    padding-top: 5px;
+
+    ol.control-tools {
+        &.main-control {
+            margin-right: 8px;
+        }
+        li.control-tool,
+        li.scene-control {
+            @include glass;
+            $transitionTime: 0.15s;
+            transition: background-color $transitionTime ease-in-out, border $transitionTime ease-in-out, color $transitionTime ease-in-out, box-shadow $transitionTime ease-in-out;
+            border-radius: 3px;
+            margin-bottom: 8px;
+
+            &.active, &:hover {
+                @include glass;
+                background-color: var(--primary);
+            }
+            
+            &.toggle {
+                @include glass;
+                background-color: var(--secondary-dark);
+
+                &.active, &:hover {
+                    @include glass;
+                    background-color: var(--secondary-light);
+                }
+
+            }
+        }
+    }
+}
