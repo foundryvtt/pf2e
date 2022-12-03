@@ -284,19 +284,24 @@ export class MigrationRunner extends MigrationRunnerBase {
         // Migrate tokens and synthetic actors
         for (const scene of game.scenes) {
             for (const token of scene.tokens) {
-                const actor = token.actor;
-                if (actor) {
-                    const wasSuccessful = !!(await this.migrateSceneToken(migrations, token));
-                    if (!wasSuccessful) continue;
+                const { actor } = token;
+                if (!actor) continue;
 
-                    if (actor.isToken) {
-                        const updated = await this.migrateWorldActor(migrations, actor);
-                        if (updated) {
-                            try {
-                                await actor.update(updated);
-                            } catch (error) {
-                                console.warn(error);
-                            }
+                const wasSuccessful = !!(await this.migrateSceneToken(migrations, token));
+                if (!wasSuccessful) continue;
+
+                // Only migrate if the synthetic actor has replaced migratable data
+                const hasMigratableData =
+                    !!token._source.actorData.flags?.pf2e ||
+                    Object.keys(token._source.actorData).some((k) => ["items", "system"].includes(k));
+
+                if (actor.isToken && hasMigratableData) {
+                    const updated = await this.migrateWorldActor(migrations, actor);
+                    if (updated) {
+                        try {
+                            await actor.update(updated);
+                        } catch (error) {
+                            console.warn(error);
                         }
                     }
                 }
