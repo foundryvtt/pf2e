@@ -291,41 +291,19 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             }
 
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-remove]") ?? []) {
-                element.addEventListener("click", (event) => {
+                element.addEventListener("click", async (event) => {
                     const itemId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
                     const item = this.actor.items.get(itemId, { strict: true });
 
+                    const title = game.i18n.localize("PF2E.DeleteSpellcastEntryTitle");
+                    const content = await renderTemplate(
+                        "systems/pf2e/templates/actors/delete-spellcasting-dialog.html"
+                    );
+
                     // Render confirmation modal dialog
-                    renderTemplate("systems/pf2e/templates/actors/delete-spellcasting-dialog.html").then((html) => {
-                        new Dialog({
-                            title: "Delete Confirmation",
-                            content: html,
-                            buttons: {
-                                Yes: {
-                                    icon: '<i class="fa fa-check"></i>',
-                                    label: "Yes",
-                                    callback: async () => {
-                                        console.debug("PF2e System | Deleting Spell Container: ", item.name);
-                                        // Delete all child objects
-                                        const itemsToDelete: string[] = [];
-                                        for (const item of this.actor.itemTypes.spell) {
-                                            if (item.system.location.value === itemId) {
-                                                itemsToDelete.push(item.id);
-                                            }
-                                        }
-                                        // Delete item container
-                                        itemsToDelete.push(item.id);
-                                        await this.actor.deleteEmbeddedDocuments("Item", itemsToDelete);
-                                    },
-                                },
-                                cancel: {
-                                    icon: '<i class="fas fa-times"></i>',
-                                    label: "Cancel",
-                                },
-                            },
-                            default: "Yes",
-                        }).render(true);
-                    });
+                    if (await Dialog.confirm({ title, content })) {
+                        item.delete();
+                    }
                 });
             }
         }
