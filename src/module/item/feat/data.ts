@@ -37,9 +37,6 @@ export interface FeatSystemSource extends ItemSystemSource, ItemLevelData {
     actionType: {
         value: ActionType;
     };
-    actionCategory: {
-        value: string;
-    };
     actions: {
         value: OneToThree | null;
     };
