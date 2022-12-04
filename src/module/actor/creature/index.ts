@@ -696,7 +696,7 @@ abstract class CreaturePF2e extends ActorPF2e {
         return preparedSenses;
     }
 
-    prepareSpeed(movementType: "land"): CreatureSpeeds;
+    prepareSpeed(movementType: "land"): this["system"]["attributes"]["speed"];
     prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null {
