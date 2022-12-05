@@ -1804,7 +1804,7 @@ class CharacterPF2e extends CreaturePF2e {
             action[method] = async (params: StrikeRollParams = {}): Promise<string | void> => {
                 const domains = ["all", "strike-damage", "damage-roll"];
                 params.options ??= [];
-                const context = this.getDamageRollContext({
+                const context = this.getStrikeRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
                     domains,
@@ -1895,7 +1895,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Possibly modify this weapon depending on its */
-    protected override getStrikeRollContext<I extends AttackItem>(
+    override getStrikeRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
     ): StrikeRollContext<this, I> {
         const context = super.getStrikeRollContext(params);
