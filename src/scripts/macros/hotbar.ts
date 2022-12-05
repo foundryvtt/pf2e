@@ -84,7 +84,7 @@ export async function rollActionMacro(actorId: string, _actionIndex: number, act
         actor,
         strike,
         strikeIndex: strikes.indexOf(strike),
-        strikeDescription: await game.pf2e.TextEditor.enrichHTML(game.i18n.localize(strike.description), {
+        strikeDescription: await TextEditor.enrichHTML(game.i18n.localize(strike.description), {
             async: true,
         }),
     };

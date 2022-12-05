@@ -155,7 +155,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
         const description = isItemSystemData(chatData)
             ? chatData.description.value
-            : await game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
+            : await TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
 
         $div.append(propertiesElem, levelPriceLabel, `<div class="item-description">${description}</div>`);
         UserVisibilityPF2e.process($div);
