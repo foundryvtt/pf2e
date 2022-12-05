@@ -1,5 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e, MeleePF2e } from "@item";
+import { MigrationList, MigrationRunner } from "@module/migration";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -12,6 +14,7 @@ import { CheckPF2e, CheckRoll } from "@system/check";
 import { DamageType, WeaponDamagePF2e } from "@system/damage";
 import { DamageRollPF2e, RollParameters } from "@system/rolls";
 import { ErrorPF2e, sluggify } from "@util";
+import { ActorSourcePF2e } from "./data";
 import { RollFunction, TraitViewData } from "./data/base";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "./modifiers";
 import { NPCStrike } from "./npc/data";
@@ -49,6 +52,22 @@ async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<voi
             }
         }
     }
+}
+
+async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<ActorSourcePF2e> {
+    if (Object.keys(source).length === 2 && "name" in source && "type" in source) {
+        // The item consists of only a `name` and `type`: set schema version and skip
+        source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
+    }
+
+    const lowestSchemaVersion = Math.min(
+        source.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
+        ...(source.items ?? []).map((i) => i!.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION)
+    );
+    const actor = new ActorPF2e(source);
+    await MigrationRunner.ensureSchemaVersion(actor, MigrationList.constructFromVersion(lowestSchemaVersion));
+
+    return actor.toObject();
 }
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
@@ -357,4 +376,11 @@ interface MAPData {
     map2: number;
 }
 
-export { calculateMAPs, calculateRangePenalty, strikeFromMeleeItem, getRangeIncrement, resetAndRerenderActors };
+export {
+    calculateMAPs,
+    calculateRangePenalty,
+    getRangeIncrement,
+    migrateActorSource,
+    resetAndRerenderActors,
+    strikeFromMeleeItem,
+};
