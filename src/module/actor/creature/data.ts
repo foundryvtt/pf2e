@@ -128,7 +128,12 @@ interface CreatureTraitsData extends BaseTraitsData<CreatureTrait>, Omit<Creatur
     languages: ValuesList<Language>;
 }
 
-type SkillData = StatisticModifier & AbilityBasedStatistic & Rollable;
+type SkillData = StatisticModifier &
+    AbilityBasedStatistic &
+    Rollable & {
+        lore?: boolean;
+        visible?: boolean;
+    };
 
 /** The full save data for a character; including its modifiers and other details */
 type SaveData = StatisticTraceData & AbilityBasedStatistic & { saveDetail?: string };
