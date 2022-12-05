@@ -998,13 +998,6 @@ class CharacterPF2e extends CreaturePF2e {
                 createAbilityModifier({ actor: this, ability: skill.ability, domains }),
                 createProficiencyModifier({ actor: this, rank: skill.rank, domains }),
             ];
-            for (const modifier of modifiers) {
-                modifier.adjustments = extractModifierAdjustments(
-                    synthetics.modifierAdjustments,
-                    domains,
-                    modifier.slug
-                );
-            }
 
             // Indicate that the strength requirement of this actor's armor is met
             if (typeof wornArmor?.strength === "number" && this.system.abilities.str.value >= wornArmor.strength) {
@@ -1116,15 +1109,8 @@ class CharacterPF2e extends CreaturePF2e {
             const modifiers = [
                 createAbilityModifier({ actor: this, ability: "int", domains }),
                 createProficiencyModifier({ actor: this, rank, domains }),
+                ...extractModifiers(synthetics, domains),
             ];
-            for (const modifier of modifiers) {
-                modifier.adjustments = extractModifierAdjustments(
-                    synthetics.modifierAdjustments,
-                    domains,
-                    modifier.slug
-                );
-            }
-            modifiers.push(...extractModifiers(synthetics, domains));
 
             const loreSkill = systemData.skills[shortForm];
             const stat = mergeObject(

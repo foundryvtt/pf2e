@@ -47,6 +47,7 @@ import {
     LabeledSpeed,
     MovementType,
     SenseData,
+    SkillData,
     UnlabeledSpeed,
     VisionLevel,
     VisionLevels,
@@ -59,11 +60,12 @@ import { SIZE_TO_REACH } from "./values";
 abstract class CreaturePF2e extends ActorPF2e {
     /** Skill `Statistic`s for the creature */
     get skills(): CreatureSkills {
-        return Object.entries(this.system.skills).reduce((current, [shortForm, skill]) => {
+        return Object.entries(this.system.skills).reduce((current, [shortForm, skill]: [string, SkillData]) => {
             if (!objectHasKey(this.system.skills, shortForm)) return current;
             const longForm = skill.slug;
             const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.slug;
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
+            if (skill.lore) domains.push("lore-skill-check");
 
             current[longForm] = new Statistic(this, {
                 slug: longForm,
