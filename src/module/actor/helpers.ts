@@ -254,7 +254,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
         (outcome: "success" | "criticalSuccess"): RollFunction =>
         async (params: RollParameters = {}) => {
             const domains = ["all", "strike-damage", "damage-roll"];
-            const context = actor.getDamageRollContext({
+            const context = actor.getStrikeRollContext({
                 item,
                 viewOnly: false,
                 domains,

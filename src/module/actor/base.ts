@@ -19,7 +19,6 @@ import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
-import { eventToRollParams } from "@scripts/sheet-util";
 import { Statistic } from "@system/statistic";
 import { ErrorPF2e, isObject, objectHasKey, traitSlugToObject, tupleHasValue } from "@util";
 import type { CreaturePF2e } from "./creature";
@@ -604,9 +603,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /*  Rolls                                       */
     /* -------------------------------------------- */
 
-    protected getStrikeRollContext<I extends AttackItem>(
-        params: StrikeRollContextParams<I>
-    ): StrikeRollContext<this, I> {
+    getStrikeRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): StrikeRollContext<this, I> {
         const targetToken = Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard")) ?? null;
 
         const selfToken =
@@ -727,20 +724,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                   }
                 : null,
         };
-    }
-
-    getDamageRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): StrikeRollContext<this, I> {
-        return this.getStrikeRollContext(params);
-    }
-
-    /**
-     * Roll a Save Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus.
-     * @deprecated
-     */
-    rollSave(event: JQuery.TriggeredEvent, saveType: SaveType): void {
-        console.warn("ActorPF2e#rollSaves is deprecated: use actor.saves[saveType].check.roll()");
-        this.saves?.[saveType]?.check.roll(eventToRollParams(event));
     }
 
     /**
