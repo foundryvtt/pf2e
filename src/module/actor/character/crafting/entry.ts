@@ -1,5 +1,5 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import {ConsumablePF2e, ItemPF2e} from "@item";
 import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry";
 import { PredicatePF2e } from "@system/predication";
 import { CraftingFormula } from "./formula";
@@ -83,18 +83,30 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
     get reagentCost(): number {
         if (!this.isAlchemical) return 0;
 
-        const fieldDiscoveryQuantity = this.preparedCraftingFormulas
-            .filter((f) => (this.fieldDiscovery && f.item.traits.has(this.fieldDiscovery)) || f.isSignatureItem)
-            .reduce((sum, current) => sum + current.quantity, 0);
+        let ammunitionQuantity = 0;
+        let fieldDiscoveryQuantity = 0;
+        let otherQuantity = 0;
 
-        const otherQuantity = this.preparedCraftingFormulas
-            .filter((f) => !f.item.traits.has(this.fieldDiscovery!) && !f.isSignatureItem)
-            .reduce((sum, current) => sum + current.quantity, 0);
+        this.preparedCraftingFormulas.forEach((f) => {
+            if (
+                this.selector === "munitionsCrafter" &&
+                f.item instanceof ConsumablePF2e &&
+                f.item.isAmmunition &&
+                !f.item.isMagical
+            ) {
+                ammunitionQuantity += f.quantity;
+            } else if ((this.fieldDiscovery && f.item.traits.has(this.fieldDiscovery)) || f.isSignatureItem) {
+                fieldDiscoveryQuantity += f.quantity;
+            } else {
+                otherQuantity += f.quantity;
+            }
+        });
 
         const fieldDiscoveryBatchSize = this.fieldDiscoveryBatchSize || 3;
         const batchSize = this.batchSize || 2;
 
         return (
+            Math.ceil(ammunitionQuantity / 10) +
             Math.floor(fieldDiscoveryQuantity / fieldDiscoveryBatchSize) +
             Math.ceil(((fieldDiscoveryQuantity % fieldDiscoveryBatchSize) + otherQuantity) / batchSize)
         );
