@@ -1,0 +1,50 @@
+{
+    "_id": "PaS2kwv4vueI4PC7",
+    "img": "systems/pf2e/icons/effects/crtical-hit-fumble.webp",
+    "name": "Effect: +2 status bonus to saving throws against spells for 1 min",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p><strong>Effect applied by Critical Hit/Fumble Deck</strong><br />+2 status bonus to saving throws against spells for 1 min</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "status bonus to saving throws vs spells",
+                "predicate": [
+                    "spell"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}

@@ -1,0 +1,51 @@
+{
+    "_id": "IUvO6CatanKAgmNr",
+    "img": "systems/pf2e/icons/effects/crtical-hit-fumble.webp",
+    "name": "Effect: +1 circumstance bonus to attack rolls for 3 rounds",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p><strong>Effect applied by Critical Hit/Fumble Deck<br /></strong>+1 circumstance bonus to attack rolls for 3 rounds but Flat-Footed</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 3
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "circumstance bonus to attack rolls",
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Flat-Footed"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}

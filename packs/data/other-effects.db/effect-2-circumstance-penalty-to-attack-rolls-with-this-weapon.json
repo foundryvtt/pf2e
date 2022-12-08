@@ -1,0 +1,57 @@
+{
+    "_id": "UZabiyynJWuUblMk",
+    "img": "systems/pf2e/icons/effects/crtical-hit-fumble.webp",
+    "name": "Effect: -2 circumstance penalty to attack rolls with this weapon",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p><strong>Effect applied by Critical Hit/Fumble Deck<br /></strong>-2 circumstance penalty to attack rolls with this weapon</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "circumstance penalty to attack rolls with this weapon",
+                "selector": "{item|flags.pf2e.rulesSelections.effect2CircumstancePenaltyToAttackRollsWithThisWeapon}-attack",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}

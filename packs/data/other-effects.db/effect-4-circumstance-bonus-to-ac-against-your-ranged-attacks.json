@@ -1,0 +1,57 @@
+{
+    "_id": "pbKvPM4cnmGTkDiZ",
+    "img": "systems/pf2e/icons/effects/crtical-hit-fumble.webp",
+    "name": "Effect: +4 circumstance bonus to AC against your ranged attacks",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p><strong>Effect applied by Critical Hit/Fumble Deck<br /></strong> Cover profides +4 circumstance bonus to AC against your ranged attacks</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "circumstance bonus to AC vs your ranged attacks",
+                "predicate": [
+                    "overcompensate-effect"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Has cover from target of Overcompensate fumble effect",
+                "option": "overcompensate-effect",
+                "toggleable": true
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}
