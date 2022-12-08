@@ -45,6 +45,7 @@ class CheckPF2e {
         // Eventually the event parameter will go away entirely
         if (event) mergeObject(context, eventToRollParams(event));
         context.skipDialog ??= !game.user.settings.showRollDialogs;
+        context.createMessage ??= true;
 
         // System code must pass a set, but macros and modules may instead pass an array
         if (Array.isArray(context.options)) context.options = new Set(context.options);
@@ -240,7 +241,7 @@ class CheckPF2e {
 
             const speaker = ChatMessagePF2e.getSpeaker({ actor: context.actor, token: context.token });
             const { rollMode } = contextFlag;
-            const create = context.createMessage ?? true;
+            const create = context.createMessage;
 
             return roll.toMessage({ speaker, flavor, flags }, { rollMode, create }) as MessagePromise;
         })();
