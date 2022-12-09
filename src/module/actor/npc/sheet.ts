@@ -372,31 +372,6 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
             const chatData = await item.getChatData();
             const traits = chatData.traits ?? [];
 
-            // Create trait with the type of action
-            const systemData = itemData.system;
-            const hasType = systemData.actionType && systemData.actionType.value;
-
-            if (hasType) {
-                const configTraitDescriptions = CONFIG.PF2E.traitsDescriptions;
-                const configAttackTraits = CONFIG.PF2E.npcAttackTraits;
-
-                const actionTrait = systemData.actionType.value;
-                const label = objectHasKey(configAttackTraits, actionTrait)
-                    ? configAttackTraits[actionTrait]
-                    : actionTrait.charAt(0).toUpperCase() + actionTrait.slice(1);
-                const description = objectHasKey(configTraitDescriptions, actionTrait)
-                    ? configTraitDescriptions[actionTrait]
-                    : "";
-
-                const trait = {
-                    label,
-                    description,
-                    value: "",
-                };
-
-                traits.splice(0, 0, trait);
-            }
-
             const actionType = item.actionCost?.type || "passive";
             if (objectHasKey(actions, actionType)) {
                 actions[actionType].actions.push({
