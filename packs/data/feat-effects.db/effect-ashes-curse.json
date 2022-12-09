@@ -104,6 +104,21 @@
                 ],
                 "type": "fire",
                 "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:minor",
+                            "oracular-curse:stage:moderate",
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "selector": "land-speed",
+                "value": -10
             }
         ],
         "source": {
