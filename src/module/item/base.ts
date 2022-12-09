@@ -411,7 +411,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
             const items = data.map((source) => {
                 if (!(context.keepId || context.keepEmbeddedIds)) {
-                    delete source._id; // Allow a random ID to be set by rule elements, which may toggle on `keepId`
+                    source._id = randomID();
                 }
                 return new ItemPF2e(source, { parent: actor }) as Embedded<ItemPF2e>;
             });
