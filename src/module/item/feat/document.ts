@@ -116,10 +116,9 @@ class FeatPF2e extends ItemPF2e {
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
-        const properties = [
-            `Level ${systemData.level.value || 0}`,
-            systemData.actionType.value ? CONFIG.PF2E.actionTypes[systemData.actionType.value] : null,
-        ].filter((p) => p);
+        const actionType = this.actionCost?.type ?? "passive";
+        const levelLabel = game.i18n.format("PF2E.LevelN", { level: this.level });
+        const properties = [levelLabel, CONFIG.PF2E.actionTypes[actionType]];
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
         return this.processChatData(htmlOptions, { ...systemData, properties, traits });
     }
