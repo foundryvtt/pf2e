@@ -3,7 +3,6 @@ import { CharacterSkillData } from "@actor/character/data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActionDefaultOptions } from "@system/action-macros";
 import { LocalizePF2e } from "@system/localize";
-import { RollDataPF2e } from "@system/rolls";
 
 export function encouragingWords(options: ActionDefaultOptions): void {
     const translations = LocalizePF2e.translations.PF2E.Actions.EncouragingWords;
@@ -28,7 +27,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         dip.roll({
             dc: dc,
             options: options,
-            callback: async (roll: Rolled<Roll<RollDataPF2e>>) => {
+            callback: async (roll: Rolled<Roll>) => {
                 let healFormula: string | undefined, successLabel: string | undefined;
                 const degreeOfSuccess = roll.data.degreeOfSuccess ?? 0;
 

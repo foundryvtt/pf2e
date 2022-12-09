@@ -6,7 +6,7 @@ import { DamageCategory, DamageCategoryRenderData, DamageRollRenderData, DamageT
 import { DAMAGE_TYPE_ICONS } from "./values";
 import { DamageTemplate } from "./weapon";
 
-class DamageRoll extends Roll<DamageRollDataPF2e> {
+class DamageRoll extends Roll {
     roller: UserPF2e | null;
 
     override get formula(): string {
@@ -107,6 +107,10 @@ class DamageRoll extends Roll<DamageRollDataPF2e> {
         if (this._evaluated) this._formula = this.formula;
         return super.render(chatOptions);
     }
+}
+
+interface DamageRoll {
+    options: DamageRollDataPF2e;
 }
 
 interface DamageRollDataPF2e extends RollDataPF2e {

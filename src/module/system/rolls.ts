@@ -8,7 +8,7 @@ import { ModifierPF2e } from "../actor/modifiers";
 import { RollTwiceOption } from "./check";
 import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
 
-interface RollDataPF2e extends RollData {
+interface RollDataPF2e extends RollOptions {
     rollerId?: string;
     totalModifier?: number;
     degreeOfSuccess?: ZeroToThree;

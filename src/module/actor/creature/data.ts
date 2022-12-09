@@ -17,7 +17,8 @@ import { AbilityString, ActorAlliance, SaveType, SkillAbbreviation, SkillLongFor
 import type { CREATURE_ACTOR_TYPES } from "@actor/values";
 import { LabeledNumber, Size, ValueAndMax, ValuesList, ZeroToThree, ZeroToTwo } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
-import { RollDataPF2e, RollParameters } from "@system/rolls";
+import { CheckRoll } from "@system/check";
+import { RollParameters } from "@system/rolls";
 import { Statistic, StatisticTraceData } from "@system/statistic";
 import type { CreaturePF2e } from ".";
 import { CreatureSensePF2e, SenseAcuity, SenseType } from "./sense";
@@ -201,7 +202,7 @@ interface InitiativeRollParams extends RollParameters {
 
 interface InitiativeRollResult {
     combatant: CombatantPF2e;
-    roll: Rolled<Roll<RollDataPF2e>>;
+    roll: Rolled<CheckRoll>;
 }
 
 type CreatureInitiative = InitiativeData &
