@@ -26,14 +26,14 @@ declare global {
      * // The total resulting from the roll
      * console.log(r.total);    // 22
      */
-    class Roll<TOptions extends RollData = RollData> {
-        constructor(formula: string, data?: Record<string, unknown>, options?: Partial<TOptions>);
+    class Roll {
+        constructor(formula: string, data?: Record<string, unknown>, options?: RollOptions);
 
         /** The original provided data object which substitutes into attributes of the roll formula */
         data: Record<string, unknown>;
 
         /** Options which modify or describe the Roll */
-        options: TOptions;
+        options: RollOptions;
 
         /** The identified terms of the Roll */
         terms: RollTerm[];
@@ -65,7 +65,7 @@ declare global {
          * @param data Provided roll data
          * @returns The prepared data object
          */
-        protected _prepareData(data: TOptions): TOptions;
+        protected _prepareData(data: Record<string, unknown>): Record<string, unknown>;
 
         /* -------------------------------------------- */
         /*  Roll Attributes                             */
@@ -168,7 +168,7 @@ declare global {
          * @param [options={}] Additional options which modify or describe this Roll
          * @return The constructed Roll instance
          */
-        static create<T extends RollData>(formula: string, data?: T, options?: Record<string, unknown>): Roll;
+        static create<T extends RollOptions>(formula: string, data?: T, options?: Record<string, unknown>): Roll;
 
         /**
          * Transform an array of RollTerm objects into a cleaned string formula representation.
@@ -216,7 +216,7 @@ declare global {
          * @param data    A data object used to substitute for attributes in the formula
          * @returns A parsed array of RollTerm instances
          */
-        static parse<T extends object>(formula: string, data: T): RollTerm[];
+        static parse(formula: string, data: object): RollTerm[];
 
         /**
          * Replace referenced data attributes in the roll formula with values from the provided data.
@@ -336,10 +336,13 @@ declare global {
 
         /**
          * Render a Roll instance to HTML
-         * @param [options={}] Options which affect how the Roll is rendered
+         * @param [options={}]              Options which affect how the Roll is rendered
+         * @param [options.flavor]          Flavor text to include
+         * @param [options.template]        A custom HTML template path
+         * @param [options.isPrivate=false] Is the Roll displayed privately?
          * @returns The rendered HTML template as a string
          */
-        render(chatOptions?: RollRenderOptions): Promise<string>;
+        render(options?: RollRenderOptions): Promise<string>;
 
         /**
          * Transform a Roll instance into a ChatMessage, displaying the roll result.
@@ -397,7 +400,7 @@ declare global {
          * @param data   Unpacked data representing the Roll
          * @return A reconstructed Roll instance
          */
-        static fromData<T extends object>(data: T): Roll<T>;
+        static fromData<T extends Roll>(this: ConstructorOf<T>, data: RollJSON): T;
 
         /**
          * Recreate a Roll instance using a provided JSON string
@@ -419,30 +422,21 @@ declare global {
          * const roll = Roll.fromTerms([t1, plus, t2]);
          * roll.formula; // 4d8 + 8
          */
-        static fromTerms<T extends Roll>(
-            this: ConstructorOf<T>,
-            terms: RollTerm[],
-            options?: Record<string, unknown>
-        ): T;
+        static fromTerms<T extends Roll>(this: ConstructorOf<T>, terms: RollTerm[], options?: RollOptions): T;
     }
 
-    interface RollData {
-        class?: string;
-        options?: RollData;
-        dice?: DiceTermData[];
-        formula?: string;
-        terms?: RollTermData[];
-        total?: number | undefined;
-        evaluated?: boolean;
-    }
+    type RollOptions = {
+        [key: string]: unknown;
+        flavor?: string;
+    };
 
     interface RollJSON {
         class: string;
         options: Record<string, unknown>;
-        data?: RollData;
+        data?: RollOptions;
         dice: DiceTerm[];
         formula: string;
-        terms: RollTerm[];
+        terms: RollTerm[] | RollTermData[];
         total?: number;
         evaluated: boolean;
     }

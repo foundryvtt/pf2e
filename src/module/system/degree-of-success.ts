@@ -1,7 +1,7 @@
 import { DCSlug } from "@actor/types";
 import { ZeroToThree } from "@module/data";
+import { CheckRoll } from "./check";
 import { PredicatePF2e } from "./predication";
-import { RollDataPF2e } from "./rolls";
 
 /** Get the degree of success from a roll and a difficulty class */
 class DegreeOfSuccess {
@@ -24,7 +24,7 @@ class DegreeOfSuccess {
     readonly dc: CheckDC;
 
     constructor(
-        roll: Rolled<Roll<RollDataPF2e>> | RollBrief,
+        roll: Rolled<CheckRoll> | RollBrief,
         dc: CheckDC | number,
         dosAdjustments: DegreeAdjustmentsRecord | null = null
     ) {
