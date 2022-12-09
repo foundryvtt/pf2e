@@ -13,7 +13,7 @@ import {
 import { CheckPF2e, CheckRoll } from "@system/check";
 import { DamageType, WeaponDamagePF2e } from "@system/damage";
 import { DamageRollPF2e, RollParameters } from "@system/rolls";
-import { ErrorPF2e, sluggify } from "@util";
+import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
 import { ActorSourcePF2e } from "./data";
 import { RollFunction, TraitViewData } from "./data/base";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "./modifiers";
@@ -130,9 +130,6 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     modifiers.push(...StrikeAttackTraits.createAttackModifiers(item));
     const notes = extractNotes(synthetics.rollNotes, domains);
 
-    // action image
-    const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics("action", 1);
-
     const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
     const additionalEffects = item.attackEffects.map((tag) => {
         const label = attackEffects[tag] ?? actor.items.find((i) => (i.slug ?? sluggify(i.name)) === tag)?.name ?? tag;
@@ -161,9 +158,9 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     const strike: NPCStrike = mergeObject(statistic, {
         label: item.name,
         type: "strike" as const,
-        glyph: actionGlyph,
+        glyph: getActionGlyph({ type: "action", value: 1 }),
         description: item.description,
-        imageUrl,
+        imageUrl: getActionIcon({ type: "action", value: 1 }),
         sourceId: item.id,
         attackRollType: item.isRanged ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee",
         additionalEffects,
