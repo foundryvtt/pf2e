@@ -34,7 +34,7 @@ type ItemTrait = ActionTrait | CreatureTrait | PhysicalItemTrait | NPCAttackTrai
 type ActionType = keyof ConfigPF2e["PF2E"]["actionTypes"];
 
 interface ActionCost {
-    type: ActionType;
+    type: Exclude<ActionType, "passive">;
     value: OneToThree | null;
 }
 
