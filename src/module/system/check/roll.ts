@@ -1,5 +1,5 @@
 import { UserPF2e } from "@module/user";
-import { DegreeIndex } from "@system/degree-of-success";
+import { DegreeOfSuccessIndex } from "@system/degree-of-success";
 import { RollDataPF2e } from "@system/rolls";
 
 class CheckRoll extends Roll {
@@ -18,7 +18,7 @@ class CheckRoll extends Roll {
         this.roller = game.users.get(this.options.rollerId ?? "") ?? null;
     }
 
-    get degreeOfSuccess(): DegreeIndex | null {
+    get degreeOfSuccess(): DegreeOfSuccessIndex | null {
         return this.options.degreeOfSuccess ?? null;
     }
 }

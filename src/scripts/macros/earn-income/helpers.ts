@@ -3,7 +3,7 @@ import { CoinsPF2e } from "@item/physical/helpers";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToFour } from "@module/data";
 import { calculateDC } from "@module/dc";
-import { DegreeIndex, DEGREE_OF_SUCCESS_STRINGS, RollBrief } from "@system/degree-of-success";
+import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS_STRINGS, RollBrief } from "@system/degree-of-success";
 import { Statistic } from "@system/statistic";
 import { earnIncome, EarnIncomeResult } from "./calculate";
 
@@ -17,12 +17,12 @@ function isExperiencedProfessional(actor: CharacterPF2e) {
     return actor.itemTypes.feat.some((i) => i.slug === "experienced-professional");
 }
 
-function degreeOfSuccessLabel(degreeIndex: DegreeIndex): string {
+function degreeOfSuccessLabel(degreeIndex: DegreeOfSuccessIndex): string {
     const degreeSlug = DEGREE_OF_SUCCESS_STRINGS[degreeIndex];
     return game.i18n.localize(`PF2E.Check.Result.Degree.Check.${degreeSlug}`);
 }
 
-function coinsToString(coins: CoinsPF2e, degreeOfSuccess: DegreeIndex): string {
+function coinsToString(coins: CoinsPF2e, degreeOfSuccess: DegreeOfSuccessIndex): string {
     if (degreeOfSuccess === 0) {
         return "none";
     } else {
