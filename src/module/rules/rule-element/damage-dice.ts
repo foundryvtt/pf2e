@@ -109,18 +109,20 @@ class DamageDiceRuleElement extends RuleElementPF2e {
             }
 
             const damageType = this.resolveInjectedProperties(this.damageType);
+            if (damageType !== null && !setHasElement(DAMAGE_TYPES, damageType)) {
+                this.failValidation(`Unrecognized damage type: ${damageType}`);
+                return null;
+            }
 
             if (this.override) {
                 this.override.damageType &&= this.resolveInjectedProperties(this.override.damageType);
                 if ("damageType" in this.override && !setHasElement(DAMAGE_TYPES, this.override.damageType)) {
                     this.failValidation("Unrecognized damage type in override");
-                    return null;
                 }
 
                 this.override.dieSize &&= this.resolveInjectedProperties(this.override.dieSize);
                 if ("dieSize" in this.override && !setHasElement(DAMAGE_DIE_FACES, this.override.dieSize)) {
                     this.failValidation("Unrecognized die size in override");
-                    return null;
                 }
             }
 
