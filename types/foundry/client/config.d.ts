@@ -460,11 +460,12 @@ declare global {
             types: (typeof Die | typeof DiceTerm)[];
             rollModes: Record<RollMode, string>;
             rolls: ConstructorOf<Roll>[];
-            termTypes: Record<string, ConstructorOf<RollTerm>>;
+            termTypes: Record<string, ConstructorOf<RollTerm> & { fromData(data: object): RollTerm }>;
             terms: {
                 c: typeof Coin;
                 d: typeof Die;
                 f: typeof FateDie;
+                [key: string]: ConstructorOf<DiceTerm>;
             };
             randomUniform: Function;
         };
