@@ -140,6 +140,13 @@ interface CheckDC {
     visible?: boolean;
 }
 
+const DEGREE_OF_SUCCESS = {
+    CRITICAL_SUCCESS: 3,
+    SUCCESS: 2,
+    FAILURE: 1,
+    CRITICAL_FAILURE: 0,
+} as const;
+
 type DegreeOfSuccessIndex = ZeroToThree;
 
 const DEGREE_OF_SUCCESS_STRINGS = ["criticalFailure", "failure", "success", "criticalSuccess"] as const;
@@ -148,12 +155,13 @@ type DegreeOfSuccessString = typeof DEGREE_OF_SUCCESS_STRINGS[number];
 export {
     CheckDC,
     DEGREE_ADJUSTMENT_AMOUNTS,
+    DEGREE_OF_SUCCESS,
     DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentAmount,
     DegreeAdjustmentsRecord,
-    DegreeOfSuccessIndex,
     DegreeOfSuccess,
     DegreeOfSuccessAdjustment,
+    DegreeOfSuccessIndex,
     DegreeOfSuccessString,
     RollBrief,
 };
