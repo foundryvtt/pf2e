@@ -3,7 +3,7 @@
 /* ----------------------------------------- */
 
 nav#controls {
-    padding-top: 5px;
+    padding-top: 12px;
 
     ol.control-tools {
         &.main-control {
@@ -12,8 +12,8 @@ nav#controls {
         li.control-tool,
         li.scene-control {
             @include glass;
-            $transitionTime: 0.15s;
-            transition: background-color $transitionTime ease-in-out, border $transitionTime ease-in-out, color $transitionTime ease-in-out, box-shadow $transitionTime ease-in-out;
+            @include quick-transition;
+            text-shadow: 0px 0px 3px black;
             border-radius: 3px;
             margin-bottom: 8px;
 

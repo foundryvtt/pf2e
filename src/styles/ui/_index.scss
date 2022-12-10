@@ -29,11 +29,10 @@
             margin: 2px;
 
             &.active {
-                border: none;
-                box-shadow: var(--gold-and-glow);
+                @include gold-border;
                 border-radius: 3px;
                 text-shadow: none;
-                background-color: var(--primary);
+                background-color: var(--primary-light);
             }
         }
     }
@@ -45,4 +44,5 @@
 
 ::-webkit-scrollbar-thumb {
     background: var(--tertiary);
+    border: 1px solid var(--gold-brown);
 }
