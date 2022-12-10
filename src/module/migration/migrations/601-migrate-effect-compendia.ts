@@ -187,7 +187,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
         LXf1Cqi1zyo4DaLv: "spell-effects",
     };
 
-    override async updateItem(item: ItemSourcePF2e) {
+    override async updateItem(item: ItemSourcePF2e): Promise<void> {
         if (typeof item.system.description.value === "string") {
             item.system.description.value = item.system.description.value.replace(
                 /(@Compendium\[pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})(\]{.*?})/g,
@@ -212,7 +212,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
         }
     }
 
-    override async migrate() {
+    override async migrate(): Promise<void> {
         game.macros.forEach((macro) => {
             macro.data.command = macro.data.command.replace(
                 /(Compendium\.pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})/g,

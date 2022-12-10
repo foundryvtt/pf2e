@@ -35,7 +35,7 @@ interface MigrationBase {
      * Update the actor to the latest schema version.
      * @param actor This should be effectively a `ActorSourcePF2e` from the previous version.
      */
-    updateActor?(_actor: ActorSourcePF2e): Promise<void>;
+    updateActor?(actor: ActorSourcePF2e): Promise<void>;
 
     /**
      * Update the item to the latest schema version, handling changes that must happen before any other migration in a
