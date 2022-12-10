@@ -1,4 +1,4 @@
-import { DiceModifierPF2e } from "@actor/modifiers";
+import { DamageDicePF2e } from "@actor/modifiers";
 import { ArmorPF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types";
@@ -59,14 +59,15 @@ export function getResiliencyBonus(itemData: { resiliencyRune: { value: Resilien
 interface RuneDiceModifier {
     diceNumber?: number;
     dieSize?: DamageDieSize;
-    damageType?: string;
+    damageType?: DamageType;
     predicate?: RawPredicate;
 }
 
-function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceModifier[]): DiceModifierPF2e[] {
+function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceModifier[]): DamageDicePF2e[] {
     dice = deepClone(dice);
     return dice.map((die) => {
-        return new DiceModifierPF2e({
+        return new DamageDicePF2e({
+            selector: "strike-damage",
             slug: rune,
             label: CONFIG.PF2E.runes.weapon.property[rune]?.name,
             diceNumber: die.diceNumber ?? 1,
@@ -1007,7 +1008,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
 };
 
-export function getPropertyRuneModifiers(runes: WeaponPropertyRuneType[]): DiceModifierPF2e[] {
+export function getPropertyRuneModifiers(runes: WeaponPropertyRuneType[]): DamageDicePF2e[] {
     return runes.flatMap((rune) => {
         const runeConfig = CONFIG.PF2E.runes.weapon.property[rune];
         if (runeConfig) {
