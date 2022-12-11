@@ -34,7 +34,7 @@ import {
 } from "./data";
 import { applyDamageDice } from "./helpers";
 import { SpellOverlayCollection } from "./overlay";
-import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
+import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -348,6 +348,7 @@ class SpellPF2e extends ItemPF2e {
         } as const;
 
         const { area } = this.system;
+        if (!area) throw ErrorPF2e("Attempted to create template with non-area spell");
         const areaType = templateConversion[area.areaType];
 
         const templateData: DeepPartial<foundry.data.MeasuredTemplateSource> = {
@@ -385,6 +386,13 @@ class SpellPF2e extends ItemPF2e {
         super.prepareBaseData();
         // In case bad level data somehow made it in
         this.system.level.value = (Math.clamped(this.system.level.value, 1, 10) || 1) as OneToTen;
+
+        if (this.system.area?.value) {
+            this.system.area.value = (Number(this.system.area.value) || 5) as EffectAreaSize;
+            this.system.area.areaType ||= "burst";
+        } else {
+            this.system.area = null;
+        }
 
         this.overlays = new SpellOverlayCollection(this, this.system.overlays);
     }
@@ -538,18 +546,17 @@ class SpellPF2e extends ItemPF2e {
         const isHeal = systemData.spellType.value === "heal";
         const damageLabel = isHeal ? localize("PF2E.SpellTypeHeal") : localize("PF2E.DamageLabel");
 
-        const areaSize = systemData.area.value ?? "";
-        const areaType = game.i18n.localize(CONFIG.PF2E.areaTypes[systemData.area.areaType] ?? "");
-        const areaUnit = game.i18n.localize("PF2E.Foot");
-
-        const area = (() => {
-            if (systemData.area.value) {
-                return game.i18n
-                    .format("PF2E.SpellArea", { areaSize: areaSize, areaUnit: areaUnit, areaType: areaType })
-                    .trim();
-            }
-            return null;
-        })();
+        const [areaSize, areaType, areaUnit] = systemData.area
+            ? [
+                  Number(systemData.area.value),
+                  game.i18n.localize(CONFIG.PF2E.areaTypes[systemData.area.areaType]),
+                  game.i18n.localize("PF2E.Foot"),
+              ]
+            : [null, null, null];
+        const area =
+            areaSize && areaType && areaUnit
+                ? game.i18n.format("PF2E.SpellArea", { areaSize, areaUnit, areaType }).trim()
+                : null;
 
         const baseLevel = this.baseLevel;
         const heightened = castLevel - baseLevel;

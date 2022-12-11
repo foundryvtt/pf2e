@@ -10,7 +10,7 @@ import {
 import { OneToTen, ValueAndMax, ValuesList } from "@module/data";
 import { DamageType } from "@system/damage";
 import type { SpellPF2e } from "./document";
-import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
+import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
@@ -91,9 +91,9 @@ interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
         value: string;
     };
     area: {
-        value: keyof ConfigPF2e["PF2E"]["areaSizes"];
+        value: EffectAreaSize;
         areaType: keyof ConfigPF2e["PF2E"]["areaTypes"];
-    };
+    } | null;
     time: {
         value: string;
     };
