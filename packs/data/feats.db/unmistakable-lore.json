@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Unmistakable Lore",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -28,7 +25,28 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+          {
+            "key": "Note",
+            "selector": "lore-skill-check",
+            "text": "When you Recall Knowledge using any Lore subcategory in which you're trained, if you roll a critical failure, you get a failure instead. If you're a master in a Lore subcategory, on a critical success, you gain even more information or context than usual.",
+            "title": "{item|name}",
+            "predicate": [
+              "action:recall-knowledge"
+            ]
+          },
+          {
+            "key": "AdjustDegreeOfSuccess",
+            "type": "skill",
+            "selector": "lore-skill-check",
+            "adjustment": {
+              "criticalFailure": "one-degree-better"
+            },
+            "predicate": [
+                "action:recall-knowledge"
+            ]
+          }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

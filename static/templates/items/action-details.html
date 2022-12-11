@@ -1,20 +1,30 @@
 <div class="form-group">
-    <label>{{localize "PF2E.ActionActionTypeLabel"}}</label>
-    <select name="system.actionType.value" data-dtype="String">
-        {{#select data.actionType.value}}
-            {{#each actionTypes as |name type|}}
-                <option value="{{type}}">{{localize name}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
+    <label>{{localize "PF2E.ActionActionsLabel"}}</label>
+    <div class="details-container-flex-row">
+        <select name="system.actionType.value" data-dtype="String">
+            {{#select data.actionType.value}}
+                {{#each actionTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+        <select name="system.actions.value" data-dtype="Number">
+            {{#select data.actions.value}}
+                <option value=""></option>
+                {{#each actionsNumber as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
 </div>
 
 <div class="form-group">
-    <label>{{localize "PF2E.ActionActionsLabel"}}</label>
-    <select name="system.actions.value" data-dtype="Number">
-        {{#select data.actions.value}}
+    <label>{{localize "PF2E.ActionCategoryLabel"}}</label>
+    <select name="system.actionCategory.value" data-dtype="String">
+        {{#select data.actionCategory.value}}
             <option value=""></option>
-            {{#each actionsNumber as |name type|}}
+            {{#each categories as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
         {{/select}}
@@ -42,18 +52,6 @@
             <a data-action="frequency-add">({{localize "PF2E.AddShortLabel"}})</a>
         </span>
     {{/if}}
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.ActionCategoryLabel"}}</label>
-    <select name="system.actionCategory.value" data-dtype="String">
-        {{#select data.actionCategory.value}}
-            <option value=""></option>
-            {{#each categories as |name type|}}
-                <option value="{{type}}">{{localize name}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
 </div>
 
 <div class="form-group">

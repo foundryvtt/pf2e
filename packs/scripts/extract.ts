@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor/base";
 import { ActorSourcePF2e } from "@actor/data";
-import { NPCSystemData } from "@actor/npc/data";
+import { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data";
 import type { ItemPF2e } from "@item/base";
 import { ActionItemSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
@@ -175,15 +175,15 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     }
 
                     if (docSource.type === "npc") {
-                        const { source } = docSource.system.details;
-                        source.author = source.author?.trim() || undefined;
+                        const source: Partial<NPCSystemSource["details"]["source"]> = docSource.system.details.source;
+                        if (!source.author?.trim) delete source.author;
 
-                        const { speed } = docSource.system.attributes;
-                        speed.details = speed.details?.trim() || undefined;
+                        const speed: Partial<NPCAttributesSource["speed"]> = docSource.system.attributes.speed;
+                        if (!speed.details?.trim()) delete speed.details;
 
                         for (const key of Object.keys(docSource.system)) {
                             if (!npcSystemKeys.has(key)) {
-                                delete (docSource.system as NPCSystemData & { extraneous?: unknown })[
+                                delete (docSource.system as NPCSystemSource & { extraneous?: unknown })[
                                     key as "extraneous"
                                 ];
                             }

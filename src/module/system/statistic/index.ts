@@ -50,6 +50,8 @@ export interface StatisticRollParameters {
     rollTwice?: RollTwiceOption;
     /** Any traits for the check */
     traits?: (TraitViewData | string)[];
+    /** Whether to create a chat message using the roll (defaults true) */
+    createMessage?: boolean;
     /** Callback called when the roll occurs. */
     callback?: CheckRollCallback;
 }
@@ -409,6 +411,7 @@ class StatisticCheck {
             substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
             dosAdjustments,
             traits,
+            createMessage: args.createMessage ?? true,
         };
 
         const roll = await CheckPF2e.roll(

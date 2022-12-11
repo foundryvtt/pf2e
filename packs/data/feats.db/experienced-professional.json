@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Experienced Professional",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -28,7 +25,28 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+              "key": "Note",
+              "selector": "skill-check",
+              "text": "When you use Lore to Earn Income, if you roll a critical failure, you instead get a failure. If you're an expert in Lore, you gain twice as much income from a failed check to Earn Income, unless it was originally a critical failure.",
+              "title": "{item|name}",
+              "predicate": [
+                "action:earn-income"
+              ]
+            },
+            {
+              "key": "AdjustDegreeOfSuccess",
+              "type": "skill",
+              "selector": "lore-skill-check",
+              "adjustment": {
+                "criticalFailure": "one-degree-better"
+              },
+              "predicate": [
+                "action:earn-income"
+              ]
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

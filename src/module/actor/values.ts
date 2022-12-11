@@ -96,6 +96,7 @@ export const WEAKNESS_TYPES = new Set([
     ...DAMAGE_TRAITS,
     ...DAMAGE_TYPES,
     "area-damage",
+    "arrow",
     "axe",
     "critical-hits",
     "emotion",

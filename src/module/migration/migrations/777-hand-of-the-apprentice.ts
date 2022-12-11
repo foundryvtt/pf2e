@@ -6,20 +6,15 @@ import { MigrationBase } from "../base";
 export class Migration777HandOfTheApprentice extends MigrationBase {
     static override version = 0.777;
 
-    override async updateItem(source: ItemSourceWithAELikes): Promise<void> {
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type === "feat" && source.system.slug === "hand-of-the-apprentice") {
-            source.system.rules = [
-                {
-                    key: "ActiveEffectLike",
-                    mode: "add",
-                    path: "system.resources.focus.max",
-                    value: 1,
-                },
-            ];
+            const rule: AELikeSource = {
+                key: "ActiveEffectLike",
+                mode: "add",
+                path: "system.resources.focus.max",
+                value: 1,
+            };
+            source.system.rules = [rule];
         }
     }
 }
-
-type ItemSourceWithAELikes = ItemSourcePF2e & {
-    system: { rules: AELikeSource[] };
-};

@@ -47,6 +47,7 @@ import {
     LabeledSpeed,
     MovementType,
     SenseData,
+    SkillData,
     UnlabeledSpeed,
     VisionLevel,
     VisionLevels,
@@ -56,14 +57,15 @@ import { Alignment, AlignmentTrait, CreatureUpdateContext, GetReachParameters, I
 import { SIZE_TO_REACH } from "./values";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
-export abstract class CreaturePF2e extends ActorPF2e {
+abstract class CreaturePF2e extends ActorPF2e {
     /** Skill `Statistic`s for the creature */
     get skills(): CreatureSkills {
-        return Object.entries(this.system.skills).reduce((current, [shortForm, skill]) => {
+        return Object.entries(this.system.skills).reduce((current, [shortForm, skill]: [string, SkillData]) => {
             if (!objectHasKey(this.system.skills, shortForm)) return current;
             const longForm = skill.slug;
             const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.slug;
             const domains = ["all", "skill-check", longForm, `${skill.ability}-based`, `${skill.ability}-skill-check`];
+            if (skill.lore) domains.push("lore-skill-check");
 
             current[longForm] = new Statistic(this, {
                 slug: longForm,
@@ -696,7 +698,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return preparedSenses;
     }
 
-    prepareSpeed(movementType: "land"): CreatureSpeeds;
+    prepareSpeed(movementType: "land"): this["system"]["attributes"]["speed"];
     prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null {
@@ -773,6 +775,23 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
+    /** Remove any features linked to a to-be-deleted ABC item */
+    override async deleteEmbeddedDocuments(
+        embeddedName: "ActiveEffect" | "Item",
+        ids: string[],
+        context: DocumentModificationContext = {}
+    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
+        if (embeddedName === "Item") {
+            const items = ids.map((id) => this.items.get(id));
+            const linked = items.flatMap((item) => item?.getLinkedItems?.() ?? []);
+            ids.push(...linked.map((item) => item.id));
+        }
+
+        return super.deleteEmbeddedDocuments(embeddedName, [...new Set(ids)], context) as Promise<
+            ActiveEffectPF2e[] | ItemPF2e[]
+        >;
+    }
+
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
         options: CreatureUpdateContext<this>,
@@ -803,7 +822,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 }
 
-export interface CreaturePF2e {
+interface CreaturePF2e {
     readonly data: CreatureData;
 
     /** Saving throw rolls for the creature, built during data prep */
@@ -832,4 +851,22 @@ export interface CreaturePF2e {
         updateData: EmbeddedDocumentUpdateData<this>[],
         options?: DocumentModificationContext
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
+
+    deleteEmbeddedDocuments(
+        embeddedName: "ActiveEffect",
+        dataId: string[],
+        context?: DocumentModificationContext
+    ): Promise<ActiveEffectPF2e[]>;
+    deleteEmbeddedDocuments(
+        embeddedName: "Item",
+        dataId: string[],
+        context?: DocumentModificationContext
+    ): Promise<ItemPF2e[]>;
+    deleteEmbeddedDocuments(
+        embeddedName: "ActiveEffect" | "Item",
+        dataId: string[],
+        context?: DocumentModificationContext
+    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }
+
+export { CreaturePF2e };

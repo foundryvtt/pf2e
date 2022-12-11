@@ -20,7 +20,7 @@ export class ActorDirectoryPF2e<TDocument extends ActorPF2e> extends ActorDirect
         super.activateListeners($html);
         const html = $html[0];
 
-        for (const element of htmlQueryAll(html, "li.directory-item")) {
+        for (const element of htmlQueryAll(html, "li.directory-item.actor")) {
             const actor = game.actors.get(element.dataset.documentId ?? "");
             if (!actor?.testUserPermission(game.user, "OBSERVER")) {
                 element.querySelector("span.actor-level")?.remove();

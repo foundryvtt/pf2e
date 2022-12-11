@@ -8,13 +8,13 @@ import { ItemTraits } from "@item/data/base";
 export class Migration605CatchUpToTemplateJSON extends MigrationBase {
     static override version = 0.605;
 
-    private addEffects(entityData: ActorSourcePF2e | ItemSourcePF2e) {
+    private addEffects(entityData: ActorSourcePF2e | ItemSourcePF2e): void {
         if (!Array.isArray(entityData.effects)) {
             entityData.effects = [];
         }
     }
 
-    override async updateActor(actorData: ActorSourcePF2e) {
+    override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         this.addEffects(actorData);
 
         if (actorData.type === "character" || actorData.type === "npc") {
@@ -50,7 +50,7 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         }
     }
 
-    override async updateItem(itemData: ItemSourcePF2e, actorData: ActorSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e, actorData: ActorSourcePF2e): Promise<void> {
         this.addEffects(itemData);
 
         // Add slugs to owned items
@@ -85,18 +85,14 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         }
 
         // Remove unused fields
-        if (itemData.type === "lore" && (("featType" in itemData.system) as { featType?: string })) {
-            delete (itemData.system as { featType?: string }).featType;
+        if (itemData.type === "lore" && "featType" in itemData.system) {
+            delete itemData.system.featType;
         }
-        if (itemData.type === "action") {
-            if (("skill_requirements" in itemData.system) as { skill_requirements?: unknown }) {
-                delete (itemData.system as { skill_requirements?: unknown }).skill_requirements;
-            }
+        if (itemData.type === "action" && "skill_requirements" in itemData.system) {
+            delete itemData.system.skill_requirements;
         }
-        if (itemData.type === "action") {
-            if (("skill_requirement" in itemData.system) as { skill_requirement?: unknown }) {
-                delete (itemData.system as { skill_requirement?: unknown }).skill_requirement;
-            }
+        if (itemData.type === "action" && "skill_requirement" in itemData.system) {
+            itemData.system.skill_requirement;
         }
     }
 }

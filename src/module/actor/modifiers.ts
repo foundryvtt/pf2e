@@ -198,6 +198,10 @@ class ModifierPF2e implements RawModifier {
         }
     }
 
+    get value(): number {
+        return this.modifier;
+    }
+
     /** Return a copy of this ModifierPF2e instance */
     clone(options: { test?: Set<string> | string[] } = {}): ModifierPF2e {
         const clone =
@@ -605,7 +609,7 @@ class DiceModifierPF2e implements BaseRawModifier {
     critical: boolean | null;
     /** The damage category of these dice. */
     category: string | null;
-    damageType: string | null;
+    damageType: DamageType | null;
     /** If true, these dice overide the base damage dice of the weapon. */
     override: DamageDiceOverride | null;
     ignored: boolean;

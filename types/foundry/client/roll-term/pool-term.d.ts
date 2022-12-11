@@ -172,7 +172,7 @@ declare global {
     interface PoolTermData extends RollTermData {
         terms?: string[];
         modifiers?: string[];
-        rolls?: RollData[];
+        rolls?: RollJSON[];
         results?: DiceTermResult[];
     }
 }

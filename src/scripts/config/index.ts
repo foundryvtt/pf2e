@@ -235,6 +235,7 @@ const weaknessTypes: Record<WeaknessType, string> = {
     ...damageTraits,
     ...damageTypes,
     "area-damage": "PF2E.TraitAreaDamage",
+    arrow: "PF2E.TraitArrowVulnerability",
     axe: "PF2E.TraitAxeVulnerability",
     "critical-hits": "PF2E.TraitCriticalHits",
     emotion: "PF2E.TraitEmotion",

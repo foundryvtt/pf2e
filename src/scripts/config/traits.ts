@@ -195,7 +195,7 @@ const creatureTraits = {
     reflection: "PF2E.TraitReflection",
     sahkil: "PF2E.TraitSahkil",
     samsaran: "PF2E.TraitSamsaran",
-    "sea devil": "PF2E.TraitSeaDevil",
+    "sea-devil": "PF2E.TraitSeaDevil",
     serpentfolk: "PF2E.TraitSerpentfolk",
     seugathi: "PF2E.TraitSeugathi",
     shabti: "PF2E.TraitShabti",

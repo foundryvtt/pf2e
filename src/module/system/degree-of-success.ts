@@ -1,15 +1,15 @@
 import { DCSlug } from "@actor/types";
 import { ZeroToThree } from "@module/data";
+import { CheckRoll } from "./check";
 import { PredicatePF2e } from "./predication";
-import { RollDataPF2e } from "./rolls";
 
 /** Get the degree of success from a roll and a difficulty class */
 class DegreeOfSuccess {
     /** The calculated degree of success */
-    readonly value: DegreeIndex;
+    readonly value: DegreeOfSuccessIndex;
 
     /** The degree of success prior to adjustment. If there was no adjustment, it is identical to the `value` */
-    readonly unadjusted: DegreeIndex;
+    readonly unadjusted: DegreeOfSuccessIndex;
 
     /** A degree adjustment, usually from some character ability */
     readonly adjustment: { label: string; amount: DegreeAdjustmentAmount } | null;
@@ -24,7 +24,7 @@ class DegreeOfSuccess {
     readonly dc: CheckDC;
 
     constructor(
-        roll: Rolled<Roll<RollDataPF2e>> | RollBrief,
+        roll: Rolled<CheckRoll> | RollBrief,
         dc: CheckDC | number,
         dosAdjustments: DegreeAdjustmentsRecord | null = null
     ) {
@@ -55,7 +55,7 @@ class DegreeOfSuccess {
     static readonly CRITICAL_SUCCESS = 3;
 
     #getDegreeAdjustment(
-        degree: DegreeIndex,
+        degree: DegreeOfSuccessIndex,
         adjustments: DegreeAdjustmentsRecord | null
     ): { label: string; amount: DegreeAdjustmentAmount } | null {
         if (!adjustments) return null;
@@ -76,15 +76,18 @@ class DegreeOfSuccess {
         return null;
     }
 
-    #adjustDegreeOfSuccess(amount: DegreeAdjustmentAmount, degreeOfSuccess: DegreeIndex): DegreeIndex {
-        return Math.clamped(degreeOfSuccess + amount, 0, 3) as DegreeIndex;
+    #adjustDegreeOfSuccess(
+        amount: DegreeAdjustmentAmount,
+        degreeOfSuccess: DegreeOfSuccessIndex
+    ): DegreeOfSuccessIndex {
+        return Math.clamped(degreeOfSuccess + amount, 0, 3) as DegreeOfSuccessIndex;
     }
 
     /**
      * @param degree The current success value
      * @return The new success value
      */
-    #adjustDegreeByDieValue(degree: DegreeIndex): DegreeIndex {
+    #adjustDegreeByDieValue(degree: DegreeOfSuccessIndex): DegreeOfSuccessIndex {
         if (this.dieResult === 20) {
             return this.#adjustDegreeOfSuccess(DEGREE_ADJUSTMENT_AMOUNTS.INCREASE, degree);
         } else if (this.dieResult === 1) {
@@ -94,7 +97,7 @@ class DegreeOfSuccess {
         return degree;
     }
 
-    #calculateDegreeOfSuccess(): DegreeIndex {
+    #calculateDegreeOfSuccess(): DegreeOfSuccessIndex {
         const dc = this.dc.value;
 
         if (this.rollTotal - dc >= 10) {
@@ -137,7 +140,14 @@ interface CheckDC {
     visible?: boolean;
 }
 
-type DegreeIndex = ZeroToThree;
+const DEGREE_OF_SUCCESS = {
+    CRITICAL_SUCCESS: 3,
+    SUCCESS: 2,
+    FAILURE: 1,
+    CRITICAL_FAILURE: 0,
+} as const;
+
+type DegreeOfSuccessIndex = ZeroToThree;
 
 const DEGREE_OF_SUCCESS_STRINGS = ["criticalFailure", "failure", "success", "criticalSuccess"] as const;
 type DegreeOfSuccessString = typeof DEGREE_OF_SUCCESS_STRINGS[number];
@@ -145,12 +155,13 @@ type DegreeOfSuccessString = typeof DEGREE_OF_SUCCESS_STRINGS[number];
 export {
     CheckDC,
     DEGREE_ADJUSTMENT_AMOUNTS,
+    DEGREE_OF_SUCCESS,
     DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentAmount,
     DegreeAdjustmentsRecord,
-    DegreeIndex,
     DegreeOfSuccess,
     DegreeOfSuccessAdjustment,
+    DegreeOfSuccessIndex,
     DegreeOfSuccessString,
     RollBrief,
 };

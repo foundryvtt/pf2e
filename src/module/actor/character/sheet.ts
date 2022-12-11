@@ -1,7 +1,7 @@
 import { SkillAbbreviation } from "@actor/creature/data";
 import { createProficiencyModifier, MODIFIER_TYPE } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ActionItemPF2e, AncestryBackgroundClassManager, isSpellConsumable, ItemPF2e, WEAPON_CATEGORIES } from "@item";
+import { ActionItemPF2e, isSpellConsumable, ItemPF2e, WEAPON_CATEGORIES } from "@item";
 import { ItemSourcePF2e, LoreData } from "@item/data";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -10,7 +10,16 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    getActionIcon,
+    groupBy,
+    htmlQueryAll,
+    isObject,
+    objectHasKey,
+    setHasElement,
+    tupleHasValue,
+} from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
@@ -262,15 +271,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         for (const itemData of sheetData.items) {
             const item = this.actor.items.get(itemData._id, { strict: true });
 
-            // Feats
-            if (itemData.type === "feat") {
-                const actionType = itemData.system.actionType.value || "passive";
-                if (Object.keys(actions).includes(actionType)) {
+            // Feats (non-passive feats may show action icons)
+            if (item.isOfType("feat")) {
+                const actionType = item.actionCost?.type;
+                if (actionType) {
                     itemData.feat = true;
-                    itemData.img = CharacterPF2e.getActionGraphics(
-                        actionType,
-                        parseInt((itemData.system.actions || {}).value, 10) || 1
-                    ).imageUrl;
+                    itemData.img = getActionIcon(item.actionCost);
                     actions[actionType].actions.push(itemData);
                 }
             }
@@ -293,15 +299,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             // Actions
             else if (item.isOfType("action")) {
-                const actionType = ["free", "reaction", "passive"].includes(item.system.actionType.value)
-                    ? item.system.actionType.value
-                    : "action";
-                itemData.img = CharacterPF2e.getActionGraphics(
-                    actionType,
-                    Number(item.system.actions.value) || 1
-                ).imageUrl;
-                if (actionType === "passive") actions.free.actions.push(itemData);
-                else actions[actionType].actions.push(itemData);
+                itemData.img = getActionIcon(item.actionCost);
+                const actionType = item.actionCost?.type ?? "free";
+                actions[actionType].actions.push(itemData);
             }
         }
 
@@ -971,11 +971,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             return await this.actor.feats.insertFeat(item, featSlot);
         }
 
-        if (item.isOfType("ancestry", "background", "class")) {
-            return AncestryBackgroundClassManager.addABCItem(item, actor);
-        } else {
-            return super._onDropItem(event, data);
-        }
+        return super._onDropItem(event, data);
     }
 
     protected override async _onDrop(event: ElementDragEvent): Promise<boolean | void> {

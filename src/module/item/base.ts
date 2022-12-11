@@ -9,7 +9,7 @@ import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "@module/rules";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers";
 import { ContainerPF2e } from "./container";
-import { ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
+import { FeatSource, ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
 import { ItemTrait } from "./data/base";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { PhysicalItemPF2e } from "./physical/document";
@@ -281,7 +281,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
             htmlOptions.rollData = mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
-            chatData.description.value = await game.pf2e.TextEditor.enrichHTML(chatData.description.value, {
+            chatData.description.value = await TextEditor.enrichHTML(chatData.description.value, {
                 ...htmlOptions,
                 async: true,
             });
@@ -368,73 +368,99 @@ class ItemPF2e extends Item<ActorPF2e> {
             data.splice(data.indexOf(source), 1, item.toObject());
         }
 
-        if (context.parent) {
-            const validTypes = context.parent.allowedItemTypes;
-            if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
+        const actor = context.parent;
+        if (!actor) return super.createDocuments(data, context);
 
-            // Check if this item is valid for this actor
-            for (const datum of data) {
-                if (datum.type && !validTypes.includes(datum.type)) {
-                    ui.notifications.error(
-                        game.i18n.format("PF2E.Item.CannotAddType", {
-                            type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
-                        })
-                    );
-                    return [];
-                }
-            }
+        const validTypes = actor.allowedItemTypes;
+        if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
 
-            const kits = data.filter((d) => d.type === "kit");
-            const nonKits = data.filter((d) => !kits.includes(d));
-
-            // Perform character pre-create deletions
-            if (context.parent.isOfType("character")) {
-                await context.parent.preCreateDelete(nonKits);
-            }
-
-            for (const source of [...nonKits]) {
-                if (!source.system?.rules?.length) continue;
-                if (!(context.keepId || context.keepEmbeddedIds)) {
-                    delete source._id; // Allow a random ID to be set by rule elements, which may toggle on `keepId`
-                }
-
-                const item = new ItemPF2e(source, { parent: context.parent }) as Embedded<ItemPF2e>;
-                // Pre-load this item's self: roll options for predication by preCreate rule elements
-                item.prepareActorData?.();
-
-                const rules = item.prepareRuleElements({ suppressWarnings: true });
-                for (const rule of rules) {
-                    const ruleSource = source.system.rules[rules.indexOf(rule)] as RuleElementSource;
-                    await rule.preCreate?.({ itemSource: source, ruleSource, pendingItems: nonKits, context });
-                }
-            }
-
-            for (const kitSource of kits) {
-                const item = new ItemPF2e(kitSource);
-                if (item.isOfType("kit")) await item.dumpContents({ actor: context.parent });
-            }
-
-            // Pre-sort unnested, class features according to their sorting from the class
-            if (nonKits.length > 1 && nonKits.some((i) => i.type === "class")) {
-                type PartialSourceWithLevel = PreCreate<ItemSourcePF2e> & {
-                    system: { level: { value: number } };
-                };
-                const classFeatures = nonKits.filter(
-                    (i): i is PartialSourceWithLevel =>
-                        i.type === "feat" &&
-                        typeof i.system?.level?.value === "number" &&
-                        i.system.featType?.value === "classfeature" &&
-                        !i.flags?.pf2e?.grantedBy
+        // Check if this item is valid for this actor
+        for (const datum of data) {
+            if (datum.type && !validTypes.includes(datum.type)) {
+                ui.notifications.error(
+                    game.i18n.format("PF2E.Item.CannotAddType", {
+                        type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
+                    })
                 );
-                for (const feature of classFeatures) {
-                    feature.sort = classFeatures.indexOf(feature) * 100 * feature.system.level.value;
-                }
+                return [];
             }
-
-            return super.createDocuments(nonKits, context);
         }
 
-        return super.createDocuments(data, context);
+        // If any created types are "singular", remove existing competing ones.
+        // actor.deleteEmbeddedDocuments() will also delete any linked items.
+        const singularTypes = ["ancestry", "background", "class", "heritage", "deity"] as const;
+        const singularTypesToDelete = singularTypes.filter((type) => data.some((source) => source.type === type));
+        const preCreateDeletions = singularTypesToDelete.flatMap((type): Embedded<ItemPF2e>[] => actor.itemTypes[type]);
+        if (preCreateDeletions.length) {
+            const idsToDelete = preCreateDeletions.map((i) => i.id);
+            await actor.deleteEmbeddedDocuments("Item", idsToDelete, { render: false });
+        }
+
+        // Convert all non-kit sources to item objects, and recursively extract the simple grants from ABC items
+        const items = await (async () => {
+            /** Internal function to recursively get all simple granted items */
+            async function getSimpleGrants(item: Embedded<ItemPF2e>): Promise<Embedded<ItemPF2e>[]> {
+                const granted = (await item.createGrantedItems?.()) ?? [];
+                if (!granted.length) return [];
+                const reparented = granted.map(
+                    (i): Embedded<ItemPF2e> =>
+                        (i.parent ? i : new ItemPF2e(i._source, { parent: actor })) as Embedded<ItemPF2e>
+                );
+                return [...reparented, ...(await Promise.all(reparented.map(getSimpleGrants))).flat()];
+            }
+
+            const items = data.map((source) => {
+                if (!(context.keepId || context.keepEmbeddedIds)) {
+                    source._id = randomID();
+                }
+                return new ItemPF2e(source, { parent: actor }) as Embedded<ItemPF2e>;
+            });
+
+            // If any item we plan to add will add new items (such as ABC items), add those too
+            // When this occurs, keepId is switched on.
+            for (const item of [...items]) {
+                const grants = await getSimpleGrants(item);
+                if (grants.length) {
+                    context.keepId = true;
+                    items.push(...grants);
+                }
+            }
+
+            return items;
+        })();
+
+        const outputSources = items.map((i) => i._source);
+
+        // Process item preCreate rules for all items that are going to be added
+        // This may add additional items (such as via GrantItem)
+        for (const item of items.filter((item) => item.system.rules?.length)) {
+            // Pre-load this item's self: roll options for predication by preCreate rule elements
+            item.prepareActorData?.();
+
+            const itemSource = item._source;
+            const rules = item.prepareRuleElements({ suppressWarnings: true });
+            for (const rule of rules) {
+                const ruleSource = itemSource.system.rules[rules.indexOf(rule)] as RuleElementSource;
+                await rule.preCreate?.({ itemSource, ruleSource, pendingItems: outputSources, context });
+            }
+        }
+
+        // Pre-sort unnested, class features according to their sorting from the class
+        if (outputSources.some((i) => i.type === "class")) {
+            const classFeatures = outputSources.filter(
+                (i): i is FeatSource =>
+                    i.type === "feat" &&
+                    typeof i.system?.level?.value === "number" &&
+                    i.system.featType?.value === "classfeature" &&
+                    !i.flags?.pf2e?.grantedBy
+            );
+            for (const feature of classFeatures) {
+                feature.sort = classFeatures.indexOf(feature) * 100 * (feature.system.level?.value ?? 1);
+            }
+        }
+
+        const nonKits = outputSources.filter((source) => source.type !== "kit");
+        return super.createDocuments(nonKits, context);
     }
 
     static override async deleteDocuments<T extends ConstructorOf<ItemPF2e>>(
@@ -614,6 +640,12 @@ interface ItemPF2e {
     prepareSiblingData?(this: Embedded<ItemPF2e>): void;
 
     prepareActorData?(this: Embedded<ItemPF2e>): void;
+
+    /** Returns items that should also be added when this item is created */
+    createGrantedItems(): Promise<ItemPF2e[]>;
+
+    /** Returns items that should also be deleted should this item be deleted */
+    getLinkedItems?(): Embedded<ItemPF2e>[];
 }
 
 export { ItemPF2e, ItemConstructionContextPF2e };

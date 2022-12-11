@@ -16,7 +16,7 @@ export class RollTwiceRuleElement extends RuleElementPF2e {
         super(data, item, options);
 
         if (this.#isValid(data)) {
-            this.selector = data.selector;
+            this.selector = this.resolveInjectedProperties(data.selector);
             this.keep = data.keep;
 
             const expireEffects = game.settings.get("pf2e", "automation.effectExpiration");

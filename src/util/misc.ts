@@ -206,7 +206,7 @@ function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePa
 function getActionIcon(actionType: string | ActionCost | null): ImagePath;
 function getActionIcon(
     action: string | ActionCost | null,
-    fallback: ImagePath | null = "systems/pf2e/icons/default-icons/mystery-man.svg"
+    fallback: ImagePath | null = "systems/pf2e/icons/actions/Empty.webp"
 ): ImagePath | null {
     if (action === null) return actionImgMap["passive"];
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;

@@ -139,10 +139,7 @@ export class DamageRollModifiersDialog extends Application {
         const damageNotes = await Promise.all(
             damage.notes
                 .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
-                .map(
-                    async (note) =>
-                        await game.pf2e.TextEditor.enrichHTML(note.text, { rollData: noteRollData, async: true })
-                )
+                .map(async (note) => await TextEditor.enrichHTML(note.text, { rollData: noteRollData, async: true }))
         );
         const notes = damageNotes.join("<br />");
         flavor += `${notes}`;

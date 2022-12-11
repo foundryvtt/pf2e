@@ -5,13 +5,13 @@ import { ActionTrait } from "@item/action/data";
 import { ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
+import { ActionCost, ActionType } from "@item/data/base";
 import { hasInvestedProperty } from "@item/data/helpers";
 import { EffectFlags, EffectSource } from "@item/effect/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { Size } from "@module/data";
+import { OneToThree, Size } from "@module/data";
 import { preImportJSON } from "@module/doc-helpers";
-import { MigrationList, MigrationRunner } from "@module/migration";
 import { RuleElementSynthetics } from "@module/rules";
 import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
@@ -19,16 +19,23 @@ import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
-import { eventToRollParams } from "@scripts/sheet-util";
 import { Statistic } from "@system/statistic";
-import { ErrorPF2e, isObject, objectHasKey, traitSlugToObject, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    getActionGlyph,
+    getActionIcon,
+    isObject,
+    objectHasKey,
+    traitSlugToObject,
+    tupleHasValue,
+} from "@util";
 import type { CreaturePF2e } from "./creature";
 import { VisionLevel, VisionLevels } from "./creature/data";
 import { GetReachParameters, ModeOfBeing } from "./creature/types";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
 import { ActorFlagsPF2e, BaseTraitsData, PrototypeTokenPF2e, RollOptionFlags, StrikeData } from "./data/base";
 import { ActorSizePF2e } from "./data/size";
-import { calculateRangePenalty, getRangeIncrement } from "./helpers";
+import { calculateRangePenalty, getRangeIncrement, migrateActorSource } from "./helpers";
 import { ActorInventory } from "./inventory";
 import { ItemTransfer } from "./item-transfer";
 import { ActorSheetPF2e } from "./sheet/base";
@@ -395,7 +402,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         context: DocumentModificationContext<ActorPF2e> = {}
     ): Promise<Actor[]> {
         // Set additional defaults, some according to actor type
-        for (const datum of data) {
+        for (const datum of [...data]) {
             const { linkToActorSize } = datum.prototypeToken?.flags?.pf2e ?? {};
             const merged = mergeObject(datum, {
                 ownership: datum.ownership ?? { default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE },
@@ -428,6 +435,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     merged.ownership.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
                     break;
             }
+
+            const migrated = await migrateActorSource(datum);
+            data.splice(data.indexOf(datum), 1, migrated);
         }
 
         return super.createDocuments(data, context);
@@ -604,9 +614,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /*  Rolls                                       */
     /* -------------------------------------------- */
 
-    protected getStrikeRollContext<I extends AttackItem>(
-        params: StrikeRollContextParams<I>
-    ): StrikeRollContext<this, I> {
+    getStrikeRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): StrikeRollContext<this, I> {
         const targetToken = Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard")) ?? null;
 
         const selfToken =
@@ -727,20 +735,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                   }
                 : null,
         };
-    }
-
-    getDamageRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): StrikeRollContext<this, I> {
-        return this.getStrikeRollContext(params);
-    }
-
-    /**
-     * Roll a Save Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus.
-     * @deprecated
-     */
-    rollSave(event: JQuery.TriggeredEvent, saveType: SaveType): void {
-        console.warn("ActorPF2e#rollSaves is deprecated: use actor.saves[saveType].check.roll()");
-        this.saves?.[saveType]?.check.roll(eventToRollParams(event));
     }
 
     /**
@@ -1116,31 +1110,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         return { updates, totalApplied };
     }
 
-    static getActionGraphics(actionType: string, actionCount?: number): { imageUrl: ImagePath; actionGlyph: string } {
-        let actionImg: number | string = 0;
-        if (actionType === "action") actionImg = actionCount ?? 1;
-        else if (actionType === "reaction") actionImg = "reaction";
-        else if (actionType === "free") actionImg = "free";
-        else if (actionType === "passive") actionImg = "passive";
-        const graphics: Record<string, { imageUrl: ImagePath; actionGlyph: string }> = {
-            1: { imageUrl: "systems/pf2e/icons/actions/OneAction.webp", actionGlyph: "A" },
-            2: { imageUrl: "systems/pf2e/icons/actions/TwoActions.webp", actionGlyph: "D" },
-            3: { imageUrl: "systems/pf2e/icons/actions/ThreeActions.webp", actionGlyph: "T" },
-            free: { imageUrl: "systems/pf2e/icons/actions/FreeAction.webp", actionGlyph: "F" },
-            reaction: { imageUrl: "systems/pf2e/icons/actions/Reaction.webp", actionGlyph: "R" },
-            passive: { imageUrl: "systems/pf2e/icons/actions/Passive.webp", actionGlyph: "" },
+    static getActionGraphics(type: ActionType, actionCount?: OneToThree): { imageUrl: ImagePath; actionGlyph: string } {
+        console.warn(
+            "PF2E System | ActorPF2e#getActionGraphics() is deprecated. If you rely on this function, please inform the Pathfinder2e dev team"
+        );
+
+        const actionCost: ActionCost | null = type === "passive" ? null : { type, value: actionCount ?? 1 };
+
+        return {
+            imageUrl: getActionIcon(actionCost),
+            actionGlyph: getActionGlyph(actionCost),
         };
-        if (objectHasKey(graphics, actionImg)) {
-            return {
-                imageUrl: graphics[actionImg].imageUrl,
-                actionGlyph: graphics[actionImg].actionGlyph,
-            };
-        } else {
-            return {
-                imageUrl: "systems/pf2e/icons/actions/Empty.webp",
-                actionGlyph: "",
-            };
-        }
     }
 
     /**
@@ -1292,12 +1272,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 this._source.prototypeToken.texture.src = `systems/pf2e/icons/default-icons/${data.type}.svg`;
         }
 
-        await super._preCreate(data, options, user);
-
-        // Ensure imported actors are current on their schema version
-        if (!options.parent) {
-            await MigrationRunner.ensureSchemaVersion(this, MigrationList.constructFromVersion(this.schemaVersion));
-        }
+        return super._preCreate(data, options, user);
     }
 
     protected override async _preUpdate(
@@ -1321,7 +1296,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             const clone = this.clone(changed, { keepId: true });
             this.flags.pf2e.rollOptions = clone.flags.pf2e.rollOptions;
             for (const rule of rules) {
-                await rule.preUpdateActor();
+                if (this.items.has(rule.item.id)) {
+                    await rule.preUpdateActor();
+                }
             }
         }
 

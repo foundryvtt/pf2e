@@ -44,7 +44,7 @@ import {
 } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { ARMOR_CATEGORIES } from "@item/armor";
-import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
+import { ItemType, PhysicalItemSource } from "@item/data";
 import { getPropertyRunes, getPropertySlots, getResiliencyBonus, ItemCarryType } from "@item/physical";
 import { MagicTradition } from "@item/spell/types";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
@@ -57,7 +57,6 @@ import {
     WEAPON_CATEGORIES,
     WEAPON_PROPERTY_RUNE_TYPES,
 } from "@item/weapon";
-import { ActiveEffectPF2e } from "@module/active-effect";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
@@ -999,13 +998,6 @@ class CharacterPF2e extends CreaturePF2e {
                 createAbilityModifier({ actor: this, ability: skill.ability, domains }),
                 createProficiencyModifier({ actor: this, rank: skill.rank, domains }),
             ];
-            for (const modifier of modifiers) {
-                modifier.adjustments = extractModifierAdjustments(
-                    synthetics.modifierAdjustments,
-                    domains,
-                    modifier.slug
-                );
-            }
 
             // Indicate that the strength requirement of this actor's armor is met
             if (typeof wornArmor?.strength === "number" && this.system.abilities.str.value >= wornArmor.strength) {
@@ -1117,15 +1109,8 @@ class CharacterPF2e extends CreaturePF2e {
             const modifiers = [
                 createAbilityModifier({ actor: this, ability: "int", domains }),
                 createProficiencyModifier({ actor: this, rank, domains }),
+                ...extractModifiers(synthetics, domains),
             ];
-            for (const modifier of modifiers) {
-                modifier.adjustments = extractModifierAdjustments(
-                    synthetics.modifierAdjustments,
-                    domains,
-                    modifier.slug
-                );
-            }
-            modifiers.push(...extractModifiers(synthetics, domains));
 
             const loreSkill = systemData.skills[shortForm];
             const stat = mergeObject(
@@ -1819,7 +1804,7 @@ class CharacterPF2e extends CreaturePF2e {
             action[method] = async (params: StrikeRollParams = {}): Promise<string | void> => {
                 const domains = ["all", "strike-damage", "damage-roll"];
                 params.options ??= [];
-                const context = this.getDamageRollContext({
+                const context = this.getStrikeRollContext({
                     item: weapon,
                     viewOnly: params.getFormula ?? false,
                     domains,
@@ -1910,7 +1895,7 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Possibly modify this weapon depending on its */
-    protected override getStrikeRollContext<I extends AttackItem>(
+    override getStrikeRollContext<I extends AttackItem>(
         params: StrikeRollContextParams<I>
     ): StrikeRollContext<this, I> {
         const context = super.getStrikeRollContext(params);
@@ -2017,24 +2002,6 @@ class CharacterPF2e extends CreaturePF2e {
         await this.update({ [`system.martial.${key}`]: newProficiency });
     }
 
-    /** Remove any features linked to a to-be-deleted ABC item */
-    override async deleteEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        ids: string[],
-        context: DocumentModificationContext = {}
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
-        if (embeddedName === "Item") {
-            const abcItems = [this.ancestry, this.background, this.class].filter(
-                (item): item is Embedded<AncestryPF2e | BackgroundPF2e | ClassPF2e> => !!item && ids.includes(item.id)
-            );
-            const featureIds = abcItems.flatMap((item) => item.getLinkedFeatures().map((feature) => feature.id));
-            ids.push(...featureIds);
-        }
-        return super.deleteEmbeddedDocuments(embeddedName, [...new Set(ids)], context) as Promise<
-            ActiveEffectPF2e[] | ItemPF2e[]
-        >;
-    }
-
     /* -------------------------------------------- */
     /*  Event Handlers                              */
     /* -------------------------------------------- */
@@ -2094,7 +2061,7 @@ class CharacterPF2e extends CreaturePF2e {
         if (actorClass && newLevel !== this.level) {
             const current = this.itemTypes.feat.filter((feat) => feat.featType === "classfeature");
             if (newLevel > this.level) {
-                const classFeaturesToCreate = (await actorClass.getFeatures({ level: newLevel })).filter(
+                const classFeaturesToCreate = (await actorClass.createGrantedItems({ level: newLevel })).filter(
                     (feature) =>
                         feature.system.level.value > this.level &&
                         !current.some((currentFeature) => currentFeature.sourceId === feature.flags.core?.sourceId)
@@ -2117,17 +2084,6 @@ class CharacterPF2e extends CreaturePF2e {
         }
 
         await super._preUpdate(changed, options, user);
-    }
-
-    /** Perform heritage and deity deletions prior to the creation of new ones */
-    async preCreateDelete(toCreate: PreCreate<ItemSourcePF2e>[]): Promise<void> {
-        const { itemTypes } = this;
-        const singularTypes = ["heritage", "deity"] as const;
-        const deletionTypes = singularTypes.filter((t) => toCreate.some((i) => i.type === t));
-        const preCreateDeletions = deletionTypes.flatMap((t): ItemPF2e[] => itemTypes[t]).map((i) => i.id);
-        if (preCreateDeletions.length > 0) {
-            await this.deleteEmbeddedDocuments("Item", preCreateDeletions, { render: false });
-        }
     }
 
     /** Toggle between boost-driven and manual management of ability scores */
@@ -2158,24 +2114,7 @@ class CharacterPF2e extends CreaturePF2e {
 
 interface CharacterPF2e {
     readonly data: CharacterData;
-
     flags: CharacterFlags;
-
-    deleteEmbeddedDocuments(
-        embeddedName: "ActiveEffect",
-        dataId: string[],
-        context?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[]>;
-    deleteEmbeddedDocuments(
-        embeddedName: "Item",
-        dataId: string[],
-        context?: DocumentModificationContext
-    ): Promise<ItemPF2e[]>;
-    deleteEmbeddedDocuments(
-        embeddedName: "ActiveEffect" | "Item",
-        dataId: string[],
-        context?: DocumentModificationContext
-    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }
 
 export { CharacterPF2e };

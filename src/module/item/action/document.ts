@@ -34,9 +34,8 @@ class ActionItemPF2e extends ItemPF2e {
         htmlOptions: EnrichHTMLOptions = {}
     ): Promise<ItemSummaryData> {
         const systemData = this.system;
-
-        // Feat properties
-        const properties = [CONFIG.PF2E.actionTypes[systemData.actionType.value]].filter((property) => property);
+        const actionType = this.actionCost?.type ?? "passive";
+        const properties = [CONFIG.PF2E.actionTypes[actionType]];
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
         return this.processChatData(htmlOptions, { ...systemData, properties, traits });
     }
