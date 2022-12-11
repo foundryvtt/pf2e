@@ -1,0 +1,53 @@
+{
+    "_id": "NwF6m7SyaqwjdQxT",
+    "img": "systems/pf2e/icons/spells/tempt-fate.webp",
+    "name": "Effect: Manipulate Luck - Drusilla (Good)",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>The affected creature can roll twice on one d20 roll within the next day and use the higher result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "manipulate-luck",
+                "toggleable": true
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "manipulate-luck"
+                ],
+                "selector": "all"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder #182: Graveclaw"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
