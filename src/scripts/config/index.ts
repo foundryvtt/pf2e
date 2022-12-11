@@ -214,6 +214,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     light: "PF2E.TraitLight",
     magic: "PF2E.TraitMagic",
     magical: "PF2E.TraitMagical",
+    "misfortune-effects": "PF2E.TraitMisfortuneEffects",
     "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
     "nonmagical-attacks": "PF2E.TraitNonmagicalAttacks",
     "object-immunities": "PF2E.TraitObjectImmunities",
