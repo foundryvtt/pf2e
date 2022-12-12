@@ -70,6 +70,10 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.system.identification.status === "identified";
     }
 
+    get isIdentifiedOrMisidentified(): boolean {
+        return this.isIdentified || this.system.identification.status === "misidentified";
+    }
+
     get isAlchemical(): boolean {
         return this.traits.has("alchemical");
     }
@@ -83,7 +87,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     get isInvested(): boolean | null {
         const traits: Set<string> = this.traits;
         if (!traits.has("invested")) return null;
-        return this.isEquipped && this.isIdentified && this.system.equipped.invested === true;
+        return this.isEquipped && this.isIdentifiedOrMisidentified && this.system.equipped.invested === true;
     }
 
     get isCursed(): boolean {
