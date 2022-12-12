@@ -283,11 +283,21 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Set defaults for area properties or otherwise null out
+        if (formData["system.area.value"]) {
+            formData["system.area.areaType"] ||= "burst";
+        } else {
+            delete formData["system.area.value"];
+            delete formData["system.area.areaType"];
+            formData["system.area"] = null;
+        }
+
         // Handle closing of override spell variant sheets
         if (this.item.original && this.item.appliedOverlays!.has("override") && !this.rendered) {
             await this.item.original.overlays.updateOverride(this.item as Embedded<SpellPF2e>, formData);
             return;
         }
+
         super._updateObject(event, formData);
     }
 

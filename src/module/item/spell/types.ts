@@ -5,4 +5,5 @@ type MagicTradition = SetElement<typeof MAGIC_TRADITIONS>;
 type SpellComponent = typeof SPELL_COMPONENTS[number];
 type SpellTrait = keyof ConfigPF2e["PF2E"]["spellTraits"] | MagicSchool | MagicTradition;
 
-export { MagicSchool, MagicTradition, SpellComponent, SpellTrait };
+type EffectAreaSize = keyof ConfigPF2e["PF2E"]["areaSizes"];
+export { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait };
