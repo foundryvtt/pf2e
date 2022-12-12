@@ -285,10 +285,10 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Set defaults for area properties or otherwise null out
         if (formData["system.area.value"]) {
-            formData["system.area.areaType"] ||= "burst";
+            formData["system.area.type"] ||= "burst";
         } else {
             delete formData["system.area.value"];
-            delete formData["system.area.areaType"];
+            delete formData["system.area.type"];
             formData["system.area"] = null;
         }
 

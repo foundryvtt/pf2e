@@ -26,27 +26,15 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
     consumableType: {
         value: ConsumableType;
     };
-    uses: {
-        value: number;
-        max: number;
-        per: keyof ConfigPF2e["PF2E"]["frequencies"];
-        autoUse: boolean;
-        autoDestroy: boolean;
-    };
     charges: {
         value: number;
         max: number;
     };
     consume: {
         value: string;
-        _deprecated: boolean;
-    };
-    autoUse: {
-        value: boolean;
     };
     autoDestroy: {
         value: boolean;
-        _deprecated: boolean;
     };
     spell: SpellSource | null;
 }
@@ -55,4 +43,4 @@ interface ConsumableSystemData
     extends Omit<ConsumableSystemSource, "identification" | "price" | "temporary" | "usage">,
         Omit<PhysicalSystemData, "traits"> {}
 
-export { ConsumableData, ConsumableSource, ConsumableTrait, ConsumableType };
+export { ConsumableData, ConsumableSource, ConsumableSystemSource, ConsumableTrait, ConsumableType };

@@ -349,7 +349,7 @@ class SpellPF2e extends ItemPF2e {
 
         const { area } = this.system;
         if (!area) throw ErrorPF2e("Attempted to create template with non-area spell");
-        const areaType = templateConversion[area.areaType];
+        const areaType = templateConversion[area.type];
 
         const templateData: DeepPartial<foundry.data.MeasuredTemplateSource> = {
             t: areaType,
@@ -389,7 +389,7 @@ class SpellPF2e extends ItemPF2e {
 
         if (this.system.area?.value) {
             this.system.area.value = (Number(this.system.area.value) || 5) as EffectAreaSize;
-            this.system.area.areaType ||= "burst";
+            this.system.area.type ||= "burst";
         } else {
             this.system.area = null;
         }
@@ -549,7 +549,7 @@ class SpellPF2e extends ItemPF2e {
         const [areaSize, areaType, areaUnit] = systemData.area
             ? [
                   Number(systemData.area.value),
-                  game.i18n.localize(CONFIG.PF2E.areaTypes[systemData.area.areaType]),
+                  game.i18n.localize(CONFIG.PF2E.areaTypes[systemData.area.type]),
                   game.i18n.localize("PF2E.Foot"),
               ]
             : [null, null, null];
