@@ -35,7 +35,7 @@
         {{#if data.isSave}}
             <button type="button" data-action="save" data-save="{{data.save.type}}" data-dc="{{data.save.value}}" data-owner-title="{{data.save.breakdown}}">{{data.save.label}}</button>
         {{/if}}
-        {{#if (or data.check data.hasDamage data.hasCounteractCheck.value data.area.areaType)}}
+        {{#if (or data.check data.hasDamage data.hasCounteractCheck.value data.area.type)}}
             <section class="owner-buttons">
                 {{#if item.hasVariants}}
                     {{#each data.variants as |variant|}}
@@ -62,7 +62,7 @@
                             <button type="button" data-action="spellCounteract">{{localize "PF2E.Counteract"}}</button>
                         </div>
                     {{/if}}
-                    {{#if data.area.areaType}}
+                    {{#if data.area.type}}
                         <div class="spell-button">
                             <button type="button" data-action="spellTemplate">{{localize "PF2E.Item.Spell.PlaceMeasuredTemplate" shape=data.areaType size=data.areaSize unit=data.areaUnit}}</button>
                         </div>
