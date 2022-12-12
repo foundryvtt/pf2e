@@ -1,6 +1,5 @@
 import { ItemPF2e } from "@item/base";
 import { ActionItemData, ActionItemSource } from "./data";
-import { OneToThree } from "@module/data";
 import { UserPF2e } from "@module/user";
 import { ActionCost, Frequency } from "@item/data/base";
 import { ItemSummaryData } from "@item/data";
@@ -60,10 +59,16 @@ class ActionItemPF2e extends ItemPF2e {
         options: DocumentModificationContext<this>,
         user: UserPF2e
     ): Promise<void> {
-        const actionCount = changed.system?.actions;
-        if (actionCount) {
-            actionCount.value = (Math.clamped(Number(actionCount.value), 0, 3) || null) as OneToThree | null;
+        // Normalize action data
+        if (changed.system && ("actionType" in changed.system || "actions" in changed.system)) {
+            const actionType = changed.system?.actionType?.value ?? this.system.actionType.value;
+            const actionCount = Number(changed.system?.actions?.value ?? this.system.actions.value);
+            changed.system = mergeObject(changed.system, {
+                actionType: { value: actionType },
+                actions: { value: actionType !== "action" ? null : Math.clamped(actionCount, 1, 3) },
+            });
         }
+
         await super._preUpdate(changed, options, user);
     }
 }
