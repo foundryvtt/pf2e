@@ -35,7 +35,7 @@ export const ChatCards = {
             const strikeAction = message._strike;
             if (strikeAction && action?.startsWith("strike-")) {
                 const context = message.flags.pf2e.context;
-                const altUsage = context && context.type !== "damage-roll" ? context?.altUsage : null;
+                const altUsage = context && "altUsage" in context ? context.altUsage : null;
                 const options = actor.getRollOptions(["all", "attack-roll"]);
                 switch (sluggify(action ?? "")) {
                     case "strike-attack":
