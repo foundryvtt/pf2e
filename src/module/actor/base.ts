@@ -650,6 +650,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                               params.item.isMelee === weapon.isMelee
                           );
                       }) ?? params.item;
+        const itemOptions = selfItem.getRollOptions("item");
 
         const traitSlugs: ActionTrait[] = [
             "attack" as const,
@@ -667,11 +668,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
             ? null
-            : targetToken?.actor?.getContextualClone([...selfActor.getSelfRollOptions("origin")]) ?? null;
+            : targetToken?.actor?.getContextualClone([...selfActor.getSelfRollOptions("origin"), ...itemOptions]) ??
+              null;
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
         if (targetToken && targetOptions.length > 0) {
+            targetOptions.push("target"); // An indicator that there is a target of any kind
             const mark = this.synthetics.targetMarks.get(targetToken.document.uuid);
             if (mark) targetOptions.push(`target:mark:${mark}`);
         }
@@ -680,7 +683,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             ...params.options,
             ...selfOptions,
             ...targetOptions,
-            ...selfItem.getRollOptions("item"),
+            ...itemOptions,
             // Backward compatibility for predication looking for an "attack" trait by its lonesome
             "attack",
         ]);
