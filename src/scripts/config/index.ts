@@ -1568,6 +1568,7 @@ export const PF2ECONFIG = {
         "greater-constrict": "PF2E.AttackEffectGreaterConstrict",
         knockdown: "PF2E.AttackEffectKnockdown",
         "improved-knockdown": "PF2E.AttackEffectImprovedKnockdown",
+        "no-map": "PF2E.AttackEffectNoMAP",
         push: "PF2E.AttackEffectPush",
         "improved-push": "PF2E.AttackEffectImprovedPush",
         trip: "PF2E.AttackEffectTrip",
