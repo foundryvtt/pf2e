@@ -440,10 +440,11 @@ class StatisticDifficultyClass {
     domains: string[];
     value: number;
     modifiers: ModifierPF2e[];
+    options: Set<string>;
 
-    constructor(private parent: Statistic, data: StatisticData, options: RollOptionParameters = {}) {
+    constructor(parent: Statistic, data: StatisticData, options: RollOptionParameters = {}) {
         this.domains = (data.domains ?? []).concat(data.dc?.domains ?? []);
-        const rollOptions = parent.createRollOptions(this.domains, options);
+        this.options = parent.createRollOptions(this.domains, options);
 
         // Add all modifiers from all sources together, then test them
         const allDCModifiers = [
@@ -451,13 +452,9 @@ class StatisticDifficultyClass {
             data.dc?.modifiers ?? [],
             extractModifiers(parent.actor.synthetics, this.domains),
         ].flat();
-        this.modifiers = allDCModifiers.map((modifier) => modifier.clone({ test: rollOptions }));
+        this.modifiers = allDCModifiers.map((modifier) => modifier.clone({ test: this.options }));
 
-        this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers, rollOptions).totalModifier;
-    }
-
-    createRollOptions(args: RollOptionParameters = {}): Set<string> {
-        return this.parent.createRollOptions(this.domains, args);
+        this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers, this.options).totalModifier;
     }
 
     get breakdown() {

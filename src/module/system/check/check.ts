@@ -21,6 +21,7 @@ import { LocalizePF2e } from "../localize";
 import { TextEditorPF2e } from "../text-editor";
 import { CheckRollContext } from "./types";
 import { StrikeAttackRoll } from "./strike/attack-roll";
+import { isCheckContextFlag } from "@module/chat-message/helpers";
 
 interface RerollOptions {
     heroPoint?: boolean;
@@ -374,7 +375,7 @@ class CheckPF2e {
 
         const systemFlags = deepClone(message.flags.pf2e);
         const context = systemFlags.context;
-        if (!context || context.type === "damage-roll") return;
+        if (!isCheckContextFlag(context)) return;
 
         context.skipDialog = true;
         context.isReroll = true;

@@ -446,21 +446,33 @@ class SpellPF2e extends ItemPF2e {
         const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
 
         const messageSource = message.toObject();
+        const flags = messageSource.flags.pf2e;
         const entry = this.trickMagicEntry ?? this.spellcasting;
         if (entry) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
             const tradition = Array.from(this.traditions).at(0);
-            messageSource.flags.pf2e.casting = {
+            flags.casting = {
                 id: entry.id,
                 level: data.castLevel ?? (Number(contextualData.castLevel) || this.level),
                 tradition: entry.tradition ?? tradition ?? "arcane",
             };
+
+            // The only data that can possibly exist in a casted spell is the dc, so we pull that data.
+            if (this.system.spellType.value === "save" || this.system.save.value !== "") {
+                const dc = entry.statistic.withRollOptions({ item: this }).dc;
+                flags.context = {
+                    type: "spell-cast",
+                    domains: dc.domains,
+                    options: [...dc.options],
+                    rollMode,
+                };
+            }
         }
 
-        messageSource.flags.pf2e.isFromConsumable = this.isFromConsumable;
+        flags.isFromConsumable = this.isFromConsumable;
 
         if (this.isVariant) {
-            messageSource.flags.pf2e.spellVariant = {
+            flags.spellVariant = {
                 overlayIds: [...this.appliedOverlays!.values()],
             };
         }
