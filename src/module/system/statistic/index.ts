@@ -352,6 +352,7 @@ class StatisticCheck {
         const extraModifiers = [...(args.modifiers ?? [])];
         const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
         const options = this.createRollOptions({ ...args, origin, target, extraRollOptions });
+        const dc = args.dc ?? rollContext?.dc ?? null;
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
@@ -359,9 +360,9 @@ class StatisticCheck {
         }
 
         // Add any degree of success adjustments if rolling against a DC
-        const dosAdjustments = args.dc ? extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains) : [];
+        const dosAdjustments = dc ? extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains) : [];
         // Handle special case of incapacitation trait
-        if (options.has("incapacitation") && args.dc) {
+        if ((options.has("incapacitation") || options.has("item:trait:incapacitation")) && dc) {
             const effectLevel = item?.isOfType("spell")
                 ? 2 * item.level
                 : item?.isOfType("physical")
@@ -415,7 +416,7 @@ class StatisticCheck {
             item,
             domains,
             target: rollContext?.target ?? null,
-            dc: args.dc ?? rollContext?.dc,
+            dc,
             notes: extractNotes(actor.synthetics.rollNotes, this.domains),
             options,
             type: this.type,
