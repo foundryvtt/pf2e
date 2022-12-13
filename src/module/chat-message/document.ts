@@ -122,7 +122,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             const spellVariant = this.flags.pf2e.spellVariant;
             const castLevel = this.flags.pf2e.casting?.level ?? item.level;
             const modifiedSpell = item.loadVariant({ overlayIds: spellVariant?.overlayIds, castLevel });
-            return modifiedSpell ?? item.clone({ "system.location.heightenedLevel": castLevel }, { keepId: true });
+            return modifiedSpell ?? item;
         }
 
         return item;

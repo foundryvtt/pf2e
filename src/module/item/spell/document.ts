@@ -26,7 +26,6 @@ import { ErrorPF2e, getActionIcon, objectHasKey, ordinal, traitSlugToObject } fr
 import {
     SpellData,
     SpellHeightenLayer,
-    SpellOverlay,
     SpellOverlayType,
     SpellSource,
     SpellSystemData,
@@ -275,35 +274,40 @@ class SpellPF2e extends ItemPF2e {
         }
         const { castLevel, overlayIds } = options;
         const appliedOverlays: Map<SpellOverlayType, string> = new Map();
+        const heightenEntries = this.getHeightenLayers(castLevel);
+        const overlays = overlayIds?.map((id) => ({ id, data: this.overlays.get(id, { strict: true }) })) ?? [];
 
         const override = (() => {
-            // Retrieve and apply variant overlays to override data
-            const heightenEntries = this.getHeightenLayers(castLevel);
-            if (heightenEntries.length === 0 && !overlayIds) return null;
-            let source = this.toObject();
-            if (overlayIds) {
-                const overlays: Map<string, SpellOverlay> = new Map(
-                    overlayIds.map((id) => [id, this.overlays.get(id, { strict: true })])
-                );
-                const overlayTypes = [...overlays.values()].map((overlay) => overlay.overlayType);
-                if (overlayTypes.filter((type) => type === "override").length > 1) {
-                    throw ErrorPF2e(
-                        `Error loading variant of Spell ${this.name} (${this.uuid}). Cannot apply multiple override overlays.`
-                    );
+            // If there are no overlays, only return an override if this is a simple heighten
+            if (!heightenEntries.length && !overlays.length) {
+                if (castLevel !== this.level) {
+                    return mergeObject(this.toObject(), { system: { location: { heightenedLevel: castLevel } } });
+                } else {
+                    return null;
                 }
-                for (const [overlayId, overlayData] of overlays) {
-                    switch (overlayData.overlayType) {
-                        case "override": {
-                            // Sanitize data
-                            delete source.system.overlays;
-                            source.system.rules = [];
+            }
 
-                            source = mergeObject(source, overlayData, { overwrite: true });
-                            break;
-                        }
+            let source = this.toObject();
+
+            const overlayTypes = overlays.map((overlay) => overlay.data.overlayType);
+            if (overlayTypes.filter((type) => type === "override").length > 1) {
+                throw ErrorPF2e(
+                    `Error loading variant of Spell ${this.name} (${this.uuid}). Cannot apply multiple override overlays.`
+                );
+            }
+
+            for (const { id, data } of overlays) {
+                switch (data.overlayType) {
+                    case "override": {
+                        // Sanitize data
+                        delete source.system.overlays;
+                        source.system.rules = [];
+
+                        source = mergeObject(source, data, { overwrite: true });
+                        break;
                     }
-                    appliedOverlays.set(overlayData.overlayType, overlayId);
                 }
+                appliedOverlays.set(data.overlayType, id);
             }
 
             for (const overlay of heightenEntries) {
@@ -320,7 +324,8 @@ class SpellPF2e extends ItemPF2e {
         })();
         if (!override) return null;
 
-        const variantSpell = new SpellPF2e(override, { parent: this.actor }) as Embedded<SpellPF2e>;
+        const fromConsumable = this.isFromConsumable;
+        const variantSpell = new SpellPF2e(override, { parent: this.actor, fromConsumable }) as Embedded<SpellPF2e>;
         variantSpell.original = this;
         variantSpell.appliedOverlays = appliedOverlays;
         return variantSpell;
@@ -586,7 +591,8 @@ class SpellPF2e extends ItemPF2e {
 
         // Embedded item string for consumable fetching.
         // This needs to be refactored in the future so that injecting DOM strings isn't necessary
-        const item = this.isFromConsumable ? JSON.stringify(this.toObject(false)) : undefined;
+        const original = this.original ?? this;
+        const item = this.isFromConsumable ? JSON.stringify(original.toObject(false)) : undefined;
 
         return {
             ...systemData,
