@@ -358,17 +358,31 @@ class StatisticCheck {
             rule.beforeRoll?.(domains, options);
         }
 
-        // Add any degree of success adjustments if we are rolling against a DC
+        // Add any degree of success adjustments if rolling against a DC
         const dosAdjustments = args.dc ? extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains) : [];
-        if (options.has("incapacitation") && args.dc && this.type === "saving-throw") {
-            // Special-case handling for incapacation
-            const effectLevel = item?.isOfType("spell") ? 2 * item.level : args.origin?.level ?? actor.level;
-            if (actor.level > effectLevel) {
+        // Handle special case of incapacitation trait
+        if (options.has("incapacitation") && args.dc) {
+            const effectLevel = item?.isOfType("spell")
+                ? 2 * item.level
+                : item?.isOfType("physical")
+                ? item.level
+                : origin?.level ?? actor.level;
+
+            const amount =
+                this.type === "saving-throw" && actor.level > effectLevel
+                    ? DEGREE_ADJUSTMENT_AMOUNTS.INCREASE
+                    : !!target &&
+                      target.level > effectLevel &&
+                      ["attack-roll", "spell-attack-roll", "skill-check"].includes(this.type)
+                    ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
+                    : null;
+
+            if (amount) {
                 dosAdjustments.push({
                     adjustments: {
                         all: {
                             label: "PF2E.TraitIncapacitation",
-                            amount: DEGREE_ADJUSTMENT_AMOUNTS.INCREASE,
+                            amount,
                         },
                     },
                 });
