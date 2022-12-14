@@ -13,7 +13,7 @@ export class Migration612NormalizeRarities extends MigrationBase {
         }
 
         // Remove rarities from standard traits list
-        const rarities = ["common", "uncommon", "rare", "unique"] as const;
+        const rarities = ["source", "local", "nearby", "distant", "common", "uncommon", "rare", "unique"] as const;
         for (const rarity of rarities) {
             const { traits } = traitsAndOtherMiscellany;
             if (traits?.value.includes(rarity)) {
