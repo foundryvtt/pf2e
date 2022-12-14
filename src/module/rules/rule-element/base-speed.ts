@@ -36,9 +36,10 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
 
         const resolved = this.resolveInjectedProperties(this.selector);
 
-        let speedType: MovementType = "land";
+        let speedType: MovementType;
         if (!tupleHasValue(MOVEMENT_TYPES, resolved)) {
             this.failValidation("Unrecognized or missing selector");
+            return;
         } else {
             speedType = resolved;
         }
