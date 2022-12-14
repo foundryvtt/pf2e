@@ -71,7 +71,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
         // Filters
         this.filterData.checkboxes.complexity.options = this.generateCheckboxOptions(
             {
-                simple: "PF2E.TraitSimple",
+                simple: "PF2E.Actor.Hazard.Simple",
                 complex: "PF2E.TraitComplex",
             },
             false
