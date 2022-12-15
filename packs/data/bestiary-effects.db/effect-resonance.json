@@ -8,7 +8,7 @@
             "value": "<p>The creature gains a +1 status bonus to attack and damage rolls for effects with the selected trait; a creature with the elemental and selected traits gains this bonus to all attack and damage rolls.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -44,7 +44,10 @@
                 "predicate": [
                     "{item|flags.pf2e.rulesSelections.resonance-choice}"
                 ],
-                "selector": "attack",
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
                 "slug": "resonance-attack-1",
                 "type": "status",
                 "value": 1
@@ -52,38 +55,17 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "{item|flags.pf2e.rulesSelections.resonance-choice}"
-                ],
-                "selector": "damage",
-                "slug": "resonance-damage-1",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
                     "self:trait:{item|flags.pf2e.rulesSelections.resonance-choice}",
                     "self:trait:elemental",
                     {
                         "not": "{item|flags.pf2e.rulesSelections.resonance-choice}"
                     }
                 ],
-                "selector": "attack",
+                "selector": [
+                    "attack",
+                    "damage"
+                ],
                 "slug": "resonance-attack-2",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "self:trait:{item|flags.pf2e.rulesSelections.resonance-choice}",
-                    "self:trait:elemental",
-                    {
-                        "not": "{item|flags.pf2e.rulesSelections.resonance-choice}"
-                    }
-                ],
-                "selector": "damage",
-                "slug": "resonance-damage-2",
                 "type": "status",
                 "value": 1
             }
@@ -103,7 +85,8 @@
             "custom": "",
             "rarity": "common",
             "value": []
-        }
+        },
+        "unidentified": false
     },
     "type": "effect"
 }
