@@ -325,10 +325,13 @@ class SpellPF2e extends ItemPF2e {
         if (!override) return null;
 
         const fromConsumable = this.isFromConsumable;
-        const variantSpell = new SpellPF2e(override, { parent: this.actor, fromConsumable }) as Embedded<SpellPF2e>;
-        variantSpell.original = this;
-        variantSpell.appliedOverlays = appliedOverlays;
-        return variantSpell;
+        const variant = new SpellPF2e(override, { parent: this.actor, fromConsumable }) as Embedded<SpellPF2e>;
+        variant.original = this;
+        variant.appliedOverlays = appliedOverlays;
+        // Retrieve tradition since `#prepareSiblingData` isn't run:
+        variant.system.traits.value = Array.from(new Set([...variant.traits, ...variant.traditions]));
+
+        return variant;
     }
 
     getHeightenLayers(level?: number): SpellHeightenLayer[] {
@@ -391,6 +394,9 @@ class SpellPF2e extends ItemPF2e {
         super.prepareBaseData();
         // In case bad level data somehow made it in
         this.system.level.value = (Math.clamped(this.system.level.value, 1, 10) || 1) as OneToTen;
+        // As of FVTT 10.291, data preparation on embedded items is run twice, making it so the spell's school trait
+        // can't be blindly pushed onto the array.
+        this.system.traits.value = [...this._source.system.traits.value, this.school];
 
         if (this.system.area?.value) {
             this.system.area.value = (Number(this.system.area.value) || 5) as EffectAreaSize;
@@ -403,7 +409,7 @@ class SpellPF2e extends ItemPF2e {
     }
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
-        this.system.traits.value.push(this.school, ...this.traditions);
+        this.system.traits.value.push(...this.traditions);
         if (this.spellcasting?.isInnate) {
             mergeObject(this.system.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
         }
