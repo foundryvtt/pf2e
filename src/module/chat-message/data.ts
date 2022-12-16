@@ -19,7 +19,7 @@ interface ChatMessageSourcePF2e extends foundry.data.ChatMessageSource {
 type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
     pf2e: {
         damageRoll?: DamageRollFlag;
-        context?: CheckRollContextFlag | DamageRollContextFlag;
+        context?: ChatContextFlag;
         origin?: { type: ItemType; uuid: string } | null;
         casting?: { id: string; level: number; tradition: MagicTradition } | null;
         modifierName?: string;
@@ -33,6 +33,8 @@ type ChatMessageFlagsPF2e = foundry.data.ChatMessageFlags & {
     };
     core: NonNullable<foundry.data.ChatMessageFlags["core"]>;
 };
+
+type ChatContextFlag = CheckRollContextFlag | DamageRollContextFlag | SpellCastContextFlag;
 
 /** Data used to lookup a strike on an actor */
 interface StrikeLookupData {
@@ -93,7 +95,16 @@ interface DamageRollContextFlag extends Required<Omit<DamageRollContext, Context
     options: string[];
 }
 
+interface SpellCastContextFlag {
+    type: "spell-cast";
+    domains: string[];
+    options: string[];
+    /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
+    rollMode?: RollMode;
+}
+
 export {
+    ChatContextFlag,
     ChatMessageDataPF2e,
     ChatMessageSourcePF2e,
     ChatMessageFlagsPF2e,

@@ -52,7 +52,9 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "no-map"
+                    ]
                 },
                 "bonus": {
                     "value": 14
@@ -88,6 +90,43 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "nkbi91SwDmuZucwd",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No MAP",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The Acid Spray Strikes do not apply a MAP.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Acid Spray Fountain",
@@ -96,6 +135,7 @@
             "ac": {
                 "value": 24
             },
+            "emitsSound": "encounter",
             "hardness": 14,
             "hasHealth": true,
             "hp": {
@@ -118,7 +158,7 @@
                 "value": 6
             },
             "reset": "<p>The trap deactivates after 1 minute, at which point its acid reservoir is empty. It can't reactivate until this reservoir is refilled.</p>",
-            "routine": "<p><span class=\"pf2-icon\">3</span> On its initiative, the trap makes an acid spray Strike against a random creature in the room for each of its actions.</p>"
+            "routine": "<p>(3 actions) On its initiative, the trap makes an acid spray Strike against a random creature in the room for each of its actions.</p>"
         },
         "saves": {
             "fortitude": {
@@ -135,6 +175,7 @@
             }
         },
         "source": {
+            "author": "",
             "value": "Pathfinder Society Scenario #1-00: Origin of the Open Road"
         },
         "statusEffects": [],

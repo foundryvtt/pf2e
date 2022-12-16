@@ -13,23 +13,16 @@ import { DeferredMovementType } from "../synthetics";
 class BaseSpeedRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    private selector: MovementType;
+    private selector: string;
 
     private value: number | string | BracketedValue = 0;
 
     constructor(data: BaseSpeedSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
-        const speedType = String(data.selector)
+        this.selector = String(data.selector)
             .trim()
             .replace(/-speed$/, "");
-
-        if (!tupleHasValue(MOVEMENT_TYPES, speedType)) {
-            this.failValidation("Unrecognized or missing selector");
-            this.selector = "land";
-        } else {
-            this.selector = speedType;
-        }
 
         if (typeof data.value === "string" || typeof data.value === "number" || this.isBracketedValue(data.value)) {
             this.value = data.value;
@@ -40,12 +33,17 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
 
     override beforePrepareData(): void {
         if (this.ignored) return;
-        const speed = this.#createMovementType();
-        const synthetics = (this.actor.synthetics.movementTypes[this.selector] ??= []);
+        const speedType = this.resolveInjectedProperties(this.selector);
+        if (!tupleHasValue(MOVEMENT_TYPES, speedType)) {
+            return this.failValidation("Unrecognized or missing selector");
+        }
+
+        const speed = this.#createMovementType(speedType);
+        const synthetics = (this.actor.synthetics.movementTypes[speedType] ??= []);
         synthetics.push(speed);
     }
 
-    #createMovementType(): DeferredMovementType {
+    #createMovementType(type: MovementType): DeferredMovementType {
         return (): UnlabeledSpeed | null => {
             if (!this.test()) return null;
 
@@ -55,7 +53,7 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
                 return null;
             }
 
-            return value > 0 ? { type: this.selector, value, source: this.item.name } : null;
+            return value > 0 ? { type: type, value, source: this.item.name } : null;
         };
     }
 }

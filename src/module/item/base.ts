@@ -91,7 +91,11 @@ class ItemPF2e extends Item<ActorPF2e> {
             ...traitOptions.map((t) => `${delimitedPrefix}${t}`),
         ];
 
-        if ("level" in this.system) options.push(`${delimitedPrefix}level:${this.system.level.value}`);
+        const level = "level" in this ? this.level : "level" in this.system ? this.system.level.value : null;
+        if (typeof level === "number") {
+            options.push(`${delimitedPrefix}level:${level}`);
+        }
+
         if (["item", ""].includes(prefix)) {
             const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
             options.unshift(`${delimitedPrefix}type:${itemType}`);

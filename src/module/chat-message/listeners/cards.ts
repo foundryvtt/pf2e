@@ -35,7 +35,7 @@ export const ChatCards = {
             const strikeAction = message._strike;
             if (strikeAction && action?.startsWith("strike-")) {
                 const context = message.flags.pf2e.context;
-                const altUsage = context && context.type !== "damage-roll" ? context?.altUsage : null;
+                const altUsage = context && "altUsage" in context ? context.altUsage : null;
                 const options = actor.getRollOptions(["all", "attack-roll"]);
                 switch (sluggify(action ?? "")) {
                     case "strike-attack":
@@ -71,7 +71,6 @@ export const ChatCards = {
                     const castLevel =
                         Number($html[0].querySelector<HTMLElement>("div.chat-card")?.dataset.castLevel) || 1;
                     const overlayIdString = $button.attr("data-overlay-ids");
-                    const originalId = $button.attr("data-original-id") ?? "";
                     if (overlayIdString) {
                         const overlayIds = overlayIdString.split(",").map((id) => id.trim());
                         const variantSpell = spell?.loadVariant({ overlayIds, castLevel });
@@ -85,8 +84,8 @@ export const ChatCards = {
                                 await message.update(messageSource);
                             }
                         }
-                    } else if (originalId) {
-                        const originalSpell = actor.items.get(originalId, { strict: true });
+                    } else if (spell) {
+                        const originalSpell = spell?.original ?? spell;
                         const originalMessage = await originalSpell.toMessage(undefined, {
                             create: false,
                             data: { castLevel },

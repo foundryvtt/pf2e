@@ -54,7 +54,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "no-multiple-attack-penalty"
+                        "no-map"
                     ]
                 },
                 "bonus": {
@@ -67,7 +67,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success], @Localize[PF2E.PersistentDamage.Poison4d6.success]</p>"
+                    "value": "<p>No MAP applies to strikes made by poisoned needle attacks</p>\n<p>@Localize[PF2E.PersistentDamage.Bleed1d6.success], @Localize[PF2E.PersistentDamage.Poison4d6.success]</p>"
                 },
                 "rules": [
                     {
@@ -143,6 +143,43 @@
                 }
             },
             "type": "action"
+        },
+        {
+            "_id": "pk7WhgmEvUXgGRiz",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No MAP",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The Poisoned Needle Strikes do not apply a MAP.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Needling Stairs",
@@ -151,6 +188,7 @@
             "ac": {
                 "value": 28
             },
+            "emitsSound": "encounter",
             "hardness": 8,
             "hasHealth": true,
             "hp": {
@@ -192,6 +230,7 @@
             }
         },
         "source": {
+            "author": "",
             "value": "Pathfinder #159: All or Nothing"
         },
         "statusEffects": [],

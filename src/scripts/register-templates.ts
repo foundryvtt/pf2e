@@ -105,6 +105,9 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/items/weapon-sidebar.html",
         "systems/pf2e/templates/items/activation-panel.html",
 
+        // Item Sheet Partials (sub-partials)
+        "systems/pf2e/templates/items/partials/ability-activation.html",
+
         // Loot partials
         "systems/pf2e/templates/actors/loot/inventory.html",
         "systems/pf2e/templates/actors/loot/sidebar.html",

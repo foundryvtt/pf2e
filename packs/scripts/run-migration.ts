@@ -20,6 +20,8 @@ import { Migration799RMRecallKnowledgeDuplicates } from "@module/migration/migra
 import { Migration800SelfEffectPanacheRage } from "@module/migration/migrations/800-self-effect-panache-rage";
 import { Migration801ColorDarkvision } from "@module/migration/migrations/801-color-darkvision";
 import { Migration802StripFeatActionCategory } from "@module/migration/migrations/802-strip-feat-action-category";
+import { Migration803NormalizeSpellArea } from "@module/migration/migrations/803-normalize-spell-area";
+import { Migration804RemoveConsumableProperties } from "@module/migration/migrations/804-remove-consumable-properties";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -43,6 +45,8 @@ const migrations: MigrationBase[] = [
     new Migration800SelfEffectPanacheRage(),
     new Migration801ColorDarkvision(),
     new Migration802StripFeatActionCategory(),
+    new Migration803NormalizeSpellArea(),
+    new Migration804RemoveConsumableProperties(),
 ];
 
 global.deepClone = <T>(original: T): T => {

@@ -352,23 +352,38 @@ class StatisticCheck {
         const extraModifiers = [...(args.modifiers ?? [])];
         const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
         const options = this.createRollOptions({ ...args, origin, target, extraRollOptions });
+        const dc = args.dc ?? rollContext?.dc ?? null;
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
             rule.beforeRoll?.(domains, options);
         }
 
-        // Add any degree of success adjustments if we are rolling against a DC
-        const dosAdjustments = args.dc ? extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains) : [];
-        if (options.has("incapacitation") && args.dc && this.type === "saving-throw") {
-            // Special-case handling for incapacation
-            const effectLevel = item?.isOfType("spell") ? 2 * item.level : args.origin?.level ?? actor.level;
-            if (actor.level > effectLevel) {
+        // Add any degree of success adjustments if rolling against a DC
+        const dosAdjustments = dc ? extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains) : [];
+        // Handle special case of incapacitation trait
+        if ((options.has("incapacitation") || options.has("item:trait:incapacitation")) && dc) {
+            const effectLevel = item?.isOfType("spell")
+                ? 2 * item.level
+                : item?.isOfType("physical")
+                ? item.level
+                : origin?.level ?? actor.level;
+
+            const amount =
+                this.type === "saving-throw" && actor.level > effectLevel
+                    ? DEGREE_ADJUSTMENT_AMOUNTS.INCREASE
+                    : !!target &&
+                      target.level > effectLevel &&
+                      ["attack-roll", "spell-attack-roll", "skill-check"].includes(this.type)
+                    ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
+                    : null;
+
+            if (amount) {
                 dosAdjustments.push({
                     adjustments: {
                         all: {
                             label: "PF2E.TraitIncapacitation",
-                            amount: DEGREE_ADJUSTMENT_AMOUNTS.INCREASE,
+                            amount,
                         },
                     },
                 });
@@ -401,7 +416,7 @@ class StatisticCheck {
             item,
             domains,
             target: rollContext?.target ?? null,
-            dc: args.dc ?? rollContext?.dc,
+            dc,
             notes: extractNotes(actor.synthetics.rollNotes, this.domains),
             options,
             type: this.type,
@@ -440,10 +455,11 @@ class StatisticDifficultyClass {
     domains: string[];
     value: number;
     modifiers: ModifierPF2e[];
+    options: Set<string>;
 
-    constructor(private parent: Statistic, data: StatisticData, options: RollOptionParameters = {}) {
+    constructor(parent: Statistic, data: StatisticData, options: RollOptionParameters = {}) {
         this.domains = (data.domains ?? []).concat(data.dc?.domains ?? []);
-        const rollOptions = parent.createRollOptions(this.domains, options);
+        this.options = parent.createRollOptions(this.domains, options);
 
         // Add all modifiers from all sources together, then test them
         const allDCModifiers = [
@@ -451,13 +467,9 @@ class StatisticDifficultyClass {
             data.dc?.modifiers ?? [],
             extractModifiers(parent.actor.synthetics, this.domains),
         ].flat();
-        this.modifiers = allDCModifiers.map((modifier) => modifier.clone({ test: rollOptions }));
+        this.modifiers = allDCModifiers.map((modifier) => modifier.clone({ test: this.options }));
 
-        this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers, rollOptions).totalModifier;
-    }
-
-    createRollOptions(args: RollOptionParameters = {}): Set<string> {
-        return this.parent.createRollOptions(this.domains, args);
+        this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers, this.options).totalModifier;
     }
 
     get breakdown() {

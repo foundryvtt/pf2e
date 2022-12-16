@@ -26,7 +26,6 @@ import { ErrorPF2e, getActionIcon, objectHasKey, ordinal, traitSlugToObject } fr
 import {
     SpellData,
     SpellHeightenLayer,
-    SpellOverlay,
     SpellOverlayType,
     SpellSource,
     SpellSystemData,
@@ -34,7 +33,7 @@ import {
 } from "./data";
 import { applyDamageDice } from "./helpers";
 import { SpellOverlayCollection } from "./overlay";
-import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
+import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
@@ -275,35 +274,40 @@ class SpellPF2e extends ItemPF2e {
         }
         const { castLevel, overlayIds } = options;
         const appliedOverlays: Map<SpellOverlayType, string> = new Map();
+        const heightenEntries = this.getHeightenLayers(castLevel);
+        const overlays = overlayIds?.map((id) => ({ id, data: this.overlays.get(id, { strict: true }) })) ?? [];
 
         const override = (() => {
-            // Retrieve and apply variant overlays to override data
-            const heightenEntries = this.getHeightenLayers(castLevel);
-            if (heightenEntries.length === 0 && !overlayIds) return null;
-            let source = this.toObject();
-            if (overlayIds) {
-                const overlays: Map<string, SpellOverlay> = new Map(
-                    overlayIds.map((id) => [id, this.overlays.get(id, { strict: true })])
-                );
-                const overlayTypes = [...overlays.values()].map((overlay) => overlay.overlayType);
-                if (overlayTypes.filter((type) => type === "override").length > 1) {
-                    throw ErrorPF2e(
-                        `Error loading variant of Spell ${this.name} (${this.uuid}). Cannot apply multiple override overlays.`
-                    );
+            // If there are no overlays, only return an override if this is a simple heighten
+            if (!heightenEntries.length && !overlays.length) {
+                if (castLevel !== this.level) {
+                    return mergeObject(this.toObject(), { system: { location: { heightenedLevel: castLevel } } });
+                } else {
+                    return null;
                 }
-                for (const [overlayId, overlayData] of overlays) {
-                    switch (overlayData.overlayType) {
-                        case "override": {
-                            // Sanitize data
-                            delete source.system.overlays;
-                            source.system.rules = [];
+            }
 
-                            source = mergeObject(source, overlayData, { overwrite: true });
-                            break;
-                        }
+            let source = this.toObject();
+
+            const overlayTypes = overlays.map((overlay) => overlay.data.overlayType);
+            if (overlayTypes.filter((type) => type === "override").length > 1) {
+                throw ErrorPF2e(
+                    `Error loading variant of Spell ${this.name} (${this.uuid}). Cannot apply multiple override overlays.`
+                );
+            }
+
+            for (const { id, data } of overlays) {
+                switch (data.overlayType) {
+                    case "override": {
+                        // Sanitize data
+                        delete source.system.overlays;
+                        source.system.rules = [];
+
+                        source = mergeObject(source, data, { overwrite: true });
+                        break;
                     }
-                    appliedOverlays.set(overlayData.overlayType, overlayId);
                 }
+                appliedOverlays.set(data.overlayType, id);
             }
 
             for (const overlay of heightenEntries) {
@@ -320,10 +324,14 @@ class SpellPF2e extends ItemPF2e {
         })();
         if (!override) return null;
 
-        const variantSpell = new SpellPF2e(override, { parent: this.actor }) as Embedded<SpellPF2e>;
-        variantSpell.original = this;
-        variantSpell.appliedOverlays = appliedOverlays;
-        return variantSpell;
+        const fromConsumable = this.isFromConsumable;
+        const variant = new SpellPF2e(override, { parent: this.actor, fromConsumable }) as Embedded<SpellPF2e>;
+        variant.original = this;
+        variant.appliedOverlays = appliedOverlays;
+        // Retrieve tradition since `#prepareSiblingData` isn't run:
+        variant.system.traits.value = Array.from(new Set([...variant.traits, ...variant.traditions]));
+
+        return variant;
     }
 
     getHeightenLayers(level?: number): SpellHeightenLayer[] {
@@ -348,7 +356,8 @@ class SpellPF2e extends ItemPF2e {
         } as const;
 
         const { area } = this.system;
-        const areaType = templateConversion[area.areaType];
+        if (!area) throw ErrorPF2e("Attempted to create template with non-area spell");
+        const areaType = templateConversion[area.type];
 
         const templateData: DeepPartial<foundry.data.MeasuredTemplateSource> = {
             t: areaType,
@@ -385,12 +394,22 @@ class SpellPF2e extends ItemPF2e {
         super.prepareBaseData();
         // In case bad level data somehow made it in
         this.system.level.value = (Math.clamped(this.system.level.value, 1, 10) || 1) as OneToTen;
+        // As of FVTT 10.291, data preparation on embedded items is run twice, making it so the spell's school trait
+        // can't be blindly pushed onto the array.
+        this.system.traits.value = [...this._source.system.traits.value, this.school];
+
+        if (this.system.area?.value) {
+            this.system.area.value = (Number(this.system.area.value) || 5) as EffectAreaSize;
+            this.system.area.type ||= "burst";
+        } else {
+            this.system.area = null;
+        }
 
         this.overlays = new SpellOverlayCollection(this, this.system.overlays);
     }
 
     override prepareSiblingData(this: Embedded<SpellPF2e>): void {
-        this.system.traits.value.push(this.school, ...this.traditions);
+        this.system.traits.value.push(...this.traditions);
         if (this.spellcasting?.isInnate) {
             mergeObject(this.system.location, { uses: { value: 1, max: 1 } }, { overwrite: false });
         }
@@ -438,21 +457,33 @@ class SpellPF2e extends ItemPF2e {
         const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
 
         const messageSource = message.toObject();
+        const flags = messageSource.flags.pf2e;
         const entry = this.trickMagicEntry ?? this.spellcasting;
         if (entry) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
             const tradition = Array.from(this.traditions).at(0);
-            messageSource.flags.pf2e.casting = {
+            flags.casting = {
                 id: entry.id,
                 level: data.castLevel ?? (Number(contextualData.castLevel) || this.level),
                 tradition: entry.tradition ?? tradition ?? "arcane",
             };
+
+            // The only data that can possibly exist in a casted spell is the dc, so we pull that data.
+            if (this.system.spellType.value === "save" || this.system.save.value !== "") {
+                const dc = entry.statistic.withRollOptions({ item: this }).dc;
+                flags.context = {
+                    type: "spell-cast",
+                    domains: dc.domains,
+                    options: [...dc.options],
+                    rollMode,
+                };
+            }
         }
 
-        messageSource.flags.pf2e.isFromConsumable = this.isFromConsumable;
+        flags.isFromConsumable = this.isFromConsumable;
 
         if (this.isVariant) {
-            messageSource.flags.pf2e.spellVariant = {
+            flags.spellVariant = {
                 overlayIds: [...this.appliedOverlays!.values()],
             };
         }
@@ -538,18 +569,17 @@ class SpellPF2e extends ItemPF2e {
         const isHeal = systemData.spellType.value === "heal";
         const damageLabel = isHeal ? localize("PF2E.SpellTypeHeal") : localize("PF2E.DamageLabel");
 
-        const areaSize = systemData.area.value ?? "";
-        const areaType = game.i18n.localize(CONFIG.PF2E.areaTypes[systemData.area.areaType] ?? "");
-        const areaUnit = game.i18n.localize("PF2E.Foot");
-
-        const area = (() => {
-            if (systemData.area.value) {
-                return game.i18n
-                    .format("PF2E.SpellArea", { areaSize: areaSize, areaUnit: areaUnit, areaType: areaType })
-                    .trim();
-            }
-            return null;
-        })();
+        const [areaSize, areaType, areaUnit] = systemData.area
+            ? [
+                  Number(systemData.area.value),
+                  game.i18n.localize(CONFIG.PF2E.areaTypes[systemData.area.type]),
+                  game.i18n.localize("PF2E.Foot"),
+              ]
+            : [null, null, null];
+        const area =
+            areaSize && areaType && areaUnit
+                ? game.i18n.format("PF2E.SpellArea", { areaSize, areaUnit, areaType }).trim()
+                : null;
 
         const baseLevel = this.baseLevel;
         const heightened = castLevel - baseLevel;
@@ -579,7 +609,8 @@ class SpellPF2e extends ItemPF2e {
 
         // Embedded item string for consumable fetching.
         // This needs to be refactored in the future so that injecting DOM strings isn't necessary
-        const item = this.isFromConsumable ? JSON.stringify(this.toObject(false)) : undefined;
+        const original = this.original ?? this;
+        const item = this.isFromConsumable ? JSON.stringify(original.toObject(false)) : undefined;
 
         return {
             ...systemData,

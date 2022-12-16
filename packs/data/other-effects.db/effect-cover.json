@@ -21,39 +21,86 @@
                 "choices": [
                     {
                         "label": "PF2E.SpecificRule.Cover.Lesser",
-                        "sort": 1,
-                        "value": 1
+                        "sort": 0,
+                        "value": {
+                            "bonus": 1,
+                            "level": "lesser"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.Cover.Standard",
-                        "sort": 2,
-                        "value": 2
+                        "sort": 1,
+                        "value": {
+                            "bonus": 2,
+                            "level": "standard"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.Cover.Greater",
+                        "sort": 2,
+                        "value": {
+                            "bonus": 4,
+                            "level": "greater"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Cover.Prone",
+                        "predicate": [
+                            "self:condition:prone"
+                        ],
                         "sort": 3,
-                        "value": 4
+                        "value": {
+                            "bonus": 4,
+                            "level": "greater-prone"
+                        }
                     }
                 ],
-                "flag": "coverBonus",
+                "flag": "cover",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Cover.Prompt",
-                "rollOption": "self:cover-bonus"
+                "prompt": "PF2E.SpecificRule.Cover.Prompt"
             },
             {
-                "key": "FlatModifier",
-                "selector": "ac",
-                "type": "circumstance",
-                "value": "@item.flags.pf2e.rulesSelections.coverBonus"
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:cover-bonus:{item|flags.pf2e.rulesSelections.cover.bonus}"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:cover-level:{item|flags.pf2e.rulesSelections.cover.level}"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "area-effect"
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "self:condition:prone",
+                                    "item:ranged"
+                                ]
+                            },
+                            {
+                                "not": "self:cover-level:greater-prone"
+                            }
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.cover.bonus"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "area-effect",
+                    {
+                        "not": "self:cover-level:greater-prone"
+                    }
                 ],
                 "selector": "reflex",
                 "type": "circumstance",
-                "value": "@item.flags.pf2e.rulesSelections.coverBonus"
+                "value": "@item.flags.pf2e.rulesSelections.cover.bonus"
             },
             {
                 "key": "FlatModifier",
@@ -64,20 +111,26 @@
                             "action:sneak",
                             "avoid-detection"
                         ]
+                    },
+                    {
+                        "not": "self:cover-level:greater-prone"
                     }
                 ],
                 "selector": "stealth",
                 "type": "circumstance",
-                "value": "@item.flags.pf2e.rulesSelections.coverBonus"
+                "value": "@item.flags.pf2e.rulesSelections.cover.bonus"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:avoid-notice"
+                    "action:avoid-notice",
+                    {
+                        "not": "self:cover-level:greater-prone"
+                    }
                 ],
                 "selector": "initiative",
                 "type": "circumstance",
-                "value": "@item.flags.pf2e.rulesSelections.coverBonus"
+                "value": "@item.flags.pf2e.rulesSelections.cover.bonus"
             }
         ],
         "source": {
