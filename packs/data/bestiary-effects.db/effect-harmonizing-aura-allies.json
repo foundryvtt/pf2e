@@ -3,11 +3,12 @@
     "img": "systems/pf2e/icons/spells/spirit-song.webp",
     "name": "Effect: Harmonizing Aura (Allies)",
     "system": {
+        "badge": null,
         "description": {
             "value": "<p>The creature gains a +2 status bonus to sonic damage rolls and a +1 status bonus to AC and all saves against sonic and auditory effects</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -27,22 +28,10 @@
                         ]
                     }
                 ],
-                "selector": "ac",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Harmonizing Aura",
-                "predicate": [
-                    {
-                        "or": [
-                            "sonic",
-                            "auditory"
-                        ]
-                    }
+                "selector": [
+                    "ac",
+                    "saving-throw"
                 ],
-                "selector": "saving-throw",
                 "type": "status",
                 "value": 1
             },
@@ -72,7 +61,8 @@
             "custom": "",
             "rarity": "common",
             "value": []
-        }
+        },
+        "unidentified": false
     },
     "type": "effect"
 }
