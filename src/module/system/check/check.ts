@@ -148,14 +148,16 @@ class CheckPF2e {
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
         const dosAdjustments =
-            context.dosAdjustments?.reduce((record, data) => {
-                for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
-                    if (data.adjustments[outcome]) {
-                        record[outcome] = deepClone(data.adjustments[outcome]);
+            context.dosAdjustments
+                ?.filter((a) => a.predicate?.test(rollOptions) ?? true)
+                .reduce((record, data) => {
+                    for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
+                        if (data.adjustments[outcome]) {
+                            record[outcome] = deepClone(data.adjustments[outcome]);
+                        }
                     }
-                }
-                return record;
-            }, {} as DegreeAdjustmentsRecord) ?? {};
+                    return record;
+                }, {} as DegreeAdjustmentsRecord) ?? {};
         const degree = context.dc ? new DegreeOfSuccess(roll, context.dc, dosAdjustments) : null;
 
         if (degree) {
