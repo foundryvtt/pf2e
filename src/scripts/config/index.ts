@@ -476,7 +476,7 @@ const traitsDescriptions = {
     halfling: "PF2E.TraitDescriptionHalfling",
     "half-elf": "PF2E.TraitDescriptionHalfElf",
     "half-orc": "PF2E.TraitDescriptionHalfOrc",
-    "jousting-d6": "PF2E.TraitDescriptionJoustingD6",
+    "jousting-d6": "PF2E.TraitDescriptionJousting",
     hampering: "PF2E.TraitDescriptionHampering",
     haunt: "PF2E.TraitDescriptionHaunt",
     healing: "PF2E.TraitDescriptionHealing",
