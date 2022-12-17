@@ -1,5 +1,25 @@
 # Changelog
 
+## Version 4.5.1
+
+### Bugfixes
+* (stwlam) Ensure presence of school and tradition traits on spell variants
+* (stwlam) Restore predication testing of degree-of-success adjustments
+
+### Data Updates
+* (Athenos) Add Rule Elements to Bull's Eye Lantern
+* (Avery) Condense flat modifiers for bestiary effects
+* (Avery) Improve localization of GM screen journals
+* (Dire Weasel) Add resistance rule elements to glass and sand sentries
+* (Dire Weasel) Fix localized name and icon of Crown of the Saumen Kar horns attack
+* (dogstarrb) Update deities to match Impossible Lands entries
+* (rectulo) Fix feat type of Lesson of Bargains
+* (rectulo) Fix traits of Lesson of Favors feat
+* (Tikael) Fix automation of Automaton Chassis
+* (Tikael) Fix sources of items from Blood Lords book 6
+* (TMun) Add actors from PFS 4-07 and Bounty 21
+
+
 ## Version 4.5.0
 
 ### System Improvements
