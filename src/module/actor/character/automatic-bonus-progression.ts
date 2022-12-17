@@ -66,14 +66,14 @@ export class AutomaticBonusProgression {
             const attack = values.attack;
             const damage = values.damage;
             if (attack > 0) {
-                const modifiers = (synthetics.statisticsModifiers["mundane-attack"] ??= []);
+                const modifiers = (synthetics.statisticsModifiers["strike-attack-roll"] ??= []);
                 modifiers.push(
                     () =>
                         new ModifierPF2e({
                             slug: "attack-potency",
                             label: "PF2E.AutomaticBonusProgression.attackPotency",
                             modifier: attack,
-                            type: MODIFIER_TYPE.POTENCY,
+                            type: "potency",
                         })
                 );
             }
@@ -107,13 +107,12 @@ export class AutomaticBonusProgression {
             if (attack > 0) {
                 const potency: PotencySynthetic = {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
-                    type: MODIFIER_TYPE.POTENCY,
+                    type: "potency",
                     bonus: attack,
                     predicate: new PredicatePF2e(),
                 };
-                synthetics.weaponPotency["mundane-attack"] = (synthetics.weaponPotency["mundane-attack"] || []).concat(
-                    potency
-                );
+                const potencySynthetics = (synthetics.weaponPotency["strike-attack-roll"] ??= []);
+                potencySynthetics.push(potency);
             }
         }
     }
