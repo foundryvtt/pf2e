@@ -210,7 +210,7 @@ class DamageInstance extends AbstractDamageRoll {
     constructor(formula: string, data = {}, options?: RollOptions) {
         super(formula, data, options);
 
-        const flavorIdentifiers = (this.options.flavor?.replace(/[^a-z,]/g, "").split(",") ?? []).map((f) => f.trim());
+        const flavorIdentifiers = this.options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
         this.type = flavorIdentifiers.find((t): t is DamageType => setHasElement(DAMAGE_TYPES, t)) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
     }
@@ -260,13 +260,12 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     override get formula(): string {
+        const typeFlavor = game.i18n.localize(CONFIG.PF2E.damageRollFlavors[this.type] ?? this.type);
         const damageType =
             this.persistent && this.type !== "bleed"
-                ? game.i18n.format("PF2E.Damage.RollFlavor.persistent", {
-                      damageType: game.i18n.localize(`PF2E.Damage.RollFlavor.${this.type}`),
-                  })
+                ? game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeFlavor })
                 : this.type
-                ? game.i18n.localize(`PF2E.Damage.RollFlavor.${this.type}`)
+                ? typeFlavor
                 : "";
         return [this.head.expression, damageType].join(" ").trim();
     }

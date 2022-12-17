@@ -1,26 +1,30 @@
 import { ItemSheetPF2e } from "@item/sheet/base";
-import { BaseWeaponType } from "@item/weapon/types";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunner } from "@module/migration/runner";
 import { LocalizePF2e } from "@module/system/localize";
-import { isObject, objectHasKey, sluggify, tupleHasValue } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, isObject, objectHasKey, pick, sluggify, tupleHasValue } from "@util";
 import Tagify from "@yaireo/tagify";
-import { PartialSettingsData, SettingsMenuPF2e } from "../menu";
-import { prepareCleanup } from "./cleanup-migration";
-import { isHomebrewFlagCategory } from "./helpers";
+import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu";
+import { isHomebrewFlagCategory, prepareCleanup } from "./helpers";
 import "@yaireo/tagify/src/tagify.scss";
-
-type ConfigPF2eHomebrewRecord = typeof HomebrewElements.SETTINGS[number];
-type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewRecord}`;
-
-interface HomebrewTag<T extends ConfigPF2eHomebrewRecord = ConfigPF2eHomebrewRecord> {
-    id: T extends "baseWeapons"
-        ? BaseWeaponType
-        : T extends Exclude<ConfigPF2eHomebrewRecord, "baseWeapons">
-        ? keyof ConfigPF2e["PF2E"][T]
-        : never;
-    value: string;
-}
+import {
+    BASE_DAMAGE_TYPES_TO_CATEGORIES,
+    DamageType,
+    DAMAGE_TYPES,
+    DAMAGE_TYPE_ICONS,
+    ENERGY_DAMAGE_TYPES,
+    PHYSICAL_DAMAGE_TYPES,
+} from "@system/damage";
+import {
+    CustomDamageData,
+    HomebrewElementsSheetData,
+    HomebrewKey,
+    HomebrewTag,
+    HomebrewTraitKey,
+    HomebrewTraitSettingsKey,
+    HOMEBREW_TRAIT_KEYS,
+    SECONDARY_TRAIT_RECORDS,
+} from "./data";
 
 class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
@@ -28,56 +32,51 @@ class HomebrewElements extends SettingsMenuPF2e {
     /** Whether this is the first time the homebrew tags will have been injected into CONFIG and actor derived data */
     private initialRefresh = true;
 
-    static override readonly SETTINGS = [
-        "creatureTraits",
-        "featTraits",
-        "languages",
-        "magicSchools",
-        "spellTraits",
-        "weaponCategories",
-        "weaponGroups",
-        "baseWeapons",
-        "weaponTraits",
-        "equipmentTraits",
-    ] as const;
-
-    /** Homebrew elements from some of the above records are propagated to related records */
-    private secondaryRecords = {
-        creatureTraits: ["ancestryItemTraits"],
-        equipmentTraits: ["armorTraits", "consumableTraits"],
-        featTraits: ["actionTraits"],
-        weaponTraits: ["npcAttackTraits"],
-    } as const;
+    static override get SETTINGS() {
+        return Object.keys(this.settings);
+    }
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, { template: "systems/pf2e/templates/system/settings/homebrew.hbs" });
     }
 
-    protected static override get settings(): Record<ConfigPF2eHomebrewRecord, PartialSettingsData> {
-        return this.SETTINGS.map((key): { key: ConfigPF2eHomebrewRecord; value: PartialSettingsData } => {
-            return {
-                key,
-                value: {
-                    name: CONFIG.PF2E.SETTINGS.homebrew[key].name,
-                    hint: CONFIG.PF2E.SETTINGS.homebrew[key].hint,
-                    default: [],
-                    type: Object,
-                },
+    protected static get traitSettings() {
+        return HOMEBREW_TRAIT_KEYS.reduce((result, key) => {
+            result[key] = {
+                name: CONFIG.PF2E.SETTINGS.homebrew[key].name,
+                hint: CONFIG.PF2E.SETTINGS.homebrew[key].hint,
+                default: [],
+                type: Object,
             };
-        }).reduce(
-            (settings, setting) => mergeObject(settings, { [setting.key]: setting.value }),
-            {} as Record<ConfigPF2eHomebrewRecord, SettingRegistration & { placeholder: string }>
-        );
+
+            return result;
+        }, {} as Record<HomebrewTraitKey, PartialSettingsData>);
+    }
+
+    protected static override get settings(): Record<HomebrewKey, PartialSettingsData> {
+        return {
+            ...this.traitSettings,
+            damageTypes: {
+                name: "PF2E.SETTINGS.Homebrew.DamageTypes.Name",
+                default: [],
+                type: Object,
+                onChange: () => {
+                    window.location.reload();
+                },
+            },
+        };
     }
 
     override activateListeners($form: JQuery<HTMLFormElement>): void {
         super.activateListeners($form);
+        const html = $form[0];
 
         $form.find("button[name=reset]").on("click", () => {
             this.render();
         });
 
-        for (const key of HomebrewElements.SETTINGS) {
+        // Handle all changes for traits
+        for (const key of HOMEBREW_TRAIT_KEYS) {
             const $input = $form.find<HTMLInputElement>(`input[name="${key}"]`);
             new Tagify($input[0], {
                 editTags: 1,
@@ -96,6 +95,36 @@ class HomebrewElements extends SettingsMenuPF2e {
                 },
             });
         }
+
+        htmlQuery(html, "[data-action=damage-add]")?.addEventListener("click", async () => {
+            this.cache.damageTypes.push({ label: "Custom", category: "physical", icon: "fa-question" });
+            this.render();
+        });
+
+        for (const element of htmlQueryAll(html, "[data-action=damage-delete]")) {
+            element.addEventListener("click", async (event) => {
+                const idx = htmlClosest(event.target, "[data-idx]")?.dataset.idx;
+                if (idx) {
+                    this.cache.damageTypes.splice(Number(idx), 1);
+                }
+                this.render();
+            });
+        }
+    }
+
+    override async getData(): Promise<HomebrewElementsSheetData> {
+        const data = await super.getData();
+        const traitSettings = settingsToSheetData(this.constructor.traitSettings, this.cache, this.prefix);
+        const damageCategories = pick(CONFIG.PF2E.damageCategories, ["physical", "energy"]);
+        return {
+            ...data,
+            traitSettings,
+            damageCategories,
+            customDamageTypes: this.cache.damageTypes.map((customType) => ({
+                ...customType,
+                slug: `hb_${customType.slug ?? sluggify(customType.label)}`,
+            })),
+        };
     }
 
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
@@ -112,28 +141,45 @@ class HomebrewElements extends SettingsMenuPF2e {
         return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
 
-    protected override async _updateObject(
-        _event: Event,
-        data: Record<ConfigPF2eHomebrewRecord, HomebrewTag[]>
-    ): Promise<void> {
-        const cleanupTasks = HomebrewElements.SETTINGS.map((key) => {
+    protected override _getSubmitData(updateData?: Record<string, unknown> | undefined): Record<string, unknown> {
+        const original = super._getSubmitData(updateData);
+        const data: Partial<HomebrewSubmitData> = expandObject<Record<string, unknown>>(original);
+        if ("damageTypes" in data && !!data.damageTypes && typeof data.damageTypes === "object") {
+            data.damageTypes = Object.values(data.damageTypes);
+            for (const type of data.damageTypes) {
+                // ensure this is an fa icon
+                const sanitized = sluggify(type.icon ?? "");
+                type.icon = sanitized.startsWith("fa-") ? sanitized : null;
+            }
+        }
+        return data;
+    }
+
+    protected override async _updateObject(event: Event, data: Record<HomebrewTraitKey, HomebrewTag[]>): Promise<void> {
+        for (const key of HOMEBREW_TRAIT_KEYS) {
             for (const tag of data[key]) {
                 tag.id ??= `hb_${sluggify(tag.value)}` as string as HomebrewTag<typeof key>["id"];
             }
+        }
 
-            return this.processDeletions(key, data[key]);
-        }).filter((task): task is MigrationBase => !!task);
+        if (event.type === "submit") {
+            const cleanupTasks = HOMEBREW_TRAIT_KEYS.map((key) => {
+                return this.processDeletions(key, data[key]);
+            }).filter((task): task is MigrationBase => !!task);
 
-        // Close without waiting for migrations to complete
-        new MigrationRunner().runMigrations(cleanupTasks);
-        await super._updateObject(_event, data);
+            // Close without waiting for migrations to complete
+            new MigrationRunner().runMigrations(cleanupTasks);
+            await super._updateObject(event, data);
 
-        // Process updates
-        this.refreshTags();
+            // Process updates
+            this.#refreshTags();
+        } else {
+            return super._updateObject(event, data);
+        }
     }
 
     /** Prepare and run a migration for each set of tag deletions from a tag map */
-    private processDeletions(listKey: ConfigPF2eHomebrewRecord, newTagList: HomebrewTag[]): MigrationBase | null {
+    private processDeletions(listKey: HomebrewTraitKey, newTagList: HomebrewTag[]): MigrationBase | null {
         const oldTagList = game.settings.get("pf2e", `homebrew.${listKey}`);
         const newIDList = newTagList.map((tag) => tag.id);
         const deletions: string[] = oldTagList.flatMap((oldTag) => (newIDList.includes(oldTag.id) ? [] : oldTag.id));
@@ -143,8 +189,8 @@ class HomebrewElements extends SettingsMenuPF2e {
             listKey === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[listKey];
         for (const id of deletions) {
             delete coreElements[id];
-            if (objectHasKey(this.secondaryRecords, listKey)) {
-                for (const recordKey of this.secondaryRecords[listKey]) {
+            if (objectHasKey(SECONDARY_TRAIT_RECORDS, listKey)) {
+                for (const recordKey of SECONDARY_TRAIT_RECORDS[listKey]) {
                     const secondaryRecord: Record<string, string> = CONFIG.PF2E[recordKey];
                     delete secondaryRecord[id];
                 }
@@ -154,10 +200,16 @@ class HomebrewElements extends SettingsMenuPF2e {
         return game.user.isGM && deletions.length > 0 ? prepareCleanup(listKey, deletions) : null;
     }
 
+    onSetup() {
+        this.#refreshTags();
+        this.#registerModuleTags();
+        this.#registerDamageTypes();
+    }
+
     /** Assign the homebrew elements to their respective `CONFIG.PF2E` objects */
-    refreshTags(): void {
-        for (const listKey of HomebrewElements.SETTINGS) {
-            const settingsKey: HomebrewSettingsKey = `homebrew.${listKey}` as const;
+    #refreshTags(): void {
+        for (const listKey of HOMEBREW_TRAIT_KEYS) {
+            const settingsKey: HomebrewTraitSettingsKey = `homebrew.${listKey}` as const;
             const elements = game.settings.get("pf2e", settingsKey);
             this.updateConfigRecords(elements, listKey);
         }
@@ -176,14 +228,14 @@ class HomebrewElements extends SettingsMenuPF2e {
     }
 
     /** Register homebrew elements stored in a prescribed location in module flags */
-    registerModuleTags(): void {
+    #registerModuleTags(): void {
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
         for (const [key, foundryModule] of activeModules) {
             const homebrew = foundryModule.flags?.[key]?.["pf2e-homebrew"];
             if (!isObject<Record<string, unknown>>(homebrew)) continue;
 
             for (const recordKey of Object.keys(homebrew)) {
-                if (!tupleHasValue(HomebrewElements.SETTINGS, recordKey)) {
+                if (!tupleHasValue(HOMEBREW_TRAIT_KEYS, recordKey)) {
                     console.warn(`PF2E System | Invalid homebrew record "${recordKey}" in module ${key}`);
                     continue;
                 }
@@ -212,17 +264,36 @@ class HomebrewElements extends SettingsMenuPF2e {
         }
     }
 
-    private getConfigRecord(recordKey: ConfigPF2eHomebrewRecord): Record<string, string> {
+    #registerDamageTypes(): void {
+        // These are declared as read only collections, so we need to forceably cast them
+        const collections = {
+            physical: PHYSICAL_DAMAGE_TYPES as unknown as string[],
+            energy: ENERGY_DAMAGE_TYPES as unknown as string[],
+        };
+
+        const customTypes = game.settings.get("pf2e", "homebrew.damageTypes");
+        for (const data of customTypes) {
+            const slug = `hb_${data.slug ?? sluggify(data.label)}` as DamageType;
+            DAMAGE_TYPES.add(slug);
+            collections[data.category].push(slug);
+            BASE_DAMAGE_TYPES_TO_CATEGORIES[slug] = data.category;
+            DAMAGE_TYPE_ICONS[slug] = data.icon?.substring(3) ?? null; // icons registered do not include the fa-
+            CONFIG.PF2E.damageTypes[slug] = data.label;
+            CONFIG.PF2E.damageRollFlavors[slug] = data.label.toLocaleLowerCase();
+        }
+    }
+
+    private getConfigRecord(recordKey: HomebrewTraitKey): Record<string, string> {
         return recordKey === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[recordKey];
     }
 
-    private updateConfigRecords(elements: HomebrewTag[], listKey: ConfigPF2eHomebrewRecord): void {
+    private updateConfigRecords(elements: HomebrewTag[], listKey: HomebrewTraitKey): void {
         // The base-weapons map only exists in the localization file
         const coreElements: Record<string, string> = this.getConfigRecord(listKey);
         for (const element of elements) {
             coreElements[element.id] = element.value;
-            if (objectHasKey(this.secondaryRecords, listKey)) {
-                for (const recordKey of this.secondaryRecords[listKey]) {
+            if (objectHasKey(SECONDARY_TRAIT_RECORDS, listKey)) {
+                for (const recordKey of SECONDARY_TRAIT_RECORDS[listKey]) {
                     const record: Record<string, string> = CONFIG.PF2E[recordKey];
                     record[element.id] = element.value;
                 }
@@ -231,8 +302,13 @@ class HomebrewElements extends SettingsMenuPF2e {
     }
 }
 
+type HomebrewSubmitData = {
+    damageTypes: CustomDamageData[];
+} & Record<string, unknown>;
+
 interface HomebrewElements extends SettingsMenuPF2e {
     constructor: typeof HomebrewElements;
+    cache: HomebrewSubmitData;
 }
 
-export { ConfigPF2eHomebrewRecord, HomebrewElements, HomebrewSettingsKey, HomebrewTag };
+export { HomebrewElements };

@@ -40,7 +40,7 @@ import { ModuleArt, registerModuleArt } from "@scripts/register-module-art";
 import { remigrate } from "@scripts/system/remigrate";
 import { CheckPF2e } from "@system/check";
 import { EffectTracker } from "@system/effect-tracker";
-import { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
+import { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
 import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
@@ -157,7 +157,8 @@ declare global {
         get(module: "pf2e", setting: "campaignFeatSections"): FeatCategoryOptions[];
 
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
-        get(module: "pf2e", setting: HomebrewSettingsKey): HomebrewTag[];
+        get(module: "pf2e", setting: HomebrewTraitSettingsKey): HomebrewTag[];
+        get(module: "pf2e", setting: "homebrew.damageTypes"): CustomDamageData[];
 
         get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
