@@ -1,0 +1,115 @@
+{
+    "_id": "2OBy1GjvhLfuq0y2",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Planar Pain",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Soulforger Dedication]{Soulforger Dedication}</p>\n<p>Choose one damage type: acid, chaotic, cold, electricity, evil, fire, good, lawful, negative, positive, or sonic. Attacks with the weapon deal this type of damage instead of their physical damage with a +2 status bonus to the damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitChaotic",
+                        "value": "chaotic"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitEvil",
+                        "value": "evil"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitGood",
+                        "value": "good"
+                    },
+                    {
+                        "label": "PF2E.TraitLawful",
+                        "value": "lawful"
+                    },
+                    {
+                        "label": "PF2E.TraitNegative",
+                        "value": "negative"
+                    },
+                    {
+                        "label": "PF2E.TraitPositive",
+                        "value": "positive"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "planarPainDamage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "damageType": "{item|flags.pf2e.rulesSelections.planarPainDamage}"
+                },
+                "selector": "{item|flags.pf2e.rulesSelections.planarPainWeapon}-damage"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.planarPainWeapon}-damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "planarPainWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}

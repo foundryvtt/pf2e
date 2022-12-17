@@ -1,0 +1,63 @@
+{
+    "_id": "JjtWIU8ed9gX2RC5",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Adaptable Persona",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Soulforger Dedication]{Soulforger Dedication}</p>\n<p>Gain your choice of a climb Speed or swim Speed equal to your land Speed. If you're 8th level or higher, you can choose a fly Speed instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpeedTypesClimb",
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.SpeedTypesSwim",
+                        "value": "swim"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.EssencePower.AdaptablePersona.SpeedTypesFly8",
+                        "value": "fly"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.EssencePower.AdaptablePersona.Prompt"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "{item|flags.pf2e.rulesSelections.effectAdaptablePersona}",
+                "value": "@actor.attributes.speed.value"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}

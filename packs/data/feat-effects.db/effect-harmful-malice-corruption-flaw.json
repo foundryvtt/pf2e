@@ -1,0 +1,45 @@
+{
+    "_id": "b2UgXIxgta3jnNM5",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Harmful Malice (Corruption Flaw)",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Soulforger Dedication]{Soulforger Dedication}</p>\n<p>Reduce any damage you would deal by half your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "value": "-floor(@actor.level/2)"
+            }
+        ],
+        "source": {
+            "value": "Pathfinder Secrets of Magic"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}
