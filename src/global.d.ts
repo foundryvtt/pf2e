@@ -37,9 +37,8 @@ import {
 } from "@scripts/macros";
 import { ModuleArt, registerModuleArt } from "@scripts/register-module-art";
 import { remigrate } from "@scripts/system/remigrate";
-import { UserVisibility } from "@scripts/ui/user-visibility";
-import { EffectTracker } from "@system/effect-tracker";
 import { CheckPF2e } from "@system/check";
+import { EffectTracker } from "@system/effect-tracker";
 import { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
@@ -187,6 +186,7 @@ declare global {
     }
 
     const BUILD_MODE: "development" | "production";
+    const ROLL_GRAMMAR: string;
 }
 
 type ConfiguredConfig = Config<

@@ -110,11 +110,18 @@ interface RuneNoteData extends Pick<RollNoteSource, "outcome" | "predicate" | "t
 export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropertyRuneData> = {
     anarchic: {
         damage: {
-            dice: [{ damageType: "chaotic", diceNumber: 1, dieSize: "d6", predicate: ["target:trait:lawful"] }],
+            dice: [
+                {
+                    damageType: "chaotic",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: [{ or: ["target:trait:lawful", { not: "target" }] }],
+                },
+            ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: ["target:trait:lawful"],
+                    predicate: [{ or: ["target:trait:lawful", { not: "target" }] }],
                     title: "PF2E.WeaponPropertyRune.anarchic.Name",
                     text: "PF2E.WeaponPropertyRune.anarchic.Note.criticalSuccess",
                 },
@@ -154,11 +161,18 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     axiomatic: {
         damage: {
-            dice: [{ damageType: "lawful", diceNumber: 1, dieSize: "d6", predicate: ["target:trait:chaotic"] }],
+            dice: [
+                {
+                    damageType: "lawful",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: [{ or: ["target:trait:chaotic", { not: "target" }] }],
+                },
+            ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: ["target:trait:chaotic"],
+                    predicate: [{ or: ["target:trait:chaotic", { not: "target" }] }],
                     title: "PF2E.WeaponPropertyRune.axiomatic.Name",
                     text: "PF2E.WeaponPropertyRune.axiomatic.Note.criticalSuccess",
                 },
@@ -208,12 +222,17 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         damage: {
             dice: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d4" },
-                { damageType: "good", diceNumber: 1, dieSize: "d4", predicate: ["target:trait:fiend"] },
+                {
+                    damageType: "good",
+                    diceNumber: 1,
+                    dieSize: "d4",
+                    predicate: [{ or: ["target:trait:fiend", { not: "target" }] }],
+                },
                 {
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
+                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                 },
             ],
             notes: [
@@ -297,13 +316,13 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d6",
-                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
+                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                 },
             ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
+                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                     title: "PF2E.WeaponPropertyRune.disrupting.Name",
                     text: "PF2E.WeaponPropertyRune.disrupting.Note.criticalSuccess",
                 },
@@ -397,7 +416,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         damage: {
             notes: [
                 {
-                    predicate: ["target:trait:incorporeal"],
+                    predicate: [{ or: ["target:trait:incorporeal", { not: "target" }] }],
                     title: "PF2E.WeaponPropertyRune.ghostTouch.Name",
                     text: "PF2E.WeaponPropertyRune.ghostTouch.Note",
                 },
@@ -444,12 +463,17 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
         damage: {
             dice: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d4" },
-                { damageType: "good", diceNumber: 1, dieSize: "d4", predicate: ["target:trait:fiend"] },
+                {
+                    damageType: "good",
+                    diceNumber: 1,
+                    dieSize: "d4",
+                    predicate: [{ or: ["target:trait:fiend", { not: "target" }] }],
+                },
                 {
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
+                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                 },
             ],
             notes: [
@@ -519,13 +543,13 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "positive",
                     diceNumber: 2,
                     dieSize: "d6",
-                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
+                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                 },
             ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: [{ or: ["target:trait:undead", "target:negative-healing"] }],
+                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                     title: "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
                     text: "PF2E.WeaponPropertyRune.greaterDisrupting.Note.criticalSuccess",
                 },
@@ -789,7 +813,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     holy: {
         damage: {
-            dice: [{ damageType: "good", diceNumber: 1, dieSize: "d6", predicate: ["target:trait:evil"] }],
+            dice: [
+                {
+                    damageType: "good",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: [{ or: ["target:trait:evil", { not: "target" }] }],
+                },
+            ],
         },
         level: 11,
         name: "PF2E.WeaponPropertyRune.holy.Name",
@@ -967,7 +998,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     unholy: {
         damage: {
-            dice: [{ damageType: "evil", diceNumber: 1, dieSize: "d6", predicate: ["target:trait:good"] }],
+            dice: [
+                {
+                    damageType: "evil",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    predicate: [{ or: ["target:trait:good", { not: "target" }] }],
+                },
+            ],
         },
         level: 11,
         name: "PF2E.WeaponPropertyRune.unholy.Name",

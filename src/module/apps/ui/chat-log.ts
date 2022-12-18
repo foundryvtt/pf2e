@@ -1,5 +1,6 @@
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CheckPF2e } from "@system/check";
+import { DamageRoll } from "@system/damage/roll";
 import { ErrorPF2e, fontAwesomeIcon } from "@util";
 
 export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
@@ -8,9 +9,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             const messageId = $html.attr("data-message-id") ?? "";
             const message = game.messages.get(messageId, { strict: true });
 
-            return (
-                canvas.tokens.controlled.length > 0 && message.isRoll && $html.find(".chat-damage-buttons").length === 1
-            );
+            return canvas.tokens.controlled.length > 0 && message.rolls.some((r) => r instanceof DamageRoll);
         };
 
         const canApplyTripleDamage: ContextOptionCondition = ($li) =>
@@ -61,7 +60,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         options.push(
             {
                 name: "PF2E.ChatRollDetails.Select",
-                icon: '<i class="fas fa-search"></i>',
+                icon: fontAwesomeIcon("search").outerHTML,
                 condition: canShowRollDetails,
                 callback: ($li) => {
                     const message = game.messages.get($li.attr("data-message-id") ?? "", { strict: true });
@@ -70,31 +69,31 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.DamageButton.FullContext",
-                icon: '<i class="fas fa-heart-broken"></i>',
+                icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
                 callback: (li: JQuery) => applyDamage(li, 1),
             },
             {
                 name: "PF2E.DamageButton.HalfContext",
-                icon: '<i class="fas fa-heart-broken"></i>',
+                icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
                 callback: (li) => applyDamage(li, 0.5),
             },
             {
                 name: "PF2E.DamageButton.DoubleContext",
-                icon: '<i class="fas fa-heart-broken"></i>',
+                icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
                 callback: (li) => applyDamage(li, 2),
             },
             {
                 name: "PF2E.DamageButton.TripleContext",
-                icon: '<i class="fas fa-heart-broken"></i>',
+                icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyTripleDamage,
                 callback: (li) => applyDamage(li, 3),
             },
             {
                 name: "PF2E.DamageButton.HealingContext",
-                icon: '<i class="fas fa-heart"></i>',
+                icon: fontAwesomeIcon("heart").outerHTML,
                 condition: canApplyDamage,
                 callback: (li: JQuery) => applyDamage(li, -1),
             },
@@ -122,7 +121,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.RerollMenu.HeroPoint",
-                icon: '<i class="fas fa-hospital-symbol"></i>',
+                icon: fontAwesomeIcon("hospital-symbol").outerHTML,
                 condition: canHeroPointReroll,
                 callback: (li) =>
                     CheckPF2e.rerollFromMessage(game.messages.get(li.data("messageId"), { strict: true }), {
@@ -131,14 +130,14 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.RerollMenu.KeepNew",
-                icon: '<i class="fas fa-dice"></i>',
+                icon: fontAwesomeIcon("dice").outerHTML,
                 condition: canReroll,
                 callback: (li) =>
                     CheckPF2e.rerollFromMessage(game.messages.get(li.data("messageId"), { strict: true })),
             },
             {
                 name: "PF2E.RerollMenu.KeepWorst",
-                icon: '<i class="fas fa-dice-one"></i>',
+                icon: fontAwesomeIcon("dice-one").outerHTML,
                 condition: canReroll,
                 callback: (li) =>
                     CheckPF2e.rerollFromMessage(game.messages.get(li.data("messageId"), { strict: true }), {
@@ -147,7 +146,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             },
             {
                 name: "PF2E.RerollMenu.KeepBest",
-                icon: '<i class="fas fa-dice-six"></i>',
+                icon: fontAwesomeIcon("dice-six").outerHTML,
                 condition: canReroll,
                 callback: (li) =>
                     CheckPF2e.rerollFromMessage(game.messages.get(li.data("messageId"), { strict: true }), {
