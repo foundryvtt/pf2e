@@ -180,7 +180,21 @@ export class MigrationRunner extends MigrationRunnerBase {
         return updatedActor;
     }
 
-    private async migrateWorldMacro(migrations: MigrationBase[], macro: MacroPF2e): Promise<void> {
+    private async migrateWorldJournalEntry(journalEntry: JournalEntry, migrations: MigrationBase[]): Promise<void> {
+        if (!migrations.some((migration) => !!migration.updateJournalEntry)) return;
+
+        try {
+            const updated = await this.getUpdatedJournalEntry(journalEntry.toObject(), migrations);
+            const changes = diffObject(journalEntry.toObject(), updated);
+            if (Object.keys(changes).length > 0) {
+                await journalEntry.update(changes, { noHook: true });
+            }
+        } catch (error) {
+            console.warn(error);
+        }
+    }
+
+    private async migrateWorldMacro(macro: MacroPF2e, migrations: MigrationBase[]): Promise<void> {
         if (!migrations.some((migration) => !!migration.updateMacro)) return;
 
         try {
@@ -194,7 +208,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateWorldTable(migrations: MigrationBase[], table: RollTable): Promise<void> {
+    private async migrateWorldTable(table: RollTable, migrations: MigrationBase[]): Promise<void> {
         if (!migrations.some((migration) => !!migration.updateTable)) return;
 
         try {
@@ -209,8 +223,8 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     private async migrateSceneToken(
-        migrations: MigrationBase[],
-        token: TokenDocumentPF2e
+        token: TokenDocumentPF2e,
+        migrations: MigrationBase[]
     ): Promise<foundry.data.TokenSource | null> {
         if (!migrations.some((migration) => !!migration.updateToken)) return token.toObject();
 
@@ -232,7 +246,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateUser(migrations: MigrationBase[], user: UserPF2e): Promise<void> {
+    private async migrateUser(user: UserPF2e, migrations: MigrationBase[]): Promise<void> {
         if (!migrations.some((migration) => !!migration.updateUser)) return;
 
         try {
@@ -256,19 +270,24 @@ export class MigrationRunner extends MigrationRunnerBase {
         // Migrate World Items
         await this.migrateWorldDocuments(game.items, migrations);
 
+        // Migrate world journal entries
+        for (const entry of game.journal) {
+            await this.migrateWorldJournalEntry(entry, migrations);
+        }
+
         const promises: Promise<unknown>[] = [];
         // Migrate World Macros
         for (const macro of game.macros) {
-            promises.push(this.migrateWorldMacro(migrations, macro));
+            promises.push(this.migrateWorldMacro(macro, migrations));
         }
 
         // Migrate World RollTables
         for (const table of game.tables) {
-            promises.push(this.migrateWorldTable(migrations, table));
+            promises.push(this.migrateWorldTable(table, migrations));
         }
 
         for (const user of game.users) {
-            promises.push(this.migrateUser(migrations, user));
+            promises.push(this.migrateUser(user, migrations));
         }
 
         // call the free-form migration function. can really do anything
@@ -287,7 +306,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 const { actor } = token;
                 if (!actor) continue;
 
-                const wasSuccessful = !!(await this.migrateSceneToken(migrations, token));
+                const wasSuccessful = !!(await this.migrateSceneToken(token, migrations));
                 if (!wasSuccessful) continue;
 
                 // Only migrate if the synthetic actor has replaced migratable data
