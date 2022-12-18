@@ -58,7 +58,7 @@ class MarkTargetPrompt {
         const handler = (event: KeyboardEvent): void => {
             if (event.key !== "Escape") return;
             event.stopPropagation();
-            ui.notifications.info("PF2E.UI.RuleElements.MarkTarget.Timeout");
+            ui.notifications.info("PF2E.UI.RuleElements.MarkTarget.Timeout", { localize: true });
             Hooks.off(...hookParams);
             document.removeEventListener("keyup", handler);
         };
