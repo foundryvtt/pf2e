@@ -47,4 +47,9 @@ function renderSplashDamage(rollTerm: RollTerm): HTMLElement {
     return span;
 }
 
-export { DamageCategorization, nextDamageDieSize, renderSplashDamage };
+/** A fast but weak check of whether a string looks like a damage-roll formula */
+function looksLikeDamageFormula(formula: string): boolean {
+    return /^\{[^}]+}$/.test(formula);
+}
+
+export { DamageCategorization, looksLikeDamageFormula, nextDamageDieSize, renderSplashDamage };
