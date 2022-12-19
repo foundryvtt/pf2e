@@ -114,6 +114,10 @@ class SpellPF2e extends ItemPF2e {
         return this.system.category.value === "ritual";
     }
 
+    get ability(): AbilityString {
+        return this.spellcasting?.ability ?? this.trickMagicEntry?.ability ?? "cha";
+    }
+
     get components(): Record<SpellComponent, boolean> & { value: string } {
         const components = this.system.components;
         const results: string[] = [];
@@ -173,15 +177,8 @@ class SpellPF2e extends ItemPF2e {
 
         const rollData = super.getRollData();
         if (this.actor?.isOfType("character", "npc")) {
-            const spellcasting = this.spellcasting;
-            const { abilities } = this.actor.system;
-            if (!spellcasting?.system && this.trickMagicEntry) {
-                rollData["mod"] = abilities[this.trickMagicEntry.ability].mod;
-            } else {
-                rollData["mod"] = abilities[spellcasting?.ability ?? "int"].mod;
-            }
+            rollData["mod"] = this.actor.abilities[this.ability].mod;
         }
-
         rollData["castLevel"] = castLevel;
         rollData["heighten"] = Math.max(0, castLevel - this.baseLevel);
 
@@ -203,7 +200,6 @@ class SpellPF2e extends ItemPF2e {
 
             const parts: (string | number)[] = [];
             if (damage.value && damage.value !== "0") parts.push(damage.value);
-            if (damage.applyMod && this.actor) parts.push("@mod");
 
             // Check for and apply interval Spell scaling
             const heightening = this.system.heightening;
@@ -237,10 +233,27 @@ class SpellPF2e extends ItemPF2e {
         // Add flat damage increases if this spell can deal damage.
         // Until damage is refactored, we can't get anything fancier than this
         const { actor } = this;
-        if (actor && Object.keys(this.system.damage.value).length) {
+        if (actor?.isOfType("character", "npc") && Object.keys(this.system.damage.value).length) {
             const domains = ["damage", "spell-damage"];
             const heightened = this.clone({ "system.location.heightenedLevel": castLevel });
             const modifiers = extractModifiers(actor.synthetics, domains, { resolvables: { spell: heightened } });
+            const { ability } = this;
+
+            const abilityModifiers = Object.entries(this.system.damage.value)
+                .filter(([, d]) => d.applyMod)
+                .map(
+                    ([k, d]) =>
+                        new ModifierPF2e({
+                            label: CONFIG.PF2E.abilities[ability],
+                            slug: `ability-${k}`,
+                            // Not a restricted ability modifier in the same way it is for checks or weapon damage
+                            type: "untyped",
+                            modifier: actor.abilities[ability].mod,
+                            damageType: d.type.value,
+                            damageCategory: d.type.subtype ?? DamageCategorization.fromDamageType(d.type.value),
+                        })
+                );
+            modifiers.unshift(...abilityModifiers);
 
             const rollOptions = new Set([
                 ...actor.getRollOptions(domains),
