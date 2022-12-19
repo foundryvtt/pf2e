@@ -1,6 +1,6 @@
 import { MystifiedTraits } from "@item/data/values";
-import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
-import { HotbarPF2e } from "@module/apps/ui/hotbar";
+import { HotbarPF2e } from "@module/apps/hotbar";
+import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/sidebar";
 import {
     AmbientLightPF2e,
     EffectsCanvasGroupPF2e,
