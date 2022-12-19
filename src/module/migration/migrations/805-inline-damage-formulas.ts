@@ -15,6 +15,7 @@ export class Migration805InlineDamageRolls extends MigrationBase {
                 return match;
             }
 
+            const customLabel = /\{([^}]+)\}$/.exec(match)?.at(1);
             const withoutLabel = match.replace(/\{[^}]+\}$/, "");
             const expressions: string[] = withoutLabel.match(/\{[^}]+\}\[\w+\]/g) ?? [];
             if (expressions.length === 0) return match;
@@ -26,7 +27,12 @@ export class Migration805InlineDamageRolls extends MigrationBase {
                 )
             );
 
-            return instances.length === 1 ? `[[/r ${instances[0]}]] damage` : `[[/r {${instances.join(",")}}]] damage`;
+            const reassembled =
+                instances.length === 1 ? `[[/r ${instances[0]}]] damage` : `[[/r {${instances.join(",")}}]] damage`;
+
+            return customLabel && instances.length > 1
+                ? reassembled.replace(/ damage$/, `{${customLabel}}`)
+                : reassembled;
         });
     }
 
