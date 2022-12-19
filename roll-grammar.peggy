@@ -136,7 +136,8 @@ Flavor = "[" string:$(FlavorString) "]" {
 };
 
 Number = _ [-+]? [0-9]+ ("." [0-9]+)? {
-  return Math.trunc(Number(text()));
+  const numified = Math.trunc(Number(text()));
+  return input === text() ? createNumericTerm(numified) : numified;
 };
 
 FlavoredNumber = number:Number flavor:Flavor {
