@@ -268,7 +268,7 @@ function createAbilityModifier({ actor, ability, domains }: CreateAbilityModifie
 
     return new ModifierPF2e({
         slug: ability,
-        label: `PF2E.Ability${sluggify(ability, { camel: "bactrian" })}`,
+        label: CONFIG.PF2E.abilities[ability],
         modifier: Math.floor((actor.abilities[ability].value - 10) / 2),
         type: "ability",
         ability,
