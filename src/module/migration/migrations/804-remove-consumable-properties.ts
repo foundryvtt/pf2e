@@ -5,7 +5,7 @@ import { MigrationBase } from "../base";
 export class Migration804RemoveConsumableProperties extends MigrationBase {
     static override version = 0.804;
 
-    override async updateItem(source: ItemSourcePF2e) {
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "consumable") return;
 
         const system: MaybeWithConsumableOldData = source.system;
