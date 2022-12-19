@@ -420,6 +420,7 @@ const weaponTraits = {
     grapple: "PF2E.TraitGrapple",
     hampering: "PF2E.TraitHampering",
     healing: "PF2E.TraitHealing",
+    improvised: "PF2E.TraitImprovised",
     infused: "PF2E.TraitInfused",
     inhaled: "PF2E.TraitInhaled",
     injection: "PF2E.TraitInjection",

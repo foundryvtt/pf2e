@@ -486,6 +486,7 @@ const traitsDescriptions = {
     humanoid: "PF2E.TraitDescriptionHumanoid",
     ifrit: "PF2E.TraitDescriptionIfrit",
     illusion: "PF2E.TraitDescriptionIllusion",
+    improvised: "PF2E.TraitDescriptionImprovised",
     incapacitation: "PF2E.TraitDescriptionIncapacitation",
     incarnate: "PF2E.TraitDescriptionIncarnate",
     incorporeal: "PF2E.TraitDescriptionIncorporeal",
