@@ -361,56 +361,56 @@
             }
         }
     }
+}
 
-    .application {
+.message-content .damage-application {
+    display: flex;
+    justify-content: center;
+    margin-top: 3px;
+    order: 3;
+
+    button {
+        align-items: center;
         display: flex;
-        justify-content: center;
-        margin-top: 3px;
-        order: 3;
+        flex-direction: column;
+        font-size: var(--font-size-18);
+        height: 2em;
+        justify-content: space-around;
+        line-height: unset;
+        padding: 0;
 
-        button {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            font-size: var(--font-size-18);
-            height: 2em;
-            justify-content: space-around;
-            line-height: unset;
-            padding: 0;
+        &.half-damage {
+            position: relative;
 
-            &.half-damage {
-                position: relative;
-
-                .transparent-half {
-                    background: rgb(248, 247, 233);
-                    display: block;
-                    height: 24px;
-                    left: 49%;
-                    opacity: 0.6;
-                    position: absolute;
-                    top: 0px;
-                    width: 10px;
-                }
+            .transparent-half {
+                background: rgb(248, 247, 233);
+                display: block;
+                height: 24px;
+                left: 49%;
+                opacity: 0.6;
+                position: absolute;
+                top: 0px;
+                width: 10px;
             }
+        }
 
-            > img {
-                border: none;
-                height: var(--font-size-18);
+        > img {
+            border: none;
+            height: var(--font-size-18);
+        }
+
+        &.heal-damage .fa-stack {
+            font-size: 0.5em;
+
+            i.fa-plus {
+                font-size: var(--font-size-10);
             }
+        }
 
-            &.heal-damage .fa-stack {
-                font-size: 0.5em;
-
-                i.fa-plus {
-                    font-size: var(--font-size-10);
-                }
-            }
-
-            .label {
-                font-size: var(--font-size-9);
-                font-weight: 500;
-                text-transform: uppercase;
-            }
+        .label {
+            font-size: var(--font-size-9);
+            font-weight: 500;
+            text-transform: uppercase;
         }
     }
 }
