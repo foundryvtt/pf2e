@@ -111,12 +111,19 @@ const itemTypes = [
 const isActorData = (docSource: CompendiumSource): docSource is ActorSourcePF2e => {
     return "type" in docSource && actorTypes.includes(docSource.type);
 };
+
 const isItemData = (docSource: CompendiumSource): docSource is ItemSourcePF2e => {
     return "type" in docSource && itemTypes.includes(docSource.type);
 };
+
+const isJournalEntryData = (docSource: CompendiumSource): docSource is foundry.data.JournalEntrySource => {
+    return "pages" in docSource && Array.isArray(docSource.pages);
+};
+
 const isMacroData = (docSource: CompendiumSource): docSource is foundry.data.MacroSource => {
     return "type" in docSource && ["chat", "script"].includes(docSource.type);
 };
+
 const isTableData = (docSource: CompendiumSource): docSource is foundry.data.RollTableSource => {
     return "results" in docSource && Array.isArray(docSource.results);
 };
@@ -172,7 +179,12 @@ async function migrate() {
     for (const filePath of allEntries) {
         const content = await fs.readFile(filePath, { encoding: "utf-8" });
 
-        let source: ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
+        let source:
+            | ActorSourcePF2e
+            | ItemSourcePF2e
+            | foundry.data.JournalEntrySource
+            | foundry.data.MacroSource
+            | foundry.data.RollTableSource;
         try {
             // Parse file content
             source = JSON.parse(content);
@@ -183,9 +195,12 @@ async function migrate() {
             return;
         }
 
-        // skip journal entries, rollable tables, and macros
         const updated = await (async (): Promise<
-            ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource
+            | ActorSourcePF2e
+            | ItemSourcePF2e
+            | foundry.data.JournalEntrySource
+            | foundry.data.MacroSource
+            | foundry.data.RollTableSource
         > => {
             source.flags ??= {};
             try {
@@ -224,6 +239,11 @@ async function migrate() {
                     pruneFlags(updatedItem);
 
                     return updatedItem;
+                } else if (isJournalEntryData(source)) {
+                    const updated = await migrationRunner.getUpdatedJournalEntry(source, migrationRunner.migrations);
+                    pruneFlags(source);
+                    pruneFlags(updated);
+                    return updated;
                 } else if (isMacroData(source)) {
                     const updated = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
                     pruneFlags(source);
