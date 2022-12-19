@@ -64,7 +64,7 @@ class FastHealingRuleElement extends RuleElementPF2e {
         const flavor = `${preFlavor}${postFlavor}`;
         const rollMode = this.actor.hasPlayerOwner ? "publicroll" : "gmroll";
         const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
-        ChatMessagePF2e.create({ flavor, speaker, type: CONST.CHAT_MESSAGE_TYPES.ROLL, roll }, { rollMode });
+        ChatMessagePF2e.create({ flavor, speaker, type: CONST.CHAT_MESSAGE_TYPES.ROLL, rolls: [roll] }, { rollMode });
     }
 }
 

@@ -12,7 +12,7 @@ declare module foundry {
             speaker: ChatSpeakerSource;
             whisper: string[];
             blind: boolean;
-            roll: string | RollJSON;
+            rolls: (string | RollJSON)[];
             sound: AudioPath;
             emote?: boolean;
             flags: ChatMessageFlags;

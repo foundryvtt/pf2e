@@ -216,7 +216,7 @@ export class DamagePF2e {
                 speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
                 flavor,
                 content: await roll.render(),
-                roll: roll.toJSON(),
+                rolls: [roll.toJSON()],
                 sound: "sounds/dice.wav",
                 flags: {
                     core: { canPopout: true },
