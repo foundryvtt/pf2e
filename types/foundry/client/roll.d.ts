@@ -168,7 +168,7 @@ declare global {
          * @param [options={}] Additional options which modify or describe this Roll
          * @return The constructed Roll instance
          */
-        static create<T extends RollOptions>(formula: string, data?: T, options?: Record<string, unknown>): Roll;
+        static create(formula: string, data?: Record<string, unknown>, options?: RollOptions): Roll;
 
         /**
          * Transform an array of RollTerm objects into a cleaned string formula representation.
@@ -359,7 +359,7 @@ declare global {
         toMessage(
             messageData: PreCreate<foundry.data.ChatMessageSource> | undefined,
             { rollMode, create }: { rollMode: RollMode; create: false }
-        ): Promise<foundry.data.ChatMessageData>;
+        ): Promise<foundry.data.ChatMessageSource>;
         toMessage(
             messageData?: PreCreate<foundry.data.ChatMessageSource>,
             { rollMode, create }?: { rollMode?: RollMode; create?: true }
