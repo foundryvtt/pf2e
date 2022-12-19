@@ -78,7 +78,7 @@ const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
     electricity: "bolt",
     evil: "face-angry-horns",
     fire: "fire",
-    force: "hand-sparkles",
+    force: "sparkles",
     good: "face-smile-halo",
     lawful: "scale-balanced",
     mental: "brain",
@@ -87,7 +87,7 @@ const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
     poison: "spider",
     positive: "sun",
     slashing: "axe",
-    sonic: "volume-up",
+    sonic: "waveform-lines",
     untyped: null,
 };
 
