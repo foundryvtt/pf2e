@@ -1,9 +1,33 @@
 import { ChatMessagePF2e } from "@module/chat-message";
 import { CheckPF2e } from "@system/check";
 import { DamageRoll } from "@system/damage/roll";
-import { ErrorPF2e, fontAwesomeIcon } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey } from "@util";
 
 export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
+    /** Replace parent method in order to use DamageRoll class as needed */
+    protected override async _processDiceCommand(
+        command: string,
+        matches: RegExpMatchArray[],
+        chatData: DeepPartial<foundry.data.ChatMessageSource>,
+        createOptions: ChatMessageModificationContext
+    ): Promise<void> {
+        const actor = ChatMessage.getSpeakerActor(chatData.speaker ?? {}) || game.user.character;
+        const rollData = actor ? actor.getRollData() : {};
+        const rolls: Rolled<Roll>[] = [];
+        for (const match of matches.filter((m) => !!m)) {
+            const [formula, flavor] = match.slice(2, 4);
+            if (flavor && !chatData.flavor) chatData.flavor = flavor;
+            const RollCls = formula.includes("d20") || /[0-9]dc\b/.test(formula) ? Roll : DamageRoll;
+            const roll = await new RollCls(formula, rollData).evaluate({ async: true });
+            rolls.push(roll);
+        }
+        chatData.type = CONST.CHAT_MESSAGE_TYPES.ROLL;
+        chatData.rolls = rolls.map((r) => r.toJSON());
+        chatData.sound = CONFIG.sounds.dice;
+        chatData.content = rolls.reduce((t, r) => t + r.total, 0).toString();
+        createOptions.rollMode = objectHasKey(CONFIG.Dice.rollModes, command) ? command : "publicroll";
+    }
+
     protected override _getEntryContextOptions(): EntryContextOption[] {
         const canApplyDamage: ContextOptionCondition = ($html) => {
             const messageId = $html.attr("data-message-id") ?? "";
