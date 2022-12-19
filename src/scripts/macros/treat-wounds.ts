@@ -150,7 +150,7 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
                 ChatMessagePF2e.create({
                     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     flavor: `<strong>${game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.RiskySurgery")}</strong>`,
-                    roll: (await new Roll("{1d8}[slashing]").roll({ async: true })).toJSON(),
+                    rolls: [(await new Roll("{1d8}[slashing]").roll({ async: true })).toJSON()],
                     speaker,
                 });
             }
@@ -164,7 +164,7 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
                 ChatMessagePF2e.create({
                     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     flavor: `<strong>${rollType}</strong> (${successLabel})`,
-                    roll: healRoll.toJSON(),
+                    rolls: [healRoll.toJSON()],
                     speaker,
                 });
             }

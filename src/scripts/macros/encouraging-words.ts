@@ -20,12 +20,8 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         options.push(translations.Title);
         options.push("action:encourage-words");
 
-        const dc = {
-            value: DC,
-        };
-
         dip.roll({
-            dc: dc,
+            dc: { value: DC },
             options: options,
             callback: async (roll: Rolled<Roll>) => {
                 let healFormula: string | undefined, successLabel: string | undefined;
@@ -53,7 +49,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                         type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         flavor: `<strong>${rollType} ${translations.Title}</strong> (${successLabel})`,
-                        roll: healRoll.toJSON(),
+                        rolls: [healRoll.toJSON()],
                     });
                 }
             },
