@@ -43,20 +43,15 @@ import {
     WeaponPF2e,
 } from "@item";
 import { ActionTrait } from "@item/action/data";
-import { ARMOR_CATEGORIES } from "@item/armor";
+import { ARMOR_CATEGORIES } from "@item/armor/values";
 import { ItemType, PhysicalItemSource } from "@item/data";
-import { getPropertyRunes, getPropertySlots, getResiliencyBonus, ItemCarryType } from "@item/physical";
+import { ItemCarryType } from "@item/physical/data";
+import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/physical/runes";
 import { MagicTradition } from "@item/spell/types";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
-import {
-    WeaponCategory,
-    WeaponDamage,
-    WeaponPropertyRuneType,
-    WeaponSource,
-    WeaponSystemSource,
-    WEAPON_CATEGORIES,
-    WEAPON_PROPERTY_RUNE_TYPES,
-} from "@item/weapon";
+import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data";
+import { WeaponCategory, WeaponPropertyRuneType } from "@item/weapon/types";
+import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
