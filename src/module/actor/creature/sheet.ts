@@ -171,20 +171,29 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         const html = $html[0]!;
 
         // Handlers for number inputs of properties subject to modification by AE-like rules elements
-        $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
-            const $input = $(event.target);
-            const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = Number(getProperty(this.actor._source, propertyPath));
-            $input.val(baseValue).attr({ name: propertyPath });
-        });
+        const manualPropertyInputs = htmlQueryAll(html, "select[data-property],input[data-property]");
+        for (const input of manualPropertyInputs) {
+            input.addEventListener("focus", () => {
+                const propertyPath = input.dataset.property ?? "";
+                input.setAttribute("name", propertyPath);
+                if (input instanceof HTMLInputElement) {
+                    const baseValue = Number(getProperty(this.actor._source, propertyPath));
+                    input.value = String(baseValue);
+                }
+            });
 
-        $html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
-            const $input = $(event.target);
-            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
-            const propertyPath = $input.attr("data-property") ?? "";
-            const preparedValue = Number(getProperty(this.actor, propertyPath));
-            $input.val(preparedValue >= 0 && $input.hasClass("modifier") ? `+${preparedValue}` : preparedValue);
-        });
+            input.addEventListener("blur", () => {
+                input.removeAttribute("name");
+                input.removeAttribute("style");
+                const propertyPath = input.dataset.property ?? "";
+                const preparedValue = getProperty(this.actor, propertyPath);
+                if (input instanceof HTMLInputElement) {
+                    const isModifier = input.classList.contains("modifier") && Number(preparedValue) >= 0;
+                    const value = isModifier ? `+${preparedValue}` : preparedValue;
+                    input.value = String(value);
+                }
+            });
+        }
 
         // Toggle equip
         $html.find(".tab.inventory a[data-carry-type]").on("click", (event) => {
