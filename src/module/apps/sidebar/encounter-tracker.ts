@@ -1,8 +1,7 @@
 import { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter";
-import { ErrorPF2e, fontAwesomeIcon } from "@util";
-import Sortable from "sortablejs";
-import type { SortableEvent } from "sortablejs";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { ErrorPF2e, fontAwesomeIcon } from "@util";
+import Sortable, { SortableEvent } from "sortablejs";
 
 export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends CombatTracker<TEncounter> {
     sortable!: Sortable;
