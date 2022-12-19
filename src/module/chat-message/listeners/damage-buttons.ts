@@ -4,7 +4,7 @@ import { LocalizePF2e } from "@module/system/localize";
 /** Add apply damage buttons after a chat message is rendered */
 export const DamageButtons = {
     listen: async (message: ChatMessagePF2e, $html: JQuery): Promise<void> => {
-        const $buttons = $html.find(".damage-roll > .application");
+        const $buttons = $html.find(".damage-application");
         const full = $buttons.find("button.full-damage");
         const half = $buttons.find("button.half-damage");
         const double = $buttons.find("button.double-damage");
