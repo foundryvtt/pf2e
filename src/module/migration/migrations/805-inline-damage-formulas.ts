@@ -6,14 +6,16 @@ import { MigrationBase } from "../base";
 export class Migration805InlineDamageRolls extends MigrationBase {
     static override version = 0.805;
 
-    #pattern = /\[\[\/r .+?\]\]\{[^}]+ damage\}/g;
+    #pattern = /\[\[\/r .+?\]\]\{[^}]+\}/g;
 
     #updateDamageFormula(text: string): string {
+        const skipStrings = ["splash", "precision", "persistent", "d20", "#"];
         return text.replace(this.#pattern, (match): string => {
-            if (["splash", "persistent", "d20", "#"].some((s) => match.includes(s))) {
+            if (!match.endsWith("damage}") || skipStrings.some((s) => match.includes(s))) {
                 return match;
             }
 
+            const customLabel = /\{([^}]+)\}$/.exec(match)?.at(1);
             const withoutLabel = match.replace(/\{[^}]+\}$/, "");
             const expressions: string[] = withoutLabel.match(/\{[^}]+\}\[\w+\]/g) ?? [];
             if (expressions.length === 0) return match;
@@ -25,7 +27,12 @@ export class Migration805InlineDamageRolls extends MigrationBase {
                 )
             );
 
-            return `[[/r {${instances.join(",")}}]] damage`;
+            const reassembled =
+                instances.length === 1 ? `[[/r ${instances[0]}]] damage` : `[[/r {${instances.join(",")}}]] damage`;
+
+            return customLabel && instances.length > 1
+                ? reassembled.replace(/ damage$/, `{${customLabel}}`)
+                : reassembled;
         });
     }
 
