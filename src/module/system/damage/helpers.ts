@@ -49,7 +49,15 @@ function renderSplashDamage(rollTerm: RollTerm): HTMLElement {
 
 /** A fast but weak check of whether a string looks like a damage-roll formula */
 function looksLikeDamageFormula(formula: string): boolean {
-    return /^\{[^}]+}$/.test(formula);
+    if (formula.includes("d20")) return false;
+    return (
+        // Accept any single dice pool
+        /^\{[^}]+}$/.test(formula) ||
+        // Simple dice expression followed by a flavor expression
+        /^\d+d\d+(?:\[[a-z]+\])$/.test(formula) ||
+        // Parenthesized expression followed by a flavor expression
+        /^\([^)]+\)\[[a-z]+\]$/.test(formula)
+    );
 }
 
 export { DamageCategorization, looksLikeDamageFormula, nextDamageDieSize, renderSplashDamage };

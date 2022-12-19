@@ -6,11 +6,12 @@ import { MigrationBase } from "../base";
 export class Migration805InlineDamageRolls extends MigrationBase {
     static override version = 0.805;
 
-    #pattern = /\[\[\/r .+?\]\]\{[^}]+ damage\}/g;
+    #pattern = /\[\[\/r .+?\]\]\{[^}]+\}/g;
 
     #updateDamageFormula(text: string): string {
+        const skipStrings = ["splash", "precision", "persistent", "d20", "#"];
         return text.replace(this.#pattern, (match): string => {
-            if (["splash", "persistent", "d20", "#"].some((s) => match.includes(s))) {
+            if (!match.endsWith("damage}") || skipStrings.some((s) => match.includes(s))) {
                 return match;
             }
 
@@ -25,7 +26,7 @@ export class Migration805InlineDamageRolls extends MigrationBase {
                 )
             );
 
-            return `[[/r {${instances.join(",")}}]] damage`;
+            return instances.length === 1 ? `[[/r ${instances[0]}]] damage` : `[[/r {${instances.join(",")}}]] damage`;
         });
     }
 
