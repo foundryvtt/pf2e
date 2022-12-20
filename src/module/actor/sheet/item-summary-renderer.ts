@@ -208,44 +208,32 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
         await super.renderItemSummary($div, item, chatData);
         const actor = item.actor;
         const buttons = $('<div class="item-buttons"></div>');
-        switch (item.type) {
-            case "spell":
-                if (chatData.isSave) {
-                    const save = chatData.save as Record<string, unknown>;
-                    buttons.append(`<span>${save.label}</span>`);
-                }
+        if (item.isOfType("spell")) {
+            if (chatData.isSave) {
+                const save = chatData.save as Record<string, unknown>;
+                buttons.append(`<span>${save.label}</span>`);
+            }
 
-                if (actor instanceof CharacterPF2e) {
-                    if (Array.isArray(chatData.variants) && chatData.variants.length) {
-                        const label = game.i18n.localize("PF2E.Item.Spell.Variants.SelectVariantLabel");
-                        buttons.append(
-                            `<span><button class="spell_attack" data-action="selectVariant">${label}</button></span>`
-                        );
-                        break;
-                    }
-                    if (chatData.isAttack) {
-                        const label = game.i18n.localize("PF2E.AttackLabel");
-                        buttons.append(
-                            `<span><button class="spell_attack" data-action="spellAttack">${label}</button></span>`
-                        );
-                    }
-                    if (chatData.hasDamage) {
-                        buttons.append(
-                            `<span><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
-                        );
-                    }
-                }
-
-                break;
-            case "consumable":
-                if (item instanceof ConsumablePF2e && item.uses.max > 0 && item.isIdentified) {
-                    const label = game.i18n.localize("PF2E.ConsumableUseLabel");
+            if (actor instanceof CharacterPF2e && !item.hasVariants) {
+                if (chatData.isAttack) {
+                    const label = game.i18n.localize("PF2E.AttackLabel");
                     buttons.append(
-                        `<span><button class="consume" data-action="consume">${label} ${item.name}</button></span>`
+                        `<span><button class="spell_attack" data-action="spellAttack">${label}</button></span>`
                     );
                 }
-                break;
-            default:
+                if (chatData.hasDamage) {
+                    buttons.append(
+                        `<span><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
+                    );
+                }
+            }
+        } else if (item.isOfType("consumable")) {
+            if (item.uses.max > 0 && item.isIdentified) {
+                const label = game.i18n.localize("PF2E.ConsumableUseLabel");
+                buttons.append(
+                    `<span><button class="consume" data-action="consume">${label} ${item.name}</button></span>`
+                );
+            }
         }
 
         $div.append(buttons);
@@ -266,9 +254,6 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
                     break;
                 case "consume":
                     if (item instanceof ConsumablePF2e) item.consume();
-                    break;
-                case "selectVariant":
-                    spell?.toMessage();
                     break;
             }
         });

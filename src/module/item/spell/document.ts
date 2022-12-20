@@ -477,7 +477,7 @@ class SpellPF2e extends ItemPF2e {
             const tradition = Array.from(this.traditions).at(0);
             flags.casting = {
                 id: entry.id,
-                level: Number(data.castLevel) || this.level,
+                level: Number(data?.castLevel) || this.level,
                 tradition: entry.tradition ?? tradition ?? "arcane",
             };
 
