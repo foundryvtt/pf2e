@@ -204,3 +204,4 @@ export { Migration803NormalizeSpellArea } from "./803-normalize-spell-area";
 export { Migration804RemoveConsumableProperties } from "./804-remove-consumable-properties";
 export { Migration805InlineDamageRolls } from "./805-inline-damage-formulas";
 export { Migration806TorchImprovisedOtherTags } from "./806-torch-improvised-othertags";
+export { Migration807RMActivatedEffectFields } from "./807-rm-activated-effect-fields";
