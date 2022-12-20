@@ -1,4 +1,5 @@
 import { fontAwesomeIcon } from "@util";
+import { ArithmeticExpression, Grouping } from "./terms";
 import { DamageCategory, DamageDieSize } from "./types";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values";
 
@@ -47,6 +48,15 @@ function renderSplashDamage(rollTerm: RollTerm): HTMLElement {
     return span;
 }
 
+function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm[] {
+    const childTerms =
+        term instanceof Grouping ? [term.term] : term instanceof ArithmeticExpression ? term.operands : [];
+    return [
+        term.flavor.split(",").includes(flavor) ? [term] : [],
+        childTerms.map((t) => deepFindTerms(t, { flavor })).flat(),
+    ].flat();
+}
+
 /** A fast but weak check of whether a string looks like a damage-roll formula */
 function looksLikeDamageFormula(formula: string): boolean {
     if (formula.includes("d20")) return false;
@@ -60,4 +70,4 @@ function looksLikeDamageFormula(formula: string): boolean {
     );
 }
 
-export { DamageCategorization, looksLikeDamageFormula, nextDamageDieSize, renderSplashDamage };
+export { DamageCategorization, deepFindTerms, looksLikeDamageFormula, nextDamageDieSize, renderSplashDamage };
