@@ -4,7 +4,7 @@ import { RollDataPF2e } from "@system/rolls";
 import { ErrorPF2e, fontAwesomeIcon, isObject, setHasElement } from "@util";
 import Peggy from "peggy";
 import { DamageCategorization, renderSplashDamage } from "./helpers";
-import { ArithmeticExpression, Grouping } from "./terms";
+import { ArithmeticExpression, Grouping, InstancePool } from "./terms";
 import { DamageCategory, DamageType } from "./types";
 import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
 import { DamageTemplate } from "./weapon";
@@ -36,7 +36,7 @@ class DamageRoll extends AbstractDamageRoll {
 
     static override TOOLTIP_TEMPLATE = "systems/pf2e/templates/dice/damage-tooltip.hbs";
 
-    static override parse(formula: string, data: Record<string, unknown>): [PoolTerm] {
+    static override parse(formula: string, data: Record<string, unknown>): [InstancePool] {
         const replaced = this.replaceFormulaData(formula, data, { missing: "0" });
         const poolData: PoolTermData = this.parser.parse(replaced);
         if (poolData.class !== "PoolTerm") {
@@ -44,7 +44,7 @@ class DamageRoll extends AbstractDamageRoll {
         }
         this.classifyDice(poolData);
 
-        return [PoolTerm.fromData(poolData)];
+        return [InstancePool.fromData(poolData)];
     }
 
     /** Identify each "DiceTerm" raw object with a non-abstract subclass name */
