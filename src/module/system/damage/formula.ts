@@ -164,7 +164,7 @@ function sumExpression(terms: (string | null)[], { double = false } = {}): strin
 
 /** Helper for helpers */
 function hasOperators(formula: string): boolean {
-    return /\+-\*\//.test(formula);
+    return /[-+*/]/.test(formula);
 }
 
 interface DamageFormulaData {

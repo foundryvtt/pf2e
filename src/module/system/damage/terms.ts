@@ -1,5 +1,6 @@
 import { ErrorPF2e, isObject } from "@util";
 import { renderSplashDamage } from "./helpers";
+import { DamageInstance } from "./roll";
 
 class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     operator: ArithmeticOperator;
@@ -140,6 +141,29 @@ class Grouping extends RollTerm<GroupingData> {
     }
 }
 
+class InstancePool extends PoolTerm {
+    /** Work around upstream bug in which method attempts to construct `Roll`s from display formulas */
+    static override fromRolls<TTerm extends PoolTerm>(this: ConstructorOf<TTerm>, rolls?: Roll[]): TTerm;
+    static override fromRolls(rolls: DamageInstance[] = []): PoolTerm {
+        const allEvaluated = rolls.every((r) => r._evaluated);
+        const noneEvaluated = !rolls.some((r) => r._evaluated);
+        if (!(allEvaluated || noneEvaluated)) return super.fromRolls(rolls);
+
+        const pool = new this({
+            terms: rolls.map((r) => r._formula),
+            modifiers: [],
+            rolls: rolls,
+            results: allEvaluated ? rolls.map((r) => ({ result: r.total!, active: true })) : [],
+        });
+        pool._evaluated = allEvaluated;
+        return pool;
+    }
+}
+
+interface InstancePool extends PoolTerm {
+    rolls: DamageInstance[];
+}
+
 interface ArithmeticExpressionData extends RollTermData {
     operator: ArithmeticOperator;
     operands: [RollTermData, RollTermData];
@@ -149,4 +173,4 @@ interface GroupingData extends RollTermData {
     term: RollTermData;
 }
 
-export { ArithmeticExpression, Grouping };
+export { ArithmeticExpression, Grouping, InstancePool };

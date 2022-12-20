@@ -617,8 +617,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     getStrikeRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): StrikeRollContext<this, I> {
         const targetToken = Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard")) ?? null;
 
-        const selfToken =
-            canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null;
+        const selfToken = canvas.ready
+            ? canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null
+            : null;
         const reach = params.item.isOfType("melee")
             ? params.item.reach
             : params.item.isOfType("weapon")

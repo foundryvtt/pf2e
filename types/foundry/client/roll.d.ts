@@ -42,10 +42,10 @@ declare global {
         protected _dice: DiceTerm[];
 
         /** Store the original cleaned formula for the Roll, prior to any internal evaluation or simplification */
-        protected _formula: string;
+        _formula: string;
 
         /** Track whether this Roll instance has been evaluated or not. Once evaluated the Roll is immutable. */
-        protected _evaluated: boolean;
+        _evaluated: boolean;
 
         /** Cache the numeric total generated through evaluation of the Roll. */
         protected _total: number | undefined;
