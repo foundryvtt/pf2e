@@ -5,7 +5,7 @@ import { MigrationBase } from "../base";
 /** Move torch improvised from traits to otherTags */
 export class Migration806TorchImprovisedOtherTags extends MigrationBase {
     static override version = 0.806;
-    
+
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type === "equipment" && source.system.slug === "torch") {
             const torchStrikeRE = source.system.rules.find(
