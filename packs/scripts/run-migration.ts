@@ -23,6 +23,7 @@ import { Migration802StripFeatActionCategory } from "@module/migration/migration
 import { Migration803NormalizeSpellArea } from "@module/migration/migrations/803-normalize-spell-area";
 import { Migration804RemoveConsumableProperties } from "@module/migration/migrations/804-remove-consumable-properties";
 import { Migration805InlineDamageRolls } from "@module/migration/migrations/805-inline-damage-formulas";
+import { Migration806TorchImprovisedOtherTags } from "@module/migration/migrations/806-torch-improvised-othertags";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -49,6 +50,7 @@ const migrations: MigrationBase[] = [
     new Migration803NormalizeSpellArea(),
     new Migration804RemoveConsumableProperties(),
     new Migration805InlineDamageRolls(),
+    new Migration806TorchImprovisedOtherTags(),
 ];
 
 global.deepClone = <T>(original: T): T => {
