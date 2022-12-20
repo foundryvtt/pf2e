@@ -3,7 +3,7 @@ import { UserPF2e } from "@module/user";
 import { RollDataPF2e } from "@system/rolls";
 import { ErrorPF2e, fontAwesomeIcon, isObject, setHasElement } from "@util";
 import Peggy from "peggy";
-import { DamageCategorization, renderSplashDamage } from "./helpers";
+import { DamageCategorization, deepFindTerms, renderSplashDamage } from "./helpers";
 import { ArithmeticExpression, Grouping, InstancePool } from "./terms";
 import { DamageCategory, DamageType } from "./types";
 import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
@@ -164,6 +164,17 @@ class DamageInstance extends AbstractDamageRoll {
     type: DamageType;
 
     persistent: boolean;
+
+    partialTotal(this: Rolled<DamageInstance>, subinstance: "precision" | "splash"): number {
+        if (!this._evaluated) {
+            throw ErrorPF2e("Splash damage may not be accessed from an unevaluated damage instance");
+        }
+
+        return deepFindTerms(this.head, { flavor: subinstance }).reduce(
+            (total, t) => total + (Number(t.total!) || 0),
+            0
+        );
+    }
 
     constructor(formula: string, data = {}, options?: RollOptions) {
         super(formula, data, options);
