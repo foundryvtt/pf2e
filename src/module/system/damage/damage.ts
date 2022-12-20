@@ -108,7 +108,9 @@ export class DamagePF2e {
 
             const otherTags = [itemTraits, properties, materialEffects].join("");
 
-            flavor += `<div class="tags">${traits}<hr class="vr" />${otherTags}</div><hr>`;
+            flavor += otherTags.length > 0
+                ? `<div class="tags">${traits}<hr class="vr" />${otherTags}</div><hr>`
+                : `<div class="tags">${traits}</div><hr>`;
         }
 
         const base =
