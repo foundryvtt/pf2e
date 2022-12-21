@@ -19,7 +19,6 @@ import { RollNotePF2e } from "@module/notes";
 import { PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
 import { extractDamageDice, extractModifiers, extractNotes } from "@module/rules/util";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
-import { PredicatePF2e } from "@system/predication";
 import { setHasElement, sluggify } from "@util";
 import { createDamageFormula } from "./formula";
 import { nextDamageDieSize } from "./helpers";
@@ -208,42 +207,34 @@ class WeaponDamagePF2e {
             }
         }
 
-        // potency
+        // Potency rune
         const potency = weaponPotency?.bonus ?? 0;
 
-        // striking rune
-        let strikingDice = 0;
-        {
-            const strikingList: StrikingSynthetic[] = [];
-            selectors.forEach((key) => {
-                (actor.synthetics.striking[key] ?? [])
-                    .filter((wp) => PredicatePF2e.test(wp.predicate, options))
-                    .forEach((wp) => strikingList.push(wp));
-            });
+        // Striking rune
 
-            // find best striking source
-            const strikingRune = weapon.isOfType("weapon") ? weapon.system.runes.striking : null;
-            if (strikingRune) {
-                strikingList.push({
-                    label: "PF2E.StrikingRuneLabel",
-                    bonus: strikingRune,
-                    predicate: new PredicatePF2e(),
-                });
-            }
-            if (strikingList.length > 0) {
-                const s = strikingList.reduce(
-                    (highest, current) => (highest.bonus > current.bonus ? highest : current),
-                    strikingList[0]
-                );
-                strikingDice = s.bonus;
-                damageDice.push(
-                    new DamageDicePF2e({
-                        selector: `${weapon.id}-damage`,
-                        slug: "striking",
-                        label: s.label,
-                        diceNumber: s.bonus,
-                    })
-                );
+        const strikingSynthetic = selectors
+            .flatMap((key) => actor.synthetics.striking[key] ?? [])
+            .filter((wp) => wp.predicate.test(options))
+            .reduce(
+                (highest: StrikingSynthetic | null, current) =>
+                    highest && highest.bonus > current.bonus ? highest : current,
+                null
+            );
+        // Add damage dice if the "weapon" is an NPC attack or actual weapon with inferior etched striking rune
+        if (strikingSynthetic && (weapon.isOfType("melee") || strikingSynthetic.bonus > weapon.system.runes.striking)) {
+            damageDice.push(
+                new DamageDicePF2e({
+                    selector: `${weapon.id}-damage`,
+                    slug: "striking",
+                    label: strikingSynthetic.label,
+                    diceNumber: strikingSynthetic.bonus,
+                })
+            );
+
+            // Remove extra dice from weapon's etched striking rune
+            if (weapon.isOfType("weapon")) {
+                weapon.system.damage.dice -= weapon.system.runes.striking;
+                weapon.system.runes.striking = 0;
             }
         }
 
@@ -264,8 +255,20 @@ class WeaponDamagePF2e {
         // Deadly trait
         const traitLabels: Record<string, string> = CONFIG.PF2E.weaponTraits;
         const deadlyTraits = weaponTraits.filter((t) => t.startsWith("deadly-"));
+        // Get striking dice: the number of damage dice from a striking rune (or ABP devastating strikes)
+        const strikingDice = ((): number => {
+            if (weapon.isOfType("weapon")) {
+                const weaponStrikingDice = weapon.system.damage.dice - weapon._source.system.damage.dice;
+                return strikingSynthetic && strikingSynthetic.bonus > weaponStrikingDice
+                    ? strikingSynthetic.bonus
+                    : weaponStrikingDice;
+            } else {
+                return strikingSynthetic?.bonus ?? 0;
+            }
+        })();
+
         for (const slug of deadlyTraits) {
-            const diceNumber = (() => {
+            const diceNumber = ((): number => {
                 const baseNumber = Number(/-(\d)d\d{1,2}$/.exec(slug)?.at(1)) || 1;
                 return strikingDice > 1 ? strikingDice * baseNumber : baseNumber;
             })();

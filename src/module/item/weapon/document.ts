@@ -1,4 +1,4 @@
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
 import { ItemSummaryData, MeleeSource } from "@item/data";
@@ -6,7 +6,6 @@ import { MeleeDamageRoll, NPCAttackTrait } from "@item/melee/data";
 import {
     Bulk,
     CoinsPF2e,
-    getStrikingDice,
     IdentificationStatus,
     MaterialGradeData,
     MystifiedData,
@@ -17,12 +16,14 @@ import {
     WEAPON_VALUATION_DATA,
 } from "@item/physical";
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
+import { OneToThree } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
 import { WeaponDamage, WeaponData, WeaponMaterialData, WeaponSource } from "./data";
 import {
     BaseWeaponType,
     OtherWeaponTag,
+    StrikingRuneType,
     WeaponCategory,
     WeaponGroup,
     WeaponPropertyRuneType,
@@ -175,7 +176,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`reload:${this.reload}`]: !!this.reload,
                 [`damage:type:${damage.type}`]: true,
                 [`damage:die:faces:${damage.dieFaces}`]: true,
-                [`damage-dice:${1 + this.system.runes.striking}`]: true,
+                [`damage-dice:${this.system.damage.dice}`]: true,
                 "deity-favored": isDeityFavored,
                 oversized,
                 melee: this.isMelee,
@@ -226,7 +227,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             precious: preciousMaterial,
         };
 
-        AutomaticBonusProgression.cleanupRunes(this);
+        ABP.cleanupRunes(this);
 
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
@@ -270,14 +271,27 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         const systemData = this.system;
         const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
+
+        const strikingDice: Map<StrikingRuneType | null, OneToThree> = new Map([
+            ["striking", 1],
+            ["greaterStriking", 2],
+            ["majorStriking", 3],
+        ]);
+
         this.system.runes = {
             potency: potencyRune.value ?? 0,
-            striking: getStrikingDice({ strikingRune }),
+            striking: strikingDice.get(strikingRune.value) ?? 0,
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
                 (rune): rune is WeaponPropertyRuneType => !!rune
             ),
             effects: [],
         };
+
+        // Set damage dice according to striking rune
+        const pcLevel = this.actor?.isOfType("character") ? this.actor.level : 0;
+        this.system.damage.dice =
+            this._source.system.damage.dice +
+            (ABP.isEnabled ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking);
     }
 
     processMaterialAndRunes(): void {
