@@ -38,6 +38,7 @@
                 "predicate": [
                     "armament:claw"
                 ],
+                "slug": "claw",
                 "traits": [
                     "agile",
                     "finesse",
@@ -54,12 +55,13 @@
                     }
                 },
                 "group": "brawling",
-                "img": "systems/pf2e/icons/unarmed-attacks/claw.pincer",
+                "img": "systems/pf2e/icons/unarmed-attacks/pincer.webp",
                 "key": "Strike",
                 "label": "PF2E.BattleForm.Attack.Pincer",
                 "predicate": [
                     "armament:pincer"
                 ],
+                "slug": "pincer",
                 "traits": [
                     "grapple",
                     "unarmed"
@@ -79,6 +81,54 @@
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Automaton.AutomatonArmament.Prompt",
                 "rollOption": "armament"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d6"
+                },
+                "predicate": [
+                    "enhancement:automaton-armament"
+                ],
+                "selector": "claw-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d8"
+                },
+                "predicate": [
+                    "enhancement:automaton-armament"
+                ],
+                "selector": "pincer-damage"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automatonLesserEnhancements",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.AutomatonArmament",
+                    "predicate": [
+                        {
+                            "not": "enhancement:automaton-armament"
+                        }
+                    ],
+                    "value": "automaton-armament"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automatonGreaterEnhancements",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.AutomatonArmament",
+                    "predicate": [
+                        {
+                            "not": "enhancement:automaton-armament"
+                        }
+                    ],
+                    "value": "automaton-armament"
+                }
             }
         ],
         "source": {

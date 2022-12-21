@@ -21,7 +21,36 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automatonLesserEnhancements",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.IntegratedArmament",
+                    "predicate": [
+                        {
+                            "not": "enhancement:integrated-armament"
+                        }
+                    ],
+                    "value": "integrated-armament"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automatonGreaterEnhancements",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.IntegratedArmament",
+                    "predicate": [
+                        {
+                            "not": "enhancement:integrated-armament"
+                        }
+                    ],
+                    "value": "integrated-armament"
+                }
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },

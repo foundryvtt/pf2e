@@ -45,6 +45,34 @@
                 "key": "Resistance",
                 "type": "{item|flags.pf2e.rulesSelections.featMagicalResistance}",
                 "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automatonLesserEnhancements",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.MagicalResistance",
+                    "predicate": [
+                        {
+                            "not": "enhancement:magical-resistance"
+                        }
+                    ],
+                    "value": "magical-resistance"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automatonGreaterEnhancements",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.MagicalResistance",
+                    "predicate": [
+                        {
+                            "not": "enhancement:magical-resistance"
+                        }
+                    ],
+                    "value": "magical-resistance"
+                }
             }
         ],
         "source": {

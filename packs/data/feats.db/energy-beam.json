@@ -45,6 +45,44 @@
                 "selector": "{item|_id}-damage",
                 "text": "PF2E.SpecificRule.Automaton.EnergyBeam.CriticalHit",
                 "title": "{item|name}"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    "enhancement:energy-beam"
+                ],
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automatonLesserEnhancements",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.EnergyBeam",
+                    "predicate": [
+                        {
+                            "not": "enhancement:energy-beam"
+                        }
+                    ],
+                    "value": "energy-beam"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automatonGreaterEnhancements",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.EnergyBeam",
+                    "predicate": [
+                        {
+                            "not": "enhancement:energy-beam"
+                        }
+                    ],
+                    "value": "energy-beam"
+                }
             }
         ],
         "source": {

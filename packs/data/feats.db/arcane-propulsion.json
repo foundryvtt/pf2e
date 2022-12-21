@@ -25,7 +25,25 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "enhancement:arcane-propulsion"
+                ],
+                "selector": "fly",
+                "value": "@actor.attributes.speed.value"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automatonGreaterEnhancements",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcanePropulsion",
+                    "value": "arcane-propulsion"
+                }
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },

@@ -21,7 +21,23 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "flags.pf2e.automatonGreaterEnhancements",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Automaton.EnhancementPrompt",
+                "rollOption": "enhancement"
+            },
+            {
+                "choices": "flags.pf2e.automatonLesserEnhancements",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "enhancement:lesser-augmentation"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Automaton.EnhancementPrompt",
+                "rollOption": "enhancement"
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },
