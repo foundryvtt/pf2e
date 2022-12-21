@@ -61,12 +61,12 @@ function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm
 function looksLikeDamageFormula(formula: string): boolean {
     if (formula.includes("d20")) return false;
     return (
-        // Accept any single dice pool
+        // Any single dice pool
         /^\{[^}]+}$/.test(formula) ||
         // Simple dice expression followed by a flavor expression
-        /^\d+d\d+(?:\[[a-z]+\])$/.test(formula) ||
+        /^(?:\d+(?:d\d+)?)(?:\[[a-z]+(?:,[a-z]+)?\])$/.test(formula) ||
         // Parenthesized expression followed by a flavor expression
-        /^\([^)]+\)\[[a-z]+\]$/.test(formula)
+        /^\([^)]+\)\[[a-z]+(?:,[a-z]+)?\]$/.test(formula)
     );
 }
 
