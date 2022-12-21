@@ -205,3 +205,4 @@ export { Migration804RemoveConsumableProperties } from "./804-remove-consumable-
 export { Migration805InlineDamageRolls } from "./805-inline-damage-formulas";
 export { Migration806TorchImprovisedOtherTags } from "./806-torch-improvised-othertags";
 export { Migration807RMActivatedEffectFields } from "./807-rm-activated-effect-fields";
+export { Migration808CountDamageDice } from "./808-count-damage-dice";
