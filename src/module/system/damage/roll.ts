@@ -5,9 +5,8 @@ import { ErrorPF2e, fontAwesomeIcon, isObject, setHasElement } from "@util";
 import Peggy from "peggy";
 import { DamageCategorization, deepFindTerms, renderSplashDamage } from "./helpers";
 import { ArithmeticExpression, Grouping, InstancePool } from "./terms";
-import { DamageCategory, DamageType } from "./types";
+import { DamageCategory, DamageTemplate, DamageType } from "./types";
 import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
-import { DamageTemplate } from "./weapon";
 
 abstract class AbstractDamageRoll extends Roll {
     static parser = Peggy.generate(ROLL_GRAMMAR);

@@ -2,7 +2,7 @@ import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { groupBy } from "@util";
 import { DamageCategorization } from "./helpers";
-import { DamageCategory, DamageDieSize, DamageType } from "./types";
+import { DamageFormulaData, DamageType } from "./types";
 
 /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
 function createDamageFormula(
@@ -167,20 +167,6 @@ function hasOperators(formula: string): boolean {
     return /[-+*/]/.test(formula);
 }
 
-interface DamageFormulaData {
-    base: BasicDamageData;
-    dice: DamageDicePF2e[];
-    modifiers: ModifierPF2e[];
-}
-
-interface BasicDamageData {
-    damageType: DamageType;
-    diceNumber: number;
-    dieSize: DamageDieSize | null;
-    modifier: number;
-    category: DamageCategory | null;
-}
-
 /** A pool of damage dice & modifiers, grouped by damage type. */
 type DamageTypeMap = Map<DamageType, DamagePartial[]>;
 
@@ -195,4 +181,4 @@ interface DamagePartial {
     critical: boolean | null;
 }
 
-export { BasicDamageData, DamageFormulaData, createDamageFormula };
+export { createDamageFormula };

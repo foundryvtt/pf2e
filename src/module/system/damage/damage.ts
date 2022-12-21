@@ -6,8 +6,7 @@ import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
 import { DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { DamageRoll } from "./roll";
-import { DamageRollContext, DamageType } from "./types";
-import { DamageTemplate } from "./weapon";
+import { DamageRollContext, DamageTemplate, DamageType } from "./types";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -131,7 +130,7 @@ export class DamagePF2e {
         const noteRollData = context.self?.item?.getRollData();
         const damageNotes = await Promise.all(
             data.notes
-                .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
+                .filter((n) => n.outcome.length === 0 || n.outcome.includes(outcome))
                 .map(async (note) => await TextEditor.enrichHTML(note.text, { rollData: noteRollData, async: true }))
         );
         const notes = damageNotes.join("<br />");
