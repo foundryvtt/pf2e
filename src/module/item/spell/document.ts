@@ -16,13 +16,13 @@ import { OneToTen } from "@module/data";
 import { extractDamageDice, extractModifiers } from "@module/rules/util";
 import { UserPF2e } from "@module/user";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
-import { combineTerms, DicePF2e } from "@scripts/dice";
+import { combineTerms } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { DamageCategorization, DamageType } from "@system/damage";
+import { DamageCategorization, DamagePF2e, DamageRollContext, DamageTemplate, DamageType } from "@system/damage";
 import { CheckPF2e } from "@system/check";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
-import { ErrorPF2e, getActionIcon, objectHasKey, ordinal, traitSlugToObject } from "@util";
+import { ErrorPF2e, getActionIcon, groupBy, ordinal, sortBy, traitSlugToObject } from "@util";
 import {
     SpellData,
     SpellHeightenLayer,
@@ -31,12 +31,22 @@ import {
     SpellSystemData,
     SpellSystemSource,
 } from "./data";
-import { applyDamageDice } from "./helpers";
+import { applyDamageDice, createFormulaAndTagsForPartial, DamageInstanceData } from "./helpers";
 import { SpellOverlayCollection } from "./overlay";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
+import { DamageInstance, DamageRoll } from "@system/damage/roll";
+import { InstancePool } from "@system/damage/terms";
 
 interface SpellConstructionContext extends ItemConstructionContextPF2e {
     fromConsumable?: boolean;
+}
+
+interface SpellDamage {
+    roll: DamageRoll;
+    domains: string[];
+    options: Set<string>;
+    modifiers: ModifierPF2e[];
+    breakdownTags: string[];
 }
 
 class SpellPF2e extends ItemPF2e {
@@ -185,23 +195,46 @@ class SpellPF2e extends ItemPF2e {
         return rollData;
     }
 
-    /** Calculates the full damage formula for a specific spell level */
-    private getDamageFormula(castLevel = this.level, rollData: Record<string, unknown> = {}): string {
-        // If this isn't a variant, it probably needs to be heightened via overlays
-        if (!this.isVariant) {
-            const variant = this.loadVariant({ castLevel });
-            if (variant) return variant.getDamageFormula(castLevel, rollData);
+    get damage(): SpellDamage | null {
+        // Return early if the spell doesn't deal damage
+        if (!Object.keys(this.system.damage.value).length) {
+            return null;
         }
 
-        const formulas: string[] = [];
-        for (const [id, damage] of Object.entries(this.system.damage.value ?? {})) {
-            // Currently unable to handle display of perisistent and splash damage
-            if (damage.type.subtype) continue;
+        const castLevel = this.level;
+        const rollData = this.getRollData({ castLevel });
 
+        // Set up the damage instances we're adding to, and a function to either fetch or create a new one
+        type DamageTypeCategory = `${DamageType}-${string}`;
+        const formulas: Record<DamageTypeCategory, DamageInstanceData> = {};
+        function getInstance(options: { formula?: string; damageType: DamageType; damageCategory?: string | null }) {
+            const { formula, damageType, damageCategory } = options;
+            const key: DamageTypeCategory = `${damageType}-${damageCategory || "normal"}`;
+            const existing = formulas[key];
+            if (existing) {
+                if (formula) {
+                    existing.formula += `+ ${formula}`;
+                }
+                return existing;
+            } else {
+                const newInstance = {
+                    formula: formula ?? "0",
+                    damageType,
+                    damageCategory: damageCategory || null,
+                    modifiers: [],
+                    tags: new Set<string>(),
+                };
+                formulas[key] = newInstance;
+                return newInstance;
+            }
+        }
+
+        // Loop over the user defined damage fields
+        for (const [id, damage] of Object.entries(this.system.damage.value ?? {})) {
             const parts: (string | number)[] = [];
             if (damage.value && damage.value !== "0") parts.push(damage.value);
 
-            // Check for and apply interval Spell scaling
+            // Check for and apply interval spell scaling
             const heightening = this.system.heightening;
             if (heightening?.type === "interval" && heightening.interval) {
                 const scalingFormula = heightening.damage[id];
@@ -214,31 +247,30 @@ class SpellPF2e extends ItemPF2e {
                 }
             }
 
-            // If no formula, continue
-            if (parts.length === 0) continue;
-
-            // Assemble damage categories
-            const categories = [];
-            if (damage.type.subtype) {
-                categories.push(damage.type.subtype);
-            }
-            categories.push(...(damage.type.categories ?? []), damage.type.value);
+            if (!parts.length) parts.push("0");
 
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
             const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
             const formula = combineTerms(baseFormulaFixed);
-            formulas.push(formula);
+
+            // Add damage. Merge if the type and category matches
+            const tags = [damage.type.subtype ? damage.type.subtype : [], damage.type.categories ?? []].flat();
+            const damageType = damage.type.value;
+            const instance = getInstance({ formula, damageType, damageCategory: damage.type.subtype });
+            for (const tag of tags) {
+                instance.tags.add(tag);
+            }
         }
 
-        // Add flat damage increases if this spell can deal damage.
-        // Until damage is refactored, we can't get anything fancier than this
-        const { actor } = this;
-        if (actor?.isOfType("character", "npc") && Object.keys(this.system.damage.value).length) {
-            const domains = ["damage", "spell-damage"];
-            const heightened = this.clone({ "system.location.heightenedLevel": castLevel });
-            const modifiers = extractModifiers(actor.synthetics, domains, { resolvables: { spell: heightened } });
-            const { ability } = this;
+        const { actor, ability } = this;
+        const domains = ["damage", "spell-damage"];
+        const options = new Set<string>(
+            [actor?.getRollOptions(domains) ?? [], this.getRollOptions("item"), [...this.traits]].flat()
+        );
 
+        // Add modifiers and damage die adjustments
+        const modifiers: ModifierPF2e[] = [];
+        if (actor?.isOfType("character", "npc")) {
             const abilityModifiers = Object.entries(this.system.damage.value)
                 .filter(([, d]) => d.applyMod)
                 .map(
@@ -253,26 +285,73 @@ class SpellPF2e extends ItemPF2e {
                             damageCategory: d.type.subtype ?? DamageCategorization.fromDamageType(d.type.value),
                         })
                 );
-            modifiers.unshift(...abilityModifiers);
+            modifiers.push(...abilityModifiers);
+            modifiers.push(...extractModifiers(actor.synthetics, domains, { resolvables: { spell: this } }));
 
-            const rollOptions = new Set([
-                ...actor.getRollOptions(domains),
-                ...this.getRollOptions("item"),
-                ...this.traits,
-            ]);
+            // Add modifiers to instances
+            for (const modifier of modifiers) {
+                modifier.test(options);
+                if (modifier.ignored) continue;
+
+                const damageType = modifier.damageType;
+                if (!damageType) {
+                    Object.values(formulas)[0]?.modifiers.push(modifier);
+                } else {
+                    const instance = getInstance({ damageType, damageCategory: modifier.damageCategory });
+                    instance.modifiers.push(modifier);
+                }
+            }
 
             const damageDice = extractDamageDice(actor.synthetics.damageDice, domains, {
-                test: rollOptions,
-                resolvables: { spell: heightened },
+                test: options,
+                resolvables: { spell: this },
             });
-            const adjusted = applyDamageDice(formulas, damageDice);
-            const damageModifier = new StatisticModifier("", modifiers, rollOptions);
-            if (damageModifier.totalModifier) adjusted.push(`${damageModifier.totalModifier}`);
-
-            return adjusted.join(" + ");
+            applyDamageDice(Object.values(formulas), damageDice);
         }
 
-        return formulas.join(" + ");
+        const order = [null, "precision", "splash"];
+        const allPartials = sortBy(Object.values(formulas), (f) => {
+            const idx = order.indexOf(f.damageCategory);
+            return idx >= 0 ? idx : order.length;
+        });
+        const notPersistent = allPartials.filter((p) => p.damageCategory !== "persistent"); // persistent not supported
+        const groups = groupBy(notPersistent, (f) => f.damageType);
+
+        try {
+            const instances: DamageInstance[] = [];
+            const breakdownTags: string[] = [];
+            for (const [damageType, group] of groups.entries()) {
+                const tags = new Set(group.flatMap((g) => g.tags));
+                const flavor = [...tags, damageType].join(",");
+
+                const subFormulas: string[] = [];
+
+                const mainGroup = group.find((g) => !g.damageCategory);
+                if (mainGroup) {
+                    const damageTypeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+                    const result = createFormulaAndTagsForPartial(mainGroup, damageTypeLabel);
+                    subFormulas.push(result.formula);
+                    breakdownTags.push(...result.breakdownTags);
+                }
+
+                for (const subInstance of group.filter((g) => !!g.damageCategory)) {
+                    const result = createFormulaAndTagsForPartial(subInstance, subInstance.damageCategory);
+                    subFormulas.push(`(${result.formula})[${subInstance.damageCategory}]`);
+                    breakdownTags.push(...result.breakdownTags);
+                }
+
+                instances.push(new DamageInstance(subFormulas.join(" + "), {}, { flavor }));
+            }
+
+            if (instances.length) {
+                const roll = DamageRoll.fromTerms([InstancePool.fromRolls(instances)]);
+                return { roll, breakdownTags, domains, options, modifiers };
+            }
+        } catch (err) {
+            console.error(err);
+        }
+
+        return null;
     }
 
     /**
@@ -570,8 +649,9 @@ class SpellPF2e extends ItemPF2e {
         const spellDC = statisticChatData.dc.value;
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
-        const formula = this.getDamageFormula(castLevel, rollData);
-        const hasDamage = formula && formula !== "0";
+        const damage = this.damage;
+        const formula = this.damage?.roll.formula;
+        const hasDamage = !!damage; // needs new check // formula && formula !== "0";
 
         // Spell save label
         const saveType = systemData.save.value ? game.i18n.localize(CONFIG.PF2E.saves[systemData.save.value]) : "";
@@ -675,37 +755,42 @@ class SpellPF2e extends ItemPF2e {
     async rollDamage(
         this: Embedded<SpellPF2e>,
         event: JQuery.ClickEvent<unknown, unknown, HTMLElement>
-    ): Promise<void> {
+    ): Promise<Rolled<DamageRoll> | null> {
         const castLevel =
             Number(event.currentTarget.closest<HTMLElement>("*[data-cast-level]")?.dataset.castLevel) || this.level;
-        const rollData = this.getRollData({ castLevel });
-        const formula = this.getDamageFormula(castLevel, rollData);
 
-        // This title creation is temporary, will change once damage cards are finished
-        const title = (() => {
-            const isHeal = this.system.spellType.value === "heal";
-            if (isHeal) {
-                return `${this.name} - ${game.i18n.localize("PF2E.SpellTypeHeal")}`;
-            } else {
-                const damageType = Object.values(this.system.damage.value ?? {})
-                    .filter((damage) => damage.type.subtype !== "persistent" && damage.type.subtype !== "splash")
-                    .map((damage) => damage.type.value)
-                    .filter((type): type is DamageType => objectHasKey(CONFIG.PF2E.damageTypes, type))
-                    .map((type) => game.i18n.localize(CONFIG.PF2E.damageTypes[type]))
-                    .join("/");
-                return `${this.name} - ${game.i18n.localize("PF2E.DamageLabel")} (${damageType})`;
-            }
-        })();
+        // If this isn't a variant, it probably needs to be heightened via overlays
+        if (!this.isVariant) {
+            const variant = this.loadVariant({ castLevel });
+            if (variant) return variant.rollDamage(event);
+        }
 
-        // Call the roll helper utility
-        await DicePF2e.damageRoll({
-            event,
-            actor: this.actor,
-            item: this,
-            parts: [formula],
-            data: rollData,
-            title,
-        });
+        const spellDamage = this.damage;
+        if (!spellDamage) return null;
+
+        const { roll, domains, options, modifiers, breakdownTags } = spellDamage;
+        const damage: DamageTemplate = {
+            name: this.name,
+            damage: { roll, breakdownTags },
+            notes: [],
+            materials: [],
+            traits: this.castingTraits,
+        };
+
+        const context: DamageRollContext = {
+            type: "damage-roll",
+            outcome: "success",
+            domains,
+            options,
+            self: {
+                actor: this.actor,
+                item: this,
+                modifiers: modifiers,
+                token: this.actor.token,
+            },
+        };
+
+        return DamagePF2e.roll(damage, context);
     }
 
     /**

@@ -24,6 +24,7 @@ import { PredicatePF2e } from "@system/predication";
 import { setHasElement, sluggify } from "@util";
 import { createDamageFormula, DamageFormulaData } from "./formula";
 import { nextDamageDieSize } from "./helpers";
+import { DamageRoll } from "./roll";
 import { DamageDieSize } from "./types";
 
 class WeaponDamagePF2e {
@@ -71,7 +72,7 @@ class WeaponDamagePF2e {
         proficiencyRank: number,
         options: Set<string>,
         weaponPotency: PotencySynthetic | null = null
-    ): DamageTemplate | null {
+    ): DamageTemplateWithData | null {
         const { baseDamage } = weapon;
         if (baseDamage.dice === 0 && baseDamage.modifier === 0) {
             return null;
@@ -362,8 +363,7 @@ class WeaponDamagePF2e {
             })
         );
 
-        const damage: Omit<DamageTemplate, "formula"> = {
-            name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
+        const damage: DamageFormulaData = {
             base: {
                 diceNumber: baseDamage.dice,
                 dieSize: baseDamage.die,
@@ -377,9 +377,6 @@ class WeaponDamagePF2e {
             // or the like.
             dice: damageDice,
             modifiers: testedModifiers,
-            notes,
-            traits: (traits ?? []).map((t) => t.name),
-            materials: Array.from(materials),
         };
 
         // include dice number and size in damage tag
@@ -408,12 +405,18 @@ class WeaponDamagePF2e {
         this.#excludeDamage({ actor, weapon: excludeFrom, modifiers: [...modifiers, ...damageDice], options });
 
         return {
-            ...damage,
-            formula: {
-                criticalFailure: null,
-                failure: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.FAILURE),
-                success: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.SUCCESS),
-                criticalSuccess: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
+            name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
+            notes,
+            traits: (traits ?? []).map((t) => t.name),
+            materials: Array.from(materials),
+            damage: {
+                ...damage,
+                formula: {
+                    criticalFailure: null,
+                    failure: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.FAILURE),
+                    success: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.SUCCESS),
+                    criticalSuccess: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
+                },
             },
         };
     }
@@ -561,18 +564,34 @@ class WeaponDamagePF2e {
     }
 }
 
-export interface DamageTemplate extends DamageFormulaData {
-    name: string;
+interface ResolvedDamageFormulaData extends DamageFormulaData {
     formula: {
         criticalFailure: null;
         failure: string | null;
         success: string;
         criticalSuccess: string;
     };
+}
+
+interface BaseDamageTemplate {
+    name: string;
     notes: RollNotePF2e[];
     traits: string[];
     materials: WeaponMaterialEffect[];
 }
+
+export interface DamageTemplateWithData extends BaseDamageTemplate {
+    damage: ResolvedDamageFormulaData;
+}
+
+interface DamageTemplateWithRoll extends BaseDamageTemplate {
+    damage: {
+        roll: DamageRoll;
+        breakdownTags: string[];
+    };
+}
+
+export type DamageTemplate = DamageTemplateWithData | DamageTemplateWithRoll;
 
 interface ExcludeDamageParams {
     actor: ActorPF2e;
