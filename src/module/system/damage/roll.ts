@@ -84,7 +84,9 @@ class DamageRoll extends AbstractDamageRoll {
             return super.formula;
         } else if (instances.length === 1 && firstInstance.head instanceof Grouping) {
             const instanceFormula = firstInstance.formula;
-            return instanceFormula.slice(1).replace(/\)([^)]+)$/i, "$1");
+            return instanceFormula.startsWith("(")
+                ? instanceFormula.slice(1).replace(/\)([^)]+)$/i, "$1")
+                : instanceFormula;
         }
 
         return instances.map((i) => i.formula).join(" + ");

@@ -60,14 +60,18 @@ class TextEditorPF2e extends TextEditor {
 
             // Replace the die icon with one representing the damage roll's first damage die
             const firstDice = roll?.dice.at(0);
-            if (firstDice instanceof Die && [4, 8, 6, 10, 12].includes(firstDice.faces)) {
-                const icon = fontAwesomeIcon(`dice-d${firstDice.faces}`).outerHTML;
-                // The fourth match group will be a label
-                const label = match[4] && match[4].length > 0 ? match[4] : roll!.formula;
-                anchor.innerHTML = `${icon}${label}`;
-                anchor.dataset.tooltip = roll!.formula;
-                anchor.dataset.damageRoll = "";
-            }
+            // The fourth match group will be a label
+            const label = match[4] && match[4].length > 0 ? match[4] : roll!.formula;
+            const icon = ((): HTMLElement => {
+                if (firstDice instanceof Die && [4, 8, 6, 10, 12].includes(firstDice.faces)) {
+                    return fontAwesomeIcon(`dice-d${firstDice.faces}`);
+                }
+                return fontAwesomeIcon(firstDice ? "dice-d20" : "calculator");
+            })();
+
+            anchor.innerHTML = `${icon.outerHTML}${label}`;
+            anchor.dataset.tooltip = roll!.formula;
+            anchor.dataset.damageRoll = "";
         }
 
         return anchor;
