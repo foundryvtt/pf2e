@@ -155,15 +155,12 @@
         <i class="fas fa-info-circle large" title="{{localize "PF2E.WeaponBaseDamageTitle"}}"></i>
     </h3>
     <div class="form-group">
-        <label>{{localize "PF2E.WeaponDamageLabel"}}</label>
+        <label>
+            {{localize "PF2E.WeaponDamageLabel"}}
+            {{#if adjustedDiceHint}}<i class="fas fa-info-circle small" title="{{adjustedDiceHint}}"></i>{{/if}}
+        </label>
         <div class="details-container-three-columns">
-            <select name="system.damage.dice" data-dtype="Number">
-                {{#select data.damage.dice}}
-                    {{#each damageDice as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
+            <input type="number"{{#if adjustedDiceHint}} class="adjusted"{{/if}} data-property="system.damage.dice" data-value-base="{{baseDice}}" value="{{data.damage.dice}}" />
             <select name="system.damage.die">
                 {{#select data.damage.die}}
                     <option value=""></option>

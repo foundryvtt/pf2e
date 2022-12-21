@@ -30,12 +30,15 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     }
 
     get expression(): string {
+        if (this.isDeterministic) return this.total!.toString();
+
         const { operator, operands } = this;
         return `${operands[0].expression} ${operator} ${operands[1].expression}`;
     }
 
     override get total(): number | undefined {
-        if (!this._evaluated) return undefined;
+        if (!this._evaluated && !this.isDeterministic) return undefined;
+
         const operands = [Number(this.operands[0].total), Number(this.operands[1].total)];
         switch (this.operator) {
             case "+":
@@ -49,6 +52,10 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
             case "%":
                 return operands[0] % operands[1];
         }
+    }
+
+    override get isDeterministic(): boolean {
+        return this.operands.every((o) => o.isDeterministic);
     }
 
     /** Construct a string for an HTML rendering of this term */
@@ -118,11 +125,15 @@ class Grouping extends RollTerm<GroupingData> {
     }
 
     get expression(): string {
-        return `(${this.term.expression})`;
+        return this.isDeterministic ? this.total!.toString() : `(${this.term.expression})`;
     }
 
     override get total(): number | undefined {
-        return this._evaluated ? Number(this.term.total) : undefined;
+        return this._evaluated || this.isDeterministic ? Number(this.term.total) : undefined;
+    }
+
+    override get isDeterministic(): boolean {
+        return this.term.isDeterministic;
     }
 
     protected override async _evaluate(

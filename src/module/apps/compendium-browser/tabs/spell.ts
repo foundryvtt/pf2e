@@ -81,9 +81,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     } else {
                         spellData.system.time.img = getActionIcon(spellData.system.time.value);
                     }
-                    // replace mystery man with one action icon
-                    if (spellData.system.time.img === "systems/pf2e/icons/default-icons/mystery-man.svg") {
-                        spellData.system.time.img = "systems/pf2e/icons/actions/OneAction.webp";
+
+                    if (spellData.system.time.img === "systems/pf2e/icons/actions/Empty.webp") {
+                        spellData.system.time.img = "systems/pf2e/icons/actions/LongerAction.webp";
                     }
 
                     // Prepare source

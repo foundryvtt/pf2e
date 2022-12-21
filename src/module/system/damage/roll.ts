@@ -3,11 +3,10 @@ import { UserPF2e } from "@module/user";
 import { RollDataPF2e } from "@system/rolls";
 import { ErrorPF2e, fontAwesomeIcon, isObject, setHasElement } from "@util";
 import Peggy from "peggy";
-import { DamageCategorization, renderSplashDamage } from "./helpers";
+import { DamageCategorization, deepFindTerms, renderSplashDamage } from "./helpers";
 import { ArithmeticExpression, Grouping, InstancePool } from "./terms";
-import { DamageCategory, DamageType } from "./types";
+import { DamageCategory, DamageTemplate, DamageType } from "./types";
 import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
-import { DamageTemplate } from "./weapon";
 
 abstract class AbstractDamageRoll extends Roll {
     static parser = Peggy.generate(ROLL_GRAMMAR);
@@ -85,7 +84,9 @@ class DamageRoll extends AbstractDamageRoll {
             return super.formula;
         } else if (instances.length === 1 && firstInstance.head instanceof Grouping) {
             const instanceFormula = firstInstance.formula;
-            return instanceFormula.slice(1).replace(/\)([^)]+)$/i, "$1");
+            return instanceFormula.startsWith("(")
+                ? instanceFormula.slice(1).replace(/\)([^)]+)$/i, "$1")
+                : instanceFormula;
         }
 
         return instances.map((i) => i.formula).join(" + ");
@@ -164,6 +165,17 @@ class DamageInstance extends AbstractDamageRoll {
     type: DamageType;
 
     persistent: boolean;
+
+    partialTotal(this: Rolled<DamageInstance>, subinstance: "precision" | "splash"): number {
+        if (!this._evaluated) {
+            throw ErrorPF2e("Splash damage may not be accessed from an unevaluated damage instance");
+        }
+
+        return deepFindTerms(this.head, { flavor: subinstance }).reduce(
+            (total, t) => total + (Number(t.total!) || 0),
+            0
+        );
+    }
 
     constructor(formula: string, data = {}, options?: RollOptions) {
         super(formula, data, options);

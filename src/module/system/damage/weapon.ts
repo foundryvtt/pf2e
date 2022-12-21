@@ -10,21 +10,19 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
-import { MeleePF2e, WeaponPF2e } from "@item";
+import { MeleePF2e, WeaponMaterialEffect, WeaponPF2e } from "@item";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { getPropertyRuneModifiers } from "@item/physical/runes";
 import { WeaponDamage } from "@item/weapon/data";
-import { WeaponMaterialEffect } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { RollNotePF2e } from "@module/notes";
 import { PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
 import { extractDamageDice, extractModifiers, extractNotes } from "@module/rules/util";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
-import { PredicatePF2e } from "@system/predication";
 import { setHasElement, sluggify } from "@util";
-import { createDamageFormula, DamageFormulaData } from "./formula";
+import { createDamageFormula } from "./formula";
 import { nextDamageDieSize } from "./helpers";
-import { DamageDieSize } from "./types";
+import { DamageDieSize, DamageFormulaData, WeaponDamageTemplate } from "./types";
 
 class WeaponDamagePF2e {
     static calculateStrikeNPC(
@@ -33,7 +31,7 @@ class WeaponDamagePF2e {
         traits: TraitViewData[] = [],
         proficiencyRank = 0,
         options: Set<string> = new Set()
-    ): DamageTemplate | null {
+    ): WeaponDamageTemplate | null {
         const secondaryInstances = Object.values(attack.system.damageRolls).slice(1).map(this.npcDamageToWeaponDamage);
 
         // Add secondary damage instances to flat modifier and damage dice synthetics
@@ -71,7 +69,7 @@ class WeaponDamagePF2e {
         proficiencyRank: number,
         options: Set<string>,
         weaponPotency: PotencySynthetic | null = null
-    ): DamageTemplate | null {
+    ): WeaponDamageTemplate | null {
         const { baseDamage } = weapon;
         if (baseDamage.dice === 0 && baseDamage.modifier === 0) {
             return null;
@@ -209,42 +207,34 @@ class WeaponDamagePF2e {
             }
         }
 
-        // potency
+        // Potency rune
         const potency = weaponPotency?.bonus ?? 0;
 
-        // striking rune
-        let strikingDice = 0;
-        {
-            const strikingList: StrikingSynthetic[] = [];
-            selectors.forEach((key) => {
-                (actor.synthetics.striking[key] ?? [])
-                    .filter((wp) => PredicatePF2e.test(wp.predicate, options))
-                    .forEach((wp) => strikingList.push(wp));
-            });
+        // Striking rune
 
-            // find best striking source
-            const strikingRune = weapon.isOfType("weapon") ? weapon.system.runes.striking : null;
-            if (strikingRune) {
-                strikingList.push({
-                    label: "PF2E.StrikingRuneLabel",
-                    bonus: strikingRune,
-                    predicate: new PredicatePF2e(),
-                });
-            }
-            if (strikingList.length > 0) {
-                const s = strikingList.reduce(
-                    (highest, current) => (highest.bonus > current.bonus ? highest : current),
-                    strikingList[0]
-                );
-                strikingDice = s.bonus;
-                damageDice.push(
-                    new DamageDicePF2e({
-                        selector: `${weapon.id}-damage`,
-                        slug: "striking",
-                        label: s.label,
-                        diceNumber: s.bonus,
-                    })
-                );
+        const strikingSynthetic = selectors
+            .flatMap((key) => actor.synthetics.striking[key] ?? [])
+            .filter((wp) => wp.predicate.test(options))
+            .reduce(
+                (highest: StrikingSynthetic | null, current) =>
+                    highest && highest.bonus > current.bonus ? highest : current,
+                null
+            );
+        // Add damage dice if the "weapon" is an NPC attack or actual weapon with inferior etched striking rune
+        if (strikingSynthetic && (weapon.isOfType("melee") || strikingSynthetic.bonus > weapon.system.runes.striking)) {
+            damageDice.push(
+                new DamageDicePF2e({
+                    selector: `${weapon.id}-damage`,
+                    slug: "striking",
+                    label: strikingSynthetic.label,
+                    diceNumber: strikingSynthetic.bonus,
+                })
+            );
+
+            // Remove extra dice from weapon's etched striking rune
+            if (weapon.isOfType("weapon")) {
+                weapon.system.damage.dice -= weapon.system.runes.striking;
+                weapon.system.runes.striking = 0;
             }
         }
 
@@ -265,8 +255,20 @@ class WeaponDamagePF2e {
         // Deadly trait
         const traitLabels: Record<string, string> = CONFIG.PF2E.weaponTraits;
         const deadlyTraits = weaponTraits.filter((t) => t.startsWith("deadly-"));
+        // Get striking dice: the number of damage dice from a striking rune (or ABP devastating strikes)
+        const strikingDice = ((): number => {
+            if (weapon.isOfType("weapon")) {
+                const weaponStrikingDice = weapon.system.damage.dice - weapon._source.system.damage.dice;
+                return strikingSynthetic && strikingSynthetic.bonus > weaponStrikingDice
+                    ? strikingSynthetic.bonus
+                    : weaponStrikingDice;
+            } else {
+                return strikingSynthetic?.bonus ?? 0;
+            }
+        })();
+
         for (const slug of deadlyTraits) {
-            const diceNumber = (() => {
+            const diceNumber = ((): number => {
                 const baseNumber = Number(/-(\d)d\d{1,2}$/.exec(slug)?.at(1)) || 1;
                 return strikingDice > 1 ? strikingDice * baseNumber : baseNumber;
             })();
@@ -362,8 +364,7 @@ class WeaponDamagePF2e {
             })
         );
 
-        const damage: Omit<DamageTemplate, "formula"> = {
-            name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
+        const damage: DamageFormulaData = {
             base: {
                 diceNumber: baseDamage.dice,
                 dieSize: baseDamage.die,
@@ -377,9 +378,6 @@ class WeaponDamagePF2e {
             // or the like.
             dice: damageDice,
             modifiers: testedModifiers,
-            notes,
-            traits: (traits ?? []).map((t) => t.name),
-            materials: Array.from(materials),
         };
 
         // include dice number and size in damage tag
@@ -408,12 +406,18 @@ class WeaponDamagePF2e {
         this.#excludeDamage({ actor, weapon: excludeFrom, modifiers: [...modifiers, ...damageDice], options });
 
         return {
-            ...damage,
-            formula: {
-                criticalFailure: null,
-                failure: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.FAILURE),
-                success: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.SUCCESS),
-                criticalSuccess: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
+            name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
+            notes,
+            traits: (traits ?? []).map((t) => t.name),
+            materials: Array.from(materials),
+            damage: {
+                ...damage,
+                formula: {
+                    criticalFailure: null,
+                    failure: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.FAILURE),
+                    success: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.SUCCESS),
+                    criticalSuccess: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
+                },
             },
         };
     }
@@ -426,6 +430,7 @@ class WeaponDamagePF2e {
     static #finalizeDamage(damage: DamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
     static #finalizeDamage(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): string | null;
     static #finalizeDamage(damage: DamageFormulaData, degree: DegreeOfSuccessIndex): string | null {
+        damage = deepClone(damage);
         const { base } = damage;
         const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
 
@@ -558,19 +563,6 @@ class WeaponDamagePF2e {
     static strengthModToDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
         return weapon.isOfType("weapon") && this.strengthBasedDamage(weapon);
     }
-}
-
-export interface DamageTemplate extends DamageFormulaData {
-    name: string;
-    formula: {
-        criticalFailure: null;
-        failure: string | null;
-        success: string;
-        criticalSuccess: string;
-    };
-    notes: RollNotePF2e[];
-    traits: string[];
-    materials: WeaponMaterialEffect[];
 }
 
 interface ExcludeDamageParams {

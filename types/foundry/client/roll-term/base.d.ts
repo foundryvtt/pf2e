@@ -45,6 +45,9 @@ declare global {
         /** Optional flavor text which modifies and describes this term. */
         get flavor(): string;
 
+        /** Whether this term is entirely deterministic or contains some randomness. */
+        get isDeterministic(): boolean;
+
         /* -------------------------------------------- */
         /*  RollTerm Methods                            */
         /* -------------------------------------------- */
