@@ -261,6 +261,8 @@ class DicePF2e {
 
 /** Sum constant values and combine alike dice into single `NumericTerm` and `Die` terms, respectively */
 function combineTerms(formula: string): string {
+    if (formula === "0") return formula;
+
     const roll = new Roll(formula);
     if (!roll.terms.every((t) => t.expression === " + " || t instanceof Die || t instanceof NumericTerm)) {
         // This isn't a simple summing of dice: return the roll unaltered
