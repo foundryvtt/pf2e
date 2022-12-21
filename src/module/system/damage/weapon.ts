@@ -426,6 +426,7 @@ class WeaponDamagePF2e {
     static #finalizeDamage(damage: DamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
     static #finalizeDamage(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): string | null;
     static #finalizeDamage(damage: DamageFormulaData, degree: DegreeOfSuccessIndex): string | null {
+        damage = deepClone(damage);
         const { base } = damage;
         const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
 

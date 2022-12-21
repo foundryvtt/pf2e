@@ -3,7 +3,7 @@ import { ModifierAdjustment } from "@actor/modifiers";
 import { ItemPF2e } from "@item";
 import { DamageType } from "@system/damage/types";
 import { DAMAGE_TYPES } from "@system/damage/values";
-import { isObject, setHasElement, tupleHasValue } from "@util";
+import { isObject, objectHasKey, setHasElement } from "@util";
 import { RuleElementOptions } from "./";
 import { AELikeData, AELikeRuleElement, AELikeSource } from "./ae-like";
 
@@ -54,7 +54,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
                 this.selectors.every((s) => typeof s === "string"),
             slug: typeof this.slug === "string" || this.slug === null,
             predicate: this.predicate.isValid,
-            mode: tupleHasValue(AELikeRuleElement.CHANGE_MODES, this.data.mode),
+            mode: objectHasKey(AELikeRuleElement.CHANGE_MODES, this.data.mode),
             value: ["string", "number"].includes(typeof this.value) || isObject(this.value),
         };
 
