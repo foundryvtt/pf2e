@@ -18,7 +18,7 @@ import { UserPF2e } from "@module/user";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { combineTerms } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { DamageCategorization, DamagePF2e, DamageRollContext, DamageTemplate, DamageType } from "@system/damage";
+import { DamageCategorization, DamagePF2e, DamageRollContext, DamageType, SpellDamageTemplate } from "@system/damage";
 import { CheckPF2e } from "@system/check";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
@@ -769,7 +769,7 @@ class SpellPF2e extends ItemPF2e {
         if (!spellDamage) return null;
 
         const { roll, domains, options, modifiers, breakdownTags } = spellDamage;
-        const damage: DamageTemplate = {
+        const damage: SpellDamageTemplate = {
             name: this.name,
             damage: { roll, breakdownTags },
             notes: [],

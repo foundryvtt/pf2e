@@ -10,11 +10,10 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
-import { MeleePF2e, WeaponPF2e } from "@item";
+import { MeleePF2e, WeaponMaterialEffect, WeaponPF2e } from "@item";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { getPropertyRuneModifiers } from "@item/physical/runes";
 import { WeaponDamage } from "@item/weapon/data";
-import { WeaponMaterialEffect } from "@item/weapon/types";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { RollNotePF2e } from "@module/notes";
 import { PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
@@ -22,10 +21,9 @@ import { extractDamageDice, extractModifiers, extractNotes } from "@module/rules
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
 import { setHasElement, sluggify } from "@util";
-import { createDamageFormula, DamageFormulaData } from "./formula";
+import { createDamageFormula } from "./formula";
 import { nextDamageDieSize } from "./helpers";
-import { DamageRoll } from "./roll";
-import { DamageDieSize } from "./types";
+import { DamageDieSize, DamageFormulaData, WeaponDamageTemplate } from "./types";
 
 class WeaponDamagePF2e {
     static calculateStrikeNPC(
@@ -34,7 +32,7 @@ class WeaponDamagePF2e {
         traits: TraitViewData[] = [],
         proficiencyRank = 0,
         options: Set<string> = new Set()
-    ): DamageTemplate | null {
+    ): WeaponDamageTemplate | null {
         const secondaryInstances = Object.values(attack.system.damageRolls).slice(1).map(this.npcDamageToWeaponDamage);
 
         // Add secondary damage instances to flat modifier and damage dice synthetics
@@ -72,7 +70,7 @@ class WeaponDamagePF2e {
         proficiencyRank: number,
         options: Set<string>,
         weaponPotency: PotencySynthetic | null = null
-    ): DamageTemplateWithData | null {
+    ): WeaponDamageTemplate | null {
         const { baseDamage } = weapon;
         if (baseDamage.dice === 0 && baseDamage.modifier === 0) {
             return null;
@@ -563,35 +561,6 @@ class WeaponDamagePF2e {
         return weapon.isOfType("weapon") && this.strengthBasedDamage(weapon);
     }
 }
-
-interface ResolvedDamageFormulaData extends DamageFormulaData {
-    formula: {
-        criticalFailure: null;
-        failure: string | null;
-        success: string;
-        criticalSuccess: string;
-    };
-}
-
-interface BaseDamageTemplate {
-    name: string;
-    notes: RollNotePF2e[];
-    traits: string[];
-    materials: WeaponMaterialEffect[];
-}
-
-export interface DamageTemplateWithData extends BaseDamageTemplate {
-    damage: ResolvedDamageFormulaData;
-}
-
-interface DamageTemplateWithRoll extends BaseDamageTemplate {
-    damage: {
-        roll: DamageRoll;
-        breakdownTags: string[];
-    };
-}
-
-export type DamageTemplate = DamageTemplateWithData | DamageTemplateWithRoll;
 
 interface ExcludeDamageParams {
     actor: ActorPF2e;
