@@ -1,12 +1,18 @@
-import { DamageDicePF2e, ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
+import { ModifierPF2e, MODIFIER_TYPE } from "@actor/modifiers";
 import { ArmorPF2e, WeaponPF2e } from "@item";
+import { ZeroToThree } from "@module/data";
 import { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier";
-import { PotencySynthetic, RuleElementSynthetics, StrikingSynthetic } from "@module/rules/synthetics";
+import { PotencySynthetic, RuleElementSynthetics } from "@module/rules/synthetics";
 import { PredicatePF2e } from "@system/predication";
 
 export class AutomaticBonusProgression {
     static get isEnabled(): boolean {
         return game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+    }
+
+    /** Get striking damage dice according to character level */
+    static getStrikingDice(level: number): ZeroToThree {
+        return level < 4 ? 0 : level < 12 ? 1 : level < 19 ? 2 : 3;
     }
 
     /**
@@ -64,7 +70,6 @@ export class AutomaticBonusProgression {
         if (setting === "ABPRulesAsWritten") {
             const values = this.abpValues(level);
             const attack = values.attack;
-            const damage = values.damage;
             if (attack > 0) {
                 const modifiers = (synthetics.statisticsModifiers["strike-attack-roll"] ??= []);
                 modifiers.push(
@@ -77,33 +82,12 @@ export class AutomaticBonusProgression {
                         })
                 );
             }
-
-            if (damage > 0) {
-                synthetics.damageDice.damage.push(
-                    () =>
-                        new DamageDicePF2e({
-                            slug: "devasting-attacks",
-                            label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
-                            selector: "damage",
-                            diceNumber: damage,
-                        })
-                );
-            }
         }
 
         if (setting === "ABPFundamentalPotency") {
             const values = this.abpValues(level);
             const attack = values.attack;
-            const damage = values.damage;
 
-            if (damage > 0) {
-                const s: StrikingSynthetic = {
-                    label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
-                    bonus: damage,
-                    predicate: new PredicatePF2e(),
-                };
-                (synthetics.striking["strike-damage"] ??= []).push(s);
-            }
             if (attack > 0) {
                 const potency: PotencySynthetic = {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
@@ -157,7 +141,6 @@ export class AutomaticBonusProgression {
 
     private static abpValues(level: number) {
         let attack: number;
-        let damage: number;
         let ac: number;
         let perception: number;
         let save: number;
@@ -169,15 +152,6 @@ export class AutomaticBonusProgression {
             attack = 3;
         } else {
             attack = 0;
-        }
-        if (level >= 4 && level < 12) {
-            damage = 1;
-        } else if (level >= 12 && level < 19) {
-            damage = 2;
-        } else if (level >= 19) {
-            damage = 3;
-        } else {
-            damage = 0;
         }
         if (level >= 5 && level < 11) {
             ac = 1;
@@ -206,6 +180,6 @@ export class AutomaticBonusProgression {
         } else {
             save = 0;
         }
-        return { attack: attack, damage: damage, ac: ac, perception: perception, save: save };
+        return { attack, ac, perception, save };
     }
 }
