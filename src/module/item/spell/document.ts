@@ -459,15 +459,15 @@ class SpellPF2e extends ItemPF2e {
 
     override async toMessage(
         event?: JQuery.TriggeredEvent,
-        { create = true, data = {}, rollMode }: SpellToMessageOptions = {}
+        { create = true, data, rollMode }: SpellToMessageOptions = {}
     ): Promise<ChatMessagePF2e | undefined> {
-        const message = await super.toMessage(event, { create: false, data, rollMode });
-        if (!message) return undefined;
-
         // NOTE: The parent toMessage() pulls "contextual data" from the DOM dataset.
         // If nothing except spells need it, consider removing that handling and pass castLevel directly
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
-        const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
+        data = data && Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
+
+        const message = await super.toMessage(event, { create: false, data, rollMode });
+        if (!message) return undefined;
 
         const messageSource = message.toObject();
         const flags = messageSource.flags.pf2e;
@@ -477,7 +477,7 @@ class SpellPF2e extends ItemPF2e {
             const tradition = Array.from(this.traditions).at(0);
             flags.casting = {
                 id: entry.id,
-                level: data.castLevel ?? (Number(contextualData.castLevel) || this.level),
+                level: Number(data?.castLevel) || this.level,
                 tradition: entry.tradition ?? tradition ?? "arcane",
             };
 
