@@ -1,11 +1,11 @@
 {
     "_id": "BjkhK1nFUw3vNKg2",
-    "img": "systems/pf2e/icons/effects/crtical-hit-fumble.webp",
+    "img": "systems/pf2e/icons/effects/critical-effect.webp",
     "name": "Effect: -2 circumstance penalty to spell attack rolls and spell DC's",
     "system": {
         "badge": null,
         "description": {
-            "value": "<p><strong>Effect applied by Critical Hit/Fumble Deck<br /></strong>-2 circumstance penalty to spell attack rolls and spell DC's</p>"
+            "value": "<p><strong>Effect applied by @UUID[Compendium.pf2e.criticaldeck.Critical Fumble Deck #36]{Critical Fumble Deck #36}</strong></p>\n<p>-2 circumstance penalty to spell attack rolls and spell DC's</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -19,15 +19,17 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "circumstance penalty to spell attacks",
+                "label": "Critical Effect",
                 "selector": "spell-attack",
+                "slug": "critical-effect-penalty-to-spell-attacks",
                 "type": "circumstance",
                 "value": -2
             },
             {
                 "key": "FlatModifier",
-                "label": "circumstance penalty to spell DC's",
+                "label": "Critical Effect",
                 "selector": "spell-dc",
+                "slug": "critical-effect-penalty-to-spell-dc",
                 "type": "circumstance",
                 "value": -2
             }

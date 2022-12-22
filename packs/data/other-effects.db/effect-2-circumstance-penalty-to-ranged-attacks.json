@@ -1,11 +1,11 @@
 {
     "_id": "wVGSlZEGxsg1s8AZ",
-    "img": "systems/pf2e/icons/effects/crtical-hit-fumble.webp",
+    "img": "systems/pf2e/icons/effects/critical-effect.webp",
     "name": "Effect: -2 circumstance penalty to ranged attacks",
     "system": {
         "badge": null,
         "description": {
-            "value": "<p><strong>Effect applied by Critical Hit/Fumble Deck<br /></strong>-2 circumstance penalty to ranged attacks</p>"
+            "value": "<p><strong>Effect applied by @UUID[Compendium.pf2e.criticaldeck.Critical Fumble Deck #2]{Critical Fumble Deck #2}</strong></p>\n<p>-2 circumstance penalty to ranged attacks</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -19,11 +19,12 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "circumstance penalty to ranged attacks",
+                "label": "Critical Effect",
                 "predicate": [
                     "ranged"
                 ],
                 "selector": "attack",
+                "slug": "critical-effect-penalty-to-ranged-attacks",
                 "type": "circumstance",
                 "value": -2
             }

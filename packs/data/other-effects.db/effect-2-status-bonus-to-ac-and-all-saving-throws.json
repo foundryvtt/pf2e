@@ -1,11 +1,11 @@
 {
     "_id": "sq8lhVfn0pl5WJ4t",
-    "img": "systems/pf2e/icons/effects/crtical-hit-fumble.webp",
+    "img": "systems/pf2e/icons/effects/critical-effect.webp",
     "name": "Effect: +2 status bonus to AC and all saving throws",
     "system": {
         "badge": null,
         "description": {
-            "value": "<p><strong>Effect applied by Critical Hit/Fumble Deck</strong><br />+2 status bonus to AC and all saving throws</p>"
+            "value": "<p><strong>Effect applied by @UUID[Compendium.pf2e.criticaldeck.Critical Hit Deck #8]{Critical Hit Deck #8}</strong></p>\n<p>+2 status bonus to AC and all saving throws</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -19,15 +19,17 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "status bonus to AC",
+                "label": "Critical Effect",
                 "selector": "ac",
+                "slug": "critical-effect-bonus-to-ac",
                 "type": "status",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "label": "status bonus to saving-throw",
+                "label": "Critical Effect",
                 "selector": "saving-throw",
+                "slug": "critical-effect-bonus-to-saves",
                 "type": "status",
                 "value": 2
             }
