@@ -7,7 +7,7 @@
             <h2 class="sidebar_label">{{localize save.label}}</h2>
 
             <div class="save-prof button-group skill-container">
-                <select class="save-proficiency pf-rank adjust-stat-select{{#if rank.immutable}} readonly{{/if}}" data-property="system.saves.{{sid}}.rank" value="{{save.rank}}">
+                <select class="save-proficiency pf-rank adjust-stat-select{{#if rank.immutable}} readonly{{/if}}" data-property="system.saves.{{sid}}.rank" data-rank="{{save.rank}}" data-dtype="Number">
                     {{> systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.html proflevel=save.rank}}
                 </select>
             </div>
