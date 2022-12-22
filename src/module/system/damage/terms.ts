@@ -23,6 +23,21 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
 
     static override SERIALIZE_ATTRIBUTES = ["operator", "operands"];
 
+    static totalOf(operator: ArithmeticOperator, left: number, right: number): number {
+        switch (operator) {
+            case "+":
+                return left + right;
+            case "-":
+                return left - right;
+            case "*":
+                return left * right;
+            case "/":
+                return left / right;
+            case "%":
+                return left % right;
+        }
+    }
+
     get dice(): DiceTerm[] {
         return this.operands.flatMap((o) =>
             o instanceof DiceTerm ? o : o instanceof Grouping || o instanceof ArithmeticExpression ? o.dice : []
@@ -39,23 +54,18 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     override get total(): number | undefined {
         if (!this._evaluated && !this.isDeterministic) return undefined;
 
-        const operands = [Number(this.operands[0].total), Number(this.operands[1].total)];
-        switch (this.operator) {
-            case "+":
-                return operands[0] + operands[1];
-            case "-":
-                return operands[0] - operands[1];
-            case "*":
-                return operands[0] * operands[1];
-            case "/":
-                return operands[0] / operands[1];
-            case "%":
-                return operands[0] % operands[1];
-        }
+        const operands: [number, number] = [Number(this.operands[0].total), Number(this.operands[1].total)];
+        return ArithmeticExpression.totalOf(this.operator, ...operands);
     }
 
     override get isDeterministic(): boolean {
         return this.operands.every((o) => o.isDeterministic);
+    }
+
+    get expectedValue(): number {
+        const left = DamageInstance.expectedValueOf(this.operands[0]);
+        const right = DamageInstance.expectedValueOf(this.operands[1]);
+        return ArithmeticExpression.totalOf(this.operator, left, right);
     }
 
     /** Construct a string for an HTML rendering of this term */
@@ -134,6 +144,10 @@ class Grouping extends RollTerm<GroupingData> {
 
     override get isDeterministic(): boolean {
         return this.term.isDeterministic;
+    }
+
+    get expectedValue(): number {
+        return DamageInstance.expectedValueOf(this.term);
     }
 
     protected override async _evaluate(
