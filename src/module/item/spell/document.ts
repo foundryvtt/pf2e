@@ -318,7 +318,7 @@ class SpellPF2e extends ItemPF2e {
             const idx = order.indexOf(f.damageCategory);
             return idx >= 0 ? idx : order.length;
         });
-        const notPersistent = allPartials.filter((p) => p.damageCategory !== "persistent"); // persistent not supported
+        const notPersistent = allPartials.filter((p) => p.damageCategory !== "persistent");
         const groups = groupBy(notPersistent, (f) => f.damageType);
 
         try {
@@ -345,6 +345,16 @@ class SpellPF2e extends ItemPF2e {
                 }
 
                 instances.push(new DamageInstance(subFormulas.join(" + "), {}, { flavor }));
+            }
+
+            // Persistent is handled afterwards
+            for (const partial of allPartials.filter((p) => p.damageCategory === "persistent")) {
+                const { damageType } = partial;
+                const typeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+                const flavorLabel = game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeLabel });
+                const result = createFormulaAndTagsForPartial(partial, flavorLabel);
+                instances.push(new DamageInstance(result.formula, {}, { flavor: `[persistent,${damageType}]` }));
+                breakdownTags.push(...result.breakdownTags);
             }
 
             if (instances.length) {
