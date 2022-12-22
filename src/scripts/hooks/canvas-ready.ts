@@ -32,7 +32,7 @@ export const CanvasReady = {
                     redrawTrigger = new Promise((resolve) => {
                         // Wait until 50ms after the video starts playing to be safe - sometimes they'll still be
                         // invisible if drawn immediately after they begin playing
-                        token.sourceElement.addEventListener("play", () => setTimeout(resolve, 50));
+                        token.sourceElement.addEventListener("play", () => setTimeout(resolve, 50), { once: true });
                     });
                 }
                 redrawTrigger.then(async () => {
