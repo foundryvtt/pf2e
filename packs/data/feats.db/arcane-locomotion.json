@@ -25,7 +25,12 @@
             {
                 "key": "BaseSpeed",
                 "predicate": [
-                    "locomotion:climb"
+                    {
+                        "or": [
+                            "locomotion:climb",
+                            "enhancement:arcane-locomotion:climb"
+                        ]
+                    }
                 ],
                 "selector": "climb",
                 "value": 20
@@ -41,7 +46,7 @@
                         "value": "swim"
                     }
                 ],
-                "flag": "featArcaneLocomotion",
+                "flag": "speed",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Automaton.ArcaneLocomotion.Prompt",
                 "rollOption": "locomotion"
@@ -49,7 +54,12 @@
             {
                 "key": "BaseSpeed",
                 "predicate": [
-                    "locomotion:swim"
+                    {
+                        "or": [
+                            "locomotion:swim",
+                            "enhancement:arcane-locomotion:swim"
+                        ]
+                    }
                 ],
                 "selector": "swim",
                 "value": 20
@@ -62,6 +72,21 @@
                     "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneLocomotion",
                     "value": "arcane-locomotion"
                 }
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "land-speed"
+                ],
+                "value": 5
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "enhancement:arcane-locomotion:increase"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.speed}",
+                "value": "@actor.attributes.speed.total"
             }
         ],
         "source": {

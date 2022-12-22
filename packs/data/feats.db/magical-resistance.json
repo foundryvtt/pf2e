@@ -39,12 +39,8 @@
                 ],
                 "flag": "featMagicalResistance",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Automaton.MagicalResistance.Prompt"
-            },
-            {
-                "key": "Resistance",
-                "type": "{item|flags.pf2e.rulesSelections.featMagicalResistance}",
-                "value": 5
+                "prompt": "PF2E.SpecificRule.Automaton.MagicalResistance.Prompt",
+                "rollOption": "feat:magical-resistance"
             },
             {
                 "key": "ActiveEffectLike",
@@ -73,6 +69,53 @@
                     ],
                     "value": "magical-resistance"
                 }
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "enhancement:magical-resistance:increase"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.featMagicalResistance}",
+                "value": "1+floor(@actor.level/2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:magical-resistance:cold",
+                            "enhancement:magical-resistance:all"
+                        ]
+                    }
+                ],
+                "type": "cold",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:magical-resistance:electricity",
+                            "enhancement:magical-resistance:all"
+                        ]
+                    }
+                ],
+                "type": "electricity",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:magical-resistance:sonic",
+                            "enhancement:magical-resistance:all"
+                        ]
+                    }
+                ],
+                "type": "sonic",
+                "value": 5
             }
         ],
         "source": {

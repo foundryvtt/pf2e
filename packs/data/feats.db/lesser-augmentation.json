@@ -25,7 +25,7 @@
             {
                 "choices": "flags.pf2e.automatonLesserEnhancements",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Automaton.EnhancementPrompt",
+                "prompt": "PF2E.SpecificRule.Prompt.Automaton.Enhancement.AugmentationPrompt",
                 "rollOption": "enhancement"
             },
             {
@@ -36,6 +36,61 @@
                     "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.LesserAugmentation",
                     "value": "lesser-augmentation"
                 }
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:arc:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "arc"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            {
+                                "lte": [
+                                    "skill:cra:rank",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "cra"
+                    }
+                ],
+                "flag": "automaton-lore-skill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "enhancement:automaton-lore"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "enhancement:automaton-lore"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Automaton.Enhancement.MagicalResistanceAll",
+                        "value": "all"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Automaton.Enhancement.MagicalResistanceIncrease",
+                        "value": "increase"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "enhancement:magical-resistance"
+                ],
+                "prompt": "PF2E.SpecificRule.Automaton.Enhancement.EnhancementPrompt",
+                "rollOption": "enhancement:magical-resistance"
             }
         ],
         "source": {
