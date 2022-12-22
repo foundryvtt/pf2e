@@ -394,6 +394,7 @@ class WeaponDamagePF2e {
             }
             if (
                 dice.category &&
+                dice.category !== "persistent" &&
                 (dice.diceNumber > 0 || dice.dieSize) &&
                 (!dice.damageType ||
                     (dice.damageType === damage.base.damageType && dice.category !== damage.base.category))
