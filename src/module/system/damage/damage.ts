@@ -6,7 +6,7 @@ import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
 import { DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { DamageRoll } from "./roll";
-import { DamageRollContext, DamageTemplate, DamageType } from "./types";
+import { DamageRollContext, DamageTemplate } from "./types";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -243,6 +243,10 @@ export class DamagePF2e {
             .flat()
             .filter((m) => m.enabled && (!m.critical || outcome === "criticalSuccess"))
             .sort((a, b) =>
+                // Move persistent damage to the end
+                a.category === b.category ? 0 : a.category === "persistent" ? 1 : b.category === "persistent" ? -1 : 0
+            )
+            .sort((a, b) =>
                 a.damageType === baseDamageType && b.damageType === baseDamageType
                     ? 0
                     : a.damageType === baseDamageType
@@ -255,7 +259,7 @@ export class DamagePF2e {
                 const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? "" : "+"}${m.modifier}` : "";
                 const damageType =
                     m.damageType && m.damageType !== baseDamageType
-                        ? game.i18n.localize(damageTypes[m.damageType as DamageType] ?? m.damageType)
+                        ? game.i18n.localize(damageTypes[m.damageType] ?? m.damageType)
                         : null;
                 const typeLabel = damageType ? ` ${damageType}` : "";
 

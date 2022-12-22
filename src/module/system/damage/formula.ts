@@ -89,16 +89,28 @@ function createDamageFormula(
         typeMap.set(damageType, list);
     }
 
-    return formulaFromTypeMap(typeMap, critical);
+    const commaSeparated = [
+        instancesFromTypeMap(typeMap, { critical }),
+        instancesFromTypeMap(typeMap, { critical, persistent: true }),
+    ]
+        .flat()
+        .join(",");
+
+    return ["{", commaSeparated, "}"].join("");
 }
 
 /** Convert a damage type map to a final string formula. */
-function formulaFromTypeMap(typeMap: DamageTypeMap, critical: boolean): string | null {
-    const instances = Array.from(typeMap.keys()).flatMap((damageType): string | never[] => {
-        const partials = typeMap.get(damageType)!;
+function instancesFromTypeMap(
+    typeMap: DamageTypeMap,
+    { critical, persistent = false }: { critical: boolean; persistent?: boolean }
+): string[] {
+    return Array.from(typeMap.keys()).flatMap((damageType): string | never[] => {
+        const partials = typeMap.get(damageType)!.filter((p) => (persistent ? p.persistent : !p.persistent));
+        if (partials.length === 0) return [];
+
         const nonCriticalDamage = sumExpression(
             [
-                partialFormula(partials, { special: null, critical: false }),
+                partialFormula(partials, { critical: false }),
                 partialFormula(partials, { special: "precision", critical: false }),
                 critical ? null : partialFormula(partials, { special: "splash", critical: false }),
             ],
@@ -107,27 +119,30 @@ function formulaFromTypeMap(typeMap: DamageTypeMap, critical: boolean): string |
 
         const criticalDamage = critical
             ? sumExpression([
-                  partialFormula(partials, { special: null, critical: true }),
+                  partialFormula(partials, { critical: true }),
                   partialFormula(partials, { special: "precision", critical: true }),
                   partialFormula(partials, { special: "splash", critical: true }),
               ])
             : null;
 
-        const flavor = damageType === "untyped" ? "" : `[${damageType}]`;
         const summedDamage = sumExpression(critical ? [nonCriticalDamage, criticalDamage] : [nonCriticalDamage]);
         const enclosed = hasOperators(summedDamage) ? `(${summedDamage})` : summedDamage;
 
+        const flavor = ((): string => {
+            const typeFlavor = damageType === "untyped" && !persistent ? "" : damageType;
+            const precisionFlavor = persistent ? ",persistent" : "";
+            return `[${typeFlavor}${precisionFlavor}]`;
+        })();
+
         return flavor ? `${enclosed}${flavor}` : enclosed;
     });
-
-    return instances.length > 0 ? ["{", instances.join(","), "}"].join("") : null;
 }
 
 function partialFormula(
     partials: DamagePartial[],
-    { special, critical }: { special: "persistent" | "precision" | "splash" | null; critical: boolean }
+    { special = null, critical }: { special?: "precision" | "splash" | null; critical: boolean }
 ): string | null {
-    const isSpecialPartial = (p: DamagePartial): boolean => p.persistent || p.precision || p.splash;
+    const isSpecialPartial = (p: DamagePartial): boolean => p.precision || p.splash;
 
     const requestedPartials = partials.filter(
         (p) => (critical ? p.critical !== null : !p.critical) && (special ? p[special] : !isSpecialPartial(p))

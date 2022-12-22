@@ -137,7 +137,7 @@ declare global {
          * Safely evaluate the final total result for the Roll using its component terms.
          * @returns The evaluated total
          */
-        protected _evaluateTotal(this: Rolled<this>): number;
+        protected _evaluateTotal(): number;
 
         /**
          * Alias for evaluate.

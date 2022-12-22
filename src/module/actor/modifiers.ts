@@ -198,6 +198,10 @@ class ModifierPF2e implements RawModifier {
         }
     }
 
+    get category(): string | null {
+        return this.damageCategory;
+    }
+
     get value(): number {
         return this.modifier;
     }

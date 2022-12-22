@@ -25,6 +25,7 @@ import { Migration804RemoveConsumableProperties } from "@module/migration/migrat
 import { Migration805InlineDamageRolls } from "@module/migration/migrations/805-inline-damage-formulas";
 import { Migration806TorchImprovisedOtherTags } from "@module/migration/migrations/806-torch-improvised-othertags";
 import { Migration807RMActivatedEffectFields } from "@module/migration/migrations/807-rm-activated-effect-fields";
+import { Migration808CountDamageDice } from "@module/migration/migrations/808-count-damage-dice";
 import { Migration809AutomatonEnhancements } from "@module/migration/migrations/809-automaton-enhancements";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
@@ -54,6 +55,7 @@ const migrations: MigrationBase[] = [
     new Migration805InlineDamageRolls(),
     new Migration806TorchImprovisedOtherTags(),
     new Migration807RMActivatedEffectFields(),
+    new Migration808CountDamageDice(),
     new Migration809AutomatonEnhancements(),
 ];
 
