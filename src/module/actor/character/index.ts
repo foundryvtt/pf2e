@@ -1848,6 +1848,7 @@ class CharacterPF2e extends CreaturePF2e {
                     const { self, target, options } = context;
                     const damageContext: DamageRollContext = {
                         type: "damage-roll",
+                        sourceType: "attack",
                         self,
                         target,
                         outcome,

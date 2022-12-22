@@ -112,6 +112,10 @@ class SpellPF2e extends ItemPF2e {
         return this.actor?.spellcasting.find((entry) => entry.id === spellcastingId);
     }
 
+    get isAttack(): boolean {
+        return this.traits.has("attack") || this.system.spellType.value === "attack";
+    }
+
     get isCantrip(): boolean {
         return this.traits.has("cantrip") && !this.isRitual;
     }
@@ -647,7 +651,6 @@ class SpellPF2e extends ItemPF2e {
 
         const statisticChatData = statistic.getChatData({ item: this });
         const spellDC = statisticChatData.dc.value;
-        const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
         const damage = this.damage;
         const formula = this.damage?.roll.formula;
@@ -708,9 +711,9 @@ class SpellPF2e extends ItemPF2e {
         return {
             ...systemData,
             description: { value: description },
-            isAttack,
+            isAttack: this.isAttack,
             isSave,
-            check: isAttack ? statisticChatData.check : undefined,
+            check: this.isAttack ? statisticChatData.check : undefined,
             save: {
                 ...statisticChatData.dc,
                 type: systemData.save.value,
@@ -779,7 +782,8 @@ class SpellPF2e extends ItemPF2e {
 
         const context: DamageRollContext = {
             type: "damage-roll",
-            outcome: "success",
+            sourceType: this.isAttack ? "attack" : "save",
+            outcome: this.isAttack ? "success" : "failure", // we'll need to support other outcomes later
             domains,
             options,
             self: {

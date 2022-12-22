@@ -24,8 +24,11 @@ export class DamagePF2e {
             context.secret = true;
         }
 
-        const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
-        let flavor = `<strong>${data.name}</strong> (${outcomeLabel})`;
+        let flavor = `<strong>${data.name}</strong>`;
+        if (context.sourceType === "attack") {
+            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
+            flavor += ` (${outcomeLabel})`;
+        }
 
         if (data.traits) {
             interface ToTagsParams {
@@ -170,6 +173,7 @@ export class DamagePF2e {
         const rollMode = context.rollMode ?? "publicroll";
         const contextFlag: DamageRollContextFlag = {
             type: context.type,
+            sourceType: context.sourceType,
             actor: context.self?.actor.id ?? null,
             token: context.self?.token?.id ?? null,
             target: targetFlag,
