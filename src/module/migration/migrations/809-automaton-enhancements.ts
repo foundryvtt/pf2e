@@ -2,8 +2,8 @@ import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
 
 /** Add base REs to Automaton anncestry to allow for automation of enhancements */
-export class Migration808AutomatonEnhancements extends MigrationBase {
-    static override version = 0.808;
+export class Migration809AutomatonEnhancements extends MigrationBase {
+    static override version = 0.809;
 
     get #automatonEnhancements() {
         return {
