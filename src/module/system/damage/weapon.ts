@@ -71,7 +71,9 @@ class WeaponDamagePF2e {
         weaponPotency: PotencySynthetic | null = null
     ): WeaponDamageTemplate | null {
         const { baseDamage } = weapon;
-        if (baseDamage.dice === 0 && baseDamage.modifier === 0) {
+        if (baseDamage.die === null && baseDamage.modifier > 0) {
+            baseDamage.dice = 0;
+        } else if (baseDamage.dice === 0 && baseDamage.modifier === 0) {
             return null;
         }
 

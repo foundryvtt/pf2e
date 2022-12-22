@@ -25,7 +25,47 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "baseType": "jaws",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "predicate": [
+                    "self:heritage:irongut-goblin"
+                ],
+                "slug": "irongut-jaws"
+            },
+            {
+                "definition": [
+                    "item:slug:razortooth-jaws"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "predicate": [
+                    "self:heritage:razortooth-goblin"
+                ],
+                "property": "weapon-traits",
+                "value": "finesse"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    "heritage:razortooth-goblin"
+                ],
+                "selector": "razortooth-jaws-damage"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Character Guide"
         },
