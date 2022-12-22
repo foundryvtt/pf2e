@@ -23,15 +23,15 @@
         },
         "rules": [
             {
-                "choices": "flags.pf2e.automatonLesserEnhancements",
+                "choices": "flags.pf2e.automaton.LesserEnhancements",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Automaton.Enhancement.AugmentationPrompt",
+                "prompt": "PF2E.SpecificRule.Automaton.Enhancement.AugmentationPrompt",
                 "rollOption": "enhancement"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "add",
-                "path": "flags.pf2e.automatonGreaterEnhancements",
+                "path": "flags.pf2e.automaton.GreaterEnhancements",
                 "value": {
                     "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.LesserAugmentation",
                     "value": "lesser-augmentation"
@@ -43,26 +43,30 @@
                     {
                         "label": "PF2E.SkillArc",
                         "predicate": [
-                            {
-                                "lte": [
-                                    "skill:arc:rank",
-                                    2
-                                ]
-                            }
+                            "skill:arc:rank:1"
                         ],
-                        "value": "arc"
+                        "value": "arc-expert"
                     },
                     {
                         "label": "PF2E.SkillCra",
                         "predicate": [
-                            {
-                                "lte": [
-                                    "skill:cra:rank",
-                                    2
-                                ]
-                            }
+                            "skill:cra:rank:1"
                         ],
-                        "value": "cra"
+                        "value": "cra-expert"
+                    },
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            "skill:arc:rank:2"
+                        ],
+                        "value": "arc-master"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            "skill:cra:rank:2"
+                        ],
+                        "value": "cra-master"
                     }
                 ],
                 "flag": "automaton-lore-skill",
