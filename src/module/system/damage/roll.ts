@@ -112,6 +112,11 @@ class DamageRoll extends AbstractDamageRoll {
         return instances.length > 0 ? instances.flatMap((i) => i.dice) : super.dice;
     }
 
+    /** The expected value ("average") of this roll */
+    get expectedValue(): number {
+        return this.instances.reduce((sum, i) => sum + i.expectedValue, 0);
+    }
+
     static override fromData<TRoll extends Roll>(this: AbstractConstructorOf<TRoll>, data: RollJSON): TRoll;
     static override fromData(data: RollJSON): AbstractDamageRoll {
         for (const term of data.terms) {
