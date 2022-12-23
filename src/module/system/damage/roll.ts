@@ -126,12 +126,14 @@ class DamageRoll extends AbstractDamageRoll {
     }
 
     override async getTooltip(): Promise<string> {
-        const instances = this.instances.map((i) => ({
-            type: i.type,
-            typeLabel: i.typeLabel,
-            iconClass: i.iconClass,
-            dice: i.dice.map((d) => ({ ...d.getTooltipData() })),
-        }));
+        const instances = this.instances
+            .filter((i) => i.dice.length > 0 && !i.persistent)
+            .map((i) => ({
+                type: i.type,
+                typeLabel: i.typeLabel,
+                iconClass: i.iconClass,
+                dice: i.dice.map((d) => ({ ...d.getTooltipData() })),
+            }));
         return renderTemplate(this.constructor.TOOLTIP_TEMPLATE, { instances });
     }
 
