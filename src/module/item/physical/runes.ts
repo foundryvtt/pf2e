@@ -1,11 +1,9 @@
-import { DamageDicePF2e } from "@actor/modifiers";
+import { DamageDiceParameters, DamageDicePF2e } from "@actor/modifiers";
 import { ArmorPF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types";
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNoteSource } from "@module/notes";
-import { DamageDieSize, DamageType } from "@system/damage/types";
-import { RawPredicate } from "@system/predication";
 import { isBlank } from "@util";
 
 export function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
@@ -56,26 +54,24 @@ export function getResiliencyBonus(itemData: { resiliencyRune: { value: Resilien
     return resilientRuneValues.get(itemData.resiliencyRune.value) ?? 0;
 }
 
-interface RuneDiceModifier {
-    diceNumber?: number;
-    dieSize?: DamageDieSize;
-    damageType?: DamageType;
-    predicate?: RawPredicate;
-}
+type RuneDiceProperty = "damageType" | "category" | "diceNumber" | "dieSize" | "predicate" | "critical";
+type RuneDiceData = Partial<Pick<DamageDiceParameters, RuneDiceProperty>>;
 
-function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceModifier[]): DamageDicePF2e[] {
-    dice = deepClone(dice);
-    return dice.map((die) => {
-        return new DamageDicePF2e({
-            selector: "strike-damage",
-            slug: rune,
-            label: CONFIG.PF2E.runes.weapon.property[rune]?.name,
-            diceNumber: die.diceNumber ?? 1,
-            dieSize: die.dieSize ?? "d6",
-            damageType: die.damageType,
-            predicate: die.predicate,
-        });
-    });
+function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceData[]): DamageDicePF2e[] {
+    return deepClone(dice).map(
+        (d) =>
+            new DamageDicePF2e({
+                selector: "strike-damage",
+                slug: rune,
+                label: CONFIG.PF2E.runes.weapon.property[rune]?.name,
+                diceNumber: d.diceNumber ?? 1,
+                dieSize: d.dieSize ?? "d6",
+                damageType: d.damageType,
+                category: d.category ?? null,
+                predicate: d.predicate,
+                critical: d.critical ?? null,
+            })
+    );
 }
 
 export interface WeaponPropertyRuneData {
@@ -83,12 +79,7 @@ export interface WeaponPropertyRuneData {
         notes?: RuneNoteData[];
     };
     damage?: {
-        dice?: {
-            damageType?: DamageType;
-            diceNumber?: number;
-            dieSize?: DamageDieSize;
-            predicate?: RawPredicate;
-        }[];
+        dice?: RuneDiceData[];
         notes?: RuneNoteData[];
     };
     level: number;
@@ -378,12 +369,14 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     flaming: {
         damage: {
-            dice: [{ damageType: "fire", diceNumber: 1, dieSize: "d6" }],
-            notes: [
+            dice: [
+                { damageType: "fire", diceNumber: 1, dieSize: "d6" },
                 {
-                    outcome: ["criticalSuccess"],
-                    title: "PF2E.WeaponPropertyRune.flaming.Name",
-                    text: "PF2E.WeaponPropertyRune.flaming.Note.criticalSuccess",
+                    damageType: "fire",
+                    category: "persistent",
+                    diceNumber: 1,
+                    dieSize: "d10",
+                    critical: true,
                 },
             ],
         },
@@ -597,7 +590,16 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     greaterFlaming: {
         damage: {
-            dice: [{ damageType: "fire", diceNumber: 1, dieSize: "d6" }],
+            dice: [
+                { damageType: "fire", diceNumber: 1, dieSize: "d6" },
+                {
+                    damageType: "fire",
+                    category: "persistent",
+                    diceNumber: 2,
+                    dieSize: "d10",
+                    critical: true,
+                },
+            ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -1024,18 +1026,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     wounding: {
         damage: {
-            notes: [
-                {
-                    outcome: ["criticalSuccess"],
-                    title: "PF2E.WeaponPropertyRune.wounding.Name",
-                    text: "PF2E.WeaponPropertyRune.wounding.Note.criticalSuccess",
-                },
-                {
-                    outcome: ["success"],
-                    title: "PF2E.WeaponPropertyRune.wounding.Name",
-                    text: "PF2E.WeaponPropertyRune.wounding.Note.success",
-                },
-            ],
+            dice: [{ damageType: "bleed", diceNumber: 1, dieSize: "d6" }],
         },
         level: 7,
         name: "PF2E.WeaponPropertyRune.wounding.Name",
