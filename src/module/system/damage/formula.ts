@@ -104,8 +104,8 @@ function instancesFromTypeMap(
     typeMap: DamageTypeMap,
     { critical, persistent = false }: { critical: boolean; persistent?: boolean }
 ): string[] {
-    return Array.from(typeMap.keys()).flatMap((damageType): string | never[] => {
-        const partials = typeMap.get(damageType)!.filter((p) => (persistent ? p.persistent : !p.persistent));
+    return Array.from(typeMap.entries()).flatMap(([damageType, typePartials]): string | never[] => {
+        const partials = typePartials.filter((p) => p.persistent === persistent);
         if (partials.length === 0) return [];
 
         const nonCriticalDamage = sumExpression(
@@ -134,7 +134,7 @@ function instancesFromTypeMap(
             return `[${typeFlavor}${precisionFlavor}]`;
         })();
 
-        return flavor ? `${enclosed}${flavor}` : enclosed;
+        return enclosed && flavor ? `${enclosed}${flavor}` : enclosed ?? [];
     });
 }
 
@@ -171,15 +171,18 @@ function partialFormula(
     return flavored || null;
 }
 
-function sumExpression(terms: (string | null)[], { double = false } = {}): string {
-    const summed = terms.filter((p): p is string => !!p).join(" + ");
+function sumExpression(terms: (string | null)[], { double = false } = {}): string | null {
+    if (terms.every((t) => !t)) return null;
+
+    const summed = terms.filter((p): p is string => !!p).join(" + ") || null;
     const enclosed = double && hasOperators(summed) ? `(${summed})` : summed;
+
     return double ? `2 * ${enclosed}` : enclosed;
 }
 
 /** Helper for helpers */
-function hasOperators(formula: string): boolean {
-    return /[-+*/]/.test(formula);
+function hasOperators(formula: string | null): boolean {
+    return /[-+*/]/.test(formula ?? "");
 }
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
