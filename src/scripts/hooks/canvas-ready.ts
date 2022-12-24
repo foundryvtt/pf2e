@@ -25,16 +25,14 @@ export const CanvasReady = {
 
             // Redraw tokens
             for (const token of canvas.tokens.placeables) {
-                let redrawTrigger = Promise.resolve();
+                const redrawTrigger = token.isVideo
+                    ? new Promise((resolve) => {
+                          // Wait until 50ms after the video starts playing to be safe - sometimes they'll still be
+                          // invisible if drawn immediately after they begin playing
+                          token.sourceElement.addEventListener("play", () => setTimeout(resolve, 50), { once: true });
+                      })
+                    : Promise.resolve();
 
-                // Animated tokens sometimes disappear if the underlying video isn't given a moment to begin playing
-                if (token.isVideo) {
-                    redrawTrigger = new Promise((resolve) => {
-                        // Wait until 50ms after the video starts playing to be safe - sometimes they'll still be
-                        // invisible if drawn immediately after they begin playing
-                        token.sourceElement.addEventListener("play", () => setTimeout(resolve, 50), { once: true });
-                    });
-                }
                 redrawTrigger.then(async () => {
                     const { visible } = token;
                     await token.draw();
