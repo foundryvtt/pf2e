@@ -28,7 +28,6 @@ abstract class ABCItemPF2e extends ItemPF2e {
             }
         }
 
-        this._source._id ??= randomID();
         const level = options.level ?? this.parent?.level;
 
         return items.flatMap((item): FeatPF2e | never[] => {

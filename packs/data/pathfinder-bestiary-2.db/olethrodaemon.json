@@ -237,11 +237,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot burst"
+                    "type": "burst",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -359,11 +356,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "line",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot line"
+                    "type": "line",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -477,13 +471,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -588,13 +576,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -715,13 +697,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -823,11 +799,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "40"
-                },
-                "areasize": {
-                    "value": "40-foot emanation"
+                    "type": "emanation",
+                    "value": 40
                 },
                 "category": {
                     "value": "spell"
@@ -941,13 +914,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": "2-mile-radius circle centered on you"
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -1046,13 +1013,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1155,13 +1116,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1265,11 +1220,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
+                    "type": "emanation",
                     "value": 30
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
                 },
                 "category": {
                     "value": "spell"
@@ -1365,22 +1317,12 @@
             "name": "Soul Gem",
             "sort": 1300000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -1388,16 +1330,11 @@
                     "value": "potion"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1428,11 +1365,6 @@
                     "value": {}
                 },
                 "quantity": 4,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": null,
@@ -1440,11 +1372,6 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -1452,13 +1379,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -1913,7 +1833,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The daemon expels a shrieking black cloud of smoke from its mouth in a @Template[type:line|distance:120] or a @Template[type:cone|distance:60] (or both a line and a cone in the same direction if it spends 3 actions). Living creatures in the area take [[/r {24d6}[negative]]]{24d6 negative damage} (@Check[type:reflex|dc:45|basic:true] save).</p>\n<p>The olethrodaemon can't use Apocalypse Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The daemon expels a shrieking black cloud of smoke from its mouth in a @Template[type:line|distance:120] or a @Template[type:cone|distance:60] (or both a line and a cone in the same direction if it spends 3 actions). Living creatures in the area take [[/r 24d6[negative]]] damage (@Check[type:reflex|dc:45|basic:true] save).</p>\n<p>The olethrodaemon can't use Apocalypse Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2003,7 +1923,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Huge, [[/r {4d10}[bludgeoning]]]{4d10 bludgeoning damage} and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2}, Rupture 43</p>\n<p>An olethrodaemon has numerous stomachs connected by labyrinthine digestive organs. Swallowed creatures cannot Escape, but can attempt to cut their way out with a [[/r 1d6]] roll. On a roll of 1-3, the creature cuts into yet another stomach. On a roll of 4-6, the creature manages to cut its way out of the olethrodaemon.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Huge, [[/r 4d10[bludgeoning]]] damage and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2}, Rupture 43</p>\n<p>An olethrodaemon has numerous stomachs connected by labyrinthine digestive organs. Swallowed creatures cannot Escape, but can attempt to cut their way out with a [[/r 1d6]] roll. On a roll of 1-3, the creature cuts into yet another stomach. On a roll of 4-6, the creature manages to cut its way out of the olethrodaemon.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2264,9 +2184,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "20"
+                    "value": 20
                 }
             ],
             "languages": {

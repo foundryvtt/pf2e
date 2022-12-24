@@ -19,6 +19,13 @@ import { Migration798WeaponToItemStatements } from "@module/migration/migrations
 import { Migration799RMRecallKnowledgeDuplicates } from "@module/migration/migrations/799-rm-recall-knowledge-duplicates";
 import { Migration800SelfEffectPanacheRage } from "@module/migration/migrations/800-self-effect-panache-rage";
 import { Migration801ColorDarkvision } from "@module/migration/migrations/801-color-darkvision";
+import { Migration802StripFeatActionCategory } from "@module/migration/migrations/802-strip-feat-action-category";
+import { Migration803NormalizeSpellArea } from "@module/migration/migrations/803-normalize-spell-area";
+import { Migration804RemoveConsumableProperties } from "@module/migration/migrations/804-remove-consumable-properties";
+import { Migration805InlineDamageRolls } from "@module/migration/migrations/805-inline-damage-formulas";
+import { Migration806TorchImprovisedOtherTags } from "@module/migration/migrations/806-torch-improvised-othertags";
+import { Migration807RMActivatedEffectFields } from "@module/migration/migrations/807-rm-activated-effect-fields";
+import { Migration808CountDamageDice } from "@module/migration/migrations/808-count-damage-dice";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -41,6 +48,13 @@ const migrations: MigrationBase[] = [
     new Migration799RMRecallKnowledgeDuplicates(),
     new Migration800SelfEffectPanacheRage(),
     new Migration801ColorDarkvision(),
+    new Migration802StripFeatActionCategory(),
+    new Migration803NormalizeSpellArea(),
+    new Migration804RemoveConsumableProperties(),
+    new Migration805InlineDamageRolls(),
+    new Migration806TorchImprovisedOtherTags(),
+    new Migration807RMActivatedEffectFields(),
+    new Migration808CountDamageDice(),
 ];
 
 global.deepClone = <T>(original: T): T => {
@@ -105,12 +119,19 @@ const itemTypes = [
 const isActorData = (docSource: CompendiumSource): docSource is ActorSourcePF2e => {
     return "type" in docSource && actorTypes.includes(docSource.type);
 };
+
 const isItemData = (docSource: CompendiumSource): docSource is ItemSourcePF2e => {
     return "type" in docSource && itemTypes.includes(docSource.type);
 };
+
+const isJournalEntryData = (docSource: CompendiumSource): docSource is foundry.data.JournalEntrySource => {
+    return "pages" in docSource && Array.isArray(docSource.pages);
+};
+
 const isMacroData = (docSource: CompendiumSource): docSource is foundry.data.MacroSource => {
     return "type" in docSource && ["chat", "script"].includes(docSource.type);
 };
+
 const isTableData = (docSource: CompendiumSource): docSource is foundry.data.RollTableSource => {
     return "results" in docSource && Array.isArray(docSource.results);
 };
@@ -166,7 +187,12 @@ async function migrate() {
     for (const filePath of allEntries) {
         const content = await fs.readFile(filePath, { encoding: "utf-8" });
 
-        let source: ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
+        let source:
+            | ActorSourcePF2e
+            | ItemSourcePF2e
+            | foundry.data.JournalEntrySource
+            | foundry.data.MacroSource
+            | foundry.data.RollTableSource;
         try {
             // Parse file content
             source = JSON.parse(content);
@@ -177,9 +203,12 @@ async function migrate() {
             return;
         }
 
-        // skip journal entries, rollable tables, and macros
         const updated = await (async (): Promise<
-            ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource
+            | ActorSourcePF2e
+            | ItemSourcePF2e
+            | foundry.data.JournalEntrySource
+            | foundry.data.MacroSource
+            | foundry.data.RollTableSource
         > => {
             source.flags ??= {};
             try {
@@ -218,6 +247,11 @@ async function migrate() {
                     pruneFlags(updatedItem);
 
                     return updatedItem;
+                } else if (isJournalEntryData(source)) {
+                    const updated = await migrationRunner.getUpdatedJournalEntry(source, migrationRunner.migrations);
+                    pruneFlags(source);
+                    pruneFlags(updated);
+                    return updated;
                 } else if (isMacroData(source)) {
                     const updated = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
                     pruneFlags(source);

@@ -126,13 +126,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -835,7 +829,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The jabberwock creates a blast of strange noises and shouted nonsense in the various languages it knows (and invariably some languages it doesn't know), creating one of two effects.</p>\n<p>The jabberwock can't Burble again for [[/br 1d4 #Burble Recharge]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Confusion</strong> @Template[type:emanation|distance:60]. Each creature in the emanation must succeed at a @Check[type:will|dc:44] save or become @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for [[/br 1d4 #Confused Duration]]{1d4 rounds}.</li>\n<li><strong>Sonic Beam</strong> The jabberwock focuses its Burbling into a @Template[type:line|distance:60] of sonic energy that deals [[/r {22d6}[sonic]]]{22d6 sonic damage} to creatures in the area (@Check[type:reflex|dc:44|basic:true] save).</li>\n</ul>"
+                    "value": "<p>The jabberwock creates a blast of strange noises and shouted nonsense in the various languages it knows (and invariably some languages it doesn't know), creating one of two effects.</p>\n<p>The jabberwock can't Burble again for [[/br 1d4 #Burble Recharge]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Confusion</strong> @Template[type:emanation|distance:60]. Each creature in the emanation must succeed at a @Check[type:will|dc:44] save or become @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for [[/br 1d4 #Confused Duration]]{1d4 rounds}.</li>\n<li><strong>Sonic Beam</strong> The jabberwock focuses its Burbling into a @Template[type:line|distance:60] of sonic energy that deals [[/r 22d6[sonic]]] damage to creatures in the area (@Check[type:reflex|dc:44|basic:true] save).</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -1281,14 +1275,12 @@
             },
             "dr": [
                 {
-                    "label": "Fire",
                     "type": "fire",
-                    "value": "20"
+                    "value": 20
                 }
             ],
             "dv": [
                 {
-                    "exceptions": "",
                     "type": "vorpal",
                     "value": 20
                 }

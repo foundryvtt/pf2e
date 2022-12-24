@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -235,13 +229,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -343,13 +331,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -457,11 +439,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -567,11 +546,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -877,7 +853,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<ul>\n<li><strong>Boar</strong>\n<ul>\n<li><strong>Size</strong> Medium</li>\n<li>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Scent]{Scent (Imprecise) 30 feet}</li>\n<li><strong>Speed</strong> 40 feet</li>\n<li><strong>Melee</strong> tusk [[/r 1d20+9 #Tusk]]{+9}/[[/r 1d20+4 #Tusk]]{+4}/[[/r 1d20-1 #Tusk]]{-1} (finesse), <strong>Damage</strong> [[/r {1d10-1}[piercing]]]{1d10-1 piercing damage}</li>\n</ul>\n</li>\n<li><strong>Giant Spider</strong>\n<ul>\n<li><strong>Size</strong> Medium</li>\n<li><strong>Speed</strong> 25 feet, climb 25 feet</li>\n<li><strong>Melee</strong> fangs [[/r 1d20+9 #Fangs]]{+9}/[[/r 1d20+4 #Fangs]]{+4}/[[/r 1d20-1 #Fangs]]{-1} (finesse, poison), <strong>Damage</strong> [[/r {1d6-1}[piercing]+{1d4}[poison]]]{1d6-1 piercing damage plus 1d4 poison damage}</li>\n</ul>\n</li>\n<li><strong>Rat</strong>\n<ul>\n<li>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Scent]{Scent}</li>\n<li><strong>Speed</strong> 20 feet</li>\n<li><strong>Melee</strong> jaws [[/r 1d20+9 #Jaws]]{+9}/[[/r 1d20+5 #Jaws]]{+5}/[[/r 1d20+1 #Jaws]]{+1} (agile, finesse), <strong>Damage</strong> [[/r {1}[piercing]]]{1 piercing damage}</li>\n</ul>\n</li>\n<li><strong>Raven</strong>\n<ul>\n<li>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Scent]{Scent}</li>\n<li><strong>Speed</strong> 10 feet, fly 40 feet</li>\n<li><strong>Melee</strong> beak [[/r 1d20+9 #Beak]]{+9}/[[/r 1d20+4 #Beak]]{+4}/[[/r 1d20-1 #Beak]]{-1} (finesse), <strong>Damage</strong> [[/r {1}[piercing]]]{1 piercing damage}</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<ul>\n<li><strong>Boar</strong>\n<ul>\n<li><strong>Size</strong> Medium</li>\n<li>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Scent]{Scent (Imprecise) 30 feet}</li>\n<li><strong>Speed</strong> 40 feet</li>\n<li><strong>Melee</strong> tusk [[/r 1d20+9 #Tusk]]{+9}/[[/r 1d20+4 #Tusk]]{+4}/[[/r 1d20-1 #Tusk]]{-1} (finesse), <strong>Damage</strong> [[/r (1d10-1)[piercing]]] damage</li>\n</ul>\n</li>\n<li><strong>Giant Spider</strong>\n<ul>\n<li><strong>Size</strong> Medium</li>\n<li><strong>Speed</strong> 25 feet, climb 25 feet</li>\n<li><strong>Melee</strong> fangs [[/r 1d20+9 #Fangs]]{+9}/[[/r 1d20+4 #Fangs]]{+4}/[[/r 1d20-1 #Fangs]]{-1} (finesse, poison), <strong>Damage</strong> [[/r {(1d6-1)[piercing],1d4[poison]}]]{1d6-1 piercing damage plus 1d4 poison damage}</li>\n</ul>\n</li>\n<li><strong>Rat</strong>\n<ul>\n<li>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Scent]{Scent}</li>\n<li><strong>Speed</strong> 20 feet</li>\n<li><strong>Melee</strong> jaws [[/r 1d20+9 #Jaws]]{+9}/[[/r 1d20+5 #Jaws]]{+5}/[[/r 1d20+1 #Jaws]]{+1} (agile, finesse), <strong>Damage</strong> [[/r 1[piercing]]] damage</li>\n</ul>\n</li>\n<li><strong>Raven</strong>\n<ul>\n<li>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Scent]{Scent}</li>\n<li><strong>Speed</strong> 10 feet, fly 40 feet</li>\n<li><strong>Melee</strong> beak [[/r 1d20+9 #Beak]]{+9}/[[/r 1d20+4 #Beak]]{+4}/[[/r 1d20-1 #Beak]]{-1} (finesse), <strong>Damage</strong> [[/r 1[piercing]]] damage</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -967,7 +943,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:16]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[poison]]]{1d6 poison damage}, clumsy 1, and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:16]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d6[poison]]] damage, clumsy 1, and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""

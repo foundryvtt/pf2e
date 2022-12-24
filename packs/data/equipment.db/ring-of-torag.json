@@ -1,6 +1,6 @@
 {
     "_id": "tUAfKD2iIrQxHYWp",
-    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/warriors-training-ring.webp",
     "name": "Ring of Torag",
     "system": {
         "baseItem": null,
@@ -35,7 +35,35 @@
             }
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Defending.FireSpell",
+                "option": "ring-of-torag",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "ring-of-torag"
+                ],
+                "type": "fire",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ring-of-torag"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
         "size": "med",
         "source": {
             "value": "Pathfinder Adventure: Crown of the Kobold King"

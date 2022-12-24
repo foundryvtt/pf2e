@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Fey Transcendence",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -22,12 +19,16 @@
             "value": 17
         },
         "prerequisites": {
-            "value": []
+            "value": [
+                {
+                    "value": "Fey Influence"
+                }
+            ]
         },
         "rules": [
             {
                 "key": "Weakness",
-                "type": "cold iron",
+                "type": "coldIron",
                 "value": "max(1,floor(@actor.level/2))"
             },
             {

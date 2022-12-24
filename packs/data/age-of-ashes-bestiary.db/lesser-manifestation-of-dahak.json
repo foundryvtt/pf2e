@@ -124,13 +124,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -239,13 +233,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -369,11 +357,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -481,13 +466,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -968,7 +947,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {6d6}[fire]]]{6d6 fire damage} (@Check[type:reflex|dc:42|basic:true|name:Draconic Heat|traits:divine] save)</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 6d6[fire]]] damage (@Check[type:reflex|dc:42|basic:true|name:Draconic Heat|traits:divine] save)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1106,7 +1085,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The manifestation of Dahak breathes a blast of dragonstorm energy that deals [[/r {5d6}[acid] + {5d6}[cold] +{5d6}[electricity] +{5d6}[fire] +{5d6}[poison]]]{5d6 acid, 5d6 cold, 5d6 electricity, 5d6 fire, and 5d6 poison damage} in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:46|basic:true|name:Dragonstorm Breath|traits:fire,acid,cold,electricity,poison] save).</p>\n<p>It can't use Dragonstorm Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The manifestation of Dahak breathes a blast of dragonstorm energy that deals [[/r {5d6[acid],5d6[cold],5d6[electricity],5d6[fire],5d6[poison]}]]{5d6 acid, 5d6 cold, 5d6 electricity, 5d6 fire, and 5d6 poison damage} in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:46|basic:true|name:Dragonstorm Breath|traits:fire,acid,cold,electricity,poison] save).</p>\n<p>It can't use Dragonstorm Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1563,31 +1542,26 @@
             },
             "dr": [
                 {
-                    "label": "Acid",
                     "type": "acid",
-                    "value": "24"
+                    "value": 24
                 },
                 {
-                    "label": "Cold",
                     "type": "cold",
-                    "value": "24"
+                    "value": 24
                 },
                 {
-                    "label": "Electricity",
                     "type": "electricity",
-                    "value": "24"
+                    "value": 24
                 },
                 {
-                    "label": "Poison",
                     "type": "poison",
-                    "value": "24"
+                    "value": 24
                 }
             ],
             "dv": [
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "24"
+                    "value": 24
                 }
             ],
             "languages": {

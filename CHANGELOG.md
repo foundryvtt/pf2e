@@ -1,5 +1,116 @@
 # Changelog
 
+## Version 4.5.1
+
+### Bugfixes
+* (stwlam) Ensure presence of school and tradition traits on spell variants
+* (stwlam) Restore predication testing of degree-of-success adjustments
+
+### Data Updates
+* (Athenos) Add Rule Elements to Bull's Eye Lantern
+* (Avery) Condense flat modifiers for bestiary effects
+* (Avery) Improve localization of GM screen journals
+* (Dire Weasel) Add resistance rule elements to glass and sand sentries
+* (Dire Weasel) Fix localized name and icon of Crown of the Saumen Kar horns attack
+* (dogstarrb) Update deities to match Impossible Lands entries
+* (rectulo) Fix feat type of Lesson of Bargains
+* (rectulo) Fix traits of Lesson of Favors feat
+* (Tikael) Fix automation of Automaton Chassis
+* (Tikael) Fix sources of items from Blood Lords book 6
+* (TMun) Add actors from PFS 4-07 and Bounty 21
+
+
+## Version 4.5.0
+
+### System Improvements
+* (Dire Weasel) Allow injected selectors in BaseSpeed rule element
+* (LebombJames) Allow injected selectors in RollTwice rule element
+* (stwlam) Add support for setting a scale in TokenImage rule element
+* (stwlam) Automatically adjust degree of success when appropriate given presence of Incapacitation trait
+* (stwlam) Reduce CPU load of hearing detection
+* (Supe) Touch up styling of loot actor sheet
+* (Supe) Add roll inspector support for casted spells
+* (Supe) Add support for proficiency modifier adjustments
+* (Tikael) Replace hard-coded fetchling color darkvision with an actor flag
+
+### Bugfixes
+* (Salmon) Fix level not showing on first actor(s) in folders
+* (stwlam) Re-render effects panel when world time changes
+* (Supe) Fix placement of background-granted skill feats on PC sheet
+* (Supe) Fix spell level in roll options
+* (Supe) Fix variant spells for consumable items
+* (Supe) Open separate sheet for spell variants
+
+### Data Updates
+* (Abaddon) Finish reviewing creatures from bestiary 3
+* (Abaddon) Add Hadrinnex effects
+* (Abaddon) Fix cobbleswarm, sturzstromer, and tzitzimitl senses
+* (Abaddon) Fix love siktempora's inspire courage, triumph siktempora regeneration
+* (Abaddon) Fix hardness value of Tupilaq
+* (avagdu) Fix localization key of Vishkanya trait
+* (cepvep) Fix predicate on Vetalarana Emergent
+* (Dire Weasel) Improve localization access to many rule element labels
+* (Dire Weasel) Condense several rule elements using recently-added syntax
+* (Dire Weasel) Add Effect: Shield Immunity
+* (Dire Weasel) Add Perfect Resistance, Perfect Ki Expert, Perfect Ki Exemplar, Perfect Ki Grandmaster archetype feats
+* (Dire Weasel) Add Sparkling Targe Defending checkbox label
+* (Dire Weasel) Add Unbreaking Wave Barrier, Unbreaking Wave Containment, Unbreaking Wave Vapor focus spells
+* (Dire Weasel) Add Unfolding Wind Blitz, Unfolding Wind Buffet, Unfolding Wind Crash focus spells
+* (Dire Weasel) Add Untwisting Iron Augmentation, Untwisting Iron Pillar, Untwisting Iron Roots focus spells
+* (Dire Weasel) Add effects for Flaming Star, Grim Sandglass, and Trinity Geode
+* (Dire Weasel) Add emanation to Noxious Vapors
+* (Dire Weasel) Add link from Treat Wounds to immunity
+* (Dire Weasel) Add healing rolls to Oil of Unlife
+* (Dire Weasel) Adjust formatting of Perfect Droplet
+* (Dire Weasel) Brush up Alchemist Aspirant's inventory
+* (Dire Weasel) Change hazard routines from action symbols to words
+* (Dire Weasel) Change the Hydra Heads effect to use a counter instead of ChoiceSet
+* (Dire Weasel) Change vermlek Unsettling Movement to passive
+* (Dire Weasel) Correct localized name of simple hazard checkbox in compendium browser
+* (Dire Weasel) Fix Drusilla's good luck effect to last 1 day
+* (Dire Weasel) Fix Mulventok's fear immunity
+* (Dire Weasel) Fix arrow weakness for Barking Stag
+* (Dire Weasel) Fix aura effect on Foras
+* (Dire Weasel) Fix damage type on Smite Good feat
+* (Dire Weasel) Fix incorrect languages and traits on several creatures
+* (Dire Weasel) Fix link to Effect: Applereed Mutagen (Moderate)
+* (Dire Weasel) Fix range on Swarming Wasp Stings
+* (Dire Weasel) Fix resistance effects for Ring of Torag and Tallowheart Mass
+* (Dire Weasel) Fix spelling of Bizarre in pair of feats
+* (Dire Weasel) Fix type of level from string to number
+* (Dire Weasel) Standardize formatting of Five-Feather Wreath
+* (Dire Weasel) Update Jalmeri Heavenseeker to Impossible Lands versions
+* (Dorako) Tweak style of inline check prompts with repost buttons
+* (Geliogabalus) Fix ancestry requirement of Elfbane Hobgoblin heritage
+* (InfamousSky) Add icons to Grand Bazaar items
+* (Kuroni) Change Kitsune Change Shape's name for added clarity
+* (Kuroni) Remove several errant linebreaks from item descriptions
+* (LebombJames) Add speed penalty to Ashes curse
+* (rectulo) Add frequency in Planar sidestep
+* (rectulo) Fix inline roll in Siabrae
+* (rectulo) Fix level of champion archetype's healing touch feat in archetypes journal
+* (rectulo) Fix prerequisites in Fey transcendence
+* (rectulo) Fix prerequisites of Glamour (Fey influence)
+* (rectulo) Fix level of Amber Sphere aeon stone
+* (rectulo) Fix typo in Flower Magic name
+* (rectulo) Update Fey influence with Impossible Lands printing
+* (redeux) Add/Update Heal Animal to Lini iconic PCs
+* (Roxim) Continue brushup of Extinction Curse NPCs
+* (stwlam) Fix predicate on Night Hag, Wight Cultist ability rule elements
+* (stwlam) Fix description of Raging Athlete feat
+* (stwlam) Add trained proficiency in alchemical bombs to Alchemist Dedication feat
+* (stwlam) Add trained proficiency in rogue class DC to Rogue Dedication feat
+* (stwlam) Add special prone-condition option to Cover effect
+* (TMun) Add NPCs from PFS 4-06 and correct name of overtaxed vrisk from PFS 4-05
+* (TMun) Add lesson of bargains major lesson for pact witch
+* (TMun) Update Dreshkan needle spray save from Hardcover errata
+* (Tikael) Add Gatewalkers Player's Guide Backgrounds
+* (Tikael) Fix name of Solar Rejuvenation
+* (Tikael) Fix sources of several NPCs
+* (Tikael) Fix traits of Nightstick
+* (TiloBuechsenschuss) Fix innate spells of Bugul Noz
+* (Tim Ayers) Refine the attack note of Battle Cry
+
 ## Version 4.4.2
 
 ### Bugfixes

@@ -1,199 +1,416 @@
-.dice-roll .dice-result .dice-tooltip {
-    .damage-type {
-        margin-bottom: 3px;
+@use "sass:color";
 
-        h3 {
-            text-transform: capitalize;
-            padding-left: 3px;
-            padding-right: 1px;
-        }
+.message-content .damage-roll {
+    .dice-result {
+        .dice-formula {
+            align-items: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25em;
+            justify-content: center;
+            line-height: var(--font-size-14);
 
-        i.fa {
-            flex: none;
-            margin: 2px;
-        }
-
-        .dice {
-            margin-left: 2px;
-            margin-right: 2px;
+            .instance {
+                padding: 0.15em 0.25em;
+            }
         }
 
-        &.acid {
-            border: solid 1px darkgreen;
-            h3 {
-                color: darkgreen;
-                background-color: rgba(0, 100, 0, 0.25);
-            }
-        }
-        &.bludgeoning {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.chaotic {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.cold {
-            border: solid 1px darkblue;
-            h3 {
-                color: darkblue;
-                background-color: rgba(0, 0, 139, 0.25);
-            }
-        }
-        &.electricity {
-            border: solid 1px darkgoldenrod;
-            h3 {
-                color: darkgoldenrod;
-                background-color: rgba(184, 134, 11, 0.25);
-            }
-        }
-        &.evil {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.fire {
-            border: solid 1px darkred;
-            h3 {
-                color: darkred;
-                background-color: rgba(139, 0, 0, 0.25);
-            }
-        }
-        &.force {
-            border: solid 1px darkmagenta;
-            h3 {
-                color: darkmagenta;
-                background-color: rgba(139, 0, 139, 0.25);
-            }
-        }
-        &.good {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.lawful {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.mental {
-            border: solid 1px midnightblue;
-            h3 {
-                color: midnightblue;
-                background-color: rgba(25, 25, 112, 0.25);
-            }
-        }
-        &.negative {
-            border: solid 1px #000000;
-            h3 {
-                color: #000000;
-                background-color: rgba(0, 0, 0, 0.25);
-            }
-        }
-        &.piercing {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.poison {
-            border: solid 1px darkolivegreen;
-            h3 {
-                color: darkolivegreen;
-                background-color: rgba(85, 107, 47, 0.25);
-            }
-        }
-        &.positive {
-            border: solid 1px #ffffff;
-            h3 {
-                color: #ffffff;
-                background-color: rgba(255, 255, 255, 0.25);
-                text-shadow: 1px 1px rgba(0, 0, 0, 0.35);
-            }
-        }
-        &.slashing {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.sonic {
-            border: solid 1px darkcyan;
-            h3 {
-                color: darkcyan;
-                background-color: rgba(0, 139, 139, 0.25);
-            }
-        }
-    }
+        .dice-total {
+            flex-direction: column;
+            font-weight: normal;
 
-    .dice .part-header .part-flavor {
-        text-transform: capitalize;
+            .total {
+                font-weight: 700;
+            }
+
+            .instances {
+                font-size: var(--font-size-12);
+                line-height: var(--font-size-12);
+                margin-bottom: 0.2em;
+                vertical-align: top;
+
+                .instance {
+                    padding: 0 1px;
+                }
+            }
+        }
+
+        .dice-tooltip {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25em;
+            margin-bottom: 0.25em;
+
+            .instance {
+                border-radius: 2px;
+                border-style: solid;
+                border-width: 1px;
+
+                > header {
+                    align-items: center;
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 0.1em;
+                }
+
+                .dice {
+                    .part-formula, .part-total {
+                        color: var(--color-text-dark-secondary);
+                    }
+                }
+
+                > header, .dice {
+                    padding: 0.2em;
+                }
+            }
+        }
+
+        .instance {
+            $darker: -12.5%;
+            $physical: #3c3c3c;
+            $transparent: 0.125;
+            white-space: nowrap;
+
+            &.acid {
+                $color: #007300;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.bleed {
+                $color: #99001a;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.bludgeoning {
+                $color: $physical;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.chaotic {
+                $color: #a600a6;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.cold {
+                $color: #2f2fa6;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.electricity {
+                $color: darkgoldenrod;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.evil {
+                $color: indigo;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.fire {
+                $color: #a62f00;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.force {
+                $color: #6300aa;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.good {
+                $color: #9d730a;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.lawful {
+                $color: #402600;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+
+            }
+
+            &.mental {
+                $color: midnightblue;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.negative {
+                $color: #00001f;
+                border-color: $color;
+                color: $color;
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.piercing {
+                $color: $physical;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.poison {
+                $color: #5b7332;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.positive {
+                $color: #ffffe0;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                    text-shadow: 1px 1px rgba(black, 0.60);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.slashing {
+                $color: $physical;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            &.sonic {
+                $color: darkcyan;
+                border-color: $color;
+                color: color.adjust($color, $lightness: $darker);
+
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($color, $transparent);
+                }
+
+                .icon {
+                    color: $color;
+                }
+            }
+
+            .splash {
+                border-color: inherit;
+                border-width: 1px;
+                border-style: dotted;
+                padding: 1px 2px;
+                line-height: 0;
+            }
+        }
+
+        .dice-tooltip {
+            .damage-type {
+                margin-bottom: 3px;
+
+                h3 {
+                    text-transform: capitalize;
+                    padding-left: 3px;
+                    padding-right: 1px;
+                }
+
+                i.fa {
+                    flex: none;
+                    margin: 2px;
+                }
+
+                .dice {
+                    margin-left: 2px;
+                    margin-right: 2px;
+                }
+
+            }
+
+            .dice .part-header .part-flavor {
+                text-transform: capitalize;
+            }
+        }
     }
 }
 
-> .message-content {
-    .chat-damage-buttons {
+.message-content .damage-application {
+    display: flex;
+    justify-content: center;
+    margin-top: 3px;
+    order: 3;
+
+    button {
+        align-items: center;
         display: flex;
-        justify-content: center;
-        margin-top: 3px;
+        flex-direction: column;
+        font-size: var(--font-size-18);
+        height: 2em;
+        justify-content: space-around;
+        line-height: unset;
+        padding: 0;
 
-        button {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            font-size: var(--font-size-18);
-            height: 2em;
-            justify-content: space-around;
-            line-height: unset;
-            padding: 0;
+        &.half-damage {
+            position: relative;
 
-            &.half-damage {
-                position: relative;
-
-                .transparent-half {
-                    background: rgb(248, 247, 233);
-                    display: block;
-                    height: 24px;
-                    left: 49%;
-                    opacity: 0.6;
-                    position: absolute;
-                    top: 0px;
-                    width: 10px;
-                }
+            .transparent-half {
+                background: rgb(248, 247, 233);
+                display: block;
+                height: 24px;
+                left: 49%;
+                opacity: 0.6;
+                position: absolute;
+                top: 0px;
+                width: 10px;
             }
+        }
 
-            > img {
-                border: none;
-                height: var(--font-size-18);
+        > img {
+            border: none;
+            height: var(--font-size-18);
+        }
+
+        &.heal-damage .fa-stack {
+            font-size: 0.5em;
+
+            i.fa-plus {
+                font-size: var(--font-size-10);
             }
+        }
 
-            &.heal-damage .fa-stack {
-                font-size: 0.5em;
-
-                i.fa-plus {
-                    font-size: var(--font-size-10);
-                }
-            }
-
-            .label {
-                font-size: var(--font-size-9);
-                font-weight: 500;
-                text-transform: uppercase;
-            }
+        .label {
+            font-size: var(--font-size-9);
+            font-weight: 500;
+            text-transform: uppercase;
         }
     }
 }

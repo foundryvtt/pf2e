@@ -3,15 +3,20 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "MoTCUHJ1hnWtSSa6",
+            "_id": "s3uuMJdCKgalWmvT",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.tH5GirEy7YB3ZgCk"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
-            "name": "+1 Striking Rapier (with Wyvern Poison)",
+            "name": "Rapier",
             "sort": 100000,
             "system": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "rapier",
                 "bonus": {
                     "value": 0
                 },
@@ -27,11 +32,11 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Wyvern Poison]{Wyvern Poison}</p>"
+                    "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -51,30 +56,30 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": null
+                    "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
-                        "gp": 100
+                        "gp": 2
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -83,9 +88,9 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "rapier",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "specific": {
                     "value": false
@@ -95,7 +100,7 @@
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": "striking"
                 },
                 "traits": {
                     "custom": "",
@@ -116,10 +121,424 @@
             "type": "weapon"
         },
         {
+            "_id": "EiBZd1fT0aMAp1tP",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.SgtqZxt26BdjUmEB"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
+            "name": "Acid Flask (Moderate)",
+            "sort": 200000,
+            "system": {
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "alchemical-bomb",
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "acid",
+                    "dice": 1,
+                    "die": "",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "bomb",
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": null
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": 2,
+                "range": 20,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.AcidFlask.Moderate.success"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.AcidFlask.Moderate.criticalSuccess"
+                    }
+                ],
+                "size": "med",
+                "slug": "acid-flask-moderate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 2
+                },
+                "stackGroup": null,
+                "strikingRune": {
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "acid",
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "infused",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "5RvrCDgyD8p7fixD",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.gWr4q4HiyGhETA8H"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
+            "name": "Alchemist's Fire (Moderate)",
+            "sort": 300000,
+            "system": {
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "alchemical-bomb",
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "fire",
+                    "dice": 2,
+                    "die": "d8",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "bomb",
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": null
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": 2,
+                "range": 20,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.AlchemistsFire.Moderate.success"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.BombNotes.AlchemistsFire.Moderate.criticalSuccess"
+                    }
+                ],
+                "size": "med",
+                "slug": "alchemists-fire-moderate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 2
+                },
+                "stackGroup": null,
+                "strikingRune": {
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "fire",
+                        "infused",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "boa050D7wLOLLPOX",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.evBPzM1VsuYcoenn"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/tanglefoot-bag.webp",
+            "name": "Tanglefoot Bag (Moderate)",
+            "sort": 400000,
+            "system": {
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "alchemical-bomb",
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A tanglefoot bag is filled with sticky substances. When you hit a creature with a tanglefoot bag, that creature takes a -15-foot status penalty to its Speeds for 1 minute. You gain a +1 item bonus to attack rolls, and the Escape DC is 19.</p>\n<p>On a critical hit, a creature in contact with a solid surface becomes stuck to the surface and @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} for 1 round, and a creature flying via wings has its wings tangled, causing it to fall safely to the ground and become unable to Fly again for 1 round. Tanglefoot bags are not effective when used on a creature that is in water.</p>\n<p>The target can end any effects by Escaping or spending a total of 3 actions to carefully remove the sticky substances. These Interact actions don't have to be consecutive, and other creatures can provide the actions as well.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "bomb",
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": null
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": 2,
+                "range": 20,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "selector": "{item|_id}-attack",
+                        "text": "PF2E.BombNotes.TanglefootBag.Moderate.success",
+                        "title": "ITEM.TypeEffect"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-attack",
+                        "text": "PF2E.BombNotes.TanglefootBag.Moderate.criticalSuccess",
+                        "title": "ITEM.TypeEffect"
+                    }
+                ],
+                "size": "med",
+                "slug": "tanglefoot-bag-moderate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": null,
+                "strikingRune": {
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "infused"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "weapon"
+        },
+        {
             "_id": "9gFnxK8QlnLCkXJE",
             "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
             "name": "+1 Studded Leather Armor",
-            "sort": 200000,
+            "sort": 500000,
             "system": {
                 "armor": {
                     "value": 2
@@ -137,8 +556,9 @@
                     "value": 3
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
                     "invested": false
                 },
                 "equippedBulk": {
@@ -162,10 +582,10 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -203,20 +623,20 @@
                     "value": ""
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "resiliencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "rules": [],
                 "size": "med",
@@ -249,7 +669,7 @@
             "_id": "yrhCj712cBYhVs5h",
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/alchemist-goggles.webp",
             "name": "Alchemist Goggles",
-            "sort": 300000,
+            "sort": 600000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
@@ -338,7 +758,7 @@
             "_id": "aBgGZkjF011ndSw8",
             "img": "systems/pf2e/icons/equipment/adventuring-gear/alchemists-tools.webp",
             "name": "Alchemist's Tools",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
@@ -402,7 +822,7 @@
             "_id": "GRBBK98z5cdbknpi",
             "img": "systems/pf2e/icons/equipment/adventuring-gear/formula-book.webp",
             "name": "Formula Book",
-            "sort": 500000,
+            "sort": 800000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
@@ -463,10 +883,183 @@
             "type": "equipment"
         },
         {
+            "_id": "QcinC6e1RLBc6QTh",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.WL4O32qFifxnMj0H"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/wyvern-poison.webp",
+            "name": "Wyvern Poison (Applied to Rapier)",
+            "sort": 900000,
+            "system": {
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "charges": {
+                    "max": 1,
+                    "value": 1
+                },
+                "consumableType": {
+                    "value": "poison"
+                },
+                "consume": {
+                    "value": ""
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>Properly harvested and preserved, the poison from a wyvern's sting is effective and direct.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 5d6[poison]]] damage (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 6d6[poison]]] damage (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 8d6[poison]]] damage (1 round)</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 8
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {
+                        "gp": 80
+                    }
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "wyvern-poison",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "injury",
+                        "poison"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "P8wzghFej5Rq0PKv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.c21stU5rhN4F2fZl"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+            "name": "Elixir of Life (Moderate)",
+            "sort": 1000000,
+            "system": {
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "charges": {
+                    "max": 1,
+                    "value": 1
+                },
+                "consumableType": {
+                    "value": "elixir"
+                },
+                "consume": {
+                    "value": "5d6+12"
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {5d6+12}[healing]]]{5d6+12 Hit Points} and gain +2 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Elixir of Life (Moderate)]{Effect: Elixir of Life (Moderate)}</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 9
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": {}
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "elixir-of-life-moderate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "stackGroup": null,
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "healing",
+                        "infused"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "consumable"
+        },
+        {
             "_id": "8k84XkMz9ZT6F3TB",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "rapier",
-            "sort": 600000,
+            "sort": 1100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -514,7 +1107,7 @@
             "_id": "IKQ2kDBIPfAILZjf",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "alchemical bomb",
-            "sort": 700000,
+            "sort": 1200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -558,7 +1151,7 @@
             "_id": "TFvB8Q4vaggsZeH2",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Infused Items",
-            "sort": 800000,
+            "sort": 1300000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -598,7 +1191,7 @@
             "_id": "DREnRy1SAHY6dCiU",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Alchemical Formulas (10th)",
-            "sort": 900000,
+            "sort": 1400000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -638,7 +1231,7 @@
             "_id": "PigzABnoSkZuUAGP",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Expanded Splash",
-            "sort": 1000000,
+            "sort": 1500000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -678,7 +1271,7 @@
             "_id": "iFX6Z8UsTWukjUxp",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Alchemy",
-            "sort": 1100000,
+            "sort": 1600000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -718,7 +1311,7 @@
             "_id": "loHKBZQtnioHzbFm",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Bomber",
-            "sort": 1200000,
+            "sort": 1700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -758,7 +1351,7 @@
             "_id": "yD2Ft8LBt1GfEFs0",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1300000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -786,7 +1379,7 @@
             "_id": "jO74I7Q1xv3QT4t8",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1400000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -814,7 +1407,7 @@
             "_id": "1KBnDpc1DxD4Svam",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1500000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -842,7 +1435,7 @@
             "_id": "L2kHF4UhQyka4pRA",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 1600000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -870,7 +1463,7 @@
             "_id": "UVexFNAaK426qUe8",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1700000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -898,7 +1491,7 @@
             "_id": "V00sOZ0n6SQD1gNl",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Poison Lore",
-            "sort": 1800000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -926,7 +1519,7 @@
             "_id": "BxlyESTote21SMQZ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1900000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -954,7 +1547,7 @@
             "_id": "pJ2S54wWeUx8u19V",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2000000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1038,6 +1631,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
+                "author": "",
                 "value": "Pathfinder #160: Assault on Hunting Lodge Seven"
             }
         },

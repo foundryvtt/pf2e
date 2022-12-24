@@ -355,7 +355,7 @@
                 "baseItem": null,
                 "containerId": "null",
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span></p>\n<p>The blunderbuss fires an explosive shot that deals [[/r {4d6}[bludgeoning] + {2d10}[fire]]]{4d6 bludgeoning damage plus 2d10 fire damage} to all creatures in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:26|basic:true|name:Shoddy Blunderbuss Reflex Save|showDC:owner] save).</p>\n<p>When firing the blunderbuss, you must critically succeed at a @Check[type:crafting|dc:20|name:Shoddy Blunderbuss Crafting] or @Check[type:engineering|dc:20|name:Shoddy Blunderbuss Engineering Lore|showDC:owner]{Engineering Lore} check or the weapon explodes, damaging you for the same amount as the creatures in the cone and destroying itself. A successful @Check[type:crafting|dc:22|name:Shoddy Blunderbuss Reveal Unstable Nature|showDC:owner] check is enough to confirm the weapon's unstable nature if someone examines it beforehand.</p>\n<p>Reloading the blunderbuss takes 3 Interact actions: adding 1 dose of gunpowder, adding 1 grapeshot canister, and packing the contents.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span></p>\n<p>The blunderbuss fires an explosive shot that deals [[/r {4d6[bludgeoning],2d10[fire]}]]{4d6 bludgeoning damage plus 2d10 fire damage} to all creatures in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:26|basic:true|name:Shoddy Blunderbuss Reflex Save|showDC:owner] save).</p>\n<p>When firing the blunderbuss, you must critically succeed at a @Check[type:crafting|dc:20|name:Shoddy Blunderbuss Crafting] or @Check[type:engineering|dc:20|name:Shoddy Blunderbuss Engineering Lore|showDC:owner]{Engineering Lore} check or the weapon explodes, damaging you for the same amount as the creatures in the cone and destroying itself. A successful @Check[type:crafting|dc:22|name:Shoddy Blunderbuss Reveal Unstable Nature|showDC:owner] check is enough to confirm the weapon's unstable nature if someone examines it beforehand.</p>\n<p>Reloading the blunderbuss takes 3 Interact actions: adding 1 dose of gunpowder, adding 1 grapeshot canister, and packing the contents.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -481,22 +481,12 @@
             "name": "Black Powder (Keg)",
             "sort": 600000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 5000,
                     "value": 5000
                 },
@@ -504,16 +494,11 @@
                     "value": "other"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": "null",
                 "description": {
-                    "value": "<p>A black powder keg explodes if it takes any fire damage, inflicting [[/r {5d6}[fire]]]{5d6 fire damage} on all creatures in a @Template[type:emanation|distance:20] (@Check[type:reflex|dc:24|basic:true|name:Gunpowder Detonation] save).</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p>A black powder keg explodes if it takes any fire damage, inflicting [[/r 5d6[fire]]] damage on all creatures in a @Template[type:emanation|distance:20] (@Check[type:reflex|dc:24|basic:true|name:Gunpowder Detonation] save).</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -546,11 +531,6 @@
                     }
                 },
                 "quantity": 3,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "black-powder-keg",
@@ -558,11 +538,6 @@
                     "value": "Pathfinder Guns & Gears"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "uncommon",
@@ -573,13 +548,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "2"
@@ -593,22 +561,12 @@
             "name": "Gunpower",
             "sort": 700000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -616,16 +574,11 @@
                     "value": "other"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": "null",
                 "description": {
                     "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -656,11 +609,6 @@
                     "value": {}
                 },
                 "quantity": 10,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": null,
@@ -668,11 +616,6 @@
                     "value": "Pathfinder #146: Cult of Cinders"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -680,13 +623,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -700,22 +636,12 @@
             "name": "Grapeshot",
             "sort": 800000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -723,16 +649,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": "null",
                 "description": {
                     "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -763,11 +684,6 @@
                     "value": {}
                 },
                 "quantity": 10,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": null,
@@ -775,11 +691,6 @@
                     "value": "Pathfinder #146: Cult of Cinders"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -787,13 +698,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -812,22 +716,12 @@
             "name": "Tindertwig",
             "sort": 900000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -835,16 +729,11 @@
                     "value": "other"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>An alchemical substance applied to one end of this tiny wooden stick ignites when struck against a rough surface. Creating a flame with a tindertwig is much faster than creating a flame with flint and steel. You can ignite the tindertwig and touch it to a flammable object as part of the same Interact action.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -877,11 +766,6 @@
                     }
                 },
                 "quantity": 5,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "tindertwig",
@@ -889,11 +773,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -905,13 +784,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -1274,7 +1146,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Gerhard fires an explosive shot from his blunderbuss that deals [[/r {4d6}[bludgeoning]+{2d10}[fire]]]{4d6 bludgeoning damage plus 2d10 fire damage} to all creatures in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:26|basic:true]).</p>\n<p>When firing the blunderbuss, Gerhard must succeed at a @Check[type:crafting|dc:20] or @Check[type:engineering-lore|dc:20]{Engineering Lore} check or the weapon explodes, damaging him for the same amount as the creatures in the cone and destroying itself. If someone other than Gerhard uses the weapon, they must critically succeed at the check. A successful @Check[type:crafting|dc:22] check is enough to confirm the weapon's unstable nature if someone examines it beforehand.</p>\n<p>Reloading the blunderbuss takes 3 Interact actions: adding 1 dose of gunpowder, adding 1 grapeshot canister, and packing the contents.</p>"
+                    "value": "<p>Gerhard fires an explosive shot from his blunderbuss that deals [[/r {4d6[bludgeoning],2d10[fire]}]]{4d6 bludgeoning damage plus 2d10 fire damage} to all creatures in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:26|basic:true]).</p>\n<p>When firing the blunderbuss, Gerhard must succeed at a @Check[type:crafting|dc:20] or @Check[type:engineering-lore|dc:20]{Engineering Lore} check or the weapon explodes, damaging him for the same amount as the creatures in the cone and destroying itself. If someone other than Gerhard uses the weapon, they must critically succeed at the check. A successful @Check[type:crafting|dc:22] check is enough to confirm the weapon's unstable nature if someone examines it beforehand.</p>\n<p>Reloading the blunderbuss takes 3 Interact actions: adding 1 dose of gunpowder, adding 1 grapeshot canister, and packing the contents.</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -9,21 +9,21 @@
     <div class="flexrow" style="justify-content: space-between; width: 100%;">
         <div class="flexrow" style="flex: auto;">
             {{!-- TRAITS --}}
-            <select class="rarity-select traits-list-item rarity {{data.traits.rarity}}" name="system.traits.rarity">
+            <select class="rarity-select traits-list-item rarity {{data.traits.rarity}}" data-property="system.traits.rarity">
                 {{#select data.traits.rarity}}
                     {{#each rarity as |label key|}}
                         <option value="{{key}}">{{localize label}}</option>
                     {{/each}}
                 {{/select}}
             </select>
-            <select class="alignment-select traits-list-item alignment" name="system.details.alignment.value">
+            <select class="alignment-select traits-list-item alignment" data-property="system.details.alignment.value">
                 {{#select data.details.alignment.value}}
                     {{#each alignments as |label key|}}
                         <option value="{{key}}">{{localize label}}</option>
                     {{/each}}
                 {{/select}}
             </select>
-            <select class="size-select traits-list-item size" name="system.traits.size.value">
+            <select class="size-select traits-list-item size" data-property="system.traits.size.value">
                 {{#select data.traits.size.value}}
                     {{#each actorSizes as |label key|}}
                         <option value="{{key}}">{{localize label}}</option>

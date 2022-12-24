@@ -2,13 +2,23 @@ import { SkillAbbreviation } from "@actor/creature/data";
 import { AbilityString, SkillLongForm } from "@actor/types";
 import { MAGIC_SCHOOLS } from "@item/spell/values";
 import { DAMAGE_CATEGORIES, DAMAGE_TYPES } from "@system/damage/values";
-import { ATTACK_TYPES, DAMAGE_TRAITS } from "@system/damage/calculation";
 
 export const ABILITY_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
 
 export const CREATURE_ACTOR_TYPES = ["character", "npc", "familiar"] as const;
 
 export const SAVE_TYPES = ["fortitude", "reflex", "will"] as const;
+
+const ATTACK_TYPES = new Set([
+    "area-damage",
+    "nonlethal-attacks", // has to be present on every damage type pool!
+    "persistent-damage",
+    "precision",
+    "vorpal",
+    "weapons",
+] as const);
+
+const DAMAGE_TRAITS = new Set(["air", "earth", "light", "magical", "unarmed", "water"] as const);
 
 export const CONDITION_SLUGS = new Set([
     "blinded",
@@ -74,6 +84,7 @@ export const IMMUNITY_TYPES = new Set([
     "healing",
     "inhaled",
     "magic",
+    "misfortune-effects",
     "nonlethal-attacks",
     "nonmagical-attacks",
     "object-immunities",
@@ -96,6 +107,7 @@ export const WEAKNESS_TYPES = new Set([
     ...DAMAGE_TRAITS,
     ...DAMAGE_TYPES,
     "area-damage",
+    "arrow",
     "axe",
     "critical-hits",
     "emotion",

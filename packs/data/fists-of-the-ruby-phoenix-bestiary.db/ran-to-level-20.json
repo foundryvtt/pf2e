@@ -352,22 +352,12 @@
             "name": "Explosive Ammunition (Greater)",
             "sort": 400000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -375,16 +365,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": "10d6"
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This piece of ammunition is coated in gritty black soot. When activated <em>explosive ammunition</em> hits a target, the missile explodes in a @Template[type:burst|distance:10], dealing [[/r10d6]] fire damage to each creature in the area (including the target). Each creature must attempt a @Check[type:reflex|dc:30|basic:true|name:Greater Explosive Ammunition] save.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -417,11 +402,6 @@
                     }
                 },
                 "quantity": 5,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "explosive-ammunition-greater",
@@ -429,11 +409,6 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -446,13 +421,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -471,22 +439,12 @@
             "name": "Sling Bullets",
             "sort": 500000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -494,16 +452,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p>These are small metal balls, typically either iron or lead, designed to be used as ammunition in slings.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -537,11 +490,6 @@
                     }
                 },
                 "quantity": 20,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "sling-bullets",
@@ -549,11 +497,6 @@
                     "value": ""
                 },
                 "stackGroup": "slingBullets",
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -561,13 +504,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -778,7 +714,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Ran-to is grabbing a creature</p>\n<hr />\n<p><strong>Effect</strong> Ran-to throws his foe against the ground. The grabbed creature takes [[/r {12d6}[bludgeoning]]]{12d6 bludgeoning damage} (@Check[type:fortitude|dc:43|basic:true] save) and is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}. The creature is no longer grabbed.</p>"
+                    "value": "<p><strong>Requirements</strong> Ran-to is grabbing a creature</p>\n<hr />\n<p><strong>Effect</strong> Ran-to throws his foe against the ground. The grabbed creature takes [[/r 12d6[bludgeoning]]] damage (@Check[type:fortitude|dc:43|basic:true] save) and is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}. The creature is no longer grabbed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -823,7 +759,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {7d4+5}[bludgeoning]]]{7d4+5 bludgeoning damage}, @Check[type:fortitude|dc:43|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (7d4+5)[bludgeoning]]] damage, @Check[type:fortitude|dc:43|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -863,7 +799,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Ran-to leaps from the ground and attempts to grab a foe while he soars. He makes a Leap, High Jump, or Long Jump. His maximum distance is 100 feet. He must succeed at an Athletics check to perform the leap as usual, but regardless of the type of leap the DC is equal to half the number of feet he moves in the air. Ran-to can attempt an Athletics check to Grapple at any point during the jump. Immediately after the attempt, he (and the creature, if the Grapple was successful) falls to the ground. Ran-to takes no falling damage when using this ability, but the grabbed creature takes the appropriate amount of falling damage as if it had fallen the distance moved. Ran-to can spend three actions to use this ability instead of two; if he does, he can use Plummeting Fall to add [[/r {12d6}[bludgeoning]]]{12d6 bludgeoning damage} to the falling damage dealt to the grabbed creature, and the creature is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>"
+                    "value": "<p>Ran-to leaps from the ground and attempts to grab a foe while he soars. He makes a Leap, High Jump, or Long Jump. His maximum distance is 100 feet. He must succeed at an Athletics check to perform the leap as usual, but regardless of the type of leap the DC is equal to half the number of feet he moves in the air. Ran-to can attempt an Athletics check to Grapple at any point during the jump. Immediately after the attempt, he (and the creature, if the Grapple was successful) falls to the ground. Ran-to takes no falling damage when using this ability, but the grabbed creature takes the appropriate amount of falling damage as if it had fallen the distance moved. Ran-to can spend three actions to use this ability instead of two; if he does, he can use Plummeting Fall to add [[/r 12d6[bludgeoning]]] damage to the falling damage dealt to the grabbed creature, and the creature is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -903,7 +839,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>(certain kill)</p>\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Ran-to has a creature grabbed and the creature is airborne</p>\n<hr />\n<p><strong>Effect</strong> Ran-to spins and increases the force of gravity, sending him and the creature to the ground. The target takes [[/r {12d6}[bludgeoning]]]{12d6 bludgeoning damage} from the fall and is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}; Ran-to is unharmed.</p>"
+                    "value": "<p>(certain kill)</p>\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Ran-to has a creature grabbed and the creature is airborne</p>\n<hr />\n<p><strong>Effect</strong> Ran-to spins and increases the force of gravity, sending him and the creature to the ground. The target takes [[/r 12d6[bludgeoning]]] damage from the fall and is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}; Ran-to is unharmed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -983,7 +919,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Ran-to has a creature grabbed</p>\n<hr />\n<p><strong>Effect</strong> Ran-to spins the creature he's holding, smashing it against any creatures within his reach, then throws the creature aside. Ran-to attempts an Athletics check against the grabbed creature's Fortitude DC. Regardless of the result, the creature is no longer grabbed after this activity.</p>\n<hr />\n<p><strong>Critical Success</strong> Ran-to tosses his foe mightily. The grabbed creature is thrown into a space within 20 feet, takes [[/r {16d6}[bludgeoning]]]{16d6 bludgeoning damage}, and falls @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}. All creatures adjacent to Ran-to take the same amount of bludgeoning damage (@Check[type:reflex|dc:43|basic:true] save).</p>\n<p><strong>Success</strong> As critical success, except the grabbed creature is thrown into a space within 10 feet, and creatures take [[/r {12d6}[bludgeoning]]]{12d6 bludgeoning damage}.</p>\n<p><strong>Failure</strong> Ran-to tosses his foe aside. The grabbed creature falls prone.</p>\n<p><strong>Critical Failure</strong> Ran-to loses hold of his foe.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Ran-to has a creature grabbed</p>\n<hr />\n<p><strong>Effect</strong> Ran-to spins the creature he's holding, smashing it against any creatures within his reach, then throws the creature aside. Ran-to attempts an Athletics check against the grabbed creature's Fortitude DC. Regardless of the result, the creature is no longer grabbed after this activity.</p>\n<hr />\n<p><strong>Critical Success</strong> Ran-to tosses his foe mightily. The grabbed creature is thrown into a space within 20 feet, takes [[/r 16d6[bludgeoning]]] damage, and falls @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}. All creatures adjacent to Ran-to take the same amount of bludgeoning damage (@Check[type:reflex|dc:43|basic:true] save).</p>\n<p><strong>Success</strong> As critical success, except the grabbed creature is thrown into a space within 10 feet, and creatures take [[/r 12d6[bludgeoning]]] damage.</p>\n<p><strong>Failure</strong> Ran-to tosses his foe aside. The grabbed creature falls prone.</p>\n<p><strong>Critical Failure</strong> Ran-to loses hold of his foe.</p>"
                 },
                 "requirements": {
                     "value": ""

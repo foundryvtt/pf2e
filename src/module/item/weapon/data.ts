@@ -127,12 +127,12 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     property1: {
         value: string;
         dice: number;
-        die: string;
-        damageType: string;
+        die: DamageDieSize;
+        damageType: DamageType | "";
         critDice: number;
-        critDie: string;
+        critDie: DamageDieSize;
         critDamage: string;
-        critDamageType: string;
+        critDamageType: DamageType | "";
     };
     selectedAmmoId: string | null;
 }

@@ -18,6 +18,7 @@ import { ArmorSource } from "@item/data";
 import { FoundryUtils } from "tests/utils";
 import { FakeActors, FakeCollection, FakeItems, FakeWorldCollection } from "tests/fakes/fake-collection";
 import { LocalizePF2e } from "@module/system/localize";
+import { FakeJournalEntry } from "tests/fakes/journal-entry";
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
 characterData.effects = [];
@@ -61,6 +62,7 @@ describe("test migration runner", () => {
         actors: new FakeActors(),
         i18n: { format: (stringId: string, data: object): string => {} },
         items: new FakeItems(),
+        journal: new FakeWorldCollection<FakeJournalEntry>(),
         macros: new FakeWorldCollection<FakeMacro>(),
         messages: new FakeWorldCollection<FakeChatMessage>(),
         tables: new FakeWorldCollection<FakeRollTable>(),

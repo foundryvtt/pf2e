@@ -1,5 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ItemPF2e, MeleePF2e } from "@item";
+import { MigrationList, MigrationRunner } from "@module/migration";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -9,9 +11,11 @@ import {
     extractRollTwice,
 } from "@module/rules/util";
 import { CheckPF2e, CheckRoll } from "@system/check";
-import { DamageType, WeaponDamagePF2e } from "@system/damage";
-import { DamageRollPF2e, RollParameters } from "@system/rolls";
-import { ErrorPF2e, sluggify } from "@util";
+import { DamagePF2e, DamageType, WeaponDamagePF2e } from "@system/damage";
+import { DamageRoll } from "@system/damage/roll";
+import { RollParameters } from "@system/rolls";
+import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
+import { ActorSourcePF2e } from "./data";
 import { RollFunction, TraitViewData } from "./data/base";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "./modifiers";
 import { NPCStrike } from "./npc/data";
@@ -49,6 +53,22 @@ async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<voi
             }
         }
     }
+}
+
+async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<ActorSourcePF2e> {
+    if (Object.keys(source).length === 2 && "name" in source && "type" in source) {
+        // The item consists of only a `name` and `type`: set schema version and skip
+        source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
+    }
+
+    const lowestSchemaVersion = Math.min(
+        source.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
+        ...(source.items ?? []).map((i) => i!.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION)
+    );
+    const actor = new ActorPF2e(source);
+    await MigrationRunner.ensureSchemaVersion(actor, MigrationList.constructFromVersion(lowestSchemaVersion));
+
+    return actor.toObject();
 }
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
@@ -111,9 +131,6 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     modifiers.push(...StrikeAttackTraits.createAttackModifiers(item));
     const notes = extractNotes(synthetics.rollNotes, domains);
 
-    // action image
-    const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics("action", 1);
-
     const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
     const additionalEffects = item.attackEffects.map((tag) => {
         const label = attackEffects[tag] ?? actor.items.find((i) => (i.slug ?? sluggify(i.name)) === tag)?.name ?? tag;
@@ -142,9 +159,9 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     const strike: NPCStrike = mergeObject(statistic, {
         label: item.name,
         type: "strike" as const,
-        glyph: actionGlyph,
+        glyph: getActionGlyph({ type: "action", value: 1 }),
         description: item.description,
-        imageUrl,
+        imageUrl: getActionIcon({ type: "action", value: 1 }),
         sourceId: item.id,
         attackRollType: item.isRanged ? "PF2E.NPCAttackRanged" : "PF2E.NPCAttackMelee",
         additionalEffects,
@@ -252,9 +269,9 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
 
     const damageRoll =
         (outcome: "success" | "criticalSuccess"): RollFunction =>
-        async (params: RollParameters = {}) => {
+        async (params: RollParameters = {}): Promise<Rolled<DamageRoll> | null> => {
             const domains = ["all", "strike-damage", "damage-roll"];
-            const context = actor.getDamageRollContext({
+            const context = actor.getStrikeRollContext({
                 item,
                 viewOnly: false,
                 domains,
@@ -264,28 +281,24 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
             const options = new Set([...context.options, ...traits, ...context.self.item.getRollOptions("item")]);
 
             if (!context.self.item.dealsDamage) {
-                return ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
+                ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
+                return null;
             }
 
             const damage = WeaponDamagePF2e.calculateStrikeNPC(
                 context.self.item,
                 context.self.actor,
                 [attackTrait],
-                deepClone(synthetics.statisticsModifiers),
-                deepClone(synthetics.modifierAdjustments),
-                deepClone(synthetics.damageDice),
                 1,
-                options,
-                synthetics.rollNotes,
-                synthetics.strikeAdjustments
+                options
             );
             if (!damage) throw ErrorPF2e("This weapon deals no damage");
 
             const { self, target } = context;
 
-            await DamageRollPF2e.roll(
+            return DamagePF2e.roll(
                 damage,
-                { type: "damage-roll", self, target, outcome, options, domains },
+                { type: "damage-roll", sourceType: "attack", self, target, outcome, options, domains },
                 params.callback
             );
         };
@@ -357,4 +370,11 @@ interface MAPData {
     map2: number;
 }
 
-export { calculateMAPs, calculateRangePenalty, strikeFromMeleeItem, getRangeIncrement, resetAndRerenderActors };
+export {
+    calculateMAPs,
+    calculateRangePenalty,
+    getRangeIncrement,
+    migrateActorSource,
+    resetAndRerenderActors,
+    strikeFromMeleeItem,
+};

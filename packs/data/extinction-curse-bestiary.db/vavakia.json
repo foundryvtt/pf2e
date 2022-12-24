@@ -231,11 +231,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "line",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot line"
+                    "type": "line",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -373,11 +370,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "10"
-                },
-                "areasize": {
-                    "value": "10-foot emanation"
+                    "type": "emanation",
+                    "value": 10
                 },
                 "category": {
                     "value": "spell"
@@ -482,11 +476,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot burst"
+                    "type": "burst",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -615,13 +606,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -725,13 +710,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -843,13 +822,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -963,13 +936,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1088,11 +1055,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -1213,13 +1177,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -2049,7 +2007,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A vavakia is repulsed by the restoration of souls.</p>\n<p>The demon takes [[/r {3d10+10}[mental]]]{3d10+10 mental damage} the first time each round that a creature within 100 feet of it is restored to life or loses the @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed} condition.</p>"
+                    "value": "<p>A vavakia is repulsed by the restoration of souls.</p>\n<p>The demon takes [[/r (3d10+10)[mental]]] damage the first time each round that a creature within 100 feet of it is restored to life or loses the @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed} condition.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2123,7 +2081,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The vavakia exhales ghostly green fire in a @Template[type:cone|distance:60].</p>\n<p>Living creatures in the area take [[/r {20d6}[negative]]]{20d6 negative damage} (@Check[type:reflex|dc:42|basic:true] save). A good creature that fails this save is becomes @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 4} on a critical failure).</p>\n<p>A creature slain by Soulfire Breath can't be resurrected except by powerful magic such as a <em>@UUID[Compendium.pf2e.spells-srd.Wish]{Wish}</em> spell.</p>\n<p>The vavakia can't use Soulfire Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The vavakia exhales ghostly green fire in a @Template[type:cone|distance:60].</p>\n<p>Living creatures in the area take [[/r 20d6[negative]]] damage (@Check[type:reflex|dc:42|basic:true] save). A good creature that fails this save is becomes @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 4} on a critical failure).</p>\n<p>A creature slain by Soulfire Breath can't be resurrected except by powerful magic such as a <em>@UUID[Compendium.pf2e.spells-srd.Wish]{Wish}</em> spell.</p>\n<p>The vavakia can't use Soulfire Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2551,14 +2509,12 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
-                    "value": "15"
+                    "value": 15
                 },
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "languages": {

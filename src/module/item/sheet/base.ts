@@ -81,7 +81,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         // Enrich content
         const enrichedContent: Record<string, string> = {};
         const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
-        enrichedContent.description = await game.pf2e.TextEditor.enrichHTML(itemData.system.description.value, {
+        enrichedContent.description = await TextEditor.enrichHTML(itemData.system.description.value, {
             rollData,
             async: true,
         });

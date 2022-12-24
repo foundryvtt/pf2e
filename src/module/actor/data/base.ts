@@ -40,6 +40,7 @@ interface ActorSystemSource {
     details?: {
         level?: { value: number };
         alliance?: ActorAlliance;
+        creature?: unknown;
     };
     attributes: {
         hp?: ValueAndMaybeMax;

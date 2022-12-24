@@ -1,18 +1,13 @@
 import { AttackTarget } from "@actor/types";
 import { TraitViewData } from "@actor/data/base";
-import { StrikeLookupData } from "@module/chat-message/data";
-import { ZeroToThree } from "@module/data";
 import { RollNotePF2e, RollNoteSource } from "@module/notes";
-import { DamageCategorization, DamageRollContext, DamageRollModifiersDialog, DamageTemplate } from "@system/damage";
 import { ModifierPF2e } from "../actor/modifiers";
 import { RollTwiceOption } from "./check";
 import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
 
-interface RollDataPF2e extends RollData {
+interface RollDataPF2e extends RollOptions {
     rollerId?: string;
     totalModifier?: number;
-    degreeOfSuccess?: ZeroToThree;
-    strike?: StrikeLookupData;
 }
 
 /** Possible parameters of a RollFunction */
@@ -59,20 +54,4 @@ interface BaseRollContext {
     skipDialog?: boolean;
 }
 
-class DamageRollPF2e {
-    static async roll(damage: DamageTemplate, context: DamageRollContext, callback?: Function) {
-        // Change the base damage type in case it was overridden
-        const baseDamageType = damage.formula[context.outcome ?? "success"]?.data.baseDamageType;
-        damage.base.damageType = baseDamageType ?? damage.base.damageType;
-        damage.base.category = DamageCategorization.fromDamageType(damage.base.damageType);
-
-        // Change default roll mode to blind GM roll if the "secret" option is specified
-        if (context.options.has("secret")) {
-            context.secret = true;
-        }
-
-        await DamageRollModifiersDialog.roll(damage, context, callback);
-    }
-}
-
-export { BaseRollContext, DamageRollPF2e, RollDataPF2e, RollParameters, RollTwiceOption, StrikeRollParams };
+export { BaseRollContext, RollDataPF2e, RollParameters, RollTwiceOption, StrikeRollParams };

@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -234,13 +228,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -362,11 +350,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -471,11 +456,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -580,11 +562,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "line",
+                    "type": "line",
                     "value": 60
-                },
-                "areasize": {
-                    "value": "60-foot line"
                 },
                 "category": {
                     "value": "spell"
@@ -688,13 +667,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1139,7 +1112,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The Sandpoint Devil breathes a @Template[type:cone|distance:30] of flame that deals [[/r {6d10}[fire]]]{6d10 fire damage}. Each creature in the area must attempt a @Check[type:reflex|dc:26|traits:damaging-effect] save.</p>\n<p>The Sandpoint Devil can't use Accursed Breath for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p>Failure The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} by the agonizing pain of its burns.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is cursed. The victim's flesh appears charred and burned, and the pain of being burned alive never fully vanishes. The cursed creature takes a -2 status penalty to all checks from the constant pain. Healing doesn't alter the appearance of the burns or lessen the penalty, but removing the curse does.</p>"
+                    "value": "<p>The Sandpoint Devil breathes a @Template[type:cone|distance:30] of flame that deals [[/r 6d10[fire]]] damage. Each creature in the area must attempt a @Check[type:reflex|dc:26|traits:damaging-effect] save.</p>\n<p>The Sandpoint Devil can't use Accursed Breath for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p>Failure The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} by the agonizing pain of its burns.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is cursed. The victim's flesh appears charred and burned, and the pain of being burned alive never fully vanishes. The cursed creature takes a -2 status penalty to all checks from the constant pain. Healing doesn't alter the appearance of the burns or lessen the penalty, but removing the curse does.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1497,15 +1470,14 @@
                 "custom": "",
                 "value": [
                     "fire",
-                    "fear effects"
+                    "fear-effects"
                 ]
             },
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {

@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Demonbane Warrior",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -27,13 +24,12 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Demonbane Warrior",
                 "predicate": [
                     "target:trait:demon"
                 ],
                 "selector": "strike-damage",
                 "type": "circumstance",
-                "value": "1+@weapon.system.runes.striking"
+                "value": "@weapon.system.damage.dice"
             },
             {
                 "key": "Note",

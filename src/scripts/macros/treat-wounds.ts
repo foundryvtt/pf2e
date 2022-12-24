@@ -2,6 +2,7 @@ import { ActorPF2e, CreaturePF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { ActionDefaultOptions } from "@system/action-macros";
+import { DamageRoll } from "@system/damage/roll";
 import { CheckDC, DegreeOfSuccessAdjustment, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success";
 
 function CheckFeat(actor: ActorPF2e, slug: string) {
@@ -21,6 +22,7 @@ export async function treatWounds(options: ActionDefaultOptions) {
 
     const chirurgeon = CheckFeat(actor, "chirurgeon");
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
+    const domIdAppend = randomID(); // Attached to element id attributes for DOM uniqueness
     const dialog = new Dialog({
         title: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
         content: `
@@ -28,44 +30,44 @@ export async function treatWounds(options: ActionDefaultOptions) {
 <hr/>
 <form>
 <div class="form-group">
-<label>${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
-<select id="skill" name="skill"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
-<option value="medicine">Medicine</option>
-${chirurgeon ? `<option value="crafting">Crafting</option>` : ``}
-${naturalMedicine ? `<option value="nature">Nature</option>` : ``}
+<label for="skill-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
+<select id="skill-${domIdAppend}"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
+  <option value="medicine">Medicine</option>
+  ${chirurgeon ? `<option value="crafting">Crafting</option>` : ``}
+  ${naturalMedicine ? `<option value="nature">Nature</option>` : ``}
 </select>
 </div>
 </form>
 <form>
 <div class="form-group">
-<label>Medicine DC:</label>
-<select id="dc-type" name="dc-type">
-<option value="1">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Trained")}</option>
-<option value="2">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Expert")}</option>
-<option value="3">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Master")}</option>
-<option value="4">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Legendary")}</option>
+<label for="dc-type-${domIdAppend}">Medicine DC:</label>
+<select id="dc-type-${domIdAppend}" name="dc-type">
+  <option value="1">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Trained")}</option>
+  <option value="2">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Expert")}</option>
+  <option value="3">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Master")}</option>
+  <option value="4">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Legendary")}</option>
 </select>
 </div>
 </form>
 <form>
 <div class="form-group">
-<label>${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Mod")}</label>
-<input id="modifier" name="modifier" type="number"/>
+<label for="modifier-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.DC.Mod")}</label>
+<input id="modifier-${domIdAppend}" type="number" />
 </div>
 </form>
 ${
     CheckFeat(actor, "risky-surgery")
         ? `<form><div class="form-group">
-<label>${game.i18n.localize("PF2E.Actions.TreatWounds.Feats.RiskySurgery")}</label>
-<input type="checkbox" id="risky_surgery_bool" name="risky_surgery_bool"></input>
+<label for="risky-surgery-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.Feats.RiskySurgery")}</label>
+<input type="checkbox" id="risky-surgery-${domIdAppend}" />
 </div></form>`
         : ``
 }
 ${
     CheckFeat(actor, "mortal-healing")
         ? `<form><div class="form-group">
-<label>${game.i18n.localize("PF2E.Actions.TreatWounds.Feats.MortalHealing")}</label>
-<input type="checkbox" id="mortal_healing_bool" name="mortal_healing_bool" checked></input>
+<label for="mortal-healing-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.Feats.MortalHealing")}</label>
+<input type="checkbox" id="mortal-healing-${domIdAppend}" checked />
 </div></form>`
         : ``
 }
@@ -75,7 +77,7 @@ ${
             yes: {
                 icon: `<i class="fas fa-hand-holding-medical"></i>`,
                 label: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
-                callback: ($html) => applyChanges(actor, $html, options.event),
+                callback: ($html) => treat(actor, $html, options.event, domIdAppend),
             },
             no: {
                 icon: `<i class="fas fa-times"></i>`,
@@ -87,13 +89,18 @@ ${
     dialog.render(true);
 }
 
-async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.TriggeredEvent) {
+async function treat(
+    actor: CreaturePF2e,
+    $html: JQuery,
+    event: JQuery.TriggeredEvent,
+    domIdAppend: string
+): Promise<void> {
     const { name } = actor;
-    const mod = Number($html.find("[name=modifier]").val()) || 0;
-    const requestedProf = Number($html.find("[name=dc-type]").val()) || 1;
-    const riskysurgery = $html.find("[name=risky_surgery_bool]").prop("checked");
-    const mortalhealing = $html.find("[name=mortal_healing_bool]").prop("checked");
-    const skillSlug = String($html.find("[name=skill]").val()) || "medicine";
+    const mod = Number($html.find(`#modifier-${domIdAppend}`).val()) || 0;
+    const requestedProf = Number($html.find(`#dc-type-${domIdAppend}`).val()) || 1;
+    const riskySurgery: boolean = $html.find(`#risky-surgery-${domIdAppend}`).prop("checked");
+    const mortalHealing: boolean = $html.find(`#mortal-healing-${domIdAppend}`).prop("checked");
+    const skillSlug = String($html.find(`#skill-${domIdAppend}`).val()) || "medicine";
     const skill = actor.skills[skillSlug];
     if (!skill?.proficient) {
         return ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name }));
@@ -107,7 +114,7 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
 
     const rollOptions = actor.getRollOptions(["all", "skill-check", "medicine"]);
     rollOptions.push("action:treat-wounds");
-    if (riskysurgery) rollOptions.push("risky-surgery");
+    if (riskySurgery) rollOptions.push("risky-surgery");
     const dc: CheckDC = { value: dcValue, visible: true };
     const increaseDoS = (locKey: string): DegreeOfSuccessAdjustment => ({
         adjustments: {
@@ -119,7 +126,7 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
     });
 
     (actor.synthetics.degreeOfSuccessAdjustments["medicine"] ??= []).push(
-        ...(riskysurgery ? [increaseDoS("RiskySurgery")] : mortalhealing ? [increaseDoS("MortalHealing")] : [])
+        ...(riskySurgery ? [increaseDoS("RiskySurgery")] : mortalHealing ? [increaseDoS("MortalHealing")] : [])
     );
 
     skill.check.roll({
@@ -146,17 +153,17 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
 
             const speaker = ChatMessagePF2e.getSpeaker({ actor });
 
-            if (riskysurgery) {
+            if (riskySurgery) {
                 ChatMessagePF2e.create({
                     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     flavor: `<strong>${game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.RiskySurgery")}</strong>`,
-                    roll: (await new Roll("{1d8}[slashing]").roll({ async: true })).toJSON(),
+                    rolls: [(await new DamageRoll("{1d8[slashing]}").roll({ async: true })).toJSON()],
                     speaker,
                 });
             }
 
             if (healFormula) {
-                const healRoll = await new Roll(`{${healFormula}}[healing]`).roll({ async: true });
+                const healRoll = await new DamageRoll(`{(${healFormula})[healing]}`).roll({ async: true });
                 const rollType =
                     outcome !== "criticalFailure"
                         ? game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWounds")
@@ -164,7 +171,7 @@ async function applyChanges(actor: CreaturePF2e, $html: JQuery, event: JQuery.Tr
                 ChatMessagePF2e.create({
                     type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     flavor: `<strong>${rollType}</strong> (${successLabel})`,
-                    roll: healRoll.toJSON(),
+                    rolls: [healRoll.toJSON()],
                     speaker,
                 });
             }

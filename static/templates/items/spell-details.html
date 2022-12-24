@@ -112,19 +112,19 @@
     <div class="form-group">
         <label class="short">{{localize "PF2E.AreaLabel"}}</label>
         <div class="details-container-two-columns">
-            <select name="system.area.value">
-                <option value=""></option>
+            <select name="system.area.value" data-dtype="Number">
+                <option value="0"></option>
                 {{#select data.area.value}}
                     {{#each areaSizes as |label key|}}
                         <option value="{{key}}">{{localize label}}</option>
                     {{/each}}
                 {{/select}}
             </select>
-            <select name="system.area.areaType">
+            <select name="system.area.type">
                 <option value=""></option>
-                {{#select data.area.areaType}}
-                    {{#each areaTypes as |label key|}}
-                        <option value="{{key}}">{{localize label}}</option>
+                {{#select data.area.type}}
+                    {{#each areaTypes as |label type|}}
+                        <option value="{{type}}">{{localize label}}</option>
                     {{/each}}
                 {{/select}}
             </select>

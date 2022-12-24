@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -236,11 +230,9 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "details": "all squares in a 20-foot-radius burst that contain plants",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "all squares in a 20-foot-radius burst that contain plants"
                 },
                 "category": {
                     "value": "spell"
@@ -345,11 +337,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 10
-                },
-                "areasize": {
-                    "value": "10-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -455,13 +444,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -563,13 +546,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -676,11 +653,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -788,13 +762,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -898,13 +866,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1008,13 +970,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1351,22 +1307,12 @@
             "name": "Arrows",
             "sort": 1300000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -1374,16 +1320,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "held",
@@ -1417,11 +1358,6 @@
                     }
                 },
                 "quantity": 60,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "arrows",
@@ -1429,11 +1365,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": "arrows",
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -1441,13 +1372,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -1717,7 +1641,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The pixie sprinkles pixie dust onto one of its arrows. If the pixie hits a creature with that arrow before the pixie's next turn, the arrow inflicts one of the following special effects instead of dealing damage. Each effect depends on the target's Will save. On a critical hit, the target treats its save result as one degree worse.</p>\n<ul>\n<li><strong>Charm</strong> @Check[type:will|dc:21|traits:emotion,enchantment,incapacitation,mental] (emotion, enchantment, incapacitation, mental) The target suffers the effects of a <em>@UUID[Compendium.pf2e.spells-srd.Charm]{Charm}</em> spell, except it doesn't gain a bonus to its save if the only hostile act was the pixie firing its bow, and the pixie can choose to direct the target's adoration toward another creature rather than itself.</li>\n<li><strong>Memory Loss</strong> @Check[type:will|dc:21|traits:divination,mental] (divination, mental) On a failed Will save, the target loses the last 5 minutes of its memory.</li>\n<li><strong>Sleep</strong> @Check[type:will|dc:21|traits:enchantment,incapacitation,mental,sleep] (enchantment, incapacitation, mental, sleep) The target suffers the effects of a 3rd-level <em>@UUID[Compendium.pf2e.spells-srd.Sleep]{Sleep}</em> spell.</li>\n<li><strong>Subdual</strong> @Check[type:will|dc:21|basic:true|traits:enchantment,mental,nonlethal] (enchantment, mental, nonlethal) The target takes [[/r {4d6}[mental]]]{4d6 mental damage}, depending on its basic Will save.</li>\n</ul>"
+                    "value": "<p>The pixie sprinkles pixie dust onto one of its arrows. If the pixie hits a creature with that arrow before the pixie's next turn, the arrow inflicts one of the following special effects instead of dealing damage. Each effect depends on the target's Will save. On a critical hit, the target treats its save result as one degree worse.</p>\n<ul>\n<li><strong>Charm</strong> @Check[type:will|dc:21|traits:emotion,enchantment,incapacitation,mental] (emotion, enchantment, incapacitation, mental) The target suffers the effects of a <em>@UUID[Compendium.pf2e.spells-srd.Charm]{Charm}</em> spell, except it doesn't gain a bonus to its save if the only hostile act was the pixie firing its bow, and the pixie can choose to direct the target's adoration toward another creature rather than itself.</li>\n<li><strong>Memory Loss</strong> @Check[type:will|dc:21|traits:divination,mental] (divination, mental) On a failed Will save, the target loses the last 5 minutes of its memory.</li>\n<li><strong>Sleep</strong> @Check[type:will|dc:21|traits:enchantment,incapacitation,mental,sleep] (enchantment, incapacitation, mental, sleep) The target suffers the effects of a 3rd-level <em>@UUID[Compendium.pf2e.spells-srd.Sleep]{Sleep}</em> spell.</li>\n<li><strong>Subdual</strong> @Check[type:will|dc:21|basic:true|traits:enchantment,mental,nonlethal] (enchantment, mental, nonlethal) The target takes [[/r 4d6[mental]]] damage, depending on its basic Will save.</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""

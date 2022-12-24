@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Undead Slayer",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -36,7 +33,7 @@
                 "selector": "strike-damage",
                 "slug": "undead-slayer",
                 "type": "circumstance",
-                "value": "1+@weapon.system.runes.striking"
+                "value": "@weapon.system.damage.dice"
             },
             {
                 "key": "FlatModifier",
@@ -46,7 +43,7 @@
                 "selector": "strike-damage",
                 "slug": "undead-slayer-vampire",
                 "type": "circumstance",
-                "value": "(1+@weapon.system.runes.striking)*2"
+                "value": "@weapon.system.damage.dice*2"
             },
             {
                 "domain": "all",

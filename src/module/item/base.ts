@@ -10,7 +10,6 @@ import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } 
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers";
 import { ContainerPF2e } from "./container";
 import { FeatSource, ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
-import { ItemTrait } from "./data/base";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { PhysicalItemPF2e } from "./physical/document";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
@@ -81,8 +80,19 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Generate a list of strings for use in predication */
     getRollOptions(prefix = this.type): string[] {
         const slug = this.slug ?? sluggify(this.name);
-        const traits: ItemTrait[] = this.system.traits?.value ?? [];
-        const traitOptions = traits.map((t) => `trait:${t}`);
+
+        const traitOptions = ((): string[] => {
+            const traits = this.system.traits?.value ?? [];
+            // Additionally include annotated traits without their annotations
+            const damageType = Object.keys(CONFIG.PF2E.damageTypes).join("|");
+            const diceOrNumber = /-(?:[0-9]*d)?[0-9]+(?:-min)?$/;
+            const versatile = new RegExp(`-(?:b|p|s|${damageType})$`);
+            const deannotated = traits
+                .filter((t) => diceOrNumber.test(t) || versatile.test(t))
+                .map((t) => t.replace(diceOrNumber, "").replace(versatile, ""));
+            return [traits, deannotated].flat().map((t) => `trait:${t}`);
+        })();
+
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const options = [
             `${delimitedPrefix}id:${this.id}`,
@@ -91,7 +101,11 @@ class ItemPF2e extends Item<ActorPF2e> {
             ...traitOptions.map((t) => `${delimitedPrefix}${t}`),
         ];
 
-        if ("level" in this.system) options.push(`${delimitedPrefix}level:${this.system.level.value}`);
+        const level = "level" in this ? this.level : "level" in this.system ? this.system.level.value : null;
+        if (typeof level === "number") {
+            options.push(`${delimitedPrefix}level:${level}`);
+        }
+
         if (["item", ""].includes(prefix)) {
             const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
             options.unshift(`${delimitedPrefix}type:${itemType}`);
@@ -281,7 +295,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
             htmlOptions.rollData = mergeObject(this.getRollData(), htmlOptions.rollData ?? {});
-            chatData.description.value = await game.pf2e.TextEditor.enrichHTML(chatData.description.value, {
+            chatData.description.value = await TextEditor.enrichHTML(chatData.description.value, {
                 ...htmlOptions,
                 async: true,
             });
@@ -411,7 +425,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
             const items = data.map((source) => {
                 if (!(context.keepId || context.keepEmbeddedIds)) {
-                    delete source._id; // Allow a random ID to be set by rule elements, which may toggle on `keepId`
+                    source._id = randomID();
                 }
                 return new ItemPF2e(source, { parent: actor }) as Embedded<ItemPF2e>;
             });
@@ -433,7 +447,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         // Process item preCreate rules for all items that are going to be added
         // This may add additional items (such as via GrantItem)
-        for (const item of items.filter((item) => item.system.rules?.length)) {
+        for (const item of items) {
             // Pre-load this item's self: roll options for predication by preCreate rule elements
             item.prepareActorData?.();
 

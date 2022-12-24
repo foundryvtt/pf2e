@@ -126,13 +126,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -234,13 +228,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -808,7 +796,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The shoal linnorm exhales scalding steam that deals [[/r {12d8}[fire]]]{12d8 fire damage} in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:36|basic:true] save). The steam lingers until the end of the linnorm's next turn; anyone who enters the area or begins their turn in the area takes [[/r {6d8}[fire]]]{6d8 fire damage} (@Check[type:reflex|dc:36|traits:damaging-effect] save negates). During this time, the steam is so thick that it impedes movement as well as sight, turning the area into difficult terrain. All creatures in the steam become @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the steam become concealed to creatures within it.</p>\n<p>The shoal linnorm can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The shoal linnorm exhales scalding steam that deals [[/r 12d8[fire]]] damage in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:36|basic:true] save). The steam lingers until the end of the linnorm's next turn; anyone who enters the area or begins their turn in the area takes [[/r 6d8[fire]]] damage (@Check[type:reflex|dc:36|traits:damaging-effect] save negates). During this time, the steam is so thick that it impedes movement as well as sight, turning the area into difficult terrain. All creatures in the steam become @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the steam become concealed to creatures within it.</p>\n<p>The shoal linnorm can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -853,7 +841,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:36]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r {4d6}[fire]]]{4d6 fire damage} and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[fire]]]{6d6 fire damage} and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round).</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:36]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r 4d6[fire]]] damage and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 6d6[fire]]] damage and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1118,9 +1106,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {

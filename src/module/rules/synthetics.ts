@@ -30,7 +30,9 @@ interface RuleElementSynthetics {
     strikes: Map<string, Embedded<WeaponPF2e>>;
     striking: Record<string, StrikingSynthetic[]>;
     targetMarks: Map<TokenDocumentUUID, string>;
-    tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name" | "texture">>;
+    tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name">> & {
+        texture?: { src: VideoPath } | { src: VideoPath; scaleX: number; scaleY: number };
+    };
     weaponPotency: Record<string, PotencySynthetic[]>;
     preparationWarnings: {
         /** Adds a new preparation warning to be printed when flushed. These warnings are de-duped. */

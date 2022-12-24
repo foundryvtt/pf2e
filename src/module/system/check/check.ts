@@ -21,6 +21,7 @@ import { LocalizePF2e } from "../localize";
 import { TextEditorPF2e } from "../text-editor";
 import { CheckRollContext } from "./types";
 import { StrikeAttackRoll } from "./strike/attack-roll";
+import { isCheckContextFlag } from "@module/chat-message/helpers";
 
 interface RerollOptions {
     heroPoint?: boolean;
@@ -45,6 +46,7 @@ class CheckPF2e {
         // Eventually the event parameter will go away entirely
         if (event) mergeObject(context, eventToRollParams(event));
         context.skipDialog ??= !game.user.settings.showRollDialogs;
+        context.createMessage ??= true;
 
         // System code must pass a set, but macros and modules may instead pass an array
         if (Array.isArray(context.options)) context.options = new Set(context.options);
@@ -146,14 +148,16 @@ class CheckPF2e {
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
         const dosAdjustments =
-            context.dosAdjustments?.reduce((record, data) => {
-                for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
-                    if (data.adjustments[outcome]) {
-                        record[outcome] = deepClone(data.adjustments[outcome]);
+            context.dosAdjustments
+                ?.filter((a) => a.predicate?.test(rollOptions) ?? true)
+                .reduce((record, data) => {
+                    for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
+                        if (data.adjustments[outcome]) {
+                            record[outcome] = deepClone(data.adjustments[outcome]);
+                        }
                     }
-                }
-                return record;
-            }, {} as DegreeAdjustmentsRecord) ?? {};
+                    return record;
+                }, {} as DegreeAdjustmentsRecord) ?? {};
         const degree = context.dc ? new DegreeOfSuccess(roll, context.dc, dosAdjustments) : null;
 
         if (degree) {
@@ -240,7 +244,7 @@ class CheckPF2e {
 
             const speaker = ChatMessagePF2e.getSpeaker({ actor: context.actor, token: context.token });
             const { rollMode } = contextFlag;
-            const create = context.createMessage ?? true;
+            const create = context.createMessage;
 
             return roll.toMessage({ speaker, flavor, flags }, { rollMode, create }) as MessagePromise;
         })();
@@ -373,7 +377,7 @@ class CheckPF2e {
 
         const systemFlags = deepClone(message.flags.pf2e);
         const context = systemFlags.context;
-        if (!context || context.type === "damage-roll") return;
+        if (!isCheckContextFlag(context)) return;
 
         context.skipDialog = true;
         context.isReroll = true;

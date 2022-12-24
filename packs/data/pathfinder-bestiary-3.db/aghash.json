@@ -234,13 +234,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -354,13 +348,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -467,13 +455,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -578,11 +560,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -690,13 +669,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -796,11 +769,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -1159,7 +1129,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>While aghashes hate all mortals, they particularly despise beautiful objects and beautiful or charismatic mortals. When not in physical peril, an aghash is compelled to destroy art and other works of beauty. An aghash can't enter an area of pristine beauty without first marring it in some way.</p>\n<p>Given a choice, an aghash attacks a foe with the highest Charisma score first. If barred from doing so by force or some magical effect, they take [[/r {1d6}[mental]]]{1d6 mental damage} at the end of their turn.</p>"
+                    "value": "<p>While aghashes hate all mortals, they particularly despise beautiful objects and beautiful or charismatic mortals. When not in physical peril, an aghash is compelled to destroy art and other works of beauty. An aghash can't enter an area of pristine beauty without first marring it in some way.</p>\n<p>Given a choice, an aghash attacks a foe with the highest Charisma score first. If barred from doing so by force or some magical effect, they take [[/r 1d6[mental]]] damage at the end of their turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1199,7 +1169,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The aghash fixes their gaze on one creature they can see within 20 feet. The creature must attempt a @Check[type:will|dc:21|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {2d6}[mental]]]{2d6 mental damage} and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {4d6}[mental]]]{4d6 mental damage} and becomes either @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2} or @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1} (the aghash's choice).</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {8d6}[mental]]]{8d6 mental damage} and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2}.</p>"
+                    "value": "<p>The aghash fixes their gaze on one creature they can see within 20 feet. The creature must attempt a @Check[type:will|dc:21|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 2d6[mental]]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes [[/r 4d6[mental]]] damage and becomes either @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2} or @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1} (the aghash's choice).</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 8d6[mental]]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2} and @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1248,7 +1218,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The aghash creates a temporary sandstorm in a @Template[type:emanation|distance:30] that lasts for 1 minute.</p>\n<p>Creatures within the emanation take a -4 circumstance penalty to Perception checks and must succeed at a @Check[type:fortitude|dc:18] save. On a failure, they're forced to hold their breath or else they start suffocating. A creature within the sandstorm at the end of its turn takes [[/r {1d6}[slashing]]]{1d6 slashing damage}.</p>\n<p>Divs are immune to all effects of an aghash's sandstorm.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Sandstorm]{Effect: Sandstorm}</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The aghash creates a temporary sandstorm in a @Template[type:emanation|distance:30] that lasts for 1 minute.</p>\n<p>Creatures within the emanation take a -4 circumstance penalty to Perception checks and must succeed at a @Check[type:fortitude|dc:18] save. On a failure, they're forced to hold their breath or else they start suffocating. A creature within the sandstorm at the end of its turn takes [[/r 1d6[slashing]]] damage.</p>\n<p>Divs are immune to all effects of an aghash's sandstorm.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Sandstorm]{Effect: Sandstorm}</p>"
                 },
                 "requirements": {
                     "value": ""

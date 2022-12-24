@@ -23,7 +23,7 @@
                 "damageRolls": {
                     "VTOP8y9ReemfjeE2": {
                         "damage": "3d10+15",
-                        "damageType": "chaotic"
+                        "damageType": "bludgeoning"
                     }
                 },
                 "description": {
@@ -190,7 +190,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The soul slime is using Soul Facsimile to adopt a creature's form</p>\n<hr />\n<p><strong>Effect</strong> The soul slime releases an incoherent wail composed of countless overlapping noises made by the creatures whose souls it has siphoned. This disturbing cacophony deals [[/r {6d10}[mental]+{6d10}[sonic]]]{6d10 mental damage and 6d10 sonic damage} to each creature in a @Template[type:burst|distance:30]{30-foot-radius burst} centered on the soul slime (@Check[type:will|dc:37|basic:true]). On a failed save, a creature is additionally @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2}. The soul slime can't use Disturbing Wail again for [[/br 1d4 #Disturbing Wail Recharge]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Requirements</strong> The soul slime is using Soul Facsimile to adopt a creature's form</p>\n<hr />\n<p><strong>Effect</strong> The soul slime releases an incoherent wail composed of countless overlapping noises made by the creatures whose souls it has siphoned. This disturbing cacophony deals [[/r {6d10[mental],6d10[sonic]}]]{6d10 mental damage and 6d10 sonic damage} to each creature in a @Template[type:burst|distance:30]{30-foot-radius burst} centered on the soul slime (@Check[type:will|dc:37|basic:true]). On a failed save, a creature is additionally @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2}. The soul slime can't use Disturbing Wail again for [[/br 1d4 #Disturbing Wail Recharge]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -236,7 +236,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>@Check[type:reflex|dc:40], [[/r {5d10}[bludgeoning]]]{5d10 Bludgeoning damage}, Escape DC 40, Rupture 20</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                    "value": "<p>@Check[type:reflex|dc:40], [[/r 5d10[bludgeoning]]] damage, Escape DC 40, Rupture 20</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -276,7 +276,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A soul slime's touch siphons away portions of a creature's soul. Its Strikes affect incorporeal creatures with the effects of a ghost touch property rune and deal [[/r {3d6}[negative]]]{3d6 negative damage} to living creatures and [[/r {3d6}[positive]]]{3d6 positive damage} to undead and other creatures with negative healing.</p>"
+                    "value": "<p>A soul slime's touch siphons away portions of a creature's soul. Its Strikes affect incorporeal creatures with the effects of a ghost touch property rune and deal [[/r 3d6[negative]]] damage to living creatures and [[/r 3d6[positive]]] damage to undead and other creatures with negative healing.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -357,6 +357,34 @@
                 }
             },
             "type": "action"
+        },
+        {
+            "_id": "etLy3o0K3NXWiGjM",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 35
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "lore"
         }
     ],
     "name": "Soul Slime",
@@ -427,6 +455,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Soul slimes are swirling, blue-gray masses of protoplasm that feed on the quintessence contained within souls. Typically, soul slimes acquire this quintessence by consuming the living, the undead, or souls imprisoned in other objects, although soul slimes can also feed on the quintessence of the Outer Planes and their occupants. Soul slimes digest these siphoned souls over decades. As long as a portion of a soul remains undigested, a soul slime can adopt the shape and use the vocalizations of that soul—a tactic soul slimes routinely adopt to get close to their prey while hunting. As soul slimes lack the intelligence to truly impersonate or mimic the souls they digest, they are obvious facsimiles and are entirely incapable of speech.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder #186: Ghost King's Rage"
             }
         },

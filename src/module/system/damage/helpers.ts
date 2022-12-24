@@ -1,7 +1,7 @@
-import { StrikeSelf, AttackTarget } from "@actor/types";
-import { DegreeOfSuccessString } from "@system/degree-of-success";
-import { BaseRollContext } from "@system/rolls";
-import { DamageDieSize } from "./types";
+import { fontAwesomeIcon } from "@util";
+import { DamageInstance, DamageRoll } from "./roll";
+import { ArithmeticExpression, Grouping } from "./terms";
+import { DamageCategory, DamageDieSize } from "./types";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values";
 
 function nextDamageDieSize(next: { upgrade: DamageDieSize }): DamageDieSize;
@@ -17,7 +17,7 @@ const DamageCategorization = {
      * Map a damage type to it's corresponding damage category. If the type has no category, the type itself will be
      * returned.
      */
-    fromDamageType: (damageType: string) => BASE_DAMAGE_TYPES_TO_CATEGORIES[damageType] || damageType,
+    fromDamageType: (damageType: string): DamageCategory | null => BASE_DAMAGE_TYPES_TO_CATEGORIES[damageType] ?? null,
 
     /** Get a set of all damage categories (both base and custom). */
     allCategories: () => new Set(Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES)),
@@ -37,15 +37,58 @@ const DamageCategorization = {
     },
 } as const;
 
-interface DamageRollContext extends BaseRollContext {
-    type: "damage-roll";
-    outcome?: DegreeOfSuccessString;
-    self?: StrikeSelf | null;
-    target?: AttackTarget | null;
-    options: Set<string>;
-    secret?: boolean;
-    /** The domains this roll had, for reporting purposes */
-    domains?: string[];
+/** Create a span element for displaying splash damage */
+function renderSplashDamage(rollTerm: RollTerm): HTMLElement {
+    const span = document.createElement("span");
+    span.className = "splash";
+    span.title = game.i18n.localize("PF2E.TraitSplash");
+    const icon = fontAwesomeIcon("burst");
+    icon.classList.add("icon");
+    span.append(rollTerm.expression, " ", icon);
+
+    return span;
 }
 
-export { DamageCategorization, DamageRollContext, nextDamageDieSize };
+function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm[] {
+    const childTerms =
+        term instanceof Grouping ? [term.term] : term instanceof ArithmeticExpression ? term.operands : [];
+    return [
+        term.flavor.split(",").includes(flavor) ? [term] : [],
+        childTerms.map((t) => deepFindTerms(t, { flavor })).flat(),
+    ].flat();
+}
+
+/** A fast but weak check of whether a string looks like a damage-roll formula */
+function looksLikeDamageFormula(formula: string): boolean {
+    if (formula.includes("d20")) return false;
+    return (
+        // Any single dice pool
+        /^\{[^}]+}$/.test(formula) ||
+        // Simple dice expression followed by a flavor expression
+        /^(?:\d+(?:d\d+)?)(?:\[[a-z]+(?:,[a-z]+)?\])$/.test(formula) ||
+        // Parenthesized expression followed by a flavor expression
+        /^\([^)]+\)\[[a-z]+(?:,[a-z]+)?\]$/.test(formula)
+    );
+}
+
+/** Create a representative Font Awesome icon from a damage roll */
+function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = true } = {}): HTMLElement {
+    const firstDice = roll.dice.at(0);
+    const glyph =
+        firstDice instanceof Die && [4, 8, 6, 10, 12].includes(firstDice.faces)
+            ? `dice-d${firstDice.faces}`
+            : firstDice
+            ? "dice-d20"
+            : "calculator";
+
+    return fontAwesomeIcon(glyph, { fixedWidth });
+}
+
+export {
+    DamageCategorization,
+    damageDiceIcon,
+    deepFindTerms,
+    looksLikeDamageFormula,
+    nextDamageDieSize,
+    renderSplashDamage,
+};

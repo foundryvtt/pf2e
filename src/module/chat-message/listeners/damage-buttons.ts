@@ -3,21 +3,15 @@ import { LocalizePF2e } from "@module/system/localize";
 
 /** Add apply damage buttons after a chat message is rendered */
 export const DamageButtons = {
-    append: async (message: ChatMessagePF2e, html: JQuery): Promise<void> => {
-        const $buttons = $(
-            await renderTemplate("systems/pf2e/templates/chat/damage/buttons.html", {
-                showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
-            })
-        );
-        html.find(".message-content").append($buttons);
-
-        const full = html.find("button.full-damage");
-        const half = html.find("button.half-damage");
-        const double = html.find("button.double-damage");
-        const triple = html.find("button.triple-damage");
-        const heal = html.find("button.heal-damage");
+    listen: async (message: ChatMessagePF2e, $html: JQuery): Promise<void> => {
+        const $buttons = $html.find(".damage-application");
+        const full = $buttons.find("button.full-damage");
+        const half = $buttons.find("button.half-damage");
+        const double = $buttons.find("button.double-damage");
+        const triple = $buttons.find("button.triple-damage");
+        const heal = $buttons.find("button.heal-damage");
         const contentSelector = `li.chat-message[data-message-id="${message.id}"] div.hover-content`;
-        const $shield = html
+        const $shield = $buttons
             .find("button.shield-block")
             .attr({ "data-tooltip-content": contentSelector })
             .tooltipster({
@@ -31,7 +25,7 @@ export const DamageButtons = {
                 theme: "crb-hover",
             });
         $shield.tooltipster("disable");
-        html.find("button.shield-block").attr({ title: LocalizePF2e.translations.PF2E.DamageButton.ShieldBlock });
+        $html.find("button.shield-block").attr({ title: LocalizePF2e.translations.PF2E.DamageButton.ShieldBlock });
         // Handle button clicks
         full.on("click", (event) => {
             applyDamage(message, 1, 0, event.shiftKey);

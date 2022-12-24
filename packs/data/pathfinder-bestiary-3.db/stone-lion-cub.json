@@ -125,11 +125,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -554,7 +551,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The cub touches and melds with its bonded vessel, bringing the statue to life. It can cease Inhabiting its Vessel by spending a single action, which has the concentrate trait. While Inhabiting the Vessel, it loses its fly Speed and gains:</p>\n<p><strong>Immunities</strong> healing, nonlethal</p>\n<p><strong>Resistances</strong> physical 3 (except bludgeoning)</p>\n<p><strong>Speed</strong> 20 feet; and the following Strike.</p>\n<ul>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">A</span> Jaws [[/r 1d20+10 #Jaws]]{+10}/[[/r 1d20+6 #Jaws]]{+6}/[[/r 1d20+2 #Jaws]]{+2} (agile), <strong>Damage</strong> [[/r {1d6+5}[bludgeoning]]]{1d6+5 bludgeoning damage} plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Grab]{Grab}.</li>\n</ul>"
+                    "value": "<p>The cub touches and melds with its bonded vessel, bringing the statue to life. It can cease Inhabiting its Vessel by spending a single action, which has the concentrate trait. While Inhabiting the Vessel, it loses its fly Speed and gains:</p>\n<p><strong>Immunities</strong> healing, nonlethal</p>\n<p><strong>Resistances</strong> physical 3 (except bludgeoning)</p>\n<p><strong>Speed</strong> 20 feet; and the following Strike.</p>\n<ul>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">A</span> Jaws [[/r 1d20+10 #Jaws]]{+10}/[[/r 1d20+6 #Jaws]]{+6}/[[/r 1d20+2 #Jaws]]{+2} (agile), <strong>Damage</strong> [[/r (1d6+5)[bludgeoning]]] damage plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Grab]{Grab}.</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -591,14 +588,10 @@
                         "predicate": [
                             "inhabit-vessel"
                         ],
-                        "type": "healing"
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            "inhabit-vessel"
-                        ],
-                        "type": "nonlethal"
+                        "type": [
+                            "healing",
+                            "nonlethal"
+                        ]
                     },
                     {
                         "except": "PF2E.ResistanceException.Bludgeoning",

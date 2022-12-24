@@ -216,7 +216,16 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         // Merge token overrides from REs into this document
         const { tokenOverrides } = this.actor.synthetics;
         this.name = tokenOverrides.name ?? this.name;
-        this.texture.src = tokenOverrides.texture?.src ?? this.texture.src;
+
+        if (tokenOverrides.texture) {
+            this.texture.src = tokenOverrides.texture.src;
+            if ("scaleX" in tokenOverrides.texture) {
+                this.texture.scaleX = tokenOverrides.texture.scaleX;
+                this.texture.scaleY = tokenOverrides.texture.scaleY;
+                this.flags.pf2e.autoscale = false;
+            }
+        }
+
         if (tokenOverrides.light) {
             this.light = new foundry.data.LightData(tokenOverrides.light, {
                 parent: this,

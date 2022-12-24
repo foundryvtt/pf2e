@@ -102,11 +102,11 @@
                         {{/each}}
                     {{/select}}
                 </select>
-                <select name="{{dataPath}}.area.areaType">
+                <select name="{{dataPath}}.area.type">
                     <option value=""></option>
-                    {{#select system.area.areaType}}
-                        {{#each @root.areaTypes as |label key|}}
-                            <option value="{{key}}">{{localize label}}</option>
+                    {{#select system.area.type}}
+                        {{#each @root.areaTypes as |label type|}}
+                            <option value="{{type}}">{{localize label}}</option>
                         {{/each}}
                     {{/select}}
                 </select>

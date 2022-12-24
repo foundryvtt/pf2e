@@ -127,11 +127,6 @@ a.foundry-href {
     padding: 1px 0.2em 0;
     white-space: nowrap;
     word-break: break-all;
-
-    &.with-repost {
-        border-right: none;
-        padding-right: 0;
-    }
 }
 
 /* ----------------------------------------- */
@@ -264,32 +259,29 @@ span[data-pf2-effect-area] {
 /* ----------------------------------------- */
 
 i[data-pf2-repost] {
+    @include quick-transition;
     background: var(--inline-repost-bg);
-    border: 2px outset var(--color-text-light-7);
     color: var(--color-text-dark-inactive);
-    font-size: 0.833em;
-    margin-left: 0.25em;
-    padding: 0.167em;
-    position: relative;
-    top: -0.125em; // Cover top border
+    border-left: 1px solid var(--color-border-dark-tertiary);
+    background: #FFF9;
+    padding: 2px;
+    margin-right: -3px;
+    margin-left: 2px;
+    text-shadow: none;
 
     &:hover {
-        color: var(--color-text-light-7);
-        text-shadow: none;
-    }
-
-    &:active {
-        border-style: inset;
+        color: white;
+        text-shadow: 0px 0px 2px black;
     }
 }
 
-[data-visibility]:is(div, em, h4, p, section, span, strong):not([data-visibility="all"]) {
+[data-visibility]:not([data-visibility="all"]) {
     border-radius: 1px;
     box-sizing: border-box;
     display: inline-block;
     line-height: 1em;
     outline: 1px dotted rgba(75, 74, 68, 0.5);
-    padding: 2px 1px 1px;
+    padding: 2px 1px 0px;
 
     /* ----------------------------------------- */
     /* GM Visibility Elements                    */

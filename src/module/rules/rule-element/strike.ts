@@ -2,7 +2,14 @@ import { CharacterPF2e, NPCPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { WeaponDamage, WeaponSource } from "@item/weapon/data";
-import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement, WeaponTrait } from "@item/weapon/types";
+import {
+    BaseWeaponType,
+    OtherWeaponTag,
+    WeaponCategory,
+    WeaponGroup,
+    WeaponRangeIncrement,
+    WeaponTrait,
+} from "@item/weapon/types";
 import { WEAPON_CATEGORIES, WEAPON_GROUPS } from "@item/weapon/values";
 import { DamageType } from "@system/damage";
 import { objectHasKey, setHasElement, sluggify } from "@util";
@@ -24,6 +31,10 @@ class StrikeRuleElement extends RuleElementPF2e {
 
     baseType: BaseWeaponType | null;
 
+    traits: WeaponTrait[];
+
+    otherTags: OtherWeaponTag[];
+
     range: {
         increment: number;
         max: number | null;
@@ -35,7 +46,16 @@ class StrikeRuleElement extends RuleElementPF2e {
         this.category = setHasElement(WEAPON_CATEGORIES, data.category) ? data.category : "unarmed";
         this.group = setHasElement(WEAPON_GROUPS, data.group) ? data.group : "brawling";
         this.baseType = objectHasKey(CONFIG.PF2E.baseWeaponTypes, data.baseType) ? data.baseType : null;
-        this.data.traits ??= [];
+
+        // Permit NPC attack traits to sneak in for battle forms
+        this.traits = Array.isArray(data.traits)
+            ? data.traits.filter((t): t is WeaponTrait => objectHasKey(CONFIG.PF2E.npcAttackTraits, t))
+            : [];
+
+        this.otherTags = Array.isArray(data.otherTags)
+            ? data.otherTags.filter((t): t is OtherWeaponTag => objectHasKey(CONFIG.PF2E.otherWeaponTags, t))
+            : [];
+
         this.range = this.#isValidRange(data.range)
             ? {
                   increment: data.range,
@@ -104,7 +124,7 @@ class StrikeRuleElement extends RuleElementPF2e {
                 damage,
                 range: (this.range?.increment ?? null) as WeaponRangeIncrement | null,
                 maxRange: this.range?.max ?? null,
-                traits: { value: this.data.traits, rarity: "common", custom: "" },
+                traits: { value: this.traits, otherTags: this.otherTags, rarity: "common", custom: "" },
                 options: { value: this.data.options ?? [] },
                 usage: { value: "held-in-one-hand" },
                 equipped: {
@@ -133,6 +153,7 @@ interface StrikeSource extends RuleElementSource {
     range?: unknown;
     maxRange?: unknown;
     traits?: unknown;
+    otherTags?: unknown;
     replaceAll?: unknown;
     replaceBasicUnarmed?: unknown;
     options?: unknown;
@@ -142,7 +163,6 @@ interface StrikeData extends RuleElementData {
     slug?: string;
     img?: ImagePath;
     damage?: { base?: WeaponDamage };
-    traits: WeaponTrait[];
     replaceAll: boolean;
     replaceBasicUnarmed: boolean;
     options?: string[];

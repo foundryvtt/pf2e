@@ -9,7 +9,7 @@ declare module foundry {
          *
          * @property _id          The _id which uniquely identifies this JournalEntry document
          * @property name         The name of this JournalEntry
-         * @property content      The HTML content of the JournalEntry
+         * @property pages        The pages contained within this JournalEntry document
          * @property [img]        An image file path which provides the artwork for this JournalEntry
          * @property folder       The _id of a Folder which contains this JournalEntry
          * @property [sort]       The numeric sort value which orders this JournalEntry relative to its siblings
@@ -19,12 +19,13 @@ declare module foundry {
         interface JournalEntrySource extends abstract.DocumentSource {
             _id: string;
             name: string;
+            pages: JournalEntryPageSource[];
             content: string;
             img: ImagePath;
             folder: string | null;
             sort: number;
             ownership: Record<string, PermissionLevel>;
-            flags: Record<string, unknown>;
+            flags: Record<string, Record<string, unknown>>;
         }
 
         class JournalEntryData<

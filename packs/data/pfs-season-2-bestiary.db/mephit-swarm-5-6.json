@@ -108,7 +108,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The mephit swarm breathes energy in a @Template[type:cone|distance:15] that deals [[/r {1d6}[acid] + {1d6}[cold] +{1d6}[electric] +{1d6}[fire]]]{1d6 acid, 1d6 cold, 1d6 electric, and 1d6 fire damage} to each creature within the area (@Check[type:reflex|dc:20|basic:true] save).</p>\n<p>The mephit swarm can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The mephit swarm breathes energy in a @Template[type:cone|distance:15] that deals [[/r {1d6[acid],1d6[cold],1d6[electric],1d6[fire]}]]{1d6 acid, 1d6 cold, 1d6 electric, and 1d6 fire damage} to each creature within the area (@Check[type:reflex|dc:20|basic:true] save).</p>\n<p>The mephit swarm can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -156,7 +156,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d8}[piercing]]]{2d8 piercing damage} (@Check[type:reflex|dc:20|basic:true] save).</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 2d8[piercing]]] damage (@Check[type:reflex|dc:20|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -371,14 +371,12 @@
             ],
             "dv": [
                 {
-                    "label": "Area Damage",
                     "type": "area-damage",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Splash Damage",
                     "type": "splash-damage",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {

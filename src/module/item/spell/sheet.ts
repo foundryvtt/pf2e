@@ -22,6 +22,15 @@ const DEFAULT_INTERVAL_SCALING: SpellHeighteningInterval = {
 };
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
+    override get id(): string {
+        const baseId = super.id;
+        const appliedOverlays = this.item.appliedOverlays;
+        if (this.item.isVariant && appliedOverlays) {
+            return `${baseId}-${[...appliedOverlays.keys()].join("-")}`;
+        }
+        return baseId;
+    }
+
     override async getData(options?: Partial<DocumentSheetOptions>): Promise<SpellSheetData> {
         const sheetData = await super.getData(options);
         const { isCantrip, isFocusSpell, isRitual } = this.item;
@@ -283,11 +292,21 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Set defaults for area properties or otherwise null out
+        if (formData["system.area.value"]) {
+            formData["system.area.type"] ||= "burst";
+        } else {
+            delete formData["system.area.value"];
+            delete formData["system.area.type"];
+            formData["system.area"] = null;
+        }
+
         // Handle closing of override spell variant sheets
         if (this.item.original && this.item.appliedOverlays!.has("override") && !this.rendered) {
             await this.item.original.overlays.updateOverride(this.item as Embedded<SpellPF2e>, formData);
             return;
         }
+
         super._updateObject(event, formData);
     }
 

@@ -124,13 +124,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": "50"
-                },
-                "areasize": {
-                    "value": "50 feet long by 50 feet wide"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -234,13 +228,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -361,11 +349,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -782,7 +767,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The kun inhales violently, sucking in heat and all creatures in the water in a @Template[type:cone|distance:60]. Creatures in the area must succeed at a @Check[type:fortitude|dc:33|traits:damaging-effect] save or take [[/r {10d8}[cold]]]{10d8 cold damage}. The kun can't Funnel again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is pulled 30 feet toward the kun.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is pulled 60 feet toward the kun.</p>"
+                    "value": "<p>The kun inhales violently, sucking in heat and all creatures in the water in a @Template[type:cone|distance:60]. Creatures in the area must succeed at a @Check[type:fortitude|dc:33|traits:damaging-effect] save or take [[/r 10d8[cold]]] damage. The kun can't Funnel again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is pulled 30 feet toward the kun.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is pulled 60 feet toward the kun.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -887,7 +872,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Huge, [[/r {3d12+7}[bludgeoning]]]{3d12+7 bludgeoning damage}, Rupture 30</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Huge, [[/r (3d12+7)[bludgeoning]]] damage, Rupture 30</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1172,9 +1157,8 @@
             ],
             "dv": [
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {

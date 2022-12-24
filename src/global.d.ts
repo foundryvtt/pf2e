@@ -7,9 +7,9 @@ import { CoinsPF2e } from "@item/physical/helpers";
 import { ActiveEffectPF2e } from "@module/active-effect";
 import { CompendiumBrowser, CompendiumBrowserSettings } from "@module/apps/compendium-browser";
 import { EffectsPanel } from "@module/apps/effects-panel";
+import { HotbarPF2e } from "@module/apps/hotbar";
 import { LicenseViewer } from "@module/apps/license-viewer";
-import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
-import { HotbarPF2e } from "@module/apps/ui/hotbar";
+import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/sidebar";
 import { WorldClock } from "@module/apps/world-clock";
 import { CanvasPF2e, EffectsCanvasGroupPF2e } from "@module/canvas";
 import { StatusEffects } from "@module/canvas/status-effects";
@@ -29,6 +29,7 @@ import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
 import {
     calculateXP,
+    editPersistent,
     launchTravelSheet,
     perceptionForSelected,
     rollActionMacro,
@@ -37,9 +38,8 @@ import {
 } from "@scripts/macros";
 import { ModuleArt, registerModuleArt } from "@scripts/register-module-art";
 import { remigrate } from "@scripts/system/remigrate";
-import { UserVisibility } from "@scripts/ui/user-visibility";
-import { EffectTracker } from "@system/effect-tracker";
 import { CheckPF2e } from "@system/check";
+import { EffectTracker } from "@system/effect-tracker";
 import { HomebrewSettingsKey, HomebrewTag } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
@@ -62,6 +62,7 @@ declare global {
                 launchTravelSheet: typeof launchTravelSheet;
                 perceptionForSelected: typeof perceptionForSelected;
                 stealthForSelected: typeof stealthForSelected;
+                editPersistent: typeof editPersistent;
             };
             system: {
                 moduleArt: {
@@ -187,6 +188,7 @@ declare global {
     }
 
     const BUILD_MODE: "development" | "production";
+    const ROLL_GRAMMAR: string;
 }
 
 type ConfiguredConfig = Config<

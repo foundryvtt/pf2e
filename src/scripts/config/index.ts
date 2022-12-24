@@ -134,7 +134,6 @@ const physicalDamageTypes = {
 
 const damageTypes: Record<DamageType, string> = {
     ...alignmentTraits,
-    ...elementalTraits,
     ...energyDamageTypes,
     ...physicalDamageTypes,
     mental: "PF2E.TraitMental",
@@ -197,6 +196,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...elementalTraits,
     ...magicSchools,
     "area-damage": "PF2E.TraitAreaDamage",
     auditory: "PF2E.TraitAuditory",
@@ -214,6 +214,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     light: "PF2E.TraitLight",
     magic: "PF2E.TraitMagic",
     magical: "PF2E.TraitMagical",
+    "misfortune-effects": "PF2E.TraitMisfortuneEffects",
     "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
     "nonmagical-attacks": "PF2E.TraitNonmagicalAttacks",
     "object-immunities": "PF2E.TraitObjectImmunities",
@@ -234,7 +235,9 @@ const weaknessTypes: Record<WeaknessType, string> = {
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...elementalTraits,
     "area-damage": "PF2E.TraitAreaDamage",
+    arrow: "PF2E.TraitArrowVulnerability",
     axe: "PF2E.TraitAxeVulnerability",
     "critical-hits": "PF2E.TraitCriticalHits",
     emotion: "PF2E.TraitEmotion",
@@ -254,6 +257,7 @@ const resistanceTypes: Record<ResistanceType, string> = {
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...elementalTraits,
     all: "PF2E.TraitAll",
     "area-damage": "PF2E.TraitAreaDamage",
     "critical-hits": "PF2E.TraitCriticalHits",
@@ -474,7 +478,7 @@ const traitsDescriptions = {
     halfling: "PF2E.TraitDescriptionHalfling",
     "half-elf": "PF2E.TraitDescriptionHalfElf",
     "half-orc": "PF2E.TraitDescriptionHalfOrc",
-    "jousting-d6": "PF2E.TraitDescriptionJoustingD6",
+    "jousting-d6": "PF2E.TraitDescriptionJousting",
     hampering: "PF2E.TraitDescriptionHampering",
     haunt: "PF2E.TraitDescriptionHaunt",
     healing: "PF2E.TraitDescriptionHealing",
@@ -1841,6 +1845,10 @@ export const PF2ECONFIG = {
             rulesBasedVision: {
                 name: "PF2E.SETTINGS.Automation.RulesBasedVision.Name",
                 hint: "PF2E.SETTINGS.Automation.RulesBasedVision.Hint",
+            },
+            iwr: {
+                name: "PF2E.SETTINGS.Automation.IWR.Name",
+                hint: "PF2E.SETTINGS.Automation.IWR.Hint",
             },
             effectExpiration: {
                 name: "PF2E.SETTINGS.Automation.EffectExpiration.Name",

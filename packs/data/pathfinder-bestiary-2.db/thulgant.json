@@ -234,13 +234,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -346,11 +340,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot burst"
+                    "type": "burst",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -469,13 +460,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -579,11 +564,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "10"
-                },
-                "areasize": {
-                    "value": "10-foot emanation"
+                    "type": "emanation",
+                    "value": 10
                 },
                 "category": {
                     "value": "spell"
@@ -685,11 +667,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "40"
-                },
-                "areasize": {
-                    "value": "40-foot emanation"
+                    "type": "emanation",
+                    "value": 40
                 },
                 "category": {
                     "value": "spell"
@@ -798,12 +777,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -901,13 +875,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1029,13 +997,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1140,13 +1102,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1248,13 +1204,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1359,13 +1309,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1488,11 +1432,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
+                    "type": "emanation",
                     "value": 30
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
                 },
                 "category": {
                     "value": "spell"
@@ -1896,7 +1837,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {2d6+17}[bludgeoning]]]{2d6+17 bludgeoning damage} and [[/r {1d6}[acid]]]{1d6 acid damage}, DC 40</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>[[/r (2d6+17)[bludgeoning]]] damage and [[/r 1d6[acid]]] damage, DC 40</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1936,7 +1877,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The thulgant hits the same enemy with two consecutive sting Strikes in the same round</p>\n<hr />\n<p><strong>Effect</strong> The thulgant deals [[/r {3d12+17}[mental]]]{3d12+17 mental damage} to the enemy. If the enemy is affected by thulgant venom, that poison gains the virulent trait.</p>"
+                    "value": "<p><strong>Requirements</strong> The thulgant hits the same enemy with two consecutive sting Strikes in the same round</p>\n<hr />\n<p><strong>Effect</strong> The thulgant deals [[/r (3d12+17)[mental]]] damage to the enemy. If the enemy is affected by thulgant venom, that poison gains the virulent trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2027,7 +1968,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {3d6}[poison]]]{3d6 poison damage} and the victim gains one of the following at random: @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1}, or @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[poison]]]{6d6 poison damage} and the victim gains two of the following at random: @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}, or @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {9d6}[poison]]]{9d6 poison damage} and the victim gains all three of the following: @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 3}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 3}, and @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 3} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 3d6[poison]]] damage and the victim gains one of the following at random: @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1}, or @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 6d6[poison]]] damage and the victim gains two of the following at random: @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}, or @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 9d6[poison]]] damage and the victim gains all three of the following: @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 3}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 3}, and @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 3} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2311,14 +2252,13 @@
                 "custom": "",
                 "value": [
                     "controlled",
-                    "fear effects"
+                    "fear-effects"
                 ]
             },
             "dr": [
                 {
-                    "label": "Mental",
                     "type": "mental",
-                    "value": "15"
+                    "value": 15
                 },
                 {
                     "exceptions": "except cold iron",
@@ -2328,9 +2268,8 @@
             ],
             "dv": [
                 {
-                    "label": "Lawful",
                     "type": "lawful",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "languages": {

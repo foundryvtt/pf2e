@@ -53,6 +53,24 @@
                 }
             }
         },
+        "htmlFields": [
+            "details.biography.appearance",
+            "details.biography.backstory",
+            "details.biography.birthPlace",
+            "details.biography.attitude",
+            "details.biography.beliefs",
+            "details.biography.likes",
+            "details.biography.dislikes",
+            "details.biography.catchphrases",
+            "details.biography.campaignNotes",
+            "details.biography.allies",
+            "details.biography.enemies",
+            "details.biography.organaizations",
+            "details.description",
+            "details.description.value",
+            "details.privateNotes",
+            "details.publicNotes"
+        ],
         "character": {
             "templates": [
                 "common"
@@ -230,6 +248,9 @@
                 },
                 "allSaves": {
                     "value": ""
+                },
+                "speed": {
+                    "details": ""
                 }
             },
             "saves": {
@@ -254,7 +275,8 @@
             },
             "details": {
                 "source": {
-                    "value": ""
+                    "value": "",
+                    "author": ""
                 },
                 "creatureType": "",
                 "blurb": "",
@@ -556,36 +578,6 @@
                     "value": 0
                 }
             },
-            "activatedEffect": {
-                "activation": {
-                    "type": "",
-                    "cost": 0,
-                    "condition": ""
-                },
-                "duration": {
-                    "value": null,
-                    "units": ""
-                },
-                "target": {
-                    "value": null,
-                    "units": "",
-                    "type": ""
-                },
-                "range": {
-                    "value": null,
-                    "long": null,
-                    "units": ""
-                },
-                "uses": {
-                    "value": 0,
-                    "max": 0,
-                    "per": null
-                },
-                "spell": {
-                    "data":null,
-                    "heightenedLevel":null
-                }
-            },
             "investable": {
                 "equipped": {
                     "invested": null
@@ -616,6 +608,10 @@
                 "modifiers": []
             }
         },
+        "htmlFields": [
+            "description.value",
+            "identification.data.description.value"
+        ],
         "backpack": {
             "templates": [
                 "common",
@@ -786,35 +782,20 @@
             "templates": [
                 "common",
                 "physical",
-                "activatedEffect",
                 "itemLevel"
             ],
             "consumableType": {
                 "value": "other"
             },
-            "uses": {
-                "value": 0,
-                "max": 0,
-                "per": null,
-                "autoUse": true,
-                "autoDestroy": true
-            },
             "charges": {
                 "value": 0,
-                "max": 0,
-                "_deprecated": true
+                "max": 0
             },
             "consume": {
-                "value": "",
-                "_deprecated": true
-            },
-            "autoUse": {
-                "value": true,
-                "_deprecated": true
+                "value": ""
             },
             "autoDestroy": {
-                "value": true,
-                "_deprecated": true
+                "value": true
             },
             "usage": {
                 "value": "held-in-one-hand"
@@ -924,9 +905,6 @@
             "actionType": {
                 "value": "passive"
             },
-            "actionCategory": {
-                "value": ""
-            },
             "actions": {
                 "value": null
             },
@@ -1005,9 +983,7 @@
             "range": {
                 "value": ""
             },
-            "area": {
-                "value": ""
-            },
+            "area": null,
             "time": {
                 "value": "2"
             },

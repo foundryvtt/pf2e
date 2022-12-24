@@ -127,11 +127,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
+                    "type": "cone",
                     "value": 15
-                },
-                "areasize": {
-                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -251,11 +248,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -374,13 +368,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -498,13 +486,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -622,13 +604,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1257,7 +1233,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes a blast of magma that deals [[/r {10d6}[fire]]]{10d6 fire damage} and [[/r {5d12}[bludgeoning]]]{5d12 bludgeoning damage} in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:40|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon breathes a blast of magma that deals [[/r 10d6[fire]]] damage and [[/r 5d12[bludgeoning]]] damage in a @Template[type:cone|distance:60] (@Check[type:reflex|dc:40|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1431,7 +1407,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Once per day, the dragon can spit a molten boulder at a target within 120 feet. This deals [[/r {12d6}[fire]]]{12d6 fire damage} and [[/r {5d12}[bludgeoning]]]{5d12 bludgeoning damage}, with a @Check[type:reflex|dc:42|basic:true] save. If the creature fails its save, it's encased in magma that instantly cools and has Hardness 10, HP 40, and BT 20. The encased creature can't breathe and is @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} (Escape DC 42).</p>"
+                    "value": "<p>Once per day, the dragon can spit a molten boulder at a target within 120 feet. This deals [[/r 12d6[fire]]] damage and [[/r 5d12[bludgeoning]]] damage, with a @Check[type:reflex|dc:42|basic:true] save. If the creature fails its save, it's encased in magma that instantly cools and has Hardness 10, HP 40, and BT 20. The encased creature can't breathe and is @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} (Escape DC 42).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1800,9 +1776,8 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold",
                     "type": "cold",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "languages": {

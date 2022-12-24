@@ -124,11 +124,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot burst"
+                    "type": "burst",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -257,13 +254,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -383,13 +374,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -764,7 +749,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The deghuun has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} with its tentacles</p>\n<hr />\n<p><strong>Effect</strong> The creature takes [[/r {4d8+17}[piercing]]]{4d8+17 piercing damage}.</p>"
+                    "value": "<p><strong>Requirements</strong> The deghuun has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} with its tentacles</p>\n<hr />\n<p><strong>Effect</strong> The creature takes [[/r (4d8+17)[piercing]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -801,7 +786,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The deghuun vents caustic smog for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>Any creature that ends its turn within 30 feet of the deghuun during this time takes [[/r {6d6}[fire]]]{6d6 fire damage} and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@Check[type:fortitude|dc:38]; the creature avoids the sickened condition on a critical success, or is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>\n<p>While sickened in this way, a creature takes a -2 status penalty to its saving throw against the deghuun's <em>@UUID[Compendium.pf2e.spells-srd.Hallucination]{Hallucination}</em>.</p>\n<p>Any creature that's in the smog is @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} and treats other creatures as concealed. Strong winds dissipate the smog.</p>"
+                    "value": "<p>The deghuun vents caustic smog for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p>Any creature that ends its turn within 30 feet of the deghuun during this time takes [[/r 6d6[fire]]] damage and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@Check[type:fortitude|dc:38]; the creature avoids the sickened condition on a critical success, or is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>\n<p>While sickened in this way, a creature takes a -2 status penalty to its saving throw against the deghuun's <em>@UUID[Compendium.pf2e.spells-srd.Hallucination]{Hallucination}</em>.</p>\n<p>Any creature that's in the smog is @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} and treats other creatures as concealed. Strong winds dissipate the smog.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1033,14 +1018,12 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold",
                     "type": "cold",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {

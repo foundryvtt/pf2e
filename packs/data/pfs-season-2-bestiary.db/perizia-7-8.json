@@ -124,13 +124,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": "50 feet long by 50 feet wide"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -234,13 +228,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": "50-foot burst"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -343,13 +331,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -447,18 +429,15 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/detect-alignment.webp",
-            "name": "Detect Alignment (Constant) (Evil or Good Only)",
+            "name": "Detect Alignment (Constant) (Good or Evil Only)",
             "sort": 500000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -564,11 +543,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -676,13 +652,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -803,11 +773,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -1477,7 +1444,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Effect</strong> Perizia goads a creature into making a wish she can twist. Though Perizia isn't a noble genie and doesn't have access to the full power of the <em>@UUID[Compendium.pf2e.spells-srd.Wish]{Wish}</em> spell, her aspirations for power and studies of wishcraft have given her a lesser ability to twist the desires of others into ruin. The creature chooses the type of wish: a wish for power, a wish for wealth, or a wish for happiness. Once the type of wish is chosen, the creature attempts a @Check[type:will|dc:26] save. The effects of all granted wishes end after 1 hour. After attempting a saving throw, a creature is temporarily immune to this ability for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature phrases its wish with the precision necessary to get a good outcome. The benefit it receives depends on the type of wish it made.</p>\n<ul>\n<li>Wish for power-A burst of water empowers the creature's attacks. The creature's attacks deal an additional [[/r {1d4}[bludgeoning]]]{1d4 bludgeoning damage}.</li>\n<li>Wish for wealth-A sack appears at the creature's waist, containing obvious fake coins and one of the following, of the creature's choice: 1 @UUID[Compendium.pf2e.equipment-srd.Healing Potion (Moderate)]{Healing Potion (Moderate)}, 1 @UUID[Compendium.pf2e.equipment-srd.Oil of Unlife (Moderate)]{Oil of Unlife (Moderate)} , or 5 vials of @UUID[Compendium.pf2e.equipment-srd.Bottled Lightning (Moderate)]{Bottled Lightning (Moderate)}. After 1 hour, all of these objects disappear.</li>\n<li>Wish for happiness-The creature feels hopeful and inspired, gaining a +1 status bonus to attack rolls and saves against fear effects.</li>\n</ul>\n<p><strong>Success</strong> The creature resists making the wish.</p>\n<p><strong>Failure</strong> The creature's wish is twisted to cause it harm. The penalty it receives depends on the type of wish it made.</p>\n<ul>\n<li>Wish for power-The creature's body is rapidly pushed to its limits of physical exertion and is @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued}.</li>\n<li>Wish for wealth-The creature's pockets and bags fill with temporary treasures that resist all attempts to discard. The creature is @UUID[Compendium.pf2e.conditionitems.Encumbered]{Encumbered}.</li>\n<li>Wish for happiness-Tiny flashes of pleasant emotions and positive memories flicker across the creature's mind, interspersing with reality in a profoundly disorienting manner. The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}, and can't reduce this condition until the effects of the wish end.</li>\n</ul>\n<p><strong>Critical Failure</strong> The creature phrases its wish poorly, and Perizia easily twists the outcome. In addition to the failure effect of the creature's chosen type of wish, the creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
+                    "value": "<p><strong>Effect</strong> Perizia goads a creature into making a wish she can twist. Though Perizia isn't a noble genie and doesn't have access to the full power of the <em>@UUID[Compendium.pf2e.spells-srd.Wish]{Wish}</em> spell, her aspirations for power and studies of wishcraft have given her a lesser ability to twist the desires of others into ruin. The creature chooses the type of wish: a wish for power, a wish for wealth, or a wish for happiness. Once the type of wish is chosen, the creature attempts a @Check[type:will|dc:26] save. The effects of all granted wishes end after 1 hour. After attempting a saving throw, a creature is temporarily immune to this ability for 24 hours.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature phrases its wish with the precision necessary to get a good outcome. The benefit it receives depends on the type of wish it made.</p>\n<ul>\n<li>Wish for power-A burst of water empowers the creature's attacks. The creature's attacks deal an additional [[/r 1d4[bludgeoning]]] damage.</li>\n<li>Wish for wealth-A sack appears at the creature's waist, containing obvious fake coins and one of the following, of the creature's choice: 1 @UUID[Compendium.pf2e.equipment-srd.Healing Potion (Moderate)]{Healing Potion (Moderate)}, 1 @UUID[Compendium.pf2e.equipment-srd.Oil of Unlife (Moderate)]{Oil of Unlife (Moderate)} , or 5 vials of @UUID[Compendium.pf2e.equipment-srd.Bottled Lightning (Moderate)]{Bottled Lightning (Moderate)}. After 1 hour, all of these objects disappear.</li>\n<li>Wish for happiness-The creature feels hopeful and inspired, gaining a +1 status bonus to attack rolls and saves against fear effects.</li>\n</ul>\n<p><strong>Success</strong> The creature resists making the wish.</p>\n<p><strong>Failure</strong> The creature's wish is twisted to cause it harm. The penalty it receives depends on the type of wish it made.</p>\n<ul>\n<li>Wish for power-The creature's body is rapidly pushed to its limits of physical exertion and is @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued}.</li>\n<li>Wish for wealth-The creature's pockets and bags fill with temporary treasures that resist all attempts to discard. The creature is @UUID[Compendium.pf2e.conditionitems.Encumbered]{Encumbered}.</li>\n<li>Wish for happiness-Tiny flashes of pleasant emotions and positive memories flicker across the creature's mind, interspersing with reality in a profoundly disorienting manner. The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}, and can't reduce this condition until the effects of the wish end.</li>\n</ul>\n<p><strong>Critical Failure</strong> The creature phrases its wish poorly, and Perizia easily twists the outcome. In addition to the failure effect of the creature's chosen type of wish, the creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
                 },
                 "requirements": {
                     "value": ""

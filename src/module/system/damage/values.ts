@@ -1,4 +1,4 @@
-import { DamageCategory } from "./types";
+import { DamageCategory, DamageType } from "./types";
 
 const PHYSICAL_DAMAGE_TYPES = ["bludgeoning", "piercing", "slashing", "bleed"] as const;
 const LIFE_ENERGY_DAMAGE_TYPES = ["positive", "negative"] as const;
@@ -69,24 +69,26 @@ const BASE_DAMAGE_TYPES_TO_CATEGORIES: Readonly<Record<string, DamageCategory>> 
     lawful: "alignment",
 } as const;
 
-const DAMAGE_TYPE_ICONS: Record<string, string | undefined> = {
+const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
+    bleed: "droplet",
     acid: "vial",
     bludgeoning: "hammer",
-    chaotic: "dizzy",
+    chaotic: "face-zany",
     cold: "snowflake",
     electricity: "bolt",
-    evil: "crow",
+    evil: "face-angry-horns",
     fire: "fire",
-    force: "hand-sparkles",
-    good: "dove",
-    lawful: "balance-scale",
+    force: "sparkles",
+    good: "face-smile-halo",
+    lawful: "scale-balanced",
     mental: "brain",
     negative: "skull",
     piercing: "bow-arrow",
     poison: "spider",
     positive: "sun",
-    slashing: "swords",
-    sonic: "volume-up",
+    slashing: "axe",
+    sonic: "waveform-lines",
+    untyped: null,
 };
 
 export {

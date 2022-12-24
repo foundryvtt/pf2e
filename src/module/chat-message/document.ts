@@ -52,7 +52,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** If this is a check or damage roll, it will have target information */
     get target(): { actor: ActorPF2e; token: Embedded<TokenDocumentPF2e> } | null {
-        const targetUUID = this.flags.pf2e.context?.target?.token;
+        const context = this.flags.pf2e.context;
+        if (!context) return null;
+        const targetUUID = "target" in context ? context.target?.token : null;
         if (!targetUUID) return null;
 
         const match = /^Scene\.(\w+)\.Token\.(\w+)$/.exec(targetUUID ?? "") ?? [];
@@ -80,7 +82,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** Does the message include a rerolled check? */
     get isReroll(): boolean {
         const context = this.flags.pf2e.context;
-        return !!context && context.type !== "damage-roll" && !!context.isReroll;
+        return !!context && "isReroll" in context && !!context.isReroll;
     }
 
     /** Does the message include a check that hasn't been rerolled? */
@@ -122,7 +124,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             const spellVariant = this.flags.pf2e.spellVariant;
             const castLevel = this.flags.pf2e.casting?.level ?? item.level;
             const modifiedSpell = item.loadVariant({ overlayIds: spellVariant?.overlayIds, castLevel });
-            return modifiedSpell ?? item.clone({ "system.location.heightenedLevel": castLevel }, { keepId: true });
+            return modifiedSpell ?? item;
         }
 
         return item;
@@ -201,7 +203,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
         const html = $html[0]!;
         if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
-            await DamageButtons.append(this, $html);
+            await DamageButtons.listen(this, $html);
         }
         CriticalHitAndFumbleCards.appendButtons(this, $html);
 

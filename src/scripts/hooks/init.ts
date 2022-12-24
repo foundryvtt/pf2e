@@ -1,6 +1,6 @@
 import { MystifiedTraits } from "@item/data/values";
-import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
-import { HotbarPF2e } from "@module/apps/ui/hotbar";
+import { HotbarPF2e } from "@module/apps/hotbar";
+import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/sidebar";
 import {
     AmbientLightPF2e,
     EffectsCanvasGroupPF2e,
@@ -17,8 +17,6 @@ import { registerFonts } from "@scripts/register-fonts";
 import { registerKeybindings } from "@scripts/register-keybindings";
 import { registerTemplates } from "@scripts/register-templates";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
-import { CheckRoll, StrikeAttackRoll } from "@system/check";
-import { DamageRoll } from "@system/damage/roll";
 import { registerSettings } from "@system/settings";
 import { htmlQueryAll } from "@util";
 
@@ -29,8 +27,6 @@ export const Init = {
 
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
-
-            CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll);
 
             // Assign canvas layer and placeable classes
             CONFIG.AmbientLight.layerClass = LightingLayerPF2e;

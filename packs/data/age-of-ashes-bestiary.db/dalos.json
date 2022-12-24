@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -237,13 +231,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -347,11 +335,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -633,7 +618,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {3d6}[fire]]]{3d6 fire damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 3d6[fire]]] damage (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -716,7 +701,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dalos uses an Interact action to pluck a rock from its body or the nearby environment, then uses its internal fires to heat a rock it's holding until the rock is red hot. A heated rock that hits a target on a ranged Strike deals an additional [[/r {4d6}[fire]]]{4d6 fire damage}.</p>\n<p>Once the dalos heats a rock, that rock retains its heat for 2 rounds before cooling.</p>"
+                    "value": "<p>The dalos uses an Interact action to pluck a rock from its body or the nearby environment, then uses its internal fires to heat a rock it's holding until the rock is red hot. A heated rock that hits a target on a ranged Strike deals an additional [[/r 4d6[fire]]] damage.</p>\n<p>Once the dalos heats a rock, that rock retains its heat for 2 rounds before cooling.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -775,7 +760,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dalos causes a volcanic explosion to erupt from its head, lobbing a mass of molten rock up to 100 feet. This lava bomb deals [[/r {6d8}[fire]+{6d8}[bludgeoning]]]{6d8 fire damage and 6d8 bludgeoning damage} to each creature in a @Template[type:burst|distance:20]{20-foot radius} of its impact point, with a @Check[type:reflex|dc:33|basic:true] save.</p>\n<p>The dalos can't use Lava Bomb again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dalos causes a volcanic explosion to erupt from its head, lobbing a mass of molten rock up to 100 feet. This lava bomb deals [[/r {6d8[fire],6d8[bludgeoning]}]]{6d8 fire damage and 6d8 bludgeoning damage} to each creature in a @Template[type:burst|distance:20]{20-foot radius} of its impact point, with a @Check[type:reflex|dc:33|basic:true] save.</p>\n<p>The dalos can't use Lava Bomb again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1035,14 +1020,12 @@
             ],
             "dv": [
                 {
-                    "label": "Cold",
                     "type": "cold",
-                    "value": "10"
+                    "value": 10
                 },
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
-                    "value": "10"
+                    "value": 10
                 }
             ],
             "languages": {

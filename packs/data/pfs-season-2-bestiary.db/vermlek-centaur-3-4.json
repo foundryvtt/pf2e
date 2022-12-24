@@ -124,13 +124,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -249,11 +243,9 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "varies"
+                    "details": "varies",
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -916,7 +908,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Vermleks cannot stand the sight of a good meal presented and then swiftly taken away. Whenever a dying creature within sight of the vermlek has its dying condition removed, the vermlek takes [[/r {1d6}[mental]]]{1d6 mental damage}.</p>"
+                    "value": "<p>Vermleks cannot stand the sight of a good meal presented and then swiftly taken away. Whenever a dying creature within sight of the vermlek has its dying condition removed, the vermlek takes [[/r 1d6[mental]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1142,7 +1134,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within 30 feet who can see the vermlek must succeed at a @Check[type:will|dc:20] save or become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p>Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
+                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[type:emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[type:will|dc:20] save or become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p>Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1383,19 +1375,16 @@
             "dr": [],
             "dv": [
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Good",
                     "type": "good",
-                    "value": "5"
+                    "value": 5
                 },
                 {
-                    "label": "Sonic",
                     "type": "sonic",
-                    "value": "5"
+                    "value": 5
                 }
             ],
             "languages": {

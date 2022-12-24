@@ -126,11 +126,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot burst"
+                    "type": "burst",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -269,13 +266,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -381,13 +372,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -494,11 +479,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -607,11 +589,9 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "varies"
+                    "details": "varies",
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -979,7 +959,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A nasurgeth's entropy grows even stronger underwater. All water within the aura is completely dark (as 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Darkness]{Darkness}</em>). Magical light with a counteract level of 4th level or lower, along with magical light cantrips, are suppressed. A living creature entering or starting its turn in the aura takes [[/r {4d6}[negative]]]{4d6 negative damage}, and the creature also takes an additional [[/r {2d10}[cold]]]{2d10 cold damage} if it's in water (@Check[type:fortitude|dc:39|basic:true]). If it fails, it's also @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute and pulled 10 feet toward the nasurgeth.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A nasurgeth's entropy grows even stronger underwater. All water within the aura is completely dark (as 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Darkness]{Darkness}</em>). Magical light with a counteract level of 4th level or lower, along with magical light cantrips, are suppressed. A living creature entering or starting its turn in the aura takes [[/r 4d6[negative]]] damage, and the creature also takes an additional [[/r 2d10[cold]]] damage if it's in water (@Check[type:fortitude|dc:39|basic:true]). If it fails, it's also @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute and pulled 10 feet toward the nasurgeth.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1023,7 +1003,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The nasurgeth takes slashing or piercing damage from a critical hit, or a swallowed creature cuts itself free</p>\n<hr />\n<p><strong>Effect</strong> Darkness and negative energy spill out from the nasurgeth's wound, dealing [[/r {8d8}[negative]]]{8d8 negative damage} to creatures within 20 feet (@Check[type:fortitude|dc:40|basic:true]).</p>"
+                    "value": "<p><strong>Trigger</strong> The nasurgeth takes slashing or piercing damage from a critical hit, or a swallowed creature cuts itself free</p>\n<hr />\n<p><strong>Effect</strong> Darkness and negative energy spill out from the nasurgeth's wound, dealing [[/r 8d8[negative]]] damage to creatures within 20 feet (@Check[type:fortitude|dc:40|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1530,13 +1510,13 @@
                 }
             ],
             "languages": {
-                "custom": "",
+                "custom": "Telepathy 100 feet",
                 "selected": [],
                 "value": [
                     "abyssal",
                     "common",
                     "infernal",
-                    "necril; telepathy 100 feet"
+                    "necril"
                 ]
             },
             "rarity": "common",

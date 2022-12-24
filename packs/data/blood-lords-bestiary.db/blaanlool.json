@@ -126,13 +126,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -236,13 +230,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -346,11 +334,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -701,7 +686,7 @@
                         ],
                         "flag": "ringOfEnergyResistance",
                         "key": "ChoiceSet",
-                        "prompt": "Choose an energy type",
+                        "prompt": "PF2E.SpecificRule.Prompt.EnergyType",
                         "selection": "cold"
                     },
                     {
@@ -740,22 +725,12 @@
             "name": "Sack of 5 Rocks",
             "sort": 800000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -763,16 +738,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -803,11 +773,6 @@
                     "value": {}
                 },
                 "quantity": 5,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": null,
@@ -815,11 +780,6 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -827,13 +787,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -1078,7 +1031,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A creature adjacent to the marsh giant is @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} in water at least 1 foot deep</p>\n<hr />\n<p><strong>Effect</strong> The marsh giant uses its gaff to shake the creature back and forth and hold it underwater. The giant attempts an Athletics check against the target's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes [[/r {6d6+14}[piercing]]]{6d6+14 piercing damage} and loses 5 rounds' worth of air if they were holding their breath.</p>\n<p><strong>Success</strong> The target takes [[/r {3d6+14}[piercing]]]{3d6+14 piercing damage} and loses 3 rounds' worth of air if they were holding their breath.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<p><strong>Critical Failure</strong> As failure, but the giant drops its gaff as well.</p>"
+                    "value": "<p><strong>Requirements</strong> A creature adjacent to the marsh giant is @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} in water at least 1 foot deep</p>\n<hr />\n<p><strong>Effect</strong> The marsh giant uses its gaff to shake the creature back and forth and hold it underwater. The giant attempts an Athletics check against the target's Fortitude DC.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes [[/r (6d6+14)[piercing]]] damage and loses 5 rounds' worth of air if they were holding their breath.</p>\n<p><strong>Success</strong> The target takes [[/r (3d6+14)[piercing]]] damage and loses 3 rounds' worth of air if they were holding their breath.</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<p><strong>Critical Failure</strong> As failure, but the giant drops its gaff as well.</p>"
                 },
                 "requirements": {
                     "value": ""

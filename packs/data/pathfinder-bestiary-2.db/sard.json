@@ -235,11 +235,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "360"
-                },
-                "areasize": {
-                    "value": "360-foot burst"
+                    "type": "burst",
+                    "value": 360
                 },
                 "category": {
                     "value": "spell"
@@ -343,13 +340,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": "2-mile-radius circle centered on you"
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -448,13 +439,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": "30-foot radius, 100-foot-tall cylinder"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -556,13 +541,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -665,13 +644,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1167,7 +1140,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the sard dies, its body explodes in a @Template[type:emanation|distance:30]. All creatures in the area take [[/r {10d6}[electricity]]]{10d6 electricity damage} and [[/r {10d6}[piercing]]]{10d6 piercing damage} (@Check[type:reflex|dc:43|basic:true] save). Any creature that takes piercing damage is also exposed to sard venom.</p>"
+                    "value": "<p>When the sard dies, its body explodes in a @Template[type:emanation|distance:30]. All creatures in the area take [[/r 10d6[electricity]]] damage and [[/r 10d6[piercing]]] damage (@Check[type:reflex|dc:43|basic:true] save). Any creature that takes piercing damage is also exposed to sard venom.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1255,7 +1228,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:41]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d6}[electricity]]]{2d6 electricity damage}, [[/r {2d6}[poison]]]{2d6 poison damage}, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {3d6}[electricity]]]{3d6 electricity damage}, [[/r {3d6}[poison]]]{3d6 poison damage}, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {4d6}[electricity]]]{4d6 electricity damage}, [[/r {4d6}[poison]]]{4d6 poison damage}, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 2} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:41]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> [[/r 2d6[electricity]]] damage, [[/r 2d6[poison]]] damage, and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 3d6[electricity]]] damage, [[/r 3d6[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 4d6[electricity]]] damage, [[/r 4d6[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 2} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1553,9 +1526,8 @@
             },
             "dr": [
                 {
-                    "label": "Fire",
                     "type": "fire",
-                    "value": "15"
+                    "value": 15
                 },
                 {
                     "exceptions": "except slashing",
@@ -1565,9 +1537,8 @@
             ],
             "dv": [
                 {
-                    "label": "Cold Iron",
                     "type": "coldiron",
-                    "value": "15"
+                    "value": 15
                 }
             ],
             "languages": {

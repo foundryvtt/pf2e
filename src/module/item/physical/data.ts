@@ -99,33 +99,6 @@ interface BulkData {
     per: number;
 }
 
-interface ActivatedEffectData {
-    activation: {
-        type: string;
-        cost: number;
-        condition: string;
-    };
-    duration: {
-        value: unknown;
-        units: string;
-    };
-    target: {
-        value: unknown;
-        units: string;
-        type: string;
-    };
-    range: {
-        value: unknown;
-        long: unknown;
-        units: unknown;
-    };
-    uses: {
-        value: number;
-        max: number;
-        per: number;
-    };
-}
-
 type IdentificationStatus = "identified" | "unidentified";
 
 interface MystifiedData {
@@ -202,7 +175,6 @@ interface Price extends PartialPrice {
 }
 
 export {
-    ActivatedEffectData,
     BasePhysicalItemData,
     BasePhysicalItemSource,
     Coins,

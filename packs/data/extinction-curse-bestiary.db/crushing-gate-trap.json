@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The stone rod is moved or either door is touched</p>\n<hr />\n<p><strong>Effect</strong> The two falling doors deal [[/r {6d12+35}[bludgeoning]]]{6d12+35 bludgeoning damage} (@Check[type:reflex|dc:37|basic:true] save) to all creatures within 15 feet of the gate. On a failure, a creature is also pinned beneath the door and immobilized until the door is moved (<span data-pf2-action=\"forceOpen\" data-pf2-dc=\"34\" data-pf2-glyph=\"A\" data-pf2-show-dc=\"gm\">Athletics</span>) or destroyed; each door has the same AC, Fortitude save, Hardness, and Hit Points as the trap itself. On a critical failure, the creature is trapped in such a way that it can't attempt to free itself. Moving or destroying one door doesn't help free anyone trapped by the other door.</p>"
+                    "value": "<p><strong>Trigger</strong> The stone rod is moved or either door is touched</p>\n<hr />\n<p><strong>Effect</strong> The two falling doors deal [[/r (6d12+35)[bludgeoning]]] damage (@Check[type:reflex|dc:37|basic:true] save) to all creatures within 15 feet of the gate. On a failure, a creature is also pinned beneath the door and @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} until the door is moved (@Check[type:athletics|dc:34|traits:action:force-open]) or destroyed; each door has the same AC, Fortitude save, Hardness, and Hit Points as the trap itself. On a critical failure, the creature is trapped in such a way that it can't attempt to free itself. Moving or destroying one door doesn't help free anyone trapped by the other door.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -51,6 +51,7 @@
             "ac": {
                 "value": 40
             },
+            "emitsSound": "encounter",
             "hardness": 26,
             "hasHealth": true,
             "hp": {
@@ -91,6 +92,7 @@
             }
         },
         "source": {
+            "author": "",
             "value": "Pathfinder #155: Lord of the Black Sands"
         },
         "statusEffects": [],
@@ -111,7 +113,9 @@
             "size": {
                 "value": "med"
             },
-            "value": []
+            "value": [
+                "trap"
+            ]
         }
     },
     "type": "hazard"

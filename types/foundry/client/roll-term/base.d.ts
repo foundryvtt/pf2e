@@ -5,14 +5,14 @@ declare global {
      * An abstract class which represents a single token that can be used as part of a Roll formula.
      * Every portion of a Roll formula is parsed into a subclass of RollTerm in order for the Roll to be fully evaluated.
      */
-    abstract class RollTerm<TData extends RollTermData = RollTermData> {
-        constructor({ options }?: { options?: TData });
+    abstract class RollTerm<TTermData extends RollTermData = RollTermData> {
+        constructor(termData?: TTermData);
 
         /** An object of additional options which describes and modifies the term. */
-        options: Record<string, unknown>;
+        options: RollOptions;
 
         /** An internal flag for whether the term has been evaluated */
-        protected _evaluated: boolean;
+        _evaluated: boolean;
 
         /** Is this term intermediate, and should be evaluated first as part of the simplification process? */
         isIntermediate?: boolean;
@@ -44,6 +44,9 @@ declare global {
 
         /** Optional flavor text which modifies and describes this term. */
         get flavor(): string;
+
+        /** Whether this term is entirely deterministic or contains some randomness. */
+        get isDeterministic(): boolean;
 
         /* -------------------------------------------- */
         /*  RollTerm Methods                            */
@@ -133,12 +136,12 @@ declare global {
          * Serialize the RollTerm to a JSON string which allows it to be saved in the database or embedded in text.
          * This method should return an object suitable for passing to the JSON.stringify function.
          */
-        toJSON(): TData;
+        toJSON(): TTermData;
     }
 
     interface RollTermData {
         class?: string;
-        options?: this;
+        options?: RollOptions;
         evaluated?: boolean;
     }
 

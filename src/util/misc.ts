@@ -23,6 +23,17 @@ function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
     return result;
 }
 
+/** Sorts an array given the natural sorting behavior of the result of a mapping function */
+function sortBy<T, J>(array: T[], mapping: (value: T) => J) {
+    const compareFn = (a: T, b: T): number => {
+        const value1 = mapping(a);
+        const value2 = mapping(b);
+        return value1 < value2 ? -1 : value1 === value2 ? 0 : 1;
+    };
+
+    return array.sort(compareFn);
+}
+
 /**
  * Given an array, adds a certain amount of elements to it
  * until the desired length is being reached
@@ -206,7 +217,7 @@ function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePa
 function getActionIcon(actionType: string | ActionCost | null): ImagePath;
 function getActionIcon(
     action: string | ActionCost | null,
-    fallback: ImagePath | null = "systems/pf2e/icons/default-icons/mystery-man.svg"
+    fallback: ImagePath | null = "systems/pf2e/icons/actions/Empty.webp"
 ): ImagePath | null {
     if (action === null) return actionImgMap["passive"];
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
@@ -280,9 +291,11 @@ function localizeList(items: string[]) {
 }
 
 /** Generate and return an HTML element for a FontAwesome icon */
+type FontAwesomeStyle = "solid" | "regular" | "duotone";
+
 function fontAwesomeIcon(
     glyph: string,
-    { style = "solid", fixedWidth = false }: { style?: "solid" | "regular"; fixedWidth?: boolean } = {}
+    { style = "solid", fixedWidth = false }: { style?: FontAwesomeStyle; fixedWidth?: boolean } = {}
 ): HTMLElement {
     const styleClass = `fa-${style}`;
     const glyphClass = glyph.startsWith("fa-") ? glyph : `fa-${glyph}`;
@@ -374,6 +387,7 @@ export {
     recursiveReplaceString,
     setHasElement,
     sluggify,
+    sortBy,
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,
