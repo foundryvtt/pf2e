@@ -1,4 +1,5 @@
 import { fontAwesomeIcon } from "@util";
+import { DamageInstance, DamageRoll } from "./roll";
 import { ArithmeticExpression, Grouping } from "./terms";
 import { DamageCategory, DamageDieSize } from "./types";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values";
@@ -70,4 +71,24 @@ function looksLikeDamageFormula(formula: string): boolean {
     );
 }
 
-export { DamageCategorization, deepFindTerms, looksLikeDamageFormula, nextDamageDieSize, renderSplashDamage };
+/** Create a representative Font Awesome icon from a damage roll */
+function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = true } = {}): HTMLElement {
+    const firstDice = roll.dice.at(0);
+    const glyph =
+        firstDice instanceof Die && [4, 8, 6, 10, 12].includes(firstDice.faces)
+            ? `dice-d${firstDice.faces}`
+            : firstDice
+            ? "dice-d20"
+            : "calculator";
+
+    return fontAwesomeIcon(glyph, { fixedWidth });
+}
+
+export {
+    DamageCategorization,
+    damageDiceIcon,
+    deepFindTerms,
+    looksLikeDamageFormula,
+    nextDamageDieSize,
+    renderSplashDamage,
+};

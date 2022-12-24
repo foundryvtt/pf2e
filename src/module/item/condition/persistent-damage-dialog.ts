@@ -1,47 +1,59 @@
 import { ActorPF2e } from "@actor";
-import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "@system/damage";
+import { damageDiceIcon, DamageType, DAMAGE_TYPE_ICONS } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
-import { htmlClosest, htmlQuery, htmlQueryAll, sortBy } from "@util";
-import { ConditionPF2e } from "./document";
+import { htmlClosest, htmlQuery, htmlQueryAll, pick, sortBy } from "@util";
+import { PersistentDamagePF2e } from "./document";
 
 class PersistentDamageDialog extends Application {
-    static override get defaultOptions(): ApplicationOptions {
-        const options = super.defaultOptions;
-        options.id = "persistent-dialog";
-        options.classes = ["persistent-damage-dialog"];
-        options.title = game.i18n.localize("PF2E.ConditionTypePersistent");
-        options.template = "systems/pf2e/templates/items/persistent-damage-dialog.hbs";
-        options.width = 380;
-        options.height = "auto";
-        return options;
-    }
-
-    constructor(private actor: ActorPF2e, options: Partial<FormApplicationOptions> = {}) {
+    constructor(private actor: ActorPF2e, options: Partial<ApplicationOptions> = {}) {
         super(options);
         actor.apps[this.appId] = this;
     }
 
-    /** Overriden to guarantee one persistent damage dialog per actor */
-    override get id() {
-        return "persistent-damage-dialog";
-    }
-
-    override async getData(): Promise<PersistentDialogSheetData> {
-        const existing = this.actor?.items.filter(
-            (i): i is Embedded<ConditionPF2e> => i.isOfType("condition") && i.slug === "persistent-damage"
-        );
+    static override get defaultOptions(): ApplicationOptions {
         return {
-            existing,
-            damageTypes: this.prepareDamageTypes(),
+            ...super.defaultOptions,
+            classes: ["persistent-damage-dialog"],
+            template: "systems/pf2e/templates/items/persistent-damage-dialog.hbs",
+            width: 380,
+            height: "auto",
         };
     }
 
-    prepareDamageTypes(): DamageTypeSheetData[] {
-        const types = [...DAMAGE_TYPES].map((type) => {
+    /** Override to guarantee one persistent damage dialog per actor */
+    override get id(): string {
+        return `persistent-damage-${this.actor.id}`;
+    }
+
+    override get title(): string {
+        return game.i18n.format("PF2E.Item.Condition.PersistentDamage.Dialog.Title", { actor: this.actor.name });
+    }
+
+    override async getData(): Promise<PersistentDialogData> {
+        const existing = this.actor.itemTypes.condition
+            .filter((c): c is Embedded<PersistentDamagePF2e> => c.slug === "persistent-damage")
+            .map((c) => ({
+                id: c.id,
+                bullet: damageDiceIcon(c.system.persistent.damage).outerHTML,
+                active: c.isActive,
+                ...pick(c.system.persistent, ["formula", "damageType", "dc"]),
+            }));
+
+        return {
+            existing,
+            damageTypes: this.#prepareDamageTypes(),
+        };
+    }
+
+    #prepareDamageTypes(): DamageTypeData[] {
+        const types = Object.keys(CONFIG.PF2E.damageTypes).map((type) => {
+            const labels: Record<string, string | undefined> = CONFIG.PF2E.damageTypes;
+            const icons: Record<string, string | null | undefined> = DAMAGE_TYPE_ICONS;
+            const faGlyph = icons[type] ?? "question";
             return {
                 type,
-                iconClass: `fa-${DAMAGE_TYPE_ICONS[type]}`,
-                label: game.i18n.localize(CONFIG.PF2E.damageTypes[type] ?? type),
+                iconClass: `fa-${faGlyph}`,
+                label: game.i18n.localize(labels[type] ?? type),
             };
         });
 
@@ -79,11 +91,11 @@ class PersistentDamageDialog extends Application {
             if (!section) return;
 
             const elements = this.#getInputElements(section);
-            const formula = elements.formula?.value.trim() ?? "";
+            const formula = elements.formula?.value.trim() || "1d6";
             const damageType = elements.damageType?.value;
             const dc = Number(elements.dc?.value) || 15;
 
-            if (formula === "" || !DamageRoll.validate(`(${formula})[${damageType}]`)) {
+            if (!DamageRoll.validate(`(${formula})[${damageType}]`)) {
                 elements.formula?.classList.add("invalid");
             } else {
                 const baseConditionSource = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
@@ -106,12 +118,21 @@ class PersistentDamageDialog extends Application {
     }
 }
 
-interface PersistentDialogSheetData {
-    existing: ConditionPF2e[];
-    damageTypes: DamageTypeSheetData[];
+interface PersistentDialogData {
+    existing: DamageEntryData[];
+    damageTypes: DamageTypeData[];
 }
 
-interface DamageTypeSheetData {
+interface DamageEntryData {
+    id: string;
+    bullet: string;
+    active: boolean;
+    formula: string;
+    damageType: DamageType;
+    dc: number;
+}
+
+interface DamageTypeData {
     type: string;
     iconClass: string;
     label: string;

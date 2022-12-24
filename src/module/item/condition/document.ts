@@ -3,7 +3,7 @@ import { ItemPF2e } from "@item";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
 import { ErrorPF2e } from "@util";
-import { ConditionData, ConditionSlug } from "./data";
+import { ConditionData, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
 import { DamageRoll } from "@system/damage/roll";
 
 class ConditionPF2e extends AbstractEffectPF2e {
@@ -66,14 +66,15 @@ class ConditionPF2e extends AbstractEffectPF2e {
     /** Ensure value.isValued and value.value are in sync */
     override prepareBaseData(): void {
         super.prepareBaseData();
+
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
 
-        if (this.system.persistent) {
-            const formula = `${this.system.persistent.formula}[${this.system.persistent.damageType}]`;
+        if (systemData.persistent) {
+            const formula = `${systemData.persistent.formula}[${systemData.persistent.damageType}]`;
             const roll = new DamageRoll(formula);
-            this.system.persistent.damage = roll;
-            this.system.persistent.expectedValue = roll.expectedValue;
+            systemData.persistent.damage = roll;
+            systemData.persistent.expectedValue = roll.expectedValue;
         }
     }
 
@@ -212,8 +213,12 @@ interface ConditionPF2e {
     get slug(): ConditionSlug;
 }
 
+interface PersistentDamagePF2e extends ConditionPF2e {
+    system: Omit<ConditionSystemData, "persistent"> & { persistent: PersistentDamageData };
+}
+
 interface ConditionModificationContext<T extends ConditionPF2e> extends DocumentModificationContext<T> {
     conditionValue?: number | null;
 }
 
-export { ConditionPF2e, ConditionModificationContext };
+export { ConditionPF2e, ConditionModificationContext, PersistentDamagePF2e };

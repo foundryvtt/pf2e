@@ -1,15 +1,24 @@
 .persistent-damage-dialog {
-    .existing-entries {
+    /** Work around Font Awesome styling bug present as of version 6.2 */
+    i.fa-fw {
+        min-width: 1em;
+    }
+
+    .entries {
         display: flex;
         flex-direction: column;
         gap: 0.125rem;
-        margin-bottom: 0.5rem;
+
+        &:not(.new) {
+            margin-bottom: 0.5rem;
+        }
     }
 
     .persistent-entry {
         display: flex;
         align-items: baseline;
         gap: 0.25rem;
+
         &.inactive .input-fields {
             input, select, label:not(:focus-within) {
                 span, i, &:not(:focus) {
@@ -20,8 +29,7 @@
         }
 
         a {
-            // Expand clickable area
-            padding: 0.125rem;
+            padding: 0.25em;
         }
     }
 
