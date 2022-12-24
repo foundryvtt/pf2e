@@ -10,7 +10,6 @@ import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } 
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers";
 import { ContainerPF2e } from "./container";
 import { FeatSource, ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
-import { ItemTrait } from "./data/base";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { PhysicalItemPF2e } from "./physical/document";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
@@ -81,8 +80,19 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Generate a list of strings for use in predication */
     getRollOptions(prefix = this.type): string[] {
         const slug = this.slug ?? sluggify(this.name);
-        const traits: ItemTrait[] = this.system.traits?.value ?? [];
-        const traitOptions = traits.map((t) => `trait:${t}`);
+
+        const traitOptions = ((): string[] => {
+            const traits = this.system.traits?.value ?? [];
+            // Additionally include annotated traits without their annotations
+            const damageType = Object.keys(CONFIG.PF2E.damageTypes).join("|");
+            const diceOrNumber = /-(?:[0-9]*d)?[0-9]+(?:-min)?$/;
+            const versatile = new RegExp(`-(?:b|p|s|${damageType})$`);
+            const deannotated = traits
+                .filter((t) => diceOrNumber.test(t) || versatile.test(t))
+                .map((t) => t.replace(diceOrNumber, "").replace(versatile, ""));
+            return [traits, deannotated].flat().map((t) => `trait:${t}`);
+        })();
+
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const options = [
             `${delimitedPrefix}id:${this.id}`,
