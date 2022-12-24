@@ -63,7 +63,12 @@ interface ConditionSystemSource extends ItemSystemSource {
 }
 
 interface ConditionSystemData extends ConditionSystemSource, Omit<ItemSystemData, "traits" | "slug"> {
-    persistent?: PersistentSourceData & { damage: DamageRoll; expectedValue: number };
+    persistent?: PersistentDamageData;
+}
+
+interface PersistentDamageData extends PersistentSourceData {
+    damage: DamageRoll;
+    expectedValue: number;
 }
 
 type ConditionValueData =
@@ -98,4 +103,4 @@ interface PersistentSourceData {
     dc: number;
 }
 
-export { ConditionData, ConditionSource, ConditionSlug };
+export { ConditionData, ConditionSource, ConditionSlug, ConditionSystemData, PersistentDamageData };
