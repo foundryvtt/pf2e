@@ -35,7 +35,7 @@ class DamageRoll extends AbstractDamageRoll {
 
     static override TOOLTIP_TEMPLATE = "systems/pf2e/templates/dice/damage-tooltip.hbs";
 
-    static override parse(formula: string, data: Record<string, unknown>): [InstancePool] {
+    static override parse(formula: string, data: Record<string, unknown>): InstancePool[] {
         const replaced = this.replaceFormulaData(formula, data, { missing: "0" });
         const poolData = ((): PoolTermData | null => {
             try {
@@ -45,12 +45,27 @@ class DamageRoll extends AbstractDamageRoll {
                 return null;
             }
         })();
-        if (poolData?.class !== "PoolTerm") {
+
+        if (!poolData) {
+            return [];
+        } else if (poolData.class !== "PoolTerm") {
             throw ErrorPF2e("A damage roll must consist of a single PoolTerm");
         }
+
         this.classifyDice(poolData);
 
         return [InstancePool.fromData(poolData)];
+    }
+
+    /** Ensure the roll is parsable as `PoolTermData` */
+    static override validate(formula: string): boolean {
+        const wrapped = formula.startsWith("{") ? formula : `{${formula}}`;
+        try {
+            const result = this.parser.parse(wrapped);
+            return isObject(result) && "class" in result && result.class === "PoolTerm";
+        } catch {
+            return false;
+        }
     }
 
     /** Identify each "DiceTerm" raw object with a non-abstract subclass name */
