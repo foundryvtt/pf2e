@@ -76,7 +76,7 @@ export class ConditionManager {
             // Sorted list of conditions.
             // First by active, then by base (lexicographically), then by value (descending).
 
-            const flattened = flatteneds.get(condition.slug) ?? {
+            const flattened = flatteneds.get(condition.key) ?? {
                 id: condition.id,
                 badge: condition.badge,
                 active: condition.isActive,
@@ -94,11 +94,11 @@ export class ConditionManager {
                 immunityFrom: [],
             };
 
-            if (!condition.isActive && flatteneds.has(condition.slug)) {
+            if (!condition.isActive && flatteneds.has(condition.key)) {
                 continue;
             }
 
-            flatteneds.set(condition.slug, flattened);
+            flatteneds.set(condition.key, flattened);
 
             // Update any references
             const systemData = condition.system;

@@ -10,6 +10,7 @@ import { RuleElementPF2e, RuleElements } from "@module/rules";
 import { DicePF2e } from "@scripts/dice";
 import {
     calculateXP,
+    editPersistent,
     encouragingWords,
     launchTravelSheet,
     perceptionForSelected,
@@ -60,7 +61,7 @@ export const SetGamePF2e = {
             actions,
             effectPanel: new EffectsPanel(),
             effectTracker: new EffectTracker(),
-            gm: { calculateXP, launchTravelSheet, perceptionForSelected, stealthForSelected },
+            gm: { calculateXP, launchTravelSheet, perceptionForSelected, stealthForSelected, editPersistent },
             licenseViewer: new LicenseViewer(),
             rollActionMacro,
             rollItemMacro,

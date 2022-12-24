@@ -4,10 +4,20 @@ import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
 import { ErrorPF2e } from "@util";
 import { ConditionData, ConditionSlug } from "./data";
+import { DamageRoll } from "@system/damage/roll";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
+        if (this.system.persistent) {
+            return { type: "value", value: this.system.persistent.formula };
+        }
+
         return this.system.value.value ? { type: "counter", value: this.system.value.value } : null;
+    }
+
+    /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
+    get key(): string {
+        return this.system.persistent ? `persistent-damage-${this.system.persistent.damageType}` : this.slug;
     }
 
     get appliedBy(): ItemPF2e | null {
@@ -58,6 +68,13 @@ class ConditionPF2e extends AbstractEffectPF2e {
         super.prepareBaseData();
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
+
+        if (this.system.persistent) {
+            const formula = `${this.system.persistent.formula}[${this.system.persistent.damageType}]`;
+            const roll = new DamageRoll(formula);
+            this.system.persistent.damage = roll;
+            this.system.persistent.expectedValue = roll.expectedValue;
+        }
     }
 
     override prepareSiblingData(): void {
@@ -75,15 +92,21 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
         // Deactivate conditions naturally overridden by this one
         if (this.system.overrides.length > 0) {
-            const overridden = conditions.filter((c) => this.system.overrides.includes(c.slug));
+            const overridden = conditions.filter((c) => this.system.overrides.includes(c.key));
             for (const condition of overridden) {
                 deactivate(condition);
             }
         }
 
-        const ofSameType = conditions.filter((c) => c !== this && c.slug === this.slug);
+        const ofSameType = conditions.filter((c) => c !== this && c.key === this.key);
         for (const condition of ofSameType) {
-            if (this.value && condition.value && this.value >= condition.value) {
+            if (condition.slug === "persistent-damage") {
+                const thisValue = this.system.persistent?.expectedValue ?? 0;
+                const otherValue = condition.system.persistent?.expectedValue ?? 0;
+                if (thisValue >= otherValue) {
+                    deactivate(condition);
+                }
+            } else if (this.value && condition.value && this.value >= condition.value) {
                 // Deactivate other conditions with a lower or equal value
                 deactivate(condition);
             } else if (!this.isLocked) {

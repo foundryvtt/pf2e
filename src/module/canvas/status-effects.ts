@@ -5,6 +5,7 @@ import { TokenPF2e } from "@module/canvas/token";
 import { EncounterPF2e } from "@module/encounter";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenDocumentPF2e } from "@scene";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
 
 /** Handle interaction with the TokenHUD's status effects menu */
 export class StatusEffects {
@@ -219,6 +220,12 @@ export class StatusEffects {
         const slug = icon.dataset.statusId;
         const { actor } = token;
         if (!(actor && slug)) return;
+
+        // Persistent damage goes through a dialog instead
+        if (slug === "persistent-damage") {
+            await new PersistentDialog(actor).render(true);
+            return;
+        }
 
         const condition = actor.itemTypes.condition.find(
             (c) => c.slug === slug && c.isInHUD && !c.system.references.parent
