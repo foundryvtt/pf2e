@@ -1844,6 +1844,10 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Automation.RulesBasedVision.Name",
                 hint: "PF2E.SETTINGS.Automation.RulesBasedVision.Hint",
             },
+            iwr: {
+                name: "PF2E.SETTINGS.Automation.IWR.Name",
+                hint: "PF2E.SETTINGS.Automation.IWR.Hint",
+            },
             effectExpiration: {
                 name: "PF2E.SETTINGS.Automation.EffectExpiration.Name",
                 hint: "PF2E.SETTINGS.Automation.EffectExpiration.Hint",
