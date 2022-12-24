@@ -73,6 +73,9 @@ class ConditionPF2e extends AbstractEffectPF2e {
         if (systemData.persistent) {
             const formula = `${systemData.persistent.formula}[${systemData.persistent.damageType}]`;
             const roll = new DamageRoll(formula);
+            const dc = game.user.isGM && systemData.persistent.dc !== 15 ? systemData.persistent.dc : null;
+            const localizationKey = `PF2E.Item.Condition.PersistentDamage.${dc !== null ? "NameWithDC" : "Name"}`;
+            this.name = game.i18n.format(localizationKey, { formula: roll.formula, dc });
             systemData.persistent.damage = roll;
             systemData.persistent.expectedValue = roll.expectedValue;
         }
