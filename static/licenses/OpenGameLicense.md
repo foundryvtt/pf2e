@@ -147,6 +147,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #163: Ruins of Gauntlight © 2021, Paizo Inc.; Authors: James Jacobs
     *  Pathfinder Adventure Path #164: Hands of the Devil © 2021, Paizo Inc.; Authors: Vanessa Hoskins
     *  Pathfinder Adventure Path #165: Eyes of Empty Death © 2021, Paizo Inc.; Authors: Stephen Radney-MacFarland
+	*  Abomination Vaults Adventure Path (Hardcover) © 2022, Paizo Inc.; Authors: Vanessa Hoskins, James Jacobs, and Stephen Radney-MacFarland with Ron Lundeen
     *  Fist of the Ruby Phoenix Player's Guide © 2021, Paizo Inc.; Author: Patrick Renie.
     *  Pathfinder Adventure Path #166: Despair on Danger Island © 2021, Paizo Inc.; Authors: Luis Loza
     *  Pathfinder Adventure Path #167: Ready? Fight! © 2021, Paizo Inc.; Authors: Stephen Radney-MacFarland
@@ -168,12 +169,21 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #180: The Smoking Gun © 2022, Paizo Inc.; Author: Cole Kronewitter.
     *  Blood Lords Player's Guide © 2022, Paizo Inc.; Author: Ron Lundeen
     *  Pathfinder Adventure Path #181: Zombie Feast © 2022, Paizo Inc.; Author: Mike Kimmel.
-    *  Pathfinder Adventure Path #181: Graveclaw © 2022, Paizo Inc.; Author: Jason Tondro.
-    *  Pathfinder Adventure Path #182: Field of Maidens © 2022, Paizo Inc.; Author: Jenny Jarzabski.
-    *  Pathfinder Adventure Path #183: The Ghouls Hunger © 2022, Paizo Inc.; Author: Leo Glass.
-    *  Pathfinder Adventure Path #184: A Taste of Ashes © 2022, Paizo Inc.; Author: Brian Duckwitz.
-    *  Pathfinder Adventure Path #185: Ghost King's Rage © 2022, Paizo Inc.; Author: Jessica Catalan.
+    *  Pathfinder Adventure Path #182: Graveclaw © 2022, Paizo Inc.; Author: Jason Tondro.
+    *  Pathfinder Adventure Path #183: Field of Maidens © 2022, Paizo Inc.; Author: Jenny Jarzabski.
+    *  Pathfinder Adventure Path #184: The Ghouls Hunger © 2022, Paizo Inc.; Author: Leo Glass.
+    *  Pathfinder Adventure Path #185: A Taste of Ashes © 2022, Paizo Inc.; Author: Brian Duckwitz.
+    *  Pathfinder Adventure Path #186: Ghost King's Rage © 2022, Paizo Inc.; Author: Jessica Catalan.
     *  Gatewalkers Player’s Guide © 2022, Paizo Inc.; Author: Patrick Renie.
+	*  Pathfinder Adventure Path #187: The Seventh Arch © 2023, Paizo Inc.; Author: James L. Sutter.
+	*  Pathfinder Adventure Path #188: They Watched The Stars © 2023, Paizo Inc.; Author: Jason Keeley.
+	*  Pathfinder Adventure Path #189: Dreamers Of The Nameless Spires © 2023, Paizo Inc.; Author: James Jacobs.
+	*  Stolen Fate Player's Guide © 2023, Paizo Inc.; Author: TBD
+	*  Pathfinder Adventure Path #190: The Choosing © 2023, Paizo Inc.; Author: Ron Lundeen.
+	*  Pathfinder Adventure Path #191: The Destiny War © 2023, Paizo Inc.; Author: Chris S. Sims.
+	*  Pathfinder Adventure Path #192: The Worst of All Possible Worlds © 2023, Paizo Inc.; Author: Luis Loza.
+	*  Sky King's Tomb Player's Guide © 2023, Paizo Inc.; Author: TBD
+	
 
 * Society
     * Pathfinder Society Quest #1: The Sandstone Secret © 2019, Paizo Inc.; Author: Linda Zayas-Palmer.
@@ -210,6 +220,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Bounty #18: From Family Lost © 2022, Paizo Inc.; Author: Alexi Greer
     * Pathfinder Society Bounty #19: Grim Tidings © 2022, Paizo Inc.; Author: Cat Evans
     * Pathfinder Society Bounty #20: Burden in Bloodcove © 2022, Paizo Inc.; Author: Dana Ebert
+	* Pathfinder Society Bounty #21: Against the Unliving © 2022, Paizo Inc.; Author: Sen H.H.S.
 
     * Pathfinder Society Intro #1: The Second Confirmation © 2021, Paizo Inc.; Author: Thurston Hillman.
     * Pathfinder Society Intro #2: United In Purpose © 2021, Paizo Inc.; Author: Brian Duckwitz.
@@ -240,6 +251,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #1-23: The Star-Crossed Court © 2020, Paizo Inc.; Author: Alex Riggs.
     * Pathfinder Society Scenario #1-24: Lightning Strikes, Stars Fall © 2020, Paizo Inc.; Author: Vanessa Hoskins.
     * Pathfinder Society Scenario #1-25: Grim Symphony © 2020, Paizo Inc.; Author: Eleanor Ferron.
+	
     * Pathfinder Society Scenario #2-00: The King in Thorns (Levels 1-2) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
     * Pathfinder Society Scenario #2-00: The King in Thorns (Levels 3-6) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
     * Pathfinder Society Scenario #2-00: The King in Thorns (Levels 7-8) © 2020, Paizo Inc.; Authors: Kate Baker and Dennis Muldoon
@@ -267,6 +279,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #2-22: Breaking the Storm: Excising Ruination © 2021, Paizo Inc.; Authors: Nicholas Wasko
     * Pathfinder Society Scenario #2-23: An Agent's Obligation © 2021, Paizo Inc.; Authors: Joshua Hennington
     * Pathfinder Society Scenario #2-24: Breaking the Storm: Parting Clouds © 2021, Paizo Inc.; Authors: Tineke Bolleman
+	
     * Pathfinder Society Scenario #3-01: Intro: Year of Shattered Sanctuaries © 2021, Paizo Inc.; Authors: Mike Kimmel
     * Pathfinder Society Scenario #3-02: The East Hill Haunting © 2021, Paizo Inc.; Authors: Nicole Heits
     * Pathfinder Society Scenario #3-03: Echoes of Despiration © 2021, Paizo Inc.; Authors: Nate Wright
@@ -290,6 +303,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #3-98: Expedition Into Pallid Peril (Levels 3-6) © 2022, Paizo Inc.; Authors: Rigby Bendele
     * Pathfinder Society Scenario #3-99: Fate in the Future (Levels 1-4) © 2021, Paizo Inc.; Authors: Jessica Catalan
     * Pathfinder Society Scenario #3-99: Fate in the Future (Levels 5-8) © 2021, Paizo Inc.; Authors: Jessica Catalan
+	
     * Pathfinder Society Scenario #4-01: Intro: Year of Boundless Wonder © 2022, Paizo Inc.; Authors: Mike Kimmel
     * Pathfinder Society Scenario #4-02: Return to the Grave © 2022, Paizo Inc.; Authors: Joseph Blomquist
     * Pathfinder Society Scenario #4-03: Linnorm's Legacy © 2022, Paizo Inc.; Authors: Jessica Catalan
@@ -297,6 +311,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Scenario #4-05: The Arclord Who Never Was © 2022, Paizo Inc.; Authors: Michael Bramnik
 	* Pathfinder Society Scenario #4-06: Signal from the Electric Library © 2022, Paizo Inc.; Authors: Letterio Mammoliti
 	* Pathfinder Society Scenario #4-07: A Most Wondrous Exchange! © 2022, Paizo Inc.; Authors: Kendra Leigh Speedling
+	* Pathfinder Society Scenario #4-08: Battle for Star's Fate © 2023, Paizo Inc.; Authors: Alex Speidel
+	* Pathfinder Society Scenario #4-09: Killer in the Golden Mask © 2023, Paizo Inc.; Authors: Michael Sayre
+	* Pathfinder Society Scenario #4-10: Arclord's Abode © 2023, Paizo Inc.; Authors: Isis Wozniakowska
+	* Pathfinder Society Scenario #4-11: Prisoners of the Electric Castle © 2023, Paizo Inc.; Authors: Jacob W. Michaels
 
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
