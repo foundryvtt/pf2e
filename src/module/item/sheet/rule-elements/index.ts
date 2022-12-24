@@ -1,4 +1,4 @@
-import { GrantItemSource } from "@module/rules/rule-element/grant-item/base";
+import { GrantItemSource } from "@module/rules/rule-element/grant-item/rule-element";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { tagify } from "@util";
 import { RuleElementForm } from "./base";
