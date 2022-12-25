@@ -79,6 +79,9 @@ class ConditionPF2e extends AbstractEffectPF2e {
             systemData.persistent.damage = roll;
             systemData.persistent.expectedValue = roll.expectedValue;
         }
+
+        const folder = CONFIG.PF2E.statusEffects.iconDir;
+        this.img = `${folder}${this.slug}.webp`;
     }
 
     override prepareSiblingData(): void {
