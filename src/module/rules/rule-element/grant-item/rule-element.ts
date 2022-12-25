@@ -37,9 +37,9 @@ class GrantItemRuleElement extends RuleElementPF2e {
         super(data, item, options);
 
         this.uuid = String(data.uuid);
-        this.replaceSelf = !!data.replaceSelf;
         this.reevaluateOnUpdate = !!data.reevaluateOnUpdate;
-        this.allowDuplicate = !!(data.allowDuplicate ?? true);
+        this.replaceSelf = this.reevaluateOnUpdate ? false : !!data.replaceSelf;
+        this.allowDuplicate = this.reevaluateOnUpdate ? false : !!(data.allowDuplicate ?? true);
         this.onDeleteActions = this.#getOnDeleteActions(data);
 
         const isValidPreselect = (p: Record<string, unknown>): p is Record<string, string | number> =>
@@ -60,6 +60,11 @@ class GrantItemRuleElement extends RuleElementPF2e {
     override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
         const { itemSource, pendingItems, context } = args;
         const ruleSource: GrantItemSource = args.ruleSource;
+
+        if (this.reevaluateOnUpdate && this.predicate.length === 0) {
+            ruleSource.ignored = true;
+            return this.failValidation("`reevaluateOnUpdate` may only be used with a predicate.");
+        }
 
         const uuid = this.resolveInjectedProperties(this.uuid);
         const grantedItem: ClientDocument | null = await (async () => {
@@ -166,9 +171,6 @@ class GrantItemRuleElement extends RuleElementPF2e {
             await this.actor.deleteEmbeddedDocuments("Item", [this.grantedId], { render: false });
             return;
         }
-
-        // A granted item can't replace its granter when done on actor update
-        this.replaceSelf = false;
 
         const itemSource = this.item.toObject();
         const ruleSource = itemSource.system.rules[this.sourceIndex ?? -1];
