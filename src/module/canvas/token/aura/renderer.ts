@@ -1,4 +1,4 @@
-import { AuraColors, AuraData } from "@actor/types";
+import { AuraData, AuraPart } from "@actor/types";
 import { TokenPF2e } from "..";
 import { EffectAreaSquare } from "../../effect-area-square";
 import { ItemTrait } from "@item/data/base";
@@ -19,8 +19,11 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Traits associated with this aura: used to configure collision detection */
     traits: Set<ItemTrait>;
 
-    /** Border and fill colors in hexadecimal */
-    private colors: TokenAuraColors;
+    /** Border color and alpha */
+    private border: TokenAuraPart;
+
+    /** Fill color and alpha. Named auraFill so as to not override Graphics.fill */
+    private auraFill: TokenAuraPart;
 
     /** Standard line thickness for circle shape and label markers */
     static readonly LINE_THICKNESS = 3;
@@ -29,7 +32,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         super();
 
         this.token = params.token;
-        this.colors = this.#convertColors(params.colors);
+        this.border = this.#convertPart(params.border, 0.75);
+        this.auraFill = this.#convertPart(params.fill, 0);
         this.radius = params.radius;
         this.radiusPixels = 0.5 * this.token.w + (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
         this.traits = new Set(params.traits);
@@ -90,8 +94,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         this.visible = false;
         if (!this.shouldRender) return;
 
-        this.beginFill(this.colors.fill, 0)
-            .lineStyle(AuraRenderer.LINE_THICKNESS, this.colors.border, 0.75)
+        this.beginFill(this.auraFill.color, this.auraFill.alpha ?? 0)
+            .lineStyle(AuraRenderer.LINE_THICKNESS, this.border.color, this.border.alpha ?? 0.75)
             .drawCircle(this.token.w / 2, this.token.h / 2, this.radiusPixels)
             .endFill();
 
@@ -111,29 +115,32 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         if (!(highlightLayer && shouldRender)) return;
 
         for (const square of this.squares) {
-            square.highlight(highlightLayer, this.colors);
+            square.highlight(highlightLayer, this.border, this.auraFill);
         }
         this.#drawLabel();
     }
 
     /**
-     * Convert HTML color strings to hexadecimal values
+     * Convert HTML color strings to hexadecimal values and use alpha values as is
      * Due to a bug in the core BaseGrid class, black (0) is treated as the color being excluded
      */
-    #convertColors(colors: AuraColors | null): TokenAuraColors {
+    #convertPart(part: AuraPart | null, defaultAlpha: number): TokenAuraPart {
         const user =
             game.users.find((u) => !!u.character && u.character.id === this.token.actor?.id) ??
             game.users.find((u) => u.isGM && u.active) ??
             game.user;
-        const userColor = Number(foundry.utils.Color.fromString(user.color ?? "#0000000")) || 0;
-
-        if (colors) {
+        const defaults = {
+            color: Number(foundry.utils.Color.fromString(user.color ?? "#0000000")) || 0,
+            alpha: defaultAlpha,
+        };
+        if (part) {
+            const color = foundry.utils.Color.fromString(part.color);
             return {
-                border: Number(foundry.utils.Color.fromString(colors.border)) || 0,
-                fill: Number(foundry.utils.Color.fromString(colors.fill)) || userColor,
+                color: Number(color),
+                alpha: part.alpha ?? defaults.alpha,
             };
         } else {
-            return { border: 0, fill: userColor };
+            return defaults;
         }
     }
 
@@ -158,9 +165,9 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     }
 }
 
-interface TokenAuraColors {
-    border: number;
-    fill: number;
+interface TokenAuraPart {
+    color: number;
+    alpha: number;
 }
 
 interface AuraRendererParams extends Omit<AuraData, "effects" | "traits"> {
@@ -168,4 +175,4 @@ interface AuraRendererParams extends Omit<AuraData, "effects" | "traits"> {
     traits: Set<ItemTrait>;
 }
 
-export { AuraRenderer, TokenAuraColors };
+export { AuraRenderer, TokenAuraPart };

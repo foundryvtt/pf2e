@@ -32,6 +32,7 @@ import { Migration812RestructureIWR } from "@module/migration/migrations/812-res
 import { Migration813NormalizeColdIron } from "@module/migration/migrations/813-normalize-cold-iron";
 import { Migration814CalculatedExpandedSplash } from "@module/migration/migrations/814-calculated-expanded-splash";
 import { Migration815ConsumableDataCleanup } from "@module/migration/migrations/815-consumable-data-cleanup";
+import { Migration818AddAlphasToAuraColors } from "@module/migration/migrations/818-add-alphas-to-aura-colors";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -67,6 +68,7 @@ const migrations: MigrationBase[] = [
     new Migration813NormalizeColdIron(),
     new Migration814CalculatedExpandedSplash(),
     new Migration815ConsumableDataCleanup(),
+    new Migration818AddAlphasToAuraColors(),
 ];
 
 global.deepClone = <T>(original: T): T => {

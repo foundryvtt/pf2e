@@ -5,18 +5,18 @@ import { ScenePF2e } from "@module/scene";
 
 /**
  * This is the base class for a migration.
- * If you make a change to the database schema (i.e. anything in template.json or data-definitions.ts),
+ * If you make a change to the database schema (i.e. anything in template.json or `src/module/.../types.ts`),
  * you should create a migration. To do so, there are several steps:
- * - Bump the schema number in system.json
+ * - Bump the schema number in MigrationRunnerBase.LATEST_SCHEMA_VERSION
  * - Make a class that inherits this base class and implements `updateActor` or `updateItem` using the
  *   new value of the schema number as the version
- * - Add this class to getAllMigrations() in src/module/migrations/index.ts
- * - Test that your changes work. We have unit tests in tests/module/migration.test.ts as well as you
- *   should add your migration to packs/run-migration
+ * - Add to the index in `src/module/migration/migrations/index.ts`
+ * - Add to the migrations array in `packs/scripts/run-migration.ts`
+ * - Test your changes work in a world, and make sure the unit tests in `tests/module/migration.test.ts` run.
  */
 abstract class MigrationBase {
     /**
-     * This is the schema version. Make sure it matches the new version in system.json
+     * This is the schema version, not the system version.
      */
     static readonly version: number;
 

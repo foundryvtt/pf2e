@@ -1,4 +1,4 @@
-import { TokenAuraColors } from "./token/aura";
+import { TokenAuraPart } from "@module/canvas/token/aura/renderer";
 
 /** A square (`PIXI.Rectangle`) with additional information about an effect area it's part of */
 export class EffectAreaSquare extends PIXI.Rectangle {
@@ -17,7 +17,7 @@ export class EffectAreaSquare extends PIXI.Rectangle {
         };
     }
 
-    highlight(layer: GridHighlight, colors: TokenAuraColors): void {
+    highlight(layer: GridHighlight, border: TokenAuraPart, fill: TokenAuraPart): void {
         // Don't bother highlighting if outside the map boundaries
         if (this.x < 0 || this.y < 0) return;
 
@@ -25,8 +25,9 @@ export class EffectAreaSquare extends PIXI.Rectangle {
             canvas.grid.grid.highlightGridPosition(layer, {
                 x: this.x,
                 y: this.y,
-                border: colors.border,
-                color: colors.fill,
+                border: border.color,
+                color: fill.color,
+                alpha: border.alpha,
             });
         } else {
             canvas.grid.grid.highlightGridPosition(layer, {

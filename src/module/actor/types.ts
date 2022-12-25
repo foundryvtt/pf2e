@@ -30,7 +30,8 @@ interface AuraData {
     slug: string;
     radius: number;
     effects: AuraEffectData[];
-    colors: AuraColors | null;
+    border: AuraPart | null;
+    fill: AuraPart | null;
     traits: ItemTrait[];
 }
 
@@ -46,9 +47,9 @@ interface AuraEffectData {
     removeOnExit: boolean;
 }
 
-interface AuraColors {
-    border: `#${string}`;
-    fill: `#${string}`;
+interface AuraPart {
+    color: HexColorString;
+    alpha: number;
 }
 
 /* -------------------------------------------- */
@@ -118,7 +119,7 @@ export {
     AttackItem,
     AttackRollContext,
     AttackTarget,
-    AuraColors,
+    AuraPart,
     AuraData,
     AuraEffectData,
     DCSlug,

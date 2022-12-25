@@ -6,7 +6,7 @@ import { TokenAuraData } from "./types";
 import { TokenDocumentPF2e } from "../document";
 import { measureDistanceRect } from "@module/canvas";
 import { ActorPF2e } from "@actor";
-import { AuraColors, AuraData } from "@actor/types";
+import { AuraPart, AuraData } from "@actor/types";
 
 class TokenAura implements TokenAuraData {
     slug: string;
@@ -18,7 +18,9 @@ class TokenAura implements TokenAuraData {
 
     traits: Set<ItemTrait>;
 
-    colors: AuraColors | null;
+    border: AuraPart | null;
+
+    fill: AuraPart | null;
 
     /** Does this aura affect its emanating token? */
     private includesSelf: boolean;
@@ -30,7 +32,8 @@ class TokenAura implements TokenAuraData {
         this.radius = args.radius;
 
         this.traits = args.traits;
-        this.colors = args.colors ?? null;
+        this.border = args.border ?? null;
+        this.fill = args.fill ?? null;
         this.includesSelf = args.includesSelf;
     }
 

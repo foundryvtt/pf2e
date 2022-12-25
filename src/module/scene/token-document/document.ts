@@ -157,7 +157,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
                     radius: data.radius,
                     token: this as Embedded<TokenDocumentPF2e>,
                     traits: new Set(data.traits),
-                    colors: data.colors,
+                    border: data.border,
+                    fill: data.fill,
                     includesSelf: true,
                 })
             );

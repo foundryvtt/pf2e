@@ -213,3 +213,4 @@ export { Migration812RestructureIWR } from "./812-restructure-iwr";
 export { Migration813NormalizeColdIron } from "./813-normalize-cold-iron";
 export { Migration814CalculatedExpandedSplash } from "./814-calculated-expanded-splash";
 export { Migration815ConsumableDataCleanup } from "./815-consumable-data-cleanup";
+export { Migration818AddAlphasToAuraColors } from "./818-add-alphas-to-aura-colors";
