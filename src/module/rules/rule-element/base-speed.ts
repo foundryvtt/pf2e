@@ -1,11 +1,11 @@
 import { CreaturePF2e } from "@actor";
-import { MovementType, UnlabeledSpeed } from "@actor/creature/data";
+import { MovementType } from "@actor/creature/data";
 import { ActorType } from "@actor/data";
 import { MOVEMENT_TYPES } from "@actor/values";
 import { ItemPF2e } from "@item";
 import { tupleHasValue } from "@util";
 import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from ".";
-import { DeferredMovementType } from "../synthetics";
+import { BaseSpeedSynthetic, DeferredMovementType } from "../synthetics";
 
 /**
  * @category RuleElement
@@ -44,7 +44,7 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
     }
 
     #createMovementType(type: MovementType): DeferredMovementType {
-        return (): UnlabeledSpeed | null => {
+        return (): BaseSpeedSynthetic | null => {
             if (!this.test()) return null;
 
             const value = Math.trunc(Number(this.resolveValue(this.value)));
@@ -52,8 +52,13 @@ class BaseSpeedRuleElement extends RuleElementPF2e {
                 this.failValidation("Failed to resolve value");
                 return null;
             }
+            // Whether this speed is derived from the creature's land speed
+            const derivedFromLand =
+                type !== "land" &&
+                typeof this.value === "string" &&
+                /attributes\.speed\.(?:value|total)/.test(this.value);
 
-            return value > 0 ? { type: type, value, source: this.item.name } : null;
+            return value > 0 ? { type: type, value, source: this.item.name, derivedFromLand } : null;
         };
     }
 }
