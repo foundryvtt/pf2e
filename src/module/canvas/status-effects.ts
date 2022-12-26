@@ -4,8 +4,8 @@ import { ErrorPF2e, fontAwesomeIcon, objectHasKey } from "@util";
 import { TokenPF2e } from "@module/canvas/token";
 import { EncounterPF2e } from "@module/encounter";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { TokenDocumentPF2e } from "@scene";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
+import { resetAndRerenderActors } from "@actor/helpers";
 
 /** Handle interaction with the TokenHUD's status effects menu */
 export class StatusEffects {
@@ -45,36 +45,15 @@ export class StatusEffects {
     static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconTheme): Promise<void> {
         console.debug("PF2e System | Changing status effect icon types");
         const iconDir = this.#ICON_THEME_DIRS[chosenSetting];
-        const lastIconDir = this.#ICON_THEME_DIRS[CONFIG.PF2E.statusEffects.lastIconTheme];
-
-        const promises: Promise<TokenDocument[]>[] = [];
-        for (const scene of game.scenes) {
-            const tokenUpdates: EmbeddedDocumentUpdateData<TokenDocumentPF2e>[] = [];
-
-            for (const token of scene.tokens) {
-                const update = token.toObject(false);
-                for (const url of token.effects) {
-                    if (url.includes(lastIconDir)) {
-                        const slug = /([-\w]+)\./.exec(url)?.[1] ?? "";
-                        const newUrl = `${iconDir}${slug}.webp` as const;
-                        console.debug(
-                            `PF2e System | Migrating effect ${slug} of Token ${token.name} on scene ${scene.name} | "${url}" to "${newUrl}"`
-                        );
-                        const index = update.effects.indexOf(url);
-                        if (index !== -1) {
-                            update.effects.splice(index, 1, newUrl);
-                        }
-                    }
-                }
-                tokenUpdates.push(update);
-            }
-            promises.push(scene.updateEmbeddedDocuments("Token", tokenUpdates));
-        }
-        await Promise.all(promises);
-
         CONFIG.PF2E.statusEffects.iconDir = iconDir;
         CONFIG.PF2E.statusEffects.lastIconTheme = chosenSetting;
         this.#updateStatusIcons();
+        await resetAndRerenderActors();
+        if (canvas.ready) {
+            for (const token of canvas.tokens.placeables) {
+                token.drawEffects();
+            }
+        }
     }
 
     static #activateListeners(html: HTMLElement, token: TokenPF2e): void {
@@ -293,16 +272,13 @@ export class StatusEffects {
     static #createChatMessage(token: TokenPF2e, whisper = false) {
         // Get the active applied conditions.
         // Iterate the list to create the chat and bubble chat dialog.
-
         const conditions = token.actor?.itemTypes.condition.filter((c) => c.isActive) ?? [];
-        const iconFolder = CONFIG.PF2E.statusEffects.iconDir;
         const statusEffectList = conditions.map((condition): string => {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = conditionInfo.summary ?? "";
             const conditionValue = condition.value ?? "";
-            const iconPath = `${iconFolder}${condition.slug}.webp`;
             return `
-                <li><img src="${iconPath}" title="${summary}">
+                <li><img src="${condition.img}" title="${summary}">
                     <span class="statuseffect-li">
                         <span class="statuseffect-li-text">${condition.name} ${conditionValue}</span>
                         <div class="statuseffect-rules"><h2>${condition.name}</h2>${condition.description}</div>
