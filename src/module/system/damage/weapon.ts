@@ -223,7 +223,11 @@ class WeaponDamagePF2e {
                 null
             );
         // Add damage dice if the "weapon" is an NPC attack or actual weapon with inferior etched striking rune
-        if (strikingSynthetic && (weapon.isOfType("melee") || strikingSynthetic.bonus > weapon.system.runes.striking)) {
+        if (
+            strikingSynthetic &&
+            baseDamage.die &&
+            (weapon.isOfType("melee") || strikingSynthetic.bonus > weapon.system.runes.striking)
+        ) {
             damageDice.push(
                 new DamageDicePF2e({
                     selector: `${weapon.id}-damage`,
