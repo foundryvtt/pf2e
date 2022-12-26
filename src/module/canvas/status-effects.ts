@@ -49,9 +49,9 @@ export class StatusEffects {
         CONFIG.PF2E.statusEffects.lastIconTheme = chosenSetting;
         this.#updateStatusIcons();
         await resetAndRerenderActors();
-        if (canvas.scene) {
-            for (const token of canvas.scene.tokens) {
-                token.object.drawEffects();
+        if (canvas.ready) {
+            for (const token of canvas.tokens.placeables) {
+                token.drawEffects();
             }
         }
     }
