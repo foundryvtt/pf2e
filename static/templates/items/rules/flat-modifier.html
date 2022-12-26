@@ -1,7 +1,7 @@
 <div class="form-group">
     <label class="short">{{localize "PF2E.RuleEditor.General.Label"}}</label>
     <div class="spaced-fields details-container-flex-row">
-        <input type="text" name="system.rules.{{index}}.label" value="{{rule.label}}" />
+        <input type="text" name="system.rules.{{index}}.label" value="{{rule.label}}" {{#unless rule.label}}placeholder="{{object.data.label}}"{{/unless}} />
         <label>
             {{localize "PF2E.RuleEditor.FlatModifier.HideIfDisabled"}}
             <input type="checkbox" name="system.rules.{{index}}.hideIfDisabled" {{checked rule.hideIfDisabled}}>

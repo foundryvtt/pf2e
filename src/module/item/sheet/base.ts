@@ -92,9 +92,14 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         // Activate rule element sub forms
         this.ruleElementForms = {};
-        for (const [idx, rule] of rules.entries()) {
+        for (const [index, rule] of rules.entries()) {
             const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
-            this.ruleElementForms[Number(idx)] = new FormClass(this.item, idx, rule);
+            this.ruleElementForms[Number(index)] = new FormClass({
+                item: this.item,
+                index,
+                rule,
+                object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
+            });
         }
 
         // This variable name is obviously no longer accurate: needs sweep through item sheet templates for refactor
