@@ -189,28 +189,21 @@ export class DamagePF2e {
         };
 
         // For now rolls are pre-rendered, but swap to roll.toMessage() when the damage roll refactor is further along
-        await ChatMessagePF2e.create(
-            {
-                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
-                flavor,
-                content: await roll.render(),
-                rolls: [roll.toJSON()],
-                sound: "sounds/dice.wav",
-                flags: {
-                    core: { canPopout: true },
-                    pf2e: {
-                        context: contextFlag,
-                        damageRoll: rollData,
-                        target: targetFlag,
-                        origin,
-                        strike,
-                        preformatted: "both",
-                    },
+        await roll.toMessage({
+            speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
+            flavor,
+            flags: {
+                core: { canPopout: true },
+                pf2e: {
+                    context: contextFlag,
+                    damageRoll: rollData,
+                    target: targetFlag,
+                    origin,
+                    strike,
+                    preformatted: "both",
                 },
             },
-            { rollMode }
-        );
+        });
 
         Hooks.call(`pf2e.damageRoll`, rollData);
         if (callback) callback(rollData);
