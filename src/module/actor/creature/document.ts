@@ -23,6 +23,7 @@ import { Rarity, SIZES, SIZE_SLUGS } from "@module/data";
 import { CombatantPF2e } from "@module/encounter";
 import { RollNotePF2e } from "@module/notes";
 import { RuleElementSynthetics } from "@module/rules";
+import { BaseSpeedSynthetic } from "@module/rules/synthetics";
 import {
     extractModifierAdjustments,
     extractModifiers,
@@ -48,7 +49,6 @@ import {
     MovementType,
     SenseData,
     SkillData,
-    UnlabeledSpeed,
     VisionLevel,
     VisionLevels,
 } from "./data";
@@ -703,10 +703,10 @@ abstract class CreaturePF2e extends ActorPF2e {
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
     prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null {
         const systemData = this.system;
-        const selectors = ["speed", "all-speeds", `${movementType}-speed`];
-        const rollOptions = this.getRollOptions(selectors);
 
         if (movementType === "land") {
+            const domains = ["speed", "all-speeds", `${movementType}-speed`];
+            const rollOptions = this.getRollOptions(domains);
             const landSpeed = systemData.attributes.speed;
             landSpeed.value = Number(landSpeed.value) || 0;
 
@@ -714,7 +714,7 @@ abstract class CreaturePF2e extends ActorPF2e {
             landSpeed.value = [landSpeed.value, ...fromSynthetics.map((s) => s.value)].sort().pop()!;
 
             const base = landSpeed.value;
-            const modifiers = extractModifiers(this.synthetics, selectors);
+            const modifiers = extractModifiers(this.synthetics, domains);
             const stat: CreatureSpeeds = mergeObject(
                 new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions),
                 landSpeed,
@@ -736,17 +736,24 @@ abstract class CreaturePF2e extends ActorPF2e {
 
             return mergeObject(stat, otherData);
         } else {
-            const speeds = systemData.attributes.speed;
-            const { otherSpeeds } = speeds;
-            const existing = otherSpeeds.find((s) => s.type === movementType) ?? [];
-            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d() ?? []).flat();
-            const fastest: UnlabeledSpeed | null = [existing, fromSynthetics]
-                .flat()
-                .reduce(
-                    (best: UnlabeledSpeed | null, speed) => (!best ? speed : speed?.value > best.value ? speed : best),
-                    null
-                );
+            const candidateSpeeds = ((): (BaseSpeedSynthetic | LabeledSpeed)[] => {
+                const { otherSpeeds } = systemData.attributes.speed;
+                const existing = otherSpeeds.filter((s) => s.type === movementType);
+                const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d() ?? []).flat();
+                return [...existing, ...fromSynthetics];
+            })();
+            const fastest = candidateSpeeds.reduce(
+                (best: LabeledSpeed | BaseSpeedSynthetic | null, speed) =>
+                    !best ? speed : speed?.value > best.value ? speed : best,
+                null
+            );
             if (!fastest) return null;
+
+            // If this speed is derived from the creature's land speed, avoid reapplying the same modifiers
+            const domains = fastest.derivedFromLand
+                ? [`${movementType}-speed`]
+                : ["speed", "all-speeds", `${movementType}-speed`];
+            const rollOptions = this.getRollOptions(domains);
 
             const label = game.i18n.format("PF2E.SpeedLabel", {
                 type: game.i18n.localize(CONFIG.PF2E.speedTypes[movementType]),
@@ -755,7 +762,7 @@ abstract class CreaturePF2e extends ActorPF2e {
             if (fastest.source) speed.source = fastest.source;
 
             const base = speed.value;
-            const modifiers = extractModifiers(this.synthetics, selectors);
+            const modifiers = extractModifiers(this.synthetics, domains);
             const stat = mergeObject(new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions), speed, {
                 overwrite: false,
             });
