@@ -57,11 +57,10 @@ class FastHealingRuleElement extends RuleElementPF2e {
         }
 
         const roll = (await new Roll(`${value}`).evaluate({ async: true })).toJSON();
-        const { FastHealingLabel, RegenerationLabel } = LocalizePF2e.translations.PF2E.Encounter.Broadcast.FastHealing;
-        const preFlavor = game.i18n.localize(this.data.type === "fast-healing" ? FastHealingLabel : RegenerationLabel);
+        const { ReceivedMessage } = LocalizePF2e.translations.PF2E.Encounter.Broadcast.FastHealing[this.data.type];
         const details = this.details;
         const postFlavor = details ? `<div data-visibility="owner">${details}</div>` : "";
-        const flavor = `${preFlavor}${postFlavor}`;
+        const flavor = `<div>${ReceivedMessage}</div>${postFlavor}`;
         const rollMode = this.actor.hasPlayerOwner ? "publicroll" : "gmroll";
         const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
         ChatMessagePF2e.create({ flavor, speaker, type: CONST.CHAT_MESSAGE_TYPES.ROLL, rolls: [roll] }, { rollMode });
@@ -84,4 +83,4 @@ interface FastHealingSource extends RuleElementSource {
     deactivatedBy?: string[];
 }
 
-export { FastHealingRuleElement as HealingRuleElement };
+export { FastHealingRuleElement, FastHealingData, FastHealingSource };

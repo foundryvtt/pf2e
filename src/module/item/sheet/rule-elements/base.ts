@@ -59,4 +59,9 @@ class RuleElementForm<
     _updateObject(_formData: Partial<Record<string, unknown>>): void {}
 }
 
-export { RuleElementForm, coerceNumber };
+type RuleElementFormSheetData<
+    TSource extends RuleElementSource,
+    TObject extends RuleElementPF2e
+> = RuleElementFormOptions<TSource, TObject>;
+
+export { RuleElementForm, RuleElementFormSheetData, coerceNumber };
