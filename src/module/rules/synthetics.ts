@@ -1,5 +1,5 @@
 import { DexterityModifierCapData } from "@actor/character/types";
-import { MovementType, UnlabeledSpeed } from "@actor/creature/data";
+import { MovementType, LabeledSpeed } from "@actor/creature/data";
 import { CreatureSensePF2e } from "@actor/creature/sense";
 import { DamageDicePF2e, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { MeleePF2e, WeaponPF2e } from "@item";
@@ -50,7 +50,16 @@ type ModifierAdjustmentSynthetics = { all: ModifierAdjustment[]; damage: Modifie
 };
 type DeferredModifier = DeferredValue<ModifierPF2e>;
 type DeferredDamageDice = DeferredValue<DamageDicePF2e>;
-type DeferredMovementType = DeferredValue<UnlabeledSpeed | null>;
+type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
+
+interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label"> {
+    type: MovementType;
+    /**
+     * Whether this speed is derived from a creature's land speed:
+     * used as a cue to prevent double-application of modifiers
+     */
+    derivedFromLand: boolean;
+}
 
 interface MAPSynthetic {
     label: string;
@@ -102,6 +111,7 @@ interface PotencySynthetic {
 }
 
 export {
+    BaseSpeedSynthetic,
     DamageDiceSynthetics,
     DeferredDamageDice,
     DeferredModifier,

@@ -214,7 +214,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
         // (number of dice) of 1, yielding "" + "1" ("1") in the roll formula. An arrest warrant has been issued.
         if (!systemData.damage.die && systemData.damage.dice > 0) {
             systemData.damage.modifier ||= systemData.damage.dice;
-            systemData.damage.dice = 0;
         }
 
         const preciousMaterial =
@@ -289,9 +288,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         // Set damage dice according to striking rune
         const pcLevel = this.actor?.isOfType("character") ? this.actor.level : 0;
-        this.system.damage.dice =
-            this._source.system.damage.dice +
-            (ABP.isEnabled ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking);
+        this.system.damage.dice = this.system.damage.die
+            ? this._source.system.damage.dice +
+              (ABP.isEnabled ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking)
+            : this.system.damage.dice;
     }
 
     processMaterialAndRunes(): void {
