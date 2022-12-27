@@ -1,9 +1,10 @@
 {{
   function createNumericTerm(number, flavor = null) {
+    const formula = flavor ? `${number}[${flavor}]` : number.toString();
     const obj = {
       class: "NumericTerm",
       number,
-      formula: number.toString(),
+      formula,
       evaluated: false,
     };
     if (flavor) obj.options = { flavor };
