@@ -19,7 +19,7 @@ import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { combineTerms } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { DamageCategorization, DamagePF2e, DamageRollContext, DamageType, SpellDamageTemplate } from "@system/damage";
-import { CheckPF2e } from "@system/check";
+import { CheckPF2e, CheckRoll } from "@system/check";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionIcon, groupBy, ordinal, sortBy, traitSlugToObject } from "@util";
@@ -807,12 +807,9 @@ class SpellPF2e extends ItemPF2e {
         return DamagePF2e.roll(damage, context);
     }
 
-    /**
-     * Roll Counteract check
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollCounteract(event: JQuery.ClickEvent) {
-        if (!this.actor?.isOfType("character", "npc")) return;
+    /** Roll counteract check */
+    async rollCounteract(event: JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
+        if (!this.actor?.isOfType("character", "npc")) return null;
 
         const spellcastingEntry = this.trickMagicEntry ?? this.spellcasting;
         if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
@@ -860,7 +857,8 @@ class SpellPF2e extends ItemPF2e {
             name: trait,
             label: spellTraits[trait],
         }));
-        CheckPF2e.roll(
+
+        return CheckPF2e.roll(
             check,
             {
                 actor: this.actor,
