@@ -9,3 +9,4 @@ export { steelYourResolve } from "./steel-your-resolve";
 export { launchTravelSheet } from "./travel";
 export { treatWounds } from "./treat-wounds";
 export { calculateXP } from "./xp";
+export { editPersistent } from "./edit-persistent";

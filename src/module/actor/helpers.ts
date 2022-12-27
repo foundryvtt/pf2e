@@ -298,7 +298,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
 
             return DamagePF2e.roll(
                 damage,
-                { type: "damage-roll", self, target, outcome, options, domains },
+                { type: "damage-roll", sourceType: "attack", self, target, outcome, options, domains },
                 params.callback
             );
         };

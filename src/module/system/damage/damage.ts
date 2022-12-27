@@ -24,8 +24,11 @@ export class DamagePF2e {
             context.secret = true;
         }
 
-        const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
-        let flavor = `<strong>${data.name}</strong> (${outcomeLabel})`;
+        let flavor = `<strong>${data.name}</strong>`;
+        if (context.sourceType === "attack") {
+            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
+            flavor += ` (${outcomeLabel})`;
+        }
 
         if (data.traits) {
             interface ToTagsParams {
@@ -170,6 +173,7 @@ export class DamagePF2e {
         const rollMode = context.rollMode ?? "publicroll";
         const contextFlag: DamageRollContextFlag = {
             type: context.type,
+            sourceType: context.sourceType,
             actor: context.self?.actor.id ?? null,
             token: context.self?.token?.id ?? null,
             target: targetFlag,
@@ -185,28 +189,21 @@ export class DamagePF2e {
         };
 
         // For now rolls are pre-rendered, but swap to roll.toMessage() when the damage roll refactor is further along
-        await ChatMessagePF2e.create(
-            {
-                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
-                flavor,
-                content: await roll.render(),
-                rolls: [roll.toJSON()],
-                sound: "sounds/dice.wav",
-                flags: {
-                    core: { canPopout: true },
-                    pf2e: {
-                        context: contextFlag,
-                        damageRoll: rollData,
-                        target: targetFlag,
-                        origin,
-                        strike,
-                        preformatted: "both",
-                    },
+        await roll.toMessage({
+            speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
+            flavor,
+            flags: {
+                core: { canPopout: true },
+                pf2e: {
+                    context: contextFlag,
+                    damageRoll: rollData,
+                    target: targetFlag,
+                    origin,
+                    strike,
+                    preformatted: "both",
                 },
             },
-            { rollMode }
-        );
+        });
 
         Hooks.call(`pf2e.damageRoll`, rollData);
         if (callback) callback(rollData);

@@ -185,9 +185,8 @@ interface LabeledSpeed extends Omit<LabeledNumber, "exceptions"> {
     type: MovementType;
     source?: string;
     total?: number;
+    derivedFromLand?: boolean;
 }
-
-type UnlabeledSpeed = Omit<LabeledSpeed, "label">;
 
 interface CreatureHitPoints extends HitPointsData {
     negativeHealing: boolean;
@@ -277,7 +276,6 @@ export {
     SenseData,
     SkillAbbreviation,
     SkillData,
-    UnlabeledSpeed,
     VisionLevel,
     VisionLevels,
 };

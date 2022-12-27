@@ -240,11 +240,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
-        const tokenIcon = (condition: ConditionPF2e): ImagePath => {
-            const folder = CONFIG.PF2E.statusEffects.iconDir;
-            return `${folder}${condition.slug}.webp`;
-        };
-        const conditionTokenIcons = this.itemTypes.condition.map((condition) => tokenIcon(condition));
+        const conditionTokenIcons = this.itemTypes.condition.map((condition) => condition.img);
         const conditionTokenEffects = Array.from(new Set(conditionTokenIcons)).map((icon) => new TokenEffect(icon));
 
         const effectTokenEffects = this.itemTypes.effect
@@ -664,13 +660,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 adjustment.adjustTraits?.(selfItem, traitSlugs);
             }
         }
+
         const traits = traitSlugs.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+        // Calculate distance and range increment, set as a roll option
+        const distance = selfToken && targetToken ? selfToken.distanceTo(targetToken) : null;
+        const [originDistance, targetDistance] =
+            typeof distance === "number"
+                ? [`origin:distance:${distance}`, `target:distance:${distance}`]
+                : [null, null];
 
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
             ? null
-            : targetToken?.actor?.getContextualClone([...selfActor.getSelfRollOptions("origin"), ...itemOptions]) ??
-              null;
+            : targetToken?.actor?.getContextualClone([
+                  ...selfActor.getSelfRollOptions("origin"),
+                  ...itemOptions,
+                  ...(originDistance ? [originDistance] : []),
+              ]) ?? null;
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
@@ -689,10 +695,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             "attack",
         ]);
 
-        // Calculate distance and range increment, set as a roll option
-        const distance = selfToken && targetToken && !!canvas.grid ? selfToken.distanceTo(targetToken) : null;
-        if (typeof distance === "number") rollOptions.add(`target:distance:${distance}`);
-
+        if (targetDistance) rollOptions.add(targetDistance);
         const rangeIncrement = getRangeIncrement(selfItem, distance);
         if (rangeIncrement) rollOptions.add(`target:range-increment:${rangeIncrement}`);
 

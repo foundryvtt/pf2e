@@ -3,11 +3,21 @@ import { ItemPF2e } from "@item";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
 import { ErrorPF2e } from "@util";
-import { ConditionData, ConditionSlug } from "./data";
+import { ConditionData, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
+import { DamageRoll } from "@system/damage/roll";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
+        if (this.system.persistent) {
+            return { type: "value", value: this.system.persistent.formula };
+        }
+
         return this.system.value.value ? { type: "counter", value: this.system.value.value } : null;
+    }
+
+    /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
+    get key(): string {
+        return this.system.persistent ? `persistent-damage-${this.system.persistent.damageType}` : this.slug;
     }
 
     get appliedBy(): ItemPF2e | null {
@@ -56,8 +66,22 @@ class ConditionPF2e extends AbstractEffectPF2e {
     /** Ensure value.isValued and value.value are in sync */
     override prepareBaseData(): void {
         super.prepareBaseData();
+
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
+
+        if (systemData.persistent) {
+            const formula = `${systemData.persistent.formula}[${systemData.persistent.damageType}]`;
+            const roll = new DamageRoll(formula);
+            const dc = game.user.isGM && systemData.persistent.dc !== 15 ? systemData.persistent.dc : null;
+            const localizationKey = `PF2E.Item.Condition.PersistentDamage.${dc !== null ? "NameWithDC" : "Name"}`;
+            this.name = game.i18n.format(localizationKey, { formula: roll.formula, dc });
+            systemData.persistent.damage = roll;
+            systemData.persistent.expectedValue = roll.expectedValue;
+        }
+
+        const folder = CONFIG.PF2E.statusEffects.iconDir;
+        this.img = `${folder}${this.slug}.webp`;
     }
 
     override prepareSiblingData(): void {
@@ -75,15 +99,21 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
         // Deactivate conditions naturally overridden by this one
         if (this.system.overrides.length > 0) {
-            const overridden = conditions.filter((c) => this.system.overrides.includes(c.slug));
+            const overridden = conditions.filter((c) => this.system.overrides.includes(c.key));
             for (const condition of overridden) {
                 deactivate(condition);
             }
         }
 
-        const ofSameType = conditions.filter((c) => c !== this && c.slug === this.slug);
+        const ofSameType = conditions.filter((c) => c !== this && c.key === this.key);
         for (const condition of ofSameType) {
-            if (this.value && condition.value && this.value >= condition.value) {
+            if (condition.slug === "persistent-damage") {
+                const thisValue = this.system.persistent?.expectedValue ?? 0;
+                const otherValue = condition.system.persistent?.expectedValue ?? 0;
+                if (thisValue >= otherValue) {
+                    deactivate(condition);
+                }
+            } else if (this.value && condition.value && this.value >= condition.value) {
                 // Deactivate other conditions with a lower or equal value
                 deactivate(condition);
             } else if (!this.isLocked) {
@@ -189,8 +219,12 @@ interface ConditionPF2e {
     get slug(): ConditionSlug;
 }
 
+interface PersistentDamagePF2e extends ConditionPF2e {
+    system: Omit<ConditionSystemData, "persistent"> & { persistent: PersistentDamageData };
+}
+
 interface ConditionModificationContext<T extends ConditionPF2e> extends DocumentModificationContext<T> {
     conditionValue?: number | null;
 }
 
-export { ConditionPF2e, ConditionModificationContext };
+export { ConditionPF2e, ConditionModificationContext, PersistentDamagePF2e };

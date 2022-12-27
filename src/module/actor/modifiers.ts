@@ -71,7 +71,7 @@ interface BaseRawModifier {
     /** If true, this modifier is a custom player-provided modifier. */
     custom?: boolean;
     /** The damage type that this modifier does, if it modifies a damage roll. */
-    damageType?: string | null;
+    damageType?: DamageType | null;
     /** The damage category */
     damageCategory?: string | null;
     /** A predicate which determines when this modifier is active. */
@@ -189,7 +189,7 @@ class ModifierPF2e implements RawModifier {
         this.modifier = params.modifier;
 
         this.damageType = setHasElement(DAMAGE_TYPES, params.damageType) ? params.damageType : null;
-        this.damageCategory = params.damageCategory ?? null;
+        this.damageCategory = this.damageType === "bleed" ? "persistent" : params.damageCategory ?? null;
         // Force splash damage into being critical-only or not doubling on critical hits
         this.critical = this.damageCategory === "splash" ? !!params.critical : params.critical ?? null;
 
@@ -636,9 +636,12 @@ class DiceModifierPF2e implements BaseRawModifier {
         this.override = param.override ?? null;
         this.custom = param.custom ?? false;
 
-        if (this.damageType) {
-            this.category ??= DamageCategorization.fromDamageType(this.damageType);
-        }
+        this.category =
+            this.damageType === "bleed"
+                ? "persistent"
+                : this.damageType
+                ? DamageCategorization.fromDamageType(this.damageType)
+                : null;
 
         this.predicate = new PredicatePF2e(param.predicate ?? []);
         this.enabled = this.predicate.test([]);
@@ -677,6 +680,7 @@ export {
     CheckModifier,
     DamageDiceOverride,
     DamageDicePF2e,
+    DamageDiceParameters,
     DeferredValue,
     DeferredValueParams,
     DiceModifierPF2e,
@@ -686,11 +690,11 @@ export {
     ModifierPF2e,
     ModifierType,
     PROFICIENCY_RANK_OPTION,
-    createProficiencyModifier,
     RawModifier,
     StatisticModifier,
     adjustModifiers,
     applyStackingRules,
     createAbilityModifier,
+    createProficiencyModifier,
     ensureProficiencyOption,
 };

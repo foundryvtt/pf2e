@@ -15,7 +15,7 @@ import { CreatureSizeRuleElement } from "./rule-element/creature-size";
 import { CritSpecRuleElement } from "./rule-element/crit-spec";
 import { DamageDiceRuleElement } from "./rule-element/damage-dice";
 import { DexterityModifierCapRuleElement } from "./rule-element/dexterity-modifier-cap";
-import { HealingRuleElement } from "./rule-element/fast-healing";
+import { FastHealingRuleElement } from "./rule-element/fast-healing";
 import { FixedProficiencyRuleElement } from "./rule-element/fixed-proficiency";
 import { FlatModifierRuleElement } from "./rule-element/flat-modifier";
 import { GrantItemRuleElement } from "./rule-element/grant-item";
@@ -61,7 +61,7 @@ class RuleElements {
         CriticalSpecialization: CritSpecRuleElement,
         DamageDice: DamageDiceRuleElement,
         DexterityModifierCap: DexterityModifierCapRuleElement,
-        FastHealing: HealingRuleElement,
+        FastHealing: FastHealingRuleElement,
         FixedProficiency: FixedProficiencyRuleElement,
         FlatModifier: FlatModifierRuleElement,
         GrantItem: GrantItemRuleElement,

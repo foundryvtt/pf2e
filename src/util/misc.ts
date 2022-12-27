@@ -291,9 +291,11 @@ function localizeList(items: string[]) {
 }
 
 /** Generate and return an HTML element for a FontAwesome icon */
+type FontAwesomeStyle = "solid" | "regular" | "duotone";
+
 function fontAwesomeIcon(
     glyph: string,
-    { style = "solid", fixedWidth = false }: { style?: "solid" | "regular"; fixedWidth?: boolean } = {}
+    { style = "solid", fixedWidth = false }: { style?: FontAwesomeStyle; fixedWidth?: boolean } = {}
 ): HTMLElement {
     const styleClass = `fa-${style}`;
     const glyphClass = glyph.startsWith("fa-") ? glyph : `fa-${glyph}`;

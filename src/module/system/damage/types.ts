@@ -33,6 +33,7 @@ interface DamageRollRenderData {
 
 interface DamageRollContext extends BaseRollContext {
     type: "damage-roll";
+    sourceType: "attack" | "save";
     outcome?: DegreeOfSuccessString;
     self?: StrikeSelf | null;
     target?: AttackTarget | null;

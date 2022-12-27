@@ -29,6 +29,7 @@ import { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
 import {
     calculateXP,
+    editPersistent,
     launchTravelSheet,
     perceptionForSelected,
     rollActionMacro,
@@ -61,6 +62,7 @@ declare global {
                 launchTravelSheet: typeof launchTravelSheet;
                 perceptionForSelected: typeof perceptionForSelected;
                 stealthForSelected: typeof stealthForSelected;
+                editPersistent: typeof editPersistent;
             };
             system: {
                 moduleArt: {

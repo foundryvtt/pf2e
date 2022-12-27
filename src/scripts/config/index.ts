@@ -134,7 +134,6 @@ const physicalDamageTypes = {
 
 const damageTypes: Record<DamageType, string> = {
     ...alignmentTraits,
-    ...elementalTraits,
     ...energyDamageTypes,
     ...physicalDamageTypes,
     mental: "PF2E.TraitMental",
@@ -197,6 +196,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...elementalTraits,
     ...magicSchools,
     "area-damage": "PF2E.TraitAreaDamage",
     auditory: "PF2E.TraitAuditory",
@@ -235,6 +235,7 @@ const weaknessTypes: Record<WeaknessType, string> = {
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...elementalTraits,
     "area-damage": "PF2E.TraitAreaDamage",
     arrow: "PF2E.TraitArrowVulnerability",
     axe: "PF2E.TraitAxeVulnerability",
@@ -256,6 +257,7 @@ const resistanceTypes: Record<ResistanceType, string> = {
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...elementalTraits,
     all: "PF2E.TraitAll",
     "area-damage": "PF2E.TraitAreaDamage",
     "critical-hits": "PF2E.TraitCriticalHits",
@@ -1843,6 +1845,10 @@ export const PF2ECONFIG = {
             rulesBasedVision: {
                 name: "PF2E.SETTINGS.Automation.RulesBasedVision.Name",
                 hint: "PF2E.SETTINGS.Automation.RulesBasedVision.Hint",
+            },
+            iwr: {
+                name: "PF2E.SETTINGS.Automation.IWR.Name",
+                hint: "PF2E.SETTINGS.Automation.IWR.Hint",
             },
             effectExpiration: {
                 name: "PF2E.SETTINGS.Automation.EffectExpiration.Name",

@@ -19,7 +19,7 @@ import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { combineTerms } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { DamageCategorization, DamagePF2e, DamageRollContext, DamageType, SpellDamageTemplate } from "@system/damage";
-import { CheckPF2e } from "@system/check";
+import { CheckPF2e, CheckRoll } from "@system/check";
 import { StatisticRollParameters } from "@system/statistic";
 import { EnrichHTMLOptionsPF2e } from "@system/text-editor";
 import { ErrorPF2e, getActionIcon, groupBy, ordinal, sortBy, traitSlugToObject } from "@util";
@@ -110,6 +110,10 @@ class SpellPF2e extends ItemPF2e {
     get spellcasting(): SpellcastingEntryPF2e | undefined {
         const spellcastingId = this.system.location.value;
         return this.actor?.spellcasting.find((entry) => entry.id === spellcastingId);
+    }
+
+    get isAttack(): boolean {
+        return this.traits.has("attack") || this.system.spellType.value === "attack";
     }
 
     get isCantrip(): boolean {
@@ -314,7 +318,7 @@ class SpellPF2e extends ItemPF2e {
             const idx = order.indexOf(f.damageCategory);
             return idx >= 0 ? idx : order.length;
         });
-        const notPersistent = allPartials.filter((p) => p.damageCategory !== "persistent"); // persistent not supported
+        const notPersistent = allPartials.filter((p) => p.damageCategory !== "persistent");
         const groups = groupBy(notPersistent, (f) => f.damageType);
 
         try {
@@ -341,6 +345,16 @@ class SpellPF2e extends ItemPF2e {
                 }
 
                 instances.push(new DamageInstance(subFormulas.join(" + "), {}, { flavor }));
+            }
+
+            // Persistent is handled afterwards
+            for (const partial of allPartials.filter((p) => p.damageCategory === "persistent")) {
+                const { damageType } = partial;
+                const typeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+                const flavorLabel = game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeLabel });
+                const result = createFormulaAndTagsForPartial(partial, flavorLabel);
+                instances.push(new DamageInstance(result.formula, {}, { flavor: `[persistent,${damageType}]` }));
+                breakdownTags.push(...result.breakdownTags);
             }
 
             if (instances.length) {
@@ -647,7 +661,6 @@ class SpellPF2e extends ItemPF2e {
 
         const statisticChatData = statistic.getChatData({ item: this });
         const spellDC = statisticChatData.dc.value;
-        const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
         const damage = this.damage;
         const formula = this.damage?.roll.formula;
@@ -708,9 +721,9 @@ class SpellPF2e extends ItemPF2e {
         return {
             ...systemData,
             description: { value: description },
-            isAttack,
+            isAttack: this.isAttack,
             isSave,
-            check: isAttack ? statisticChatData.check : undefined,
+            check: this.isAttack ? statisticChatData.check : undefined,
             save: {
                 ...statisticChatData.dc,
                 type: systemData.save.value,
@@ -779,7 +792,8 @@ class SpellPF2e extends ItemPF2e {
 
         const context: DamageRollContext = {
             type: "damage-roll",
-            outcome: "success",
+            sourceType: this.isAttack ? "attack" : "save",
+            outcome: this.isAttack ? "success" : "failure", // we'll need to support other outcomes later
             domains,
             options,
             self: {
@@ -793,12 +807,9 @@ class SpellPF2e extends ItemPF2e {
         return DamagePF2e.roll(damage, context);
     }
 
-    /**
-     * Roll Counteract check
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollCounteract(event: JQuery.ClickEvent) {
-        if (!this.actor?.isOfType("character", "npc")) return;
+    /** Roll counteract check */
+    async rollCounteract(event: JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null> {
+        if (!this.actor?.isOfType("character", "npc")) return null;
 
         const spellcastingEntry = this.trickMagicEntry ?? this.spellcasting;
         if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
@@ -846,7 +857,8 @@ class SpellPF2e extends ItemPF2e {
             name: trait,
             label: spellTraits[trait],
         }));
-        CheckPF2e.roll(
+
+        return CheckPF2e.roll(
             check,
             {
                 actor: this.actor,
