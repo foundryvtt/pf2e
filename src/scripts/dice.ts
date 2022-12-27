@@ -1,8 +1,6 @@
 import { ActorPF2e } from "@actor";
-import { ItemPF2e, SpellPF2e } from "@item";
-import { ChatMessagePF2e } from "@module/chat-message";
+import { ItemPF2e } from "@item";
 import { ErrorPF2e } from "@util";
-import { eventToRollParams } from "./sheet-util";
 
 /**
  * @category Other
@@ -171,50 +169,6 @@ class DicePF2e {
         }
     }
 
-    /** A standardized helper function for managing PF2e damage rolls */
-    static async damageRoll({
-        event,
-        actor = null,
-        item = null,
-        parts,
-        data,
-        title,
-        flavor,
-        simplify = false,
-    }: {
-        event: JQuery.ClickEvent;
-        actor?: ActorPF2e | null;
-        item?: Embedded<ItemPF2e> | null;
-        partsCritOnly?: (string | number)[];
-        parts: (string | number)[];
-        data: Record<string, unknown>;
-        title: string;
-        flavor?: Function;
-        critical?: boolean;
-        simplify?: boolean;
-    }): Promise<Rolled<Roll> | null> {
-        // Inner roll function
-        const speaker = ChatMessagePF2e.getSpeaker({ actor });
-        const rollMode = eventToRollParams(event).rollMode ?? "publicroll";
-        const formula = simplify ? combineTerms(Roll.replaceFormulaData(parts.join("+"), data)) : parts.join("+");
-        const roll = new Roll(formula, data);
-        const flav = flavor instanceof Function ? flavor(parts, data) : title;
-        const traits = item?.isOfType("spell") ? this.getTraitMarkup(item) : "";
-        const origin = item ? { uuid: item.uuid, type: item.type } : null;
-
-        const message = await roll.toMessage(
-            {
-                speaker,
-                flavor: `${flav}\n${traits}`,
-                flags: { pf2e: { origin } },
-            },
-            { rollMode }
-        );
-
-        // Return the Roll object
-        return message.rolls[0];
-    }
-
     alter(add: number, multiply: number): this {
         const rgx = new RegExp(DiceTerm.REGEXP, "g");
         if (this._rolled) throw ErrorPF2e("You may not alter a Roll which has already been rolled");
@@ -229,33 +183,6 @@ class DicePF2e {
         );
 
         return this;
-    }
-
-    private static getTraitMarkup(spell: SpellPF2e): string {
-        const allSpellTraits = {
-            ...CONFIG.PF2E.magicSchools,
-            ...CONFIG.PF2E.magicTraditions,
-            ...CONFIG.PF2E.spellTraits,
-        };
-        const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-        const traits = [...spell.traits]
-            .map((trait) => ({
-                value: trait,
-                label: game.i18n.localize(allSpellTraits[trait]),
-                description: traitDescriptions[trait] ?? "",
-            }))
-            .sort((a, b) => a.label.localeCompare(b.label))
-            .map((trait) =>
-                $("<span>")
-                    .addClass("tag")
-                    .attr({ "data-trait": trait.value, "data-description": trait.description })
-                    .text(trait.label)
-            )
-            .reduce(
-                ($traits, $trait) => $traits.append($trait),
-                $("<div>").addClass("item-properties").addClass("tags")
-            );
-        return traits.prop("outerHTML");
     }
 }
 
