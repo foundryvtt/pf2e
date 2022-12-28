@@ -15,7 +15,7 @@ import {
     extractModifiers,
     extractNotes,
     extractRollTwice,
-} from "@module/rules/util";
+} from "@module/rules/helpers";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e } from "@system/predication";

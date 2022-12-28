@@ -1,7 +1,7 @@
 import { ModifierPF2e } from "@actor/modifiers";
 import { ActorDimensions } from "@actor/types";
 import { ItemType } from "@item/data";
-import { extractModifiers } from "@module/rules/util";
+import { extractModifiers } from "@module/rules/helpers";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { Statistic } from "@system/statistic";

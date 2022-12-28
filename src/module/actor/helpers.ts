@@ -9,7 +9,7 @@ import {
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
-} from "@module/rules/util";
+} from "@module/rules/helpers";
 import { CheckPF2e, CheckRoll } from "@system/check";
 import { DamagePF2e, DamageType, WeaponDamagePF2e } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
