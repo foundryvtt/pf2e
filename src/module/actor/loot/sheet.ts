@@ -34,7 +34,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
         // Enrich content
         const rollData = this.actor.getRollData();
-        sheetData.enrichedContent.description = await TextEditor.enrichHTML(sheetData.data.details.description.value, {
+        sheetData.enrichedContent.description = await TextEditor.enrichHTML(sheetData.data.details.description, {
             rollData,
             async: true,
         });
