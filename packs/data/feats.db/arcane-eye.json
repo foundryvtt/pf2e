@@ -10,7 +10,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>Your eye has been magically enhanced to pierce darkness. You gain darkvision.</p>\n<p><strong>Enhancement</strong> Your eye can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures in brief spurts. You can cast see invisibility as an arcane innate spell once per hour.</p>"
+            "value": "<p>Your eye has been magically enhanced to pierce darkness. You gain darkvision.</p>\n<p><strong>Enhancement</strong> Your eye can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures in brief spurts. You can cast <em>@UUID[Compendium.pf2e.spells-srd.See Invisibility]{See Invisibility}</em> as an arcane innate spell once per hour.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -29,6 +29,34 @@
             {
                 "key": "Sense",
                 "selector": "darkvision"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneEye",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-eye"
+                        }
+                    ],
+                    "value": "arcane-eye"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneEye",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-eye"
+                        }
+                    ],
+                    "value": "arcane-eye"
+                }
             }
         ],
         "source": {

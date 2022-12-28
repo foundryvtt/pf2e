@@ -25,6 +25,43 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.equipment-srd.Reinforced Chassis"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ReinforcedChassis",
+                    "predicate": [
+                        {
+                            "not": "enhancement:reinforced-chassis"
+                        }
+                    ],
+                    "value": "reinforced-chassis"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ReinforcedChassis",
+                    "predicate": [
+                        {
+                            "not": "enhancement:reinforced-chassis"
+                        }
+                    ],
+                    "value": "reinforced-chassis"
+                }
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "enhancement:reinforced-chassis"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Chassis Deflection"
             }
         ],
         "source": {
