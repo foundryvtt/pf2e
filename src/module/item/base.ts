@@ -584,13 +584,16 @@ class ItemPF2e extends Item<ActorPF2e> {
         userId: string
     ): void {
         super._onCreate(data, options, userId);
+        if (!(this.actor && game.user.id === userId)) return;
 
-        if (this.actor && game.user.id === userId) {
-            this.actor.reset();
-            const actorUpdates: Record<string, unknown> = {};
-            for (const rule of this.rules) {
-                rule.onCreate?.(actorUpdates);
-            }
+        this.actor.reset();
+        const actorUpdates: Record<string, unknown> = {};
+        for (const rule of this.rules) {
+            rule.onCreate?.(actorUpdates);
+        }
+        // Only update if there are more keys than just the `_id`
+        const updateKeys = Object.keys(actorUpdates);
+        if (updateKeys.length > 0 && !updateKeys.every((k) => k === "_id")) {
             this.actor.update(actorUpdates);
         }
     }
@@ -638,7 +641,11 @@ class ItemPF2e extends Item<ActorPF2e> {
             }
         }
 
-        this.actor.update(actorUpdates);
+        // Only update if there are more keys than just the `_id`
+        const updateKeys = Object.keys(actorUpdates);
+        if (updateKeys.length > 0 && !updateKeys.every((k) => k === "_id")) {
+            this.actor.update(actorUpdates);
+        }
     }
 }
 
