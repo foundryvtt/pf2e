@@ -8,9 +8,9 @@ export class Migration809AutomatonEnhancements extends MigrationBase {
     get #automatonEnhancements() {
         return {
             key: "ActiveEffectLike",
-            path: "flags.pf2e.automaton",
+            path: "flags.pf2e.automaton.enhancements",
             mode: "override",
-            value: { greaterEnhancements: [], lesserEnhancements: [] },
+            value: { greater: [], lesser: [] },
         };
     }
 
