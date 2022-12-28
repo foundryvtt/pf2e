@@ -11,7 +11,7 @@
                     {{~#each instances as |instance|~}}
                     <span class="instance {{instance.type}}" title="{{instance.typeLabel}}">
                         {{~#if instance.persistent}}{{coalesce instance.head.term.expression instance.head.expression}}{{else}}{{instance.total}}{{/if}}
-                        {{#if (and instance.persistent (ne instance.type "bleed"))}}<i class="fa-solid fa-clock icon"></i>{{/if~}}
+                        {{#if (and instance.persistent (ne instance.type "bleed"))}}<i class="fa-duotone fa-hourglass icon"></i>{{/if~}}
                         <i class="fa-solid fa-{{instance.iconClass}} icon"></i></span>
                     {{#unless @last}} + {{/unless~}}
                     {{~/each~}}
