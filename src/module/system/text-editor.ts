@@ -5,7 +5,7 @@ import { SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ItemSystemData } from "@item/data/base";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { extractModifierAdjustments, extractModifiers } from "@module/rules/util";
+import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers";
 import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { htmlClosest, objectHasKey, sluggify } from "@util";
 import { damageDiceIcon, looksLikeDamageFormula } from "./damage";

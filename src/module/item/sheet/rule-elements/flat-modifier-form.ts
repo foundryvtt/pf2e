@@ -1,6 +1,6 @@
 import { MODIFIER_TYPES } from "@actor/modifiers";
 import { FlatModifierSource } from "@module/rules/rule-element/flat-modifier";
-import { isBracketedValue } from "@module/rules/util";
+import { isBracketedValue } from "@module/rules/helpers";
 import { htmlQuery, isObject, tagify, tupleHasValue } from "@util";
 import { coerceNumber, RuleElementForm } from "./base";
 

@@ -5,7 +5,7 @@ import { SaveType } from "@actor/types";
 import { SAVE_TYPES } from "@actor/values";
 import { ItemType } from "@item/data";
 import { Rarity } from "@module/data";
-import { extractModifiers } from "@module/rules/util";
+import { extractModifiers } from "@module/rules/helpers";
 import { Statistic } from "@system/statistic";
 import { HazardData } from "./data";
 

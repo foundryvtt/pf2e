@@ -1,7 +1,7 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
 import { RollNotePF2e } from "@module/notes";
-import { extractModifierAdjustments } from "@module/rules/util";
+import { extractModifierAdjustments } from "@module/rules/helpers";
 import { DamageDieSize, DamageType } from "@system/damage/types";
 import { DamageCategorization } from "@system/damage/helpers";
 import { DAMAGE_TYPES } from "@system/damage/values";

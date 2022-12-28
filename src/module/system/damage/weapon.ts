@@ -17,7 +17,7 @@ import { WeaponDamage } from "@item/weapon/data";
 import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { RollNotePF2e } from "@module/notes";
 import { PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
-import { extractDamageDice, extractModifiers, extractNotes } from "@module/rules/util";
+import { extractDamageDice, extractModifiers, extractNotes } from "@module/rules/helpers";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { setHasElement, sluggify } from "@util";
 import { createDamageFormula } from "./formula";

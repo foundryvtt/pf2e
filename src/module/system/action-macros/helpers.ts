@@ -10,7 +10,7 @@ import {
 import { WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
-import { extractModifierAdjustments, extractRollSubstitutions } from "@module/rules/util";
+import { extractModifierAdjustments, extractRollSubstitutions } from "@module/rules/helpers";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
 import { setHasElement, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";

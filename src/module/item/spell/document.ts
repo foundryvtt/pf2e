@@ -13,7 +13,7 @@ import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToTen } from "@module/data";
-import { extractDamageDice, extractModifiers } from "@module/rules/util";
+import { extractDamageDice, extractModifiers } from "@module/rules/helpers";
 import { UserPF2e } from "@module/user";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { combineTerms } from "@scripts/dice";

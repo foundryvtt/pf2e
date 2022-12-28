@@ -4,7 +4,7 @@ import { ActorSizePF2e } from "@actor/data/size";
 import { applyStackingRules, CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values";
-import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/util";
+import { extractDegreeOfSuccessAdjustments, extractModifiers, extractRollTwice } from "@module/rules/helpers";
 import { CheckPF2e, CheckRoll } from "@system/check";
 import { RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
