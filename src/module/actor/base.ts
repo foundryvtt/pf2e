@@ -13,6 +13,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToThree, Size } from "@module/data";
 import { preImportJSON } from "@module/doc-helpers";
 import { RuleElementSynthetics } from "@module/rules";
+import { processPreUpdateActorHooks } from "@module/rules/helpers";
 import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { LocalizePF2e } from "@module/system/localize";
@@ -441,6 +442,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
 
         return super.createDocuments(data, context);
+    }
+
+    static override updateDocuments<T extends foundry.abstract.Document>(
+        this: ConstructorOf<T>,
+        updates?: DocumentUpdateData<T>[],
+        context?: DocumentModificationContext
+    ): Promise<T[]>;
+    static override async updateDocuments(
+        updates: DocumentUpdateData<ActorPF2e>[] = [],
+        context: DocumentModificationContext = {}
+    ): Promise<Actor[]> {
+        // Process rule element hooks for each actor update
+        for (const changed of updates) {
+            processPreUpdateActorHooks(changed, { pack: context.pack ?? null });
+        }
+
+        return super.updateDocuments(updates, context);
     }
 
     protected override _initialize(): void {
@@ -1305,19 +1323,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             const hpChange = changedHP.value - currentHP.value;
             const levelChanged = !!changed.system?.details && "level" in changed.system.details;
             if (hpChange !== 0 && !levelChanged) options.damageTaken = hpChange;
-        }
-
-        // Run preUpdateActor rule element callbacks
-        type WithPreUpdateActor = RuleElementPF2e & { preUpdateActor: NonNullable<RuleElementPF2e["preUpdateActor"]> };
-        const rules = this.rules.filter((r): r is WithPreUpdateActor => !!r.preUpdateActor);
-        if (rules.length > 0) {
-            const clone = this.clone(changed, { keepId: true });
-            this.flags.pf2e.rollOptions = clone.flags.pf2e.rollOptions;
-            for (const rule of rules) {
-                if (this.items.has(rule.item.id)) {
-                    await rule.preUpdateActor();
-                }
-            }
         }
 
         await super._preUpdate(changed, options, user);

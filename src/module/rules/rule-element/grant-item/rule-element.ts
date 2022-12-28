@@ -164,19 +164,21 @@ class GrantItemRuleElement extends RuleElementPF2e {
     }
 
     /** Grant an item if this rule element permits it and the predicate passes */
-    override async preUpdateActor(): Promise<void> {
-        if (!this.reevaluateOnUpdate) return;
+    override async preUpdateActor(): Promise<{ create: ItemSourcePF2e[]; delete: string[] }> {
+        const noAction = { create: [], delete: [] };
+
+        if (!this.reevaluateOnUpdate) return noAction;
 
         if (this.grantedId && this.actor.items.has(this.grantedId)) {
             if (!this.test()) {
-                await this.actor.deleteEmbeddedDocuments("Item", [this.grantedId], { render: false });
+                return { create: [], delete: [this.grantedId] };
             }
-            return;
+            return noAction;
         }
 
         const itemSource = this.item.toObject();
         const ruleSource = itemSource.system.rules[this.sourceIndex ?? -1];
-        if (!ruleSource) return;
+        if (!ruleSource) return noAction;
 
         const pendingItems: ItemSourcePF2e[] = [];
         const context = { parent: this.actor, render: false };
@@ -185,8 +187,10 @@ class GrantItemRuleElement extends RuleElementPF2e {
         if (pendingItems.length > 0) {
             const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? {};
             await this.item.update({ "flags.pf2e.itemGrants": updatedGrants }, { render: false });
-            await this.actor.createEmbeddedDocuments("Item", pendingItems, context);
+            return { create: pendingItems, delete: [] };
         }
+
+        return noAction;
     }
 
     #getOnDeleteActions(data: GrantItemSource): Partial<OnDeleteActions> | null {

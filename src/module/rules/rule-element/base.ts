@@ -373,7 +373,7 @@ interface RuleElementPF2e {
     afterRoll?(params: RuleElementPF2e.AfterRollParams): Promise<void>;
 
     /** Runs before the rule's parent item's owning actor is updated */
-    preUpdateActor?(): Promise<void>;
+    preUpdateActor?(): Promise<{ create: ItemSourcePF2e[]; delete: string[] }>;
 
     /**
      * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
