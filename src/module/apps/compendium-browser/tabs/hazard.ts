@@ -5,7 +5,7 @@ import { CompendiumBrowserIndexData, HazardFilters } from "./data";
 
 export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
     override filterData!: HazardFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/hazard.html";
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/hazard.hbs";
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "level", "complexity", "traits", "rarity", "source"];

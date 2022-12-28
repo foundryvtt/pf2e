@@ -19,7 +19,7 @@ abstract class SettingsMenuPF2e extends FormApplication {
         return mergeObject(options, {
             title: `PF2E.SETTINGS.${this.namespace.titleCase()}.Name`,
             id: `${this.namespace}-settings`,
-            template: `systems/pf2e/templates/system/settings/menu.html`,
+            template: `systems/pf2e/templates/system/settings/menu.hbs`,
             width: 550,
             height: "auto",
             closeOnSubmit: true,

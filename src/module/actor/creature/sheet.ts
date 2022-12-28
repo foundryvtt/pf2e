@@ -306,7 +306,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
                     const title = game.i18n.localize("PF2E.DeleteSpellcastEntryTitle");
                     const content = await renderTemplate(
-                        "systems/pf2e/templates/actors/delete-spellcasting-dialog.html"
+                        "systems/pf2e/templates/actors/delete-spellcasting-dialog.hbs"
                     );
 
                     // Render confirmation modal dialog

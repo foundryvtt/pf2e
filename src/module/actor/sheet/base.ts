@@ -483,7 +483,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 return;
             }
 
-            const content = await renderTemplate("systems/pf2e/templates/actors/delete-condition-dialog.html", {
+            const content = await renderTemplate("systems/pf2e/templates/actors/delete-condition-dialog.hbs", {
                 question: game.i18n.format("PF2E.DeleteConditionQuestion", { condition: item.name }),
                 ref: references.html(),
             });
@@ -513,7 +513,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 return;
             }
 
-            const content = await renderTemplate("systems/pf2e/templates/actors/delete-item-dialog.html", {
+            const content = await renderTemplate("systems/pf2e/templates/actors/delete-item-dialog.hbs", {
                 name: item.name,
             });
             new Dialog({
@@ -965,7 +965,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     private onSellAllTreasure(event: JQuery.ClickEvent) {
         event.preventDefault();
         // Render confirmation modal dialog
-        renderTemplate("systems/pf2e/templates/actors/sell-all-treasure-dialog.html").then((html) => {
+        renderTemplate("systems/pf2e/templates/actors/sell-all-treasure-dialog.hbs").then((html) => {
             new Dialog({
                 title: game.i18n.localize("PF2E.SellAllTreasureTitle"),
                 content: html,

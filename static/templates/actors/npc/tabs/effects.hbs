@@ -1,0 +1,22 @@
+<div class="tab effects actions-pane" data-group="primary" data-tab="effects">
+    <div class="section-container">
+        <div class="section-header">
+            <h4>{{localize 'PF2E.ConditionsLabel'}}</h4>
+        </div>
+        <div class="section-body">
+            <ol class="effects-list">
+                {{> systems/pf2e/templates/actors/partials/conditions.hbs}}
+            </ol>
+        </div>
+    </div>
+    <div class="section-container">
+        <div class="section-header">
+            <h4>{{localize 'PF2E.EffectsLabel'}}</h4>
+        </div>
+        <div class="section-body">
+            <ol class="effects-list">
+                {{> systems/pf2e/templates/actors/partials/conditions.hbs conditions=document.itemTypes.effect}}
+            </ol>
+        </div>
+    </div>
+</div>

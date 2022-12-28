@@ -18,7 +18,7 @@ export class EffectsPanel extends Application {
         return mergeObject(super.defaultOptions, {
             id: "pf2e-effects-panel",
             popOut: false,
-            template: "systems/pf2e/templates/system/effects-panel.html",
+            template: "systems/pf2e/templates/system/effects-panel.hbs",
         });
     }
 

@@ -12,7 +12,7 @@ export class ActorDirectoryPF2e<TDocument extends ActorPF2e> extends ActorDirect
     override async getData(): Promise<object> {
         return {
             ...(await super.getData()),
-            documentPartial: "systems/pf2e/templates/sidebar/actor-document-partial.html",
+            documentPartial: "systems/pf2e/templates/sidebar/actor-document-partial.hbs",
         };
     }
 

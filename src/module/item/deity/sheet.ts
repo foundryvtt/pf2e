@@ -31,7 +31,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         return {
             ...sheetData,
             hasDetails: true,
-            detailsTemplate: () => "systems/pf2e/templates/items/deity-details.html",
+            detailsTemplate: () => "systems/pf2e/templates/items/deity-details.hbs",
             alignments: CONFIG.PF2E.alignments,
             atheistic: this.item.category === "philosophy",
             skills: CONFIG.PF2E.skills,

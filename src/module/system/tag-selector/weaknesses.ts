@@ -9,7 +9,7 @@ export class WeaknessSelector<TActor extends ActorPF2e> extends BaseTagSelector<
     static override get defaultOptions(): FormApplicationOptions {
         return {
             ...super.defaultOptions,
-            template: "systems/pf2e/templates/system/tag-selector/weaknesses.html",
+            template: "systems/pf2e/templates/system/tag-selector/weaknesses.hbs",
             title: "PF2E.WeaknessesLabel",
         };
     }

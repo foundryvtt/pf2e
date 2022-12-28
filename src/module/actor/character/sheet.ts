@@ -54,7 +54,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     override get template(): string {
         const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
-        return `systems/pf2e/templates/actors/character/${template}.html`;
+        return `systems/pf2e/templates/actors/character/${template}.hbs`;
     }
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {

@@ -5,7 +5,7 @@ import { RuleElementForm } from "./base";
 /** Form handler for the RollNote rule element */
 class RollNoteForm extends RuleElementForm {
     private html: HTMLElement | null = null;
-    override template = "systems/pf2e/templates/items/rules/note.html";
+    override template = "systems/pf2e/templates/items/rules/note.hbs";
     override activateListeners(html: HTMLElement) {
         this.html = html;
         const optionsEl = html.querySelector<HTMLInputElement>(".outcomes");

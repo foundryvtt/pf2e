@@ -47,7 +47,7 @@ async function repair(options: RepairActionOptions) {
         subtitle,
         content: async (title) => {
             if (item) {
-                const templatePath = "systems/pf2e/templates/system/actions/repair/item-heading-partial.html";
+                const templatePath = "systems/pf2e/templates/system/actions/repair/item-heading-partial.hbs";
                 const templateData = { item };
                 const content = await renderTemplate(templatePath, templateData);
                 return title + content;
@@ -104,7 +104,7 @@ class SelectItemDialog extends Application {
     private constructor(private resolve: (value: PhysicalItemPF2e | null) => void) {
         super({
             classes: ["select-repair-item-dialog"],
-            template: "systems/pf2e/templates/system/actions/repair/select-item-dialog.html",
+            template: "systems/pf2e/templates/system/actions/repair/select-item-dialog.hbs",
             title: "PF2E.Actions.Repair.SelectItemDialog.Title",
             width: 270,
         });
@@ -188,7 +188,7 @@ async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMess
         await ChatMessage.create({ content, speaker });
     } else if (repair === "roll-damage") {
         const roll = await Roll.create("2d6").evaluate({ async: true });
-        const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.html";
+        const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.hbs";
         const flavor = await renderTemplate(templatePath, {
             damage: {
                 dealt: Math.max(0, roll.total - item.system.hardness),
@@ -220,7 +220,7 @@ async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMess
             });
             await ChatMessage.create({ content, speaker });
         } else {
-            const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.html";
+            const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.hbs";
             const content = await renderTemplate(templatePath, {
                 damage: {
                     dealt: 0,
@@ -239,7 +239,7 @@ async function renderRepairResult(
     buttonLabel: string,
     value: string
 ) {
-    const templatePath = "systems/pf2e/templates/system/actions/repair/repair-result-partial.html";
+    const templatePath = "systems/pf2e/templates/system/actions/repair/repair-result-partial.hbs";
     const label = game.i18n.format(buttonLabel, { value });
     return renderTemplate(templatePath, { item, label, result, value });
 }

@@ -37,7 +37,7 @@ export class CheckModifiersDialog extends Application {
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
-            template: "systems/pf2e/templates/chat/check-modifiers-dialog.html",
+            template: "systems/pf2e/templates/chat/check-modifiers-dialog.hbs",
             classes: ["dice-checks", "dialog"],
             popOut: true,
             width: 380,

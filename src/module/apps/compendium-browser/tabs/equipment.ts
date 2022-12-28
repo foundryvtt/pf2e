@@ -7,7 +7,7 @@ import { CompendiumBrowserIndexData, EquipmentFilters, RangesData } from "./data
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     override filterData!: EquipmentFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/equipment.html";
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/equipment.hbs";
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = [

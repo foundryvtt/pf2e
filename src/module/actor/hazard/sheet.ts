@@ -19,7 +19,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     }
 
     override get template(): string {
-        return "systems/pf2e/templates/actors/hazard/sheet.html";
+        return "systems/pf2e/templates/actors/hazard/sheet.hbs";
     }
 
     override get title() {

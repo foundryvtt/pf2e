@@ -97,7 +97,7 @@ export class VariantRulesSettings extends FormApplication {
             ...super.defaultOptions,
             title: "PF2E.SETTINGS.Variant.Title",
             id: "variant-rules-settings",
-            template: "systems/pf2e/templates/system/settings/variant-rules-settings.html",
+            template: "systems/pf2e/templates/system/settings/variant-rules-settings.hbs",
             width: 550,
             height: "auto",
             closeOnSubmit: true,

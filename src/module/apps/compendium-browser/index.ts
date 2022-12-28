@@ -119,7 +119,7 @@ class CompendiumBrowser extends Application {
         return mergeObject(super.defaultOptions, {
             id: "compendium-browser",
             classes: [],
-            template: "systems/pf2e/templates/compendium-browser/compendium-browser.html",
+            template: "systems/pf2e/templates/compendium-browser/compendium-browser.hbs",
             width: 800,
             height: 700,
             resizable: true,

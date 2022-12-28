@@ -13,7 +13,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     ];
 
     override filterData!: BestiaryFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/bestiary.html";
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/bestiary.hbs";
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = [

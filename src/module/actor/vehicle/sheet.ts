@@ -17,7 +17,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     }
 
     override get template(): string {
-        return "systems/pf2e/templates/actors/vehicle/vehicle-sheet.html";
+        return "systems/pf2e/templates/actors/vehicle/vehicle-sheet.hbs";
     }
 
     override async getData(): Promise<VehicleSheetData> {

@@ -31,7 +31,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.width = 650;
         options.height = 460;
         options.classes = options.classes.concat(["pf2e", "item"]);
-        options.template = "systems/pf2e/templates/items/item-sheet.html";
+        options.template = "systems/pf2e/templates/items/item-sheet.hbs";
         options.scrollY = [".tab.active"];
         options.tabs = [
             {
@@ -167,8 +167,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     }))
                 ),
             },
-            sidebarTemplate: () => `systems/pf2e/templates/items/${item.type}-sidebar.html`,
-            detailsTemplate: () => `systems/pf2e/templates/items/${item.type}-details.html`,
+            sidebarTemplate: () => `systems/pf2e/templates/items/${item.type}-sidebar.hbs`,
+            detailsTemplate: () => `systems/pf2e/templates/items/${item.type}-details.hbs`,
             proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
         };
     }

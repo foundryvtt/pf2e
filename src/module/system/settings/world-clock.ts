@@ -35,7 +35,7 @@ export class WorldClockSettings extends FormApplication {
         return mergeObject(super.defaultOptions, {
             title: CONFIG.PF2E.SETTINGS.worldClock.name,
             id: "world-clock-settings",
-            template: "systems/pf2e/templates/system/settings/world-clock/index.html",
+            template: "systems/pf2e/templates/system/settings/world-clock/index.hbs",
             width: 550,
             height: "auto",
             closeOnSubmit: true,
@@ -109,7 +109,7 @@ export class WorldClockSettings extends FormApplication {
         const title = translations.ResetWorldTime.Name;
         $html.find("button.reset-world-time").on("click", async () => {
             const template = await renderTemplate(
-                "systems/pf2e/templates/system/settings/world-clock/confirm-reset.html"
+                "systems/pf2e/templates/system/settings/world-clock/confirm-reset.hbs"
             );
             Dialog.confirm({
                 title: title,

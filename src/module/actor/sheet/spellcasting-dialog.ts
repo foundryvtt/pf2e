@@ -36,7 +36,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<Embedded<Spellcast
         options.id = "spellcasting-dialog";
         options.classes = [];
         options.title = game.i18n.localize("PF2E.SpellcastingSettings.Title");
-        options.template = "systems/pf2e/templates/actors/spellcasting-dialog.html";
+        options.template = "systems/pf2e/templates/actors/spellcasting-dialog.hbs";
         options.width = 350;
         options.submitOnChange = true;
         options.closeOnSubmit = false;

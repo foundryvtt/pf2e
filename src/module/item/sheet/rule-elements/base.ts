@@ -22,7 +22,7 @@ class RuleElementForm<
     TSource extends RuleElementSource = RuleElementSource,
     TObject extends RuleElementPF2e = RuleElementPF2e
 > {
-    template = "systems/pf2e/templates/items/rules/default.html";
+    template = "systems/pf2e/templates/items/rules/default.hbs";
 
     readonly item: ItemPF2e;
     readonly index: number;
