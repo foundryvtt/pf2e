@@ -20,8 +20,8 @@ export interface ItemTransferData {
 
 export class ItemTransfer implements ItemTransferData {
     private templatePaths = {
-        flavor: "./systems/pf2e/templates/chat/action/flavor.html",
-        content: "./systems/pf2e/templates/chat/action/content.html",
+        flavor: "./systems/pf2e/templates/chat/action/flavor.hbs",
+        content: "./systems/pf2e/templates/chat/action/content.hbs",
     };
 
     constructor(

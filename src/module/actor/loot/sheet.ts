@@ -21,7 +21,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     }
 
     override get template(): string {
-        return "systems/pf2e/templates/actors/loot/sheet.html";
+        return "systems/pf2e/templates/actors/loot/sheet.hbs";
     }
 
     override get isLootSheet(): boolean {

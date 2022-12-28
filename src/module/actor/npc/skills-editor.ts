@@ -17,7 +17,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         options.id = "npc-skills-selector";
         options.classes = ["pf2e", "npc"];
         options.title = game.i18n.localize("PF2E.NPC.SkillsEditor.TitleLabel");
-        options.template = "systems/pf2e/templates/actors/npc/forms/npc-skills-editor.html";
+        options.template = "systems/pf2e/templates/actors/npc/forms/npc-skills-editor.hbs";
         options.width = "auto";
         options.height = 700;
         options.scrollY = [".skills-list"]; // ???

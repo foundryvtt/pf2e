@@ -1280,8 +1280,8 @@ class CharacterPF2e extends CreaturePF2e {
                 if (!game.combat) return; // Only send out messages if in encounter mode
 
                 const templates = {
-                    flavor: "./systems/pf2e/templates/chat/action/flavor.html",
-                    content: "./systems/pf2e/templates/chat/action/content.html",
+                    flavor: "./systems/pf2e/templates/chat/action/flavor.hbs",
+                    content: "./systems/pf2e/templates/chat/action/content.hbs",
                 };
 
                 const flavorAction = {

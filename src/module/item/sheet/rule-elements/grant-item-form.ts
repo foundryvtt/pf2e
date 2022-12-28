@@ -3,7 +3,7 @@ import { RuleElementForm } from "./base";
 
 /** Form handler for the GrantItem rule element */
 class GrantItemForm extends RuleElementForm<GrantItemSource> {
-    override template = "systems/pf2e/templates/items/rules/grant-item.html";
+    override template = "systems/pf2e/templates/items/rules/grant-item.hbs";
     override async getData() {
         const data = await super.getData();
         const uuid = this.rule.uuid ? String(this.rule.uuid) : null;

@@ -24,7 +24,7 @@ export class HeritageSheetPF2e extends ItemSheetPF2e<HeritagePF2e> {
             ancestryRefBroken: !!sheetData.data.ancestry && ancestry === null,
             hasSidebar: true,
             hasDetails: false,
-            sidebarTemplate: () => "systems/pf2e/templates/items/heritage-sidebar.html",
+            sidebarTemplate: () => "systems/pf2e/templates/items/heritage-sidebar.hbs",
         };
     }
 

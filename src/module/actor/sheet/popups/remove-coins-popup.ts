@@ -14,7 +14,7 @@ export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
         options.id = "remove-coins";
         options.classes = [];
         options.title = "Remove Coins";
-        options.template = "systems/pf2e/templates/actors/remove-coins.html";
+        options.template = "systems/pf2e/templates/actors/remove-coins.hbs";
         options.width = "auto";
         return options;
     }

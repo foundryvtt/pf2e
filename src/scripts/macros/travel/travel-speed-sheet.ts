@@ -114,7 +114,7 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
         options.id = "travel-duration";
         options.classes = ["travel-duration"];
         options.title = game.i18n.localize("PF2E.TravelSpeed.Title");
-        options.template = "systems/pf2e/templates/gm/travel/travel-speed-sheet.html";
+        options.template = "systems/pf2e/templates/gm/travel/travel-speed-sheet.hbs";
         options.width = "auto";
         options.submitOnChange = true;
         options.closeOnSubmit = false;

@@ -3,7 +3,7 @@ import { htmlQuery, tagify } from "@util";
 import { RuleElementForm, RuleElementFormSheetData } from "./base";
 
 class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRuleElement> {
-    override template = "systems/pf2e/templates/items/rules/fast-healing.html";
+    override template = "systems/pf2e/templates/items/rules/fast-healing.hbs";
     override activateListeners(html: HTMLElement): void {
         // Tagify the selector list
         const selectorElement = htmlQuery<HTMLInputElement>(html, ".deactivated-by");

@@ -29,7 +29,7 @@ interface Configuration extends Omit<webpack.Configuration, "devServer"> {
 
 const allTemplates = (): string => {
     return glob
-        .sync("**/*.html", { cwd: path.join(__dirname, "static/templates") })
+        .sync("**/*.hbs", { cwd: path.join(__dirname, "static/templates") })
         .map((file: string) => `"systems/pf2e/templates/${file}"`)
         .join(", ");
 };
@@ -90,11 +90,11 @@ const config: Configuration = {
         rules: [
             !isProductionBuild
                 ? {
-                      test: /\.html$/,
+                      test: /\.hbs$/,
                       loader: "raw-loader",
                   }
                 : {
-                      test: /\.html$/,
+                      test: /\.hbs$/,
                       loader: "null-loader",
                   },
             {

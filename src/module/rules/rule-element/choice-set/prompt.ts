@@ -37,7 +37,7 @@ export class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> 
     }
 
     override get template(): string {
-        return "systems/pf2e/templates/system/rules-elements/choice-set-prompt.html";
+        return "systems/pf2e/templates/system/rules-elements/choice-set-prompt.hbs";
     }
 
     override async getData(options: Partial<ApplicationOptions> = {}): Promise<ChoiceSetTemplateData> {

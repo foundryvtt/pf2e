@@ -1,0 +1,17 @@
+<div class="tab inventory item-container" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
+    {{> "systems/pf2e/templates/actors/partials/coinage.hbs" owner=@root.owner}}
+    {{> "systems/pf2e/templates/actors/partials/inventory.hbs"}}
+
+    {{#with inventory.bulk}}
+        <div class="encumbrance {{#if isEncumbered}}encumbered{{/if}} {{#if isOverMax}}over-limit{{/if}}">
+            <img src="systems/pf2e/icons/equipment/adventuring-gear/backpack.webp" alt="Encumbrance">
+            <span class="encumbrance-bar" style="width:{{maxPercentageInteger}}%"></span>
+            <div class="encumbrance-label">
+                <span>{{localize "PF2E.BulkLabel"}} {{value}} / {{localize "PF2E.ConditionTypeEncumbered"}}: {{encumberedAt}}</span>
+                <span>{{localize "PF2E.BulkMaxLabel"}}: {{max}}</span>
+            </div>
+            <div class="encumbrance-light-bulk-overflow">+ ({{value.light}}/10) {{localize "PF2E.BulkTypeLight"}}</div>
+            <span class="bar-bg"></span>
+        </div>
+    {{/with}}
+</div>

@@ -4,7 +4,7 @@ class ChatRollDetails extends Application {
     static override get defaultOptions(): ApplicationOptions {
         const options = super.defaultOptions;
         options.title = "PF2E.ChatRollDetails.Title";
-        options.template = "systems/pf2e/templates/chat/chat-roll-details.html";
+        options.template = "systems/pf2e/templates/chat/chat-roll-details.hbs";
         options.classes = ["chat-roll-details"];
         options.resizable = true;
         options.width = 600;

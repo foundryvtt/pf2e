@@ -1,7 +1,7 @@
 import { CheckRoll } from "../roll";
 
 export class StrikeAttackRoll extends CheckRoll {
-    static override CHAT_TEMPLATE = "systems/pf2e/templates/chat/check/strike/attack-roll.html";
+    static override CHAT_TEMPLATE = "systems/pf2e/templates/chat/check/strike/attack-roll.hbs";
 
     override async render(this: Rolled<StrikeAttackRoll>, options: RollRenderOptions = {}): Promise<string> {
         if (!this._evaluated) await this.evaluate({ async: true });

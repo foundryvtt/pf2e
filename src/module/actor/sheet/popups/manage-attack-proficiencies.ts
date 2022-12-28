@@ -8,7 +8,7 @@ async function add(actor: CharacterPF2e, event: MouseEvent): Promise<void> {
     const translations = LocalizePF2e.translations.PF2E;
     const weaponGroups = CONFIG.PF2E.weaponGroups;
     const baseWeapons = translations.Weapon.Base;
-    const template = await renderTemplate("systems/pf2e/templates/actors/add-combat-proficiency-dialog.html", {
+    const template = await renderTemplate("systems/pf2e/templates/actors/add-combat-proficiency-dialog.hbs", {
         message: translations.AddCombatProficiency.Message,
         weaponGroups,
         baseWeapons,

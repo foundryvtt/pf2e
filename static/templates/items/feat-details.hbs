@@ -1,0 +1,28 @@
+{{> systems/pf2e/templates/items/partials/ability-activation.hbs }}
+
+{{#if isFeat}}
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.Feat.TakeMultiple.Label"}}</label>
+        <div class="details-container-flex-row">
+            <select{{#unless mandatoryTakeOnce}} name="system.maxTakable"{{/unless}} data-dtype="Number" {{disabled mandatoryTakeOnce}}>
+                {{#select data.maxTakable}}
+                    <option value="1">{{localize "No"}}</option>
+                    <option value="2">{{localize "PF2E.Item.Feat.TakeMultiple.Two"}}</option>
+                    <option value="3">{{localize "PF2E.Item.Feat.TakeMultiple.Three"}}</option>
+                    <option value="4">{{localize "PF2E.Item.Feat.TakeMultiple.Four"}}</option>
+                    <option value="5">{{localize "PF2E.Item.Feat.TakeMultiple.Five"}}</option>
+                    <option value="Infinity">{{localize "PF2E.Item.Feat.TakeMultiple.NoLimit"}}</option>
+                {{/select}}
+            </select>
+            {{#if mandatoryTakeOnce}}<input type="hidden" name="system.maxTakable" value="1" data-dtype="Number" />{{/if}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label>{{localize "PF2E.Item.Feat.OnlyLevel1"}}</label>
+        <input type="checkbox" name="system.onlyLevel1" {{checked (or data.onlyLevel1 hasLineageTrait)}} {{disabled hasLineageTrait}} />
+    </div>
+{{/if}}
+<div class="form-group-stacked tags">
+    <label>{{localize "PF2E.FeatPrereqLabel"}}</label>
+    <input class="pf2e-tagify" type="text" name="system.prerequisites.value" value="{{prerequisites}}" data-dtype="JSON" />
+</div>

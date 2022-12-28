@@ -133,7 +133,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
         // Basic template rendering data
-        const template = `systems/pf2e/templates/chat/${this.type}-card.html`;
+        const template = `systems/pf2e/templates/chat/${this.type}-card.hbs`;
         const token = this.actor.token;
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
         const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};

@@ -116,7 +116,7 @@ export async function craftSpellConsumable(
             result[spell.baseLevel] = [...(result[spell.baseLevel] || []), spell];
             return result;
         }, <Record<number, Embedded<SpellPF2e>[]>>{});
-    const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.html", {
+    const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.hbs", {
         spells: validSpells,
     });
 
@@ -160,7 +160,7 @@ export async function renderCraftingInline(
 
     const daysForZeroCost = degreeOfSuccess > 1 ? calculateDaysToNoCost(costs) : 0;
 
-    return await renderTemplate("systems/pf2e/templates/chat/crafting-result.html", {
+    return await renderTemplate("systems/pf2e/templates/chat/crafting-result.hbs", {
         daysForZeroCost: daysForZeroCost,
         strings: await prepStrings(costs, item),
         item,

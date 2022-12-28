@@ -26,7 +26,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         return {
             ...options,
             filters: [{ inputSelector: "input[type=search]", contentSelector: "ol.directory-list" }],
-            template: "systems/pf2e/templates/sidebar/compendium-directory.html",
+            template: "systems/pf2e/templates/sidebar/compendium-directory.hbs",
         };
     }
 

@@ -1,0 +1,120 @@
+<div class="tab character" data-group="primary" data-tab="character">
+    <section class="character-details">
+        <div class="frame-container">
+            <div class="frame image-container"">
+                <img class="player-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+                <a class="hover-icon" data-action="show-image"><i class="fas fa-image fa-fw"></i></a>
+            </div>
+        </div>
+        <div class="alignment">
+            <span class="bio-alignment" title="{{localize "PF2E.AlignmentTitle"}}">
+                <select aria-label="{{localize "PF2E.Alignment"}}" name="system.details.alignment.value">
+                    {{#select data.details.alignment.value}}
+                        {{#each alignments as |label key|}}
+                            <option value="{{key}}">{{localize label}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </span>
+        </div>
+        <div class="pc pc_deity" data-item-id="{{deity.id}}">
+            <div class="input">
+                <label class="details-label">{{localize "ITEM.TypeDeity"}}</label>
+                <h3>
+                    <span class="value">{{deity.name}}</span>
+                    {{#if @root.options.editable}}
+                        {{#if deity}}
+                            <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
+                        {{else}}
+                            <a class="open-compendium" data-compendium="pf2e.deities"><i class="fas fa-fw fa-plus-circle"></i></a>
+                        {{/if}}
+                    {{/if}}
+                </h3>
+            </div>
+            {{#if deity}}
+                <img class="symbol" src="{{deity.img}}" alt="{{deity.name}}" />
+            {{else}}
+                <img class="symbol" src="systems/pf2e/icons/default-icons/deity.svg" alt="{{localize "PF2E.Deity"}}" />
+            {{/if}}
+        </div>
+        <div class="detail-sheet">
+            <div class="pc pc_ancestry item" data-item-id="{{ancestry.id}}">
+                <span class="details-label">{{localize "ITEM.TypeAncestry"}}</span>
+                <span title="{{localize "PF2E.AncestryTitle"}}">
+                    <h3>
+                        <span class="value">{{ancestry.name}}</span>
+                        {{#if @root.options.editable}}
+                            {{#if ancestry}}
+                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
+                            {{else}}
+                                <a class="open-compendium" data-compendium="pf2e.ancestries"><i class="fas fa-fw fa-plus-circle"></i></a>
+                            {{/if}}
+                        {{/if}}
+                    </h3>
+                </span>
+            </div>
+            <div class="pc pc_heritage item" data-item-id="{{heritage.id}}">
+                <span class="details-label">{{localize "PF2E.Heritage"}}</span>
+                <span title="{{localize "PF2E.HeritageTitle"}}">
+                    <h3>
+                        <span class="value">{{heritage.name}}</span>
+                        {{#if @root.options.editable}}
+                            {{#if heritage}}
+                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
+                            {{else}}
+                                <a class="open-compendium" data-compendium="pf2e.heritages"><i class="fas fa-fw fa-plus-circle"></i></a>
+                            {{/if}}
+                        {{/if}}
+                    </h3>
+                </span>
+            </div>
+            <div class="pc pc_class item" data-item-id="{{class.id}}">
+                <span class="details-label">{{localize "PF2E.Class"}}</span>
+                <span title="{{localize "PF2E.ClassTitle"}}">
+                    <h3>
+                        <span class="value">{{class.name}}</span>
+                        {{#if @root.options.editable}}
+                            {{#if class}}
+                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
+                            {{else}}
+                                <a class="open-compendium" data-compendium="pf2e.classes"><i class="fas fa-fw fa-plus-circle"></i></a>
+                            {{/if}}
+                        {{/if}}
+                    </h3>
+                </span>
+            </div>
+            <div class="pc pc_background item" data-item-id="{{background.id}}">
+                <span class="details-label">
+                    {{localize "PF2E.Background"}}
+                </span>
+                <span title="{{localize "PF2E.BackgroundTitle"}}">
+                    <h3>
+                        <span class="value">{{background.name}}</span>
+                        {{#if @root.options.editable}}
+                            {{#if background}}
+                                <a class="item-edit"><i class="fas fa-fw fa-edit"></i></a>
+                            {{else}}
+                                <a class="open-compendium" data-compendium="pf2e.backgrounds"><i class="fas fa-fw fa-plus-circle"></i></a>
+                            {{/if}}
+                        {{/if}}
+                    </h3>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <hr />
+    <section class="character-background">
+        {{> "systems/pf2e/templates/actors/character/partials/background.hbs"}}
+    </section>
+
+    <hr />
+    <section class="character-traits">
+        {{> "systems/pf2e/templates/actors/character/partials/traits.hbs"}}
+    </section>
+
+    <h3 class="header">{{localize "PF2E.AbilityScoresHeader"}} <button type="button" data-action="edit-ability-scores"><i class="fas fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}</button></h3>
+    <section class="character-abilities">
+        {{> "systems/pf2e/templates/actors/character/partials/abilities.hbs"}}
+    </section>
+</div>

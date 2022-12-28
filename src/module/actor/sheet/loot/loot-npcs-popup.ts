@@ -16,7 +16,7 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
         options.id = "loot-NPCs";
         options.classes = [];
         options.title = "Loot NPCs";
-        options.template = "systems/pf2e/templates/actors/loot/loot-npcs-popup.html";
+        options.template = "systems/pf2e/templates/actors/loot/loot-npcs-popup.hbs";
         options.width = "auto";
         return options;
     }
