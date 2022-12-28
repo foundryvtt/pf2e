@@ -399,15 +399,19 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     ): Promise<Actor[]> {
         // Set additional defaults, some according to actor type
         for (const datum of [...data]) {
-            const { linkToActorSize } = datum.prototypeToken?.flags?.pf2e ?? {};
+            const linkToActorSize = ["hazard", "loot"].includes(datum.type)
+                ? false
+                : datum.prototypeToken?.flags?.pf2e?.linkToActorSize ?? true;
+            const autoscale = ["hazard", "loot"].includes(datum.type)
+                ? false
+                : datum.prototypeToken?.flags?.pf2e?.autoscale ??
+                  (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale"));
             const merged = mergeObject(datum, {
                 ownership: datum.ownership ?? { default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE },
                 prototypeToken: {
                     flags: {
                         // Sync token dimensions with actor size?
-                        pf2e: {
-                            linkToActorSize: linkToActorSize ?? !["hazard", "loot"].includes(datum.type),
-                        },
+                        pf2e: { linkToActorSize, autoscale },
                     },
                 },
             });
