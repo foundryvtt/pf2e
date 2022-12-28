@@ -15,7 +15,6 @@ export class Migration809AutomatonEnhancements extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (!source.system.slug) return;
         const isAutomaton = source.type === "ancestry" && source.system.slug === "automaton";
         const rules: Record<string, unknown>[] = source.system.rules;
         if (isAutomaton && !rules.some((r) => r.path === "flags.pf2e.automaton")) {
