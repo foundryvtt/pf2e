@@ -167,8 +167,10 @@ class GrantItemRuleElement extends RuleElementPF2e {
     override async preUpdateActor(): Promise<void> {
         if (!this.reevaluateOnUpdate) return;
 
-        if (this.grantedId && this.actor.items.has(this.grantedId) && !this.test()) {
-            await this.actor.deleteEmbeddedDocuments("Item", [this.grantedId], { render: false });
+        if (this.grantedId && this.actor.items.has(this.grantedId)) {
+            if (!this.test()) {
+                await this.actor.deleteEmbeddedDocuments("Item", [this.grantedId], { render: false });
+            }
             return;
         }
 
