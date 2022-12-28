@@ -1207,6 +1207,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const condition = typeof conditionSlug === "string" ? this.getCondition(conditionSlug) : conditionSlug;
         if (!condition) return;
 
+        // If this is persistent damage, remove all matching types, heal from all at once
+        if (condition.slug === "persistent-damage") {
+            const matching = this.itemTypes.condition.filter((c) => c.key === condition.key).map((c) => c.id);
+            await this.deleteEmbeddedDocuments("Item", matching);
+            return;
+        }
+
         const value = typeof condition.value === "number" ? Math.max(condition.value - 1, 0) : null;
         if (value !== null && !forceRemove) {
             await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, value);
