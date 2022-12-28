@@ -1,5 +1,6 @@
 import { DamageRollFlag } from "@module/chat-message";
 import { UserPF2e } from "@module/user";
+import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { RollDataPF2e } from "@system/rolls";
 import { ErrorPF2e, fontAwesomeIcon, isObject, setHasElement } from "@util";
 import Peggy from "peggy";
@@ -357,6 +358,11 @@ interface DamageRoll {
 interface DamageRollDataPF2e extends RollDataPF2e {
     damage?: DamageTemplate;
     result?: DamageRollFlag;
+    fromPersistent?: {
+        damageType: DamageType;
+        result?: number;
+        outcome?: DegreeOfSuccessString;
+    };
 }
 
 export { DamageRoll, DamageInstance };

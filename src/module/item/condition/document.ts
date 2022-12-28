@@ -5,6 +5,8 @@ import { UserPF2e } from "@module/user";
 import { ErrorPF2e } from "@util";
 import { ConditionData, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
 import { DamageRoll } from "@system/damage/roll";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { TokenDocumentPF2e } from "@scene";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
@@ -63,6 +65,24 @@ class ConditionPF2e extends AbstractEffectPF2e {
         }
     }
 
+    async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}) {
+        const actor = this.actor;
+        const token = options?.token ?? actor?.token;
+        if (!this.isActive || !actor) return;
+
+        if (this.system.persistent) {
+            const roll = await this.system.persistent.damage.clone().evaluate({ async: true });
+            const label = game.i18n.format("PF2E.Item.Condition.PersistentDamage.Name", { formula: roll.formula });
+            roll.toMessage(
+                {
+                    speaker: ChatMessagePF2e.getSpeaker({ actor: actor, token }),
+                    flavor: `<strong>${label}</strong>`,
+                },
+                { rollMode: "publicroll" }
+            );
+        }
+    }
+
     /** Ensure value.isValued and value.value are in sync */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -71,8 +91,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
 
         if (systemData.persistent) {
-            const formula = `${systemData.persistent.formula}[${systemData.persistent.damageType}]`;
-            const roll = new DamageRoll(formula);
+            const { formula, damageType } = systemData.persistent;
+            const roll = new DamageRoll(`(${formula})[${damageType}]`, {}, { fromPersistent: { damageType } });
             const dc = game.user.isGM && systemData.persistent.dc !== 15 ? systemData.persistent.dc : null;
             const localizationKey = `PF2E.Item.Condition.PersistentDamage.${dc !== null ? "NameWithDC" : "Name"}`;
             this.name = game.i18n.format(localizationKey, { formula: roll.formula, dc });

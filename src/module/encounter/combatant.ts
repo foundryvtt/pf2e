@@ -35,6 +35,42 @@ class CombatantPF2e<
         return this.parent.getCombatantWithHigherInit(this, than) === this;
     }
 
+    async startTurn() {
+        const { actor, encounter } = this;
+        if (!encounter || !actor) return;
+
+        const actorUpdates: Record<string, unknown> = {};
+
+        // Run any turn start events before the effect tracker updates.
+        // In PF2e rules, the order is interchangeable. We'll need to be more dynamic with this later.
+        for (const rule of actor.rules) {
+            await rule.onTurnStart?.(actorUpdates);
+        }
+
+        // Now that a user has been found, make the updates if there are any
+        await this.update({ "flags.pf2e.roundOfLastTurn": encounter.round });
+        if (Object.keys(actorUpdates).length > 0) {
+            await actor.update(actorUpdates, { render: false });
+        }
+
+        Hooks.call("pf2e.startTurn", this, encounter, game.user.id);
+    }
+
+    async endTurn(options: { round: number }) {
+        const round = options.round;
+        const { actor, encounter } = this;
+        if (!encounter || !actor) return;
+
+        // Run condition end of turn effects
+        const activeConditions = actor.itemTypes.condition.filter((c) => c.isActive);
+        for (const condition of activeConditions) {
+            await condition.onEndTurn({ token: this.token });
+        }
+
+        await this.update({ "flags.pf2e.roundOfLastTurnEnd": round });
+        Hooks.call("pf2e.endTurn", this, encounter, game.user.id);
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
@@ -130,6 +166,7 @@ interface CombatantPF2e<
 type CombatantFlags = {
     pf2e: {
         roundOfLastTurn: number | null;
+        roundOfLastTurnEnd: number | null;
         overridePriority: Record<number, number | undefined>;
     };
     [key: string]: unknown;
