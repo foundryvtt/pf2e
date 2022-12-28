@@ -1,12 +1,8 @@
 import { ActorPF2e } from "@actor/index";
 import { SpellPF2e } from "@item";
+import { SpellConsumableItemType } from "@item/consumable/spell-consumables";
 import { OneToTen } from "@module/data";
 import { ErrorPF2e } from "@util";
-
-type FormData = {
-    isCantrip?: boolean;
-    validLevels?: number[];
-};
 
 export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     onSubmitCallback: ScrollWandCallback;
@@ -36,22 +32,19 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     }
 
     override async getData(): Promise<FormApplicationData<ActorPF2e>> {
-        const sheetData: FormApplicationData<ActorPF2e> & FormData = await super.getData();
+        const sheetData: FormApplicationData<ActorPF2e> & { validLevels?: number[] } = await super.getData();
 
         if (!this.spell) {
             throw ErrorPF2e("ScrollWandPopup | Could not read spelldata");
         }
 
-        sheetData.isCantrip = this.spell.system.traits.value.includes("cantrip") ?? false;
         const minimumLevel = this.spell.baseLevel;
-        const levels = sheetData.isCantrip
-            ? [1]
-            : Array.from(Array(11 - minimumLevel).keys()).map((index) => minimumLevel + index);
+        const levels = Array.from(Array(11 - minimumLevel).keys()).map((index) => minimumLevel + index);
         sheetData.validLevels = levels;
         return sheetData;
     }
 
-    override async _updateObject(_event: Event, formData: { itemType: string; level: OneToTen }) {
+    override async _updateObject(_event: Event, formData: { itemType: SpellConsumableItemType; level: OneToTen }) {
         if (formData.itemType === "wand" && formData.level === 10) {
             ui.notifications.warn(game.i18n.localize("PF2E.ScrollWandPopup.10thLevelWand"));
         } else if (this.onSubmitCallback && this.spell) {
@@ -60,4 +53,4 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     }
 }
 
-type ScrollWandCallback = (level: OneToTen, itemType: string, spell: SpellPF2e) => Promise<void>;
+type ScrollWandCallback = (level: OneToTen, itemType: SpellConsumableItemType, spell: SpellPF2e) => Promise<void>;

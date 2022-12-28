@@ -21,8 +21,13 @@ const scrollCompendiumIds: Record<number, string | undefined> = {
     10: "o1XIHJ4MJyroAHfF",
 };
 
-const spellConsumableItemTypes = ["cantrip-deck-5", "scroll", "wand"] as const;
-type SpellConsumableItemType = typeof spellConsumableItemTypes[number];
+const SPELL_CONSUMABLE_ITEM_TYPE = new Set(["cantrip-deck-5", "scroll", "wand"] as const);
+type SpellConsumableItemType = SetElement<typeof SPELL_CONSUMABLE_ITEM_TYPE>;
+const SPELL_CONSUMABLE_NAME_TEMPLATES = {
+    "cantrip-deck-5": "PF2E.CantripDeckFromSpell",
+    scroll: "PF2E.ScrollFromSpell",
+    wand: "PF2E.WandFromSpell",
+};
 
 const wandCompendiumIds: Record<number, string | undefined> = {
     1: "UJWiN0K3jqVjxvKk",
@@ -52,18 +57,8 @@ function getIdForSpellConsumable(type: SpellConsumableItemType, heightenedLevel:
 }
 
 function getNameForSpellConsumable(type: SpellConsumableItemType, spellName: string, heightenedLevel: number): string {
-    let name;
-    switch (type) {
-        case "cantrip-deck-5":
-            name = game.i18n.format("PF2E.CantripDeckFromSpell", { name: spellName });
-            break;
-        case "scroll":
-            name = game.i18n.format("PF2E.ScrollFromSpell", { name: spellName, level: heightenedLevel });
-            break;
-        default:
-            name = game.i18n.format("PF2E.WandFromSpell", { name: spellName, level: heightenedLevel });
-    }
-    return name;
+    const templateId = SPELL_CONSUMABLE_NAME_TEMPLATES[type] || `${type} of {name} (Level {level})`;
+    return game.i18n.format(templateId, { name: spellName, level: heightenedLevel });
 }
 
 function isSpellConsumable(itemId: string): boolean {
@@ -72,10 +67,6 @@ function isSpellConsumable(itemId: string): boolean {
         Object.values(scrollCompendiumIds).includes(itemId) ||
         Object.values(wandCompendiumIds).includes(itemId)
     );
-}
-
-function isSpellConsumableItemType(type: string): type is SpellConsumableItemType {
-    return spellConsumableItemTypes.includes(type as SpellConsumableItemType);
 }
 
 async function createConsumableFromSpell(
@@ -130,7 +121,6 @@ export {
     calculateTrickMagicItemCheckDC,
     createConsumableFromSpell,
     isSpellConsumable,
-    isSpellConsumableItemType,
     SpellConsumableItemType,
     TrickMagicItemDifficultyData,
 };

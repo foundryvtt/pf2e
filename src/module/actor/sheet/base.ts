@@ -2,14 +2,7 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import {
-    Coins,
-    createConsumableFromSpell,
-    isSpellConsumableItemType,
-    DENOMINATIONS,
-    ItemPF2e,
-    PhysicalItemPF2e,
-} from "@item";
+import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -762,17 +755,38 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // we still need to put it in the correct spellcastingEntry
         if (item.isOfType("spell") && itemSource.type === "spell") {
             if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
-                const popup = new ScrollWandPopup(
-                    actor,
-                    {},
-                    async (heightenedLevel, itemType, spell) => {
-                        if (!isSpellConsumableItemType(itemType)) return;
-                        const item = await createConsumableFromSpell(itemType, spell, heightenedLevel);
-                        await this._onDropItemCreate(item);
-                    },
-                    item
-                );
-                popup.render(true);
+                if (item.system.traits.value.includes("cantrip")) {
+                    const popup = new Dialog({
+                        title: game.i18n.localize("PF2E.CantripDeckPopup.title"),
+                        content: game.i18n.format("PF2E.CantripDeckPopup.message", { name: item.name }),
+                        buttons: {
+                            submitButton: {
+                                label: game.i18n.localize("PF2E.CantripDeckPopup.submit"),
+                                callback: async () => {
+                                    const createdItem = await createConsumableFromSpell("cantrip-deck-5", item, 1);
+                                    await this._onDropItemCreate(createdItem);
+                                },
+                                icon: `<i class="fas fa-check"></i>`,
+                            },
+                            cancelButton: {
+                                label: game.i18n.localize("PF2E.CantripDeckPopup.cancel"),
+                                icon: `<i class="fas fa-times"></i>`,
+                            },
+                        },
+                    });
+                    popup.render(true);
+                } else {
+                    const popup = new ScrollWandPopup(
+                        actor,
+                        {},
+                        async (heightenedLevel, itemType, spell) => {
+                            const createdItem = await createConsumableFromSpell(itemType, spell, heightenedLevel);
+                            await this._onDropItemCreate(createdItem);
+                        },
+                        item
+                    );
+                    popup.render(true);
+                }
                 return [item];
             } else {
                 return [];
