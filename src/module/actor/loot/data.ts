@@ -48,9 +48,7 @@ interface LootAttributesData extends LootAttributesSource {
 }
 
 interface LootDetailsSource {
-    description: {
-        value: string;
-    };
+    description: string;
     level: {
         value: number;
     };
