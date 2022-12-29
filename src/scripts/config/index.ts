@@ -66,6 +66,7 @@ import { DeityDomain } from "@item/deity/types";
 import { sluggify } from "@util";
 import { Alignment } from "@actor/creature/types";
 import { WeaponReloadTime } from "@item/weapon/types";
+import { DAMAGE_TYPES } from "@system/damage";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -140,6 +141,11 @@ const damageTypes: Record<DamageType, string> = {
     poison: "PF2E.TraitPoison",
     untyped: "PF2E.TraitUntyped",
 };
+
+const damageRollFlavors = [...DAMAGE_TYPES].reduce((result, key) => {
+    result[key] = `PF2E.Damage.RollFlavor.${key}`;
+    return result;
+}, {} as Record<DamageType, string>);
 
 /** Non-detection- and attitude- related conditions added to the Token HUD */
 const tokenHUDConditions = {
@@ -960,6 +966,7 @@ export const PF2ECONFIG = {
     weaponPropertyRunes,
     damageTraits,
     damageTypes,
+    damageRollFlavors,
     damageSubtypes: {
         persistent: "PF2E.ConditionTypePersistentShort",
         splash: "PF2E.TraitSplash",
