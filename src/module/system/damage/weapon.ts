@@ -417,6 +417,7 @@ class WeaponDamagePF2e {
             notes,
             traits: (traits ?? []).map((t) => t.name),
             materials: Array.from(materials),
+            modifiers: [...modifiers, ...damageDice],
             damage: {
                 ...damage,
                 formula: {

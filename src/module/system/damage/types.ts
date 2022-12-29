@@ -71,6 +71,7 @@ interface BaseDamageTemplate {
     notes: RollNotePF2e[];
     traits: string[];
     materials: WeaponMaterialEffect[];
+    modifiers?: (ModifierPF2e | DamageDicePF2e)[];
 }
 
 interface WeaponDamageTemplate extends BaseDamageTemplate {

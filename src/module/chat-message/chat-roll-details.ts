@@ -1,3 +1,5 @@
+import { BaseRawModifier, DamageDicePF2e } from "@actor/modifiers";
+import { addSign } from "@util";
 import { ChatMessagePF2e } from ".";
 
 class ChatRollDetails extends Application {
@@ -23,7 +25,23 @@ class ChatRollDetails extends Application {
         const remainingOptions = allOptions.filter((option) => option.includes(":"));
         const rollOptions = [...topLevelOptions.sort(), ...remainingOptions.sort()];
         const domains = context?.domains.sort();
-        return { context, domains, modifiers, rollOptions, hasModifiers: !!modifiers };
+        const preparedModifiers = modifiers ? this.prepareModifiers(modifiers) : [];
+        return { context, domains, modifiers: preparedModifiers, rollOptions, hasModifiers: !!modifiers };
+    }
+
+    protected prepareModifiers(modifiers: (BaseRawModifier | DamageDicePF2e)[]) {
+        return modifiers.map((mod) => {
+            const value = "dieSize" in mod ? `+${mod.diceNumber}${mod.dieSize}` : addSign(mod.modifier ?? 0);
+
+            return {
+                ...mod,
+                value,
+                critical:
+                    mod.critical !== null
+                        ? game.i18n.localize(`PF2E.RuleEditor.General.CriticalBehavior.${mod.critical}`)
+                        : null,
+            };
+        });
     }
 }
 

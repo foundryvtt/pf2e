@@ -198,6 +198,7 @@ export class DamagePF2e {
                     context: contextFlag,
                     damageRoll: rollData,
                     target: targetFlag,
+                    modifiers: data.modifiers,
                     origin,
                     strike,
                     preformatted: "both",

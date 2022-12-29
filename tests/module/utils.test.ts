@@ -2,7 +2,7 @@ import { addSign, applyNTimes, padArray, zip } from "@util";
 
 describe("format sign for numbers", () => {
     test("0", () => {
-        expect(addSign(0)).toEqual("0");
+        expect(addSign(0)).toEqual("+0");
     });
 
     test("negative", () => {

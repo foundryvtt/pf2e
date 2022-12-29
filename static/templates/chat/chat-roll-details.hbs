@@ -30,8 +30,8 @@
                     <div class="modifier {{disabled (not m.enabled)}}">
                         <h4>{{m.label}} <span class="slug">({{m.slug}})</span></h4>
                         <div>
-                            <span>{{m.type}} {{numberFormat m.modifier sign=true}}</span>
-                            <span>{{m.ability}}</span>
+                            <span>{{m.type}} {{m.value}} {{m.damageType}} {{#if m.category}}({{m.category}}){{/if}}</span>
+                            <span>{{m.critical}} {{m.ability}}</span>
                         </div>
                     </div>
                 {{/each}}
