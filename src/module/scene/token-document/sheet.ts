@@ -1,8 +1,8 @@
 import { VehiclePF2e } from "@actor";
-import { ErrorPF2e, fontAwesomeIcon, objectHasKey } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
 import { TokenDocumentPF2e } from ".";
 
-export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
+class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
     override get template(): string {
         return "systems/pf2e/templates/scene/token/sheet.hbs";
     }
@@ -20,75 +20,47 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenC
         }[actorSize];
     }
 
+    override async getData(options?: DocumentSheetOptions): Promise<TokenConfigDataPF2e<TDocument>> {
+        return {
+            ...(await super.getData(options)),
+            sizeLinkable: !!this.actor && !["hazard", "loot"].includes(this.actor.type),
+            linkToSizeTitle: this.token.flags.pf2e.linkToActorSize ? "Unlink" : "Link",
+            autoscaleTitle: this.token.flags.pf2e.autoscale ? "Unlink" : "Link",
+        };
+    }
+
     /** Hide token-sight settings when rules-based vision is enabled */
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         const html = $html[0]!;
-        const linkToActorSize = html.querySelector<HTMLInputElement>('input[name="flags.pf2e.linkToActorSize"]');
-        if (!linkToActorSize) throw ErrorPF2e("");
-        if (linkToActorSize.checked) {
+
+        this.#disableVisionInputs(html);
+
+        if (this.token.flags.pf2e.autoscale) {
             this.#disableScale(html);
         }
 
-        linkToActorSize.addEventListener("change", (event) => {
-            if (!(event.currentTarget instanceof HTMLInputElement)) {
-                throw ErrorPF2e("Input element not found");
-            }
-
-            const sizeInputs = Array.from(
-                event.currentTarget
-                    .closest("fieldset")
-                    ?.querySelectorAll<HTMLInputElement>("input[type=number], input[type=range]") ?? []
-            );
-
-            for (const input of sizeInputs) {
-                input.disabled = linkToActorSize.checked;
-            }
-
-            const dimensionInputs = sizeInputs.filter((i) => ["width", "height"].includes(i.name));
-
-            const autoscale =
-                game.settings.get("pf2e", "tokens.autoscale") && this.token._source.flags.pf2e?.autoscale !== false;
-
-            if (linkToActorSize.checked && autoscale) {
-                if (this.actor instanceof VehiclePF2e) {
-                    const { dimensions } = this.actor;
-                    const dimensionValues: Record<string, number> = {
-                        width: Math.max(Math.round(dimensions.width / 5), 1),
-                        height: Math.max(Math.round(dimensions.length / 5), 1),
-                    };
-                    for (const input of dimensionInputs) {
-                        input.value = dimensionValues[input.name].toString();
-                    }
-                } else {
-                    for (const input of dimensionInputs) {
-                        input.value = this.dimensionsFromActorSize.toString();
-                    }
-                }
-                this.#disableScale(html);
-            } else {
-                const source = this.token._source;
-                const nameToValue = {
-                    width: source.width,
-                    height: source.height,
-                    scale: source.texture.scaleX,
-                };
-                for (const input of sizeInputs) {
-                    if (objectHasKey(nameToValue, input.name)) {
-                        input.value = nameToValue[input.name].toString();
-                    }
-                }
-                this.#enableScale(html);
-            }
+        const linkToSizeButton = htmlQuery(html, "a[data-action=toggle-link-to-size]");
+        linkToSizeButton?.addEventListener("click", async () => {
+            await this.token.update({
+                "flags.pf2e.linkToActorSize": !this.token.flags.pf2e.linkToActorSize,
+            });
+            this.#reestablishPrototype();
+            await this.render();
         });
 
-        this.#disableVisionInputs(html);
+        const autoscaleButton = htmlQuery(html, "a[data-action=toggle-autoscale]");
+        autoscaleButton?.addEventListener("click", async () => {
+            await this.token.update({ "flags.pf2e.autoscale": !this.token.flags.pf2e.autoscale });
+            this.#reestablishPrototype();
+            await this.render();
+        });
     }
 
     /** Disable the range input for token scale and style to indicate as much */
     #disableScale(html: HTMLElement): void {
-        // If autoscaling is disabled, keep form input enabled
+        // If autoscaling is globally disabled, keep form input enabled
         if (!game.settings.get("pf2e", "tokens.autoscale")) return;
 
         const scale = html.querySelector(".form-group.scale");
@@ -105,16 +77,14 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenC
         }
     }
 
-    /** Reenable range input for token scale and restore normal styling */
-    #enableScale(html: HTMLElement): void {
-        const scale = html.querySelector(".form-group.scale");
-        if (!scale) throw ErrorPF2e("Scale form group missing");
-        scale.classList.remove("children-disabled");
-        const rangeInput = scale.querySelector<HTMLInputElement>("input[type=range]");
-        if (rangeInput) {
-            rangeInput.disabled = false;
-            const rangeDisplayValue = scale.querySelector(".range-value");
-            if (rangeDisplayValue) rangeDisplayValue.innerHTML = rangeInput.value;
+    /**
+     * A core bug present as of 10.291 will cause a `TokenConfig`'s `object`/`token` reference to become stale
+     * following an update: reestablish it.
+     */
+    #reestablishPrototype(): void {
+        if (this.isPrototype && this.actor) {
+            const realPrototype = this.actor.prototypeToken as unknown as TDocument;
+            this.object = this.token = realPrototype;
         }
     }
 
@@ -186,7 +156,7 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenC
     protected override _getSubmitData(updateData: Record<string, unknown> | null = {}): Record<string, unknown> {
         const changes = updateData ?? {};
         if (this.form.querySelector<HTMLInputElement>("input[name=scale]")?.disabled) {
-            changes["scale"] = Math.abs(this.object._source.texture.scaleX);
+            changes["scale"] = Math.abs(this.token._source.texture.scaleX);
         }
         return super._getSubmitData(changes);
     }
@@ -206,3 +176,12 @@ export class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenC
         return super._updateObject(event, formData);
     }
 }
+
+interface TokenConfigDataPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfigData<TDocument> {
+    /** Whether the token can be linked to its actor's size */
+    sizeLinkable: boolean;
+    linkToSizeTitle: string;
+    autoscaleTitle: string;
+}
+
+export { TokenConfigPF2e };
