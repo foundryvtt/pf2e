@@ -294,7 +294,7 @@ class DamageInstance extends AbstractDamageRoll {
         span.append(this.#renderFormula());
 
         if (this.persistent && this.type !== "bleed") {
-            const icon = fontAwesomeIcon("clock");
+            const icon = fontAwesomeIcon("hourglass", { style: "duotone" });
             icon.classList.add("icon");
             icon.title = game.i18n.localize(CONFIG.PF2E.conditionTypes["persistent-damage"]);
             span.append(" ", icon);
