@@ -68,7 +68,7 @@ class TextEditorPF2e extends TextEditor {
             anchor.dataset.tooltip = roll.formula;
             anchor.dataset.damageRoll = "";
 
-            const isPersistent = !roll.instances.some((i) => !i.persistent);
+            const isPersistent = roll.instances.length > 0 && roll.instances.every((i) => i.persistent);
             if (isPersistent) {
                 anchor.draggable = true;
                 anchor.dataset.persistent = "";
