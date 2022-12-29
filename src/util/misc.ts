@@ -55,17 +55,13 @@ function isBlank(text: Optional<string>): text is null | undefined | "" {
     return text === null || text === undefined || text.trim() === "";
 }
 
-/**
- * Adds a + if positive, nothing if 0 or - if negative
- */
+/** Returns a formatted number string with a preceding + if non-negative */
 function addSign(number: number): string {
     if (number < 0) {
         return `${number}`;
     }
-    if (number > 0) {
-        return `+${number}`;
-    }
-    return "0";
+
+    return `+${number}`;
 }
 
 /**

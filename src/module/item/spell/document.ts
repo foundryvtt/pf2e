@@ -1,6 +1,7 @@
 import {
     createAbilityModifier,
     createProficiencyModifier,
+    DamageDicePF2e,
     ensureProficiencyOption,
     ModifierPF2e,
     StatisticModifier,
@@ -45,7 +46,7 @@ interface SpellDamage {
     roll: DamageRoll;
     domains: string[];
     options: Set<string>;
-    modifiers: ModifierPF2e[];
+    modifiers: (ModifierPF2e | DamageDicePF2e)[];
     breakdownTags: string[];
 }
 
@@ -274,6 +275,7 @@ class SpellPF2e extends ItemPF2e {
 
         // Add modifiers and damage die adjustments
         const modifiers: ModifierPF2e[] = [];
+        const damageDice: DamageDicePF2e[] = [];
         if (actor?.isOfType("character", "npc")) {
             const abilityModifiers = Object.entries(this.system.damage.value)
                 .filter(([, d]) => d.applyMod)
@@ -306,10 +308,12 @@ class SpellPF2e extends ItemPF2e {
                 }
             }
 
-            const damageDice = extractDamageDice(actor.synthetics.damageDice, domains, {
-                test: options,
-                resolvables: { spell: this },
-            });
+            damageDice.push(
+                ...extractDamageDice(actor.synthetics.damageDice, domains, {
+                    test: options,
+                    resolvables: { spell: this },
+                })
+            );
             applyDamageDice(Object.values(formulas), damageDice);
         }
 
@@ -359,7 +363,7 @@ class SpellPF2e extends ItemPF2e {
 
             if (instances.length) {
                 const roll = DamageRoll.fromTerms([InstancePool.fromRolls(instances)]);
-                return { roll, breakdownTags, domains, options, modifiers };
+                return { roll, breakdownTags, domains, options, modifiers: [...modifiers, ...damageDice] };
             }
         } catch (err) {
             console.error(err);
@@ -788,6 +792,7 @@ class SpellPF2e extends ItemPF2e {
             notes: [],
             materials: [],
             traits: this.castingTraits,
+            modifiers,
         };
 
         const context: DamageRollContext = {
@@ -799,8 +804,8 @@ class SpellPF2e extends ItemPF2e {
             self: {
                 actor: this.actor,
                 item: this,
-                modifiers: modifiers,
                 token: this.actor.token,
+                modifiers: [],
             },
         };
 
