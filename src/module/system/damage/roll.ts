@@ -291,12 +291,12 @@ class DamageInstance extends AbstractDamageRoll {
     override async render(): Promise<string> {
         const span = document.createElement("span");
         span.classList.add("instance", this.type);
+        span.title = this.typeLabel;
         span.append(this.#renderFormula());
 
         if (this.persistent && this.type !== "bleed") {
             const icon = fontAwesomeIcon("clock");
             icon.classList.add("icon");
-            icon.title = game.i18n.localize(CONFIG.PF2E.conditionTypes["persistent-damage"]);
             span.append(" ", icon);
         }
 
@@ -306,7 +306,6 @@ class DamageInstance extends AbstractDamageRoll {
             const icon = fontAwesomeIcon(iconClass);
             icon.classList.add("icon");
             span.append(icon);
-            span.title = game.i18n.localize(CONFIG.PF2E.damageTypes[this.type]);
         }
 
         return span.outerHTML;
@@ -346,7 +345,10 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     get typeLabel(): string {
-        return game.i18n.localize(CONFIG.PF2E.damageTypes[this.type]);
+        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[this.type]);
+        return this.persistent && this.type !== "bleed"
+            ? game.i18n.format("PF2E.Damage.PersistentTooltip", { damageType })
+            : damageType;
     }
 }
 
