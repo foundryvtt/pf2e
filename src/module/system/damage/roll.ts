@@ -295,7 +295,7 @@ class DamageInstance extends AbstractDamageRoll {
         span.append(this.#renderFormula());
 
         if (this.persistent && this.type !== "bleed") {
-            const icon = fontAwesomeIcon("clock");
+            const icon = fontAwesomeIcon("hourglass", { style: "duotone" });
             icon.classList.add("icon");
             span.append(" ", icon);
         }
