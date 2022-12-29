@@ -272,6 +272,30 @@
                 "selector": "strike-damage",
                 "slug": "dedication-instinct-rage-agile-normal",
                 "value": 1
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance",
+                    {
+                        "not": "barbarian-dedication"
+                    }
+                ],
+                "type": "piercing",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance",
+                    {
+                        "not": "barbarian-dedication"
+                    }
+                ],
+                "type": "poison",
+                "value": "@actor.abilities.con.mod+3"
             }
         ],
         "source": {
