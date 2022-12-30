@@ -8,7 +8,7 @@ import {
     ItemTraits,
 } from "@item/data/base";
 import { OneToTen, ValueAndMax, ValuesList } from "@module/data";
-import { DamageType } from "@system/damage";
+import { DamageCategoryUnique, DamageType } from "@system/damage";
 import type { SpellPF2e } from "./document";
 import { EffectAreaSize, EffectAreaType, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 
@@ -22,7 +22,7 @@ type SpellDamageCategory = keyof ConfigPF2e["PF2E"]["damageCategories"];
 
 export interface SpellDamageType {
     value: DamageType;
-    subtype?: "persistent" | "splash";
+    subtype?: DamageCategoryUnique;
     categories: SpellDamageCategory[];
 }
 

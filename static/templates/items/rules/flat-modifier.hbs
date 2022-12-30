@@ -88,10 +88,14 @@
     <label class="short">{{localize "PF2E.RuleEditor.General.DamageType"}}</label>
     <div class="spaced-fields details-container-flex-row">
         <input type="text" class="pf2e-tagify damage-type" name="system.rules.{{index}}.damageType" value="{{rule.damageType}}"/>
-        <label>
-            {{localize "PF2E.TraitPrecision"}}
-            <input type="checkbox" name="system.rules.{{index}}.damageCategory" value="precision" data-dtype="String" {{checked (eq rule.damageCategory "precision")}}/>
-        </label>
+        <select name="system.rules.{{index}}.damageCategory">
+            {{#select rule.damageCategory}}
+                <option value=""></option>
+                {{#each damageCategories as |label key|}}
+                    <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
         <select name="system.rules.{{index}}.critical">
             {{#select rule.critical}}
                 <option value="">{{localize "PF2E.RuleEditor.General.CriticalBehavior.null"}}</option>

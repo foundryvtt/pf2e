@@ -2,8 +2,9 @@ import { SpellPF2e } from "@item/spell";
 import { ItemSheetPF2e } from "../sheet/base";
 import { ItemSheetDataPF2e } from "../sheet/data-types";
 import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data";
-import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, tagify, tupleHasValue } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, omit, pick, tagify, tupleHasValue } from "@util";
 import { OneToTen } from "@module/data";
+import { DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
 
 /** Set of properties that are legal for the purposes of spell overrides */
 const spellOverridable: Partial<Record<keyof SpellSystemData, string>> = {
@@ -74,8 +75,8 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             magicSchools: CONFIG.PF2E.magicSchools,
             spellLevels: CONFIG.PF2E.spellLevels,
             damageTypes,
-            damageSubtypes: CONFIG.PF2E.damageSubtypes,
-            damageCategories: CONFIG.PF2E.damageCategories,
+            damageSubtypes: pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
+            damageCategories: omit(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
             spellComponents: this.formatSpellComponents(sheetData.data),
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
@@ -439,9 +440,9 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     spellLevels: ConfigPF2e["PF2E"]["spellLevels"];
     spellTypes: ConfigPF2e["PF2E"]["spellTypes"];
     saves: ConfigPF2e["PF2E"]["saves"];
-    damageCategories: ConfigPF2e["PF2E"]["damageCategories"];
+    damageCategories: Omit<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
     damageTypes: Record<string, string>;
-    damageSubtypes: ConfigPF2e["PF2E"]["damageSubtypes"];
+    damageSubtypes: Pick<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
     spellComponents: string[];
     areaSizes: ConfigPF2e["PF2E"]["areaSizes"];
     areaTypes: ConfigPF2e["PF2E"]["areaTypes"];
