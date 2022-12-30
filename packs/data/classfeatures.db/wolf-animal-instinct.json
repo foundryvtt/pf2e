@@ -225,6 +225,30 @@
                 "selector": "strike-damage",
                 "slug": "non-animal-rage-agile",
                 "value": 1
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance",
+                    {
+                        "not": "barbarian-dedication"
+                    }
+                ],
+                "type": "slashing",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance",
+                    {
+                        "not": "barbarian-dedication"
+                    }
+                ],
+                "type": "piercing",
+                "value": "@actor.abilities.con.mod+3"
             }
         ],
         "source": {
