@@ -135,6 +135,16 @@ function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K
     }, {} as Pick<T, K>);
 }
 
+/** Returns a subset of an object with explicitly excluded keys */
+function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
+    const clone = deepClone(obj);
+    for (const key of keys) {
+        delete clone[key];
+    }
+
+    return clone;
+}
+
 const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
 const nonWordCharacter = String.raw`[^\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
 const nonWordCharacterRE = new RegExp(nonWordCharacter, "gu");
@@ -376,6 +386,7 @@ export {
     isObject,
     localizeList,
     objectHasKey,
+    omit,
     ordinal,
     padArray,
     parseHTML,
