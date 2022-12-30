@@ -1,6 +1,5 @@
 import { DamageRollFlag } from "@module/chat-message";
 import { UserPF2e } from "@module/user";
-import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { RollDataPF2e } from "@system/rolls";
 import { ErrorPF2e, fontAwesomeIcon, isObject, setHasElement } from "@util";
 import Peggy from "peggy";
@@ -30,6 +29,12 @@ class DamageRoll extends AbstractDamageRoll {
         super(wrapped, data, options);
 
         this.roller = game.users.get(options?.rollerId ?? "") ?? null;
+
+        if (this.options.evaluatePersistent) {
+            for (const instance of this.instances) {
+                instance.options.evaluatePersistent = true;
+            }
+        }
     }
 
     static override CHAT_TEMPLATE = "systems/pf2e/templates/dice/damage-roll.hbs";
@@ -285,7 +290,7 @@ class DamageInstance extends AbstractDamageRoll {
 
     /** Return 0 for persistent damage */
     protected override _evaluateTotal(): number {
-        return this.persistent ? 0 : super._evaluateTotal();
+        return this.persistent && !this.options.evaluatePersistent ? 0 : super._evaluateTotal();
     }
 
     override async render(): Promise<string> {
@@ -352,18 +357,18 @@ class DamageInstance extends AbstractDamageRoll {
     }
 }
 
-interface DamageRoll {
-    options: DamageRollDataPF2e;
+interface DamageInstance extends AbstractDamageRoll {
+    options: DamageInstanceData;
 }
 
 interface DamageRollDataPF2e extends RollDataPF2e {
     damage?: DamageTemplate;
     result?: DamageRollFlag;
-    fromPersistent?: {
-        damageType: DamageType;
-        result?: number;
-        outcome?: DegreeOfSuccessString;
-    };
+    evaluatePersistent?: boolean;
+}
+
+interface DamageInstanceData extends RollOptions {
+    evaluatePersistent?: boolean;
 }
 
 export { DamageRoll, DamageInstance };
