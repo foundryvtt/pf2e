@@ -333,6 +333,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         for (const key of SKILL_ABBREVIATIONS) {
             const newSkill = this.overrides.skills[key];
             if (!newSkill) continue;
+            newSkill.ownIfHigher ??= true;
 
             const currentSkill = this.actor.system.skills[key];
             const newModifier = Number(this.resolveValue(newSkill.modifier)) || 0;
