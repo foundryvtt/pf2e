@@ -276,7 +276,7 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     override get total(): number | undefined {
-        return this.persistent ? 0 : super.total;
+        return this.persistent && !this.options.evaluatePersistent ? 0 : super.total;
     }
 
     /** The expected value of this damage instance */
