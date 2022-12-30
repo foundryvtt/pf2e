@@ -126,8 +126,8 @@ function setHasElement<T extends Set<unknown>>(set: T, value: unknown): value is
 }
 
 /** Returns a subset of an object with explicitly defined keys */
-function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
-    return keys.reduce((result, key) => {
+function pick<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): Pick<T, K> {
+    return [...keys].reduce((result, key) => {
         if (key in obj) {
             result[key] = obj[key];
         }
@@ -136,7 +136,7 @@ function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K
 }
 
 /** Returns a subset of an object with explicitly excluded keys */
-function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
+function omit<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): Omit<T, K> {
     const clone = deepClone(obj);
     for (const key of keys) {
         delete clone[key];

@@ -25,7 +25,7 @@ import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e
 import { ConditionSlug } from "@item/condition/data";
 import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes";
 import { PreciousMaterialGrade } from "@item/physical/types";
-import { DamageCategory, DamageType } from "@system/damage/types";
+import { DamageCategory, DamageCategoryUnique, DamageType } from "@system/damage/types";
 import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
 import { RANGE_TRAITS } from "@item/data/values";
 import { ActorType } from "@actor/data";
@@ -107,7 +107,14 @@ const weaponPropertyRunes = {
     }, {} as Record<WeaponPropertyRuneType, string>),
 };
 
+const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
+    persistent: "PF2E.ConditionTypePersistentShort",
+    precision: "PF2E.TraitPrecision",
+    splash: "PF2E.TraitSplash",
+};
+
 const damageCategories: Record<DamageCategory, string> = {
+    ...damageCategoriesUnique,
     alignment: "PF2E.Alignment",
     adamantine: "PF2E.PreciousMaterialAdamantine",
     coldiron: "PF2E.PreciousMaterialColdIron",
@@ -117,7 +124,6 @@ const damageCategories: Record<DamageCategory, string> = {
     mithral: "PF2E.PreciousMaterialMithral",
     orichalcum: "PF2E.PreciousMaterialOrichalcum",
     physical: "PF2E.TraitPhysical",
-    precision: "PF2E.TraitPrecision",
     salt: "PF2E.TraitSalt",
     "salt-water": "PF2E.TraitSaltWater",
     silver: "PF2E.PreciousMaterialSilver",
@@ -967,11 +973,6 @@ export const PF2ECONFIG = {
     damageTraits,
     damageTypes,
     damageRollFlavors,
-    damageSubtypes: {
-        persistent: "PF2E.ConditionTypePersistentShort",
-        splash: "PF2E.TraitSplash",
-    },
-
     damageCategories,
     resistanceTypes,
 

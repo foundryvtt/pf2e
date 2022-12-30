@@ -13,7 +13,11 @@ const ENERGY_DAMAGE_TYPES = [
 ] as const;
 const ALIGNMENT_DAMAGE_TYPES = ["chaotic", "lawful", "good", "evil"] as const;
 
+/** A set of mutually exclusive damage categories */
+const DAMAGE_CATEGORIES_UNIQUE = new Set(["persistent", "precision", "splash"]);
+
 const DAMAGE_CATEGORIES = new Set([
+    ...DAMAGE_CATEGORIES_UNIQUE,
     "adamantine",
     "alignment",
     "coldiron",
@@ -23,7 +27,6 @@ const DAMAGE_CATEGORIES = new Set([
     "mithral",
     "orichalcum",
     "physical",
-    "precision",
     "salt",
     "salt-water",
     "silver",
@@ -95,6 +98,7 @@ export {
     ALIGNMENT_DAMAGE_TYPES,
     BASE_DAMAGE_TYPES_TO_CATEGORIES,
     DAMAGE_CATEGORIES,
+    DAMAGE_CATEGORIES_UNIQUE,
     DAMAGE_DIE_FACES,
     DAMAGE_DIE_FACES_TUPLE,
     DAMAGE_TYPE_ICONS,
