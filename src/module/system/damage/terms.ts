@@ -1,5 +1,6 @@
 import { ErrorPF2e, isObject } from "@util";
 import { renderSplashDamage } from "./helpers";
+import { DamageInstance } from "./roll";
 
 class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     operator: ArithmeticOperator;
@@ -22,6 +23,21 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
 
     static override SERIALIZE_ATTRIBUTES = ["operator", "operands"];
 
+    static totalOf(operator: ArithmeticOperator, left: number, right: number): number {
+        switch (operator) {
+            case "+":
+                return left + right;
+            case "-":
+                return left - right;
+            case "*":
+                return left * right;
+            case "/":
+                return left / right;
+            case "%":
+                return left % right;
+        }
+    }
+
     get dice(): DiceTerm[] {
         return this.operands.flatMap((o) =>
             o instanceof DiceTerm ? o : o instanceof Grouping || o instanceof ArithmeticExpression ? o.dice : []
@@ -29,25 +45,27 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     }
 
     get expression(): string {
+        if (this.isDeterministic) return this.total!.toString();
+
         const { operator, operands } = this;
         return `${operands[0].expression} ${operator} ${operands[1].expression}`;
     }
 
     override get total(): number | undefined {
-        if (!this._evaluated) return undefined;
-        const operands = [Number(this.operands[0].total), Number(this.operands[1].total)];
-        switch (this.operator) {
-            case "+":
-                return operands[0] + operands[1];
-            case "-":
-                return operands[0] - operands[1];
-            case "*":
-                return operands[0] * operands[1];
-            case "/":
-                return operands[0] / operands[1];
-            case "%":
-                return operands[0] % operands[1];
-        }
+        if (!this._evaluated && !this.isDeterministic) return undefined;
+
+        const operands: [number, number] = [Number(this.operands[0].total), Number(this.operands[1].total)];
+        return ArithmeticExpression.totalOf(this.operator, ...operands);
+    }
+
+    override get isDeterministic(): boolean {
+        return this.operands.every((o) => o.isDeterministic);
+    }
+
+    get expectedValue(): number {
+        const left = DamageInstance.expectedValueOf(this.operands[0]);
+        const right = DamageInstance.expectedValueOf(this.operands[1]);
+        return ArithmeticExpression.totalOf(this.operator, left, right);
     }
 
     /** Construct a string for an HTML rendering of this term */
@@ -117,11 +135,19 @@ class Grouping extends RollTerm<GroupingData> {
     }
 
     get expression(): string {
-        return `(${this.term.expression})`;
+        return this.isDeterministic ? this.total!.toString() : `(${this.term.expression})`;
     }
 
     override get total(): number | undefined {
-        return this._evaluated ? Number(this.term.total) : undefined;
+        return this._evaluated || this.isDeterministic ? Number(this.term.total) : undefined;
+    }
+
+    override get isDeterministic(): boolean {
+        return this.term.isDeterministic;
+    }
+
+    get expectedValue(): number {
+        return DamageInstance.expectedValueOf(this.term);
     }
 
     protected override async _evaluate(
@@ -140,6 +166,29 @@ class Grouping extends RollTerm<GroupingData> {
     }
 }
 
+class InstancePool extends PoolTerm {
+    /** Work around upstream bug in which method attempts to construct `Roll`s from display formulas */
+    static override fromRolls<TTerm extends PoolTerm>(this: ConstructorOf<TTerm>, rolls?: Roll[]): TTerm;
+    static override fromRolls(rolls: DamageInstance[] = []): PoolTerm {
+        const allEvaluated = rolls.every((r) => r._evaluated);
+        const noneEvaluated = !rolls.some((r) => r._evaluated);
+        if (!(allEvaluated || noneEvaluated)) return super.fromRolls(rolls);
+
+        const pool = new this({
+            terms: rolls.map((r) => r._formula),
+            modifiers: [],
+            rolls: rolls,
+            results: allEvaluated ? rolls.map((r) => ({ result: r.total!, active: true })) : [],
+        });
+        pool._evaluated = allEvaluated;
+        return pool;
+    }
+}
+
+interface InstancePool extends PoolTerm {
+    rolls: DamageInstance[];
+}
+
 interface ArithmeticExpressionData extends RollTermData {
     operator: ArithmeticOperator;
     operands: [RollTermData, RollTermData];
@@ -149,4 +198,4 @@ interface GroupingData extends RollTermData {
     term: RollTermData;
 }
 
-export { ArithmeticExpression, Grouping };
+export { ArithmeticExpression, Grouping, InstancePool };

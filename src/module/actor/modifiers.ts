@@ -1,12 +1,11 @@
 import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
 import { RollNotePF2e } from "@module/notes";
-import { extractModifierAdjustments } from "@module/rules/util";
+import { extractModifierAdjustments } from "@module/rules/helpers";
 import { DamageDieSize, DamageType } from "@system/damage/types";
-import { DamageCategorization } from "@system/damage/helpers";
 import { DAMAGE_TYPES } from "@system/damage/values";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
-import { ErrorPF2e, setHasElement, sluggify } from "@util";
+import { ErrorPF2e, setHasElement, sluggify, tupleHasValue } from "@util";
 import { ZeroToFour } from "@module/data";
 
 const PROFICIENCY_RANK_OPTION = [
@@ -71,7 +70,7 @@ interface BaseRawModifier {
     /** If true, this modifier is a custom player-provided modifier. */
     custom?: boolean;
     /** The damage type that this modifier does, if it modifies a damage roll. */
-    damageType?: string | null;
+    damageType?: DamageType | null;
     /** The damage category */
     damageCategory?: string | null;
     /** A predicate which determines when this modifier is active. */
@@ -189,13 +188,17 @@ class ModifierPF2e implements RawModifier {
         this.modifier = params.modifier;
 
         this.damageType = setHasElement(DAMAGE_TYPES, params.damageType) ? params.damageType : null;
-        this.damageCategory = params.damageCategory ?? null;
+        this.damageCategory = this.damageType === "bleed" ? "persistent" : params.damageCategory ?? null;
         // Force splash damage into being critical-only or not doubling on critical hits
         this.critical = this.damageCategory === "splash" ? !!params.critical : params.critical ?? null;
 
         if (this.force && this.type === "untyped") {
             throw ErrorPF2e("A forced modifier must have a type");
         }
+    }
+
+    get category(): string | null {
+        return this.damageCategory;
     }
 
     get value(): number {
@@ -608,7 +611,7 @@ class DiceModifierPF2e implements BaseRawModifier {
      */
     critical: boolean | null;
     /** The damage category of these dice. */
-    category: string | null;
+    category: "persistent" | "precision" | "splash" | null;
     damageType: DamageType | null;
     /** If true, these dice overide the base damage dice of the weapon. */
     override: DamageDiceOverride | null;
@@ -617,26 +620,28 @@ class DiceModifierPF2e implements BaseRawModifier {
     custom: boolean;
     predicate: PredicatePF2e;
 
-    constructor(param: Partial<Omit<DiceModifierPF2e, "predicate">> & { slug?: string; predicate?: RawPredicate }) {
-        this.label = game.i18n.localize(param.label ?? "");
-        this.slug = sluggify(param.slug ?? this.label);
+    constructor(params: Partial<Omit<DiceModifierPF2e, "predicate">> & { slug?: string; predicate?: RawPredicate }) {
+        this.label = game.i18n.localize(params.label ?? "");
+        this.slug = sluggify(params.slug ?? this.label);
         if (!this.slug) {
             throw ErrorPF2e("A DiceModifier must have a slug");
         }
 
-        this.diceNumber = param.diceNumber ?? 0;
-        this.dieSize = param.dieSize ?? null;
-        this.critical = param.critical ?? null;
-        this.damageType = param.damageType ?? null;
-        this.category = param.category ?? null;
-        this.override = param.override ?? null;
-        this.custom = param.custom ?? false;
+        this.diceNumber = params.diceNumber ?? 0;
+        this.dieSize = params.dieSize ?? null;
+        this.critical = params.critical ?? null;
+        this.damageType = params.damageType ?? null;
+        this.category = params.category ?? null;
+        this.override = params.override ?? null;
+        this.custom = params.custom ?? false;
 
-        if (this.damageType) {
-            this.category ??= DamageCategorization.fromDamageType(this.damageType);
-        }
+        this.category = tupleHasValue(["persistent", "precision", "splash"] as const, params.category)
+            ? params.category
+            : this.damageType === "bleed"
+            ? "persistent"
+            : null;
 
-        this.predicate = new PredicatePF2e(param.predicate ?? []);
+        this.predicate = new PredicatePF2e(params.predicate ?? []);
         this.enabled = this.predicate.test([]);
         this.ignored = !this.enabled;
     }
@@ -673,6 +678,7 @@ export {
     CheckModifier,
     DamageDiceOverride,
     DamageDicePF2e,
+    DamageDiceParameters,
     DeferredValue,
     DeferredValueParams,
     DiceModifierPF2e,
@@ -682,11 +688,11 @@ export {
     ModifierPF2e,
     ModifierType,
     PROFICIENCY_RANK_OPTION,
-    createProficiencyModifier,
     RawModifier,
     StatisticModifier,
     adjustModifiers,
     applyStackingRules,
     createAbilityModifier,
+    createProficiencyModifier,
     ensureProficiencyOption,
 };

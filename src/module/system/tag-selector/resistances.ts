@@ -11,7 +11,7 @@ export class ResistanceSelector<TActor extends ActorPF2e> extends BaseTagSelecto
             ...super.defaultOptions,
             id: "tag-selector",
             classes: ["pf2e"],
-            template: "systems/pf2e/templates/system/tag-selector/resistances.html",
+            template: "systems/pf2e/templates/system/tag-selector/resistances.hbs",
             title: "PF2E.ResistancesLabel",
             width: "auto",
             height: 700,

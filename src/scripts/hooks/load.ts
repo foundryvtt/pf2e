@@ -18,7 +18,7 @@ import {
 import { monkeyPatchFoundry } from "@scripts/🐵🩹";
 import { CheckRoll, StrikeAttackRoll } from "@system/check";
 import { DamageInstance, DamageRoll } from "@system/damage/roll";
-import { ArithmeticExpression, Grouping } from "@system/damage/terms";
+import { ArithmeticExpression, Grouping, InstancePool } from "@system/damage/terms";
 
 /** Not an actual hook listener but rather things to run on initial load */
 export const Load = {
@@ -41,7 +41,7 @@ export const Load = {
         CONFIG.User.documentClass = UserPF2e;
 
         CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll, DamageInstance);
-        for (const TermCls of [ArithmeticExpression, Grouping]) {
+        for (const TermCls of [ArithmeticExpression, Grouping, InstancePool]) {
             CONFIG.Dice.termTypes[TermCls.name] = TermCls;
         }
 

@@ -13,6 +13,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToThree, Size } from "@module/data";
 import { preImportJSON } from "@module/doc-helpers";
 import { RuleElementSynthetics } from "@module/rules";
+import { processPreUpdateActorHooks } from "@module/rules/helpers";
 import { RuleElementPF2e } from "@module/rules/rule-element/base";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { LocalizePF2e } from "@module/system/localize";
@@ -240,11 +241,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
-        const tokenIcon = (condition: ConditionPF2e): ImagePath => {
-            const folder = CONFIG.PF2E.statusEffects.iconDir;
-            return `${folder}${condition.slug}.webp`;
-        };
-        const conditionTokenIcons = this.itemTypes.condition.map((condition) => tokenIcon(condition));
+        const conditionTokenIcons = this.itemTypes.condition.map((condition) => condition.img);
         const conditionTokenEffects = Array.from(new Set(conditionTokenIcons)).map((icon) => new TokenEffect(icon));
 
         const effectTokenEffects = this.itemTypes.effect
@@ -403,15 +400,19 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     ): Promise<Actor[]> {
         // Set additional defaults, some according to actor type
         for (const datum of [...data]) {
-            const { linkToActorSize } = datum.prototypeToken?.flags?.pf2e ?? {};
+            const linkToActorSize = ["hazard", "loot"].includes(datum.type)
+                ? false
+                : datum.prototypeToken?.flags?.pf2e?.linkToActorSize ?? true;
+            const autoscale = ["hazard", "loot"].includes(datum.type)
+                ? false
+                : datum.prototypeToken?.flags?.pf2e?.autoscale ??
+                  (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale"));
             const merged = mergeObject(datum, {
                 ownership: datum.ownership ?? { default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE },
                 prototypeToken: {
                     flags: {
                         // Sync token dimensions with actor size?
-                        pf2e: {
-                            linkToActorSize: linkToActorSize ?? !["hazard", "loot"].includes(datum.type),
-                        },
+                        pf2e: { linkToActorSize, autoscale },
                     },
                 },
             });
@@ -441,6 +442,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
 
         return super.createDocuments(data, context);
+    }
+
+    static override updateDocuments<T extends foundry.abstract.Document>(
+        this: ConstructorOf<T>,
+        updates?: DocumentUpdateData<T>[],
+        context?: DocumentModificationContext
+    ): Promise<T[]>;
+    static override async updateDocuments(
+        updates: DocumentUpdateData<ActorPF2e>[] = [],
+        context: DocumentModificationContext = {}
+    ): Promise<Actor[]> {
+        // Process rule element hooks for each actor update
+        for (const changed of updates) {
+            processPreUpdateActorHooks(changed, { pack: context.pack ?? null });
+        }
+
+        return super.updateDocuments(updates, context);
     }
 
     protected override _initialize(): void {
@@ -617,8 +635,9 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     getStrikeRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): StrikeRollContext<this, I> {
         const targetToken = Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard")) ?? null;
 
-        const selfToken =
-            canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null;
+        const selfToken = canvas.ready
+            ? canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null
+            : null;
         const reach = params.item.isOfType("melee")
             ? params.item.reach
             : params.item.isOfType("weapon")
@@ -663,13 +682,23 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 adjustment.adjustTraits?.(selfItem, traitSlugs);
             }
         }
+
         const traits = traitSlugs.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+        // Calculate distance and range increment, set as a roll option
+        const distance = selfToken && targetToken ? selfToken.distanceTo(targetToken) : null;
+        const [originDistance, targetDistance] =
+            typeof distance === "number"
+                ? [`origin:distance:${distance}`, `target:distance:${distance}`]
+                : [null, null];
 
         // Clone the actor to recalculate its AC with contextual roll options
         const targetActor = params.viewOnly
             ? null
-            : targetToken?.actor?.getContextualClone([...selfActor.getSelfRollOptions("origin"), ...itemOptions]) ??
-              null;
+            : targetToken?.actor?.getContextualClone([
+                  ...selfActor.getSelfRollOptions("origin"),
+                  ...itemOptions,
+                  ...(originDistance ? [originDistance] : []),
+              ]) ?? null;
 
         // Target roll options
         const targetOptions = targetActor?.getSelfRollOptions("target") ?? [];
@@ -688,10 +717,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             "attack",
         ]);
 
-        // Calculate distance and range increment, set as a roll option
-        const distance = selfToken && targetToken && !!canvas.grid ? selfToken.distanceTo(targetToken) : null;
-        if (typeof distance === "number") rollOptions.add(`target:distance:${distance}`);
-
+        if (targetDistance) rollOptions.add(targetDistance);
         const rangeIncrement = getRangeIncrement(selfItem, distance);
         if (rangeIncrement) rollOptions.add(`target:range-increment:${rangeIncrement}`);
 
@@ -1203,6 +1229,13 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const condition = typeof conditionSlug === "string" ? this.getCondition(conditionSlug) : conditionSlug;
         if (!condition) return;
 
+        // If this is persistent damage, remove all matching types, heal from all at once
+        if (condition.slug === "persistent-damage") {
+            const matching = this.itemTypes.condition.filter((c) => c.key === condition.key).map((c) => c.id);
+            await this.deleteEmbeddedDocuments("Item", matching);
+            return;
+        }
+
         const value = typeof condition.value === "number" ? Math.max(condition.value - 1, 0) : null;
         if (value !== null && !forceRemove) {
             await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, value);
@@ -1290,19 +1323,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             const hpChange = changedHP.value - currentHP.value;
             const levelChanged = !!changed.system?.details && "level" in changed.system.details;
             if (hpChange !== 0 && !levelChanged) options.damageTaken = hpChange;
-        }
-
-        // Run preUpdateActor rule element callbacks
-        type WithPreUpdateActor = RuleElementPF2e & { preUpdateActor: NonNullable<RuleElementPF2e["preUpdateActor"]> };
-        const rules = this.rules.filter((r): r is WithPreUpdateActor => !!r.preUpdateActor);
-        if (rules.length > 0) {
-            const clone = this.clone(changed, { keepId: true });
-            this.flags.pf2e.rollOptions = clone.flags.pf2e.rollOptions;
-            for (const rule of rules) {
-                if (this.items.has(rule.item.id)) {
-                    await rule.preUpdateActor();
-                }
-            }
         }
 
         await super._preUpdate(changed, options, user);

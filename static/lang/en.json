@@ -1322,6 +1322,7 @@
         "Damage": {
             "Base": "Base",
             "NoDamageFormulaLabel": "No damage",
+            "PersistentTooltip": "Persistent {damageType}",
             "RollFlavor": {
                 "acid": "acid",
                 "air": "air",
@@ -1339,7 +1340,7 @@
                 "mental": "mental",
                 "metal": "metal",
                 "negative": "negative",
-                "persistent": "persistent",
+                "persistent": "persistent {damageType}",
                 "piercing": "piercing",
                 "poison": "poison",
                 "positive": "positive",
@@ -1400,8 +1401,14 @@
                     "WasAt": " (was at {oldQuantity})"
                 },
                 "FastHealing": {
-                    "FastHealingLabel": "Received Fast Healing",
-                    "RegenerationLabel": "Received Regeneration",
+                    "fast-healing": {
+                        "Name": "Fast Healing",
+                        "ReceivedMessage": "Received fast healing"
+                    },
+                    "regeneration": {
+                        "Name": "Regeneration",
+                        "ReceivedMessage": "Received regeneration"
+                    },
                     "DeactivatedBy": "Deactivated by {types}"
                 }
             },
@@ -1666,6 +1673,15 @@
             },
             "CannotAddType": "{type} items cannot be added to this actor.",
             "Condition": {
+                "PersistentDamage": {
+                    "Name": "Persistent Damage ({formula})",
+                    "NameWithDC": "Persistent Damage ({formula} DC{dc})",
+                    "Dialog": {
+                        "Title": "Persistent Damage ({actor})",
+                        "Add": "Add Persistent Damage",
+                        "Remove": "Remove Persistent Damage"
+                    }
+                },
                 "Flanked": "Flat-Footed (Flanked)"
             },
             "CreationDialog": {
@@ -2124,6 +2140,10 @@
                     "spear": "The weapon pierces the target, weakening its attacks. The target is @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 1} until the start of your next turn.",
                     "sword": "The target is made off-balance by your attack, becoming @UUID[Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn."
                 },
+                "Damage": {
+                    "DiceNumber": "Dice Number"
+                },
+                "FromABP": "Automatic bonus progression has adjusted this weapon's {property} to {value}.",
                 "FromMaterialAndRunes": "Precious materials and runes on this item have adjusted its {property} to {value}.",
                 "GeneratedName": {
                     "Hint": "This is the name of the base weapon. For most weapons, the base is used to generate a fuller name, taking into account the material composition and/or runes. Giving this weapon a custom name or marking it as \"specific\" will prevent the generated name from appearing.",
@@ -2690,11 +2710,11 @@
             },
             "critFumbleCards": {
                 "hint": "Automatically draw a critical hit or fumble card on appropriate rolls.",
-                "name": "Critical Hit and Fumble Cards"
+                "name": "Critical Hit & Fumble Cards"
             },
             "critFumbleCardButtons": {
                 "hint": "Show critical hit and fumble card draw buttons on attack rolls.",
-                "name": "Critical Hit and Fumble Card Buttons"
+                "name": "Critical Hit & Fumble Card Buttons"
             },
             "DeathIcon": {
                 "Name": "Death Icon",
@@ -2708,13 +2728,9 @@
                 "Name": "Theater of the Mind Toggles",
                 "Hint": "Include additional toggles on actor sheets to facilitate Theater of the Mind play. Such toggles will allow for enabling certain abilities without targeting in Foundry."
             },
-            "statusEffectKeepFoundry": {
-                "hint": "Determines if you want to show the Foundry Icon set below the Pathfinder 2E icon set. This will trigger a reload.",
-                "name": "Status Icon Foundry Set"
-            },
             "statusEffectShowCombatMessage": {
-                "hint": "Show the status effects of the current combatant in chat each turn. If your game has more than one GM this setting should only be enabled for one of them.",
-                "name": "Show Status Effects in Combat"
+                "hint": "Each turn of an encounter, send a chat message containing the conditions of the turn's participant.",
+                "name": "Show Conditions during Encounters"
             },
             "statusEffectType": {
                 "blackWhite": "Black & white",
@@ -2741,10 +2757,6 @@
             "WorldSchemaVersion": {
                 "Name": "World Schema Version",
                 "Hint": "Records the schema version for documents in the PF2e system (don't modify this unless you know what you are doing)."
-            },
-            "IgnoreCoinBulk": {
-                "Name": "Coins are weightless",
-                "Hint": "Toggle on to ignore currency weight."
             },
             "IdentifyMagicNotMatchingTraditionModifier": {
                 "Name": "Identify Magic Skill Modifier",
@@ -2782,6 +2794,10 @@
                     "Hint": "Apply vision mechanics consistent with Pathfinder 2e rules. Enabling this setting will remove the ability to configure Unrestricted Global Vision as well as Token Sight radii.",
                     "ManagedBy": "Managed by <rbv>rules-based vision</rbv>."
                 },
+                "IWR": {
+                    "Name": "Immunities, Weaknesses, & Resistances",
+                    "Hint": "When applying damage to an actor, adjust its value according to the actor's immunities, weaknesses, and resistances."
+                },
                 "EffectExpiration": {
                     "Name": "Effects auto-expire",
                     "Hint": "Effects automatically disable attached rule elements when the duration expires."
@@ -2812,6 +2828,10 @@
                 "Label": "Manage Homebrew Elements",
                 "Hint": "Add custom traits, languages, and other elements of a homebrew world.",
                 "Instructions": "These settings allow GMs to add traits, languages, and other elements to a homebrew world. To add such elements, simply type the desired terms in the appropriate fields, separated by commas or tab keystrokes. They will then appear in the appropriate places on actor and item sheets. To update a term, click it to make the desired changes.",
+                "Tabs": {
+                    "Traits": "Traits and Categories",
+                    "Damage": "Damage Types"
+                },
                 "ConfirmDelete": {
                     "Title": "Delete Homebrew Element?",
                     "Message": "Delete Homebrew element <strong>{element}</strong>?"
@@ -2855,6 +2875,10 @@
                 "EquipmentTraits": {
                     "Name": "Equipment Traits",
                     "Hint": "Traits applicable to equipment other than weapons"
+                },
+                "DamageTypes": {
+                    "name": "Custom Damage Types",
+                    "Hint": "Additional damage types for the system to recognize"
                 }
             },
             "Metagame": {
@@ -3323,8 +3347,8 @@
                 "Label": "Size",
                 "Dimensions": "Dimensions",
                 "LinkToActorSize": {
-                    "Label": "Link to Actor Size",
-                    "Hint": "Keep this token's dimensions consistent with its actor's size category"
+                    "Link": "Link to Actor Size",
+                    "Unlink": "Unlink from Actor Size"
                 }
             }
         },
@@ -3660,7 +3684,7 @@
         "TraitDescriptionMinion": "Minions are creatures that directly serve another creature. A creature with this trait can use only 2 actions per turn, doesn't have reactions, and can't act when it's not your turn. Your minion acts on your turn in combat, once per turn, when you spend an action to issue it commands. For an animal companion, you Command an Animal; for a minion that's a spell or magic item effect, like a summoned minion, you Sustain a Spell or Sustain an Activation; if not otherwise specified, you issue a verbal command as a single action with the auditory and concentrate traits. If given no commands, minions use no actions except to defend themselves or to escape obvious harm. If left unattended for long enough, typically 1 minute, mindless minions usually don't act, animals follow their instincts, and sapient minions act how they please. A minion can't control other creatures.",
         "TraitDescriptionMisfortune": "A misfortune effect detrimentally alters how you roll your dice. You can never have more than one misfortune effect alter a single roll. If multiple misfortune effects would apply, the GM decides which is worse and applies it. If a fortune effect and a misfortune effect would apply to the same roll, the two cancel each other out, and you roll normally.",
         "TraitDescriptionModification": "A feat with this trait alters the construction of your innovation. If you have the reconfigure class feature, you can retrain such a feat more easily.",
-        "TraitDescriptionModular": "The weapon has multiple configurations that you can switch between using an Interact action. Typically, switching between configurations of a modular weapon allows it to deal different types of damage (listed in the trait, such as “modular B, P, or S”), though it's possible for a modular weapon's description to list more complicated configurations.",
+        "TraitDescriptionModular": "The weapon has multiple configurations that you can switch between using an Interact action. Typically, switching between configurations of a modular weapon allows it to deal different types of damage (listed in the trait, such as \"modular B, P, or S\"), though it's possible for a modular weapon's description to list more complicated configurations.",
         "TraitDescriptionMonk": "Abilities with this trait are from the monk class. A weapon with this trait is primarily used by monks.",
         "TraitDescriptionMonkWeapon": "Many monks learn to use these weapons.",
         "TraitDescriptionMorph": "Effects that slightly alter a creature's form have the morph trait. Any Strikes specifically granted by a morph effect are magical. You can be affected by multiple morph spells at once, but if you morph the same body part more than once, the second morph effect attempts to counteract the first (in the same manner as two polymorph effects, described in that trait). Your morph effects might also end if you are polymorphed and the polymorph effect invalidates or overrides your morph effect. The GM determines which morph effects can be used together and which can't.",
@@ -4331,8 +4355,8 @@
             },
             "errorTargetToken": "Select at least one token.",
             "noDamageInfoForOutcome": "No damage information for outcome {outcome}.",
-            "shiftModifyDamageLabel": "Modifier:",
-            "shiftModifyDamageTitle": "Modify the rolled damage/healing"
+            "shiftModifyDamageLabel": "Adjust Damage/Healing",
+            "shiftModifyDamageTitle": "Adjust the rolled damage/healing"
         },
         "UnitPriceLabel": "Unit price",
         "UnprepareItemTitle": "Unprepare Item",
@@ -4699,10 +4723,7 @@
                 }
             },
             "flaming": {
-                "Name": "Flaming",
-                "Note": {
-                    "criticalSuccess": "When you critically succeed at a Strike with this weapon, you deal an additional [[/r {1d10}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}."
-                }
+                "Name": "Flaming"
             },
             "frost": {
                 "Name": "Frost",
@@ -4893,11 +4914,7 @@
                 }
             },
             "wounding": {
-                "Name": "Wounding",
-                "Note": {
-                    "criticalSuccess": "When you critically hit a creature with a wounding weapon, you deal an extra [[/r {1d6*2}[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}.",
-                    "success": "When you hit a creature with a wounding weapon, you deal an extra [[/r {1d6}[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}."
-                }
+                "Name": "Wounding"
             }
         },
         "WeaponPropertyStrikeDamageLabel": "Strike Damage",
@@ -5489,24 +5506,25 @@
             }
         },
         "DamageButton": {
-            "Full": "Apply full damage to selected tokens.",
+            "Full": "[Click] Apply full damage to selected tokens.",
             "FullContext": "Apply Damage",
             "FullShort": "Damage",
-            "Half": "Apply half damage to selected tokens.",
+            "Half": "[Click] Apply half damage to selected tokens.",
             "HalfContext": "Half Damage",
             "HalfShort": "Half",
-            "Double": "Apply double damage to selected tokens.",
+            "Double": "[Click] Apply double damage to selected tokens.",
             "DoubleContext": "Double Damage",
             "DoubleShort": "Double",
-            "Triple": "Apply triple damage to selected tokens.",
+            "Triple": "[Click] Apply triple damage to selected tokens.",
             "TripleContext": "Apply Triple Damage",
             "TripleShort": "Triple",
-            "ShieldBlock": "Toggle the shield block status of the selected tokens.",
+            "ShieldBlock": "[Click] Toggle the shield block status of the selected tokens before applying damage.",
             "ShieldBlockContext": "Shield Block",
             "ShieldBlockShort": "Block",
-            "Healing": "Apply full healing to selected tokens.",
+            "Healing": "[Click] Apply full healing to selected tokens.",
             "HealingContext": "Apply Healing",
-            "HealingShort": "Heal"
+            "HealingShort": "Heal",
+            "Adjust": "[Shift-Click] Adjust value before applying."
         }
     }
 }

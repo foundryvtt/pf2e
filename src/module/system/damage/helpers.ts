@@ -1,4 +1,6 @@
 import { fontAwesomeIcon } from "@util";
+import { DamageInstance, DamageRoll } from "./roll";
+import { ArithmeticExpression, Grouping } from "./terms";
 import { DamageCategory, DamageDieSize } from "./types";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values";
 
@@ -47,17 +49,46 @@ function renderSplashDamage(rollTerm: RollTerm): HTMLElement {
     return span;
 }
 
+function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm[] {
+    const childTerms =
+        term instanceof Grouping ? [term.term] : term instanceof ArithmeticExpression ? term.operands : [];
+    return [
+        term.flavor.split(",").includes(flavor) ? [term] : [],
+        childTerms.map((t) => deepFindTerms(t, { flavor })).flat(),
+    ].flat();
+}
+
 /** A fast but weak check of whether a string looks like a damage-roll formula */
 function looksLikeDamageFormula(formula: string): boolean {
     if (formula.includes("d20")) return false;
     return (
-        // Accept any single dice pool
+        // Any single dice pool
         /^\{[^}]+}$/.test(formula) ||
         // Simple dice expression followed by a flavor expression
-        /^\d+d\d+(?:\[[a-z]+\])$/.test(formula) ||
+        /^(?:\d+(?:d\d+)?)(?:\[[a-z]+(?:,[a-z]+)?\])$/.test(formula) ||
         // Parenthesized expression followed by a flavor expression
-        /^\([^)]+\)\[[a-z]+\]$/.test(formula)
+        /^\([^)]+\)\[[a-z]+(?:,[a-z]+)?\]$/.test(formula)
     );
 }
 
-export { DamageCategorization, looksLikeDamageFormula, nextDamageDieSize, renderSplashDamage };
+/** Create a representative Font Awesome icon from a damage roll */
+function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = true } = {}): HTMLElement {
+    const firstDice = roll.dice.at(0);
+    const glyph =
+        firstDice instanceof Die && [4, 8, 6, 10, 12].includes(firstDice.faces)
+            ? `dice-d${firstDice.faces}`
+            : firstDice
+            ? "dice-d20"
+            : "calculator";
+
+    return fontAwesomeIcon(glyph, { fixedWidth });
+}
+
+export {
+    DamageCategorization,
+    damageDiceIcon,
+    deepFindTerms,
+    looksLikeDamageFormula,
+    nextDamageDieSize,
+    renderSplashDamage,
+};

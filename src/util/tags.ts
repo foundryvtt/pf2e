@@ -31,7 +31,10 @@ function transformWhitelist(whitelist: WhitelistData) {
 }
 
 /** Create a tagify select menu out of a JSON input element */
-function tagify(input: HTMLInputElement | null, { whitelist, maxTags }: TagifyOptions = {}): Tagify<TagRecord> {
+function tagify(
+    input: HTMLInputElement | null,
+    { whitelist, maxTags, enforceWhitelist }: TagifyOptions = {}
+): Tagify<TagRecord> {
     if (input?.dataset.dtype !== "JSON") {
         throw ErrorPF2e("Usable only on input elements with JSON data-dtype");
     }
@@ -40,7 +43,7 @@ function tagify(input: HTMLInputElement | null, { whitelist, maxTags }: TagifyOp
     const maxItems = whitelist ? Object.keys(whitelistTransformed).length : undefined;
 
     const tagify = new Tagify(input, {
-        enforceWhitelist: !!whitelist,
+        enforceWhitelist: !!whitelist && enforceWhitelist,
         keepInvalidTags: false,
         skipInvalid: !!whitelist,
         maxTags: maxTags ?? maxItems,
@@ -75,6 +78,8 @@ interface TagifyOptions {
     maxTags?: number;
     /** A whitelist record, typically pulled from `CONFIG.PF2E` */
     whitelist?: WhitelistData;
+    /** Whether this whitelist is exhaustive */
+    enforceWhitelist?: boolean;
 }
 
 export { tagify, traitSlugToObject };

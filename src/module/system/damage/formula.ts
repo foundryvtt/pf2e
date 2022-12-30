@@ -2,7 +2,7 @@ import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { groupBy } from "@util";
 import { DamageCategorization } from "./helpers";
-import { DamageCategory, DamageDieSize, DamageType } from "./types";
+import { DamageFormulaData, DamageType } from "./types";
 
 /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
 function createDamageFormula(
@@ -89,16 +89,28 @@ function createDamageFormula(
         typeMap.set(damageType, list);
     }
 
-    return formulaFromTypeMap(typeMap, critical);
+    const commaSeparated = [
+        instancesFromTypeMap(typeMap, { critical }),
+        instancesFromTypeMap(typeMap, { critical, persistent: true }),
+    ]
+        .flat()
+        .join(",");
+
+    return ["{", commaSeparated, "}"].join("");
 }
 
 /** Convert a damage type map to a final string formula. */
-function formulaFromTypeMap(typeMap: DamageTypeMap, critical: boolean): string | null {
-    const instances = Array.from(typeMap.keys()).flatMap((damageType): string | never[] => {
-        const partials = typeMap.get(damageType)!;
+function instancesFromTypeMap(
+    typeMap: DamageTypeMap,
+    { critical, persistent = false }: { critical: boolean; persistent?: boolean }
+): string[] {
+    return Array.from(typeMap.entries()).flatMap(([damageType, typePartials]): string | never[] => {
+        const partials = typePartials.filter((p) => p.persistent === persistent);
+        if (partials.length === 0) return [];
+
         const nonCriticalDamage = sumExpression(
             [
-                partialFormula(partials, { special: null, critical: false }),
+                partialFormula(partials, { critical: false }),
                 partialFormula(partials, { special: "precision", critical: false }),
                 critical ? null : partialFormula(partials, { special: "splash", critical: false }),
             ],
@@ -107,27 +119,30 @@ function formulaFromTypeMap(typeMap: DamageTypeMap, critical: boolean): string |
 
         const criticalDamage = critical
             ? sumExpression([
-                  partialFormula(partials, { special: null, critical: true }),
+                  partialFormula(partials, { critical: true }),
                   partialFormula(partials, { special: "precision", critical: true }),
                   partialFormula(partials, { special: "splash", critical: true }),
               ])
             : null;
 
-        const flavor = damageType === "untyped" ? "" : `[${damageType}]`;
         const summedDamage = sumExpression(critical ? [nonCriticalDamage, criticalDamage] : [nonCriticalDamage]);
         const enclosed = hasOperators(summedDamage) ? `(${summedDamage})` : summedDamage;
 
-        return flavor ? `${enclosed}${flavor}` : enclosed;
-    });
+        const flavor = ((): string => {
+            const typeFlavor = damageType === "untyped" && !persistent ? "" : damageType;
+            const precisionFlavor = persistent ? ",persistent" : "";
+            return `[${typeFlavor}${precisionFlavor}]`;
+        })();
 
-    return instances.length > 0 ? ["{", instances.join(","), "}"].join("") : null;
+        return enclosed && flavor ? `${enclosed}${flavor}` : enclosed ?? [];
+    });
 }
 
 function partialFormula(
     partials: DamagePartial[],
-    { special, critical }: { special: "persistent" | "precision" | "splash" | null; critical: boolean }
+    { special = null, critical }: { special?: "precision" | "splash" | null; critical: boolean }
 ): string | null {
-    const isSpecialPartial = (p: DamagePartial): boolean => p.persistent || p.precision || p.splash;
+    const isSpecialPartial = (p: DamagePartial): boolean => p.precision || p.splash;
 
     const requestedPartials = partials.filter(
         (p) => (critical ? p.critical !== null : !p.critical) && (special ? p[special] : !isSpecialPartial(p))
@@ -156,29 +171,18 @@ function partialFormula(
     return flavored || null;
 }
 
-function sumExpression(terms: (string | null)[], { double = false } = {}): string {
-    const summed = terms.filter((p): p is string => !!p).join(" + ");
+function sumExpression(terms: (string | null)[], { double = false } = {}): string | null {
+    if (terms.every((t) => !t)) return null;
+
+    const summed = terms.filter((p): p is string => !!p).join(" + ") || null;
     const enclosed = double && hasOperators(summed) ? `(${summed})` : summed;
+
     return double ? `2 * ${enclosed}` : enclosed;
 }
 
 /** Helper for helpers */
-function hasOperators(formula: string): boolean {
-    return /\+-\*\//.test(formula);
-}
-
-interface DamageFormulaData {
-    base: BasicDamageData;
-    dice: DamageDicePF2e[];
-    modifiers: ModifierPF2e[];
-}
-
-interface BasicDamageData {
-    damageType: DamageType;
-    diceNumber: number;
-    dieSize: DamageDieSize | null;
-    modifier: number;
-    category: DamageCategory | null;
+function hasOperators(formula: string | null): boolean {
+    return /[-+*/]/.test(formula ?? "");
 }
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
@@ -195,4 +199,4 @@ interface DamagePartial {
     critical: boolean | null;
 }
 
-export { BasicDamageData, DamageFormulaData, createDamageFormula };
+export { createDamageFormula };

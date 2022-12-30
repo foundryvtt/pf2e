@@ -10,7 +10,6 @@ import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } 
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers";
 import { ContainerPF2e } from "./container";
 import { FeatSource, ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
-import { ItemTrait } from "./data/base";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { PhysicalItemPF2e } from "./physical/document";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
@@ -81,8 +80,19 @@ class ItemPF2e extends Item<ActorPF2e> {
     /** Generate a list of strings for use in predication */
     getRollOptions(prefix = this.type): string[] {
         const slug = this.slug ?? sluggify(this.name);
-        const traits: ItemTrait[] = this.system.traits?.value ?? [];
-        const traitOptions = traits.map((t) => `trait:${t}`);
+
+        const traitOptions = ((): string[] => {
+            const traits = this.system.traits?.value ?? [];
+            // Additionally include annotated traits without their annotations
+            const damageType = Object.keys(CONFIG.PF2E.damageTypes).join("|");
+            const diceOrNumber = /-(?:[0-9]*d)?[0-9]+(?:-min)?$/;
+            const versatile = new RegExp(`-(?:b|p|s|${damageType})$`);
+            const deannotated = traits
+                .filter((t) => diceOrNumber.test(t) || versatile.test(t))
+                .map((t) => t.replace(diceOrNumber, "").replace(versatile, ""));
+            return [traits, deannotated].flat().map((t) => `trait:${t}`);
+        })();
+
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const options = [
             `${delimitedPrefix}id:${this.id}`,
@@ -123,7 +133,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         if (!this.actor) throw ErrorPF2e(`Cannot create message for unowned item ${this.name}`);
 
         // Basic template rendering data
-        const template = `systems/pf2e/templates/chat/${this.type}-card.html`;
+        const template = `systems/pf2e/templates/chat/${this.type}-card.hbs`;
         const token = this.actor.token;
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
         const contextualData = Object.keys(data).length > 0 ? data : nearestItem.dataset || {};
@@ -437,7 +447,7 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         // Process item preCreate rules for all items that are going to be added
         // This may add additional items (such as via GrantItem)
-        for (const item of items.filter((item) => item.system.rules?.length)) {
+        for (const item of items) {
             // Pre-load this item's self: roll options for predication by preCreate rule elements
             item.prepareActorData?.();
 
@@ -574,13 +584,16 @@ class ItemPF2e extends Item<ActorPF2e> {
         userId: string
     ): void {
         super._onCreate(data, options, userId);
+        if (!(this.actor && game.user.id === userId)) return;
 
-        if (this.actor && game.user.id === userId) {
-            this.actor.reset();
-            const actorUpdates: Record<string, unknown> = {};
-            for (const rule of this.rules) {
-                rule.onCreate?.(actorUpdates);
-            }
+        this.actor.reset();
+        const actorUpdates: Record<string, unknown> = {};
+        for (const rule of this.rules) {
+            rule.onCreate?.(actorUpdates);
+        }
+        // Only update if there are more keys than just the `_id`
+        const updateKeys = Object.keys(actorUpdates);
+        if (updateKeys.length > 0 && !updateKeys.every((k) => k === "_id")) {
             this.actor.update(actorUpdates);
         }
     }
@@ -628,7 +641,11 @@ class ItemPF2e extends Item<ActorPF2e> {
             }
         }
 
-        this.actor.update(actorUpdates);
+        // Only update if there are more keys than just the `_id`
+        const updateKeys = Object.keys(actorUpdates);
+        if (updateKeys.length > 0 && !updateKeys.every((k) => k === "_id")) {
+            this.actor.update(actorUpdates);
+        }
     }
 }
 

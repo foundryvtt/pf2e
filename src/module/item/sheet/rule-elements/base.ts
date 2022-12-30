@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item/base";
-import { RuleElementSource } from "@module/rules";
+import { RuleElementPF2e, RuleElementSource } from "@module/rules";
 
 /** Utility function to convert a value to a number if its a valid number */
 function coerceNumber<T extends string | unknown>(value: T): T | number {
@@ -10,15 +10,34 @@ function coerceNumber<T extends string | unknown>(value: T): T | number {
     return value;
 }
 
+interface RuleElementFormOptions<TSource extends RuleElementSource, TObject extends RuleElementPF2e> {
+    item: ItemPF2e;
+    index: number;
+    rule: TSource;
+    object: TObject | null;
+}
+
 /** Base Rule Element form handler. Form handlers intercept sheet events to support new UI */
-class RuleElementForm<TSource extends RuleElementSource = RuleElementSource> {
-    template = "systems/pf2e/templates/items/rules/default.html";
-    constructor(protected item: ItemPF2e, protected index: number, protected rule: TSource) {}
-    async getData(): Promise<RuleElementSheetData<TSource>> {
-        return {
-            index: this.index,
-            rule: this.rule,
-        };
+class RuleElementForm<
+    TSource extends RuleElementSource = RuleElementSource,
+    TObject extends RuleElementPF2e = RuleElementPF2e
+> {
+    template = "systems/pf2e/templates/items/rules/default.hbs";
+
+    readonly item: ItemPF2e;
+    readonly index: number;
+    readonly rule: TSource;
+    readonly object: TObject | null;
+
+    constructor(protected options: RuleElementFormOptions<TSource, TObject>) {
+        this.item = options.item;
+        this.index = options.index;
+        this.rule = options.rule;
+        this.object = options.object;
+    }
+
+    async getData(): Promise<RuleElementFormOptions<TSource, TObject>> {
+        return this.options;
     }
 
     async render(): Promise<string> {
@@ -40,9 +59,9 @@ class RuleElementForm<TSource extends RuleElementSource = RuleElementSource> {
     _updateObject(_formData: Partial<Record<string, unknown>>): void {}
 }
 
-interface RuleElementSheetData<TSource> {
-    index: number;
-    rule: TSource;
-}
+type RuleElementFormSheetData<
+    TSource extends RuleElementSource,
+    TObject extends RuleElementPF2e
+> = RuleElementFormOptions<TSource, TObject>;
 
-export { RuleElementForm, coerceNumber };
+export { RuleElementForm, RuleElementFormSheetData, coerceNumber };

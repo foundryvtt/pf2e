@@ -3,7 +3,7 @@ export class LicenseViewer extends Application {
         return mergeObject(super.defaultOptions, {
             id: "license-viewer",
             title: game.i18n.localize("PF2E.LicenseViewer.Label"),
-            template: "systems/pf2e/templates/packs/license-viewer.html",
+            template: "systems/pf2e/templates/packs/license-viewer.hbs",
             width: 500,
             height: 600,
             resizable: true,

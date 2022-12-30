@@ -23,6 +23,17 @@ function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
     return result;
 }
 
+/** Sorts an array given the natural sorting behavior of the result of a mapping function */
+function sortBy<T, J>(array: T[], mapping: (value: T) => J) {
+    const compareFn = (a: T, b: T): number => {
+        const value1 = mapping(a);
+        const value2 = mapping(b);
+        return value1 < value2 ? -1 : value1 === value2 ? 0 : 1;
+    };
+
+    return array.sort(compareFn);
+}
+
 /**
  * Given an array, adds a certain amount of elements to it
  * until the desired length is being reached
@@ -44,17 +55,13 @@ function isBlank(text: Optional<string>): text is null | undefined | "" {
     return text === null || text === undefined || text.trim() === "";
 }
 
-/**
- * Adds a + if positive, nothing if 0 or - if negative
- */
+/** Returns a formatted number string with a preceding + if non-negative */
 function addSign(number: number): string {
     if (number < 0) {
         return `${number}`;
     }
-    if (number > 0) {
-        return `+${number}`;
-    }
-    return "0";
+
+    return `+${number}`;
 }
 
 /**
@@ -126,6 +133,16 @@ function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K
         }
         return result;
     }, {} as Pick<T, K>);
+}
+
+/** Returns a subset of an object with explicitly excluded keys */
+function omit<T extends object, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
+    const clone = deepClone(obj);
+    for (const key of keys) {
+        delete clone[key];
+    }
+
+    return clone;
 }
 
 const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
@@ -280,9 +297,11 @@ function localizeList(items: string[]) {
 }
 
 /** Generate and return an HTML element for a FontAwesome icon */
+type FontAwesomeStyle = "solid" | "regular" | "duotone";
+
 function fontAwesomeIcon(
     glyph: string,
-    { style = "solid", fixedWidth = false }: { style?: "solid" | "regular"; fixedWidth?: boolean } = {}
+    { style = "solid", fixedWidth = false }: { style?: FontAwesomeStyle; fixedWidth?: boolean } = {}
 ): HTMLElement {
     const styleClass = `fa-${style}`;
     const glyphClass = glyph.startsWith("fa-") ? glyph : `fa-${glyph}`;
@@ -367,6 +386,7 @@ export {
     isObject,
     localizeList,
     objectHasKey,
+    omit,
     ordinal,
     padArray,
     parseHTML,
@@ -374,6 +394,7 @@ export {
     recursiveReplaceString,
     setHasElement,
     sluggify,
+    sortBy,
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,

@@ -1,0 +1,66 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    <p class="notes">{{localize "PF2E.SETTINGS.Homebrew.Instructions"}}</p>
+    <nav class="sheet-tabs tabs">
+        <a class="item" data-tab="traits">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Traits"}}</a>
+        <a class="item" data-tab="damage">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Damage"}}</a>
+    </nav>
+
+    <section class="tab" data-tab="traits"></div>
+        {{#each traitSettings as |setting|}}
+            <!-- {{setting.key}} -->
+            <div class="form-group setting">
+                <label for="{{setting.key}}">{{localize setting.name}}</label>
+                <div class="form-fields">
+                    <input type="text" name="{{setting.key}}" class="homebrew" data-dtype="JSON" value="{{json setting.value}}" />
+                </div>
+                <p class="notes">{{localize setting.hint}}</p>
+            </div>
+        {{/each}}
+    </section>
+
+    <section class="tab" data-tab="damage">
+        {{#if customDamageTypes}}
+            <table class="damage-types">
+                <tr>
+                    <th>Label</th>
+                    <th>Slug</th>
+                    <th>Category</th>
+                    <th>Icon (Font Awesome)</th>
+                    <th class="delete-cell"></th>
+                </tr>
+                {{#each customDamageTypes as |type idx|}}
+                    <tr>
+                        <td><input name="damageTypes.{{idx}}.label" type="text" value="{{type.label}}"/></td>
+                        <td>{{type.slug}}</td>
+                        <td>
+                            <select name="damageTypes.{{idx}}.category">
+                                {{#select type.category}}
+                                    {{#each @root.damageCategories as |label category|}}
+                                        <option value="{{category}}">{{localize label}}</option>
+                                    {{/each}}
+                                {{/select}}
+                            </select>
+                        </td>
+                        <td>
+                            <div class="icon-preview">
+                                <input name="damageTypes.{{idx}}.icon" type="text" value="{{type.icon}}"/>
+                                <i class="fas fa-fw {{type.icon}}"></i>
+                            </div>
+                        </td>
+                        <td class="delete-cell"><i class="fas fa-times" data-action="damage-delete" data-idx="{{idx}}"></i></td>
+                    </tr>
+                {{/each}}
+            </table>
+        {{/if}}
+        <button type="button" data-action="damage-add"><i class="far fa-plus"></i>Add Damage Type</button>
+    </section>
+
+    <div class="form-group buttons">
+        <button type="submit">
+            <i class="far fa-save"></i> {{localize "SETTINGS.Save"}}
+        </button>
+        <button type="reset" name="reset">
+            <i class="fas fa-undo"></i> {{localize "PF2E.SETTINGS.ResetChanges"}}
+        </button>
+    </div>
+</form>

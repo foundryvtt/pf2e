@@ -9,8 +9,8 @@ import { ErrorPF2e } from "@util";
 const ITEM_UUID = "Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr";
 
 const TEMPLATES = {
-    flavor: "./systems/pf2e/templates/chat/action/flavor.html",
-    content: "./systems/pf2e/templates/chat/action/content.html",
+    flavor: "./systems/pf2e/templates/chat/action/flavor.hbs",
+    content: "./systems/pf2e/templates/chat/action/content.hbs",
 };
 
 /** A macro for the Raise a Shield action */

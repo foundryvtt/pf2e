@@ -54,7 +54,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     override get template(): string {
         const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
-        return `systems/pf2e/templates/actors/character/${template}.html`;
+        return `systems/pf2e/templates/actors/character/${template}.hbs`;
     }
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {
@@ -399,7 +399,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Left/right-click adjustments (increment or decrement) of actor and item stats
         $html.find(".adjust-stat").on("click contextmenu", (event) => this.#onClickAdjustStat(event));
-        $html.find(".adjust-stat-select").on("change", (event) => this.#onChangeAdjustStat(event));
+        for (const selectElem of htmlQueryAll<HTMLSelectElement>(html, "select.adjust-stat-select")) {
+            selectElem.addEventListener("change", () => this.#onChangeAdjustStat(selectElem));
+        }
         $html.find(".adjust-item-stat").on("click contextmenu", (event) => this.#onClickAdjustItemStat(event));
         $html.find(".adjust-item-stat-select").on("change", (event) => this.#onChangeAdjustItemStat(event));
 
@@ -803,19 +805,19 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Handle changing of proficiency-rank via dropdown */
-    async #onChangeAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
-        const $select = $(event.delegateTarget);
-        const propertyKey = $select.attr("data-property") ?? "";
+    #onChangeAdjustStat(selectElem: HTMLSelectElement): void {
+        const propertyKey = selectElem.dataset.property ?? "";
         const currentValue = getProperty(this.actor, propertyKey);
-        const selectedValue = Number($select.val());
-
-        if (typeof currentValue !== "number") throw ErrorPF2e("Actor property not found");
+        const selectedValue = Number(selectElem.value);
+        if (typeof currentValue !== "number" || Number.isNaN(selectedValue)) {
+            throw ErrorPF2e("Actor property not found");
+        }
 
         const newValue = Math.clamped(selectedValue, 0, 4);
-
-        await this.actor.update({ [propertyKey]: newValue });
-        if (newValue !== getProperty(this.actor, propertyKey)) {
-            ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
+        const clone = this.actor.clone({ [propertyKey]: newValue }, { keepId: true });
+        if (newValue !== getProperty(clone, propertyKey)) {
+            ui.notifications.warn("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures", { localize: true });
+            selectElem.value = currentValue.toString();
         }
     }
 

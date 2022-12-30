@@ -89,7 +89,7 @@ export async function rollActionMacro(actorId: string, _actionIndex: number, act
         }),
     };
 
-    const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.html", templateData);
+    const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.hbs", templateData);
     const token = actor.token ?? actor.getActiveTokens(true, true).shift() ?? null;
     const chatData: Partial<foundry.data.ChatMessageSource> = {
         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),

@@ -171,10 +171,21 @@
             margin-left: 9.5em;
         }
 
-        &[data-key="Note"] {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
+        &[data-key="FastHealing"] {
+            .details, tags {
+                flex: 3;
+            }
+
+            .value {
+                flex: 1;
+                min-width: 80px;
+            }
+        }
+
+        &[data-key="FlatModifier"] {
+            .type-input {
+                flex: 0;
+            }
         }
 
         &[data-key="GrantItem"] {
@@ -191,10 +202,10 @@
             }
         }
 
-        &[data-key="FlatModifier"] {
-            .type-input {
-                flex: 0;
-            }
+        &[data-key="Note"] {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
     }
 }

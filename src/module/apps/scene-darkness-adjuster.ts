@@ -17,7 +17,7 @@ export class SceneDarknessAdjuster extends Application {
             ...super.defaultOptions,
             id: "darkness-adjuster",
             title: "CONTROLS.AdjustSceneDarkness",
-            template: "systems/pf2e/templates/system/scene-darkness-adjuster.html",
+            template: "systems/pf2e/templates/system/scene-darkness-adjuster.hbs",
             width: 400,
             height: 45,
             minimizable: false,

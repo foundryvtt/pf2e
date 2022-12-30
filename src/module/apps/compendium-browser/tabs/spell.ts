@@ -5,7 +5,7 @@ import { CompendiumBrowserIndexData, SpellFilters } from "./data";
 
 export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     override filterData!: SpellFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.html";
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/spell.hbs";
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = [
@@ -81,9 +81,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     } else {
                         spellData.system.time.img = getActionIcon(spellData.system.time.value);
                     }
-                    // replace mystery man with one action icon
-                    if (spellData.system.time.img === "systems/pf2e/icons/default-icons/mystery-man.svg") {
-                        spellData.system.time.img = "systems/pf2e/icons/actions/OneAction.webp";
+
+                    if (spellData.system.time.img === "systems/pf2e/icons/actions/Empty.webp") {
+                        spellData.system.time.img = "systems/pf2e/icons/actions/LongerAction.webp";
                     }
 
                     // Prepare source

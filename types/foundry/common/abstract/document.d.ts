@@ -220,10 +220,11 @@ declare global {
                  * const updated = await Actor.updateDocuments([{_id: actor.id, name: "New Name"}], {pack: "mymodule.mypack"});
                  */
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                static updateDocuments<T extends ConstructorOf<any>>(
-                    updates?: DocumentUpdateData<InstanceType<T>>[],
+                static updateDocuments<T extends Document>(
+                    this: ConstructorOf<T>,
+                    updates?: DocumentUpdateData<T>[],
                     context?: DocumentModificationContext
-                ): Promise<InstanceType<T>[]>;
+                ): Promise<T[]>;
 
                 /**
                  * Delete one or multiple existing Documents using an array of provided ids.

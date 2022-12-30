@@ -9,7 +9,7 @@ import {
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
-} from "@module/rules/util";
+} from "@module/rules/helpers";
 import { CheckPF2e, CheckRoll } from "@system/check";
 import { DamagePF2e, DamageType, WeaponDamagePF2e } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
@@ -298,7 +298,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
 
             return DamagePF2e.roll(
                 damage,
-                { type: "damage-roll", self, target, outcome, options, domains },
+                { type: "damage-roll", sourceType: "attack", self, target, outcome, options, domains },
                 params.callback
             );
         };

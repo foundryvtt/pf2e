@@ -1,3 +1,4 @@
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import {
     CoinsPF2e,
     PhysicalItemSheetData,
@@ -23,9 +24,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             propertyRuneSlots?: PropertyRuneSheetSlot[];
         } = await super.getData(options);
 
-        // Show source damage in case of modification during data preparation
-        sheetData.data.damage = deepClone(this.item._source.system.damage);
-
         const ABPVariant = game.settings.get("pf2e", "automaticBonusVariant");
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
         const potencyRuneValue = ABPVariant === "ABPFundamentalPotency" ? 4 : sheetData.data.potencyRune.value ?? 0;
@@ -49,10 +47,21 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 number: slotNumber,
             }));
 
-        // Weapons have derived level, price, and traits: base data is shown for editing
+        // Weapons have derived damage dice, level, price, and traits: base data is shown for editing
         const baseData = this.item.toObject();
         sheetData.data.traits.rarity = baseData.system.traits.rarity;
-        const hintText = LocalizePF2e.translations.PF2E.Item.Weapon.FromMaterialAndRunes;
+        const hintText = ABP.isEnabled
+            ? LocalizePF2e.translations.PF2E.Item.Weapon.FromABP
+            : LocalizePF2e.translations.PF2E.Item.Weapon.FromMaterialAndRunes;
+
+        const adjustedDiceHint =
+            this.item.system.damage.dice !== baseData.system.damage.dice
+                ? game.i18n.format(hintText, {
+                      property: game.i18n.localize("PF2E.Item.Weapon.Damage.DiceNumber"),
+                      value: this.item.system.damage.dice,
+                  })
+                : null;
+
         const adjustedLevelHint =
             this.item.level !== baseData.system.level.value
                 ? game.i18n.format(hintText, {
@@ -128,9 +137,11 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponStrikingRunes: CONFIG.PF2E.weaponStrikingRunes,
             weaponPropertyRunes,
             otherTags,
+            adjustedDiceHint,
             adjustedLevelHint,
             adjustedPriceHint,
             abpEnabled,
+            baseDice: baseData.system.damage.dice,
             baseLevel: baseData.system.level.value,
             rarity: baseData.system.traits.rarity,
             basePrice: new CoinsPF2e(baseData.system.price.value),
@@ -185,6 +196,11 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         // Coerce a weapon range of zero to null
         formData["system.range"] ||= null;
+
+        // Clamp damage dice to between zero and eight
+        if ("system.damage.dice" in formData) {
+            formData["system.damage.dice"] = Math.clamped(Number(formData["system.damage.dice"]) || 0, 0, 8);
+        }
 
         // Seal specific magic weapon data if set to true
         const isSpecific = formData["system.specific.value"];

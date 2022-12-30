@@ -203,3 +203,8 @@ export { Migration802StripFeatActionCategory } from "./802-strip-feat-action-cat
 export { Migration803NormalizeSpellArea } from "./803-normalize-spell-area";
 export { Migration804RemoveConsumableProperties } from "./804-remove-consumable-properties";
 export { Migration805InlineDamageRolls } from "./805-inline-damage-formulas";
+export { Migration806TorchImprovisedOtherTags } from "./806-torch-improvised-othertags";
+export { Migration807RMActivatedEffectFields } from "./807-rm-activated-effect-fields";
+export { Migration808CountDamageDice } from "./808-count-damage-dice";
+export { Migration809AutomatonEnhancements } from "./809-automaton-enhancements";
+export { Migration810LootDescriptionValue } from "./810-loot-description-value";

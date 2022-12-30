@@ -70,7 +70,14 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
     protected override _initialize(): void {
         this.auras = new Map();
+        this._source.flags.pf2e ??= {};
+        this._source.flags.pf2e.linkToActorSize ??= true;
+        this._source.flags.pf2e.autoscale = this._source.flags.pf2e.linkToActorSize
+            ? this._source.flags.pf2e.autoscale ?? game.settings.get("pf2e", "tokens.autoscale")
+            : false;
+
         super._initialize();
+
         this.initialized = true;
     }
 
@@ -164,7 +171,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
 
         const autoscaleDefault = game.settings.get("pf2e", "tokens.autoscale");
         // Autoscaling is a secondary feature of linking to actor size
-        const autoscale = linkToActorSize ? this.flags.pf2e?.autoscale ?? autoscaleDefault : false;
+        const autoscale = linkToActorSize ? this.flags.pf2e.autoscale ?? autoscaleDefault : false;
         this.flags.pf2e = mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
 
         // Nath mode

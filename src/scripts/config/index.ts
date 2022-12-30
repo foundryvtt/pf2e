@@ -66,6 +66,7 @@ import { DeityDomain } from "@item/deity/types";
 import { sluggify } from "@util";
 import { Alignment } from "@actor/creature/types";
 import { WeaponReloadTime } from "@item/weapon/types";
+import { DAMAGE_TYPES } from "@system/damage";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -134,13 +135,17 @@ const physicalDamageTypes = {
 
 const damageTypes: Record<DamageType, string> = {
     ...alignmentTraits,
-    ...elementalTraits,
     ...energyDamageTypes,
     ...physicalDamageTypes,
     mental: "PF2E.TraitMental",
     poison: "PF2E.TraitPoison",
     untyped: "PF2E.TraitUntyped",
 };
+
+const damageRollFlavors = [...DAMAGE_TYPES].reduce((result, key) => {
+    result[key] = `PF2E.Damage.RollFlavor.${key}`;
+    return result;
+}, {} as Record<DamageType, string>);
 
 /** Non-detection- and attitude- related conditions added to the Token HUD */
 const tokenHUDConditions = {
@@ -197,6 +202,7 @@ const immunityTypes: Record<ImmunityType, string> = {
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...elementalTraits,
     ...magicSchools,
     "area-damage": "PF2E.TraitAreaDamage",
     auditory: "PF2E.TraitAuditory",
@@ -235,6 +241,7 @@ const weaknessTypes: Record<WeaknessType, string> = {
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...elementalTraits,
     "area-damage": "PF2E.TraitAreaDamage",
     arrow: "PF2E.TraitArrowVulnerability",
     axe: "PF2E.TraitAxeVulnerability",
@@ -256,6 +263,7 @@ const resistanceTypes: Record<ResistanceType, string> = {
     ...damageCategories,
     ...damageTraits,
     ...damageTypes,
+    ...elementalTraits,
     all: "PF2E.TraitAll",
     "area-damage": "PF2E.TraitAreaDamage",
     "critical-hits": "PF2E.TraitCriticalHits",
@@ -958,6 +966,7 @@ export const PF2ECONFIG = {
     weaponPropertyRunes,
     damageTraits,
     damageTypes,
+    damageRollFlavors,
     damageSubtypes: {
         persistent: "PF2E.ConditionTypePersistentShort",
         splash: "PF2E.TraitSplash",
@@ -1843,6 +1852,10 @@ export const PF2ECONFIG = {
             rulesBasedVision: {
                 name: "PF2E.SETTINGS.Automation.RulesBasedVision.Name",
                 hint: "PF2E.SETTINGS.Automation.RulesBasedVision.Hint",
+            },
+            iwr: {
+                name: "PF2E.SETTINGS.Automation.IWR.Name",
+                hint: "PF2E.SETTINGS.Automation.IWR.Hint",
             },
             effectExpiration: {
                 name: "PF2E.SETTINGS.Automation.EffectExpiration.Name",

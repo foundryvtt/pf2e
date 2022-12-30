@@ -3,7 +3,7 @@ import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIE
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { setHasElement, sluggify } from "@util";
+import { objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
 /**
@@ -29,6 +29,12 @@ class FlatModifierRuleElement extends RuleElementPF2e {
 
     /** Whether this modifier comes from equipment or an equipment effect */
     fromEquipment: boolean;
+
+    /** If a damage modifier, a damage type */
+    damageType: string | null = null;
+
+    /** If a damage modifier, a special category */
+    damageCategory: "persistent" | "precision" | "splash" | null = null;
 
     /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
     critical: boolean | null;
@@ -79,8 +85,14 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             this.failValidation("A forced bonus or penalty must have a type");
         }
 
-        if (data.damageCategory && data.damageCategory !== "precision") {
-            this.failValidation('category must be "precision" or omitted');
+        if (typeof data.damageType === "string") {
+            this.damageType = data.damageType;
+        }
+
+        if (tupleHasValue(["persistent", "precision", "splash"] as const, data.damageCategory)) {
+            this.damageCategory = data.damageCategory;
+        } else if (data.damageCategory) {
+            this.failValidation('category must be "persistent", "precision", "splash", or omitted');
         }
     }
 
@@ -114,6 +126,12 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                     return null;
                 }
 
+                const damageType = this.resolveInjectedProperties(this.damageType);
+                if (damageType !== null && !objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
+                    this.failValidation(`Unrecognized damage type: ${damageType}`);
+                    return null;
+                }
+
                 const modifier = new ModifierPF2e({
                     slug,
                     label,
@@ -122,8 +140,8 @@ class FlatModifierRuleElement extends RuleElementPF2e {
                     ability: this.type === "ability" ? this.ability : null,
                     predicate: this.resolveInjectedProperties(this.predicate),
                     force: this.force,
-                    damageType: this.resolveInjectedProperties(this.data.damageType) || undefined,
-                    damageCategory: this.data.damageCategory || undefined,
+                    damageType,
+                    damageCategory: this.damageCategory,
                     critical: this.critical,
                     hideIfDisabled: this.hideIfDisabled,
                     source: this.item.uuid,
@@ -149,7 +167,6 @@ interface FlatModifierData extends RuleElementData {
     min?: number;
     max?: number;
     damageType?: string;
-    damageCategory?: string;
     phase: ModifierPhase;
 }
 

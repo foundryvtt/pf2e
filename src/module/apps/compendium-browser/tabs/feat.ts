@@ -5,7 +5,7 @@ import { CompendiumBrowserIndexData, FeatFilters } from "./data";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     override filterData!: FeatFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/feat.html";
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/feat.hbs";
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "level", "featType", "skills", "traits", "rarity", "source"];

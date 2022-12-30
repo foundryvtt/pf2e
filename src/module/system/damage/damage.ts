@@ -4,15 +4,14 @@ import { ItemPF2e } from "@item";
 import { ItemType } from "@item/data";
 import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
-import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
+import { DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
 import { DamageRoll } from "./roll";
-import { DamageRollContext, DamageType } from "./types";
-import { DamageTemplate } from "./weapon";
+import { DamageRollContext, DamageTemplate } from "./types";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
     static async roll(
-        damage: DamageTemplate,
+        data: DamageTemplate,
         context: DamageRollContext,
         callback?: Function
     ): Promise<Rolled<DamageRoll> | null> {
@@ -25,19 +24,13 @@ export class DamagePF2e {
             context.secret = true;
         }
 
-        const damageBaseModifier = ((): string => {
-            if (damage.base.diceNumber > 0 && damage.base.modifier !== 0) {
-                return damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
-            } else if (damage.base.modifier !== 0) {
-                return damage.base.modifier.toString();
-            }
-            return "";
-        })();
+        let flavor = `<strong>${data.name}</strong>`;
+        if (context.sourceType === "attack") {
+            const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
+            flavor += ` (${outcomeLabel})`;
+        }
 
-        const outcomeLabel = game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`);
-        let flavor = `<strong>${damage.name}</strong> (${outcomeLabel})`;
-
-        if (damage.traits) {
+        if (data.traits) {
             interface ToTagsParams {
                 labels?: Record<string, string | undefined>;
                 descriptions?: Record<string, string | undefined>;
@@ -65,7 +58,7 @@ export class DamagePF2e {
                     })
                     .join("");
 
-            const traits = toTags(damage.traits, {
+            const traits = toTags(data.traits, {
                 labels: CONFIG.PF2E.actionTraits,
                 descriptions: CONFIG.PF2E.traitsDescriptions,
                 cssClass: null,
@@ -73,9 +66,9 @@ export class DamagePF2e {
             });
 
             const item = context.self?.item;
-            const itemTraits = item?.isOfType("weapon", "melee")
+            const itemTraits = item?.isOfType("weapon", "melee", "spell")
                 ? toTags(Array.from(item.traits), {
-                      labels: CONFIG.PF2E.npcAttackTraits,
+                      labels: item.isOfType("spell") ? CONFIG.PF2E.spellTraits : CONFIG.PF2E.npcAttackTraits,
                       descriptions: CONFIG.PF2E.traitsDescriptions,
                       cssClass: "tag_alt",
                       dataAttr: "trait",
@@ -99,7 +92,7 @@ export class DamagePF2e {
                 }
             })();
 
-            const materialEffects = toTags(damage.materials, {
+            const materialEffects = toTags(data.materials, {
                 labels: CONFIG.PF2E.preciousMaterials,
                 descriptions: CONFIG.PF2E.traitsDescriptions,
                 cssClass: "tag_material",
@@ -108,55 +101,43 @@ export class DamagePF2e {
 
             const otherTags = [itemTraits, properties, materialEffects].join("");
 
-            flavor += `<div class="tags">${traits}<hr class="vr" />${otherTags}</div><hr>`;
+            flavor +=
+                otherTags.length > 0
+                    ? `<div class="tags">${traits}<hr class="vr" />${otherTags}</div><hr>`
+                    : `<div class="tags">${traits}</div><hr>`;
         }
 
-        const base =
-            damage.base.diceNumber > 0
-                ? `${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier}`
-                : damageBaseModifier.toString();
-        const damageTypes = CONFIG.PF2E.damageTypes;
-        const damageTypeLabel = game.i18n.localize(damageTypes[damage.base.damageType] ?? damage.base.damageType);
-        const baseBreakdown = `<span class="tag tag_transparent">${base} ${damageTypeLabel}</span>`;
-        const modifierBreakdown = [damage.dice.filter((m) => m.diceNumber !== 0), damage.modifiers]
-            .flat()
-            .filter((m) => m.enabled && (!m.critical || outcome === "criticalSuccess"))
-            .sort((a, b) =>
-                a.damageType === damage.base.damageType && b.damageType === damage.base.damageType
-                    ? 0
-                    : a.damageType === damage.base.damageType
-                    ? -1
-                    : b.damageType === damage.base.damageType
-                    ? 1
-                    : 0
-            )
-            .map((m) => {
-                const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? "" : "+"}${m.modifier}` : "";
-                const damageType =
-                    m.damageType && m.damageType !== damage.base.damageType
-                        ? game.i18n.localize(damageTypes[m.damageType as DamageType] ?? m.damageType)
-                        : null;
-                const typeLabel = damageType ? ` ${damageType}` : "";
+        const breakdownTags = this.#createBreakdownTags(data, outcome);
+        flavor += `<div class="tags">${breakdownTags.join("")}</div>`;
 
-                return `<span class="tag tag_transparent">${m.label} ${modifier}${typeLabel}</span>`;
-            })
-            .join("");
-        flavor += `<div class="tags">${baseBreakdown}${modifierBreakdown}</div>`;
+        // Create the damage roll and evaluate. If already created, evalute the one we've been given instead
+        const roll = await (() => {
+            const damage = data.damage;
+            if ("roll" in damage) {
+                return damage.roll.evaluate({ async: true });
+            }
+
+            const formula = deepClone(damage.formula[outcome]);
+            if (!formula) {
+                ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
+                return null;
+            }
+
+            const rollerId = game.userId;
+            const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
+            return new DamageRoll(formula, {}, { rollerId, damage: data, degreeOfSuccess }).evaluate({ async: true });
+        })();
+
+        if (roll === null) return null;
 
         const noteRollData = context.self?.item?.getRollData();
         const damageNotes = await Promise.all(
-            damage.notes
-                .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
+            data.notes
+                .filter((n) => n.outcome.length === 0 || n.outcome.includes(outcome))
                 .map(async (note) => await TextEditor.enrichHTML(note.text, { rollData: noteRollData, async: true }))
         );
         const notes = damageNotes.join("<br />");
         flavor += `${notes}`;
-
-        const formula = deepClone(damage.formula[outcome]);
-        if (!formula) {
-            ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
-            return null;
-        }
 
         const { self, target } = context;
         const item = self?.item ?? null;
@@ -187,14 +168,12 @@ export class DamagePF2e {
         })();
 
         // Create the damage roll, roll it, and pull the result
-        const rollerId = game.userId;
-        const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
-        const roll = await new DamageRoll(formula, {}, { rollerId, damage, degreeOfSuccess }).evaluate({ async: true });
         const rollData = roll.options.result;
 
         const rollMode = context.rollMode ?? "publicroll";
         const contextFlag: DamageRollContextFlag = {
             type: context.type,
+            sourceType: context.sourceType,
             actor: context.self?.actor.id ?? null,
             token: context.self?.token?.id ?? null,
             target: targetFlag,
@@ -210,32 +189,82 @@ export class DamagePF2e {
         };
 
         // For now rolls are pre-rendered, but swap to roll.toMessage() when the damage roll refactor is further along
-        await ChatMessagePF2e.create(
-            {
-                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
-                flavor,
-                content: await roll.render(),
-                rolls: [roll.toJSON()],
-                sound: "sounds/dice.wav",
-                flags: {
-                    core: { canPopout: true },
-                    pf2e: {
-                        context: contextFlag,
-                        damageRoll: rollData,
-                        target: targetFlag,
-                        origin,
-                        strike,
-                        preformatted: "both",
-                    },
+        await roll.toMessage({
+            speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
+            flavor,
+            flags: {
+                core: { canPopout: true },
+                pf2e: {
+                    context: contextFlag,
+                    damageRoll: rollData,
+                    target: targetFlag,
+                    modifiers: data.modifiers,
+                    origin,
+                    strike,
+                    preformatted: "both",
                 },
             },
-            { rollMode }
-        );
+        });
 
         Hooks.call(`pf2e.damageRoll`, rollData);
         if (callback) callback(rollData);
 
         return roll;
+    }
+
+    static #createBreakdownTags(data: DamageTemplate, outcome: DegreeOfSuccessString) {
+        const damage = data.damage;
+        const damageTypes = CONFIG.PF2E.damageTypes;
+
+        if ("breakdownTags" in damage) {
+            return damage.breakdownTags.map((b) => `<span class="tag tag_transparent">${b}</span>`);
+        }
+
+        const damageBaseModifier = ((): string => {
+            if (damage.base.diceNumber > 0 && damage.base.modifier !== 0) {
+                return damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
+            } else if (damage.base.modifier !== 0) {
+                return damage.base.modifier.toString();
+            }
+            return "";
+        })();
+
+        const base =
+            damage.base.diceNumber > 0
+                ? `${damage.base.diceNumber}${damage.base.dieSize}${damageBaseModifier}`
+                : damageBaseModifier.toString();
+        const damageTypeLabel = game.i18n.localize(damageTypes[damage.base.damageType] ?? damage.base.damageType);
+        const baseBreakdown = `<span class="tag tag_transparent">${base} ${damageTypeLabel}</span>`;
+
+        const baseDamageType = damage.base.damageType;
+        const modifierBreakdown = [damage.dice.filter((m) => m.diceNumber !== 0), damage.modifiers]
+            .flat()
+            .filter((m) => m.enabled && (!m.critical || outcome === "criticalSuccess"))
+            .sort((a, b) =>
+                // Move persistent damage to the end
+                a.category === b.category ? 0 : a.category === "persistent" ? 1 : b.category === "persistent" ? -1 : 0
+            )
+            .sort((a, b) =>
+                a.damageType === baseDamageType && b.damageType === baseDamageType
+                    ? 0
+                    : a.damageType === baseDamageType
+                    ? -1
+                    : b.damageType === baseDamageType
+                    ? 1
+                    : 0
+            )
+            .map((m) => {
+                const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? "" : "+"}${m.modifier}` : "";
+                const damageType =
+                    m.damageType && m.damageType !== baseDamageType
+                        ? game.i18n.localize(damageTypes[m.damageType] ?? m.damageType)
+                        : null;
+                const typeLabel = damageType ? ` ${damageType}` : "";
+
+                return `<span class="tag tag_transparent">${m.label} ${modifier}${typeLabel}</span>`;
+            })
+            .join("");
+
+        return [baseBreakdown, modifierBreakdown];
     }
 }

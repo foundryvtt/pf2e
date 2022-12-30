@@ -1,3 +1,5 @@
+import { resetAndRerenderActors } from "@actor/helpers";
+
 const SETTINGS: Record<string, SettingRegistration> = {
     gradualBoostsVariant: {
         name: "PF2E.SETTINGS.Variant.AbilityScore.GradualBoosts.Name",
@@ -42,6 +44,9 @@ const SETTINGS: Record<string, SettingRegistration> = {
             noABP: "PF2E.SETTINGS.Variant.AutomaticBonus.Choices.noABP",
             ABPFundamentalPotency: "PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPFundamentalPotency",
             ABPRulesAsWritten: "PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPRulesAsWritten",
+        },
+        onChange: () => {
+            resetAndRerenderActors(game.actors.filter((a) => a.type === "character"));
         },
     },
     proficiencyVariant: {
@@ -92,7 +97,7 @@ export class VariantRulesSettings extends FormApplication {
             ...super.defaultOptions,
             title: "PF2E.SETTINGS.Variant.Title",
             id: "variant-rules-settings",
-            template: "systems/pf2e/templates/system/settings/variant-rules-settings.html",
+            template: "systems/pf2e/templates/system/settings/variant-rules-settings.hbs",
             width: 550,
             height: "auto",
             closeOnSubmit: true,

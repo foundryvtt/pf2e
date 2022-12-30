@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-import "../../static/templates/**/*.html";
+import "../../static/templates/**/*.hbs";
 
 export class TemplatePreloader {
     /**

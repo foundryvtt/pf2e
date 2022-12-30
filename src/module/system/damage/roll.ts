@@ -1,13 +1,13 @@
 import { DamageRollFlag } from "@module/chat-message";
 import { UserPF2e } from "@module/user";
+import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { RollDataPF2e } from "@system/rolls";
 import { ErrorPF2e, fontAwesomeIcon, isObject, setHasElement } from "@util";
 import Peggy from "peggy";
-import { DamageCategorization, renderSplashDamage } from "./helpers";
-import { ArithmeticExpression, Grouping } from "./terms";
-import { DamageCategory, DamageType } from "./types";
+import { DamageCategorization, deepFindTerms, renderSplashDamage } from "./helpers";
+import { ArithmeticExpression, Grouping, InstancePool } from "./terms";
+import { DamageCategory, DamageTemplate, DamageType } from "./types";
 import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
-import { DamageTemplate } from "./weapon";
 
 abstract class AbstractDamageRoll extends Roll {
     static parser = Peggy.generate(ROLL_GRAMMAR);
@@ -36,15 +36,37 @@ class DamageRoll extends AbstractDamageRoll {
 
     static override TOOLTIP_TEMPLATE = "systems/pf2e/templates/dice/damage-tooltip.hbs";
 
-    static override parse(formula: string, data: Record<string, unknown>): [PoolTerm] {
+    static override parse(formula: string, data: Record<string, unknown>): InstancePool[] {
         const replaced = this.replaceFormulaData(formula, data, { missing: "0" });
-        const poolData: PoolTermData = this.parser.parse(replaced);
-        if (poolData.class !== "PoolTerm") {
+        const poolData = ((): PoolTermData | null => {
+            try {
+                return this.parser.parse(replaced);
+            } catch {
+                console.error(`Failed to parse damage formula "${formula}"`);
+                return null;
+            }
+        })();
+
+        if (!poolData) {
+            return [];
+        } else if (poolData.class !== "PoolTerm") {
             throw ErrorPF2e("A damage roll must consist of a single PoolTerm");
         }
+
         this.classifyDice(poolData);
 
-        return [PoolTerm.fromData(poolData)];
+        return [InstancePool.fromData(poolData)];
+    }
+
+    /** Ensure the roll is parsable as `PoolTermData` */
+    static override validate(formula: string): boolean {
+        const wrapped = formula.startsWith("{") ? formula : `{${formula}}`;
+        try {
+            const result = this.parser.parse(wrapped);
+            return isObject(result) && "class" in result && result.class === "PoolTerm";
+        } catch {
+            return false;
+        }
     }
 
     /** Identify each "DiceTerm" raw object with a non-abstract subclass name */
@@ -85,7 +107,9 @@ class DamageRoll extends AbstractDamageRoll {
             return super.formula;
         } else if (instances.length === 1 && firstInstance.head instanceof Grouping) {
             const instanceFormula = firstInstance.formula;
-            return instanceFormula.slice(1).replace(/\)([^)]+)$/i, "$1");
+            return instanceFormula.startsWith("(")
+                ? instanceFormula.slice(1).replace(/\)([^)]+)$/i, "$1")
+                : instanceFormula;
         }
 
         return instances.map((i) => i.formula).join(" + ");
@@ -104,6 +128,11 @@ class DamageRoll extends AbstractDamageRoll {
         return instances.length > 0 ? instances.flatMap((i) => i.dice) : super.dice;
     }
 
+    /** The expected value ("average") of this roll */
+    get expectedValue(): number {
+        return this.instances.reduce((sum, i) => sum + i.expectedValue, 0);
+    }
+
     static override fromData<TRoll extends Roll>(this: AbstractConstructorOf<TRoll>, data: RollJSON): TRoll;
     static override fromData(data: RollJSON): AbstractDamageRoll {
         for (const term of data.terms) {
@@ -118,12 +147,14 @@ class DamageRoll extends AbstractDamageRoll {
     }
 
     override async getTooltip(): Promise<string> {
-        const instances = this.instances.map((i) => ({
-            type: i.type,
-            typeLabel: i.typeLabel,
-            iconClass: i.iconClass,
-            dice: i.dice.map((d) => ({ ...d.getTooltipData() })),
-        }));
+        const instances = this.instances
+            .filter((i) => i.dice.length > 0 && !i.persistent)
+            .map((i) => ({
+                type: i.type,
+                typeLabel: i.typeLabel,
+                iconClass: i.iconClass,
+                dice: i.dice.map((d) => ({ ...d.getTooltipData() })),
+            }));
         return renderTemplate(this.constructor.TOOLTIP_TEMPLATE, { instances });
     }
 
@@ -165,23 +196,44 @@ class DamageInstance extends AbstractDamageRoll {
 
     persistent: boolean;
 
+    partialTotal(this: Rolled<DamageInstance>, subinstance: "precision" | "splash"): number {
+        if (!this._evaluated) {
+            throw ErrorPF2e("Splash damage may not be accessed from an unevaluated damage instance");
+        }
+
+        return deepFindTerms(this.head, { flavor: subinstance }).reduce(
+            (total, t) => total + (Number(t.total!) || 0),
+            0
+        );
+    }
+
     constructor(formula: string, data = {}, options?: RollOptions) {
         super(formula, data, options);
 
-        const flavorIdentifiers = this.options.flavor?.replace(/[^a-z,]/g, "").split(",") ?? [];
+        const flavorIdentifiers = this.options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
         this.type = flavorIdentifiers.find((t): t is DamageType => setHasElement(DAMAGE_TYPES, t)) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
     }
 
     static override parse(formula: string, data: Record<string, unknown>): RollTerm[] {
         const replaced = this.replaceFormulaData(formula, data, { missing: "0" });
-        const syntaxTree: { class: string } = this.parser.parse(replaced);
+        const syntaxTree = ((): { class: string } | null => {
+            try {
+                return this.parser.parse(replaced);
+            } catch {
+                console.error(`Failed to parse damage formula "${formula}"`);
+                return null;
+            }
+        })();
+        if (!syntaxTree) return [];
+
         DamageRoll.classifyDice(syntaxTree);
         if (syntaxTree.class === "Die") {
             return [Die.fromData(syntaxTree)];
         } else if (syntaxTree.class in CONFIG.Dice.termTypes) {
             return [CONFIG.Dice.termTypes[syntaxTree.class].fromData(syntaxTree)];
         }
+
         return [];
     }
 
@@ -194,26 +246,66 @@ class DamageInstance extends AbstractDamageRoll {
         return super.fromData(data);
     }
 
+    /** Get the expected value of a term */
+    static expectedValueOf(term: RollTerm): number {
+        if (term instanceof NumericTerm) {
+            return term.number;
+        } else if (term instanceof Die) {
+            return term.number * ((term.faces + 1) / 2);
+        } else if (term instanceof ArithmeticExpression || term instanceof Grouping) {
+            return term.expectedValue;
+        }
+
+        return 0;
+    }
+
     override get formula(): string {
-        const damageType = this.type ? game.i18n.localize(`PF2E.Damage.RollFlavor.${this.type}`) : "";
+        const typeFlavor = game.i18n.localize(CONFIG.PF2E.damageRollFlavors[this.type] ?? this.type);
+        const damageType =
+            this.persistent && this.type !== "bleed"
+                ? game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeFlavor })
+                : this.type
+                ? typeFlavor
+                : "";
         return [this.head.expression, damageType].join(" ").trim();
+    }
+
+    override get total(): number | undefined {
+        return this.persistent ? 0 : super.total;
+    }
+
+    /** The expected value of this damage instance */
+    get expectedValue(): number {
+        return DamageInstance.expectedValueOf(this.head);
     }
 
     get iconClass(): string | null {
         return DAMAGE_TYPE_ICONS[this.type];
     }
 
+    /** Return 0 for persistent damage */
+    protected override _evaluateTotal(): number {
+        return this.persistent ? 0 : super._evaluateTotal();
+    }
+
     override async render(): Promise<string> {
         const span = document.createElement("span");
         span.classList.add("instance", this.type);
+        span.title = this.typeLabel;
         span.append(this.#renderFormula());
+
+        if (this.persistent && this.type !== "bleed") {
+            const icon = fontAwesomeIcon("hourglass", { style: "duotone" });
+            icon.classList.add("icon");
+            span.append(" ", icon);
+        }
 
         const { iconClass } = this;
         if (iconClass) {
+            if (!this.persistent || this.type === "bleed") span.append(" ");
             const icon = fontAwesomeIcon(iconClass);
             icon.classList.add("icon");
-            span.append(" ", icon);
-            span.title = game.i18n.localize(CONFIG.PF2E.damageTypes[this.type]);
+            span.append(icon);
         }
 
         return span.outerHTML;
@@ -253,7 +345,10 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     get typeLabel(): string {
-        return game.i18n.localize(CONFIG.PF2E.damageTypes[this.type]);
+        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[this.type]);
+        return this.persistent && this.type !== "bleed"
+            ? game.i18n.format("PF2E.Damage.PersistentTooltip", { damageType })
+            : damageType;
     }
 }
 
@@ -264,6 +359,11 @@ interface DamageRoll {
 interface DamageRollDataPF2e extends RollDataPF2e {
     damage?: DamageTemplate;
     result?: DamageRollFlag;
+    fromPersistent?: {
+        damageType: DamageType;
+        result?: number;
+        outcome?: DegreeOfSuccessString;
+    };
 }
 
 export { DamageRoll, DamageInstance };
