@@ -3,7 +3,8 @@ import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIE
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
+import { DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
+import { objectHasKey, setHasElement, sluggify } from "@util";
 import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
 /**
@@ -34,7 +35,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
     damageType: string | null = null;
 
     /** If a damage modifier, a special category */
-    damageCategory: "persistent" | "precision" | "splash" | null = null;
+    damageCategory: DamageCategoryUnique | null = null;
 
     /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
     critical: boolean | null;
@@ -89,7 +90,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
             this.damageType = data.damageType;
         }
 
-        if (tupleHasValue(["persistent", "precision", "splash"] as const, data.damageCategory)) {
+        if (setHasElement(DAMAGE_CATEGORIES_UNIQUE, data.damageCategory)) {
             this.damageCategory = data.damageCategory;
         } else if (data.damageCategory) {
             this.failValidation('category must be "persistent", "precision", "splash", or omitted');
