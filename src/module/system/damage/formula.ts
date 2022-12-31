@@ -1,4 +1,5 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
+import { WeaponMaterialEffect } from "@item";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { groupBy } from "@util";
 import { DamageCategorization } from "./helpers";
@@ -42,6 +43,7 @@ function createDamageFormula(
                 persistent: false,
                 precision: false,
                 splash: false,
+                materials: base.materials ?? [],
             },
         ]);
     }
@@ -129,9 +131,11 @@ function instancesFromTypeMap(
         const enclosed = hasOperators(summedDamage) ? `(${summedDamage})` : summedDamage;
 
         const flavor = ((): string => {
-            const typeFlavor = damageType === "untyped" && !persistent ? "" : damageType;
-            const precisionFlavor = persistent ? ",persistent" : "";
-            return `[${typeFlavor}${precisionFlavor}]`;
+            const typeFlavor = damageType === "untyped" && !persistent ? [] : [damageType];
+            const persistentFlavor = persistent ? ["persistent"] : [];
+            const materialFlavor = typePartials.flatMap((p) => p.materials ?? []);
+            const allFlavor = [typeFlavor, persistentFlavor, materialFlavor].flat().join(",");
+            return allFlavor.length > 0 ? `[${allFlavor}]` : "";
         })();
 
         return enclosed && flavor ? `${enclosed}${flavor}` : enclosed ?? [];
@@ -197,6 +201,7 @@ interface DamagePartial {
     persistent: boolean;
     precision: boolean;
     critical: boolean | null;
+    materials?: WeaponMaterialEffect[];
 }
 
 export { createDamageFormula };
