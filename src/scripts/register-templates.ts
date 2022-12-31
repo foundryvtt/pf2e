@@ -113,12 +113,11 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/loot/sidebar.hbs",
 
         // Vehicle partials
-        "systems/pf2e/templates/actors/vehicle/vehicle-sheet.hbs",
         "systems/pf2e/templates/actors/vehicle/vehicle-header.hbs",
         "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-health.hbs",
         "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-armorclass.hbs",
         "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-saves.hbs",
-        "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-resistances.hbs",
+        "systems/pf2e/templates/actors/vehicle/sidebar/iwr.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-details.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-actions.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-inventory.hbs",
