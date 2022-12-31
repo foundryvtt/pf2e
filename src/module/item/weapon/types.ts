@@ -30,7 +30,7 @@ type WeaponMaterialEffect = Extract<
     WeaponMaterialType,
     | "abysium"
     | "adamantine"
-    | "coldIron"
+    | "cold-iron"
     | "djezet"
     | "mithral"
     | "noqual"
@@ -38,7 +38,7 @@ type WeaponMaterialEffect = Extract<
     | "silver"
     | "sisterstone-dusk"
     | "sisterstone-scarlet"
-    | "sovereignSteel"
+    | "sovereign-steel"
 >;
 
 export {

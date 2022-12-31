@@ -42,9 +42,9 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const actor = this.actor;
 
         const hasDefenses = !!actor.hitPoints?.max || !!actor.attributes.ac.value;
-        const hasImmunities = systemData.traits.di.value.length > 0;
-        const hasResistances = systemData.traits.dr.length > 0;
-        const hasWeaknesses = systemData.traits.dv.length > 0;
+        const hasImmunities = systemData.attributes.immunities.length > 0;
+        const hasResistances = systemData.attributes.resistances.length > 0;
+        const hasWeaknesses = systemData.attributes.weaknesses.length > 0;
         const hasIWR = hasDefenses || hasImmunities || hasResistances || hasWeaknesses;
         const stealthMod = actor.system.attributes.stealth.value;
         const stealthDC = typeof stealthMod === "number" ? stealthMod + 10 : null;

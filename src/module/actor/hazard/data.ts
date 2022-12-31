@@ -2,11 +2,11 @@ import { SaveData } from "@actor/creature/data";
 import {
     ActorSystemData,
     ActorSystemSource,
-    BaseActorAttributes,
+    ActorAttributes,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseHitPointsData,
-    BaseTraitsSource,
+    ActorTraitsSource,
 } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { SaveType } from "@actor/types";
@@ -35,7 +35,7 @@ interface HazardSystemData extends HazardSystemSource, Omit<ActorSystemData, "at
     traits: HazardTraitsData;
 }
 
-interface HazardTraitsSource extends BaseTraitsSource<HazardTrait> {
+interface HazardTraitsSource extends ActorTraitsSource<HazardTrait> {
     size: { value: Size };
     rarity: Rarity;
 }
@@ -45,7 +45,7 @@ interface HazardTraitsData extends HazardTraitsSource {
     rarity: Rarity;
 }
 
-interface HazardAttributes extends BaseActorAttributes {
+interface HazardAttributes extends ActorAttributes {
     ac: {
         value: number;
     };

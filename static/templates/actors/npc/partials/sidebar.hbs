@@ -102,57 +102,57 @@
 
 <!-- IMMUNITIES, WEAKNESSES, AND RESISTANCES -->
 <div class="immunities side-bar-section">
-    <div class="side-bar-section-header{{#unless hasImmunities}} disabled{{/unless}}">
+    <div class="side-bar-section-header{{#unless data.attributes.immunities}} disabled{{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-fw fa-ankh"></i>
             <h4>{{localize "PF2E.ImmunitiesLabel"}}</h4>
         </div>
         {{#if options.editable}}
             <div class="immunities-controls controls">
-                <a class="trait-edit edit" data-tag-selector="basic" data-title="PF2E.ImmunitiesLabel" data-config-types="immunityTypes" data-property="system.traits.di" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fas {{#if hasImmunities}}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+                <a data-action="edit-immunities" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fa-solid fa-edit"></i></a>
             </div>
         {{/if}}
     </div>
 
     <div class="side-bar-section-content">
-        {{#each immunities as |immunity type|}}
-            <div class="tag-legacy immunity" data-immunity="{{type}}">{{immunity.label}}</div>
+        {{#each data.attributes.immunities as |immunity|}}
+            <div class="tag-legacy immunity" data-immunity="{{immunity.type}}">{{immunity.label}}</div>
         {{/each}}
     </div>
 </div>
 <div class="weaknesses side-bar-section">
-    <div class="side-bar-section-header{{#unless data.traits.dv}} disabled{{/unless}}">
+    <div class="side-bar-section-header{{#unless data.attributes.weaknesses}} disabled{{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-fw fa-heart-broken"></i>
             <h4>{{ localize "PF2E.WeaknessesLabel"}}</h4>
         </div>
         {{#if options.editable}}
             <div class="weaknesses-controls controls">
-                <a class="trait-edit edit" data-tag-selector="weaknesses" title="{{localize "PF2E.NPC.EditWeaknesses"}}"><i class="fas {{#if data.traits.dv }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+                <a data-action="edit-weaknesses" title="{{localize "PF2E.NPC.EditWeaknesses"}}"><i class="fa-solid fa-edit"></i></a>
             </div>
         {{/if}}
     </div>
     <div class="side-bar-section-content">
-        {{#each data.traits.dv as |weakness|}}
-            <div class="tag-legacy weakness" data-weakness="{{weakness.type}}">{{localize weakness.label}} {{weakness.value}}</div>
+        {{#each data.attributes.weaknesses as |weakness|}}
+            <div class="tag-legacy weakness" data-weakness="{{weakness.type}}">{{weakness.label}}</div>
         {{/each}}
     </div>
 </div>
 <div class="resistances side-bar-section">
-    <div class="side-bar-section-header {{#unless data.traits.dr}} disabled {{/unless}}">
+    <div class="side-bar-section-header{{#unless data.attributes.resistances}} disabled{{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-fw fa-shield-virus"></i>
             <h4>{{localize "PF2E.ResistancesLabel"}}</h4>
         </div>
         {{#if options.editable}}
             <div class="resistances-controls controls">
-                <a class="trait-edit edit" data-tag-selector="resistances" title="{{localize "PF2E.NPC.EditResistances"}}"><i class="fas {{#if data.traits.dr}}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+                <a data-action="edit-resistances" title="{{localize "PF2E.NPC.EditResistances"}}"><i class="fa-solid fa-edit"></i></a>
             </div>
         {{/if}}
     </div>
     <div class="side-bar-section-content">
-        {{#each data.traits.dr as |resistance|}}
-            <div class="tag-legacy resistance" data-resistance="{{resistance.type}}">{{localize resistance.label}} {{resistance.value}}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
+        {{#each data.attributes.resistances as |resistance|}}
+            <div class="tag-legacy resistance" data-resistance="{{resistance.type}}">{{resistance.label}}</div>
         {{/each}}
     </div>
 </div>

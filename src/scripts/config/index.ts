@@ -1,9 +1,13 @@
+import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, VehiclePF2e } from "@actor";
+import { SenseAcuity, SenseType } from "@actor/creature/sense";
+import { Alignment } from "@actor/creature/types";
+import { ActorType } from "@actor/data";
 import {
     ActionItemPF2e,
     AncestryPF2e,
+    ArmorPF2e,
     BackgroundPF2e,
     BookPF2e,
-    ArmorPF2e,
     ClassPF2e,
     ConditionPF2e,
     ConsumablePF2e,
@@ -16,22 +20,31 @@ import {
     KitPF2e,
     LorePF2e,
     MeleePF2e,
-    SpellPF2e,
     SpellcastingEntryPF2e,
+    SpellPF2e,
     TreasurePF2e,
     WeaponPF2e,
 } from "@item";
-import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionSlug } from "@item/condition/data";
+import { RANGE_TRAITS } from "@item/data/values";
+import { DeityDomain } from "@item/deity/types";
+import { FeatType } from "@item/feat/data";
 import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes";
 import { PreciousMaterialGrade } from "@item/physical/types";
+import {
+    BaseWeaponType,
+    MeleeWeaponGroup,
+    WeaponGroup,
+    WeaponPropertyRuneType,
+    WeaponReloadTime,
+} from "@item/weapon/types";
+import { Size } from "@module/data";
+import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+import { DAMAGE_TYPES } from "@system/damage";
 import { DamageCategory, DamageCategoryUnique, DamageType } from "@system/damage/types";
-import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
-import { RANGE_TRAITS } from "@item/data/values";
-import { ActorType } from "@actor/data";
-import { BaseWeaponType, MeleeWeaponGroup, WeaponGroup, WeaponPropertyRuneType } from "@item/weapon/types";
+import { sluggify } from "@util";
 import enJSON from "../../../static/lang/en.json";
-import { SenseAcuity, SenseType } from "@actor/creature/sense";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr";
 import {
     actionTraits,
     alignmentTraits,
@@ -42,7 +55,6 @@ import {
     consumableTraits,
     creatureTraits,
     damageTraits,
-    elementalTraits,
     energyDamageTypes,
     equipmentTraits,
     featTraits,
@@ -59,14 +71,6 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits";
-import { JournalSheetPF2e } from "@module/journal-entry/sheet";
-import { Size } from "@module/data";
-import { FeatType } from "@item/feat/data";
-import { DeityDomain } from "@item/deity/types";
-import { sluggify } from "@util";
-import { Alignment } from "@actor/creature/types";
-import { WeaponReloadTime } from "@item/weapon/types";
-import { DAMAGE_TYPES } from "@system/damage";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -115,17 +119,13 @@ const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
 
 const damageCategories: Record<DamageCategory, string> = {
     ...damageCategoriesUnique,
-    alignment: "PF2E.Alignment",
     adamantine: "PF2E.PreciousMaterialAdamantine",
-    coldiron: "PF2E.PreciousMaterialColdIron",
+    "cold-iron": "PF2E.PreciousMaterialColdIron",
     darkwood: "PF2E.PreciousMaterialDarkwood",
     energy: "PF2E.TraitEnergy",
-    ghostTouch: weaponPropertyRunes.ghostTouch,
     mithral: "PF2E.PreciousMaterialMithral",
     orichalcum: "PF2E.PreciousMaterialOrichalcum",
     physical: "PF2E.TraitPhysical",
-    salt: "PF2E.TraitSalt",
-    "salt-water": "PF2E.TraitSaltWater",
     silver: "PF2E.PreciousMaterialSilver",
     "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
@@ -203,84 +203,6 @@ const conditionTypes: Record<ConditionSlug, string> = {
     unnoticed: "PF2E.ConditionTypeUnnoticed",
 };
 
-const immunityTypes: Record<ImmunityType, string> = {
-    ...conditionTypes,
-    ...damageCategories,
-    ...damageTraits,
-    ...damageTypes,
-    ...elementalTraits,
-    ...magicSchools,
-    "area-damage": "PF2E.TraitAreaDamage",
-    auditory: "PF2E.TraitAuditory",
-    confusion: "PF2E.TraitConfusion",
-    "critical-hits": "PF2E.TraitCriticalHits",
-    curse: "PF2E.TraitCurse",
-    detection: "PF2E.TraitDetection",
-    "death-effects": "PF2E.TraitDeathEffects",
-    disease: "PF2E.TraitDisease",
-    emotion: "PF2E.TraitEmotion",
-    "fear-effects": "PF2E.TraitFearEffects",
-    ghostTouch: weaponPropertyRunes.ghostTouch,
-    healing: "PF2E.TraitHealing",
-    inhaled: "PF2E.TraitInhaled",
-    light: "PF2E.TraitLight",
-    magic: "PF2E.TraitMagic",
-    magical: "PF2E.TraitMagical",
-    "misfortune-effects": "PF2E.TraitMisfortuneEffects",
-    "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
-    "nonmagical-attacks": "PF2E.TraitNonmagicalAttacks",
-    "object-immunities": "PF2E.TraitObjectImmunities",
-    olfactory: "PF2E.TraitOlfactory",
-    polymorph: "PF2E.TraitPolymorph",
-    possession: "PF2E.TraitPossession",
-    scrying: "PF2E.TraitScrying",
-    sleep: "PF2E.TraitSleep",
-    spellDeflection: "PF2E.TraitSpellDeflection",
-    "swarm-attacks": "PF2E.TraitSwarmAttacks",
-    "swarm-mind": "PF2E.TraitSwarmMind",
-    trip: "PF2E.TraitTrip",
-    unarmed: "PF2E.TraitUnarmed",
-    visual: "PF2E.TraitVisual",
-};
-
-const weaknessTypes: Record<WeaknessType, string> = {
-    ...damageCategories,
-    ...damageTraits,
-    ...damageTypes,
-    ...elementalTraits,
-    "area-damage": "PF2E.TraitAreaDamage",
-    arrow: "PF2E.TraitArrowVulnerability",
-    axe: "PF2E.TraitAxeVulnerability",
-    "critical-hits": "PF2E.TraitCriticalHits",
-    emotion: "PF2E.TraitEmotion",
-    "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
-    "persistent-damage": "PF2E.ConditionTypePersistent",
-    "salt-water": "PF2E.TraitSaltWater",
-    "splash-damage": "PF2E.TraitSplashDamage",
-    "vampire-weaknesses": "PF2E.TraitVampireWeaknesses",
-    vorpal: weaponPropertyRunes.vorpal,
-    "vorpal-fear": "PF2E.TraitVorpalFear",
-    "vulnerable-to-sunlight": "PF2E.TraitVulnerableToSunlight",
-    unarmed: "PF2E.TraitUnarmed",
-    weapons: "PF2E.TraitWeapons",
-};
-
-const resistanceTypes: Record<ResistanceType, string> = {
-    ...damageCategories,
-    ...damageTraits,
-    ...damageTypes,
-    ...elementalTraits,
-    all: "PF2E.TraitAll",
-    "area-damage": "PF2E.TraitAreaDamage",
-    "critical-hits": "PF2E.TraitCriticalHits",
-    "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
-    "persistent-damage": "PF2E.ConditionTypePersistent",
-    "protean anatomy": "PF2E.TraitProteanAnatomy",
-    unarmed: "PF2E.TraitUnarmed",
-    vorpal: weaponPropertyRunes.vorpal,
-    weapons: "PF2E.TraitWeapons",
-};
-
 const weaponCategories = {
     simple: "PF2E.WeaponTypeSimple",
     martial: "PF2E.WeaponTypeMartial",
@@ -312,7 +234,7 @@ const rangeDescriptions = RANGE_TRAITS.reduce(
 const preciousMaterialDescriptions = {
     abysium: "PF2E.PreciousMaterialAbysiumDescription",
     adamantine: "PF2E.PreciousMaterialAdamantineDescription",
-    coldIron: "PF2E.PreciousMaterialColdIronDescription",
+    "cold-iron": "PF2E.PreciousMaterialColdIronDescription",
     darkwood: "PF2E.PreciousMaterialDarkwoodDescription",
     djezet: "PF2E.PreciousMaterialDjezetDescription",
     dragonhide: "PF2E.PreciousMaterialDragonhideDescription",
@@ -325,7 +247,7 @@ const preciousMaterialDescriptions = {
     silver: "PF2E.PreciousMaterialSilverDescription",
     "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDescription",
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneDescription",
-    sovereignSteel: "PF2E.PreciousMaterialSovereignSteelDescription",
+    "sovereign-steel": "PF2E.PreciousMaterialSovereignSteelDescription",
     warpglass: "PF2E.PreciousMaterialWarpglassDescription",
 };
 

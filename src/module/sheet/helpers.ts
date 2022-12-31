@@ -21,10 +21,6 @@ function createSheetOptions(
         return compiledOptions;
     }, {});
 
-    if (selections.custom) {
-        sheetOptions.custom = { label: selections.custom, value: "", selected: true };
-    }
-
     return sortLabeledRecord(sheetOptions);
 }
 
@@ -76,7 +72,7 @@ interface SheetOption {
 
 type SheetOptions = Record<string, SheetOption>;
 
-type SheetSelections = { value: (string | number)[]; custom?: string } | (string[] & { custom?: never });
+type SheetSelections = { value: (string | number)[] } | (string[] & { custom?: never });
 
 export {
     createSheetOptions,
