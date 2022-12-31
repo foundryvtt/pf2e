@@ -141,7 +141,7 @@ const weaknessTypes = {
     "vorpal-fear": "PF2E.Damage.IWR.Type.vorpal-fear",
     "vulnerable-to-sunlight": "PF2E.Damage.IWR.Type.vulnerable-to-sunlight",
     warpglass: "PF2E.Damage.IWR.Type.warpglass",
-    water: "PF2E.Damage.RollFlavor.water",
+    water: "PF2E.Damage.IWR.Type.water",
     weapons: "PF2E.Damage.IWR.Type.weapons",
     "weapons-shedding-bright-light": "PF2E.Damage.IWR.Type.weapons-shedding-bright-light",
 };
