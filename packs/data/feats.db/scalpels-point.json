@@ -27,16 +27,21 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
+                "critical": true,
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
                 "predicate": [
-                    "devise-a-stratagem"
+                    "devise-a-stratagem",
+                    {
+                        "or": [
+                            "item:damage:type:piercing",
+                            "item:damage:type:slashing"
+                        ]
+                    }
                 ],
-                "selector": "strike-damage",
-                "text": "If your critical hit dealt piercing or slashing damage, you also deal @Localize[PF2E.PersistentDamage.Bleed1d6.success] to your target",
-                "title": "{item|name}"
+                "selector": "strike-damage"
             }
         ],
         "source": {
