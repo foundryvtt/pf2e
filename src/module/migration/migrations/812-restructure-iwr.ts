@@ -110,16 +110,15 @@ export class Migration812RestructureIWR extends MigrationBase {
             rule.type = rule.type.startsWith("{") ? rule.type : this.#normalizeType(rule.type);
             if (typeof rule.except === "string") {
                 const parsed = this.#parseExceptions(rule.except);
-                const exceptions = (rule.exceptions = parsed.exceptions.filter((exception) => {
+                const exceptions = parsed.exceptions.filter((exception) => {
                     if (rule.key === "Immunity") {
                         return setHasElement(IMMUNITY_TYPES, exception);
                     } else if (rule.key === "Weakness") {
                         return setHasElement(WEAKNESS_TYPES, exception);
-                    } else {
-                        return setHasElement(RESISTANCE_TYPES, exception);
                     }
-                }));
-                if (exceptions.length === 0) delete rule.exceptions;
+                    return setHasElement(RESISTANCE_TYPES, exception);
+                });
+                if (exceptions.length > 0) rule.exceptions = exceptions;
                 delete rule.except;
             }
         }
