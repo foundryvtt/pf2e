@@ -2,7 +2,7 @@
     <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
 </div>
 <ol class="immunities tags">
-    {{#each data.attributes.immunities}}
+    {{#each data.attributes.immunities as |immunity|}}
         <li class="tag tag_secondary" data-immunity="{{immunity.type}}">{{immunity.label}}</li>
     {{/each}}
     {{#if editable}}
