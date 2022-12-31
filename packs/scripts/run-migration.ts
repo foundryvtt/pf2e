@@ -27,6 +27,7 @@ import { Migration806TorchImprovisedOtherTags } from "@module/migration/migratio
 import { Migration807RMActivatedEffectFields } from "@module/migration/migrations/807-rm-activated-effect-fields";
 import { Migration808CountDamageDice } from "@module/migration/migrations/808-count-damage-dice";
 import { Migration809AutomatonEnhancements } from "@module/migration/migrations/809-automaton-enhancements";
+import { Migration811InlineDamageRollsPersistent } from "@module/migration/migrations/811-inline-damage-rolls-persistent";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -57,6 +58,7 @@ const migrations: MigrationBase[] = [
     new Migration807RMActivatedEffectFields(),
     new Migration808CountDamageDice(),
     new Migration809AutomatonEnhancements(),
+    new Migration811InlineDamageRollsPersistent(),
 ];
 
 global.deepClone = <T>(original: T): T => {

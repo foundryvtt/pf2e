@@ -1,3 +1,4 @@
+import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base";
@@ -11,7 +12,7 @@ export class Migration805InlineDamageRolls extends MigrationBase {
     #updateDamageFormula(text: string): string {
         const skipStrings = ["splash", "precision", "persistent", "d20", "#"];
         return text.replace(this.#pattern, (match): string => {
-            if (!match.endsWith("damage}") || skipStrings.some((s) => match.includes(s))) {
+            if (!match.toLowerCase().endsWith("damage}") || skipStrings.some((s) => match.includes(s))) {
                 return match;
             }
 
@@ -34,6 +35,10 @@ export class Migration805InlineDamageRolls extends MigrationBase {
                 ? reassembled.replace(/ damage$/, `{${customLabel}}`)
                 : reassembled;
         });
+    }
+
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+        source.system = recursiveReplaceString(source.system, (s) => this.#updateDamageFormula(s));
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
