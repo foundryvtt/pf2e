@@ -100,21 +100,26 @@ export class Migration812RestructureIWR extends MigrationBase {
 
         // Rule elements with old cold-iron data
         const iwrREs = source.system.rules.filter(
-            (r): r is { key: string; type: string } =>
+            (r): r is { key: string; type: string; except?: unknown; exceptions?: unknown } =>
                 typeof r.key === "string" &&
                 ["Immunity", "Weakness", "Resistance"].includes(r.key) &&
                 "type" in r &&
                 typeof r.type === "string"
         );
         for (const rule of iwrREs) {
-            rule.type = this.#normalizeType(rule.type);
+            rule.type = rule.type.startsWith("{") ? rule.type : this.#normalizeType(rule.type);
+            if (typeof rule.except === "string") {
+                const result = this.#parseExceptions(rule.except);
+                rule.exceptions = result.exceptions;
+                delete rule.except;
+            }
         }
 
         const adjustStrikeREs = source.system.rules.filter(
             (r): r is { key: string; value: string } => r.key === "AdjustStrike" && typeof r.value === "string"
         );
         for (const rule of adjustStrikeREs) {
-            rule.value = this.#normalizeType(rule.value);
+            rule.value = rule.value.startsWith("{") ? rule.value : this.#normalizeType(rule.value);
         }
     }
 
