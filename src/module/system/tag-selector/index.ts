@@ -36,6 +36,7 @@ const SELECTABLE_TAG_FIELDS = [
     "creatureTraits",
     "currencies",
     "damageCategories",
+    "damageCategoriesExtra",
     "damageDie",
     "damageTypes",
     "dcAdjustments",

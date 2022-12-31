@@ -41,7 +41,7 @@ import {
 import { Size } from "@module/data";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
 import { DAMAGE_TYPES } from "@system/damage";
-import { DamageCategory, DamageCategoryUnique, DamageType } from "@system/damage/types";
+import { DamageCategory, DamageCategoryExtra, DamageCategoryUnique, DamageType } from "@system/damage/types";
 import { sluggify } from "@util";
 import enJSON from "../../../static/lang/en.json";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr";
@@ -117,19 +117,24 @@ const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
     splash: "PF2E.TraitSplash",
 };
 
-const damageCategories: Record<DamageCategory, string> = {
-    ...damageCategoriesUnique,
+const damageCategoriesExtra: Record<DamageCategoryExtra, string> = {
     adamantine: "PF2E.PreciousMaterialAdamantine",
     "cold-iron": "PF2E.PreciousMaterialColdIron",
     darkwood: "PF2E.PreciousMaterialDarkwood",
-    energy: "PF2E.TraitEnergy",
     mithral: "PF2E.PreciousMaterialMithral",
     orichalcum: "PF2E.PreciousMaterialOrichalcum",
-    physical: "PF2E.TraitPhysical",
     silver: "PF2E.PreciousMaterialSilver",
     "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
     warpglass: "PF2E.PreciousMaterialWarpglass",
+};
+
+const damageCategories: Record<DamageCategory, string> = {
+    ...damageCategoriesUnique,
+    ...damageCategoriesExtra,
+    alignment: "PF2E.Alignment",
+    energy: "PF2E.TraitEnergy",
+    physical: "PF2E.TraitPhysical",
 };
 
 const physicalDamageTypes = {
@@ -896,6 +901,7 @@ export const PF2ECONFIG = {
     damageTypes,
     damageRollFlavors,
     damageCategories,
+    damageCategoriesExtra,
     resistanceTypes,
 
     stackGroups: {

@@ -14,24 +14,27 @@ const ENERGY_DAMAGE_TYPES = [
 const ALIGNMENT_DAMAGE_TYPES = ["chaotic", "lawful", "good", "evil"] as const;
 
 /** A set of mutually exclusive damage categories */
-const DAMAGE_CATEGORIES_UNIQUE = new Set(["persistent", "precision", "splash"]);
+const DAMAGE_CATEGORIES_UNIQUE = new Set(["persistent", "precision", "splash"] as const);
 
-const DAMAGE_CATEGORIES = new Set([
-    ...DAMAGE_CATEGORIES_UNIQUE,
+/** All damage modifications that only affect IWR (like materials) */
+const DAMAGE_CATEGORIES_EXTRA = new Set([
     "adamantine",
-    "alignment",
     "cold-iron",
     "darkwood",
-    "energy",
     "mithral",
     "orichalcum",
-    "physical",
-    "salt",
-    "salt-water",
     "silver",
     "sisterstone-dusk",
     "sisterstone-scarlet",
     "warpglass",
+] as const);
+
+const DAMAGE_CATEGORIES = new Set([
+    ...DAMAGE_CATEGORIES_UNIQUE,
+    ...DAMAGE_CATEGORIES_EXTRA,
+    "alignment",
+    "energy",
+    "physical",
 ] as const);
 
 /** The standard damage die sizes */
@@ -97,6 +100,7 @@ export {
     ALIGNMENT_DAMAGE_TYPES,
     BASE_DAMAGE_TYPES_TO_CATEGORIES,
     DAMAGE_CATEGORIES,
+    DAMAGE_CATEGORIES_EXTRA,
     DAMAGE_CATEGORIES_UNIQUE,
     DAMAGE_DIE_FACES,
     DAMAGE_DIE_FACES_TUPLE,
