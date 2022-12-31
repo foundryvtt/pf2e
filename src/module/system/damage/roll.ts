@@ -1,3 +1,4 @@
+import { WeaponMaterialEffect, WEAPON_MATERIAL_EFFECTS } from "@item";
 import { DamageRollFlag } from "@module/chat-message";
 import { UserPF2e } from "@module/user";
 import { RollDataPF2e } from "@system/rolls";
@@ -201,6 +202,8 @@ class DamageInstance extends AbstractDamageRoll {
 
     persistent: boolean;
 
+    materials: WeaponMaterialEffect[];
+
     partialTotal(this: Rolled<DamageInstance>, subinstance: "precision" | "splash"): number {
         if (!this._evaluated) {
             throw ErrorPF2e("Splash damage may not be accessed from an unevaluated damage instance");
@@ -218,6 +221,9 @@ class DamageInstance extends AbstractDamageRoll {
         const flavorIdentifiers = this.options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
         this.type = flavorIdentifiers.find((t): t is DamageType => setHasElement(DAMAGE_TYPES, t)) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
+        this.materials = flavorIdentifiers.filter((i): i is WeaponMaterialEffect =>
+            setHasElement(WEAPON_MATERIAL_EFFECTS, i)
+        );
     }
 
     static override parse(formula: string, data: Record<string, unknown>): RollTerm[] {

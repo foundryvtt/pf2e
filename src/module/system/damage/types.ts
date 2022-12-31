@@ -72,6 +72,7 @@ interface BasicDamageData {
     dieSize: DamageDieSize | null;
     modifier: number;
     category: DamageCategory | null;
+    materials?: WeaponMaterialEffect[];
 }
 
 interface BaseDamageTemplate {
