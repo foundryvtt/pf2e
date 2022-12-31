@@ -153,7 +153,7 @@ class DamageRoll extends AbstractDamageRoll {
 
     override async getTooltip(): Promise<string> {
         const instances = this.instances
-            .filter((i) => i.dice.length > 0 && !i.persistent)
+            .filter((i) => i.dice.length > 0 && (!i.persistent || i.options.evaluatePersistent))
             .map((i) => ({
                 type: i.type,
                 typeLabel: i.typeLabel,
