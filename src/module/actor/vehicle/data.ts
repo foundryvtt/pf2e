@@ -1,10 +1,10 @@
 import {
     ActorSystemData,
-    BaseActorAttributes,
+    ActorAttributes,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseHitPointsData,
-    BaseTraitsData,
+    ActorTraitsData,
 } from "@actor/data/base";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 import { ActorSizePF2e } from "@actor/data/size";
@@ -23,7 +23,7 @@ interface VehicleHitPointsData extends Required<BaseHitPointsData> {
     negativeHealing: false;
 }
 
-interface VehicleAttributes extends BaseActorAttributes {
+interface VehicleAttributes extends ActorAttributes {
     ac: {
         value: number;
         check: number;
@@ -65,7 +65,7 @@ interface VehicleFortitudeSaveData extends StatisticTraceData {
     saveDetail: string;
 }
 
-interface VehicleTraitsData extends BaseTraitsData<VehicleTrait> {
+interface VehicleTraitsData extends ActorTraitsData<VehicleTrait> {
     rarity: keyof ConfigPF2e["PF2E"]["rarityTraits"];
     size: ActorSizePF2e;
 }

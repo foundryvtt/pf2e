@@ -2,11 +2,11 @@ import {
     AbilityBasedStatistic,
     ActorSystemData,
     ActorSystemSource,
-    BaseActorAttributes,
+    ActorAttributes,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
-    BaseTraitsData,
-    BaseTraitsSource,
+    ActorTraitsData,
+    ActorTraitsSource,
     HitPointsData,
     InitiativeData,
     Rollable,
@@ -117,14 +117,14 @@ type Language = keyof ConfigPF2e["PF2E"]["languages"];
 type Attitude = keyof ConfigPF2e["PF2E"]["attitude"];
 type CreatureTrait = keyof ConfigPF2e["PF2E"]["creatureTraits"] | AlignmentTrait;
 
-interface CreatureTraitsSource extends BaseTraitsSource<CreatureTrait> {
+interface CreatureTraitsSource extends ActorTraitsSource<CreatureTrait> {
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
 
     size?: { value: Size };
 }
 
-interface CreatureTraitsData extends BaseTraitsData<CreatureTrait>, Omit<CreatureTraitsSource, "rarity" | "size"> {
+interface CreatureTraitsData extends ActorTraitsData<CreatureTrait>, Omit<CreatureTraitsSource, "rarity" | "size"> {
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
 }
@@ -142,7 +142,7 @@ type SaveData = StatisticTraceData & AbilityBasedStatistic & { saveDetail?: stri
 type CreatureSaves = Record<SaveType, SaveData>;
 
 /** Miscallenous but mechanically relevant creature attributes.  */
-interface CreatureAttributes extends BaseActorAttributes {
+interface CreatureAttributes extends ActorAttributes {
     hp: CreatureHitPoints;
     ac: { value: number };
     hardness?: { value: number };

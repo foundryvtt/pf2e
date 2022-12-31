@@ -12,7 +12,6 @@ import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 import {
     BasicConstructorOptions,
-    ResistanceSelector,
     SelectableTagField,
     SELECTABLE_TAG_FIELDS,
     SenseSelector,
@@ -21,15 +20,15 @@ import {
     TagSelectorOptions,
     TagSelectorType,
     TAG_SELECTOR_TYPES,
-    WeaknessSelector,
 } from "@system/tag-selector";
-import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlQuery, objectHasKey, tupleHasValue } from "@util";
 import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
 import { ItemSummaryRenderer } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
+import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
 
@@ -69,15 +68,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const totalWealth = this.actor.inventory.totalWealth;
         const totalWealthGold = (totalWealth.copperValue / 100).toFixed(2);
 
-        // IWR
-        const immunities = createSheetTags(CONFIG.PF2E.immunityTypes, actorData.system.traits.di);
-        for (const weakness of actorData.system.traits.dv) {
-            weakness.label = CONFIG.PF2E.weaknessTypes[weakness.type];
-        }
-        for (const resistance of actorData.system.traits.dr) {
-            resistance.label = CONFIG.PF2E.resistanceTypes[resistance.type];
-        }
-
         const traitsMap = ((): Record<string, string> => {
             switch (this.actor.type) {
                 case "hazard":
@@ -103,8 +93,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             items: actorData.items,
             user: { isGM: game.user.isGM },
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
-            immunities,
-            hasImmunities: Object.keys(immunities).length > 0,
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
             totalCoinage,
             totalCoinageGold,
@@ -199,6 +187,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0]!;
 
         // Item summaries
         this.itemRenderer.activateListeners($html);
@@ -263,6 +252,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 this.actor.rollAttribute(event, key);
             }
         });
+
+        // IWR
+        for (const listName of ["immunities", "weaknesses", "resistances"] as const) {
+            const editButton = htmlQuery(html, `a[data-action=edit-${listName}]`);
+            editButton?.addEventListener("click", () => {
+                new IWREditor(this.actor, { category: listName }).render(true);
+            });
+        }
 
         // Strikes
         const $strikesList = $html.find("ol.strikes-list");
@@ -1022,10 +1019,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             throw ErrorPF2e("Insufficient options provided to render basic tag selector");
         } else {
             const TagSelector = {
-                resistances: ResistanceSelector,
                 senses: SenseSelector,
                 "speed-types": SpeedSelector,
-                weaknesses: WeaknessSelector,
             }[selectorType];
             new TagSelector(this.object, options).render(true);
         }

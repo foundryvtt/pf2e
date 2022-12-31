@@ -4,14 +4,14 @@ import { SkillAbbreviation } from "@actor/creature/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance } from "@actor/types";
-import { IMMUNITY_TYPES, RESISTANCE_TYPES, WEAKNESS_TYPES } from "@actor/values";
 import { ConsumablePF2e, ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
-import { DocumentSchemaRecord, LabeledNumber, Rarity, Size, ValueAndMaybeMax, ValuesList } from "@module/data";
+import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax } from "@module/data";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
 import { RollParameters, StrikeRollParams } from "@module/system/rolls";
 import { ActorType } from ".";
+import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr";
 
 /** Base interface for all actor data */
 interface BaseActorSourcePF2e<
@@ -42,10 +42,9 @@ interface ActorSystemSource {
         alliance?: ActorAlliance;
         creature?: unknown;
     };
-    attributes: {
-        hp?: ValueAndMaybeMax;
-    };
-    traits?: BaseTraitsSource<string>;
+    attributes: ActorAttributesSource;
+    traits?: ActorTraitsSource<string>;
+
     /** A record of this actor's current world schema version as well a log of the last migration to occur */
     schema: DocumentSchemaRecord;
 }
@@ -56,8 +55,8 @@ interface ActorSystemData extends ActorSystemSource {
         alliance: ActorAlliance;
     };
     actions?: StrikeData[];
-    attributes: BaseActorAttributes;
-    traits: BaseTraitsData<string>;
+    attributes: ActorAttributes;
+    traits: ActorTraitsData<string>;
     /** Icons appearing in the Effects Tracker application */
     tokenEffects: TemporaryEffect[];
     /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
@@ -89,8 +88,18 @@ interface BaseHitPointsData {
     details: string;
 }
 
-interface BaseActorAttributes {
+interface ActorAttributesSource {
+    hp?: ValueAndMaybeMax;
+    immunities?: ImmunitySource[];
+    weaknesses?: WeaknessSource[];
+    resistances?: ResistanceSource[];
+}
+
+interface ActorAttributes extends ActorAttributesSource {
     hp?: Required<BaseHitPointsData>;
+    immunities: ImmunityData[];
+    weaknesses: WeaknessData[];
+    resistances: ResistanceData[];
     flanking: {
         /** Whether the actor can flank at all */
         canFlank: boolean;
@@ -119,34 +128,18 @@ type GangUpCircumstance =
 
 /** Data related to actor hitpoints. */
 // expose _modifiers field to allow initialization in data preparation
-export type HitPointsData = StatisticModifier & Required<BaseHitPointsData>;
+type HitPointsData = StatisticModifier & Required<BaseHitPointsData>;
 
-export type ImmunityType = SetElement<typeof IMMUNITY_TYPES>;
-export type WeaknessType = SetElement<typeof WEAKNESS_TYPES>;
-export interface LabeledWeakness extends LabeledNumber {
-    type: WeaknessType;
-}
-export type ResistanceType = SetElement<typeof RESISTANCE_TYPES>;
-export interface LabeledResistance extends LabeledNumber {
-    type: ResistanceType;
-}
-
-export interface BaseTraitsSource<TTrait extends string> {
+interface ActorTraitsSource<TTrait extends string> {
     /** Actual Pathfinder traits */
     value: TTrait[];
     /** The rarity of the actor (common, uncommon, etc.) */
     rarity?: Rarity;
     /** The character size (such as 'med'). */
     size?: { value: Size };
-    /** Damage immunities this actor has. */
-    di: ValuesList<ImmunityType>;
-    /** Damage resistances that this actor has. */
-    dr: LabeledResistance[];
-    /** Damage vulnerabilities that this actor has. */
-    dv: LabeledWeakness[];
 }
 
-interface BaseTraitsData<TTrait extends string> extends BaseTraitsSource<TTrait> {
+interface ActorTraitsData<TTrait extends string> extends ActorTraitsSource<TTrait> {
     rarity: Rarity;
     size: ActorSizePF2e;
 }
@@ -289,16 +282,19 @@ interface PrototypeTokenPF2e extends foundry.data.PrototypeToken {
 
 export {
     AbilityBasedStatistic,
+    ActorAttributes,
+    ActorAttributesSource,
     ActorFlagsPF2e,
     ActorSystemData,
     ActorSystemSource,
+    ActorTraitsData,
+    ActorTraitsSource,
     ArmorClassData,
-    BaseActorAttributes,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseHitPointsData,
-    BaseTraitsData,
     GangUpCircumstance,
+    HitPointsData,
     InitiativeData,
     PerceptionData,
     PrototypeTokenPF2e,

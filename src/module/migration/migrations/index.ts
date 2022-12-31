@@ -209,3 +209,4 @@ export { Migration808CountDamageDice } from "./808-count-damage-dice";
 export { Migration809AutomatonEnhancements } from "./809-automaton-enhancements";
 export { Migration810LootDescriptionValue } from "./810-loot-description-value";
 export { Migration811InlineDamageRollsPersistent } from "./811-inline-damage-rolls-persistent";
+export { Migration812RestructureIWR } from "./812-restructure-iwr";

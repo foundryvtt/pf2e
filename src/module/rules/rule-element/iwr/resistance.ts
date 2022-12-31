@@ -1,21 +1,35 @@
-import { LabeledResistance, ResistanceType } from "@actor/data/base";
-import { IWRRuleElement } from "./base";
+import { ResistanceData } from "@actor/data/iwr";
+import { ResistanceType } from "@actor/types";
+import { ItemPF2e } from "@item";
+import { RuleElementOptions } from "../base";
+import { IWRRuleElement, IWRRuleElementSource } from "./base";
 
 /** @category RuleElement */
 class ResistanceRuleElement extends IWRRuleElement {
-    dictionary = CONFIG.PF2E.resistanceTypes;
+    protected dictionary = CONFIG.PF2E.resistanceTypes;
 
-    get property(): LabeledResistance[] {
-        return this.actor.system.traits.dr;
+    doubleVs: ResistanceType[];
+
+    constructor(data: ResistanceRESource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(data, item, options);
+
+        this.doubleVs =
+            Array.isArray(data.doubleVs) && data.doubleVs.every((d): d is ResistanceType => d in this.dictionary)
+                ? data.doubleVs
+                : [];
     }
 
-    getIWR(value: number): LabeledResistance[] {
+    get property(): ResistanceData[] {
+        return this.actor.system.attributes.resistances;
+    }
+
+    getIWR(value: number): ResistanceData[] {
         const resistances = this.property;
 
         for (const resistanceType of [...this.type]) {
             const current = resistances.find((r) => r.type === resistanceType);
             if (current) {
-                if (this.data.override) {
+                if (this.override) {
                     resistances.splice(resistances.indexOf(current), 1);
                 } else {
                     current.value = Math.max(current.value, value);
@@ -24,17 +38,26 @@ class ResistanceRuleElement extends IWRRuleElement {
             }
         }
 
-        return this.type.map((t) => ({
-            label: this.dictionary[t],
-            type: t,
-            value,
-            exceptions: this.data.except ? game.i18n.localize(this.data.except) : undefined,
-        }));
+        return this.type.map(
+            (t): ResistanceData =>
+                new ResistanceData({
+                    type: t,
+                    value,
+                    exceptions: this.exceptions,
+                    doubleVs: this.doubleVs,
+                })
+        );
     }
 }
 
 interface ResistanceRuleElement extends IWRRuleElement {
     type: ResistanceType[];
+
+    exceptions: ResistanceType[];
+}
+
+interface ResistanceRESource extends IWRRuleElementSource {
+    doubleVs?: unknown;
 }
 
 export { ResistanceRuleElement };

@@ -13,11 +13,11 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/character/sidebar/armor-class.hbs",
         "systems/pf2e/templates/actors/character/sidebar/class-dc.hbs",
         "systems/pf2e/templates/actors/character/sidebar/health.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/stamina.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/resistances.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/perception.hbs",
         "systems/pf2e/templates/actors/character/sidebar/initiative.hbs",
+        "systems/pf2e/templates/actors/character/sidebar/iwr.hbs",
+        "systems/pf2e/templates/actors/character/sidebar/perception.hbs",
         "systems/pf2e/templates/actors/character/sidebar/saves.hbs",
+        "systems/pf2e/templates/actors/character/sidebar/stamina.hbs",
 
         // PC Sheet Tabs
         "systems/pf2e/templates/actors/character/tabs/general.hbs",
