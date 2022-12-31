@@ -329,7 +329,7 @@ class SpellPF2e extends ItemPF2e {
             const instances: DamageInstance[] = [];
             const breakdownTags: string[] = [];
             for (const [damageType, group] of groups.entries()) {
-                const tags = new Set(group.flatMap((g) => g.tags));
+                const tags = new Set(group.flatMap((g) => [...g.tags]));
                 const flavor = [...tags, damageType].join(",");
 
                 const subFormulas: string[] = [];
