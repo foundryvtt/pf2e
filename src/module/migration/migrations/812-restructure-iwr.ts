@@ -109,8 +109,17 @@ export class Migration812RestructureIWR extends MigrationBase {
         for (const rule of iwrREs) {
             rule.type = rule.type.startsWith("{") ? rule.type : this.#normalizeType(rule.type);
             if (typeof rule.except === "string") {
-                const result = this.#parseExceptions(rule.except);
-                rule.exceptions = result.exceptions;
+                const parsed = this.#parseExceptions(rule.except);
+                const exceptions = (rule.exceptions = parsed.exceptions.filter((exception) => {
+                    if (rule.key === "Immunity") {
+                        return setHasElement(IMMUNITY_TYPES, exception);
+                    } else if (rule.key === "Weakness") {
+                        return setHasElement(WEAKNESS_TYPES, exception);
+                    } else {
+                        return setHasElement(RESISTANCE_TYPES, exception);
+                    }
+                }));
+                if (exceptions.length === 0) delete rule.exceptions;
                 delete rule.except;
             }
         }
@@ -143,9 +152,19 @@ export class Migration812RestructureIWR extends MigrationBase {
             .filter((r): r is { type: TType; value: number } => setHasElement(typeSet, r.type));
     }
 
+    #oldENmappings: Record<string, string | undefined> = {
+        "PF2E.ResistanceException.Bludgeoning": "except bludgeoning",
+        "PF2E.ResistanceException.ForceGhostTouchDoubleNonMagical":
+            "except force, or ghost touch; double resistance vs. non-magical",
+        "PF2E.ResistanceException.ForceGhostTouchNegativeDoubleNonMagical":
+            "except force, ghost touch, or negative; double resistance vs. non-magical",
+        "PF2E.ResistanceException.ForceGhostTouchPositiveDoubleNonMagical":
+            "except force, ghost touch, or positive; double resistance vs. non-magical",
+    };
+
     /** Attempt to parse free-form exceptions text into an array of IWR exception types */
     #parseExceptions(text: string): { exceptions: string[]; doubleVs: string[] } {
-        const normalized = text
+        const normalized = (this.#oldENmappings[text] ?? text)
             .toLowerCase()
             .replace("PF2E.TraitForce", "force")
             .replace("PF2E.TraitPositive", "positive")
