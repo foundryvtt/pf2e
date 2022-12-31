@@ -207,6 +207,47 @@
                 "selector": "strike-damage",
                 "slug": "normal-rage-dedication-agile",
                 "value": 1
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "energy",
+                "key": "ChoiceSet",
+                "label": "PF2E.SpecificRule.Barbarian.Giant.Prompt",
+                "predicate": [
+                    "feature:giant-instinct",
+                    "class:barbarian"
+                ]
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "class:barbarian"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.energy}",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "bludgeoning",
+                "value": "@actor.abilities.con.mod+3"
             }
         ],
         "source": {
