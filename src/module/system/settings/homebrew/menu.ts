@@ -25,6 +25,7 @@ import {
     HOMEBREW_TRAIT_KEYS,
     SECONDARY_TRAIT_RECORDS,
 } from "./data";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
 
 class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
@@ -278,6 +279,11 @@ class HomebrewElements extends SettingsMenuPF2e {
             DAMAGE_TYPE_ICONS[slug] = data.icon?.substring(3) ?? null; // icons registered do not include the fa-
             CONFIG.PF2E.damageTypes[slug] = data.label;
             CONFIG.PF2E.damageRollFlavors[slug] = data.label.toLocaleLowerCase();
+
+            for (const collection of [immunityTypes, weaknessTypes, resistanceTypes]) {
+                const collectionWidened: Record<string, string> = collection;
+                collectionWidened[slug] = data.label.toLocaleLowerCase();
+            }
         }
     }
 
