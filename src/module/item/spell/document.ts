@@ -255,8 +255,7 @@ class SpellPF2e extends ItemPF2e {
             if (!parts.length) parts.push("0");
 
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
-            const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
-            const formula = combineTerms(baseFormulaFixed);
+            const formula = combineTerms(baseFormula);
 
             // Add damage. Merge if the type and category matches
             const tags = [damage.type.subtype ? damage.type.subtype : [], damage.type.categories ?? []].flat();
@@ -288,7 +287,7 @@ class SpellPF2e extends ItemPF2e {
                             type: "untyped",
                             modifier: actor.abilities[ability].mod,
                             damageType: d.type.value,
-                            damageCategory: d.type.subtype ?? DamageCategorization.fromDamageType(d.type.value),
+                            damageCategory: d.type.subtype ?? null,
                         })
                 );
             modifiers.push(...abilityModifiers);
@@ -363,7 +362,9 @@ class SpellPF2e extends ItemPF2e {
         try {
             if (combinedInstanceData.length) {
                 // Validate if the formulas are valid first
-                const invalid = combinedInstanceData.map((d) => d.formula).filter((formula) => !Roll.validate(formula));
+                const invalid = combinedInstanceData
+                    .map((d) => d.formula)
+                    .filter((formula) => !DamageRoll.validate(formula));
                 if (invalid.length) {
                     throw ErrorPF2e(`Invalid damage formulas on ${this.name}: ${invalid.join(", ")}`);
                 }
