@@ -85,11 +85,11 @@
         <section>
             <div class="sidebar-title">
                 <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
-                <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.ImmunitiesLabel" data-config-types="immunityTypes" data-property="system.traits.di"><i class="fas fa-edit"></i></a>
+                <a data-action="edit-immunities" title="{{localize "PF2E.NPC.EditImmunities"}}"><i class="fa-solid fa-edit"></i></a>
             </div>
             <div class="tags">
-                {{#each immunities as |immunity slug|}}
-                    <span class="tag" data-immunity="{{slug}}">{{localize immunity.label}}</span>
+                {{#each data.attributes.immunities as |immunity|}}
+                    <span class="tag" data-immunity="{{immunity.type}}">{{immunity.label}}</span>
                 {{/each}}
             </div>
         </section>
@@ -97,11 +97,11 @@
         <section>
             <div class="sidebar-title">
                 <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
-                <a class="tag-selector" data-tag-selector="weaknesses"><i class="fas fa-edit"></i></a>
+                <a data-action="edit-weaknesses" title="{{localize "PF2E.NPC.EditWeaknesses"}}"><i class="fa-solid fa-edit"></i></a>
             </div>
             <div class="tags">
-                {{#each data.traits.dv as |weakness|}}
-                    <span class="tag" data-weakness="{{weakness.type}}">{{localize weakness.label}} {{weakness.value}}</span>
+                {{#each data.attributes.weaknesses as |weakness|}}
+                    <span class="tag" data-weakness="{{weakness.type}}">{{weakness.label}}</span>
                 {{/each}}
             </div>
         </section>
@@ -109,11 +109,11 @@
         <section>
             <div class="sidebar-title">
                 <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
-                <a class="tag-selector" data-tag-selector="resistances"><i class="fas fa-edit"></i></a>
+                <a data-action="edit-resistances" title="{{localize "PF2E.NPC.EditResistances"}}"><i class="fa-solid fa-edit"></i></a>
             </div>
             <div class="tags">
-                {{#each data.traits.dr as |resistance|}}
-                    <span class="tag" data-resistance="{{resistance.type}}">{{localize resistance.label}} {{resistance.value}}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</span>
+                {{#each data.attributes.resistances as |resistance|}}
+                    <span class="tag" data-resistance="{{resistance.type}}">{{resistance.label}}</span>
                 {{/each}}
             </div>
         </section>
