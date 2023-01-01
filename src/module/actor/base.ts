@@ -2,7 +2,7 @@ import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextPara
 import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types";
 import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
-import { ConditionSlug } from "@item/condition/data";
+import { ConditionKey, ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ActionCost, ActionType } from "@item/data/base";
@@ -1196,11 +1196,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
      * @param [options.all=false] return all conditions of the requested type in the order described above
      */
     getCondition(
-        slug: ConditionSlug,
+        slug: ConditionKey,
         { all }: { all: boolean } = { all: false }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null {
         const conditions = this.itemTypes.condition
-            .filter((condition) => condition.slug === slug)
+            .filter((condition) => condition.key === slug || condition.slug === slug)
             .sort((conditionA, conditionB) => {
                 const [valueA, valueB] = [conditionA.value ?? 0, conditionB.value ?? 0] as const;
                 const [durationA, durationB] = [conditionA.duration ?? 0, conditionB.duration ?? 0] as const;
@@ -1229,7 +1229,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Decrease the value of condition or remove it entirely */
     async decreaseCondition(
-        conditionSlug: ConditionSlug | Embedded<ConditionPF2e>,
+        conditionSlug: ConditionKey | Embedded<ConditionPF2e>,
         { forceRemove }: { forceRemove: boolean } = { forceRemove: false }
     ): Promise<void> {
         // Find a valid matching condition if a slug was passed
@@ -1434,11 +1434,11 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         options?: DocumentModificationContext
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 
-    getCondition(conditionType: ConditionSlug, { all }: { all: true }): Embedded<ConditionPF2e>[];
-    getCondition(conditionType: ConditionSlug, { all }: { all: false }): Embedded<ConditionPF2e> | null;
-    getCondition(conditionType: ConditionSlug): Embedded<ConditionPF2e> | null;
+    getCondition(conditionType: ConditionKey, { all }: { all: true }): Embedded<ConditionPF2e>[];
+    getCondition(conditionType: ConditionKey, { all }: { all: false }): Embedded<ConditionPF2e> | null;
+    getCondition(conditionType: ConditionKey): Embedded<ConditionPF2e> | null;
     getCondition(
-        conditionType: ConditionSlug,
+        conditionType: ConditionKey,
         { all }: { all: boolean }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null;
 }

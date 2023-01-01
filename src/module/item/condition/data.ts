@@ -96,6 +96,7 @@ type ConditionValueData =
       };
 
 type ConditionSlug = SetElement<typeof CONDITION_SLUGS>;
+type ConditionKey = ConditionSlug | `persistent-damage-${string}`;
 
 interface PersistentSourceData {
     formula: string;
@@ -103,4 +104,4 @@ interface PersistentSourceData {
     dc: number;
 }
 
-export { ConditionData, ConditionSource, ConditionSlug, ConditionSystemData, PersistentDamageData };
+export { ConditionData, ConditionKey, ConditionSource, ConditionSlug, ConditionSystemData, PersistentDamageData };

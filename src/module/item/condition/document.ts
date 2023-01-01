@@ -3,7 +3,7 @@ import { ItemPF2e } from "@item";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
 import { ErrorPF2e } from "@util";
-import { ConditionData, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
+import { ConditionData, ConditionKey, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
 import { DamageRoll } from "@system/damage/roll";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenDocumentPF2e } from "@scene";
@@ -18,7 +18,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     }
 
     /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
-    get key(): string {
+    get key(): ConditionKey {
         return this.system.persistent ? `persistent-damage-${this.system.persistent.damageType}` : this.slug;
     }
 
