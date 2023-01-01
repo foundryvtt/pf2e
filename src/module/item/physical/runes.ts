@@ -106,13 +106,11 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "chaotic",
                     diceNumber: 1,
                     dieSize: "d6",
-                    predicate: [{ or: ["target:trait:lawful", { not: "target" }] }],
                 },
             ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: [{ or: ["target:trait:lawful", { not: "target" }] }],
                     title: "PF2E.WeaponPropertyRune.anarchic.Name",
                     text: "PF2E.WeaponPropertyRune.anarchic.Note.criticalSuccess",
                 },
@@ -157,13 +155,11 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "lawful",
                     diceNumber: 1,
                     dieSize: "d6",
-                    predicate: [{ or: ["target:trait:chaotic", { not: "target" }] }],
                 },
             ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: [{ or: ["target:trait:chaotic", { not: "target" }] }],
                     title: "PF2E.WeaponPropertyRune.axiomatic.Name",
                     text: "PF2E.WeaponPropertyRune.axiomatic.Note.criticalSuccess",
                 },
@@ -223,7 +219,6 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                 },
             ],
             notes: [
@@ -307,13 +302,11 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d6",
-                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                 },
             ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                     title: "PF2E.WeaponPropertyRune.disrupting.Name",
                     text: "PF2E.WeaponPropertyRune.disrupting.Note.criticalSuccess",
                 },
@@ -466,7 +459,6 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d4",
-                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                 },
             ],
             notes: [
@@ -536,13 +528,11 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "positive",
                     diceNumber: 2,
                     dieSize: "d6",
-                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                 },
             ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: [{ or: ["target:negative-healing", { not: "target" }] }],
                     title: "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
                     text: "PF2E.WeaponPropertyRune.greaterDisrupting.Note.criticalSuccess",
                 },
@@ -820,7 +810,6 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "good",
                     diceNumber: 1,
                     dieSize: "d6",
-                    predicate: [{ or: ["target:trait:evil", { not: "target" }] }],
                 },
             ],
         },
@@ -1005,7 +994,6 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "evil",
                     diceNumber: 1,
                     dieSize: "d6",
-                    predicate: [{ or: ["target:trait:good", { not: "target" }] }],
                 },
             ],
         },

@@ -1,4 +1,10 @@
-import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/types";
+import {
+    ApplyDamageParams,
+    AttackItem,
+    AttackRollContext,
+    StrikeRollContext,
+    StrikeRollContextParams,
+} from "@actor/types";
 import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types";
 import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
@@ -20,6 +26,7 @@ import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
+import { applyIWR } from "@system/damage/iwr";
 import { Statistic } from "@system/statistic";
 import {
     ErrorPF2e,
@@ -210,7 +217,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     get modeOfBeing(): ModeOfBeing {
         const { traits } = this;
-        return traits.has("undead") ? "undead" : traits.has("construct") ? "construct" : "living";
+        return traits.has("undead")
+            ? "undead"
+            : traits.has("construct") && !this.isOfType("character")
+            ? "construct"
+            : "living";
     }
 
     get visionLevel(): VisionLevel {
@@ -848,7 +859,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const isDamage = isDelta || (value === 0 && !!token?.combatant);
         if (token && attribute === "attributes.hp" && isDamage) {
             const damage = value === 0 ? this.hitPoints?.value ?? 0 : -value;
-            return this.applyDamage(damage, token);
+            return this.applyDamage({ damage, token });
         }
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
@@ -856,14 +867,28 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-     * @param damage The amount of damage inflicted
+     * @param finalDamage The amount of damage inflicted
      * @param token The applicable token for this actor
      * @param shieldBlockRequest Whether the user has toggled the Shield Block button
      */
-    async applyDamage(damage: number, token: TokenDocumentPF2e, shieldBlockRequest = false): Promise<this> {
+    async applyDamage({
+        damage,
+        token,
+        adjustment = 0,
+        multiplier = 1,
+        shieldBlockRequest = false,
+    }: ApplyDamageParams): Promise<this> {
         const { hitPoints } = this;
         if (!hitPoints) return this;
-        damage = Math.trunc(damage); // Round damage and healing (negative values) toward zero
+
+        // Round damage and healing (negative values) toward zero
+        const result =
+            typeof damage === "number"
+                ? { finalDamage: Math.trunc(damage), applications: [] }
+                : multiplier < 0
+                ? { finalDamage: Math.trunc(damage.total), applications: [] }
+                : applyIWR(this, damage);
+        const finalDamage = result.finalDamage * multiplier - adjustment;
 
         // Calculate damage to hit points and shield
         const translations = LocalizePF2e.translations.PF2E.Actor.ApplyDamage;
@@ -896,13 +921,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 : false;
 
         const shieldHardness = shieldBlock ? actorShield?.hardness ?? 0 : 0;
-        const absorbedDamage = Math.min(shieldHardness, Math.abs(damage));
-        const shieldDamage = shieldBlock ? Math.min(actorShield?.hp.value ?? 0, Math.abs(damage) - absorbedDamage) : 0;
+        const absorbedDamage = Math.min(shieldHardness, Math.abs(finalDamage));
+        const shieldDamage = shieldBlock
+            ? Math.min(actorShield?.hp.value ?? 0, Math.abs(finalDamage) - absorbedDamage)
+            : 0;
 
         const hpUpdate = this.calculateHealthDelta({
             hp: hitPoints,
             sp: this.isOfType("character") ? this.attributes.sp : undefined,
-            delta: damage - absorbedDamage,
+            delta: finalDamage - absorbedDamage,
         });
         const hpDamage = hpUpdate.totalApplied;
 
@@ -928,8 +955,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         // Send chat message
         const hpStatement = ((): string => {
             // This would be a nested ternary, except prettier thoroughly mangles it
-            if (damage === 0) return translations.TakesNoDamage;
-            if (damage > 0) {
+            if (finalDamage === 0) return translations.TakesNoDamage;
+            if (finalDamage > 0) {
                 return absorbedDamage > 0
                     ? hpDamage > 0
                         ? translations.DamagedForNShield
@@ -955,9 +982,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             )
             .join(" ");
 
+        const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
+            statements,
+            iwr: {
+                applications: result.applications,
+                visibility: this.hasPlayerOwner ? "all" : "gm",
+            },
+        });
+
         await ChatMessagePF2e.create({
             speaker: { alias: token.name, token: token.id ?? null },
-            content: `<p>${statements}</p>`,
+            content,
             type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
             whisper:
                 game.settings.get("pf2e", "metagame_secretDamage") && !token.actor?.hasPlayerOwner

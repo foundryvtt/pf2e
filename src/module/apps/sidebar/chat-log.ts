@@ -69,14 +69,13 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
         const applyDamage = async ($li: JQuery, multiplier: number): Promise<void> => {
             const messageId = $li.attr("data-message-id") ?? "";
-            const roll = game.messages.get(messageId, { strict: true }).rolls.at(0);
-            if (!roll) return;
+            const roll = game.messages
+                .get(messageId, { strict: true })
+                .rolls.find((r): r is Rolled<DamageRoll> => r instanceof DamageRoll);
+            if (!roll) throw ErrorPF2e("Unexpected error retrieving damage roll");
+
             for (const token of canvas.tokens.controlled) {
-                await token.actor?.applyDamage(
-                    roll.total * multiplier,
-                    token.document,
-                    CONFIG.PF2E.chatDamageButtonShieldToggle
-                );
+                await token.actor?.applyDamage({ damage: roll, token: token.document, multiplier });
             }
         };
 

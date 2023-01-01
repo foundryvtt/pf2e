@@ -119,6 +119,7 @@ declare global {
         get(module: "pf2e", setting: "automation.actorsDeadAtZero"): "neither" | "npcsOnly" | "pcsOnly" | "both";
         get(module: "pf2e", setting: "automation.effectExpiration"): boolean;
         get(module: "pf2e", setting: "automation.flankingDetection"): boolean;
+        get(module: "pf2e", setting: "automation.iwr"): boolean;
         get(module: "pf2e", setting: "automation.lootableNPCs"): boolean;
         get(module: "pf2e", setting: "automation.removeExpiredEffects"): boolean;
         get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
