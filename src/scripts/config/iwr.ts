@@ -193,6 +193,7 @@ const resistanceTypes = {
     sonic: "PF2E.Damage.RollFlavor.sonic",
     "unarmed-attacks": "PF2E.Damage.IWR.Type.unarmed-attacks",
     vorpal: "PF2E.Damage.IWR.Type.vorpal",
+    "vorpal-adamantine": "PF2E.Damage.IWR.Type.vorpal-adamantine",
     warpglass: "PF2E.Damage.IWR.Type.warpglass",
     water: "PF2E.Damage.IWR.Type.water",
     weapons: "PF2E.Damage.IWR.Type.weapons",
