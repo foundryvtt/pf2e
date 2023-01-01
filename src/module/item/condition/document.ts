@@ -7,6 +7,7 @@ import { ConditionData, ConditionKey, ConditionSlug, ConditionSystemData, Persis
 import { DamageRoll } from "@system/damage/roll";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenDocumentPF2e } from "@scene";
+import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
@@ -98,10 +99,11 @@ class ConditionPF2e extends AbstractEffectPF2e {
             this.name = game.i18n.format(localizationKey, { formula: roll.formula, dc });
             systemData.persistent.damage = roll;
             systemData.persistent.expectedValue = roll.expectedValue;
+            this.img = PERSISTENT_DAMAGE_IMAGES[damageType] ?? this._source.img;
+        } else {
+            const folder = CONFIG.PF2E.statusEffects.iconDir;
+            this.img = `${folder}${this.slug}.webp`;
         }
-
-        const folder = CONFIG.PF2E.statusEffects.iconDir;
-        this.img = `${folder}${this.slug}.webp`;
     }
 
     override prepareSiblingData(): void {
