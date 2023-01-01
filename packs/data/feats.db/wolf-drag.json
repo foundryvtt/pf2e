@@ -29,21 +29,20 @@
             {
                 "domain": "damage-roll",
                 "key": "RollOption",
-                "label": "Use Wolf Drag",
                 "option": "wolf-drag",
                 "toggleable": true
             },
             {
-                "critical": true,
-                "diceNumber": 1,
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d12"
-                },
+                "definition": [
+                    "item:slug:wolf-jaws"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
                 "predicate": [
                     "wolf-drag"
                 ],
-                "selector": "strike-damage"
+                "property": "weapon-traits",
+                "value": "fatal-d12"
             }
         ],
         "source": {
