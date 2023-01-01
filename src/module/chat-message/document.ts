@@ -10,7 +10,7 @@ import { ChatRollDetails } from "./chat-roll-details";
 import { StrikeData } from "@actor/data/base";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { htmlQuery } from "@util";
-import { DamageButtons } from "./listeners/damage-buttons";
+import { DamageButtons, DamageTaken } from "./listeners";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -205,6 +205,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll && this.isContentVisible) {
             await DamageButtons.listen(this, $html);
         }
+        await DamageTaken.listen(html);
         CriticalHitAndFumbleCards.appendButtons(this, $html);
 
         html.addEventListener("mouseenter", () => this.onHoverIn());
