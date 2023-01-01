@@ -186,11 +186,14 @@ class DicePF2e {
     }
 }
 
-/** Sum constant values and combine alike dice into single `NumericTerm` and `Die` terms, respectively */
+/**
+ * Combines dice and flat values together in a condensed expression. Also repairs any + - errors.
+ * For example, 3d4 + 2d4 + 3d6 + 5 + 2 is combined into 5d4 + 3d6 + 7.
+ */
 function combineTerms(formula: string): string {
     if (formula === "0") return formula;
 
-    const roll = new Roll(formula);
+    const roll = new Roll(formula.replace(/\s*\+\s*-\s*/g, " - "));
     if (!roll.terms.every((t) => t.expression === " + " || t instanceof Die || t instanceof NumericTerm)) {
         // This isn't a simple summing of dice: return the roll unaltered
         return roll.formula;
