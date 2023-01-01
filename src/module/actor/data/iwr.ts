@@ -25,27 +25,52 @@ abstract class IWRData<TType extends IWRType> {
         return game.i18n.localize(this.typeLabels[this.type]);
     }
 
-    protected describe(iwrType: TType): string[] {
+    protected describe(iwrType: TType): PredicateStatement[] {
         // Non-damaging IWR
         if (setHasElement(CONDITION_SLUGS, iwrType)) {
             return ["item:type:condition", `item:slug:${iwrType}`];
         }
 
-        const statements = ["damage"];
         if (iwrType in CONFIG.PF2E.damageTypes) {
-            statements.push(`damage:type:${iwrType}`);
-        } else if (setHasElement(WEAPON_MATERIAL_EFFECTS, iwrType)) {
-            statements.push(`damage:material:${iwrType}`);
+            return [`damage:type:${iwrType}`];
+        }
+        if (setHasElement(WEAPON_MATERIAL_EFFECTS, iwrType)) {
+            return [`damage:material:${iwrType}`];
         } else if (["physical", "energy"].includes(iwrType)) {
-            statements.push(`damage:category:${iwrType}`);
+            return [`damage:category:${iwrType}`];
         } else if (["precision", "splash-damage"].includes(iwrType)) {
             const subcategory = iwrType === "splash-damage" ? "splash" : "precision";
-            statements.push(`damage:component:${subcategory}`);
-        } else if (iwrType !== "all-damage") {
-            statements.push(`unhandled:${iwrType}`);
+            return [`damage:component:${subcategory}`];
+        } else if (iwrType === "object-immunities") {
+            return [
+                {
+                    or: [
+                        "damage:type:bleed",
+                        "damage:type:mental",
+                        "damage:type:poison",
+                        {
+                            and: [
+                                "item:type:condition",
+                                {
+                                    or: [
+                                        "item:slug:doomed",
+                                        "item:slug:drained",
+                                        "item:slug:fatigued",
+                                        "item:slug:paralyzed",
+                                        "item:slug:sickened",
+                                        "item:slug:unconscious",
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ];
+        } else if (iwrType === "all-damage") {
+            return ["damage"];
         }
 
-        return statements;
+        return [`unhandled:${iwrType}`];
     }
 
     get predicate(): PredicatePF2e {

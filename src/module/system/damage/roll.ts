@@ -291,15 +291,17 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     /** An array of statements for use in predicate testing */
-    get formalDescription(): string[] {
+    get formalDescription(): Set<string> {
         const typeCategory = DamageCategorization.fromDamageType(this.type);
-        return [
-            "damage",
-            `damage:type:{this.type}`,
-            typeCategory ? `damage:category:${typeCategory}` : [],
-            this.persistent ? "damage:category:persistent" : [],
-            this.materials.map((m) => `damage:material:${m}`),
-        ].flat();
+        return new Set(
+            [
+                "damage",
+                `damage:type:${this.type}`,
+                typeCategory ? `damage:category:${typeCategory}` : [],
+                this.persistent ? "damage:category:persistent" : [],
+                this.materials.map((m) => `damage:material:${m}`),
+            ].flat()
+        );
     }
 
     get iconClass(): string | null {
