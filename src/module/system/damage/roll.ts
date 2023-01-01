@@ -121,6 +121,14 @@ class DamageRoll extends AbstractDamageRoll {
         return instances.map((i) => i.formula).join(" + ");
     }
 
+    override get total(): number | undefined {
+        // CRB pg.450 If the combined penalties on an attack would reduce the damage to 0 or below, you still deal 1 damage.
+        if (this._total && this._total < 1) {
+            return 1;
+        }
+        return this._total;
+    }
+
     get instances(): DamageInstance[] {
         const pool = this.terms[0];
         return pool instanceof PoolTerm
