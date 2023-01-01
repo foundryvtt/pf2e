@@ -51,7 +51,7 @@ abstract class IWRRuleElement extends RuleElementPF2e {
             return false;
         }
 
-        if (this.dictionary !== CONFIG.PF2E.immunityTypes || typeof value !== "number" || value < 0) {
+        if (this.dictionary !== CONFIG.PF2E.immunityTypes && (typeof value !== "number" || value < 0)) {
             this.failValidation("A `value` must be a positive number");
             return false;
         }
