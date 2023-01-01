@@ -290,6 +290,18 @@ class DamageInstance extends AbstractDamageRoll {
         return DamageInstance.expectedValueOf(this.head);
     }
 
+    /** An array of statements for use in predicate testing */
+    get formalDescription(): string[] {
+        const typeCategory = DamageCategorization.fromDamageType(this.type);
+        return [
+            "damage",
+            `damage:type:{this.type}`,
+            typeCategory ? `damage:category:${typeCategory}` : [],
+            this.persistent ? "damage:category:persistent" : [],
+            this.materials.map((m) => `damage:material:${m}`),
+        ].flat();
+    }
+
     get iconClass(): string | null {
         return DAMAGE_TYPE_ICONS[this.type];
     }
