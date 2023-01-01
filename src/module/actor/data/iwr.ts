@@ -1,4 +1,8 @@
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types";
+import { CONDITION_SLUGS } from "@actor/values";
+import { WEAPON_MATERIAL_EFFECTS } from "@item";
+import { PredicatePF2e, PredicateStatement } from "@system/predication";
+import { setHasElement } from "@util";
 
 abstract class IWRData<TType extends IWRType> {
     readonly type: TType;
@@ -21,6 +25,44 @@ abstract class IWRData<TType extends IWRType> {
         return game.i18n.localize(this.typeLabels[this.type]);
     }
 
+    protected describe(iwrType: TType): string[] {
+        // Non-damaging IWR
+        if (setHasElement(CONDITION_SLUGS, iwrType)) {
+            return ["item:type:condition", `item:slug:${iwrType}`];
+        }
+
+        const statements = ["damage"];
+        if (iwrType in CONFIG.PF2E.damageTypes) {
+            statements.push(`damage:type:${iwrType}`);
+        } else if (setHasElement(WEAPON_MATERIAL_EFFECTS, iwrType)) {
+            statements.push(`damage:material:${iwrType}`);
+        } else if (["physical", "energy"].includes(iwrType)) {
+            statements.push(`damage:category:${iwrType}`);
+        } else if (["precision", "splash-damage"].includes(iwrType)) {
+            const subcategory = iwrType === "splash-damage" ? "splash" : "precision";
+            statements.push(`damage:component:${subcategory}`);
+        } else if (iwrType !== "all-damage") {
+            statements.push(`unhandled:${iwrType}`);
+        }
+
+        return statements;
+    }
+
+    get predicate(): PredicatePF2e {
+        const typeStatements = this.describe(this.type);
+        const exceptions = this.exceptions.flatMap((exception): PredicateStatement | PredicateStatement[] => {
+            const described = this.describe(exception).filter((s) => s !== "damage");
+            return described.length === 1 ? described : { and: described };
+        });
+
+        const statements = [
+            typeStatements,
+            exceptions.length === 0 ? [] : exceptions.length === 1 ? { not: exceptions[0] } : { nor: exceptions },
+        ].flat();
+
+        return new PredicatePF2e(statements);
+    }
+
     toObject(): Readonly<IWRDisplayData<TType>> {
         return {
             type: this.type,
@@ -36,6 +78,10 @@ abstract class IWRData<TType extends IWRType> {
             .slice(0, 4)
             .map((e, i) => ({ [`${prefix}${i + 1}`]: game.i18n.localize(this.typeLabels[e]) }))
             .reduce((accum, obj) => ({ ...accum, ...obj }), {});
+    }
+
+    test(statements: string[] | Set<string>): boolean {
+        return this.predicate.test(statements);
     }
 }
 
