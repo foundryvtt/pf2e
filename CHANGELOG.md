@@ -1,5 +1,64 @@
 # Changelog
 
+## Version 4.6.0
+
+## New Features
+* (stwlam) Reimplement creation, parsing, and rendering of damage roll formulas
+* (stwlam) Add basic IWR
+* (Supe) Add system support for persistent damage
+* (Supe) Add support for homebrew damage types
+
+## System Improvements
+* (In3luki) Replace empty action icon in Compendium Browser spell tab with a new icon for longer actions
+* (stwlam) Add support for AE-like subtractions/array-element removals
+* (Supe) Added support for spell damage traits, modifier breakdown, and damage instances
+* (Supe) Implement RE form for fast healing and regeneration
+* (Supe) Include damage modifiers and dice in roll inspector
+
+### Bugfixes
+* (Dire Weasel) Fix torch item not adding its "improvised tag"
+* (stwlam) Avoid double application of modifiers to speeds derived from land speed
+* (stwlam) Fix errant natural 1 or 20 highlighting when TMun rolls 2d20
+* (stwlam) Fix issue causing actor sheets to become unviewable when canvas is disabled
+
+### Data Updates
+* (Cerapter) Localise MarkToken RE's cancel notification
+* (Dana) Fix tokens with animated art disappearing on reload/scene switch
+* (Dire Weasel) Add choice localized strings
+* (Dire Weasel) Fix source of Shadow Leydroth
+* (Dire Weasel) Localize Muse choice labels
+* (Dire Weasel) Remove extraneous spell tradition from traits
+* (Dire Weasel) Update NPC Searing Light descriptions to include inline good roll
+* (InfamousSky) Add icons to all Dark Archive, Book of the Dead and Grand Bazaar equipment
+* (Jamz) Update Critical Hit & Fumble Decks with links and new look
+* (xdy) Add variants to Imaginary Weapon and Malicious Shadow.
+* (xdy) Add variants to the spells Astral Rain, Brain Drain, Divine Decree and Divine Lance.
+* (xdy) Adds variants to the spells Abyssal Wrath, Divine Wrath and Draconic Barrage
+* (xdy) Fixes spelling of the Blade of the Black Sovereign
+* (xdy) Makes all three damage rolls in Enchanting Arrow clickable.
+* (Manni) Fix inline save on Fire Box
+* (Manni) Fix several basic inline saves
+* (Op" Philip Flarsheim) Add Automation to Energy Barrier and Soaring Armor
+* (rectulo) Fix a typo in Entrancing Eyes duration
+* (rectulo) Fix prerequisites of Spellmaster's tenacity
+* (Roxim) Brushup EC Book 5 NPCs
+* (SpartanCPA) Correct Localized Persistent and Splash Formulas
+* (SpartanCPA) Standardize Titles for Regeneration
+* (stwlam) Add REs to Fang Sharpener feat
+* (stwlam) Update Scalpel's Point to deal bleed damage
+* (Supe) Add silver/coldiron to certain spells
+* (TMun) Add new or missing license sources for end 2022/start 2023
+* (TMun) Correct the spell list for Dream of Doom in PFS 4-07
+* (TMun) Fix inventory of Ingnovim's assistant
+* (Telekenunes) Automate Raging Resistance, consolidate duplicate feats, and add miscellaneous missing automation
+* (Tikael) Add label to Hunter Automaton toggle
+* (Tikael) Add some missing localizations of ranges
+* (Tikael) Add some needed localization keys
+* (Tikael) Automate Automaton enhancements
+* (Tikael) Finish automation possible Raging Resistances
+* (Tikael) Fix formatting in several rune localizations
+* (Tikael) Fix using own modifier for battle form skills
+
 ## Version 4.5.1
 
 ### Bugfixes
