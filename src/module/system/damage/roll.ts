@@ -128,6 +128,10 @@ class DamageRoll extends AbstractDamageRoll {
             : [];
     }
 
+    get materials(): WeaponMaterialEffect[] {
+        return [...new Set(this.instances.flatMap((i) => i.materials))];
+    }
+
     /** Return an Array of the individual DiceTerm instances contained within this Roll. */
     override get dice(): DiceTerm[] {
         const { instances } = this;

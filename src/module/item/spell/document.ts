@@ -799,7 +799,7 @@ class SpellPF2e extends ItemPF2e {
             name: this.name,
             damage: { roll, breakdownTags },
             notes: [],
-            materials: [],
+            materials: roll.materials,
             traits: this.castingTraits,
             modifiers,
         };
