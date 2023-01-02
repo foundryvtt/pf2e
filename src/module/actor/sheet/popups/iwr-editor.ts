@@ -57,8 +57,8 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     }
 
     /** Reconstruct the entire IWR array from form inputs */
-    #getUpdatedData({ includeNew = false } = {}): ProbablyIWRData[] {
-        const entryElems = htmlQueryAll(this.element[0]!, ".entry:not(.new)");
+    getUpdatedData({ includeNew = false } = {}): ProbablyIWRData[] {
+        const entryElems = htmlQueryAll(this.element[0]!, ".entry:not(.new,[data-synthetic])");
         if (includeNew) {
             entryElems.push(...htmlQueryAll(this.element[0]!, ".entry.new"));
         }
@@ -111,7 +111,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     }
 
     async #updateIWR({ includeNew = false } = {}): Promise<void> {
-        const data = this.#getUpdatedData({ includeNew });
+        const data = this.getUpdatedData({ includeNew });
         // The lone named input element that contains the full form data
         const formInput = htmlQuery<HTMLInputElement>(this.element[0]!, "input[name]");
         if (!formInput) throw ErrorPF2e("Unexpected error getting for input element");

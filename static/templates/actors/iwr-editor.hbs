@@ -34,28 +34,31 @@
         <hr />
         <section class="entries">
             {{#each list as |iwr index|}}
-                <section class="entry" data-index="{{index}}">
-
+                <section class="entry"{{#if iwr.source}} data-synthetic="true"{{/if}}>
                     <div class="form-group">
                         <label for="{{@root.options.id}}-{{index}}-type">{{localize "PF2E.Actor.IWREditor.Type"}}</label>
-                        <select id="{{@root.options.id}}-{{index}}-type" class="iwr-type" data-property="type">
+                        <select id="{{@root.options.id}}-{{index}}-type" class="iwr-type" data-property="type" {{disabled iwr.source}}>
                             {{selectOptions @root.types selected=iwr.type localize=true}}
                         </select>
                         {{#unless (eq @root.category "immunities")}}
-                            <input type="number" min="1" value="{{iwr.value}}" data-property="value" placeholder="5" />
+                            <input type="number" min="1" value="{{iwr.value}}" data-property="value" placeholder="5" {{disabled iwr.source}} />
                         {{/unless}}
-                        <a class="form-action" data-action="remove"><i class="fa-solid fa-fw fa-times"></i></a>
+                        {{#if iwr.source}}
+                            <i class="fa-solid fa-fw fa-info-circle synthetic-source" data-tooltip="{{iwr.source}}" data-tooltip-direction="UP"></i>
+                        {{else}}
+                            <a class="form-action" data-action="remove"><i class="fa-solid fa-fw fa-times"></i></a>
+                        {{/if}}
                     </div>
 
                     <div class="form-group exceptions">
                         <label for="{{@root.options.id}}-{{index}}-exceptions">{{localize "PF2E.Actor.IWREditor.Exceptions"}}</label>
-                        <input type="text" id="{{@root.options.id}}-{{index}}-exceptions" value="{{json iwr.exceptions}}" class="pf2e-tagify" data-property="exceptions"  />
+                        <input type="text" id="{{@root.options.id}}-{{index}}-exceptions" value="{{json iwr.exceptions}}" class="pf2e-tagify" data-property="exceptions" {{disabled iwr.source}} />
                     </div>
 
                     {{#if (eq @root.category "resistances")}}
                         <div class="form-group double-vs">
                             <label for="{{@root.options.id}}-{{index}}-double-vs">{{localize "PF2E.Actor.IWREditor.DoubleVs"}}</label>
-                            <input type="text" id="{{@root.options.id}}-{{index}}-double-vs" value="{{json iwr.doubleVs}}" class="pf2e-tagify" data-property="doubleVs" />
+                            <input type="text" id="{{@root.options.id}}-{{index}}-double-vs" value="{{json iwr.doubleVs}}" class="pf2e-tagify" data-property="doubleVs" {{disabled iwr.source}} />
                         </div>
                     {{/if}}
                 </section>
