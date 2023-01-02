@@ -99,7 +99,7 @@ interface AttackRollContext<A extends ActorPF2e, I extends AttackItem> extends S
 interface ApplyDamageParams {
     damage: number | Rolled<DamageRoll>;
     token: TokenDocumentPF2e;
-    adjustment?: number;
+    addend?: number;
     multiplier?: number;
     shieldBlockRequest?: boolean;
 }

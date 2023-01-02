@@ -874,7 +874,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     async applyDamage({
         damage,
         token,
-        adjustment = 0,
+        addend = 0,
         multiplier = 1,
         shieldBlockRequest = false,
     }: ApplyDamageParams): Promise<this> {
@@ -884,11 +884,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         // Round damage and healing (negative values) toward zero
         const result =
             typeof damage === "number"
-                ? { finalDamage: Math.trunc(damage), applications: [] }
+                ? { finalDamage: Math.trunc(damage * multiplier - addend), applications: [] }
                 : multiplier < 0
-                ? { finalDamage: Math.trunc(damage.total), applications: [] }
-                : applyIWR(this, damage);
-        const finalDamage = Math.trunc(result.finalDamage * multiplier - adjustment);
+                ? { finalDamage: Math.trunc(damage.total * multiplier - addend), applications: [] }
+                : applyIWR(this, damage, { addend, multiplier });
+        const { finalDamage } = result;
 
         // Calculate damage to hit points and shield
         const translations = LocalizePF2e.translations.PF2E.Actor.ApplyDamage;
