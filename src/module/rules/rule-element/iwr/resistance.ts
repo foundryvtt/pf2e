@@ -45,6 +45,7 @@ class ResistanceRuleElement extends IWRRuleElement {
                     value,
                     exceptions: this.exceptions,
                     doubleVs: this.doubleVs,
+                    source: this.label,
                 })
         );
     }
