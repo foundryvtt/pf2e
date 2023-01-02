@@ -34,6 +34,8 @@ declare global {
         scope: "world" | "client";
         /** Indicates if this Setting should render in the Config application */
         config: boolean;
+        /** This will prompt the user to reload the application for the setting to take effect. */
+        requiresReload?: boolean;
         /** The JS Type that the Setting is storing */
         type:
             | NumberConstructor

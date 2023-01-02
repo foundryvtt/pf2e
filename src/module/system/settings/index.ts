@@ -76,9 +76,7 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
-        onChange: () => {
-            window.location.reload();
-        },
+        requiresReload: true,
     });
 
     game.settings.register("pf2e", "drawCritFumble", {
@@ -88,9 +86,7 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
-        onChange: () => {
-            window.location.reload();
-        },
+        requiresReload: true,
     });
 
     const iconChoices = {
