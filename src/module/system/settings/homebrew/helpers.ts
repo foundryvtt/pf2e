@@ -5,7 +5,7 @@ import { MeleeSource, ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
 import { isObject, objectHasKey } from "@util";
-import { HomebrewTraitKey } from "./data";
+import { CustomDamageData, HomebrewTraitKey } from "./data";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
 export function isHomebrewFlagCategory(
@@ -13,6 +13,15 @@ export function isHomebrewFlagCategory(
 ): value is Record<string, string | LabelAndDescription> {
     return Object.entries(value).every(
         ([_hbKey, hbLabel]) => typeof hbLabel === "string" || (isObject(hbLabel) && isLabelAndDescription(hbLabel))
+    );
+}
+
+export function isHomebrewCustomDamage(value: object): value is Record<string, CustomDamageData> {
+    return Object.values(value).every(
+        (value) =>
+            isObject<CustomDamageData>(value) &&
+            typeof value.label === "string" &&
+            ["physical", "energy"].includes(value.category ?? "")
     );
 }
 
