@@ -31,7 +31,7 @@ function createDamageFormula(
 
     // Group dice by damage type
     const typeMap: DamageTypeMap = new Map();
-    if ((base.diceNumber && base.dieSize) || base.modifier > 0) {
+    if ((base.diceNumber && base.dieSize) || base.modifier) {
         typeMap.set(base.damageType, [
             {
                 dice:
@@ -151,10 +151,7 @@ function partialFormula(
     const requestedPartials = partials.filter(
         (p) => (critical ? p.critical !== null : !p.critical) && (special ? p[special] : !isSpecialPartial(p))
     );
-    const constant = Math.max(
-        requestedPartials.filter((p) => p.modifier > 0).reduce((total, p) => total + p.modifier, 0),
-        0
-    );
+    const constant = requestedPartials.reduce((total, p) => total + p.modifier, 0);
 
     // Group dice by number of faces and combine into dice-expression strings
     const dice = requestedPartials.filter(
@@ -169,7 +166,7 @@ function partialFormula(
             return expressions;
         }, []);
 
-    const term = [combinedDice, constant || []].flat().join(" + ");
+    const term = [combinedDice, Math.abs(constant) || []].flat().join(constant > 0 ? " + " : " - ");
     const flavored = term && special ? `${term}[${special}]` : term;
 
     return flavored || null;
