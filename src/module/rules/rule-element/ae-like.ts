@@ -114,8 +114,10 @@ class AELikeRuleElement extends RuleElementPF2e {
         const newValue = this.getNewValue(current, change);
         if (this.ignored) return;
 
-        if (this.mode === "add" && Array.isArray(current) && !current.includes(newValue)) {
-            current.push(newValue);
+        if (this.mode === "add" && Array.isArray(current)) {
+            if (!current.includes(newValue)) {
+                current.push(newValue);
+            }
         } else if (["subtract", "remove"].includes(this.mode) && Array.isArray(current)) {
             current.splice(current.indexOf(newValue));
         } else {
