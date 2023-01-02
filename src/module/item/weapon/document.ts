@@ -288,10 +288,11 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         // Set damage dice according to striking rune
         const pcLevel = this.actor?.isOfType("character") ? this.actor.level : 0;
-        this.system.damage.dice = this.system.damage.die
-            ? this._source.system.damage.dice +
-              (ABP.isEnabled ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking)
-            : this.system.damage.dice;
+        this.system.damage.dice =
+            this.system.damage.die && !this.flags.pf2e.battleForm
+                ? this._source.system.damage.dice +
+                  (ABP.isEnabled ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking)
+                : this.system.damage.dice;
     }
 
     processMaterialAndRunes(): void {

@@ -380,7 +380,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
             for (const datum of ruleData) {
                 if (!datum.traits.includes("magical")) datum.traits.push("magical");
-                new StrikeRuleElement(datum, this.item).beforePrepareData();
+                new StrikeRuleElement({ ...datum, battleForm: true }, this.item).beforePrepareData();
             }
         }
 

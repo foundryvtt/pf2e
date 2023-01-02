@@ -40,6 +40,9 @@ class StrikeRuleElement extends RuleElementPF2e {
         max: number | null;
     } | null;
 
+    /** Whether this attack is from a battle form */
+    battleForm: boolean;
+
     constructor(data: StrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
@@ -62,6 +65,8 @@ class StrikeRuleElement extends RuleElementPF2e {
                   max: this.#isValidRange(data.maxRange) ? data.maxRange : null,
               }
             : null;
+
+        this.battleForm = !!data.battleForm;
 
         this.data.replaceAll = !!(this.data.replaceAll ?? false);
         this.data.replaceBasicUnarmed = !!(this.data.replaceBasicUnarmed ?? false);
@@ -115,6 +120,7 @@ class StrikeRuleElement extends RuleElementPF2e {
             name: this.label,
             type: "weapon",
             img: this.data.img ?? this.item.img,
+            flags: { pf2e: { battleForm: this.battleForm } },
             system: {
                 slug: this.slug,
                 description: { value: "" },
@@ -156,6 +162,7 @@ interface StrikeSource extends RuleElementSource {
     otherTags?: unknown;
     replaceAll?: unknown;
     replaceBasicUnarmed?: unknown;
+    battleForm?: unknown;
     options?: unknown;
 }
 
