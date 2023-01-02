@@ -3,10 +3,13 @@ import { strikeFromMeleeItem } from "@actor/helpers";
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { SaveType } from "@actor/types";
 import { SAVE_TYPES } from "@actor/values";
+import { ConditionPF2e } from "@item";
 import { ItemType } from "@item/data";
 import { Rarity } from "@module/data";
 import { extractModifiers } from "@module/rules/helpers";
+import { DamageType } from "@system/damage";
 import { Statistic } from "@system/statistic";
+import { isObject, objectHasKey } from "@util";
 import { HazardData } from "./data";
 
 class HazardPF2e extends ActorPF2e {
@@ -32,6 +35,21 @@ class HazardPF2e extends ActorPF2e {
         return !this.isDead && typeof emitsSound === "boolean"
             ? emitsSound
             : !!game.combats.active?.started && game.combats.active.combatants.some((c) => c.actor === this);
+    }
+
+    /** Hazards without hit points are unaffected by damage */
+    override isAffectedBy(effect: DamageType | ConditionPF2e): boolean {
+        const damageType = objectHasKey(CONFIG.PF2E.damageTypes, effect)
+            ? effect
+            : isObject(effect)
+            ? effect.system.persistent?.damageType ?? null
+            : null;
+
+        if (!this.system.attributes.hasHealth && damageType) {
+            return false;
+        }
+
+        return super.isAffectedBy(effect);
     }
 
     override prepareBaseData(): void {

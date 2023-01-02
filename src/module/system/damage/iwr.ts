@@ -1,6 +1,5 @@
 import { ActorPF2e } from "@actor";
 import { ResistanceData, WeaknessData } from "@actor/data/iwr";
-import { objectHasKey } from "@util";
 import { DamageInstance, DamageRoll } from "./roll";
 
 /** Apply an actor's IWR applications to an evaluated damage roll's instances */
@@ -12,14 +11,6 @@ function applyIWR(
     const { immunities, weaknesses, resistances } = actor.attributes;
 
     const instances = roll.instances as Rolled<DamageInstance>[];
-    const damageIsApplicable = {
-        good: actor.traits.has("evil"),
-        evil: actor.traits.has("good"),
-        lawful: actor.traits.has("chaotic"),
-        chaotic: actor.traits.has("lawful"),
-        positive: !!actor.attributes.hp?.negativeHealing,
-        negative: !(actor.modeOfBeing === "construct" || actor.attributes.hp?.negativeHealing),
-    };
 
     const applications = instances
         .flatMap((instance): IWRApplication[] => {
@@ -37,7 +28,7 @@ function applyIWR(
             if (!game.settings.get("pf2e", "automation.iwr")) return [];
 
             // Step 1: Inapplicable damage outside the IWR framework
-            if (objectHasKey(damageIsApplicable, instance.type) && !damageIsApplicable[instance.type]) {
+            if (!actor.isAffectedBy(instance.type)) {
                 return [{ category: "unaffected", type: instance.type, adjustment: -1 * adjustedTotal }];
             }
 
