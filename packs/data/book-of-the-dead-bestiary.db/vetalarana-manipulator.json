@@ -1308,7 +1308,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Your target's mind tumbles down a deep well of dread, dwelling so intently on deep-seated fears that it's painful. The target takes [[/r 4d6[mental]]] damage with a Will saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target takes full damage and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by [[/r {2d6}[mental]]].</p>"
+                    "value": "<p>Your target's mind tumbles down a deep well of dread, dwelling so intently on deep-seated fears that it's painful. The target takes [[/r 4d6[mental]]] damage with a Will saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target takes full damage and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by [[/r 2d6[mental]]].</p>"
                 },
                 "duration": {
                     "value": ""
@@ -3939,12 +3939,43 @@
                 "temp": 0,
                 "value": 140
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 22
             },
+            "resistances": [
+                {
+                    "type": "mental",
+                    "value": 10
+                },
+                {
+                    "exceptions": [
+                        "magical",
+                        "cold-iron"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -3987,30 +4018,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "mental",
-                    "value": 10
-                },
-                {
-                    "exceptions": "except magical cold iron",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "Telepathy 100 feet, tongues",
                 "selected": [],

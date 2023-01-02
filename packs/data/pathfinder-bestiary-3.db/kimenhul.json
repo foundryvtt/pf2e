@@ -1833,7 +1833,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The kimenhul regains [[/r {30}[healing]]]{30 Hit Points} at the start of its turn as long as any @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened} creature is within @Template[type:emanation|distance:100]{100 feet} of it.</p>"
+                    "value": "<p>The kimenhul regains [[/r 30[healing]]]{30 Hit Points} at the start of its turn as long as any @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened} creature is within @Template[type:emanation|distance:100]{100 feet} of it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2391,6 +2391,14 @@
                 "temp": 0,
                 "value": 425
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "fear-effects"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -2405,7 +2413,13 @@
                     }
                 ],
                 "value": 45
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -2446,22 +2460,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "fear-effects"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "good",
-                    "value": 20
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

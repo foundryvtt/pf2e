@@ -41,7 +41,7 @@ const [outDir, foundryUri] = ((): [string, string] => {
         config instanceof Object
             ? path.join(config.dataPath, "Data", "systems", config.systemName ?? "pf2e")
             : path.join(__dirname, "dist/");
-    const foundryUri = (config instanceof Object ? String(config.foundryUri) : "") ?? "http://localhost:30000";
+    const foundryUri = (config instanceof Object ? String(config.foundryUri ?? "") : null) || "http://localhost:30000";
     return [outDir, foundryUri];
 })();
 
@@ -88,15 +88,7 @@ const config: Configuration = {
     },
     module: {
         rules: [
-            !isProductionBuild
-                ? {
-                      test: /\.hbs$/,
-                      loader: "raw-loader",
-                  }
-                : {
-                      test: /\.hbs$/,
-                      loader: "null-loader",
-                  },
+            !isProductionBuild ? { test: /\.hbs$/, loader: "raw-loader" } : { test: /\.hbs$/, loader: "null-loader" },
             {
                 test: /\.ts$/,
                 use: [

@@ -2,6 +2,8 @@ import { ActorPF2e } from "@actor";
 import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
 import { ItemTrait } from "@item/data/base";
 import { TokenDocumentPF2e } from "@scene";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
+import { DamageRoll } from "@system/damage/roll";
 import { CheckDC } from "@system/degree-of-success";
 import { TraitViewData } from "./data/base";
 import { ModifierPF2e } from "./modifiers";
@@ -94,10 +96,24 @@ interface AttackRollContext<A extends ActorPF2e, I extends AttackItem> extends S
     dc: CheckDC | null;
 }
 
+interface ApplyDamageParams {
+    damage: number | Rolled<DamageRoll>;
+    token: TokenDocumentPF2e;
+    addend?: number;
+    multiplier?: number;
+    shieldBlockRequest?: boolean;
+}
+
+type ImmunityType = keyof typeof immunityTypes;
+type WeaknessType = keyof typeof weaknessTypes;
+type ResistanceType = keyof typeof resistanceTypes;
+type IWRType = ImmunityType | WeaknessType | ResistanceType;
+
 export {
     AbilityString,
     ActorAlliance,
     ActorDimensions,
+    ApplyDamageParams,
     AttackItem,
     AttackRollContext,
     AttackTarget,
@@ -105,10 +121,14 @@ export {
     AuraData,
     AuraEffectData,
     DCSlug,
+    IWRType,
+    ImmunityType,
+    ResistanceType,
     SaveType,
     SkillAbbreviation,
     SkillLongForm,
     StrikeRollContext,
     StrikeRollContextParams,
     StrikeSelf,
+    WeaknessType,
 };

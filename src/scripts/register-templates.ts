@@ -13,11 +13,11 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/character/sidebar/armor-class.hbs",
         "systems/pf2e/templates/actors/character/sidebar/class-dc.hbs",
         "systems/pf2e/templates/actors/character/sidebar/health.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/stamina.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/resistances.hbs",
-        "systems/pf2e/templates/actors/character/sidebar/perception.hbs",
         "systems/pf2e/templates/actors/character/sidebar/initiative.hbs",
+        "systems/pf2e/templates/actors/character/sidebar/iwr.hbs",
+        "systems/pf2e/templates/actors/character/sidebar/perception.hbs",
         "systems/pf2e/templates/actors/character/sidebar/saves.hbs",
+        "systems/pf2e/templates/actors/character/sidebar/stamina.hbs",
 
         // PC Sheet Tabs
         "systems/pf2e/templates/actors/character/tabs/general.hbs",
@@ -113,12 +113,11 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/loot/sidebar.hbs",
 
         // Vehicle partials
-        "systems/pf2e/templates/actors/vehicle/vehicle-sheet.hbs",
         "systems/pf2e/templates/actors/vehicle/vehicle-header.hbs",
         "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-health.hbs",
         "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-armorclass.hbs",
         "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-saves.hbs",
-        "systems/pf2e/templates/actors/vehicle/sidebar/vehicle-resistances.hbs",
+        "systems/pf2e/templates/actors/vehicle/sidebar/iwr.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-details.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-actions.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-inventory.hbs",

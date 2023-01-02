@@ -13,11 +13,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             width: 670,
             height: 480,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "details" }],
+            template: "systems/pf2e/templates/actors/vehicle/sheet.hbs",
         };
-    }
-
-    override get template(): string {
-        return "systems/pf2e/templates/actors/vehicle/vehicle-sheet.hbs";
     }
 
     override async getData(): Promise<VehicleSheetData> {

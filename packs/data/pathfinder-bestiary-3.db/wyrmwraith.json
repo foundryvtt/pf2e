@@ -1704,14 +1704,18 @@
                         "type": "precision"
                     },
                     {
-                        "except": "PF2E.ResistanceException.ForceGhostTouchPositiveDoubleNonMagical",
+                        "exceptions": [
+                            "force",
+                            "ghost-touch",
+                            "positive"
+                        ],
                         "key": "Resistance",
                         "predicate": [
                             {
                                 "not": "self:effect:ectoplasmic-form-physical"
                             }
                         ],
-                        "type": "all",
+                        "type": "all-damage",
                         "value": 20
                     },
                     {
@@ -1968,6 +1972,23 @@
                 "temp": 0,
                 "value": 280
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -2023,19 +2044,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

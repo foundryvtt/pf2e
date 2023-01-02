@@ -45,7 +45,7 @@ const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "uncommon",
         },
     },
-    coldIron: {
+    "cold-iron": {
         low: {
             level: 2,
             price: 40,
@@ -213,7 +213,7 @@ const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
-    sovereignSteel: {
+    "sovereign-steel": {
         low: null,
         standard: {
             level: 12,
@@ -269,7 +269,7 @@ const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "uncommon",
         },
     },
-    coldIron: {
+    "cold-iron": {
         low: {
             level: 5,
             price: 140,
@@ -455,7 +455,7 @@ const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             rarity: "rare",
         },
     },
-    sovereignSteel: {
+    "sovereign-steel": {
         low: null,
         standard: {
             level: 13,

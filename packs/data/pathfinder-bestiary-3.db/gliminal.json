@@ -1061,12 +1061,16 @@
                         }
                     },
                     {
-                        "except": "PF2E.ResistanceException.ForceGhostTouchNegativeDoubleNonMagical",
+                        "exceptions": [
+                            "force",
+                            "ghost-touch",
+                            "negative"
+                        ],
                         "key": "Resistance",
                         "predicate": [
                             "radiant-mantle"
                         ],
-                        "type": "all",
+                        "type": "all-damage",
                         "value": 5
                     }
                 ],
@@ -1359,6 +1363,26 @@
                 "temp": 0,
                 "value": 160
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1373,7 +1397,13 @@
                     }
                 ],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "negative",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1414,25 +1444,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "negative",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 60 feet",
                 "selected": [],

@@ -22,9 +22,12 @@
                 "value": "@actor.attributes.speed.value"
             },
             {
-                "except": "force and ghost touch",
+                "exceptions": [
+                    "force",
+                    "ghost-touch"
+                ],
                 "key": "Resistance",
-                "type": "all",
+                "type": "all-damage",
                 "value": "10 + 5*floor((@item.level -6)/2)"
             }
         ],

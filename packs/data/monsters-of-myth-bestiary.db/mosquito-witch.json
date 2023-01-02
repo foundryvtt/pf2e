@@ -566,7 +566,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You belch forth a swarm of magical vermin. You evoke and shape the creatures from your own imagination, allowing you to change the appearance of the creatures (typically a mix of centipedes, roaches, wasps, and worms), but this doesn't change the effect of the spell. The vermin swarm over anyone in the area, their bites and stings dealing [[/r 2d8[piercing]]] damage (basic Reflex save). A creature that fails its saving throw also becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. Once the spell ends, the swarm disappears.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by [[/r {1d8}[piercing]]]{1d8 piercing}.</p>"
+                    "value": "<p>You belch forth a swarm of magical vermin. You evoke and shape the creatures from your own imagination, allowing you to change the appearance of the creatures (typically a mix of centipedes, roaches, wasps, and worms), but this doesn't change the effect of the spell. The vermin swarm over anyone in the area, their bites and stings dealing [[/r 2d8[piercing]]] damage (basic Reflex save). A creature that fails its saving throw also becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. Once the spell ends, the swarm disappears.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by [[/r 1d8[piercing]]].</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1233,7 +1233,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:29]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d6}[piercing] + {2d6}[poison]]]{2d6 piercing and 2d6 poison} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[piercing] + {3d6}[poison]]]{2d6 piercing and 3d6 poison} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[piercing] + {5d6}[poison]]]{2d6 piercing and 5d6 poison}</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:29]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d6[piercing],2d6[poison]}]]{2d6 piercing and 2d6 poison} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6[piercing],3d6[poison]}]]{2d6 piercing and 3d6 poison} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6[piercing],5d6[poison]}]]{2d6 piercing and 5d6 poison}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1554,6 +1554,11 @@
                 "temp": 0,
                 "value": 180
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1605,15 +1610,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "speak with animals",
                 "selected": [],

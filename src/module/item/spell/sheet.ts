@@ -2,7 +2,7 @@ import { SpellPF2e } from "@item/spell";
 import { ItemSheetPF2e } from "../sheet/base";
 import { ItemSheetDataPF2e } from "../sheet/data-types";
 import { SpellDamage, SpellHeighteningInterval, SpellSystemData } from "./data";
-import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, omit, pick, tagify, tupleHasValue } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, getActionGlyph, objectHasKey, pick, tagify, tupleHasValue } from "@util";
 import { OneToTen } from "@module/data";
 import { DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
 
@@ -76,7 +76,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             spellLevels: CONFIG.PF2E.spellLevels,
             damageTypes,
             damageSubtypes: pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
-            damageCategories: omit(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
+            damageCategories: CONFIG.PF2E.damageCategories,
             spellComponents: this.formatSpellComponents(sheetData.data),
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
@@ -440,7 +440,7 @@ interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     spellLevels: ConfigPF2e["PF2E"]["spellLevels"];
     spellTypes: ConfigPF2e["PF2E"]["spellTypes"];
     saves: ConfigPF2e["PF2E"]["saves"];
-    damageCategories: Omit<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
+    damageCategories: ConfigPF2e["PF2E"]["damageCategories"];
     damageTypes: Record<string, string>;
     damageSubtypes: Pick<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
     spellComponents: string[];

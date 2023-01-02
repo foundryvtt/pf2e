@@ -294,7 +294,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the elemental inferno scores a critical hit, its body surges with blue flames, increasing the damage of its intense heat and Inferno Leap by [[/r {3d6}[fire]]]{3d6} until the start of its next turn.</p>"
+                    "value": "<p>When the elemental inferno scores a critical hit, its body surges with blue flames, increasing the damage of its intense heat and Inferno Leap by [[/r 3d6[fire]]]{3d6} until the start of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -425,6 +425,23 @@
                 "temp": 0,
                 "value": 210
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -434,7 +451,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 70
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -467,24 +490,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "fire",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

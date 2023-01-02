@@ -306,7 +306,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {2d12+15}[bludgeoning]]]{2d12+15 bludgeoning}, @Check[type:fortitude|dc:36|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (2d12+15)[bludgeoning]]], @Check[type:fortitude|dc:36|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -543,16 +543,40 @@
                 "temp": 0,
                 "value": 345
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 26
             },
+            "resistances": [
+                {
+                    "type": "sonic",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 15
+                },
+                {
+                    "type": "slashing",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -585,30 +609,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "vision-based effects",
-                "value": [
-                    "critical-hits",
-                    "precision"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "sonic",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 15
-                },
-                {
-                    "type": "slashing",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "(Can't Speak Any Languages)",
                 "selected": [],

@@ -1,26 +1,14 @@
 import { SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString, SkillLongForm } from "@actor/types";
-import { MAGIC_SCHOOLS } from "@item/spell/values";
-import { DAMAGE_CATEGORIES, DAMAGE_TYPES } from "@system/damage/values";
+import { AbilityString, ImmunityType, ResistanceType, SkillLongForm, WeaknessType } from "@actor/types";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
 
-export const ABILITY_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
+const ABILITY_ABBREVIATIONS = new Set(["str", "dex", "con", "int", "wis", "cha"] as const);
 
-export const CREATURE_ACTOR_TYPES = ["character", "npc", "familiar"] as const;
+const CREATURE_ACTOR_TYPES = ["character", "npc", "familiar"] as const;
 
-export const SAVE_TYPES = ["fortitude", "reflex", "will"] as const;
+const SAVE_TYPES = ["fortitude", "reflex", "will"] as const;
 
-const ATTACK_TYPES = new Set([
-    "area-damage",
-    "nonlethal-attacks", // has to be present on every damage type pool!
-    "persistent-damage",
-    "precision",
-    "vorpal",
-    "weapons",
-] as const);
-
-const DAMAGE_TRAITS = new Set(["air", "earth", "light", "magical", "unarmed", "water"] as const);
-
-export const CONDITION_SLUGS = new Set([
+const CONDITION_SLUGS = new Set([
     "blinded",
     "broken",
     "clumsy",
@@ -65,72 +53,13 @@ export const CONDITION_SLUGS = new Set([
     "wounded",
 ] as const);
 
-export const IMMUNITY_TYPES = new Set([
-    ...CONDITION_SLUGS,
-    ...DAMAGE_CATEGORIES,
-    ...DAMAGE_TRAITS,
-    ...DAMAGE_TYPES,
-    ...MAGIC_SCHOOLS,
-    "area-damage",
-    "auditory",
-    "confusion",
-    "critical-hits",
-    "curse",
-    "detection",
-    "death-effects",
-    "disease",
-    "emotion",
-    "fear-effects",
-    "healing",
-    "inhaled",
-    "magic",
-    "misfortune-effects",
-    "nonlethal-attacks",
-    "nonmagical-attacks",
-    "object-immunities",
-    "olfactory",
-    "polymorph",
-    "possession",
-    "precision",
-    "scrying",
-    "sleep",
-    "spellDeflection",
-    "swarm-attacks",
-    "swarm-mind",
-    "trip",
-    "visual",
-] as const);
+const IMMUNITY_TYPES = new Set(Object.keys(immunityTypes)) as Set<ImmunityType>;
 
-export const WEAKNESS_TYPES = new Set([
-    ...ATTACK_TYPES,
-    ...DAMAGE_CATEGORIES,
-    ...DAMAGE_TRAITS,
-    ...DAMAGE_TYPES,
-    "area-damage",
-    "arrow",
-    "axe",
-    "critical-hits",
-    "emotion",
-    "precision",
-    "splash-damage",
-    "vampire-weaknesses",
-    "vorpal",
-    "vorpal-fear",
-    "vulnerable-to-sunlight",
-] as const);
+const WEAKNESS_TYPES = new Set(Object.keys(weaknessTypes)) as Set<WeaknessType>;
 
-export const RESISTANCE_TYPES = new Set([
-    ...ATTACK_TYPES,
-    ...DAMAGE_TRAITS,
-    ...DAMAGE_TYPES,
-    ...DAMAGE_CATEGORIES,
-    "all",
-    "area-damage",
-    "critical-hits",
-    "protean anatomy",
-] as const);
+const RESISTANCE_TYPES = new Set(Object.keys(resistanceTypes)) as Set<ResistanceType>;
 
-export const SKILL_ABBREVIATIONS = new Set([
+const SKILL_ABBREVIATIONS = new Set([
     "acr",
     "arc",
     "ath",
@@ -149,7 +78,7 @@ export const SKILL_ABBREVIATIONS = new Set([
     "thi",
 ] as const);
 
-export const SKILL_DICTIONARY = {
+const SKILL_DICTIONARY = {
     acr: "acrobatics",
     arc: "arcana",
     ath: "athletics",
@@ -167,20 +96,21 @@ export const SKILL_DICTIONARY = {
     sur: "survival",
     thi: "thievery",
 } as const;
-export const SKILL_LONG_FORMS = new Set(Object.values(SKILL_DICTIONARY));
 
-export const SKILL_DICTIONARY_REVERSE = Object.fromEntries(
+const SKILL_LONG_FORMS = new Set(Object.values(SKILL_DICTIONARY));
+
+const SKILL_DICTIONARY_REVERSE = Object.fromEntries(
     Object.entries(SKILL_DICTIONARY).map(([abbrev, value]) => [value, abbrev] as [SkillLongForm, SkillAbbreviation])
 );
 
-export const DC_SLUGS = new Set(["ac", "perception", ...SAVE_TYPES, ...SKILL_LONG_FORMS] as const);
+const DC_SLUGS = new Set(["ac", "perception", ...SAVE_TYPES, ...SKILL_LONG_FORMS] as const);
 
 interface SkillExpanded {
     ability: AbilityString;
     shortform: SkillAbbreviation;
 }
 
-export const SKILL_EXPANDED: Record<SkillLongForm, SkillExpanded> = {
+const SKILL_EXPANDED: Record<SkillLongForm, SkillExpanded> = {
     acrobatics: { ability: "dex", shortform: "acr" },
     arcana: { ability: "int", shortform: "arc" },
     athletics: { ability: "str", shortform: "ath" },
@@ -199,4 +129,21 @@ export const SKILL_EXPANDED: Record<SkillLongForm, SkillExpanded> = {
     thievery: { ability: "dex", shortform: "thi" },
 };
 
-export const MOVEMENT_TYPES = ["land", "burrow", "climb", "fly", "swim"] as const;
+const MOVEMENT_TYPES = ["land", "burrow", "climb", "fly", "swim"] as const;
+
+export {
+    ABILITY_ABBREVIATIONS,
+    CONDITION_SLUGS,
+    CREATURE_ACTOR_TYPES,
+    DC_SLUGS,
+    IMMUNITY_TYPES,
+    MOVEMENT_TYPES,
+    RESISTANCE_TYPES,
+    SAVE_TYPES,
+    SKILL_ABBREVIATIONS,
+    SKILL_DICTIONARY,
+    SKILL_DICTIONARY_REVERSE,
+    SKILL_EXPANDED,
+    SKILL_LONG_FORMS,
+    WEAKNESS_TYPES,
+};

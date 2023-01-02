@@ -883,7 +883,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You fire a ray of heat and flame. Make a spell attack roll against a single creature. On a hit, the target takes 2d6 fire damage, and on a critical hit, the target takes double damage.</p>\n<p>For each additional action you use when Casting the Spell, you can fire an additional ray at a different target, to a maximum of three rays targeting three different targets for 3 actions. These attacks each increase your multiple attack penalty, but you don't increase your multiple attack penalty until after you make all the spell attack rolls for scorching ray. If you spend 2 or more actions Casting the Spell, the damage increases to [[/r 4d6[fire]]] damage on a hit, and it still deals double damage on a critical hit.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage to each target increases by 1d6 for the 1-action version, or by [[/r {2d6}[fire]]] for the 2-action and 3-action versions.</p>"
+                    "value": "<p>You fire a ray of heat and flame. Make a spell attack roll against a single creature. On a hit, the target takes 2d6 fire damage, and on a critical hit, the target takes double damage.</p>\n<p>For each additional action you use when Casting the Spell, you can fire an additional ray at a different target, to a maximum of three rays targeting three different targets for 3 actions. These attacks each increase your multiple attack penalty, but you don't increase your multiple attack penalty until after you make all the spell attack rolls for scorching ray. If you spend 2 or more actions Casting the Spell, the damage increases to [[/r 4d6[fire]]] damage on a hit, and it still deals double damage on a critical hit.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage to each target increases by 1d6 for the 1-action version, or by [[/r 2d6[fire]]] for the 2-action and 3-action versions.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1866,7 +1866,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "The weapon viciously pierces the target, who takes 2 additional damage per weapon damage die. [[/r {6}[piercing]+{2}[fire]]]{6 piercing plus 2 fire}",
+                        "text": "The weapon viciously pierces the target, who takes 2 additional damage per weapon damage die. [[/r {6[piercing],2[fire]}]]{6 piercing plus 2 fire}",
                         "title": "PF2E.Actor.Creature.CriticalSpecialization"
                     }
                 ],
@@ -2588,6 +2588,26 @@
                 "temp": 0,
                 "value": 275
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -2630,20 +2650,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "fire",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

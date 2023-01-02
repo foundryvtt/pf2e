@@ -19,7 +19,7 @@ export const RenderChatMessage = {
 
             ChatCards.listen($html);
             InlineRollLinks.listen($html[0], message);
-            DegreeOfSuccessHighlights.listen(message, $html);
+            DegreeOfSuccessHighlights.listen(message, html);
             if (canvas.ready) SetAsInitiative.listen($html);
 
             // Check DC adjusted by circumstance bonuses or penalties

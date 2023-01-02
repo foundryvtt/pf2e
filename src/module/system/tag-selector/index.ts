@@ -1,11 +1,9 @@
 export { BasicConstructorOptions, TagSelectorBasic } from "./basic";
-export { ResistanceSelector } from "./resistances";
 export { SenseSelector } from "./senses";
 export { SpeedSelector } from "./speeds";
-export { WeaknessSelector } from "./weaknesses";
 export { TagSelectorOptions } from "./base";
 
-const TAG_SELECTOR_TYPES = ["basic", "resistances", "senses", "speed-types", "weaknesses"] as const;
+const TAG_SELECTOR_TYPES = ["basic", "senses", "speed-types"] as const;
 type TagSelectorType = typeof TAG_SELECTOR_TYPES[number];
 
 // CONFIG properties that can be used in a tag selector
@@ -38,6 +36,7 @@ const SELECTABLE_TAG_FIELDS = [
     "creatureTraits",
     "currencies",
     "damageCategories",
+    "damageCategoriesExtra",
     "damageDie",
     "damageTypes",
     "dcAdjustments",
@@ -46,7 +45,6 @@ const SELECTABLE_TAG_FIELDS = [
     "featTypes",
     "hazardTraits",
     "healingTypes",
-    "immunityTypes",
     "itemBonuses",
     "languages",
     "levels",
@@ -64,7 +62,6 @@ const SELECTABLE_TAG_FIELDS = [
     "prerequisitePlaceholders",
     "proficiencyLevels",
     "rarityTraits",
-    "resistanceTypes",
     "saves",
     "senses",
     "skillList",
@@ -76,7 +73,6 @@ const SELECTABLE_TAG_FIELDS = [
     "spellTypes",
     "traitsDescriptions",
     "vehicleTraits",
-    "weaknessTypes",
     "weaponCategories",
     "weaponDamage",
     "weaponDescriptions",

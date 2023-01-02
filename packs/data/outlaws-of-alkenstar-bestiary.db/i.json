@@ -281,7 +281,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You emit a cloud of toxic smoke that temporarily obscures you from sight. Each creature except you in the area when you @UUID[Compendium.pf2e.actionspf2e.Cast a Spell]{Cast the Spell} takes [[/r 1d6[poison]]] damage (basic Fortitude save). A creature that critically fails the saving throw also becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. All creatures in the area become @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the smoke become Concealed to creatures within it. This smoke can be dispersed by a strong wind.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r {1d6}[poison]]]{1d6 poison}.</p>"
+                    "value": "<p>You emit a cloud of toxic smoke that temporarily obscures you from sight. Each creature except you in the area when you @UUID[Compendium.pf2e.actionspf2e.Cast a Spell]{Cast the Spell} takes [[/r 1d6[poison]]] damage (basic Fortitude save). A creature that critically fails the saving throw also becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. All creatures in the area become @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the smoke become Concealed to creatures within it. This smoke can be dispersed by a strong wind.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 1d6[poison]]].</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -866,7 +866,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d8+8}[bludgeoning]]]{1d8+8 Bludgeoning } @Check[type:fortitude|dc:22|basic:true]</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (1d8+8)[bludgeoning]]]{1d8+8 Bludgeoning } @Check[type:fortitude|dc:22|basic:true]</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1194,6 +1194,12 @@
             "perception": {
                 "value": 19
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1235,18 +1241,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "Can't Speak Any Language; Telepathy 100 feet",
                 "selected": [],

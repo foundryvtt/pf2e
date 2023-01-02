@@ -3020,7 +3020,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d10+10}[bludgeoning]+{1d8}[electricity]]]{1d10+10 bludgeoning plus 1d8 electricity}, @Check[type:fortitude|dc:32|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>[[/r {(1d10+10)[bludgeoning],1d8[electricity]}]]{1d10+10 bludgeoning plus 1d8 electricity}, @Check[type:fortitude|dc:32|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3504,6 +3504,14 @@
                 "temp": 0,
                 "value": 220
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "fire"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -3518,7 +3526,13 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 8
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -3559,21 +3573,6 @@
             "attitude": {
                 "value": "indifferent"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity",
-                    "fire"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 8
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

@@ -2421,7 +2421,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}, @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed}, @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}, @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious}, or willing creature is within the blood hag's reach</p>\n<hr />\n<p><strong>Effect</strong> The hag sinks her fangs into the creature to drink its blood. This requires a successful @Check[type:athletics] check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions.</p>\n<p>The victim becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}. The hag regains [[/r {15}[healing]]]{15 Hit Points}, gaining any excess HP as temporary Hit Points that last for 1 hour. Drinking blood from a creature that's already drained doesn't restore any Hit Points to the hag but increases the victim's drained value by 1, killing the victim when it reaches drained 5.</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a successful @Check[type:medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained condition by 1 after 10 minutes.</p>"
+                    "value": "<p><strong>Requirements</strong> A @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}, @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed}, @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}, @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious}, or willing creature is within the blood hag's reach</p>\n<hr />\n<p><strong>Effect</strong> The hag sinks her fangs into the creature to drink its blood. This requires a successful @Check[type:athletics] check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions.</p>\n<p>The victim becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}. The hag regains [[/r 15[healing]]]{15 Hit Points}, gaining any excess HP as temporary Hit Points that last for 1 hour. Drinking blood from a creature that's already drained doesn't restore any Hit Points to the hag but increases the victim's drained value by 1, killing the victim when it reaches drained 5.</p>\n<p>A victim's drained condition decreases by 1 per week. A blood transfusion, which requires a successful @Check[type:medicine|dc:20] check and sufficient blood or a blood donor, reduces the drained condition by 1 after 10 minutes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2698,6 +2698,11 @@
                 "temp": 0,
                 "value": 170
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -2707,7 +2712,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -2748,21 +2759,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "coldiron",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -303,7 +303,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The ruin can spend 10 minutes repairing itself to regain up to [[/r {30}[healing]]]{30 Hit Points}. If the ruin is interrupted during this time, it loses its focus and the repair fails.</p>\n<p>This ability functions even if the ruin is reduced to 0 HP, unless a <em>@UUID[Compendium.pf2e.spells-srd.Consecrate]{Consecrate}</em> ritual has been performed to purify the building, in which case the soulbound ruin is destroyed. This ritual must be dedicated to a good deity or a deity with a strong opposition to undead, such as Pharasma.</p>"
+                    "value": "<p>The ruin can spend 10 minutes repairing itself to regain up to [[/r 30[healing]]]{30 Hit Points}. If the ruin is interrupted during this time, it loses its focus and the repair fails.</p>\n<p>This ability functions even if the ruin is reduced to 0 HP, unless a <em>@UUID[Compendium.pf2e.spells-srd.Consecrate]{Consecrate}</em> ritual has been performed to purify the building, in which case the soulbound ruin is destroyed. This ritual must be dedicated to a good deity or a deity with a strong opposition to undead, such as Pharasma.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -417,17 +417,73 @@
                 "temp": 0,
                 "value": 310
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 26
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "details": "can't move",
                 "otherSpeeds": [],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -460,38 +516,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "Other Languages Typical to the Region",
                 "selected": [],

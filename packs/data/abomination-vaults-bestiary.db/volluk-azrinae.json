@@ -1519,7 +1519,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You belch forth a swarm of magical vermin. You evoke and shape the creatures from your own imagination, allowing you to change the appearance of the creatures (typically a mix of centipedes, roaches, wasps, and worms), but this doesn't change the effect of the spell. The vermin swarm over anyone in the area, their bites and stings dealing [[/r 2d8[piercing]]] damage (basic Reflex save). A creature that fails its saving throw also becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. Once the spell ends, the swarm disappears.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by [[/r {1d8}[piercing]]]{1d8 piercing}.</p>"
+                    "value": "<p>You belch forth a swarm of magical vermin. You evoke and shape the creatures from your own imagination, allowing you to change the appearance of the creatures (typically a mix of centipedes, roaches, wasps, and worms), but this doesn't change the effect of the spell. The vermin swarm over anyone in the area, their bites and stings dealing [[/r 2d8[piercing]]] damage (basic Reflex save). A creature that fails its saving throw also becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. Once the spell ends, the swarm disappears.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by [[/r 1d8[piercing]]].</p>"
                 },
                 "duration": {
                     "value": ""
@@ -3771,12 +3771,38 @@
                 "temp": 0,
                 "value": 85
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 15
             },
+            "resistances": [
+                {
+                    "type": "physical",
+                    "value": 7
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -3785,7 +3811,17 @@
                     }
                 ],
                 "value": 10
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 7
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 7
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -3823,34 +3859,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "swarm-mind",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "physical",
-                    "value": 7
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 7
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 7
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

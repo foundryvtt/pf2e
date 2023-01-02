@@ -875,7 +875,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The eseneth restores [[/r {25}[healing]]]{25 HP} to itself or an incorporeal creature it has @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The eseneth restores [[/r 25[healing]]]{25 HP} to itself or an incorporeal creature it has @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1320,12 +1320,30 @@
                 "temp": 0,
                 "value": 290
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 29
             },
+            "resistances": [
+                {
+                    "type": "negative",
+                    "value": 15
+                },
+                {
+                    "type": "poison",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1367,26 +1385,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "negative",
-                    "value": 15
-                },
-                {
-                    "exceptions": "",
-                    "type": "poison",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

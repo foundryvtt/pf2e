@@ -1,0 +1,5 @@
+<ul>
+    {{#each applications as |application|}}
+        <li>{{localize (concat "PF2E.Damage.IWR.ApplicationBreakdown." application.category) type=application.type adjustment=(numberFormat application.adjustment sign=true)}}</li>
+    {{/each}}
+</ul>

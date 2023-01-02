@@ -594,7 +594,9 @@
                         ]
                     },
                     {
-                        "except": "PF2E.ResistanceException.Bludgeoning",
+                        "exceptions": [
+                            "bludgeoning"
+                        ],
                         "key": "Resistance",
                         "predicate": [
                             "inhabit-vessel"
@@ -646,14 +648,17 @@
                 },
                 "rules": [
                     {
-                        "except": "PF2E.ResistanceException.ForceGhostTouchDoubleNonMagical",
+                        "exceptions": [
+                            "force",
+                            "ghost-touch"
+                        ],
                         "key": "Resistance",
                         "predicate": [
                             {
                                 "not": "inhabit-vessel"
                             }
                         ],
-                        "type": "all",
+                        "type": "all-damage",
                         "value": 3
                     }
                 ],
@@ -824,6 +829,20 @@
                 "temp": 0,
                 "value": 28
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "petrified"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -874,18 +893,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "paralyzed",
-                    "petrified",
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Telepathy 60 feet",
                 "selected": [],

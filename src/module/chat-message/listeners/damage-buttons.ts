@@ -1,5 +1,7 @@
 import { ChatMessagePF2e } from "@module/chat-message";
 import { LocalizePF2e } from "@module/system/localize";
+import { DamageRoll } from "@system/damage/roll";
+import { ErrorPF2e } from "@util";
 
 /** Add apply damage buttons after a chat message is rendered */
 export const DamageButtons = {
@@ -26,6 +28,7 @@ export const DamageButtons = {
             });
         $shield.tooltipster("disable");
         $html.find("button.shield-block").attr({ title: LocalizePF2e.translations.PF2E.DamageButton.ShieldBlock });
+
         // Handle button clicks
         full.on("click", (event) => {
             applyDamage(message, 1, 0, event.shiftKey);
@@ -103,7 +106,7 @@ export const DamageButtons = {
 async function applyDamage(
     message: ChatMessagePF2e,
     multiplier: number,
-    adjustment = 0,
+    addend = 0,
     promptModifier = false
 ): Promise<void> {
     if (promptModifier) return shiftModifyDamage(message, multiplier);
@@ -116,9 +119,17 @@ async function applyDamage(
     }
 
     const shieldBlockRequest = CONFIG.PF2E.chatDamageButtonShieldToggle;
-    const damage = message.rolls[0]!.total * multiplier + adjustment;
+    const roll = message.rolls.find((r): r is Rolled<DamageRoll> => r instanceof DamageRoll);
+    if (!roll) throw ErrorPF2e("Unexpected error retrieving damage roll");
+
     for (const token of tokens) {
-        await token.actor?.applyDamage(damage, token.document, shieldBlockRequest);
+        await token.actor?.applyDamage({
+            damage: roll,
+            token: token.document,
+            addend,
+            multiplier,
+            shieldBlockRequest,
+        });
     }
     toggleOffShieldBlock(message.id);
 }
@@ -143,7 +154,7 @@ function shiftModifyDamage(message: ChatMessagePF2e, multiplier: number): void {
                 callback: async ($dialog: JQuery) => {
                     // In case of healing, multipler will have negative sign. The user will expect that positive
                     // modifier would increase healing value, while negative would decrease.
-                    const adjustment = (Number($dialog.find('[name="modifier"]').val()) || 0) * Math.sign(multiplier);
+                    const adjustment = (Number($dialog.find("[name=modifier]").val()) || 0) * Math.sign(multiplier);
                     applyDamage(message, multiplier, adjustment);
                 },
             },

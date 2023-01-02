@@ -22,7 +22,7 @@ import {
     NPCSystemSheetData,
 } from "./types";
 
-export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
+class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = NPCConfig;
 
     static override get defaultOptions() {
@@ -483,3 +483,5 @@ export class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TAct
 }
 
 type PrePrepSheetData<T extends NPCPF2e> = Partial<NPCSheetData<T>> & CreatureSheetData<T>;
+
+export { NPCSheetPF2e };

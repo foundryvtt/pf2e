@@ -1853,7 +1853,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The balor kills a living creature that is at least 15th level.</p>\n<hr />\n<p><strong>Effect</strong> The balor drinks the triggering creature's life force and regains [[/r {10d8+80}[healing]]]{10d8+80 Hit Points}.</p>"
+                    "value": "<p><strong>Trigger</strong> The balor kills a living creature that is at least 15th level.</p>\n<hr />\n<p><strong>Effect</strong> The balor drinks the triggering creature's life force and regains [[/r (10d8+80)[healing]]]{10d8+80 Hit Points}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2227,6 +2227,11 @@
                 "temp": 0,
                 "value": 480
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -2241,7 +2246,21 @@
                     }
                 ],
                 "value": 35
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 20
+                },
+                {
+                    "type": "cold-iron",
+                    "value": 20
+                },
+                {
+                    "type": "good",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -2279,28 +2298,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fire"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 20
-                },
-                {
-                    "type": "coldiron",
-                    "value": 20
-                },
-                {
-                    "type": "good",
-                    "value": 20
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

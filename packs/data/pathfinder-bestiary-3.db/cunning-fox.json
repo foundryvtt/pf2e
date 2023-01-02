@@ -1033,14 +1033,18 @@
                         ]
                     },
                     {
-                        "except": "PF2E.ResistanceException.ForceGhostTouchPositiveDoubleNonMagical",
+                        "exceptions": [
+                            "force",
+                            "ghost-touch",
+                            "positive"
+                        ],
                         "key": "Resistance",
                         "predicate": [
                             {
                                 "not": "bond-with-mortal"
                             }
                         ],
-                        "type": "all",
+                        "type": "all-damage",
                         "value": 2
                     },
                     {
@@ -1382,13 +1386,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Tongues",
                 "selected": [],

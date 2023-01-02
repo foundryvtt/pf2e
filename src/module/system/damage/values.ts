@@ -14,25 +14,27 @@ const ENERGY_DAMAGE_TYPES = [
 const ALIGNMENT_DAMAGE_TYPES = ["chaotic", "lawful", "good", "evil"] as const;
 
 /** A set of mutually exclusive damage categories */
-const DAMAGE_CATEGORIES_UNIQUE = new Set(["persistent", "precision", "splash"]);
+const DAMAGE_CATEGORIES_UNIQUE = new Set(["persistent", "precision", "splash"] as const);
 
-const DAMAGE_CATEGORIES = new Set([
-    ...DAMAGE_CATEGORIES_UNIQUE,
+/** All damage modifications that only affect IWR (like materials) */
+const DAMAGE_CATEGORIES_EXTRA = new Set([
     "adamantine",
-    "alignment",
-    "coldiron",
+    "cold-iron",
     "darkwood",
-    "energy",
-    "ghostTouch",
     "mithral",
     "orichalcum",
-    "physical",
-    "salt",
-    "salt-water",
     "silver",
     "sisterstone-dusk",
     "sisterstone-scarlet",
     "warpglass",
+] as const);
+
+const DAMAGE_CATEGORIES = new Set([
+    ...DAMAGE_CATEGORIES_UNIQUE,
+    ...DAMAGE_CATEGORIES_EXTRA,
+    "alignment",
+    "energy",
+    "physical",
 ] as const);
 
 /** The standard damage die sizes */
@@ -94,10 +96,32 @@ const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
     untyped: null,
 };
 
+/** Image map for conditions, currently placed here until we get a new set */
+const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImagePath>> = {
+    piercing: "systems/pf2e/icons/equipment/weapons/throwing-knife.webp",
+    bludgeoning: "systems/pf2e/icons/equipment/weapons/bola.webp",
+    slashing: "systems/pf2e/icons/equipment/weapons/scimitar.webp",
+    fire: "systems/pf2e/icons/spells/flaming-sphere.webp",
+    acid: "systems/pf2e/icons/spells/blister.webp",
+    cold: "systems/pf2e/icons/spells/chilling-spray.webp",
+    electricity: "systems/pf2e/icons/spells/chain-lightning.webp",
+    sonic: "systems/pf2e/icons/spells/cry-of-destruction.webp",
+    force: "systems/pf2e/icons/spells/magic-missile.webp",
+    mental: "systems/pf2e/icons/spells/modify-memory.webp",
+    poison: "systems/pf2e/icons/spells/acidic-burst.webp",
+    lawful: "systems/pf2e/icons/equipment/adventuring-gear/merchant-scale.webp",
+    chaotic: "systems/pf2e/icons/spells/dinosaur-form.webp",
+    good: "systems/pf2e/icons/spells/angelic-wings.webp",
+    evil: "systems/pf2e/icons/spells/daemonic-pact.webp",
+    positive: "systems/pf2e/icons/spells/moment-of-renewal.webp",
+    negative: "systems/pf2e/icons/spells/grim-tendrils.webp",
+};
+
 export {
     ALIGNMENT_DAMAGE_TYPES,
     BASE_DAMAGE_TYPES_TO_CATEGORIES,
     DAMAGE_CATEGORIES,
+    DAMAGE_CATEGORIES_EXTRA,
     DAMAGE_CATEGORIES_UNIQUE,
     DAMAGE_DIE_FACES,
     DAMAGE_DIE_FACES_TUPLE,
@@ -105,4 +129,5 @@ export {
     DAMAGE_TYPES,
     ENERGY_DAMAGE_TYPES,
     PHYSICAL_DAMAGE_TYPES,
+    PERSISTENT_DAMAGE_IMAGES,
 };

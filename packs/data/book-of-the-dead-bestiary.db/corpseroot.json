@@ -365,7 +365,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The corpseroot has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}</p>\n<hr />\n<p><strong>Effect</strong> The corpseroot buries its roots into the creature, dealing [[/r (1d6+11)[piercing]]] damage and draining the target's life force (@Check[type:fortitude|dc:30|basic:true]). On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (or increases the value by 1 if already drained), and the corpseroot regains [[/r {10}[healing]]]{10 HP}. If this would make a creature drained 5, the creature dies.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> The corpseroot has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}</p>\n<hr />\n<p><strong>Effect</strong> The corpseroot buries its roots into the creature, dealing [[/r (1d6+11)[piercing]]] damage and draining the target's life force (@Check[type:fortitude|dc:30|basic:true]). On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (or increases the value by 1 if already drained), and the corpseroot regains [[/r 10[healing]]]{10 HP}. If this would make a creature drained 5, the creature dies.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -527,17 +527,54 @@
                 "temp": 0,
                 "value": 225
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 18
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 10
+                },
+                {
+                    "type": "piercing",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "axe-vulnerability",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -570,39 +607,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "axe",
-                    "value": 10
-                },
-                {
-                    "type": "fire",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

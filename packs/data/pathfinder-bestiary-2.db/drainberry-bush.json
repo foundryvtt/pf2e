@@ -196,7 +196,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The drainberry bush must drain blood from living creatures for sustenance. This causes clusters of bright red berries to grow among its branches.</p>\n<p>Each cluster of berries lasts for 1 day, and a drainberry bush typically has [[/r 1d6+3 #clusters]]{1d6+3 clusters} when encountered. When consumed, a cluster restores [[/r {2d8+10}[healing]]]{2d8+10 Hit Points}. This effect has the healing, necromancy, and primal traits.</p>\n<p>A creature can pluck a cluster of berries with a successful unarmed Strike or Thievery check against the bush's AC.</p>"
+                    "value": "<p>The drainberry bush must drain blood from living creatures for sustenance. This causes clusters of bright red berries to grow among its branches.</p>\n<p>Each cluster of berries lasts for 1 day, and a drainberry bush typically has [[/r 1d6+3 #clusters]]{1d6+3 clusters} when encountered. When consumed, a cluster restores [[/r (2d8+10)[healing]]]{2d8+10 Hit Points}. This effect has the healing, necromancy, and primal traits.</p>\n<p>A creature can pluck a cluster of berries with a successful unarmed Strike or Thievery check against the bush's AC.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -240,7 +240,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The bush draws nourishment from one cluster of blood berries, regaining [[/r {2d8+10}[healing]]]{2d8+10 Hit Points}. That berry cluster wrinkles and dies.</p>"
+                    "value": "<p>The bush draws nourishment from one cluster of blood berries, regaining [[/r (2d8+10)[healing]]]{2d8+10 Hit Points}. That berry cluster wrinkles and dies.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -593,6 +593,12 @@
             "perception": {
                 "value": 16
             },
+            "resistances": [
+                {
+                    "type": "negative",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -601,7 +607,13 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -637,23 +649,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "negative",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "Can't Speak Any Language; Telepathy 100 feet",
                 "selected": [],

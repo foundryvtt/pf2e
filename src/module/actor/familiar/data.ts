@@ -27,6 +27,9 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema" | "tr
     };
     attributes: {
         hp: { value: number };
+        immunities?: never;
+        weaknesses?: never;
+        resistances?: never;
     };
     master: {
         id: string | null;
@@ -39,7 +42,9 @@ interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema" | "tr
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
-interface FamiliarSystemData extends Omit<FamiliarSystemSource, "toggles" | "customModifiers">, CreatureSystemData {
+interface FamiliarSystemData
+    extends Omit<FamiliarSystemSource, "attributes" | "toggles" | "customModifiers">,
+        CreatureSystemData {
     details: CreatureSystemData["details"] & {
         creature: {
             value: string;

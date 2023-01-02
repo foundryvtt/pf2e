@@ -1,3 +1,4 @@
+import { WeaponMaterialEffect, WEAPON_MATERIAL_EFFECTS } from "@item";
 import { DamageRollFlag } from "@module/chat-message";
 import { UserPF2e } from "@module/user";
 import { RollDataPF2e } from "@system/rolls";
@@ -127,6 +128,10 @@ class DamageRoll extends AbstractDamageRoll {
             : [];
     }
 
+    get materials(): WeaponMaterialEffect[] {
+        return [...new Set(this.instances.flatMap((i) => i.materials))];
+    }
+
     /** Return an Array of the individual DiceTerm instances contained within this Roll. */
     override get dice(): DiceTerm[] {
         const { instances } = this;
@@ -153,7 +158,7 @@ class DamageRoll extends AbstractDamageRoll {
 
     override async getTooltip(): Promise<string> {
         const instances = this.instances
-            .filter((i) => i.dice.length > 0 && !i.persistent)
+            .filter((i) => i.dice.length > 0 && (!i.persistent || i.options.evaluatePersistent))
             .map((i) => ({
                 type: i.type,
                 typeLabel: i.typeLabel,
@@ -184,6 +189,7 @@ class DamageRoll extends AbstractDamageRoll {
             tooltip: isPrivate ? "" : await this.getTooltip(),
             instances,
             total: isPrivate ? "?" : Math.floor((this.total! * 100) / 100),
+            showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
         };
 
         return renderTemplate(template, chatData);
@@ -200,6 +206,8 @@ class DamageInstance extends AbstractDamageRoll {
     type: DamageType;
 
     persistent: boolean;
+
+    materials: WeaponMaterialEffect[];
 
     partialTotal(this: Rolled<DamageInstance>, subinstance: "precision" | "splash"): number {
         if (!this._evaluated) {
@@ -218,6 +226,9 @@ class DamageInstance extends AbstractDamageRoll {
         const flavorIdentifiers = this.options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
         this.type = flavorIdentifiers.find((t): t is DamageType => setHasElement(DAMAGE_TYPES, t)) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
+        this.materials = flavorIdentifiers.filter((i): i is WeaponMaterialEffect =>
+            setHasElement(WEAPON_MATERIAL_EFFECTS, i)
+        );
     }
 
     static override parse(formula: string, data: Record<string, unknown>): RollTerm[] {
@@ -282,6 +293,20 @@ class DamageInstance extends AbstractDamageRoll {
     /** The expected value of this damage instance */
     get expectedValue(): number {
         return DamageInstance.expectedValueOf(this.head);
+    }
+
+    /** An array of statements for use in predicate testing */
+    get formalDescription(): Set<string> {
+        const typeCategory = DamageCategorization.fromDamageType(this.type);
+        return new Set(
+            [
+                "damage",
+                `damage:type:${this.type}`,
+                typeCategory ? `damage:category:${typeCategory}` : [],
+                this.persistent ? "damage:category:persistent" : [],
+                this.materials.map((m) => `damage:material:${m}`),
+            ].flat()
+        );
     }
 
     get iconClass(): string | null {

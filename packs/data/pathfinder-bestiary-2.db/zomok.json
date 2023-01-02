@@ -1380,7 +1380,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The zomok teleports itself with the effects of a 5th-level <em>@UUID[Compendium.pf2e.spells-srd.Dimension Door]{Dimension Door}</em> spell, but the zomok must begin and end the teleportation effect in forest terrain. The zomok regains [[/r {10d10}[healing]]]{10d10 Hit Points} during this teleportation. Creatures swallowed by the zomok are left behind.</p>\n<p>The zomok can't use Forest Step again for [[/br 1d6+1 #rounds]]{1d6+1 rounds}.</p>"
+                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The zomok teleports itself with the effects of a 5th-level <em>@UUID[Compendium.pf2e.spells-srd.Dimension Door]{Dimension Door}</em> spell, but the zomok must begin and end the teleportation effect in forest terrain. The zomok regains [[/r 10d10[healing]]]{10d10 Hit Points} during this teleportation. Creatures swallowed by the zomok are left behind.</p>\n<p>The zomok can't use Forest Step again for [[/br 1d6+1 #rounds]]{1d6+1 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1724,6 +1724,20 @@
                 "temp": 0,
                 "value": 310
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                },
+                {
+                    "type": "stunned"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1738,7 +1752,13 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1779,23 +1799,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "poison",
-                    "sleep",
-                    "stunned"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "Speak With Plants",
                 "selected": [],

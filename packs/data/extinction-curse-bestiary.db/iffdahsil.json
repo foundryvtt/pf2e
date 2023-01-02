@@ -1149,7 +1149,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {3d10+17}[piercing]]]{3d10+17 piercing}, @Check[type:fortitude|dc:41|basic:true]</p>\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (3d10+17)[piercing]]], @Check[type:fortitude|dc:41|basic:true]</p>\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1234,7 +1234,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>@Check[type:reflex|dc:43], [[/r {10d6}[negative]]]{10d6 negative}, Escape DC 43, Rupture 45</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                    "value": "<p>@Check[type:reflex|dc:43], [[/r 10d6[negative]]], Escape DC 43, Rupture 45</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1436,12 +1436,69 @@
                 "temp": 0,
                 "value": 380
             },
+            "immunities": [
+                {
+                    "type": "blinded"
+                },
+                {
+                    "type": "controlled"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "deafened"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "sleep"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 38
             },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 20
+                },
+                {
+                    "type": "cold",
+                    "value": 20
+                },
+                {
+                    "exceptions": [
+                        "magical",
+                        "silver"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                },
+                {
+                    "type": "sonic",
+                    "value": 20
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1454,7 +1511,13 @@
                     }
                 ],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1495,48 +1558,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "blinded",
-                    "controlled",
-                    "critical-hits",
-                    "deafened",
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "sleep",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "acid",
-                    "value": 20
-                },
-                {
-                    "type": "cold",
-                    "value": 20
-                },
-                {
-                    "exceptions": "except magical silver",
-                    "type": "physical",
-                    "value": 15
-                },
-                {
-                    "type": "sonic",
-                    "value": 20
-                }
-            ],
-            "dv": [
-                {
-                    "type": "good",
-                    "value": 20
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

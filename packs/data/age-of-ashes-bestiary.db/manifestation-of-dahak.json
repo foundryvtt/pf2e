@@ -3360,7 +3360,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {2d6}[acid] + {2d6}[cold] +{2d6}[electricity] +{2d6}[fire] +{2d6}[poison]]]{10d6 damage split evenly between acid, cold electricity, fire, and poison}.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {2d6[acid],2d6[cold],2d6[electricity],2d6[fire],2d6[poison]}]]{10d6 damage split evenly between acid, cold electricity, fire, and poison}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -4109,12 +4109,41 @@
                 "temp": 0,
                 "value": 600
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 46
             },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 26
+                },
+                {
+                    "type": "cold",
+                    "value": 26
+                },
+                {
+                    "type": "electricity",
+                    "value": 26
+                },
+                {
+                    "type": "poison",
+                    "value": 26
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -4123,7 +4152,13 @@
                     }
                 ],
                 "value": 60
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 26
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -4161,39 +4196,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fire",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "acid",
-                    "value": 26
-                },
-                {
-                    "type": "cold",
-                    "value": 26
-                },
-                {
-                    "type": "electricity",
-                    "value": 26
-                },
-                {
-                    "type": "poison",
-                    "value": 26
-                }
-            ],
-            "dv": [
-                {
-                    "type": "good",
-                    "value": 26
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 200 feet",
                 "selected": [],

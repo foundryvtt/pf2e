@@ -494,7 +494,7 @@ const weaponTraits = {
 const preciousMaterials: Record<PreciousMaterialType, string> = {
     abysium: "PF2E.PreciousMaterialAbysium",
     adamantine: "PF2E.PreciousMaterialAdamantine",
-    coldIron: "PF2E.PreciousMaterialColdIron",
+    "cold-iron": "PF2E.PreciousMaterialColdIron",
     darkwood: "PF2E.PreciousMaterialDarkwood",
     djezet: "PF2E.PreciousMaterialDjezet",
     dragonhide: "PF2E.PreciousMaterialDragonhide",
@@ -508,7 +508,7 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     silver: "PF2E.PreciousMaterialSilver",
     "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
-    sovereignSteel: "PF2E.PreciousMaterialSovereignSteel",
+    "sovereign-steel": "PF2E.PreciousMaterialSovereignSteel",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 

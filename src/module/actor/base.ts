@@ -1,8 +1,14 @@
-import { AttackItem, AttackRollContext, StrikeRollContext, StrikeRollContextParams } from "@actor/types";
+import {
+    ApplyDamageParams,
+    AttackItem,
+    AttackRollContext,
+    StrikeRollContext,
+    StrikeRollContextParams,
+} from "@actor/types";
 import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types";
 import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
-import { ConditionSlug } from "@item/condition/data";
+import { ConditionKey, ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ActionCost, ActionType } from "@item/data/base";
@@ -20,6 +26,7 @@ import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
+import { applyIWR } from "@system/damage/iwr";
 import { Statistic } from "@system/statistic";
 import {
     ErrorPF2e,
@@ -34,7 +41,8 @@ import type { CreaturePF2e } from "./creature";
 import { VisionLevel, VisionLevels } from "./creature/data";
 import { GetReachParameters, ModeOfBeing } from "./creature/types";
 import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
-import { ActorFlagsPF2e, BaseTraitsData, PrototypeTokenPF2e, RollOptionFlags, StrikeData } from "./data/base";
+import { ActorFlagsPF2e, ActorTraitsData, PrototypeTokenPF2e, RollOptionFlags, StrikeData } from "./data/base";
+import { ImmunityData, ResistanceData, WeaknessData } from "./data/iwr";
 import { ActorSizePF2e } from "./data/size";
 import { calculateRangePenalty, getRangeIncrement, migrateActorSource } from "./helpers";
 import { ActorInventory } from "./inventory";
@@ -209,7 +217,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     get modeOfBeing(): ModeOfBeing {
         const { traits } = this;
-        return traits.has("undead") ? "undead" : traits.has("construct") ? "construct" : "living";
+        return traits.has("undead")
+            ? "undead"
+            : traits.has("construct") && !this.isOfType("character")
+            ? "construct"
+            : "living";
     }
 
     get visionLevel(): VisionLevel {
@@ -524,12 +536,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Prepare baseline ephemeral data applicable to all actor types */
     override prepareBaseData(): void {
         super.prepareBaseData();
+
         this.system.tokenEffects = [];
         this.system.autoChanges = {};
         this.system.attributes.flanking = { canFlank: false, canGangUp: [], flankable: false, flatFootable: false };
         this.system.toggles = [];
 
-        const traits: BaseTraitsData<string> | undefined = this.system.traits;
+        const { attributes } = this.system;
+        attributes.immunities = attributes.immunities?.map((i) => new ImmunityData(i)) ?? [];
+        attributes.weaknesses = attributes.weaknesses?.map((w) => new WeaknessData(w)) ?? [];
+        attributes.resistances = attributes.resistances?.map((r) => new ResistanceData(r)) ?? [];
+
+        const traits: ActorTraitsData<string> | undefined = this.system.traits;
         if (traits?.size) traits.size = new ActorSizePF2e(traits.size);
 
         // Setup the basic structure of pf2e flags with roll options
@@ -770,7 +788,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
      * Roll a Attribute Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
-    rollAttribute(event: JQuery.Event, attributeName: string) {
+    rollAttribute(event: JQuery.Event, attributeName: string): void {
         if (!objectHasKey(this.system.attributes, attributeName)) {
             throw ErrorPF2e(`Unrecognized attribute "${attributeName}"`);
         }
@@ -841,7 +859,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         const isDamage = isDelta || (value === 0 && !!token?.combatant);
         if (token && attribute === "attributes.hp" && isDamage) {
             const damage = value === 0 ? this.hitPoints?.value ?? 0 : -value;
-            return this.applyDamage(damage, token);
+            return this.applyDamage({ damage, token });
         }
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
@@ -849,14 +867,28 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-     * @param damage The amount of damage inflicted
+     * @param finalDamage The amount of damage inflicted
      * @param token The applicable token for this actor
      * @param shieldBlockRequest Whether the user has toggled the Shield Block button
      */
-    async applyDamage(damage: number, token: TokenDocumentPF2e, shieldBlockRequest = false): Promise<this> {
+    async applyDamage({
+        damage,
+        token,
+        addend = 0,
+        multiplier = 1,
+        shieldBlockRequest = false,
+    }: ApplyDamageParams): Promise<this> {
         const { hitPoints } = this;
         if (!hitPoints) return this;
-        damage = Math.trunc(damage); // Round damage and healing (negative values) toward zero
+
+        // Round damage and healing (negative values) toward zero
+        const result =
+            typeof damage === "number"
+                ? { finalDamage: Math.trunc(damage * multiplier - addend), applications: [] }
+                : multiplier < 0
+                ? { finalDamage: Math.trunc(damage.total * multiplier - addend), applications: [] }
+                : applyIWR(this, damage, { addend, multiplier });
+        const { finalDamage } = result;
 
         // Calculate damage to hit points and shield
         const translations = LocalizePF2e.translations.PF2E.Actor.ApplyDamage;
@@ -889,13 +921,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 : false;
 
         const shieldHardness = shieldBlock ? actorShield?.hardness ?? 0 : 0;
-        const absorbedDamage = Math.min(shieldHardness, Math.abs(damage));
-        const shieldDamage = shieldBlock ? Math.min(actorShield?.hp.value ?? 0, Math.abs(damage) - absorbedDamage) : 0;
+        const absorbedDamage = Math.min(shieldHardness, Math.abs(finalDamage));
+        const shieldDamage = shieldBlock
+            ? Math.min(actorShield?.hp.value ?? 0, Math.abs(finalDamage) - absorbedDamage)
+            : 0;
 
         const hpUpdate = this.calculateHealthDelta({
             hp: hitPoints,
             sp: this.isOfType("character") ? this.attributes.sp : undefined,
-            delta: damage - absorbedDamage,
+            delta: finalDamage - absorbedDamage,
         });
         const hpDamage = hpUpdate.totalApplied;
 
@@ -921,8 +955,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         // Send chat message
         const hpStatement = ((): string => {
             // This would be a nested ternary, except prettier thoroughly mangles it
-            if (damage === 0) return translations.TakesNoDamage;
-            if (damage > 0) {
+            if (finalDamage === 0) return translations.TakesNoDamage;
+            if (finalDamage > 0) {
                 return absorbedDamage > 0
                     ? hpDamage > 0
                         ? translations.DamagedForNShield
@@ -948,9 +982,17 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             )
             .join(" ");
 
+        const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
+            statements,
+            iwr: {
+                applications: result.applications,
+                visibility: this.hasPlayerOwner ? "all" : "gm",
+            },
+        });
+
         await ChatMessagePF2e.create({
             speaker: { alias: token.name, token: token.id ?? null },
-            content: `<p>${statements}</p>`,
+            content,
             type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
             whisper:
                 game.settings.get("pf2e", "metagame_secretDamage") && !token.actor?.hasPlayerOwner
@@ -1189,11 +1231,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
      * @param [options.all=false] return all conditions of the requested type in the order described above
      */
     getCondition(
-        slug: ConditionSlug,
+        slug: ConditionKey,
         { all }: { all: boolean } = { all: false }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null {
         const conditions = this.itemTypes.condition
-            .filter((condition) => condition.slug === slug)
+            .filter((condition) => condition.key === slug || condition.slug === slug)
             .sort((conditionA, conditionB) => {
                 const [valueA, valueB] = [conditionA.value ?? 0, conditionB.value ?? 0] as const;
                 const [durationA, durationB] = [conditionA.duration ?? 0, conditionB.duration ?? 0] as const;
@@ -1222,7 +1264,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Decrease the value of condition or remove it entirely */
     async decreaseCondition(
-        conditionSlug: ConditionSlug | Embedded<ConditionPF2e>,
+        conditionSlug: ConditionKey | Embedded<ConditionPF2e>,
         { forceRemove }: { forceRemove: boolean } = { forceRemove: false }
     ): Promise<void> {
         // Find a valid matching condition if a slug was passed
@@ -1427,11 +1469,11 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         options?: DocumentModificationContext
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 
-    getCondition(conditionType: ConditionSlug, { all }: { all: true }): Embedded<ConditionPF2e>[];
-    getCondition(conditionType: ConditionSlug, { all }: { all: false }): Embedded<ConditionPF2e> | null;
-    getCondition(conditionType: ConditionSlug): Embedded<ConditionPF2e> | null;
+    getCondition(conditionType: ConditionKey, { all }: { all: true }): Embedded<ConditionPF2e>[];
+    getCondition(conditionType: ConditionKey, { all }: { all: false }): Embedded<ConditionPF2e> | null;
+    getCondition(conditionType: ConditionKey): Embedded<ConditionPF2e> | null;
     getCondition(
-        conditionType: ConditionSlug,
+        conditionType: ConditionKey,
         { all }: { all: boolean }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null;
 }

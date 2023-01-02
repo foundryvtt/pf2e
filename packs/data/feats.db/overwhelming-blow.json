@@ -25,19 +25,18 @@
             {
                 "domain": "damage-roll",
                 "key": "RollOption",
-                "label": "Use Overwhelming Blow",
+                "label": "PF2E.SpecificRule.OverwhelmingBlow.CriticalHit",
                 "option": "overwhelming-blow",
                 "toggleable": true
             },
             {
-                "critical": true,
-                "diceNumber": 1,
-                "dieSize": "d12",
-                "key": "DamageDice",
+                "key": "AdjustStrike",
+                "mode": "add",
                 "predicate": [
                     "overwhelming-blow"
                 ],
-                "selector": "strike-damage"
+                "property": "weapon-traits",
+                "value": "deadly-d12"
             }
         ],
         "source": {

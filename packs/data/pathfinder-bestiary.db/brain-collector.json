@@ -2245,7 +2245,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison} and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[poison]]]{1d6 poison}, enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and slowed 1 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d6[poison]]], enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6[poison]]], @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and slowed 1 (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2518,6 +2518,11 @@
                 "temp": 0,
                 "value": 140
             },
+            "immunities": [
+                {
+                    "type": "confused"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -2570,15 +2575,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "confused"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

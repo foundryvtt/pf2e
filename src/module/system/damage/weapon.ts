@@ -343,9 +343,11 @@ class WeaponDamagePF2e {
         const notes = extractNotes(actor.synthetics.rollNotes, selectors).filter((n) => n.predicate.test(options));
 
         // Accumulate damage-affecting precious materials
-        const material = setHasElement(WEAPON_MATERIAL_EFFECTS, weapon.system.material.precious)
-            ? weapon.system.material.precious
-            : null;
+        const material =
+            weapon.system.material.precious?.type &&
+            setHasElement(WEAPON_MATERIAL_EFFECTS, weapon.system.material.precious.type)
+                ? weapon.system.material.precious.type
+                : null;
         const materials: Set<WeaponMaterialEffect> = new Set();
         if (material) materials.add(material);
         for (const adjustment of actor.synthetics.strikeAdjustments) {
@@ -377,6 +379,7 @@ class WeaponDamagePF2e {
                 modifier: baseDamage.modifier,
                 damageType: baseDamage.damageType,
                 category: null,
+                materials: Array.from(materials),
             },
             // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include
             // only the weapon's damage die plus any extra dice from a striking rune. They don't count

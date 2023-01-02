@@ -271,10 +271,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -480,7 +480,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a leaf leshy dies, a burst of primal energy explodes from its body, restoring [[/r {1d4}[healing]]]{1d4 Hit Points} to each plant creature in a @Template[type:emanation|distance:30]. This area is filled with tree saplings, becoming difficult terrain. If the terrain is not a viable environment for these trees, they wither after 24 hours.</p>"
+                    "value": "<p>When a leaf leshy dies, a burst of primal energy explodes from its body, restoring [[/r 1d4[healing]]]{1d4 Hit Points} to each plant creature in a @Template[type:emanation|distance:30]. This area is filled with tree saplings, becoming difficult terrain. If the terrain is not a viable environment for these trees, they wither after 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -769,7 +769,13 @@
                 "details": "glide",
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 2
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -807,18 +813,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 2
-                }
-            ],
             "languages": {
                 "custom": "Speak With Plants (Trees Only)",
                 "selected": [],

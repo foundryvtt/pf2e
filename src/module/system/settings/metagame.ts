@@ -45,9 +45,7 @@ const MetagameSettingsConfig = {
         hint: "PF2E.SETTINGS.Metagame.PartyVision.Hint",
         default: false,
         type: Boolean,
-        onChange: () => {
-            window.location.reload();
-        },
+        requiresReload: true,
     },
 };
 

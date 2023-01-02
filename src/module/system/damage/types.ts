@@ -5,9 +5,16 @@ import { RollNotePF2e } from "@module/notes";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { BaseRollContext } from "@system/rolls";
 import { DamageRoll } from "./roll";
-import { DAMAGE_CATEGORIES, DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "./values";
+import {
+    DAMAGE_CATEGORIES,
+    DAMAGE_CATEGORIES_EXTRA,
+    DAMAGE_CATEGORIES_UNIQUE,
+    DAMAGE_DIE_FACES,
+    DAMAGE_TYPES,
+} from "./values";
 
 type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;
+type DamageCategoryExtra = SetElement<typeof DAMAGE_CATEGORIES_EXTRA>;
 type DamageCategory = SetElement<typeof DAMAGE_CATEGORIES>;
 type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
 type DamageType = SetElement<typeof DAMAGE_TYPES>;
@@ -65,6 +72,7 @@ interface BasicDamageData {
     dieSize: DamageDieSize | null;
     modifier: number;
     category: DamageCategory | null;
+    materials?: WeaponMaterialEffect[];
 }
 
 interface BaseDamageTemplate {
@@ -90,6 +98,7 @@ type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate;
 
 export {
     DamageCategory,
+    DamageCategoryExtra,
     DamageCategoryUnique,
     DamageCategoryRenderData,
     DamageDieSize,

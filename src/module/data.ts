@@ -21,12 +21,17 @@ interface LabeledValue {
     label: string;
     value: number | string;
     type: string;
-    exceptions?: string;
 }
+
 interface LabeledString extends LabeledValue {
     value: string;
 }
 interface LabeledNumber extends LabeledValue {
+    value: number;
+}
+
+interface TypeAndValue<TType extends string> {
+    type: TType;
     value: number;
 }
 
@@ -145,6 +150,7 @@ export {
     Size,
     TraitsWithRarity,
     TwoToThree,
+    TypeAndValue,
     ValueAndMax,
     ValueAndMaybeMax,
     ValuesList,

@@ -372,12 +372,16 @@
                         "value": false
                     },
                     {
-                        "except": "except force, ghost touch, or positive; doubled against non-magical",
+                        "exceptions": [
+                            "force",
+                            "ghost-touch",
+                            "positive"
+                        ],
                         "key": "Resistance",
                         "predicate": [
                             "ghostly-swoop"
                         ],
-                        "type": "all",
+                        "type": "all-damage",
                         "value": 10
                     }
                 ],
@@ -662,6 +666,23 @@
                 "temp": 0,
                 "value": 175
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -677,7 +698,13 @@
                 ],
                 "special": "",
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -710,25 +737,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "coldiron",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

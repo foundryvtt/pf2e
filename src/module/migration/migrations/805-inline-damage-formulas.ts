@@ -7,12 +7,41 @@ import { MigrationBase } from "../base";
 export class Migration805InlineDamageRolls extends MigrationBase {
     static override version = 0.805;
 
-    #pattern = /\[\[\/r .+?\]\]\{[^}]+\}/g;
+    #pattern = /\[\[\/r .+?\]\]\]?(?:\{[^}]+\})?/g;
+
+    #damageTypeLabelPattern = ((): RegExp => {
+        const dicePattern = "[0-9]{1,2}d[0-9]{1,2}(?:\\s*[-+]\\s*[0-9]{1,3})?";
+
+        const typesUnion = [
+            "acid",
+            "bleed",
+            "bludgeoning",
+            "chaotic",
+            "cold",
+            "electricity",
+            "evil",
+            "fire",
+            "force",
+            "good",
+            "lawful",
+            "mental",
+            "negative",
+            "piercing",
+            "poison",
+            "positive",
+            "slashing",
+            "sonic",
+            "untyped",
+        ].join("|");
+
+        return new RegExp(`^${dicePattern} (?:${typesUnion})(?: damage)?$`, "i");
+    })();
 
     #updateDamageFormula(text: string): string {
         const skipStrings = ["splash", "precision", "persistent", "d20", "#"];
         return text.replace(this.#pattern, (match): string => {
-            if (!match.toLowerCase().endsWith("damage}") || skipStrings.some((s) => match.includes(s))) {
+            const labelEndsWithDamage = match.toLowerCase().endsWith("damage}");
+            if (skipStrings.some((s) => match.includes(s))) {
                 return match;
             }
 
@@ -22,17 +51,21 @@ export class Migration805InlineDamageRolls extends MigrationBase {
             if (expressions.length === 0) return match;
 
             const instances = expressions.map((i) =>
-                i.replace(
-                    /^\{([^}]+)\}\[([a-z]+)\]$/,
-                    ["+", "-", "*", "/"].some((o) => i.includes(o)) ? "($1)[$2]" : "$1[$2]"
-                )
+                i
+                    .trim()
+                    .replace(
+                        /^\{([^}]+)\}\[([a-z]+)\]$/i,
+                        ["+", "-", "*", "/"].some((o) => i.includes(o)) ? "($1)[$2]" : "$1[$2]"
+                    )
+                    .toLowerCase()
             );
 
-            const reassembled =
-                instances.length === 1 ? `[[/r ${instances[0]}]] damage` : `[[/r {${instances.join(",")}}]] damage`;
+            const reassembled = instances.length === 1 ? `[[/r ${instances[0]}]]` : `[[/r {${instances.join(",")}}]]`;
 
-            return customLabel && instances.length > 1
-                ? reassembled.replace(/ damage$/, `{${customLabel}}`)
+            return customLabel && !this.#damageTypeLabelPattern.test(customLabel)
+                ? `${reassembled}{${customLabel}}`
+                : labelEndsWithDamage
+                ? `${reassembled} damage`
                 : reassembled;
         });
     }

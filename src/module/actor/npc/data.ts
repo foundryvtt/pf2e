@@ -17,7 +17,7 @@ import {
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
-import { ActorFlagsPF2e, ArmorClassData, PerceptionData, StrikeData } from "@actor/data/base";
+import { ActorAttributesSource, ActorFlagsPF2e, ArmorClassData, PerceptionData, StrikeData } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
@@ -60,7 +60,7 @@ interface NPCSystemSource extends CreatureSystemSource {
     traits: NPCTraitsSource;
 }
 
-interface NPCAttributesSource {
+interface NPCAttributesSource extends ActorAttributesSource {
     ac: {
         value: number;
         details: string;
@@ -257,4 +257,5 @@ export {
     NPCSystemData,
     NPCSystemSource,
     NPCTraitsData,
+    NPCTraitsSource,
 };

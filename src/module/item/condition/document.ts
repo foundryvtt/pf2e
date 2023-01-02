@@ -3,10 +3,11 @@ import { ItemPF2e } from "@item";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
 import { ErrorPF2e } from "@util";
-import { ConditionData, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
+import { ConditionData, ConditionKey, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
 import { DamageRoll } from "@system/damage/roll";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenDocumentPF2e } from "@scene";
+import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
@@ -18,7 +19,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     }
 
     /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
-    get key(): string {
+    get key(): ConditionKey {
         return this.system.persistent ? `persistent-damage-${this.system.persistent.damageType}` : this.slug;
     }
 
@@ -94,14 +95,21 @@ class ConditionPF2e extends AbstractEffectPF2e {
             const { formula, damageType } = systemData.persistent;
             const roll = new DamageRoll(`(${formula})[persistent,${damageType}]`, {}, { evaluatePersistent: true });
             const dc = game.user.isGM && systemData.persistent.dc !== 15 ? systemData.persistent.dc : null;
+
             const localizationKey = `PF2E.Item.Condition.PersistentDamage.${dc !== null ? "NameWithDC" : "Name"}`;
-            this.name = game.i18n.format(localizationKey, { formula: roll.formula, dc });
+            this.name = game.i18n.format(localizationKey, {
+                formula,
+                damageType: game.i18n.localize(`PF2E.Damage.RollFlavor.${damageType}`),
+                dc,
+            });
+
             systemData.persistent.damage = roll;
             systemData.persistent.expectedValue = roll.expectedValue;
+            this.img = PERSISTENT_DAMAGE_IMAGES[damageType] ?? this._source.img;
+        } else {
+            const folder = CONFIG.PF2E.statusEffects.iconDir;
+            this.img = `${folder}${this.slug}.webp`;
         }
-
-        const folder = CONFIG.PF2E.statusEffects.iconDir;
-        this.img = `${folder}${this.slug}.webp`;
     }
 
     override prepareSiblingData(): void {

@@ -1,25 +1,39 @@
-import { ImmunityType } from "@actor/data/base";
+import { ImmunityData } from "@actor/data/iwr";
+import { ImmunityType } from "@actor/types";
 import { IWRRuleElement } from "./base";
 
 /** @category RuleElement */
 class ImmunityRuleElement extends IWRRuleElement {
-    dictionary = CONFIG.PF2E.immunityTypes;
+    protected dictionary = CONFIG.PF2E.immunityTypes;
 
-    get property(): ImmunityType[] {
-        return this.actor.system.traits.di.value;
+    get property(): ImmunityData[] {
+        return this.actor.system.attributes.immunities;
     }
 
-    override validate(): boolean {
-        return this.type.every((t) => t in this.dictionary);
-    }
-
-    getIWR(): ImmunityType[] {
-        return this.type;
+    getIWR(): ImmunityData[] {
+        return this.type
+            .map(
+                (t): ImmunityData =>
+                    new ImmunityData({
+                        type: t,
+                        exceptions: this.exceptions,
+                        source: this.label,
+                    })
+            )
+            .filter((immunity) => {
+                const existing = this.property.find((e) => e.type === immunity.type);
+                return !(
+                    existing?.type === immunity.type &&
+                    existing.exceptions.every((x) => immunity.exceptions.includes(x))
+                );
+            });
     }
 }
 
 interface ImmunityRuleElement extends IWRRuleElement {
     type: ImmunityType[];
+
+    exceptions: ImmunityType[];
 }
 
 export { ImmunityRuleElement };

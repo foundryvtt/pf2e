@@ -1079,12 +1079,16 @@
                         "value": false
                     },
                     {
-                        "except": "except force, ghost touch, or positive; doubled against non-magical",
+                        "exceptions": [
+                            "force",
+                            "ghost-touch",
+                            "positive"
+                        ],
                         "key": "Resistance",
                         "predicate": [
                             "ghostly-swoop"
                         ],
-                        "type": "all",
+                        "type": "all-damage",
                         "value": 10
                     }
                 ],
@@ -1394,6 +1398,23 @@
                 "temp": 0,
                 "value": 417
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1409,7 +1430,17 @@
                 ],
                 "special": "",
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 15
+                },
+                {
+                    "type": "positive",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1442,30 +1473,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "coldiron",
-                    "value": 15
-                },
-                {
-                    "exceptions": "",
-                    "type": "positive",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "Voice of the Soul",
                 "selected": [],

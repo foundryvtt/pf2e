@@ -28,6 +28,7 @@ import { Migration807RMActivatedEffectFields } from "@module/migration/migration
 import { Migration808CountDamageDice } from "@module/migration/migrations/808-count-damage-dice";
 import { Migration809AutomatonEnhancements } from "@module/migration/migrations/809-automaton-enhancements";
 import { Migration811InlineDamageRollsPersistent } from "@module/migration/migrations/811-inline-damage-rolls-persistent";
+import { Migration812RestructureIWR } from "@module/migration/migrations/812-restructure-iwr";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -59,6 +60,7 @@ const migrations: MigrationBase[] = [
     new Migration808CountDamageDice(),
     new Migration809AutomatonEnhancements(),
     new Migration811InlineDamageRollsPersistent(),
+    new Migration812RestructureIWR(),
 ];
 
 global.deepClone = <T>(original: T): T => {

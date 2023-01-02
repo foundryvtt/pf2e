@@ -255,8 +255,7 @@ class SpellPF2e extends ItemPF2e {
             if (!parts.length) parts.push("0");
 
             const baseFormula = Roll.replaceFormulaData(parts.join(" + "), rollData);
-            const baseFormulaFixed = baseFormula.replace(/[\s]*\+[\s]*-[\s]*/g, " - ");
-            const formula = combineTerms(baseFormulaFixed);
+            const formula = combineTerms(baseFormula);
 
             // Add damage. Merge if the type and category matches
             const tags = [damage.type.subtype ? damage.type.subtype : [], damage.type.categories ?? []].flat();
@@ -288,7 +287,7 @@ class SpellPF2e extends ItemPF2e {
                             type: "untyped",
                             modifier: actor.abilities[ability].mod,
                             damageType: d.type.value,
-                            damageCategory: d.type.subtype ?? DamageCategorization.fromDamageType(d.type.value),
+                            damageCategory: d.type.subtype ?? null,
                         })
                 );
             modifiers.push(...abilityModifiers);
@@ -317,51 +316,63 @@ class SpellPF2e extends ItemPF2e {
             applyDamageDice(Object.values(formulas), damageDice);
         }
 
+        // Get a list of all flattened damage partial values, sorted by category
         const order = [null, "precision", "splash"];
         const allPartials = sortBy(Object.values(formulas), (f) => {
             const idx = order.indexOf(f.damageCategory);
             return idx >= 0 ? idx : order.length;
         });
+
+        // Combine damage partials into new instances by damage type (except persistent)
         const notPersistent = allPartials.filter((p) => p.damageCategory !== "persistent");
-        const groups = groupBy(notPersistent, (f) => f.damageType);
+        const breakdownTags: string[] = [];
+        const combinedInstanceData: { formula: string; flavor: string }[] = [];
+        for (const [damageType, group] of groupBy(notPersistent, (f) => f.damageType).entries()) {
+            const subFormulas: string[] = [];
 
-        try {
-            const instances: DamageInstance[] = [];
-            const breakdownTags: string[] = [];
-            for (const [damageType, group] of groups.entries()) {
-                const tags = new Set(group.flatMap((g) => g.tags));
-                const flavor = [...tags, damageType].join(",");
-
-                const subFormulas: string[] = [];
-
-                const mainGroup = group.find((g) => !g.damageCategory);
-                if (mainGroup) {
-                    const damageTypeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
-                    const result = createFormulaAndTagsForPartial(mainGroup, damageTypeLabel);
-                    subFormulas.push(result.formula);
-                    breakdownTags.push(...result.breakdownTags);
-                }
-
-                for (const subInstance of group.filter((g) => !!g.damageCategory)) {
-                    const result = createFormulaAndTagsForPartial(subInstance, subInstance.damageCategory);
-                    subFormulas.push(`(${result.formula})[${subInstance.damageCategory}]`);
-                    breakdownTags.push(...result.breakdownTags);
-                }
-
-                instances.push(new DamageInstance(subFormulas.join(" + "), {}, { flavor }));
-            }
-
-            // Persistent is handled afterwards
-            for (const partial of allPartials.filter((p) => p.damageCategory === "persistent")) {
-                const { damageType } = partial;
-                const typeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
-                const flavorLabel = game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeLabel });
-                const result = createFormulaAndTagsForPartial(partial, flavorLabel);
-                instances.push(new DamageInstance(result.formula, {}, { flavor: `[persistent,${damageType}]` }));
+            const mainGroup = group.find((g) => !g.damageCategory);
+            if (mainGroup) {
+                const damageTypeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+                const result = createFormulaAndTagsForPartial(mainGroup, damageTypeLabel);
+                subFormulas.push(result.formula);
                 breakdownTags.push(...result.breakdownTags);
             }
 
-            if (instances.length) {
+            for (const subInstance of group.filter((g) => !!g.damageCategory)) {
+                const result = createFormulaAndTagsForPartial(subInstance, subInstance.damageCategory);
+                subFormulas.push(`(${result.formula})[${subInstance.damageCategory}]`);
+                breakdownTags.push(...result.breakdownTags);
+            }
+
+            const tags = new Set(group.flatMap((g) => [...g.tags]));
+            const flavor = [...tags, damageType].join(",");
+            combinedInstanceData.push({ formula: subFormulas.join(" + "), flavor });
+        }
+
+        // Persistent is handled afterwards as new damage instances
+        for (const partial of allPartials.filter((p) => p.damageCategory === "persistent")) {
+            const { damageType } = partial;
+            const typeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+            const flavorLabel = game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeLabel });
+            const result = createFormulaAndTagsForPartial(partial, flavorLabel);
+            combinedInstanceData.push({ formula: result.formula, flavor: `[persistent,${damageType}]` });
+            breakdownTags.push(...result.breakdownTags);
+        }
+
+        try {
+            if (combinedInstanceData.length) {
+                // Validate if the formulas are valid first
+                const invalid = combinedInstanceData
+                    .map((d) => d.formula)
+                    .filter((formula) => !DamageRoll.validate(formula));
+                if (invalid.length) {
+                    throw ErrorPF2e(`Invalid damage formulas on ${this.name}: ${invalid.join(", ")}`);
+                }
+
+                // Create the damage roll
+                const instances = combinedInstanceData.map(
+                    ({ formula, flavor }) => new DamageInstance(formula, {}, { flavor })
+                );
                 const roll = DamageRoll.fromTerms([InstancePool.fromRolls(instances)]);
                 return { roll, breakdownTags, domains, options, modifiers: [...modifiers, ...damageDice] };
             }
@@ -667,7 +678,6 @@ class SpellPF2e extends ItemPF2e {
         const spellDC = statisticChatData.dc.value;
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
         const damage = this.damage;
-        const formula = this.damage?.roll.formula;
         const hasDamage = !!damage; // needs new check // formula && formula !== "0";
 
         // Spell save label
@@ -738,7 +748,7 @@ class SpellPF2e extends ItemPF2e {
             slotLevel,
             levelLabel,
             damageLabel,
-            formula,
+            formula: damage?.roll.formula,
             properties,
             spellTraits,
             traits: spellTraits,
@@ -790,7 +800,7 @@ class SpellPF2e extends ItemPF2e {
             name: this.name,
             damage: { roll, breakdownTags },
             notes: [],
-            materials: [],
+            materials: roll.materials,
             traits: this.castingTraits,
             modifiers,
         };

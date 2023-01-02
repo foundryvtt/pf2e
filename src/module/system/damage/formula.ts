@@ -1,4 +1,5 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
+import { WeaponMaterialEffect } from "@item";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { groupBy } from "@util";
 import { DamageCategorization } from "./helpers";
@@ -30,7 +31,7 @@ function createDamageFormula(
 
     // Group dice by damage type
     const typeMap: DamageTypeMap = new Map();
-    if ((base.diceNumber && base.dieSize) || base.modifier > 0) {
+    if ((base.diceNumber && base.dieSize) || base.modifier) {
         typeMap.set(base.damageType, [
             {
                 dice:
@@ -42,6 +43,7 @@ function createDamageFormula(
                 persistent: false,
                 precision: false,
                 splash: false,
+                materials: base.materials ?? [],
             },
         ]);
     }
@@ -129,9 +131,11 @@ function instancesFromTypeMap(
         const enclosed = hasOperators(summedDamage) ? `(${summedDamage})` : summedDamage;
 
         const flavor = ((): string => {
-            const typeFlavor = damageType === "untyped" && !persistent ? "" : damageType;
-            const precisionFlavor = persistent ? ",persistent" : "";
-            return `[${typeFlavor}${precisionFlavor}]`;
+            const typeFlavor = damageType === "untyped" && !persistent ? [] : [damageType];
+            const persistentFlavor = persistent ? ["persistent"] : [];
+            const materialFlavor = typePartials.flatMap((p) => p.materials ?? []);
+            const allFlavor = [typeFlavor, persistentFlavor, materialFlavor].flat().join(",");
+            return allFlavor.length > 0 ? `[${allFlavor}]` : "";
         })();
 
         return enclosed && flavor ? `${enclosed}${flavor}` : enclosed ?? [];
@@ -147,10 +151,7 @@ function partialFormula(
     const requestedPartials = partials.filter(
         (p) => (critical ? p.critical !== null : !p.critical) && (special ? p[special] : !isSpecialPartial(p))
     );
-    const constant = Math.max(
-        requestedPartials.filter((p) => p.modifier > 0).reduce((total, p) => total + p.modifier, 0),
-        0
-    );
+    const constant = requestedPartials.reduce((total, p) => total + p.modifier, 0);
 
     // Group dice by number of faces and combine into dice-expression strings
     const dice = requestedPartials.filter(
@@ -165,7 +166,7 @@ function partialFormula(
             return expressions;
         }, []);
 
-    const term = [combinedDice, constant || []].flat().join(" + ");
+    const term = [combinedDice, Math.abs(constant) || []].flat().join(constant > 0 ? " + " : " - ");
     const flavored = term && special ? `${term}[${special}]` : term;
 
     return flavored || null;
@@ -197,6 +198,7 @@ interface DamagePartial {
     persistent: boolean;
     precision: boolean;
     critical: boolean | null;
+    materials?: WeaponMaterialEffect[];
 }
 
 export { createDamageFormula };

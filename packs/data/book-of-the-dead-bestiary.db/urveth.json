@@ -1534,7 +1534,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Huge, [[/r {2d10+5}[bludgeoning]]]{2d10+5 bludgeoning}, Rupture 35</p>\n<p>A living creature that ends its turn swallowed whole by an urveth becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} or increases its drained condition by 1, and the urveth gains 10 temporary Hit Points. A creature whose drained condition increases to 5 in this way dies.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Huge, [[/r (2d10+5)[bludgeoning]]], Rupture 35</p>\n<p>A living creature that ends its turn swallowed whole by an urveth becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} or increases its drained condition by 1, and the urveth gains 10 temporary Hit Points. A creature whose drained condition increases to 5 in this way dies.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1849,12 +1849,35 @@
                 "temp": 0,
                 "value": 460
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 32
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "details": "air walk",
                 "otherSpeeds": [
@@ -1865,7 +1888,17 @@
                 ],
                 "special": "",
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 15
+                },
+                {
+                    "type": "silver",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1898,36 +1931,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "good",
-                    "value": 15
-                },
-                {
-                    "exceptions": "",
-                    "type": "silver",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

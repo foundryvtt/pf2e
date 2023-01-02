@@ -314,7 +314,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>If the zombie horse is adjacent to a helpless or @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} creature, or a deceased creature that died in the past hour, the zombie can feast upon its flesh to heal itself. This restores [[/r {1}[Healing]]]{1 Hit Point}. If the creature is alive, the zombie horse deals damage equal to its jaws damage.</p>"
+                    "value": "<p>If the zombie horse is adjacent to a helpless or @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} creature, or a deceased creature that died in the past hour, the zombie can feast upon its flesh to heal itself. This restores [[/r 1[healing]]]{1 Hit Point}. If the creature is alive, the zombie horse deals damage equal to its jaws damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -402,6 +402,26 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -411,7 +431,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -444,28 +474,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 10
-                },
-                {
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

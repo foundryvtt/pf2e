@@ -317,7 +317,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {2d6+6}[bludgeoning] + {2d8}[fire]]]{2d6+6 bludgeoning plus 2d8 fire} and Residual Light, @Check[type:fortitude|dc:34|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {(2d6+6)[bludgeoning],2d8[fire]}]]{2d6+6 bludgeoning plus 2d8 fire} and Residual Light, @Check[type:fortitude|dc:34|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -595,6 +595,17 @@
                 "temp": 0,
                 "value": 255
             },
+            "immunities": [
+                {
+                    "type": "blinded"
+                },
+                {
+                    "type": "dazzled"
+                },
+                {
+                    "type": "fire"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -604,7 +615,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 35
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -637,22 +654,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "blinded",
-                    "dazzled",
-                    "fire"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "(Can't Speak Any Languages)",
                 "selected": [],

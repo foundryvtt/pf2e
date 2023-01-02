@@ -63,7 +63,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Anytime a wizard sponge would take fire damage, it instead regains [[/r {1d8}[healing]]]{1d8 Hit Points} (regardless of the amount of damage the fire effect would have caused).</p>"
+                    "value": "<p>Anytime a wizard sponge would take fire damage, it instead regains [[/r 1d8[healing]]]{1d8 Hit Points} (regardless of the amount of damage the fire effect would have caused).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -321,12 +321,39 @@
                 "temp": 0,
                 "value": 65
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 10
             },
+            "resistances": [
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -335,7 +362,17 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -371,41 +408,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "critical-hits",
-                    "fire",
-                    "mental",
-                    "precision",
-                    "visual"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "area-damage",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "splash-damage",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

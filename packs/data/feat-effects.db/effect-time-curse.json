@@ -61,22 +61,6 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "oracular-curse:stage:minor",
-                    {
-                        "or": [
-                            "inflicts:fatigued",
-                            "inflicts:slowed"
-                        ]
-                    }
-                ],
-                "selector": "saving-throw",
-                "slug": "time-curse-minor",
-                "value": -2
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "oracular-curse:stage:minor",
                     {
                         "or": [
                             "inflicts:fatigued",
@@ -126,6 +110,31 @@
                 "selector": "initiative",
                 "type": "status",
                 "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "oracular-curse:stage:moderate"
+                ],
+                "selector": "saving-throw",
+                "slug": "time-curse-minor",
+                "value": -3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:major",
+                            "oracular-curse:stage:extreme"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "time-curse-minor",
+                "value": -4
             }
         ],
         "source": {
@@ -143,7 +152,8 @@
             "custom": "",
             "rarity": "common",
             "value": []
-        }
+        },
+        "unidentified": false
     },
     "type": "effect"
 }

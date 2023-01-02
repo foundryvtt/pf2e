@@ -148,7 +148,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d10+5}[bludgeoning]]]{1d10+5 bludgeoning}, @Check[type:fortitude|dc:25|basic:true]</p>\n<hr />\n<p>On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} on a critical failure).</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (1d10+5)[bludgeoning]]], @Check[type:fortitude|dc:25|basic:true]</p>\n<hr />\n<p>On a failed save, the target is also @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (@UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} on a critical failure).</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -338,6 +338,26 @@
                 "temp": 0,
                 "value": 145
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -347,7 +367,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 15
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -380,25 +406,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "drained",
-                    "fatigued",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

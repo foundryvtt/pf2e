@@ -4321,7 +4321,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<ul>\n<li><strong>Bat</strong> Harmony changes into a @UUID[Compendium.pf2e.pathfinder-bestiary.Giant Bat]{Giant Bat}. She gains echolocation 40 feet, a land Speed of 20 feet and a fly Speed of 30 feet, and a fangs Strike ([[/r 1d20+26]]{+26}, [[/r 1d20+21]]{+21}, [[/r 1d20+16]]{+16}) [[/r {3d8+10}[piercing]]]{3d8+10 piercing}.</li>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<ul>\n<li><strong>Bat</strong> Harmony changes into a @UUID[Compendium.pf2e.pathfinder-bestiary.Giant Bat]{Giant Bat}. She gains echolocation 40 feet, a land Speed of 20 feet and a fly Speed of 30 feet, and a fangs Strike ([[/r 1d20+26]]{+26}, [[/r 1d20+21]]{+21}, [[/r 1d20+16]]{+16}) [[/r (3d8+10)[piercing]]].</li>\n</ul>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -4798,12 +4798,39 @@
                 "temp": 0,
                 "value": 200
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 23
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "magical",
+                        "silver"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -4812,7 +4839,13 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "vampire-weaknesses",
+                    "value": 1
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -4850,30 +4883,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except magical silver",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "vampire-weaknesses",
-                    "value": 1
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

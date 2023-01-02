@@ -369,7 +369,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Falrok is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> Falrok devours a chunk of the corpse and regains [[/r {8d6}[healing]]]{8d6 Hit Points}.</p>\n<p>He can regain Hit Points from any given corpse only once.</p>"
+                    "value": "<p><strong>Requirements</strong> Falrok is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> Falrok devours a chunk of the corpse and regains [[/r 8d6[healing]]]{8d6 Hit Points}.</p>\n<p>He can regain Hit Points from any given corpse only once.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -884,12 +884,35 @@
                 "temp": 0,
                 "value": 250
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 28
             },
+            "resistances": [
+                {
+                    "type": "positive",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -931,24 +954,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "positive",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

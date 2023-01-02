@@ -1360,7 +1360,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the Aspect of Immortality hits and deals damage with its scythe, it regains [[/r {20}[healing]]]{20 Hit Points}, and the target must succeed at a @Check[type:fortitude|dc:43] save or become @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}. If the target is already doomed, the doomed value increases by 1 (to a maximum of doomed 3).</p>"
+                    "value": "<p>When the Aspect of Immortality hits and deals damage with its scythe, it regains [[/r 20[healing]]]{20 Hit Points}, and the target must succeed at a @Check[type:fortitude|dc:43] save or become @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}. If the target is already doomed, the doomed value increases by 1 (to a maximum of doomed 3).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1701,12 +1701,35 @@
                 "temp": 0,
                 "value": 320
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 41
             },
+            "resistances": [
+                {
+                    "type": "all-damage",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1753,24 +1776,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "all",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

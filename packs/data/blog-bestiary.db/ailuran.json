@@ -691,10 +691,10 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {}
@@ -989,7 +989,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The ailuran eats an amount of silver equal to 10 sp and regains [[/r {1d6}[healing]]]{1d6 Hit Points}. An ailuran can subsist by consuming silver instead of normal food.</p>"
+                    "value": "<p>The ailuran eats an amount of silver equal to 10 sp and regains [[/r 1d6[healing]]]{1d6 Hit Points}. An ailuran can subsist by consuming silver instead of normal food.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1341,10 +1341,25 @@
             "perception": {
                 "value": 14
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "silver"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1385,24 +1400,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "exceptions": "except Silver only",
-                    "type": "physical",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "coldiron",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -2283,7 +2283,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {2d10+17}[bludgeoning]+{2d6}[evil]]]{2d10+17 bludgeoning plus 2d6 evil}, @Check[type:fortitude|dc:43|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {(2d10+17)[bludgeoning],2d6[evil]}]]{2d10+17 bludgeoning plus 2d6 evil}, @Check[type:fortitude|dc:43|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2812,12 +2812,30 @@
                 "temp": 0,
                 "value": 335
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 37
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "silver"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                },
+                {
+                    "type": "poison",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -2826,7 +2844,13 @@
                     }
                 ],
                 "value": 35
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -2864,30 +2888,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fire"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except silver",
-                    "type": "physical",
-                    "value": 15
-                },
-                {
-                    "type": "poison",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "type": "good",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

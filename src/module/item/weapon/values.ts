@@ -25,7 +25,7 @@ const WEAPON_GROUPS = new Set([...MELEE_WEAPON_GROUPS, ...MANDATORY_RANGED_GROUP
 const WEAPON_MATERIAL_EFFECTS = new Set([
     "abysium",
     "adamantine",
-    "coldIron",
+    "cold-iron",
     "djezet",
     "silver",
     "mithral",
@@ -34,7 +34,7 @@ const WEAPON_MATERIAL_EFFECTS = new Set([
     "silver",
     "sisterstone-dusk",
     "sisterstone-scarlet",
-    "sovereignSteel",
+    "sovereign-steel",
 ] as const);
 
 const WEAPON_PROPERTY_RUNE_TYPES = new Set([
