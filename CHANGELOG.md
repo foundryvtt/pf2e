@@ -2,6 +2,9 @@
 
 ## Version 4.6.1
 
+### System Improvements
+* (Supe) Include spell materials (when present) in message headers
+
 ### Bugfixes
 * (In3luki) Fix AELike rule elements' handling of arrays
 * (In3luki) Fix issue causing validation to incorrectly fail for Weakness and Resistance rule elements
@@ -12,7 +15,6 @@
 * (Supe) Fix dragging persistent inline rolls from actor item summaries
 * (Supe) Fix first-level daze with negative modifier
 * (Supe) Fix sheet crashes caused by invalid spell formulas
-* (Supe) Include spell materials when present in message headers
 * (Supe) Fix structural issues in some spell data
 
 ### Data Updates
@@ -37,6 +39,7 @@
 * (Supe) Include damage modifiers and dice in roll inspector
 
 ### Bugfixes
+* (Dana) Fix tokens with animated art disappearing on reload/scene switch
 * (Dire Weasel) Fix torch item not adding its "improvised tag"
 * (stwlam) Avoid double application of modifiers to speeds derived from land speed
 * (stwlam) Fix errant natural 1 or 20 highlighting when TMun rolls 2d20
@@ -44,7 +47,6 @@
 
 ### Data Updates
 * (Cerapter) Localise MarkToken RE's cancel notification
-* (Dana) Fix tokens with animated art disappearing on reload/scene switch
 * (Dire Weasel) Add choice localized strings
 * (Dire Weasel) Fix source of Shadow Leydroth
 * (Dire Weasel) Localize Muse choice labels
