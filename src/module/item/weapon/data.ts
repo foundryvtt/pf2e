@@ -38,6 +38,8 @@ type WeaponData = Omit<WeaponSource, "system" | "effects" | "flags"> &
 
 type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {
+        /** Whether this attack is from a battle form */
+        battleForm?: boolean;
         comboMeleeUsage: boolean;
     };
 };
