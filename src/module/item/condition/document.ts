@@ -7,7 +7,7 @@ import { ConditionData, ConditionKey, ConditionSlug, ConditionSystemData, Persis
 import { DamageRoll } from "@system/damage/roll";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenDocumentPF2e } from "@scene";
-import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
+import { DamageCategorization, PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
@@ -52,6 +52,19 @@ class ConditionPF2e extends AbstractEffectPF2e {
     /** Is the condition found in the token HUD menu? */
     get isInHUD(): boolean {
         return this.system.sources.hud;
+    }
+
+    /** Include damage type and possibly category for persistent-damage conditions */
+    override getRollOptions(prefix = this.type): string[] {
+        const options = super.getRollOptions(prefix);
+        if (this.system.persistent) {
+            const { damageType } = this.system.persistent;
+            options.push(`damage:type:${damageType}`);
+            const category = DamageCategorization.fromDamageType(damageType);
+            if (category) options.push(`damage:category:${category}`);
+        }
+
+        return options;
     }
 
     override async increase(): Promise<void> {

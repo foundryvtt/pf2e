@@ -1,3 +1,4 @@
+import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values";
 import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@module/scene";
 import { pick } from "@util";
@@ -113,7 +114,6 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (gangingUp) return true;
 
         // The Side By Side feat with tie-in to the PF2e Animal Companion Compendia module
-        const ANIMAL_COMPANION_SOURCE_ID = "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.h6Ybhv5URar01WPk";
         const sideBySide =
             this.isAdjacentTo(flankee) &&
             flanking.canGangUp.includes("animal-companion") &&

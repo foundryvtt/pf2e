@@ -9,7 +9,15 @@ import { ErrorPF2e, isObject, setHasElement, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource } from "@module/rules";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers";
 import { ContainerPF2e } from "./container";
-import { FeatSource, ItemDataPF2e, ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data";
+import {
+    ConditionSource,
+    FeatSource,
+    ItemDataPF2e,
+    ItemSourcePF2e,
+    ItemSummaryData,
+    ItemType,
+    TraitChatData,
+} from "./data";
 import { isItemSystemData, isPhysicalData } from "./data/helpers";
 import { PhysicalItemPF2e } from "./physical/document";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
@@ -390,13 +398,26 @@ class ItemPF2e extends Item<ActorPF2e> {
 
         // Check if this item is valid for this actor
         for (const datum of data) {
-            if (datum.type && !validTypes.includes(datum.type)) {
+            if (!validTypes.includes(datum.type)) {
                 ui.notifications.error(
                     game.i18n.format("PF2E.Item.CannotAddType", {
                         type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
                     })
                 );
                 return [];
+            }
+        }
+
+        // Prevent creation of conditions to which the actor is immune
+        for (const datum of data.filter((d): d is PreCreate<ConditionSource> => d.type === "condition")) {
+            const condition = new CONFIG.PF2E.Item.documentClasses.condition(deepClone(datum), { parent: actor });
+            const isUnaffected = !actor.isAffectedBy(condition);
+            const isImmune = actor.isImmuneTo(condition);
+            if (isUnaffected || isImmune) {
+                const locKey = isUnaffected ? "PF2E.Damage.IWR.ActorIsUnaffected" : "PF2E.Damage.IWR.ActorIsImmune";
+                const message = game.i18n.format(locKey, { actor: actor.name, effect: condition.name });
+                ui.notifications.info(message);
+                data.splice(data.indexOf(datum), 1);
             }
         }
 
