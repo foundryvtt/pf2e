@@ -1,5 +1,26 @@
 # Changelog
 
+## Version 4.6.1
+
+### Bugfixes
+* (In3luki) Fix AELike rule elements' handling of arrays
+* (In3luki) Fix issue causing validation to incorrectly fail for Weakness and Resistance rule elements
+* (In3luki) Update Hazard sheet sidebar template to new IWR format
+* (stwlam) Exclude rule-element-added IWR from IWR editor form submission
+* (stwlam) Fix errant exclusion of negative modifiers in damage rolls
+* (stwlam) Restore presence of triple-damage buttons when setting is enabled
+* (Supe) Fix dragging persistent inline rolls from actor item summaries
+* (Supe) Fix first-level daze with negative modifier
+* (Supe) Fix sheet crashes caused by invalid spell formulas
+* (Supe) Include spell materials when present in message headers
+* (Supe) Fix structural issues in some spell data
+
+### Data Updates
+* (Abaddon) Fix adamantine golem resistance exception
+* (Abaddon) Update baomal's shell rake damage
+* (Tikael) Change a few feats from using DamageDice REs to AdjustStrike ones
+* (Tikael) Fix automation of Time and Ash oracle curses
+
 ## Version 4.6.0
 
 ## New Features
