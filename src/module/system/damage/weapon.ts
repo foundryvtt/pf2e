@@ -567,7 +567,7 @@ class WeaponDamagePF2e {
 
     /** Determine whether the damage source is a strength-based statistic */
     static strengthBasedDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
-        return weapon.isMelee || (weapon.isThrown && !(weapon.traits.has("splash") || weapon.traits.has("bomb")));
+        return weapon.isMelee || (weapon.isThrown && !weapon.traits.has("splash"));
     }
 
     /** Determine whether a strike's damage includes the actor's strength modifier */
