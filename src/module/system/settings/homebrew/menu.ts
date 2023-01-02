@@ -60,9 +60,7 @@ class HomebrewElements extends SettingsMenuPF2e {
                 name: "PF2E.SETTINGS.Homebrew.DamageTypes.Name",
                 default: [],
                 type: Object,
-                onChange: () => {
-                    window.location.reload();
-                },
+                requiresReload: true,
             },
         };
     }

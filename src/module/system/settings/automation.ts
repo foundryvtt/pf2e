@@ -21,9 +21,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 hint: CONFIG.PF2E.SETTINGS.automation.rulesBasedVision.hint,
                 default: true,
                 type: Boolean,
-                onChange: () => {
-                    window.location.reload();
-                },
+                requiresReload: true,
             },
             iwr: {
                 name: CONFIG.PF2E.SETTINGS.automation.iwr.name,
