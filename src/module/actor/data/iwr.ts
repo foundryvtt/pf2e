@@ -9,7 +9,7 @@ abstract class IWRData<TType extends IWRType> {
 
     readonly exceptions: TType[];
 
-    readonly source: string | null;
+    source: string | null;
 
     protected abstract readonly typeLabels: Record<TType, string>;
 
