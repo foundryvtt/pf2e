@@ -33,6 +33,7 @@ class ResistanceRuleElement extends IWRRuleElement {
                     resistances.splice(resistances.indexOf(current), 1);
                 } else {
                     current.value = Math.max(current.value, value);
+                    current.source = this.label;
                     this.type.splice(this.type.indexOf(resistanceType), 1);
                 }
             }

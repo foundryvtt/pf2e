@@ -20,6 +20,7 @@ class WeaknessRuleElement extends IWRRuleElement {
                     weaknesses.splice(weaknesses.indexOf(current), 1);
                 } else {
                     current.value = Math.max(current.value, value);
+                    current.source = this.label;
                     this.type.splice(this.type.indexOf(weaknessType), 1);
                 }
             }
