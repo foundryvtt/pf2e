@@ -106,7 +106,7 @@ export const DamageButtons = {
 async function applyDamage(
     message: ChatMessagePF2e,
     multiplier: number,
-    adjustment = 0,
+    addend = 0,
     promptModifier = false
 ): Promise<void> {
     if (promptModifier) return shiftModifyDamage(message, multiplier);
@@ -126,7 +126,7 @@ async function applyDamage(
         await token.actor?.applyDamage({
             damage: roll,
             token: token.document,
-            adjustment,
+            addend,
             multiplier,
             shieldBlockRequest,
         });

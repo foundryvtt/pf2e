@@ -4,7 +4,11 @@ import { objectHasKey } from "@util";
 import { DamageInstance, DamageRoll } from "./roll";
 
 /** Apply an actor's IWR applications to an evaluated damage roll's instances */
-function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationData {
+function applyIWR(
+    actor: ActorPF2e,
+    roll: Rolled<DamageRoll>,
+    { multiplier, addend }: { multiplier: number; addend: number }
+): IWRApplicationData {
     const { immunities, weaknesses, resistances } = actor.attributes;
 
     const instances = roll.instances as Rolled<DamageInstance>[];
@@ -20,13 +24,21 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
     const applications = instances
         .flatMap((instance): IWRApplication[] => {
             const { formalDescription, total } = instance;
+            const adjustedTotal = Math.floor(
+                Math.max(
+                    // Only add `adjustment` value to the first instance
+                    total * multiplier + (instances.indexOf(instance) === 0 ? addend : 0),
+                    0
+                )
+            );
+
             const instanceApplications: IWRApplication[] = [];
 
             if (!game.settings.get("pf2e", "automation.iwr")) return [];
 
             // Step 1: Inapplicable damage outside the IWR framework
             if (objectHasKey(damageIsApplicable, instance.type) && !damageIsApplicable[instance.type]) {
-                return [{ category: "unaffected", type: instance.type, adjustment: -1 * total }];
+                return [{ category: "unaffected", type: instance.type, adjustment: -1 * adjustedTotal }];
             }
 
             // Step 2: Immunities
@@ -36,7 +48,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
                 instanceApplications.push({
                     category: "immunity",
                     type: immunity.typeLabel,
-                    adjustment: -1 * total,
+                    adjustment: -1 * adjustedTotal,
                 });
             } else if (hasPrecisionImmunity) {
                 const precisionDamage = instance.partialTotal("precision");
@@ -44,12 +56,15 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
                     instanceApplications.push({
                         category: "immunity",
                         type: "precision",
-                        adjustment: -1 * Math.min(total, precisionDamage),
+                        adjustment: -1 * Math.min(adjustedTotal, precisionDamage),
                     });
                 }
             }
 
-            const afterImmunities = Math.max(total + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0), 0);
+            const afterImmunities = Math.max(
+                adjustedTotal + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0),
+                0
+            );
             if (afterImmunities === 0) return instanceApplications;
 
             // Step 3: Weaknesses
