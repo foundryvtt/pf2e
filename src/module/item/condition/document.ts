@@ -91,6 +91,9 @@ class ConditionPF2e extends AbstractEffectPF2e {
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
 
+        const folder = CONFIG.PF2E.statusEffects.iconDir;
+        this.img = `${folder}${this.slug}.webp`;
+
         if (systemData.persistent) {
             const { formula, damageType } = systemData.persistent;
             const roll = new DamageRoll(`(${formula})[persistent,${damageType}]`, {}, { evaluatePersistent: true });
@@ -99,16 +102,13 @@ class ConditionPF2e extends AbstractEffectPF2e {
             const localizationKey = `PF2E.Item.Condition.PersistentDamage.${dc !== null ? "NameWithDC" : "Name"}`;
             this.name = game.i18n.format(localizationKey, {
                 formula,
-                damageType: game.i18n.localize(`PF2E.Damage.RollFlavor.${damageType}`),
+                damageType: game.i18n.localize(CONFIG.PF2E.damageRollFlavors[damageType] ?? damageType),
                 dc,
             });
 
             systemData.persistent.damage = roll;
             systemData.persistent.expectedValue = roll.expectedValue;
-            this.img = PERSISTENT_DAMAGE_IMAGES[damageType] ?? this._source.img;
-        } else {
-            const folder = CONFIG.PF2E.statusEffects.iconDir;
-            this.img = `${folder}${this.slug}.webp`;
+            this.img = PERSISTENT_DAMAGE_IMAGES[damageType] ?? this.img;
         }
     }
 
