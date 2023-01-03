@@ -86,11 +86,10 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
         if (this.system.persistent) {
             const roll = await this.system.persistent.damage.clone().evaluate({ async: true });
-            const label = game.i18n.format("PF2E.Item.Condition.PersistentDamage.Name", { formula: roll.formula });
             roll.toMessage(
                 {
                     speaker: ChatMessagePF2e.getSpeaker({ actor: actor, token }),
-                    flavor: `<strong>${label}</strong>`,
+                    flavor: `<strong>${this.name}</strong>`,
                 },
                 { rollMode: "publicroll" }
             );
