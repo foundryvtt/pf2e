@@ -537,21 +537,25 @@ class SpellPF2e extends ItemPF2e {
     }
 
     override getRollOptions(prefix = this.type): string[] {
-        const options = new Set<string>();
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const options = new Set(["magical", `${delimitedPrefix}magical`]);
 
         const entryHasSlots = this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous;
         if (entryHasSlots && !this.isCantrip && !this.isFromConsumable) {
-            options.add(`${prefix}:spell-slot`);
+            options.add(`${delimitedPrefix}spell-slot`);
         }
 
         if (!this.system.duration.value) {
-            options.add(`${prefix}:duration:0`);
+            options.add(`${delimitedPrefix}duration:0`);
         }
 
         for (const damage of Object.values(this.system.damage.value)) {
+            if (damage.type) {
+                options.add(`${delimitedPrefix}damage:${damage.type.value}`);
+                options.add(`${delimitedPrefix}damage:type:${damage.type.value}`);
+            }
             const category = DamageCategorization.fromDamageType(damage.type.value);
-            if (damage.type) options.add(`${prefix}:damage:${damage.type.value}`);
-            if (category) options.add(`${prefix}:damage:${category}`);
+            if (category) options.add(`${delimitedPrefix}damage:category:${category}`);
         }
 
         if (this.system.spellType.value !== "heal") {

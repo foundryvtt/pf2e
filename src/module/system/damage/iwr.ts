@@ -1,10 +1,10 @@
 import { ActorPF2e } from "@actor";
-import { ResistanceData, WeaknessData } from "@actor/data/iwr";
+import { WeaknessData } from "@actor/data/iwr";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { DamageInstance, DamageRoll } from "./roll";
 
 /** Apply an actor's IWR applications to an evaluated damage roll's instances */
-function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationData {
+function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<string>): IWRApplicationData {
     const { immunities, weaknesses, resistances } = actor.attributes;
 
     const instances = roll.instances as Rolled<DamageInstance>[];
@@ -13,7 +13,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
         .flatMap((instance): IWRApplication[] => {
             if (!game.settings.get("pf2e", "automation.iwr")) return [];
 
-            const { formalDescription } = instance;
+            const formalDescription = new Set([...instance.formalDescription, ...rollOptions]);
 
             // Step 0: Inapplicable damage outside the IWR framework
             if (!actor.isAffectedBy(instance.type)) {
@@ -61,7 +61,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
                 const adjustment = -1 * Math.min(total, adjustedPrecisionDamage);
                 instanceApplications.push({
                     category: "immunity",
-                    type: precisionImmunity.label,
+                    type: precisionImmunity.applicationLabel,
                     adjustment,
                 });
             }
@@ -82,24 +82,29 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
             if (highestWeakness) {
                 instanceApplications.push({
                     category: "weakness",
-                    type: highestWeakness.typeLabel,
+                    type: highestWeakness.applicationLabel,
                     adjustment: highestWeakness.value,
                 });
             }
             const afterWeaknesses = afterImmunities + (highestWeakness?.value ?? 0);
 
             // Step 3: Resistances
-            const applicableResistances = resistances.filter((r) => r.test(formalDescription));
+            const applicableResistances = resistances
+                .filter((r) => r.test(formalDescription))
+                .map((r): { label: string; value: number } => ({
+                    label: r.applicationLabel,
+                    value: r.getDoubledValue(formalDescription),
+                }));
             const highestResistance = applicableResistances.reduce(
-                (highest: ResistanceData | null, w) =>
-                    w && !highest ? w : w && highest && w.value > highest.value ? w : highest,
+                (highest: { label: string; value: number } | null, r) =>
+                    r && !highest ? r : r && highest && r.value > highest.value ? r : highest,
                 null
             );
 
             if (highestResistance?.value) {
                 instanceApplications.push({
                     category: "resistance",
-                    type: highestResistance.typeLabel,
+                    type: highestResistance.label,
                     adjustment: -1 * Math.min(afterWeaknesses, highestResistance.value),
                 });
             }

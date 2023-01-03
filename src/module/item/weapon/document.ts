@@ -18,7 +18,8 @@ import {
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
 import { OneToThree } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
-import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
+import { DamageCategorization } from "@system/damage";
+import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import { WeaponDamage, WeaponData, WeaponMaterialData, WeaponSource } from "./data";
 import {
     BaseWeaponType,
@@ -144,8 +145,12 @@ class WeaponPF2e extends PhysicalItemPF2e {
     override getRollOptions(prefix = "weapon"): string[] {
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const damage = {
+            category: DamageCategorization.fromDamageType(this.system.damage.damageType),
             type: this.system.damage.damageType,
-            dieFaces: Number(this.system.damage.die?.replace(/^d/, "")),
+            dice: {
+                number: this.system.damage.die ? this.system.damage.dice : 0,
+                faces: Number(this.system.damage.die?.replace(/^d/, "")),
+            },
         };
         const { actor } = this;
         const actorSize = actor?.system.traits.size;
@@ -162,6 +167,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
             const baseTypes = [this.baseType ?? [], equivalentBases[this.baseType ?? ""] ?? []].flat();
             return baseTypes.reduce((types, t) => ({ ...types, [`base:${t}`]: true }), {} as Record<string, boolean>);
         })();
+        const propertyRunes = this.system.runes.property
+            .map((p) => `rune:property:${sluggify(p)}`)
+            .reduce((statements, s) => ({ ...statements, [s]: true }), {} as Record<string, boolean>);
 
         return [
             super.getRollOptions(prefix),
@@ -175,7 +183,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
                 [`damage:type:${damage.type}`]: true,
-                [`damage:die:faces:${damage.dieFaces}`]: true,
+                [`damage:category:${damage.category}`]: !!damage.category,
+                [`damage:die:number:${damage.dice.number}`]: true,
+                [`damage:die:faces:${damage.dice.faces}`]: true,
                 [`damage-dice:${this.system.damage.dice}`]: true,
                 "deity-favored": isDeityFavored,
                 oversized,
@@ -183,6 +193,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 ranged: this.isRanged,
                 thrown: this.isThrown,
                 "thrown-melee": thrownMelee,
+                ...propertyRunes,
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => `${delimitedPrefix}${key}`),
