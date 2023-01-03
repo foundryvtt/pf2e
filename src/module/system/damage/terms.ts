@@ -31,6 +31,11 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
 
     static override SERIALIZE_ATTRIBUTES = ["operator", "operands"];
 
+    static override fromData<TTerm extends RollTerm>(this: ConstructorOf<TTerm>, data: TermDataOf<TTerm>): TTerm;
+    static override fromData(data: RollTermData): RollTerm {
+        return super.fromData({ ...data, class: "ArithmeticExpression" });
+    }
+
     static totalOf(
         operator: ArithmeticOperator,
         left: number | undefined,
