@@ -912,6 +912,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         token,
         addend = 0,
         multiplier = 1,
+        rollOptions = new Set(),
         shieldBlockRequest = false,
     }: ApplyDamageParams): Promise<this> {
         const { hitPoints } = this;
@@ -923,7 +924,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 ? { finalDamage: Math.trunc(damage * multiplier - addend), applications: [] }
                 : multiplier < 0
                 ? { finalDamage: Math.trunc(damage.total * multiplier - addend), applications: [] }
-                : applyIWR(this, damage);
+                : applyIWR(this, damage, rollOptions);
         const { finalDamage } = result;
 
         // Calculate damage to hit points and shield

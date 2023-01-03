@@ -126,6 +126,7 @@ async function applyDamage(
         await token.actor?.applyDamage({
             damage: roll.alter(multiplier, addend),
             token: token.document,
+            rollOptions: new Set(message.flags.pf2e.context?.options ?? []),
             shieldBlockRequest,
         });
     }

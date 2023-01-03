@@ -101,6 +101,8 @@ interface ApplyDamageParams {
     token: TokenDocumentPF2e;
     addend?: number;
     multiplier?: number;
+    /** Predicate statements from the damage roll */
+    rollOptions?: Set<string>;
     shieldBlockRequest?: boolean;
 }
 
