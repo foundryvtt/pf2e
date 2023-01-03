@@ -292,12 +292,12 @@ class SpellPF2e extends ItemPF2e {
                 );
             modifiers.push(...abilityModifiers);
             modifiers.push(...extractModifiers(actor.synthetics, domains, { resolvables: { spell: this } }));
+            const testedModifiers = new StatisticModifier("spell-damage", modifiers, options).modifiers.filter(
+                (m) => m.enabled
+            );
 
             // Add modifiers to instances
-            for (const modifier of modifiers) {
-                modifier.test(options);
-                if (modifier.ignored) continue;
-
+            for (const modifier of testedModifiers) {
                 const damageType = modifier.damageType;
                 if (!damageType) {
                     Object.values(formulas)[0]?.modifiers.push(modifier);
