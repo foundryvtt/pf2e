@@ -6,7 +6,7 @@ import { RollDataPF2e } from "@system/rolls";
 import { ErrorPF2e, fontAwesomeIcon, isObject, setHasElement } from "@util";
 import Peggy from "peggy";
 import { DamageCategorization, deepFindTerms, renderSplashDamage } from "./helpers";
-import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "./terms";
+import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms";
 import { DamageCategory, DamageTemplate, DamageType } from "./types";
 import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
 
@@ -61,7 +61,7 @@ class DamageRoll extends AbstractDamageRoll {
         if (!poolData) {
             return [];
         } else if (!["PoolTerm", "InstancePool"].includes(poolData.class ?? "")) {
-            throw ErrorPF2e("A damage roll must consist of a single PoolTerm");
+            throw ErrorPF2e("A damage roll must consist of a single InstancePool");
         }
 
         this.classifyDice(poolData);
@@ -204,38 +204,40 @@ class DamageRoll extends AbstractDamageRoll {
             return this;
         }
 
-        const instanceClones = [];
-        if (multiplier !== 1) {
-            const multiplierTerm = new NumericTerm({ number: multiplier });
-            multiplierTerm._evaluated = true;
+        const instanceClones: DamageInstance[] = [];
+        if (multiplier === 1) {
+            instanceClones.push(DamageInstance.fromData(instances[0].toJSON()));
+        } else {
+            const multiplierTerm: NumericTermData = { class: "NumericTerm", number: multiplier };
 
             instanceClones.push(
-                ...instances.map((i) => {
+                ...instances.map((instance) => {
+                    console.debug(instance.head.toJSON());
+                    const rightOperand: RollTermData | GroupingData =
+                        instance.head instanceof ArithmeticExpression && ["+", "-"].includes(instance.head.operator)
+                            ? { class: "Grouping", term: instance.head.toJSON() }
+                            : instance.head.toJSON();
+
                     const expression = new ArithmeticExpression({
                         operator: "*",
-                        operands: [
-                            multiplierTerm,
-                            i.head instanceof ArithmeticExpression && ["+", "-"].includes(i.head.operator)
-                                ? new Grouping({ term: i.head, evaluated: true })
-                                : i.head,
-                        ],
+                        operands: [multiplierTerm, rightOperand],
                     });
                     if ([2, 3].includes(multiplier)) expression.options.crit = multiplier;
                     expression._evaluated = true;
 
-                    return DamageInstance.fromTerms([expression], deepClone(i.options));
+                    return DamageInstance.fromTerms([expression], deepClone(instance.options));
                 })
             );
         }
 
         if (addend !== 0) {
-            const addendTerm = new NumericTerm({ number: Math.abs(addend) });
-            addendTerm._evaluated = true;
-
             const firstInstance = instanceClones[0]!;
+            const termClone: GroupingData = { class: "Grouping", term: firstInstance.head.toJSON() };
+            const addendTerm: NumericTermData = { class: "NumericTerm", number: Math.abs(addend) };
+
             const expression = new ArithmeticExpression({
                 operator: addend >= 0 ? "+" : "-",
-                operands: [addendTerm, new Grouping({ term: firstInstance.head, evaluated: true })],
+                operands: [termClone, addendTerm],
                 evaluated: true,
                 options: deepClone(firstInstance.options),
             });
@@ -284,13 +286,8 @@ class DamageInstance extends AbstractDamageRoll {
         if (!syntaxTree) return [];
 
         DamageRoll.classifyDice(syntaxTree);
-        if (syntaxTree.class === "Die") {
-            return [Die.fromData(syntaxTree)];
-        } else if (syntaxTree.class in CONFIG.Dice.termTypes) {
-            return [CONFIG.Dice.termTypes[syntaxTree.class].fromData(syntaxTree)];
-        }
 
-        return [];
+        return [RollTerm.fromData(syntaxTree)];
     }
 
     static override fromData<TRoll extends Roll>(this: ConstructorOf<TRoll>, data: RollJSON): TRoll;

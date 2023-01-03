@@ -11,9 +11,18 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
 
     const applications = instances
         .flatMap((instance): IWRApplication[] => {
+            if (!game.settings.get("pf2e", "automation.iwr")) return [];
+
             const { formalDescription } = instance;
 
-            // Step 0: Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
+            // Step 0: Inapplicable damage outside the IWR framework
+            if (!actor.isAffectedBy(instance.type)) {
+                return [{ category: "unaffected", type: instance.type, adjustment: -1 * instance.total }];
+            }
+
+            // Step 1: Immunities
+
+            // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
             // (or untriple) the total
             const critImmunity = immunities.find((i) => i.type === "critical-hits");
             const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
@@ -25,15 +34,6 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
                     : instance.total;
 
             const instanceApplications: IWRApplication[] = [];
-
-            if (!game.settings.get("pf2e", "automation.iwr")) return [];
-
-            // Step 1: Inapplicable damage outside the IWR framework
-            if (!actor.isAffectedBy(instance.type)) {
-                return [{ category: "unaffected", type: instance.type, adjustment: -1 * total }];
-            }
-
-            // Step 2: Immunities
 
             // If the total was undoubled, log it as an immunity application
             if (critImmunity && total < instance.total) {
@@ -82,13 +82,13 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
             if (highestWeakness) {
                 instanceApplications.push({
                     category: "weakness",
-                    type: highestWeakness.label,
+                    type: highestWeakness.typeLabel,
                     adjustment: highestWeakness.value,
                 });
             }
             const afterWeaknesses = afterImmunities + (highestWeakness?.value ?? 0);
 
-            // Step 4: Resistances
+            // Step 3: Resistances
             const applicableResistances = resistances.filter((r) => r.test(formalDescription));
             const highestResistance = applicableResistances.reduce(
                 (highest: ResistanceData | null, w) =>
@@ -99,7 +99,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
             if (highestResistance?.value) {
                 instanceApplications.push({
                     category: "resistance",
-                    type: highestResistance.label,
+                    type: highestResistance.typeLabel,
                     adjustment: -1 * Math.min(afterWeaknesses, highestResistance.value),
                 });
             }
