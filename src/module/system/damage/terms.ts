@@ -1,4 +1,4 @@
-import { ErrorPF2e, isObject, tupleHasValue } from "@util";
+import { isObject, tupleHasValue } from "@util";
 import { markAsCrit, renderSplashDamage } from "./helpers";
 import { DamageInstance } from "./roll";
 
@@ -54,7 +54,11 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
 
     get dice(): DiceTerm[] {
         return this.operands.flatMap((o) =>
-            o instanceof DiceTerm ? o : o instanceof Grouping || o instanceof ArithmeticExpression ? o.dice : []
+            o instanceof DiceTerm
+                ? o
+                : o instanceof Grouping || o instanceof ArithmeticExpression || o instanceof IntermediateDie
+                ? o.dice
+                : []
         );
     }
 
@@ -90,7 +94,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     }
 
     override get isDeterministic(): boolean {
-        return this.operands.every((o) => o.isDeterministic);
+        return this.operands.every((o) => o.isDeterministic && !(o instanceof MathTerm));
     }
 
     get expectedValue(): number {
@@ -122,10 +126,12 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
 
         return this as Evaluated<this>;
     }
+}
 
-    protected override _evaluateSync(): never {
-        throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
-    }
+interface ArithmeticExpressionData extends RollTermData {
+    class?: "ArithmeticExpression";
+    operator: ArithmeticOperator;
+    operands: [RollTermData, RollTermData];
 }
 
 type ArithmeticOperator = "+" | "-" | "*" | "/" | "%";
@@ -150,7 +156,7 @@ class Grouping extends RollTerm<GroupingData> {
             this.term = childTerm;
         }
 
-        this._evaluated = this.term._evaluated;
+        this._evaluated = termData.evaluated ?? this.term._evaluated ?? true;
     }
 
     static override SERIALIZE_ATTRIBUTES = ["term"];
@@ -182,7 +188,7 @@ class Grouping extends RollTerm<GroupingData> {
     }
 
     override get isDeterministic(): boolean {
-        return this.term.isDeterministic;
+        return this.term.isDeterministic && !(this.term instanceof MathTerm);
     }
 
     get expectedValue(): number {
@@ -199,10 +205,96 @@ class Grouping extends RollTerm<GroupingData> {
 
         return this as Evaluated<this>;
     }
+}
 
-    protected override _evaluateSync(): never {
-        throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
+interface GroupingData extends RollTermData {
+    class?: "Grouping";
+    term: RollTermData;
+}
+
+class IntermediateDie extends RollTerm<IntermediateDieData> {
+    number: NumericTerm | MathTerm | Grouping;
+
+    faces: NumericTerm | MathTerm | Grouping;
+
+    die: Evaluated<Die> | null = null;
+
+    constructor(data: IntermediateDieData) {
+        super(data);
+
+        const setTerm = (
+            termData: NumericTermData | MathTermData | GroupingData
+        ): NumericTerm | MathTerm | Grouping => {
+            const TermCls = CONFIG.Dice.termTypes[termData.class ?? "NumericTerm"];
+            const term = TermCls.fromData(termData);
+            if (term instanceof Grouping) term.isIntermediate = true;
+
+            return term as NumericTerm | MathTerm | Grouping;
+        };
+
+        this.die = data.die ? (Die.fromData({ ...data.die, class: "Die" }) as Evaluated<Die>) : null;
+        this.number = setTerm(data.number);
+        this.faces = setTerm(data.faces);
     }
+
+    static override SERIALIZE_ATTRIBUTES = ["number", "faces", "die"];
+
+    get expression(): string {
+        return this.die?.expression ?? `${this.number.expression}d${this.faces.expression}`;
+    }
+
+    override get total(): number | undefined {
+        return this.die?.total;
+    }
+
+    get dice(): [Evaluated<Die>] | never[] {
+        return this.die ? [this.die] : [];
+    }
+
+    /** `MathTerm` incorrectly reports as being deterministic, so consider them to always not be so */
+    override get isDeterministic() {
+        return (
+            this.number.isDeterministic &&
+            this.faces.isDeterministic &&
+            !(this.number instanceof MathTerm) &&
+            !(this.faces instanceof MathTerm)
+        );
+    }
+
+    /** Not able to get an expected value from a Math term */
+    get expectedValue(): number {
+        return this.number.isDeterministic && this.faces.isDeterministic
+            ? (this.number.total! + 1) * this.faces.total!
+            : NaN;
+    }
+
+    protected override async _evaluate(): Promise<Evaluated<this>> {
+        await this.number.evaluate({ async: true });
+        this.number = NumericTerm.fromData({ class: "NumericTerm", number: this.number.total! } as NumericTermData);
+        await this.faces.evaluate({ async: true });
+        this.faces = NumericTerm.fromData({ class: "NumericTerm", number: this.faces.total! } as NumericTermData);
+
+        this.die = await new Die({
+            number: this.number.total!,
+            faces: this.faces.total!,
+            options: this.options,
+        }).evaluate({ async: true });
+        this._evaluated = true;
+
+        return this as Evaluated<this>;
+    }
+
+    override toJSON(): IntermediateDieData {
+        const result = JSON.parse(JSON.stringify(super.toJSON()));
+        return result;
+    }
+}
+
+interface IntermediateDieData extends RollTermData {
+    class?: "IntermediateDie";
+    number: NumericTermData | MathTermData | GroupingData;
+    faces: NumericTermData | MathTermData | GroupingData;
+    die?: DieData | null;
 }
 
 class InstancePool extends PoolTerm {
@@ -220,6 +312,7 @@ class InstancePool extends PoolTerm {
             results: allEvaluated ? rolls.map((r) => ({ result: r.total!, active: true })) : [],
         });
         pool._evaluated = allEvaluated;
+
         return pool;
     }
 }
@@ -228,13 +321,4 @@ interface InstancePool extends PoolTerm {
     rolls: DamageInstance[];
 }
 
-interface ArithmeticExpressionData extends RollTermData {
-    operator: ArithmeticOperator;
-    operands: [RollTermData, RollTermData];
-}
-
-interface GroupingData extends RollTermData {
-    term: RollTermData;
-}
-
-export { ArithmeticExpression, Grouping, InstancePool };
+export { ArithmeticExpression, Grouping, InstancePool, IntermediateDie };

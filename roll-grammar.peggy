@@ -1,5 +1,5 @@
 {{
-  function createNumericTerm(number, flavor = null) {
+  function createNumericTerm(number, { flavor = null } = {}) {
     const formula = flavor ? `${number}[${flavor}]` : number.toString();
     const obj = {
       class: "NumericTerm",
@@ -51,25 +51,38 @@ Term = head:TermOperand tail:(_ ("*" / "/") _ TermOperand)* {
 TermOperand = DiceTerm / MathTerm / Grouping / FlavoredNumber / Number;
 
 MathTerm = fn:Identifier "(" _ head:FunctionArg? _ tail:(_ "," _ @FunctionArg)* _ ")" {
+  const terms = head
+    ? [head, ...tail].map((t) => typeof t === "number" ? t.toString() : t.formula)
+    : [];
   return {
     class: "MathTerm",
     formula: text(),
     fn,
-    terms: head ? [head, ...tail].map((t) => t.formula) : [],
+    terms,
     evaluated: false,
   };
 };
 
-FunctionArg = DiceTerm / Grouping / Number / MathTerm;
+FunctionArg = Term / DiceTerm / Grouping / Number / MathTerm;
 
-DiceTerm = number:(Grouping / Number) [dD] faces:(Grouping / Number / Identifier) flavor:Flavor? {
-  const obj = {
-    class: "DiceTerm",
-    formula: text(),
-    number,
-    faces,
-    evaluated: false,
-  };
+DiceTerm = number:(Grouping / MathTerm / Number) [dD] faces:(Grouping / MathTerm / Number / Identifier) flavor:Flavor? {
+  const obj =
+    number instanceof Object || faces instanceof Object
+      ? {
+            class: "IntermediateDie",
+            formula: text(),
+            number: typeof number === "number" ? createNumericTerm(number) : number,
+            faces: typeof faces === "number" ? createNumericTerm(faces) : faces,
+            evaluated: false,
+        }
+      : {
+            class: "DiceTerm",
+            formula: text(),
+            number,
+            faces,
+            evaluated: false,
+        };
+
   if (flavor) obj.options = { flavor };
 
   return obj;
@@ -119,7 +132,7 @@ Pool = "{" _ head:Expression tail:("," _ @Expression)* "}" modifiers:ModifiersSt
   ];
 
   const obj = {
-    class: "PoolTerm",
+    class: "InstancePool",
     formula: text(),
     terms,
     rolls,
@@ -142,7 +155,7 @@ Number = _ [-+]? [0-9]+ ("." [0-9]+)? {
 };
 
 FlavoredNumber = number:Number flavor:Flavor {
-  return createNumericTerm(number, flavor);
+  return createNumericTerm(number, { flavor });
 };
 
 Identifier = $([a-z$_]i [a-z$_0-9]i*);
