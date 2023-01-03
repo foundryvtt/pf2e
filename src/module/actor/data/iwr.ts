@@ -81,7 +81,7 @@ abstract class IWRData<TType extends IWRType> {
             return ["item:rune:property:ghost-touch"];
         }
 
-        if (["air", "water"].includes(iwrType)) {
+        if (["air", "earth", "water"].includes(iwrType)) {
             return [`item:trait:${iwrType}`];
         }
 
