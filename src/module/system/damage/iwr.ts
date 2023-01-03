@@ -22,8 +22,14 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
 
             // Step 1: Immunities
 
+            // If the target is immune to the entire instance, we're done with it.
+            const immunity = immunities.find((i) => i.test(formalDescription));
+            if (immunity) {
+                return [{ category: "immunity", type: immunity.label, adjustment: -1 * instance.total }];
+            }
+
             // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
-            // (or untriple) the total
+            // (or untriple) the total.
             const critImmunity = immunities.find((i) => i.type === "critical-hits");
             const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
             const critImmunityApplies =
@@ -44,16 +50,10 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>): IWRApplicationDat
                 });
             }
 
-            const immunity = immunities.find((i) => i.test(formalDescription));
             const precisionImmunity = immunities.find((i) => i.type === "precision");
             const precisionDamage = instance.componentTotal("precision");
 
-            if (immunity) {
-                return [{ category: "immunity", type: immunity.label, adjustment: -1 * total }];
-            } else if (
-                precisionDamage > 0 &&
-                precisionImmunity?.test([...formalDescription, "damage:component:precision"])
-            ) {
+            if (precisionDamage > 0 && precisionImmunity?.test([...formalDescription, "damage:component:precision"])) {
                 // If the creature is immune to both critical hits and precision damage, precision immunity will only
                 // reduce damage by half the precision damage dealt (with critical-hit immunity effectively reducing
                 // the other half).

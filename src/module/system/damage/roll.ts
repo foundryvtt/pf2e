@@ -212,18 +212,17 @@ class DamageRoll extends AbstractDamageRoll {
 
             instanceClones.push(
                 ...instances.map((instance) => {
-                    console.debug(instance.head.toJSON());
+                    const head = JSON.parse(JSON.stringify(instance.head.toJSON()));
                     const rightOperand: RollTermData | GroupingData =
                         instance.head instanceof ArithmeticExpression && ["+", "-"].includes(instance.head.operator)
-                            ? { class: "Grouping", term: instance.head.toJSON() }
-                            : instance.head.toJSON();
+                            ? { class: "Grouping", term: head }
+                            : head;
 
-                    const expression = new ArithmeticExpression({
+                    const expression = ArithmeticExpression.fromData({
                         operator: "*",
-                        operands: [multiplierTerm, rightOperand],
+                        operands: [deepClone(multiplierTerm), rightOperand],
                     });
                     if ([2, 3].includes(multiplier)) expression.options.crit = multiplier;
-                    expression._evaluated = true;
 
                     return DamageInstance.fromTerms([expression], deepClone(instance.options));
                 })
@@ -232,16 +231,18 @@ class DamageRoll extends AbstractDamageRoll {
 
         if (addend !== 0) {
             const firstInstance = instanceClones[0]!;
-            const termClone: GroupingData = { class: "Grouping", term: firstInstance.head.toJSON() };
+            const termClone: GroupingData = {
+                class: "Grouping",
+                term: JSON.parse(JSON.stringify(firstInstance.head.toJSON())),
+            };
             const addendTerm: NumericTermData = { class: "NumericTerm", number: Math.abs(addend) };
 
-            const expression = new ArithmeticExpression({
+            const expression = ArithmeticExpression.fromData({
                 operator: addend >= 0 ? "+" : "-",
                 operands: [termClone, addendTerm],
                 evaluated: true,
                 options: deepClone(firstInstance.options),
             });
-            expression._evaluated = true;
             instanceClones[0] = DamageInstance.fromTerms([expression]);
         }
 
@@ -324,7 +325,8 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     override get total(): number | undefined {
-        return this.persistent && !this.options.evaluatePersistent ? 0 : super.total;
+        const maybeNumber = this.persistent && !this.options.evaluatePersistent ? 0 : super.total;
+        return typeof maybeNumber === "number" ? Math.floor(maybeNumber) : maybeNumber;
     }
 
     /** The expected value of this damage instance */
