@@ -124,10 +124,8 @@ async function applyDamage(
 
     for (const token of tokens) {
         await token.actor?.applyDamage({
-            damage: roll,
+            damage: roll.alter(multiplier, addend),
             token: token.document,
-            addend,
-            multiplier,
             shieldBlockRequest,
         });
     }

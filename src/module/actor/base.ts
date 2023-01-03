@@ -923,7 +923,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 ? { finalDamage: Math.trunc(damage * multiplier - addend), applications: [] }
                 : multiplier < 0
                 ? { finalDamage: Math.trunc(damage.total * multiplier - addend), applications: [] }
-                : applyIWR(this, damage, { addend, multiplier });
+                : applyIWR(this, damage);
         const { finalDamage } = result;
 
         // Calculate damage to hit points and shield

@@ -1,5 +1,5 @@
-import { ErrorPF2e, isObject } from "@util";
-import { renderSplashDamage } from "./helpers";
+import { ErrorPF2e, isObject, tupleHasValue } from "@util";
+import { markAsCrit, renderSplashDamage } from "./helpers";
 import { DamageInstance } from "./roll";
 
 class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
@@ -19,11 +19,25 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
                 Die;
             return TermCls.fromData(datum);
         }) as [RollTerm, RollTerm];
+
+        if (
+            this.operator === "*" &&
+            this.operands[0] instanceof NumericTerm &&
+            tupleHasValue([2, 3] as const, this.operands[0].number)
+        ) {
+            markAsCrit(this.operands[1], this.operands[0].number);
+        }
     }
 
     static override SERIALIZE_ATTRIBUTES = ["operator", "operands"];
 
-    static totalOf(operator: ArithmeticOperator, left: number, right: number): number {
+    static totalOf(
+        operator: ArithmeticOperator,
+        left: number | undefined,
+        right: number | undefined
+    ): number | undefined {
+        if (left === undefined || right === undefined) return undefined;
+
         switch (operator) {
             case "+":
                 return left + right;
@@ -58,6 +72,23 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
         return ArithmeticExpression.totalOf(this.operator, ...operands);
     }
 
+    get critImmuneTotal(): number | undefined {
+        const [left, right] = this.operands;
+
+        // Critical doubling will always have the 2 operand on the left
+        if (left instanceof NumericTerm && left.number === 2 && this.operator === "*") {
+            return typeof right.total === "string" ? Number(right.total) : right.total;
+        }
+
+        const undoubledLeft =
+            left instanceof ArithmeticExpression || left instanceof Grouping ? left.critImmuneTotal : left.total;
+        return ArithmeticExpression.totalOf(
+            this.operator,
+            typeof undoubledLeft === "string" ? Number(undoubledLeft) : undoubledLeft,
+            typeof right.total === "string" ? Number(right.total) : right.total
+        );
+    }
+
     override get isDeterministic(): boolean {
         return this.operands.every((o) => o.isDeterministic);
     }
@@ -65,7 +96,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     get expectedValue(): number {
         const left = DamageInstance.expectedValueOf(this.operands[0]);
         const right = DamageInstance.expectedValueOf(this.operands[1]);
-        return ArithmeticExpression.totalOf(this.operator, left, right);
+        return ArithmeticExpression.totalOf(this.operator, left, right)!;
     }
 
     /** Construct a string for an HTML rendering of this term */
@@ -118,6 +149,8 @@ class Grouping extends RollTerm<GroupingData> {
             super(termData);
             this.term = childTerm;
         }
+
+        this._evaluated = this.term._evaluated;
     }
 
     static override SERIALIZE_ATTRIBUTES = ["term"];
@@ -140,6 +173,12 @@ class Grouping extends RollTerm<GroupingData> {
 
     override get total(): number | undefined {
         return this._evaluated || this.isDeterministic ? Number(this.term.total) : undefined;
+    }
+
+    get critImmuneTotal(): number | undefined {
+        return this.term instanceof ArithmeticExpression || this.term instanceof Grouping
+            ? this.term.critImmuneTotal
+            : this.total;
     }
 
     override get isDeterministic(): boolean {

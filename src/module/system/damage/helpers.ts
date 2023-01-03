@@ -84,10 +84,22 @@ function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = true }
     return fontAwesomeIcon(glyph, { fixedWidth });
 }
 
+/** Indicate in a term's options that it was multiplied by 2 or 3 */
+function markAsCrit(term: RollTerm, multiplier: 2 | 3): void {
+    term.options.crit = multiplier;
+    if (term instanceof ArithmeticExpression) {
+        markAsCrit(term.operands[0], multiplier);
+        markAsCrit(term.operands[1], multiplier);
+    } else if (term instanceof Grouping) {
+        markAsCrit(term.term, multiplier);
+    }
+}
+
 export {
     DamageCategorization,
     damageDiceIcon,
     deepFindTerms,
+    markAsCrit,
     looksLikeDamageFormula,
     nextDamageDieSize,
     renderSplashDamage,

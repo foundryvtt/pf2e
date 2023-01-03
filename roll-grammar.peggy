@@ -18,7 +18,7 @@ Expression = head:(Pool / Term) tail:(_ ("+" / "-") _ (Pool / Term))* {
     const operator = elements[1];
     const operands = [
       result,
-      ...elements.filter((e) => typeof e === "number" || e instanceof Object && e.class)
+      elements.find((e) => typeof e === "number" || e instanceof Object && e.class)
     ].map((e) => typeof e === "number" ? createNumericTerm(e) : e);
     return {
       class: "ArithmeticExpression",
@@ -35,7 +35,7 @@ Term = head:TermOperand tail:(_ ("*" / "/") _ TermOperand)* {
     const operator = elements[1];
     const operands = [
       result,
-      ...elements.filter((e) => typeof e === "number" || e instanceof Object && e.class)
+      elements.find((e) => typeof e === "number" || e instanceof Object && e.class)
     ].map((e) => typeof e === "number" ? createNumericTerm(e) : e);
 
     return {

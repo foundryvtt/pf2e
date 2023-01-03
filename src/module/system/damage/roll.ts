@@ -1,6 +1,7 @@
 import { WeaponMaterialEffect, WEAPON_MATERIAL_EFFECTS } from "@item";
 import { DamageRollFlag } from "@module/chat-message";
 import { UserPF2e } from "@module/user";
+import { DegreeOfSuccessIndex } from "@system/degree-of-success";
 import { RollDataPF2e } from "@system/rolls";
 import { ErrorPF2e, fontAwesomeIcon, isObject, setHasElement } from "@util";
 import Peggy from "peggy";
@@ -19,6 +20,10 @@ abstract class AbstractDamageRoll extends Roll {
     ): string {
         const replaced = super.replaceFormulaData(formula, data, options);
         return replaced.replace(/\((\d+)\)/g, "$1");
+    }
+
+    protected override _evaluateSync(): never {
+        throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
     }
 }
 
@@ -152,10 +157,6 @@ class DamageRoll extends AbstractDamageRoll {
         return super.fromData(data);
     }
 
-    protected override _evaluateSync(): never {
-        throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
-    }
-
     override async getTooltip(): Promise<string> {
         const instances = this.instances
             .filter((i) => i.dice.length > 0 && (!i.persistent || i.options.evaluatePersistent))
@@ -194,6 +195,56 @@ class DamageRoll extends AbstractDamageRoll {
 
         return renderTemplate(template, chatData);
     }
+
+    override alter(multiplier: number, addend: number, { multiplyNumeric = true } = {}): this {
+        const { instances } = this;
+        if (!this._evaluated || instances.length === 0) {
+            return super.alter(multiplier, addend, { multiplyNumeric });
+        } else if (multiplier === 1 && addend === 0) {
+            return this;
+        }
+
+        const instanceClones = [];
+        if (multiplier !== 1) {
+            const multiplierTerm = new NumericTerm({ number: multiplier });
+            multiplierTerm._evaluated = true;
+
+            instanceClones.push(
+                ...instances.map((i) => {
+                    const expression = new ArithmeticExpression({
+                        operator: "*",
+                        operands: [
+                            multiplierTerm,
+                            i.head instanceof ArithmeticExpression && ["+", "-"].includes(i.head.operator)
+                                ? new Grouping({ term: i.head, evaluated: true })
+                                : i.head,
+                        ],
+                    });
+                    if ([2, 3].includes(multiplier)) expression.options.crit = multiplier;
+                    expression._evaluated = true;
+
+                    return DamageInstance.fromTerms([expression], deepClone(i.options));
+                })
+            );
+        }
+
+        if (addend !== 0) {
+            const addendTerm = new NumericTerm({ number: Math.abs(addend) });
+            addendTerm._evaluated = true;
+
+            const firstInstance = instanceClones[0]!;
+            const expression = new ArithmeticExpression({
+                operator: addend >= 0 ? "+" : "-",
+                operands: [addendTerm, new Grouping({ term: firstInstance.head, evaluated: true })],
+                evaluated: true,
+                options: deepClone(firstInstance.options),
+            });
+            expression._evaluated = true;
+            instanceClones[0] = DamageInstance.fromTerms([expression]);
+        }
+
+        return DamageRoll.fromTerms([InstancePool.fromRolls(instanceClones)]) as this;
+    }
 }
 
 interface DamageRoll extends AbstractDamageRoll {
@@ -208,17 +259,6 @@ class DamageInstance extends AbstractDamageRoll {
     persistent: boolean;
 
     materials: WeaponMaterialEffect[];
-
-    partialTotal(this: Rolled<DamageInstance>, subinstance: "precision" | "splash"): number {
-        if (!this._evaluated) {
-            throw ErrorPF2e("Splash damage may not be accessed from an unevaluated damage instance");
-        }
-
-        return deepFindTerms(this.head, { flavor: subinstance }).reduce(
-            (total, t) => total + (Number(t.total!) || 0),
-            0
-        );
-    }
 
     constructor(formula: string, data = {}, options?: RollOptions) {
         super(formula, data, options);
@@ -380,6 +420,25 @@ class DamageInstance extends AbstractDamageRoll {
             ? game.i18n.format("PF2E.Damage.PersistentTooltip", { damageType })
             : damageType;
     }
+
+    /** Get the total of this instance without any doubling or tripling from a critical hit */
+    get critImmuneTotal(): number | undefined {
+        if (!this._evaluated) return undefined;
+
+        const { head } = this;
+        return head instanceof ArithmeticExpression || head instanceof Grouping ? head.critImmuneTotal : this.total;
+    }
+
+    componentTotal(this: Rolled<DamageInstance>, component: "precision" | "splash"): number {
+        if (!this._evaluated) {
+            throw ErrorPF2e("Component totals may only be accessed from an evaluated damage instance");
+        }
+
+        return deepFindTerms(this.head, { flavor: component }).reduce(
+            (total, t) => total + (Number(t.total!) || 0) * Number(t.options.crit || 1),
+            0
+        );
+    }
 }
 
 interface DamageInstance extends AbstractDamageRoll {
@@ -390,6 +449,7 @@ interface DamageRollDataPF2e extends RollDataPF2e {
     damage?: DamageTemplate;
     result?: DamageRollFlag;
     evaluatePersistent?: boolean;
+    degreeOfSuccess?: DegreeOfSuccessIndex;
 }
 
 interface DamageInstanceData extends RollOptions {

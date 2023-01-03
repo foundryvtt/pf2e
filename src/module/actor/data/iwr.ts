@@ -34,14 +34,25 @@ abstract class IWRData<TType extends IWRType> {
         if (iwrType in CONFIG.PF2E.damageTypes) {
             return [`damage:type:${iwrType}`];
         }
+
+        if (iwrType === "critical-hits") {
+            return ["damage:component:critical"];
+        }
+
         if (setHasElement(WEAPON_MATERIAL_EFFECTS, iwrType)) {
             return [`damage:material:${iwrType}`];
-        } else if (["physical", "energy"].includes(iwrType)) {
+        }
+
+        if (["physical", "energy"].includes(iwrType)) {
             return [`damage:category:${iwrType}`];
-        } else if (["precision", "splash-damage"].includes(iwrType)) {
-            const subcategory = iwrType === "splash-damage" ? "splash" : "precision";
-            return [`damage:component:${subcategory}`];
-        } else if (iwrType === "object-immunities") {
+        }
+
+        if (["precision", "splash-damage"].includes(iwrType)) {
+            const component = iwrType === "splash-damage" ? "splash" : "precision";
+            return [`damage:component:${component}`];
+        }
+
+        if (iwrType === "object-immunities") {
             return [
                 {
                     or: [
