@@ -206,7 +206,7 @@ class DamageRoll extends AbstractDamageRoll {
 
         const instanceClones: DamageInstance[] = [];
         if (multiplier === 1) {
-            instanceClones.push(DamageInstance.fromData(instances[0].toJSON()));
+            instanceClones.push(DamageInstance.fromData(JSON.parse(JSON.stringify(instances[0].toJSON()))));
         } else {
             const multiplierTerm: NumericTermData = { class: "NumericTerm", number: multiplier };
 
@@ -241,9 +241,8 @@ class DamageRoll extends AbstractDamageRoll {
                 operator: addend >= 0 ? "+" : "-",
                 operands: [termClone, addendTerm],
                 evaluated: true,
-                options: deepClone(firstInstance.options),
             });
-            instanceClones[0] = DamageInstance.fromTerms([expression]);
+            instanceClones[0] = DamageInstance.fromTerms([expression], deepClone(firstInstance.options));
         }
 
         return DamageRoll.fromTerms([InstancePool.fromRolls(instanceClones)]) as this;
