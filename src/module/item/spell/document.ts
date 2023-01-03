@@ -258,10 +258,9 @@ class SpellPF2e extends ItemPF2e {
             const formula = combineTerms(baseFormula);
 
             // Add damage. Merge if the type and category matches
-            const tags = [damage.type.subtype ? damage.type.subtype : [], damage.type.categories ?? []].flat();
             const damageType = damage.type.value;
             const instance = getInstance({ formula, damageType, damageCategory: damage.type.subtype });
-            for (const tag of tags) {
+            for (const tag of damage.type.categories ?? []) {
                 instance.tags.add(tag);
             }
         }
