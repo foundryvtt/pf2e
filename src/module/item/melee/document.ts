@@ -116,7 +116,7 @@ class MeleePF2e extends ItemPF2e {
                 // a preceding negative `OperatorTerm`: change operator if adjustment would change the value's sign
                 const modifier =
                     [...terms].reverse().find((t): t is NumericTerm => t instanceof NumericTerm) ??
-                    new NumericTerm({ number: 0 });
+                    NumericTerm.fromData({ class: "NumericTerm", number: 0 });
                 const previousTerm = terms[terms.indexOf(modifier) - 1];
                 const signFlip = previousTerm instanceof OperatorTerm && previousTerm.operator === "-" ? -1 : 1;
                 const baseValue = modifier.number * signFlip;

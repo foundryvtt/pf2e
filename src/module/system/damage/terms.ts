@@ -161,6 +161,11 @@ class Grouping extends RollTerm<GroupingData> {
 
     static override SERIALIZE_ATTRIBUTES = ["term"];
 
+    static override fromData<TTerm extends RollTerm>(this: ConstructorOf<TTerm>, data: TermDataOf<TTerm>): TTerm;
+    static override fromData(data: RollTermData): RollTerm {
+        return super.fromData({ ...data, class: "Grouping" });
+    }
+
     get dice(): DiceTerm[] {
         if (this.term instanceof DiceTerm) return [this.term];
 
@@ -321,4 +326,4 @@ interface InstancePool extends PoolTerm {
     rolls: DamageInstance[];
 }
 
-export { ArithmeticExpression, Grouping, InstancePool, IntermediateDie };
+export { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie };

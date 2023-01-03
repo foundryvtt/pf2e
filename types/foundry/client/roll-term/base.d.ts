@@ -116,7 +116,7 @@ declare global {
          * @param data Provided data from an un-serialized term
          * @return The constructed RollTerm
          */
-        static fromData<T extends RollTerm>(this: ConstructorOf<T>, data: RollTermData): T;
+        static fromData<TTerm extends RollTerm>(this: AbstractConstructorOf<TTerm>, data: TermDataOf<TTerm>): TTerm;
 
         /**
          * Define term-specific logic for how a de-serialized data object is restored as a functional RollTerm
@@ -149,4 +149,6 @@ declare global {
         _evaluated: true;
         total: NonNullable<T["total"]>;
     };
+
+    type TermDataOf<TTerm extends RollTerm> = TTerm extends RollTerm<infer TData> ? TData : never;
 }
