@@ -203,7 +203,7 @@ declare global {
     }
 
     interface ChatMessageModificationContext extends DocumentModificationContext {
-        rollMode?: RollMode;
+        rollMode?: RollMode | "roll";
     }
 
     interface ChatMessageRenderData {
