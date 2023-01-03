@@ -3,7 +3,7 @@ export {};
 declare global {
     /** A type of RollTerm used to capture static numbers. */
     class NumericTerm<TData extends NumericTermData = NumericTermData> extends RollTerm<TData> {
-        constructor({ number, options }: TData);
+        constructor({ number, options }: NumericTermData);
 
         number: number;
 
