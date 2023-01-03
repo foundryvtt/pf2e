@@ -25,7 +25,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         chatData.rolls = rolls.map((r) => r.toJSON());
         chatData.sound = CONFIG.sounds.dice;
         chatData.content = rolls.reduce((t, r) => t + r.total, 0).toString();
-        createOptions.rollMode = objectHasKey(CONFIG.Dice.rollModes, command) ? command : "publicroll";
+        createOptions.rollMode = objectHasKey(CONFIG.Dice.rollModes, command) ? command : "roll";
     }
 
     protected override _getEntryContextOptions(): EntryContextOption[] {
