@@ -166,7 +166,7 @@ function partialFormula(
             return expressions;
         }, []);
 
-    const term = [combinedDice, Math.abs(constant) || []].flat().join(constant > 0 ? " + " : " - ");
+    const term = [combinedDice.join(" + "), Math.abs(constant) || []].flat().join(constant > 0 ? " + " : " - ");
     const flavored = term && special ? `${term}[${special}]` : term;
 
     return flavored || null;
