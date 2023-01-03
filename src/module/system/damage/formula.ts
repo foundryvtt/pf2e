@@ -162,11 +162,15 @@ function partialFormula(
         .sort(([a], [b]) => b - a)
         .reduce((expressions: string[], [faces, partials]) => {
             const number = partials.reduce((total, p) => total + p.dice.number, 0);
-            expressions.push(`${number}d${faces}`);
+            if (number > 0) expressions.push(`${number}d${faces}`);
             return expressions;
-        }, []);
+        }, [])
+        .join(" + ");
 
-    const term = [combinedDice.join(" + "), Math.abs(constant) || []].flat().join(constant > 0 ? " + " : " - ");
+    const term = [combinedDice, Math.abs(constant) || []]
+        .flat()
+        .filter((e) => !!e)
+        .join(constant > 0 ? " + " : " - ");
     const flavored = term && special ? `${term}[${special}]` : term;
 
     return flavored || null;
