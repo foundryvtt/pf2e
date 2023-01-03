@@ -38,6 +38,7 @@ declare global {
     }
 
     interface NumericTermData extends RollTermData {
+        class?: "NumericTerm";
         number?: number;
     }
 }

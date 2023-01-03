@@ -6,7 +6,7 @@ import { RollDataPF2e } from "@system/rolls";
 import { ErrorPF2e, fontAwesomeIcon, isObject, setHasElement } from "@util";
 import Peggy from "peggy";
 import { DamageCategorization, deepFindTerms, renderSplashDamage } from "./helpers";
-import { ArithmeticExpression, Grouping, InstancePool } from "./terms";
+import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "./terms";
 import { DamageCategory, DamageTemplate, DamageType } from "./types";
 import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
 
@@ -60,7 +60,7 @@ class DamageRoll extends AbstractDamageRoll {
 
         if (!poolData) {
             return [];
-        } else if (poolData.class !== "PoolTerm") {
+        } else if (!["PoolTerm", "InstancePool"].includes(poolData.class ?? "")) {
             throw ErrorPF2e("A damage roll must consist of a single PoolTerm");
         }
 
@@ -392,17 +392,19 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     override get dice(): DiceTerm[] {
-        return this.terms
-            .reduce(
-                (dice: (DiceTerm | never[])[], t) =>
-                    t instanceof DiceTerm
-                        ? [...dice, t]
-                        : t instanceof Grouping || t instanceof ArithmeticExpression
-                        ? [...dice, ...t.dice]
-                        : [],
-                this._dice
-            )
-            .flat();
+        return this._dice.concat(
+            this.terms
+                .reduce(
+                    (dice: (DiceTerm | never[])[], t) =>
+                        t instanceof DiceTerm
+                            ? [...dice, t]
+                            : t instanceof Grouping || t instanceof ArithmeticExpression || t instanceof IntermediateDie
+                            ? [...dice, ...t.dice]
+                            : [],
+                    this._dice
+                )
+                .flat()
+        );
     }
 
     /** Get the head term of this instance */

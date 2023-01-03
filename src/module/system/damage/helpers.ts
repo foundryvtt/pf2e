@@ -1,6 +1,6 @@
 import { fontAwesomeIcon } from "@util";
 import { DamageInstance, DamageRoll } from "./roll";
-import { ArithmeticExpression, Grouping } from "./terms";
+import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms";
 import { DamageCategory, DamageDieSize } from "./types";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values";
 
@@ -66,6 +66,8 @@ function looksLikeDamageFormula(formula: string): boolean {
         /^\{[^}]+}$/.test(formula) ||
         // Simple dice expression followed by a flavor expression
         /^(?:\d+(?:d\d+)?)(?:\[[a-z]+(?:,[a-z]+)?\])$/.test(formula) ||
+        // Dice expression with a math term or number for its `number` and `faces`
+        /^(?:(?:\d+|\w+\([^(+]+\))(?:d(?:\d+|\w+\([^(+]+\)))?)(?:\[[a-z]+(?:,[a-z]+)?\])$/.test(formula) ||
         // Parenthesized expression followed by a flavor expression
         /^\([^)]+\)\[[a-z]+(?:,[a-z]+)?\]$/.test(formula)
     );
@@ -73,6 +75,15 @@ function looksLikeDamageFormula(formula: string): boolean {
 
 /** Create a representative Font Awesome icon from a damage roll */
 function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = true } = {}): HTMLElement {
+    // Special case: an `IntermediateDie` with deterministic faces
+    const firstTerm =
+        roll instanceof DamageRoll && roll.instances[0]?.head instanceof IntermediateDie
+            ? roll.instances[0]?.head
+            : null;
+    if (firstTerm?.faces instanceof NumericTerm && [4, 8, 6, 10, 12].includes(firstTerm.faces.number)) {
+        return fontAwesomeIcon(`dice-d${firstTerm.faces.number}`, { fixedWidth });
+    }
+
     const firstDice = roll.dice.at(0);
     const glyph =
         firstDice instanceof Die && [4, 8, 6, 10, 12].includes(firstDice.faces)

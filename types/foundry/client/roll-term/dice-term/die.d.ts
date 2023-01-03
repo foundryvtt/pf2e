@@ -191,6 +191,7 @@ declare global {
     }
 
     interface DieData extends DiceTermData {
+        number: number;
         faces: number;
         marginSuccess?: boolean;
         marginFailure?: boolean;
