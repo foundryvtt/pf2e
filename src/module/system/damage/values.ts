@@ -17,7 +17,7 @@ const ALIGNMENT_DAMAGE_TYPES = ["chaotic", "lawful", "good", "evil"] as const;
 const DAMAGE_CATEGORIES_UNIQUE = new Set(["persistent", "precision", "splash"] as const);
 
 /** All damage modifications that only affect IWR (like materials) */
-const DAMAGE_CATEGORIES_EXTRA = new Set([
+const MATERIAL_DAMAGE_EFFECTS = new Set([
     "adamantine",
     "cold-iron",
     "darkwood",
@@ -31,7 +31,7 @@ const DAMAGE_CATEGORIES_EXTRA = new Set([
 
 const DAMAGE_CATEGORIES = new Set([
     ...DAMAGE_CATEGORIES_UNIQUE,
-    ...DAMAGE_CATEGORIES_EXTRA,
+    ...MATERIAL_DAMAGE_EFFECTS,
     "alignment",
     "energy",
     "physical",
@@ -121,7 +121,7 @@ export {
     ALIGNMENT_DAMAGE_TYPES,
     BASE_DAMAGE_TYPES_TO_CATEGORIES,
     DAMAGE_CATEGORIES,
-    DAMAGE_CATEGORIES_EXTRA,
+    MATERIAL_DAMAGE_EFFECTS,
     DAMAGE_CATEGORIES_UNIQUE,
     DAMAGE_DIE_FACES,
     DAMAGE_DIE_FACES_TUPLE,

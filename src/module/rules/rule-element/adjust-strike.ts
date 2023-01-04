@@ -1,8 +1,8 @@
 import { ActorType } from "@actor/data";
 import { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
-import { WeaponMaterialEffect, WeaponRangeIncrement } from "@item/weapon/types";
-import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
+import { WeaponRangeIncrement } from "@item/weapon/types";
+import { MaterialDamageEffect } from "@system/damage";
 import { PredicatePF2e } from "@system/predication";
 import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
 import { StrikeAdjustment } from "../synthetics";
@@ -58,7 +58,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                     return {
                         adjustDamageRoll: (
                             weapon: WeaponPF2e | MeleePF2e,
-                            { materials }: { materials?: Set<WeaponMaterialEffect> }
+                            { materials }: { materials?: Set<MaterialDamageEffect> }
                         ): void => {
                             if (!["add", "subtract", "remove"].includes(this.mode)) {
                                 return this.failValidation(
@@ -68,7 +68,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             if (!definition.test(weapon.getRollOptions("item"))) {
                                 return;
                             }
-                            if (!setHasElement(WEAPON_MATERIAL_EFFECTS, change)) {
+                            if (!objectHasKey(CONFIG.PF2E.materialDamageEffects, change)) {
                                 return this.failValidation(`"${change} is not a supported weapon material effect.`);
                             }
 

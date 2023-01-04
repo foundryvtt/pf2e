@@ -8,7 +8,7 @@ import {
     ItemTraits,
 } from "@item/data/base";
 import { OneToTen, ValueAndMax, ValuesList } from "@module/data";
-import { DamageCategoryExtra, DamageCategoryUnique, DamageType } from "@system/damage";
+import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage";
 import type { SpellPF2e } from "./document";
 import { EffectAreaSize, EffectAreaType, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 
@@ -22,7 +22,7 @@ export type SpellTraits = ItemTraits<SpellTrait>;
 export interface SpellDamageType {
     value: DamageType;
     subtype?: DamageCategoryUnique;
-    categories: DamageCategoryExtra[];
+    categories: MaterialDamageEffect[];
 }
 
 export interface SpellDamage {
