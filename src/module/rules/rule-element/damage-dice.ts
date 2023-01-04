@@ -16,11 +16,13 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
     dieSize: DamageDieSize | null = null;
 
+    modifier: number | string = 0;
+
     damageType: string | null = null;
 
     critical: boolean | null;
 
-    category: "precision" | "persistent" | null;
+    category: "precision" | "persistent" | "splash" | null;
 
     brackets: BracketedValue | null;
 
@@ -52,6 +54,13 @@ class DamageDiceRuleElement extends RuleElementPF2e {
             this.failValidation("dieSize must be a string or omitted");
         }
 
+        // Modifier
+        if (typeof data.modifier === "string" || typeof data.modifier === "number") {
+            this.modifier = data.modifier;
+        } else if ("modifier" in data) {
+            this.failValidation("modifier must be a string, number, or omitted");
+        }
+
         // Damage type
         if (typeof data.damageType === "string") {
             this.damageType = data.damageType;
@@ -64,10 +73,10 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
         // Add precision damage
         const category = data.category ?? data.damageCategory ?? null;
-        if (tupleHasValue(["persistent", "precision", null] as const, category)) {
+        if (tupleHasValue(["persistent", "precision", "splash", null] as const, category)) {
             this.category = category;
         } else {
-            this.failValidation('category must be "precision", "persistent", or omitted');
+            this.failValidation('category must be "precision", "persistent", "splash", or omitted');
             this.category = null;
         }
 
@@ -101,6 +110,9 @@ class DamageDiceRuleElement extends RuleElementPF2e {
             const diceNumber =
                 typeof this.diceNumber === "string" ? Number(this.resolveValue(this.diceNumber)) || 0 : this.diceNumber;
 
+            const modifier =
+                typeof this.modifier === "string" ? Number(this.resolveValue(this.modifier) || 0) : this.modifier;
+
             const resolvedBrackets = this.resolveValue(this.brackets, {});
             if (!this.#resolvedBracketsIsValid(resolvedBrackets)) {
                 this.failValidation("Brackets failed to validate");
@@ -132,6 +144,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
                 selector,
                 slug: this.slug,
                 label,
+                modifier,
                 dieSize: this.dieSize,
                 diceNumber,
                 critical: this.critical,
@@ -197,6 +210,7 @@ interface DamageDiceSource extends RuleElementSource {
     name?: unknown;
     diceNumber?: unknown;
     dieSize?: unknown;
+    modifier?: unknown;
     override?: unknown;
     damageType?: unknown;
     critical?: unknown;

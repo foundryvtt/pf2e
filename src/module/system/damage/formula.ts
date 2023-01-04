@@ -51,12 +51,15 @@ function createDamageFormula(
     // Dice always stack
     for (const dice of damage.dice.filter((d) => d.enabled)) {
         const dieSize = dice.dieSize || base.dieSize || null;
-        if (dice.diceNumber > 0 && dieSize) {
+        if ((dice.diceNumber > 0 && dieSize) || dice.modifier) {
             const damageType = dice.damageType ?? base.damageType;
             const list = typeMap.get(damageType) ?? [];
             list.push({
-                dice: { number: dice.diceNumber, faces: Number(dieSize.replace("d", "")) },
-                modifier: 0,
+                dice:
+                    dice.diceNumber > 0 && dieSize
+                        ? { number: dice.diceNumber, faces: Number(dieSize.replace("d", "")) }
+                        : null,
+                modifier: dice.modifier ?? 0,
                 persistent: dice.category === "persistent",
                 precision: dice.category === "precision",
                 splash: dice.category === "splash",

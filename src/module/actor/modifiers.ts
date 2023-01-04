@@ -605,6 +605,7 @@ class DiceModifierPF2e implements BaseRawModifier {
     diceNumber: number;
     /** The size of the dice to add. */
     dieSize: DamageDieSize | null;
+    modifier: number;
     /**
      * True means the dice are added to critical without doubling; false means the dice are never added to critical
      * damage; omitted means add to normal damage and double on critical damage.
@@ -629,6 +630,7 @@ class DiceModifierPF2e implements BaseRawModifier {
 
         this.diceNumber = params.diceNumber ?? 0;
         this.dieSize = params.dieSize ?? null;
+        this.modifier = params.modifier ?? 0;
         this.critical = params.critical ?? null;
         this.damageType = params.damageType ?? null;
         this.category = params.category ?? null;
