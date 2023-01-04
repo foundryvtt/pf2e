@@ -85,6 +85,14 @@ abstract class IWRData<TType extends IWRType> {
             return [`item:trait:${iwrType}`];
         }
 
+        if (iwrType === "axe-vulnerability") {
+            return ["item:group:axe"];
+        }
+
+        if (iwrType === "arrow-vulnerability") {
+            return ["item:group:bow", { not: "item:tag:crossbow" }];
+        }
+
         if (iwrType === "object-immunities") {
             return [
                 {
