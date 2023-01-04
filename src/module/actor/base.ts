@@ -910,9 +910,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     async applyDamage({
         damage,
         token,
-        addend = 0,
-        multiplier = 1,
         rollOptions = new Set(),
+        skipIWR = false,
         shieldBlockRequest = false,
     }: ApplyDamageParams): Promise<this> {
         const { hitPoints } = this;
@@ -921,10 +920,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         // Round damage and healing (negative values) toward zero
         const result =
             typeof damage === "number"
-                ? { finalDamage: Math.trunc(damage * multiplier - addend), applications: [] }
-                : multiplier < 0
-                ? { finalDamage: Math.trunc(damage.total * multiplier - addend), applications: [] }
+                ? { finalDamage: Math.trunc(damage), applications: [] }
+                : skipIWR
+                ? { finalDamage: damage.total, applications: [] }
                 : applyIWR(this, damage, rollOptions);
+
         const { finalDamage } = result;
 
         // Calculate damage to hit points and shield

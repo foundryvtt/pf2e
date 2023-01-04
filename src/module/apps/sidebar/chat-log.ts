@@ -1,4 +1,5 @@
 import { ChatMessagePF2e } from "@module/chat-message";
+import { applyDamageFromMessage } from "@module/chat-message/helpers";
 import { CheckPF2e } from "@system/check";
 import { DamageRoll } from "@system/damage/roll";
 import { ErrorPF2e, fontAwesomeIcon, objectHasKey } from "@util";
@@ -55,28 +56,16 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             return game.messages.get(li.data("messageId"), { strict: true }).isRerollable;
         };
 
-        const canHeroPointReroll: ContextOptionCondition = (li): boolean => {
-            const message = game.messages.get(li.data("messageId"), { strict: true });
+        const canHeroPointReroll: ContextOptionCondition = ($li): boolean => {
+            const message = game.messages.get($li[0].dataset.messageId ?? "", { strict: true });
             const actor = message.actor;
             return message.isRerollable && !!actor?.isOfType("character") && actor.heroPoints.value > 0;
         };
 
         const canShowRollDetails: ContextOptionCondition = ($li): boolean => {
-            const message = game.messages.get($li.data("messageId"), { strict: true });
+            const message = game.messages.get($li[0].dataset.messageId ?? "", { strict: true });
             const rulesEnabled = game.settings.get("pf2e", "enabledRulesUI");
             return game.user.isGM && rulesEnabled && !!message.flags.pf2e.context;
-        };
-
-        const applyDamage = async ($li: JQuery, multiplier: number): Promise<void> => {
-            const messageId = $li.attr("data-message-id") ?? "";
-            const roll = game.messages
-                .get(messageId, { strict: true })
-                .rolls.find((r): r is Rolled<DamageRoll> => r instanceof DamageRoll);
-            if (!roll) throw ErrorPF2e("Unexpected error retrieving damage roll");
-
-            for (const token of canvas.tokens.controlled) {
-                await token.actor?.applyDamage({ damage: roll, token: token.document, multiplier });
-            }
         };
 
         const options = super._getEntryContextOptions();
@@ -86,7 +75,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 icon: fontAwesomeIcon("search").outerHTML,
                 condition: canShowRollDetails,
                 callback: ($li) => {
-                    const message = game.messages.get($li.attr("data-message-id") ?? "", { strict: true });
+                    const message = game.messages.get($li[0].dataset.messageId ?? "", { strict: true });
                     message.showDetails();
                 },
             },
@@ -94,31 +83,46 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 name: "PF2E.DamageButton.FullContext",
                 icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
-                callback: (li: JQuery) => applyDamage(li, 1),
+                callback: ($li: JQuery) => {
+                    const message = game.messages.get($li[0].dataset.messageId ?? "", { strict: true });
+                    applyDamageFromMessage(message);
+                },
             },
             {
                 name: "PF2E.DamageButton.HalfContext",
                 icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
-                callback: (li) => applyDamage(li, 0.5),
+                callback: ($li: JQuery) => {
+                    const message = game.messages.get($li[0].dataset.messageId ?? "", { strict: true });
+                    applyDamageFromMessage(message, 0.5);
+                },
             },
             {
                 name: "PF2E.DamageButton.DoubleContext",
                 icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyDamage,
-                callback: (li) => applyDamage(li, 2),
+                callback: ($li: JQuery) => {
+                    const message = game.messages.get($li[0].dataset.messageId ?? "", { strict: true });
+                    applyDamageFromMessage(message, 3);
+                },
             },
             {
                 name: "PF2E.DamageButton.TripleContext",
                 icon: fontAwesomeIcon("heart-broken").outerHTML,
                 condition: canApplyTripleDamage,
-                callback: (li) => applyDamage(li, 3),
+                callback: ($li: JQuery) => {
+                    const message = game.messages.get($li[0].dataset.messageId ?? "", { strict: true });
+                    applyDamageFromMessage(message, 3);
+                },
             },
             {
                 name: "PF2E.DamageButton.HealingContext",
                 icon: fontAwesomeIcon("heart").outerHTML,
                 condition: canApplyDamage,
-                callback: (li: JQuery) => applyDamage(li, -1),
+                callback: ($li: JQuery) => {
+                    const message = game.messages.get($li[0].dataset.messageId ?? "", { strict: true });
+                    applyDamageFromMessage(message, -1);
+                },
             },
             {
                 name: "PF2E.ClickToSetInitiativeContext",
