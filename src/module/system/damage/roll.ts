@@ -206,17 +206,17 @@ class DamageRoll extends AbstractDamageRoll {
 
         const instanceClones: DamageInstance[] = [];
         if (multiplier === 1) {
-            instanceClones.push(DamageInstance.fromData(JSON.parse(JSON.stringify(instances[0].toJSON()))));
+            instanceClones.push(DamageInstance.fromData(instances[0].toJSON()));
         } else {
             const multiplierTerm: NumericTermData = { class: "NumericTerm", number: multiplier };
 
             instanceClones.push(
                 ...instances.map((instance) => {
-                    const head = JSON.parse(JSON.stringify(instance.head.toJSON()));
+                    const { head } = instance;
                     const rightOperand: RollTermData | GroupingData =
-                        instance.head instanceof ArithmeticExpression && ["+", "-"].includes(instance.head.operator)
-                            ? { class: "Grouping", term: head }
-                            : head;
+                        head instanceof ArithmeticExpression && ["+", "-"].includes(head.operator)
+                            ? { class: "Grouping", term: head.toJSON() }
+                            : head.toJSON();
 
                     const expression = ArithmeticExpression.fromData({
                         operator: "*",
@@ -233,7 +233,7 @@ class DamageRoll extends AbstractDamageRoll {
             const firstInstance = instanceClones[0]!;
             const termClone: GroupingData = {
                 class: "Grouping",
-                term: JSON.parse(JSON.stringify(firstInstance.head.toJSON())),
+                term: firstInstance.head.toJSON(),
             };
             const addendTerm: NumericTermData = { class: "NumericTerm", number: Math.abs(addend) };
 

@@ -131,6 +131,13 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
 
         return this as Evaluated<this>;
     }
+
+    override toJSON(): ArithmeticExpressionData {
+        return {
+            ...super.toJSON(),
+            operands: [this.operands[0].toJSON(), this.operands[1].toJSON()],
+        };
+    }
 }
 
 interface ArithmeticExpressionData extends RollTermData {
@@ -215,6 +222,13 @@ class Grouping extends RollTerm<GroupingData> {
 
         return this as Evaluated<this>;
     }
+
+    override toJSON(): GroupingData {
+        return {
+            ...super.toJSON(),
+            term: this.term.toJSON(),
+        };
+    }
 }
 
 interface GroupingData extends RollTermData {
@@ -295,8 +309,12 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
     }
 
     override toJSON(): IntermediateDieData {
-        const result = JSON.parse(JSON.stringify(super.toJSON()));
-        return result;
+        return {
+            ...super.toJSON(),
+            number: this.number.toJSON(),
+            faces: this.faces.toJSON(),
+            die: this.die?.toJSON(),
+        };
     }
 }
 
