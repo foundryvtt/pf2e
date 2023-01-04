@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 4.6.3
+
+### Bugfixes
+* (stwlam) Fix functionality of healing buttons on damage messages
+
+### Data Updates
+* (TMun) Make content changes reflecting Pathfinder Core Rulebook Errata (4th Printing)
+
 ## Version 4.6.2
 
 ### System Improvements
@@ -14,7 +22,6 @@
 * (stwlam) Ensure all undead NPCs have negative healing
 * (stwlam) Fix issue preventing desired roll mode from being used when set from chat log
 * (stwlam) Restore application of stacking rulings to spell-damage bonuses and penalties
-
 
 ### Data Updates
 * (Abaddon) Remove unneeded html styling from Sixth Pillar Archetype entry
