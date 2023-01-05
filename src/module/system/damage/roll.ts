@@ -316,7 +316,7 @@ class DamageInstance extends AbstractDamageRoll {
         const damageType =
             this.persistent && this.type !== "bleed"
                 ? game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeFlavor })
-                : this.type
+                : this.type !== "untyped"
                 ? typeFlavor
                 : "";
         return [this.head.expression, damageType].join(" ").trim();
