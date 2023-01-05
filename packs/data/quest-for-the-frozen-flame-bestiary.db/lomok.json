@@ -1008,7 +1008,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "1d10 persistent fire"
+                        "oath-of-the-burning-mammoths"
                     ]
                 },
                 "bonus": {
@@ -1290,7 +1290,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "melee"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
