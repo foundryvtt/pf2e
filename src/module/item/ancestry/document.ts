@@ -25,6 +25,7 @@ class AncestryPF2e extends ABCItemPF2e {
         return this.system.size;
     }
 
+    /** Returns all boosts enforced by this ancestry normally */
     get lockedBoosts(): AbilityString[] {
         return Object.values(this.system.boosts)
             .filter((boost) => boost.value.length === 1)
@@ -90,12 +91,16 @@ class AncestryPF2e extends ABCItemPF2e {
 
         actor.system.attributes.speed.value = this.speed;
 
-        // Add ability boosts and flaws
         const { build } = actor.system;
-        for (const target of ["boosts", "flaws"] as const) {
-            for (const ability of Object.values(this.system[target])) {
-                if (ability.selected) {
-                    build.abilities[target].ancestry.push(ability.selected);
+        if (this.system.alternateAncestryBoosts) {
+            build.abilities.boosts.ancestry.push(...this.system.alternateAncestryBoosts);
+        } else {
+            // Add ability boosts and flaws
+            for (const target of ["boosts", "flaws"] as const) {
+                for (const ability of Object.values(this.system[target])) {
+                    if (ability.selected) {
+                        build.abilities[target].ancestry.push(ability.selected);
+                    }
                 }
             }
         }

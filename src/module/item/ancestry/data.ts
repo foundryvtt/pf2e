@@ -19,6 +19,8 @@ interface AncestrySystemSource extends ABCSystemSource {
         value: string[];
         custom: string;
     };
+    /** If present, use the alternate ancestry boosts, which are two free */
+    alternateAncestryBoosts?: AbilityString[];
     boosts: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
     flaws: Record<string, { value: AbilityString[]; selected: AbilityString | null }>;
     voluntary?: {

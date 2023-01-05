@@ -3,7 +3,7 @@ import { Abilities } from "@actor/creature/data";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { AncestryPF2e, BackgroundPF2e, ClassPF2e } from "@item";
-import { ErrorPF2e, setHasElement } from "@util";
+import { ErrorPF2e, htmlQuery, setHasElement } from "@util";
 
 export class AbilityBuilderPopup extends Application {
     constructor(private actor: CharacterPF2e) {
@@ -18,6 +18,7 @@ export class AbilityBuilderPopup extends Application {
             title: game.i18n.localize("PF2E.AbilityScoresHeader"),
             template: "systems/pf2e/templates/actors/character/ability-builder.hbs",
             width: "auto",
+            height: "auto",
         };
     }
 
@@ -25,7 +26,7 @@ export class AbilityBuilderPopup extends Application {
         return `ability-builder-${this.actor.id}`;
     }
 
-    override async getData(options: Partial<FormApplicationOptions> = {}): Promise<PopupData> {
+    override async getData(options: Partial<FormApplicationOptions> = {}): Promise<AbilityBuilderSheetData> {
         const { actor } = this;
         const build = actor.system.build.abilities;
 
@@ -42,6 +43,7 @@ export class AbilityBuilderPopup extends Application {
             keyOptions: build.keyOptions,
             ancestryBoosts: this.calculateAncestryBoosts(),
             backgroundBoosts: this.calculateBackgroundBoosts(),
+            alternateAncestryBoosts: !!actor.ancestry?.system.alternateAncestryBoosts,
             voluntaryFlaw: !!actor.ancestry?.system.voluntary,
             levelBoosts: this.calculatedLeveledBoosts(),
         };
@@ -49,8 +51,10 @@ export class AbilityBuilderPopup extends Application {
 
     private calculateAncestryBoosts(): AncestryBoosts | null {
         const { actor } = this;
-        if (!actor.ancestry) return null;
+        const ancestry = actor.ancestry;
+        if (!ancestry) return null;
 
+        // Create initial state. These are updated to gain the final result
         const ancestryBoosts: BoostFlawRow = Array.from(ABILITY_ABBREVIATIONS).reduce(
             (accumulated, abbrev) => ({
                 ...accumulated,
@@ -59,34 +63,40 @@ export class AbilityBuilderPopup extends Application {
             {} as BoostFlawRow
         );
 
-        for (const flaw of Object.values(actor.ancestry.system.flaws)) {
-            if (flaw.selected) {
-                ancestryBoosts[flaw.selected].lockedFlaw = true;
-            }
-        }
-
-        for (const lockedBoost of actor.ancestry.lockedBoosts) {
-            ancestryBoosts[lockedBoost].lockedBoost = true;
-        }
-
-        let shownBoost = false;
-        let boostsRemaining = 0;
-        for (const boost of Object.values(actor.ancestry.system.boosts)) {
-            if (boost.selected) {
-                ancestryBoosts[boost.selected].boosted = true;
-                ancestryBoosts[boost.selected].available = true;
-            } else if (boost.value.length > 0) {
-                boostsRemaining += 1;
-                if (!shownBoost) {
-                    for (const ability of boost.value) {
-                        ancestryBoosts[ability].available = true;
-                    }
-                    shownBoost = true;
+        // If alternative ancestry boosts isn't enabled, flag the boosts/flaws that are no-touchy.
+        if (!ancestry.system.alternateAncestryBoosts) {
+            for (const flaw of Object.values(ancestry.system.flaws)) {
+                if (flaw.selected) {
+                    ancestryBoosts[flaw.selected].lockedFlaw = true;
                 }
             }
+
+            for (const lockedBoost of ancestry.lockedBoosts) {
+                ancestryBoosts[lockedBoost].lockedBoost = true;
+            }
         }
 
-        const { voluntary } = actor.ancestry.system;
+        const baseBoosts = Object.values(ancestry.system.boosts);
+        const alternateBoosts = ancestry.system.alternateAncestryBoosts;
+        const selectedBoosts =
+            alternateBoosts ?? baseBoosts.map((b) => b.selected).filter((b): b is AbilityString => !!b);
+        const maxBoosts = alternateBoosts ? 2 : baseBoosts.filter((b) => b.value.length > 0 || b.selected).length;
+        const boostsRemaining = maxBoosts - selectedBoosts.length;
+
+        // Mark all selected boosts
+        for (const ability of selectedBoosts) {
+            ancestryBoosts[ability].boosted = true;
+            ancestryBoosts[ability].available = true;
+        }
+
+        // If we still have boosts remaining, mark them all as available
+        if (boostsRemaining > 0) {
+            for (const boost of Object.values(ancestryBoosts)) {
+                boost.available = true;
+            }
+        }
+
+        const { voluntary } = ancestry.system;
         const voluntaryBoostsRemaining = voluntary && !voluntary.boost ? 1 : 0;
 
         if (voluntary) {
@@ -131,11 +141,12 @@ export class AbilityBuilderPopup extends Application {
         }
 
         return {
+            hasLockedFlaws: Object.values(ancestryBoosts).some((data) => data.lockedFlaw),
             boosts: ancestryBoosts,
             remaining: boostsRemaining,
             voluntaryBoostsRemaining,
-            labels: this.calculateBoostLabels(actor.ancestry.system.boosts),
-            flawLabels: this.calculateBoostLabels(actor.ancestry.system.flaws),
+            labels: this.calculateBoostLabels(ancestry.system.boosts),
+            flawLabels: this.calculateBoostLabels(ancestry.system.flaws),
         };
     }
 
@@ -247,6 +258,7 @@ export class AbilityBuilderPopup extends Application {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
         const { actor } = this;
 
         $html.find("div[data-tooltip-content]").tooltipster({
@@ -264,6 +276,15 @@ export class AbilityBuilderPopup extends Application {
             event.currentTarget.select();
         });
 
+        htmlQuery(html, "[data-action=toggle-alternate-ancestry-boosts]")?.addEventListener("click", () => {
+            if (!actor.ancestry) return;
+            if (actor.ancestry.system.alternateAncestryBoosts) {
+                actor.ancestry.update({ "system.-=alternateAncestryBoosts": null });
+            } else {
+                actor.ancestry.update({ "system.alternateAncestryBoosts": [] });
+            }
+        });
+
         $html.find<HTMLInputElement>("input[name=toggle-manual-mode]").on("change", async (event) => {
             if (event.originalEvent) {
                 await actor.toggleAbilityManagement();
@@ -277,21 +298,32 @@ export class AbilityBuilderPopup extends Application {
         });
 
         $html.find("button[data-action=ancestry-boost]").on("click", async (event) => {
-            const ability = $(event.currentTarget).attr("data-ability");
+            const ancestry = actor.ancestry;
+            if (!ancestry) return;
 
-            const boostToRemove = Object.entries(actor.ancestry?.system.boosts ?? {}).find(
-                ([, b]) => b.selected === ability
-            );
-            if (boostToRemove) {
-                await actor.ancestry?.update({ [`system.boosts.${boostToRemove[0]}.selected`]: null });
+            const ability = $(event.currentTarget).attr("data-ability") as AbilityString;
+
+            // If alternative ancestry boosts, write to there instead
+            if (ancestry.system.alternateAncestryBoosts) {
+                const existingBoosts = ancestry.system.alternateAncestryBoosts;
+                const boosts = existingBoosts.includes(ability)
+                    ? existingBoosts.filter((b) => b !== ability)
+                    : [...existingBoosts, ability].slice(0, 2);
+                ancestry.update({ "system.alternateAncestryBoosts": boosts });
                 return;
             }
 
-            const freeBoost = Object.entries(actor.ancestry?.system.boosts ?? {}).find(
+            const boostToRemove = Object.entries(ancestry.system.boosts ?? {}).find(([, b]) => b.selected === ability);
+            if (boostToRemove) {
+                await ancestry.update({ [`system.boosts.${boostToRemove[0]}.selected`]: null });
+                return;
+            }
+
+            const freeBoost = Object.entries(ancestry.system.boosts ?? {}).find(
                 ([, b]) => !b.selected && b.value.length > 0
             );
             if (freeBoost) {
-                await actor.ancestry?.update({ [`system.boosts.${freeBoost[0]}.selected`]: ability });
+                await ancestry.update({ [`system.boosts.${freeBoost[0]}.selected`]: ability });
             }
         });
 
@@ -395,7 +427,7 @@ export class AbilityBuilderPopup extends Application {
     }
 }
 
-interface PopupData {
+interface AbilityBuilderSheetData {
     actor: CharacterPF2e;
     abilityScores: Abilities;
     manualKeyAbility: AbilityString;
@@ -408,6 +440,7 @@ interface PopupData {
     backgroundBoosts: BackgroundBoosts | null;
     keyOptions: AbilityString[] | null;
     levelBoosts: Record<number, LevelBoostData>;
+    alternateAncestryBoosts: boolean;
     voluntaryFlaw: boolean;
 }
 
@@ -440,6 +473,8 @@ function defaultBoostFlawState(): BoostFlawState {
 type BoostFlawRow = Record<AbilityString, BoostFlawState>;
 
 interface AncestryBoosts {
+    /** Whether or not the ancestry itself creates flaws */
+    hasLockedFlaws: boolean;
     boosts: BoostFlawRow;
     remaining: number;
     voluntaryBoostsRemaining: number;
