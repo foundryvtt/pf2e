@@ -93,8 +93,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     data.img = art.actor;
                     const tokenArt =
                         typeof art.token === "string"
-                            ? { img: art.token }
-                            : { ...art.token, flags: { pf2e: { autoscale: false } } };
+                            ? { texture: { src: art.token } }
+                            : {
+                                  texture: {
+                                      src: art.token.img,
+                                      scaleX: art.token.scale,
+                                      scaleY: art.token.scale,
+                                  },
+                                  flags: { pf2e: { autoscale: false } },
+                              };
                     data.prototypeToken = mergeObject(data.prototypeToken ?? {}, tokenArt);
                 }
             }
