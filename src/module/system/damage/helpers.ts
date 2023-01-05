@@ -58,19 +58,9 @@ function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm
     ].flat();
 }
 
-/** A fast but weak check of whether a string looks like a damage-roll formula */
+/** A check for whether a string is a well-formed damage formula and most likely intended to be one */
 function looksLikeDamageFormula(formula: string): boolean {
-    if (formula.includes("d20")) return false;
-    return (
-        // Any single dice pool
-        /^\{[^}]+}$/.test(formula) ||
-        // Simple dice expression followed by a flavor expression
-        /^(?:\d+(?:d\d+)?)(?:\[[a-z]+(?:,[a-z]+)?\])$/.test(formula) ||
-        // Dice expression with a math term or number for its `number` and `faces`
-        /^(?:(?:\d+|\w+\([^(+]+\))(?:d(?:\d+|\w+\([^(+]+\)))?)(?:\[[a-z]+(?:,[a-z]+)?\])$/.test(formula) ||
-        // Parenthesized expression followed by a flavor expression
-        /^\([^)]+\)\[[a-z]+(?:,[a-z]+)?\]$/.test(formula)
-    );
+    return !formula.includes("d20") && DamageRoll.validate(formula);
 }
 
 /** Create a representative Font Awesome icon from a damage roll */
