@@ -55,6 +55,7 @@ import {
 import { CreatureSensePF2e } from "./sense";
 import { Alignment, AlignmentTrait, CreatureUpdateContext, GetReachParameters, IsFlatFootedParams } from "./types";
 import { SIZE_TO_REACH } from "./values";
+import { setTraitIWR } from "./helpers";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e extends ActorPF2e {
@@ -303,6 +304,9 @@ abstract class CreaturePF2e extends ActorPF2e {
         attributes.doomed = { value: 0, max: 3 };
         attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
         attributes.wounded = { value: 0, max: 3 };
+
+        // Set IWR guaranteed by traits
+        setTraitIWR(this);
     }
 
     /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */

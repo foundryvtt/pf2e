@@ -67,12 +67,16 @@ export class DamagePF2e {
 
             const item = context.self?.item;
             const itemTraits = item?.isOfType("weapon", "melee", "spell")
-                ? toTags(Array.from(item.traits), {
-                      labels: item.isOfType("spell") ? CONFIG.PF2E.spellTraits : CONFIG.PF2E.npcAttackTraits,
-                      descriptions: CONFIG.PF2E.traitsDescriptions,
-                      cssClass: "tag_alt",
-                      dataAttr: "trait",
-                  })
+                ? toTags(
+                      // Materials are listed in a separate group of tags
+                      Array.from(item.traits).filter((t) => !(t in CONFIG.PF2E.materialDamageEffects)),
+                      {
+                          labels: item.isOfType("spell") ? CONFIG.PF2E.spellTraits : CONFIG.PF2E.npcAttackTraits,
+                          descriptions: CONFIG.PF2E.traitsDescriptions,
+                          cssClass: "tag_alt",
+                          dataAttr: "trait",
+                      }
+                  )
                 : "";
 
             const properties = ((): string => {

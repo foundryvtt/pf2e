@@ -21,6 +21,7 @@ import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from ".
 import { NPCStrike } from "./npc/data";
 import { StrikeAttackTraits } from "./npc/strike-attack-traits";
 import { AttackItem } from "./types";
+import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<void> {
@@ -364,6 +365,16 @@ function calculateRangePenalty(
     return modifier;
 }
 
+/** Whether this actor is of a the "character" type, excluding those from the PF2E Companion Compendia module */
+function isReallyPC(actor: ActorPF2e): boolean {
+    if (!actor.isOfType("character")) return false;
+    const classItemSourceID = actor.class?.sourceId;
+    return !(
+        [ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID].includes(classItemSourceID ?? "") ||
+        actor.traits.has("eidolon")
+    );
+}
+
 interface MAPData {
     label: string;
     map1: number;
@@ -373,6 +384,7 @@ interface MAPData {
 export {
     calculateMAPs,
     calculateRangePenalty,
+    isReallyPC,
     getRangeIncrement,
     migrateActorSource,
     resetAndRerenderActors,

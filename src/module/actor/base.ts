@@ -6,7 +6,7 @@ import {
     StrikeRollContextParams,
 } from "@actor/types";
 import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types";
-import { ArmorPF2e, ContainerPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
+import { ArmorPF2e, ContainerPF2e, EffectPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { ConditionKey, ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
@@ -26,6 +26,7 @@ import { LocalizePF2e } from "@module/system/localize";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
+import { DamageType } from "@system/damage";
 import { applyIWR } from "@system/damage/iwr";
 import { Statistic } from "@system/statistic";
 import {
@@ -44,7 +45,7 @@ import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
 import { ActorFlagsPF2e, ActorTraitsData, PrototypeTokenPF2e, RollOptionFlags, StrikeData } from "./data/base";
 import { ImmunityData, ResistanceData, WeaknessData } from "./data/iwr";
 import { ActorSizePF2e } from "./data/size";
-import { calculateRangePenalty, getRangeIncrement, migrateActorSource } from "./helpers";
+import { calculateRangePenalty, getRangeIncrement, isReallyPC, migrateActorSource } from "./helpers";
 import { ActorInventory } from "./inventory";
 import { ItemTransfer } from "./item-transfer";
 import { ActorSheetPF2e } from "./sheet/base";
@@ -92,8 +93,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     data.img = art.actor;
                     const tokenArt =
                         typeof art.token === "string"
-                            ? { img: art.token }
-                            : { ...art.token, flags: { pf2e: { autoscale: false } } };
+                            ? { texture: { src: art.token } }
+                            : {
+                                  texture: {
+                                      src: art.token.img,
+                                      scaleX: art.token.scale,
+                                      scaleY: art.token.scale,
+                                  },
+                                  flags: { pf2e: { autoscale: false } },
+                              };
                     data.prototypeToken = mergeObject(data.prototypeToken ?? {}, tokenArt);
                 }
             }
@@ -217,9 +225,12 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     get modeOfBeing(): ModeOfBeing {
         const { traits } = this;
-        return traits.has("undead")
+
+        const isPC = isReallyPC(this);
+
+        return traits.has("undead") && !traits.has("eidolon") // Undead eidolons aren't undead
             ? "undead"
-            : traits.has("construct") && !this.isOfType("character")
+            : traits.has("construct") && !isPC && !traits.has("eidolon") // Construct eidolons aren't constructs
             ? "construct"
             : "living";
     }
@@ -282,6 +293,38 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Whether this actor is an ally of the provided actor */
     isAllyOf(actor: ActorPF2e): boolean {
         return this.alliance !== null && this.alliance === actor.alliance;
+    }
+
+    /** Whether this actor is immune to an effect of a certain type */
+    isImmuneTo(effect: EffectPF2e | ConditionPF2e): boolean {
+        const statements = effect.getRollOptions("item");
+        return this.attributes.immunities.some((i) => i.test(statements));
+    }
+
+    /** Whether this actor is affected by damage of a certain type despite lack of explicit immunity */
+    isAffectedBy(damage: DamageType | ConditionPF2e): boolean {
+        const possiblyUnaffected = ["good", "evil", "lawful", "chaotic", "negative", "bleed"] as const;
+
+        const damageType = objectHasKey(CONFIG.PF2E.damageTypes, damage)
+            ? damage
+            : isObject(damage)
+            ? damage.system.persistent?.damageType ?? null
+            : null;
+
+        if (!tupleHasValue(possiblyUnaffected, damageType)) return true;
+
+        const { traits } = this;
+        const damageIsApplicable = {
+            good: traits.has("evil"),
+            evil: traits.has("good"),
+            lawful: traits.has("chaotic"),
+            chaotic: traits.has("lawful"),
+            positive: !!this.attributes.hp?.negativeHealing,
+            negative: !(this.modeOfBeing === "construct" || this.attributes.hp?.negativeHealing),
+            bleed: this.modeOfBeing === "living" || isReallyPC(this),
+        };
+
+        return damageIsApplicable[damageType];
     }
 
     /** Get roll options from this actor's effects, traits, and other properties */
@@ -874,8 +917,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     async applyDamage({
         damage,
         token,
-        addend = 0,
-        multiplier = 1,
+        rollOptions = new Set(),
+        skipIWR = false,
         shieldBlockRequest = false,
     }: ApplyDamageParams): Promise<this> {
         const { hitPoints } = this;
@@ -884,10 +927,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         // Round damage and healing (negative values) toward zero
         const result =
             typeof damage === "number"
-                ? { finalDamage: Math.trunc(damage * multiplier - addend), applications: [] }
-                : multiplier < 0
-                ? { finalDamage: Math.trunc(damage.total * multiplier - addend), applications: [] }
-                : applyIWR(this, damage, { addend, multiplier });
+                ? { finalDamage: Math.trunc(damage), applications: [] }
+                : skipIWR
+                ? { finalDamage: damage.total, applications: [] }
+                : applyIWR(this, damage, rollOptions);
+
         const { finalDamage } = result;
 
         // Calculate damage to hit points and shield

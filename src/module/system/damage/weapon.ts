@@ -10,25 +10,24 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
-import { MeleePF2e, WeaponMaterialEffect, WeaponPF2e } from "@item";
+import { MeleePF2e, WeaponPF2e } from "@item";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { getPropertyRuneModifiers } from "@item/physical/runes";
 import { WeaponDamage } from "@item/weapon/data";
-import { WEAPON_MATERIAL_EFFECTS } from "@item/weapon/values";
 import { RollNotePF2e } from "@module/notes";
 import { PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
 import { extractDamageDice, extractModifiers, extractNotes } from "@module/rules/helpers";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
-import { setHasElement, sluggify } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import { createDamageFormula } from "./formula";
 import { nextDamageDieSize } from "./helpers";
-import { DamageDieSize, DamageFormulaData, WeaponDamageTemplate } from "./types";
+import { DamageDieSize, DamageFormulaData, MaterialDamageEffect, WeaponDamageTemplate } from "./types";
 
 class WeaponDamagePF2e {
     static calculateStrikeNPC(
         attack: MeleePF2e,
         actor: NPCPF2e | HazardPF2e,
-        traits: TraitViewData[] = [],
+        actionTraits: TraitViewData[] = [],
         proficiencyRank = 0,
         options: Set<string> = new Set()
     ): WeaponDamageTemplate | null {
@@ -42,7 +41,7 @@ class WeaponDamagePF2e {
                     () =>
                         new DamageDicePF2e({
                             slug: "base",
-                            label: "PF2E.Damage.Base",
+                            label: "",
                             selector: "damage",
                             diceNumber: instance.dice,
                             dieSize: instance.die,
@@ -53,19 +52,17 @@ class WeaponDamagePF2e {
             // Amend numeric modifiers with any flat modifier
             if (instance.modifier) {
                 const modifiers = actor.synthetics.statisticsModifiers.damage;
-                modifiers.push(
-                    () => new ModifierPF2e({ label: "PF2E.WeaponBaseLabel", modifier: instance.modifier, damageType })
-                );
+                modifiers.push(() => new ModifierPF2e({ label: "", modifier: instance.modifier, damageType }));
             }
         }
 
-        return WeaponDamagePF2e.calculate(attack, actor, traits, proficiencyRank, options);
+        return WeaponDamagePF2e.calculate(attack, actor, actionTraits, proficiencyRank, options);
     }
 
     static calculate(
         weapon: WeaponPF2e | MeleePF2e,
         actor: CharacterPF2e | NPCPF2e | HazardPF2e,
-        traits: TraitViewData[] = [],
+        actionTraits: TraitViewData[] = [],
         proficiencyRank: number,
         options: Set<string>,
         weaponPotency: PotencySynthetic | null = null
@@ -80,6 +77,12 @@ class WeaponDamagePF2e {
         const damageDice: DamageDicePF2e[] = [];
         const modifiers: ModifierPF2e[] = [];
         const weaponTraits = weapon.system.traits.value;
+        // NPC attacks have precious materials as quasi-traits: separate for IWR processing and separate display in chat
+        const materialTraits = weapon.isOfType("melee")
+            ? weapon.system.traits.value.filter(
+                  (t): t is MaterialDamageEffect => t in CONFIG.PF2E.materialDamageEffects
+              )
+            : [];
 
         // Always add all weapon traits to the options
         for (const trait of weaponTraits) {
@@ -343,13 +346,10 @@ class WeaponDamagePF2e {
         const notes = extractNotes(actor.synthetics.rollNotes, selectors).filter((n) => n.predicate.test(options));
 
         // Accumulate damage-affecting precious materials
-        const material =
-            weapon.system.material.precious?.type &&
-            setHasElement(WEAPON_MATERIAL_EFFECTS, weapon.system.material.precious.type)
-                ? weapon.system.material.precious.type
-                : null;
-        const materials: Set<WeaponMaterialEffect> = new Set();
-        if (material) materials.add(material);
+        const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.precious?.type)
+            ? weapon.system.material.precious!.type
+            : null;
+        const materials: Set<MaterialDamageEffect> = new Set([materialTraits, material ?? []].flat());
         for (const adjustment of actor.synthetics.strikeAdjustments) {
             adjustment.adjustDamageRoll?.(weapon, { materials });
         }
@@ -418,7 +418,7 @@ class WeaponDamagePF2e {
         return {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
             notes,
-            traits: (traits ?? []).map((t) => t.name),
+            traits: (actionTraits ?? []).map((t) => t.name),
             materials: Array.from(materials),
             modifiers: [...modifiers, ...damageDice],
             damage: {

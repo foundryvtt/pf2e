@@ -38,6 +38,11 @@ class LootPF2e extends ActorPF2e {
         return false;
     }
 
+    /** It's a sturdy box. */
+    override isAffectedBy(): false {
+        return false;
+    }
+
     /** Anyone with Limited permission can update a loot actor */
     override canUserModify(user: UserPF2e, action: UserAction): boolean {
         if (action === "update") {

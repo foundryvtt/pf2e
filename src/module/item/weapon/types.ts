@@ -26,21 +26,6 @@ type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking";
 
 type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt">;
 
-type WeaponMaterialEffect = Extract<
-    WeaponMaterialType,
-    | "abysium"
-    | "adamantine"
-    | "cold-iron"
-    | "djezet"
-    | "mithral"
-    | "noqual"
-    | "peachwood"
-    | "silver"
-    | "sisterstone-dusk"
-    | "sisterstone-scarlet"
-    | "sovereign-steel"
->;
-
 export {
     BaseWeaponType,
     MeleeWeaponGroup,
@@ -48,7 +33,6 @@ export {
     StrikingRuneType,
     WeaponCategory,
     WeaponGroup,
-    WeaponMaterialEffect,
     WeaponMaterialType,
     WeaponPropertyRuneType,
     WeaponRangeIncrement,

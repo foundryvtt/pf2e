@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
+import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
 /**
  * Change the image representing an actor's token
@@ -7,7 +7,7 @@ import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
  */
 export class TokenImageRuleElement extends RuleElementPF2e {
     /** An image or video path */
-    value: string | null;
+    value: string | BracketedValue | null;
 
     /** An optional scale adjustment */
     scale?: number;
@@ -15,7 +15,7 @@ export class TokenImageRuleElement extends RuleElementPF2e {
     constructor(data: TokenImageSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
-        if (typeof data.value === "string") {
+        if (typeof data.value === "string" || this.isBracketedValue(data.value)) {
             this.value = data.value;
         } else {
             this.value = null;

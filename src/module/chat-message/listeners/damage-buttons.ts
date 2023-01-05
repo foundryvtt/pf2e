@@ -1,7 +1,6 @@
 import { ChatMessagePF2e } from "@module/chat-message";
 import { LocalizePF2e } from "@module/system/localize";
-import { DamageRoll } from "@system/damage/roll";
-import { ErrorPF2e } from "@util";
+import { applyDamageFromMessage } from "../helpers";
 
 /** Add apply damage buttons after a chat message is rendered */
 export const DamageButtons = {
@@ -31,19 +30,19 @@ export const DamageButtons = {
 
         // Handle button clicks
         full.on("click", (event) => {
-            applyDamage(message, 1, 0, event.shiftKey);
+            applyDamageFromMessage(message, 1, 0, event.shiftKey);
         });
 
         half.on("click", (event) => {
-            applyDamage(message, 0.5, 0, event.shiftKey);
+            applyDamageFromMessage(message, 0.5, 0, event.shiftKey);
         });
 
         double.on("click", (event) => {
-            applyDamage(message, 2, 0, event.shiftKey);
+            applyDamageFromMessage(message, 2, 0, event.shiftKey);
         });
 
         triple?.on("click", (event) => {
-            applyDamage(message, 3, 0, event.shiftKey);
+            applyDamageFromMessage(message, 3, 0, event.shiftKey);
         });
 
         $shield.on("click", async (event) => {
@@ -98,78 +97,7 @@ export const DamageButtons = {
         });
 
         heal.on("click", (event) => {
-            applyDamage(message, -1, 0, event.shiftKey);
+            applyDamageFromMessage(message, -1, 0, event.shiftKey);
         });
     },
 };
-
-async function applyDamage(
-    message: ChatMessagePF2e,
-    multiplier: number,
-    addend = 0,
-    promptModifier = false
-): Promise<void> {
-    if (promptModifier) return shiftModifyDamage(message, multiplier);
-
-    const tokens = canvas.tokens.controlled.filter((token) => !!token.actor);
-    if (tokens.length === 0) {
-        const errorMsg = LocalizePF2e.translations.PF2E.UI.errorTargetToken;
-        ui.notifications.error(errorMsg);
-        return;
-    }
-
-    const shieldBlockRequest = CONFIG.PF2E.chatDamageButtonShieldToggle;
-    const roll = message.rolls.find((r): r is Rolled<DamageRoll> => r instanceof DamageRoll);
-    if (!roll) throw ErrorPF2e("Unexpected error retrieving damage roll");
-
-    for (const token of tokens) {
-        await token.actor?.applyDamage({
-            damage: roll,
-            token: token.document,
-            addend,
-            multiplier,
-            shieldBlockRequest,
-        });
-    }
-    toggleOffShieldBlock(message.id);
-}
-
-function shiftModifyDamage(message: ChatMessagePF2e, multiplier: number): void {
-    new Dialog({
-        title: game.i18n.localize("PF2E.UI.shiftModifyDamageTitle"),
-        content: `<form>
-                <div class="form-group">
-                    <label>${game.i18n.localize("PF2E.UI.shiftModifyDamageLabel")}</label>
-                    <input type="number" name="modifier" value="" placeholder="0">
-                </div>
-                </form>
-                <script type="text/javascript">
-                $(function () {
-                    $(".form-group input").focus();
-                });
-                </script>`,
-        buttons: {
-            ok: {
-                label: "Ok",
-                callback: async ($dialog: JQuery) => {
-                    // In case of healing, multipler will have negative sign. The user will expect that positive
-                    // modifier would increase healing value, while negative would decrease.
-                    const adjustment = (Number($dialog.find("[name=modifier]").val()) || 0) * Math.sign(multiplier);
-                    applyDamage(message, multiplier, adjustment);
-                },
-            },
-        },
-        default: "ok",
-        close: () => {
-            toggleOffShieldBlock(message.id);
-        },
-    }).render(true);
-}
-
-/** Toggle off the Shield Block button on a damage chat message */
-function toggleOffShieldBlock(messageId: string): void {
-    const $message = $(`#chat-log > li.chat-message[data-message-id="${messageId}"]`);
-    const $button = $message.find("button.shield-block");
-    $button.removeClass("shield-activated");
-    CONFIG.PF2E.chatDamageButtonShieldToggle = false;
-}

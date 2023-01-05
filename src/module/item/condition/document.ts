@@ -7,7 +7,7 @@ import { ConditionData, ConditionKey, ConditionSlug, ConditionSystemData, Persis
 import { DamageRoll } from "@system/damage/roll";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenDocumentPF2e } from "@scene";
-import { PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
+import { DamageCategorization, PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
@@ -54,6 +54,19 @@ class ConditionPF2e extends AbstractEffectPF2e {
         return this.system.sources.hud;
     }
 
+    /** Include damage type and possibly category for persistent-damage conditions */
+    override getRollOptions(prefix = this.type): string[] {
+        const options = super.getRollOptions(prefix);
+        if (this.system.persistent) {
+            const { damageType } = this.system.persistent;
+            options.push(`damage:type:${damageType}`);
+            const category = DamageCategorization.fromDamageType(damageType);
+            if (category) options.push(`damage:category:${category}`);
+        }
+
+        return options;
+    }
+
     override async increase(): Promise<void> {
         if (this.actor && this.system.removable) {
             await this.actor.increaseCondition(this as Embedded<ConditionPF2e>);
@@ -73,11 +86,10 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
         if (this.system.persistent) {
             const roll = await this.system.persistent.damage.clone().evaluate({ async: true });
-            const label = game.i18n.format("PF2E.Item.Condition.PersistentDamage.Name", { formula: roll.formula });
             roll.toMessage(
                 {
                     speaker: ChatMessagePF2e.getSpeaker({ actor: actor, token }),
-                    flavor: `<strong>${label}</strong>`,
+                    flavor: `<strong>${this.name}</strong>`,
                 },
                 { rollMode: "publicroll" }
             );
@@ -91,6 +103,9 @@ class ConditionPF2e extends AbstractEffectPF2e {
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
 
+        const folder = CONFIG.PF2E.statusEffects.iconDir;
+        this.img = `${folder}${this.slug}.webp`;
+
         if (systemData.persistent) {
             const { formula, damageType } = systemData.persistent;
             const roll = new DamageRoll(`(${formula})[persistent,${damageType}]`, {}, { evaluatePersistent: true });
@@ -99,16 +114,13 @@ class ConditionPF2e extends AbstractEffectPF2e {
             const localizationKey = `PF2E.Item.Condition.PersistentDamage.${dc !== null ? "NameWithDC" : "Name"}`;
             this.name = game.i18n.format(localizationKey, {
                 formula,
-                damageType: game.i18n.localize(`PF2E.Damage.RollFlavor.${damageType}`),
+                damageType: game.i18n.localize(CONFIG.PF2E.damageRollFlavors[damageType] ?? damageType),
                 dc,
             });
 
             systemData.persistent.damage = roll;
             systemData.persistent.expectedValue = roll.expectedValue;
-            this.img = PERSISTENT_DAMAGE_IMAGES[damageType] ?? this._source.img;
-        } else {
-            const folder = CONFIG.PF2E.statusEffects.iconDir;
-            this.img = `${folder}${this.slug}.webp`;
+            this.img = PERSISTENT_DAMAGE_IMAGES[damageType] ?? this.img;
         }
     }
 

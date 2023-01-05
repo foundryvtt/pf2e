@@ -214,6 +214,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                     striking: formData["system.strikingRune.value"],
                 };
             } else if (isSpecific === false) {
+                formData["system.specific.-=price"] = null;
                 formData["system.specific.-=material"] = null;
                 formData["system.specific.-=runes"] = null;
             }

@@ -39,24 +39,24 @@ class FamiliarPF2e extends CreaturePF2e {
 
     /** Set base emphemeral data for later updating by derived-data preparation */
     override prepareBaseData() {
-        super.prepareBaseData();
-
-        type RawSpeed = { value: number; otherSpeeds: LabeledSpeed[] };
         type PartialSystemData = DeepPartial<FamiliarSystemData> & {
             attributes: { speed: RawSpeed; flanking: {} };
             details: {};
         };
-
         const systemData: PartialSystemData = this.system;
-        systemData.details.alignment = { value: "N" };
-        systemData.details.level = { value: 0 };
-        systemData.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
-
         systemData.traits = {
             value: ["minion"],
             senses: [{ type: "lowLightVision", label: CONFIG.PF2E.senses.lowLightVision, value: "" }],
             size: new ActorSizePF2e({ value: "tiny" }),
         };
+
+        super.prepareBaseData();
+
+        type RawSpeed = { value: number; otherSpeeds: LabeledSpeed[] };
+
+        systemData.details.alignment = { value: "N" };
+        systemData.details.level = { value: 0 };
+        systemData.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
 
         systemData.attributes.flanking.canFlank = false;
         systemData.attributes.perception = {};

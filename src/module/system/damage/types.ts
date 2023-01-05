@@ -1,21 +1,14 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
 import { AttackTarget, StrikeSelf } from "@actor/types";
-import { WeaponMaterialEffect } from "@item";
 import { RollNotePF2e } from "@module/notes";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { BaseRollContext } from "@system/rolls";
 import { DamageRoll } from "./roll";
-import {
-    DAMAGE_CATEGORIES,
-    DAMAGE_CATEGORIES_EXTRA,
-    DAMAGE_CATEGORIES_UNIQUE,
-    DAMAGE_DIE_FACES,
-    DAMAGE_TYPES,
-} from "./values";
+import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "./values";
 
 type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;
-type DamageCategoryExtra = SetElement<typeof DAMAGE_CATEGORIES_EXTRA>;
-type DamageCategory = SetElement<typeof DAMAGE_CATEGORIES>;
+type MaterialDamageEffect = keyof ConfigPF2e["PF2E"]["materialDamageEffects"];
+type DamageCategory = keyof ConfigPF2e["PF2E"]["damageCategories"];
 type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
 type DamageType = SetElement<typeof DAMAGE_TYPES>;
 
@@ -72,14 +65,14 @@ interface BasicDamageData {
     dieSize: DamageDieSize | null;
     modifier: number;
     category: DamageCategory | null;
-    materials?: WeaponMaterialEffect[];
+    materials?: MaterialDamageEffect[];
 }
 
 interface BaseDamageTemplate {
     name: string;
     notes: RollNotePF2e[];
     traits: string[];
-    materials: WeaponMaterialEffect[];
+    materials: MaterialDamageEffect[];
     modifiers?: (ModifierPF2e | DamageDicePF2e)[];
 }
 
@@ -98,7 +91,7 @@ type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate;
 
 export {
     DamageCategory,
-    DamageCategoryExtra,
+    MaterialDamageEffect,
     DamageCategoryUnique,
     DamageCategoryRenderData,
     DamageDieSize,

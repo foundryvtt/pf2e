@@ -1,5 +1,42 @@
 # Changelog
 
+## Version 4.6.3
+
+### Bugfixes
+* (stwlam) Fix functionality of healing buttons on damage messages
+
+### Data Updates
+* (TMun) Make content changes reflecting Pathfinder Core Rulebook Errata (4th Printing)
+
+## Version 4.6.2
+
+### System Improvements
+* (stwlam) Add IWR support for conditions, critical hits, spell schools, elemental traits, ghost-touch runes, and (non-)magical attacks
+* (Supe) Add support for homebrew damage types existing as immunities/weaknesses/resistances
+
+### Bugfixes
+* (Dire Weasel) Restore support for bracketed values in TokenImage rule element
+* (stwlam) Apply immunities/weaknesses/resistances after manual multipliers and addends
+* (stwlam) Prevent ABP from applying Devastating Attacks to battle form attacks
+* (stwlam) Fix handling of damage formulas with math function
+* (stwlam) Ensure all undead NPCs have negative healing
+* (stwlam) Fix issue preventing desired roll mode from being used when set from chat log
+* (stwlam) Restore application of stacking rulings to spell-damage bonuses and penalties
+
+### Data Updates
+* (Abaddon) Remove unneeded html styling from Sixth Pillar Archetype entry
+* (Blue) Fixes ancestors oracle curse effect
+* (Dire Weasel) Add aura to gibbering mouther
+* (Dire Weasel) Fix Veshumirix Breath Weapon recharge
+* (Dire Weasel) Fix alignment ampoules to be martial weapons.
+* (rectulo) Fix actions of Heal companion spell
+* (rectulo) Fix actions of Wild morph spell
+* (SpartanCPA) Define Organsight damage as precision damage
+* (SpartanCPA) Fix some pf2-icon styling in several items
+* (SpartanCPA) Fix splash-damage formula in acid splash's description
+* (Tikael) Add preselection to Deep Orc item grant
+
+
 ## Version 4.6.1
 
 ### System Improvements
@@ -27,7 +64,7 @@
 
 ## New Features
 * (stwlam) Reimplement creation, parsing, and rendering of damage roll formulas
-* (stwlam) Add basic IWR
+* (stwlam) Add basic processing of immunities, weaknesses, and resistances
 * (Supe) Add system support for persistent damage
 * (Supe) Add support for homebrew damage types
 

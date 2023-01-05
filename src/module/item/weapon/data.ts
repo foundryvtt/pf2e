@@ -1,6 +1,5 @@
 import { ItemFlagsPF2e } from "@item/data/base";
 import {
-    BaseMaterial,
     BasePhysicalItemData,
     BasePhysicalItemSource,
     Investable,
@@ -38,6 +37,8 @@ type WeaponData = Omit<WeaponSource, "system" | "effects" | "flags"> &
 
 type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {
+        /** Whether this attack is from a battle form */
+        battleForm?: boolean;
         comboMeleeUsage: boolean;
     };
 };
@@ -69,8 +70,10 @@ type SpecificWeaponData =
           value: true;
           price: string;
           material: {
-              type: WeaponMaterialType;
-              grade: PreciousMaterialGrade;
+              precious?: {
+                  type: WeaponMaterialType;
+                  grade: PreciousMaterialGrade;
+              };
           };
           runes: Omit<WeaponRuneData, "property">;
       };
@@ -158,8 +161,6 @@ interface WeaponSystemData
 }
 
 interface WeaponMaterialData {
-    /** The "base material" or category: icon/steel (metal), wood, rope, etc. */
-    base: BaseMaterial[];
     /** The precious material of which this weapon is composed */
     precious: {
         type: WeaponMaterialType;

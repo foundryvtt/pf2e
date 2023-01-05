@@ -1,6 +1,6 @@
 import { fontAwesomeIcon } from "@util";
 import { DamageInstance, DamageRoll } from "./roll";
-import { ArithmeticExpression, Grouping } from "./terms";
+import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms";
 import { DamageCategory, DamageDieSize } from "./types";
 import { BASE_DAMAGE_TYPES_TO_CATEGORIES, DAMAGE_DIE_FACES_TUPLE } from "./values";
 
@@ -58,21 +58,22 @@ function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm
     ].flat();
 }
 
-/** A fast but weak check of whether a string looks like a damage-roll formula */
+/** A check for whether a string is a well-formed damage formula and most likely intended to be one */
 function looksLikeDamageFormula(formula: string): boolean {
-    if (formula.includes("d20")) return false;
-    return (
-        // Any single dice pool
-        /^\{[^}]+}$/.test(formula) ||
-        // Simple dice expression followed by a flavor expression
-        /^(?:\d+(?:d\d+)?)(?:\[[a-z]+(?:,[a-z]+)?\])$/.test(formula) ||
-        // Parenthesized expression followed by a flavor expression
-        /^\([^)]+\)\[[a-z]+(?:,[a-z]+)?\]$/.test(formula)
-    );
+    return !formula.includes("d20") && DamageRoll.validate(formula);
 }
 
 /** Create a representative Font Awesome icon from a damage roll */
 function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = true } = {}): HTMLElement {
+    // Special case: an `IntermediateDie` with deterministic faces
+    const firstTerm =
+        roll instanceof DamageRoll && roll.instances[0]?.head instanceof IntermediateDie
+            ? roll.instances[0]?.head
+            : null;
+    if (firstTerm?.faces instanceof NumericTerm && [4, 8, 6, 10, 12].includes(firstTerm.faces.number)) {
+        return fontAwesomeIcon(`dice-d${firstTerm.faces.number}`, { fixedWidth });
+    }
+
     const firstDice = roll.dice.at(0);
     const glyph =
         firstDice instanceof Die && [4, 8, 6, 10, 12].includes(firstDice.faces)
@@ -84,10 +85,22 @@ function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = true }
     return fontAwesomeIcon(glyph, { fixedWidth });
 }
 
+/** Indicate in a term's options that it was multiplied by 2 or 3 */
+function markAsCrit(term: RollTerm, multiplier: 2 | 3): void {
+    term.options.crit = multiplier;
+    if (term instanceof ArithmeticExpression) {
+        markAsCrit(term.operands[0], multiplier);
+        markAsCrit(term.operands[1], multiplier);
+    } else if (term instanceof Grouping) {
+        markAsCrit(term.term, multiplier);
+    }
+}
+
 export {
     DamageCategorization,
     damageDiceIcon,
     deepFindTerms,
+    markAsCrit,
     looksLikeDamageFormula,
     nextDamageDieSize,
     renderSplashDamage,

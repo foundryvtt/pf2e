@@ -1,9 +1,8 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
-import { WeaponMaterialEffect } from "@item";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { groupBy } from "@util";
 import { DamageCategorization } from "./helpers";
-import { DamageFormulaData, DamageType } from "./types";
+import { DamageFormulaData, DamageType, MaterialDamageEffect } from "./types";
 
 /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
 function createDamageFormula(
@@ -162,11 +161,15 @@ function partialFormula(
         .sort(([a], [b]) => b - a)
         .reduce((expressions: string[], [faces, partials]) => {
             const number = partials.reduce((total, p) => total + p.dice.number, 0);
-            expressions.push(`${number}d${faces}`);
+            if (number > 0) expressions.push(`${number}d${faces}`);
             return expressions;
-        }, []);
+        }, [])
+        .join(" + ");
 
-    const term = [combinedDice, Math.abs(constant) || []].flat().join(constant > 0 ? " + " : " - ");
+    const term = [combinedDice, Math.abs(constant) || []]
+        .flat()
+        .filter((e) => !!e)
+        .join(constant > 0 ? " + " : " - ");
     const flavored = term && special ? `${term}[${special}]` : term;
 
     return flavored || null;
@@ -176,7 +179,8 @@ function sumExpression(terms: (string | null)[], { double = false } = {}): strin
     if (terms.every((t) => !t)) return null;
 
     const summed = terms.filter((p): p is string => !!p).join(" + ") || null;
-    const enclosed = double && hasOperators(summed) ? `(${summed})` : summed;
+    const hasSplash = !!summed?.includes("[splash]");
+    const enclosed = (double && hasOperators(summed)) || hasSplash ? `(${summed})` : summed;
 
     return double ? `2 * ${enclosed}` : enclosed;
 }
@@ -198,7 +202,7 @@ interface DamagePartial {
     persistent: boolean;
     precision: boolean;
     critical: boolean | null;
-    materials?: WeaponMaterialEffect[];
+    materials?: MaterialDamageEffect[];
 }
 
 export { createDamageFormula };

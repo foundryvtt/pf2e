@@ -258,10 +258,9 @@ class SpellPF2e extends ItemPF2e {
             const formula = combineTerms(baseFormula);
 
             // Add damage. Merge if the type and category matches
-            const tags = [damage.type.subtype ? damage.type.subtype : [], damage.type.categories ?? []].flat();
             const damageType = damage.type.value;
             const instance = getInstance({ formula, damageType, damageCategory: damage.type.subtype });
-            for (const tag of tags) {
+            for (const tag of damage.type.categories ?? []) {
                 instance.tags.add(tag);
             }
         }
@@ -292,12 +291,12 @@ class SpellPF2e extends ItemPF2e {
                 );
             modifiers.push(...abilityModifiers);
             modifiers.push(...extractModifiers(actor.synthetics, domains, { resolvables: { spell: this } }));
+            const testedModifiers = new StatisticModifier("spell-damage", modifiers, options).modifiers.filter(
+                (m) => m.enabled
+            );
 
             // Add modifiers to instances
-            for (const modifier of modifiers) {
-                modifier.test(options);
-                if (modifier.ignored) continue;
-
+            for (const modifier of testedModifiers) {
                 const damageType = modifier.damageType;
                 if (!damageType) {
                     Object.values(formulas)[0]?.modifiers.push(modifier);
@@ -537,21 +536,25 @@ class SpellPF2e extends ItemPF2e {
     }
 
     override getRollOptions(prefix = this.type): string[] {
-        const options = new Set<string>();
+        const delimitedPrefix = prefix ? `${prefix}:` : "";
+        const options = new Set(["magical", `${delimitedPrefix}magical`]);
 
         const entryHasSlots = this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous;
         if (entryHasSlots && !this.isCantrip && !this.isFromConsumable) {
-            options.add(`${prefix}:spell-slot`);
+            options.add(`${delimitedPrefix}spell-slot`);
         }
 
         if (!this.system.duration.value) {
-            options.add(`${prefix}:duration:0`);
+            options.add(`${delimitedPrefix}duration:0`);
         }
 
         for (const damage of Object.values(this.system.damage.value)) {
+            if (damage.type) {
+                options.add(`${delimitedPrefix}damage:${damage.type.value}`);
+                options.add(`${delimitedPrefix}damage:type:${damage.type.value}`);
+            }
             const category = DamageCategorization.fromDamageType(damage.type.value);
-            if (damage.type) options.add(`${prefix}:damage:${damage.type.value}`);
-            if (category) options.add(`${prefix}:damage:${category}`);
+            if (category) options.add(`${delimitedPrefix}damage:category:${category}`);
         }
 
         if (this.system.spellType.value !== "heal") {
