@@ -41,8 +41,8 @@ import {
 import { Size } from "@module/data";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
 import { DAMAGE_TYPES } from "@system/damage";
-import { DamageCategory, DamageCategoryExtra, DamageCategoryUnique, DamageType } from "@system/damage/types";
-import { sluggify } from "@util";
+import { DamageCategoryUnique, DamageType } from "@system/damage/types";
+import { pick, sluggify } from "@util";
 import enJSON from "../../../static/lang/en.json";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr";
 import {
@@ -117,21 +117,24 @@ const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
     splash: "PF2E.TraitSplash",
 };
 
-const damageCategoriesExtra: Record<DamageCategoryExtra, string> = {
-    adamantine: "PF2E.PreciousMaterialAdamantine",
-    "cold-iron": "PF2E.PreciousMaterialColdIron",
-    darkwood: "PF2E.PreciousMaterialDarkwood",
-    mithral: "PF2E.PreciousMaterialMithral",
-    orichalcum: "PF2E.PreciousMaterialOrichalcum",
-    silver: "PF2E.PreciousMaterialSilver",
-    "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
-    "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
-    warpglass: "PF2E.PreciousMaterialWarpglass",
-};
+const materialDamageEffects = pick(preciousMaterials, [
+    "abysium",
+    "adamantine",
+    "cold-iron",
+    "djezet",
+    "mithral",
+    "noqual",
+    "peachwood",
+    "silver",
+    "sisterstone-dusk",
+    "sisterstone-scarlet",
+    "sovereign-steel",
+    "warpglass",
+]);
 
-const damageCategories: Record<DamageCategory, string> = {
+const damageCategories = {
     ...damageCategoriesUnique,
-    ...damageCategoriesExtra,
+    ...materialDamageEffects,
     alignment: "PF2E.Alignment",
     energy: "PF2E.TraitEnergy",
     physical: "PF2E.TraitPhysical",
@@ -901,7 +904,7 @@ export const PF2ECONFIG = {
     damageTypes,
     damageRollFlavors,
     damageCategories,
-    damageCategoriesExtra,
+    materialDamageEffects,
     resistanceTypes,
 
     stackGroups: {

@@ -4,8 +4,9 @@ import { CreatureSensePF2e } from "@actor/creature/sense";
 import { DamageDicePF2e, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
-import { WeaponMaterialEffect, WeaponPropertyRuneType } from "@item/weapon/types";
+import { WeaponPropertyRuneType } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
+import { MaterialDamageEffect } from "@system/damage";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
 
@@ -90,7 +91,7 @@ interface SenseSynthetic {
 interface StrikeAdjustment {
     adjustDamageRoll?: (
         weapon: WeaponPF2e | MeleePF2e,
-        { materials }: { materials?: Set<WeaponMaterialEffect> }
+        { materials }: { materials?: Set<MaterialDamageEffect> }
     ) => void;
     adjustWeapon?: (weapon: Embedded<WeaponPF2e>) => void;
     adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]) => void;

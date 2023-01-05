@@ -1,9 +1,8 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
-import { WeaponMaterialEffect } from "@item";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { groupBy } from "@util";
 import { DamageCategorization } from "./helpers";
-import { DamageFormulaData, DamageType } from "./types";
+import { DamageFormulaData, DamageType, MaterialDamageEffect } from "./types";
 
 /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
 function createDamageFormula(
@@ -203,7 +202,7 @@ interface DamagePartial {
     persistent: boolean;
     precision: boolean;
     critical: boolean | null;
-    materials?: WeaponMaterialEffect[];
+    materials?: MaterialDamageEffect[];
 }
 
 export { createDamageFormula };

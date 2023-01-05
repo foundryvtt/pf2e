@@ -61,7 +61,9 @@ abstract class IWRData<TType extends IWRType> {
         }
 
         if (setHasElement(WEAPON_MATERIAL_EFFECTS, iwrType)) {
-            return [`damage:material:${iwrType}`];
+            return iwrType === "silver"
+                ? [{ or: ["damage:material:silver", "damage:material:mithral"] }]
+                : [`damage:material:${iwrType}`];
         }
 
         if (setHasElement(MAGIC_SCHOOLS, iwrType)) {

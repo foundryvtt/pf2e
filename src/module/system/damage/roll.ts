@@ -1,13 +1,12 @@
-import { WeaponMaterialEffect, WEAPON_MATERIAL_EFFECTS } from "@item";
 import { DamageRollFlag } from "@module/chat-message";
 import { UserPF2e } from "@module/user";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success";
 import { RollDataPF2e } from "@system/rolls";
-import { ErrorPF2e, fontAwesomeIcon, isObject, setHasElement } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, setHasElement } from "@util";
 import Peggy from "peggy";
 import { DamageCategorization, deepFindTerms, renderSplashDamage } from "./helpers";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms";
-import { DamageCategory, DamageTemplate, DamageType } from "./types";
+import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types";
 import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
 
 abstract class AbstractDamageRoll extends Roll {
@@ -133,7 +132,7 @@ class DamageRoll extends AbstractDamageRoll {
             : [];
     }
 
-    get materials(): WeaponMaterialEffect[] {
+    get materials(): MaterialDamageEffect[] {
         return [...new Set(this.instances.flatMap((i) => i.materials))];
     }
 
@@ -260,7 +259,7 @@ class DamageInstance extends AbstractDamageRoll {
 
     persistent: boolean;
 
-    materials: WeaponMaterialEffect[];
+    materials: MaterialDamageEffect[];
 
     constructor(formula: string, data = {}, options?: RollOptions) {
         super(formula, data, options);
@@ -268,8 +267,8 @@ class DamageInstance extends AbstractDamageRoll {
         const flavorIdentifiers = this.options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
         this.type = flavorIdentifiers.find((t): t is DamageType => setHasElement(DAMAGE_TYPES, t)) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
-        this.materials = flavorIdentifiers.filter((i): i is WeaponMaterialEffect =>
-            setHasElement(WEAPON_MATERIAL_EFFECTS, i)
+        this.materials = flavorIdentifiers.filter((i): i is MaterialDamageEffect =>
+            objectHasKey(CONFIG.PF2E.materialDamageEffects, i)
         );
     }
 
