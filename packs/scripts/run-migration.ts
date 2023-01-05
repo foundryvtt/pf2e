@@ -29,7 +29,7 @@ import { Migration808CountDamageDice } from "@module/migration/migrations/808-co
 import { Migration809AutomatonEnhancements } from "@module/migration/migrations/809-automaton-enhancements";
 import { Migration811InlineDamageRollsPersistent } from "@module/migration/migrations/811-inline-damage-rolls-persistent";
 import { Migration812RestructureIWR } from "@module/migration/migrations/812-restructure-iwr";
-import { Migration813NPCColdIron } from "@module/migration/migrations/813-npc-cold-iron";
+import { Migration813NormalizeColdIron } from "@module/migration/migrations/813-normalize-cold-iron";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -62,7 +62,7 @@ const migrations: MigrationBase[] = [
     new Migration809AutomatonEnhancements(),
     new Migration811InlineDamageRollsPersistent(),
     new Migration812RestructureIWR(),
-    new Migration813NPCColdIron(),
+    new Migration813NormalizeColdIron(),
 ];
 
 global.deepClone = <T>(original: T): T => {

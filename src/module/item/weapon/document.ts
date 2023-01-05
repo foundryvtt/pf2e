@@ -233,7 +233,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 : null;
 
         systemData.material = {
-            base: [{ type: "steel", thickness: "thin" }], // Stand-in until this data is utilized
             precious: preciousMaterial,
         };
 
