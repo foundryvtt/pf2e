@@ -41,7 +41,7 @@ class WeaponDamagePF2e {
                     () =>
                         new DamageDicePF2e({
                             slug: "base",
-                            label: "PF2E.Damage.Base",
+                            label: "",
                             selector: "damage",
                             diceNumber: instance.dice,
                             dieSize: instance.die,
@@ -52,9 +52,7 @@ class WeaponDamagePF2e {
             // Amend numeric modifiers with any flat modifier
             if (instance.modifier) {
                 const modifiers = actor.synthetics.statisticsModifiers.damage;
-                modifiers.push(
-                    () => new ModifierPF2e({ label: "PF2E.WeaponBaseLabel", modifier: instance.modifier, damageType })
-                );
+                modifiers.push(() => new ModifierPF2e({ label: "", modifier: instance.modifier, damageType }));
             }
         }
 
