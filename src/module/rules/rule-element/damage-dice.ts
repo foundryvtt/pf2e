@@ -1,7 +1,7 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { DamageDiceOverride, DamageDicePF2e, DeferredValueParams } from "@actor/modifiers";
 import { ItemPF2e } from "@item";
-import { DamageDieSize } from "@system/damage/types";
+import { CriticalInclusion, DamageDieSize } from "@system/damage/types";
 import { DAMAGE_DIE_FACES } from "@system/damage/values";
 import { isObject, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import { RuleElementData, RuleElementPF2e } from "./";
@@ -18,7 +18,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
     damageType: string | null = null;
 
-    critical: boolean | null;
+    critical: CriticalInclusion;
 
     category: "precision" | "persistent" | null;
 

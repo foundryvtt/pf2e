@@ -3,7 +3,7 @@ import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIE
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
+import { CriticalInclusion, DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
 import { objectHasKey, setHasElement, sluggify } from "@util";
 import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
@@ -38,7 +38,7 @@ class FlatModifierRuleElement extends RuleElementPF2e {
     damageCategory: DamageCategoryUnique | null = null;
 
     /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
-    critical: boolean | null;
+    critical: CriticalInclusion;
 
     constructor(data: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
