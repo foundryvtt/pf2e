@@ -81,37 +81,7 @@ interface CharacterSystemData extends CreatureSystemData {
 
     /** Character build data, currently containing ability boosts and flaws */
     build: {
-        abilities: {
-            /**
-               Whether this PC's ability scores are being manually entered rather than drawn from ancestry, background,
-               and class
-            */
-            manual: boolean;
-            /** Key ability score options drawn from class and class features */
-            keyOptions: AbilityString[];
-            boosts: {
-                ancestry: AbilityString[];
-                background: AbilityString[];
-                class: AbilityString | null;
-                1: AbilityString[];
-                5: AbilityString[];
-                10: AbilityString[];
-                15: AbilityString[];
-                20: AbilityString[];
-            };
-
-            allowedBoosts: {
-                1: number;
-                5: number;
-                10: number;
-                15: number;
-                20: number;
-            };
-
-            flaws: {
-                ancestry: AbilityString[];
-            };
-        };
+        abilities: CharacterBuildingAbilitySystemData;
     };
 
     /** The three save types. */
@@ -158,6 +128,46 @@ interface CharacterSystemData extends CreatureSystemData {
 interface CharacterAbilityData extends AbilityData {
     /** An ability score prior to modification by items */
     base: number;
+}
+
+interface CharacterBuildingAbilitySourceData {
+    /** Whether this PC's ability scores are being manually entered (aka custom) */
+    manual: boolean;
+
+    boosts: {
+        1: AbilityString[];
+        5: AbilityString[];
+        10: AbilityString[];
+        15: AbilityString[];
+        20: AbilityString[];
+    };
+}
+
+/**
+ * Prepared system data for character ability scores. This is injected by ABC classes to complete it.
+ */
+interface CharacterBuildingAbilitySystemData extends CharacterBuildingAbilitySourceData {
+    /** Key ability score options drawn from class and class features */
+    keyOptions: AbilityString[];
+
+    boosts: CharacterBuildingAbilitySourceData["boosts"] & {
+        ancestry: AbilityString[];
+        background: AbilityString[];
+        class: AbilityString | null;
+    };
+
+    /** Number of remaining allowed boosts (UI and gradual ability boosts only) */
+    allowedBoosts: {
+        1: number;
+        5: number;
+        10: number;
+        15: number;
+        20: number;
+    };
+
+    flaws: {
+        ancestry: AbilityString[];
+    };
 }
 
 type CharacterAbilities = Record<AbilityString, CharacterAbilityData>;
