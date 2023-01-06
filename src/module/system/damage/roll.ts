@@ -187,7 +187,7 @@ class DamageRoll extends AbstractDamageRoll {
             formula,
             user: game.user.id,
             tooltip: isPrivate ? "" : await this.getTooltip(),
-            instances,
+            instances: isPrivate ? [] : instances,
             total: isPrivate ? "?" : Math.floor((this.total! * 100) / 100),
             showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
         };
