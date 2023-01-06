@@ -4,7 +4,11 @@
         <div class="dice-formula">{{{formula}}}</div>
         {{{tooltip}}}
         <h4 class="dice-total">
-            <span class="total">{{total}}</span>
+            <span class="total"{{#if (isNumber increasedFrom)}} data-tooltip="{{localize "PF2E.Damage.IncreasedFrom" original=increasedFrom}}" data-tooltip-direction="LEFT"{{/if}}>{{total}}
+                {{~#if (isNumber increasedFrom) ~}}
+                <span class="increased-from">*</span>
+                {{~/if~}}
+            </span>
             {{#if (gt instances.length 1)}}
                 <div class="instances">
                     (
@@ -12,8 +16,9 @@
                     <span class="instance {{instance.type}}" title="{{instance.typeLabel}}">
                         {{~#if instance.persistent}}{{coalesce instance.head.term.expression instance.head.expression}}{{else}}{{instance.total}}{{/if}}
                         {{#if (and instance.persistent (ne instance.type "bleed"))}}<i class="fa-duotone fa-hourglass icon"></i>{{/if~}}
-                        <i class="fa-solid fa-{{instance.iconClass}} icon"></i></span>
-                    {{#unless @last}} + {{/unless~}}
+                        <i class="fa-solid fa-{{instance.iconClass}} icon"></i>
+                    </span>
+                    {{#unless @last}}+{{/unless~}}
                     {{~/each~}}
                     )
                 </div>
