@@ -27,7 +27,7 @@ import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
 import { DicePF2e } from "@scripts/dice";
 import { DamageType } from "@system/damage";
-import { applyIWR } from "@system/damage/iwr";
+import { applyIWR, IWRApplicationData, maxPersistentAfterIWR } from "@system/damage/iwr";
 import { Statistic } from "@system/statistic";
 import {
     ErrorPF2e,
@@ -925,11 +925,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (!hitPoints) return this;
 
         // Round damage and healing (negative values) toward zero
-        const result =
+        const result: IWRApplicationData =
             typeof damage === "number"
-                ? { finalDamage: Math.trunc(damage), applications: [] }
+                ? { finalDamage: Math.trunc(damage), applications: [], persistent: [] }
                 : skipIWR
-                ? { finalDamage: damage.total, applications: [] }
+                ? { finalDamage: damage.total, applications: [], persistent: [] }
                 : applyIWR(this, damage, rollOptions);
 
         const { finalDamage } = result;
@@ -1026,8 +1026,32 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             )
             .join(" ");
 
+        const deparenthesize = (formula: string) => formula.replace(/^\(([^)]+)\)$/, "$1");
+
+        // Apply persistent damage as conditions
+        const persistentDamage = result.persistent.map((instance) => {
+            const condition = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
+            condition.system.persistent = {
+                // Remove enclosing parentheses if present since it's no longer part of the original expression
+                formula: deparenthesize(instance.head.expression),
+                damageType: instance.type,
+                dc: 15,
+            };
+            return condition;
+        });
+
+        for (const source of [...persistentDamage]) {
+            const maxDamage = await maxPersistentAfterIWR(this, deepClone(source), rollOptions);
+            if (maxDamage === 0) persistentDamage.splice(persistentDamage.indexOf(source), 1);
+        }
+
+        const persistentCreated = (
+            persistentDamage.length > 0 ? await this.createEmbeddedDocuments("Item", persistentDamage) : []
+        ) as ConditionPF2e[];
+
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             statements,
+            persistent: persistentCreated.map((p) => p.system.persistent!.damage.formula),
             iwr: {
                 applications: result.applications,
                 visibility: this.hasPlayerOwner ? "all" : "gm",

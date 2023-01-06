@@ -1,429 +1,444 @@
 @use "sass:color";
 
-.message-content .damage-roll {
-    .dice-result {
-        .dice-formula {
-            align-items: center;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.25em;
-            justify-content: center;
-            line-height: var(--font-size-14);
-
-            .instance {
-                padding: 0.15em 0.25em;
-            }
-        }
-
-        .dice-total {
-            flex-direction: column;
-            font-weight: normal;
-
-            .total {
-                font-weight: 700;
-                padding: 0 2ch;
-
-                .increased-from {
-                    color: var(--color-text-dark-2);
-                    font-size: var(--font-size-16);
-                    font-weight: normal;
-                    vertical-align: 15%;
-                }
-            }
-
-            .instances {
-                font-size: var(--font-size-12);
-                line-height: var(--font-size-12);
-                margin-bottom: 0.2em;
-                vertical-align: top;
+.message-content {
+    .damage-roll {
+        .dice-result {
+            .dice-formula {
+                align-items: center;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25em;
+                justify-content: center;
 
                 .instance {
-                    padding: 0 1px;
+                    padding: 0 0.25em;
                 }
             }
-        }
 
-        .dice-tooltip {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25em;
-            margin-bottom: 0.25em;
+            .dice-total {
+                flex-direction: column;
+                font-weight: normal;
 
-            .instance {
-                border-radius: 2px;
-                border-style: solid;
-                border-width: 1px;
+                .total {
+                    font-weight: 700;
+                    padding: 0 2ch;
 
-                > header {
-                    align-items: center;
-                    display: flex;
-                    justify-content: space-between;
-                    margin-bottom: 0.1em;
-                }
-
-                .dice {
-                    .part-formula, .part-total {
-                        color: var(--color-text-dark-secondary);
+                    .increased-from {
+                        color: var(--color-text-dark-2);
+                        font-size: var(--font-size-16);
+                        font-weight: normal;
+                        vertical-align: 15%;
                     }
                 }
 
-                > header, .dice {
-                    padding: 0.2em;
+                .instances {
+                    font-size: var(--font-size-12);
+                    line-height: var(--font-size-12);
+                    margin-bottom: 0.2em;
+                    vertical-align: top;
+
+                    .instance {
+                        padding: 0.15em 0.25em;
+                    }
                 }
             }
-        }
 
-        .instance {
-            $darker: -12.5%;
-            $physical: #3c3c3c;
-            $transparent: 0.125;
-            white-space: nowrap;
+            .dice-tooltip {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25em;
+                margin-bottom: 0.25em;
 
-            // Default coloration
-            &:not(.tooltip-part), &.tooltip-part > header {
-                background: rgba($physical, $transparent);
+                .instance {
+                    border-radius: 2px;
+                    border-style: solid;
+                    border-width: 1px;
+
+                    > header {
+                        align-items: center;
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 0.1em;
+                    }
+
+                    .dice {
+                        .part-formula, .part-total {
+                            color: var(--color-text-dark-secondary);
+                        }
+                    }
+
+                    > header, .dice {
+                        padding: 0.2em;
+                    }
+                }
             }
 
-            &.acid {
-                $color: #007300;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
+            .instance {
+                $darker: -12.5%;
+                $physical: #3c3c3c;
+                $transparent: 0.125;
+                white-space: nowrap;
 
+                // Default coloration
                 &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
+                    background: rgba($physical, $transparent);
                 }
 
-                .icon {
+                &.acid {
+                    $color: #007300;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.bleed {
+                    $color: #99001a;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.bludgeoning {
+                    $color: $physical;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.chaotic {
+                    $color: #a600a6;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.cold {
+                    $color: #2f2fa6;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.electricity {
+                    $color: darkgoldenrod;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.evil {
+                    $color: indigo;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.fire {
+                    $color: #a62f00;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.force {
+                    $color: #6300aa;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.good {
+                    $color: #9d730a;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.lawful {
+                    $color: #402600;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+
+                }
+
+                &.mental {
+                    $color: midnightblue;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.negative {
+                    $color: #00001f;
+                    border-color: $color;
                     color: $color;
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.piercing {
+                    $color: $physical;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.poison {
+                    $color: #5b7332;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.positive {
+                    $color: #ffffe0;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                        text-shadow: 1px 1px rgba(black, 0.60);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.slashing {
+                    $color: $physical;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                &.sonic {
+                    $color: darkcyan;
+                    border-color: $color;
+                    color: color.adjust($color, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($color, $transparent);
+                    }
+
+                    .icon {
+                        color: $color;
+                    }
+                }
+
+                .splash {
+                    border-color: inherit;
+                    border-width: 1px;
+                    border-style: dotted;
+                    padding: 1px 2px;
+                    line-height: 0;
                 }
             }
 
-            &.bleed {
-                $color: #99001a;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
+            .dice-tooltip {
+                .damage-type {
+                    margin-bottom: 3px;
 
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
+                    h3 {
+                        text-transform: capitalize;
+                        padding-left: 3px;
+                        padding-right: 1px;
+                    }
+
+                    i.fa {
+                        flex: none;
+                        margin: 2px;
+                    }
+
+                    .dice {
+                        margin-left: 2px;
+                        margin-right: 2px;
+                    }
+
                 }
 
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.bludgeoning {
-                $color: $physical;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.chaotic {
-                $color: #a600a6;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.cold {
-                $color: #2f2fa6;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.electricity {
-                $color: darkgoldenrod;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.evil {
-                $color: indigo;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.fire {
-                $color: #a62f00;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.force {
-                $color: #6300aa;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.good {
-                $color: #9d730a;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.lawful {
-                $color: #402600;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-
-            }
-
-            &.mental {
-                $color: midnightblue;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.negative {
-                $color: #00001f;
-                border-color: $color;
-                color: $color;
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.piercing {
-                $color: $physical;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.poison {
-                $color: #5b7332;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.positive {
-                $color: #ffffe0;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                    text-shadow: 1px 1px rgba(black, 0.60);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.slashing {
-                $color: $physical;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            &.sonic {
-                $color: darkcyan;
-                border-color: $color;
-                color: color.adjust($color, $lightness: $darker);
-
-                &:not(.tooltip-part), &.tooltip-part > header {
-                    background: rgba($color, $transparent);
-                }
-
-                .icon {
-                    color: $color;
-                }
-            }
-
-            .splash {
-                border-color: inherit;
-                border-width: 1px;
-                border-style: dotted;
-                padding: 1px 2px;
-                line-height: 0;
-            }
-        }
-
-        .dice-tooltip {
-            .damage-type {
-                margin-bottom: 3px;
-
-                h3 {
+                .dice .part-header .part-flavor {
                     text-transform: capitalize;
-                    padding-left: 3px;
-                    padding-right: 1px;
                 }
-
-                i.fa {
-                    flex: none;
-                    margin: 2px;
-                }
-
-                .dice {
-                    margin-left: 2px;
-                    margin-right: 2px;
-                }
-
-            }
-
-            .dice .part-header .part-flavor {
-                text-transform: capitalize;
             }
         }
     }
-}
 
-.message-content .damage-application {
-    display: flex;
-    justify-content: center;
-    margin-top: 3px;
-    order: 3;
 
-    button {
-        align-items: center;
+    .damage-application {
         display: flex;
-        flex-direction: column;
-        font-size: var(--font-size-18);
-        height: 2em;
-        justify-content: space-around;
-        line-height: unset;
-        padding: 0;
+        justify-content: center;
+        margin-top: 3px;
+        order: 3;
 
-        &.half-damage {
-            position: relative;
+        button {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            font-size: var(--font-size-18);
+            height: 2em;
+            justify-content: space-around;
+            line-height: unset;
+            padding: 0;
 
-            .transparent-half {
-                background: rgb(248, 247, 233);
-                display: block;
-                height: 24px;
-                left: 49%;
-                opacity: 0.6;
-                position: absolute;
-                top: 0px;
-                width: 10px;
+            &.half-damage {
+                position: relative;
+
+                .transparent-half {
+                    background: rgb(248, 247, 233);
+                    display: block;
+                    height: 24px;
+                    left: 49%;
+                    opacity: 0.6;
+                    position: absolute;
+                    top: 0px;
+                    width: 10px;
+                }
+            }
+
+            > img {
+                border: none;
+                height: var(--font-size-18);
+            }
+
+            &.heal-damage .fa-stack {
+                font-size: 0.5em;
+
+                i.fa-plus {
+                    font-size: var(--font-size-10);
+                }
+            }
+
+            .label {
+                font-size: var(--font-size-9);
+                font-weight: 500;
+                text-transform: uppercase;
             }
         }
+    }
 
-        > img {
-            border: none;
-            height: var(--font-size-18);
-        }
 
-        &.heal-damage .fa-stack {
-            font-size: 0.5em;
+    .damage-taken {
+        .persistent {
+            font-style: normal;
+            margin-top: 1em;
 
-            i.fa-plus {
-                font-size: var(--font-size-10);
+            h4 {
+                border-bottom: 1px solid var(--color-underline-header);
+                max-width: fit-content;
             }
-        }
-
-        .label {
-            font-size: var(--font-size-9);
-            font-weight: 500;
-            text-transform: uppercase;
         }
     }
 }

@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { WeaknessData } from "@actor/data/iwr";
+import { ConditionPF2e, ConditionSource } from "@item";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { DamageInstance, DamageRoll } from "./roll";
 
@@ -8,6 +9,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
     const { immunities, weaknesses, resistances } = actor.attributes;
 
     const instances = roll.instances as Rolled<DamageInstance>[];
+    const persistent: Rolled<DamageInstance>[] = []; // Persistent damage instances filtered for immunities
 
     const applications = instances
         .flatMap((instance): IWRApplication[] => {
@@ -67,7 +69,14 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             }
 
             const afterImmunities = Math.max(total + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0), 0);
-            if (afterImmunities === 0) return instanceApplications;
+
+            if (instance.persistent) {
+                persistent.push(instance);
+            }
+
+            if (afterImmunities === 0) {
+                return instanceApplications;
+            }
 
             // Step 3: Weaknesses
             const mainWeaknesses = weaknesses.filter((w) => w.test(formalDescription));
@@ -129,12 +138,24 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
     const adjustment = applications.reduce((sum, a) => sum + a.adjustment, 0);
     const finalDamage = Math.max(roll.total + adjustment, 0);
 
-    return { finalDamage, applications };
+    return { finalDamage, applications, persistent };
+}
+
+/** Get the theoretic maximum damage for an instance of persistent damage after applying IWR */
+async function maxPersistentAfterIWR(
+    actor: ActorPF2e,
+    data: ConditionSource,
+    rollOptions: Set<string>
+): Promise<number> {
+    const { damage, damageType } = new ConditionPF2e(data, { ready: true }).system.persistent!;
+    const roll = await new DamageRoll(`${damage.maximumValue}[${damageType}]`).evaluate({ async: true });
+    return applyIWR(actor, roll, rollOptions).finalDamage;
 }
 
 interface IWRApplicationData {
     finalDamage: number;
     applications: IWRApplication[];
+    persistent: DamageInstance[];
 }
 
 interface UnafectedApplication {
@@ -163,4 +184,4 @@ interface ResistanceApplication {
 
 type IWRApplication = UnafectedApplication | ImmunityApplication | WeaknessApplication | ResistanceApplication;
 
-export { IWRApplication, IWRApplicationData, applyIWR };
+export { IWRApplication, IWRApplicationData, applyIWR, maxPersistentAfterIWR };
