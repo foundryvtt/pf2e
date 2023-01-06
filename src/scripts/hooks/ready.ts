@@ -4,7 +4,6 @@ import { SceneDarknessAdjuster } from "@module/apps/scene-darkness-adjuster";
 import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
 import { MigrationList } from "@module/migration";
 import { MigrationRunner } from "@module/migration/runner";
-import { registerModuleArt } from "@scripts/register-module-art";
 import { SetGamePF2e } from "@scripts/set-game-pf2e";
 import { activateSocketListener } from "@scripts/socket";
 import { storeInitialWorldVersions } from "@scripts/store-versions";
@@ -104,7 +103,7 @@ export const Ready = {
                     .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
             });
 
-            registerModuleArt();
+            game.pf2e.system.moduleArt.refresh();
 
             // Now that all game data is available, reprepare actor data among those actors currently in an encounter
             const participants = game.combats.contents.flatMap((e) => e.combatants.contents);
