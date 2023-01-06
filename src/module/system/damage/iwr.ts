@@ -51,7 +51,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             }
 
             const precisionImmunity = immunities.find((i) => i.type === "precision");
-            const precisionDamage = instance.componentTotal("precision");
+            const precisionDamage = Math.min(instance.componentTotal("precision"), total);
 
             if (precisionDamage > 0 && precisionImmunity?.test([...formalDescription, "damage:component:precision"])) {
                 // If the creature is immune to both critical hits and precision damage, precision immunity will only
