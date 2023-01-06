@@ -548,7 +548,8 @@ class SpellPF2e extends ItemPF2e {
             options.add(`${delimitedPrefix}duration:0`);
         }
 
-        for (const damage of Object.values(this.system.damage.value)) {
+        const damageValues = Object.values(this.system.damage.value);
+        for (const damage of damageValues) {
             if (damage.type) {
                 options.add(`${delimitedPrefix}damage:${damage.type.value}`);
                 options.add(`${delimitedPrefix}damage:type:${damage.type.value}`);
@@ -557,8 +558,12 @@ class SpellPF2e extends ItemPF2e {
             if (category) options.add(`${delimitedPrefix}damage:category:${category}`);
         }
 
-        if (this.system.spellType.value !== "heal") {
+        if (damageValues.length > 0 && this.system.spellType.value !== "heal") {
             options.add("damaging-effect");
+
+            if (this.system.area?.value) {
+                options.add("area-damage");
+            }
         }
 
         for (const trait of this.traits) {
