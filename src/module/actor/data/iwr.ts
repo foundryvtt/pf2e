@@ -70,6 +70,10 @@ abstract class IWRData<TType extends IWRType> {
             return ["item:trait:spell", `item:trait:${iwrType}`];
         }
 
+        if (iwrType === "area-damage") {
+            return ["area-damage"];
+        }
+
         if (["physical", "energy"].includes(iwrType)) {
             return [`damage:category:${iwrType}`];
         }
