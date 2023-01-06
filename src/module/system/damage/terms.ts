@@ -102,9 +102,21 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
         return this.operands.every((o) => o.isDeterministic && !(o instanceof MathTerm));
     }
 
+    get minimumValue(): number {
+        const left = DamageInstance.getValue(this.operands[0], "minimum");
+        const right = DamageInstance.getValue(this.operands[1], "minimum");
+        return ArithmeticExpression.totalOf(this.operator, left, right)!;
+    }
+
     get expectedValue(): number {
-        const left = DamageInstance.expectedValueOf(this.operands[0]);
-        const right = DamageInstance.expectedValueOf(this.operands[1]);
+        const left = DamageInstance.getValue(this.operands[0]);
+        const right = DamageInstance.getValue(this.operands[1]);
+        return ArithmeticExpression.totalOf(this.operator, left, right)!;
+    }
+
+    get maximumValue(): number {
+        const left = DamageInstance.getValue(this.operands[0], "maximum");
+        const right = DamageInstance.getValue(this.operands[1], "maximum");
         return ArithmeticExpression.totalOf(this.operator, left, right)!;
     }
 
@@ -208,8 +220,16 @@ class Grouping extends RollTerm<GroupingData> {
         return this.term.isDeterministic && !(this.term instanceof MathTerm);
     }
 
+    get minimumValue(): number {
+        return DamageInstance.getValue(this.term, "minimum");
+    }
+
     get expectedValue(): number {
-        return DamageInstance.expectedValueOf(this.term);
+        return DamageInstance.getValue(this.term);
+    }
+
+    get maximumValue(): number {
+        return DamageInstance.getValue(this.term, "maximum");
     }
 
     protected override async _evaluate(
@@ -285,10 +305,22 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
         );
     }
 
+    get minimumValue(): number {
+        return this.isDeterministic
+            ? DamageInstance.getValue(new Die({ number: this.number.total!, faces: this.faces.total! }), "minimum")
+            : NaN;
+    }
+
     /** Not able to get an expected value from a Math term */
     get expectedValue(): number {
-        return this.number.isDeterministic && this.faces.isDeterministic
-            ? (this.number.total! + 1) * this.faces.total!
+        return this.isDeterministic
+            ? DamageInstance.getValue(new Die({ number: this.number.total!, faces: this.faces.total! }))
+            : NaN;
+    }
+
+    get maximumValue(): number {
+        return this.isDeterministic
+            ? DamageInstance.getValue(new Die({ number: this.number.total!, faces: this.faces.total! }), "maximum")
             : NaN;
     }
 
