@@ -165,7 +165,11 @@ export function registerHandlebarsHelpers(): void {
         return "";
     });
 
-    Handlebars.registerHelper("isNullish", function (value: unknown) {
+    Handlebars.registerHelper("isNumber", (value: unknown): boolean => {
+        return typeof value === "number";
+    });
+
+    Handlebars.registerHelper("isNullish", (value: unknown): boolean => {
         return value === null || value === undefined;
     });
 

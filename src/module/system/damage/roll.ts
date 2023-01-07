@@ -156,6 +156,22 @@ class DamageRoll extends AbstractDamageRoll {
         return super.fromData(data);
     }
 
+    /** Increase total to 1 if evaluating to 0 or less */
+    protected override _evaluateTotal(): number {
+        const total = super._evaluateTotal();
+        if (this.instances.some((i) => !i.persistent) && total <= 0) {
+            this.options.increasedFrom = total;
+            // Send alteration to top of call stack since the Roll is currently updating itself
+            Promise.resolve().then(() => {
+                this.alter(1, 1 - total);
+            });
+
+            return 1;
+        }
+
+        return total;
+    }
+
     override async getTooltip(): Promise<string> {
         const instances = this.instances
             .filter((i) => i.dice.length > 0 && (!i.persistent || i.options.evaluatePersistent))
@@ -189,6 +205,7 @@ class DamageRoll extends AbstractDamageRoll {
             tooltip: isPrivate ? "" : await this.getTooltip(),
             instances: isPrivate ? [] : instances,
             total: isPrivate ? "?" : Math.floor((this.total! * 100) / 100),
+            increasedFrom: this.options.increasedFrom,
             showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
         };
 
@@ -449,6 +466,7 @@ interface DamageRollDataPF2e extends RollDataPF2e {
     result?: DamageRollFlag;
     evaluatePersistent?: boolean;
     degreeOfSuccess?: DegreeOfSuccessIndex;
+    increasedFrom?: number;
 }
 
 interface DamageInstanceData extends RollOptions {
