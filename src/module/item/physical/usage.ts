@@ -39,6 +39,7 @@ export function getUsageDetails(usage: string): UsageDetails {
 
         case "worn":
         case "worn-under-armor":
+        case "other":
             return { value: usage, type: "worn" };
 
         case "wornarmor":
@@ -114,6 +115,9 @@ export function getUsageDetails(usage: string): UsageDetails {
             return { value: usage, type: "worn" };
     }
 
-    console.warn(`PF2E System | Unknown usage: [${usage}]`);
+    if (BUILD_MODE === "development") {
+        console.warn(`PF2E System | Unknown usage: [${usage}]`);
+    }
+
     return { value: usage, type: "worn", where: null };
 }
