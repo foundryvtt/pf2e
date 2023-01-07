@@ -8,8 +8,8 @@ import {
 import { OneToFour, OneToThree } from "@module/data";
 import { createSheetTags, SheetOptions } from "@module/sheet/helpers";
 import { LocalizePF2e } from "@system/localize";
-import { setHasElement } from "@util";
-import { WeaponPropertyRuneSlot } from "./data";
+import { ErrorPF2e, htmlQueryAll, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import { WeaponPersistentDamage, WeaponPropertyRuneSlot } from "./data";
 import { type WeaponPF2e } from "./document";
 import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values";
 
@@ -92,6 +92,12 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 .sort((damageA, damageB) => damageA[1].localeCompare(damageB[1]))
         );
 
+        const damageDieFaces = Object.fromEntries(
+            Object.entries(CONFIG.PF2E.damageDie)
+                .map(([num, label]): [number, string] => [Number(num.replace("d", "")), label])
+                .sort(([numA], [numB]) => numA - numB)
+        );
+
         const weaponPropertyRunes = Object.fromEntries(
             Object.entries(CONFIG.PF2E.runes.weapon.property)
                 .map(([slug, data]): [string, string] => [slug, game.i18n.localize(data.name)])
@@ -149,6 +155,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             groups,
             baseTypes: LocalizePF2e.translations.PF2E.Weapon.Base,
             itemBonuses: CONFIG.PF2E.itemBonuses,
+            damageDieFaces,
             damageDie: CONFIG.PF2E.damageDie,
             damageDice: CONFIG.PF2E.damageDice,
             conditionTypes: CONFIG.PF2E.conditionTypes,
@@ -168,12 +175,49 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0]!;
+
+        type InputOrSelect = HTMLInputElement | HTMLSelectElement;
+        const pdElements = htmlQueryAll<InputOrSelect>(html, "[data-action=update-persistent]");
+        for (const element of pdElements) {
+            element.addEventListener("change", async (event): Promise<void> => {
+                if (!(event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement)) {
+                    throw ErrorPF2e("Unexpected error updating persistent damage data");
+                }
+
+                const diceNumber = Number(pdElements.find((e) => e.dataset.persistentField === "number")?.value) || 0;
+                const dieFaces = Number(pdElements.find((e) => e.dataset.persistentField === "faces")?.value);
+
+                const baseDamageType = this.item.system.damage.damageType;
+                const damageType =
+                    pdElements.find((e) => e.dataset.persistentField === "type")?.value || baseDamageType;
+
+                if (!(diceNumber && typeof dieFaces === "number" && damageType)) {
+                    throw ErrorPF2e("Unexpected error updating persistent damage data");
+                }
+
+                // If the user changed the number to zero directly, wipe the entire persistent damage object
+                const maybeDiceNumber = Math.trunc(Math.abs(Number(event.target.value) || 0));
+                if (event.target.dataset.persistentField === "number" && maybeDiceNumber === 0) {
+                    await this.item.update({ "system.damage.persistent": null });
+                } else if (objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
+                    const damage: WeaponPersistentDamage = {
+                        number: Math.trunc(Math.abs(diceNumber)) || 1,
+                        faces: tupleHasValue([4, 6, 8, 10, 12] as const, dieFaces) ? dieFaces : null,
+                        type: damageType,
+                    };
+                    await this.item.update({ "system.damage.persistent": damage });
+                }
+            });
+        }
+
         $html.find("i.fa-info-circle.small[title]").tooltipster({
             maxWidth: 275,
             position: "right",
             theme: "crb-hover",
             contentAsHTML: true,
         });
+
         $html.find("i.fa-info-circle.large[title]").tooltipster({
             maxWidth: 400,
             theme: "crb-hover",

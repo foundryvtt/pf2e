@@ -48,11 +48,21 @@ interface WeaponTraits extends PhysicalItemTraits<WeaponTrait> {
 }
 
 interface WeaponDamage {
-    value?: string;
     dice: number;
     die: DamageDieSize | null;
     damageType: DamageType;
     modifier: number;
+    /** Optional persistent damage */
+    persistent: WeaponPersistentDamage | null;
+}
+
+interface WeaponPersistentDamage {
+    /** A number of dice if `faces` is numeric, otherwise a constant */
+    number: number;
+    /** A number of die faces */
+    faces: 4 | 6 | 8 | 10 | 12 | null;
+    /** Usually the same as the weapon's own base damage type, but open for the user to change */
+    type: DamageType;
 }
 
 interface WeaponRuneData {
@@ -179,6 +189,7 @@ export {
     WeaponDamage,
     WeaponData,
     WeaponMaterialData,
+    WeaponPersistentDamage,
     WeaponPropertyRuneSlot,
     WeaponRuneData,
     WeaponSource,

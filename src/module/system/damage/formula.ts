@@ -1,7 +1,6 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { groupBy } from "@util";
-import { DamageCategorization } from "./helpers";
 import { CriticalInclusion, DamageFormulaData, DamageType, MaterialDamageEffect } from "./types";
 import { CRITICAL_INCLUSION } from "./values";
 
@@ -73,7 +72,6 @@ function createDamageFormula(
         .filter((m) => m.enabled)
         .flatMap((modifier): ModifierPF2e | never[] => {
             modifier.damageType ??= base.damageType;
-            modifier.damageCategory ??= DamageCategorization.fromDamageType(modifier.damageType);
             return outcomeMatches(modifier) ? modifier : [];
         });
 

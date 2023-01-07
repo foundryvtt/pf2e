@@ -2,7 +2,7 @@ import { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
 import { RollNotePF2e } from "@module/notes";
 import { extractModifierAdjustments } from "@module/rules/helpers";
-import { DamageDieSize, DamageType } from "@system/damage/types";
+import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types";
 import { DAMAGE_TYPES } from "@system/damage/values";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { ErrorPF2e, setHasElement, sluggify, tupleHasValue } from "@util";
@@ -72,7 +72,7 @@ interface BaseRawModifier {
     /** The damage type that this modifier does, if it modifies a damage roll. */
     damageType?: DamageType | null;
     /** The damage category */
-    damageCategory?: string | null;
+    damageCategory?: DamageCategoryUnique | null;
     /** A predicate which determines when this modifier is active. */
     predicate?: RawPredicate;
     /** If true, this modifier is only active on a critical hit. */
@@ -131,7 +131,7 @@ class ModifierPF2e implements RawModifier {
     source: string | null;
     custom: boolean;
     damageType: DamageType | null;
-    damageCategory: string | null;
+    damageCategory: DamageCategoryUnique | null;
     predicate: PredicatePF2e;
     critical: boolean | null;
     traits: string[];

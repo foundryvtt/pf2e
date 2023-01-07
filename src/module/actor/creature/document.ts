@@ -33,7 +33,7 @@ import {
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
-import { DamageType } from "@system/damage";
+import { DamageType, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
@@ -610,10 +610,10 @@ abstract class CreaturePF2e extends ActorPF2e {
                 predicate,
                 custom: true,
             }).toObject();
-            if (damageType) {
+            if (objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
                 modifier.damageType = damageType;
             }
-            if (damageCategory) {
+            if (setHasElement(DAMAGE_CATEGORIES_UNIQUE, damageCategory)) {
                 modifier.damageCategory = damageCategory;
             }
 

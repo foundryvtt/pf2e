@@ -114,7 +114,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     /** This weapon's damage before modification by creature abilities, effects, etc. */
     get baseDamage(): WeaponDamage {
-        return this.system.damage;
+        return deepClone(this.system.damage);
     }
 
     /** Does this weapon deal damage? */
@@ -231,10 +231,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
                 ? { type: systemData.preciousMaterial.value, grade: systemData.preciousMaterialGrade.value }
                 : null;
-
-        systemData.material = {
-            precious: preciousMaterial,
-        };
+        systemData.material = { precious: preciousMaterial };
 
         ABP.cleanupRunes(this);
 
