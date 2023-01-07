@@ -129,6 +129,9 @@ class CharacterPF2e extends CreaturePF2e {
     /** All class DCs regardless of whether or not its the primary */
     classDCs!: Record<string, Statistic>;
 
+    // Internal cached value of character skills
+    protected override _skills: CharacterSkills | null = null;
+
     override get allowedItemTypes(): (ItemType | "physical")[] {
         const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
         return [...super.allowedItemTypes, ...buildItems, "physical", "spellcastingEntry", "spell", "action", "lore"];
@@ -152,6 +155,8 @@ class CharacterPF2e extends CreaturePF2e {
     }
 
     override get skills(): CharacterSkills {
+        if (this._skills) return this._skills;
+
         const skills = super.skills;
         for (const [key, skill] of Object.entries(skills)) {
             if (!skill) continue;
@@ -167,7 +172,8 @@ class CharacterPF2e extends CreaturePF2e {
             });
         }
 
-        return skills as CharacterSkills;
+        this._skills = skills as CharacterSkills;
+        return this._skills;
     }
 
     get heroPoints(): { value: number; max: number } {
