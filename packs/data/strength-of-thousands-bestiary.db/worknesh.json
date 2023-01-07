@@ -2145,6 +2145,161 @@
             "type": "spell"
         },
         {
+            "_id": "iZIY8m6sCcwSQgIs",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.dIUmjoLjlcrKgXbH"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/weapon.svg",
+            "name": "Golden Blade of Mzali",
+            "sort": 2000000,
+            "system": {
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "spear",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "simple",
+                "containerId": "null",
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>Each of these golden spears was forged in the days of old Mzali, when the sun kings ruled the city. The majority of these weapons are lost, most likely buried with warriors in tombs and temples sealed by Walkena's decrees. Walkena retains a single golden blade, which he grants to his Master of Spears.</p>\n<p>This <em>+2 greater striking returning spear</em> is coated in brilliant gold, and beautiful engravings run along the shaft, depicting the rising and setting of the sun against Mzali's skyline. The spear glows with the effects of 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Light]{Light}</em>. You can suppress or resume this light by using an action, which has the concentrate trait. When you hit a creature with the spear, it takes 1d6 additional fire damage. When you critically hit a creature with the spear, the creature takes [[/r 1d8[persistent,fire]]] damage and @Localize[PF2E.PersistentDamage.Bleed1d8.success] as its blood boils away. Unlike normal when taking two types of persistent damage, a creature needs only a single successful flat check to remove both the fire and bleed damage.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">r</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You critically hit a creature with the weapon</p>\n<hr />\n<p><strong>Effect</strong> You call upon the spear's light to guide the creature away from violence. The creature must choose one of the following options:</p>\n<ul>\n<li>The creature surrenders, immediately receiving the critical failure effects of <em>@UUID[Compendium.pf2e.spells-srd.Calm Emotions]{Calm Emotions}</em> and <em>@UUID[Compendium.pf2e.spells-srd.Paralyze]{Paralyze}</em>.</li>\n<li>The weapon casts 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Blindness]{Blindness}</em> on the creature with a @Check[type:fortitude|dc:34|name:Blindness|traits:incapacitation,necromancy].</li>\n</ul>\n<p>Regardless of the choice, the spear loses its ability to glow with light until your next daily preparations.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The spear casts 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Elemental Form]{Elemental Form}</em> on you, choosing fire as the form's trait. The spear loses its additional fire damage until your next daily preparations.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "spear",
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 15
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 2
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 6500
+                    }
+                },
+                "propertyRune1": {
+                    "value": "returning"
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "You have cast elemental form using the Golden Blade of Mzali",
+                        "option": "used-elemental-form",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            {
+                                "not": "used-elemental-form"
+                            }
+                        ],
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "When you critically hit a creature with the spear, the creature takes [[/r 1d8[persistent,fire]]] damage and @Localize[PF2E.PersistentDamage.Bleed1d8.success] as its blood boils away. Unlike normal when taking two types of persistent damage, a creature needs only a single successful flat check to remove both the fire and bleed damage.",
+                        "title": "{item|name}"
+                    }
+                ],
+                "size": "med",
+                "slug": "golden-blade-of-mzali",
+                "source": {
+                    "value": "Pathfinder #172: Secrets of the Temple-City"
+                },
+                "specific": {
+                    "material": null,
+                    "price": "0",
+                    "runes": {
+                        "potency": 2,
+                        "striking": "greaterStriking"
+                    },
+                    "value": true
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": null,
+                "strikingRune": {
+                    "value": "greaterStriking"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "rare",
+                    "value": [
+                        "evocation",
+                        "fire",
+                        "light",
+                        "magical",
+                        "thrown-20"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "1"
+                }
+            },
+            "type": "weapon"
+        },
+        {
             "_id": "8echGomyU4VilFTC",
             "flags": {
                 "core": {
@@ -2153,7 +2308,7 @@
             },
             "img": "systems/pf2e/icons/equipment/armor/splint-mail.webp",
             "name": "+2 Resilient Splint Mail",
-            "sort": 2000000,
+            "sort": 2100000,
             "system": {
                 "armor": {
                     "value": 5
@@ -2258,7 +2413,7 @@
             },
             "img": "systems/pf2e/icons/equipment/shields/specific-shields/sturdy-shield.webp",
             "name": "Sturdy Shield (Moderate)",
-            "sort": 2100000,
+            "sort": 2200000,
             "system": {
                 "armor": {
                     "value": 2
@@ -2355,68 +2510,6 @@
                 }
             },
             "type": "armor"
-        },
-        {
-            "_id": "jqlnbukgaodasq5z",
-            "img": "icons/svg/mystery-man.svg",
-            "name": "golden blade of Mzali",
-            "sort": 2200000,
-            "system": {
-                "baseItem": null,
-                "containerId": "null",
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
-                },
-                "price": {
-                    "value": {}
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "type": "equipment"
         },
         {
             "_id": "1lzwfbo4etegxuat",
@@ -3078,6 +3171,7 @@
             "privateNotes": "<p><strong>Discovery</strong> @Check[type:mzali-lore|dc:32], @Check[type:perception|dc:37], @Check[type:society|dc:35]</p>\n<p><strong>Influence Skills</strong> @Check[type:intimidation|dc:35|name:Discuss Defensive Performative Aspects of Combat] (to discuss offensive combat techniques), @Check[type:acrobatics|dc:35|name:Discuss Defensive Combat Techniques] (to discuss defensive combat techniques), @Check[type:athletics|dc:35|name:Discuss Training Techniques] (to discuss training techniques), @Check[type:intimidation|dc:35|name:Discuss Defensive Performative Aspects of Combat], @Check[type:mzali-lore|dc:35|name:Discuss Defensive Performative Aspects of Combat], @Check[type:deception|dc:37|name:Discuss Defensive Performative Aspects of Combat], @Check[type:diplomacy|dc:39|name:Discuss Defensive Performative Aspects of Combat], @Check[type:performance|dc:39|name:Discuss Defensive Performative Aspects of Combat] (to discuss the performative aspects of combat), @Check[type:society|dc:39]</p>\n<hr />\n<p><strong>Influence 2</strong> Worknesh invites the delegation to a combat performance later in the week. The performance features members of the Jackal Guard engaging in sparring matches and retellings of the history of Mzali, with exciting combat peppered in. The heroes are under no obligation to go, but if they do, they are Worknesh's esteemed guests. During the performance, she takes the time to introduce the heroes to other key leaders in the city: Themba, Wekesa, and Zubari. This meeting gives the heroes inroads to contact these other leaders (even though Themba is decidedly cool to Worknesh). If the heroes' next attempt to Contact a Mzali Figure is to reach out to Themba, Wekesa, or Zubari, the attempt has a result no worse than a success.</p>\n<p><strong>Influence 4</strong> Worknesh wants to know the delegation's combat capabilities and invites the heroes to an exhibition fight. See Worknesh's Challenge for details on how this plays out.</p>\n<p><strong>Influence 6</strong> Worknesh acknowledges that the delegation is unlikely to pose a threat to the city and shares her approval with Nkiruka. This earns the heroes 1 Influence Point with Nkiruka. The heroes gain 30 XP.</p>\n<p><strong>Influence 8</strong> Worknesh finds a kind of kinship with the delegation, recognizing its ambition. She presents the heroes with a cache of armaments as a gift and sign of respect-or of pity if she genuinely thinks they're poor combatants. While the armaments are very elegant, Worknesh is against mistreatment of weaponry by making them more decorative than functional-each piece can be used in a fight. The armaments include a <em>@UUID[Compendium.pf2e.equipment-srd.Breastplate of Command]{Breastplate of Command}</em>, an <em>@UUID[Compendium.pf2e.equipment-srd.Iron Equalizer]{Iron Equalizer}</em>, and a +1 striking axiomatic @UUID[Compendium.pf2e.equipment-srd.Warhammer]{Warhammer} with a @UUID[Compendium.pf2e.equipment-srd.Binding Coil (Greater)]{Greater Binding Coil} affixed to it.</p>",
             "publicNotes": "",
             "source": {
+                "author": "",
                 "value": "Pathfinder #172: Secrets of the Temple-City"
             }
         },
