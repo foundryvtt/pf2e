@@ -247,6 +247,31 @@ class WeaponDamagePF2e {
             }
         }
 
+        // Persistent damage inherent to the weapon
+        if (baseDamage.persistent?.faces) {
+            damageDice.push(
+                new DamageDicePF2e({
+                    selector: `${weapon.id}-damage`,
+                    slug: "weapon-persistent",
+                    label: "PF2E.ConditionTypePersistent",
+                    diceNumber: baseDamage.persistent.number,
+                    dieSize: `d${baseDamage.persistent.faces}`,
+                    damageType: baseDamage.persistent.type,
+                    category: "persistent",
+                })
+            );
+        } else if (baseDamage.persistent?.number) {
+            modifiers.push(
+                new ModifierPF2e({
+                    slug: "weapon-persistent",
+                    label: "PF2E.ConditionTypePersistent",
+                    modifier: baseDamage.persistent.number,
+                    damageType: baseDamage.persistent.type,
+                    damageCategory: "persistent",
+                })
+            );
+        }
+
         // Property Runes
         const propertyRunes = weaponPotency?.property ?? [];
         damageDice.push(...getPropertyRuneModifiers(propertyRunes));
@@ -374,7 +399,7 @@ class WeaponDamagePF2e {
 
         const damage: DamageFormulaData = {
             base: {
-                diceNumber: baseDamage.dice,
+                diceNumber: baseDamage.die ? baseDamage.dice : 0,
                 dieSize: baseDamage.die,
                 modifier: baseDamage.modifier,
                 damageType: baseDamage.damageType,
@@ -562,6 +587,7 @@ class WeaponDamagePF2e {
             die: die?.faces ? (`d${die.faces}` as DamageDieSize) : null,
             modifier: operator === "+" ? modifier : -1 * modifier,
             damageType: instance.damageType,
+            persistent: null,
         };
     }
 

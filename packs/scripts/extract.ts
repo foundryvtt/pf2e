@@ -197,11 +197,16 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         if (docSource.system.traits.otherTags?.length === 0) {
                             delete (docSource.system.traits as { otherTags?: unknown }).otherTags;
                         }
+
                         if (docSource.type === "consumable" && !docSource.system.spell) {
                             delete (docSource.system as { spell?: unknown }).spell;
                         }
+
                         if (docSource.type === "weapon") {
                             delete (docSource.system as { property1?: unknown }).property1;
+                            if (!docSource.system.damage.persistent) {
+                                delete (docSource.system.damage as { persistent?: unknown }).persistent;
+                            }
                         }
                     } else if (docSource.type === "action" && !docSource.system.deathNote) {
                         delete (docSource.system as { deathNote?: boolean }).deathNote;

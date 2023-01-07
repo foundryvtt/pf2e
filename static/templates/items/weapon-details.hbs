@@ -66,6 +66,14 @@
         </select>
     </div>
 {{/if}}
+
+{{#if isBomb}}
+    <div class="form-group">
+        <label>{{localize "PF2E.WeaponBonusAttackLabel"}}</label>
+        <input type="number" name="system.bonus.value" value="{{data.bonus.value}}" />
+    </div>
+{{/if}}
+
 <div class="form-group">
     <label>{{localize "PF2E.WeaponMAPLabel"}}</label>
     <select name="system.MAP.value">
@@ -83,7 +91,7 @@
             {{localize "PF2E.Item.Weapon.MaterialAndRunes.Title"}}
             <i class="fas fa-info-circle large" title="{{localize "PF2E.Item.Weapon.MaterialAndRunes.Hint"}}"></i>
         </h3>
-        <div class="form-group">
+        <div class="form-group precious-material">
             <label>{{localize "PF2E.PreciousMaterialLabel"}}</label>
             <select name="preciousMaterial">
                 {{#select preciousMaterials.value}}
@@ -151,15 +159,16 @@
 {{/unless}}
 <ol class="form-list">
     <h3>
-        {{localize "PF2E.WeaponBaseDamageLabel"}}
+        {{localize "PF2E.DamageLabel"}}
         <i class="fas fa-info-circle large" title="{{localize "PF2E.WeaponBaseDamageTitle"}}"></i>
     </h3>
     <div class="form-group">
         <label>
-            {{localize "PF2E.WeaponDamageLabel"}}
+            {{localize "PF2E.WeaponBaseLabel"}}
             {{#if adjustedDiceHint}}<i class="fas fa-info-circle small" title="{{adjustedDiceHint}}"></i>{{/if}}
         </label>
-        <div class="details-container-three-columns">
+
+        <div class="dice-data">
             <input type="number"{{#if adjustedDiceHint}} class="adjusted"{{/if}} data-property="system.damage.dice" data-value-base="{{baseDice}}" value="{{data.damage.dice}}" />
             <select name="system.damage.die">
                 {{#select data.damage.die}}
@@ -172,6 +181,37 @@
             <select name="system.damage.damageType">
                 {{#select data.damage.damageType}}
                     {{#each damageTypes as |name type|}}
+                        {{#unless (eq type "bleed")}}<option value="{{type}}">{{localize name}}</option>{{/unless}}
+                    {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label{{#unless data.splashDamage.value}} class="no-data"{{/unless}}>{{localize "PF2E.TraitSplash"}}</label>
+        <input type="number" name="system.splashDamage.value" value="{{data.splashDamage.value}}" />
+    </div>
+
+    <div class="form-group">
+        <label{{#unless data.damage.persistent}} class="no-data"{{/unless}}>{{localize "PF2E.ConditionTypePersistentShort"}}</label>
+
+        <div class="dice-data">
+            <input type="number" data-action="update-persistent" data-persistent-field="number" value="{{coalesce data.damage.persistent.number 0}}" />
+
+            <select data-action="update-persistent" data-persistent-field="faces">
+                {{#select data.damage.persistent.faces}}
+                    <option value=""></option>
+                    {{#each damageDieFaces as |label value|}}
+                        <option value="{{value}}">{{localize label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+
+            <select data-action="update-persistent" data-persistent-field="type" value="{{data.damage.persistent.damageType}}">
+                {{#select data.damage.persistent.type}}
+                    <option value=""></option>
+                    {{#each damageTypes as |name type|}}
                         <option value="{{type}}">{{localize name}}</option>
                     {{/each}}
                 {{/select}}
@@ -179,23 +219,12 @@
         </div>
     </div>
 
-    {{#if isBomb}}
-        <div class="form-group">
-            <label>{{localize "PF2E.WeaponBonusAttackLabel"}}</label>
-            <input type="number" name="system.bonus.value" value="{{data.bonus.value}}" />
-        </div>
-    {{/if}}
-
     <div class="form-group">
-        <label>{{localize "PF2E.WeaponSplashDamageLabel"}}</label>
-        <input type="number" name="system.splashDamage.value" value="{{data.splashDamage.value}}" />
-    </div>
-
-    <div class="form-group">
-        <label>{{localize "PF2E.WeaponBonusDamageLabel"}}</label>
+        <label{{#unless data.bonusDamage.value}} class="no-data"{{/unless}}>{{localize "PF2E.Bonus"}}</label>
         <input type="number" name="system.bonusDamage.value" value="{{data.bonusDamage.value}}" />
     </div>
 </ol>
+
 <ol class="form-list">
     <h3>
         {{localize "PF2E.WeaponCustomDamageLabel"}}
@@ -208,15 +237,8 @@
 
     <li class="form-group">
         <label>{{localize "PF2E.WeaponPropertyStrikeDamageLabel"}}</label>
-        <div class="details-container">
-            <select name="system.property1.dice" data-dtype="Number">
-                {{#select data.property1.dice}}
-                    <option value=""></option>
-                    {{#each damageDice as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
+        <div class="dice-data">
+            <input type="number" name="system.property1.dice" value="{{data.property1.dice}}" />
             <select name="system.property1.die">
                 {{#select data.property1.die}}
                     <option value=""></option>
@@ -258,15 +280,8 @@
     </li>
     <li class="form-group">
         <label>{{localize "PF2E.WeaponPropertyCriticalDamageLabel"}}</label>
-        <div class="details-container">
-            <select name="system.property1.critDice" data-dtype="Number">
-                {{#select data.property1.critDice}}
-                    <option value=""></option>
-                    {{#each damageDice as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
+        <div class="dice-data">
+            <input type="number" name="system.property1.critDice" value="{{data.property1.critDice}}" />
             <select name="system.property1.critDie">
                 {{#select data.property1.critDie}}
                     <option value=""></option>
