@@ -21,6 +21,15 @@ abstract class AbstractDamageRoll extends Roll {
         return replaced.replace(/\((\d+)\)/g, "$1");
     }
 
+    /** The theoretically lowest total of this roll */
+    abstract get minimumValue(): number;
+
+    /** The expected value (average result over the course of a "large number" of rolls) of this roll */
+    abstract get expectedValue(): number;
+
+    /** The theoretically highest total of this roll */
+    abstract get maximumValue(): number;
+
     protected override _evaluateSync(): never {
         throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
     }
@@ -142,9 +151,16 @@ class DamageRoll extends AbstractDamageRoll {
         return instances.length > 0 ? instances.flatMap((i) => i.dice) : super.dice;
     }
 
-    /** The expected value ("average") of this roll */
+    get minimumValue(): number {
+        return this.instances.reduce((sum, i) => sum + i.minimumValue, 0);
+    }
+
     get expectedValue(): number {
         return this.instances.reduce((sum, i) => sum + i.expectedValue, 0);
+    }
+
+    get maximumValue(): number {
+        return this.instances.reduce((sum, i) => sum + i.maximumValue, 0);
     }
 
     static override fromData<TRoll extends Roll>(this: AbstractConstructorOf<TRoll>, data: RollJSON): TRoll;
@@ -315,14 +331,44 @@ class DamageInstance extends AbstractDamageRoll {
         return super.fromData(data);
     }
 
-    /** Get the expected value of a term */
-    static expectedValueOf(term: RollTerm): number {
-        if (term instanceof NumericTerm) {
-            return term.number;
-        } else if (term instanceof Die) {
-            return term.number * ((term.faces + 1) / 2);
-        } else if (term instanceof ArithmeticExpression || term instanceof Grouping) {
-            return term.expectedValue;
+    /** Get the expected, minimum, or maximum value of a term */
+    static getValue(term: RollTerm, type: "minimum" | "maximum" | "expected" = "expected"): number {
+        if (term instanceof NumericTerm) return term.number;
+
+        switch (type) {
+            case "minimum":
+                if (term instanceof Die) {
+                    return term.number;
+                } else if (
+                    term instanceof ArithmeticExpression ||
+                    term instanceof Grouping ||
+                    term instanceof IntermediateDie
+                ) {
+                    return term.minimumValue;
+                }
+                break;
+            case "maximum":
+                if (term instanceof Die) {
+                    return term.number * term.faces;
+                } else if (
+                    term instanceof ArithmeticExpression ||
+                    term instanceof Grouping ||
+                    term instanceof IntermediateDie
+                ) {
+                    return term.maximumValue;
+                }
+                break;
+            default: {
+                if (term instanceof Die) {
+                    return term.number * ((term.faces + 1) / 2);
+                } else if (
+                    term instanceof ArithmeticExpression ||
+                    term instanceof Grouping ||
+                    term instanceof IntermediateDie
+                ) {
+                    return term.expectedValue;
+                }
+            }
         }
 
         return 0;
@@ -344,9 +390,16 @@ class DamageInstance extends AbstractDamageRoll {
         return typeof maybeNumber === "number" ? Math.floor(maybeNumber) : maybeNumber;
     }
 
-    /** The expected value of this damage instance */
+    get minimumValue(): number {
+        return DamageInstance.getValue(this.head, "minimum");
+    }
+
     get expectedValue(): number {
-        return DamageInstance.expectedValueOf(this.head);
+        return DamageInstance.getValue(this.head);
+    }
+
+    get maximumValue(): number {
+        return DamageInstance.getValue(this.head, "maximum");
     }
 
     /** An array of statements for use in predicate testing */
