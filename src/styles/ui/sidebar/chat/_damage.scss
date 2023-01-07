@@ -2,6 +2,10 @@
 
 .message-content {
     .damage-roll {
+        &:not(:first-child) {
+            margin-top: 1em;
+        }
+
         .dice-result {
             .dice-formula {
                 align-items: center;
@@ -32,7 +36,10 @@
                 }
 
                 .instances {
+                    align-items: center;
+                    display: flex;
                     font-size: var(--font-size-12);
+                    justify-content: center;
                     line-height: var(--font-size-12);
                     margin-bottom: 0.2em;
                     vertical-align: top;

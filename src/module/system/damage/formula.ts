@@ -190,8 +190,7 @@ function sumExpression(terms: (string | null)[], { double = false } = {}): strin
     if (terms.every((t) => !t)) return null;
 
     const summed = terms.filter((p): p is string => !!p).join(" + ") || null;
-    const hasSplash = !!summed?.includes("[splash]");
-    const enclosed = (double && hasOperators(summed)) || hasSplash ? `(${summed})` : summed;
+    const enclosed = double && hasOperators(summed) ? `(${summed})` : summed;
 
     return double ? `2 * ${enclosed}` : enclosed;
 }

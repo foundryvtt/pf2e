@@ -6,6 +6,11 @@ import { DamageInstance, DamageRoll } from "./roll";
 
 /** Apply an actor's IWR applications to an evaluated damage roll's instances */
 function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<string>): IWRApplicationData {
+    // Skip the whole exercise if the actor is dead
+    if (actor.isDead) {
+        return { finalDamage: 0, applications: [], persistent: [] };
+    }
+
     const { immunities, weaknesses, resistances } = actor.attributes;
 
     const instances = roll.instances as Rolled<DamageInstance>[];

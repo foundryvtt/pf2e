@@ -222,6 +222,7 @@ class DamageRoll extends AbstractDamageRoll {
             instances: isPrivate ? [] : instances,
             total: isPrivate ? "?" : Math.floor((this.total! * 100) / 100),
             increasedFrom: this.options.increasedFrom,
+            splashOnly: !!this.options.splashOnly,
             showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
         };
 
@@ -498,7 +499,7 @@ class DamageInstance extends AbstractDamageRoll {
         return head instanceof ArithmeticExpression || head instanceof Grouping ? head.critImmuneTotal : this.total;
     }
 
-    componentTotal(this: Rolled<DamageInstance>, component: "precision" | "splash"): number {
+    componentTotal(component: "precision" | "splash"): number {
         if (!this._evaluated) {
             throw ErrorPF2e("Component totals may only be accessed from an evaluated damage instance");
         }
@@ -520,6 +521,7 @@ interface DamageRollDataPF2e extends RollDataPF2e {
     evaluatePersistent?: boolean;
     degreeOfSuccess?: DegreeOfSuccessIndex;
     increasedFrom?: number;
+    splashOnly?: boolean;
 }
 
 interface DamageInstanceData extends RollOptions {

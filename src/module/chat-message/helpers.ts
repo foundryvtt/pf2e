@@ -8,13 +8,14 @@ function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckRollContextFla
     return !!flag && !tupleHasValue(["damage-roll", "spell-cast"], flag.type);
 }
 
-async function applyDamageFromMessage(
-    message: ChatMessagePF2e,
+async function applyDamageFromMessage({
+    message,
     multiplier = 1,
     addend = 0,
-    promptModifier = false
-): Promise<void> {
-    if (promptModifier) return shiftModifyDamage(message, multiplier);
+    promptModifier = false,
+    rollIndex = 0,
+}: ApplyDamageFromMessageParams): Promise<void> {
+    if (promptModifier) return shiftAdjustDamage(message, multiplier, rollIndex);
 
     const tokens = canvas.tokens.controlled.filter((token) => !!token.actor);
     if (tokens.length === 0) {
@@ -24,8 +25,8 @@ async function applyDamageFromMessage(
     }
 
     const shieldBlockRequest = CONFIG.PF2E.chatDamageButtonShieldToggle;
-    const roll = message.rolls.find((r): r is Rolled<DamageRoll> => r instanceof DamageRoll);
-    if (!roll) throw ErrorPF2e("Unexpected error retrieving damage roll");
+    const roll = message.rolls.at(rollIndex);
+    if (!(roll instanceof DamageRoll)) throw ErrorPF2e("Unexpected error retrieving damage roll");
 
     for (const token of tokens) {
         await token.actor?.applyDamage({
@@ -39,7 +40,15 @@ async function applyDamageFromMessage(
     toggleOffShieldBlock(message.id);
 }
 
-function shiftModifyDamage(message: ChatMessagePF2e, multiplier: number): void {
+interface ApplyDamageFromMessageParams {
+    message: ChatMessagePF2e;
+    multiplier?: number;
+    addend?: number;
+    promptModifier?: boolean;
+    rollIndex?: number;
+}
+
+function shiftAdjustDamage(message: ChatMessagePF2e, multiplier: number, rollIndex: number): void {
     new Dialog({
         title: game.i18n.localize("PF2E.UI.shiftModifyDamageTitle"),
         content: `<form>
@@ -60,7 +69,13 @@ function shiftModifyDamage(message: ChatMessagePF2e, multiplier: number): void {
                     // In case of healing, multipler will have negative sign. The user will expect that positive
                     // modifier would increase healing value, while negative would decrease.
                     const adjustment = (Number($dialog.find("[name=modifier]").val()) || 0) * Math.sign(multiplier);
-                    applyDamageFromMessage(message, multiplier, adjustment);
+                    applyDamageFromMessage({
+                        message,
+                        multiplier,
+                        addend: adjustment,
+                        promptModifier: false,
+                        rollIndex,
+                    });
                 },
             },
         },

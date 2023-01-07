@@ -203,7 +203,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
         const html = $html[0]!;
         if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll) {
-            await DamageButtons.listen(this, $html);
+            await DamageButtons.listen(this, html);
         }
         await DamageTaken.listen(html);
         CriticalHitAndFumbleCards.appendButtons(this, $html);
