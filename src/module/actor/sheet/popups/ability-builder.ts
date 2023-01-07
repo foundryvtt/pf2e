@@ -145,8 +145,8 @@ export class AbilityBuilderPopup extends Application {
             boosts: ancestryBoosts,
             remaining: boostsRemaining,
             voluntaryBoostsRemaining,
-            labels: this.calculateBoostLabels(ancestry.system.boosts),
-            flawLabels: this.calculateBoostLabels(ancestry.system.flaws),
+            labels: this.#getBoostFlawLabels(ancestry.system.boosts),
+            flawLabels: this.#getBoostFlawLabels(ancestry.system.flaws),
         };
     }
 
@@ -182,7 +182,7 @@ export class AbilityBuilderPopup extends Application {
             }
         }
 
-        const labels = this.calculateBoostLabels(actor.background.system.boosts);
+        const labels = this.#getBoostFlawLabels(actor.background.system.boosts);
         const tooltip = ((): string | null => {
             const boosts = actor.background?.system.boosts ?? {};
             if (
@@ -234,14 +234,16 @@ export class AbilityBuilderPopup extends Application {
         );
     }
 
-    private calculateBoostLabels(
-        boosts: Record<string, { value: AbilityString[]; selected: AbilityString | null }>
+    #getBoostFlawLabels(
+        boostData: Record<string, { value: AbilityString[]; selected: AbilityString | null }>
     ): string[] {
-        return Object.values(boosts).map((b) => {
-            if (b.value.length === 6) {
+        return Object.values(boostData).flatMap((boosts) => {
+            if (boosts.value.length === 6) {
                 return game.i18n.localize("PF2E.AbilityFree");
+            } else if (boosts.value.length > 0) {
+                return boosts.value.map((ability) => game.i18n.localize(CONFIG.PF2E.abilities[ability])).join(" or ");
             } else {
-                return b.value.map((ability) => game.i18n.localize(CONFIG.PF2E.abilities[ability])).join(" or ");
+                return [];
             }
         });
     }
