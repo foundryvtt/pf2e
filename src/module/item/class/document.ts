@@ -55,14 +55,18 @@ class ClassPF2e extends ABCItemPF2e {
         };
     }
 
-    /** Include all class features in addition to any with the expected location ID */
+    /** Include all top-level class features in addition to any with the expected location ID */
     override getLinkedItems(): Embedded<FeatPF2e>[] {
         if (!this.actor) return [];
 
         return Array.from(
             new Set([
                 ...super.getLinkedItems(),
-                ...this.actor.itemTypes.feat.filter((f) => f.featType === "classfeature"),
+                ...this.actor.itemTypes.feat.filter(
+                    (f) =>
+                        f.featType === "classfeature" &&
+                        !(f.flags.pf2e.grantedBy && this.actor?.items.has(f.flags.pf2e.grantedBy.id))
+                ),
             ])
         );
     }
