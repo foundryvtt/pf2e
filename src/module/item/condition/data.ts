@@ -104,4 +104,12 @@ interface PersistentSourceData {
     dc: number;
 }
 
-export { ConditionData, ConditionKey, ConditionSource, ConditionSlug, ConditionSystemData, PersistentDamageData };
+export {
+    ConditionData,
+    ConditionKey,
+    ConditionSlug,
+    ConditionSource,
+    ConditionSystemData,
+    PersistentDamageData,
+    PersistentSourceData,
+};
