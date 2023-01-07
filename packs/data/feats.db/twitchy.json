@@ -27,7 +27,7 @@
                 "key": "RollOption",
                 "label": "Saving or defending against hazards",
                 "option": "hazard",
-                "toggleable": true
+                "toggleable": "totm"
             },
             {
                 "domain": "all",
@@ -38,7 +38,6 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "Twitchy",
                 "selector": "initiative",
                 "type": "circumstance",
                 "value": 1
@@ -56,10 +55,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "hazard"
-                ],
-                "roll-options": [
-                    "all"
+                    "origin:type:hazard"
                 ],
                 "selector": [
                     "ac",
