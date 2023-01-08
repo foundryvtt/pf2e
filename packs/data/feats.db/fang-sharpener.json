@@ -65,6 +65,22 @@
                     "self:heritage:razortooth-goblin"
                 ],
                 "selector": "razortooth-jaws-damage"
+            },
+            {
+                "critical": true,
+                "damageCategory": "persistent",
+                "damageType": "bleed",
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:irongut-jaws",
+                            "item:razortooth-jaws"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "value": "@weapon.system.damage.dice"
             }
         ],
         "source": {
