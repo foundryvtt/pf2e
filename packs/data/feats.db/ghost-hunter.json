@@ -23,10 +23,36 @@
         },
         "rules": [
             {
-                "definition": [],
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.TOTMToggle.Incorporeal",
+                "option": "target:trait:incorporeal",
+                "toggleable": "totm"
+            },
+            {
+                "definition": [
+                    "item:magical"
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
-                "property": "traits",
+                "predicate": [
+                    "target:trait:incorporeal"
+                ],
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
+                "definition": [
+                    {
+                        "not": "item:magical"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:trait:incorporeal"
+                ],
+                "property": "weapon-traits",
                 "value": "magical"
             }
         ],
