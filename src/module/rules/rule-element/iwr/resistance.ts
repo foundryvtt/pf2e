@@ -24,6 +24,8 @@ class ResistanceRuleElement extends IWRRuleElement {
     }
 
     getIWR(value: number): ResistanceData[] {
+        if (value <= 0) return [];
+
         const resistances = this.property;
 
         for (const resistanceType of [...this.type]) {
