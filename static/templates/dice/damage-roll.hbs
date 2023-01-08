@@ -4,16 +4,21 @@
         <div class="dice-formula">{{{formula}}}</div>
         {{{tooltip}}}
         <h4 class="dice-total">
-            <span class="total">{{total}}</span>
+            <span class="total"{{#if (isNumber increasedFrom)}} data-tooltip="{{localize "PF2E.Damage.IncreasedFrom" original=increasedFrom}}" data-tooltip-direction="LEFT"{{/if}}>{{total}}
+                {{~#if (isNumber increasedFrom) ~}}
+                <span class="increased-from">*</span>
+                {{~/if~}}
+            </span>
             {{#if (gt instances.length 1)}}
                 <div class="instances">
                     (
                     {{~#each instances as |instance|~}}
-                    <span class="instance {{instance.type}}" title="{{instance.typeLabel}}">
-                        {{~#if instance.persistent}}{{coalesce instance.head.term.expression instance.head.expression}}{{else}}{{instance.total}}{{/if}}
-                        {{#if (and instance.persistent (ne instance.type "bleed"))}}<i class="fa-duotone fa-hourglass icon"></i>{{/if~}}
-                        <i class="fa-solid fa-{{instance.iconClass}} icon"></i></span>
-                    {{#unless @last}} + {{/unless~}}
+                        <span class="instance {{instance.type}}" title="{{instance.typeLabel}}">
+                            {{~#if instance.persistent}}{{coalesce instance.head.term.expression instance.head.expression}}{{else}}{{instance.total}}{{/if}}
+                            {{#if (and instance.persistent (ne instance.type "bleed"))}}<i class="fa-duotone fa-hourglass icon"></i>{{/if~}}
+                            <i class="fa-solid fa-{{instance.iconClass}} icon"></i>
+                        </span>
+                        {{~#unless @last}} + {{/unless~}}
                     {{~/each~}}
                     )
                 </div>
@@ -25,7 +30,7 @@
 <section class="damage-application">
     <button type="button" class="full-damage" title="{{localize "PF2E.DamageButton.Full"}}&#013;{{localize "PF2E.DamageButton.Adjust"}}">
         <i class="fa-solid fa-heart-broken fa-fw"></i>
-        <span class="label">{{localize "PF2E.DamageButton.FullShort"}}</span>
+        <span class="label">{{#if splashOnly}}{{localize "PF2E.TraitSplash"}}{{else}}{{localize "PF2E.DamageButton.FullShort"}}{{/if}}</span>
     </button>
     <button type="button" class="half-damage" title="{{localize "PF2E.DamageButton.Half"}}&#013;{{localize "PF2E.DamageButton.Adjust"}}">
         <i class="fa-solid fa-heart-broken fa-fw"></i>

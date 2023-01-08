@@ -1,5 +1,62 @@
 # Changelog
 
+## Version 4.6.4
+
+### New Features
+* (Supe) Add support for alternate ancestry boosts
+
+### System Improvements
+* (stwlam) Add processing of area damage weaknesses/resistance, axe vulnerability, and arrow vulnerability
+* (stwlam) Add ability to include persistent damage directly in weapon data
+* (stwlam) Create persistent damage conditions when applying damage
+
+### Bugfixes
+* (stwlam) Hide damage-instance breakdown from private damage rolls
+* (stwlam) Fix context menu applying triple damage when double damage is selected
+* (stwlam) Only increase weapon dice number from striking/ABP if originally 1 (excludes higher-level bombs)
+* (stwlam) Ensure damage rolls always total to at least 1
+* (stwlam) Loosen overly-strict damage-roll recognition
+* (Supe) Fix bracket row deletion in flat modifier form always deleting the first row
+* (Supe) Fix overflow in effect panel from longer badges
+
+### Data Updates
+* (Abaddon) Update damage-roll formulas in bomb notes to reflect new standard
+* (Abaddon) Fix shark diver's Electrify ability
+* (Abaddon) Fix various sources
+* (Cheps) Fix Anadi Elder, Anadi Sage, and Daemonic Infector spellcasting entries
+* (Cora) Add new key item icons
+* (Cora) Update and remove spoilers of items on some of the unique AV NPCs
+* (Dire Weasel) Add Gouging Claw damage variants
+* (Dire Weasel) Add persistent damage to Acid Flask
+* (Dire Weasel) Add stench auras to xulgaths
+* (Dire Weasel) Correct some sources in AP 185 and 186
+* (Dire Weasel) Correct spelling of "Rejuvenation" in some NPC stat blocks
+* (Dire Weasel) Fix Galudu's inventory
+* (Dire Weasel) Fix Grab on Minchgorm
+* (Dire Weasel) Fix Lomok's Oath of the Burning Mammoths
+* (Dire Weasel) Fix battle form spell effects to use "cold-iron" rather than "coldiron"
+* (Dire Weasel) Fix capitalization of actions
+* (Dire Weasel) Fix case of Telekinetic Projectile variant names
+* (Dire Weasel) Fix book sources of several items
+* (Dire Weasel) Fix name of Hamstringing Strike and add effect
+* (Dire Weasel) Fix prompt for Giant Instinct Barbarian
+* (Dire Weasel) Fix inventories and strike details of several Strength of Thousands NPC
+* (Dire Weasel) Touch up equipment on PFS actors
+* (Dwim) Fix Clawsong versatile spell effect
+* (Dwim) Fix deadly variant of Clawsong spell effect
+* (LebombJames) Add variants for Shadow Blast save types
+* (Lunar Requiem) Correct spelling of Woolly Rhinoceros
+* (MrVauxs) Add missing range traits to selectable values
+* (Roxim) Add missing GrantItem to Psychic Dedication
+* (Roxim) Revise CRB Errata 4 Changes
+* (SpartanCPA) Add an effect for Nyktera's Righteous Fury
+* (stwlam) Add ghost touch rule element to Blade Ally effect
+* (stwlam) Refine rule elements on Twitchy feat
+* (stwlam) Add persistent damage to Alchemist's Fire
+* (TMun) Remove duplicate weapons master entry from Shraen Graveknight NPC
+* (xdy) Add Spell Effect: Prismatic Armor
+
+
 ## Version 4.6.3
 
 ### Bugfixes

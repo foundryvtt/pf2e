@@ -1,8 +1,8 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { groupBy } from "@util";
-import { DamageCategorization } from "./helpers";
-import { DamageFormulaData, DamageType, MaterialDamageEffect } from "./types";
+import { CriticalInclusion, DamageFormulaData, DamageType, MaterialDamageEffect } from "./types";
+import { CRITICAL_INCLUSION } from "./values";
 
 /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
 function createDamageFormula(
@@ -72,7 +72,6 @@ function createDamageFormula(
         .filter((m) => m.enabled)
         .flatMap((modifier): ModifierPF2e | never[] => {
             modifier.damageType ??= base.damageType;
-            modifier.damageCategory ??= DamageCategorization.fromDamageType(modifier.damageType);
             return outcomeMatches(modifier) ? modifier : [];
         });
 
@@ -85,14 +84,14 @@ function createDamageFormula(
             persistent: modifier.damageCategory === "persistent",
             precision: modifier.damageCategory === "precision",
             splash: modifier.damageCategory === "splash",
-            critical: modifier.damageCategory === "splash" ? false : modifier.critical,
+            critical: modifier.critical,
         });
         typeMap.set(damageType, list);
     }
 
     const commaSeparated = [
-        instancesFromTypeMap(typeMap, { critical }),
-        instancesFromTypeMap(typeMap, { critical, persistent: true }),
+        instancesFromTypeMap(typeMap, { degree }),
+        instancesFromTypeMap(typeMap, { degree, persistent: true }),
     ]
         .flat()
         .join(",");
@@ -103,30 +102,39 @@ function createDamageFormula(
 /** Convert a damage type map to a final string formula. */
 function instancesFromTypeMap(
     typeMap: DamageTypeMap,
-    { critical, persistent = false }: { critical: boolean; persistent?: boolean }
+    { degree, persistent = false }: { degree: DegreeOfSuccessIndex; persistent?: boolean }
 ): string[] {
     return Array.from(typeMap.entries()).flatMap(([damageType, typePartials]): string | never[] => {
         const partials = typePartials.filter((p) => p.persistent === persistent);
         if (partials.length === 0) return [];
+        const nonCriticalDamage = ((): string | null => {
+            const criticalInclusion =
+                degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
+                    ? [CRITICAL_INCLUSION.DOUBLE_ON_CRIT]
+                    : [CRITICAL_INCLUSION.DOUBLE_ON_CRIT, CRITICAL_INCLUSION.DONT_DOUBLE_ON_CRIT];
 
-        const nonCriticalDamage = sumExpression(
-            [
-                partialFormula(partials, { critical: false }),
-                partialFormula(partials, { special: "precision", critical: false }),
-                critical ? null : partialFormula(partials, { special: "splash", critical: false }),
-            ],
-            { double: critical }
-        );
+            return sumExpression(
+                [
+                    partialFormula(partials, { criticalInclusion }),
+                    partialFormula(partials, { special: "precision", criticalInclusion }),
+                    partialFormula(partials, { special: "splash", criticalInclusion }),
+                ],
+                { double: degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS }
+            );
+        })();
 
-        const criticalDamage = critical
-            ? sumExpression([
-                  partialFormula(partials, { critical: true }),
-                  partialFormula(partials, { special: "precision", critical: true }),
-                  partialFormula(partials, { special: "splash", critical: true }),
-              ])
-            : null;
+        const criticalDamage = ((): string | null => {
+            const criticalInclusion = [CRITICAL_INCLUSION.CRITICAL_ONLY, CRITICAL_INCLUSION.DONT_DOUBLE_ON_CRIT];
+            return degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
+                ? sumExpression([
+                      partialFormula(partials, { criticalInclusion }),
+                      partialFormula(partials, { special: "precision", criticalInclusion }),
+                      partialFormula(partials, { special: "splash", criticalInclusion }),
+                  ])
+                : null;
+        })();
 
-        const summedDamage = sumExpression(critical ? [nonCriticalDamage, criticalDamage] : [nonCriticalDamage]);
+        const summedDamage = sumExpression(degree ? [nonCriticalDamage, criticalDamage] : [nonCriticalDamage]);
         const enclosed = hasOperators(summedDamage) ? `(${summedDamage})` : summedDamage;
 
         const flavor = ((): string => {
@@ -143,12 +151,15 @@ function instancesFromTypeMap(
 
 function partialFormula(
     partials: DamagePartial[],
-    { special = null, critical }: { special?: "precision" | "splash" | null; critical: boolean }
+    {
+        special = null,
+        criticalInclusion,
+    }: { special?: "precision" | "splash" | null; criticalInclusion: CriticalInclusion[] }
 ): string | null {
     const isSpecialPartial = (p: DamagePartial): boolean => p.precision || p.splash;
 
     const requestedPartials = partials.filter(
-        (p) => (critical ? p.critical !== null : !p.critical) && (special ? p[special] : !isSpecialPartial(p))
+        (p) => criticalInclusion.includes(p.critical) && (special ? p[special] : !isSpecialPartial(p))
     );
     const constant = requestedPartials.reduce((total, p) => total + p.modifier, 0);
 
@@ -179,8 +190,7 @@ function sumExpression(terms: (string | null)[], { double = false } = {}): strin
     if (terms.every((t) => !t)) return null;
 
     const summed = terms.filter((p): p is string => !!p).join(" + ") || null;
-    const hasSplash = !!summed?.includes("[splash]");
-    const enclosed = (double && hasOperators(summed)) || hasSplash ? `(${summed})` : summed;
+    const enclosed = double && hasOperators(summed) ? `(${summed})` : summed;
 
     return double ? `2 * ${enclosed}` : enclosed;
 }

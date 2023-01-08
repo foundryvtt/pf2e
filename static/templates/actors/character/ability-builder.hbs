@@ -14,20 +14,23 @@
         <!-- ancestry boosts -->
         <div class="row{{#if manual}} not-eligible{{/if}}">
             {{#if ancestry}}
-                <div class="row-heading" data-tooltip-content="#{{actor.id}}-ancestry-tooltip">
+                <div class="row-heading">
                     {{#unless (eq ancestryBoosts.remaining 0)}}<div class="remaining extra">{{ancestryBoosts.remaining}}</div>{{/unless}}
                     <img class="" src="{{ancestry.img}}" title="{{ancestry.name}}" width="32" height="32" loading="lazy"/>
                     <div class="label">
                         <div class="title">{{localize "ITEM.TypeAncestry"}}</div>
-                        <div class="description">{{ancestry.name}}</div>
+                        <div class="description" data-tooltip-content="#{{actor.id}}-ancestry-tooltip">{{ancestry.name}}</div>
+                        <label class="extra">Alternate Boosts <input type="checkbox" {{checked alternateAncestryBoosts}} data-action="toggle-alternate-ancestry-boosts"></label>
                     </div>
                 </div>
                 {{#each ancestryBoosts.boosts as |boost ability|}}
                     <div class="row-column">
-                        <button type="button" data-action="voluntary-flaw" data-ability="{{ability}}" class="flaw locked selected{{#unless boost.lockedFlaw}} hidden{{/unless}}">
-                            {{#if boost.lockedFlaw}}<i class="fas fa-fw fa-lock"></i>{{/if}}
-                            {{localize "PF2E.Actor.Character.AbilityBuilder.Flaw"}}
-                        </button>
+                        {{#if @root.ancestryBoosts.hasLockedFlaws}}
+                            <button type="button" data-action="voluntary-flaw" data-ability="{{ability}}" class="flaw locked selected{{#unless boost.lockedFlaw}} hidden{{/unless}}">
+                                {{#if boost.lockedFlaw}}<i class="fas fa-fw fa-lock"></i>{{/if}}
+                                {{localize "PF2E.Actor.Character.AbilityBuilder.Flaw"}}
+                            </button>
+                        {{/if}}
 
                         <button type="button" data-action="ancestry-boost" data-ability="{{ability}}"
                             class="boost {{#if boost.boosted}} selected{{/if}}{{#if boost.lockedBoost}} locked{{/if}}"

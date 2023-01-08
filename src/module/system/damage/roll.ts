@@ -21,6 +21,15 @@ abstract class AbstractDamageRoll extends Roll {
         return replaced.replace(/\((\d+)\)/g, "$1");
     }
 
+    /** The theoretically lowest total of this roll */
+    abstract get minimumValue(): number;
+
+    /** The expected value (average result over the course of a "large number" of rolls) of this roll */
+    abstract get expectedValue(): number;
+
+    /** The theoretically highest total of this roll */
+    abstract get maximumValue(): number;
+
     protected override _evaluateSync(): never {
         throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
     }
@@ -142,9 +151,16 @@ class DamageRoll extends AbstractDamageRoll {
         return instances.length > 0 ? instances.flatMap((i) => i.dice) : super.dice;
     }
 
-    /** The expected value ("average") of this roll */
+    get minimumValue(): number {
+        return this.instances.reduce((sum, i) => sum + i.minimumValue, 0);
+    }
+
     get expectedValue(): number {
         return this.instances.reduce((sum, i) => sum + i.expectedValue, 0);
+    }
+
+    get maximumValue(): number {
+        return this.instances.reduce((sum, i) => sum + i.maximumValue, 0);
     }
 
     static override fromData<TRoll extends Roll>(this: AbstractConstructorOf<TRoll>, data: RollJSON): TRoll;
@@ -154,6 +170,22 @@ class DamageRoll extends AbstractDamageRoll {
         }
 
         return super.fromData(data);
+    }
+
+    /** Increase total to 1 if evaluating to 0 or less */
+    protected override _evaluateTotal(): number {
+        const total = super._evaluateTotal();
+        if (this.instances.some((i) => !i.persistent) && total <= 0) {
+            this.options.increasedFrom = total;
+            // Send alteration to top of call stack since the Roll is currently updating itself
+            Promise.resolve().then(() => {
+                this.alter(1, 1 - total);
+            });
+
+            return 1;
+        }
+
+        return total;
     }
 
     override async getTooltip(): Promise<string> {
@@ -187,8 +219,10 @@ class DamageRoll extends AbstractDamageRoll {
             formula,
             user: game.user.id,
             tooltip: isPrivate ? "" : await this.getTooltip(),
-            instances,
+            instances: isPrivate ? [] : instances,
             total: isPrivate ? "?" : Math.floor((this.total! * 100) / 100),
+            increasedFrom: this.options.increasedFrom,
+            splashOnly: !!this.options.splashOnly,
             showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
         };
 
@@ -203,41 +237,38 @@ class DamageRoll extends AbstractDamageRoll {
             return this;
         }
 
-        const instanceClones: DamageInstance[] = [];
-        if (multiplier === 1) {
-            instanceClones.push(DamageInstance.fromData(instances[0].toJSON()));
-        } else {
-            const multiplierTerm: NumericTermData = { class: "NumericTerm", number: multiplier };
+        const instanceClones =
+            multiplier === 1
+                ? this.instances.map((i) => DamageInstance.fromData(i.toJSON()))
+                : instances.map((instance): DamageInstance => {
+                      const { head } = instance;
+                      const rightOperand: RollTermData | GroupingData =
+                          head instanceof ArithmeticExpression && ["+", "-"].includes(head.operator)
+                              ? { class: "Grouping", term: head.toJSON() }
+                              : head.toJSON();
 
-            instanceClones.push(
-                ...instances.map((instance) => {
-                    const { head } = instance;
-                    const rightOperand: RollTermData | GroupingData =
-                        head instanceof ArithmeticExpression && ["+", "-"].includes(head.operator)
-                            ? { class: "Grouping", term: head.toJSON() }
-                            : head.toJSON();
+                      const multiplierTerm: NumericTermData = { class: "NumericTerm", number: multiplier };
+                      const expression = ArithmeticExpression.fromData({
+                          operator: "*",
+                          operands: [deepClone(multiplierTerm), rightOperand],
+                      });
+                      if ([2, 3].includes(multiplier)) expression.options.crit = multiplier;
 
-                    const expression = ArithmeticExpression.fromData({
-                        operator: "*",
-                        operands: [deepClone(multiplierTerm), rightOperand],
-                    });
-                    if ([2, 3].includes(multiplier)) expression.options.crit = multiplier;
-
-                    return DamageInstance.fromTerms([expression], deepClone(instance.options));
-                })
-            );
-        }
+                      return DamageInstance.fromTerms([expression], deepClone(instance.options));
+                  });
 
         if (addend !== 0) {
             const firstInstance = instanceClones[0]!;
-            const termClone: GroupingData = {
-                class: "Grouping",
-                term: firstInstance.head.toJSON(),
-            };
+
+            const term = firstInstance.head.toJSON();
+            const options = term.options ?? {};
+            delete term.options;
+            const termClone: GroupingData = { class: "Grouping", term, options };
+
             const addendTerm: NumericTermData = { class: "NumericTerm", number: Math.abs(addend) };
 
             const expression = ArithmeticExpression.fromData({
-                operator: addend >= 0 ? "+" : "-",
+                operator: addend > 0 ? "+" : "-",
                 operands: [termClone, addendTerm],
                 evaluated: true,
             });
@@ -298,14 +329,44 @@ class DamageInstance extends AbstractDamageRoll {
         return super.fromData(data);
     }
 
-    /** Get the expected value of a term */
-    static expectedValueOf(term: RollTerm): number {
-        if (term instanceof NumericTerm) {
-            return term.number;
-        } else if (term instanceof Die) {
-            return term.number * ((term.faces + 1) / 2);
-        } else if (term instanceof ArithmeticExpression || term instanceof Grouping) {
-            return term.expectedValue;
+    /** Get the expected, minimum, or maximum value of a term */
+    static getValue(term: RollTerm, type: "minimum" | "maximum" | "expected" = "expected"): number {
+        if (term instanceof NumericTerm) return term.number;
+
+        switch (type) {
+            case "minimum":
+                if (term instanceof Die) {
+                    return term.number;
+                } else if (
+                    term instanceof ArithmeticExpression ||
+                    term instanceof Grouping ||
+                    term instanceof IntermediateDie
+                ) {
+                    return term.minimumValue;
+                }
+                break;
+            case "maximum":
+                if (term instanceof Die) {
+                    return term.number * term.faces;
+                } else if (
+                    term instanceof ArithmeticExpression ||
+                    term instanceof Grouping ||
+                    term instanceof IntermediateDie
+                ) {
+                    return term.maximumValue;
+                }
+                break;
+            default: {
+                if (term instanceof Die) {
+                    return term.number * ((term.faces + 1) / 2);
+                } else if (
+                    term instanceof ArithmeticExpression ||
+                    term instanceof Grouping ||
+                    term instanceof IntermediateDie
+                ) {
+                    return term.expectedValue;
+                }
+            }
         }
 
         return 0;
@@ -327,9 +388,16 @@ class DamageInstance extends AbstractDamageRoll {
         return typeof maybeNumber === "number" ? Math.floor(maybeNumber) : maybeNumber;
     }
 
-    /** The expected value of this damage instance */
+    get minimumValue(): number {
+        return DamageInstance.getValue(this.head, "minimum");
+    }
+
     get expectedValue(): number {
-        return DamageInstance.expectedValueOf(this.head);
+        return DamageInstance.getValue(this.head);
+    }
+
+    get maximumValue(): number {
+        return DamageInstance.getValue(this.head, "maximum");
     }
 
     /** An array of statements for use in predicate testing */
@@ -428,7 +496,7 @@ class DamageInstance extends AbstractDamageRoll {
         return head instanceof ArithmeticExpression || head instanceof Grouping ? head.critImmuneTotal : this.total;
     }
 
-    componentTotal(this: Rolled<DamageInstance>, component: "precision" | "splash"): number {
+    componentTotal(component: "precision" | "splash"): number {
         if (!this._evaluated) {
             throw ErrorPF2e("Component totals may only be accessed from an evaluated damage instance");
         }
@@ -449,6 +517,8 @@ interface DamageRollDataPF2e extends RollDataPF2e {
     result?: DamageRollFlag;
     evaluatePersistent?: boolean;
     degreeOfSuccess?: DegreeOfSuccessIndex;
+    increasedFrom?: number;
+    splashOnly?: boolean;
 }
 
 interface DamageInstanceData extends RollOptions {

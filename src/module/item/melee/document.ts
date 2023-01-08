@@ -71,6 +71,7 @@ class MeleePF2e extends ItemPF2e {
                 die: null,
                 modifier: 0,
                 damageType: "untyped",
+                persistent: null,
             };
         }
 

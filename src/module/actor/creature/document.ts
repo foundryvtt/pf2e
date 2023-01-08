@@ -33,7 +33,7 @@ import {
 import { LightLevels } from "@module/scene/data";
 import { UserPF2e } from "@module/user";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
-import { DamageType } from "@system/damage";
+import { DamageType, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
@@ -59,9 +59,14 @@ import { setTraitIWR } from "./helpers";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e extends ActorPF2e {
+    // Internal cached value for creature skills
+    protected _skills: CreatureSkills | null = null;
+
     /** Skill `Statistic`s for the creature */
     get skills(): CreatureSkills {
-        return Object.entries(this.system.skills).reduce((current, [shortForm, skill]: [string, SkillData]) => {
+        if (this._skills) return this._skills;
+
+        this._skills = Object.entries(this.system.skills).reduce((current, [shortForm, skill]: [string, SkillData]) => {
             if (!objectHasKey(this.system.skills, shortForm)) return current;
             const longForm = skill.slug;
             const skillName = game.i18n.localize(skill.label ?? CONFIG.PF2E.skills[shortForm]) || skill.slug;
@@ -92,6 +97,8 @@ abstract class CreaturePF2e extends ActorPF2e {
 
             return current;
         }, {} as CreatureSkills);
+
+        return this._skills;
     }
 
     /** The creature's position on the alignment axes */
@@ -261,6 +268,7 @@ abstract class CreaturePF2e extends ActorPF2e {
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
+        this._skills = null;
 
         const attributes = this.system.attributes;
         attributes.hp = mergeObject(attributes.hp ?? {}, { negativeHealing: false });
@@ -602,10 +610,10 @@ abstract class CreaturePF2e extends ActorPF2e {
                 predicate,
                 custom: true,
             }).toObject();
-            if (damageType) {
+            if (objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
                 modifier.damageType = damageType;
             }
-            if (damageCategory) {
+            if (setHasElement(DAMAGE_CATEGORIES_UNIQUE, damageCategory)) {
                 modifier.damageCategory = damageCategory;
             }
 

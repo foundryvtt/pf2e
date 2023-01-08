@@ -405,14 +405,26 @@
         text-transform: uppercase;
     }
 
-    div[data-tooltip-content] .description {
-        text-decoration: underline dotted;
-        text-underline-offset: 2px;
+    div[data-tooltip-content] {
+        &.description, .description {
+            text-decoration: underline dotted;
+            text-underline-offset: 2px;
+        }
     }
-
 
     .description {
         font: 600 var(--font-size-16) var(--serif);
+    }
+
+    .extra {
+        display: flex;
+        align-items: center;
+        font-size: var(--font-size-12);
+        margin-top: -0.25rem;
+        input[type=checkbox] {
+            height: var(--font-size-12);
+            margin: 0;
+        }
     }
 
     h3 {

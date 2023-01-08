@@ -114,7 +114,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     /** This weapon's damage before modification by creature abilities, effects, etc. */
     get baseDamage(): WeaponDamage {
-        return this.system.damage;
+        return deepClone(this.system.damage);
     }
 
     /** Does this weapon deal damage? */
@@ -231,10 +231,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
                 ? { type: systemData.preciousMaterial.value, grade: systemData.preciousMaterialGrade.value }
                 : null;
-
-        systemData.material = {
-            precious: preciousMaterial,
-        };
+        systemData.material = { precious: preciousMaterial };
 
         ABP.cleanupRunes(this);
 
@@ -298,10 +295,13 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         // Set damage dice according to striking rune
         const pcLevel = this.actor?.isOfType("character") ? this.actor.level : 0;
+        // Only increase damage dice from ABP if the dice number is 1
+        // Striking Rune: "A striking rune [...], increasing the weapon damage dice it deals to two instead of one"
+        // Devastating Attacks: "At 4th level, your weapon and unarmed Strikes deal two damage dice instead of one."
+        const inherentDiceNumber = this.system.damage.die ? this._source.system.damage.dice : 0;
         this.system.damage.dice =
-            this.system.damage.die && !this.flags.pf2e.battleForm
-                ? this._source.system.damage.dice +
-                  (ABP.isEnabled ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking)
+            inherentDiceNumber === 1 && !this.flags.pf2e.battleForm
+                ? inherentDiceNumber + (ABP.isEnabled ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking)
                 : this.system.damage.dice;
     }
 

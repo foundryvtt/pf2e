@@ -12,6 +12,13 @@ type DamageCategory = keyof ConfigPF2e["PF2E"]["damageCategories"];
 type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
 type DamageType = SetElement<typeof DAMAGE_TYPES>;
 
+/**
+ * `null`: double on crit (includes most damage)
+ * `true`: critical only, don't double
+ * `false`: don't double on crit
+ */
+type CriticalInclusion = boolean | null;
+
 interface DamageCategoryRenderData {
     dice: {
         faces: number;
@@ -90,10 +97,10 @@ interface SpellDamageTemplate extends BaseDamageTemplate {
 type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate;
 
 export {
+    CriticalInclusion,
     DamageCategory,
-    MaterialDamageEffect,
-    DamageCategoryUnique,
     DamageCategoryRenderData,
+    DamageCategoryUnique,
     DamageDieSize,
     DamageFormulaData,
     DamageRollContext,
@@ -101,6 +108,7 @@ export {
     DamageTemplate,
     DamageType,
     DamageTypeRenderData,
+    MaterialDamageEffect,
     SpellDamageTemplate,
     WeaponDamageTemplate,
 };

@@ -117,17 +117,25 @@ const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImagePath>> = {
     negative: "systems/pf2e/icons/spells/grim-tendrils.webp",
 };
 
+/** Whether and how damage should be included on a critical hit */
+const CRITICAL_INCLUSION = {
+    DOUBLE_ON_CRIT: null,
+    CRITICAL_ONLY: true,
+    DONT_DOUBLE_ON_CRIT: false,
+};
+
 export {
     ALIGNMENT_DAMAGE_TYPES,
     BASE_DAMAGE_TYPES_TO_CATEGORIES,
+    CRITICAL_INCLUSION,
     DAMAGE_CATEGORIES,
-    MATERIAL_DAMAGE_EFFECTS,
     DAMAGE_CATEGORIES_UNIQUE,
     DAMAGE_DIE_FACES,
     DAMAGE_DIE_FACES_TUPLE,
-    DAMAGE_TYPE_ICONS,
     DAMAGE_TYPES,
+    DAMAGE_TYPE_ICONS,
     ENERGY_DAMAGE_TYPES,
-    PHYSICAL_DAMAGE_TYPES,
+    MATERIAL_DAMAGE_EFFECTS,
     PERSISTENT_DAMAGE_IMAGES,
+    PHYSICAL_DAMAGE_TYPES,
 };
