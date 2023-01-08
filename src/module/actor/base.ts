@@ -303,7 +303,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Whether this actor is affected by damage of a certain type despite lack of explicit immunity */
     isAffectedBy(damage: DamageType | ConditionPF2e): boolean {
-        const possiblyUnaffected = ["good", "evil", "lawful", "chaotic", "negative", "bleed"] as const;
+        const possiblyUnaffected = ["good", "evil", "lawful", "chaotic", "negative", "positive", "bleed"] as const;
 
         const damageType = objectHasKey(CONFIG.PF2E.damageTypes, damage)
             ? damage
@@ -314,7 +314,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (!tupleHasValue(possiblyUnaffected, damageType)) return true;
 
         const { traits } = this;
-        const damageIsApplicable = {
+        const damageIsApplicable: Record<typeof possiblyUnaffected[number], boolean> = {
             good: traits.has("evil"),
             evil: traits.has("good"),
             lawful: traits.has("chaotic"),
