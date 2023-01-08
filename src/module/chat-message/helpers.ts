@@ -29,7 +29,7 @@ async function applyDamageFromMessage(
 
     for (const token of tokens) {
         await token.actor?.applyDamage({
-            damage: roll.alter(multiplier, addend),
+            damage: multiplier < 0 ? multiplier * roll.total + addend : roll.alter(multiplier, addend),
             token: token.document,
             skipIWR: multiplier <= 0,
             rollOptions: new Set(message.flags.pf2e.context?.options ?? []),
