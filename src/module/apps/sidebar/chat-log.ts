@@ -83,7 +83,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 condition: canApplyDamage,
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    applyDamageFromMessage(message);
+                    applyDamageFromMessage({ message });
                 },
             },
             {
@@ -92,7 +92,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 condition: canApplyDamage,
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    applyDamageFromMessage(message, 0.5);
+                    applyDamageFromMessage({ message, multiplier: 0.5 });
                 },
             },
             {
@@ -101,7 +101,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 condition: canApplyDamage,
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    applyDamageFromMessage(message, 2);
+                    applyDamageFromMessage({ message, multiplier: 2 });
                 },
             },
             {
@@ -110,7 +110,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 condition: canApplyTripleDamage,
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    applyDamageFromMessage(message, 3);
+                    applyDamageFromMessage({ message, multiplier: 3 });
                 },
             },
             {
@@ -119,7 +119,7 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 condition: canApplyDamage,
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    applyDamageFromMessage(message, -1);
+                    applyDamageFromMessage({ message, multiplier: -1 });
                 },
             },
             {

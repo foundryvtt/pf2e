@@ -1,51 +1,97 @@
 import { ChatMessagePF2e } from "@module/chat-message";
 import { LocalizePF2e } from "@module/system/localize";
+import { htmlQuery, htmlQueryAll } from "@util";
 import { applyDamageFromMessage } from "../helpers";
 
 /** Add apply damage buttons after a chat message is rendered */
-export const DamageButtons = {
-    listen: async (message: ChatMessagePF2e, $html: JQuery): Promise<void> => {
-        const $buttons = $html.find(".damage-application");
-        const full = $buttons.find("button.full-damage");
-        const half = $buttons.find("button.half-damage");
-        const double = $buttons.find("button.double-damage");
-        const triple = $buttons.find("button.triple-damage");
-        const heal = $buttons.find("button.heal-damage");
-        const contentSelector = `li.chat-message[data-message-id="${message.id}"] div.hover-content`;
-        const $shield = $buttons
-            .find("button.shield-block")
-            .attr({ "data-tooltip-content": contentSelector })
-            .tooltipster({
-                animation: "fade",
-                trigger: "click",
-                arrow: false,
-                contentAsHTML: true,
-                debug: BUILD_MODE === "development",
-                interactive: true,
-                side: ["top"],
-                theme: "crb-hover",
-            });
-        $shield.tooltipster("disable");
-        $html.find("button.shield-block").attr({ title: LocalizePF2e.translations.PF2E.DamageButton.ShieldBlock });
+class DamageButtons {
+    static async listen(message: ChatMessagePF2e, html: HTMLElement): Promise<void> {
+        // Mark each button group with the index in the message's `rolls` array
+        const buttonGroups = htmlQueryAll(html, ".damage-application").map((buttons, index) => ({ buttons, index }));
+        for (const data of buttonGroups) {
+            this.#addListeners({ ...data, message });
+        }
+    }
+
+    static #addListeners({ buttons, index, message }: AddListenersParams): void {
+        buttons.dataset.rollIndex = index.toString();
+
+        const fullButton = htmlQuery(buttons, "button.full-damage");
+        const halfButton = htmlQuery(buttons, "button.half-damage");
+        const doubleButton = htmlQuery(buttons, "button.double-damage");
+        const tripleButton = htmlQuery(buttons, "button.triple-damage");
+        const healButton = htmlQuery(buttons, "button.heal-damage");
+        const shieldButton = htmlQuery(buttons, "button.shield-block");
+        if (shieldButton) {
+            shieldButton.dataset.tooltipContent = `li.chat-message[data-message-id="${message.id}"] div.hover-content`;
+            shieldButton.title = LocalizePF2e.translations.PF2E.DamageButton.ShieldBlock;
+
+            $(shieldButton)
+                .tooltipster({
+                    animation: "fade",
+                    trigger: "click",
+                    arrow: false,
+                    contentAsHTML: true,
+                    debug: BUILD_MODE === "development",
+                    interactive: true,
+                    side: ["top"],
+                    theme: "crb-hover",
+                })
+                .tooltipster("disable");
+        }
 
         // Handle button clicks
-        full.on("click", (event) => {
-            applyDamageFromMessage(message, 1, 0, event.shiftKey);
+        fullButton?.addEventListener("click", (event) => {
+            applyDamageFromMessage({
+                message,
+                multiplier: 1,
+                addend: 0,
+                promptModifier: event.shiftKey,
+                rollIndex: index,
+            });
         });
 
-        half.on("click", (event) => {
-            applyDamageFromMessage(message, 0.5, 0, event.shiftKey);
+        halfButton?.addEventListener("click", (event) => {
+            applyDamageFromMessage({
+                message,
+                multiplier: 0.5,
+                addend: 0,
+                promptModifier: event.shiftKey,
+                rollIndex: index,
+            });
         });
 
-        double.on("click", (event) => {
-            applyDamageFromMessage(message, 2, 0, event.shiftKey);
+        doubleButton?.addEventListener("click", (event) => {
+            applyDamageFromMessage({
+                message,
+                multiplier: 2,
+                addend: 0,
+                promptModifier: event.shiftKey,
+                rollIndex: index,
+            });
         });
 
-        triple?.on("click", (event) => {
-            applyDamageFromMessage(message, 3, 0, event.shiftKey);
+        tripleButton?.addEventListener("click", (event) => {
+            applyDamageFromMessage({
+                message,
+                multiplier: 3,
+                addend: 0,
+                promptModifier: event.shiftKey,
+                rollIndex: index,
+            });
         });
 
-        $shield.on("click", async (event) => {
+        healButton?.addEventListener("click", (event) => {
+            applyDamageFromMessage({
+                message,
+                multiplier: -1,
+                addend: 0,
+                promptModifier: event.shiftKey,
+                rollIndex: index,
+            });
+        });
+
+        shieldButton?.addEventListener("click", async (event) => {
             const tokens = canvas.tokens.controlled.filter((token) => token.actor);
             if (tokens.length === 0) {
                 const errorMsg = LocalizePF2e.translations.PF2E.UI.errorTargetToken;
@@ -59,12 +105,13 @@ export const DamageButtons = {
             const heldShields = actor.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
             const nonBrokenShields = heldShields.filter((shield) => !shield.isBroken);
             const multipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
-            const shieldActivated = $shield.hasClass("shield-activated");
+            const shieldActivated = shieldButton.classList.contains("shield-activated");
+            const $shield = $(shieldButton);
 
             if (multipleShields && !shieldActivated) {
                 $shield.tooltipster("enable");
                 // Populate the list with the shield options
-                const $list = $buttons.find("ul.shield-options");
+                const $list = $(buttons).find("ul.shield-options");
                 $list.children("li").remove();
 
                 const $template = $list.children("template");
@@ -95,9 +142,13 @@ export const DamageButtons = {
             $shield.toggleClass("shield-activated");
             CONFIG.PF2E.chatDamageButtonShieldToggle = !CONFIG.PF2E.chatDamageButtonShieldToggle;
         });
+    }
+}
 
-        heal.on("click", (event) => {
-            applyDamageFromMessage(message, -1, 0, event.shiftKey);
-        });
-    },
-};
+interface AddListenersParams {
+    buttons: HTMLElement;
+    index: number;
+    message: ChatMessagePF2e;
+}
+
+export { DamageButtons };

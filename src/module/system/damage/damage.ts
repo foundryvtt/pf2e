@@ -192,23 +192,44 @@ export class DamagePF2e {
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };
 
-        // For now rolls are pre-rendered, but swap to roll.toMessage() when the damage roll refactor is further along
-        await roll.toMessage({
-            speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
-            flavor,
-            flags: {
-                core: { canPopout: true },
-                pf2e: {
-                    context: contextFlag,
-                    damageRoll: rollData,
-                    target: targetFlag,
-                    modifiers: data.modifiers,
-                    origin,
-                    strike,
-                    preformatted: "both",
+        const messageData = await roll.toMessage(
+            {
+                speaker: ChatMessagePF2e.getSpeaker({ actor: self?.actor, token: self?.token }),
+                flavor,
+                flags: {
+                    core: { canPopout: true },
+                    pf2e: {
+                        context: contextFlag,
+                        damageRoll: rollData,
+                        target: targetFlag,
+                        modifiers: data.modifiers,
+                        origin,
+                        strike,
+                        preformatted: "both",
+                    },
                 },
             },
-        });
+            { create: false }
+        );
+
+        // If there is splash damage, include it as an additional roll for separate application
+        const splashRolls = await (async (): Promise<RollJSON[]> => {
+            const splashInstances = roll.instances
+                .map((i) => ({ damageType: i.type, total: i.componentTotal("splash") }))
+                .filter((s) => s.total > 0);
+            const rolls: RollJSON[] = [];
+            for (const splash of splashInstances) {
+                const formula = `(${splash.total}[splash])[${splash.damageType}]`;
+                const roll = await new DamageRoll(formula).evaluate({ async: true });
+                roll.options.splashOnly = true;
+                rolls.push(roll.toJSON());
+            }
+
+            return rolls;
+        })();
+
+        messageData.rolls.push(...splashRolls);
+        await ChatMessagePF2e.create(messageData);
 
         Hooks.call(`pf2e.damageRoll`, rollData);
         if (callback) callback(rollData);
