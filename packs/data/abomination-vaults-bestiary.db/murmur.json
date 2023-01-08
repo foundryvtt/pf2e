@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This shortbow is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Its compact size and power make it a favorite of mounted archers. Any time an ability is specifically restricted to a shortbow, it also applies to composite shortbows unless otherwise stated.</p>"
@@ -92,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -145,8 +141,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
@@ -208,9 +203,6 @@
                 "slug": "shortsword",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -321,91 +313,10 @@
             "type": "consumable"
         },
         {
-            "_id": "Kc5YV0VavUVwSpHl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg"
-                },
-                "pf2e": {
-                    "condition": true
-                }
-            },
-            "img": "systems/pf2e/icons/conditions/stupefied.webp",
-            "name": "Stupefied",
-            "sort": 400000,
-            "system": {
-                "active": true,
-                "alsoApplies": {
-                    "linked": [],
-                    "unlinked": []
-                },
-                "base": "Stupefied",
-                "description": {
-                    "value": "<p>Your thoughts and instincts are clouded. Stupefied always includes a value. You take a status penalty equal to this value on Intelligence-, Wisdom-, and Charisma-based checks and DCs, including Will saving throws, spell attack rolls, spell DCs, and skill checks that use these ability scores. Any time you attempt to @UUID[Compendium.pf2e.actionspf2e.Cast a Spell]{Cast a Spell} while stupefied, the spell is disrupted unless you succeed at a flat check with a DC equal to 5 + your stupefied value.</p>"
-                },
-                "duration": {
-                    "perpetual": true,
-                    "text": "",
-                    "value": 0
-                },
-                "group": "abilities",
-                "hud": {
-                    "img": {
-                        "useStatusName": true,
-                        "value": "systems/pf2e/icons/conditions-2/stupefied.webp"
-                    },
-                    "selectable": true,
-                    "statusName": "stupefied"
-                },
-                "modifiers": [],
-                "overrides": [],
-                "references": {
-                    "children": [],
-                    "immunityFrom": [],
-                    "overriddenBy": [],
-                    "overrides": []
-                },
-                "removable": true,
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": [
-                            "cha-based",
-                            "int-based",
-                            "wis-based"
-                        ],
-                        "slug": "stupefied",
-                        "type": "status",
-                        "value": "-@item.badge.value"
-                    }
-                ],
-                "slug": "stupefied",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "sources": {
-                    "hud": true,
-                    "values": []
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "value": {
-                    "immutable": false,
-                    "isValued": true,
-                    "modifiers": [],
-                    "value": 4
-                }
-            },
-            "type": "condition"
-        },
-        {
             "_id": "z9bTah65DoASEDhP",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortsword",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -452,7 +363,7 @@
             "_id": "ltvMN7K0itu2l3WZ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Snake Fangs",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -498,7 +409,7 @@
             "_id": "F8wXzsUNliJVU8bv",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Shortbow",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
@@ -552,7 +463,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -597,7 +508,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "All-Around Vision",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -644,7 +555,7 @@
             "_id": "zGXZKhk95VPsSdKN",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Biting Snakes",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -684,7 +595,7 @@
             "_id": "hSGaU1UT8mzmPFWl",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Petrifying Gaze",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -726,56 +637,10 @@
             "type": "action"
         },
         {
-            "_id": "2lGYb3ZO8pwxgMhD",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Focus Gaze",
-            "sort": 1200000,
-            "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "value": "<p>The medusa fixes their glare at a creature they can see within 30 feet. The target must immediately attempt a @Check[type:fortitude|dc:25] save against the medusa's petrifying gaze. If the creature was already @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed} by petrifying gaze before attempting its save, a failed save causes it to be @UUID[Compendium.pf2e.conditionitems.Petrified]{Petrified} permanently.</p>\n<p>After attempting its save, the creature is then temporarily immune until the start of the medusa's next turn.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "concentrate",
-                        "incapacitation",
-                        "transmutation",
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "FuDdgAP7wwq6LCFO",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Serpent Venom",
-            "sort": 1300000,
+            "sort": 1100000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -817,7 +682,7 @@
             "_id": "aB3Eiwm7lKulxfZ4",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1400000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -845,7 +710,7 @@
             "_id": "0AVXTu0IQeCK9qy9",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1500000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -873,7 +738,7 @@
             "_id": "1V6Ipqd0JqILUKar",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1600000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -902,7 +767,7 @@
     "system": {
         "abilities": {
             "cha": {
-                "mod": 2
+                "mod": -5
             },
             "con": {
                 "mod": 4
@@ -911,13 +776,13 @@
                 "mod": 5
             },
             "int": {
-                "mod": 2
+                "mod": -5
             },
             "str": {
                 "mod": 2
             },
             "wis": {
-                "mod": 1
+                "mod": -5
             }
         },
         "attributes": {
@@ -973,7 +838,7 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 14
+                "value": 8
             }
         },
         "traits": {
