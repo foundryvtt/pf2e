@@ -1,7 +1,7 @@
 import { ItemType } from "@item/data";
 import { MagicTradition } from "@item/spell/types";
 import { BaseRawModifier } from "@actor/modifiers";
-import { DegreeOfSuccessString } from "@system/degree-of-success";
+import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success";
 import { ChatMessagePF2e } from ".";
 import { RollNoteSource } from "@module/notes";
 import { CheckRollContext } from "@system/check";
@@ -79,7 +79,7 @@ interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFl
     actor: string | null;
     token: string | null;
     item?: undefined;
-    dosAdjustments?: undefined;
+    dosAdjustments?: DegreeAdjustmentsRecord;
     target: TargetFlag | null;
     altUsage?: "thrown" | "melee" | null;
     notes: RollNoteSource[];
