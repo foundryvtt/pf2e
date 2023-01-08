@@ -237,41 +237,38 @@ class DamageRoll extends AbstractDamageRoll {
             return this;
         }
 
-        const instanceClones: DamageInstance[] = [];
-        if (multiplier === 1) {
-            instanceClones.push(DamageInstance.fromData(instances[0].toJSON()));
-        } else {
-            const multiplierTerm: NumericTermData = { class: "NumericTerm", number: multiplier };
+        const instanceClones =
+            multiplier === 1
+                ? this.instances.map((i) => DamageInstance.fromData(i.toJSON()))
+                : instances.map((instance): DamageInstance => {
+                      const { head } = instance;
+                      const rightOperand: RollTermData | GroupingData =
+                          head instanceof ArithmeticExpression && ["+", "-"].includes(head.operator)
+                              ? { class: "Grouping", term: head.toJSON() }
+                              : head.toJSON();
 
-            instanceClones.push(
-                ...instances.map((instance) => {
-                    const { head } = instance;
-                    const rightOperand: RollTermData | GroupingData =
-                        head instanceof ArithmeticExpression && ["+", "-"].includes(head.operator)
-                            ? { class: "Grouping", term: head.toJSON() }
-                            : head.toJSON();
+                      const multiplierTerm: NumericTermData = { class: "NumericTerm", number: multiplier };
+                      const expression = ArithmeticExpression.fromData({
+                          operator: "*",
+                          operands: [deepClone(multiplierTerm), rightOperand],
+                      });
+                      if ([2, 3].includes(multiplier)) expression.options.crit = multiplier;
 
-                    const expression = ArithmeticExpression.fromData({
-                        operator: "*",
-                        operands: [deepClone(multiplierTerm), rightOperand],
-                    });
-                    if ([2, 3].includes(multiplier)) expression.options.crit = multiplier;
-
-                    return DamageInstance.fromTerms([expression], deepClone(instance.options));
-                })
-            );
-        }
+                      return DamageInstance.fromTerms([expression], deepClone(instance.options));
+                  });
 
         if (addend !== 0) {
             const firstInstance = instanceClones[0]!;
-            const termClone: GroupingData = {
-                class: "Grouping",
-                term: firstInstance.head.toJSON(),
-            };
+
+            const term = firstInstance.head.toJSON();
+            const options = term.options ?? {};
+            delete term.options;
+            const termClone: GroupingData = { class: "Grouping", term, options };
+
             const addendTerm: NumericTermData = { class: "NumericTerm", number: Math.abs(addend) };
 
             const expression = ArithmeticExpression.fromData({
-                operator: addend >= 0 ? "+" : "-",
+                operator: addend > 0 ? "+" : "-",
                 operands: [termClone, addendTerm],
                 evaluated: true,
             });
