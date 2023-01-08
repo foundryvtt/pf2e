@@ -11,14 +11,19 @@
             "value": 2
         },
         "bonusDamage": {
-            "value": null
+            "value": 0
         },
         "category": "martial",
         "containerId": null,
         "damage": {
             "damageType": "poison",
             "dice": 3,
-            "die": "d6"
+            "die": "d6",
+            "persistent": {
+                "faces": 4,
+                "number": 3,
+                "type": "poison"
+            }
         },
         "description": {
             "value": "<p><strong>Usage</strong> held in 1 hand</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Blight bombs contain volatile toxic chemicals that rot flesh. A blight bomb deals 3d6 poison damage, 3d4 persistent poison damage, and 3 poison splash damage. You gain a +2 item bonus to attack rolls.</p>"
@@ -40,7 +45,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": 0
+            "value": null
         },
         "preciousMaterial": {
             "value": null
@@ -70,24 +75,7 @@
         "reload": {
             "value": "-"
         },
-        "rules": [
-            {
-                "key": "Note",
-                "outcome": [
-                    "success"
-                ],
-                "selector": "{item|_id}-damage",
-                "text": "PF2E.BombNotes.BlightBomb.Greater.success"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "{item|_id}-damage",
-                "text": "PF2E.BombNotes.BlightBomb.Greater.criticalSuccess"
-            }
-        ],
+        "rules": [],
         "size": "med",
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
@@ -97,7 +85,7 @@
         },
         "stackGroup": null,
         "strikingRune": {
-            "value": ""
+            "value": null
         },
         "traits": {
             "custom": "",

@@ -18,7 +18,12 @@
         "damage": {
             "damageType": "slashing",
             "dice": 2,
-            "die": "d8"
+            "die": "d8",
+            "persistent": {
+                "faces": null,
+                "number": 2,
+                "type": "bleed"
+            }
         },
         "description": {
             "value": "<p>This volatile-looking bomb is cobbled together from jagged metal scrap, broken glass, and other bits of razor-sharp fragments, lashed around a core of explosive alchemical slag. A junk bomb deals [[/r 2d8[slashing]]] damage, [[/r 2[persistent,bleed]]] damage, and [[/r {2}[splash,slashing]]]{2 slashing splash damage}.</p>\n<p>You gain a +1 item bonus to attack rolls.</p>"
@@ -40,7 +45,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": 0
+            "value": null
         },
         "preciousMaterial": {
             "value": null
@@ -70,24 +75,7 @@
         "reload": {
             "value": "-"
         },
-        "rules": [
-            {
-                "key": "Note",
-                "outcome": [
-                    "success"
-                ],
-                "selector": "{item|_id}-damage",
-                "text": "PF2E.BombNotes.JunkBomb.Moderate.success"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "{item|_id}-damage",
-                "text": "PF2E.BombNotes.JunkBomb.Moderate.criticalSuccess"
-            }
-        ],
+        "rules": [],
         "size": "med",
         "source": {
             "value": "Pathfinder Special: Fumbus!"
@@ -97,7 +85,7 @@
         },
         "stackGroup": null,
         "strikingRune": {
-            "value": ""
+            "value": null
         },
         "traits": {
             "custom": "",
