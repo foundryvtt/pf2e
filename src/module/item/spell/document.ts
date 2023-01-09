@@ -954,7 +954,7 @@ interface SpellPF2e {
 }
 
 interface SpellVariantChatData {
-    actions: ImagePath | null;
+    actions: ImageFilePath | null;
     name: string;
     overlayIds: string[];
     sort: number;

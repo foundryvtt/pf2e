@@ -9,7 +9,7 @@ declare abstract class MapLayer extends PlaceablesLayer<Tile> {
     level: number;
 
     /** The background source path */
-    bgPath: VideoPath;
+    bgPath: VideoFilePath;
 
     /** The layer background image */
     bg: PIXI.Sprite;

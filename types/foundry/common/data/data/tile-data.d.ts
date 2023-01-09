@@ -23,7 +23,7 @@ declare module foundry {
          */
         interface TileSource {
             _id: string;
-            img: ImagePath | null;
+            img: ImageFilePath | null;
             width: number;
             height: number;
             x: number;

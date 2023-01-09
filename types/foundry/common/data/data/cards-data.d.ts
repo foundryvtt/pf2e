@@ -14,7 +14,7 @@ declare module foundry {
             /** A text description of this stack */
             description: string;
             /** An image or video which is used to represent the stack of cards */
-            img: VideoPath;
+            img: VideoFilePath;
             /** Game system data which is defined by the system template.json model */
             data: object;
             /** A collection of Card documents which currently belong to this stack */
@@ -32,7 +32,7 @@ declare module foundry {
             /** The sort order of this stack relative to others in its parent collection */
             sort: number;
             /** An object which configures user permissions to this stack */
-            ownership: Record<string, PermissionLevel>;
+            ownership: Record<string, DocumentOwnershipLevel>;
             /** An object of optional key/value flags */
             flags: Record<string, Record<string, unknown>>;
         }
@@ -40,7 +40,7 @@ declare module foundry {
         interface CardsData<TDocument extends documents.BaseCards = documents.BaseCards>
             extends abstract.DocumentData<TDocument> {
             /** The default icon used for a cards stack that does not have a custom image set */
-            DEFAULT_ICON: ImagePath;
+            DEFAULT_ICON: ImageFilePath;
         }
 
         interface CardsData<TDocument extends documents.BaseCards = documents.BaseCards> extends CardsSource {

@@ -12,7 +12,7 @@ declare module foundry {
              * @param path The image path to test
              * @return Is the path valid?
              */
-            function hasImageExtension(path: string): path is ImagePath;
+            function hasImageExtension(path: string): path is ImageFilePath;
 
             /**
              * Test whether a data blob represents a base64 image
@@ -33,14 +33,14 @@ declare module foundry {
              * @param path The image path to test
              * @return Is the path valid?
              */
-            function hasVideoExtension(path: string): path is VideoPath;
+            function hasVideoExtension(path: string): path is VideoFilePath;
 
             /**
              * Test whether a file path has a valid video file extension
              * @param path The image path to test
              * @return Is the path valid?
              */
-            function hasAudioExtension(path: string): path is AudioPath;
+            function hasAudioExtension(path: string): path is AudioFilePath;
 
             /**
              * Assert that the given value is in an array of allowed options

@@ -38,7 +38,7 @@ declare global {
         protected _lastWildcard: string | null;
 
         /** A convenient reference to the file path of the Actor's profile image */
-        get img(): ImagePath;
+        get img(): ImageFilePath;
 
         /** Provide an object which organizes all embedded Item instances by their type */
         get itemTypes(): { [K in keyof TItemTypeMap]: Embedded<TItemTypeMap[K]>[] };
@@ -90,7 +90,7 @@ declare global {
         getTokenData(data?: DocumentModificationContext): Promise<TParent["data"]>;
 
         /** Get an Array of Token images which could represent this Actor */
-        getTokenImages(): Promise<ImagePath[]>;
+        getTokenImages(): Promise<ImageFilePath[]>;
 
         /**
          * Handle how changes to a Token attribute bar are applied to the Actor.

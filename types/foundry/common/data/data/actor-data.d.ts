@@ -28,14 +28,14 @@ declare module foundry {
             _id: string;
             name: string;
             type: TType;
-            img: ImagePath;
+            img: ImageFilePath;
             system: TSystemSource;
             prototypeToken: PrototypeTokenSource;
             items: TItemSource[];
             effects: ActiveEffectSource[];
             folder: string | null;
             sort: number;
-            ownership: Record<string, PermissionLevel>;
+            ownership: Record<string, DocumentOwnershipLevel>;
             flags: ActorFlags;
         }
 

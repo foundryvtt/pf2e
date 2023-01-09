@@ -107,7 +107,7 @@ type RollOptionData = {
     label: string;
     actorId: string;
     itemId: string;
-    img?: ImagePath;
+    img?: ImageFilePath;
     domain: string;
     option: string;
 };

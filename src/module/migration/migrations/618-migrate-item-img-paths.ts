@@ -4,7 +4,7 @@ import { MigrationBase } from "../base";
 export class Migration618MigrateItemImagePaths extends MigrationBase {
     static override version = 0.618;
 
-    readonly IMAGE_PATHS: Record<string, ImagePath> = {
+    readonly IMAGE_PATHS: Record<string, ImageFilePath> = {
         "systems/pf2e/icons/equipment/weapons/blowgun.png": "systems/pf2e/icons/equipment/weapons/blowgun.jpg",
         "systems/pf2e/icons/equipment/weapons/trident.png": "systems/pf2e/icons/equipment/weapons/trident.jpg",
         "systems/pf2e/icons/equipment/weapons/longsword.png": "systems/pf2e/icons/equipment/weapons/longsword.jpg",

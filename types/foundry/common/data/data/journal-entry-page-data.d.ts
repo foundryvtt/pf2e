@@ -73,7 +73,7 @@ declare module foundry {
             src?: string | null;
             system: object; // will be filled out later
             sort: number;
-            ownership?: Record<string, PermissionLevel>;
+            ownership?: Record<string, DocumentOwnershipLevel>;
             flags: object; // will be filled out later
         }
 

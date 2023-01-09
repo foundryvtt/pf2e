@@ -16,7 +16,7 @@ declare module foundry {
             duration: EffectDurationSource;
             changes: EffectChangeSource[];
             disabled: boolean;
-            icon: ImagePath;
+            icon: ImageFilePath;
             tint: string;
             origin: string | undefined;
             transfer: boolean;

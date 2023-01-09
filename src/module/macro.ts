@@ -1,7 +1,7 @@
 export class MacroPF2e extends Macro {
     /** Raise permission requirement of world macro visibility to observer */
     override get visible(): boolean {
-        return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
+        return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER;
     }
 
     /** Allow unbound variables to be shadowed in script's evaluation scope */
