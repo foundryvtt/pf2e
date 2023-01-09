@@ -16,7 +16,13 @@ import { getPropertyRuneModifiers } from "@item/physical/runes";
 import { WeaponDamage } from "@item/weapon/data";
 import { RollNotePF2e } from "@module/notes";
 import { PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
-import { extractDamageDice, extractDamageModifiers, extractModifiers, extractNotes } from "@module/rules/helpers";
+import {
+    extractDamageDice,
+    extractDamageModifiers,
+    extractModifierAdjustments,
+    extractModifiers,
+    extractNotes,
+} from "@module/rules/helpers";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { objectHasKey, sluggify } from "@util";
 import { createDamageFormula } from "./formula";
@@ -161,9 +167,11 @@ class WeaponDamagePF2e {
             const splashDamage = Number(weapon.system.splashDamage?.value);
             if (splashDamage > 0) {
                 const modifier = new ModifierPF2e({
+                    slug: "splash",
                     label: "PF2E.WeaponSplashDamageLabel",
                     modifier: splashDamage,
                     damageCategory: "splash",
+                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "splash"),
                 });
                 modifiers.push(modifier);
             }
