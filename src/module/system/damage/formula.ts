@@ -96,6 +96,8 @@ function createDamageFormula(
         .flat()
         .join(",");
 
+    console.log("PF2e | Emitted Damage Formula: " + commaSeparated);
+
     return ["{", commaSeparated, "}"].join("");
 }
 
@@ -190,9 +192,11 @@ function sumExpression(terms: (string | null)[], { double = false } = {}): strin
     if (terms.every((t) => !t)) return null;
 
     const summed = terms.filter((p): p is string => !!p).join(" + ") || null;
-    const enclosed = double && hasOperators(summed) ? `(${summed})` : summed;
 
-    return double ? `2 * ${enclosed}` : enclosed;
+    // Retrieve critical rule, double based on rule
+    const critRule = game.settings.get("pf2e", "critRule");
+    const enclosed = double && hasOperators(summed) ? `(${summed})` : summed;
+    return double && critRule === 'doubledice' ? `2 * ${enclosed}` : enclosed;
 }
 
 /** Helper for helpers */
