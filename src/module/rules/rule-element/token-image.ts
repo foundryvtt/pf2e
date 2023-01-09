@@ -32,7 +32,7 @@ export class TokenImageRuleElement extends RuleElementPF2e {
 
         if (!this.test()) return;
 
-        const texture: { src: VideoPath; scaleX?: number; scaleY?: number } = { src };
+        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number } = { src };
         if (this.scale) {
             texture.scaleX = this.scale;
             texture.scaleY = this.scale;
@@ -41,7 +41,7 @@ export class TokenImageRuleElement extends RuleElementPF2e {
         this.actor.synthetics.tokenOverrides.texture = texture;
     }
 
-    #srcIsValid(src: unknown): src is VideoPath {
+    #srcIsValid(src: unknown): src is VideoFilePath {
         if (typeof src !== "string") return false;
         const extension = /(?<=\.)[a-z0-9]{3,4}$/i.exec(src)?.at(0);
         return !!extension && (extension in CONST.IMAGE_FILE_EXTENSIONS || extension in CONST.VIDEO_FILE_EXTENSIONS);

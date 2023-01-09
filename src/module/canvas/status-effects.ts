@@ -89,7 +89,7 @@ export class StatusEffects {
         CONFIG.statusEffects.push({
             id: "dead",
             label: "PF2E.Actor.Dead",
-            icon: CONFIG.controlIcons.defeated as ImagePath,
+            icon: CONFIG.controlIcons.defeated as ImageFilePath,
         });
     }
 
@@ -114,7 +114,7 @@ export class StatusEffects {
             picture.classList.add("effect-control");
             picture.dataset.statusId = icon.dataset.statusId;
             picture.title = icon.title;
-            const iconSrc = icon.getAttribute("src") as ImagePath;
+            const iconSrc = icon.getAttribute("src") as ImageFilePath;
             picture.setAttribute("src", iconSrc);
             const newIcon = document.createElement("img");
             newIcon.src = iconSrc;
@@ -242,7 +242,7 @@ export class StatusEffects {
 
         const slug = icon.dataset.statusId ?? "";
         const imgElement = icon.querySelector("img");
-        const iconSrc = imgElement?.getAttribute("src") as ImagePath | null | undefined;
+        const iconSrc = imgElement?.getAttribute("src") as ImageFilePath | null | undefined;
 
         const affecting = actor?.itemTypes.condition.find((c) => c.slug === slug && !c.system.references.parent);
         const conditionIds: string[] = [];

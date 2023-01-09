@@ -29,8 +29,8 @@ interface VariantCloneParams {
     name?: string;
     description?: string;
     img?: {
-        actor?: ImagePath;
-        token?: VideoPath;
+        actor?: ImageFilePath;
+        token?: VideoFilePath;
     };
     save?: boolean;
     keepId?: boolean;

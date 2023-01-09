@@ -15,7 +15,7 @@ declare module foundry {
             _id: string;
             actorId: string;
             tokenId: string;
-            img: VideoPath;
+            img: VideoFilePath;
             initiative: number | null;
             hidden: boolean;
             defeated: boolean;

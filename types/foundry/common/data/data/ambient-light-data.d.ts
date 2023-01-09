@@ -44,5 +44,3 @@ declare module foundry {
         }
     }
 }
-
-declare type LightSourceType = typeof CONST.SOURCE_TYPES[keyof typeof CONST.SOURCE_TYPES];

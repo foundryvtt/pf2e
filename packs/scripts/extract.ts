@@ -140,7 +140,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
             docSource.img &&= docSource.img.replace(
                 "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
                 "systems/pf2e/"
-            ) as ImagePath;
+            ) as ImageFilePath;
 
             if (isObject(docSource.flags?.pf2e) && Object.keys(docSource.flags.pf2e).length === 0) {
                 delete docSource.flags.pf2e;
@@ -164,13 +164,15 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         delete (docSource as { prototypeToken?: unknown }).prototypeToken;
                     } else if (docSource.prototypeToken) {
                         const withToken: {
-                            img: ImagePath;
+                            img: ImageFilePath;
                             prototypeToken: DeepPartial<foundry.data.PrototypeTokenSource>;
                         } = docSource;
                         withToken.prototypeToken = { name: docSource.prototypeToken.name };
                         // Iconics have special tokens
                         if (withToken.img?.includes("iconics")) {
-                            withToken.prototypeToken.texture = { src: withToken.img.replace("Full", "") as ImagePath };
+                            withToken.prototypeToken.texture = {
+                                src: withToken.img.replace("Full", "") as ImageFilePath,
+                            };
                         }
                     }
 

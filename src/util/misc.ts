@@ -206,7 +206,7 @@ function parseHTML(unparsed: string): HTMLElement {
     return element;
 }
 
-const actionImgMap: Record<string, ImagePath> = {
+const actionImgMap: Record<string, ImageFilePath> = {
     1: "systems/pf2e/icons/actions/OneAction.webp",
     2: "systems/pf2e/icons/actions/TwoActions.webp",
     3: "systems/pf2e/icons/actions/ThreeActions.webp",
@@ -218,13 +218,13 @@ const actionImgMap: Record<string, ImagePath> = {
     passive: "systems/pf2e/icons/actions/Passive.webp",
 };
 
-function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath): ImagePath;
-function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath | null): ImagePath | null;
-function getActionIcon(actionType: string | ActionCost | null): ImagePath;
+function getActionIcon(actionType: string | ActionCost | null, fallback: ImageFilePath): ImageFilePath;
+function getActionIcon(actionType: string | ActionCost | null, fallback: ImageFilePath | null): ImageFilePath | null;
+function getActionIcon(actionType: string | ActionCost | null): ImageFilePath;
 function getActionIcon(
     action: string | ActionCost | null,
-    fallback: ImagePath | null = "systems/pf2e/icons/actions/Empty.webp"
-): ImagePath | null {
+    fallback: ImageFilePath | null = "systems/pf2e/icons/actions/Empty.webp"
+): ImageFilePath | null {
     if (action === null) return actionImgMap["passive"];
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
     const sanitized = String(value ?? "")

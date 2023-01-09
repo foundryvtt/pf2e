@@ -8,7 +8,7 @@ declare module foundry {
 
             testUserPermission(
                 user: documents.BaseUser,
-                permission: DocumentPermission | DocumentPermissionNumber,
+                permission: DocumentOwnershipString | DocumentOwnershipLevel,
                 { exact }?: { exact?: boolean }
             ): boolean;
         }

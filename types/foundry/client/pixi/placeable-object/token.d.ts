@@ -274,7 +274,13 @@ declare global {
         protected _drawOverlay({ src, tint }?: { src?: string; tint?: number }): Promise<void>;
 
         /** Draw a status effect icon */
-        protected _drawEffect(src: ImagePath, i: number, bg: PIXI.Container, w: number, tint: number): Promise<void>;
+        protected _drawEffect(
+            src: ImageFilePath,
+            i: number,
+            bg: PIXI.Container,
+            w: number,
+            tint: number
+        ): Promise<void>;
 
         /**
          * Helper method to determine whether a token attribute is viewable under a certain mode
@@ -408,12 +414,12 @@ declare global {
          * @return Was the texture applied (true) or removed (false)
          */
         toggleEffect(
-            effect: StatusEffect | ImagePath,
+            effect: StatusEffect | ImageFilePath,
             { active, overlay }?: { active?: boolean; overlay?: boolean }
         ): Promise<boolean>;
 
         /** A helper function to toggle the overlay status icon on the Token */
-        protected _toggleOverlayEffect(texture: ImagePath, { active }: { active: boolean }): Promise<this>;
+        protected _toggleOverlayEffect(texture: ImageFilePath, { active }: { active: boolean }): Promise<this>;
 
         /**
          * Toggle the visibility state of any Tokens in the currently selected set

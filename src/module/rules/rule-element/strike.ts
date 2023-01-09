@@ -168,7 +168,7 @@ interface StrikeSource extends RuleElementSource {
 
 interface StrikeData extends RuleElementData {
     slug?: string;
-    img?: ImagePath;
+    img?: ImageFilePath;
     damage?: { base?: WeaponDamage };
     replaceAll: boolean;
     replaceBasicUnarmed: boolean;

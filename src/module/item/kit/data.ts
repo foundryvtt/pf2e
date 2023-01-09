@@ -9,7 +9,7 @@ type KitData = Omit<KitSource, "system" | "effects" | "flags"> &
 
 interface KitEntryData {
     uuid: ItemUUID;
-    img: ImagePath;
+    img: ImageFilePath;
     quantity: number;
     name: string;
     isContainer: boolean;

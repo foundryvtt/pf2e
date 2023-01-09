@@ -40,7 +40,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.ownUnarmed = this.data.ownUnarmed;
     }
 
-    static defaultIcons: Record<string, ImagePath | undefined> = [
+    static defaultIcons: Record<string, ImageFilePath | undefined> = [
         "antler",
         "beak",
         "body",
@@ -75,7 +75,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         "water-spout",
         "wave",
         "wing",
-    ].reduce((accumulated: Record<string, ImagePath | undefined>, strike) => {
+    ].reduce((accumulated: Record<string, ImageFilePath | undefined>, strike) => {
         const path = `systems/pf2e/icons/unarmed-attacks/${strike}.webp` as const;
         return { ...accumulated, [strike]: path };
     }, {});

@@ -97,7 +97,7 @@ const DAMAGE_TYPE_ICONS: Record<DamageType, string | null> = {
 };
 
 /** Image map for conditions, currently placed here until we get a new set */
-const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImagePath>> = {
+const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImageFilePath>> = {
     piercing: "systems/pf2e/icons/equipment/weapons/throwing-knife.webp",
     bludgeoning: "systems/pf2e/icons/equipment/weapons/bola.webp",
     slashing: "systems/pf2e/icons/equipment/weapons/scimitar.webp",

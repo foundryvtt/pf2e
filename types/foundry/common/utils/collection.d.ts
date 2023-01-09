@@ -120,5 +120,3 @@ declare module foundry {
 
 declare type Collection<V> = foundry.utils.Collection<V>;
 declare const Collection: typeof foundry.utils.Collection;
-
-declare type CollectionValue<T> = T extends foundry.utils.Collection<infer U> ? U : never;

@@ -1,8 +1,6 @@
 export {};
 
 declare global {
-    type RollMode = typeof CONST.DICE_ROLL_MODES[keyof typeof CONST.DICE_ROLL_MODES];
-
     /**
      * An interface and API for constructing and evaluating dice rolls.
      * The basic structure for a dice roll is a string formula and an object of data against which to parse it.

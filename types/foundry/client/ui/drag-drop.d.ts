@@ -23,7 +23,7 @@ declare global {
         dropSelector: string;
 
         /** A set of permission checking functions for each action of the Drag and Drop workflow */
-        permissions: Record<string, PermissionLevel>;
+        permissions: Record<string, DocumentOwnershipLevel>;
 
         /** A set of callback functions for each action of the Drag and Drop workflow */
         callbacks: Record<DragDropAction, (event: ElementDragEvent) => unknown>;
@@ -69,7 +69,7 @@ declare global {
          */
         protected _handleDrop(event: ElementDragEvent): unknown;
 
-        static createDragImage(img: ImagePath, width: number, height: number): HTMLDivElement;
+        static createDragImage(img: ImageFilePath, width: number, height: number): HTMLDivElement;
     }
 
     interface DragDropConfiguration {
@@ -80,7 +80,7 @@ declare global {
         dropSelector: string;
 
         /** A set of permission checking functions for each action of the Drag and Drop workflow */
-        permissions?: Record<string, PermissionLevel>;
+        permissions?: Record<string, DocumentOwnershipLevel>;
 
         /** A set of callback functions for each action of the Drag and Drop workflow */
         callbacks?: Partial<Record<DragDropAction, (event: ElementDragEvent) => unknown>>;

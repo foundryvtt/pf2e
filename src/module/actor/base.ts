@@ -463,7 +463,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 : datum.prototypeToken?.flags?.pf2e?.autoscale ??
                   (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale"));
             const merged = mergeObject(datum, {
-                ownership: datum.ownership ?? { default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE },
+                ownership: datum.ownership ?? { default: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE },
                 prototypeToken: {
                     flags: {
                         // Sync token dimensions with actor size?
@@ -480,7 +480,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             switch (merged.type) {
                 case "character":
                 case "familiar":
-                    merged.ownership.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
+                    merged.ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
                     // Default characters and their minions to having tokens with vision and an actor link
                     merged.prototypeToken.actorLink = true;
                     merged.prototypeToken.vision = true;
@@ -488,7 +488,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 case "loot":
                     // Make loot actors linked and interactable
                     merged.prototypeToken.actorLink = true;
-                    merged.ownership.default = CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
+                    merged.ownership.default = CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
                     break;
             }
 
@@ -1249,7 +1249,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         return { updates, totalApplied };
     }
 
-    static getActionGraphics(type: ActionType, actionCount?: OneToThree): { imageUrl: ImagePath; actionGlyph: string } {
+    static getActionGraphics(
+        type: ActionType,
+        actionCount?: OneToThree
+    ): { imageUrl: ImageFilePath; actionGlyph: string } {
         console.warn(
             "PF2E System | ActorPF2e#getActionGraphics() is deprecated. If you rely on this function, please inform the Pathfinder2e dev team"
         );
