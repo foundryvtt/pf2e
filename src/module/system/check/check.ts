@@ -203,7 +203,7 @@ class CheckPF2e {
         const contextFlag: CheckRollContextFlag = {
             ...context,
             item: undefined,
-            dosAdjustments: undefined,
+            dosAdjustments,
             actor: context.actor?.id ?? null,
             token: context.token?.id ?? null,
             domains: context.domains ?? [],
@@ -223,7 +223,6 @@ class CheckPF2e {
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };
         delete contextFlag.item;
-        delete contextFlag.dosAdjustments;
 
         type MessagePromise = Promise<ChatMessagePF2e | ChatMessageSourcePF2e>;
         const message = await ((): MessagePromise => {
@@ -412,7 +411,7 @@ class CheckPF2e {
 
         const dc = context.dc ?? null;
         const oldFlavor = message.flavor ?? "";
-        const degree = dc ? new DegreeOfSuccess(newRoll, dc) : null;
+        const degree = dc ? new DegreeOfSuccess(newRoll, dc, context.dosAdjustments) : null;
         const useNewRoll = keptRoll === newRoll && !!degree;
         context.outcome = useNewRoll ? DEGREE_OF_SUCCESS_STRINGS[degree.value] : context.outcome;
 
