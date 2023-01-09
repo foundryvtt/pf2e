@@ -26,6 +26,18 @@ function extractModifiers(
     return modifiers;
 }
 
+/** */
+function extractDamageModifiers(...args: Parameters<typeof extractModifiers>): {
+    persistent: ModifierPF2e[];
+    main: ModifierPF2e[];
+} {
+    const synthetics = extractModifiers(...args);
+    return {
+        main: synthetics.filter((m) => m.category !== "persistent"),
+        persistent: synthetics.filter((m) => m.category === "persistent"),
+    };
+}
+
 function extractModifierAdjustments(
     adjustmentsRecord: RuleElementSynthetics["modifierAdjustments"],
     selectors: string[],
@@ -121,6 +133,7 @@ async function processPreUpdateActorHooks(
 
 export {
     extractDamageDice,
+    extractDamageModifiers,
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
     extractModifiers,
