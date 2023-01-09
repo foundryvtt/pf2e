@@ -11,6 +11,14 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         return { finalDamage: 0, applications: [], persistent: [] };
     }
 
+    if (!game.settings.get("pf2e", "automation.iwr")) {
+        return {
+            finalDamage: roll.total,
+            applications: [],
+            persistent: roll.instances.filter((i) => i.persistent && !i.options.evaluatePersistent),
+        };
+    }
+
     const { immunities, weaknesses, resistances } = actor.attributes;
 
     const instances = roll.instances as Rolled<DamageInstance>[];
@@ -18,8 +26,6 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 
     const applications = instances
         .flatMap((instance): IWRApplication[] => {
-            if (!game.settings.get("pf2e", "automation.iwr")) return [];
-
             const formalDescription = new Set([...instance.formalDescription, ...rollOptions]);
 
             // Step 0: Inapplicable damage outside the IWR framework
