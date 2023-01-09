@@ -309,6 +309,21 @@ class WeaponDamagePF2e {
             }
         })();
 
+        // Scatter damage
+        const scatterTrait = weaponTraits.find(
+            (t) => t.startsWith("scatter-")
+        );
+        if (scatterTrait) {
+            const modifier = new ModifierPF2e({
+                slug: "scatter",
+                label: "PF2E.WeaponScatterDamageLabel",
+                modifier: 1 + strikingDice,
+                damageCategory: "splash",
+                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "scatter"),
+            });
+            modifiers.push(modifier);
+        }
+
         for (const slug of deadlyTraits) {
             const diceNumber = ((): number => {
                 const baseNumber = Number(/-(\d)d\d{1,2}$/.exec(slug)?.at(1)) || 1;
