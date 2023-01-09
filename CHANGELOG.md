@@ -10,6 +10,7 @@
 * (stwlam) Fix processing of positive damage against living targets
 * (stwlam) Fix manual adjustments of damage rolls with multiple instances
 * (stwlam) Fix craft and repair macros
+* (stwlam) Fix rolling damage from consumables
 
 ### Data Updates
 * (Cora) Restore the variant Devourer and Bog Mummy from AV
