@@ -302,6 +302,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "positive",
                     diceNumber: 1,
                     dieSize: "d6",
+                    predicate: [{ or: ["target:mode:undead", { not: "target" }] }],
                 },
             ],
             notes: [
@@ -528,6 +529,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     damageType: "positive",
                     diceNumber: 2,
                     dieSize: "d6",
+                    predicate: [{ or: ["target:mode:undead", { not: "target" }] }],
                 },
             ],
             notes: [
