@@ -4,7 +4,7 @@ import { SpellConsumableItemType } from "@item/consumable/spell-consumables";
 import { OneToTen } from "@module/data";
 import { ErrorPF2e } from "@util";
 
-type FormInputData = {
+interface FormInputData extends FormApplicationData<ActorPF2e> {
     itemTypeOptions?: Object;
     validLevels?: number[];
     itemType?: SpellConsumableItemType;
@@ -58,9 +58,7 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         return options;
     }
 
-    override async getData(): Promise<FormApplicationData<ActorPF2e>> {
-        const sheetData: FormApplicationData<ActorPF2e> & FormInputData = await super.getData();
-
+    override async getData(): Promise<FormInputData> {
         if (!this.spell) {
             throw ErrorPF2e("CastingItemCreateDialog | Could not read spelldata");
         }
@@ -68,11 +66,13 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         const { cantripDeck5: cantripDeck5, ...nonCantripOptions } = itemTypeOptions;
         const minimumLevel = this.spell.baseLevel;
         const levels = Array.from(Array(11 - minimumLevel).keys()).map((index) => minimumLevel + index);
-        sheetData.validLevels = levels;
-        sheetData.itemTypeOptions = this.spell.isCantrip ? { cantripDeck5: cantripDeck5 } : nonCantripOptions;
-        sheetData.itemType = this.formDataCache.itemType;
-        sheetData.level = this.formDataCache.level;
-        return sheetData;
+        return {
+            ...(await super.getData()),
+            validLevels: levels,
+            itemTypeOptions: this.spell.isCantrip ? { cantripDeck5: cantripDeck5 } : nonCantripOptions,
+            itemType: this.formDataCache.itemType,
+            level: this.formDataCache.level,
+        };
     }
 
     override async _updateObject(event: Event, formData: FormOutputData) {
