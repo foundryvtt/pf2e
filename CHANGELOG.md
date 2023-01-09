@@ -1,5 +1,33 @@
 # Changelog
 
+## Version 4.6.5
+
+### New Features
+* (Supe) Add support for CRB 4th printing Voluntary Flaws
+
+### Bugfixes
+* (In3luki) Re-evaluate degree of success adjustments on reroll
+* (stwlam) Fix processing of positive damage against living targets
+* (stwlam) Fix manual adjustments of damage rolls with multiple instances
+* (stwlam) Fix craft and repair macros
+
+### Data Updates
+* (Cora) Restore the variant Devourer and Bog Mummy from AV
+* (Dire Weasel) Add Breeg's Traps
+* (Dire Weasel) Add effect for Goo Grenade
+* (Dire Weasel) Add persistent damage to alchemical bombs
+* (Dire Weasel) Fix Bottled Sunlight to be martial weapons and have a range of 20 feet
+* (Dire Weasel) Fix Brevic Noble Garess to grant crafting rather than arcana
+* (Dire Weasel) Fix Fang Sharpener upgrading Razortooth jaws damage dice, and add critical bleed
+* (Dire Weasel) Fix formatting of several spell links
+* (Dire Weasel) Fix link in Spell Effect: Prismatic Armor
+* (MrVauxs) Add missing range localization keys
+* (rectulo) Fix level of Soulspark candle
+* (stwlam) Add resistance rule element to Reinforce Eidolon effect
+* (stwlam) Update Burn It! to add status bonuses to persistent damage
+* (stwlam) Link Beastkin's Change Shape effect from action item, update icon
+
+
 ## Version 4.6.4
 
 ### New Features
