@@ -176,6 +176,19 @@ class WeaponDamagePF2e {
                 modifiers.push(modifier);
             }
 
+            // Scatter damage
+            const scatterTrait = weaponTraits.find((t) => t.startsWith("scatter-"));
+            if (scatterTrait) {
+                const modifier = new ModifierPF2e({
+                    slug: "scatter",
+                    label: "PF2E.Damage.Scatter",
+                    modifier: baseDamage.dice,
+                    damageCategory: "splash",
+                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "scatter"),
+                });
+                modifiers.push(modifier);
+            }
+
             // Bonus damage
             const bonusDamage = Number(weapon.system.bonusDamage?.value);
             if (bonusDamage > 0) {
@@ -308,19 +321,6 @@ class WeaponDamagePF2e {
                 return strikingSynthetic?.bonus ?? 0;
             }
         })();
-
-        // Scatter damage
-        const scatterTrait = weaponTraits.find((t) => t.startsWith("scatter-"));
-        if (scatterTrait) {
-            const modifier = new ModifierPF2e({
-                slug: "scatter",
-                label: "PF2E.WeaponScatterDamageLabel",
-                modifier: 1 + strikingDice,
-                damageCategory: "splash",
-                adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "scatter"),
-            });
-            modifiers.push(modifier);
-        }
 
         for (const slug of deadlyTraits) {
             const diceNumber = ((): number => {
