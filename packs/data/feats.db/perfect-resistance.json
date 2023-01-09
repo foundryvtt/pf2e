@@ -25,7 +25,35 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.houseOfPerfection.element",
+                "priority": 1,
+                "value": ""
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.HouseOfPerfection.PerfectResistance.Label",
+                "option": "used-sop-ki-spell",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "type": "{actor|flags.pf2e.houseOfPerfection.element}",
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "used-sop-ki-spell"
+                ],
+                "type": "{actor|flags.pf2e.houseOfPerfection.element}",
+                "value": "@actor.level"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Impossible Lands"
         },
