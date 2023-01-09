@@ -9,7 +9,7 @@ interface FormInputData extends FormApplicationData<ActorPF2e> {
     validLevels?: number[];
     itemType?: SpellConsumableItemType;
     level?: OneToTen;
-};
+}
 
 type FormOutputData = {
     itemType: SpellConsumableItemType;
