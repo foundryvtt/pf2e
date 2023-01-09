@@ -35,7 +35,7 @@ interface ConditionSystemSource extends ItemSystemSource {
         statusName: string;
         img: {
             useStatusName: boolean;
-            value: ImagePath;
+            value: ImageFilePath;
         };
         selectable: boolean;
     };

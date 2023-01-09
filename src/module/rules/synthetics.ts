@@ -32,7 +32,7 @@ interface RuleElementSynthetics {
     striking: Record<string, StrikingSynthetic[]>;
     targetMarks: Map<TokenDocumentUUID, string>;
     tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name">> & {
-        texture?: { src: VideoPath } | { src: VideoPath; scaleX: number; scaleY: number };
+        texture?: { src: VideoFilePath } | { src: VideoFilePath; scaleX: number; scaleY: number };
     };
     weaponPotency: Record<string, PotencySynthetic[]>;
     preparationWarnings: {

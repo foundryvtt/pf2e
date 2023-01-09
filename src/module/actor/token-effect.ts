@@ -1,7 +1,7 @@
 export class TokenEffect implements TemporaryEffect {
     disabled: boolean;
 
-    icon: ImagePath;
+    icon: ImageFilePath;
 
     tint?: string;
 
@@ -9,7 +9,7 @@ export class TokenEffect implements TemporaryEffect {
 
     readonly flags: Record<string, Record<string, string | boolean | undefined>> = {};
 
-    constructor(icon: ImagePath, overlay = false, tint?: string | null | undefined) {
+    constructor(icon: ImageFilePath, overlay = false, tint?: string | null | undefined) {
         this.icon = icon;
         this.disabled = false;
         if (tint) {

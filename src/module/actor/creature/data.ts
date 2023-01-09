@@ -244,7 +244,7 @@ interface HeldShieldData {
     /** Whether the shield is destroyed (hp.value === 0) */
     destroyed: boolean;
     /** An effect icon to use when the shield is raised */
-    icon: ImagePath;
+    icon: ImageFilePath;
 }
 
 export {

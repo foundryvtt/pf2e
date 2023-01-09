@@ -17,7 +17,7 @@ declare module foundry {
             height: number;
 
             texture: {
-                src: VideoPath;
+                src: VideoFilePath;
                 scaleX: number;
                 scaleY: number;
                 offsetX: number;
@@ -42,7 +42,7 @@ declare module foundry {
 
             elevation: number;
 
-            effects: VideoPath[];
+            effects: VideoFilePath[];
 
             static override get schema(): typeof data.TokenData;
 

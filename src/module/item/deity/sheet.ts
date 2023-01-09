@@ -164,5 +164,5 @@ interface SpellBrief {
     uuid: ItemUUID;
     level: number;
     name: string;
-    img: ImagePath;
+    img: ImageFilePath;
 }

@@ -255,7 +255,7 @@ interface PreparedCraftingFormula extends CraftingFormula {
 interface PreparedFormulaSheetData {
     uuid: string;
     expended: boolean;
-    img: ImagePath;
+    img: ImageFilePath;
     name: string;
     quantity: number;
     isSignatureItem: boolean;

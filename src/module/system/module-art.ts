@@ -80,9 +80,9 @@ class ModuleArt {
 }
 
 interface ModuleArtData {
-    actor: ImagePath;
+    actor: ImageFilePath;
     // Token art can either be an image path or an object containing the path and a custom scale
-    token: ImagePath | { img: ImagePath; scale?: number };
+    token: ImageFilePath | { img: ImageFilePath; scale?: number };
 }
 
 type ModuleArtRecord = Record<string, Record<string, ModuleArtData>>;

@@ -103,7 +103,7 @@ type IdentificationStatus = "identified" | "unidentified";
 
 interface MystifiedData {
     name: string;
-    img: ImagePath;
+    img: ImageFilePath;
     data: {
         description: {
             value: string;

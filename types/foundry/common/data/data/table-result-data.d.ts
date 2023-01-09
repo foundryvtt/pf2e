@@ -20,7 +20,7 @@ declare module foundry {
         interface TableResultSource {
             type: TableResultType;
             text: string;
-            img: ImagePath;
+            img: ImageFilePath;
             collection: string;
             resultId: string;
             weight: number;
@@ -39,5 +39,3 @@ declare module foundry {
         }
     }
 }
-
-type TableResultType = typeof CONST.TABLE_RESULT_TYPES[keyof typeof CONST.TABLE_RESULT_TYPES];

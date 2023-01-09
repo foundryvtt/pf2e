@@ -172,7 +172,7 @@ declare global {
             width,
             height,
         }?: {
-            img?: ImagePath | null;
+            img?: ImageFilePath | null;
             width?: number;
             height?: number;
         }): Promise<Record<string, unknown>>;
