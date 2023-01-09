@@ -30,7 +30,7 @@ import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
-import { ScrollWandPopup } from "./popups/scroll-wand-popup";
+import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -755,38 +755,16 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // we still need to put it in the correct spellcastingEntry
         if (item.isOfType("spell") && itemSource.type === "spell") {
             if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
-                if (item.system.traits.value.includes("cantrip")) {
-                    const popup = new Dialog({
-                        title: game.i18n.localize("PF2E.CantripDeckPopup.title"),
-                        content: game.i18n.format("PF2E.CantripDeckPopup.message", { name: item.name }),
-                        buttons: {
-                            submitButton: {
-                                label: game.i18n.localize("PF2E.CantripDeckPopup.submit"),
-                                callback: async () => {
-                                    const createdItem = await createConsumableFromSpell("cantrip-deck-5", item, 1);
-                                    await this._onDropItemCreate(createdItem);
-                                },
-                                icon: `<i class="fas fa-check"></i>`,
-                            },
-                            cancelButton: {
-                                label: game.i18n.localize("PF2E.CantripDeckPopup.cancel"),
-                                icon: `<i class="fas fa-times"></i>`,
-                            },
-                        },
-                    });
-                    popup.render(true);
-                } else {
-                    const popup = new ScrollWandPopup(
-                        actor,
-                        {},
-                        async (heightenedLevel, itemType, spell) => {
-                            const createdItem = await createConsumableFromSpell(itemType, spell, heightenedLevel);
-                            await this._onDropItemCreate(createdItem);
-                        },
-                        item
-                    );
-                    popup.render(true);
-                }
+                const popup = new CastingItemCreateDialog(
+                    actor,
+                    {},
+                    async (heightenedLevel, itemType, spell) => {
+                        const createdItem = await createConsumableFromSpell(itemType, spell, heightenedLevel);
+                        await this._onDropItemCreate(createdItem);
+                    },
+                    item
+                );
+                popup.render(true);
                 return [item];
             } else {
                 return [];

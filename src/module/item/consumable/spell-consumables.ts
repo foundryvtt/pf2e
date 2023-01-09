@@ -21,12 +21,12 @@ const scrollCompendiumIds: Record<number, string | undefined> = {
     10: "o1XIHJ4MJyroAHfF",
 };
 
-const SPELL_CONSUMABLE_ITEM_TYPE = new Set(["cantrip-deck-5", "scroll", "wand"] as const);
+const SPELL_CONSUMABLE_ITEM_TYPE = new Set(["cantripDeck5", "scroll", "wand"] as const);
 type SpellConsumableItemType = SetElement<typeof SPELL_CONSUMABLE_ITEM_TYPE>;
 const SPELL_CONSUMABLE_NAME_TEMPLATES = {
-    "cantrip-deck-5": "PF2E.CantripDeckFromSpell",
-    scroll: "PF2E.ScrollFromSpell",
-    wand: "PF2E.WandFromSpell",
+    cantripDeck5: "PF2E.Item.Physical.FromSpell.CantripDeck5",
+    scroll: "PF2E.Item.Physical.FromSpell.Scroll",
+    wand: "PF2E.Item.Physical.FromSpell.Wand",
 };
 
 const wandCompendiumIds: Record<number, string | undefined> = {
@@ -44,7 +44,7 @@ const wandCompendiumIds: Record<number, string | undefined> = {
 function getIdForSpellConsumable(type: SpellConsumableItemType, heightenedLevel: number): string | null {
     let id = null;
     switch (type) {
-        case "cantrip-deck-5":
+        case "cantripDeck5":
             id = cantripDeckId;
             break;
         case "scroll":
@@ -89,7 +89,7 @@ async function createConsumableFromSpell(
         (spell.sourceId ? "@" + spell.sourceId.replace(".", "[") + "]" : spell.description) + `\n<hr />${description}`;
 
     // Cantrip deck casts at level 1
-    if (type !== "cantrip-deck-5") {
+    if (type !== "cantripDeck5") {
         consumableSource.system.spell = spell.clone({ "system.location.heightenedLevel": heightenedLevel }).toObject();
     }
 
