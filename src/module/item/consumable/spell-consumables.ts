@@ -42,18 +42,14 @@ const wandCompendiumIds: Record<number, string | undefined> = {
 };
 
 function getIdForSpellConsumable(type: SpellConsumableItemType, heightenedLevel: number): string | null {
-    let id = null;
     switch (type) {
         case "cantripDeck5":
-            id = cantripDeckId;
-            break;
+            return cantripDeckId;
         case "scroll":
-            id = scrollCompendiumIds[heightenedLevel] ?? null;
-            break;
+            return scrollCompendiumIds[heightenedLevel] ?? null;
         default:
-            id = wandCompendiumIds[heightenedLevel] ?? null;
+            return wandCompendiumIds[heightenedLevel] ?? null;
     }
-    return id;
 }
 
 function getNameForSpellConsumable(type: SpellConsumableItemType, spellName: string, heightenedLevel: number): string {

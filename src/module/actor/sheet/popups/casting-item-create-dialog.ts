@@ -28,7 +28,6 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
     onSubmitCallback: CastingItemCreateCallback;
     spell: SpellPF2e;
     formDataCache: FormOutputData;
-    isCantrip: boolean;
 
     constructor(
         object: ActorPF2e,
@@ -39,9 +38,8 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         super(object, options);
 
         this.spell = spell;
-        this.isCantrip = spell.system.traits.value.includes("cantrip");
         this.formDataCache = {
-            itemType: this.isCantrip ? "cantripDeck5" : "scroll",
+            itemType: this.spell.isCantrip ? "cantripDeck5" : "scroll",
             level: spell.baseLevel,
         };
         this.onSubmitCallback = callback;
@@ -71,7 +69,7 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
         const minimumLevel = this.spell.baseLevel;
         const levels = Array.from(Array(11 - minimumLevel).keys()).map((index) => minimumLevel + index);
         sheetData.validLevels = levels;
-        sheetData.itemTypeOptions = this.isCantrip ? { cantripDeck5: cantripDeck5 } : nonCantripOptions;
+        sheetData.itemTypeOptions = this.spell.isCantrip ? { cantripDeck5: cantripDeck5 } : nonCantripOptions;
         sheetData.itemType = this.formDataCache.itemType;
         sheetData.level = this.formDataCache.level;
         return sheetData;
