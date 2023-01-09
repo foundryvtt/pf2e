@@ -16,7 +16,7 @@ import { getPropertyRuneModifiers } from "@item/physical/runes";
 import { WeaponDamage } from "@item/weapon/data";
 import { RollNotePF2e } from "@module/notes";
 import { PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
-import { extractDamageDice, extractModifiers, extractNotes } from "@module/rules/helpers";
+import { extractDamageDice, extractDamageModifiers, extractModifiers, extractNotes } from "@module/rules/helpers";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { objectHasKey, sluggify } from "@util";
 import { createDamageFormula } from "./formula";
@@ -383,9 +383,11 @@ class WeaponDamagePF2e {
             options.add(option);
         }
 
-        const syntheticModifiers = extractModifiers(actor.synthetics, selectors, { resolvables, injectables });
+        // Separate damage modifiers into persistent and all others for stacking rules processing
+        const synthetics = extractDamageModifiers(actor.synthetics, selectors, { resolvables, injectables });
         const testedModifiers = [
-            ...new StatisticModifier("", [...modifiers, ...syntheticModifiers], options).modifiers,
+            ...new StatisticModifier("strike-damage", [...modifiers, ...synthetics.main], options).modifiers,
+            ...new StatisticModifier("strike-persistent", synthetics.persistent, options).modifiers,
         ];
 
         // Damage dice from synthetics

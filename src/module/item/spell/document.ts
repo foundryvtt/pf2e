@@ -14,7 +14,7 @@ import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToTen } from "@module/data";
-import { extractDamageDice, extractModifiers } from "@module/rules/helpers";
+import { extractDamageDice, extractDamageModifiers } from "@module/rules/helpers";
 import { UserPF2e } from "@module/user";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { combineTerms } from "@scripts/dice";
@@ -290,10 +290,16 @@ class SpellPF2e extends ItemPF2e {
                         })
                 );
             modifiers.push(...abilityModifiers);
-            modifiers.push(...extractModifiers(actor.synthetics, domains, { resolvables: { spell: this } }));
-            const testedModifiers = new StatisticModifier("spell-damage", modifiers, options).modifiers.filter(
-                (m) => m.enabled
-            );
+
+            // Separate damage modifiers into persistent and all others for stacking rules processing
+            const resolvables = { spell: this };
+            const syntheticModifiers = extractDamageModifiers(actor.synthetics, domains, { resolvables });
+            modifiers.push(...syntheticModifiers.main);
+
+            const testedModifiers = [
+                ...new StatisticModifier("spell-damage", modifiers, options).modifiers,
+                ...new StatisticModifier("spell-persistent", syntheticModifiers.persistent, options).modifiers,
+            ].filter((m) => m.enabled);
 
             // Add modifiers to instances
             for (const modifier of testedModifiers) {
@@ -352,7 +358,7 @@ class SpellPF2e extends ItemPF2e {
         for (const partial of allPartials.filter((p) => p.damageCategory === "persistent")) {
             const { damageType } = partial;
             const typeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
-            const flavorLabel = game.i18n.format("PF2E.Damage.RollFlavor.persistent", { damageType: typeLabel });
+            const flavorLabel = game.i18n.format("PF2E.Damage.PersistentTooltip", { damageType: typeLabel });
             const result = createFormulaAndTagsForPartial(partial, flavorLabel);
             combinedInstanceData.push({ formula: result.formula, flavor: `[persistent,${damageType}]` });
             breakdownTags.push(...result.breakdownTags);
@@ -555,7 +561,12 @@ class SpellPF2e extends ItemPF2e {
                 options.add(`${delimitedPrefix}damage:type:${damage.type.value}`);
             }
             const category = DamageCategorization.fromDamageType(damage.type.value);
-            if (category) options.add(`${delimitedPrefix}damage:category:${category}`);
+            if (category) {
+                options.add(`${delimitedPrefix}damage:category:${category}`);
+            }
+            if (damage.type.subtype === "persistent") {
+                options.add(`${delimitedPrefix}damage:persistent:${damage.type.value}`);
+            }
         }
 
         if (damageValues.length > 0 && this.system.spellType.value !== "heal") {
