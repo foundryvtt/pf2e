@@ -4,6 +4,7 @@ import { ItemSummaryData, ItemType } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ValueAndMax } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
+import { DamageRoll } from "@system/damage/roll";
 import { ErrorPF2e } from "@util";
 import { ConsumableData, ConsumableType } from "./data";
 import { OtherConsumableTag } from "./types";
@@ -134,7 +135,12 @@ class ConsumablePF2e extends PhysicalItemPF2e {
                 },
             };
             if (formula) {
-                new Roll(formula).toMessage({
+                const damageType = this.traits.has("positive")
+                    ? "positive"
+                    : this.traits.has("negative")
+                    ? "negative"
+                    : "untyped";
+                new DamageRoll(`${formula}[${damageType}]`).toMessage({
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: content,
                     flags,
