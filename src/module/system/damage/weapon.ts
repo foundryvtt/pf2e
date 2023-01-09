@@ -310,9 +310,7 @@ class WeaponDamagePF2e {
         })();
 
         // Scatter damage
-        const scatterTrait = weaponTraits.find(
-            (t) => t.startsWith("scatter-")
-        );
+        const scatterTrait = weaponTraits.find((t) => t.startsWith("scatter-"));
         if (scatterTrait) {
             const modifier = new ModifierPF2e({
                 slug: "scatter",
