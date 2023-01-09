@@ -12,12 +12,7 @@ declare module foundry {
 
         class DarknessActivation extends abstract.DocumentData<
             documents.BaseAmbientLight | documents.BaseAmbientSound
-        > {
-            static override defineSchema(): {
-                min: typeof fields.ALPHA_FIELD;
-                max: typeof fields.ALPHA_FIELD;
-            };
-        }
+        > {}
 
         interface DarknessActivation extends DarknessActivationSource {
             readonly _source: DarknessActivationSource;

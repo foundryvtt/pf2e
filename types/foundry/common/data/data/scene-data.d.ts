@@ -11,9 +11,9 @@ declare module foundry {
             navName: string;
 
             // Canvas Dimensions
-            img: VideoPath;
-            foreground: VideoPath;
-            thumb: ImagePath;
+            img: VideoFilePath;
+            foreground: VideoFilePath;
+            thumb: ImageFilePath;
             width: number;
             height: number;
             padding: number;
@@ -58,7 +58,7 @@ declare module foundry {
             // Permissions
             folder: string | null;
             sort: number;
-            ownership: Record<string, PermissionLevel>;
+            ownership: Record<string, DocumentOwnershipLevel>;
             flags: Record<string, Record<string, unknown>>;
         }
 

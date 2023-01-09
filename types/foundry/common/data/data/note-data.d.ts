@@ -27,7 +27,7 @@ declare module foundry {
             entryId: string | null;
             x: number;
             y: number;
-            icon: ImagePath;
+            icon: ImageFilePath;
             iconSize: number;
             iconTint: HexColorString;
             text: string;

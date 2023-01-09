@@ -20,7 +20,7 @@ declare module foundry {
             x: number;
             y: number;
             radius: number;
-            path: AudioPath;
+            path: AudioFilePath;
             repeat: boolean;
             volume: number;
             easing: boolean;

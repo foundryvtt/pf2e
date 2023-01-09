@@ -41,5 +41,3 @@ declare module foundry {
         }
     }
 }
-
-declare type FolderDocumentType = typeof CONST.FOLDER_DOCUMENT_TYPES[number];

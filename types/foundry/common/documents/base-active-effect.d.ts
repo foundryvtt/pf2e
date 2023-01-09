@@ -18,7 +18,7 @@ declare module foundry {
 
             override testUserPermission(
                 user: BaseUser,
-                permission: DocumentPermission | DocumentPermissionNumber,
+                permission: DocumentOwnershipString | DocumentOwnershipLevel,
                 { exact }?: { exact?: boolean }
             ): boolean;
         }

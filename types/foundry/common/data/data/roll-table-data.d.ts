@@ -23,7 +23,7 @@ declare module foundry {
         interface RollTableSource {
             _id: string;
             name: string;
-            img?: ImagePath;
+            img?: ImageFilePath;
             description: string;
             results: TableResultSource[];
             formula: string;
@@ -31,7 +31,7 @@ declare module foundry {
             displayRoll: boolean;
             folder?: string | null;
             sort: number;
-            ownership: Record<string, PermissionLevel>;
+            ownership: Record<string, DocumentOwnershipLevel>;
             flags: Record<string, Record<string, unknown>>;
         }
 
@@ -49,7 +49,7 @@ declare module foundry {
         }
 
         interface RollTableData extends Omit<RollTableSource, "results"> {
-            img: ImagePath;
+            img: ImageFilePath;
 
             readonly _source: RollTableSource;
         }

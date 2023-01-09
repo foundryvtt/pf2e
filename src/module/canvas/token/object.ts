@@ -456,7 +456,7 @@ interface TokenPF2e extends Token<TokenDocumentPF2e> {
 }
 
 interface TokenImage extends PIXI.Sprite {
-    src?: VideoPath;
+    src?: VideoFilePath;
 }
 
 type NumericFloatyEffect = { name: string; value?: number | null };

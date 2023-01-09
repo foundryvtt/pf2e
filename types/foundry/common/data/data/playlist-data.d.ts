@@ -23,7 +23,7 @@ declare module foundry {
             folder: string;
             sort: number;
             seed: number;
-            permission: Record<string, PermissionLevel>;
+            permission: Record<string, DocumentOwnershipLevel>;
             flags: Record<string, unknown>;
         }
 
@@ -40,5 +40,3 @@ declare module foundry {
         }
     }
 }
-
-declare type PlaylistMode = typeof CONST.PLAYLIST_MODES[keyof typeof CONST.PLAYLIST_MODES];

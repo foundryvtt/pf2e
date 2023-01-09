@@ -2,7 +2,7 @@ import { ItemSystemSource } from "@item/data/base";
 
 interface ABCFeatureEntryData {
     uuid: string;
-    img: ImagePath;
+    img: ImageFilePath;
     name: string;
     level: number;
 }
