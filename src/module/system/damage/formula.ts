@@ -25,19 +25,27 @@ function createDamageFormula(
         damage.modifiers = damage.modifiers.filter((m) => m.damageCategory === "splash");
     }
 
+    const doubleDice = game.settings.get("pf2e", "critRule") === "doubledice";
     const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
     const { base } = damage;
 
     // Group dice by damage type
     const typeMap: DamageTypeMap = new Map();
     if ((base.diceNumber && base.dieSize) || base.modifier) {
+        // If roll is critical and doubledice rule is enabled, double dice
+        base.diceNumber = critical && doubleDice ? 2 * base.diceNumber : base.diceNumber;
+
         typeMap.set(base.damageType, [
             {
                 dice:
                     base.diceNumber && base.dieSize
                         ? { number: base.diceNumber, faces: Number(base.dieSize.replace("d", "")) }
                         : null,
-                modifier: base.modifier ?? 0,
+                // If roll is critical and doubledice rule is enabled, double base modifier
+                modifier:
+                    critical && doubleDice
+                        ? base.modifier * 2
+                        : base.modifier ?? 0,
                 critical: null,
                 persistent: false,
                 precision: false,
@@ -51,6 +59,9 @@ function createDamageFormula(
     for (const dice of damage.dice.filter((d) => d.enabled)) {
         const dieSize = dice.dieSize || base.dieSize || null;
         if (dice.diceNumber > 0 && dieSize) {
+            // If roll is critical and doubledice rule is enabled, double dice
+            dice.diceNumber = critical && doubleDice ? 2 * dice.diceNumber : dice.diceNumber;
+
             const damageType = dice.damageType ?? base.damageType;
             const list = typeMap.get(damageType) ?? [];
             list.push({
@@ -80,7 +91,13 @@ function createDamageFormula(
         const list = typeMap.get(damageType) ?? [];
         list.push({
             dice: null,
-            modifier: modifier.value,
+            // If roll is critical and doubledice rule is enabled, double modifier
+            modifier:
+                critical && doubleDice
+                    && modifier.damageCategory !== "persistent"
+                    && modifier.damageCategory !== "splash"
+                    ? modifier.value * 2
+                    : modifier.value,
             persistent: modifier.damageCategory === "persistent",
             precision: modifier.damageCategory === "precision",
             splash: modifier.damageCategory === "splash",
@@ -193,10 +210,14 @@ function sumExpression(terms: (string | null)[], { double = false } = {}): strin
 
     const summed = terms.filter((p): p is string => !!p).join(" + ") || null;
 
-    // Retrieve critical rule, double based on rule
+    // Retrieve critical rule, only double if rule is doubledamage
     const critRule = game.settings.get("pf2e", "critRule");
-    const enclosed = double && hasOperators(summed) ? `(${summed})` : summed;
-    return double && critRule === 'doubledice' ? `2 * ${enclosed}` : enclosed;
+    if (double && critRule === 'doubledamage') {
+        const enclosed = hasOperators(summed) ? `(${summed})` : summed;
+        return `2 * ${enclosed}`;
+    } else {
+        return summed;
+    }
 }
 
 /** Helper for helpers */
