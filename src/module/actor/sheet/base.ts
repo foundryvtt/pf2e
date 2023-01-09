@@ -60,6 +60,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // The Actor and its Items
         const actorData = this.actor.toObject(false) as RawObject<ActorDataPF2e>;
 
+        // Alphabetize displayed IWR
+        const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
+        const attributes: Record<typeof iwrKeys[number], { label: string }[]> = actorData.system.attributes;
+        for (const key of iwrKeys) {
+            attributes[key] = [...attributes[key]].sort((a, b) => a.label.localeCompare(b.label));
+        }
+
         // Calculate financial and total wealth
         const coins = this.actor.inventory.coins;
         const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);

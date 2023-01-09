@@ -56,6 +56,19 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
         }[this.category];
     }
 
+    override async getData(options: Partial<IWREditorOptions> = {}): Promise<IWREditorData<TActor>> {
+        this.options.id = this.id;
+
+        return {
+            ...(await super.getData(options)),
+            category: this.category,
+            header: this.categoryLabel,
+            list: this.actor.attributes[this.category],
+            sourceData: this.actor._source.system.attributes?.[this.category] ?? [],
+            types: this.types,
+        };
+    }
+
     /** Reconstruct the entire IWR array from form inputs */
     getUpdatedData({ includeNew = false } = {}): ProbablyIWRData[] {
         const entryElems = htmlQueryAll(this.element[0]!, ".entry:not(.new,[data-synthetic])");
@@ -127,19 +140,6 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
     /** Exclude sheet selection and compendium import */
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         return super._getHeaderButtons().filter((b) => b.class === "close");
-    }
-
-    override async getData(options: Partial<IWREditorOptions> = {}): Promise<IWREditorData<TActor>> {
-        this.options.id = this.id;
-
-        return {
-            ...(await super.getData(options)),
-            category: this.category,
-            header: this.categoryLabel,
-            list: this.actor.attributes[this.category],
-            sourceData: this.actor._source.system.attributes?.[this.category] ?? [],
-            types: this.types,
-        };
     }
 
     override activateListeners($html: JQuery): void {
