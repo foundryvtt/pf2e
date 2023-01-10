@@ -2909,7 +2909,7 @@
         },
         {
             "_id": "t1m1XIVqXFEnCTKv",
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mindfog Aura",
             "sort": 3300000,
             "system": {
@@ -2917,18 +2917,28 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that starts its turn in the aura must succeed at a @Check[type:will|dc:23] save or become @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for 1 round; on a success, that creature is temporarily immune for 1 minute.</p>\n<p>Jafaki can suppress or activate this aura as a with the concentrate trait.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that starts its turn in the aura must succeed at a @Check[type:will|dc:23] save or become @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for 1 round; on a success, that creature is temporarily immune for 1 minute.</p>\n<p>Jafaki can suppress or activate this aura as a single action with the concentrate trait.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "mindfog-aura",
+                        "traits": [
+                            "enchantment",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
