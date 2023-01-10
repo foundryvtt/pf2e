@@ -1,4 +1,4 @@
-import { fontAwesomeIcon } from "@util";
+import { ErrorPF2e, fontAwesomeIcon } from "@util";
 import { DamageInstance, DamageRoll } from "./roll";
 import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms";
 import { DamageCategory, DamageDieSize } from "./types";
@@ -38,15 +38,23 @@ const DamageCategorization = {
 } as const;
 
 /** Create a span element for displaying splash damage */
-function renderSplashDamage(rollTerm: RollTerm): HTMLElement {
+function renderComponentDamage(term: RollTerm): HTMLElement {
+    if (!["precision", "splash"].includes(term.flavor)) {
+        throw ErrorPF2e("Unexpected error rendering damage roll");
+    }
+
     const span = document.createElement("span");
-    span.className = "splash";
+    span.className = term.flavor;
     span.title = game.i18n.localize("PF2E.TraitSplash");
-    const icon = fontAwesomeIcon("burst");
+    const icon = fontAwesomeIcon(term.flavor === "precision" ? "crosshairs" : "burst");
     icon.classList.add("icon");
-    span.append(rollTerm.expression, " ", icon);
+    span.append(term.expression, " ", icon);
 
     return span;
+}
+
+function isSystemDamageTerm(term: RollTerm): term is ArithmeticExpression | Grouping {
+    return term instanceof ArithmeticExpression || term instanceof Grouping;
 }
 
 function deepFindTerms(term: RollTerm, { flavor }: { flavor: string }): RollTerm[] {
@@ -100,8 +108,9 @@ export {
     DamageCategorization,
     damageDiceIcon,
     deepFindTerms,
-    markAsCrit,
+    isSystemDamageTerm,
     looksLikeDamageFormula,
+    markAsCrit,
     nextDamageDieSize,
-    renderSplashDamage,
+    renderComponentDamage,
 };
