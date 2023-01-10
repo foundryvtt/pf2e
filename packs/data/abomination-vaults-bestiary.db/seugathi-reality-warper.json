@@ -2941,7 +2941,19 @@
                 },
                 "rules": [
                     {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.Seugathi.MindfogSuppression",
+                        "option": "mindfog-suppression",
+                        "toggleable": true
+                    },
+                    {
                         "key": "Aura",
+                        "predicate": [
+                            {
+                                "not": "mindfog-suppression"
+                            }
+                        ],
                         "radius": 20,
                         "slug": "mindfog-aura",
                         "traits": [
