@@ -45,7 +45,11 @@ const MetagameSettingsConfig = {
         hint: "PF2E.SETTINGS.Metagame.PartyVision.Hint",
         default: false,
         type: Boolean,
-        requiresReload: true,
+        onChange: () => {
+            if (canvas.ready && canvas.scene) {
+                canvas.perception.update({ initializeVision: true, refreshLighting: true }, true);
+            }
+        },
     },
 };
 
