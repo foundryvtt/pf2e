@@ -1,7 +1,7 @@
 import { StrikeData } from "@actor/data/base";
 import { ActorSheetPF2e } from "@actor/sheet/base";
 import { SAVE_TYPES } from "@actor/values";
-import { tagify } from "@util";
+import { tagify, traitSlugToObject } from "@util";
 import { HazardPF2e } from ".";
 import { HazardSystemData } from "./data";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types";
@@ -80,7 +80,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             ...sheetData,
             actions: this.prepareActions(),
             editing: this.editing,
-            actorTraits: systemData.traits.value,
+            actorTraits: systemData.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.hazardTraits)),
             rarity: CONFIG.PF2E.rarityTraits,
             rarityLabel: CONFIG.PF2E.rarityTraits[this.actor.rarity],
             brokenThreshold: systemData.attributes.hp.brokenThreshold,
