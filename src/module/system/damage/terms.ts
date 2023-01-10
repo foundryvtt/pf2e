@@ -1,5 +1,5 @@
 import { isObject, tupleHasValue } from "@util";
-import { markAsCrit, renderSplashDamage } from "./helpers";
+import { isSystemDamageTerm, markAsCrit, renderComponentDamage } from "./helpers";
 import { DamageInstance } from "./roll";
 
 class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
@@ -67,8 +67,12 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
         );
     }
 
+    /**
+     * Simplify the expression if this term is deterministic and not multiplication.
+     * Multiplication is almost always going to be critical-hit doubling, which must be preserved for IWR analysis.
+     */
     get expression(): string {
-        if (this.isDeterministic) return this.total!.toString();
+        if (this.isDeterministic && this.operator !== "*") return this.total!.toString();
 
         const { operator, operands } = this;
         return `${operands[0].expression} ${operator} ${operands[1].expression}`;
@@ -122,8 +126,12 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
 
     /** Construct a string for an HTML rendering of this term */
     render(): DocumentFragment {
-        const [left, right] = this.operands.map((o): HTMLElement | string =>
-            o.flavor === "splash" ? renderSplashDamage(o) : o.expression
+        const [left, right] = this.operands.map((o): HTMLElement | DocumentFragment | string =>
+            ["precision", "splash"].includes(o.flavor)
+                ? renderComponentDamage(o)
+                : isSystemDamageTerm(o)
+                ? o.render()
+                : o.expression
         );
         const fragment = new DocumentFragment();
         fragment.append(left, ` ${this.operator} `, right);
@@ -248,6 +256,23 @@ class Grouping extends RollTerm<GroupingData> {
             ...super.toJSON(),
             term: this.term.toJSON(),
         };
+    }
+
+    /** Construct a string for an HTML rendering of this term */
+    render(): DocumentFragment {
+        const expression = ["precision", "splash"].includes(this.flavor)
+            ? renderComponentDamage(this.term)
+            : isSystemDamageTerm(this.term)
+            ? this.term.render()
+            : this.expression;
+
+        const fragment = new DocumentFragment();
+        // Don't render unnecessary parentheses
+        const nodes =
+            this.term instanceof NumericTerm || this.term instanceof Die ? [expression] : ["(", expression, ")"];
+        fragment.append(...nodes);
+
+        return fragment;
     }
 }
 
