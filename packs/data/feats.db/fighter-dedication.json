@@ -46,6 +46,33 @@
                 "mode": "add",
                 "path": "system.custom.modifiers.fighter-dedication-count",
                 "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.AbilityStr",
+                        "value": "str"
+                    },
+                    {
+                        "label": "PF2E.AbilityDex",
+                        "value": "dex"
+                    }
+                ],
+                "flag": "keyAbility",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.ClassDCAbilityScore"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.fighter",
+                "priority": 39,
+                "value": {
+                    "ability": "{item|flags.pf2e.rulesSelections.keyAbility}",
+                    "label": "PF2E.TraitFighter",
+                    "rank": 1
+                }
             }
         ],
         "source": {

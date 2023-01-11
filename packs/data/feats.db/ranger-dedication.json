@@ -49,6 +49,33 @@
                 "mode": "add",
                 "path": "system.custom.modifiers.ranger-dedication-count",
                 "value": 1
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.AbilityStr",
+                        "value": "str"
+                    },
+                    {
+                        "label": "PF2E.AbilityDex",
+                        "value": "dex"
+                    }
+                ],
+                "flag": "keyAbility",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.ClassDCAbilityScore"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.ranger",
+                "priority": 39,
+                "value": {
+                    "ability": "{item|flags.pf2e.rulesSelections.keyAbility}",
+                    "label": "PF2E.TraitRanger",
+                    "rank": 1
+                }
             }
         ],
         "source": {
