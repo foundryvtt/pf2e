@@ -116,7 +116,7 @@ abstract class CreaturePF2e extends ActorPF2e {
      * @param [context.weapon] The "weapon," literal or otherwise, used in an attack-reach measurement
      */
     override getReach({ action = "interact", weapon = null }: GetReachParameters = {}): number {
-        const baseReach = this.attributes.reach.general;
+        const baseReach = this.attributes.reach.base;
 
         if (action === "interact" || this.type === "familiar") {
             return baseReach;
@@ -276,7 +276,7 @@ abstract class CreaturePF2e extends ActorPF2e {
         attributes.flanking.canFlank = true;
         attributes.flanking.flankable = true;
         attributes.flanking.flatFootable = true;
-        attributes.reach = { general: 0, manipulate: 0 };
+        attributes.reach = { base: 0, manipulate: 0 };
 
         if ("initiative" in attributes) {
             attributes.initiative.tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
@@ -338,8 +338,8 @@ abstract class CreaturePF2e extends ActorPF2e {
         // Set minimum reach according to creature size
         const { attributes } = this;
         const reachFromSize = SIZE_TO_REACH[this.size];
-        attributes.reach.general = Math.max(attributes.reach.general, reachFromSize);
-        attributes.reach.manipulate = Math.max(attributes.reach.manipulate, attributes.reach.general, reachFromSize);
+        attributes.reach.base = Math.max(attributes.reach.base, reachFromSize);
+        attributes.reach.manipulate = Math.max(attributes.reach.manipulate, attributes.reach.base, reachFromSize);
 
         // Add alignment traits from the creature's alignment
         const alignmentTraits = ((): AlignmentTrait[] => {
