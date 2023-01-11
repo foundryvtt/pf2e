@@ -11,6 +11,9 @@ import { StrikeData } from "@actor/data/base";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { htmlQuery } from "@util";
 import { DamageButtons, DamageTaken } from "./listeners";
+import { DamageRoll } from "@system/damage/roll";
+import { Statistic } from "@system/statistic";
+import { DegreeOfSuccess } from "@system/degree-of-success";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -207,6 +210,50 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         }
         await DamageTaken.listen(html);
         CriticalHitAndFumbleCards.appendButtons(this, $html);
+
+        // Add persistent damage recovery button and listener (if evaluating persistent)
+        const roll = this.rolls[0];
+        if (this.isOwner && roll instanceof DamageRoll && roll.options.evaluatePersistent) {
+            const damageType = roll.instances.find((i) => i.persistent)?.type;
+            const condition = damageType ? this.actor?.getCondition(`persistent-damage-${damageType}`) : null;
+            if (condition) {
+                const buttonHTML = await renderTemplate("systems/pf2e/templates/chat/persistent-damage-recovery.hbs");
+                html.innerHTML += buttonHTML;
+            }
+
+            htmlQuery(html, "[data-action=recover-persistent-damage]")?.addEventListener("click", async () => {
+                const actor = this.actor;
+                if (!actor) return;
+
+                const damageType = roll.instances.find((i) => i.persistent)?.type;
+                if (!damageType) return;
+
+                const condition = this.actor?.getCondition(`persistent-damage-${damageType}`);
+                if (!condition?.system.persistent) {
+                    const damageTypeLocalized = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+                    const message = game.i18n.format("PF2E.Item.Condition.PersistentDamage.Error.DoesNotExist", {
+                        damageType: damageTypeLocalized,
+                    });
+                    return ui.notifications.warn(message);
+                }
+
+                console.log(this.target);
+
+                const dc = condition.system.persistent.dc;
+                const result = await new Statistic(actor, {
+                    slug: "recovery",
+                    label: game.i18n.format("PF2E.Item.Condition.PersistentDamage.Chat.RecoverLabel", {
+                        name: condition.name,
+                    }),
+                    check: { type: "flat-check" },
+                    domains: ["all", "flat-check"],
+                }).roll({ dc: { value: dc }, skipDialog: true });
+
+                if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
+                    actor.decreaseCondition(`persistent-damage-${damageType}`);
+                }
+            });
+        }
 
         html.addEventListener("mouseenter", () => this.onHoverIn());
         html.addEventListener("mouseleave", () => this.onHoverOut());
