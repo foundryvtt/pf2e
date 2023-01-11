@@ -1859,7 +1859,7 @@ class CharacterPF2e extends CreaturePF2e {
                         target,
                         outcome,
                         options,
-                        domains,
+                        domains: damage.domains,
                     };
 
                     return DamagePF2e.roll(damage, damageContext, params.callback);
