@@ -78,7 +78,7 @@ class AncestryPF2e extends ABCItemPF2e {
         this.logAutoChange("system.traits.size.value", this.size);
 
         const reach = SIZE_TO_REACH[this.size];
-        actor.system.attributes.reach = { general: reach, manipulate: reach };
+        actor.system.attributes.reach = { base: reach, manipulate: reach };
 
         actor.system.attributes.speed.value = this.speed;
 
