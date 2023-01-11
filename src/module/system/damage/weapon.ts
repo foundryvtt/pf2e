@@ -132,7 +132,7 @@ class WeaponDamagePF2e {
             .concat(fromDamageSelector)
             .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
             .flatMap((modifier) => {
-                const selectors = WeaponDamagePF2e.#getSelectors(weapon, modifier.ability, proficiencyRank);
+                const selectors = this.#getSelectors(weapon, modifier.ability, proficiencyRank);
                 return modifier.predicate.test(options) ? { modifier, selectors } : [];
             });
 
@@ -141,7 +141,7 @@ class WeaponDamagePF2e {
                 ? modifiersAndSelectors.reduce((best, candidate) =>
                       candidate.modifier.modifier > best.modifier.modifier ? candidate : best
                   )
-                : { selectors: WeaponDamagePF2e.#getSelectors(weapon, null, proficiencyRank) };
+                : { selectors: this.#getSelectors(weapon, null, proficiencyRank) };
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
@@ -469,6 +469,7 @@ class WeaponDamagePF2e {
             traits: (actionTraits ?? []).map((t) => t.name),
             materials: Array.from(materials),
             modifiers: [...modifiers, ...damageDice],
+            domains: selectors,
             damage: {
                 ...damage,
                 formula: {
@@ -554,6 +555,8 @@ class WeaponDamagePF2e {
             if (this.strengthBasedDamage(weapon)) {
                 selectors.push("str-damage");
             }
+
+            // Everything that follows is for weapon items only
             return selectors;
         }
 

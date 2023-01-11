@@ -85,6 +85,7 @@ interface BaseDamageTemplate {
 
 interface WeaponDamageTemplate extends BaseDamageTemplate {
     damage: ResolvedDamageFormulaData;
+    domains: string[];
 }
 
 interface SpellDamageTemplate extends BaseDamageTemplate {
