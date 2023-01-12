@@ -77,18 +77,12 @@ export class CastingItemCreateDialog extends FormApplication<ActorPF2e> {
 
     override async _updateObject(event: Event, formData: FormOutputData) {
         Object.assign(this.formDataCache, formData);
-        if (event.type === "submit") {
-            await this.formSubmit(event, formData);
-        } else {
-            await this.formUpdate(event, formData);
+
+        if (event.type !== "submit") {
+            await this.render();
+            return;
         }
-    }
 
-    async formUpdate(_event: Event, _formData: FormOutputData) {
-        await this.render();
-    }
-
-    async formSubmit(_event: Event, _formData: FormOutputData) {
         if (this.formDataCache.itemType === "wand" && this.formDataCache.level === 10) {
             ui.notifications.warn(game.i18n.localize("PF2E.CastingItemCreateDialog.10thLevelWand"));
         } else if (this.onSubmitCallback && this.spell) {
