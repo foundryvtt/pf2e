@@ -1,3 +1,4 @@
+import { ResistanceType } from "@actor/types";
 import { DamageRollFlag } from "@module/chat-message";
 import { UserPF2e } from "@module/user";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success";
@@ -521,6 +522,7 @@ interface DamageRollDataPF2e extends RollDataPF2e {
     degreeOfSuccess?: DegreeOfSuccessIndex;
     increasedFrom?: number;
     splashOnly?: boolean;
+    ignoredResistances?: { type: ResistanceType; max: number | null }[];
 }
 
 interface DamageInstanceData extends RollOptions {

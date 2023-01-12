@@ -12,7 +12,7 @@ import {
 import { AbilityString } from "@actor/types";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { MeleeDamageRoll } from "@item/melee/data";
-import { getPropertyRuneModifiers } from "@item/physical/runes";
+import { getPropertyRuneDice } from "@item/physical/runes";
 import { WeaponDamage } from "@item/weapon/data";
 import { RollNotePF2e } from "@module/notes";
 import { PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
@@ -295,7 +295,11 @@ class WeaponDamagePF2e {
 
         // Property Runes
         const propertyRunes = weaponPotency?.property ?? [];
-        damageDice.push(...getPropertyRuneModifiers(propertyRunes));
+        damageDice.push(...getPropertyRuneDice(propertyRunes));
+
+        const ignoredResistances = propertyRunes.flatMap(
+            (r) => CONFIG.PF2E.runes.weapon.property[r].damage?.ignoredResistances ?? []
+        );
 
         // Backstabber trait
         if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:flat-footed")) {
@@ -380,9 +384,8 @@ class WeaponDamagePF2e {
             }
         }
 
-        // Synthetic modifiers
-
         // Roll notes
+
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
             return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
@@ -403,6 +406,8 @@ class WeaponDamagePF2e {
         for (const option of Array.from(materials).map((m) => `weapon:material:${m}`)) {
             options.add(option);
         }
+
+        // Synthetics
 
         // Separate damage modifiers into persistent and all others for stacking rules processing
         const synthetics = extractDamageModifiers(actor.synthetics, selectors, { resolvables, injectables });
@@ -435,6 +440,7 @@ class WeaponDamagePF2e {
             // or the like.
             dice: damageDice,
             modifiers: testedModifiers,
+            ignoredResistances,
         };
 
         // include dice number and size in damage tag

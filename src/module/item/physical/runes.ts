@@ -1,4 +1,5 @@
 import { DamageDiceParameters, DamageDicePF2e } from "@actor/modifiers";
+import { ResistanceType } from "@actor/types";
 import { ArmorPF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types";
@@ -81,6 +82,12 @@ export interface WeaponPropertyRuneData {
     damage?: {
         dice?: RuneDiceData[];
         notes?: RuneNoteData[];
+        /**
+         * A list of resistances this weapon's damage will ignore--not limited to damage from the rune.
+         * If `max` is numeric, the resistance ignored will be equal to the lower of the provided maximum and the
+         * target's resistance.
+         */
+        ignoredResistances?: { type: ResistanceType; max: number | null }[];
     };
     level: number;
     name: string;
@@ -473,6 +480,11 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     text: "PF2E.WeaponPropertyRune.greaterBrilliant.Note.success",
                 },
             ],
+            ignoredResistances: [
+                { type: "fire", max: null },
+                { type: "good", max: null },
+                { type: "positive", max: null },
+            ],
         },
         level: 18,
         name: "PF2E.WeaponPropertyRune.greaterBrilliant.Name",
@@ -602,6 +614,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     text: "PF2E.WeaponPropertyRune.greaterFlaming.Note.success",
                 },
             ],
+            ignoredResistances: [{ type: "fire", max: null }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterFlaming.Name",
@@ -625,6 +638,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     text: "PF2E.WeaponPropertyRune.greaterFrost.Note.success",
                 },
             ],
+            ignoredResistances: [{ type: "cold", max: null }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterFrost.Name",
@@ -674,6 +688,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     text: "PF2E.WeaponPropertyRune.greaterShock.Note.success",
                 },
             ],
+            ignoredResistances: [{ type: "electricity", max: null }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterShock.Name",
@@ -697,6 +712,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     text: "PF2E.WeaponPropertyRune.greaterThundering.Note.success",
                 },
             ],
+            ignoredResistances: [{ type: "sonic", max: null }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterThundering.Name",
@@ -1025,7 +1041,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
 };
 
-export function getPropertyRuneModifiers(runes: WeaponPropertyRuneType[]): DamageDicePF2e[] {
+export function getPropertyRuneDice(runes: WeaponPropertyRuneType[]): DamageDicePF2e[] {
     return runes.flatMap((rune) => {
         const runeConfig = CONFIG.PF2E.runes.weapon.property[rune];
         if (runeConfig) {
