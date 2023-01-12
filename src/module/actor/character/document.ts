@@ -1728,7 +1728,8 @@ class CharacterPF2e extends CreaturePF2e {
             .map(([label, constructModifier]) => ({
                 label,
                 roll: async (params: StrikeRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
-                    if (weapon.requiresAmmo && !weapon.ammo) {
+                    params.consumeAmmo ??= weapon.requiresAmmo;
+                    if (weapon.requiresAmmo && params.consumeAmmo && !weapon.ammo) {
                         ui.notifications.warn(
                             game.i18n.format("PF2E.Strike.Ranged.NoAmmo", { weapon: weapon.name, actor: this.name })
                         );
@@ -1783,7 +1784,9 @@ class CharacterPF2e extends CreaturePF2e {
                         dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, selectors),
                     };
 
-                    if (!this.consumeAmmo(context.self.item, params)) return null;
+                    if (params.consumeAmmo && !this.consumeAmmo(context.self.item, params)) {
+                        return null;
+                    }
 
                     const roll = await CheckPF2e.roll(
                         constructModifier(context.self.modifiers),
