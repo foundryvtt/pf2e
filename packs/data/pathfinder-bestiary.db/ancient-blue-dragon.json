@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -235,13 +229,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": "50-foot burst"
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -344,13 +332,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -456,13 +438,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -567,13 +543,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -678,11 +648,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -787,13 +754,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1182,13 +1143,13 @@
                     {
                         "domain": "skill-check",
                         "key": "RollOption",
-                        "option": "soundImitation",
+                        "option": "sound-imitation",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "soundImitation"
+                            "sound-imitation"
                         ],
                         "selector": "deception",
                         "type": "circumstance",
@@ -1342,7 +1303,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:39]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:39]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1443,7 +1404,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon breathes lightning that deals [[/r {12d12}[electricity]]]{12d12 electricity damage} in a @Template[type:line|distance:120]{120-foot line} (@Check[type:reflex|dc:40|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<hr />\n<p>Each time the dragon uses Breath Weapon, a @Template[type:burst|distance:20]{20-foot-radius} storm cloud appears 80 feet above a point of the dragon's choosing along the Breath Weapon's path. Clouds last for 10 minutes and allow the dragon to use Storm Breath.</p>"
+                    "value": "<p>The dragon breathes lightning that deals [[/r 12d12[electricity]]] damage in a @Template[type:line|distance:120]{120-foot line} (@Check[type:reflex|dc:40|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<hr />\n<p>Each time the dragon uses Breath Weapon, a @Template[type:burst|distance:20]{20-foot-radius} storm cloud appears 80 feet above a point of the dragon's choosing along the Breath Weapon's path. Clouds last for 10 minutes and allow the dragon to use Storm Breath.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1487,7 +1448,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When casting <em>@Compendium[pf2e.spells-srd.Create Water]{Create Water}</em>, the dragon can attempt to destroy liquid instead of creating it, turning an equal amount of liquid into sand. This destroys liquid magic or alchemical items if they're of a lower level than the dragon (a creature can attempt a @Check[type:will|dc:37] save to protect all liquids in its possession). This doesn't affect the liquids in a creature's body.</p>"
+                    "value": "<p>When casting <em>@UUID[Compendium.pf2e.spells-srd.Create Water]{Create Water}</em>, the dragon can attempt to destroy liquid instead of creating it, turning an equal amount of liquid into sand. This destroys liquid magic or alchemical items if they're of a lower level than the dragon (a creature can attempt a @Check[type:will|dc:37] save to protect all liquids in its possession). This doesn't affect the liquids in a creature's body.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1620,7 +1581,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever the dragon uses Breath Weapon while the illusory image from its innate <em>@Compendium[pf2e.spells-srd.Project Image]{Project Image}</em> spell persists, it can cause the Breath Weapon to originate from itself or the image.</p>"
+                    "value": "<p>Whenever the dragon uses Breath Weapon while the illusory image from its innate <em>@UUID[Compendium.pf2e.spells-srd.Project Image]{Project Image}</em> spell persists, it can cause the Breath Weapon to originate from itself or the image.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1660,7 +1621,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> Once per round</p>\n<p><strong>Requirement</strong> A storm cloud created by Breath Weapon is within 500 feet, and the dragon can see the cloud.</p>\n<hr />\n<p><strong>Effect</strong> The dragon calls down a lightning bolt from a storm cloud created by its Breath Weapon. This creates a vertical line of lightning to the ground that deal [[/r {6d12}[electricity]]]{6d12 electricity damage} to all enemies in its path (@Check[type:reflex|dc:40|basic:true] save).</p>"
+                    "value": "<p><strong>Frequency</strong> Once per round</p>\n<p><strong>Requirements</strong> A storm cloud created by Breath Weapon is within 500 feet, and the dragon can see the cloud.</p>\n<hr />\n<p><strong>Effect</strong> The dragon calls down a lightning bolt from a storm cloud created by its Breath Weapon. This creates a vertical line of lightning to the ground that deal [[/r 6d12[electricity]]] damage to all enemies in its path (@Check[type:reflex|dc:40|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1950,6 +1911,17 @@
                 "temp": 0,
                 "value": 370
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -2006,17 +1978,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

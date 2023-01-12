@@ -24,7 +24,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Plus [[/r {2d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}</p>"
+                    "value": "<p>Plus [[/r 2d6[persistent,cold]]] damage</p>"
                 },
                 "rules": [
                     {
@@ -76,7 +76,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a frost worm dies, it explodes in a @Template[type:burst|distance:100] of searing cold blood. All creatures and objects in range take [[/r {10d8}[cold]]]{10d8 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                    "value": "<p>When a frost worm dies, it explodes in a @Template[type:burst|distance:100] of searing cold blood. All creatures and objects in range take [[/r 10d8[cold]]] damage (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -154,7 +154,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5] @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature that enters or begins its turn in the emanation takes [[/r {3d6}[cold]]]{3d6 cold damage} (@Check[type:reflex|dc:29|basic:true]).</p>"
+                    "value": "<p>@Template[type:emanation|distance:5] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature that enters or begins its turn in the emanation takes [[/r 3d6[cold]]] damage (@Check[type:reflex|dc:29|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -196,7 +196,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The frost worm emits a hypnotic trill. Each non-frost worm creature within 100 feet must attempt a @Check[type:will|dc:32] save. The effects of Worm Trill last for 1 round, but if the frost worm uses this ability again on subsequent rounds, it extends this duration by 1 round for any creature already affected.</p>\n<p><strong>Success</strong> The creature is unaffected and is immune to Worm Trill for 24 hours.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the frost worm.</p>\n<p><strong>Critical Failure</strong> As failure, but the fascinated condition doesn't end if the frost worm uses hostile actions against the creature.</p>"
+                    "value": "<p>The frost worm emits a hypnotic trill. Each non-frost worm creature within 100 feet must attempt a @Check[type:will|dc:32] save. The effects of Worm Trill last for 1 round, but if the frost worm uses this ability again on subsequent rounds, it extends this duration by 1 round for any creature already affected.</p>\n<p><strong>Success</strong> The creature is unaffected and is immune to Worm Trill for 24 hours.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} by the frost worm.</p>\n<p><strong>Critical Failure</strong> As failure, but the fascinated condition doesn't end if the frost worm uses hostile actions against the creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -239,7 +239,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The frost worm exhales a blast of frost, dealing [[/r {13d6}[cold]]]{13d6 cold damage} to creatures in a @Template[type:cone|distance:50] (@Check[type:reflex|dc:32|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The frost worm exhales a blast of frost, dealing [[/r 13d6[cold]]] damage to creatures in a @Template[type:cone|distance:50] (@Check[type:reflex|dc:32|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -280,7 +280,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The frost worm takes piercing or slashing damage</p>\n<hr />\n<p><strong>Effect</strong> The frost worm's freezing blood sprays out on a random creature within 10 feet of the frost worm. That creature takes [[/r {7d6}[cold]]]{7d6 cold damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                    "value": "<p><strong>Trigger</strong> The frost worm takes piercing or slashing damage</p>\n<hr />\n<p><strong>Effect</strong> The frost worm's freezing blood sprays out on a random creature within 10 feet of the frost worm. That creature takes [[/r 7d6[cold]]] damage (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -476,6 +476,11 @@
                 "temp": 0,
                 "value": 225
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -493,7 +498,13 @@
                 "otherSpeeds": [],
                 "special": "",
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -526,20 +537,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

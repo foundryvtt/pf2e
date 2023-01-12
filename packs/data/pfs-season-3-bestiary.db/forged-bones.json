@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -148,7 +142,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You call forth a ghostly lantern that guides the living toward death and the undead toward true death. It sheds bright light in the spell's area, and dim light to twice that area. Though the lantern is insubstantial, you must keep a hand free to hold it or the spell ends (though using the hand for somatic spell components doesn't end the spell). Living creatures and undead in the area when you @Compendium[pf2e.actionspf2e.Cast a Spell]{Cast the Spell}, or that enter the area later, must attempt Fortitude saves. Living creatures that fail their Fortitude saves gain only half the normal benefit from healing effects while within the area. Undead targets that fail their Fortitude saves become @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} while within the area. Once a creature attempts a save against <em>reaper's lantern</em>, it uses the same outcome if it leaves the area and enters it again.</p>\n<p>Once per turn, starting on the turn after you cast <em>reaper's lantern</em>, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet. When you do so, you force creatures in the area that haven't yet attempted a save against <em>reaper's lantern</em> to attempt one.</p>"
+                    "value": "<p>You call forth a ghostly lantern that guides the living toward death and the undead toward true death. It sheds bright light in the spell's area, and dim light to twice that area. Though the lantern is insubstantial, you must keep a hand free to hold it or the spell ends (though using the hand for somatic spell components doesn't end the spell). Living creatures and undead in the area when you @UUID[Compendium.pf2e.actionspf2e.Cast a Spell]{Cast the Spell}, or that enter the area later, must attempt Fortitude saves. Living creatures that fail their Fortitude saves gain only half the normal benefit from healing effects while within the area. Undead targets that fail their Fortitude saves become @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} while within the area. Once a creature attempts a save against <em>reaper's lantern</em>, it uses the same outcome if it leaves the area and enters it again.</p>\n<p>Once per turn, starting on the turn after you cast <em>reaper's lantern</em>, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet. When you do so, you force creatures in the area that haven't yet attempted a save against <em>reaper's lantern</em> to attempt one.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -237,11 +231,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "5"
-                },
-                "areasize": {
-                    "value": "5-foot emanation"
+                    "type": "emanation",
+                    "value": 5
                 },
                 "category": {
                     "value": "spell"
@@ -259,7 +250,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract bless.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Bane]{Spell Effect: Bane}</p>"
+                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract bless.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Bane]{Spell Effect: Bane}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -357,8 +348,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This favored weapon of the dwarves has a large, ornate head mounted on a thick handle. This powerful axe can be wielded with one hand or two.</p>"
@@ -398,20 +388,6 @@
                         "gp": 3
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -434,9 +410,6 @@
                 "slug": "dwarven-war-axe",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": null
@@ -560,7 +533,7 @@
                         "domain": "damage-roll",
                         "key": "RollOption",
                         "label": "Use Dwarven War Axe Two-Handed",
-                        "option": "twoHanded",
+                        "option": "two-handed",
                         "toggleable": true,
                         "value": false
                     },
@@ -571,7 +544,7 @@
                             "dieSize": "d12"
                         },
                         "predicate": [
-                            "twoHanded"
+                            "two-handed"
                         ],
                         "selector": "{item|_id}-damage"
                     }
@@ -708,7 +681,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The forged bones calls on the power contained in its mask to shoot a burst of forge-hot flames at intruders, dealing [[/r {3d6}[fire]]]{3d6 fire damage} in a @Template[type:cone|distance:15] (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p>The forged bones can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The forged bones calls on the power contained in its mask to shoot a burst of forge-hot flames at intruders, dealing [[/r 3d6[fire]]] damage in a @Template[type:cone|distance:15] (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p>The forged bones can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -853,12 +826,51 @@
                 "temp": 0,
                 "value": 40
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 10
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -895,40 +907,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "cold",
-                    "value": 5
-                },
-                {
-                    "type": "electricity",
-                    "value": 5
-                },
-                {
-                    "type": "fire",
-                    "value": 5
-                },
-                {
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

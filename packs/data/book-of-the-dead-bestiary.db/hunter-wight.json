@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
@@ -69,20 +68,6 @@
                         "gp": 20
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -105,9 +90,6 @@
                 "slug": "composite-longbow",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -514,7 +496,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The hunter wight is reduced to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The hunter wight has rigged their own body with a snare, which they trigger before being destroyed. Slivers of bone launch at an adjacent creature, dealing [[/r {4d8}[piercing]]]{4d8 piercing damage} (@Check[type:reflex|dc:25|basic:true]).</p>"
+                    "value": "<p><strong>Trigger</strong> The hunter wight is reduced to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> The hunter wight has rigged their own body with a snare, which they trigger before being destroyed. Slivers of bone launch at an adjacent creature, dealing [[/r 4d8[piercing]]] damage (@Check[type:reflex|dc:25|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -551,7 +533,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the hunter wight damages a living creature using an unarmed attack or their bound weapon, they gain 7 temporary Hit Points, and the creature must succeed at a @Check[type:fortitude|dc:22] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}. Further damage dealt by the hunter wight's unarmed and bound weapon attacks increases the value of the drained condition by 1 on a failed save, to a maximum of drained 4.</p>"
+                    "value": "<p>When the hunter wight damages a living creature using an unarmed attack or their bound weapon, they gain 7 temporary Hit Points, and the creature must succeed at a @Check[type:fortitude|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}. Further damage dealt by the hunter wight's unarmed and bound weapon attacks increases the value of the drained condition by 1 on a failed save, to a maximum of drained 4.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -591,7 +573,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A living humanoid killed by a hunter wight's weapon or claw Strike rises as a hunter wight spawn after [[/r 1d4 #rounds]]{1d4 rounds}. This spawn is under the command of the hunter wight that killed them. They don't have drain life or spawn hunter wight and are @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} for as long as they're a hunter wight spawn. If the creator of the hunter wight spawn dies, the hunter wight spawn becomes a fully autonomous hunter wight; they regain their free will, gain drain life and spawn hunter wight, and are no longer clumsy</p>"
+                    "value": "<p>A living humanoid killed by a hunter wight's weapon or claw Strike rises as a hunter wight spawn after [[/r 1d4 #rounds]]{1d4 rounds}. This spawn is under the command of the hunter wight that killed them. They don't have drain life or spawn hunter wight and are @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} for as long as they're a hunter wight spawn. If the creator of the hunter wight spawn dies, the hunter wight spawn becomes a fully autonomous hunter wight; they regain their free will, gain drain life and spawn hunter wight, and are no longer clumsy</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -764,6 +746,23 @@
                 "temp": 0,
                 "value": 112
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -807,19 +806,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

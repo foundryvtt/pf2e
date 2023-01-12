@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Enhanced brown mold deals [[/r {1d10+6}[cold]]]{1d10+6 cold damage} to nearby creatures.</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Enhanced brown mold deals [[/r (1d10+6)[cold]]] damage to nearby creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -61,7 +61,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Fire comes within 5 feet of the brown mold.</p>\n<hr />\n<p><strong>Effect</strong> The brown mold expands into every square adjacent to its space. As it grows, it pulls more heat from its surroundings, dealing [[/r {2d10+13}[cold]]]{2d10+13 cold damage} (@Check[type:fortitude|dc:21|basic:true] save) to creatures within 10 feet after it expands.</p>"
+                    "value": "<p><strong>Trigger</strong> Fire comes within 5 feet of the brown mold.</p>\n<hr />\n<p><strong>Effect</strong> The brown mold expands into every square adjacent to its space. As it grows, it pulls more heat from its surroundings, dealing [[/r (2d10+13)[cold]]] damage (@Check[type:fortitude|dc:21|basic:true] save) to creatures within 10 feet after it expands.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -101,10 +101,30 @@
                 "tempmax": 0,
                 "value": 46
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained)</p>",
                 "value": 15
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 15
+                }
+            ]
         },
         "creatureType": "",
         "details": {
@@ -137,24 +157,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "fire",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 15
-                }
-            ],
             "rarity": "common",
             "size": {
                 "value": "med"

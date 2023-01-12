@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Recognize Spell",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "reaction"
         },
@@ -36,18 +33,10 @@
                     "action:recognize-spell",
                     "critical-success"
                 ],
-                "selector": "saving-throw",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Critical success on Recognize Spell",
-                "predicate": [
-                    "action:recognize-spell",
-                    "critical-success"
+                "selector": [
+                    "ac",
+                    "saving-throw"
                 ],
-                "selector": "ac",
                 "type": "circumstance",
                 "value": 1
             }
@@ -60,8 +49,8 @@
             "rarity": "common",
             "value": [
                 "general",
-                "skill",
-                "secret"
+                "secret",
+                "skill"
             ]
         }
     },

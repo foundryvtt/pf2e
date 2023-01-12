@@ -1,15 +1,10 @@
-import { ActorPF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
+import { MeleePF2e, WeaponPF2e } from "@item";
 import { SpellcastingEntryData } from "@item/data";
 import { SpellcastingAbilityData } from "@item/spellcasting-entry/data";
-import { ModifierPF2e } from "@actor/modifiers";
-import { TokenDocumentPF2e } from "@scene";
-import { CheckDC } from "@system/degree-of-success";
 import { CreaturePF2e } from ".";
 import { SheetOptions } from "@module/sheet/helpers";
 import { ALIGNMENTS, ALIGNMENT_TRAITS } from "./values";
-import { TraitViewData } from "@actor/data/base";
 import { FlattenedCondition } from "@system/conditions";
 import { ActorUpdateContext } from "@actor/base";
 import { AbilityData, CreatureSystemData, SaveData, SkillData } from "./data";
@@ -19,48 +14,7 @@ import { AbilityString, SaveType } from "@actor/types";
 type Alignment = SetElement<typeof ALIGNMENTS>;
 type AlignmentTrait = SetElement<typeof ALIGNMENT_TRAITS>;
 
-type AttackItem = WeaponPF2e | MeleePF2e | SpellPF2e;
-
 type ModeOfBeing = "living" | "undead" | "construct" | "object";
-
-interface StrikeSelf<A extends ActorPF2e = ActorPF2e, I extends AttackItem = AttackItem> {
-    actor: A;
-    token: TokenDocumentPF2e | null;
-    /** The item used for the strike */
-    item: I;
-    /** Bonuses and penalties added at the time of a strike */
-    modifiers: ModifierPF2e[];
-}
-
-interface AttackTarget {
-    actor: ActorPF2e;
-    token: TokenDocumentPF2e;
-    distance: number;
-    rangeIncrement: number | null;
-}
-
-/** Context for the attack or damage roll of a strike */
-interface StrikeRollContext<A extends ActorPF2e, I extends AttackItem> {
-    /** Roll options */
-    options: Set<string>;
-    self: StrikeSelf<A, I>;
-    target: AttackTarget | null;
-    traits: TraitViewData[];
-}
-
-interface StrikeRollContextParams<T extends AttackItem> {
-    item: T;
-    /** Domains from which to draw roll options */
-    domains: string[];
-    /** Initial roll options for the strike */
-    options: Set<string>;
-    /** Whether the request is for display in a sheet view. If so, targets are not considered */
-    viewOnly?: boolean;
-}
-
-interface AttackRollContext<A extends ActorPF2e, I extends AttackItem> extends StrikeRollContext<A, I> {
-    dc: CheckDC | null;
-}
 
 interface GetReachParameters {
     action?: "interact" | "attack";
@@ -109,16 +63,10 @@ type SpellcastingSheetData = RawObject<SpellcastingEntryData> & SpellcastingAbil
 export {
     Alignment,
     AlignmentTrait,
-    AttackItem,
-    AttackRollContext,
-    AttackTarget,
     CreatureSheetData,
     CreatureUpdateContext,
     GetReachParameters,
     IsFlatFootedParams,
     ModeOfBeing,
     SpellcastingSheetData,
-    StrikeRollContext,
-    StrikeRollContextParams,
-    StrikeSelf,
 };

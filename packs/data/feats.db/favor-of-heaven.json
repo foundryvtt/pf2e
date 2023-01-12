@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Favor Of Heaven",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -13,7 +10,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You're one of Hei Feng's chosen people and have the authority of the Celestial Court on your side. Once per day, you can cast a 6th-level <em>@Compendium[pf2e.spells-srd.Spirit Blast]{Spirit Blast}</em> as a divine innate spell. In addition, you gain resistance 5 to both good and evil damage.</p>"
+            "value": "<p>You're one of Hei Feng's chosen people and have the authority of the Celestial Court on your side. Once per day, you can cast a 6th-level <em>@UUID[Compendium.pf2e.spells-srd.Spirit Blast]{Spirit Blast}</em> as a divine innate spell. In addition, you gain resistance 5 to both good and evil damage.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -27,12 +24,10 @@
         "rules": [
             {
                 "key": "Resistance",
-                "type": "good",
-                "value": 5
-            },
-            {
-                "key": "Resistance",
-                "type": "evil",
+                "type": [
+                    "good",
+                    "evil"
+                ],
                 "value": 5
             }
         ],

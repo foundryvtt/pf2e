@@ -197,7 +197,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The moonflower has swallowed a creature</p>\n<hr />\n<p><strong>Effect</strong> The swallowed creature is wrapped in a tight cocoon and extruded from the moonflower's body into an adjacent square. The creature continues to be Swallowed Whole. It can't use Acrobatics to @Compendium[pf2e.actionspf2e.Escape]{Escape} a pod, but other creatures can attempt to Rupture the pod. The cocooned creature takes half damage from any damage dealt to the cocoon. Once the cocoon is Ruptured, it deflates and decays.</p>"
+                    "value": "<p><strong>Trigger</strong> The moonflower has swallowed a creature</p>\n<hr />\n<p><strong>Effect</strong> The swallowed creature is wrapped in a tight cocoon and extruded from the moonflower's body into an adjacent square. The creature continues to be Swallowed Whole. It can't use Acrobatics to @UUID[Compendium.pf2e.actionspf2e.Escape]{Escape} a pod, but other creatures can attempt to Rupture the pod. The cocooned creature takes half damage from any damage dealt to the cocoon. Once the cocoon is Ruptured, it deflates and decays.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -277,7 +277,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Effect</strong> The moonflower expels mindwarping petals in a @Template[type:cone|distance:30]. Creatures in the area take [[/r {4d6}[mental] + {4d6}[poison]]]{4d6 mental damage and 4d6 poison damage} (@Check[type:will|dc:26|basic:true]). On a failure, they are @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 minute, and on a critical failure, they are also @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p>The moonflower can't Spray Blossoms again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Effect</strong> The moonflower expels mindwarping petals in a @Template[type:cone|distance:30]. Creatures in the area take [[/r {4d6[mental],4d6[poison]}]]{4d6 mental damage and 4d6 poison damage} (@Check[type:will|dc:26|basic:true]). On a failure, they are @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 minute, and on a critical failure, they are also @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p>The moonflower can't Spray Blossoms again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -319,7 +319,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Large, [[/r {2d10 + 10}[bludgeoning] + {2d6}[acid]]]{2d10 + 10 bludgeoning and 2d6 acid}, Rupture 21</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Large, [[/r {(2d10 + 10)[bludgeoning],2d6[acid]}]]{2d10 + 10 bludgeoning and 2d6 acid}, Rupture 21</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -508,16 +508,36 @@
                 "temp": 0,
                 "value": 120
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 16
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "slashing"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -553,26 +573,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except slashing",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 1 mile (Other Moonflowers Only)",
                 "selected": [],

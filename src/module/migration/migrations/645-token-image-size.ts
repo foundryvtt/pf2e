@@ -6,11 +6,11 @@ import { MigrationBase } from "../base";
 export class Migration645TokenImageSize extends MigrationBase {
     static override version = 0.645;
 
-    imageOverrides: Map<string, VideoPath> = new Map();
+    imageOverrides: Map<string, VideoFilePath> = new Map();
 
     sizeOverrides: Map<string, { height: number; width: number }> = new Map();
 
-    isTokenImageFlag(flag: unknown): flag is VideoPath {
+    isTokenImageFlag(flag: unknown): flag is VideoFilePath {
         return typeof flag === "string";
     }
 

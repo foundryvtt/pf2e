@@ -81,7 +81,7 @@
                 },
                 "damageRolls": {},
                 "description": {
-                    "value": "<p>[[/r {1d4}[persistent,fire]]]@Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": "<p>[[/r 1d4[persistent,fire]]] damage</p>"
                 },
                 "rules": [
                     {
@@ -183,7 +183,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>A homunculus can't speak, but it is telepathically linked to its creator. It can share information back and forth, including its master's knowledge and everything the homunculus hears. The range of this link is 1,500 feet. The homunculus adopts the same alignment as its creator and is utterly faithful. If the homunculus is destroyed, the master takes [[/r {2d10}[mental]]]{2d10 mental damage}. If the master is slain, the homunculus becomes mindless, claims its current location as its lair, and instinctively attacks anyone who comes near.</p>"
+                    "value": "<p>A homunculus can't speak, but it is telepathically linked to its creator. It can share information back and forth, including its master's knowledge and everything the homunculus hears. The range of this link is 1,500 feet. The homunculus adopts the same alignment as its creator and is utterly faithful. If the homunculus is destroyed, the master takes [[/r 2d10[mental]]] damage. If the master is slain, the homunculus becomes mindless, claims its current location as its lair, and instinctively attacks anyone who comes near.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -227,7 +227,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The scented candle homunculus's fragrance of lavender is overwhelmingly intense. Any creature other than the homunculus's master who enters the aura must attempt a @Check[type:fortitude|dc:15] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is temporarily immune to the homunculus's aura for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round and sickened 1.</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>The scented candle homunculus's fragrance of lavender is overwhelmingly intense. Any creature other than the homunculus's master who enters the aura must attempt a @Check[type:fortitude|dc:15] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is temporarily immune to the homunculus's aura for 24 hours.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round and sickened 1.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -268,7 +268,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>A scented candle homunculus who is adjacent to the large wax cauldron can dunk itself in wax, [[/r {2d6}[healing]]]{healing 2d6 damage}.</p>"
+                    "value": "<p>A scented candle homunculus who is adjacent to the large wax cauldron can dunk itself in wax, [[/r 2d6[healing]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -384,6 +384,47 @@
                 "temp": 0,
                 "value": 17
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -431,26 +472,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Can't Speak Any Language; Master Link",
                 "selected": [],

@@ -1,10 +1,11 @@
 import { ActorPF2e } from "@actor";
+import { TraitViewData } from "@actor/data/base";
 import { calculateMAPs } from "@actor/helpers";
 import {
     CheckModifier,
     createAbilityModifier,
+    createProficiencyModifier,
     ModifierPF2e,
-    ProficiencyModifier,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
 } from "@actor/modifiers";
@@ -17,12 +18,11 @@ import {
     extractNotes,
     extractRollSubstitutions,
     extractRollTwice,
-} from "@module/rules/util";
+} from "@module/rules/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { CheckRoll } from "@system/check/roll";
-import { CheckDC } from "@system/degree-of-success";
-import { CheckPF2e, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/rolls";
-import { isObject, Optional } from "@util";
+import { CheckPF2e, CheckRoll, CheckRollCallback, CheckRollContext, CheckType, RollTwiceOption } from "@system/check";
+import { CheckDC, DEGREE_ADJUSTMENT_AMOUNTS } from "@system/degree-of-success";
+import { isObject, Optional, traitSlugToObject } from "@util";
 import { StatisticChatData, StatisticTraceData, StatisticData, StatisticCheckData } from "./data";
 
 export * from "./data";
@@ -32,6 +32,8 @@ export interface StatisticRollParameters {
     attackNumber?: number;
     /** Optional target for the roll */
     target?: ActorPF2e | null;
+    /** Optional origin for the roll: only one of target and origin may be provided */
+    origin?: ActorPF2e | null;
     /** Optional DC data for the roll */
     dc?: CheckDC | null;
     /** Any additional options which should be used in the roll. */
@@ -40,12 +42,16 @@ export interface StatisticRollParameters {
     modifiers?: ModifierPF2e[];
     /** The originating item of this attack, if any */
     item?: Embedded<ItemPF2e> | null;
-    /** Is this a secret roll? */
-    secret?: boolean;
+    /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
+    rollMode?: RollMode;
     /** Should the dialog be skipped */
     skipDialog?: boolean;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
+    /** Any traits for the check */
+    traits?: (TraitViewData | string)[];
+    /** Whether to create a chat message using the roll (defaults true) */
+    createMessage?: boolean;
     /** Callback called when the roll occurs. */
     callback?: CheckRollCallback;
 }
@@ -53,6 +59,7 @@ export interface StatisticRollParameters {
 interface RollOptionParameters {
     extraRollOptions?: string[];
     item?: ItemPF2e | null;
+    origin?: ActorPF2e | null;
     target?: ActorPF2e | null;
 }
 
@@ -98,10 +105,11 @@ export class Statistic {
 
         if (typeof data.rank === "number") {
             this.rank = data.rank;
-            baseModifiers.push(ProficiencyModifier.fromLevelAndRank(actor.level, data.rank));
+            baseModifiers.push(createProficiencyModifier({ actor, rank: data.rank, domains: data.domains ?? [] }));
         } else if (data.rank === "untrained-level") {
             this.rank = 0;
-            baseModifiers.push(ProficiencyModifier.fromLevelAndRank(actor.level, 0, { addLevel: true }));
+            const domains = data.domains ?? [];
+            baseModifiers.push(createProficiencyModifier({ actor, rank: 0, domains, addLevel: true }));
         }
 
         // Check rank and data to assign proficient, but default to true
@@ -140,7 +148,7 @@ export class Statistic {
     }
 
     createRollOptions(domains: string[], args: RollOptionParameters = {}): Set<string> {
-        const { item, extraRollOptions, target } = args;
+        const { item, extraRollOptions, origin, target } = args;
 
         const rollOptions: string[] = [];
         if (domains && domains.length) {
@@ -169,7 +177,9 @@ export class Statistic {
             }
         }
 
-        if (target) {
+        if (origin) {
+            rollOptions.push(...origin.getSelfRollOptions("origin"));
+        } else if (target) {
             rollOptions.push(...target.getSelfRollOptions("target"));
         }
 
@@ -303,11 +313,12 @@ class StatisticCheck {
 
     async roll(args: StatisticRollParameters = {}): Promise<Rolled<CheckRoll> | null> {
         // Allow use of events for modules and macros but don't allow it for internal system use
-        const { secret, skipDialog } = (() => {
+        const { rollMode, skipDialog } = (() => {
             if (isObject<{ event: { originalEvent?: unknown } }>(args)) {
                 const event = args.event?.originalEvent ?? args.event;
                 if (event instanceof MouseEvent) {
-                    return mergeObject({ secret: args.secret, skipDialog: args.skipDialog }, eventToRollParams(event));
+                    const { rollMode, skipDialog } = args;
+                    return mergeObject({ rollMode, skipDialog }, eventToRollParams(event));
                 }
             }
 
@@ -329,26 +340,54 @@ class StatisticCheck {
             return null;
         })();
 
-        // Add any degree of success adjustments if we are rolling against a DC
-        if (args.dc) {
-            args.dc.adjustments ??= [];
-            args.dc.adjustments.push(...extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains));
-        }
-
-        const target =
-            args.target ??
-            rollContext?.target?.actor ??
-            Array.from(game.user.targets)
-                .flatMap((t) => t.actor ?? [])
-                .find((a) => a.isOfType("creature"));
+        const { origin } = args;
+        const target = origin
+            ? null
+            : args.target ??
+              rollContext?.target?.actor ??
+              Array.from(game.user.targets)
+                  .flatMap((t) => t.actor ?? [])
+                  .find((a) => a.isOfType("creature"));
 
         const extraModifiers = [...(args.modifiers ?? [])];
         const extraRollOptions = [...(args.extraRollOptions ?? []), ...(rollContext?.options ?? [])];
-        const options = this.createRollOptions({ ...args, target, extraRollOptions });
+        const options = this.createRollOptions({ ...args, origin, target, extraRollOptions });
+        const dc = args.dc ?? rollContext?.dc ?? null;
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
             rule.beforeRoll?.(domains, options);
+        }
+
+        // Add any degree of success adjustments if rolling against a DC
+        const dosAdjustments = dc ? extractDegreeOfSuccessAdjustments(actor.synthetics, this.domains) : [];
+        // Handle special case of incapacitation trait
+        if ((options.has("incapacitation") || options.has("item:trait:incapacitation")) && dc) {
+            const effectLevel = item?.isOfType("spell")
+                ? 2 * item.level
+                : item?.isOfType("physical")
+                ? item.level
+                : origin?.level ?? actor.level;
+
+            const amount =
+                this.type === "saving-throw" && actor.level > effectLevel
+                    ? DEGREE_ADJUSTMENT_AMOUNTS.INCREASE
+                    : !!target &&
+                      target.level > effectLevel &&
+                      ["attack-roll", "spell-attack-roll", "skill-check"].includes(this.type)
+                    ? DEGREE_ADJUSTMENT_AMOUNTS.LOWER
+                    : null;
+
+            if (amount) {
+                dosAdjustments.push({
+                    adjustments: {
+                        all: {
+                            label: "PF2E.TraitIncapacitation",
+                            amount,
+                        },
+                    },
+                });
+            }
         }
 
         // Include multiple attack penalty to extra modifiers if given
@@ -363,20 +402,31 @@ class StatisticCheck {
             }
         }
 
+        // Process any given action traits, then add to roll options
+        const traits = args.traits?.map((t) =>
+            typeof t === "string" ? traitSlugToObject(t, CONFIG.PF2E.actionTraits) : t
+        );
+        for (const trait of traits ?? []) {
+            options.add(trait.name);
+        }
+
         // Create parameters for the check roll function
         const context: CheckRollContext = {
             actor,
             item,
             domains,
             target: rollContext?.target ?? null,
-            dc: args.dc ?? rollContext?.dc,
+            dc,
             notes: extractNotes(actor.synthetics.rollNotes, this.domains),
             options,
             type: this.type,
-            secret,
+            rollMode,
             skipDialog,
             rollTwice: args.rollTwice || extractRollTwice(actor.synthetics.rollTwice, domains, options),
             substitutions: extractRollSubstitutions(actor.synthetics.rollSubstitutions, domains, options),
+            dosAdjustments,
+            traits,
+            createMessage: args.createMessage ?? true,
         };
 
         const roll = await CheckPF2e.roll(
@@ -405,10 +455,11 @@ class StatisticDifficultyClass {
     domains: string[];
     value: number;
     modifiers: ModifierPF2e[];
+    options: Set<string>;
 
-    constructor(private parent: Statistic, data: StatisticData, options: RollOptionParameters = {}) {
+    constructor(parent: Statistic, data: StatisticData, options: RollOptionParameters = {}) {
         this.domains = (data.domains ?? []).concat(data.dc?.domains ?? []);
-        const rollOptions = parent.createRollOptions(this.domains, options);
+        this.options = parent.createRollOptions(this.domains, options);
 
         // Add all modifiers from all sources together, then test them
         const allDCModifiers = [
@@ -416,13 +467,9 @@ class StatisticDifficultyClass {
             data.dc?.modifiers ?? [],
             extractModifiers(parent.actor.synthetics, this.domains),
         ].flat();
-        this.modifiers = allDCModifiers.map((modifier) => modifier.clone({ test: rollOptions }));
+        this.modifiers = allDCModifiers.map((modifier) => modifier.clone({ test: this.options }));
 
-        this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers, rollOptions).totalModifier;
-    }
-
-    createRollOptions(args: RollOptionParameters = {}): Set<string> {
-        return this.parent.createRollOptions(this.domains, args);
+        this.value = (data.dc?.base ?? 10) + new StatisticModifier("", this.modifiers, this.options).totalModifier;
     }
 
     get breakdown() {

@@ -153,7 +153,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A ghost has no body and can pass through physical objects, though it can't end its turn inside one. Most checks that use Strength and require a body, such as @Compendium[pf2e.actionspf2e.Grapple]{Grapple} and @Compendium[pf2e.actionspf2e.Shove]{Shove}, don't work against a ghost, and a ghost can't attempt such checks.</p>"
+                    "value": "<p>A ghost has no body and can pass through physical objects, though it can't end its turn inside one. Most checks that use Strength and require a body, such as @UUID[Compendium.pf2e.actionspf2e.Grapple]{Grapple} and @UUID[Compendium.pf2e.actionspf2e.Shove]{Shove}, don't work against a ghost, and a ghost can't attempt such checks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -244,7 +244,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Each living creature within @Template[type:emanation|distance:30]{30 feet} who hears the ghost must attempt a @Check[type:will|dc:21] save. On a failure, a creature gains the @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} condition (or @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure).</p>\n<p>On a success, a creature can't be affected by this ghost's Frightful Moan for 1 minute.</p>"
+                    "value": "<p>Each living creature within @Template[type:emanation|distance:30]{30 feet} who hears the ghost must attempt a @Check[type:will|dc:21] save. On a failure, a creature gains the @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2} condition (or @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure).</p>\n<p>On a success, a creature can't be affected by this ghost's Frightful Moan for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -341,12 +341,34 @@
                 "temp": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 10
             },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -388,22 +410,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "Sneak Attack",
-                "value": [
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
-                    "type": "all",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

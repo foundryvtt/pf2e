@@ -93,14 +93,16 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
 
     /**
      * Return the permission level that the current game User has over this Document.
-     * See the CONST.ENTITY_PERMISSIONS object for an enumeration of these levels.
+     * See the CONST.DOCUMENT_OWNERSHIP_LEVELS object for an enumeration of these levels.
      *
-     * @example
+     * @example Get the permission level the current user has for a document
+     * ```js
      * game.user.id; // "dkasjkkj23kjf"
      * actor.data.permission; // {default: 1, "dkasjkkj23kjf": 2};
      * actor.permission; // 2
+     * ```
      */
-    get permission(): PermissionLevel;
+    get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
     get sheet(): FormApplication<this> | null;

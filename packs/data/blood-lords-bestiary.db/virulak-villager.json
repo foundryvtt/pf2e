@@ -203,7 +203,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The virulak takes piercing or slashing damage from a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> The virulak squirts a jet of poisonous ichor from the wound. The creature making the triggering Strike takes [[/r {@actor.level}[persistent,poison]]]{3} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent poison Damage}.</p>"
+                    "value": "<p><strong>Trigger</strong> The virulak takes piercing or slashing damage from a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> The virulak squirts a jet of poisonous ichor from the wound. The creature making the triggering Strike takes [[/r @actor.level[persistent,poison]]]{3} damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -242,7 +242,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d10}[poison]]]{1d10 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d12}[poison]]]{1d12 poison damage} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d10}[poison]]]{2d10 poison damage} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10[poison]]] damage (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d12[poison]]] damage (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d10[poison]]] damage (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -460,6 +460,23 @@
                 "temp": 0,
                 "value": 45
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -502,18 +519,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

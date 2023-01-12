@@ -59,7 +59,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature approaches within 20 feet of a wailing crystal.</p>\n<hr />\n<p><strong>Effect</strong> A despairing chorus of cries echoes off the crystals, working its way into the minds of all living creatures in Jewelgate Way Station, affecting them with <em>@Compendium[pf2e.spells-srd.Crushing Despair]{Crushing Despair}</em> (7th level, @Check[type:will|dc:33|name:Crushing Despair|traits:mental,emotion,magical,spell] save).</p>\n<p>The hazard rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 20 feet of a wailing crystal.</p>\n<hr />\n<p><strong>Effect</strong> A despairing chorus of cries echoes off the crystals, working its way into the minds of all living creatures in Jewelgate Way Station, affecting them with <em>@UUID[Compendium.pf2e.spells-srd.Crushing Despair]{Crushing Despair}</em> (7th level, @Check[type:will|dc:33|name:Crushing Despair|traits:mental,emotion,magical,spell] save).</p>\n<p>The hazard rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -101,7 +101,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>A shrieking, distorted face composed of writhing necromantic energy lances out of the crystals to target a random living creature within 20 feet. The target takes [[/r {4d6}[mental] + {4d6}[sonic]]]{4d6 mental damage and 4d6 sonic damage} (@Check[type:will|dc:33|basic:true] save).</p>"
+                    "value": "<p>A shrieking, distorted face composed of writhing necromantic energy lances out of the crystals to target a random living creature within 20 feet. The target takes [[/r {4d6[mental],4d6[sonic]}]]{4d6 mental damage and 4d6 sonic damage} (@Check[type:will|dc:33|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -147,6 +147,17 @@
                 "tempmax": 0,
                 "value": 72
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(master) or @Check[type:perception|dc:37|name:Notice Ghostly Faces|traits:hazard,complex,environmental,magical] (master) to notice what appear to be screaming ghostly faces in the crystals</p>",
                 "value": 27
@@ -182,18 +193,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

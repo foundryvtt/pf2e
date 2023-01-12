@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Remorseless Lash",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -13,7 +10,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You're skilled at beating a foe when their morale is already breaking. When you succeed at a melee weapon Strike against a @Compendium[pf2e.conditionitems.Frightened]{Frightened} foe, that foe can't reduce their frightened condition below 1 until the beginning of your next turn.</p>"
+            "value": "<p>You're skilled at beating a foe when their morale is already breaking. When you succeed at a melee weapon Strike against a @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened} foe, that foe can't reduce their frightened condition below 1 until the beginning of your next turn.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -29,7 +26,7 @@
                 "key": "Note",
                 "predicate": [
                     "target:condition:frightened",
-                    "weapon:melee"
+                    "item:melee"
                 ],
                 "selector": "attack",
                 "text": "{item|system.description.value}",

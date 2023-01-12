@@ -280,7 +280,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within 10 feet of the mu spore moves or attacks the mu spore.</p>\n<hr />\n<p><strong>Effect</strong> The spore uses @Compendium[pf2e.bestiary-ability-glossary-srd.Improved Grab]{Grab} on the triggering creature. There is no limit to how many creatures it can grab with the sticky tendrils that cover its body.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 10 feet of the mu spore moves or attacks the mu spore.</p>\n<hr />\n<p><strong>Effect</strong> The spore uses @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Improved Grab]{Grab} on the triggering creature. There is no limit to how many creatures it can grab with the sticky tendrils that cover its body.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -320,7 +320,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A living creature that enters the area or ends its turn within it is corrupted by spores. It must succeed at a @Check[type:fortitude|dc:42] save or be @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}, and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round. Fungi and plants are immune.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A living creature that enters the area or ends its turn within it is corrupted by spores. It must succeed at a @Check[type:fortitude|dc:42] save or be @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1}, and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round. Fungi and plants are immune.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -362,7 +362,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The mu spore releases a cloud of burrowing spores in a @Template[type:cone|distance:400]. The spores deal [[/r {22d6}[piercing]]]{22d6 piercing damage} to all creatures, objects, and wooden structures in the area, but not to plants or fungi (@Check[type:reflex|dc:46|basic:true] save).</p>\n<p>The mu spore can't use this ability again for [[/br 1d4 #Recharge Cough Spores]]{1d4 rounds}.</p>"
+                    "value": "<p>The mu spore releases a cloud of burrowing spores in a @Template[type:cone|distance:400]. The spores deal [[/r 22d6[piercing]]] damage to all creatures, objects, and wooden structures in the area, but not to plants or fungi (@Check[type:reflex|dc:46|basic:true] save).</p>\n<p>The mu spore can't use this ability again for [[/br 1d4 #Recharge Cough Spores]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -442,7 +442,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The mu spore @Compendium[pf2e.conditionitems.Grabbed]{Grabs} a creature with its jaws.</p>\n<hr />\n<p><strong>Effect</strong> The spore uses Swallow Whole.</p>"
+                    "value": "<p><strong>Trigger</strong> The mu spore @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabs} a creature with its jaws.</p>\n<hr />\n<p><strong>Effect</strong> The spore uses Swallow Whole.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -487,7 +487,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {15}[bludgeoning]]]{15 bludgeoning damage}, @Check[type:fortitude|dc:45|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>[[/r 15[bludgeoning]]] damage, @Check[type:fortitude|dc:45|basic:true] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -527,7 +527,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The mu spore still deals [[/r {18}[piercing]]]{18 piercing damage} if its jaws Strike is a failure</p>"
+                    "value": "<p>The mu spore still deals [[/r 18[piercing]]] damage if its jaws Strike is a failure</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -582,7 +582,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Gargantuan, [[/r {20d6+9}[acid]]]{20d6+9 acid damage}, Rupture 37.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Gargantuan, [[/r (20d6+9)[acid]]] damage, Rupture 37.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -808,6 +808,19 @@
             "perception": {
                 "value": 36
             },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 20
+                },
+                {
+                    "exceptions": [
+                        "sonic"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -849,23 +862,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "acid",
-                    "value": 20
-                },
-                {
-                    "exceptions": "except sonic",
-                    "type": "all",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

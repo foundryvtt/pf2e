@@ -245,7 +245,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A polong is naturally @Compendium[pf2e.conditionitems.Invisible]{Invisible} outside of their bottle. They become visible only when forced out of a possessed creature against their will. Shattering the polong's bottle also forces them to assume a visible form.</p>"
+                    "value": "<p>A polong is naturally @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} outside of their bottle. They become visible only when forced out of a possessed creature against their will. Shattering the polong's bottle also forces them to assume a visible form.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -322,7 +322,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The polong attempts to possess an adjacent corporeal creature. This has the same effect as the <em>@Compendium[pf2e.spells-srd.Possession]{Possession}</em> spell (@Check[type:will|dc:26]), except the duration is 24 hours and, since the polong doesn't have a physical body, they're unaffected by that restriction of the spell. If the target has critically failed its save and become fully possessed by this polong before, it gets a save result one degree of success worse than it rolled.</p>\n<p>A creature possessed by a polong becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1} and @Compendium[pf2e.conditionitems.Doomed]{Doomed 1}. These conditions don't reduce naturally unless the polong spends an entire day without possessing the creature. For each consecutive day the polong is able to return and possess the creature, the drained and doomed values each increase by 1, to a maximum of 4. If the polong possesses a different creature, the conditions end for any creature it previously possessed.</p>"
+                    "value": "<p>The polong attempts to possess an adjacent corporeal creature. This has the same effect as the <em>@UUID[Compendium.pf2e.spells-srd.Possession]{Possession}</em> spell (@Check[type:will|dc:26]), except the duration is 24 hours and, since the polong doesn't have a physical body, they're unaffected by that restriction of the spell. If the target has critically failed its save and become fully possessed by this polong before, it gets a save result one degree of success worse than it rolled.</p>\n<p>A creature possessed by a polong becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}. These conditions don't reduce naturally unless the polong spends an entire day without possessing the creature. For each consecutive day the polong is able to return and possess the creature, the drained and doomed values each increase by 1, to a maximum of 4. If the polong possesses a different creature, the conditions end for any creature it previously possessed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -543,12 +543,46 @@
                 "temp": 0,
                 "value": 100
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 17
             },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -558,7 +592,13 @@
                 ],
                 "special": "",
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -591,32 +631,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
-                    "type": "all",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "good",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "Any One Language Known by the Polong's Creator",
                 "selected": [],

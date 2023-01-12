@@ -126,11 +126,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -234,13 +231,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -358,8 +349,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d12",
-                    "value": ""
+                    "die": "d12"
                 },
                 "description": {
                     "value": "<p>Mauls are massive warhammers that must be swung with two hands.</p>"
@@ -389,29 +379,15 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 3
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -435,9 +411,6 @@
                 "slug": "maul",
                 "source": {
                     "value": ""
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -610,7 +583,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature that can hear gains a +2 circumstance bonus to its Perception DC against a vexgit's attempts to @Compendium[pf2e.actionspf2e.Sneak]{Sneak}.</p>"
+                    "value": "<p>A creature that can hear gains a +2 circumstance bonus to its Perception DC against a vexgit's attempts to @UUID[Compendium.pf2e.actionspf2e.Sneak]{Sneak}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -733,7 +706,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The vexgit makes a [[/r {1d20+9}#Spell Attack]]{+9 spell attack} against a creature or unattended object. If they succeed, the vexgit deals [[/r 1d6]] damage (doubled on a critical hit) to a metal item the target is wearing or holding, ignoring its Hardness. If they hit an unattended metal item, the item takes this damage automatically.</p>\n<p>If a creature uses @Compendium[pf2e.bestiary-ability-glossary-srd.Shield Block]{Shield Block} with a metal shield against this attack, the shield is automatically @Compendium[pf2e.conditionitems.Broken]{Broken}, but no other item is rusted on that attack.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The vexgit makes a [[/r {1d20+9}#Spell Attack]]{+9 spell attack} against a creature or unattended object. If they succeed, the vexgit deals [[/r 1d6]] damage (doubled on a critical hit) to a metal item the target is wearing or holding, ignoring its Hardness. If they hit an unattended metal item, the item takes this damage automatically.</p>\n<p>If a creature uses @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Shield Block]{Shield Block} with a metal shield against this attack, the shield is automatically @UUID[Compendium.pf2e.conditionitems.Broken]{Broken}, but no other item is rusted on that attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -776,7 +749,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a vexgit succeeds or critically succeeds at a check to @Compendium[pf2e.actionspf2e.Disable Device]{Disable a Device}, they gain an additional success toward disabling a complex device.</p>"
+                    "value": "<p>When a vexgit succeeds or critically succeeds at a check to @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable a Device}, they gain an additional success toward disabling a complex device.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1042,7 +1015,13 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 2
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1083,19 +1062,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Cold Iron",
-                    "type": "coldiron",
-                    "value": "2"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

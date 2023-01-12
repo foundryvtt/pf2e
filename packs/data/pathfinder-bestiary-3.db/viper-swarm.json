@@ -233,7 +233,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d4}[poison]]]{1d4 poison damage} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {1d6}[poison]]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d4}[poison]]]{2d4 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d4[poison]]] damage (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d4[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -344,7 +344,7 @@
                 "value": 18
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -352,12 +352,34 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 12
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -370,7 +392,17 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -382,7 +414,7 @@
                 "value": 4
             },
             "privateNotes": "",
-            "publicNotes": "<p>While normally solitary creatures, snakes sometimes congregate in large masses. Whether gathered in the depths of a cave for warmth, a craggy mountainside for breeding, or through magical means for inscrutable purposes, these slithering swarms shouldn't be underestimated.</p>\n<hr />\n<p>The frightening mass of shining scales, gleaming eyes, and fangs dripping with venom that comprise a viper swarm has brought an end to many an unlucky adventurer. Normally nocturnal, these notoriously aggressive snakes strike at anything that comes within reach, be it limb or weapon. Their venom is a potent toxin that leaves victims shaky and weak.</p>",
+            "publicNotes": "<p>The frightening mass of shining scales, gleaming eyes, and fangs dripping with venom that comprise a viper swarm has brought an end to many an unlucky adventurer. Normally nocturnal, these notoriously aggressive snakes strike at anything that comes within reach, be it limb or weapon. Their venom is a potent toxin that leaves victims shaky and weak.</p>\n<hr />\n<p>While normally solitary creatures, snakes sometimes congregate in large masses. Whether gathered in the depths of a cave for warmth, a craggy mountainside for breeding, or through magical means for inscrutable purposes, these slithering swarms shouldn't be underestimated.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -406,44 +438,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "label": "Bludgeoning",
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": 3
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 5
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

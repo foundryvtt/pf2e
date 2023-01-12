@@ -149,7 +149,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The prairie drake spits a ball of dirt that explodes into a shower of rocks and mud. The attack has a range of 30 feet and explodes in a @Template[type:burst|distance:5]. Creatures within the burst take [[/r {3d6}[bludgeoning]]]{3d6 bludgeoning damage} (@Check[type:reflex|dc:16|basic:true]). Plant creatures in the area take no damage on a successful save; regardless, once per day, plant creatures can spend 10 minutes in the area to absorb the nutrients and heal [[/r 1d8 #Hit points]] Hit Points. The prairie drake can't use Dirt Breath again for [[/br 1d6 #Breath weapon cooldown]]{1d6 rounds}.</p>"
+                    "value": "<p>The prairie drake spits a ball of dirt that explodes into a shower of rocks and mud. The attack has a range of 30 feet and explodes in a @Template[type:burst|distance:5]. Creatures within the burst take [[/r 3d6[bludgeoning]]] damage (@Check[type:reflex|dc:16|basic:true]). Plant creatures in the area take no damage on a successful save; regardless, once per day, plant creatures can spend 10 minutes in the area to absorb the nutrients and heal [[/r 1d8 #Hit points]] Hit Points. The prairie drake can't use Dirt Breath again for [[/br 1d6 #Breath weapon cooldown]]{1d6 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -264,7 +264,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Roxy makes a wing Strike against a target within reach. On a critical hit, the target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn.</p>"
+                    "value": "<p>Roxy makes a wing Strike against a target within reach. On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -479,12 +479,26 @@
                 "temp": 0,
                 "value": 36
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 6
             },
+            "resistances": [
+                {
+                    "type": "electricity",
+                    "value": 4
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -530,22 +544,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": null,
-                    "type": "electricity",
-                    "value": "4"
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

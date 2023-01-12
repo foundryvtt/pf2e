@@ -17,9 +17,7 @@ export const Setup = {
 
             // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
             const homebrew = new HomebrewElements();
-
-            homebrew.refreshTags();
-            homebrew.registerModuleTags();
+            homebrew.onSetup();
 
             // Some of game.pf2e must wait until the setup phase
             SetGamePF2e.onSetup();

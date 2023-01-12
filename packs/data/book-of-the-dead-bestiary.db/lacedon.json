@@ -289,7 +289,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The lacedon is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> The lacedon devours a chunk of the corpse and regains [[/r {2d6}[healing]]]{2d6 Hit Points}.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
+                    "value": "<p><strong>Requirements</strong> The lacedon is adjacent to the corpse of a creature that died within the last hour.</p>\n<hr />\n<p><strong>Effect</strong> The lacedon devours a chunk of the corpse and regains [[/r 2d6[healing]]]{2d6 Hit Points}.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -336,7 +336,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:16]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r {2d6}[negative]]]{2d6 negative damage} and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:16]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> [[/r 2d6[negative]]] damage and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> [[/r 2d6[negative]]] damage and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @UUID[Compendium.pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -378,7 +378,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The lacedon discharges a spray of carrion vomit at a creature within 20 feet, dealing [[/r {1d6}[poison]]]{1d6 poison damage} with a @Check[type:fortitude|dc:17|basic:true]. A non-elf creature that fails its save is also @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save to end the paralysis at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>\n<p>The lacedon can't use Paralyzing Spew again for [[/r 1d4 #Recharge]]{1d4 rounds}.</p>"
+                    "value": "<p>The lacedon discharges a spray of carrion vomit at a creature within 20 feet, dealing [[/r 1d6[poison]]] damage with a @Check[type:fortitude|dc:17|basic:true]. A non-elf creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save to end the paralysis at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>\n<p>The lacedon can't use Paralyzing Spew again for [[/r 1d4 #Recharge]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -568,6 +568,23 @@
                 "temp": 0,
                 "value": 32
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -616,19 +633,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

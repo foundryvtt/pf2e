@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Soaring Armor",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -28,7 +25,16 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.armorInnovationId}"
+                ],
+                "selector": "fly",
+                "value": "@actor.system.attributes.speed.total"
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },

@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ItemPF2e, SpellPF2e } from "@item";
+import { ItemPF2e } from "@item";
 import { ErrorPF2e } from "@util";
 
 /**
@@ -121,7 +121,7 @@ class DicePF2e {
             if (parts.indexOf("@statusBonus") === -1) parts = parts.concat(["@statusBonus"]);
 
             // Render modal dialog
-            template = template || "systems/pf2e/templates/chat/roll-dialog.html";
+            template = template || "systems/pf2e/templates/chat/roll-dialog.hbs";
             const dialogData = {
                 data,
                 rollMode,
@@ -169,178 +169,6 @@ class DicePF2e {
         }
     }
 
-    /* -------------------------------------------- */
-
-    /**
-     * A standardized helper function for managing PF2e damage rolls
-     *
-     * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
-     * This chooses the default options of a normal attack with no bonus, Critical, or no bonus respectively
-     *
-     * @param event         The triggering event which initiated the roll
-     * @param partsCritOnly The dice roll component parts only added on a crit
-     * @param parts         The dice roll component parts
-     * @param actor         The Actor making the damage roll
-     * @param data          Actor or item data against which to parse the roll
-     * @param template      The HTML template used to render the roll dialog
-     * @param title         The dice roll UI window title
-     * @param speaker       The ChatMessage speaker to pass when creating the chat
-     * @param flavor        A callable function for determining the chat message flavor given parts and data
-     * @param critical      Allow critical hits to be chosen
-     * @param onClose       Callback for actions to take when the dialog form is closed
-     * @param dialogOptions Modal dialog options
-     * @param simplify      Whether alike terms should be combined
-     */
-    static async damageRoll({
-        event,
-        item = null,
-        partsCritOnly = [],
-        parts,
-        data,
-        template = "",
-        title,
-        speaker,
-        flavor,
-        critical = false,
-        onClose,
-        dialogOptions,
-        simplify = false,
-    }: {
-        event: JQuery.Event;
-        item?: Embedded<ItemPF2e> | null;
-        partsCritOnly?: (string | number)[];
-        parts: (string | number)[];
-        actor?: ActorPF2e;
-        data: Record<string, unknown>;
-        template?: string;
-        title: string;
-        speaker: foundry.data.ChatSpeakerSource;
-        flavor?: Function;
-        critical?: boolean;
-        onClose?: Function;
-        dialogOptions?: Partial<ApplicationOptions>;
-        simplify?: boolean;
-    }): Promise<Rolled<Roll> | null> {
-        // Inner roll function
-        const defaultRollMode = game.settings.get("core", "rollMode");
-        const userSettingQuickD20Roll = !game.user.settings.showRollDialogs;
-
-        const _roll = async (
-            rollParts: (string | number)[],
-            crit: boolean,
-            $form?: JQuery
-        ): Promise<Rolled<Roll> | null> => {
-            // Don't include situational bonuses unless they are defined
-            if ($form) {
-                data.itemBonus = $form.find("[name=itemBonus]").val();
-                data.statusBonus = $form.find("[name=statusBonus]").val();
-                data.circumstanceBonus = $form.find("[name=circumstanceBonus]").val();
-            }
-            for (const key of ["itemBonus", "statusBonus", "circumstanceBonus"]) {
-                if (!data[key] || data[key] === 0) {
-                    let index: number;
-                    const part = `@${key}`;
-
-                    index = rollParts.indexOf(part);
-                    if (index !== -1) rollParts.splice(index, 1);
-
-                    index = partsCritOnly.indexOf(part);
-                    if (index !== -1) partsCritOnly.splice(index, 1);
-                }
-            }
-
-            const rule = game.settings.get("pf2e", "critRule");
-            const formula = Roll.replaceFormulaData(rollParts.join("+"), data);
-            const baseRoll = simplify ? combineTerms(formula) : new Roll(formula);
-            if (crit) {
-                if (rule === "doubledamage") {
-                    rollParts = [`(${baseRoll.formula}) * 2`];
-                } else {
-                    const critRoll = new Roll(baseRoll.formula, data).alter(2, 0, { multiplyNumeric: true });
-                    rollParts = [critRoll.formula];
-                }
-                rollParts = rollParts.concat(partsCritOnly);
-            } else {
-                rollParts = [baseRoll.formula];
-            }
-
-            const roll = new Roll(rollParts.join("+"), data);
-            const flav = flavor instanceof Function ? flavor(rollParts, data) : title;
-            const traits = item?.isOfType("spell") ? this.getTraitMarkup(item) : "";
-            const origin = item ? { uuid: item.uuid, type: item.type } : null;
-            const rollMode = $form
-                ? ($form.find<HTMLInputElement>("[name=rollMode]").val() as RollMode)
-                : defaultRollMode;
-
-            const message = await roll.toMessage(
-                {
-                    speaker,
-                    flavor: `${flav}\n${traits}`,
-                    flags: { pf2e: { origin } },
-                },
-                { rollMode }
-            );
-
-            // Return the Roll object
-            return message.rolls[0];
-        };
-
-        // Modify the roll and handle fast-forwarding
-        if (userSettingQuickD20Roll && !event.shiftKey && !event.ctrlKey && !event.metaKey) {
-            return _roll(parts, event.altKey || critical);
-        } else if (!userSettingQuickD20Roll && (event.shiftKey || event.ctrlKey || event.metaKey)) {
-            return _roll(parts, event.altKey || critical);
-        }
-        if (!parts.includes("@circumstanceBonus")) parts.push("@circumstanceBonus");
-        if (!parts.includes("@itemBonus")) parts.push("@itemBonus");
-        if (!parts.includes("@statusBonus")) parts.push("@statusBonus");
-
-        // Construct dialog data
-        template = template || "systems/pf2e/templates/chat/roll-dialog.html";
-        const dialogData = {
-            data,
-            rollMode: defaultRollMode,
-            formula: parts.join(" + "),
-            rollModes: CONFIG.Dice.rollModes,
-        };
-
-        // Render modal dialog
-        let roll: Rolled<Roll> | null;
-        return new Promise((resolve) => {
-            renderTemplate(template, dialogData).then(async (content) => {
-                new Dialog(
-                    {
-                        title,
-                        content,
-                        buttons: {
-                            critical: {
-                                condition: critical,
-                                label: game.i18n.localize("PF2E.Roll.CriticalHit"),
-                                callback: async (html) => {
-                                    roll = await _roll(parts, true, html);
-                                },
-                            },
-                            normal: {
-                                label: critical
-                                    ? game.i18n.localize("PF2E.Roll.Normal")
-                                    : game.i18n.localize("PF2E.Roll.Roll"),
-                                callback: async (html) => {
-                                    roll = await _roll(parts, false, html);
-                                },
-                            },
-                        },
-                        default: game.i18n.localize("PF2E.Roll.Normal"),
-                        close: (html) => {
-                            if (onClose) onClose(html, parts, data);
-                            resolve(roll);
-                        },
-                    },
-                    dialogOptions
-                ).render(true);
-            });
-        });
-    }
-
     alter(add: number, multiply: number): this {
         const rgx = new RegExp(DiceTerm.REGEXP, "g");
         if (this._rolled) throw ErrorPF2e("You may not alter a Roll which has already been rolled");
@@ -356,42 +184,22 @@ class DicePF2e {
 
         return this;
     }
-
-    private static getTraitMarkup(spell: SpellPF2e): string {
-        const allSpellTraits = {
-            ...CONFIG.PF2E.magicSchools,
-            ...CONFIG.PF2E.magicTraditions,
-            ...CONFIG.PF2E.spellTraits,
-        };
-        const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
-        const traits = [...spell.traits]
-            .map((trait) => ({
-                value: trait,
-                label: game.i18n.localize(allSpellTraits[trait]),
-                description: traitDescriptions[trait] ?? "",
-            }))
-            .sort((a, b) => a.label.localeCompare(b.label))
-            .map((trait) =>
-                $("<span>")
-                    .addClass("tag")
-                    .attr({ "data-trait": trait.value, "data-description": trait.description })
-                    .text(trait.label)
-            )
-            .reduce(
-                ($traits, $trait) => $traits.append($trait),
-                $("<div>").addClass("item-properties").addClass("tags")
-            );
-        return traits.prop("outerHTML");
-    }
 }
 
-/** Sum constant values and combine alike dice into single `NumericTerm` and `Die` terms, respectively */
-function combineTerms(formula: string): Roll {
-    const roll = new Roll(formula);
+/**
+ * Combines dice and flat values together in a condensed expression. Also repairs any + - and "- 3" errors.
+ * For example, 3d4 + 2d4 + 3d6 + 5 + 2 is combined into 5d4 + 3d6 + 7. - 4 is corrected to -4.
+ */
+function combineTerms(formula: string): string {
+    if (formula === "0") return formula;
+
+    const fixedFormula = formula.replace(/^\s*-\s+/, "-").replace(/\s*\+\s*-\s*/g, " - ");
+    const roll = new Roll(fixedFormula);
     if (!roll.terms.every((t) => t.expression === " + " || t instanceof Die || t instanceof NumericTerm)) {
-        // This isn't a simple summing of dice: return the roll unaltered
-        return roll;
+        // This isn't a simple summing of dice: return the roll without further changes
+        return fixedFormula;
     }
+
     const dice = roll.terms.filter((term): term is Die => term instanceof Die);
     const diceByFaces = dice.reduce((counts: Record<number, number>, die) => {
         counts[die.faces] = (counts[die.faces] ?? 0) + die.number;
@@ -403,7 +211,7 @@ function combineTerms(formula: string): Roll {
     const numericTerms = roll.terms.filter((term): term is NumericTerm => term instanceof NumericTerm);
     const constant = numericTerms.reduce((runningTotal, term) => runningTotal + term.number, 0);
 
-    return new Roll([...stringTerms, constant].filter((term) => term !== 0).join("+"));
+    return new Roll([...stringTerms, constant].filter((term) => term !== 0).join("+")).formula;
 }
 
 export { DicePF2e, combineTerms };

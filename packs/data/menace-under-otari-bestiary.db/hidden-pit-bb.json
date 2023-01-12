@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If a creature walks onto the trapdoor, that creature falls in unless it succeeds at a @Check[type:reflex|dc:16] save to grab hold of the edge. The pit is 20 feet deep, dealing [[/r {10}[bludgeoning]]]{10 bludgeoning damage} to anyone who falls to the bottom.</p>"
+                    "value": "<p>If a creature walks onto the trapdoor, that creature falls in unless it succeeds at a @Check[type:reflex|dc:16] save to grab hold of the edge. The pit is 20 feet deep, dealing [[/r 10[bludgeoning]]] damage to anyone who falls to the bottom.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -56,6 +56,11 @@
                 "temp": 0,
                 "value": 12
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                }
+            ],
             "stealth": {
                 "details": "<p>(or @Check[type:perception|dc:0|traits:hazard] if the trapdoor is disabled or broken)</p>",
                 "value": 8
@@ -91,15 +96,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "Sneak Attack",
-                "selected": {},
-                "value": [
-                    "critical-hits"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

@@ -149,7 +149,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a clockwork sphinx is reduced to 0 Hit Points, it collapses and emits a steady ticking sound. At the beginning of what would've been its next turn, the sphinx explodes into a @Template[type:emanation|distance:20] of shrapnel, dealing [[/r {6d10}[piercing]]]{6d10 piercing damage} (@Check[type:reflex|dc:26|basic:true]). An adjacent creature can cancel the self-destruct sequence by succeeding at a @Check[type:thievery|dc:26|traits:action:disable-a-device] check to @Compendium[pf2e.actionspf2e.Disable Device]{Disable Device} at any point before the sphinx explodes, but on a critical failure, it explodes immediately.</p>"
+                    "value": "<p>When a clockwork sphinx is reduced to 0 Hit Points, it collapses and emits a steady ticking sound. At the beginning of what would've been its next turn, the sphinx explodes into a @Template[type:emanation|distance:20] of shrapnel, dealing [[/r 6d10[piercing]]] damage (@Check[type:reflex|dc:26|basic:true]). An adjacent creature can cancel the self-destruct sequence by succeeding at a @Check[type:thievery|dc:26|traits:action:disable-a-device] check to @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable Device} at any point before the sphinx explodes, but on a critical failure, it explodes immediately.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -190,7 +190,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The sphinx Strides and makes a Strike at the end of that movement. If the sphinx began this action @Compendium[pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after the attack.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The sphinx Strides and makes a Strike at the end of that movement. If the sphinx began this action @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after the attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -248,12 +248,60 @@
                 "temp": 0,
                 "value": 130
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 19
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -262,7 +310,17 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 10
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -291,45 +349,10 @@
             },
             "will": {
                 "saveDetail": "",
-                "value": 3
+                "value": 13
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 10
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -5,12 +5,14 @@ import { CheckDC } from "@system/degree-of-success";
 import { ActionMacroHelpers } from "../helpers";
 import { CharacterPF2e } from "@actor";
 import { SkillActionOptions } from "../types";
+import { SelectItemDialog } from "./select-item";
 
 async function repair(options: RepairActionOptions) {
     const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
 
     // resolve item
-    const item = options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem());
+    const item =
+        options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("repair"));
 
     // ensure specified item is a valid crafting target
     if (item && !(item instanceof PhysicalItemPF2e)) {
@@ -47,7 +49,7 @@ async function repair(options: RepairActionOptions) {
         subtitle,
         content: async (title) => {
             if (item) {
-                const templatePath = "systems/pf2e/templates/system/actions/repair/item-heading-partial.html";
+                const templatePath = "systems/pf2e/templates/system/actions/repair/item-heading-partial.hbs";
                 const templateData = { item };
                 const content = await renderTemplate(templatePath, templateData);
                 return title + content;
@@ -98,69 +100,6 @@ async function repair(options: RepairActionOptions) {
     });
 }
 
-class SelectItemDialog extends Application {
-    private item: PhysicalItemPF2e | null = null;
-
-    private constructor(private resolve: (value: PhysicalItemPF2e | null) => void) {
-        super({
-            classes: ["select-repair-item-dialog"],
-            template: "systems/pf2e/templates/system/actions/repair/select-item-dialog.html",
-            title: "PF2E.Actions.Repair.SelectItemDialog.Title",
-            width: 270,
-        });
-    }
-
-    override async getData() {
-        const data: { item?: PhysicalItemPF2e | null } = await super.getData();
-        data.item = this.item;
-        return data;
-    }
-
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-
-        $html.on("drop", async (event) => {
-            const json = event.originalEvent?.dataTransfer?.getData("text/plain")?.trim();
-            if (!json?.startsWith("{") || !json.endsWith("}")) return;
-
-            const data: Partial<ItemDropData> = JSON.parse(json);
-            const item = await (async () => {
-                if (data.type === "Item" && data.actorId && data.data?._id) {
-                    return await fromUuid(`Actor.${data.actorId}.Item.${data.data._id}`);
-                }
-                return null;
-            })();
-
-            if (item instanceof PhysicalItemPF2e) {
-                this.item = item;
-                this.render();
-            } else {
-                ui.notifications.error(game.i18n.localize("PF2E.Actions.Repair.Error.ItemReferenceMismatch"));
-            }
-        });
-
-        $html.find("[data-event-handler=repair]").on("click", () => {
-            this.close();
-        });
-
-        $html.find("[data-event-handler=cancel]").on("click", () => {
-            this.item = null;
-            this.close();
-        });
-    }
-
-    override close(options?: { force?: boolean }): Promise<void> {
-        this.resolve(this.item);
-        return super.close(options);
-    }
-
-    static async getItem(): Promise<PhysicalItemPF2e | null> {
-        return new Promise((resolve) => {
-            new SelectItemDialog(resolve).render(true);
-        });
-    }
-}
-
 async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMessagePF2e | undefined, $card: JQuery) {
     const itemUuid = $card.attr("data-item-uuid");
     const item = await fromUuid(itemUuid ?? "");
@@ -188,7 +127,7 @@ async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMess
         await ChatMessage.create({ content, speaker });
     } else if (repair === "roll-damage") {
         const roll = await Roll.create("2d6").evaluate({ async: true });
-        const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.html";
+        const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.hbs";
         const flavor = await renderTemplate(templatePath, {
             damage: {
                 dealt: Math.max(0, roll.total - item.system.hardness),
@@ -220,7 +159,7 @@ async function onRepairChatCardEvent(event: JQuery.ClickEvent, message: ChatMess
             });
             await ChatMessage.create({ content, speaker });
         } else {
-            const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.html";
+            const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.hbs";
             const content = await renderTemplate(templatePath, {
                 damage: {
                     dealt: 0,
@@ -239,7 +178,7 @@ async function renderRepairResult(
     buttonLabel: string,
     value: string
 ) {
-    const templatePath = "systems/pf2e/templates/system/actions/repair/repair-result-partial.html";
+    const templatePath = "systems/pf2e/templates/system/actions/repair/repair-result-partial.hbs";
     const label = game.i18n.format(buttonLabel, { value });
     return renderTemplate(templatePath, { item, label, result, value });
 }
@@ -248,14 +187,6 @@ interface RepairActionOptions extends SkillActionOptions {
     difficultyClass?: CheckDC;
     item?: PhysicalItemPF2e;
     uuid?: string;
-}
-
-interface ItemDropData {
-    actorId?: string;
-    data?: {
-        _id?: string;
-    };
-    type: "Item";
 }
 
 export { onRepairChatCardEvent, repair };

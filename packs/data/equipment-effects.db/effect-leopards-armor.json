@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": ""
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Leopard's Armor]{Leopard's Armor}</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -25,19 +25,19 @@
             },
             {
                 "key": "FlatModifier",
+                "predicate": [
+                    "action:demoralize"
+                ],
                 "selector": "intimidation",
                 "type": "item",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "selector": "diplomacy",
-                "type": "item",
-                "value": -2
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "society",
+                "selector": [
+                    "diplomacy",
+                    "society"
+                ],
                 "type": "item",
                 "value": -2
             }

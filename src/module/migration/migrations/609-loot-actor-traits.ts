@@ -1,16 +1,15 @@
 import { MigrationBase } from "../base";
 import { ActorSourcePF2e } from "@actor/data";
-import { ActorSystemSource, BaseTraitsSource } from "@actor/data/base";
+import { ActorSystemSource, ActorTraitsSource } from "@actor/data/base";
 
 /** Add basic actor traits to loot actors */
 export class Migration609LootActorTraits extends MigrationBase {
     static override version = 0.609;
 
     override async updateActor(source: MaybeWithNestedTraits): Promise<void> {
-        if (source.type === "loot" && source.system.traits?.traits) {
-            const systemData = source.system;
+        if (source.type === "loot" && source.system.traits && "traits" in source.system.traits) {
+            const systemData: { traits?: object } = source.system;
             if (!systemData.traits) {
-                source.system.traits.rarity;
                 systemData.traits = {
                     rarity: { value: "common" },
                     size: {
@@ -18,7 +17,6 @@ export class Migration609LootActorTraits extends MigrationBase {
                     },
                     traits: { value: [] },
                     di: {
-                        custom: "",
                         value: [],
                     },
                     dr: [],
@@ -36,10 +34,12 @@ type MaybeWithNestedTraits = Omit<ActorSourcePF2e, "system"> & {
 
 type MaybeWithNoTraits = Omit<ActorSystemSource, "traits"> & {
     value?: string[];
-    traits?: Omit<BaseTraitsSource<string>, "rarity" | "value"> & {
-        value?: string[];
-        traits?: { value: string[] };
-        rarity?: string | { value: string };
-        ci?: unknown[];
-    };
+    traits?:
+        | ActorTraitsSource<string>
+        | (Omit<ActorTraitsSource<string>, "rarity" | "value"> & {
+              value?: string[];
+              traits?: { value: string[] };
+              rarity?: string | { value: string };
+              ci?: unknown[];
+          });
 };

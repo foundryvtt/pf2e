@@ -301,7 +301,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The tar zombie vomits a gout of sticky tar in a @Template[type:cone|distance:15] that deals [[/r {6d6}[bludgeoning]]]{6d6 bludgeoning damage} ((@Check[type:reflex|dc:25|basic:true]) save). Creatures that fail the save are @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and gain fire weakness 5. Both conditions end after 3 rounds or when the tar is scrubbed off (which requires 3 Interact actions). The tar zombie can't Vomit Tar again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The tar zombie vomits a gout of sticky tar in a @Template[type:cone|distance:15] that deals [[/r 6d6[bludgeoning]]] damage ((@Check[type:reflex|dc:25|basic:true]) save). Creatures that fail the save are @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and gain fire weakness 5. Both conditions end after 3 rounds or when the tar is scrubbed off (which requires 3 Interact actions). The tar zombie can't Vomit Tar again for [[/r 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -482,6 +482,23 @@
                 "temp": 0,
                 "value": 180
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -496,7 +513,21 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "positive",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -507,7 +538,7 @@
             "level": {
                 "value": 7
             },
-            "privateNotes": "<p>Slow A tar zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>",
+            "privateNotes": "<p>Slow A tar zombie is permanently @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>",
             "publicNotes": "",
             "source": {
                 "value": "Pathfinder #177: Burning Tundra"
@@ -529,32 +560,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 10
-                },
-                {
-                    "type": "positive",
-                    "value": 10
-                },
-                {
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

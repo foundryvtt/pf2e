@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Alchemist Dedication",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -13,7 +10,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You put your alchemical interest into practice. You become trained in alchemical bombs and Crafting; if you were already trained in Crafting, you instead become trained in a skill of your choice. You become trained in alchemist class DC. You gain the alchemist's @Compendium[pf2e.classfeatures.Infused Reagents]{Infused Reagents} class feature, gaining a number of reagents each day equal to your level. You also gain the @Compendium[pf2e.feats-srd.Alchemical Crafting]{Alchemical Crafting} feat and four additional formulas for 1st-level alchemical items, as well as the ability to create free items during your daily preparations. Your advanced alchemy level is 1 and doesn't increase on its own.</p>\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the alchemist archetype.</p>"
+            "value": "<p>You put your alchemical interest into practice. You become trained in alchemical bombs and Crafting; if you were already trained in Crafting, you instead become trained in a skill of your choice. You become trained in alchemist class DC. You gain the alchemist's @UUID[Compendium.pf2e.classfeatures.Infused Reagents]{Infused Reagents} class feature, gaining a number of reagents each day equal to your level. You also gain the @UUID[Compendium.pf2e.feats-srd.Alchemical Crafting]{Alchemical Crafting} feat and four additional formulas for 1st-level alchemical items, as well as the ability to create free items during your daily preparations. Your advanced alchemy level is 1 and doesn't increase on its own.</p>\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.vx5FGEG34AxI2dow.JournalEntryPage.Ux0sa5SUBu616i5k]{Alchemist} archetype.</p>"
         },
         "featType": {
             "value": "archetype"
@@ -36,6 +33,12 @@
                 "value": 1
             },
             {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.martial.weapon-base-alchemical-bomb.rank",
+                "value": 1
+            },
+            {
                 "craftableItems": [
                     "item:trait:alchemical"
                 ],
@@ -52,6 +55,17 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Alchemical Crafting"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.alchemist",
+                "priority": 39,
+                "value": {
+                    "ability": "int",
+                    "label": "PF2E.TraitAlchemist",
+                    "rank": 1
+                }
             }
         ],
         "source": {

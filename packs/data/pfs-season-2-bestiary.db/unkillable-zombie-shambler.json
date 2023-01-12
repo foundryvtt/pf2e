@@ -136,7 +136,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> The zombie has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}or @Compendium[pf2e.conditionitems.Restrained]{Restrained}.</p>"
+                    "value": "<p><strong>Requirements</strong> The zombie has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}.</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -215,7 +215,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
+                    "value": "<p>A zombie is permanently @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -449,16 +449,49 @@
                 "temp": 0,
                 "value": 20
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 0
             },
+            "resistances": [
+                {
+                    "type": "all-damage",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "critical-hits",
+                    "value": 6
+                },
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -494,36 +527,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "all",
-                    "value": 3
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Critical Hits",
-                    "type": "critical-hits",
-                    "value": "6"
-                },
-                {
-                    "label": "Positive",
-                    "type": "positive",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

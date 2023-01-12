@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
@@ -69,20 +68,6 @@
                         "sp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -105,9 +90,6 @@
                 "slug": "dagger",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -161,8 +143,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
@@ -192,29 +173,15 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "sp": 9
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -238,9 +205,6 @@
                 "slug": "shortsword",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -418,7 +382,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The skulk gains the benefit of the @Compendium[pf2e.actionspf2e.Cover Tracks]{Cover Tracks} action in forests and subterranean settings without moving at half Speed.</p>"
+                    "value": "<p>The skulk gains the benefit of the @UUID[Compendium.pf2e.actionspf2e.Cover Tracks]{Cover Tracks} action in forests and subterranean settings without moving at half Speed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -458,7 +422,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The skulk's skin shifts and changes to match the surroundings. As long as most of their body is not covered by clothing or armor, the skulk gains a +2 circumstance bonus to Stealth checks to @Compendium[pf2e.actionspf2e.Hide]{Hide}.</p>"
+                    "value": "<p>The skulk's skin shifts and changes to match the surroundings. As long as most of their body is not covered by clothing or armor, the skulk gains a +2 circumstance bonus to Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Hide]{Hide}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -520,7 +484,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A skulk's Strikes deal an extra [[/r {1d6}[precision]]]{1d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>A skulk's Strikes deal an extra [[/r {1d6}[precision]]]{1d6 precision damage} to @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -535,6 +499,13 @@
                             "target:condition:flat-footed"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",
@@ -781,13 +752,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

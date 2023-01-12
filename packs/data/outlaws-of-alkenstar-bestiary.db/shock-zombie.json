@@ -228,7 +228,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>For 1 minute after taking electricity damage, a shock zombie loses its usual @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} condition, gains the ability to use reactions, and gains a +10-foot status bonus to its Speed.</p>"
+                    "value": "<p>For 1 minute after taking electricity damage, a shock zombie loses its usual @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} condition, gains the ability to use reactions, and gains a +10-foot status bonus to its Speed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -302,7 +302,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A shock zombie is typically @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions (but see electricity absorption).</p>"
+                    "value": "<p>A shock zombie is typically @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions (but see electricity absorption).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -416,6 +416,23 @@
                 "temp": 0,
                 "value": 140
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "electricity"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -425,7 +442,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -458,28 +485,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "electricity",
-                    "mental",
-                    "paralyzed",
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 5
-                },
-                {
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

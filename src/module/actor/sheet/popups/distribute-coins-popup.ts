@@ -25,7 +25,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
         options.id = "distribute-coins";
         options.classes = [];
         options.title = "Distribute Coins";
-        options.template = "systems/pf2e/templates/actors/distribute-coins.html";
+        options.template = "systems/pf2e/templates/actors/distribute-coins.hbs";
         options.width = "auto";
         return options;
     }

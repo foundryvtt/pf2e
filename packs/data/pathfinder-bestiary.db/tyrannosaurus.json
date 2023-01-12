@@ -237,7 +237,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The tyrannosaurus critically hits a Large or smaller foe with its foot.</p>\n<hr />\n<p><strong>Effect</strong> The creature struck by the foot is knocked @Compendium[pf2e.conditionitems.Prone]{Prone} and the tyrannosaurus uses its foot to hold the creature in place. As long as the tyrannosaurus doesn't move from its position, the pinned creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}. A tyrannosaurus gains a +2 circumstance bonus to attack a creature it has pinned in this manner, but it cannot use Swallow Whole on the target unless it uses its jaws to @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} the victim first.</p>"
+                    "value": "<p><strong>Trigger</strong> The tyrannosaurus critically hits a Large or smaller foe with its foot.</p>\n<hr />\n<p><strong>Effect</strong> The creature struck by the foot is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} and the tyrannosaurus uses its foot to hold the creature in place. As long as the tyrannosaurus doesn't move from its position, the pinned creature is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}. A tyrannosaurus gains a +2 circumstance bonus to attack a creature it has pinned in this manner, but it cannot use Swallow Whole on the target unless it uses its jaws to @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Grab]{Grab} the victim first.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -246,7 +246,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "pinPrey"
+                            "pin-prey"
                         ],
                         "selector": "attack",
                         "type": "circumstance",
@@ -255,7 +255,7 @@
                     {
                         "domain": "attack-roll",
                         "key": "RollOption",
-                        "option": "pinPrey",
+                        "option": "pin-prey",
                         "toggleable": true
                     }
                 ],
@@ -298,7 +298,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Medium, [[/r {3d6+8}[bludgeoning]]]{3d6+8 bludgeoning damage}, Rupture 26</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Medium, [[/r (3d6+8)[bludgeoning]]] damage, Rupture 26</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -549,13 +549,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

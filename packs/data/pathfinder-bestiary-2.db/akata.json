@@ -153,7 +153,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>After 3 or more days without eating, an akata can secrete resin that encases it in a noqual cocoon. The cocoon has Hardness 9, 40 HP, and a Broken Threshold of 18. It has resistance 5 to damage from magical sources. As long as the cocoon remains intact, the akata can't be harmed, and it doesn't need to eat or drink.</p>\n<p>While inside the cocoon, the akata gains @Compendium[pf2e.bestiary-ability-glossary-srd.Lifesense]{Lifesense} 30 feet.</p>\n<p>The akata remains in a state of hibernation until it is exposed to extreme heat or senses a living creature, at which point it can burst free of its cocoon in [[/r 1d4 #minutes]]{1d4 minutes}.</p>"
+                    "value": "<p>After 3 or more days without eating, an akata can secrete resin that encases it in a noqual cocoon. The cocoon has Hardness 9, 40 HP, and a Broken Threshold of 18. It has resistance 5 to damage from magical sources. As long as the cocoon remains intact, the akata can't be harmed, and it doesn't need to eat or drink.</p>\n<p>While inside the cocoon, the akata gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Lifesense]{Lifesense} 30 feet.</p>\n<p>The akata remains in a state of hibernation until it is exposed to extreme heat or senses a living creature, at which point it can burst free of its cocoon in [[/r 1d4 #minutes]]{1d4 minutes}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -277,7 +277,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Salt water acts as an extremely strong acid to an akata. Full immersion in salt water deals [[/r {4d6}[acid]]]{4d6 acid damage} per round.</p>"
+                    "value": "<p>Salt water acts as an extremely strong acid to an akata. Full immersion in salt water deals [[/r 4d6[acid]]] damage per round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -317,7 +317,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An akata implants its parasitic larval young into any creature it bites, but only Medium or Small humanoids make suitable hosts; all other creatures are immune to this disease</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:17]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect 1 (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> drained 2 and @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead and corpse rises as a void zombie in [[/br 2d4 #hours]]{2d4 hours}</p>"
+                    "value": "<p>An akata implants its parasitic larval young into any creature it bites, but only Medium or Small humanoids make suitable hosts; all other creatures are immune to this disease</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:17]</p>\n<p><strong>Stage 1</strong> carrier with no ill effect 1 (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> drained 2 and @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued} (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead and corpse rises as a void zombie in [[/br 2d4 #hours]]{2d4 hours}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -464,12 +464,27 @@
                 "temp": 0,
                 "value": 15
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 6
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "type": "poison",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -478,7 +493,13 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "salt-water",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -514,32 +535,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                },
-                {
-                    "label": "Poison",
-                    "type": "poison",
-                    "value": "5"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Salt Water",
-                    "type": "salt water",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

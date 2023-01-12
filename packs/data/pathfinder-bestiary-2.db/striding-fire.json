@@ -125,7 +125,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The striding fire ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
+                    "value": "<p>The striding fire ignores the @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -165,7 +165,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The striding fire Strides up to double its Speed in a straight line. Its movement during this Stride doesn't trigger reactions. Any creature the striding fire was adjacent to at any point during this Stride must attempt a @Check[type:reflex|dc:24|basic:true] save. If it critically fails, it is knocked @Compendium[pf2e.conditionitems.Prone]{Prone} by a wave of heated air.</p>\n<p>The striding fire can't use Burning Rush for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The striding fire Strides up to double its Speed in a straight line. Its movement during this Stride doesn't trigger reactions. Any creature the striding fire was adjacent to at any point during this Stride must attempt a @Check[type:reflex|dc:24|basic:true] save. If it critically fails, it is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} by a wave of heated air.</p>\n<p>The striding fire can't use Burning Rush for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -286,6 +286,23 @@
                 "temp": 0,
                 "value": 115
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -295,7 +312,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 50
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -331,25 +354,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "fire",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

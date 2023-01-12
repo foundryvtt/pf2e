@@ -147,20 +147,12 @@ declare global {
         get sourceId(): `Token.${string}`;
 
         /**
-         * Update the light and vision source objects associated with this Token
-         * @param [defer]         Defer refreshing the SightLayer to manually call that refresh later.
-         * @param [deleted]       Indicate that this light source has been deleted.
-         * @param [skipUpdateFog] Never update the Fog exploration progress for this update.
+         * Update the light and vision source objects associated with this Token.
+         * @param [options={}] Options which configure how perception sources are updated
+         * @param [options.defer=false] Defer refreshing the SightLayer to manually call that refresh later
+         * @param [options.deleted=false]Indicate that this light source has been deleted
          */
-        updateSource({
-            defer,
-            deleted,
-            skipUpdateFog,
-        }?: {
-            defer?: boolean;
-            deleted?: boolean;
-            skipUpdateFog?: boolean;
-        }): void;
+        updateSource(options?: { defer?: boolean; deleted?: boolean }): void;
 
         /**
          * Update an emitted light source associated with this Token.
@@ -199,7 +191,7 @@ declare global {
         /** Draw the HUD container which provides an interface for managing this Token */
         protected _drawHUD(): ObjectHUD<this>;
 
-        override destroy(options?: boolean | PIXI.IDestroyOptions): void;
+        protected override _destroy(options?: object): void;
 
         /** Apply initial sanitizations to the provided input data to ensure that a Token has valid required attributes. */
         protected _cleanData(): void;
@@ -251,7 +243,7 @@ declare global {
          * Refresh the display of Token attribute bars, rendering latest resource data
          * If the bar attribute is valid (has a value and max), draw the bar. Otherwise hide it.
          */
-        protected drawBars(): void;
+        drawBars(): void;
 
         /**
          * Draw a single resource bar, given provided data
@@ -282,7 +274,13 @@ declare global {
         protected _drawOverlay({ src, tint }?: { src?: string; tint?: number }): Promise<void>;
 
         /** Draw a status effect icon */
-        protected _drawEffect(src: ImagePath, i: number, bg: PIXI.Container, w: number, tint: number): Promise<void>;
+        protected _drawEffect(
+            src: ImageFilePath,
+            i: number,
+            bg: PIXI.Container,
+            w: number,
+            tint: number
+        ): Promise<void>;
 
         /**
          * Helper method to determine whether a token attribute is viewable under a certain mode
@@ -416,12 +414,12 @@ declare global {
          * @return Was the texture applied (true) or removed (false)
          */
         toggleEffect(
-            effect: StatusEffect | ImagePath,
+            effect: StatusEffect | ImageFilePath,
             { active, overlay }?: { active?: boolean; overlay?: boolean }
         ): Promise<boolean>;
 
         /** A helper function to toggle the overlay status icon on the Token */
-        protected _toggleOverlayEffect(texture: ImagePath, { active }: { active: boolean }): Promise<this>;
+        protected _toggleOverlayEffect(texture: ImageFilePath, { active }: { active: boolean }): Promise<this>;
 
         /**
          * Toggle the visibility state of any Tokens in the currently selected set

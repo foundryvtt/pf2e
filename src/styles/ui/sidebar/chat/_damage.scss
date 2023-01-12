@@ -1,155 +1,375 @@
-.dice-roll .dice-result .dice-tooltip {
-    .damage-type {
-        margin-bottom: 3px;
+@use "sass:color";
 
-        h3 {
-            text-transform: capitalize;
-            padding-left: 3px;
-            padding-right: 1px;
+.message-content {
+    .damage-roll {
+        &:not(:first-child) {
+            margin-top: 1em;
         }
 
-        i.fa {
-            flex: none;
-            margin: 2px;
-        }
+        .dice-result {
+            .dice-formula {
+                align-items: center;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25em;
+                justify-content: center;
 
-        .dice {
-            margin-left: 2px;
-            margin-right: 2px;
-        }
+                .instance {
+                    padding: 0 0.25em;
+                }
+            }
 
-        &.acid {
-            border: solid 1px darkgreen;
-            h3 {
-                color: darkgreen;
-                background-color: rgba(0, 100, 0, 0.25);
+            .dice-total {
+                flex-direction: column;
+                font-weight: normal;
+
+                .total {
+                    font-weight: 700;
+                    padding: 0 2ch;
+
+                    .increased-from {
+                        color: var(--color-text-dark-2);
+                        font-size: var(--font-size-16);
+                        font-weight: normal;
+                        vertical-align: 15%;
+                    }
+                }
+
+                .instances {
+                    align-items: center;
+                    display: flex;
+                    font-size: var(--font-size-12);
+                    justify-content: center;
+                    line-height: var(--font-size-12);
+                    margin-bottom: 0.2em;
+                    vertical-align: top;
+
+                    .instance {
+                        padding: 0.15em 0.25em;
+                    }
+                }
             }
-        }
-        &.bludgeoning {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
+
+            .dice-tooltip {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25em;
+                margin-bottom: 0.25em;
+
+                .instance {
+                    border-radius: 2px;
+                    border-style: solid;
+                    border-width: 1px;
+
+                    > header {
+                        align-items: center;
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 0.1em;
+                    }
+
+                    .dice {
+                        .part-formula, .part-total {
+                            color: var(--color-text-dark-secondary);
+                        }
+                    }
+
+                    > header, .dice {
+                        padding: 0.2em;
+                    }
+                }
             }
-        }
-        &.chaotic {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
+
+            .instance {
+                $darker: -12.5%;
+                $transparent: 0.125;
+                white-space: nowrap;
+
+                // Default coloration
+                &:not(.tooltip-part), &.tooltip-part > header {
+                    background: rgba($damage-physical, $transparent);
+                }
+
+                &.acid {
+                    border-color: $damage-acid;
+                    color: color.adjust($damage-acid, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-acid, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-acid;
+                    }
+                }
+
+                &.bleed {
+                    border-color: $damage-bleed;
+                    color: color.adjust($damage-bleed, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-bleed, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-bleed;
+                    }
+                }
+
+                &.bludgeoning {
+                    border-color: $damage-physical;
+                    color: color.adjust($damage-physical, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-physical, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-physical;
+                    }
+                }
+
+                &.chaotic {
+                    border-color: $damage-chaotic;
+                    color: color.adjust($damage-chaotic, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-chaotic, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-chaotic;
+                    }
+                }
+
+                &.cold {
+                    border-color: $damage-cold;;
+                    color: color.adjust($damage-cold, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-cold, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-cold;
+                    }
+                }
+
+                &.electricity {
+                    border-color: $damage-electricity;
+                    color: color.adjust($damage-electricity, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-electricity, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-electricity;
+                    }
+                }
+
+                &.evil {
+                    border-color: $damage-evil;
+                    color: color.adjust($damage-evil, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-evil, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-evil;
+                    }
+                }
+
+                &.fire {
+                    border-color: $damage-fire;
+                    color: color.adjust($damage-fire, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-fire, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-fire;
+                    }
+                }
+
+                &.force {
+                    border-color: $damage-force;
+                    color: color.adjust($damage-force, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-force, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-force;
+                    }
+                }
+
+                &.good {
+                    border-color: $damage-good;
+                    color: color.adjust($damage-good, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-good, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-good;
+                    }
+                }
+
+                &.lawful {
+                    border-color: $damage-lawful;
+                    color: color.adjust($damage-lawful, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-lawful, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-lawful;
+                    }
+
+                }
+
+                &.mental {
+                    border-color: $damage-mental;
+                    color: color.adjust($damage-mental, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-mental, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-mental;
+                    }
+                }
+
+                &.negative {
+                    border-color: $damage-negative;
+                    color: $damage-negative;
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-negative, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-negative;
+                    }
+                }
+
+                &.piercing {
+                    border-color: $damage-physical;
+                    color: color.adjust($damage-physical, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-physical, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-physical;
+                    }
+                }
+
+                &.poison {
+                    border-color: $damage-poison;
+                    color: color.adjust($damage-poison, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-poison, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-poison;
+                    }
+                }
+
+                &.positive {
+                    border-color: $damage-positive;
+                    color: color.adjust($damage-positive, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-positive, $transparent);
+                        text-shadow: 1px 1px black;
+                    }
+
+                    .icon {
+                        color: $damage-positive;
+                    }
+                }
+
+                &.slashing {
+                    border-color: $damage-physical;
+                    color: color.adjust($damage-physical, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-physical, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-physical;
+                    }
+                }
+
+                &.sonic {
+                    border-color: $damage-sonic;
+                    color: color.adjust($damage-sonic, $lightness: $darker);
+
+                    &:not(.tooltip-part), &.tooltip-part > header {
+                        background: rgba($damage-sonic, $transparent);
+                    }
+
+                    .icon {
+                        color: $damage-sonic;
+                    }
+                }
+
+                .precision, .splash {
+                    border-color: inherit;
+                    border-width: 1px;
+                    border-style: dotted;
+                    padding: 1px 2px;
+                    line-height: 0;
+                }
             }
-        }
-        &.cold {
-            border: solid 1px darkblue;
-            h3 {
-                color: darkblue;
-                background-color: rgba(0, 0, 139, 0.25);
-            }
-        }
-        &.electricity {
-            border: solid 1px darkgoldenrod;
-            h3 {
-                color: darkgoldenrod;
-                background-color: rgba(184, 134, 11, 0.25);
-            }
-        }
-        &.evil {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.fire {
-            border: solid 1px darkred;
-            h3 {
-                color: darkred;
-                background-color: rgba(139, 0, 0, 0.25);
-            }
-        }
-        &.force {
-            border: solid 1px darkmagenta;
-            h3 {
-                color: darkmagenta;
-                background-color: rgba(139, 0, 139, 0.25);
-            }
-        }
-        &.good {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.lawful {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.mental {
-            border: solid 1px midnightblue;
-            h3 {
-                color: midnightblue;
-                background-color: rgba(25, 25, 112, 0.25);
-            }
-        }
-        &.negative {
-            border: solid 1px #000000;
-            h3 {
-                color: #000000;
-                background-color: rgba(0, 0, 0, 0.25);
-            }
-        }
-        &.piercing {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.poison {
-            border: solid 1px darkolivegreen;
-            h3 {
-                color: darkolivegreen;
-                background-color: rgba(85, 107, 47, 0.25);
-            }
-        }
-        &.positive {
-            border: solid 1px #ffffff;
-            h3 {
-                color: #ffffff;
-                background-color: rgba(255, 255, 255, 0.25);
-                text-shadow: 1px 1px rgba(0, 0, 0, 0.35);
-            }
-        }
-        &.slashing {
-            border: solid 1px #3c3c3c;
-            h3 {
-                color: #3c3c3c;
-                background-color: rgba(60, 60, 60, 0.25);
-            }
-        }
-        &.sonic {
-            border: solid 1px darkcyan;
-            h3 {
-                color: darkcyan;
-                background-color: rgba(0, 139, 139, 0.25);
+
+            .dice-tooltip {
+                .damage-type {
+                    margin-bottom: 3px;
+
+                    h3 {
+                        text-transform: capitalize;
+                        padding-left: 3px;
+                        padding-right: 1px;
+                    }
+
+                    i.fa {
+                        flex: none;
+                        margin: 2px;
+                    }
+
+                    .dice {
+                        margin-left: 2px;
+                        margin-right: 2px;
+                    }
+
+                }
+
+                .dice .part-header .part-flavor {
+                    text-transform: capitalize;
+                }
             }
         }
     }
 
-    .dice .part-header .part-flavor {
-        text-transform: capitalize;
-    }
-}
 
-> .message-content {
-    .chat-damage-buttons {
+    .damage-application {
         display: flex;
         justify-content: center;
         margin-top: 3px;
+        order: 3;
 
         button {
             align-items: center;
@@ -193,6 +413,19 @@
                 font-size: var(--font-size-9);
                 font-weight: 500;
                 text-transform: uppercase;
+            }
+        }
+    }
+
+
+    .damage-taken {
+        .persistent {
+            font-style: normal;
+            margin-top: 1em;
+
+            h4 {
+                border-bottom: 1px solid var(--color-underline-header);
+                max-width: fit-content;
             }
         }
     }

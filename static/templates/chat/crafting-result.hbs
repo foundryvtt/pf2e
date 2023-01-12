@@ -1,0 +1,26 @@
+<div class="pf2e chat-card" data-crafting-result="{{craftingData}}" data-item-uuid="{{item.uuid}}" data-crafting-quantity="{{quantity}}">
+    <div class="card-content">
+        <div style="display: flex; align-items: center; margin-bottom: 3px;">
+            <img src="{{item.img}}" style="height:32px; width:32px; margin-right: 3px;">
+            <span>{{quantity}} x {{{strings.itemLink}}}</span>
+        </div>
+        <hr>
+        {{#if (and success (not free))}}
+            <p><strong>{{localize "PF2E.Actions.Craft.Details.Discount"}}</strong> {{strings.reductionPerDay}}</p>
+            <p><strong>{{localize "PF2E.Actions.Craft.Details.DaysForNoCost"}}</strong> {{daysForZeroCost}}</p>
+        {{/if}}
+    </div>
+    <hr>
+    <div class="card-buttons">
+        {{#if (not free)}}
+            {{#if success}}
+                <button type="button" data-action="pay-crafting-costs" class="materials">{{strings.materialCost}}</button>
+                <button type="button" data-action="pay-crafting-costs" class="full">{{strings.itemCost}}</button>
+            {{else if criticalFailure}}
+                <button type="button" data-action="lose-materials">{{strings.lostMaterials}}</button>
+            {{/if}}
+        {{else}}
+            <button type="button" data-action="receieve-crafting-item">{{localize "PF2E.Actions.Craft.Details.ReceiveItem"}}</button>
+        {{/if}}
+    </div>
+</div>

@@ -126,11 +126,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -148,7 +145,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You conjure a bank of fog so thick it impedes movement as well as sight. This functions as <em>@Compendium[pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}</em>, except that the area is also difficult terrain. You can Dismiss the spell.</p>"
+                    "value": "<p>You conjure a bank of fog so thick it impedes movement as well as sight. This functions as <em>@UUID[Compendium.pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}</em>, except that the area is also difficult terrain. You can Dismiss the spell.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -235,13 +232,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -344,11 +335,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -366,7 +354,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
+                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -465,8 +453,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d10",
-                    "value": ""
+                    "die": "d10"
                 },
                 "description": {
                     "value": "<p>This polearm is a long trident with a central prong that's longer than the other two.</p>"
@@ -506,20 +493,6 @@
                         "gp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -542,9 +515,6 @@
                 "slug": "ranseur",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -638,22 +608,12 @@
             "name": "Rock",
             "sort": 700000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -661,16 +621,11 @@
                     "value": "ammo"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
                     "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "held",
@@ -701,11 +656,6 @@
                     "value": {}
                 },
                 "quantity": 5,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": null,
@@ -713,11 +663,6 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -725,13 +670,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -1160,7 +1098,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The cloud giant Strikes a creature with its ranseur, surrounded in a roar of rushing air. On a hit, the target takes an additional [[/r {4d8}[bludgeoning]]]{4d8 bludgeoning damage} and is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute. Whether or not the Strike hits, each non-cloud giant within a @Template[type:emanation|distance:20]{20-foot emanation}, including the target of the Strike, is buffeted by roaring winds and must attempt a @Check[type:fortitude|dc:30|traits:damaging-effect] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {2d8}[sonic]]]{2d8 sonic damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {4d8}[sonic]]]{4d8 sonic damage} and is @Compendium[pf2e.conditionitems.Deafened]{Deafened} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage and also knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+                    "value": "<p>The cloud giant Strikes a creature with its ranseur, surrounded in a roar of rushing air. On a hit, the target takes an additional [[/r 4d8[bludgeoning]]] damage and is @UUID[Compendium.pf2e.conditionitems.Deafened]{Deafened} for 1 minute. Whether or not the Strike hits, each non-cloud giant within a @Template[type:emanation|distance:20]{20-foot emanation}, including the target of the Strike, is buffeted by roaring winds and must attempt a @Check[type:fortitude|dc:30|traits:damaging-effect] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 2d8[sonic]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 4d8[sonic]]] damage and is @UUID[Compendium.pf2e.conditionitems.Deafened]{Deafened} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but double damage and also knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1429,13 +1367,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

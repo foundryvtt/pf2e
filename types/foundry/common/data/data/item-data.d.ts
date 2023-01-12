@@ -21,12 +21,12 @@ declare module foundry {
             _id: string;
             name: string;
             type: TType;
-            img: ImagePath;
+            img: ImageFilePath;
             system: TSystemSource;
             effects: ActiveEffectSource[];
             folder?: string | null;
             sort: number;
-            ownership: Record<string, PermissionLevel>;
+            ownership: Record<string, DocumentOwnershipLevel>;
             flags: ItemFlags;
         }
 
@@ -34,31 +34,6 @@ declare module foundry {
             TDocument extends documents.BaseItem,
             TActiveEffect extends documents.BaseActiveEffect
         > extends abstract.DocumentData<TDocument> {
-            static override defineSchema(): {
-                _id: typeof fields.DOCUMENT_ID;
-                name: typeof fields.REQUIRED_STRING;
-                type: {
-                    type: typeof String;
-                    required: true;
-                    validate: (t: string) => boolean;
-                    validationError: "The provided Item type must be in the array of types defined by the game system";
-                };
-                img: typeof fields.IMAGE_FIELD;
-                data: typeof fields.OBJECT_FIELD;
-                effects: {
-                    type: {
-                        ActiveEffect: typeof documents.BaseActiveEffect;
-                    };
-                    required: true;
-                    default: never[];
-                    isCollection: true;
-                };
-                folder: fields.ForeignDocumentField<{ type: typeof documents.BaseFolder }>;
-                sort: typeof fields.INTEGER_SORT_FIELD;
-                permission: typeof fields.DOCUMENT_PERMISSIONS;
-                flags: typeof fields.OBJECT_FIELD;
-            };
-
             protected override _initializeSource(data: this["_source"]): this["_source"];
 
             /** A collection of ActiveEffect embedded Documents */

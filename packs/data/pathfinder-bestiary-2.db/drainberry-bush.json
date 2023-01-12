@@ -156,7 +156,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The drainberry bush can use Diplomacy to @Compendium[pf2e.actionspf2e.Make an Impression]{Make an Impression} on and make very simple @Compendium[pf2e.actionspf2e.Request]{Requests} of animals and plant creatures.</p>"
+                    "value": "<p>The drainberry bush can use Diplomacy to @UUID[Compendium.pf2e.actionspf2e.Make an Impression]{Make an Impression} on and make very simple @UUID[Compendium.pf2e.actionspf2e.Request]{Requests} of animals and plant creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -196,7 +196,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The drainberry bush must drain blood from living creatures for sustenance. This causes clusters of bright red berries to grow among its branches.</p>\n<p>Each cluster of berries lasts for 1 day, and a drainberry bush typically has [[/r 1d6+3 #clusters]]{1d6+3 clusters} when encountered. When consumed, a cluster restores [[/r {2d8+10}[healing]]]{2d8+10 Hit Points}. This effect has the healing, necromancy, and primal traits.</p>\n<p>A creature can pluck a cluster of berries with a successful unarmed Strike or Thievery check against the bush's AC.</p>"
+                    "value": "<p>The drainberry bush must drain blood from living creatures for sustenance. This causes clusters of bright red berries to grow among its branches.</p>\n<p>Each cluster of berries lasts for 1 day, and a drainberry bush typically has [[/r 1d6+3 #clusters]]{1d6+3 clusters} when encountered. When consumed, a cluster restores [[/r (2d8+10)[healing]]]{2d8+10 Hit Points}. This effect has the healing, necromancy, and primal traits.</p>\n<p>A creature can pluck a cluster of berries with a successful unarmed Strike or Thievery check against the bush's AC.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -240,7 +240,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The bush draws nourishment from one cluster of blood berries, regaining [[/r {2d8+10}[healing]]]{2d8+10 Hit Points}. That berry cluster wrinkles and dies.</p>"
+                    "value": "<p>The bush draws nourishment from one cluster of blood berries, regaining [[/r (2d8+10)[healing]]]{2d8+10 Hit Points}. That berry cluster wrinkles and dies.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -285,7 +285,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The drainberry bush has at least one living creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} with one of its vines</p>\n<hr />\n<p><strong>Effect</strong> The bush's hollow thorns siphon blood from creatures it has grabbed. Each creature must succeed at a @Check[type:fortitude|dc:25|traits:damaging-effect] save or take [[/r 2d8+10]] damage and become @Compendium[pf2e.conditionitems.Drained]{Drained 1} (double damage and @Compendium[pf2e.conditionitems.Drained]{Drained 2} on a critical failure). For every creature damaged this way, a cluster of blood berries immediately grows along the bush's branches.</p>"
+                    "value": "<p><strong>Requirements</strong> The drainberry bush has at least one living creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} with one of its vines</p>\n<hr />\n<p><strong>Effect</strong> The bush's hollow thorns siphon blood from creatures it has grabbed. Each creature must succeed at a @Check[type:fortitude|dc:25|traits:damaging-effect] save or take [[/r 2d8+10]] damage and become @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (double damage and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} on a critical failure). For every creature damaged this way, a cluster of blood berries immediately grows along the bush's branches.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -593,6 +593,12 @@
             "perception": {
                 "value": 16
             },
+            "resistances": [
+                {
+                    "type": "negative",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -601,7 +607,13 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -637,25 +649,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "label": "Negative",
-                    "type": "negative",
-                    "value": "10"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "Can't Speak Any Language; Telepathy 100 feet",
                 "selected": [],

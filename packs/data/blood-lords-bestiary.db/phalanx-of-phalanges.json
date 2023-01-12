@@ -100,7 +100,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each other creature in the phalanx of phalanges' space takes [[/r {1d6}[piercing]]]{1d6 piercing damage} ([[/r {1d6+2}[piercing]]]{1d6 + 2 piercing damage} if the swarm is berserk) (@Check[type:reflex|dc:17|basic:true]). On a critical failure, the target is thoroughly pinned by the phalanges, becoming @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until it @Compendium[pf2e.actionspf2e.Escape]{Escapes} (DC 17) or until any creature uses 2 Interact actions to scrape away the bones pinning them down.</p>"
+                    "value": "<p>Each other creature in the phalanx of phalanges' space takes [[/r 1d6[piercing]]] damage ([[/r (1d6+2)[piercing]]] damage if the swarm is berserk) (@Check[type:reflex|dc:17|basic:true]). On a critical failure, the target is thoroughly pinned by the phalanges, becoming @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} until it @UUID[Compendium.pf2e.actionspf2e.Escape]{Escapes} (DC 17) or until any creature uses 2 Interact actions to scrape away the bones pinning them down.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -186,16 +186,89 @@
                 "temp": 0,
                 "value": 16
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 5
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 3
+                },
+                {
+                    "type": "electricity",
+                    "value": 3
+                },
+                {
+                    "type": "fire",
+                    "value": 3
+                },
+                {
+                    "type": "piercing",
+                    "value": 3
+                },
+                {
+                    "type": "slashing",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 3
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -228,62 +301,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 3
-                },
-                {
-                    "exceptions": "",
-                    "type": "electricity",
-                    "value": 3
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 3
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 3
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 3
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 3
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 3
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

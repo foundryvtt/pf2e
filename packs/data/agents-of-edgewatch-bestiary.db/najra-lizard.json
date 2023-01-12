@@ -200,7 +200,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Another creature in the najra lizard's square succeeds at a Deception check to Create a Diversion</p>\n<hr />\n<p><strong>Effect</strong> The najra lizard automatically successfully @Compendium[pf2e.actionspf2e.Create a Diversion]{Creates a Diversion} against the same targets.</p>"
+                    "value": "<p><strong>Trigger</strong> Another creature in the najra lizard's square succeeds at a Deception check to Create a Diversion</p>\n<hr />\n<p><strong>Effect</strong> The najra lizard automatically successfully @UUID[Compendium.pf2e.actionspf2e.Create a Diversion]{Creates a Diversion} against the same targets.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -240,7 +240,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The creature is extremely thirsty and can't quench its thirst while poisoned</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21|traits:poison]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> [[/r {1d4}[poison]]]{1d4 poison damage}, @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, and [[/r {1d4}]]{1d4 damage} that can't be recovered until the creature quenches its thirst (1 round)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 hour)</p>"
+                    "value": "<p>The creature is extremely thirsty and can't quench its thirst while poisoned</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21|traits:poison]</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> [[/r 1d4[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued}, and [[/r {1d4}]]{1d4 damage} that can't be recovered until the creature quenches its thirst (1 round)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 hour)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -486,6 +486,14 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -531,16 +539,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

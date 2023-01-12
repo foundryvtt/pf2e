@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature approaches within 10 feet of the engine (marked with a \"T\" on the map)</p>\n<hr />\n<p><strong>Effect</strong> A loud whistle blows and all creatures within 30 feet take [[/r {2d6}[sonic]]]{2d6 sonic damage} and become @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} (@Check[type:fortitude|dc:20|basic:true|traits:hazard,haunt,complex]; creatures aren't stunned on a success). The lonely machine spirit then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 10 feet of the engine (marked with a \"T\" on the map)</p>\n<hr />\n<p><strong>Effect</strong> A loud whistle blows and all creatures within 30 feet take [[/r 2d6[sonic]]] damage and become @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1} (@Check[type:fortitude|dc:20|basic:true|traits:hazard,haunt,complex]; creatures aren't stunned on a success). The lonely machine spirit then rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -57,7 +57,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The airship's engine issues forth a cloud of alchemical smoke in a @Template[type:cone|distance:30]. Creatures within the cone must attempt a @Check[type:fortitude|dc:20|traits:hazard,haunt,complex] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {1d6}[poison]]]{1d6 poison damage} and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {2d6}[poison]]]{2d6 poison damage} and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {3d6}[poison]]]{3d6 poison damage} and is sickened 2.</p>"
+                    "value": "<p>The airship's engine issues forth a cloud of alchemical smoke in a @Template[type:cone|distance:30]. Creatures within the cone must attempt a @Check[type:fortitude|dc:20|traits:hazard,haunt,complex] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d6[poison]]] damage and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes [[/r 2d6[poison]]] damage and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 3d6[poison]]] damage and is sickened 2.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -143,10 +143,35 @@
                 "temp": 0,
                 "value": 44
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained)</p>",
                 "value": 13
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 5
+                },
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
         },
         "creatureType": "",
         "details": {
@@ -174,35 +199,10 @@
             }
         },
         "source": {
-            "value": "Pathfinder #178: Punks in a Powderkeg"
+            "value": "Pathfinder #178: Punks in a Powder Keg"
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 5
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 5
-                },
-                {
-                    "type": "positive",
-                    "value": 5
-                }
-            ],
             "rarity": "common",
             "size": {
                 "value": "med"

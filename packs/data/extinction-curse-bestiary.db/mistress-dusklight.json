@@ -234,13 +234,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -257,7 +251,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You drastically reduce the target's mental faculties. The target must attempt a Will save. The effects of this curse can be removed only through remove curse or another effect that targets curses.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 4} with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The target's intellect is permanently reduced below that of an animal, and it treats its Charisma, Intelligence, and Wisdom modifiers as -5. It loses all class abilities that require mental faculties, including all spellcasting. If the target is a PC, they become an NPC under the GM's control.</p>"
+                    "value": "<p>You drastically reduce the target's mental faculties. The target must attempt a Will save. The effects of this curse can be removed only through remove curse or another effect that targets curses.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 4} with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The target's intellect is permanently reduced below that of an animal, and it treats its Charisma, Intelligence, and Wisdom modifiers as -5. It loses all class abilities that require mental faculties, including all spellcasting. If the target is a PC, they become an NPC under the GM's control.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -269,7 +263,6 @@
                     "value": 6
                 },
                 "location": {
-                    "heightenedLevel": 6,
                     "value": "oUCSylGhNS9ioPWO"
                 },
                 "materials": {
@@ -326,7 +319,8 @@
                     "value": [
                         "curse",
                         "incapacitation",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -346,13 +340,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -369,7 +357,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>A cloak of swirling colors shrouds the target. Creatures are @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} while adjacent to it, and attacking the target causes a brilliant flash of light. A creature that hits the target with a melee attack must attempt a Will save.The creature is temporarily immune until the end of its turn; this effect has the incapacitation trait.</p>\n<hr />\n<p><strong>Success</strong> The attacker is unaffected.</p>\n<p><strong>Failure</strong> The attacker is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Critical Failure</strong> The attacker is @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1 round.</p>"
+                    "value": "<p>A cloak of swirling colors shrouds the target. Creatures are @UUID[Compendium.pf2e.conditionitems.Dazzled]{Dazzled} while adjacent to it, and attacking the target causes a brilliant flash of light. A creature that hits the target with a melee attack must attempt a Will save.The creature is temporarily immune until the end of its turn; this effect has the incapacitation trait.</p>\n<hr />\n<p><strong>Success</strong> The attacker is unaffected.</p>\n<p><strong>Failure</strong> The attacker is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Critical Failure</strong> The attacker is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned} for 1 round.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -381,7 +369,6 @@
                     "value": 5
                 },
                 "location": {
-                    "heightenedLevel": 5,
                     "value": "oUCSylGhNS9ioPWO"
                 },
                 "materials": {
@@ -436,6 +423,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "occult",
                         "visual"
                     ]
                 }
@@ -457,11 +445,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot cone"
+                    "type": "cone",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -479,7 +464,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The area increases to a 60-foot cone.</p>"
+                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The area increases to a 60-foot cone.</p>"
                 },
                 "duration": {
                     "value": "1 or more rounds"
@@ -487,11 +472,21 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "7": {
+                            "area": {
+                                "areaType": "cone",
+                                "value": "60"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 5
                 },
                 "location": {
-                    "heightenedLevel": 5,
                     "value": "oUCSylGhNS9ioPWO"
                 },
                 "materials": {
@@ -547,7 +542,8 @@
                     "rarity": "common",
                     "value": [
                         "emotion",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -567,13 +563,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "focus"
                 },
@@ -590,7 +580,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You mime an @Compendium[pf2e.conditionitems.Invisible]{Invisible} 10-foot-by-10-foot stretch of wall adjacent to you and within your reach. The wall is solid to those creatures that don't disbelieve it, even incorporeal creatures. You and your allies can voluntarily believe the wall exists to continue to treat it as solid, for instance to climb onto it. A creature that disbelieves the illusion is temporarily immune to your house of imaginary walls for 1 minute. The wall doesn't block creatures that didn't see your visual performance, nor does it block objects. The wall has AC 10, Hardness equal to double the spell's level, and HP equal to quadruple the spell's level.</p>"
+                    "value": "<p>You mime an @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} 10-foot-by-10-foot stretch of wall adjacent to you and within your reach. The wall is solid to those creatures that don't disbelieve it, even incorporeal creatures. You and your allies can voluntarily believe the wall exists to continue to treat it as solid, for instance to climb onto it. A creature that disbelieves the illusion is temporarily immune to your house of imaginary walls for 1 minute. The wall doesn't block creatures that didn't see your visual performance, nor does it block objects. The wall has AC 10, Hardness equal to double the spell's level, and HP equal to quadruple the spell's level.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -654,6 +644,7 @@
                     "custom": "",
                     "rarity": "uncommon",
                     "value": [
+                        "arcane",
                         "bard",
                         "cantrip",
                         "composition",
@@ -677,13 +668,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -699,8 +684,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "mental"
                             },
                             "value": "8d6"
@@ -708,7 +695,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You create a phantasmal image of the most fearsome creature imaginable to the target. Only the spell's target can see the killer, though you can see the vague shape of the illusion as it races forth to attack. The effect of the killer is based on the outcome of the target's Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 4d6 mental damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target takes 8d6 mental damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is so afraid it might die. It must attempt a Fortitude save; if the target fails, it dies. On a successful Fortitude save, the target takes 12d6 mental damage, is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} until the end of its next turn, and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}. This effect has the incapacitation trait.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 on a failure and by 3d6 on a critical failure.</p>"
+                    "value": "<p>You create a phantasmal image of the most fearsome creature imaginable to the target. Only the spell's target can see the killer, though you can see the vague shape of the illusion as it races forth to attack. The effect of the killer is based on the outcome of the target's Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 4d6 mental damage and is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target takes 8d6 mental damage and is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is so afraid it might die. It must attempt a Fortitude save; if the target fails, it dies. On a successful Fortitude save, the target takes 12d6 mental damage, is @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} until the end of its next turn, and is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 4}. This effect has the incapacitation trait.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 on a failure and by 3d6 on a critical failure.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -727,7 +714,6 @@
                     "value": 4
                 },
                 "location": {
-                    "heightenedLevel": 4,
                     "value": "oUCSylGhNS9ioPWO"
                 },
                 "materials": {
@@ -785,7 +771,8 @@
                         "death",
                         "emotion",
                         "fear",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -805,13 +792,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -827,8 +808,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "6d6"
@@ -912,7 +895,8 @@
                     "rarity": "common",
                     "value": [
                         "death",
-                        "negative"
+                        "negative",
+                        "occult"
                     ]
                 }
             },
@@ -932,13 +916,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -962,6 +940,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 2
@@ -1022,7 +1010,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "occult"
+                    ]
                 }
             },
             "type": "spell"
@@ -1041,13 +1031,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1064,7 +1048,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laugher. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @Compendium[pf2e.conditionitems.Prone]{Prone} and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
+                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laugher. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -1076,7 +1060,6 @@
                     "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 2,
                     "value": "oUCSylGhNS9ioPWO"
                 },
                 "materials": {
@@ -1132,7 +1115,8 @@
                     "rarity": "common",
                     "value": [
                         "emotion",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -1152,13 +1136,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1175,13 +1153,23 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You cause the target to see all other creatures as dire threats. The target is stricken by intense paranoia toward all creatures around it and must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target believes everyone it sees is a potential threat. It becomes @Compendium[pf2e.conditionitems.Unfriendly]{Unfriendly} to all creatures to which it wasn't already hostile, even those that were previously allies. It treats no one as an ally. The spell ends after 1 round.</p>\n<p><strong>Failure</strong> As success, but the effect lasts 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, except the target believes that everyone it sees is a mortal enemy. It uses its reactions and free actions against everyone, regardless of whether they were previously its allies, as determined by the GM. It otherwise acts as rationally as it normally does and likely prefers to attack creatures that are actively attacking or hindering it over those leaving it alone.</p>\n<hr /><strong>Heightened (6th)</strong> You can target up to 5 creatures."
+                    "value": "<p>You cause the target to see all other creatures as dire threats. The target is stricken by intense paranoia toward all creatures around it and must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target believes everyone it sees is a potential threat. It becomes @UUID[Compendium.pf2e.conditionitems.Unfriendly]{Unfriendly} to all creatures to which it wasn't already hostile, even those that were previously allies. It treats no one as an ally. The spell ends after 1 round.</p>\n<p><strong>Failure</strong> As success, but the effect lasts 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, except the target believes that everyone it sees is a mortal enemy. It uses its reactions and free actions against everyone, regardless of whether they were previously its allies, as determined by the GM. It otherwise acts as rationally as it normally does and likely prefers to attack creatures that are actively attacking or hindering it over those leaving it alone.</p>\n<hr /><strong>Heightened (6th)</strong> You can target up to 5 creatures."
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "6": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 2
@@ -1241,7 +1229,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -1261,13 +1250,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1296,7 +1279,6 @@
                     "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 2,
                     "value": "oUCSylGhNS9ioPWO"
                 },
                 "materials": {
@@ -1350,7 +1332,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "occult"
+                    ]
                 }
             },
             "type": "spell"
@@ -1369,13 +1353,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1392,7 +1370,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You dull the target's mind; the target must attempt a Will save.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 4}.</p>"
+                    "value": "<p>You dull the target's mind; the target must attempt a Will save.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 4}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1404,7 +1382,6 @@
                     "value": 2
                 },
                 "location": {
-                    "heightenedLevel": 2,
                     "value": "oUCSylGhNS9ioPWO"
                 },
                 "materials": {
@@ -1459,7 +1436,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -1479,13 +1457,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1502,13 +1474,23 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} condition), release what it's holding, drop @Compendium[pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened (5th)</strong> You can target up to 10 creatures."
+                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} condition), release what it's holding, drop @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened (5th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
                     "value": "until the end of the target's next turn"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -1572,7 +1554,8 @@
                     "value": [
                         "auditory",
                         "linguistic",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -1593,11 +1576,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot emanation"
+                    "type": "emanation",
+                    "value": 60
                 },
                 "category": {
                     "value": "focus"
@@ -1678,6 +1658,7 @@
                     "custom": "",
                     "rarity": "uncommon",
                     "value": [
+                        "arcane",
                         "bard",
                         "composition",
                         "fortune",
@@ -1701,13 +1682,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1792,8 +1767,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "cantrip",
                         "light",
-                        "cantrip"
+                        "occult"
                     ]
                 }
             },
@@ -1813,13 +1789,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1838,6 +1808,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "mental"
                             },
                             "value": "0"
@@ -1845,7 +1816,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -1921,7 +1892,8 @@
                     "value": [
                         "cantrip",
                         "mental",
-                        "nonlethal"
+                        "nonlethal",
+                        "occult"
                     ]
                 }
             },
@@ -1942,11 +1914,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -2033,8 +2002,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "cantrip",
                         "detection",
-                        "cantrip"
+                        "occult"
                     ]
                 }
             },
@@ -2054,13 +2024,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2077,7 +2041,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -2168,13 +2132,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2191,7 +2149,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Forbidding Ward]{Spell Effect: Forbidding Ward}</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>"
+                    "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Forbidding Ward]{Spell Effect: Forbidding Ward}</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -2257,7 +2215,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "cantrip"
+                        "cantrip",
+                        "occult"
                     ]
                 }
             },
@@ -2278,11 +2237,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot emanation"
+                    "type": "emanation",
+                    "value": 60
                 },
                 "category": {
                     "value": "focus"
@@ -2300,7 +2256,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Inspire Courage]{Spell Effect: Inspire Courage}</p>"
+                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Inspire Courage]{Spell Effect: Inspire Courage}</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -2364,6 +2320,7 @@
                     "custom": "",
                     "rarity": "uncommon",
                     "value": [
+                        "arcane",
                         "bard",
                         "cantrip",
                         "composition",
@@ -2388,13 +2345,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2411,7 +2362,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You alter the appearance of an item's magic aura. You can choose to have the target's aura appear as that of common magic item of twice magic aura's level or lower, or to have it register as being under the effects of a spell of your choice of magic aura's level or lower. If the target is magical, you can instead choose to have it appear as entirely non-magical. A caster using <em>@Compendium[pf2e.spells-srd.Detect Magic]{Detect Magic}</em> or <em>@Compendium[pf2e.spells-srd.Read Aura]{Read Aura}</em> of an equal or higher spell level can attempt to disbelieve the illusion from magic aura. Magic aura doesn't mask the aura of spells that are 9th level or higher or of items that are 19th level or higher.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target a creature instead of an object. When you do, you can either conceal the auras of all magic items it has or have that creature's aura appear as if it were under the effect of a spell you know.</p>"
+                    "value": "<p>You alter the appearance of an item's magic aura. You can choose to have the target's aura appear as that of common magic item of twice magic aura's level or lower, or to have it register as being under the effects of a spell of your choice of magic aura's level or lower. If the target is magical, you can instead choose to have it appear as entirely non-magical. A caster using <em>@UUID[Compendium.pf2e.spells-srd.Detect Magic]{Detect Magic}</em> or <em>@UUID[Compendium.pf2e.spells-srd.Read Aura]{Read Aura}</em> of an equal or higher spell level can attempt to disbelieve the illusion from magic aura. Magic aura doesn't mask the aura of spells that are 9th level or higher or of items that are 19th level or higher.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target a creature instead of an object. When you do, you can either conceal the auras of all magic items it has or have that creature's aura appear as if it were under the effect of a spell you know.</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -2419,11 +2370,20 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "1 object of 3 bulk or less, or 1 creature"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
                     "value": "oUCSylGhNS9ioPWO"
                 },
                 "materials": {
@@ -2477,7 +2437,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "uncommon",
-                    "value": []
+                    "value": [
+                        "occult"
+                    ]
                 }
             },
             "type": "spell"
@@ -2496,13 +2458,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2518,8 +2474,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "force"
                             },
                             "value": "1d4+1"
@@ -2545,6 +2503,7 @@
                 "materials": {
                     "value": ""
                 },
+                "overlays": {},
                 "prepared": {
                     "value": ""
                 },
@@ -2594,7 +2553,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "force"
+                        "force",
+                        "occult"
                     ]
                 }
             },
@@ -2614,13 +2574,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2649,7 +2603,6 @@
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
                     "value": "oUCSylGhNS9ioPWO"
                 },
                 "materials": {
@@ -2703,7 +2656,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -2723,13 +2677,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2815,7 +2763,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "cantrip"
+                        "cantrip",
+                        "occult"
                     ]
                 }
             },
@@ -2835,13 +2784,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2857,16 +2800,18 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "value": "healing"
+                                "subtype": "",
+                                "value": ""
                             },
                             "value": "1d10+4"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Soothe]{Spell Effect: Soothe}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
+                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Soothe]{Spell Effect: Soothe}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2941,7 +2886,8 @@
                     "value": [
                         "emotion",
                         "healing",
-                        "mental"
+                        "mental",
+                        "occult"
                     ]
                 }
             },
@@ -2961,13 +2907,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -2984,7 +2924,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You summon an unseen servant, which you can command as part of Sustaining the Spell. It serves you until its Hit Points are reduced to 0, at which point the spell ends, or until you stop Sustaining the Spell. The unseen servant gains the summoned trait.</p>\n<hr />\n<p>@Compendium[pf2e.pathfinder-bestiary.Unseen Servant]{Unseen Servant} (No Alignment)</p>"
+                    "value": "<p>You summon an unseen servant, which you can command as part of Sustaining the Spell. It serves you until its Hit Points are reduced to 0, at which point the spell ends, or until you stop Sustaining the Spell. The unseen servant gains the summoned trait.</p>\n<hr />\n<p>@UUID[Compendium.pf2e.pathfinder-bestiary.Unseen Servant]{Unseen Servant} (No Alignment)</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -2996,7 +2936,6 @@
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 1,
                     "value": "oUCSylGhNS9ioPWO"
                 },
                 "materials": {
@@ -3050,7 +2989,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "occult"
+                    ]
                 }
             },
             "type": "spell"
@@ -3081,15 +3022,14 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -3109,7 +3049,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -3121,20 +3061,6 @@
                     "value": {
                         "sp": 2
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -3159,15 +3085,12 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -3214,15 +3137,14 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
-                    "value": "<p>The handle of this braided leather +1 striking whip is made from the hairs of a variety of rare and mythical animals. When used against an animal, the whip of complia<em>nce</em> can potentially force the target to follow your commands.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> command</p>\n<hr />\n<p><strong>Effect</strong> Until the end of your current turn, any animals you Strike with the whip must attempt a @Check[type:will|dc:25]. On a failed or critically failed saving throw, the whip casts a 4th-level <em>@Compendium[pf2e.spells-srd.Suggestion]{Suggestion}</em> spell on the animal with a base duration of 1 round, and the spell loses the linguistic trait. The course of action must still fulfill <em>suggestion's</em> requirements.</p>\n<p>If you can cast spells, you can expend one of your spells of 4th level or higher as a part of activating the whip; if you do so, the <em>suggestions</em> this turn have their normal base duration.</p>"
+                    "value": "<p>The handle of this braided leather +1 striking whip is made from the hairs of a variety of rare and mythical animals. When used against an animal, the <em>whip of compliance</em> can potentially force the target to follow your commands.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> command</p>\n<hr />\n<p><strong>Effect</strong> Until the end of your current turn, any animals you Strike with the whip must attempt a @Check[type:will|dc:25]. On a failed or critically failed saving throw, the whip casts a 4th-level <em>@UUID[Compendium.pf2e.spells-srd.Suggestion]{Suggestion}</em> spell on the animal with a base duration of 1 round, and the spell loses the linguistic trait. The course of action must still fulfill <em>suggestion's</em> requirements.</p>\n<p>If you can cast spells, you can expend one of your spells of 4th level or higher as a part of activating the whip; if you do so, the <em>suggestions</em> this turn have their normal base duration.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -3254,20 +3176,6 @@
                     "value": {
                         "gp": 3000
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -3301,7 +3209,7 @@
                     "value": true
                 },
                 "splashDamage": {
-                    "value": null
+                    "value": 0
                 },
                 "stackGroup": null,
                 "strikingRune": {
@@ -3313,6 +3221,7 @@
                     "value": [
                         "disarm",
                         "enchantment",
+                        "evocation",
                         "finesse",
                         "magical",
                         "nonlethal",
@@ -3357,7 +3266,8 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
+                    "handsHeld": 0,
+                    "inSlot": true,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -3378,13 +3288,13 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
@@ -3392,20 +3302,20 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "resiliencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "rules": [],
                 "size": "med",
@@ -3453,7 +3363,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "inSlot": false,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -3483,7 +3392,14 @@
                     }
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
                 "size": "med",
                 "slug": "religious-symbol-silver",
                 "source": {
@@ -3523,7 +3439,6 @@
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "inSlot": false,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -3553,7 +3468,14 @@
                     }
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
                 "size": "med",
                 "slug": "religious-symbol-silver",
                 "source": {
@@ -3575,7 +3497,7 @@
             "type": "equipment"
         },
         {
-            "_id": "JqSnDgDXwTjbhJLW",
+            "_id": "3BzPIWSalYh96dFx",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.vJZ49cgi8szuQXAD"
@@ -3585,22 +3507,12 @@
             "name": "Wand of Magic Mouth (Level 2)",
             "sort": 3300000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
                     "_deprecated": true,
                     "value": false
                 },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -3608,16 +3520,11 @@
                     "value": "wand"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>@Compendium[pf2e.spells-srd.Magic Mouth]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Magic Mouth]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -3649,11 +3556,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "magic-wand-2nd-level-spell",
@@ -3661,7 +3563,7 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
-                    "_id": "eIQ86FOXK34HiNLs",
+                    "_id": null,
                     "flags": {
                         "core": {
                             "sourceId": "Compendium.pf2e.spells-srd.eIQ86FOXK34HiNLs"
@@ -3674,13 +3576,7 @@
                         "ability": {
                             "value": ""
                         },
-                        "area": {
-                            "areaType": "",
-                            "value": null
-                        },
-                        "areasize": {
-                            "value": ""
-                        },
+                        "area": null,
                         "category": {
                             "value": "spell"
                         },
@@ -3772,11 +3668,6 @@
                     "type": "spell"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -3790,13 +3681,6 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "uses": {
-                    "autoDestroy": false,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
                 "weight": {
                     "value": "L"
                 }
@@ -3804,32 +3688,22 @@
             "type": "consumable"
         },
         {
-            "_id": "v0ZJdJ8tiOROXeTR",
+            "_id": "G4RxtZW5Dd8XP74g",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.UJWiN0K3jqVjxvKk"
+                    "sourceId": "Compendium.pf2e.equipment-srd.vJZ49cgi8szuQXAD"
                 }
             },
             "img": "systems/pf2e/icons/equipment/wands/magic-wands/magic-wand.webp",
-            "name": "Wand of Ray of Enfeeblement (Level 1)",
+            "name": "Wand of Ray of Enfeeblement (Level 2)",
             "sort": 3400000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
                     "_deprecated": true,
                     "value": false
                 },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -3837,16 +3711,11 @@
                     "value": "wand"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>@Compendium[pf2e.spells-srd.Ray of Enfeeblement]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Ray of Enfeeblement]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -3861,7 +3730,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 3
+                    "value": 5
                 },
                 "negateBulk": {
                     "value": "0"
@@ -3874,23 +3743,18 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 60
+                        "gp": 160
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
-                "slug": "magic-wand-1st-level-spell",
+                "slug": "magic-wand-2nd-level-spell",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
                 "spell": {
-                    "_id": "J7Y7tl0bbdz7TcCc",
+                    "_id": null,
                     "flags": {
                         "core": {
                             "sourceId": "Compendium.pf2e.spells-srd.J7Y7tl0bbdz7TcCc"
@@ -3903,13 +3767,7 @@
                         "ability": {
                             "value": ""
                         },
-                        "area": {
-                            "areaType": "",
-                            "value": ""
-                        },
-                        "areasize": {
-                            "value": ""
-                        },
+                        "area": null,
                         "category": {
                             "value": "spell"
                         },
@@ -3926,7 +3784,7 @@
                             "value": {}
                         },
                         "description": {
-                            "value": "<p>A ray that saps a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save to determine the spell's effect. If your attack roll is a critical success, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
+                            "value": "<p>A ray that saps a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save to determine the spell's effect. If your attack roll is a critical success, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
                         },
                         "duration": {
                             "value": "1 minute"
@@ -3938,7 +3796,7 @@
                             "value": 1
                         },
                         "location": {
-                            "heightenedLevel": 1,
+                            "heightenedLevel": 2,
                             "value": ""
                         },
                         "materials": {
@@ -4001,11 +3859,6 @@
                     "type": "spell"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -4019,13 +3872,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": false,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -4222,7 +4068,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Mistress Dusklight shoots a captivating look at one creature within 60 feet, who must be @Compendium[pf2e.conditionitems.Stupefied]{Stupefied}. Until the end of its next turn, the creature is fascinated by Mistress Dusklight and can't use hostile actions toward her. The victim is then temporarily immune for 10 minutes.</p>"
+                    "value": "<p>Mistress Dusklight shoots a captivating look at one creature within 60 feet, who must be @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied}. Until the end of its next turn, the creature is fascinated by Mistress Dusklight and can't use hostile actions toward her. The victim is then temporarily immune for 10 minutes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -4267,7 +4113,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Mistress Dusklight must have fewer than 98 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> Mistress Dusklight spews a hatefully uttered curse at one creature within 30 feet that she can see. If the target fails a @Check[type:will|dc:32] save, whenever it attempts an attack roll or saving throw, it must roll twice and use the lower result. The target is then temporarily immune for 24 hours. The curse persists until it is removed or the target succeeds a later saving throw against it. The victim can attempt a new @Check[type:will|dc:32] save once per hour to end the curse.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Black Cat Curse]{Effect: Black Cat Curse}</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Mistress Dusklight must have fewer than 98 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> Mistress Dusklight spews a hatefully uttered curse at one creature within 30 feet that she can see. If the target fails a @Check[type:will|dc:32] save, whenever it attempts an attack roll or saving throw, it must roll twice and use the lower result. The target is then temporarily immune for 24 hours. The curse persists until it is removed or the target succeeds a later saving throw against it. The victim can attempt a new @Check[type:will|dc:32] save once per hour to end the curse.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Black Cat Curse]{Effect: Black Cat Curse}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -4730,13 +4576,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

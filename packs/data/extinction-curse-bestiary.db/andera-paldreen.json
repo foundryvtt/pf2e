@@ -28,15 +28,14 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d10",
-                    "value": ""
+                    "die": "d10"
                 },
                 "description": {
                     "value": "<p>This weapon is a heavier, two‑handed version of the curved‑bladed scimitar. It is weighted toward the blade's end, making it a powerful slashing weapon.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -69,20 +68,6 @@
                         "gp": 3
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -106,9 +91,6 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -120,7 +102,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "evocation",
                         "forceful",
+                        "magical",
                         "sweep"
                     ]
                 },
@@ -161,7 +145,8 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
+                    "handsHeld": 0,
+                    "inSlot": true,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -182,7 +167,7 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -196,20 +181,20 @@
                     }
                 },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "resiliencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "rules": [],
                 "size": "med",
@@ -252,7 +237,7 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>When displayed prominently, this brass badge makes creatures find you more agreeable. You gain a +1 item bonus to Diplomacy checks.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Recall Knowledge</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Attempt a DC 20 check to Recall Knowledge about people of a human ethnicity, a non-human ancestry, or some other type of creature. (The GM determines what your options are.) If you succeed, the badge's bonus increases to +2 for Diplomacy checks with creatures of that group for the rest of the day.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Diplomat's Badge]{Effect: Chief Constable's Badge}</p>"
+                    "value": "<p>When displayed prominently, this brass badge makes creatures find you more agreeable. You gain a +1 item bonus to Diplomacy checks.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Recall Knowledge</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> Attempt a DC 20 check to Recall Knowledge about people of a human ethnicity, a non-human ancestry, or some other type of creature. (The GM determines what your options are.) If you succeed, the badge's bonus increases to +2 for Diplomacy checks with creatures of that group for the rest of the day.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Diplomat's Badge]{Effect: Chief Constable's Badge}</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -377,7 +362,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Andera treats all Perception checks made to @Compendium[pf2e.actionspf2e.Sense Motive]{Sense Motive} as one degree of success better than the result of her check.</p>"
+                    "value": "<p>Andera treats all Perception checks made to @UUID[Compendium.pf2e.actionspf2e.Sense Motive]{Sense Motive} as one degree of success better than the result of her check.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -395,7 +380,7 @@
                             "action:sense-motive"
                         ],
                         "selector": "perception",
-                        "text": "Andera treats all Perception checks made to @Compendium[pf2e.actionspf2e.Sense Motive]{Sense Motive} as one degree of success better than the result of her check."
+                        "text": "Andera treats all Perception checks made to @UUID[Compendium.pf2e.actionspf2e.Sense Motive]{Sense Motive} as one degree of success better than the result of her check."
                     }
                 ],
                 "slug": null,
@@ -477,7 +462,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Andera makes an @Check[type:intimidation] check and compares it to the Will DC of each creature she chooses within 30 feet. Regardless of her result, the targets are temporarily immune for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 minute and becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Success</strong> The target takes a -10-foot penalty to all its Speeds for 1 minute and becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Call to Halt (Success)]{Effect: Call to Halt (Success)}</p>"
+                    "value": "<p>Andera makes an @Check[type:intimidation] check and compares it to the Will DC of each creature she chooses within 30 feet. Regardless of her result, the targets are temporarily immune for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 minute and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Success</strong> The target takes a -10-foot penalty to all its Speeds for 1 minute and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Call to Halt (Success)]{Effect: Call to Halt (Success)}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -797,13 +782,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

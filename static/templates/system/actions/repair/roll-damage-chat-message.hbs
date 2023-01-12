@@ -1,0 +1,12 @@
+{{> "systems/pf2e/templates/system/actions/repair/item-heading-partial.hbs"}}
+<div class="pf2e chat-card" data-item-uuid="{{item.uuid}}">
+    <p>
+        <strong>{{localize "PF2E.Actions.Repair.Labels.Hardness"}}</strong>
+        {{numberFormat item.system.hardness decimals=0 sign=false}}
+    </p>
+    {{#if (gt damage.dealt 0)}}
+    {{> "systems/pf2e/templates/system/actions/repair/chat-button-partial.hbs" result="damage" value=damage.rolled label=(localize "PF2E.Actions.Repair.Labels.DealItemDamage" value=damage.dealt)}}
+    {{else}}
+    <p>{{localize "PF2E.Actions.Repair.Labels.DamageMitigatedByHardness"}}</p>
+    {{/if}}
+</div>

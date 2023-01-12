@@ -259,7 +259,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Eloise's ghost laments her fate, forcing each living creature within 30 feet to attempt a @Check[type:will|dc:23] save.</p>\n<p>On a failure, a creature becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (or @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure). On a success, a creature is temporarily immune to this ghost's frightful moan for 1 minute.</p>"
+                    "value": "<p>Eloise's ghost laments her fate, forcing each living creature within 30 feet to attempt a @Check[type:will|dc:23] save.</p>\n<p>On a failure, a creature becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2} (or @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure). On a success, a creature is temporarily immune to this ghost's frightful moan for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -386,12 +386,46 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 13
             },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -433,26 +467,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
-                    "type": "all",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

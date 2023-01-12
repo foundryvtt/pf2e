@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -158,7 +152,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r {1}[splash,acid]]]{1 splash acid damage}. On a critical success, the target also takes [[/r {1}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to [[/r {2}[persistent,acid]]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r {3}[persistent,acid]]], and the splash damage increases to [[/r {2}[splash,acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r {4}[persistent,acid]]], and the splash damage increases to [[/r {3}[splash,acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r {5}[persistent,acid]]], and the splash damage increases to [[/r {4}[splash,acid]]].</p>"
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r {1}[splash,acid]]]{1 splash acid damage}. On a critical success, the target also takes [[/r 1[persistent,acid]]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to [[/r 2[persistent,acid]]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 3[persistent,acid]]], and the splash damage increases to [[/r {2}[splash,acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 4[persistent,acid]]], and the splash damage increases to [[/r {3}[splash,acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 5[persistent,acid]]], and the splash damage increases to [[/r {4}[splash,acid]]].</p>"
                 },
                 "duration": {
                     "value": ""
@@ -349,11 +343,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
+                    "type": "emanation",
                     "value": 5
-                },
-                "areasize": {
-                    "value": "5-foot emanation"
                 },
                 "category": {
                     "value": "spell"
@@ -486,8 +477,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>A light pick is a modified mining implement with a wooden shaft ending in a pick head crafted more to pierce armor and flesh than chip rocks.</p>"
@@ -527,20 +517,6 @@
                         "sp": 4
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -563,9 +539,6 @@
                 "slug": "light-pick",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -981,7 +954,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Akrida spits a gout of slimy green acid in a @Template[type:line|distance:30] that deals [[/r {5d6}[acid]]]{5d6 acid damage} (@Check[type:reflex|dc:20|basic:true]).</p>\n<p>Akrida can't use Breath Weapon again for [[/br 1d4 #Breath Weapon Cooldown]]{1d4 rounds}.</p>"
+                    "value": "<p>Akrida spits a gout of slimy green acid in a @Template[type:line|distance:30] that deals [[/r 5d6[acid]]] damage (@Check[type:reflex|dc:20|basic:true]).</p>\n<p>Akrida can't use Breath Weapon again for [[/br 1d4 #Breath Weapon Cooldown]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1142,6 +1115,12 @@
             "perception": {
                 "value": 10
             },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1183,18 +1162,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "acid",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

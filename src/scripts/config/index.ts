@@ -1,9 +1,13 @@
+import { CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, VehiclePF2e } from "@actor";
+import { SenseAcuity, SenseType } from "@actor/creature/sense";
+import { Alignment } from "@actor/creature/types";
+import { ActorType } from "@actor/data";
 import {
     ActionItemPF2e,
     AncestryPF2e,
+    ArmorPF2e,
     BackgroundPF2e,
     BookPF2e,
-    ArmorPF2e,
     ClassPF2e,
     ConditionPF2e,
     ConsumablePF2e,
@@ -16,22 +20,31 @@ import {
     KitPF2e,
     LorePF2e,
     MeleePF2e,
-    SpellPF2e,
     SpellcastingEntryPF2e,
+    SpellPF2e,
     TreasurePF2e,
     WeaponPF2e,
 } from "@item";
-import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor";
 import { ConditionSlug } from "@item/condition/data";
+import { RANGE_TRAITS } from "@item/data/values";
+import { DeityDomain } from "@item/deity/types";
+import { FeatType } from "@item/feat/data";
 import { WEAPON_PROPERTY_RUNES } from "@item/physical/runes";
 import { PreciousMaterialGrade } from "@item/physical/types";
-import { DamageCategory, DamageType } from "@system/damage/types";
-import { ImmunityType, ResistanceType, WeaknessType } from "@actor/data/base";
-import { RANGE_TRAITS } from "@item/data/values";
-import { ActorType } from "@actor/data";
-import { BaseWeaponType, MeleeWeaponGroup, WeaponGroup, WeaponPropertyRuneType } from "@item/weapon/types";
+import {
+    BaseWeaponType,
+    MeleeWeaponGroup,
+    WeaponGroup,
+    WeaponPropertyRuneType,
+    WeaponReloadTime,
+} from "@item/weapon/types";
+import { Size } from "@module/data";
+import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+import { DAMAGE_TYPES } from "@system/damage";
+import { DamageCategoryUnique, DamageType } from "@system/damage/types";
+import { pick, sluggify } from "@util";
 import enJSON from "../../../static/lang/en.json";
-import { SenseAcuity, SenseType } from "@actor/creature/sense";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr";
 import {
     actionTraits,
     alignmentTraits,
@@ -42,7 +55,6 @@ import {
     consumableTraits,
     creatureTraits,
     damageTraits,
-    elementalTraits,
     energyDamageTypes,
     equipmentTraits,
     featTraits,
@@ -51,7 +63,7 @@ import {
     magicTraditions,
     npcAttackTraits,
     otherArmorTags,
-    otherEquipmentTags,
+    otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
     spellOtherTraits,
@@ -59,13 +71,6 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits";
-import { JournalSheetPF2e } from "@module/journal-entry/sheet";
-import { Size } from "@module/data";
-import { FeatType } from "@item/feat/data";
-import { DeityDomain } from "@item/deity/types";
-import { sluggify } from "@util";
-import { Alignment } from "@actor/creature/types";
-import { WeaponReloadTime } from "@item/weapon/types";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -106,23 +111,33 @@ const weaponPropertyRunes = {
     }, {} as Record<WeaponPropertyRuneType, string>),
 };
 
-const damageCategories: Record<DamageCategory, string> = {
-    alignment: "PF2E.Alignment",
-    adamantine: "PF2E.PreciousMaterialAdamantine",
-    coldiron: "PF2E.PreciousMaterialColdIron",
-    darkwood: "PF2E.PreciousMaterialDarkwood",
-    energy: "PF2E.TraitEnergy",
-    ghostTouch: weaponPropertyRunes.ghostTouch,
-    mithral: "PF2E.PreciousMaterialMithral",
-    orichalcum: "PF2E.PreciousMaterialOrichalcum",
-    physical: "PF2E.TraitPhysical",
+const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
+    persistent: "PF2E.ConditionTypePersistentShort",
     precision: "PF2E.TraitPrecision",
-    salt: "PF2E.TraitSalt",
-    "salt-water": "PF2E.TraitSaltWater",
-    silver: "PF2E.PreciousMaterialSilver",
-    "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
-    "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
-    warpglass: "PF2E.PreciousMaterialWarpglass",
+    splash: "PF2E.TraitSplash",
+};
+
+const materialDamageEffects = pick(preciousMaterials, [
+    "abysium",
+    "adamantine",
+    "cold-iron",
+    "djezet",
+    "mithral",
+    "noqual",
+    "peachwood",
+    "silver",
+    "sisterstone-dusk",
+    "sisterstone-scarlet",
+    "sovereign-steel",
+    "warpglass",
+]);
+
+const damageCategories = {
+    ...damageCategoriesUnique,
+    ...materialDamageEffects,
+    alignment: "PF2E.Alignment",
+    energy: "PF2E.TraitEnergy",
+    physical: "PF2E.TraitPhysical",
 };
 
 const physicalDamageTypes = {
@@ -134,13 +149,17 @@ const physicalDamageTypes = {
 
 const damageTypes: Record<DamageType, string> = {
     ...alignmentTraits,
-    ...elementalTraits,
     ...energyDamageTypes,
     ...physicalDamageTypes,
     mental: "PF2E.TraitMental",
     poison: "PF2E.TraitPoison",
     untyped: "PF2E.TraitUntyped",
 };
+
+const damageRollFlavors = [...DAMAGE_TYPES].reduce((result, key) => {
+    result[key] = `PF2E.Damage.RollFlavor.${key}`;
+    return result;
+}, {} as Record<DamageType, string>);
 
 /** Non-detection- and attitude- related conditions added to the Token HUD */
 const tokenHUDConditions = {
@@ -192,79 +211,6 @@ const conditionTypes: Record<ConditionSlug, string> = {
     unnoticed: "PF2E.ConditionTypeUnnoticed",
 };
 
-const immunityTypes: Record<ImmunityType, string> = {
-    ...conditionTypes,
-    ...damageCategories,
-    ...damageTraits,
-    ...damageTypes,
-    ...magicSchools,
-    "area-damage": "PF2E.TraitAreaDamage",
-    auditory: "PF2E.TraitAuditory",
-    confusion: "PF2E.TraitConfusion",
-    "critical-hits": "PF2E.TraitCriticalHits",
-    curse: "PF2E.TraitCurse",
-    detection: "PF2E.TraitDetection",
-    "death-effects": "PF2E.TraitDeathEffects",
-    disease: "PF2E.TraitDisease",
-    emotion: "PF2E.TraitEmotion",
-    "fear-effects": "PF2E.TraitFearEffects",
-    ghostTouch: weaponPropertyRunes.ghostTouch,
-    healing: "PF2E.TraitHealing",
-    inhaled: "PF2E.TraitInhaled",
-    light: "PF2E.TraitLight",
-    magic: "PF2E.TraitMagic",
-    magical: "PF2E.TraitMagical",
-    "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
-    "nonmagical-attacks": "PF2E.TraitNonmagicalAttacks",
-    "object-immunities": "PF2E.TraitObjectImmunities",
-    olfactory: "PF2E.TraitOlfactory",
-    polymorph: "PF2E.TraitPolymorph",
-    possession: "PF2E.TraitPossession",
-    scrying: "PF2E.TraitScrying",
-    sleep: "PF2E.TraitSleep",
-    spellDeflection: "PF2E.TraitSpellDeflection",
-    "swarm-attacks": "PF2E.TraitSwarmAttacks",
-    "swarm-mind": "PF2E.TraitSwarmMind",
-    trip: "PF2E.TraitTrip",
-    unarmed: "PF2E.TraitUnarmed",
-    visual: "PF2E.TraitVisual",
-};
-
-const weaknessTypes: Record<WeaknessType, string> = {
-    ...damageCategories,
-    ...damageTraits,
-    ...damageTypes,
-    "area-damage": "PF2E.TraitAreaDamage",
-    axe: "PF2E.TraitAxeVulnerability",
-    "critical-hits": "PF2E.TraitCriticalHits",
-    emotion: "PF2E.TraitEmotion",
-    "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
-    "persistent-damage": "PF2E.ConditionTypePersistent",
-    "salt-water": "PF2E.TraitSaltWater",
-    "splash-damage": "PF2E.TraitSplashDamage",
-    "vampire-weaknesses": "PF2E.TraitVampireWeaknesses",
-    vorpal: weaponPropertyRunes.vorpal,
-    "vorpal-fear": "PF2E.TraitVorpalFear",
-    "vulnerable-to-sunlight": "PF2E.TraitVulnerableToSunlight",
-    unarmed: "PF2E.TraitUnarmed",
-    weapons: "PF2E.TraitWeapons",
-};
-
-const resistanceTypes: Record<ResistanceType, string> = {
-    ...damageCategories,
-    ...damageTraits,
-    ...damageTypes,
-    all: "PF2E.TraitAll",
-    "area-damage": "PF2E.TraitAreaDamage",
-    "critical-hits": "PF2E.TraitCriticalHits",
-    "nonlethal-attacks": "PF2E.TraitNonlethalAttacks",
-    "persistent-damage": "PF2E.ConditionTypePersistent",
-    "protean anatomy": "PF2E.TraitProteanAnatomy",
-    unarmed: "PF2E.TraitUnarmed",
-    vorpal: weaponPropertyRunes.vorpal,
-    weapons: "PF2E.TraitWeapons",
-};
-
 const weaponCategories = {
     simple: "PF2E.WeaponTypeSimple",
     martial: "PF2E.WeaponTypeMartial",
@@ -296,7 +242,7 @@ const rangeDescriptions = RANGE_TRAITS.reduce(
 const preciousMaterialDescriptions = {
     abysium: "PF2E.PreciousMaterialAbysiumDescription",
     adamantine: "PF2E.PreciousMaterialAdamantineDescription",
-    coldIron: "PF2E.PreciousMaterialColdIronDescription",
+    "cold-iron": "PF2E.PreciousMaterialColdIronDescription",
     darkwood: "PF2E.PreciousMaterialDarkwoodDescription",
     djezet: "PF2E.PreciousMaterialDjezetDescription",
     dragonhide: "PF2E.PreciousMaterialDragonhideDescription",
@@ -309,7 +255,7 @@ const preciousMaterialDescriptions = {
     silver: "PF2E.PreciousMaterialSilverDescription",
     "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDescription",
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneDescription",
-    sovereignSteel: "PF2E.PreciousMaterialSovereignSteelDescription",
+    "sovereign-steel": "PF2E.PreciousMaterialSovereignSteelDescription",
     warpglass: "PF2E.PreciousMaterialWarpglassDescription",
 };
 
@@ -460,6 +406,7 @@ const traitsDescriptions = {
     general: "PF2E.TraitDescriptionGeneral",
     genie: "PF2E.TraitDescriptionGenie",
     geniekin: "PF2E.TraitDescriptionGeniekin",
+    ghoran: "PF2E.TraitDescriptionGhoran",
     ghul: "PF2E.TraitDescriptionGhul",
     gnoll: "PF2E.TraitDescriptionGnoll",
     gnome: "PF2E.TraitDescriptionGnome",
@@ -473,7 +420,7 @@ const traitsDescriptions = {
     halfling: "PF2E.TraitDescriptionHalfling",
     "half-elf": "PF2E.TraitDescriptionHalfElf",
     "half-orc": "PF2E.TraitDescriptionHalfOrc",
-    "jousting-d6": "PF2E.TraitDescriptionJoustingD6",
+    "jousting-d6": "PF2E.TraitDescriptionJousting",
     hampering: "PF2E.TraitDescriptionHampering",
     haunt: "PF2E.TraitDescriptionHaunt",
     healing: "PF2E.TraitDescriptionHealing",
@@ -495,6 +442,7 @@ const traitsDescriptions = {
     inventor: "PF2E.TraitDescriptionInventor",
     invested: "PF2E.TraitDescriptionInvested",
     investigator: "PF2E.TraitDescriptionInvestigator",
+    kashrishi: "PF2E.TraitDescriptionKashrishi",
     kickback: "PF2E.TraitDescriptionKickback",
     kitsune: "TraitDescriptionKitsune",
     kobold: "TraitDescriptionKobold",
@@ -522,6 +470,7 @@ const traitsDescriptions = {
     move: "PF2E.TraitDescriptionMove",
     multiclass: "PF2E.TraitDescriptionMulticlass",
     mutagen: "PF2E.TraitDescriptionMutagen",
+    nagaji: "PF2E.TraitDescriptionNagaji",
     necromancy: "PF2E.TraitDescriptionNecromancy",
     negative: "PF2E.TraitDescriptionNegative",
     noisy: "PF2E.TraitDescriptionNoisy",
@@ -549,6 +498,7 @@ const traitsDescriptions = {
     press: "PF2E.TraitDescriptionPress",
     primal: "PF2E.TraitDescriptionPrimal",
     propulsive: "PF2E.TraitDescriptionPropulsive",
+    psyche: "PF2E.TraitDescriptionPsyche",
     psychic: "PF2E.TraitDescriptionPsychic",
     rage: "PF2E.TraitDescriptionRage",
     ranger: "PF2E.TraitDescriptionRanger",
@@ -626,6 +576,7 @@ const traitsDescriptions = {
     "thrown-100": "PF2E.TraitDescriptionThrown",
     "thrown-15": "PF2E.TraitDescriptionThrown",
     "thrown-20": "PF2E.TraitDescriptionThrown",
+    "thrown-200": "PF2E.TraitDescriptionThrown",
     "thrown-25": "PF2E.TraitDescriptionThrown",
     "thrown-30": "PF2E.TraitDescriptionThrown",
     "thrown-40": "PF2E.TraitDescriptionThrown",
@@ -648,6 +599,8 @@ const traitsDescriptions = {
     undine: "PF2E.TraitDescriptionUndine",
     unique: "PF2E.TraitDescriptionUnique",
     unstable: "PF2E.TraitDescriptionUnstable",
+    vanara: "PF2E.TraitDescriptionVanara",
+    vishkanya: "PF2E.TraitDescriptionVishkanya",
     "versatile-acid": "PF2E.TraitDescriptionVersatile",
     "versatile-b": "PF2E.TraitDescriptionVersatile",
     "versatile-chaotic": "PF2E.TraitDescriptionVersatile",
@@ -949,12 +902,9 @@ export const PF2ECONFIG = {
     weaponPropertyRunes,
     damageTraits,
     damageTypes,
-    damageSubtypes: {
-        persistent: "PF2E.ConditionTypePersistentShort",
-        splash: "PF2E.TraitSplash",
-    },
-
+    damageRollFlavors,
     damageCategories,
+    materialDamageEffects,
     resistanceTypes,
 
     stackGroups: {
@@ -1077,6 +1027,7 @@ export const PF2ECONFIG = {
         wornmask: "PF2E.TraitWornMask",
         wornnecklace: "PF2E.TraitWornNecklace",
         wornonbelt: "PF2E.TraitWornOnBelt",
+        wornoronehand: "PF2E.TraitWornOrOneHand",
         wornring: "PF2E.TraitWornRing",
         wornsaddle: "PF2E.TraitWornSaddle",
         wornshoes: "PF2E.TraitWornShoes",
@@ -1108,10 +1059,11 @@ export const PF2ECONFIG = {
     otherArmorTags,
 
     equipmentTraits,
-    otherEquipmentTags,
+
+    consumableTraits,
+    otherConsumableTags,
 
     actionTraits,
-    consumableTraits,
     spellTraits,
     featTraits,
     creatureTraits,
@@ -1226,6 +1178,7 @@ export const PF2ECONFIG = {
         45: "PF2E.AreaSize45",
         50: "PF2E.AreaSize50",
         60: "PF2E.AreaSize60",
+        65: "PF2E.AreaSize65",
         75: "PF2E.AreaSize75",
         80: "PF2E.AreaSize80",
         90: "PF2E.AreaSize90",
@@ -1492,6 +1445,7 @@ export const PF2ECONFIG = {
         jistkan: "PF2E.LanguageJistkan",
         jyoti: "PF2E.LanguageJyoti",
         kaava: "PF2E.LanguageKaava",
+        kashrishi: "PF2E.LanguageKashrishi",
         kibwani: "PF2E.LanguageKibwani",
         kitsune: "PF2E.LanguageKitsune",
         kelish: "PF2E.LanguageKelish",
@@ -1508,6 +1462,7 @@ export const PF2ECONFIG = {
         osiriani: "PF2E.LanguageOsiriani",
         protean: "PF2E.LanguageProtean",
         rasu: "PF2E.LanguageRasu",
+        ratajin: "PF2E.LanguageRatajin",
         razatlani: "PF2E.LanguageRazatlani",
         requian: "PF2E.LanguageRequian",
         russian: "PF2E.LanguageRussian",
@@ -1829,6 +1784,10 @@ export const PF2ECONFIG = {
             rulesBasedVision: {
                 name: "PF2E.SETTINGS.Automation.RulesBasedVision.Name",
                 hint: "PF2E.SETTINGS.Automation.RulesBasedVision.Hint",
+            },
+            iwr: {
+                name: "PF2E.SETTINGS.Automation.IWR.Name",
+                hint: "PF2E.SETTINGS.Automation.IWR.Hint",
             },
             effectExpiration: {
                 name: "PF2E.SETTINGS.Automation.EffectExpiration.Name",

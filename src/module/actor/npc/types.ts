@@ -5,15 +5,7 @@ import { ActionItemData, EffectData, ItemDataPF2e } from "@item/data";
 import { ZeroToFour } from "@module/data";
 import { IdentifyCreatureData } from "@module/recall-knowledge";
 import { NPCPF2e } from ".";
-import {
-    NPCArmorClass,
-    NPCAttributes,
-    NPCSaveData,
-    NPCSkillData,
-    NPCStrike,
-    NPCSystemData,
-    NPCTraitsData,
-} from "./data";
+import { NPCArmorClass, NPCAttributes, NPCSaveData, NPCSkillData, NPCSystemData, NPCTraitsData } from "./data";
 
 interface ActionsDetails {
     label: string;
@@ -27,16 +19,6 @@ interface NPCActionSheetData {
     action: ActionsDetails;
 }
 
-interface Attack {
-    attack: NPCStrike;
-    traits: {
-        label: string;
-        description: string;
-    }[];
-}
-
-type NPCAttackSheetData = Attack[];
-
 /** Highlight such a statistic if adjusted by data preparation */
 interface WithAdjustments {
     adjustedHigher?: boolean;
@@ -47,8 +29,8 @@ interface VariantCloneParams {
     name?: string;
     description?: string;
     img?: {
-        actor?: ImagePath;
-        token?: VideoPath;
+        actor?: ImageFilePath;
+        token?: VideoFilePath;
     };
     save?: boolean;
     keepId?: boolean;
@@ -86,7 +68,6 @@ interface NPCSpellcastingSheetData extends SpellcastingSheetData {
 /** Additional fields added in sheet data preparation */
 interface NPCSheetData<T extends NPCPF2e = NPCPF2e> extends CreatureSheetData<T> {
     actions: NPCActionSheetData;
-    attacks: NPCAttackSheetData;
     data: NPCSystemSheetData;
     items: NPCSheetItemData[];
     effectItems: EffectData[];
@@ -141,7 +122,6 @@ type NPCSheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDat
 
 export {
     NPCActionSheetData,
-    NPCAttackSheetData,
     NPCSheetData,
     NPCSheetItemData,
     NPCSpellcastingSheetData,

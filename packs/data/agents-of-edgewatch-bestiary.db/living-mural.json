@@ -277,7 +277,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The living mural expels a @Template[type:cone|distance:15] of paint.</p>\n<p>Creatures in the area must succeed at a @Check[type:reflex|dc:41] save or be @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p>The living mural can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The living mural expels a @Template[type:cone|distance:15] of paint.</p>\n<p>Creatures in the area must succeed at a @Check[type:reflex|dc:41] save or be @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p>The living mural can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -317,7 +317,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the living mural hits with a splatter attack, the target is also @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
+                    "value": "<p>When the living mural hits with a splatter attack, the target is also @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -490,6 +490,47 @@
                 "temp": 0,
                 "value": 100
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -533,27 +574,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "necromancy",
-                    "nonlethal",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],
@@ -569,12 +589,7 @@
                 "value": "huge"
             },
             "value": [
-                "construct",
-                "art",
-                "come",
-                "to",
-                "monstrous",
-                "life"
+                "construct"
             ]
         }
     },

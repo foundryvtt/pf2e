@@ -107,12 +107,30 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A will-o'-wisp is itself naturally invisible, but glows with a colored light, casting bright light in the aura and making it visible.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A will-o'-wisp is itself naturally invisible, but glows with a colored light, casting bright light in the aura and making it visible.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "bright": 20,
+                            "color": "#fff9a3"
+                        }
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -150,7 +168,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A will-o'-wisp is immune to all spells except <em>@Compendium[pf2e.spells-srd.Faerie Fire]{Faerie Fire}</em>, <em>@Compendium[pf2e.spells-srd.Glitterdust]{Glitterdust}</em>, <em>@Compendium[pf2e.spells-srd.Magic Missile]{Magic Missile}</em>, and <em>@Compendium[pf2e.spells-srd.Maze]{Maze}</em>.</p>"
+                    "value": "<p>A will-o'-wisp is immune to all spells except <em>@UUID[Compendium.pf2e.spells-srd.Faerie Fire]{Faerie Fire}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Glitterdust]{Glitterdust}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Magic Missile]{Magic Missile}</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Maze]{Maze}</em>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -190,7 +208,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> A creature who can cast spells is within 15 feet of the spellvoid</p>\n<hr />\n<p><strong>Effect</strong> The spellvoid feeds on the creature's magic. The spellvoid regains [[/r {2d8}[healing]]]{2d8 Hit Points}, and the target must attempt a @Check[type:will|dc:24] save.</p>\n<p>The target is then temporarily immune for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The first time the target Casts a Spell before the start of the spellvoid's next turn, the spell is disrupted unless the target succeeds at a @Check[type:flat|dc:15] check.</p>\n<p><strong>Failure</strong> As success, but the effect applies the first time the target Casts a Spell within the next minute.</p>\n<p><strong>Critical Failure</strong> As success, but the effect applies each time the target Casts a Spell within the next minute. In addition, the spellvoid doubles the Hit Points it regains.</p>"
+                    "value": "<p><strong>Requirement</strong> A creature who can cast spells is within 15 feet of the spellvoid</p>\n<hr />\n<p><strong>Effect</strong> The spellvoid feeds on the creature's magic. The spellvoid regains [[/r 2d8[healing]]]{2d8 Hit Points}, and the target must attempt a @Check[type:will|dc:24] save.</p>\n<p>The target is then temporarily immune for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The first time the target Casts a Spell before the start of the spellvoid's next turn, the spell is disrupted unless the target succeeds at a @Check[type:flat|dc:15] check.</p>\n<p><strong>Failure</strong> As success, but the effect applies the first time the target Casts a Spell within the next minute.</p>\n<p><strong>Critical Failure</strong> As success, but the effect applies each time the target Casts a Spell within the next minute. In addition, the spellvoid doubles the Hit Points it regains.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -237,7 +255,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "go-dark",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -407,6 +432,11 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "magic"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -457,15 +487,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "magic"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

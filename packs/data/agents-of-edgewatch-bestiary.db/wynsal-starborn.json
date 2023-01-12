@@ -23,8 +23,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>Longswords can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
@@ -54,29 +53,15 @@
                     "value": 2
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 1
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -100,9 +85,6 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -333,22 +315,12 @@
             "name": "Whisper Briolette",
             "sort": 400000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": "1",
                     "value": "1"
                 },
@@ -356,16 +328,11 @@
                     "value": "talisman"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": null
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> Envision</p>\n<p><strong>Requirements</strong> You are an expert in Stealth</p>\n<hr />\n<p>This teardrop-shaped gemstone has triangular facets and looks suitable for fancy attire, although close inspection shows that it's hollow. When it's activated, you can instantly impart up to 1 minute of speech (roughly 150 words) telepathically to any creatures you choose within 100 feet. You can impart this instantaneous telepathic message to creatures that you perceive and creatures @Compendium[pf2e.conditionitems.Hidden]{Hidden} to you, but you can't do so to @Compendium[pf2e.conditionitems.Undetected]{Undetected} creatures. Once used, the whisper briolette becomes unusable and subtly vanishes within the next few minutes, rather than crumbling to dust.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> Envision</p>\n<p><strong>Requirements</strong> You are an expert in Stealth</p>\n<hr />\n<p>This teardrop-shaped gemstone has triangular facets and looks suitable for fancy attire, although close inspection shows that it's hollow. When it's activated, you can instantly impart up to 1 minute of speech (roughly 150 words) telepathically to any creatures you choose within 100 feet. You can impart this instantaneous telepathic message to creatures that you perceive and creatures @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden} to you, but you can't do so to @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected} creatures. Once used, the whisper briolette becomes unusable and subtly vanishes within the next few minutes, rather than crumbling to dust.</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -397,11 +364,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": null,
@@ -409,11 +371,6 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "uncommon",
@@ -428,13 +385,6 @@
                 "usage": {
                     "value": "affixed-to-armor"
                 },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
                 "weight": {
                     "value": "-"
                 }
@@ -444,7 +394,7 @@
         {
             "_id": "IfCbrxEtWCoJCOgv",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "longsword",
+            "name": "Longsword",
             "sort": 500000,
             "system": {
                 "attack": {
@@ -967,12 +917,23 @@
                 "temp": 0,
                 "value": 340
             },
+            "immunities": [
+                {
+                    "type": "fear-effects"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 32
             },
+            "resistances": [
+                {
+                    "type": "mental",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1009,20 +970,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fear effects"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "mental",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

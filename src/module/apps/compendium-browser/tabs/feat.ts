@@ -5,7 +5,7 @@ import { CompendiumBrowserIndexData, FeatFilters } from "./data";
 
 export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
     override filterData!: FeatFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/feat.html";
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/feat.hbs";
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "level", "featType", "skills", "traits", "rarity", "source"];
@@ -21,7 +21,6 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         console.debug("PF2e System | Compendium Browser | Started loading feats");
 
         const feats: CompendiumBrowserIndexData[] = [];
-        const skills: Set<string> = new Set();
         const sources: Set<string> = new Set();
         const indexFields = [
             "img",
@@ -33,6 +32,17 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             "system.traits",
             "system.source.value",
         ];
+
+        const translatedSkills = Object.entries(CONFIG.PF2E.skillList).reduce(
+            (result: Record<string, string>, [key, value]) => {
+                return {
+                    ...result,
+                    [key]: game.i18n.localize(value).toLocaleLowerCase(game.i18n.lang),
+                };
+            },
+            {}
+        );
+        const skillList = Object.entries(translatedSkills);
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
@@ -49,27 +59,20 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         );
                         continue;
                     }
-                    featData.system.skills = { value: [] };
 
-                    // determine skill prerequisites
-                    // Note: This code includes some feats, where the prerequisite has the name of a skill.
-                    // I decided to include them. The code would not be worth it, to exclude a single feat
-                    // (Basic Arcana)
-                    {
-                        const skillList = Object.keys(CONFIG.PF2E.skillList);
-                        const prereqs = featData.system.prerequisites.value;
-                        let prerequisitesArr: string[] = [];
-                        prerequisitesArr = prereqs.map((prerequisite: { value: string }) =>
-                            prerequisite?.value ? prerequisite.value.toLowerCase() : ""
-                        );
-
-                        const skillIntersection = skillList.filter((x) =>
-                            prerequisitesArr.some((entry) => entry.includes(x))
-                        );
-
-                        if (skillIntersection.length !== 0) {
-                            skills.add(skillIntersection.join(","));
-                            featData.system.skills.value = skillIntersection;
+                    // Prerequisites are strings that could contain translated skill names
+                    const prereqs: { value: string }[] = featData.system.prerequisites.value;
+                    const prerequisitesArr = prereqs.map((prerequisite) =>
+                        prerequisite?.value ? prerequisite.value.toLowerCase() : ""
+                    );
+                    const skills: Set<string> = new Set();
+                    for (const prereq of prerequisitesArr) {
+                        for (const [key, value] of skillList) {
+                            // Check the string for the english translation key or a translated skill name
+                            if (prereq.includes(key) || prereq.includes(value)) {
+                                // Alawys record the translation key to enable filtering
+                                skills.add(key);
+                            }
                         }
                     }
 
@@ -88,7 +91,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                         uuid: `Compendium.${pack.collection}.${featData._id}`,
                         level: featData.system.level.value,
                         featType: featData.system.featType.value,
-                        skills: featData.system.skills.value,
+                        skills: [...skills],
                         traits: featData.system.traits.value,
                         rarity: featData.system.traits.rarity,
                         source: featData.system.source.value,

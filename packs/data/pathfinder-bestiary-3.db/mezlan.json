@@ -133,10 +133,55 @@
             "type": "action"
         },
         {
-            "_id": "cKPht63RYzs7KnVb",
+            "_id": "m2xn36z0bizgQRSl",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status Bonus on Saves vs. Magic",
+            "name": "Polyglot",
             "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>A mezlan can speak and understand any language they hear spoken after listening to the language for 1 minute. These languages fade from their mind after 24 hours.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "At4UFNUZDqPnIhl7",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status to All Saves vs. Magic",
+            "sort": 500000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -161,9 +206,9 @@
                                 "or": [
                                     "magical",
                                     "arcane",
+                                    "divine",
                                     "primal",
-                                    "occult",
-                                    "divine"
+                                    "occult"
                                 ]
                             }
                         ],
@@ -172,9 +217,9 @@
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -199,7 +244,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 15 (Deactivated by Acid)",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -210,6 +255,7 @@
                 "actions": {
                     "value": null
                 },
+                "deathNote": true,
                 "description": {
                     "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Regeneration]</p>"
                 },
@@ -239,7 +285,7 @@
             "_id": "VZVdci43sd9eSYaO",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Absorb Spell",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -279,7 +325,7 @@
             "_id": "HX5VU8Xvb5yPZ2aH",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Discorporate",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -293,46 +339,6 @@
                 "deathNote": true,
                 "description": {
                     "value": "<p>When the mezlan is reduced to 0 Hit Points, their body dissolves into colorless slime and begins seeping into nearby cracks or porous surfaces.</p>\n<p>If this material is not immediately contained or destroyed, the mezlan will eventually re-form, though they may lie dormant for years or even decades before doing so.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "m2xn36z0bizgQRSl",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Polyglot",
-            "sort": 800000,
-            "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>A mezlan can speak and understand any language they hear spoken after listening to the language for 1 minute. These languages fade from their mind after 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -461,7 +467,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by the mezlan's ooze globule takes a -15-foot circumstance penalty to all Speeds for 1 minute. On a critical hit, a target standing on a solid surface also becomes @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, while a target Flying via wings falls to the ground and becomes unable to Fly.</p>\n<p>A target can end all effects by @Compendium[pf2e.actionspf2e.Escape]{Escaping} (DC 32) or spending a total of 3 @Compendium[pf2e.actionspf2e.Interact]{Interact} actions to free itself.</p>"
+                    "value": "<p>A creature hit by the mezlan's ooze globule takes a -15-foot circumstance penalty to all Speeds for 1 minute. On a critical hit, a target standing on a solid surface also becomes @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, while a target Flying via wings falls to the ground and becomes unable to Fly.</p>\n<p>A target can end all effects by @UUID[Compendium.pf2e.actionspf2e.Escape]{Escaping} (DC 32) or spending a total of 3 Interact actions to free itself.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Viscous Trap]{Effect: Viscous Trap}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -642,7 +648,7 @@
                 "value": 31
             },
             "allSaves": {
-                "value": null
+                "value": "+1 status to all saves vs. magic"
             },
             "hp": {
                 "details": "regeneration 15 (deactivated by acid)",
@@ -650,6 +656,17 @@
                 "temp": 0,
                 "value": 260
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -659,7 +676,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "acid",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -695,26 +718,8 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "critical-hits",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "label": "Acid",
-                    "type": "acid",
-                    "value": 10
-                }
-            ],
             "languages": {
-                "custom": "polyglot",
+                "custom": "Polyglot",
                 "selected": [],
                 "value": [
                     "aklo",

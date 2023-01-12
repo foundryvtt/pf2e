@@ -160,7 +160,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60] @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A seetangeist secretes foul fluids into the surrounding water, poisoning it. A creature that enters or starts its turn in the aura must succeed at a @Check[type:fortitude|dc:29] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 3} on a critical failure). Creatures that breathe water take a -2 circumstance penalty to this saving throw. As long as a creature remains in the aura, it can't reduce its sickened condition below 1. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A seetangeist secretes foul fluids into the surrounding water, poisoning it. A creature that enters or starts its turn in the aura must succeed at a @Check[type:fortitude|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} (@UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 3} on a critical failure). Creatures that breathe water take a -2 circumstance penalty to this saving throw. As long as a creature remains in the aura, it can't reduce its sickened condition below 1. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -200,7 +200,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the seetangeist's space takes [[/r {3d6}[slashing]+{3d6}[poison]]]{3d6 slashing and 3d6 poison damage} (@Check[type:reflex|dc:32|basic:true]). A creature that fails this save also takes @Localize[PF2E.PersistentDamage.Poison1d12.success].</p>"
+                    "value": "<p>Each enemy in the seetangeist's space takes [[/r {3d6[slashing],3d6[poison]}]]{3d6 slashing and 3d6 poison damage} (@Check[type:reflex|dc:32|basic:true]). A creature that fails this save also takes @Localize[PF2E.PersistentDamage.Poison1d12.success].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -286,12 +286,57 @@
                 "temp": 0,
                 "value": 160
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "prone"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 19
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                },
+                {
+                    "type": "piercing",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -301,7 +346,17 @@
                 ],
                 "special": "",
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -334,57 +389,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "prone",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 10
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

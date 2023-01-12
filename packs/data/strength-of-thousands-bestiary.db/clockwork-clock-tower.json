@@ -152,7 +152,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The clockwork clock tower rolls initiative</p>\n<hr />\n<p><strong>Effect</strong> The clock tower chimes, and all non-clockwork creatures within 300 feet who can hear it must succeed at a @Check[type:will|dc:42] save or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round (@Compendium[pf2e.conditionitems.Slowed]{Slowed 2} on a critical failure).</p>"
+                    "value": "<p><strong>Trigger</strong> The clockwork clock tower rolls initiative</p>\n<hr />\n<p><strong>Effect</strong> The clock tower chimes, and all non-clockwork creatures within 300 feet who can hear it must succeed at a @Check[type:will|dc:42] save or be @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 2} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -209,22 +209,20 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "construct-armor"
-                        ],
-                        "selector": "ac",
-                        "slug": "construct-armor-critical",
-                        "value": -4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
                             {
-                                "not": "construct-armor"
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "selector": "ac",
-                        "slug": "construct-armor-health",
-                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
+                        "value": -4
                     }
                 ],
                 "slug": null,
@@ -258,7 +256,7 @@
                     "value": "1"
                 },
                 "description": {
-                    "value": "<p>The clockwork clock tower loses 1 day from its winding time and becomes @Compendium[pf2e.conditionitems.Quickened]{Quickened} for 3 rounds. It can use this extra action to Step, Stride, or Strike. This quickened condition ends immediately if the clock tower is damaged by orichalcum.</p>"
+                    "value": "<p>The clockwork clock tower loses 1 day from its winding time and becomes @UUID[Compendium.pf2e.conditionitems.Quickened]{Quickened} for 3 rounds. It can use this extra action to Step, Stride, or Strike. This quickened condition ends immediately if the clock tower is damaged by orichalcum.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -295,7 +293,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature struck by a clockwork clock tower's fist must make a @Check[type:will|dc:40] save as time flows unevenly around it.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is @Compendium[pf2e.conditionitems.Quickened]{Quickened} for 1 round and can use this extra action to Step, Stride, or Strike.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The creature is knocked out of time, which ceases to flow around the creature for 1 round. It is invulnerable to all damage, it can't be targeted or affected by anything, and no rounds elapse for any timed durations, conditions, afflictions, and other effects it has. The target can't act and remains fixed in place, defying gravity if applicable. After time begins to flow again for it, the creature is stunned 3.</p>"
+                    "value": "<p>A creature struck by a clockwork clock tower's fist must make a @Check[type:will|dc:40] save as time flows unevenly around it.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Quickened]{Quickened} for 1 round and can use this extra action to Step, Stride, or Strike.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3}.</p>\n<p><strong>Critical Failure</strong> The creature is knocked out of time, which ceases to flow around the creature for 1 round. It is invulnerable to all damage, it can't be targeted or affected by anything, and no rounds elapse for any timed durations, conditions, afflictions, and other effects it has. The target can't act and remains fixed in place, defying gravity if applicable. After time begins to flow again for it, the creature is stunned 3.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -430,12 +428,60 @@
                 "temp": 0,
                 "value": 325
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 34
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 20
+                }
+            ],
             "shield": {
                 "ac": 2,
                 "brokenThreshold": 0,
@@ -447,7 +493,17 @@
                 "otherSpeeds": [],
                 "special": "",
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 20
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -480,42 +536,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": 20
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 20
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 20
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

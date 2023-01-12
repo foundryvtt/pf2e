@@ -148,7 +148,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A tatzlwyrm's green, gray, and brown scales provide it natural camouflage. In areas of dense undergrowth, a tatzlwyrm can move at its full Speed when @Compendium[pf2e.actionspf2e.Sneak]{Sneaking}, and it gains a +4 circumstance bonus to @Compendium[pf2e.actionspf2e.Hide]{Hide}.</p>"
+                    "value": "<p>A tatzlwyrm's green, gray, and brown scales provide it natural camouflage. In areas of dense undergrowth, a tatzlwyrm can move at its full Speed when @UUID[Compendium.pf2e.actionspf2e.Sneak]{Sneaking}, and it gains a +4 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Hide]{Hide}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -188,7 +188,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The tatzlwyrm belches a puff of poisonous vapor into the face of an adjacent creature, which must attempt a @Check[type:fortitude|dc:15|traits:damaging-effect] save; the creature takes a -2 circumstance penalty to this save if it's @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed}.</p>\n<p>The tatzlwyrm can't use Poison Gasp again for 2 rounds.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The target takes [[/r {2d6}[poison]]]{2d6 poison damage} and is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes [[/r {4d6}[poison]]]{4d6 poison damage} and is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute.</p>"
+                    "value": "<p>The tatzlwyrm belches a puff of poisonous vapor into the face of an adjacent creature, which must attempt a @Check[type:fortitude|dc:15|traits:damaging-effect] save; the creature takes a -2 circumstance penalty to this save if it's @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed}.</p>\n<p>The tatzlwyrm can't use Poison Gasp again for 2 rounds.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The target takes [[/r 2d6[poison]]] damage and is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes [[/r 4d6[poison]]] damage and is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -389,6 +389,14 @@
                 "temp": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -439,16 +447,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

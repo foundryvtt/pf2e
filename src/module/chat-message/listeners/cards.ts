@@ -1,3 +1,4 @@
+import { ActorPF2e } from "@actor";
 import { craftItem, craftSpellConsumable } from "@actor/character/crafting/helpers";
 import { SAVE_TYPES } from "@actor/values";
 import { ItemPF2e, PhysicalItemPF2e } from "@item";
@@ -33,7 +34,8 @@ export const ChatCards = {
             // Handle strikes
             const strikeAction = message._strike;
             if (strikeAction && action?.startsWith("strike-")) {
-                const altUsage = message.flags.pf2e.context?.altUsage;
+                const context = message.flags.pf2e.context;
+                const altUsage = context && "altUsage" in context ? context.altUsage : null;
                 const options = actor.getRollOptions(["all", "attack-roll"]);
                 switch (sluggify(action ?? "")) {
                     case "strike-attack":
@@ -69,7 +71,6 @@ export const ChatCards = {
                     const castLevel =
                         Number($html[0].querySelector<HTMLElement>("div.chat-card")?.dataset.castLevel) || 1;
                     const overlayIdString = $button.attr("data-overlay-ids");
-                    const originalId = $button.attr("data-original-id") ?? "";
                     if (overlayIdString) {
                         const overlayIds = overlayIdString.split(",").map((id) => id.trim());
                         const variantSpell = spell?.loadVariant({ overlayIds, castLevel });
@@ -83,8 +84,8 @@ export const ChatCards = {
                                 await message.update(messageSource);
                             }
                         }
-                    } else if (originalId) {
-                        const originalSpell = actor.items.get(originalId, { strict: true });
+                    } else if (spell) {
+                        const originalSpell = spell?.original ?? spell;
                         const originalMessage = await originalSpell.toMessage(undefined, {
                             create: false,
                             data: { castLevel },
@@ -119,7 +120,7 @@ export const ChatCards = {
                         }
                     }
                 } else if (action === "save") {
-                    ChatCards.rollActorSaves(event, item);
+                    ChatCards.rollActorSaves({ event, actor, item });
                 }
             } else if (actor.isOfType("character", "npc")) {
                 if (action === "repair-item") {
@@ -162,7 +163,7 @@ export const ChatCards = {
 
                     ChatMessagePF2e.create({
                         user: game.user.id,
-                        content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
+                        content: game.i18n.format("PF2E.Actions.Craft.Information.LoseMaterials", {
                             actorName: actor.name,
                             cost: coinsToRemove.toString(),
                             quantity: quantity,
@@ -209,17 +210,22 @@ export const ChatCards = {
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
-    rollActorSaves: async (
-        event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>,
-        item: Embedded<ItemPF2e>
-    ): Promise<void> => {
+    rollActorSaves: async ({
+        event,
+        actor,
+        item,
+    }: {
+        event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>;
+        actor: ActorPF2e;
+        item: Embedded<ItemPF2e>;
+    }): Promise<void> => {
         if (canvas.tokens.controlled.length > 0) {
             const saveType = event.currentTarget.dataset.save;
             if (!tupleHasValue(SAVE_TYPES, saveType)) {
                 throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
             }
 
-            const dc = Number($(event.currentTarget).attr("data-dc"));
+            const dc = Number(event.currentTarget.dataset.dc ?? "NaN");
             const itemTraits = item.system.traits?.value ?? [];
             for (const t of canvas.tokens.controlled) {
                 const save = t.actor?.saves?.[saveType];
@@ -237,8 +243,9 @@ export const ChatCards = {
 
                 save.check.roll({
                     ...eventToRollParams(event),
-                    dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
+                    dc: Number.isInteger(dc) ? { value: Number(dc) } : null,
                     item,
+                    origin: actor,
                     extraRollOptions: rollOptions,
                 });
             }

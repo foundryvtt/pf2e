@@ -8,7 +8,8 @@ interface FlattenedCondition {
     value: number | null;
     description: string;
     enrichedDescription?: string;
-    img: ImagePath;
+    img: ImageFilePath;
+    unidentified: boolean;
     locked: boolean;
     references: boolean;
     breakdown?: string;

@@ -1,0 +1,15 @@
+<section class="damage-taken">
+    <span class="statements">{{statements}}</span>
+    {{#if iwr.applications}}
+        <span class="iwr" data-visibility="{{iwr.visibility}}" data-applications="{{json iwr.applications}}"><i class="fas fa-info-circle small"></i></span>
+    {{/if}}
+
+    {{#if persistent}}
+        <section class="persistent">
+            <h4>Persistent Damage</h4>
+            <ul>
+                {{#each persistent as |formula|}}<li>{{formula}}</li>{{/each}}
+            </ul>
+        </section>
+    {{/if}}
+</section>

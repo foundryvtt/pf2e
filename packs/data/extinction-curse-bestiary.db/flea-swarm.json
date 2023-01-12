@@ -108,7 +108,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Drain from flea fever can't be reduced or recovered from naturally until the disease is cured.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1} ([[/r 1d4]]{1d4 hours})</p>\n<p><strong>Stage 2</strong> drained 1 and @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 2} and sickened 1 (1 day)</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 3} and sickened 1 (1 day)</p>\n<p><strong>Stage 5</strong> dead</p>"
+                    "value": "<p>Drain from flea fever can't be reduced or recovered from naturally until the disease is cured.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} ([[/r 1d4]]{1d4 hours})</p>\n<p><strong>Stage 2</strong> drained 1 and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} and sickened 1 (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 3} and sickened 1 (1 day)</p>\n<p><strong>Stage 5</strong> dead</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -150,7 +150,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The flea swarm's last action was Swarming Bites, and it dealt damage to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> The flea swarm drinks the creatures' blood. Each victim becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1} and the swarm regains [[/r 3]]{3 HP} for each victim drained.</p>"
+                    "value": "<p><strong>Requirements</strong> The flea swarm's last action was Swarming Bites, and it dealt damage to at least one enemy</p>\n<hr />\n<p><strong>Effect</strong> The flea swarm drinks the creatures' blood. Each victim becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} and the swarm regains [[/r 3]]{3 HP} for each victim drained.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -190,7 +190,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d4+7}[piercing]]]{2d4+7 piercing damage} and must attempt a @Check[type:reflex|dc:22|basic:true] save. A creature that fails its save is exposed to flea fever.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r (2d4+7)[piercing]]] damage and must attempt a @Check[type:reflex|dc:22|basic:true] save. A creature that fails its save is exposed to flea fever.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -323,16 +323,46 @@
                 "temp": 0,
                 "value": 55
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 13
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "bludgeoning"
+                    ],
+                    "type": "physical",
+                    "value": 8
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 4
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 4
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -365,32 +395,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except bludgeoning",
-                    "type": "physical",
-                    "value": 8
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 4
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 4
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The front gate is opened</p>\n<hr />\n<p><strong>Effect</strong> A moderate thunderstone falls on the flagstones and activates, dealing [[/r {2}[splash,sonic]]]{2 sonic splash} damage to each creature within 10 feet of the gate. Creatures in the area must succeed at a @Check[type:fortitude|dc:17|traits:hazard,mechanical,trap] saving throw or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round. Adjacent creatures can attempt to catch the falling thunderstone (see Disable).</p>"
+                    "value": "<p><strong>Trigger</strong> The front gate is opened</p>\n<hr />\n<p><strong>Effect</strong> A moderate thunderstone falls on the flagstones and activates, dealing [[/r {2}[splash,sonic]]]{2 sonic splash} damage to each creature within 10 feet of the gate. Creatures in the area must succeed at a @Check[type:fortitude|dc:17|traits:hazard,mechanical,trap] saving throw or be @UUID[Compendium.pf2e.conditionitems.Deafened]{Deafened} for 1 round. Adjacent creatures can attempt to catch the falling thunderstone (see Disable).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -56,6 +56,17 @@
                 "temp": 0,
                 "value": 10
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained)</p>",
                 "value": 5
@@ -87,22 +98,10 @@
             }
         },
         "source": {
-            "value": "Pathfinder #178: Punks in a Powderkeg"
+            "value": "Pathfinder #178: Punks in a Powder Keg"
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

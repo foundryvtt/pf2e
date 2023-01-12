@@ -33,7 +33,7 @@
 
     .row {
         display: grid;
-        grid-template-columns: 200px repeat(6, 84px);
+        grid-template-columns: 220px repeat(6, 84px);
         grid-template-rows: auto;
 
         &.not-eligible {
@@ -405,14 +405,29 @@
         text-transform: uppercase;
     }
 
-    div[data-tooltip-content] .description {
-        text-decoration: underline dotted;
-        text-underline-offset: 2px;
+    div[data-tooltip-content] {
+        &.description, .description {
+            text-decoration: underline dotted;
+            text-underline-offset: 2px;
+        }
     }
-
 
     .description {
         font: 600 var(--font-size-16) var(--serif);
+    }
+
+    .extra {
+        display: flex;
+        align-items: center;
+        font-size: var(--font-size-12);
+        margin-top: -0.25rem;
+        .fas {
+            margin-left: 0.125rem;
+        }
+        input[type=checkbox] {
+            height: var(--font-size-12);
+            margin: 0;
+        }
     }
 
     h3 {

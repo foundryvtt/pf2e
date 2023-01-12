@@ -7,21 +7,19 @@ export class MigrationList {
     private static list = Object.values(Migrations);
 
     static get latestVersion(): number {
-        return Math.max(...this.list.map((Migration) => Migration.version));
+        return Math.max(...this.list.map((M) => M.version));
     }
 
     static constructAll(): MigrationBase[] {
-        return this.list.map((Migration) => new Migration());
+        return this.list.map((M) => new M());
     }
 
     static constructFromVersion(version: number | null): MigrationBase[] {
         const minVersion = Number(version) || MigrationRunner.RECOMMENDED_SAFE_VERSION;
-        return this.list.filter((Migration) => Migration.version > minVersion).map((Migration) => new Migration());
+        return this.list.filter((M) => M.version > minVersion).map((M) => new M());
     }
 
     static constructRange(min: number, max = Infinity): MigrationBase[] {
-        return this.list
-            .filter((Migration) => Migration.version >= min && Migration.version <= max)
-            .map((Migration) => new Migration());
+        return this.list.filter((M) => M.version >= min && M.version <= max).map((M) => new M());
     }
 }

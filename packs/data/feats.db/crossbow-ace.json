@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Crossbow Ace",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -36,7 +33,7 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "crossbow-ace",
-                    "weapon:tag:crossbow"
+                    "item:tag:crossbow"
                 ],
                 "selector": "strike-damage",
                 "type": "circumstance",
@@ -44,14 +41,13 @@
             },
             {
                 "key": "DamageDice",
-                "label": "Crossbow Ace",
                 "override": {
                     "upgrade": true
                 },
                 "predicate": [
                     "crossbow-ace",
-                    "weapon:tag:crossbow",
-                    "weapon:category:simple"
+                    "item:tag:crossbow",
+                    "item:category:simple"
                 ],
                 "selector": "strike-damage",
                 "slug": "crossbow-ace-dice-upgrade"

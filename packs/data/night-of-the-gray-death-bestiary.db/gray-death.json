@@ -205,7 +205,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:1000]{1000 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Creatures that begin their turn in the area take [[/r {5d6}[negative]]]{5d6 negative damage} and must succeed at a @Check[type:fortitude|dc:42] save or become @Compendium[pf2e.conditionitems.Doomed]{Doomed 1}. If the creature is 13th level or lower, this doomed condition from soul bleed is cumulative, increasing by 1 with each failed save until the creature dies (typically at doomed 4).</p>"
+                    "value": "<p>@Template[type:emanation|distance:1000]{1000 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Creatures that begin their turn in the area take [[/r 5d6[negative]]] damage and must succeed at a @Check[type:fortitude|dc:42] save or become @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed 1}. If the creature is 13th level or lower, this doomed condition from soul bleed is cumulative, increasing by 1 with each failed save until the creature dies (typically at doomed 4).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -283,7 +283,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>A creature damaged by the gray death's hand Strike must succeed at a @Check[type:fortitude|dc:42] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 1}, and @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round on a critical failure.</p>"
+                    "value": "<p>A creature damaged by the gray death's hand Strike must succeed at a @Check[type:fortitude|dc:42] save or become @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}, and @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round on a critical failure.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -363,7 +363,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>The gray death isn't @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} when it starts its turn inside an object.</p>"
+                    "value": "<p>The gray death isn't @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} when it starts its turn inside an object.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -539,12 +539,46 @@
                 "temp": 0,
                 "value": 330
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "fear-effects"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 33
             },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -553,7 +587,13 @@
                     }
                 ],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "mental",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -586,33 +626,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "fear-effects",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
-                    "type": "all",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "label": "Mental",
-                    "type": "mental",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

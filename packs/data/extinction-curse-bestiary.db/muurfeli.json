@@ -3,13 +3,13 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "4SQaB1BNLPnVENYl",
+            "_id": "U3GaqjscOV9MmG6W",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Arcane Spells",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
-                    "value": null
+                    "value": 4
                 },
                 "description": {
                     "value": ""
@@ -19,14 +19,14 @@
                     "value": "innate"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "slots": {
                     "slot0": {
@@ -96,7 +96,6 @@
                 },
                 "spelldc": {
                     "dc": 36,
-                    "mod": 0,
                     "value": 28
                 },
                 "tradition": {
@@ -111,7 +110,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "ie564935JtX2akOb",
+            "_id": "ynStXKZ6ssO3LGg9",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.MlpbeZ61Euhl0d60"
@@ -125,11 +124,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -146,16 +142,18 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "poison"
                             },
-                            "value": "8d8"
+                            "value": "6d8"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You conjure a poisonous fog. This functions as <em>@Compendium[pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}</em>, except the area moves 10 feet away from you each round. You deal 8d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
+                    "value": "<p>You conjure a poisonous fog. This functions as <em>@UUID[Compendium.pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}</em>, except the area moves 10 feet away from you each round. You deal 6d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -171,10 +169,11 @@
                     "type": "interval"
                 },
                 "level": {
-                    "value": 7
+                    "value": 5
                 },
                 "location": {
-                    "value": "4SQaB1BNLPnVENYl"
+                    "heightenedLevel": 7,
+                    "value": "U3GaqjscOV9MmG6W"
                 },
                 "materials": {
                     "value": ""
@@ -204,7 +203,7 @@
                 },
                 "slug": "cloudkill",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -236,26 +235,20 @@
             "type": "spell"
         },
         {
-            "_id": "lIjdDj1XfLgb6T4B",
+            "_id": "K8LD4e0qT4NoihWK",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.f8SBoXiXQjlCKqly"
+                    "sourceId": "Compendium.pf2e.spells-srd.V8wXOsoejQhe6CyG"
                 }
             },
-            "img": "systems/pf2e/icons/spells/illusory-creature.webp",
-            "name": "Illusory Creature",
+            "img": "systems/pf2e/icons/spells/gaseous-form.webp",
+            "name": "Gaseous Form",
             "sort": 300000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -272,7 +265,214 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create an illusory image of a Large or smaller creature. It generates the appropriate sounds, smells, and feels believable to the touch. If you and the image are ever farther than 500 feet apart, the spell ends.</p>\n<p>The image can't speak, but you can use your actions to speak through the creature, with the spell disguising your voice as appropriate. You might need to attempt a Deception or Performance check to mimic the creature, as determined by the GM. This is especially likely if you're trying to imitate a specific person and engage with someone that person knows.</p>\n<p>In combat, the illusion can use 2 actions per turn, which it uses when you Sustain the Spell. It uses your spell attack roll for attack rolls and your spell DC for its AC. Its saving throw modifiers are equal to your spell DC - 10. It is substantial enough that it can flank other creatures. If the image is hit by an attack or fails a save, the spell ends.</p>\n<p>The illusion can cause damage by making the target believe the illusion's attacks are real, but it cannot otherwise directly affect the physical world. If the illusory creature hits with a Strike, the target takes mental damage equal to 4d4 plus your spellcasting ability modifier. This is a mental effect. The illusion's Strikes are nonlethal. If the damage doesn't correspond to the image of the monster-for example, if an illusory Large dragon deals only 5 damage-the GM might allow the target to attempt an immediate Perception check to disbelieve the spell. Any relevant resistances and weaknesses apply if the target thinks they do, as judged by the GM. For example, if the illusion wields a warhammer and attacks a creature resistant to bludgeoning damage, the creature would take less mental damage. However, illusory damage does not deactivate regeneration or trigger other effects that require a certain damage type. The GM should track illusory damage dealt by the illusion.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion. When a creature disbelieves the illusion, it recovers from half the damage it had taken from it (if any) and doesn't take any further damage from it.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage of the image's Strikes increases by 1d4, and the maximum size of creature you can create increases by one (to a maximum of Gargantuan).</p>"
+                    "value": "<p>The target transforms into a vaporous state. In this state, the target is amorphous. It loses any item bonus to AC and all other effects and bonuses from armor, and it uses its proficiency modifier for unarmored defense. It gains resistance 8 to physical damage and is immune to precision damage. It can't cast spells, activate items, or use actions that have the attack or manipulate trait. It gains a fly Speed of 10 feet and can slip through tiny cracks. The target can Dismiss the spell.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Gaseous Form]{Spell Effect: Gaseous Form}</p>"
+                },
+                "duration": {
+                    "value": "5 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "U3GaqjscOV9MmG6W"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "transmutation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "gaseous-form",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "oRBm7hBPk5gfvefV",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rdTEF1hfAWbN58NE"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/enhance-victuals.webp",
+            "name": "Enhance Victuals (At Will)",
+            "sort": 400000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": null,
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You transform the target into delicious fare, changing water into wine or another fine beverage or enhancing the food's taste and ingredients to make it a gourmet treat.</p>\n<p>Prior to the transformation, the spell attempts to counteract any poisons in the food or water. The food turns back to normal if not consumed before the duration expires, though any poisons that were counteracted are still gone.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The number of gallons of water you can target increases by 1, or the number of pounds of food you can target increases by 5.</p>"
+                },
+                "duration": {
+                    "value": "1 hour"
+                },
+                "hasCounteractCheck": {
+                    "value": true
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 2,
+                    "value": "U3GaqjscOV9MmG6W"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "transmutation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "enhance-victuals",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "up to 1 gallon of non-magical water or up to 5 pounds of food"
+                },
+                "time": {
+                    "value": "1 minute"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "rh6kHopnKoPkxIrs",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.f8SBoXiXQjlCKqly"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/illusory-creature.webp",
+            "name": "Illusory Creature",
+            "sort": 500000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": null,
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You create an illusory image of a Large or smaller creature. It generates the appropriate sounds, smells, and feels believable to the touch. If you and the image are ever farther than 500 feet apart, the spell ends.</p>\n<p>The image can't speak, but you can use your actions to speak through the creature, with the spell disguising your voice as appropriate. You might need to attempt a Deception or Performance check to mimic the creature, as determined by the GM. This is especially likely if you're trying to imitate a specific person and engage with someone that person knows.</p>\n<p>In combat, the illusion can use 2 actions per turn, which it uses when you Sustain the Spell. It uses your spell attack roll for attack rolls and your spell DC for its AC. Its saving throw modifiers are equal to your spell DC - 10. It is substantial enough that it can flank other creatures. If the image is hit by an attack or fails a save, the spell ends.</p>\n<p>The illusion can cause damage by making the target believe the illusion's attacks are real, but it cannot otherwise directly affect the physical world. If the illusory creature hits with a Strike, the target takes mental damage equal to 1d4 plus your spellcasting ability modifier. This is a mental effect. The illusion's Strikes are nonlethal. If the damage doesn't correspond to the image of the monster-for example, if an illusory Large dragon deals only 5 damage-the GM might allow the target to attempt an immediate Perception check to disbelieve the spell. Any relevant resistances and weaknesses apply if the target thinks they do, as judged by the GM. For example, if the illusion wields a warhammer and attacks a creature resistant to bludgeoning damage, the creature would take less mental damage. However, illusory damage does not deactivate regeneration or trigger other effects that require a certain damage type. The GM should track illusory damage dealt by the illusion.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion. When a creature disbelieves the illusion, it recovers from half the damage it had taken from it (if any) and doesn't take any further damage from it.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage of the image's Strikes increases by 1d4, and the maximum size of creature you can create increases by one (to a maximum of Gargantuan).</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -281,10 +481,11 @@
                     "value": false
                 },
                 "level": {
-                    "value": 5
+                    "value": 2
                 },
                 "location": {
-                    "value": "4SQaB1BNLPnVENYl"
+                    "heightenedLevel": 5,
+                    "value": "U3GaqjscOV9MmG6W"
                 },
                 "materials": {
                     "value": ""
@@ -314,7 +515,7 @@
                 },
                 "slug": "illusory-creature",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -347,7 +548,109 @@
             "type": "spell"
         },
         {
-            "_id": "NKbcKkus53aXnspP",
+            "_id": "Cc90LRPBjtIS0WLk",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/invisibility.webp",
+            "name": "Invisibility (At Will) (Self Only)",
+            "sort": 600000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": null,
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": true,
+                    "somatic": true,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>Cloaked in illusion, the target becomes @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible}. This makes it @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                },
+                "duration": {
+                    "value": "10 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "U3GaqjscOV9MmG6W"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "illusion"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "invisibility",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "Qfpb2l5lZtzBzwYX",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.y6rAdMK6EFlV6U0t"
@@ -355,17 +658,14 @@
             },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands (At Will)",
-            "sort": 400000,
+            "sort": 700000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "15"
-                },
-                "areasize": {
-                    "value": ""
+                    "type": "cone",
+                    "value": 15
                 },
                 "category": {
                     "value": "spell"
@@ -382,16 +682,18 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
-                            "value": "8d6"
+                            "value": "2d6"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>Gouts of flame rush from your hands. You deal 8d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>Gouts of flame rush from your hands. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -407,10 +709,11 @@
                     "type": "interval"
                 },
                 "level": {
-                    "value": 4
+                    "value": 1
                 },
                 "location": {
-                    "value": "4SQaB1BNLPnVENYl"
+                    "heightenedLevel": 4,
+                    "value": "U3GaqjscOV9MmG6W"
                 },
                 "materials": {
                     "value": ""
@@ -440,7 +743,7 @@
                 },
                 "slug": "burning-hands",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "save"
@@ -471,349 +774,22 @@
             "type": "spell"
         },
         {
-            "_id": "hjIzwyEVQA76pHoN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.V8wXOsoejQhe6CyG"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/gaseous-form.webp",
-            "name": "Gaseous Form",
-            "sort": 500000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>The target transforms into a vaporous state. In this state, the target is amorphous. It loses any item bonus to AC and all other effects and bonuses from armor, and it uses its proficiency modifier for unarmored defense. It gains resistance 8 to physical damage and is immune to precision damage. It can't cast spells, activate items, or use actions that have the attack or manipulate trait. It gains a fly Speed of 10 feet and can slip through tiny cracks. The target can Dismiss the spell.</p>"
-                },
-                "duration": {
-                    "value": "5 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "4SQaB1BNLPnVENYl"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "transmutation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "gaseous-form",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 willing creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "polymorph"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "xij5uQ9Hm5OaKZRP",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/invisibility.webp",
-            "name": "Invisibility (At Will) (Self Only)",
-            "sort": 600000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": true,
-                    "somatic": true,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
-                },
-                "duration": {
-                    "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "4SQaB1BNLPnVENYl"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "illusion"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "invisibility",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "self"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "HOA61HLy7OxwcffF",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.rdTEF1hfAWbN58NE"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/enhance-victuals.webp",
-            "name": "Enhance Victuals (At Will)",
-            "sort": 700000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": true,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You transform the target into delicious fare, changing water into wine or another fine beverage or enhancing the food's taste and ingredients to make it a gourmet treat.</p>\n<p>Prior to the transformation, the spell attempts to counteract any poisons in the food or water. The food turns back to normal if not consumed before the duration expires, though any poisons that were counteracted are still gone.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The number of gallons of water you can target increases by 1, or the number of pounds of food you can target increases by 5.</p>"
-                },
-                "duration": {
-                    "value": "1 hour"
-                },
-                "hasCounteractCheck": {
-                    "value": true
-                },
-                "level": {
-                    "value": 2
-                },
-                "location": {
-                    "value": "4SQaB1BNLPnVENYl"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "touch"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "school": {
-                    "value": "transmutation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "enhance-victuals",
-                "source": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "up to 1 gallon of non-magical water or up to 5 pounds of food"
-                },
-                "time": {
-                    "value": "1 minute"
-                },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "pJQFwyxbW0NPUCaF",
+            "_id": "trpqjYarZmAIE6JR",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
                 }
             },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
-            "name": "Detect Magic (4th) (Constant)",
+            "name": "Detect Magic (Constant)",
             "sort": 800000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -843,7 +819,8 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "4SQaB1BNLPnVENYl"
+                    "heightenedLevel": 4,
+                    "value": "U3GaqjscOV9MmG6W"
                 },
                 "materials": {
                     "value": ""
@@ -873,7 +850,7 @@
                 },
                 "slug": "detect-magic",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
                     "value": "utility"
@@ -900,22 +877,21 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "detection",
-                        "cantrip"
+                        "detection"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "psZX2ndj1TogGbVV",
+            "_id": "o7B3d9PhWctaj0P8",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.grmaV4GdoGD7sKbn"
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/scimitar.webp",
-            "name": "+2 Greater Striking Scimitar",
+            "name": "Scimitar",
             "sort": 900000,
             "system": {
                 "MAP": {
@@ -933,8 +909,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This one-handed curved blade is sharp on one side.</p>"
@@ -955,7 +930,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 12
+                    "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
@@ -964,41 +939,27 @@
                     "value": 2
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
-                        "gp": 2000
+                        "gp": 1
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -1006,13 +967,10 @@
                     "value": ""
                 },
                 "rules": [],
-                "size": "med",
+                "size": "lg",
                 "slug": "scimitar",
                 "source": {
-                    "value": ""
-                },
-                "specific": {
-                    "value": false
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "splashDamage": {
                     "value": 0
@@ -1188,7 +1146,7 @@
             "type": "melee"
         },
         {
-            "_id": "2nsK1OLJQs8DIS5Z",
+            "_id": "bXlG2k7ws1b8Wffl",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -1233,7 +1191,7 @@
             "type": "action"
         },
         {
-            "_id": "15MbWFBvZH0zsRd3",
+            "_id": "fWI5g5k9p5EtqWoH",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
@@ -1278,7 +1236,7 @@
             "type": "action"
         },
         {
-            "_id": "MFzqXSwZywtB2lFt",
+            "_id": "kifvfBeEd0qFnfEN",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
@@ -1338,12 +1296,21 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>@Check[type:fortitude|dc:33].</p>\n<p>Swirling winds of noxious, flammable gas surround a muurfeli. An open flame, spark, or similar fire effect in the area causes an explosion that deals [[/r {20d6}[fire]]]{20d6 fire damage} to all creatures in the aura (including the muurfeli) and temporarily disables the aura for 1 minute.</p>\n<p>When the muurfeli takes damage from an ability with the water trait or fails a saving throw against a water effect, their firedamp winds aura is disabled for 1 minute.</p>\n<p>A creature that enters or begins its turn in the aura must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} and @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>@Check[type:fortitude|dc:33].</p>\n<p>Swirling winds of noxious, flammable gas surround a muurfeli. An open flame, spark, or similar fire effect in the area causes an explosion that deals [[/r 20d6[fire]]] damage to all creatures in the aura (including the muurfeli) and temporarily disables the aura for 1 minute.</p>\n<p>When the muurfeli takes damage from an ability with the water trait or fails a saving throw against a water effect, their firedamp winds aura is disabled for 1 minute.</p>\n<p>A creature that enters or begins its turn in the aura must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "firedamp-winds",
+                        "traits": [
+                            "air"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1598,6 +1565,16 @@
             "perception": {
                 "value": 30
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 15
+                },
+                {
+                    "type": "poison",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1606,7 +1583,13 @@
                     }
                 ],
                 "value": 35
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1618,8 +1601,9 @@
                 "value": 16
             },
             "privateNotes": "",
-            "publicNotes": "<p>Before the Black Desert became a barren sandscape, cultures with grand magical traditions lived under its soaring roof. These communities eventually left the vault or died out, but the genies they summoned remained and became warped by the region's pervasive blightburn radiation. Now, these \"blightburn genies\" have bodies with features mirroring those of beasts that dwell in dark places, and their elemental lineages have been irreparably corrupted.</p>\n<hr />\n<p>Whereas typical djinn can cleanse or clear areas with their arcane winds, the air magic of muurfeli is tainted by the Black Desert's noxious radiation and mixed with the realm's ambient fetid winds.</p>",
+            "publicNotes": "<p>Whereas typical djinn can cleanse or clear areas with their arcane winds, the air magic of muurfeli is tainted by the Black Desert's noxious radiation and mixed with the realm's ambient fetid winds.</p>\n<hr />\n<p>Before the Black Desert became a barren sandscape, cultures with grand magical traditions lived under its soaring roof. These communities eventually left the vault or died out, but the genies they summoned remained and became warped by the region's pervasive blightburn radiation. Now, these \"blightburn genies\" have bodies with features mirroring those of beasts that dwell in dark places, and their elemental lineages have been irreparably corrupted.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder #155: Lord of the Black Sands"
             }
         },
@@ -1647,28 +1631,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "fire",
-                    "value": 15
-                },
-                {
-                    "type": "poison",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

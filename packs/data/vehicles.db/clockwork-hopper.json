@@ -79,7 +79,7 @@
         {
             "_id": "uP38cyn9BsX8ni0O",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
-            "name": "massive Jump",
+            "name": "Massive Jump",
             "sort": 0,
             "system": {
                 "actionCategory": {
@@ -92,7 +92,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The pilot engages a spring-driven mechanism that rockets the clockwork hopper into the air, in a grand leap. The vehicle jumps in a straight line in the direction of its current heading without touching the ground, landing in a space of solid ground up to 70 feet forward and up to 30 feet up. Creatures adjacent to the spaces a hopper lands in take [[/r {4d10}[bludgeoning]]]{4d10 Bludgeoning Damage} with a @Check[type:reflex|dc:22|basic:true|name:Avoid clockwork hopper], and are knocked @Compendium[pf2e.conditionitems.Prone]{Prone} on a critical failure. The clockwork hopper can't use Massive Jump again for 1 minute. Massive Jump stops working if the clockwork hopper is @Compendium[pf2e.conditionitems.Broken]{Broken}.</p>"
+                    "value": "<p>The pilot engages a spring-driven mechanism that rockets the clockwork hopper into the air, in a grand leap. The vehicle jumps in a straight line in the direction of its current heading without touching the ground, landing in a space of solid ground up to 70 feet forward and up to 30 feet up. Creatures adjacent to the spaces a hopper lands in take [[/r 4d10[bludgeoning]]] damage with a @Check[type:reflex|dc:22|basic:true|name:Avoid clockwork hopper], and are knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} on a critical failure. The clockwork hopper can't use Massive Jump again for 1 minute. Massive Jump stops working if the clockwork hopper is @UUID[Compendium.pf2e.conditionitems.Broken]{Broken}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -137,7 +137,18 @@
                 "max": 80,
                 "temp": 0,
                 "value": 80
-            }
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ]
         },
         "details": {
             "AC": 0,
@@ -168,17 +179,6 @@
             "value": "Pathfinder Guns & Gears"
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "uncommon",
             "size": {
                 "value": "lg"

@@ -1,4 +1,3 @@
-import { ActorPF2e } from "@actor/index";
 import { ContainerPF2e, ItemPF2e, PhysicalItemPF2e } from "@item/index";
 import { Price } from "@item/physical/data";
 import { CoinsPF2e } from "@item/physical/helpers";
@@ -21,10 +20,10 @@ class KitPF2e extends ItemPF2e {
     }
 
     /** Expand a tree of kit entry data into a list of physical items */
-    async inflate({
-        entries = this.entries,
-        containerId = null,
-    }: { entries?: KitEntryData[]; containerId?: string | null } = {}): Promise<PhysicalItemPF2e[]> {
+    override async createGrantedItems(
+        options: { entries?: KitEntryData[]; containerId?: string } = {}
+    ): Promise<PhysicalItemPF2e[]> {
+        const entries = options.entries ?? this.entries;
         const itemUUIDs = entries.map((e): ItemUUID => e.uuid);
         const items: unknown[] = await fromUUIDs(itemUUIDs);
         if (entries.length !== items.length) throw ErrorPF2e(`Some items from ${this.name} were not found`);
@@ -37,18 +36,18 @@ class KitPF2e extends ItemPF2e {
             if (clone instanceof PhysicalItemPF2e) {
                 clone.updateSource({
                     "system.quantity": entry.quantity,
-                    "system.containerId": containerId,
+                    "system.containerId": options.containerId,
                 });
             }
 
             if (clone instanceof ContainerPF2e && entry.items) {
-                const contents = await this.inflate({
+                const contents = await this.createGrantedItems({
                     entries: Object.values(entry.items),
                     containerId: clone.id,
                 });
                 prepared.push(clone, ...contents);
             } else if (clone instanceof KitPF2e) {
-                const inflatedKit = await clone.inflate({ containerId });
+                const inflatedKit = await clone.createGrantedItems({ containerId: options.containerId });
                 prepared.push(...inflatedKit);
             } else if (clone instanceof PhysicalItemPF2e) {
                 prepared.push(clone);
@@ -76,18 +75,6 @@ class KitPF2e extends ItemPF2e {
         }
 
         await super._preUpdate(changed, options, user);
-    }
-
-    /** Inflate this kit and add its items to the provided actor */
-    async dumpContents({
-        actor,
-        containerId = null,
-    }: {
-        actor: ActorPF2e;
-        containerId?: string | null;
-    }): Promise<void> {
-        const sources = (await this.inflate({ containerId })).map((i) => i.toObject());
-        await actor.createEmbeddedDocuments("Item", sources, { keepId: true });
     }
 }
 

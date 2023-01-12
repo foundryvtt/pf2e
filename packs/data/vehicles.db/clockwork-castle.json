@@ -92,7 +92,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>This vehicle is mounted on ten spider-like legs that enable it to turn swiftly, turn in place, and even move backward. Each 90-degree turn made in less than a vehicle length costs 5 extra feet of movement; so, for example, it costs 10 feet of movement for the vehicle to turn around and begin moving backward. This vehicle loses these benefits when @Compendium[pf2e.conditionitems.Broken]{Broken}.</p>"
+                    "value": "<p>This vehicle is mounted on ten spider-like legs that enable it to turn swiftly, turn in place, and even move backward. Each 90-degree turn made in less than a vehicle length costs 5 extra feet of movement; so, for example, it costs 10 feet of movement for the vehicle to turn around and begin moving backward. This vehicle loses these benefits when @UUID[Compendium.pf2e.conditionitems.Broken]{Broken}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -166,7 +166,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Two crew members each perform a 3-action activity on their turn to skewer nearby enemies with the clockwork castle's legs. All creatures under or adjacent to the vehicle at the end of the second character's turn take [[/r {7d8}[piercing]]]{7d8 Piercing Damage} (@Check[type:reflex|dc:35|basic:true|name:Avoid leg]).</p>"
+                    "value": "<p>Two crew members each perform a 3-action activity on their turn to skewer nearby enemies with the clockwork castle's legs. All creatures under or adjacent to the vehicle at the end of the second character's turn take [[/r 7d8[piercing]]] damage (@Check[type:reflex|dc:35|basic:true|name:Avoid leg]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -247,7 +247,18 @@
                 "max": 250,
                 "temp": 0,
                 "value": 250
-            }
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ]
         },
         "details": {
             "AC": 0,
@@ -278,17 +289,6 @@
             "value": "Pathfinder Guns & Gears"
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "rare",
             "size": {
                 "value": "grg"

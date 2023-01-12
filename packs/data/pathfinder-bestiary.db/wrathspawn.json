@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d10",
-                    "value": ""
+                    "die": "d10"
                 },
                 "description": {
                     "value": "<p>This polearm is a long trident with a central prong that's longer than the other two.</p>"
@@ -59,29 +58,15 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 2
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -105,9 +90,6 @@
                 "slug": "ranseur",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -527,7 +509,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by the jaws of a sinspawn must attempt a @Check[type:will|dc:18] save as it is assailed by sinful thoughts.</p>\n<hr />\n<p><strong>Critical Success</strong> Unaffected</p>\n<p><strong>Success</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}</p>\n<p><strong>Failure</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}</p>\n<p><strong>Critical Failure</strong> sickened 2 plus @Compendium[pf2e.conditionitems.Drained]{Drained 1} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute</p>"
+                    "value": "<p>A creature hit by the jaws of a sinspawn must attempt a @Check[type:will|dc:18] save as it is assailed by sinful thoughts.</p>\n<hr />\n<p><strong>Critical Success</strong> Unaffected</p>\n<p><strong>Success</strong> @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}</p>\n<p><strong>Failure</strong> @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}</p>\n<p><strong>Critical Failure</strong> sickened 2 plus @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -704,12 +686,23 @@
                 "temp": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "controlled"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 10
             },
+            "resistances": [
+                {
+                    "type": "mental",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -749,20 +742,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "controlled"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "mental",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

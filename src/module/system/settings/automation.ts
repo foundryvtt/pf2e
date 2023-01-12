@@ -7,6 +7,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
 
     static override readonly SETTINGS = [
         "rulesBasedVision",
+        "iwr",
         "effectExpiration",
         "removeExpiredEffects",
         "flankingDetection",
@@ -20,9 +21,13 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 hint: CONFIG.PF2E.SETTINGS.automation.rulesBasedVision.hint,
                 default: true,
                 type: Boolean,
-                onChange: () => {
-                    window.location.reload();
-                },
+                requiresReload: true,
+            },
+            iwr: {
+                name: CONFIG.PF2E.SETTINGS.automation.iwr.name,
+                hint: CONFIG.PF2E.SETTINGS.automation.iwr.hint,
+                default: BUILD_MODE === "development",
+                type: Boolean,
             },
             effectExpiration: {
                 name: CONFIG.PF2E.SETTINGS.automation.effectExpiration.name,

@@ -10,6 +10,7 @@ import { RuleElementPF2e, RuleElements } from "@module/rules";
 import { DicePF2e } from "@scripts/dice";
 import {
     calculateXP,
+    editPersistent,
     encouragingWords,
     launchTravelSheet,
     perceptionForSelected,
@@ -18,18 +19,18 @@ import {
     rollActionMacro,
     rollItemMacro,
     showEarnIncomePopup,
+    stealthForSelected,
     steelYourResolve,
     treatWounds,
 } from "@scripts/macros";
 import { remigrate } from "@scripts/system/remigrate";
 import { ActionMacros } from "@system/action-macros";
+import { CheckPF2e } from "@system/check";
 import { ConditionManager } from "@system/conditions";
 import { EffectTracker } from "@system/effect-tracker";
-import { ActorImporter } from "@system/importer/actor-importer";
-import { CheckPF2e } from "@system/rolls";
+import { ModuleArt } from "@system/module-art";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
-import { registerModuleArt } from "./register-module-art";
 
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
@@ -60,12 +61,11 @@ export const SetGamePF2e = {
             actions,
             effectPanel: new EffectsPanel(),
             effectTracker: new EffectTracker(),
-            gm: { calculateXP, launchTravelSheet, perceptionForSelected },
-            importer: { actor: ActorImporter },
+            gm: { calculateXP, launchTravelSheet, perceptionForSelected, stealthForSelected, editPersistent },
             licenseViewer: new LicenseViewer(),
             rollActionMacro,
             rollItemMacro,
-            system: { moduleArt: { map: new Map(), refresh: registerModuleArt }, remigrate, sluggify },
+            system: { moduleArt: new ModuleArt(), remigrate, sluggify },
             variantRules: { AutomaticBonusProgression },
         };
 

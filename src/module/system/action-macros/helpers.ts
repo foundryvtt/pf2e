@@ -10,13 +10,13 @@ import {
 import { WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
-import { extractModifierAdjustments, extractRollSubstitutions } from "@module/rules/util";
+import { extractModifierAdjustments, extractRollSubstitutions } from "@module/rules/helpers";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
-import { CheckPF2e, CheckType } from "@system/rolls";
 import { setHasElement, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { SimpleRollActionCheckOptions } from "./types";
 import { getRangeIncrement } from "@actor/helpers";
+import { CheckPF2e, CheckType } from "@system/check";
 
 export class ActionMacroHelpers {
     static resolveStat(stat: string): {
@@ -54,8 +54,8 @@ export class ActionMacroHelpers {
         outcome: DegreeOfSuccessString,
         translationKey?: string
     ): RollNotePF2e {
-        const visibility = game.settings.get("pf2e", "metagame.showResults");
-        const outcomes = visibility === "all" ? [outcome] : [];
+        const visible = game.settings.get("pf2e", "metagame_showResults");
+        const outcomes = visible ? [outcome] : [];
         return new RollNotePF2e({
             selector,
             text: game.i18n.localize(translationKey ?? `${translationPrefix}.Notes.${outcome}`),
@@ -117,7 +117,7 @@ export class ActionMacroHelpers {
                     ].shift() ?? null
                 );
             })();
-            combinedOptions.push(...(weapon?.getRollOptions("weapon") ?? []));
+            combinedOptions.push(...(weapon?.getRollOptions("item") ?? []));
 
             const stat = getProperty(selfActor, options.statName) as StatisticModifier & { rank?: number };
             const itemBonus =
@@ -156,10 +156,7 @@ export class ActionMacroHelpers {
                     if (dcStat) {
                         const extraRollOptions = combinedOptions.concat(targetOptions);
                         const { dc } = dcStat.withRollOptions({ extraRollOptions });
-                        const dcData: CheckDC = {
-                            value: dc.value,
-                            adjustments: stat.adjustments ?? [],
-                        };
+                        const dcData: CheckDC = { value: dc.value };
                         if (setHasElement(DC_SLUGS, dcStat.slug)) dcData.slug = dcStat.slug;
 
                         return dcData;

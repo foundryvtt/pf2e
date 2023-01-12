@@ -25,6 +25,7 @@ class AncestryPF2e extends ABCItemPF2e {
         return this.system.size;
     }
 
+    /** Returns all boosts enforced by this ancestry normally */
     get lockedBoosts(): AbilityString[] {
         return Object.values(this.system.boosts)
             .filter((boost) => boost.value.length === 1)
@@ -33,24 +34,15 @@ class AncestryPF2e extends ABCItemPF2e {
     }
 
     /** Include all ancestry features in addition to any with the expected location ID */
-    override getLinkedFeatures(): Embedded<FeatPF2e>[] {
+    override getLinkedItems(): Embedded<FeatPF2e>[] {
         if (!this.actor) return [];
 
         return Array.from(
             new Set([
-                ...super.getLinkedFeatures(),
+                ...super.getLinkedItems(),
                 ...this.actor.itemTypes.feat.filter((f) => f.featType === "ancestryfeature"),
             ])
         );
-    }
-
-    /** Toggle between voluntary flaws being on or off */
-    async toggleVoluntaryFlaw(): Promise<void> {
-        if (this._source.system.voluntary) {
-            await this.update({ "system.-=voluntary": null });
-        } else {
-            await this.update({ "system.voluntary": { boost: null, flaws: [] } });
-        }
     }
 
     override prepareBaseData(): void {
@@ -86,16 +78,20 @@ class AncestryPF2e extends ABCItemPF2e {
         this.logAutoChange("system.traits.size.value", this.size);
 
         const reach = SIZE_TO_REACH[this.size];
-        actor.system.attributes.reach = { general: reach, manipulate: reach };
+        actor.system.attributes.reach = { base: reach, manipulate: reach };
 
         actor.system.attributes.speed.value = this.speed;
 
-        // Add ability boosts and flaws
         const { build } = actor.system;
-        for (const target of ["boosts", "flaws"] as const) {
-            for (const ability of Object.values(this.system[target])) {
-                if (ability.selected) {
-                    build.abilities[target].ancestry.push(ability.selected);
+        if (this.system.alternateAncestryBoosts) {
+            build.abilities.boosts.ancestry.push(...this.system.alternateAncestryBoosts);
+        } else {
+            // Add ability boosts and flaws
+            for (const target of ["boosts", "flaws"] as const) {
+                for (const ability of Object.values(this.system[target])) {
+                    if (ability.selected) {
+                        build.abilities[target].ancestry.push(ability.selected);
+                    }
                 }
             }
         }

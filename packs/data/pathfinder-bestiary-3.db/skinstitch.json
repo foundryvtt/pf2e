@@ -151,7 +151,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The rotting hides and molding straw stuffing of skinstitches are ideal nesting grounds for vermin and insect swarms. Any animal swarm sharing a space with a skinstitch gains @Compendium[pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing 3}</p>\n<p>Additionally, if a creature deals at least 10 piercing or slashing damage to the skinstitch at once, the swarm can use its swarming bites Strike (or similar attack) against the attacker as a reaction.</p>"
+                    "value": "<p>The rotting hides and molding straw stuffing of skinstitches are ideal nesting grounds for vermin and insect swarms. Any animal swarm sharing a space with a skinstitch gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing 3}</p>\n<p>Additionally, if a creature deals at least 10 piercing or slashing damage to the skinstitch at once, the swarm can use its swarming bites Strike (or similar attack) against the attacker as a reaction.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -196,7 +196,29 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "strike-damage",
+                        "key": "RollOption",
+                        "option": "flay",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success",
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            "flay"
+                        ],
+                        "selector": "blade-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -231,7 +253,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The skinstitch hasn't used this ability since the last time it successfully used its Flay ability</p>\n<hr />\n<p><strong>Effect</strong> The skinstitch sews flayed flesh to its body to seal tears and rents. The skinstitch regains [[/r 8]] Hit Points.</p>"
+                    "value": "<p><strong>Requirements</strong> The skinstitch hasn't used this ability since the last time it successfully used its Flay ability</p>\n<hr />\n<p><strong>Effect</strong> The skinstitch sews flayed flesh to its body to seal tears and rents. The skinstitch regains [[/r 8[healing]]]{8 Hit Points}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -314,7 +336,7 @@
                 "value": 22
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -322,6 +344,44 @@
                 "temp": 0,
                 "value": 95
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -331,7 +391,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -364,32 +430,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

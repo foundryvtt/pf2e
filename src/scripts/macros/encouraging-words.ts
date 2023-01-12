@@ -3,7 +3,6 @@ import { CharacterSkillData } from "@actor/character/data";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ActionDefaultOptions } from "@system/action-macros";
 import { LocalizePF2e } from "@system/localize";
-import { RollDataPF2e } from "@system/rolls";
 
 export function encouragingWords(options: ActionDefaultOptions): void {
     const translations = LocalizePF2e.translations.PF2E.Actions.EncouragingWords;
@@ -21,14 +20,10 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         options.push(translations.Title);
         options.push("action:encourage-words");
 
-        const dc = {
-            value: DC,
-        };
-
         dip.roll({
-            dc: dc,
+            dc: { value: DC },
             options: options,
-            callback: async (roll: Rolled<Roll<RollDataPF2e>>) => {
+            callback: async (roll: Rolled<Roll>) => {
                 let healFormula: string | undefined, successLabel: string | undefined;
                 const degreeOfSuccess = roll.data.degreeOfSuccess ?? 0;
 
@@ -54,7 +49,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
                         type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         flavor: `<strong>${rollType} ${translations.Title}</strong> (${successLabel})`,
-                        roll: healRoll.toJSON(),
+                        rolls: [healRoll.toJSON()],
                     });
                 }
             },

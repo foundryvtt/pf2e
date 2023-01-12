@@ -1,0 +1,67 @@
+{{#each conditions as |item ii|}}
+{{#if (or (not item.unidentified) @root.user.isGM)}}
+<li class="item effects expandable {{#if item.unidentified}}unidentified{{/if}}" data-item-id="{{item.id}}"
+    data-action-index="{{ii}}">
+    <div class="item-name rollable">
+        <div class="item-image" style="background-image: url({{item.img}})">
+            <i class="fas fa-comment-alt"></i>
+        </div>
+        <h4 class="action-name">
+            {{item.name}}
+            {{#if (and (eq item.type "effect") (eq item.badge.type "counter"))}}{{item.badge.value}}{{/if}}
+            {{#if (eq item.type "condition")}}{{#unless item.active}}<span> (Inactive)</span>{{/unless}}{{/if}}
+        </h4>
+    </div>
+    <div class="item-controls">
+        {{#if (eq item.badge.type "counter")}}
+            <a class="item-control increment" title="{{localize 'PF2E.IncrementEffectTitle'}}"><i
+                class="fas fa-plus"></i></a>
+            <a class="item-control decrement" title="{{localize 'PF2E.DecrementEffectTitle'}}"><i
+                class="fas fa-minus"></i></a>
+        {{/if}}
+        {{#if (and (eq item.type "effect") @root.user.isGM)}}
+            <a class="item-control" data-action="effect-toggle-unidentified" title="{{localize 'PF2E.ToggleEffectUnidentified'}}"><i
+                class="fas fa-fw fa-eye"></i></a>
+        {{/if}}
+        {{#if (eq item.type "effect")}}
+            <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i
+                class="fas fa-fw fa-edit"></i></a>
+        {{/if}}
+        <a class="item-control item-delete" title="{{localize PF2E.DeleteItemTitle}}"><i
+                class="fas fa-trash"></i></a>
+    </div>
+    {{#if (eq item.type "condition")}}
+        <div class="item-summary">
+            <div class="item-description">
+                <p>{{{item.enrichedDescription}}}</p>
+            </div>
+            {{#if item.references}}
+            <div class="condition-references">
+                {{#if item.parents.length}}
+                <div class="condition-parents">
+                    <p>Applied From:{{#each item.parents as |parent|}} <span
+                            data-item-id="{{parent.id}}">{{{parent.enrichedText}}}</span>{{/each}}</p>
+                </div>
+                {{/if}}
+                {{#if item.children.length}}
+                <div class="condition-children">
+                    <p>Also Applied:{{#each item.children as |child|}} {{{child.enrichedText}}}{{/each}}</p>
+                </div>
+                {{/if}}
+                {{#if item.overrides.length}}
+                <div class="condition-overriding">
+                    <p>Overriding:{{#each item.overrides as |o|}} {{{o.enrichedText}}}{{/each}}</p>
+                </div>
+                {{/if}}
+                {{#if item.overriddenBy.length}}
+                <div class="condition-overridden">
+                    <p>Overridden by:{{#each item.overriddenBy as |o|}} {{{o.enrichedText}}}{{/each}}</p>
+                </div>
+                {{/if}}
+            </div>
+            {{/if}}
+        </div>
+    {{/if}}
+</li>
+{{/if}}
+{{/each}}

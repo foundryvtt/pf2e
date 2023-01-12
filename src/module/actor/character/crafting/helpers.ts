@@ -5,7 +5,7 @@ import { getIncomeForLevel } from "@scripts/macros/earn-income";
 import { ConsumablePF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
 import { OneToTen } from "@module/data";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
-import { CheckRoll } from "@system/check/roll";
+import { CheckRoll } from "@system/check";
 import { ChatMessagePF2e } from "@module/chat-message";
 
 /** Implementation of Crafting rules on https://2e.aonprd.com/Actions.aspx?ID=43 */
@@ -35,7 +35,7 @@ async function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
         lostMaterials: game.i18n.format("PF2E.Actions.Craft.Details.LostMaterials", {
             cost: costs.lostMaterials.toString(),
         }),
-        itemLink: await game.pf2e.TextEditor.enrichHTML(item.link, { rollData, async: true }),
+        itemLink: await TextEditor.enrichHTML(item.link, { rollData, async: true }),
     };
 }
 
@@ -116,7 +116,7 @@ export async function craftSpellConsumable(
             result[spell.baseLevel] = [...(result[spell.baseLevel] || []), spell];
             return result;
         }, <Record<number, Embedded<SpellPF2e>[]>>{});
-    const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.html", {
+    const content = await renderTemplate("systems/pf2e/templates/actors/crafting-select-spell-dialog.hbs", {
         spells: validSpells,
     });
 
@@ -154,13 +154,13 @@ export async function renderCraftingInline(
 ): Promise<string | null> {
     if (!actor.isOfType("character")) return null;
 
-    const degreeOfSuccess = roll.data.degreeOfSuccess ?? 0;
+    const degreeOfSuccess = roll.options.degreeOfSuccess ?? 0;
     const costs = calculateCosts(item, quantity, actor, degreeOfSuccess);
     if (!costs) return null;
 
     const daysForZeroCost = degreeOfSuccess > 1 ? calculateDaysToNoCost(costs) : 0;
 
-    return await renderTemplate("systems/pf2e/templates/chat/crafting-result.html", {
+    return await renderTemplate("systems/pf2e/templates/chat/crafting-result.hbs", {
         daysForZeroCost: daysForZeroCost,
         strings: await prepStrings(costs, item),
         item,

@@ -123,22 +123,20 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "construct-armor"
-                        ],
-                        "selector": "ac",
-                        "slug": "construct-armor-critical",
-                        "value": -3
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
                             {
-                                "not": "construct-armor"
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "selector": "ac",
-                        "slug": "construct-armor-health",
-                        "value": "3*(min(round(@actor.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
+                        "value": -3
                     }
                 ],
                 "slug": null,
@@ -314,6 +312,47 @@
                 "temp": 0,
                 "value": 35
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -356,28 +395,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

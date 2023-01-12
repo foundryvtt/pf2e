@@ -29,7 +29,7 @@ interface Configuration extends Omit<webpack.Configuration, "devServer"> {
 
 const allTemplates = (): string => {
     return glob
-        .sync("**/*.html", { cwd: path.join(__dirname, "static/templates") })
+        .sync("**/*.hbs", { cwd: path.join(__dirname, "static/templates") })
         .map((file: string) => `"systems/pf2e/templates/${file}"`)
         .join(", ");
 };
@@ -41,7 +41,7 @@ const [outDir, foundryUri] = ((): [string, string] => {
         config instanceof Object
             ? path.join(config.dataPath, "Data", "systems", config.systemName ?? "pf2e")
             : path.join(__dirname, "dist/");
-    const foundryUri = (config instanceof Object ? String(config.foundryUri) : "") ?? "http://localhost:30000";
+    const foundryUri = (config instanceof Object ? String(config.foundryUri ?? "") : null) || "http://localhost:30000";
     return [outDir, foundryUri];
 })();
 
@@ -88,15 +88,7 @@ const config: Configuration = {
     },
     module: {
         rules: [
-            !isProductionBuild
-                ? {
-                      test: /\.html$/,
-                      loader: "raw-loader",
-                  }
-                : {
-                      test: /\.html$/,
-                      loader: "null-loader",
-                  },
+            !isProductionBuild ? { test: /\.hbs$/, loader: "raw-loader" } : { test: /\.hbs$/, loader: "null-loader" },
             {
                 test: /\.ts$/,
                 use: [
@@ -188,6 +180,7 @@ const config: Configuration = {
         new webpack.WatchIgnorePlugin({ paths: ["node_modules/", "packs/", "static/packs/"] }),
         new webpack.DefinePlugin({
             BUILD_MODE: JSON.stringify(buildMode),
+            ROLL_GRAMMAR: JSON.stringify(fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" })),
         }),
         new CopyPlugin({
             patterns: [

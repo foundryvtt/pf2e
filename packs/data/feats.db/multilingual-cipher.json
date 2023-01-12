@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Multilingual Cipher",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -13,10 +10,10 @@
             "value": null
         },
         "description": {
-            "value": "<p>You use multiple languages to create and break codes. You gain a +1 circumstance bonus to @Compendium[pf2e.actionspf2e.Decipher Writing]{Decipher Writing}.</p>\n<p>If another creature attempts to Decipher Writing you encoded, they take a -2 circumstance penalty unless they speak all the languages you used when you created the writing.</p>"
+            "value": "<p>You use multiple languages to create and break codes. You gain a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Decipher Writing]{Decipher Writing}.</p>\n<p>If another creature attempts to Decipher Writing you encoded, they take a -2 circumstance penalty unless they speak all the languages you used when you created the writing.</p>"
         },
         "featType": {
-            "value": "archetype"
+            "value": "skill"
         },
         "level": {
             "value": 4
@@ -38,37 +35,12 @@
                 "predicate": [
                     "action:decipher-writing"
                 ],
-                "selector": "arcana",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "to Decipher Writing (Multilingual Cipher)",
-                "predicate": [
-                    "action:decipher-writing"
+                "selector": [
+                    "arcana",
+                    "occultism",
+                    "religion",
+                    "society"
                 ],
-                "selector": "occultism",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "to Decipher Writing (Multilingual Cipher)",
-                "predicate": [
-                    "action:decipher-writing"
-                ],
-                "selector": "religion",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "to Decipher Writing (Multilingual Cipher)",
-                "predicate": [
-                    "action:decipher-writing"
-                ],
-                "selector": "society",
                 "type": "circumstance",
                 "value": 1
             }

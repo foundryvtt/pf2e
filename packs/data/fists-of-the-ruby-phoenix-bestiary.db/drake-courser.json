@@ -197,7 +197,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Snow doesn't impair a drake courser's vision; it ignores @Compendium[pf2e.conditionitems.Concealed]{concealment} from snowfall.</p>"
+                    "value": "<p>Snow doesn't impair a drake courser's vision; it ignores @UUID[Compendium.pf2e.conditionitems.Concealed]{concealment} from snowfall.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -242,7 +242,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Tail only. On a critical hit, the target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}; if the target was using a move action, its movement ends.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
+                    "value": "<p>Tail only. On a critical hit, the target is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}; if the target was using a move action, its movement ends.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -282,7 +282,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The drake courser makes two fangs Strikes and one tail Strike in any order. It can replace any of these Strikes with @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} or @Compendium[pf2e.actionspf2e.Step]{Step}.</p>"
+                    "value": "<p>The drake courser makes two fangs Strikes and one tail Strike in any order. It can replace any of these Strikes with @UUID[Compendium.pf2e.actionspf2e.Demoralize]{Demoralize} or @UUID[Compendium.pf2e.actionspf2e.Step]{Step}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -322,7 +322,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The drake courser moves up to twice its Speed. It can attempt to @Compendium[pf2e.actionspf2e.Trip]{Trip} with its tail once at any point during its movement.</p>"
+                    "value": "<p><strong>Frequency</strong> three times per day</p>\n<hr />\n<p><strong>Effect</strong> The drake courser moves up to twice its Speed. It can attempt to @UUID[Compendium.pf2e.actionspf2e.Trip]{Trip} with its tail once at any point during its movement.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -364,7 +364,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The drake spits a ball of liquid up to 60 feet that explodes into a @Template[type:burst|distance:20] of freezing mist. Those in the burst take [[/r {13d6}[cold]]]{13d6 cold damage} (@Check[type:reflex|dc:31|basic:true] save). The mist cakes all surfaces in the area with a sheet of slippery ice that turns the area into difficult terrain for [[/br 2d4 #rounds]]{2d4 rounds}. It can't use Freezing Mist Breath again for [[/br 1d6 #rounds]]{1d6 rounds}.</p>"
+                    "value": "<p>The drake spits a ball of liquid up to 60 feet that explodes into a @Template[type:burst|distance:20] of freezing mist. Those in the burst take [[/r 13d6[cold]]] damage (@Check[type:reflex|dc:31|basic:true] save). The mist cakes all surfaces in the area with a sheet of slippery ice that turns the area into difficult terrain for [[/br 2d4 #rounds]]{2d4 rounds}. It can't use Freezing Mist Breath again for [[/br 1d6 #rounds]]{1d6 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -598,6 +598,17 @@
                 "temp": 0,
                 "value": 230
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -621,7 +632,13 @@
                     }
                 ],
                 "value": 35
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -654,23 +671,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold",
-                    "paralyzed",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "15"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

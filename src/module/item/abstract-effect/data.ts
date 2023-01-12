@@ -1,8 +1,3 @@
-import { OneToFour } from "@module/data";
-
-type DieFaceCount = 4 | 6 | 8 | 10 | 12 | 20;
-type DiceExpression = `${OneToFour | ""}d${DieFaceCount}`;
-
 interface EffectBadgeCounter {
     type: "counter";
     value: number;
@@ -12,7 +7,7 @@ interface EffectBadgeCounter {
 // currently unused until specifices can be figured out
 interface EffectBadgeValue {
     type?: "value";
-    value: number | DiceExpression;
+    value: number | string;
 }
 
 type EffectBadge = EffectBadgeCounter | EffectBadgeValue;

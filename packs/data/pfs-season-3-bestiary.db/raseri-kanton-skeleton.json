@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d10",
-                    "value": ""
+                    "die": "d10"
                 },
                 "description": {
                     "value": "<p>This pick has a longer handle and broader head than a regular pick. It is too heavy to wield in one hand.</p>"
@@ -59,29 +58,15 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 2
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -105,9 +90,6 @@
                 "slug": "greatpick",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -415,7 +397,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The Raseri Kanton skeleton is critically hit</p>\n<hr />\n<p><strong>Effect</strong> The skeleton collapses into a pile of bones, and the attack deals only normal damage. The skeleton can reform in a standing position as a single action, but until it does, it's @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed}.</p>"
+                    "value": "<p><strong>Trigger</strong> The Raseri Kanton skeleton is critically hit</p>\n<hr />\n<p><strong>Effect</strong> The skeleton collapses into a pile of bones, and the attack deals only normal damage. The skeleton can reform in a standing position as a single action, but until it does, it's @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -452,7 +434,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The Raseri Kanton skeleton yanks a rib from its ribcage to use as a javelin. The skeleton loses 4 HP, then makes a ranged Strike with an attack bonus of [[/r {1d20+10}#Attack]]{+10} that deals [[/r {1d10+11}[piercing]]]{1d10+11 piercing damage} with a range increment of 20 feet.</p>"
+                    "value": "<p>The Raseri Kanton skeleton yanks a rib from its ribcage to use as a javelin. The skeleton loses 4 HP, then makes a ranged Strike with an attack bonus of [[/r {1d20+10}#Attack]]{+10} that deals [[/r (1d10+11)[piercing]]] damage with a range increment of 20 feet.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -594,12 +576,54 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 11
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
@@ -636,45 +660,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "electricity",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

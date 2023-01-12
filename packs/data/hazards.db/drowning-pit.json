@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature falls in and takes damage from the fall, reduced by 5 feet for falling into the water (typically [[/r {12}[bludgeoning]]]{12 bludgeoning damage}). A creature can @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge} to avoid falling. The trapdoor then slams shut, and the hazard rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature falls in and takes damage from the fall, reduced by 5 feet for falling into the water (typically [[/r 12[bludgeoning]]] damage). A creature can @UUID[Compendium.pf2e.actionspf2e.Grab an Edge]{Grab an Edge} to avoid falling. The trapdoor then slams shut, and the hazard rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -58,6 +58,17 @@
                 "tempmax": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained); @Check[type:perception|dc:22|traits:action:seek] (expert) to notice the water spouts once the pit opens</p>",
                 "value": 10
@@ -66,7 +77,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A trapdoor covers a 10-foot-square pit that's 30 feet deep and has 5 feet of water at the bottom. Four water spouts in the walls connect to hidden water tanks. Each water spout extends out of a different wall, 6 inches from the top of the pit.</p>",
-            "disable": "<p>@Check[type:thievery|dc:18] (trained) to seal each water spout, @Check[type:thievery|dc:22] (trained) to open the trapdoor, or @Check[type:athletics|dc:22] to @Compendium[pf2e.action-macros.Force Open: Athletics]{Force Open: Athletics} the trapdoor</p>",
+            "disable": "<p>@Check[type:thievery|dc:18] (trained) to seal each water spout, @Check[type:thievery|dc:22] (trained) to open the trapdoor, or @Check[type:athletics|dc:22] to @UUID[Compendium.pf2e.action-macros.Force Open: Athletics]{Force Open: Athletics} the trapdoor</p>",
             "isComplex": true,
             "level": {
                 "value": 3
@@ -94,18 +105,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

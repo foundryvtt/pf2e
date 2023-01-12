@@ -14,7 +14,13 @@ declare global {
      * pool.evaluate();
      */
     class PoolTerm<TData extends PoolTermData = PoolTermData> extends RollTerm<TData> {
-        constructor({ terms, modifiers, rolls, results, options }?: TData);
+        constructor({
+            terms,
+            modifiers,
+            rolls,
+            results,
+            options,
+        }?: Omit<TData, "rolls"> & { rolls: TData["rolls"] | Roll[] });
 
         /** The original provided terms to the Dice Pool */
         terms: RollTerm[];
@@ -116,7 +122,7 @@ declare global {
          * @param rolls An array of Roll objects from which to create the pool
          * @returns The constructed PoolTerm comprised of the provided rolls
          */
-        static fromRolls(rolls?: Roll[]): PoolTerm<PoolTermData>;
+        static fromRolls<TTerm extends PoolTerm>(this: ConstructorOf<TTerm>, rolls?: Roll[]): TTerm;
 
         /* -------------------------------------------- */
         /*  Modifiers                                   */
@@ -172,7 +178,7 @@ declare global {
     interface PoolTermData extends RollTermData {
         terms?: string[];
         modifiers?: string[];
-        rolls?: RollData[];
+        rolls?: RollJSON[];
         results?: DiceTermResult[];
     }
 }

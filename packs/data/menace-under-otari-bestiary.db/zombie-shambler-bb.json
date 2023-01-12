@@ -68,7 +68,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> The zombie has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained}.</p>"
+                    "value": "<p><strong>Requirements</strong> The zombie has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}.</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -192,7 +192,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>When the zombie hits with its fist Strike, it can use this action to automatically give the target the @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} condition until the end of its next turn.</p>"
+                    "value": "<p>When the zombie hits with its fist Strike, it can use this action to automatically give the target the @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} condition until the end of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -284,6 +284,14 @@
                 "temp": 0,
                 "value": 20
             },
+            "immunities": [
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -293,7 +301,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -329,26 +347,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "mental",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 5
-                },
-                {
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

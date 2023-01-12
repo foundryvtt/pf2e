@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This long bone functions as a Bo Staff.</p>\n<hr />\n<p>This strong but slender staff is tapered at the ends and well balanced. It's designed to be an offensive and defensive weapon.</p>"
@@ -69,20 +68,6 @@
                         "sp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -105,9 +90,6 @@
                 "slug": "bo-staff",
                 "source": {
                     "value": ""
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -493,7 +475,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the skeleton is destroyed, its bones shatter and explode as the necromantic energy holding it together is released. Adjacent creatures take [[/r {1d6}[slashing]]]{1d6 slashing damage} with a @Check[type:reflex|dc:15|basic:true] save</p>"
+                    "value": "<p>When the skeleton is destroyed, its bones shatter and explode as the necromantic energy holding it together is released. Adjacent creatures take [[/r 1d6[slashing]]] damage with a @Check[type:reflex|dc:15|basic:true] save</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -533,7 +515,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The skeleton Strides and makes a claw Strike with a +2 circumstance bonus to damage circumstance bonus to damage. If the strike hits, the skeleton attempts to @Compendium[pf2e.action-macros.Demoralize: Intimidation]{Demoralize: Intimidation} the target.</p>"
+                    "value": "<p>The skeleton Strides and makes a claw Strike with a +2 circumstance bonus to damage circumstance bonus to damage. If the strike hits, the skeleton attempts to @UUID[Compendium.pf2e.action-macros.Demoralize: Intimidation]{Demoralize: Intimidation} the target.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -657,12 +639,51 @@
                 "temp": 0,
                 "value": 22
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 4
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 5
+                },
+                {
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -699,46 +720,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "5"
-                },
-                {
-                    "label": "Electricity",
-                    "type": "electricity",
-                    "value": "5"
-                },
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                },
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "5"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "5"
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

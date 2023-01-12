@@ -17,7 +17,7 @@ type WeaponGroup = SetElement<typeof WEAPON_GROUPS>;
 type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 
 type WeaponTrait = keyof ConfigPF2e["PF2E"]["weaponTraits"];
-type OtherWeaponTag = "crossbow" | "improvised";
+type OtherWeaponTag = "crossbow" | "improvised" | "shoddy";
 
 type WeaponRangeIncrement = SetElement<typeof WEAPON_RANGES>;
 type WeaponReloadTime = "-" | "0" | "1" | "2" | "3" | "10";
@@ -26,21 +26,6 @@ type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking";
 
 type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide" | "grisantian-pelt">;
 
-type WeaponMaterialEffect = Extract<
-    WeaponMaterialType,
-    | "abysium"
-    | "adamantine"
-    | "coldIron"
-    | "djezet"
-    | "mithral"
-    | "noqual"
-    | "peachwood"
-    | "silver"
-    | "sisterstone-dusk"
-    | "sisterstone-scarlet"
-    | "sovereignSteel"
->;
-
 export {
     BaseWeaponType,
     MeleeWeaponGroup,
@@ -48,7 +33,6 @@ export {
     StrikingRuneType,
     WeaponCategory,
     WeaponGroup,
-    WeaponMaterialEffect,
     WeaponMaterialType,
     WeaponPropertyRuneType,
     WeaponRangeIncrement,

@@ -4,7 +4,7 @@
     "name": "Effect: Predictable! (Critical Failure)",
     "system": {
         "description": {
-            "value": "<p>Granted if you critically fail with @Compendium[pf2e.feats-srd.Predictable!]{Predictable!}</p>"
+            "value": "<p>Granted if you critically fail with @UUID[Compendium.pf2e.feats-srd.Predictable!]{Predictable!}</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -21,16 +21,10 @@
                 "predicate": [
                     "predicatable"
                 ],
-                "selector": "ac",
-                "type": "circumstance",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "predicatable"
+                "selector": [
+                    "ac",
+                    "reflex"
                 ],
-                "selector": "reflex",
                 "type": "circumstance",
                 "value": -1
             },

@@ -101,7 +101,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Casting <em>@Compendium[pf2e.spells-srd.Neutralize Poison]{Neutralize Poison}</em> on the golem deactivates its Breath Weapon for 1 minute.</p>"
+                    "value": "<p>Casting <em>@UUID[Compendium.pf2e.spells-srd.Neutralize Poison]{Neutralize Poison}</em> on the golem deactivates its Breath Weapon for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -181,7 +181,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The pulping golem spills its cauldron stomach to the floor, dealing [[/r {9d12}[fire]]]{9d12 fire damage} to creatures within 10 feet (@Check[type:reflex|dc:33|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The pulping golem spills its cauldron stomach to the floor, dealing [[/r 9d12[fire]]] damage to creatures within 10 feet (@Check[type:reflex|dc:33|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -305,7 +305,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any @Compendium[pf2e.conditionitems.Drained]{Drained} value from this poison is reduced by 1 every hour.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:35]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> 2d6+4 poison and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> 4d6+4 poison and @Compendium[pf2e.conditionitems.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> 8d6+4 poison and @Compendium[pf2e.conditionitems.Drained]{Drained 3} (1 round).</p>"
+                    "value": "<p>Any @UUID[Compendium.pf2e.conditionitems.Drained]{Drained} value from this poison is reduced by 1 every hour.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:35]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> 2d6+4 poison and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> 4d6+4 poison and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> 8d6+4 poison and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 3} (1 round).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -400,12 +400,68 @@
                 "temp": 0,
                 "value": 230
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "magic"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 21
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
@@ -442,36 +498,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "fire",
-                    "healing",
-                    "magic",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine",
-                    "type": "physical",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -232,13 +232,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -339,13 +333,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -448,13 +436,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -553,13 +535,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -664,13 +640,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -775,11 +745,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -1194,7 +1161,7 @@
         {
             "_id": "tnOFl9MIpqf5OkVX",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+1 Status Bonus on Saves vs. Magic",
+            "name": "+1 Status to All Saves vs. Magic",
             "sort": 1600000,
             "system": {
                 "actionCategory": {
@@ -1265,7 +1232,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature that first enters the area must attempt a @Check[type:will|dc:42] save.</p>\n<p>Regardless of the result of the saving throw, the creature is temporarily immune to the Veksciralenix's Alien Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A creature that first enters the area must attempt a @Check[type:will|dc:42] save.</p>\n<p>Regardless of the result of the saving throw, the creature is temporarily immune to the Veksciralenix's Alien Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1394,7 +1361,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The time dragon breathes in one of two ways.</p>\n<p>The dragon can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Storm</strong> The dragon breathes a burst of lightning in a @Template[type:cone|distance:50] that deals [[/r {20d6}[electricity]]]{20d6 electricity damage} (@Check[type:reflex|dc:42|basic:true|name:Storm Breath] save).</p>\n<hr />\n<p><strong>Time Displacement</strong> (arcane, transmutation) The dragon breathes a time storm. Each creature within a @Template[type:cone|distance:50] must attempt a @Check[type:fortitude|dc:42|name:Time Displacement Breath|traits:transmutation] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 4}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 6}.</p>"
+                    "value": "<p>The time dragon breathes in one of two ways.</p>\n<p>The dragon can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Storm</strong> The dragon breathes a burst of lightning in a @Template[type:cone|distance:50] that deals [[/r 20d6[electricity]]] damage (@Check[type:reflex|dc:42|basic:true|name:Storm Breath] save).</p>\n<hr />\n<p><strong>Time Displacement</strong> (arcane, transmutation) The dragon breathes a time storm. Each creature within a @Template[type:cone|distance:50] must attempt a @Check[type:fortitude|dc:42|name:Time Displacement Breath|traits:transmutation] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 4}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 6}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1745,6 +1712,20 @@
                 "temp": 0,
                 "value": 375
             },
+            "immunities": [
+                {
+                    "type": "negative"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                },
+                {
+                    "type": "slowed"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1798,18 +1779,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "negative",
-                    "paralyzed",
-                    "sleep",
-                    "slowed"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

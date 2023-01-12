@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature enters the area</p>\n<hr />\n<p><strong>Effect</strong> The spirit steps out of the mirror, wearing the cloth as a shroud and revealing the mirror. The triggering creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} unless they succeed at a @Check[type:will|dc:38] save. The haunt then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature enters the area</p>\n<hr />\n<p><strong>Effect</strong> The spirit steps out of the mirror, wearing the cloth as a shroud and revealing the mirror. The triggering creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} unless they succeed at a @Check[type:will|dc:38] save. The haunt then rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -95,6 +95,18 @@
                 "temp": 0,
                 "value": 230
             },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "ghost-touch"
+                    ],
+                    "type": "all-damage",
+                    "value": 20
+                }
+            ],
             "stealth": {
                 "details": "",
                 "value": 33
@@ -109,7 +121,7 @@
                 "value": 17
             },
             "reset": "<p>The haunt can be reset if the mirror is covered in a cloth or shroud.</p>",
-            "routine": "<p>(3 actions) The spirit uses 3 actions to Step, fly 60 feet, or Strike, in any order. On a successful Strike the spirit's target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}, and on a critical success, the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>"
+            "routine": "<p>(3 actions) The spirit uses 3 actions to Step, fly 60 feet, or Strike, in any order. On a successful Strike the spirit's target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}, and on a critical success, the target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>"
         },
         "saves": {
             "fortitude": {
@@ -131,19 +143,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": []
-            },
-            "dr": [
-                {
-                    "exceptions": "except PF2E.TraitForce, ghost touch, or PF2E.TraitPositive; double resistance to non-magical",
-                    "type": "all",
-                    "value": 20
-                }
-            ],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

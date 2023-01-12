@@ -126,11 +126,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "20-foot burst"
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -148,7 +145,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -407,7 +404,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The deculi creates an extradimensional space adjacent to itself in any 10-foot-by-10-foot area of darkness and enters it. To non-deculis, the extradimensional space looks like an ordinary area of darkness (though effects such as true seeing can see through this illusion). The deculi's infrared vision functions normally between this extradimensional space and the area outside its confines, allowing the deculi to sense what is going on around it, and its innate darkness spell also extends to the area around the shadow sanctuary. Attacks cannot be made into or from the extradimensional space.</p>\n<p>The deculi can Dismiss this effect to emerge from its shadow sanctuary, but the space it emerges into must be in darkness and must be unobstructed. If the area is obstructed, the deculi is shunted to the nearest available space and takes [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage} per 5 feet shunted. If the area overlaying the shadow sanctuary becomes illuminated by magical light, the extradimensional space can no longer be accessed and the deculi is trapped within until the area is once again in darkness. The deculi can try to extinguish a magical light effect obscuring its sanctuary once per day by attempting to counteract the light effect with its darkness innate spell.</p>\n<p>If a deculi dies (including from hunger, thirst, or asphyxiation) while within the extradimensional space, the shadow sanctuary immediately ends and the deculi's corpse is expelled. If the area is illuminated, the corpse is not expelled until the sanctuary entrance is in darkness once again.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The deculi creates an extradimensional space adjacent to itself in any 10-foot-by-10-foot area of darkness and enters it. To non-deculis, the extradimensional space looks like an ordinary area of darkness (though effects such as true seeing can see through this illusion). The deculi's infrared vision functions normally between this extradimensional space and the area outside its confines, allowing the deculi to sense what is going on around it, and its innate darkness spell also extends to the area around the shadow sanctuary. Attacks cannot be made into or from the extradimensional space.</p>\n<p>The deculi can Dismiss this effect to emerge from its shadow sanctuary, but the space it emerges into must be in darkness and must be unobstructed. If the area is obstructed, the deculi is shunted to the nearest available space and takes [[/r 1d6[bludgeoning]]] damage per 5 feet shunted. If the area overlaying the shadow sanctuary becomes illuminated by magical light, the extradimensional space can no longer be accessed and the deculi is trapped within until the area is once again in darkness. The deculi can try to extinguish a magical light effect obscuring its sanctuary once per day by attempting to counteract the light effect with its darkness innate spell.</p>\n<p>If a deculi dies (including from hunger, thirst, or asphyxiation) while within the extradimensional space, the shadow sanctuary immediately ends and the deculi's corpse is expelled. If the area is illuminated, the corpse is not expelled until the sanctuary entrance is in darkness once again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -461,7 +458,7 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "option": "shadowStrike",
+                        "option": "shadow-strike",
                         "toggleable": true
                     },
                     {
@@ -470,7 +467,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "shadowStrike"
+                            "shadow-strike"
                         ],
                         "selector": "fangs-damage"
                     }
@@ -654,6 +651,11 @@
                 "temp": 0,
                 "value": 215
             },
+            "immunities": [
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -710,15 +712,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "visual"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

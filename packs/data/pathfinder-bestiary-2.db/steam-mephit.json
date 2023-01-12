@@ -126,11 +126,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -148,7 +145,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
+                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -324,7 +321,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The steam mephit ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from mist and steam.</p>"
+                    "value": "<p>The steam mephit ignores the @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition from mist and steam.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -409,7 +406,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The steam mephit calls down a rain boiling water that surrounds them in a @Template[type:emanation|distance:10]. Creatures in the area take [[/r {2d8}[fire]]]{2d8 fire damage} (@Check[type:reflex|dc:17|basic:true] save), and small unattended flames (such as torches) are extinguished.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The steam mephit calls down a rain boiling water that surrounds them in a @Template[type:emanation|distance:10]. Creatures in the area take [[/r 2d8[fire]]] damage (@Check[type:reflex|dc:17|basic:true] save), and small unattended flames (such as torches) are extinguished.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -454,7 +451,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The steam mephit spits a cloud of steam in a @Template[type:cone|distance:15] that deals [[/r {2d6}[fire]]]{2d6 fire damage} to each creature within the area (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p>The steam mephit can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The steam mephit spits a cloud of steam in a @Template[type:cone|distance:15] that deals [[/r 2d6[fire]]] damage to each creature within the area (@Check[type:reflex|dc:17|basic:true] save).</p>\n<p>The steam mephit can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -574,6 +571,23 @@
                 "temp": 0,
                 "value": 19
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -592,7 +606,13 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -633,25 +653,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "fire",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "3"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

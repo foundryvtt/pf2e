@@ -211,7 +211,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The daqqanoenyent's face twists into an expression of unbridled rage. Each creature within @Template[type:emanation|distance:30]{30 feet} that can see the daqqanoenyent must attempt a @Check[type:will|dc:28] save. The creature is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3}.</p>"
+                    "value": "<p>The daqqanoenyent's face twists into an expression of unbridled rage. Each creature within @Template[type:emanation|distance:30]{30 feet} that can see the daqqanoenyent must attempt a @Check[type:will|dc:28] save. The creature is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -254,7 +254,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A daqqanoenyent can Fly at half Speed while they have a Medium or smaller creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} in their talons, carrying that creature along with them.</p>"
+                    "value": "<p>A daqqanoenyent can Fly at half Speed while they have a Medium or smaller creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} in their talons, carrying that creature along with them.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -296,7 +296,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Medium, [[/r {2d8+9}[bludgeoning]]]{2d8+9 bludgeoning}, Rupture 24</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Medium, [[/r (2d8+9)[bludgeoning]]], Rupture 24</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -521,6 +521,23 @@
                 "temp": 0,
                 "value": 170
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -536,7 +553,17 @@
                 ],
                 "special": "",
                 "value": 15
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -569,28 +596,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 10
-                },
-                {
-                    "type": "positive",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "plus any one language spoken in life, (can't speak any language)",
                 "selected": [],

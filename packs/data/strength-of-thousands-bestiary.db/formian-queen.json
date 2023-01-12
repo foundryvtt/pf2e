@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -148,7 +142,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You shroud a creature from others' senses. The target becomes @Compendium[pf2e.conditionitems.Undetected]{Undetected}, not just to sight but to all senses, allowing the target to count as @Compendium[pf2e.conditionitems.Invisible]{Invisible} no matter what precise and imprecise senses an observer might have. It's still possible for a creature to find the target by Seeking, looking for disturbed dust, hearing gaps in the sound spectrum, or finding some other way to discover the presence of an otherwise-undetectable creature.</p>"
+                    "value": "<p>You shroud a creature from others' senses. The target becomes @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected}, not just to sight but to all senses, allowing the target to count as @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} no matter what precise and imprecise senses an observer might have. It's still possible for a creature to find the target by Seeking, looking for disturbed dust, hearing gaps in the sound spectrum, or finding some other way to discover the presence of an otherwise-undetectable creature.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -233,13 +227,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -256,7 +244,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You drastically reduce the target's mental faculties. The target must attempt a Will save. The effects of this curse can be removed only through remove curse or another effect that targets curses.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 4} with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The target's intellect is permanently reduced below that of an animal, and it treats its Charisma, Intelligence, and Wisdom modifiers as -5. It loses all class abilities that require mental faculties, including all spellcasting. If the target is a PC, they become an NPC under the GM's control.</p>"
+                    "value": "<p>You drastically reduce the target's mental faculties. The target must attempt a Will save. The effects of this curse can be removed only through remove curse or another effect that targets curses.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 4} with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The target's intellect is permanently reduced below that of an animal, and it treats its Charisma, Intelligence, and Wisdom modifiers as -5. It loses all class abilities that require mental faculties, including all spellcasting. If the target is a PC, they become an NPC under the GM's control.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -345,13 +333,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -457,13 +439,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -568,11 +544,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot cone"
+                    "type": "cone",
+                    "value": 60
                 },
                 "category": {
                     "value": "spell"
@@ -693,11 +666,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot burst"
+                    "type": "burst",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -715,7 +685,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You form an imaginary scene that includes up to 10 discrete creatures or objects of various sizes, all of which must be within the spell's area. These elements generate appropriate sounds and smells, and they feel right to the touch. Elements of an illusory scene are incapable of speech. Unlike with the <em>@Compendium[pf2e.spells-srd.Illusory Creature]{Illusory Creature}</em> spell, creatures in your scene lack combat abilities and statistics. Your scene doesn't include changes to the environment around it, though you can place your scene within the illusory environment of a <em>@Compendium[pf2e.spells-srd.Hallucinatory Terrain]{Hallucinatory Terrain}</em> spell.</p>\n<p>When you create the scene, you can choose to have it be static or follow a program. Though a static scene is stationary, it includes basic natural movement. For example, wind blowing on an illusory piece of paper would rustle it. A program can be up to 1 minute long and repeats when finished. For instance, you could create a scene of two orcs fighting each other, and the fight would go the same way for each repetition. If you create a loop, the two fighters end up in the same place at the start of the scene and at the end of it, but you can smooth the program so it's hard to tell when the loop ends and begins. Anyone observing the scene for more than a few minutes almost always notices it looping. You're unable to alter the program after you create the illusion.</p>\n<p>Any creature that touches any part of the image or uses the Seek action to examine it can attempt to disbelieve your illusion. If they interact with a portion of the illusion, they disbelieve only that portion. They disbelieve the entire scene only on a critical success.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Creatures or objects in your scene can speak. You must speak the specific lines for each actor when creating your program. The spell disguises your voice for each actor.</p>\n<p><strong>Heightened (8th)</strong> As the 6th-level version, and the duration is unlimited.</p>"
+                    "value": "<p>You form an imaginary scene that includes up to 10 discrete creatures or objects of various sizes, all of which must be within the spell's area. These elements generate appropriate sounds and smells, and they feel right to the touch. Elements of an illusory scene are incapable of speech. Unlike with the <em>@UUID[Compendium.pf2e.spells-srd.Illusory Creature]{Illusory Creature}</em> spell, creatures in your scene lack combat abilities and statistics. Your scene doesn't include changes to the environment around it, though you can place your scene within the illusory environment of a <em>@UUID[Compendium.pf2e.spells-srd.Hallucinatory Terrain]{Hallucinatory Terrain}</em> spell.</p>\n<p>When you create the scene, you can choose to have it be static or follow a program. Though a static scene is stationary, it includes basic natural movement. For example, wind blowing on an illusory piece of paper would rustle it. A program can be up to 1 minute long and repeats when finished. For instance, you could create a scene of two orcs fighting each other, and the fight would go the same way for each repetition. If you create a loop, the two fighters end up in the same place at the start of the scene and at the end of it, but you can smooth the program so it's hard to tell when the loop ends and begins. Anyone observing the scene for more than a few minutes almost always notices it looping. You're unable to alter the program after you create the illusion.</p>\n<p>Any creature that touches any part of the image or uses the Seek action to examine it can attempt to disbelieve your illusion. If they interact with a portion of the illusion, they disbelieve only that portion. They disbelieve the entire scene only on a critical success.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Creatures or objects in your scene can speak. You must speak the specific lines for each actor when creating your program. The spell disguises your voice for each actor.</p>\n<p><strong>Heightened (8th)</strong> As the 6th-level version, and the duration is unlimited.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -804,13 +774,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1276,7 +1240,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The formian queen stirs all formians within range of her telepathy into a frenzy. Each affected formian gains the @Compendium[pf2e.conditionitems.Quickened]{Quickened} condition for 1 minute, and can use the extra action each round only to Strike or Stride.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> The formian queen stirs all formians within range of her telepathy into a frenzy. Each affected formian gains the @UUID[Compendium.pf2e.conditionitems.Quickened]{Quickened} condition for 1 minute, and can use the extra action each round only to Strike or Stride.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1317,7 +1281,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>A formian queen transfers her consciousness to the body of any formian within range of her telepathy to whom she has a line of effect. As long as the queen's consciousness is outside her body, her body is @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (though she is aware if any damage is dealt to it).</p>\n<p>An unwilling target can attempt a @Check[type:will|dc:38] saving throw to resist being possessed, but the queen's offspring are part of her hive mind and thus are almost always willing. The queen receives all sensory input from the target creature; she can speak through it, and she can use her own modifier for Intelligence-, Wisdom-, and Charisma-based skill checks.</p>\n<p>If the target creature is slain or moves to a different plane from the queen's body, the queen returns to her own body immediately and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}; otherwise, she can return to her own body as a free action, ending the possession effect.</p>"
+                    "value": "<p>A formian queen transfers her consciousness to the body of any formian within range of her telepathy to whom she has a line of effect. As long as the queen's consciousness is outside her body, her body is @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} (though she is aware if any damage is dealt to it).</p>\n<p>An unwilling target can attempt a @Check[type:will|dc:38] saving throw to resist being possessed, but the queen's offspring are part of her hive mind and thus are almost always willing. The queen receives all sensory input from the target creature; she can speak through it, and she can use her own modifier for Intelligence-, Wisdom-, and Charisma-based skill checks.</p>\n<p>If the target creature is slain or moves to a different plane from the queen's body, the queen returns to her own body immediately and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}; otherwise, she can return to her own body as a free action, ending the possession effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1360,7 +1324,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The formian queen unleashes a blast of debilitating telepathic feedback, targeting as many creatures as she wishes within range of her telepathy and to whom she has a line of effect. Targeted creatures must attempt a @Check[type:will|dc:38] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Telepathic Feedback for 24 hours.</p>\n<p><strong>Success</strong> The creature takes [[/r {3d6}[mental]]]{3d6 mental damage}, @Localize[PF2E.PersistentDamage.Mental1d6.success], and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {6d6}[mental]]]{6d6 mental damage}, 1d6 persistent mental damage, and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {12d6}[mental]]]{12d6 mental damage}, 1d6 persistent mental damage, and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}. Upon recovering from the stunned condition, the creature becomes sickened 2.</p>"
+                    "value": "<p>The formian queen unleashes a blast of debilitating telepathic feedback, targeting as many creatures as she wishes within range of her telepathy and to whom she has a line of effect. Targeted creatures must attempt a @Check[type:will|dc:38] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Telepathic Feedback for 24 hours.</p>\n<p><strong>Success</strong> The creature takes [[/r 3d6[mental]]] damage, @Localize[PF2E.PersistentDamage.Mental1d6.success], and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes [[/r 6d6[mental]]] damage, 1d6 persistent mental damage, and is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 12d6[mental]]] damage, 1d6 persistent mental damage, and is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 3}. Upon recovering from the stunned condition, the creature becomes sickened 2.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1624,6 +1588,16 @@
             "perception": {
                 "value": 31
             },
+            "resistances": [
+                {
+                    "type": "physical",
+                    "value": 15
+                },
+                {
+                    "type": "sonic",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 10
@@ -1660,22 +1634,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "physical",
-                    "value": 15
-                },
-                {
-                    "type": "sonic",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "Telepathy 200 feet",
                 "selected": [],

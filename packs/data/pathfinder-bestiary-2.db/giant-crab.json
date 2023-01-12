@@ -145,7 +145,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If a creature critically succeeds on a check to @Compendium[pf2e.actionspf2e.Trip]{Trip} the giant crab, the crab is flipped over onto its back in addition to the usual effects. A giant crab that is flipped onto its back has a particularly hard time defending itself; instead of taking the normal -2 circumstance penalty to AC for being @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed}, it takes a -4 circumstance penalty to AC.</p>"
+                    "value": "<p>If a creature critically succeeds on a check to @UUID[Compendium.pf2e.actionspf2e.Trip]{Trip} the giant crab, the crab is flipped over onto its back in addition to the usual effects. A giant crab that is flipped onto its back has a particularly hard time defending itself; instead of taking the normal -2 circumstance penalty to AC for being @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed}, it takes a -4 circumstance penalty to AC.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -205,7 +205,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d6+4}[bludgeoning]]]{1d6+4 bludgeoning damage}, @Check[type:fortitude|dc:18|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (1d6+4)[bludgeoning]]] damage, @Check[type:fortitude|dc:18|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -401,6 +401,15 @@
             "perception": {
                 "value": 8
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "bludgeoning"
+                    ],
+                    "type": "physical",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -445,19 +454,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "exceptions": "except bludgeoning",
-                    "type": "physical",
-                    "value": 3
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

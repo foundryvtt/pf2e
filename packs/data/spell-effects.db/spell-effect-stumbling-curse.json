@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Stumbling Curse]{Stumbling Curse}</p>\n<p>The target takes a -2 status penalty to Athletics and Acrobatics checks.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Stumbling Curse]{Stumbling Curse}</em></p>\n<p>The target takes a -2 status penalty to Athletics and Acrobatics checks.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -19,15 +19,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "athletics",
-                "slug": "stumbling-curse-athletics",
-                "type": "status",
-                "value": -2
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "acrobatics",
-                "slug": "stumbling-curse-acrobatics",
+                "selector": [
+                    "acrobatics",
+                    "athletics"
+                ],
                 "type": "status",
                 "value": -2
             }

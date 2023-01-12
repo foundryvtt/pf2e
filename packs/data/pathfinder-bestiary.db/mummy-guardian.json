@@ -158,12 +158,27 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Living creatures are @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} while in a mummy guardian's despair aura. They can't naturally recover from this fear while in the area but recover instantly once they leave the area. When a creature first enters the area, it must succeed at a @Check[type:will|dc:22] save (after taking the penalty from being frightened) or be @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. The creature is then temporarily immune for 24 hours.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Living creatures are @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} while in a mummy guardian's despair aura. They can't naturally recover from this fear while in the area but recover instantly once they leave the area. When a creature first enters the area, it must succeed at a @Check[type:will|dc:22] save (after taking the penalty from being frightened) or be @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. The creature is then temporarily immune for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "despair",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "emotion",
+                            "enchantment",
+                            "fear",
+                            "incapacitation",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -206,7 +221,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>This disease and any damage from it can't be healed until this curse is removed. A creature killed by mummy rot turns to dust and can't be resurrected except by a 7th-level <em>@Compendium[pf2e.spells-srd.Resurrect]{Resurrect}</em> ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> [[/r {4d6}[negative]]]{4d6 negative damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 day)</p>"
+                    "value": "<p>This disease and any damage from it can't be healed until this curse is removed. A creature killed by mummy rot turns to dust and can't be resurrected except by a 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Resurrect]{Resurrect}</em> ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:22]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> [[/r 4d6[negative]]] damage and @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (1 day)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -329,6 +344,23 @@
                 "temp": 0,
                 "value": 110
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -338,7 +370,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -371,24 +409,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "Any One Ancient Language",
                 "selected": [],

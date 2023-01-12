@@ -123,13 +123,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -230,13 +224,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -343,13 +331,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -456,11 +438,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -568,13 +547,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -697,13 +670,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1121,7 +1088,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a sorcerous skull swarm is reduced to 0 Hit Points, it erupts in an explosion of foul energy and bone fragments in a @Template[type:burst|distance:30], dealing [[/r {3d12}[piercing]+{3d12}[negative]]]{3d12 piercing damage and 3d12 negative damage} (@Check[type:reflex|dc:34|basic:true] save).</p>"
+                    "value": "<p>When a sorcerous skull swarm is reduced to 0 Hit Points, it erupts in an explosion of foul energy and bone fragments in a @Template[type:burst|distance:30], dealing [[/r {3d12[piercing],3d12[negative]}]]{3d12 piercing damage and 3d12 negative damage} (@Check[type:reflex|dc:34|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1161,7 +1128,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The swarm is targeted with a spell</p>\n<hr />\n<p><strong>Effect</strong> The swarm casts <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> to counteract the triggering spell. If it successfully counteracts the spell, it gains temporary Hit Points equal to twice the level of the counteracted spell that last for 1 minute.</p>"
+                    "value": "<p><strong>Trigger</strong> The swarm is targeted with a spell</p>\n<hr />\n<p><strong>Effect</strong> The swarm casts <em>@UUID[Compendium.pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> to counteract the triggering spell. If it successfully counteracts the spell, it gains temporary Hit Points equal to twice the level of the counteracted spell that last for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1201,7 +1168,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The sorcerous skull swarm saps magic from nearby creatures. Any creature with the ability to cast spells (including innate spells) in the swarm's space takes [[/r {15d6}[mental]]]{15d6 mental damage} (@Check[type:will|dc:34|basic:true] save); on a failure, the creature is also @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (@Compendium[pf2e.conditionitems.Stupefied]{Stupefied 3} on a critical failure).</p>"
+                    "value": "<p>The sorcerous skull swarm saps magic from nearby creatures. Any creature with the ability to cast spells (including innate spells) in the swarm's space takes [[/r 15d6[mental]]] damage (@Check[type:will|dc:34|basic:true] save); on a failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} (@UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 3} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1245,7 +1212,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {5d8}[piercing]]]{5d8 piercing damage} (@Check[type:reflex|dc:34|basic:true] save).</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 5d8[piercing]]] damage (@Check[type:reflex|dc:34|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1390,12 +1357,61 @@
                 "temp": 0,
                 "value": 190
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 24
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 6
+                },
+                {
+                    "type": "cold",
+                    "value": 12
+                },
+                {
+                    "type": "electricity",
+                    "value": 12
+                },
+                {
+                    "type": "fire",
+                    "value": 12
+                },
+                {
+                    "type": "piercing",
+                    "value": 12
+                },
+                {
+                    "type": "slashing",
+                    "value": 12
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1404,7 +1420,17 @@
                     }
                 ],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 12
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 12
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1416,7 +1442,7 @@
                 "value": 14
             },
             "privateNotes": "",
-            "publicNotes": "<p>The act of creating a demilich sometimes goes horribly awry, leaving behind a shattered remnant of a once-mighty spellcaster constantly leaking eldritch energies. The ruined spirit animates a cloud of debased copies of itself, glittering with cracked crystals in crude imitation, and it hungers constantly for the magical energies denied it in its corrupted immortality.</p>\n<p>Some of the spellcaster's personality remains in the swarm, albeit usually unnaturally split between the skulls. As a consequence, the skulls argue among themselves as warring parts of the personality clamor to be heard, resulting in the swarm's fractious, inconstant attitude.</p>\n<hr>\n<p>A skull swarm is composed of reanimated masses of craniums and jawbones, forming a terrifying avalanche of undead fury. Most skull swarms are mindless, though some retain a vestige of wit, awareness, and even magical talents from life, culminating in a highly intelligent swarm mind.</p>",
+            "publicNotes": "<p>The act of creating a demilich sometimes goes horribly awry, leaving behind a shattered remnant of a once-mighty spellcaster constantly leaking eldritch energies. The ruined spirit animates a cloud of debased copies of itself, glittering with cracked crystals in crude imitation, and it hungers constantly for the magical energies denied it in its corrupted immortality.</p>\n<p>Some of the spellcaster's personality remains in the swarm, albeit usually unnaturally split between the skulls. As a consequence, the skulls argue among themselves as warring parts of the personality clamor to be heard, resulting in the swarm's fractious, inconstant attitude.</p>\n<hr />\n<p>A skull swarm is composed of reanimated masses of craniums and jawbones, forming a terrifying avalanche of undead fury. Most skull swarms are mindless, though some retain a vestige of wit, awareness, and even magical talents from life, culminating in a highly intelligent swarm mind.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -1445,63 +1471,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "swarm-mind",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 6
-                },
-                {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 12
-                },
-                {
-                    "exceptions": "",
-                    "type": "electricity",
-                    "value": 12
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 12
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 12
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 12
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "area-damage",
-                    "value": 12
-                },
-                {
-                    "exceptions": "",
-                    "type": "splash-damage",
-                    "value": 12
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

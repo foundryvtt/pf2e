@@ -179,6 +179,64 @@
             "type": "action"
         },
         {
+            "_id": "62PNJhmFdbtT0TrS",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Voice Imitation",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Kokogiaks can mimic the sounds of a person in distress by attempting a Deception check to @UUID[Compendium.pf2e.actionspf2e.Lie]{Lie}. The kokogiak has a +4 circumstance bonus to this check.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "domain": "skill-check",
+                        "key": "RollOption",
+                        "option": "voice-imitation",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "voice-imitation",
+                            "action:lie"
+                        ],
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "JDNUanP8QQ5riRTG",
             "flags": {
                 "core": {
@@ -187,7 +245,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -208,46 +266,6 @@
                 "slug": "attack-of-opportunity",
                 "source": {
                     "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "62PNJhmFdbtT0TrS",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Voice Imitation",
-            "sort": 600000,
-            "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Kokogiaks can mimic the sounds of a person in distress by attempting a Deception check to Lie. The kokogiak has a +4 circumstance bonus to this check.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
                 },
                 "traits": {
                     "custom": "",
@@ -304,7 +322,12 @@
             "type": "action"
         },
         {
-            "_id": "fzak2ynta3xkJOf2",
+            "_id": "AzWuaOagwffOzhLP",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 800000,
@@ -334,13 +357,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "finesse",
-                                    "agile",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "thrown"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -348,11 +371,18 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
-                "slug": null,
+                "slug": "sneak-attack",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -384,7 +414,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Using their voice imitation abilities, a kokogiak emits the horrific wails of its former victims. Each creature within 120 feet takes [[/r {4d6}[mental]]]{4d6 mental damage} and must attempt a @Check[type:will|dc:32|traits:damaging-effect] save.</p>\n<p>A creature frightened by this ability is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the kokogiak.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature takes half damage and becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 3}, and is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} until the end of its next turn.</p>"
+                    "value": "<p>Using their voice imitation abilities, a kokogiak emits the horrific wails of its former victims. Each creature within @Template[type:emanation|distance:120]{120 feet} takes [[/r 4d6[mental]]] damage and must attempt a @Check[type:will|dc:32|traits:damaging-effect] save.</p>\n<p>A creature frightened by this ability is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the kokogiak.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature takes half damage and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3}, and is @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} until the end of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -429,7 +459,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The kokogiak always gains the benefits of @Compendium[pf2e.actionspf2e.Cover Tracks]{Cover Tracks} in natural surroundings, even while moving at full speed.</p>"
+                    "value": "<p>The kokogiak always gains the benefits of @UUID[Compendium.pf2e.actionspf2e.Cover Tracks]{Cover Tracks} in natural surroundings, even while moving at full speed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -624,11 +654,16 @@
             "perception": {
                 "value": 25
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "details": "trackless step",
                 "otherSpeeds": [
                     {
-                        "label": "Swim",
                         "type": "swim",
                         "value": 20
                     }
@@ -670,18 +705,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "cold",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

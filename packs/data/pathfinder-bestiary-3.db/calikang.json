@@ -98,7 +98,7 @@
                 "spelldc": {
                     "dc": 28,
                     "mod": 0,
-                    "value": 30
+                    "value": 20
                 },
                 "tradition": {
                     "value": "arcane"
@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -252,13 +246,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -364,13 +352,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -387,7 +369,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The weapon glimmers with magic and energy. The target becomes a +1 striking weapon, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Magic Weapon]{Spell Effect: Magic Weapon}</p>"
+                    "value": "<p>The weapon glimmers with magic and energy. The target becomes a +1 striking weapon, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Magic Weapon]{Spell Effect: Magic Weapon}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -485,8 +467,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
@@ -526,20 +507,6 @@
                         "gp": 1
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -562,9 +529,6 @@
                 "slug": "longsword",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -776,14 +740,10 @@
                         "predicate": [
                             "suspended-animation-enter"
                         ],
-                        "type": "disease"
-                    },
-                    {
-                        "key": "Immunity",
-                        "predicate": [
-                            "suspended-animation-enter"
-                        ],
-                        "type": "poison"
+                        "type": [
+                            "disease",
+                            "poison"
+                        ]
                     },
                     {
                         "key": "FlatModifier",
@@ -1027,7 +987,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day.</p>\n<hr />\n<p><strong>Effect</strong> The calikang breathes a blast of energy that deals 13d6 energy damage to creatures in a @Template[type:line|distance:60] (DC 28 basic Reflex save). The calikang can choose the damage type each time: acid, cold, electricity, fire, or sonic.</p>\n<p>Increase the die size to d8 if the calikang chooses electricity.</p>\n<hr />\n<ul>\n<li>[[/r {13d6}[acid]]]{13d6 acid damage} (@Check[type:reflex|dc:28|traits:acid|basic:true] save)</li>\n<li>[[/r {13d6}[cold]]]{13d6 cold damage} (@Check[type:reflex|dc:28|traits:cold|basic:true] save)</li>\n<li>[[/r {13d8}[electricity]]]{13d8 electricity damage} (@Check[type:reflex|dc:28|traits:electricity|basic:true] save)</li>\n<li>[[/r {13d6}[fire]]]{13d6 fire damage} (@Check[type:reflex|dc:28|traits:fire|basic:true] save)</li>\n<li>[[/r {13d6}[sonic]]]{13d6 sonic damage} (@Check[type:reflex|dc:28|traits:sonic|basic:true] save)</li>\n</ul>"
+                    "value": "<p><strong>Frequency</strong> once per day.</p>\n<hr />\n<p><strong>Effect</strong> The calikang breathes a blast of energy that deals 13d6 energy damage to creatures in a @Template[type:line|distance:60] (DC 28 basic Reflex save). The calikang can choose the damage type each time: acid, cold, electricity, fire, or sonic.</p>\n<p>Increase the die size to d8 if the calikang chooses electricity.</p>\n<hr />\n<ul>\n<li>[[/r 13d6[acid]]] damage (@Check[type:reflex|dc:28|traits:acid|basic:true] save)</li>\n<li>[[/r 13d6[cold]]] damage (@Check[type:reflex|dc:28|traits:cold|basic:true] save)</li>\n<li>[[/r 13d8[electricity]]] damage (@Check[type:reflex|dc:28|traits:electricity|basic:true] save)</li>\n<li>[[/r 13d6[fire]]] damage (@Check[type:reflex|dc:28|traits:fire|basic:true] save)</li>\n<li>[[/r 13d6[sonic]]] damage (@Check[type:reflex|dc:28|traits:sonic|basic:true] save)</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -1070,7 +1030,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The calikang makes up to two longsword Strikes and up to four fist Strikes. Each Strike must be against a different target.</p>\n<p>These attacks count toward the calikang's multiple attack penalty, which doesn't increase until after all the attacks are complete.</p>\n<p>For 1 round, the calikang gains a circumstance bonus to their AC equal to the number of Strikes they choose not to take, to a maximum of +4 for taking only two Strikes.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Sixfold Flurry]{Effect: Sixfold Flurry}</p>"
+                    "value": "<p>The calikang makes up to two longsword Strikes and up to four fist Strikes. Each Strike must be against a different target.</p>\n<p>These attacks count toward the calikang's multiple attack penalty, which doesn't increase until after all the attacks are complete.</p>\n<p>For 1 round, the calikang gains a circumstance bonus to their AC equal to the number of Strikes they choose not to take, to a maximum of +4 for taking only two Strikes.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Sixfold Flurry]{Effect: Sixfold Flurry}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1187,6 +1147,11 @@
                 "temp": 0,
                 "value": 235
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1237,15 +1202,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -192,7 +192,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Air within the emanation is difficult terrain for Flying creatures that do not have the air trait.</p>"
+                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Air within the emanation is difficult terrain for Flying creatures that do not have the air trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -275,7 +275,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The elemental breathes a @Template[type:cone|distance:30] of air. Creatures in the cone must succeed at a @Check[type:fortitude|dc:29|traits:damaging-effect] save or be knocked away from the elemental.</p>\n<p>A creature knocked into a solid object stops moving and takes [[/r {10d6}[bludgeoning]]]{10d6 bludgeoning damage}.</p>\n<p>The elemental hurricane can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is Pushed 20 feet.</p>\n<p><strong>Failure</strong> The creature is Pushed 40 feet.</p>\n<p><strong>Critical Failure</strong> The creature is Pushed 40 feet and knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+                    "value": "<p>The elemental breathes a @Template[type:cone|distance:30] of air. Creatures in the cone must succeed at a @Check[type:fortitude|dc:29|traits:damaging-effect] save or be knocked away from the elemental.</p>\n<p>A creature knocked into a solid object stops moving and takes [[/r 10d6[bludgeoning]]] damage.</p>\n<p>The elemental hurricane can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is Pushed 20 feet.</p>\n<p><strong>Failure</strong> The creature is Pushed 40 feet.</p>\n<p><strong>Critical Failure</strong> The creature is Pushed 40 feet and knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -439,6 +439,20 @@
                 "temp": 0,
                 "value": 140
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -487,18 +501,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

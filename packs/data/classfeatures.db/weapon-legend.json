@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/classes/weapon-legend.webp",
     "name": "Weapon Legend",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -32,12 +29,12 @@
             },
             {
                 "definition": [
-                    "weapon:group:{item|flags.pf2e.rulesSelections.weaponLegend}",
+                    "item:group:{item|flags.pf2e.rulesSelections.weaponLegend}",
                     {
                         "or": [
-                            "weapon:category:unarmed",
-                            "weapon:category:simple",
-                            "weapon:category:martial"
+                            "item:category:unarmed",
+                            "item:category:simple",
+                            "item:category:martial"
                         ]
                     }
                 ],
@@ -48,8 +45,8 @@
             },
             {
                 "definition": [
-                    "weapon:category:advanced",
-                    "weapon:group:{item|flags.pf2e.rulesSelections.weaponLegend}"
+                    "item:category:advanced",
+                    "item:group:{item|flags.pf2e.rulesSelections.weaponLegend}"
                 ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.FighterWeaponMasteryLegend.Advanced.{item|flags.pf2e.rulesSelections.weaponLegend}",

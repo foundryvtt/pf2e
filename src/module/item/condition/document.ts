@@ -3,11 +3,24 @@ import { ItemPF2e } from "@item";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
 import { ErrorPF2e } from "@util";
-import { ConditionData, ConditionSlug } from "./data";
+import { ConditionData, ConditionKey, ConditionSlug, ConditionSystemData, PersistentDamageData } from "./data";
+import { DamageRoll } from "@system/damage/roll";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { TokenDocumentPF2e } from "@scene";
+import { DamageCategorization, PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
+        if (this.system.persistent) {
+            return { type: "value", value: this.system.persistent.formula };
+        }
+
         return this.system.value.value ? { type: "counter", value: this.system.value.value } : null;
+    }
+
+    /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
+    get key(): ConditionKey {
+        return this.system.persistent ? `persistent-damage-${this.system.persistent.damageType}` : this.slug;
     }
 
     get appliedBy(): ItemPF2e | null {
@@ -32,12 +45,26 @@ class ConditionPF2e extends AbstractEffectPF2e {
         if (this.system.references.parent?.id) return true;
 
         const granter = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
-        return granter?.flags.pf2e.itemGrants.find((g) => g.id === this.id)?.onDelete === "restrict";
+        const grants = Object.values(granter?.flags.pf2e.itemGrants ?? {});
+        return grants.find((g) => g.id === this.id)?.onDelete === "restrict";
     }
 
     /** Is the condition found in the token HUD menu? */
     get isInHUD(): boolean {
         return this.system.sources.hud;
+    }
+
+    /** Include damage type and possibly category for persistent-damage conditions */
+    override getRollOptions(prefix = this.type): string[] {
+        const options = super.getRollOptions(prefix);
+        if (this.system.persistent) {
+            const { damageType } = this.system.persistent;
+            options.push(`damage:type:${damageType}`);
+            const category = DamageCategorization.fromDamageType(damageType);
+            if (category) options.push(`damage:category:${category}`);
+        }
+
+        return options;
     }
 
     override async increase(): Promise<void> {
@@ -52,11 +79,49 @@ class ConditionPF2e extends AbstractEffectPF2e {
         }
     }
 
+    async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}) {
+        const actor = this.actor;
+        const token = options?.token ?? actor?.token;
+        if (!this.isActive || !actor) return;
+
+        if (this.system.persistent) {
+            const roll = await this.system.persistent.damage.clone().evaluate({ async: true });
+            roll.toMessage(
+                {
+                    speaker: ChatMessagePF2e.getSpeaker({ actor: actor, token }),
+                    flavor: `<strong>${this.name}</strong>`,
+                },
+                { rollMode: "publicroll" }
+            );
+        }
+    }
+
     /** Ensure value.isValued and value.value are in sync */
     override prepareBaseData(): void {
         super.prepareBaseData();
+
         const systemData = this.system;
         systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
+
+        const folder = CONFIG.PF2E.statusEffects.iconDir;
+        this.img = `${folder}${this.slug}.webp`;
+
+        if (systemData.persistent) {
+            const { formula, damageType } = systemData.persistent;
+            const roll = new DamageRoll(`(${formula})[persistent,${damageType}]`, {}, { evaluatePersistent: true });
+            const dc = game.user.isGM && systemData.persistent.dc !== 15 ? systemData.persistent.dc : null;
+
+            const localizationKey = `PF2E.Item.Condition.PersistentDamage.${dc !== null ? "NameWithDC" : "Name"}`;
+            this.name = game.i18n.format(localizationKey, {
+                formula,
+                damageType: game.i18n.localize(CONFIG.PF2E.damageRollFlavors[damageType] ?? damageType),
+                dc,
+            });
+
+            systemData.persistent.damage = roll;
+            systemData.persistent.expectedValue = roll.expectedValue;
+            this.img = PERSISTENT_DAMAGE_IMAGES[damageType] ?? this.img;
+        }
     }
 
     override prepareSiblingData(): void {
@@ -74,15 +139,21 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
         // Deactivate conditions naturally overridden by this one
         if (this.system.overrides.length > 0) {
-            const overridden = conditions.filter((c) => this.system.overrides.includes(c.slug));
+            const overridden = conditions.filter((c) => this.system.overrides.includes(c.key));
             for (const condition of overridden) {
                 deactivate(condition);
             }
         }
 
-        const ofSameType = conditions.filter((c) => c !== this && c.slug === this.slug);
+        const ofSameType = conditions.filter((c) => c !== this && c.key === this.key);
         for (const condition of ofSameType) {
-            if (this.value && condition.value && this.value >= condition.value) {
+            if (condition.slug === "persistent-damage") {
+                const thisValue = this.system.persistent?.expectedValue ?? 0;
+                const otherValue = condition.system.persistent?.expectedValue ?? 0;
+                if (thisValue >= otherValue) {
+                    deactivate(condition);
+                }
+            } else if (this.value && condition.value && this.value >= condition.value) {
                 // Deactivate other conditions with a lower or equal value
                 deactivate(condition);
             } else if (!this.isLocked) {
@@ -128,7 +199,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     ): void {
         super._onCreate(data, options, userId);
 
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
             return;
         }
 
@@ -149,7 +220,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     ): void {
         super._onUpdate(changed, options, userId);
 
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
             return;
         }
 
@@ -165,7 +236,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
     protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
         super._onDelete(options, userId);
 
-        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.secretCondition")) {
+        if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
             return;
         }
 
@@ -188,8 +259,12 @@ interface ConditionPF2e {
     get slug(): ConditionSlug;
 }
 
+interface PersistentDamagePF2e extends ConditionPF2e {
+    system: Omit<ConditionSystemData, "persistent"> & { persistent: PersistentDamageData };
+}
+
 interface ConditionModificationContext<T extends ConditionPF2e> extends DocumentModificationContext<T> {
     conditionValue?: number | null;
 }
 
-export { ConditionPF2e, ConditionModificationContext };
+export { ConditionPF2e, ConditionModificationContext, PersistentDamagePF2e };

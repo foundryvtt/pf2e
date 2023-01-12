@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -237,13 +231,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -260,7 +248,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You dilate the flow of time around the target, slowing its actions.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> You can target up to 10 creatures.</p>"
+                    "value": "<p>You dilate the flow of time around the target, slowing its actions.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 2} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -347,11 +335,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -369,7 +354,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You create a cloud of putrid mist in the area. The cloud functions as <em>@Compendium[pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}</em> except it sickens creatures that end their turns within the cloud. (The @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition is not a poison effect.)</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} while in the cloud.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until it leaves the cloud.</p>"
+                    "value": "<p>You create a cloud of putrid mist in the area. The cloud functions as <em>@UUID[Compendium.pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}</em> except it sickens creatures that end their turns within the cloud. (The @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition is not a poison effect.)</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} while in the cloud.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} until it leaves the cloud.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -591,7 +576,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever the dalos takes damage from a melee Strike, magma splashes from its open wound and sticks to nearby creatures. Each creature in a @Template[type:emanation|distance:10] must attempt a @Check[type:reflex|dc:31|traits:damaging-effect] save. On a failure, the creature takes [[/r {3d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} as the superheated rock sticks to them and cools. The DC to end this persistent damage decreases by 5 each turn after the first as the magma cools.</p>"
+                    "value": "<p>Whenever the dalos takes damage from a melee Strike, magma splashes from its open wound and sticks to nearby creatures. Each creature in a @Template[type:emanation|distance:10] must attempt a @Check[type:reflex|dc:31|traits:damaging-effect] save. On a failure, the creature takes [[/r 3d6[persistent,fire]]] damage as the superheated rock sticks to them and cools. The DC to end this persistent damage decreases by 5 each turn after the first as the magma cools.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -633,7 +618,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {3d6}[fire]]]{3d6 fire damage} (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 3d6[fire]]] damage (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -676,7 +661,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The dalos blasts smoke from its head, creating a @Template[type:burst|distance:20] of smoke that drifts to a location within 120 feet. This has the effects of <em>@Compendium[pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}</em>.</p>"
+                    "value": "<p>The dalos blasts smoke from its head, creating a @Template[type:burst|distance:20] of smoke that drifts to a location within 120 feet. This has the effects of <em>@UUID[Compendium.pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}</em>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -716,7 +701,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dalos uses an Interact action to pluck a rock from its body or the nearby environment, then uses its internal fires to heat a rock it's holding until the rock is red hot. A heated rock that hits a target on a ranged Strike deals an additional [[/r {4d6}[fire]]]{4d6 fire damage}.</p>\n<p>Once the dalos heats a rock, that rock retains its heat for 2 rounds before cooling.</p>"
+                    "value": "<p>The dalos uses an Interact action to pluck a rock from its body or the nearby environment, then uses its internal fires to heat a rock it's holding until the rock is red hot. A heated rock that hits a target on a ranged Strike deals an additional [[/r 4d6[fire]]] damage.</p>\n<p>Once the dalos heats a rock, that rock retains its heat for 2 rounds before cooling.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -729,13 +714,13 @@
                         "key": "DamageDice",
                         "selector": "rock-damage",
                         "traits": [
-                            "heatRock"
+                            "heat-rock"
                         ]
                     },
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "option": "heatRock",
+                        "option": "heat-rock",
                         "toggleable": true
                     }
                 ],
@@ -775,7 +760,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dalos causes a volcanic explosion to erupt from its head, lobbing a mass of molten rock up to 100 feet. This lava bomb deals [[/r {6d8}[fire]+{6d8}[bludgeoning]]]{6d8 fire damage and 6d8 bludgeoning damage} to each creature in a @Template[type:burst|distance:20]{20-foot radius} of its impact point, with a @Check[type:reflex|dc:33|basic:true] save.</p>\n<p>The dalos can't use Lava Bomb again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dalos causes a volcanic explosion to erupt from its head, lobbing a mass of molten rock up to 100 feet. This lava bomb deals [[/r {6d8[fire],6d8[bludgeoning]}]]{6d8 fire damage and 6d8 bludgeoning damage} to each creature in a @Template[type:burst|distance:20]{20-foot radius} of its impact point, with a @Check[type:reflex|dc:33|basic:true] save.</p>\n<p>The dalos can't use Lava Bomb again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -963,12 +948,26 @@
                 "temp": 0,
                 "value": 240
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 23
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "bludgeoning"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -981,7 +980,17 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "cold-iron",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1019,32 +1028,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fire"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except bludgeoning",
-                    "type": "physical",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "10"
-                },
-                {
-                    "label": "Cold Iron",
-                    "type": "coldiron",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

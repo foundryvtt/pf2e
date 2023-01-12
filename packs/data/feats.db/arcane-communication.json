@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Arcane Communication",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -24,7 +21,36 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneCommunication",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-communication"
+                        }
+                    ],
+                    "value": "arcane-communication"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneCommunication",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-communication"
+                        }
+                    ],
+                    "value": "arcane-communication"
+                }
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },

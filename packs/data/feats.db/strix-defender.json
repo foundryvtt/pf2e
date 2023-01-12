@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Strix Defender",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -30,25 +27,11 @@
                 "predicate": [
                     "target:trait:human"
                 ],
-                "selector": "perception",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "target:trait:human"
+                "selector": [
+                    "intimidation",
+                    "perception",
+                    "survival"
                 ],
-                "selector": "intimidation",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "target:trait:human"
-                ],
-                "selector": "survival",
                 "type": "circumstance",
                 "value": 1
             },
@@ -67,8 +50,8 @@
                     "target:trait:human",
                     {
                         "or": [
-                            "weapon:melee",
-                            "weapon:ranged"
+                            "item:melee",
+                            "item:ranged"
                         ]
                     }
                 ],

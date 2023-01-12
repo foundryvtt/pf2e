@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>As you invest these embroidered strips of cloth, you must meditate and slowly wrap them around your hands. These handwraps have weapon runes etched into them to give your unarmed attacks the benefits of those runes, making your unarmed attacks work like magic weapons. For example, <em>+1 striking handwraps of mighty blows</em> would give you a +1 item bonus to attack rolls with your unarmed attacks and increase the damage of your unarmed attacks from one weapon die to two (normally 2d4 instead of 1d4, but if your fists have a different weapon damage die or you have other unarmed attacks, use two of that die size instead).</p>\n<p>You can upgrade, add, and transfer runes to and from the handwraps just as you would for a weapon, and you can attach talismans to the handwraps. Treat the handwraps as melee weapons of the brawling group with light Bulk for these purposes. Property runes apply only when they would be applicable to the unarmed attack you're using. For example, a property that must be applied to a slashing weapon wouldn't function when you attacked with a fist, but you would gain its benefits if you attacked with a claw or some other slashing unarmed attack.</p>"
@@ -70,20 +69,6 @@
                         "gp": 35
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": "frost"
                 },
@@ -106,9 +91,6 @@
                 "slug": "handwraps-of-mighty-blows",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": null
@@ -391,7 +373,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Troff makes an icicle gouge Strike against a @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creature. On a hit, the creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}. On a critical hit, the creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded}. Either way, the effect lasts until the start of Troff's next turn. If his Strike fails (but isn't a critical failure), Troff still deals [[/r {13}[piercing]]]{13 piercing damage} to the creature.</p>"
+                    "value": "<p>Troff makes an icicle gouge Strike against a @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} creature. On a hit, the creature is @UUID[Compendium.pf2e.conditionitems.Dazzled]{Dazzled}. On a critical hit, the creature is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded}. Either way, the effect lasts until the start of Troff's next turn. If his Strike fails (but isn't a critical failure), Troff still deals [[/r 13[piercing]]] damage to the creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -431,7 +413,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Troff is within reach of a creature that has taken cold damage since the end of Troff's last turn</p>\n<hr />\n<p><strong>Effect</strong> Troff jabs a pressure point on the creature made vulnerable by cold. The creature must attempt a @Check[type:fortitude|dc:31|traits:damaging-effect] save as its skin freezes and its limbs turn sluggish and clammy.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {2d4}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage} and a -5-foot status penalty to its Speeds until the persistent cold damage ends. Dealing fire damage to the creature is an especially effective way to help end the persistent cold damage (allowing a new flat check to end it at DC 10).</p>\n<p><strong>Failure</strong> As success, but the damage is [[/r {4d4}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage} and the penalty is -15-foot.</p>\n<p><strong>Critical Failure</strong> As success, but the damage is [[/r {6d4}[persistent,cold]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage} and the creature is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} instead of taking a Speed penalty.</p>"
+                    "value": "<p><strong>Requirements</strong> Troff is within reach of a creature that has taken cold damage since the end of Troff's last turn</p>\n<hr />\n<p><strong>Effect</strong> Troff jabs a pressure point on the creature made vulnerable by cold. The creature must attempt a @Check[type:fortitude|dc:31|traits:damaging-effect] save as its skin freezes and its limbs turn sluggish and clammy.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 2d4[persistent,cold]]] damage and a -5-foot status penalty to its Speeds until the persistent cold damage ends. Dealing fire damage to the creature is an especially effective way to help end the persistent cold damage (allowing a new flat check to end it at DC 10).</p>\n<p><strong>Failure</strong> As success, but the damage is [[/r 4d4[persistent,cold]]] damage and the penalty is -15-foot.</p>\n<p><strong>Critical Failure</strong> As success, but the damage is [[/r 6d4[persistent,cold]]] damage and the creature is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} instead of taking a Speed penalty.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -516,7 +498,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Troff rolls initiative or his turn starts</p>\n<hr />\n<p><strong>Effect</strong> Troff readies himself to strike suddenly, like a falling icicle. While in this stance, Troff can make icicle gouge Strikes. While Troff is above a creature and in icicle stance, that creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to him.</p>"
+                    "value": "<p><strong>Trigger</strong> Troff rolls initiative or his turn starts</p>\n<hr />\n<p><strong>Effect</strong> Troff readies himself to strike suddenly, like a falling icicle. While in this stance, Troff can make icicle gouge Strikes. While Troff is above a creature and in icicle stance, that creature is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to him.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -669,6 +651,12 @@
             "perception": {
                 "value": 23
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -710,18 +698,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "cold",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

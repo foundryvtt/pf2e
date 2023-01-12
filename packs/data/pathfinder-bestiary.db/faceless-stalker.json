@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -246,8 +240,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
@@ -277,29 +270,15 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 1
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -323,9 +302,6 @@
                 "slug": "longsword",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -718,7 +694,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "assumeForm"
+                            "assume-form"
                         ],
                         "selector": "deception",
                         "type": "circumstance",
@@ -727,7 +703,7 @@
                     {
                         "domain": "skill-check",
                         "key": "RollOption",
-                        "option": "assumeForm",
+                        "option": "assume-form",
                         "toggleable": true
                     }
                 ],
@@ -770,7 +746,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The faceless stalker uses its three-pronged tongue to drink the blood of an adjacent @Compendium[pf2e.conditionitems.Restrained]{Restrained} or @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} creature. The creature gains @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>"
+                    "value": "<p>The faceless stalker uses its three-pronged tongue to drink the blood of an adjacent @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} or @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} creature. The creature gains @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -810,7 +786,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the faceless stalker successfully @Compendium[pf2e.actionspf2e.Squeeze]{Squeezes}, it moves through the tight space at full speed. Narrow confines are not difficult terrain for a faceless stalker.</p>"
+                    "value": "<p>When the faceless stalker successfully @UUID[Compendium.pf2e.actionspf2e.Squeeze]{Squeezes}, it moves through the tight space at full speed. Narrow confines are not difficult terrain for a faceless stalker.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -850,7 +826,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The faceless stalker is in an assumed form.</p>\n<hr />\n<p><strong>Effect</strong> The faceless stalker resumes its true form. Until the start of its next turn, it gains a +2 status bonus to attack rolls, damage rolls, saving throws, and skill checks.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Revert Form]{Effect: Revert Form}</p>"
+                    "value": "<p><strong>Requirements</strong> The faceless stalker is in an assumed form.</p>\n<hr />\n<p><strong>Effect</strong> The faceless stalker resumes its true form. Until the start of its next turn, it gains a +2 status bonus to attack rolls, damage rolls, saving throws, and skill checks.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Revert Form]{Effect: Revert Form}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1171,6 +1147,12 @@
             "perception": {
                 "value": 10
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1212,18 +1194,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "bludgeoning",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "Tongues",
                 "selected": [],

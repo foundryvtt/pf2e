@@ -4,7 +4,8 @@ import { ErrorPF2e, fontAwesomeIcon, objectHasKey } from "@util";
 import { TokenPF2e } from "@module/canvas/token";
 import { EncounterPF2e } from "@module/encounter";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { TokenDocumentPF2e } from "@scene";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
+import { resetAndRerenderActors } from "@actor/helpers";
 
 /** Handle interaction with the TokenHUD's status effects menu */
 export class StatusEffects {
@@ -44,36 +45,15 @@ export class StatusEffects {
     static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconTheme): Promise<void> {
         console.debug("PF2e System | Changing status effect icon types");
         const iconDir = this.#ICON_THEME_DIRS[chosenSetting];
-        const lastIconDir = this.#ICON_THEME_DIRS[CONFIG.PF2E.statusEffects.lastIconTheme];
-
-        const promises: Promise<TokenDocument[]>[] = [];
-        for (const scene of game.scenes) {
-            const tokenUpdates: EmbeddedDocumentUpdateData<TokenDocumentPF2e>[] = [];
-
-            for (const token of scene.tokens) {
-                const update = token.toObject(false);
-                for (const url of token.effects) {
-                    if (url.includes(lastIconDir)) {
-                        const slug = /([-\w]+)\./.exec(url)?.[1] ?? "";
-                        const newUrl = `${iconDir}${slug}.webp` as const;
-                        console.debug(
-                            `PF2e System | Migrating effect ${slug} of Token ${token.name} on scene ${scene.name} | "${url}" to "${newUrl}"`
-                        );
-                        const index = update.effects.indexOf(url);
-                        if (index !== -1) {
-                            update.effects.splice(index, 1, newUrl);
-                        }
-                    }
-                }
-                tokenUpdates.push(update);
-            }
-            promises.push(scene.updateEmbeddedDocuments("Token", tokenUpdates));
-        }
-        await Promise.all(promises);
-
         CONFIG.PF2E.statusEffects.iconDir = iconDir;
         CONFIG.PF2E.statusEffects.lastIconTheme = chosenSetting;
         this.#updateStatusIcons();
+        await resetAndRerenderActors();
+        if (canvas.ready) {
+            for (const token of canvas.tokens.placeables) {
+                token.drawEffects();
+            }
+        }
     }
 
     static #activateListeners(html: HTMLElement, token: TokenPF2e): void {
@@ -109,7 +89,7 @@ export class StatusEffects {
         CONFIG.statusEffects.push({
             id: "dead",
             label: "PF2E.Actor.Dead",
-            icon: CONFIG.controlIcons.defeated as ImagePath,
+            icon: CONFIG.controlIcons.defeated as ImageFilePath,
         });
     }
 
@@ -134,7 +114,7 @@ export class StatusEffects {
             picture.classList.add("effect-control");
             picture.dataset.statusId = icon.dataset.statusId;
             picture.title = icon.title;
-            const iconSrc = icon.getAttribute("src") as ImagePath;
+            const iconSrc = icon.getAttribute("src") as ImageFilePath;
             picture.setAttribute("src", iconSrc);
             const newIcon = document.createElement("img");
             newIcon.src = iconSrc;
@@ -211,7 +191,7 @@ export class StatusEffects {
      */
     static async #setStatusValue(event: MouseEvent, token: TokenPF2e): Promise<void> {
         event.preventDefault();
-        event.stopImmediatePropagation();
+        event.stopPropagation();
 
         const icon = event.currentTarget;
         if (!(icon instanceof HTMLPictureElement)) return;
@@ -219,6 +199,12 @@ export class StatusEffects {
         const slug = icon.dataset.statusId;
         const { actor } = token;
         if (!(actor && slug)) return;
+
+        // Persistent damage goes through a dialog instead
+        if (slug === "persistent-damage") {
+            await new PersistentDialog(actor).render(true);
+            return;
+        }
 
         const condition = actor.itemTypes.condition.find(
             (c) => c.slug === slug && c.isInHUD && !c.system.references.parent
@@ -245,7 +231,8 @@ export class StatusEffects {
             }
         }
 
-        await canvas.hud?.token.render();
+        // An update of a synthetic actor is a token update, which will trigger the HUD re-render
+        if (token.document.isLinked) await canvas.hud?.token.render();
     }
 
     static async #toggleStatus(event: MouseEvent, token: TokenPF2e): Promise<void> {
@@ -255,7 +242,7 @@ export class StatusEffects {
 
         const slug = icon.dataset.statusId ?? "";
         const imgElement = icon.querySelector("img");
-        const iconSrc = imgElement?.getAttribute("src") as ImagePath | null | undefined;
+        const iconSrc = imgElement?.getAttribute("src") as ImageFilePath | null | undefined;
 
         const affecting = actor?.itemTypes.condition.find((c) => c.slug === slug && !c.system.references.parent);
         const conditionIds: string[] = [];
@@ -285,16 +272,13 @@ export class StatusEffects {
     static #createChatMessage(token: TokenPF2e, whisper = false) {
         // Get the active applied conditions.
         // Iterate the list to create the chat and bubble chat dialog.
-
         const conditions = token.actor?.itemTypes.condition.filter((c) => c.isActive) ?? [];
-        const iconFolder = CONFIG.PF2E.statusEffects.iconDir;
         const statusEffectList = conditions.map((condition): string => {
             const conditionInfo = StatusEffects.conditions[condition.slug];
             const summary = conditionInfo.summary ?? "";
             const conditionValue = condition.value ?? "";
-            const iconPath = `${iconFolder}${condition.slug}.webp`;
             return `
-                <li><img src="${iconPath}" title="${summary}">
+                <li><img src="${condition.img}" title="${summary}">
                     <span class="statuseffect-li">
                         <span class="statuseffect-li-text">${condition.name} ${conditionValue}</span>
                         <div class="statuseffect-rules"><h2>${condition.name}</h2>${condition.description}</div>
@@ -321,7 +305,7 @@ export class StatusEffects {
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
         const isNPCEvent = !token.actor?.hasPlayerOwner;
-        const hideNPCEvent = isNPCEvent && game.settings.get("pf2e", "metagame.secretCondition");
+        const hideNPCEvent = isNPCEvent && game.settings.get("pf2e", "metagame_secretCondition");
         if (hideNPCEvent || whisper) {
             messageSource.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
         }

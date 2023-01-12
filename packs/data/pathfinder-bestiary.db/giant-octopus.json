@@ -152,7 +152,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A giant octopus can move through a gap at least 2 feet wide without Squeezing, and can @Compendium[pf2e.actionspf2e.Squeeze]{Squeeze} through a gap at least 1 foot wide.</p>"
+                    "value": "<p>A giant octopus can move through a gap at least 2 feet wide without Squeezing, and can @UUID[Compendium.pf2e.actionspf2e.Squeeze]{Squeeze} through a gap at least 1 foot wide.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -197,7 +197,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d8+9}[bludgeoning]]]{1d8+9 bludgeoning}, @Check[type:fortitude|dc:26|basic:true]</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (1d8+9)[bludgeoning]]], @Check[type:fortitude|dc:26|basic:true]</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -237,7 +237,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d6}[poison]]]{2d6 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d6}[poison]]]{2d6 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 2d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 2d6[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6[poison]]] damage, @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, and flat-footed (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -279,7 +279,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The octopus emits a cloud of black ink in a @Template[type:cone|distance:30]. This cloud has no effect outside of water. Creatures inside the cloud are @Compendium[pf2e.conditionitems.Undetected]{Undetected} and can't use their sense of smell. The cloud dissipates after 1 minute.</p>\n<p>The octopus can't use Ink Cloud again for [[/br 2d6 #Recharge Ink Cloud]]{2d6 rounds}.</p>"
+                    "value": "<p>The octopus emits a cloud of black ink in a @Template[type:cone|distance:30]. This cloud has no effect outside of water. Creatures inside the cloud are @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected} and can't use their sense of smell. The cloud dissipates after 1 minute.</p>\n<p>The octopus can't use Ink Cloud again for [[/br 2d6 #Recharge Ink Cloud]]{2d6 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -361,7 +361,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The giant octopus makes up to four Strikes with different arms, each against a different target. Each attack counts separately for the octopus's multiple attack penalty, but the penalty doesn't increase the penalty until the octopus has made all the attacks. If the octopus subsequently uses the @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} action, it can Grab any number of creatures it hit with Writhing Arms.</p>"
+                    "value": "<p>The giant octopus makes up to four Strikes with different arms, each against a different target. Each attack counts separately for the octopus's multiple attack penalty, but the penalty doesn't increase the penalty until the octopus has made all the attacks. If the octopus subsequently uses the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Grab]{Grab} action, it can Grab any number of creatures it hit with Writhing Arms.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -557,6 +557,12 @@
             "perception": {
                 "value": 15
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "details": "compression",
                 "otherSpeeds": [
@@ -599,18 +605,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "cold",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

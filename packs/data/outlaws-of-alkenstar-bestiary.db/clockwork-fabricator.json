@@ -501,7 +501,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The clockwork fabricator has a creature grappled or @Compendium[pf2e.conditionitems.Restrained]{Restrained}</p>\n<hr />\n<p><strong>Effect</strong> [[/r {2d4+4}|[bludgeoning]]]{2d4+4 bludgeoning damage}, @Check[type:fortitude|dc:21|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p><strong>Requirements</strong> The clockwork fabricator has a creature grappled or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}</p>\n<hr />\n<p><strong>Effect</strong> [[/r {2d4+4}|[bludgeoning]]]{2d4+4 bludgeoning damage}, @Check[type:fortitude|dc:21|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -737,16 +737,74 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 8
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 4
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 4
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 4
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -779,42 +837,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": "4"
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 4
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 4
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

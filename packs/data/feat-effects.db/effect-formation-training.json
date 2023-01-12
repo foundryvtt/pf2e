@@ -4,7 +4,7 @@
     "name": "Effect: Formation Training",
     "system": {
         "description": {
-            "value": "<p>Granted by Formation Training</p>\n<hr />\n<p>You know how to fight in formation with your brethren. When you are adjacent to at least two hobgoblin allies, you gain a +1 circumstance bonus to AC and saving throws. This bonus increases to +2 on Reflex saves against area effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Formation Training]{Formation Training}</p>\n<p>You know how to fight in formation with your brethren. When you are adjacent to at least two hobgoblin allies, you gain a +1 circumstance bonus to AC and saving throws. This bonus increases to +2 on Reflex saves against area effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -18,13 +18,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "saving-throw",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "ac",
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
                 "type": "circumstance",
                 "value": 1
             },

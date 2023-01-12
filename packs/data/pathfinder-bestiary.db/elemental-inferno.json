@@ -168,7 +168,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The elemental inferno ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
+                    "value": "<p>The elemental inferno ignores the @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -209,7 +209,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the elemental inferno dies, it explodes, dealing [[/r {7d6}[fire]]]{7d6 fire damage} to each creature in a @Template[type:emanation|distance:10|traits:fire,damaging-effect] (@Check[type:reflex|dc:30|basic:true] save).</p>"
+                    "value": "<p>When the elemental inferno dies, it explodes, dealing [[/r 7d6[fire]]] damage to each creature in a @Template[type:emanation|distance:10|traits:fire,damaging-effect] (@Check[type:reflex|dc:30|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -251,7 +251,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {7d6}[fire]]]{7d6 fire damage} @Check[type:reflex|dc:28|basic:true]</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 7d6[fire]]] damage @Check[type:reflex|dc:28|basic:true]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -294,7 +294,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the elemental inferno scores a critical hit, its body surges with blue flames, increasing the damage of its intense heat and Inferno Leap by [[/r {3d6}[fire]]]{3d6} until the start of its next turn.</p>"
+                    "value": "<p>When the elemental inferno scores a critical hit, its body surges with blue flames, increasing the damage of its intense heat and Inferno Leap by [[/r 3d6[fire]]]{3d6} until the start of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -334,7 +334,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The elemental inferno jumps horizontally and vertically with a maximum height and distance each equal to its Speed. Its intense heat is suppressed until the end of the jump. At any point during the jump, flames explode from the elemental in a @Template[type:emanation|distance:30], dealing [[/r {12d6}[fire]]]{12d6 fire damage} to each creature within the area (@Check[type:reflex|dc:30|basic:true] save).</p>\n<p>The elemental inferno can't Inferno Leap again for [[/br 1d4 #Recharge Inferno Leap]]{1d4 rounds}.</p>"
+                    "value": "<p>The elemental inferno jumps horizontally and vertically with a maximum height and distance each equal to its Speed. Its intense heat is suppressed until the end of the jump. At any point during the jump, flames explode from the elemental in a @Template[type:emanation|distance:30], dealing [[/r 12d6[fire]]] damage to each creature within the area (@Check[type:reflex|dc:30|basic:true] save).</p>\n<p>The elemental inferno can't Inferno Leap again for [[/br 1d4 #Recharge Inferno Leap]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -425,6 +425,23 @@
                 "temp": 0,
                 "value": 210
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -434,7 +451,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 70
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -467,24 +490,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "fire",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

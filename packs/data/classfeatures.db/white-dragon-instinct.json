@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/classes/dragon-instinct.webp",
     "name": "White Dragon Instinct",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -32,7 +29,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     {
                         "not": "barbarian-dedication"
                     }
@@ -45,7 +42,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     {
                         "or": [
                             "battle-form",
@@ -86,7 +83,7 @@
                 "label": "PF2E.TraitRage",
                 "predicate": [
                     "agile",
-                    "rage",
+                    "self:effect:rage",
                     {
                         "or": [
                             "battle-form",
@@ -125,7 +122,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "normal-rage",
                     {
                         "or": [
@@ -149,7 +146,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "agile",
                     "normal-rage",
                     {
@@ -181,7 +178,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "barbarian-dedication",
                     "instinct-ability",
                     {
@@ -207,7 +204,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "barbarian-dedication",
                     "instinct-ability",
                     "agile",
@@ -232,7 +229,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "barbarian-dedication",
                     "instinct-ability",
                     "normal-rage",
@@ -257,7 +254,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "barbarian-dedication",
                     "instinct-ability",
                     "agile",
@@ -275,6 +272,24 @@
                 "selector": "strike-damage",
                 "slug": "dedication-instinct-rage-agile-normal",
                 "value": 1
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "piercing",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "cold",
+                "value": "@actor.abilities.con.mod+3"
             }
         ],
         "source": {

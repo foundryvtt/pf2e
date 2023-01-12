@@ -323,7 +323,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Any ability that would sever a chimera's head (such as a critical hit with a <em>@Compendium[pf2e.equipment-srd.Vorpal]{Vorpal Weapon}</em>) severs one head at random. Losing a head doesn't kill a chimera (as long as it has one head left), but it does prevent it from making Strikes with the lost head or using the head's Breath Weapon.</p>"
+                    "value": "<p>Any ability that would sever a chimera's head (such as a critical hit with a <em>@UUID[Compendium.pf2e.equipment-srd.Vorpal]{Vorpal Weapon}</em>) severs one head at random. Losing a head doesn't kill a chimera (as long as it has one head left), but it does prevent it from making Strikes with the lost head or using the head's Breath Weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -403,7 +403,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The chimera breathes a @Template[type:cone|distance:30] of cold that deals [[/r {9d6}[cold]]]{9d6 cold damage} to all creatures in the area (@Check[type:reflex|dc:26|basic:true] save).</p>\n<p>The chimera can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The chimera breathes a @Template[type:cone|distance:30] of cold that deals [[/r 9d6[cold]]] damage to all creatures in the area (@Check[type:reflex|dc:26|basic:true] save).</p>\n<p>The chimera can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -446,7 +446,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A chimera's white dragon head deals an extra [[/r {2d6}[cold]]]{2d6 cold damage} <em>(already included)</em>.</p>"
+                    "value": "<p>A chimera's white dragon head deals an extra [[/r 2d6[cold]]] damage <em>(already included)</em>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -495,13 +495,13 @@
                     {
                         "domain": "attack-roll",
                         "key": "RollOption",
-                        "option": "threeHeadedStrike",
+                        "option": "three-headed-strike",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "threeHeadedStrike"
+                            "three-headed-strike"
                         ],
                         "selector": "dragon-jaws-attack",
                         "value": -2
@@ -509,7 +509,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "threeHeadedStrike"
+                            "three-headed-strike"
                         ],
                         "selector": "lion-jaws-attack",
                         "value": -2
@@ -517,7 +517,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "threeHeadedStrike"
+                            "three-headed-strike"
                         ],
                         "selector": "goat-horns-attack",
                         "value": -2
@@ -712,13 +712,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

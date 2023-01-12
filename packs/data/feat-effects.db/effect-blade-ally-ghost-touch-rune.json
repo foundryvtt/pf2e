@@ -34,19 +34,16 @@
                 "predicate": [
                     {
                         "or": [
-                            "weapon:category:{item|flags.pf2e.rulesSelections.weapon}",
-                            "weapon:id:{item|flags.pf2e.rulesSelections.weapon}"
+                            "item:category:{item|flags.pf2e.rulesSelections.weapon}",
+                            "item:id:{item|flags.pf2e.rulesSelections.weapon}"
                         ]
                     }
                 ]
             },
             {
-                "key": "Note",
-                "predicate": [
-                    "target:trait:incorporeal"
-                ],
-                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
-                "text": "PF2E.WeaponPropertyRune.ghostTouch.Note"
+                "domain": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "key": "RollOption",
+                "option": "item:rune:property:ghost-touch"
             }
         ],
         "source": {

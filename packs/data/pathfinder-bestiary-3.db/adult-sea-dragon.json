@@ -234,13 +234,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": "2-mile-radius circle centered on you"
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -339,13 +333,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -448,13 +436,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -570,13 +552,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -1065,7 +1041,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If the sea dragon is targeted with an earth spell or <em>@Compendium[pf2e.spells-srd.Flesh to Stone]{Flesh to Stone}</em>, they lose Liquefy until the end of their next turn.</p>"
+                    "value": "<p>If the sea dragon is targeted with an earth spell or <em>@UUID[Compendium.pf2e.spells-srd.Flesh to Stone]{Flesh to Stone}</em>, they lose Liquefy until the end of their next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1105,7 +1081,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a sea dragon is struck by a weapon made primarily of metal or affected by a spell that uses metal, many of the dragon's scales transform to mimic the metal. This grants the dragon a +1 item bonus to AC until the start of their next turn.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Fed by Metal]{Effect: Fed by Metal}</p>"
+                    "value": "<p>When a sea dragon is struck by a weapon made primarily of metal or affected by a spell that uses metal, many of the dragon's scales transform to mimic the metal. This grants the dragon a +1 item bonus to AC until the start of their next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Fed by Metal]{Effect: Fed by Metal}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1153,7 +1129,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:30]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:30]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1216,15 +1192,10 @@
                         "predicate": [
                             "liquefy"
                         ],
-                        "type": "fire",
-                        "value": 20
-                    },
-                    {
-                        "key": "Resistance",
-                        "predicate": [
-                            "liquefy"
+                        "type": [
+                            "fire",
+                            "physical"
                         ],
-                        "type": "physical",
                         "value": 20
                     }
                 ],
@@ -1266,7 +1237,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Water in the aura that's also in the same body of water as the dragon is difficult terrain for Swimming creatures which don't have the water trait.</p>"
+                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Water in the aura that's also in the same body of water as the dragon is difficult terrain for Swimming creatures which don't have the water trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1309,7 +1280,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon shoots a ball of water that deals [[/r {13d6}[bludgeoning]]]{13d6 bludgeoning damage} in a @Template[type:burst|distance:25] within 50 feet (@Check[type:reflex|dc:32|basic:true] save). All non-magical fire in the radius is extinguished.</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon shoots a ball of water that deals [[/r 13d6[bludgeoning]]] damage in a @Template[type:burst|distance:25] within 50 feet (@Check[type:reflex|dc:32|basic:true] save). All non-magical fire in the radius is extinguished.</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1353,7 +1324,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon makes one claw Strike and one tail Strike in either order, each against the same target. If either Strike hits, the dragon automatically @Compendium[pf2e.conditionitems.Grabbed]{Grabs} the target.</p>"
+                    "value": "<p>The dragon makes one claw Strike and one tail Strike in either order, each against the same target. If either Strike hits, the dragon automatically @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabs} the target.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1448,7 +1419,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {3d8+6}[bludgeoning]]]{3d8+6 bludgeoning}, @Check[type:fortitude|dc:30|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>[[/r (3d8+6)[bludgeoning]]], @Check[type:fortitude|dc:30|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1488,7 +1459,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A living creature that takes damage from the sea dragon's jaws Strike must succeed at a @Check[type:fortitude|dc:32] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} as a surge of excess water floods its body.</p>"
+                    "value": "<p>A living creature that takes damage from the sea dragon's jaws Strike must succeed at a @Check[type:fortitude|dc:32] save or become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} as a surge of excess water floods its body.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1848,6 +1819,14 @@
                 "temp": 0,
                 "value": 225
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1905,16 +1884,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

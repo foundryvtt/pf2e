@@ -24,7 +24,7 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
 
         options.classes = [];
         options.title = game.i18n.localize("PF2E.ScrollWandPopup.title");
-        options.template = "systems/pf2e/templates/popups/scroll-wand-popup.html";
+        options.template = "systems/pf2e/templates/popups/scroll-wand-popup.hbs";
         options.width = "auto";
 
         return options;

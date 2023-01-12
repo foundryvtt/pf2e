@@ -4,7 +4,7 @@ import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
 import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { TokenDocumentPF2e } from "@scene";
-import { CheckRoll } from "@system/check/roll";
+import { CheckRoll } from "@system/check";
 import { PredicatePF2e } from "@system/predication";
 import { isObject, sluggify, tupleHasValue } from "@util";
 import { BracketedValue, RuleElementData, RuleElementSource, RuleValue } from "./data";
@@ -21,6 +21,8 @@ abstract class RuleElementPF2e {
     key: string;
 
     slug: string | null;
+
+    sourceIndex: number | null;
 
     protected suppressWarnings: boolean;
 
@@ -44,6 +46,7 @@ abstract class RuleElementPF2e {
         this.key = String(data.key);
         this.slug = typeof data.slug === "string" ? sluggify(data.slug) : null;
         this.suppressWarnings = options.suppressWarnings ?? false;
+        this.sourceIndex = options.sourceIndex ?? null;
 
         const validActorType = tupleHasValue(this.constructor.validActorTypes, item.actor.type);
         if (!validActorType) {
@@ -72,7 +75,8 @@ abstract class RuleElementPF2e {
 
         if (item instanceof PhysicalItemPF2e) {
             this.requiresEquipped = !!(data.requiresEquipped ?? true);
-            this.requiresInvestment = item.isInvested === null ? null : !!(data.requiresInvestment ?? true);
+            this.requiresInvestment =
+                item.isInvested === null ? null : !!(data.requiresInvestment ?? this.requiresEquipped);
         }
     }
 
@@ -157,9 +161,13 @@ abstract class RuleElementPF2e {
      * @param source string that should be parsed
      * @return the looked up value on the specific object
      */
-    resolveInjectedProperties<T extends string | object | null | undefined>(source: T): T;
-    resolveInjectedProperties(source: string | object | undefined): string | object | undefined {
-        if (typeof source === "string" && !source.includes("{")) return source;
+    resolveInjectedProperties<T extends string | number | object | null | undefined>(source: T): T;
+    resolveInjectedProperties(
+        source: string | number | object | null | undefined
+    ): string | number | object | null | undefined {
+        if (source === null || typeof source === "number" || (typeof source === "string" && !source.includes("{"))) {
+            return source;
+        }
 
         // Walk the object tree and resolve any string values found
         if (Array.isArray(source)) {
@@ -322,6 +330,8 @@ namespace RuleElementPF2e {
 }
 
 interface RuleElementOptions {
+    /** If created from an item, the index in the source data */
+    sourceIndex?: number;
     /** If data validation fails for any reason, do not emit console warnings */
     suppressWarnings?: boolean;
 }
@@ -363,7 +373,7 @@ interface RuleElementPF2e {
     afterRoll?(params: RuleElementPF2e.AfterRollParams): Promise<void>;
 
     /** Runs before the rule's parent item's owning actor is updated */
-    preUpdateActor?(): Promise<void>;
+    preUpdateActor?(): Promise<{ create: ItemSourcePF2e[]; delete: string[] }>;
 
     /**
      * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can

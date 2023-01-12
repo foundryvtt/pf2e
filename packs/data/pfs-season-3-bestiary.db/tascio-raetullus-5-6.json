@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>"
@@ -69,20 +68,6 @@
                         "gp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -105,9 +90,6 @@
                 "slug": "rapier",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -160,8 +142,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This parrying dagger features a robust guard to protect the wielder's hand.</p>"
@@ -201,20 +182,6 @@
                         "sp": 5
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -237,9 +204,6 @@
                 "slug": "main-gauche",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -384,22 +348,12 @@
             "name": "Healing Potion (Lesser)",
             "sort": 400000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -407,16 +361,11 @@
                     "value": "potion"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": "2d8+5"
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r {2d8+5}[healing]]]{2d8+5 Hit Points}.</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -449,11 +398,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "healing-potion-lesser",
@@ -461,11 +405,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -480,13 +419,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -601,7 +533,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Tascio Strides twice. If he ends his movement within melee reach of an enemy, he can @Compendium[pf2e.actionspf2e.Feint]{Feint}.</p>"
+                    "value": "<p>Tascio Strides twice. If he ends his movement within melee reach of an enemy, he can @UUID[Compendium.pf2e.actionspf2e.Feint]{Feint}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -727,7 +659,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Tascio deals an extra [[/r {2d6}[precision]]]{2d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>Tascio deals an extra [[/r {2d6}[precision]]]{2d6 precision damage} to @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1001,6 +933,16 @@
             "perception": {
                 "value": 14
             },
+            "resistances": [
+                {
+                    "type": "mental",
+                    "value": 3
+                },
+                {
+                    "type": "slashing",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -1037,22 +979,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "mental",
-                    "value": 3
-                },
-                {
-                    "type": "slashing",
-                    "value": 3
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -24,7 +24,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": "<p>[[/r 2d8[persistent,fire]]] damage</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -66,7 +66,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": "<p>[[/r 2d8[persistent,fire]]] damage</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -109,7 +109,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r {2d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
+                    "value": "<p>[[/r 2d10[persistent,fire]]] damage</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -320,7 +320,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Xotani is damaged</p>\n<hr />\n<p><strong>Effect</strong> Xotani's wound erupts with magma in a @Template[type:cone|distance:30], dealing [[/r {6d8}[fire]]]{6d8 fire damage} and [[/r {6d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} (@Check[type:reflex|dc:42|basic:true] save).</p>"
+                    "value": "<p><strong>Trigger</strong> Xotani is damaged</p>\n<hr />\n<p><strong>Effect</strong> Xotani's wound erupts with magma in a @Template[type:cone|distance:30], dealing [[/r 6d8[fire]]] damage and [[/r 6d8[persistent,fire]]] damage (@Check[type:reflex|dc:42|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -367,7 +367,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:300]{300 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:39] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:300]{300 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:39] save</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -532,7 +532,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Xotani breathes a blast of flame that deals [[/r {18d6}[fire]]]{18d6 fire damage} plus [[/r {4d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} to all creatures in a @Template[type:cone|distance:70] (@Check[type:reflex|dc:42|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>Xotani breathes a blast of flame that deals [[/r 18d6[fire]]] damage plus [[/r 4d6[persistent,fire]]] damage to all creatures in a @Template[type:cone|distance:70] (@Check[type:reflex|dc:42|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -581,7 +581,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Huge, [[/r {8d6+8}[bludgeoning]]]{8d6+8 bludgeoning} plus [[/r {12d6}[fire]]]{12d6 fire}, Rupture 35</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Huge, [[/r {(8d6+8)[bludgeoning],12d6[fire]}]], Rupture 35</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -720,12 +720,61 @@
                 "temp": 0,
                 "value": 385
             },
+            "immunities": [
+                {
+                    "type": "clumsy"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "enfeebled"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "petrified"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "polymorph"
+                },
+                {
+                    "type": "stupefied"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 39
             },
+            "resistances": [
+                {
+                    "type": "electricity",
+                    "value": 22
+                },
+                {
+                    "type": "physical",
+                    "value": 22
+                },
+                {
+                    "type": "sonic",
+                    "value": 22
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -738,7 +787,13 @@
                     }
                 ],
                 "value": 60
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 22
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -771,47 +826,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "clumsy",
-                    "disease",
-                    "drained",
-                    "enfeebled",
-                    "fire",
-                    "mental",
-                    "paralyzed",
-                    "petrified",
-                    "poison",
-                    "polymorph",
-                    "stupefied"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Electricity",
-                    "type": "electricity",
-                    "value": "22"
-                },
-                {
-                    "label": "Physical",
-                    "type": "physical",
-                    "value": "22"
-                },
-                {
-                    "label": "Sonic",
-                    "type": "sonic",
-                    "value": "22"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "22"
-                }
-            ],
             "languages": {
                 "custom": "Can't Speak Any Language",
                 "selected": [],

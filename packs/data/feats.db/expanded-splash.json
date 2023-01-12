@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Expanded Splash",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -31,24 +28,18 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Expanded Splash",
                 "predicate": [
-                    "alchemical",
-                    "splash",
-                    "bomb"
+                    "item:trait:splash"
                 ],
-                "selector": "strike-damage",
-                "type": "untyped",
+                "selector": "alchemical-bomb-damage",
                 "value": "@actor.abilities.int.mod"
             },
             {
                 "key": "Note",
                 "predicate": [
-                    "alchemical",
-                    "bomb",
-                    "splash"
+                    "item:trait:splash"
                 ],
-                "selector": "strike-damage",
+                "selector": "alchemical-bomb-damage",
                 "text": "The bomb deals splash damage to every creature within 10 feet of the target.",
                 "title": "{item|name}"
             }

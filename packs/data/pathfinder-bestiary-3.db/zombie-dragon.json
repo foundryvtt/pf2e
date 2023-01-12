@@ -3,7 +3,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "f7DcHyj4pHtcvQ9q",
+            "_id": "TPN2CEDmDpqjgzwG",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3"
@@ -51,7 +51,7 @@
                 "rules": [],
                 "slug": "slowed",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "sources": {
                     "hud": true,
@@ -262,7 +262,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The zombie dragon is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
+                    "value": "<p>The zombie dragon is permanently @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -354,7 +354,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The zombie dragon breathes a wave of fetid viscera that deals [[/r {5d6}[bludgeoning]]]{5d6 bludgeoning damage} and [[/r {5d6}[poison]]]{5d6 poison damage} (@Check[type:reflex|dc:28|basic:true] save). A creature that critically fails is also @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p>The zombie dragon can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The zombie dragon breathes a wave of fetid viscera that deals [[/r {5d6[bludgeoning],5d6[poison]}]]{5d6 bludgeoning damage and 5d6 poison damage} (@Check[type:reflex|dc:28|basic:true] save). A creature that critically fails is also @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p>The zombie dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -463,7 +463,7 @@
                 "value": 27
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "negative healing",
@@ -471,6 +471,23 @@
                 "temp": 0,
                 "value": 210
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -485,7 +502,17 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -497,7 +524,7 @@
                 "value": 9
             },
             "privateNotes": "",
-            "publicNotes": "<p>Necromancers most often create these mindless undead as obedient, expendable servitors. Left to its own devices, a zombie seeks only to consume the living, stopping only when its rotting body can no longer hold together.</p>\n<hr />\n<p>The rotted husk of a once great dragon, this abomination has lost all its former splendor, but none of the ferocity. Its patchy, rotted wings don't generate enough lift to keep it aloft, but the foul necromantic energies animating it still allow it to fly, albeit slowly.</p>",
+            "publicNotes": "<p>The rotted husk of a once great dragon, this abomination has lost all its former splendor, but none of the ferocity. Its patchy, rotted wings don't generate enough lift to keep it aloft, but the foul necromantic energies animating it still allow it to fly, albeit slowly.</p>\n<hr />\n<p>Necromancers most often create these mindless undead as obedient, expendable servitors. Left to its own devices, a zombie seeks only to consume the living, stopping only when its rotting body can no longer hold together.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -518,33 +545,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "label": "Positive",
-                    "type": "positive",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

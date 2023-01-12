@@ -21,7 +21,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     }
 
     override get template(): string {
-        return "systems/pf2e/templates/actors/loot/sheet.html";
+        return "systems/pf2e/templates/actors/loot/sheet.hbs";
     }
 
     override get isLootSheet(): boolean {
@@ -34,7 +34,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
         // Enrich content
         const rollData = this.actor.getRollData();
-        sheetData.enrichedContent.description = await TextEditor.enrichHTML(sheetData.data.details.description.value, {
+        sheetData.enrichedContent.description = await TextEditor.enrichHTML(sheetData.data.details.description, {
             rollData,
             async: true,
         });
@@ -62,12 +62,6 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             });
         }
     }
-
-    protected async prepareItems(): Promise<void> {
-        // no-op
-    }
-
-    // Events
 
     private async distributeCoins(event: JQuery.ClickEvent): Promise<void> {
         event.preventDefault();

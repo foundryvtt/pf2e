@@ -1,7 +1,7 @@
 import { SkillAbbreviation } from "@actor/creature/data";
-import { MODIFIER_TYPE, ProficiencyModifier } from "@actor/modifiers";
+import { createProficiencyModifier, MODIFIER_TYPE } from "@actor/modifiers";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
-import { ActionItemPF2e, AncestryBackgroundClassManager, isSpellConsumable, ItemPF2e, WEAPON_CATEGORIES } from "@item";
+import { ActionItemPF2e, isSpellConsumable, ItemPF2e, WEAPON_CATEGORIES } from "@item";
 import { ItemSourcePF2e, LoreData } from "@item/data";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -10,7 +10,16 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
+import {
+    ErrorPF2e,
+    getActionIcon,
+    groupBy,
+    htmlQueryAll,
+    isObject,
+    objectHasKey,
+    setHasElement,
+    tupleHasValue,
+} from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
@@ -32,7 +41,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
-        options.classes = ["default", "sheet", "actor", "character"];
+        options.classes = [...options.classes, "character"];
         options.width = 750;
         options.height = 800;
         options.scrollY.push(".tab.active .tab-content");
@@ -45,7 +54,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     override get template(): string {
         const template = this.actor.limited && !game.user.isGM ? "limited" : "sheet";
-        return `systems/pf2e/templates/actors/character/${template}.html`;
+        return `systems/pf2e/templates/actors/character/${template}.hbs`;
     }
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData> {
@@ -75,10 +84,8 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             })();
 
             proficiency.label = game.i18n.localize(label);
-            proficiency.value = ProficiencyModifier.fromLevelAndRank(
-                sheetData.data.details.level.value,
-                proficiency.rank || 0
-            ).modifier;
+            const rank = proficiency.rank ?? 0;
+            proficiency.value = createProficiencyModifier({ actor: this.actor, rank, domains: [] }).modifier;
         }
 
         // A(H)BCD
@@ -149,7 +156,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const formulasByLevel = await this.prepareCraftingFormulas();
         const flags = this.actor.flags.pf2e;
-        const hasQuickAlchemy = !!this.actor.rollOptions.all["feature:quick-alchemy"];
+        const hasQuickAlchemy = !!(
+            this.actor.rollOptions.all["feature:quick-alchemy"] || this.actor.rollOptions.all["feat:quick-alchemy"]
+        );
         const useQuickAlchemy = hasQuickAlchemy && flags.quickAlchemy;
 
         sheetData.crafting = {
@@ -241,7 +250,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Organize and classify Items for Character sheets */
-    protected async prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): Promise<void> {
+    override async prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): Promise<void> {
         const actorData = sheetData.actor;
 
         // Actions
@@ -262,15 +271,12 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         for (const itemData of sheetData.items) {
             const item = this.actor.items.get(itemData._id, { strict: true });
 
-            // Feats
-            if (itemData.type === "feat") {
-                const actionType = itemData.system.actionType.value || "passive";
-                if (Object.keys(actions).includes(actionType)) {
+            // Feats (non-passive feats may show action icons)
+            if (item.isOfType("feat")) {
+                const actionType = item.actionCost?.type;
+                if (actionType) {
                     itemData.feat = true;
-                    itemData.img = CharacterPF2e.getActionGraphics(
-                        actionType,
-                        parseInt((itemData.system.actions || {}).value, 10) || 1
-                    ).imageUrl;
+                    itemData.img = getActionIcon(item.actionCost);
                     actions[actionType].actions.push(itemData);
                 }
             }
@@ -281,10 +287,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 itemData.system.hover = CONFIG.PF2E.proficiencyLevels[(itemData.system.proficient || {}).value];
 
                 const rank = itemData.system.proficient?.value || 0;
-                const proficiency = ProficiencyModifier.fromLevelAndRank(
-                    actorData.system.details.level.value,
-                    rank
-                ).modifier;
+                const proficiency = createProficiencyModifier({ actor: this.actor, rank, domains: [] }).modifier;
                 const modifier = actorData.system.abilities.int.mod;
                 const itemBonus = Number((itemData.system.item || {}).value || 0);
                 itemData.system.itemBonus = itemBonus;
@@ -296,15 +299,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             // Actions
             else if (item.isOfType("action")) {
-                const actionType = ["free", "reaction", "passive"].includes(item.system.actionType.value)
-                    ? item.system.actionType.value
-                    : "action";
-                itemData.img = CharacterPF2e.getActionGraphics(
-                    actionType,
-                    Number(item.system.actions.value) || 1
-                ).imageUrl;
-                if (actionType === "passive") actions.free.actions.push(itemData);
-                else actions[actionType].actions.push(itemData);
+                itemData.img = getActionIcon(item.actionCost);
+                const actionType = item.actionCost?.type ?? "free";
+                actions[actionType].actions.push(itemData);
             }
         }
 
@@ -402,7 +399,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Left/right-click adjustments (increment or decrement) of actor and item stats
         $html.find(".adjust-stat").on("click contextmenu", (event) => this.#onClickAdjustStat(event));
-        $html.find(".adjust-stat-select").on("change", (event) => this.#onChangeAdjustStat(event));
+        for (const selectElem of htmlQueryAll<HTMLSelectElement>(html, "select.adjust-stat-select")) {
+            selectElem.addEventListener("change", () => this.#onChangeAdjustStat(selectElem));
+        }
         $html.find(".adjust-item-stat").on("click contextmenu", (event) => this.#onClickAdjustItemStat(event));
         $html.find(".adjust-item-stat-select").on("change", (event) => this.#onChangeAdjustItemStat(event));
 
@@ -661,8 +660,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             const difficultyClass: CheckDC = {
                 value: formula.dc,
-                visibility: "all",
-                adjustments: this.actor.system.skills.cra.adjustments,
+                visible: true,
                 scope: "check",
             };
 
@@ -807,19 +805,19 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** Handle changing of proficiency-rank via dropdown */
-    async #onChangeAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
-        const $select = $(event.delegateTarget);
-        const propertyKey = $select.attr("data-property") ?? "";
+    #onChangeAdjustStat(selectElem: HTMLSelectElement): void {
+        const propertyKey = selectElem.dataset.property ?? "";
         const currentValue = getProperty(this.actor, propertyKey);
-        const selectedValue = Number($select.val());
-
-        if (typeof currentValue !== "number") throw ErrorPF2e("Actor property not found");
+        const selectedValue = Number(selectElem.value);
+        if (typeof currentValue !== "number" || Number.isNaN(selectedValue)) {
+            throw ErrorPF2e("Actor property not found");
+        }
 
         const newValue = Math.clamped(selectedValue, 0, 4);
-
-        await this.actor.update({ [propertyKey]: newValue });
-        if (newValue !== getProperty(this.actor, propertyKey)) {
-            ui.notifications.warn(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
+        const clone = this.actor.clone({ [propertyKey]: newValue }, { keepId: true });
+        if (newValue !== getProperty(clone, propertyKey)) {
+            ui.notifications.warn("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures", { localize: true });
+            selectElem.value = currentValue.toString();
         }
     }
 
@@ -975,16 +973,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             return await this.actor.feats.insertFeat(item, featSlot);
         }
 
-        const source = item.toObject();
-
-        switch (source.type) {
-            case "ancestry":
-            case "background":
-            case "class":
-                return AncestryBackgroundClassManager.addABCItem(source, actor);
-            default:
-                return super._onDropItem(event, data);
-        }
+        return super._onDropItem(event, data);
     }
 
     protected override async _onDrop(event: ElementDragEvent): Promise<boolean | void> {

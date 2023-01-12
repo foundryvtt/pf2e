@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Arcane Safeguards",
     "system": {
-        "actionCategory": {
-            "value": "defensive"
-        },
         "actionType": {
             "value": "passive"
         },
@@ -13,7 +10,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>The magic powering you makes it difficult for outside magic to affect you. You gain the @Compendium[pf2e.actionspf2e.Resist Magic]{Resist Magic} reaction.</p>\n<p><strong>Enhancement</strong> Your safeguards improve. When you Resist Magic, you gain a number of temporary Hit Points equal to the spell level of the triggering effect.</p>"
+            "value": "<p>The magic powering you makes it difficult for outside magic to affect you. You gain the @UUID[Compendium.pf2e.actionspf2e.Resist Magic]{Resist Magic} reaction.</p>\n<p><strong>Enhancement</strong> Your safeguards improve. When you Resist Magic, you gain a number of temporary Hit Points equal to the spell level of the triggering effect.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -28,6 +25,34 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Resist Magic"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneSafeguards",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-safeguards"
+                        }
+                    ],
+                    "value": "arcane-safeguards"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.ArcaneSafeguards",
+                    "predicate": [
+                        {
+                            "not": "enhancement:arcane-safeguards"
+                        }
+                    ],
+                    "value": "arcane-safeguards"
+                }
             }
         ],
         "source": {

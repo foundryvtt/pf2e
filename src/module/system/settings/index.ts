@@ -5,8 +5,9 @@ import { StatusEffects } from "@module/canvas/status-effects";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { MetagameSettings } from "./metagame";
+import { resetAndRerenderActors } from "@actor/helpers";
 
-export function registerSettings() {
+export function registerSettings(): void {
     if (BUILD_MODE === "development") {
         registerWorldSchemaVersion();
     }
@@ -75,9 +76,7 @@ export function registerSettings() {
         config: true,
         default: false,
         type: Boolean,
-        onChange: () => {
-            window.location.reload();
-        },
+        requiresReload: true,
     });
 
     game.settings.register("pf2e", "drawCritFumble", {
@@ -87,9 +86,7 @@ export function registerSettings() {
         config: true,
         default: false,
         type: Boolean,
-        onChange: () => {
-            window.location.reload();
-        },
+        requiresReload: true,
     });
 
     const iconChoices = {
@@ -106,6 +103,17 @@ export function registerSettings() {
         choices: iconChoices,
         onChange: (iconType) => {
             StatusEffects.migrateStatusEffectUrls(iconType);
+        },
+    });
+
+    game.settings.register("pf2e", "totmToggles", {
+        name: "PF2E.SETTINGS.TOTMToggles.Name",
+        hint: "PF2E.SETTINGS.TOTMToggles.Hint",
+        config: true,
+        default: false,
+        type: Boolean,
+        onChange: () => {
+            resetAndRerenderActors();
         },
     });
 

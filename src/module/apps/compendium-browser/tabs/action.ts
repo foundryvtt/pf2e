@@ -5,7 +5,7 @@ import { ActionFilters, CompendiumBrowserIndexData } from "./data";
 
 export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     override filterData!: ActionFilters;
-    override templatePath = "systems/pf2e/templates/compendium-browser/partials/action.html";
+    override templatePath = "systems/pf2e/templates/compendium-browser/partials/action.hbs";
     /* MiniSearch */
     override searchFields = ["name"];
     override storeFields = ["type", "name", "img", "uuid", "traits", "source"];

@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d12",
-                    "value": ""
+                    "die": "d12"
                 },
                 "description": {
                     "value": "<p>This large battle axe is too heavy to wield with only one hand. Many greataxes incorporate two blades, and they are often \"bearded\", having a hook at the bottom to increase the strength of their chopping power.</p>"
@@ -69,20 +68,6 @@
                         "gp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -105,9 +90,6 @@
                 "slug": "greataxe",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -278,7 +260,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A minotaur automatically critically succeeds at Survival checks to avoid becoming lost or to find its way, including those from the <em>@Compendium[pf2e.spells-srd.Maze]{Maze}</em> spell.</p>"
+                    "value": "<p>A minotaur automatically critically succeeds at Survival checks to avoid becoming lost or to find its way, including those from the <em>@UUID[Compendium.pf2e.spells-srd.Maze]{Maze}</em> spell.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -365,7 +347,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The minotaur snorts and clomps as it hunts its prey, inspiring terror. The minotaur makes an Intimidation check to @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} all living creatures within @Template[type:emanation|distance:60]{60 feet} that can hear the minotaur but not see it. Roll once and apply the result to all creatures. If the targets are in a maze or similarly difficult-to-navigate structure, the minotaur gains a +4 circumstance bonus to this check. Creatures that become @Compendium[pf2e.conditionitems.Frightened]{Frightened} as a result also take a -2 circumstance penalty to Survival checks to avoid getting lost for 1 minute. This use of Demoralize doesn't have the visual trait. Each target is temporarily immune for 1 minute.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Hunted Fear]{Effect: Hunted Fear}</p>"
+                    "value": "<p>The minotaur snorts and clomps as it hunts its prey, inspiring terror. The minotaur makes an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Demoralize]{Demoralize} all living creatures within @Template[type:emanation|distance:60]{60 feet} that can hear the minotaur but not see it. Roll once and apply the result to all creatures. If the targets are in a maze or similarly difficult-to-navigate structure, the minotaur gains a +4 circumstance bonus to this check. Creatures that become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened} as a result also take a -2 circumstance penalty to Survival checks to avoid getting lost for 1 minute. This use of Demoralize doesn't have the visual trait. Each target is temporarily immune for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Hunted Fear]{Effect: Hunted Fear}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -375,13 +357,13 @@
                         "domain": "all",
                         "key": "RollOption",
                         "label": "PF2E.NPCAbility.MinotaurHuntedFear.Demoralize",
-                        "option": "huntedFear",
+                        "option": "hunted-fear",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "huntedFear",
+                            "hunted-fear",
                             "action:demoralize"
                         ],
                         "selector": "intimidation",
@@ -423,7 +405,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The minotaur Strides twice, then makes a horn Strike. If it moved at least 20 feet from its starting position, the Strike's damage is increased to [[/r {2d8+10}[piercing]]]{2d8+10}.</p>"
+                    "value": "<p>The minotaur Strides twice, then makes a horn Strike. If it moved at least 20 feet from its starting position, the Strike's damage is increased to [[/r (2d8+10)[piercing]]]{2d8+10}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -432,7 +414,7 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "option": "powerfulCharge",
+                        "option": "powerful-charge",
                         "toggleable": true
                     },
                     {
@@ -440,14 +422,14 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "powerfulCharge"
+                            "powerful-charge"
                         ],
                         "selector": "horn-damage"
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "powerfulCharge"
+                            "powerful-charge"
                         ],
                         "selector": "horn-damage",
                         "value": 2
@@ -640,13 +622,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

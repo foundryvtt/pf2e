@@ -58,7 +58,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The pile of fireworks begins its turn.</p>\n<hr />\n<p><strong>Effect</strong> The pile of fireworks explodes, dealing [[/r {4d8}[fire]]]{4d8 fire damage} (@Check[type:reflex|dc:22|basic:true]) save to all creatures within 15 feet.</p>"
+                    "value": "<p><strong>Trigger</strong> The pile of fireworks begins its turn.</p>\n<hr />\n<p><strong>Effect</strong> The pile of fireworks explodes, dealing [[/r 4d8[fire]]] damage (@Check[type:reflex|dc:22|basic:true]) save to all creatures within 15 feet.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -100,6 +100,17 @@
                 "temp": 0,
                 "value": 24
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained)</p>",
                 "value": 8
@@ -131,22 +142,10 @@
             }
         },
         "source": {
-            "value": "Pathfinder Society Quest 5: The Dragon who Stole Evoking Day"
+            "value": "Pathfinder Society Quest #5: The Dragon who Stole Evoking Day"
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

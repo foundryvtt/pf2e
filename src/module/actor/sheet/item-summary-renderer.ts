@@ -1,14 +1,15 @@
 import { ActorPF2e, CharacterPF2e, CreaturePF2e } from "@actor";
-import { ConsumablePF2e, ItemPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
+import { ConsumablePF2e, ItemPF2e, SpellPF2e } from "@item";
 import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
+import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 
 /**
  * Implementation used to populate item summaries, toggle visibility
  * of item summaries, and save expanded/collapsed state of item summaries.
  */
-export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
+export class ItemSummaryRenderer<TActor extends ActorPF2e> {
     constructor(protected sheet: Application & { get actor(): TActor }) {}
 
     activateListeners($html: JQuery) {
@@ -45,8 +46,7 @@ export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
             return;
         }
 
-        if (!(item instanceof ItemPF2e)) return;
-        if (!item || ["condition", "spellcastingEntry"].includes(item.type)) return;
+        if (!(item instanceof ItemPF2e) || ["condition", "spellcastingEntry"].includes(item.type)) return;
 
         // Toggle summary
         if ($element.hasClass("expanded")) {
@@ -84,65 +84,81 @@ export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
      * @todo Move this to templates
      */
     async renderItemSummary($div: JQuery, item: ItemPF2e, chatData: ItemSummaryData): Promise<void> {
-        const localize = game.i18n.localize.bind(game.i18n);
+        const itemIsPhysical = item.isOfType("physical");
 
-        const itemIsIdentifiedOrUserIsGM = item.isOfType("physical") && (item.isIdentified || game.user.isGM);
+        // Wrap a span element in another with GM visibility set
+        const gmVisibilityWrap = (span: HTMLSpanElement, visibility: UserVisibility): HTMLSpanElement => {
+            const wrapper = document.createElement("span");
+            wrapper.dataset.visibility = visibility;
+            wrapper.append(span);
+            return wrapper;
+        };
 
-        const $rarityTag = itemIsIdentifiedOrUserIsGM
-            ? (() => {
-                  const mystifiedClass = item.isIdentified ? "" : " mystified";
-                  const rarityLabel = CONFIG.PF2E.rarityTraits[item.rarity];
-                  return $(`<span class="tag tag_secondary${mystifiedClass}">${localize(rarityLabel)}</span>`);
+        const rarityTag = itemIsPhysical
+            ? ((): HTMLElement => {
+                  const span = document.createElement("span");
+                  span.classList.add("tag", item.rarity);
+                  span.innerText = game.i18n.localize(CONFIG.PF2E.rarityTraits[item.rarity]);
+
+                  // Set GM user visibility of rarity if unidentified
+                  return gmVisibilityWrap(span, item.isIdentified ? "all" : "gm");
               })()
             : null;
 
-        const $levelPriceLabel =
-            itemIsIdentifiedOrUserIsGM && item.system.stackGroup !== "coins"
-                ? ((): JQuery => {
+        const levelPriceLabel =
+            itemIsPhysical && item.system.stackGroup !== "coins"
+                ? ((): HTMLElement => {
                       const price = item.price.value.toString();
                       const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
                       const levelLabel = game.i18n.format("PF2E.LevelN", { level: item.level });
-                      return $(`<p>${levelLabel}<br/>${priceLabel}</p>`);
+
+                      const paragraph = document.createElement("p");
+                      paragraph.dataset.visibility = item.isIdentified ? "all" : "gm";
+                      paragraph.append(levelLabel, document.createElement("br"), priceLabel);
+                      return paragraph;
                   })()
                 : $();
 
         const properties =
             chatData.properties
                 ?.filter((property): property is string => typeof property === "string")
-                .flatMap((property) => {
-                    const mystifiedClass = item instanceof PhysicalItemPF2e && !item.isIdentified ? " mystified" : "";
-                    return game.user.isGM || !mystifiedClass
-                        ? $(`<span class="tag tag_secondary${mystifiedClass}">${localize(property)}</span>`)
-                        : [];
+                .map((property): HTMLElement => {
+                    const span = document.createElement("span");
+                    span.classList.add("tag", "tag_secondary");
+                    span.innerText = game.i18n.localize(property);
+                    return itemIsPhysical ? gmVisibilityWrap(span, item.isIdentified ? "all" : "gm") : span;
                 }) ?? [];
 
         // append traits (only style the tags if they contain description data)
         const traitTags = Array.isArray(chatData.traits)
             ? chatData.traits
                   .filter((trait) => !trait.excluded)
-                  .map((trait) => {
-                      const label: string = game.i18n.localize(trait.label);
-                      const mystifiedClass = trait.mystified ? "mystified" : [];
-                      const classes = ["tag", mystifiedClass].flat().join(" ");
-                      const $trait = $(`<span class="${classes}">${label}</span>`);
+                  .map((trait): HTMLElement => {
+                      const span = document.createElement("span");
+                      span.classList.add("tag");
+                      span.innerText = game.i18n.localize(trait.label);
                       if (trait.description) {
-                          const description = game.i18n.localize(trait.description);
-                          $trait
-                              .attr({ title: description })
-                              .tooltipster({ maxWidth: 400, theme: "crb-hover", contentAsHTML: true });
+                          span.title = game.i18n.localize(trait.description);
+                          $(span).tooltipster({ maxWidth: 400, theme: "crb-hover", contentAsHTML: true });
                       }
-                      return $trait;
+
+                      return itemIsPhysical
+                          ? gmVisibilityWrap(span, item.isIdentified || !trait.mystified ? "all" : "gm")
+                          : span;
                   })
             : [];
 
-        const allTags = [$rarityTag, ...traitTags, ...properties].filter((tag): tag is JQuery => !!tag);
-        const $properties = $('<div class="item-properties tags"></div>').append(...allTags);
+        const allTags = [rarityTag, ...traitTags, ...properties].filter((tag): tag is HTMLElement => !!tag);
+        const propertiesElem = document.createElement("div");
+        propertiesElem.classList.add("tags", "item-properties");
+        propertiesElem.append(...allTags);
 
         const description = isItemSystemData(chatData)
             ? chatData.description.value
-            : await game.pf2e.TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
+            : await TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
 
-        $div.append($properties, $levelPriceLabel, `<div class="item-description">${description}</div>`);
+        $div.append(propertiesElem, levelPriceLabel, `<div class="item-description">${description}</div>`);
+        UserVisibilityPF2e.process($div);
     }
 
     /**
@@ -183,7 +199,7 @@ export class ItemSummaryRendererPF2e<TActor extends ActorPF2e> {
     }
 }
 
-export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemSummaryRendererPF2e<AType> {
+export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemSummaryRenderer<AType> {
     override async renderItemSummary(
         $div: JQuery,
         item: Embedded<ItemPF2e>,
@@ -192,44 +208,32 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
         await super.renderItemSummary($div, item, chatData);
         const actor = item.actor;
         const buttons = $('<div class="item-buttons"></div>');
-        switch (item.type) {
-            case "spell":
-                if (chatData.isSave) {
-                    const save = chatData.save as Record<string, unknown>;
-                    buttons.append(`<span>${save.label}</span>`);
-                }
+        if (item.isOfType("spell")) {
+            if (chatData.isSave) {
+                const save = chatData.save as Record<string, unknown>;
+                buttons.append(`<span>${save.label}</span>`);
+            }
 
-                if (actor instanceof CharacterPF2e) {
-                    if (Array.isArray(chatData.variants) && chatData.variants.length) {
-                        const label = game.i18n.localize("PF2E.Item.Spell.Variants.SelectVariantLabel");
-                        buttons.append(
-                            `<span><button class="spell_attack" data-action="selectVariant">${label}</button></span>`
-                        );
-                        break;
-                    }
-                    if (chatData.isAttack) {
-                        const label = game.i18n.localize("PF2E.AttackLabel");
-                        buttons.append(
-                            `<span><button class="spell_attack" data-action="spellAttack">${label}</button></span>`
-                        );
-                    }
-                    if (chatData.hasDamage) {
-                        buttons.append(
-                            `<span><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
-                        );
-                    }
-                }
-
-                break;
-            case "consumable":
-                if (item instanceof ConsumablePF2e && item.uses.max > 0 && item.isIdentified) {
-                    const label = game.i18n.localize("PF2E.ConsumableUseLabel");
+            if (actor instanceof CharacterPF2e && !item.hasVariants) {
+                if (chatData.isAttack) {
+                    const label = game.i18n.localize("PF2E.AttackLabel");
                     buttons.append(
-                        `<span><button class="consume" data-action="consume">${label} ${item.name}</button></span>`
+                        `<span><button class="spell_attack" data-action="spellAttack">${label}</button></span>`
                     );
                 }
-                break;
-            default:
+                if (chatData.hasDamage) {
+                    buttons.append(
+                        `<span><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${chatData.formula}</button></span>`
+                    );
+                }
+            }
+        } else if (item.isOfType("consumable")) {
+            if (item.uses.max > 0 && item.isIdentified) {
+                const label = game.i18n.localize("PF2E.ConsumableUseLabel");
+                buttons.append(
+                    `<span><button class="consume" data-action="consume">${label} ${item.name}</button></span>`
+                );
+            }
         }
 
         $div.append(buttons);
@@ -250,9 +254,6 @@ export class CreatureSheetItemRenderer<AType extends CreaturePF2e> extends ItemS
                     break;
                 case "consume":
                     if (item instanceof ConsumablePF2e) item.consume();
-                    break;
-                case "selectVariant":
-                    spell?.toMessage();
                     break;
             }
         });

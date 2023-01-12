@@ -144,7 +144,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {2d10+3}[bludgeoning]+{2d8}[acid]]]{2d10+3 bludgeoning damage plus 2d8 acid}, @Check[type:fortitude|dc:37|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r {(2d10+3)[bludgeoning],2d8[acid]}]]{2d10+3 bludgeoning damage plus 2d8 acid}, @Check[type:fortitude|dc:37|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -226,7 +226,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>@Check[type:reflex|dc:37] save, [[/r {5d10}[acid]]]{5d10 acid damage}, @Compendium[pf2e.actionspf2e.Escape]{Escape} DC 37, Rupture 20. A crawling slurry regains 30 Hit Points if a living creature it is engulfing dies.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                    "value": "<p>@Check[type:reflex|dc:37] save, [[/r 5d10[acid]]] damage, @UUID[Compendium.pf2e.actionspf2e.Escape]{Escape} DC 37, Rupture 20. A crawling slurry regains 30 Hit Points if a living creature it is engulfing dies.</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -341,7 +341,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SkillVariants.AcidicEnvironment",
+                        "label": "PF2E.SkillVariant.AcidicEnvironment",
                         "predicate": [
                             "terrain:acidic"
                         ],
@@ -404,6 +404,26 @@
                 "temp": 0,
                 "value": 300
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -459,21 +479,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid",
-                    "critical-hits",
-                    "mental",
-                    "poison",
-                    "precision",
-                    "unconscious",
-                    "visual"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

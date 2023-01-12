@@ -14,7 +14,7 @@ export class AddCoinsPopup extends FormApplication<ActorPF2e> {
         options.id = "add-coins";
         options.classes = [];
         options.title = "Add Coins";
-        options.template = "systems/pf2e/templates/actors/add-coins.html";
+        options.template = "systems/pf2e/templates/actors/add-coins.hbs";
         options.width = "auto";
         return options;
     }

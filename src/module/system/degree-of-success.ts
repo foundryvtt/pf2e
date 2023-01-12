@@ -1,18 +1,18 @@
 import { DCSlug } from "@actor/types";
 import { ZeroToThree } from "@module/data";
+import { CheckRoll } from "./check";
 import { PredicatePF2e } from "./predication";
-import { RollDataPF2e } from "./rolls";
 
 /** Get the degree of success from a roll and a difficulty class */
 class DegreeOfSuccess {
     /** The calculated degree of success */
-    readonly value: DegreeIndex;
+    readonly value: DegreeOfSuccessIndex;
 
     /** The degree of success prior to adjustment. If there was no adjustment, it is identical to the `value` */
-    readonly unadjusted: DegreeIndex;
+    readonly unadjusted: DegreeOfSuccessIndex;
 
     /** A degree adjustment, usually from some character ability */
-    readonly degreeAdjustment: DegreeAdjustment | null;
+    readonly adjustment: { label: string; amount: DegreeAdjustmentAmount } | null;
 
     /** The result of a d20 roll */
     readonly dieResult: number;
@@ -23,7 +23,11 @@ class DegreeOfSuccess {
     /** The check DC being rolled against */
     readonly dc: CheckDC;
 
-    constructor(roll: Rolled<Roll<RollDataPF2e>> | RollBrief, dc: CheckDC | number) {
+    constructor(
+        roll: Rolled<CheckRoll> | RollBrief,
+        dc: CheckDC | number,
+        dosAdjustments: DegreeAdjustmentsRecord | null = null
+    ) {
         if (roll instanceof Roll) {
             this.dieResult =
                 (roll.isDeterministic
@@ -38,10 +42,10 @@ class DegreeOfSuccess {
 
         this.dc = typeof dc === "number" ? { value: dc } : dc;
 
-        this.unadjusted = this.calculateDegreeOfSuccess();
-        this.degreeAdjustment = this.getDegreeAdjustment(this.unadjusted, this.dc.modifiers ?? {});
-        this.value = this.degreeAdjustment
-            ? this.adjustDegreeOfSuccess(this.degreeAdjustment, this.unadjusted)
+        this.unadjusted = this.#calculateDegreeOfSuccess();
+        this.adjustment = this.#getDegreeAdjustment(this.unadjusted, dosAdjustments);
+        this.value = this.adjustment
+            ? this.#adjustDegreeOfSuccess(this.adjustment.amount, this.unadjusted)
             : this.unadjusted;
     }
 
@@ -50,127 +54,114 @@ class DegreeOfSuccess {
     static readonly SUCCESS = 2;
     static readonly CRITICAL_SUCCESS = 3;
 
-    getDegreeAdjustment(value: DegreeIndex, modifiers: CheckDCModifiers): DegreeAdjustment | null {
-        for (const degree of ["all", "criticalFailure", "failure", "success", "criticalSuccess"] as const) {
-            const checkDC = modifiers[degree];
-            if (!checkDC) continue;
-            const condition = PREFIXES[degree];
-            const adjustment = ADJUSTMENTS[checkDC];
+    #getDegreeAdjustment(
+        degree: DegreeOfSuccessIndex,
+        adjustments: DegreeAdjustmentsRecord | null
+    ): { label: string; amount: DegreeAdjustmentAmount } | null {
+        if (!adjustments) return null;
+
+        for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
+            const { label, amount } = adjustments[outcome] ?? {};
             if (
-                !(value === DegreeOfSuccess.CRITICAL_SUCCESS && adjustment === DEGREE_ADJUSTMENTS.INCREASE) &&
-                !(value === DegreeOfSuccess.CRITICAL_FAILURE && adjustment === DEGREE_ADJUSTMENTS.LOWER)
+                amount &&
+                label &&
+                !(degree === DegreeOfSuccess.CRITICAL_SUCCESS && amount === DEGREE_ADJUSTMENT_AMOUNTS.INCREASE) &&
+                !(degree === DegreeOfSuccess.CRITICAL_FAILURE && amount === DEGREE_ADJUSTMENT_AMOUNTS.LOWER) &&
+                (outcome === "all" || DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) === degree)
             ) {
-                if (condition === PREFIXES.all) {
-                    // always return the adjustment
-                    return adjustment;
-                }
-                if (value === condition) {
-                    // return the adjustment for the first matching modifier
-                    return adjustment;
-                }
+                return { label, amount };
             }
         }
 
         return null;
     }
 
-    private adjustDegreeOfSuccess(adjustment: DegreeAdjustment, degreeOfSuccess: DegreeIndex): DegreeIndex {
-        return Math.clamped(degreeOfSuccess + adjustment, 0, 3) as DegreeIndex;
+    #adjustDegreeOfSuccess(
+        amount: DegreeAdjustmentAmount,
+        degreeOfSuccess: DegreeOfSuccessIndex
+    ): DegreeOfSuccessIndex {
+        return Math.clamped(degreeOfSuccess + amount, 0, 3) as DegreeOfSuccessIndex;
     }
 
     /**
      * @param degree The current success value
      * @return The new success value
      */
-    private adjustDegreeByDieValue(degree: DegreeIndex): DegreeIndex {
+    #adjustDegreeByDieValue(degree: DegreeOfSuccessIndex): DegreeOfSuccessIndex {
         if (this.dieResult === 20) {
-            return this.adjustDegreeOfSuccess(DEGREE_ADJUSTMENTS.INCREASE, degree);
+            return this.#adjustDegreeOfSuccess(DEGREE_ADJUSTMENT_AMOUNTS.INCREASE, degree);
         } else if (this.dieResult === 1) {
-            return this.adjustDegreeOfSuccess(DEGREE_ADJUSTMENTS.LOWER, degree);
+            return this.#adjustDegreeOfSuccess(DEGREE_ADJUSTMENT_AMOUNTS.LOWER, degree);
         }
 
         return degree;
     }
 
-    private calculateDegreeOfSuccess(): DegreeIndex {
+    #calculateDegreeOfSuccess(): DegreeOfSuccessIndex {
         const dc = this.dc.value;
 
         if (this.rollTotal - dc >= 10) {
-            return this.adjustDegreeByDieValue(DegreeOfSuccess.CRITICAL_SUCCESS);
+            return this.#adjustDegreeByDieValue(DegreeOfSuccess.CRITICAL_SUCCESS);
         } else if (dc - this.rollTotal >= 10) {
-            return this.adjustDegreeByDieValue(DegreeOfSuccess.CRITICAL_FAILURE);
+            return this.#adjustDegreeByDieValue(DegreeOfSuccess.CRITICAL_FAILURE);
         } else if (this.rollTotal >= dc) {
-            return this.adjustDegreeByDieValue(DegreeOfSuccess.SUCCESS);
+            return this.#adjustDegreeByDieValue(DegreeOfSuccess.SUCCESS);
         }
 
-        return this.adjustDegreeByDieValue(DegreeOfSuccess.FAILURE);
+        return this.#adjustDegreeByDieValue(DegreeOfSuccess.FAILURE);
     }
 }
 
-type CheckDCString = "one-degree-better" | "one-degree-worse" | "two-degrees-better" | "two-degrees-worse";
-
 type RollBrief = { dieValue: number; modifier: number };
 
-const DEGREE_ADJUSTMENTS = {
+const DEGREE_ADJUSTMENT_AMOUNTS = {
     LOWER_BY_TWO: -2,
     LOWER: -1,
     INCREASE: 1,
     INCREASE_BY_TWO: 2,
 } as const;
 
-type DegreeAdjustment = typeof DEGREE_ADJUSTMENTS[keyof typeof DEGREE_ADJUSTMENTS];
+type DegreeAdjustmentAmount = typeof DEGREE_ADJUSTMENT_AMOUNTS[keyof typeof DEGREE_ADJUSTMENT_AMOUNTS];
 
-interface CheckDCModifiers {
-    all?: CheckDCString;
-    criticalFailure?: CheckDCString;
-    failure?: CheckDCString;
-    success?: CheckDCString;
-    criticalSuccess?: CheckDCString;
-}
+type DegreeAdjustmentsRecord = {
+    [key in "all" | DegreeOfSuccessString]?: { label: string; amount: DegreeAdjustmentAmount };
+};
 
 interface DegreeOfSuccessAdjustment {
-    modifiers: CheckDCModifiers;
+    adjustments: DegreeAdjustmentsRecord;
     predicate?: PredicatePF2e;
 }
 
 interface CheckDC {
     slug?: DCSlug;
     label?: string;
-    modifiers?: CheckDCModifiers;
     scope?: "attack" | "check";
-    adjustments?: DegreeOfSuccessAdjustment[];
     value: number;
-    visibility?: "none" | "gm" | "owner" | "all";
+    visible?: boolean;
 }
 
-type DegreeIndex = ZeroToThree;
+const DEGREE_OF_SUCCESS = {
+    CRITICAL_SUCCESS: 3,
+    SUCCESS: 2,
+    FAILURE: 1,
+    CRITICAL_FAILURE: 0,
+} as const;
 
-const ADJUSTMENTS = {
-    "two-degrees-better": DEGREE_ADJUSTMENTS.INCREASE_BY_TWO,
-    "one-degree-better": DEGREE_ADJUSTMENTS.INCREASE,
-    "one-degree-worse": DEGREE_ADJUSTMENTS.LOWER,
-    "two-degrees-worse": DEGREE_ADJUSTMENTS.LOWER_BY_TWO,
-};
+type DegreeOfSuccessIndex = ZeroToThree;
 
 const DEGREE_OF_SUCCESS_STRINGS = ["criticalFailure", "failure", "success", "criticalSuccess"] as const;
 type DegreeOfSuccessString = typeof DEGREE_OF_SUCCESS_STRINGS[number];
 
-const PREFIXES = {
-    all: -1 as const,
-    criticalFailure: DegreeOfSuccess.CRITICAL_FAILURE,
-    failure: DegreeOfSuccess.FAILURE,
-    success: DegreeOfSuccess.SUCCESS,
-    criticalSuccess: DegreeOfSuccess.CRITICAL_SUCCESS,
-};
-
 export {
     CheckDC,
-    CheckDCModifiers,
-    DegreeIndex,
+    DEGREE_ADJUSTMENT_AMOUNTS,
+    DEGREE_OF_SUCCESS,
+    DEGREE_OF_SUCCESS_STRINGS,
+    DegreeAdjustmentAmount,
+    DegreeAdjustmentsRecord,
     DegreeOfSuccess,
     DegreeOfSuccessAdjustment,
+    DegreeOfSuccessIndex,
     DegreeOfSuccessString,
-    DEGREE_ADJUSTMENTS,
-    DEGREE_OF_SUCCESS_STRINGS,
     RollBrief,
 };

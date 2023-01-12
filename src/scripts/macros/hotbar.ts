@@ -6,6 +6,7 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { SKILL_DICTIONARY } from "@actor/values";
 import { SkillAbbreviation } from "@actor/creature/data";
 import { LocalizePF2e } from "@system/localize";
+import { StrikeData } from "@actor/data/base";
 
 /**
  * Create a Macro from an Item drop.
@@ -49,9 +50,9 @@ export async function createActionMacro(actionIndex: number, actorId: string, sl
     const actor = game.actors.get(actorId, { strict: true });
     const action = actor.isOfType("character", "npc") ? actor.system.actions[actionIndex] : null;
     if (!action) return;
-    const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.slug}`;
-    const actionName = JSON.stringify(action.slug);
-    const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, ${actionName})`;
+    const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.label}`;
+    const actionSlug = JSON.stringify(action.slug);
+    const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, ${actionSlug})`;
     const actionMacro =
         game.macros.find((macro) => macro.name === macroName && macro.command === command) ??
         (await MacroPF2e.create(
@@ -67,45 +68,44 @@ export async function createActionMacro(actionIndex: number, actorId: string, sl
     game.user.assignHotbarMacro(actionMacro ?? null, slot);
 }
 
-export async function rollActionMacro(actorId: string, actionIndex: number, actionName: string) {
+export async function rollActionMacro(actorId: string, _actionIndex: number, actionSlug: string): Promise<void> {
     const actor = game.actors.get(actorId);
-    if (actor?.isOfType("character", "npc")) {
-        const action = actor.system.actions.at(actionIndex);
-        if (action?.slug === actionName) {
-            if (action.type === "strike") {
-                const templateData = {
-                    actor,
-                    strike: action,
-                    strikeIndex: actionIndex,
-                    strikeDescription: await game.pf2e.TextEditor.enrichHTML(game.i18n.localize(action.description), {
-                        async: true,
-                    }),
-                };
-
-                const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.html", templateData);
-                const token = actor.token ?? actor.getActiveTokens(true, true).shift() ?? null;
-                const chatData: Partial<foundry.data.ChatMessageSource> = {
-                    speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
-                    content,
-                    type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-                    flags: {
-                        core: { canPopout: true },
-                    },
-                };
-
-                const rollMode = game.settings.get("core", "rollMode");
-                if (["gmroll", "blindroll"].includes(rollMode))
-                    chatData.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
-                if (rollMode === "blindroll") chatData.blind = true;
-
-                ChatMessagePF2e.create(chatData);
-            }
-        } else {
-            ui.notifications.error(game.i18n.localize("PF2E.MacroActionNoActionError"));
-        }
-    } else {
-        ui.notifications.error(game.i18n.localize("PF2E.MacroActionNoActorError"));
+    if (!actor?.isOfType("character", "npc")) {
+        return ui.notifications.error("PF2E.MacroActionNoActorError", { localize: true });
     }
+
+    const strikes: StrikeData[] = actor.system.actions;
+    const strike = strikes.find((s) => s.slug === actionSlug);
+    if (strike?.slug !== actionSlug) {
+        return ui.notifications.error("PF2E.MacroActionNoActionError", { localize: true });
+    }
+
+    const templateData = {
+        actor,
+        strike,
+        strikeIndex: strikes.indexOf(strike),
+        strikeDescription: await TextEditor.enrichHTML(game.i18n.localize(strike.description), {
+            async: true,
+        }),
+    };
+
+    const content = await renderTemplate("systems/pf2e/templates/chat/strike-card.hbs", templateData);
+    const token = actor.token ?? actor.getActiveTokens(true, true).shift() ?? null;
+    const chatData: Partial<foundry.data.ChatMessageSource> = {
+        speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
+        content,
+        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+        flags: {
+            core: { canPopout: true },
+        },
+    };
+
+    const rollMode = game.settings.get("core", "rollMode");
+    if (["gmroll", "blindroll"].includes(rollMode))
+        chatData.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
+    if (rollMode === "blindroll") chatData.blind = true;
+
+    ChatMessagePF2e.create(chatData);
 }
 
 export async function createSkillMacro(skill: SkillAbbreviation, skillName: string, actorId: string, slot: number) {

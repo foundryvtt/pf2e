@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature @Compendium[pf2e.actionspf2e.Interact]{Interacts} to throw either the primary lever or backup lever.</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature @UUID[Compendium.pf2e.actionspf2e.Interact]{Interacts} to throw either the primary lever or backup lever.</p>\n<hr />\n<p><strong>Effect</strong> The trap rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -59,6 +59,17 @@
                 "tempmax": 0,
                 "value": 38
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert) or @Check[type:perception|dc:27|name:Notice Sluice Gates|traits:complex,mechanical,trap,hazard] (expert) to notice the six cleverly hidden sluice gates while they are closed</p>",
                 "value": 17
@@ -94,18 +105,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

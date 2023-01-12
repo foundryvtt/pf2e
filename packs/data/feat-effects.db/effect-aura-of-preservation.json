@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Aura Of Preservation]{Aura Of Preservation}</p>\n<p>Your allies within 15 feet gain a +1 status bonus to Fortitude and Will saves against effects from aberrations.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Aura Of Preservation]{Aura Of Preservation}</p>\n<p>Your allies within 15 feet gain a +1 status bonus to Fortitude and Will saves against effects from aberrations.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,16 +22,10 @@
                 "predicate": [
                     "origin:trait:aberration"
                 ],
-                "selector": "fortitude",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "origin:trait:aberration"
+                "selector": [
+                    "fortitude",
+                    "will"
                 ],
-                "selector": "will",
                 "type": "status",
                 "value": 1
             }

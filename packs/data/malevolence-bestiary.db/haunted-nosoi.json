@@ -194,7 +194,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The haunted nosoi is destroyed or it enters a square adjacent to a corrupted psychopomp in area D5</p>\n<hr />\n<p><strong>Effect</strong> The haunted nosoi dies as it explodes into a burst of positive energy. This heals all living creatures within 10 feet for [[/r {3d6}[positive]]]{3d6 positive damage}.If triggered in area D5, the Vengeful Burst deals [[/r {2d12}[negative]]]{2d12 negative damage} to any corrupted psychopomps in that area (@Check[type:will|dc:18|basic:true] save)</p>"
+                    "value": "<p><strong>Trigger</strong> The haunted nosoi is destroyed or it enters a square adjacent to a corrupted psychopomp in area D5</p>\n<hr />\n<p><strong>Effect</strong> The haunted nosoi dies as it explodes into a burst of positive energy. This heals all living creatures within 10 feet for [[/r 3d6[positive]]] damage.If triggered in area D5, the Vengeful Burst deals [[/r 2d12[negative]]] damage to any corrupted psychopomps in that area (@Check[type:will|dc:18|basic:true] save)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -286,12 +286,35 @@
                 "temp": 0,
                 "value": 28
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 8
             },
+            "resistances": [
+                {
+                    "type": "negative",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -300,7 +323,13 @@
                     }
                 ],
                 "value": 15
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -333,30 +362,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "unconscious",
-                    "poison",
-                    "death-effects",
-                    "disease"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "negative",
-                    "value": 3
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "3"
-                }
-            ],
             "languages": {
                 "custom": "Truespeech",
                 "selected": [],

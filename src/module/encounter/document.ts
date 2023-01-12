@@ -1,6 +1,7 @@
 import { CharacterPF2e, NPCPF2e } from "@actor";
 import { CharacterSheetPF2e } from "@actor/character/sheet";
 import { RollInitiativeOptionsPF2e } from "@actor/data";
+import { resetAndRerenderActors } from "@actor/helpers";
 import { SKILL_DICTIONARY } from "@actor/values";
 import { ScenePF2e } from "@scene";
 import { LocalizePF2e } from "@system/localize";
@@ -66,14 +67,6 @@ class EncounterPF2e extends Combat {
         return super.createEmbeddedDocuments(embeddedName, createData, context) as Promise<CombatantPF2e<this>[]>;
     }
 
-    /** Call hooks for modules on turn change */
-    override async nextTurn(): Promise<this> {
-        Hooks.call("pf2e.endTurn", this.combatant ?? null, this, game.user.id);
-        await super.nextTurn();
-        Hooks.call("pf2e.startTurn", this.combatant ?? null, this, game.user.id);
-        return this;
-    }
-
     /** Roll initiative for PCs and NPCs using their prepared roll methods */
     override async rollInitiative(ids: string[], options: RollInitiativeOptionsPF2e = {}): Promise<this> {
         const combatants = ids.flatMap((id) => this.combatants.get(id) ?? []) as CombatantPF2e<this>[];
@@ -132,14 +125,8 @@ class EncounterPF2e extends Combat {
 
     /** Rerun data preparation for participating actors and the scene, refresh perception */
     #resetActorAndSceneData(): void {
-        for (const actor of this.combatants.contents.flatMap((c) => c.actor ?? [])) {
-            actor.reset();
-        }
-
-        if (this.scene) {
-            this.scene.reset();
-            canvas.perception.update({ refreshVision: true }, true);
-        }
+        const actors = this.combatants.contents.flatMap((c) => c.actor ?? []);
+        resetAndRerenderActors(actors);
     }
 
     /* -------------------------------------------- */
@@ -172,43 +159,39 @@ class EncounterPF2e extends Combat {
 
         game.pf2e.StatusEffects.onUpdateEncounter(this);
 
-        // Reset actor/scene data and refresh perception if the turn has changed
-        if (changed.round && typeof changed.turn === "number") {
-            this.#resetActorAndSceneData();
-        }
-
         // No updates necessary if combat hasn't started or this combatant has already had a turn this round
         const combatant = this.combatant;
         const actor = combatant?.actor;
-        const noActor = !combatant || !actor || !this.started;
-        const alreadyWent = combatant?.roundOfLastTurn === this.round;
 
         const { previous } = this;
         const isNextRound =
             typeof changed.round === "number" && (previous.round === null || changed.round > previous.round);
         const isNextTurn = typeof changed.turn === "number" && (previous.turn === null || changed.turn > previous.turn);
 
-        // Find the best user to make the update, since players can end turns and this runs for everyone
-        if (game.user !== actor?.primaryUpdater) return;
+        // End early if turns aren't changing
+        if (!this.started || (!isNextRound && !isNextTurn)) return;
 
         // Update the combatant's data (if necessary), run any turn start events, then update the effect panel
         Promise.resolve().then(async (): Promise<void> => {
-            if (!noActor && !alreadyWent && (isNextRound || isNextTurn)) {
-                const actorUpdates: Record<string, unknown> = {};
-
-                // Run any turn start events before the effect tracker updates.
-                // In PF2e rules, the order is interchangeable. We'll need to be more dynamic with this later.
-                for (const rule of actor.rules) {
-                    await rule.onTurnStart?.(actorUpdates);
-                }
-
-                // Now that a user has been found, make the updates if there are any
-                await combatant.update({ "flags.pf2e.roundOfLastTurn": this.round });
-                if (Object.keys(actorUpdates).length > 0) {
-                    await actor.update(actorUpdates);
+            // Only the primary updater can end the turn
+            const previousCombatant = this.combatants.get(previous.combatantId ?? "");
+            if (game.user === previousCombatant?.actor?.primaryUpdater) {
+                const alreadyWent = previousCombatant.flags.pf2e.roundOfLastTurnEnd === previous.round;
+                if (typeof previous.round === "number" && !alreadyWent) {
+                    await previousCombatant.endTurn({ round: previous.round });
                 }
             }
 
+            // Only the primary updater can start the turn
+            if (game.user === actor?.primaryUpdater) {
+                const alreadyWent = combatant?.roundOfLastTurn === this.round;
+                if (combatant && !alreadyWent) {
+                    await combatant.startTurn();
+                }
+            }
+
+            // Reset all participating actors' data to get updated encounter roll options
+            this.#resetActorAndSceneData();
             await game.pf2e.effectTracker.refresh();
             game.pf2e.effectPanel.refresh();
         });

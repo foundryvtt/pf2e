@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>"
@@ -59,29 +58,15 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 2
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -105,9 +90,6 @@
                 "slug": "rapier",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -249,7 +231,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The Hungry Blade recruit deals an extra [[/r {1d6}[precision]]]{1d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>The Hungry Blade recruit deals an extra [[/r {1d6}[precision]]]{1d6 precision damage} to @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -264,6 +246,13 @@
                             "target:condition:flat-footed"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",
@@ -300,7 +289,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the Hungry Blade recruit.</p>"
+                    "value": "<p>On the first round of combat, creatures that haven't acted yet are @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} to the Hungry Blade recruit.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -340,7 +329,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The Hungry Blade recruit reduces a creature to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> Hungry Blade recruit prisoner attempts an Intimidation check with a +2 circumstance bonus to @Compendium[pf2e.action-macros.Demoralize: Intimidation]{Demoralize: Intimidation} a single creature it can see and that can see them.</p>"
+                    "value": "<p><strong>Trigger</strong> The Hungry Blade recruit reduces a creature to 0 Hit Points</p>\n<hr />\n<p><strong>Effect</strong> Hungry Blade recruit prisoner attempts an Intimidation check with a +2 circumstance bonus to @UUID[Compendium.pf2e.action-macros.Demoralize: Intimidation]{Demoralize: Intimidation} a single creature it can see and that can see them.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -633,13 +622,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -154,7 +154,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>10 feet.</p>\n<p>An attic whisperer enshrouds itself in a tapestry of stolen voices. Each living creature that enters or starts their turn in the aura must succeed at a @Check[type:will|dc:19] save or the unnerving, bitter sobs render them distraught and they become @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for as long as they remain within the aura. A creature that succeeds is temporarily immune for 1 hour.</p>\n<p>The attic whisperer can activate or deactivate the aura with a single free action, which has the concentrate trait.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>An attic whisperer enshrouds itself in a tapestry of stolen voices. Each living creature that enters or starts their turn in the aura must succeed at a @Check[type:will|dc:19] save or the unnerving, bitter sobs render them distraught and they become @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for as long as they remain within the aura. A creature that succeeds is temporarily immune for 1 hour.</p>\n<p>The attic whisperer can activate or deactivate the aura with a single free action, which has the concentrate trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -244,7 +244,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The attic whisperer siphons the breath from living creatures, sapping their strength. A living creature hit by a jaws Strike must attempt a @Check[type:fortitude|dc:21] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 24 hours and @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<p><strong>Critical Failure</strong> The target is enfeebled 1 for 24 hours, is fatigued, and falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}.</p>"
+                    "value": "<p>The attic whisperer siphons the breath from living creatures, sapping their strength. A living creature hit by a jaws Strike must attempt a @Check[type:fortitude|dc:21] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 24 hours and @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<p><strong>Critical Failure</strong> The target is enfeebled 1 for 24 hours, is fatigued, and falls @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -439,6 +439,23 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -484,19 +501,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

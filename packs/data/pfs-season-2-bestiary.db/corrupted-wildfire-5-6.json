@@ -192,7 +192,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The corrupted wildfire ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
+                    "value": "<p>The corrupted wildfire ignores the @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -232,7 +232,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The burning sap that makes up the corrupted wildfire's body sputters and pops, ejecting a cloud of acrid that smoke in a @Template[type:emanation|distance:10] that lasts for 1 round.</p>\n<p>This smoke provides concealment to all creatures within, and deals [[/r {2d4}[poison]]]{2d4 poison damage} to any creature that enters or begins its turn in the cloud (@Check[type:fortitude|dc:22|basic:true]).</p>\n<p>A creature that fails is also @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (or @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
+                    "value": "<p>The burning sap that makes up the corrupted wildfire's body sputters and pops, ejecting a cloud of acrid that smoke in a @Template[type:emanation|distance:10] that lasts for 1 round.</p>\n<p>This smoke provides concealment to all creatures within, and deals [[/r 2d4[poison]]] damage to any creature that enters or begins its turn in the cloud (@Check[type:fortitude|dc:22|basic:true]).</p>\n<p>A creature that fails is also @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (or @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -276,7 +276,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the corrupted wildfire successfully strikes a creature with an attack that deals persistent fire damage, the target becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical hit). This condition cannot be reduced below 1 while the creature is subject to the persistent fire damage from the attack, and ends automatically when the persistent fire ends.</p>"
+                    "value": "<p>When the corrupted wildfire successfully strikes a creature with an attack that deals persistent fire damage, the target becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical hit). This condition cannot be reduced below 1 while the creature is subject to the persistent fire damage from the attack, and ends automatically when the persistent fire ends.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -368,6 +368,23 @@
                 "temp": 0,
                 "value": 85
             },
+            "immunities": [
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -377,7 +394,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 50
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -413,24 +436,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "paralyzed",
-                    "bleed",
-                    "fire",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

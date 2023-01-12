@@ -23,6 +23,17 @@ function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[]> {
     return result;
 }
 
+/** Sorts an array given the natural sorting behavior of the result of a mapping function */
+function sortBy<T, J>(array: T[], mapping: (value: T) => J) {
+    const compareFn = (a: T, b: T): number => {
+        const value1 = mapping(a);
+        const value2 = mapping(b);
+        return value1 < value2 ? -1 : value1 === value2 ? 0 : 1;
+    };
+
+    return array.sort(compareFn);
+}
+
 /**
  * Given an array, adds a certain amount of elements to it
  * until the desired length is being reached
@@ -44,17 +55,13 @@ function isBlank(text: Optional<string>): text is null | undefined | "" {
     return text === null || text === undefined || text.trim() === "";
 }
 
-/**
- * Adds a + if positive, nothing if 0 or - if negative
- */
+/** Returns a formatted number string with a preceding + if non-negative */
 function addSign(number: number): string {
     if (number < 0) {
         return `${number}`;
     }
-    if (number > 0) {
-        return `+${number}`;
-    }
-    return "0";
+
+    return `+${number}`;
 }
 
 /**
@@ -119,13 +126,23 @@ function setHasElement<T extends Set<unknown>>(set: T, value: unknown): value is
 }
 
 /** Returns a subset of an object with explicitly defined keys */
-function pick<T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
-    return keys.reduce((result, key) => {
+function pick<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): Pick<T, K> {
+    return [...keys].reduce((result, key) => {
         if (key in obj) {
             result[key] = obj[key];
         }
         return result;
     }, {} as Pick<T, K>);
+}
+
+/** Returns a subset of an object with explicitly excluded keys */
+function omit<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): Omit<T, K> {
+    const clone = deepClone(obj);
+    for (const key of keys) {
+        delete clone[key];
+    }
+
+    return clone;
 }
 
 const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
@@ -189,7 +206,7 @@ function parseHTML(unparsed: string): HTMLElement {
     return element;
 }
 
-const actionImgMap: Record<string, ImagePath> = {
+const actionImgMap: Record<string, ImageFilePath> = {
     1: "systems/pf2e/icons/actions/OneAction.webp",
     2: "systems/pf2e/icons/actions/TwoActions.webp",
     3: "systems/pf2e/icons/actions/ThreeActions.webp",
@@ -201,13 +218,13 @@ const actionImgMap: Record<string, ImagePath> = {
     passive: "systems/pf2e/icons/actions/Passive.webp",
 };
 
-function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath): ImagePath;
-function getActionIcon(actionType: string | ActionCost | null, fallback: ImagePath | null): ImagePath | null;
-function getActionIcon(actionType: string | ActionCost | null): ImagePath;
+function getActionIcon(actionType: string | ActionCost | null, fallback: ImageFilePath): ImageFilePath;
+function getActionIcon(actionType: string | ActionCost | null, fallback: ImageFilePath | null): ImageFilePath | null;
+function getActionIcon(actionType: string | ActionCost | null): ImageFilePath;
 function getActionIcon(
     action: string | ActionCost | null,
-    fallback: ImagePath | null = "systems/pf2e/icons/default-icons/mystery-man.svg"
-): ImagePath | null {
+    fallback: ImageFilePath | null = "systems/pf2e/icons/actions/Empty.webp"
+): ImageFilePath | null {
     if (action === null) return actionImgMap["passive"];
     const value = typeof action !== "object" ? action : action.type === "action" ? action.value : action.type;
     const sanitized = String(value ?? "")
@@ -280,11 +297,18 @@ function localizeList(items: string[]) {
 }
 
 /** Generate and return an HTML element for a FontAwesome icon */
-function fontAwesomeIcon(glyph: string, style: "solid" | "regular" = "solid"): HTMLElement {
+type FontAwesomeStyle = "solid" | "regular" | "duotone";
+
+function fontAwesomeIcon(
+    glyph: string,
+    { style = "solid", fixedWidth = false }: { style?: FontAwesomeStyle; fixedWidth?: boolean } = {}
+): HTMLElement {
     const styleClass = `fa-${style}`;
     const glyphClass = glyph.startsWith("fa-") ? glyph : `fa-${glyph}`;
     const icon = document.createElement("i");
     icon.classList.add(styleClass, glyphClass);
+    if (fixedWidth) icon.classList.add("fa-fw");
+
     return icon;
 }
 
@@ -362,6 +386,7 @@ export {
     isObject,
     localizeList,
     objectHasKey,
+    omit,
     ordinal,
     padArray,
     parseHTML,
@@ -369,6 +394,7 @@ export {
     recursiveReplaceString,
     setHasElement,
     sluggify,
+    sortBy,
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,

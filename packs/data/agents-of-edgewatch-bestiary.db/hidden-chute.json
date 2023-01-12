@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature falls 30 feet down the shaft to area <strong>E33,</strong> taking [[/r {15}[bludgeoning]]]{15 bludgeoning damage} and landing @Compendium[pf2e.conditionitems.Prone]{Prone} in the ochre jelly's pit. The creature can @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge} to avoid falling.</p>\n<p>The DC to @Compendium[pf2e.actionspf2e.Climb]{Climb} the walls or Grab an Edge is 22.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature falls 30 feet down the shaft to area <strong>E33,</strong> taking [[/r 15[bludgeoning]]] damage and landing @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} in the ochre jelly's pit. The creature can @UUID[Compendium.pf2e.actionspf2e.Grab an Edge]{Grab an Edge} to avoid falling.</p>\n<p>The DC to @UUID[Compendium.pf2e.actionspf2e.Climb]{Climb} the walls or Grab an Edge is 22.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -58,6 +58,17 @@
                 "tempmax": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained)</p>",
                 "value": 13
@@ -93,18 +104,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "precision",
-                    "critical-hits",
-                    "object-immunities"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

@@ -1,6 +1,5 @@
 import { ItemFlagsPF2e } from "@item/data/base";
 import {
-    BaseMaterial,
     BasePhysicalItemData,
     BasePhysicalItemSource,
     Investable,
@@ -38,6 +37,8 @@ type WeaponData = Omit<WeaponSource, "system" | "effects" | "flags"> &
 
 type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {
+        /** Whether this attack is from a battle form */
+        battleForm?: boolean;
         comboMeleeUsage: boolean;
     };
 };
@@ -47,11 +48,21 @@ interface WeaponTraits extends PhysicalItemTraits<WeaponTrait> {
 }
 
 interface WeaponDamage {
-    value?: string;
     dice: number;
     die: DamageDieSize | null;
     damageType: DamageType;
     modifier: number;
+    /** Optional persistent damage */
+    persistent: WeaponPersistentDamage | null;
+}
+
+interface WeaponPersistentDamage {
+    /** A number of dice if `faces` is numeric, otherwise a constant */
+    number: number;
+    /** A number of die faces */
+    faces: 4 | 6 | 8 | 10 | 12 | null;
+    /** Usually the same as the weapon's own base damage type, but open for the user to change */
+    type: DamageType;
 }
 
 interface WeaponRuneData {
@@ -69,8 +80,10 @@ type SpecificWeaponData =
           value: true;
           price: string;
           material: {
-              type: WeaponMaterialType;
-              grade: PreciousMaterialGrade;
+              precious?: {
+                  type: WeaponMaterialType;
+                  grade: PreciousMaterialGrade;
+              };
           };
           runes: Omit<WeaponRuneData, "property">;
       };
@@ -127,12 +140,12 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     property1: {
         value: string;
         dice: number;
-        die: string;
-        damageType: string;
+        die: DamageDieSize;
+        damageType: DamageType | "";
         critDice: number;
-        critDie: string;
+        critDie: DamageDieSize;
         critDamage: string;
-        critDamageType: string;
+        critDamageType: DamageType | "";
     };
     selectedAmmoId: string | null;
 }
@@ -158,8 +171,6 @@ interface WeaponSystemData
 }
 
 interface WeaponMaterialData {
-    /** The "base material" or category: icon/steel (metal), wood, rope, etc. */
-    base: BaseMaterial[];
     /** The precious material of which this weapon is composed */
     precious: {
         type: WeaponMaterialType;
@@ -178,6 +189,7 @@ export {
     WeaponDamage,
     WeaponData,
     WeaponMaterialData,
+    WeaponPersistentDamage,
     WeaponPropertyRuneSlot,
     WeaponRuneData,
     WeaponSource,

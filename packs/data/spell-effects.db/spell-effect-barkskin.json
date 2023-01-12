@@ -4,7 +4,7 @@
     "name": "Spell Effect: Barkskin",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Barkskin]{Barkskin}</em></p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Barkskin]{Barkskin}</em></p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -18,22 +18,10 @@
         "rules": [
             {
                 "key": "Resistance",
-                "type": "bludgeoning",
-                "value": "2+ 2*floor((@item.level -2)/2)"
-            },
-            {
-                "key": "Resistance",
-                "type": "piercing",
-                "value": "2+ 2*floor((@item.level -2)/2)"
-            },
-            {
-                "key": "Weakness",
-                "type": "fire",
-                "value": "2*floor(@item.level/2)"
-            },
-            {
-                "key": "Resistance",
-                "type": "piercing",
+                "type": [
+                    "bludgeoning",
+                    "piercing"
+                ],
                 "value": "2*floor(@item.level/2)"
             },
             {

@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -496,7 +490,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The arboreal regent causes a tree within 180 feet to uproot itself and fight as a minion using the statistics for an @Compendium[pf2e.pathfinder-bestiary.Awakened Tree]{Awakened Tree}. The arboreal regent can control up to two awakened trees at a time, and it can issue commands to both trees as a single action, which has the concentrate and auditory traits.</p>"
+                    "value": "<p>The arboreal regent causes a tree within 180 feet to uproot itself and fight as a minion using the statistics for an @UUID[Compendium.pf2e.pathfinder-bestiary.Awakened Tree]{Awakened Tree}. The arboreal regent can control up to two awakened trees at a time, and it can issue commands to both trees as a single action, which has the concentrate and auditory traits.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -548,7 +542,7 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "option": "sunderObjects",
+                        "option": "sunder-objects",
                         "toggleable": true
                     },
                     {
@@ -556,7 +550,7 @@
                         "dieSize": "d10",
                         "key": "DamageDice",
                         "predicate": [
-                            "sunderObjects"
+                            "sunder-objects"
                         ],
                         "selector": "strike-damage"
                     }
@@ -826,10 +820,38 @@
             "perception": {
                 "value": 18
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "axe-vulnerability",
+                    "value": 5
+                },
+                {
+                    "type": "cold-iron",
+                    "value": 5
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "good",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -867,39 +889,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "type": "piercing",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "axe",
-                    "value": 5
-                },
-                {
-                    "type": "coldiron",
-                    "value": 5
-                },
-                {
-                    "type": "fire",
-                    "value": 10
-                },
-                {
-                    "type": "good",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "Speak with Plants",
                 "selected": [],

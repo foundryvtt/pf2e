@@ -28,11 +28,10 @@
                 "damage": {
                     "damageType": "electricity",
                     "dice": 2,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals 2d6 electricity damage and 2 electricity splash damage. On a hit, the target becomes @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn. You gain a +1 item bonus to attack rolls.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals 2d6 electricity damage and 2 electricity splash damage. On a hit, the target becomes @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -59,29 +58,15 @@
                     "value": 0
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 10
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -111,9 +96,6 @@
                 "slug": "bottled-lightning-moderate",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 2
@@ -169,8 +151,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This medium-length sword has a wide blade and long grip. Though it is typically used to hack through heavy foliage, the machete can also be used as a deadly weapon.</p>"
@@ -210,20 +191,6 @@
                         "sp": 7
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -246,9 +213,6 @@
                 "slug": "machete",
                 "source": {
                     "value": "Pathfinder Lost Omens: Gods & Magic"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -454,7 +418,7 @@
                         ],
                         "flag": "ringOfEnergyResistance",
                         "key": "ChoiceSet",
-                        "prompt": "Choose an energy type"
+                        "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
                     },
                     {
                         "key": "Resistance",
@@ -733,7 +697,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Compendium[pf2e.equipment-srd.Bottled Lightning (Moderate)]{Bottled Lightning (Moderate)}</p>"
+                    "value": "<p>@UUID[Compendium.pf2e.equipment-srd.Bottled Lightning (Moderate)]{Bottled Lightning (Moderate)}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -773,7 +737,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>In a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by sanctified ground, Iloise is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</p>"
+                    "value": "<p>In a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by sanctified ground, Iloise is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -814,7 +778,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature hits Iloise with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> A surge of energy lashes out at the attacker and propels Iloise away from danger. The triggering creature takes [[/r {4d6}[electricity]]]{4d6 electricity damage} (@Check[type:reflex|dc:22|basic:true] save). If a reach weapon was used to make the attack, the result of the Reflex save is one degree of success better. Iloise then Steps 10 feet away from the attacker</p>"
+                    "value": "<p><strong>Trigger</strong> A creature hits Iloise with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> A surge of energy lashes out at the attacker and propels Iloise away from danger. The triggering creature takes [[/r 4d6[electricity]]] damage (@Check[type:reflex|dc:22|basic:true] save). If a reach weapon was used to make the attack, the result of the Reflex save is one degree of success better. Iloise then Steps 10 feet away from the attacker</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1109,6 +1073,12 @@
             "perception": {
                 "value": 12
             },
+            "resistances": [
+                {
+                    "type": "electricity",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
@@ -1145,18 +1115,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "electricity",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

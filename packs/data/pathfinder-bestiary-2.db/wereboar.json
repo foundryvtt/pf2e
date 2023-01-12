@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
@@ -59,29 +58,15 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "sp": 2
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -105,9 +90,6 @@
                 "slug": "dagger",
                 "source": {
                     "value": ""
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -667,7 +649,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The werecreature changes into their humanoid, hybrid, or animal shape. Each shape has a specific, persistent appearance. A true werecreature's natural form is their hybrid shape. In humanoid shape, the werecreature uses their original humanoid size, loses their jaws and claw Strikes, and gains a melee fist Strike that deals bludgeoning damage equal to the slashing damage dealt by their claw. In animal shape, their Speed and size change to that of the animal, they gain any special Strike effects of the animal that they didn't already have (such as @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab}), and they lose their weapon Strikes.</p>\n<p>Human with fist +10 for [[/r {1d4+2}[bludgeoning]]]{1d4+2 bludgeoning damage}, or @Compendium[pf2e.pathfinder-bestiary.Boar]{Boar} with Speed 40 feet and tusk for [[/r {2d6+4}[piercing]]]{2d6+4 piercing damage}.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
+                    "value": "<p>The werecreature changes into their humanoid, hybrid, or animal shape. Each shape has a specific, persistent appearance. A true werecreature's natural form is their hybrid shape. In humanoid shape, the werecreature uses their original humanoid size, loses their jaws and claw Strikes, and gains a melee fist Strike that deals bludgeoning damage equal to the slashing damage dealt by their claw. In animal shape, their Speed and size change to that of the animal, they gain any special Strike effects of the animal that they didn't already have (such as @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Grab]{Grab}), and they lose their weapon Strikes.</p>\n<p>Human with fist +10 for [[/r (1d4+2)[bludgeoning]]] damage, or @UUID[Compendium.pf2e.pathfinder-bestiary.Boar]{Boar} with Speed 40 feet and tusk for [[/r (2d6+4)[piercing]]] damage.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.ChangeShape]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -728,8 +710,7 @@
                     "value": [
                         "curse",
                         "necromancy",
-                        "primal",
-                        "humanoids"
+                        "primal"
                     ]
                 },
                 "trigger": {
@@ -757,7 +738,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a full moon appears in the night sky, the werecreature must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases their reach by 5 feet, and increases the damage of their jaws Strike (or a similar Strike) by 2. When the moon sets or the sun rises, the werecreature returns to humanoid form and is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for [[/br 2d4 #hours]]{2d4 hours}.</p>"
+                    "value": "<p>When a full moon appears in the night sky, the werecreature must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases their reach by 5 feet, and increases the damage of their jaws Strike (or a similar Strike) by 2. When the moon sets or the sun rises, the werecreature returns to humanoid form and is @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued} for [[/br 2d4 #hours]]{2d4 hours}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -943,7 +924,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "silver",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -979,19 +966,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Silver",
-                    "type": "silver",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "Boar Empathy",
                 "selected": [],

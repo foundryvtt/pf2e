@@ -1,5 +1,552 @@
 # Changelog
 
+## Version 4.6.5
+
+### New Features
+* (Supe) Add support for CRB 4th printing Voluntary Flaws
+
+### Bugfixes
+* (In3luki) Re-evaluate degree of success adjustments on reroll
+* (stwlam) Fix processing of positive damage against living targets
+* (stwlam) Fix manual adjustments of damage rolls with multiple instances
+* (stwlam) Fix craft and repair macros
+* (stwlam) Fix rolling damage from consumables
+
+### Data Updates
+* (Cora) Restore the variant Devourer and Bog Mummy from AV
+* (Dire Weasel) Add Breeg's Traps
+* (Dire Weasel) Add effect for Goo Grenade
+* (Dire Weasel) Add persistent damage to alchemical bombs
+* (Dire Weasel) Fix Bottled Sunlight to be martial weapons and have a range of 20 feet
+* (Dire Weasel) Fix Brevic Noble Garess to grant crafting rather than arcana
+* (Dire Weasel) Fix Fang Sharpener upgrading Razortooth jaws damage dice, and add critical bleed
+* (Dire Weasel) Fix formatting of several spell links
+* (Dire Weasel) Fix link in Spell Effect: Prismatic Armor
+* (MrVauxs) Add missing range localization keys
+* (rectulo) Fix level of Soulspark candle
+* (stwlam) Add resistance rule element to Reinforce Eidolon effect
+* (stwlam) Update Burn It! to add status bonuses to persistent damage
+* (stwlam) Link Beastkin's Change Shape effect from action item, update icon
+
+
+## Version 4.6.4
+
+### New Features
+* (Supe) Add support for alternate ancestry boosts
+
+### System Improvements
+* (stwlam) Add processing of area damage weaknesses/resistance, axe vulnerability, and arrow vulnerability
+* (stwlam) Add ability to include persistent damage directly in weapon data
+* (stwlam) Create persistent damage conditions when applying damage
+
+### Bugfixes
+* (stwlam) Hide damage-instance breakdown from private damage rolls
+* (stwlam) Fix context menu applying triple damage when double damage is selected
+* (stwlam) Only increase weapon dice number from striking/ABP if originally 1 (excludes higher-level bombs)
+* (stwlam) Ensure damage rolls always total to at least 1
+* (stwlam) Loosen overly-strict damage-roll recognition
+* (Supe) Fix bracket row deletion in flat modifier form always deleting the first row
+* (Supe) Fix overflow in effect panel from longer badges
+
+### Data Updates
+* (Abaddon) Update damage-roll formulas in bomb notes to reflect new standard
+* (Abaddon) Fix shark diver's Electrify ability
+* (Abaddon) Fix various sources
+* (Cheps) Fix Anadi Elder, Anadi Sage, and Daemonic Infector spellcasting entries
+* (Cora) Add new key item icons
+* (Cora) Update and remove spoilers of items on some of the unique AV NPCs
+* (Dire Weasel) Add Gouging Claw damage variants
+* (Dire Weasel) Add persistent damage to Acid Flask
+* (Dire Weasel) Add stench auras to xulgaths
+* (Dire Weasel) Correct some sources in AP 185 and 186
+* (Dire Weasel) Correct spelling of "Rejuvenation" in some NPC stat blocks
+* (Dire Weasel) Fix Galudu's inventory
+* (Dire Weasel) Fix Grab on Minchgorm
+* (Dire Weasel) Fix Lomok's Oath of the Burning Mammoths
+* (Dire Weasel) Fix battle form spell effects to use "cold-iron" rather than "coldiron"
+* (Dire Weasel) Fix capitalization of actions
+* (Dire Weasel) Fix case of Telekinetic Projectile variant names
+* (Dire Weasel) Fix book sources of several items
+* (Dire Weasel) Fix name of Hamstringing Strike and add effect
+* (Dire Weasel) Fix prompt for Giant Instinct Barbarian
+* (Dire Weasel) Fix inventories and strike details of several Strength of Thousands NPC
+* (Dire Weasel) Touch up equipment on PFS actors
+* (Dwim) Fix Clawsong versatile spell effect
+* (Dwim) Fix deadly variant of Clawsong spell effect
+* (LebombJames) Add variants for Shadow Blast save types
+* (Lunar Requiem) Correct spelling of Woolly Rhinoceros
+* (MrVauxs) Add missing range traits to selectable values
+* (Roxim) Add missing GrantItem to Psychic Dedication
+* (Roxim) Revise CRB Errata 4 Changes
+* (SpartanCPA) Add an effect for Nyktera's Righteous Fury
+* (stwlam) Add ghost touch rule element to Blade Ally effect
+* (stwlam) Refine rule elements on Twitchy feat
+* (stwlam) Add persistent damage to Alchemist's Fire
+* (TMun) Remove duplicate weapons master entry from Shraen Graveknight NPC
+* (xdy) Add Spell Effect: Prismatic Armor
+
+
+## Version 4.6.3
+
+### Bugfixes
+* (stwlam) Fix functionality of healing buttons on damage messages
+
+### Data Updates
+* (TMun) Make content changes reflecting Pathfinder Core Rulebook Errata (4th Printing)
+
+## Version 4.6.2
+
+### System Improvements
+* (stwlam) Add IWR support for conditions, critical hits, spell schools, elemental traits, ghost-touch runes, and (non-)magical attacks
+* (Supe) Add support for homebrew damage types existing as immunities/weaknesses/resistances
+
+### Bugfixes
+* (Dire Weasel) Restore support for bracketed values in TokenImage rule element
+* (stwlam) Apply immunities/weaknesses/resistances after manual multipliers and addends
+* (stwlam) Prevent ABP from applying Devastating Attacks to battle form attacks
+* (stwlam) Fix handling of damage formulas with math function
+* (stwlam) Ensure all undead NPCs have negative healing
+* (stwlam) Fix issue preventing desired roll mode from being used when set from chat log
+* (stwlam) Restore application of stacking rulings to spell-damage bonuses and penalties
+
+### Data Updates
+* (Abaddon) Remove unneeded html styling from Sixth Pillar Archetype entry
+* (Blue) Fixes ancestors oracle curse effect
+* (Dire Weasel) Add aura to gibbering mouther
+* (Dire Weasel) Fix Veshumirix Breath Weapon recharge
+* (Dire Weasel) Fix alignment ampoules to be martial weapons.
+* (rectulo) Fix actions of Heal companion spell
+* (rectulo) Fix actions of Wild morph spell
+* (SpartanCPA) Define Organsight damage as precision damage
+* (SpartanCPA) Fix some pf2-icon styling in several items
+* (SpartanCPA) Fix splash-damage formula in acid splash's description
+* (Tikael) Add preselection to Deep Orc item grant
+
+
+## Version 4.6.1
+
+### System Improvements
+* (Supe) Include spell materials (when present) in message headers
+
+### Bugfixes
+* (In3luki) Fix AELike rule elements' handling of arrays
+* (In3luki) Fix issue causing validation to incorrectly fail for Weakness and Resistance rule elements
+* (In3luki) Update Hazard sheet sidebar template to new IWR format
+* (stwlam) Exclude rule-element-added IWR from IWR editor form submission
+* (stwlam) Fix errant exclusion of negative modifiers in damage rolls
+* (stwlam) Restore presence of triple-damage buttons when setting is enabled
+* (Supe) Fix dragging persistent inline rolls from actor item summaries
+* (Supe) Fix first-level daze with negative modifier
+* (Supe) Fix sheet crashes caused by invalid spell formulas
+* (Supe) Fix structural issues in some spell data
+
+### Data Updates
+* (Abaddon) Fix adamantine golem resistance exception
+* (Abaddon) Update baomal's shell rake damage
+* (Tikael) Change a few feats from using DamageDice REs to AdjustStrike ones
+* (Tikael) Fix automation of Time and Ash oracle curses
+
+## Version 4.6.0
+
+## New Features
+* (stwlam) Reimplement creation, parsing, and rendering of damage roll formulas
+* (stwlam) Add basic processing of immunities, weaknesses, and resistances
+* (Supe) Add system support for persistent damage
+* (Supe) Add support for homebrew damage types
+
+## System Improvements
+* (In3luki) Replace empty action icon in Compendium Browser spell tab with a new icon for longer actions
+* (stwlam) Add support for AE-like subtractions/array-element removals
+* (Supe) Added support for spell damage traits, modifier breakdown, and damage instances
+* (Supe) Implement RE form for fast healing and regeneration
+* (Supe) Include damage modifiers and dice in roll inspector
+
+### Bugfixes
+* (Dana) Fix tokens with animated art disappearing on reload/scene switch
+* (Dire Weasel) Fix torch item not adding its "improvised tag"
+* (stwlam) Avoid double application of modifiers to speeds derived from land speed
+* (stwlam) Fix errant natural 1 or 20 highlighting when TMun rolls 2d20
+* (stwlam) Fix issue causing actor sheets to become unviewable when canvas is disabled
+
+### Data Updates
+* (Cerapter) Localise MarkToken RE's cancel notification
+* (Dire Weasel) Add choice localized strings
+* (Dire Weasel) Fix source of Shadow Leydroth
+* (Dire Weasel) Localize Muse choice labels
+* (Dire Weasel) Remove extraneous spell tradition from traits
+* (Dire Weasel) Update NPC Searing Light descriptions to include inline good roll
+* (InfamousSky) Add icons to all Dark Archive, Book of the Dead and Grand Bazaar equipment
+* (Jamz) Update Critical Hit & Fumble Decks with links and new look
+* (xdy) Add variants to Imaginary Weapon and Malicious Shadow.
+* (xdy) Add variants to the spells Astral Rain, Brain Drain, Divine Decree and Divine Lance.
+* (xdy) Adds variants to the spells Abyssal Wrath, Divine Wrath and Draconic Barrage
+* (xdy) Fixes spelling of the Blade of the Black Sovereign
+* (xdy) Makes all three damage rolls in Enchanting Arrow clickable.
+* (Manni) Fix inline save on Fire Box
+* (Manni) Fix several basic inline saves
+* (Op" Philip Flarsheim) Add Automation to Energy Barrier and Soaring Armor
+* (rectulo) Fix a typo in Entrancing Eyes duration
+* (rectulo) Fix prerequisites of Spellmaster's tenacity
+* (Roxim) Brushup EC Book 5 NPCs
+* (SpartanCPA) Correct Localized Persistent and Splash Formulas
+* (SpartanCPA) Standardize Titles for Regeneration
+* (stwlam) Add REs to Fang Sharpener feat
+* (stwlam) Update Scalpel's Point to deal bleed damage
+* (Supe) Add silver/coldiron to certain spells
+* (TMun) Add new or missing license sources for end 2022/start 2023
+* (TMun) Correct the spell list for Dream of Doom in PFS 4-07
+* (TMun) Fix inventory of Ingnovim's assistant
+* (Telekenunes) Automate Raging Resistance, consolidate duplicate feats, and add miscellaneous missing automation
+* (Tikael) Add label to Hunter Automaton toggle
+* (Tikael) Add some missing localizations of ranges
+* (Tikael) Add some needed localization keys
+* (Tikael) Automate Automaton enhancements
+* (Tikael) Finish automation possible Raging Resistances
+* (Tikael) Fix formatting in several rune localizations
+* (Tikael) Fix using own modifier for battle form skills
+
+## Version 4.5.1
+
+### Bugfixes
+* (stwlam) Ensure presence of school and tradition traits on spell variants
+* (stwlam) Restore predication testing of degree-of-success adjustments
+
+### Data Updates
+* (Athenos) Add Rule Elements to Bull's Eye Lantern
+* (Avery) Condense flat modifiers for bestiary effects
+* (Avery) Improve localization of GM screen journals
+* (Dire Weasel) Add resistance rule elements to glass and sand sentries
+* (Dire Weasel) Fix localized name and icon of Crown of the Saumen Kar horns attack
+* (dogstarrb) Update deities to match Impossible Lands entries
+* (rectulo) Fix feat type of Lesson of Bargains
+* (rectulo) Fix traits of Lesson of Favors feat
+* (Tikael) Fix automation of Automaton Chassis
+* (Tikael) Fix sources of items from Blood Lords book 6
+* (TMun) Add actors from PFS 4-07 and Bounty 21
+
+
+## Version 4.5.0
+
+### System Improvements
+* (Dire Weasel) Allow injected selectors in BaseSpeed rule element
+* (LebombJames) Allow injected selectors in RollTwice rule element
+* (stwlam) Add support for setting a scale in TokenImage rule element
+* (stwlam) Automatically adjust degree of success when appropriate given presence of Incapacitation trait
+* (stwlam) Reduce CPU load of hearing detection
+* (Supe) Touch up styling of loot actor sheet
+* (Supe) Add roll inspector support for casted spells
+* (Supe) Add support for proficiency modifier adjustments
+* (Tikael) Replace hard-coded fetchling color darkvision with an actor flag
+
+### Bugfixes
+* (Salmon) Fix level not showing on first actor(s) in folders
+* (stwlam) Re-render effects panel when world time changes
+* (Supe) Fix placement of background-granted skill feats on PC sheet
+* (Supe) Fix spell level in roll options
+* (Supe) Fix variant spells for consumable items
+* (Supe) Open separate sheet for spell variants
+
+### Data Updates
+* (Abaddon) Finish reviewing creatures from bestiary 3
+* (Abaddon) Add Hadrinnex effects
+* (Abaddon) Fix cobbleswarm, sturzstromer, and tzitzimitl senses
+* (Abaddon) Fix love siktempora's inspire courage, triumph siktempora regeneration
+* (Abaddon) Fix hardness value of Tupilaq
+* (avagdu) Fix localization key of Vishkanya trait
+* (cepvep) Fix predicate on Vetalarana Emergent
+* (Dire Weasel) Improve localization access to many rule element labels
+* (Dire Weasel) Condense several rule elements using recently-added syntax
+* (Dire Weasel) Add Effect: Shield Immunity
+* (Dire Weasel) Add Perfect Resistance, Perfect Ki Expert, Perfect Ki Exemplar, Perfect Ki Grandmaster archetype feats
+* (Dire Weasel) Add Sparkling Targe Defending checkbox label
+* (Dire Weasel) Add Unbreaking Wave Barrier, Unbreaking Wave Containment, Unbreaking Wave Vapor focus spells
+* (Dire Weasel) Add Unfolding Wind Blitz, Unfolding Wind Buffet, Unfolding Wind Crash focus spells
+* (Dire Weasel) Add Untwisting Iron Augmentation, Untwisting Iron Pillar, Untwisting Iron Roots focus spells
+* (Dire Weasel) Add effects for Flaming Star, Grim Sandglass, and Trinity Geode
+* (Dire Weasel) Add emanation to Noxious Vapors
+* (Dire Weasel) Add link from Treat Wounds to immunity
+* (Dire Weasel) Add healing rolls to Oil of Unlife
+* (Dire Weasel) Adjust formatting of Perfect Droplet
+* (Dire Weasel) Brush up Alchemist Aspirant's inventory
+* (Dire Weasel) Change hazard routines from action symbols to words
+* (Dire Weasel) Change the Hydra Heads effect to use a counter instead of ChoiceSet
+* (Dire Weasel) Change vermlek Unsettling Movement to passive
+* (Dire Weasel) Correct localized name of simple hazard checkbox in compendium browser
+* (Dire Weasel) Fix Drusilla's good luck effect to last 1 day
+* (Dire Weasel) Fix Mulventok's fear immunity
+* (Dire Weasel) Fix arrow weakness for Barking Stag
+* (Dire Weasel) Fix aura effect on Foras
+* (Dire Weasel) Fix damage type on Smite Good feat
+* (Dire Weasel) Fix incorrect languages and traits on several creatures
+* (Dire Weasel) Fix link to Effect: Applereed Mutagen (Moderate)
+* (Dire Weasel) Fix range on Swarming Wasp Stings
+* (Dire Weasel) Fix resistance effects for Ring of Torag and Tallowheart Mass
+* (Dire Weasel) Fix spelling of Bizarre in pair of feats
+* (Dire Weasel) Fix type of level from string to number
+* (Dire Weasel) Standardize formatting of Five-Feather Wreath
+* (Dire Weasel) Update Jalmeri Heavenseeker to Impossible Lands versions
+* (Dorako) Tweak style of inline check prompts with repost buttons
+* (Geliogabalus) Fix ancestry requirement of Elfbane Hobgoblin heritage
+* (InfamousSky) Add icons to Grand Bazaar items
+* (Kuroni) Change Kitsune Change Shape's name for added clarity
+* (Kuroni) Remove several errant linebreaks from item descriptions
+* (LebombJames) Add speed penalty to Ashes curse
+* (rectulo) Add frequency in Planar sidestep
+* (rectulo) Fix inline roll in Siabrae
+* (rectulo) Fix level of champion archetype's healing touch feat in archetypes journal
+* (rectulo) Fix prerequisites in Fey transcendence
+* (rectulo) Fix prerequisites of Glamour (Fey influence)
+* (rectulo) Fix level of Amber Sphere aeon stone
+* (rectulo) Fix typo in Flower Magic name
+* (rectulo) Update Fey influence with Impossible Lands printing
+* (redeux) Add/Update Heal Animal to Lini iconic PCs
+* (Roxim) Continue brushup of Extinction Curse NPCs
+* (stwlam) Fix predicate on Night Hag, Wight Cultist ability rule elements
+* (stwlam) Fix description of Raging Athlete feat
+* (stwlam) Add trained proficiency in alchemical bombs to Alchemist Dedication feat
+* (stwlam) Add trained proficiency in rogue class DC to Rogue Dedication feat
+* (stwlam) Add special prone-condition option to Cover effect
+* (TMun) Add NPCs from PFS 4-06 and correct name of overtaxed vrisk from PFS 4-05
+* (TMun) Add lesson of bargains major lesson for pact witch
+* (TMun) Update Dreshkan needle spray save from Hardcover errata
+* (Tikael) Add Gatewalkers Player's Guide Backgrounds
+* (Tikael) Fix name of Solar Rejuvenation
+* (Tikael) Fix sources of several NPCs
+* (Tikael) Fix traits of Nightstick
+* (TiloBuechsenschuss) Fix innate spells of Bugul Noz
+* (Tim Ayers) Refine the attack note of Battle Cry
+
+## Version 4.4.2
+
+### Bugfixes
+* (stwlam) Fix expired effect deletion when out of combat
+
+### Data Updates
+* (Abaddon) Continue reviewing creatures from Bestiary 3
+* (Dire Weasel) Add Unblinking Flame Aura, Unblinking Flame Emblem, Unblinking Flame Ignition focus spells
+* (Drental) Fix Hidden Thorn's weapon group
+* (Roxim) Add Renewed Vigor effect
+* (Roxim) Add missing trait to Tricky Pick
+* (Roxim) Continue reviewing Extinction Curse book 4 NPCs
+* (stwlam) Have Assassin Dedication feat grant Mark for Death action
+* (Tikael) Grant Powerful Fist feature with Monk Dedication
+
+
+## Version 4.4.1
+
+### System Improvements
+* (LebombJames) Add Action cost glyphs to feat and class feature sheet headers
+
+### Bugfixes
+* (stwlam) Fix functionality of effect expiration settings
+* (stwlam) Prevent double name adjustments from ChoiceSets when transfering physical items
+* (Tikael) Fix selector lookup for AdjustStrike REs
+
+### Data Updates
+* (Abaddon) Continue reviewing creatures from Bestiary 3
+* (Dire Weasel) Add Perfect Weaponry archetype feat
+* (Dire Weasel) Fix FlatModifier selector for Brevic Outcast
+* (Dire Weasel) Fix Cognitive Mutagen effect descriptions
+* (LebombJames) Create new base weapon type for injection spear
+* (LebombJames) Set Skill Training AE-like to upgrade
+* (rectulo) Fix typo in Soul Chain in description, formatting in Azarim and Grasp of Droskar descriptions
+* (Roxim) Brushup EC Book 4 NPCs
+* (Tikael) Add PFS level bump effect for NPCs
+* (Tikael) Add effect to track Spined Shield spines
+* (Tikael) Automate Fearsome Brute
+* (Tikael) Fix selector on Fast Recovery
+* (Tikael) Update AV spells to hardcover versions
+
+
+## Version 4.4.0
+
+### System Improvements
+* (KSops) Allow roll substitutions for initiative rolls
+* (Idle) Allow the use of ALT key to add an unidentified effect to an actor
+* (stwlam) Adjust default reach of NPC attacks to use lower end of CRB Table 9-1 (overridable by reach traits)
+* (stwlam) Change all "weapon:\*" predication statements to "item:\*" ones
+* (stwlam) Clarify type of transaction in MoveLootPopup prompt
+* (stwlam) Render auras when GMs are logged in alone
+* (Supe) Convert metagame visibility settings to booleans
+* (Supe) Use `rollMode` instead of `secret` for roll functions
+* (Tikael) Allow effect badge counters to be set on drag
+
+### Bugfixes
+* (Friz) Show incapacitation note for all checks with the trait
+* (Idle) Hide floaty text for unidentified effects
+* (In3luki) Fix issue causing damage buttons to disappear following reroll of attack rolls
+* (In3luki) Fix actor sidebar showing the actor level to users that lack permission
+* (In3luki) Fix shield HP updates not being reflected in token resource bars
+* (LebombJames) Visibly distinguish secret inline checks
+* (stwlam) Implement "shoddy" tag for physical items
+* (stwlam) Clean up encounter roll options, refresh each turn
+* (stwlam) Exclude troops from being flankable
+* (stwlam) Immediately re-initialize vision when PC senses are directly updated
+* (stwlam) Redraw token auras if scene is activated while being viewed
+* (Supe) Restore spell traits in spell summaries
+
+### Data Updates
+* (Abaddon) Continue reviewing creatures from Bestiary 3
+* (Avagdu, Dogstarrb, Tikael) Add content from Lost Omens: Impossible Lands
+* (Dire Weasel) Add Runic Resistance effect to Spellscar Sky Marauder
+* (Dire Weasel) Add link from Battle Medicine to immunity
+* (Dire Weasel) Add trigger text to No Escape description
+* (Dire Weasel) Correct spelling of Toxic Furnace
+* (Dire Weasel) Fix Bark Orders Effect rule element
+* (Dire Weasel) Move heightened description for Zealous Conviction from effect to spell
+* (dogstarrb) Add heightening to Spirit Blast
+* (dogstarrb) Add missing multiclass archetypes to journal, missing journal links in dedication feats
+* (dogstarrb) Correct tradition proficiency for Master Psychic Spellcasting
+* (kageru) Fix CHA modifier of tallow guardian
+* (xdy) Fix copy and paste error in Hellknight Dedication
+* (JDCalvert) Add Reflection of Life recovery multiplier increase
+* (KSops) Add automation to chronoskimmer, roll substitutions to initiative
+* (KSops) Fix Inner Radiance Torrent Heightening
+* (KSops) Fix rule elements on Quick Alchemy feat
+* (LebombJames) Automated some Oracle Curses
+* (Pinktiger74) Clean up GM screen journal
+* (Roxim) Brushup EC Book 3 NPCs
+* (Roxim) Brushup EC Book 4 NPCs part 1
+* (Roxim) Fix Torch description
+* (SkepticRobot) Fix Strength of Thousands backgrounds
+* (SkepticRobot) Fix Spellscar Marauder's talon strike
+* (SpartanCPA) Compendium replace items and spells from EC Books
+* (SpartanCPA) Delete Bone Croupier from EC compendium
+* (stwlam) Fix Hand of the Apprentice being excluded from Universalist's free feat
+* (stwlam) Remove duplicate Recall Knowledge action items
+* (Tikael) Automate Aolaz Roll ability
+* (Tikael) Convert roll options to kebab case
+* (Tikael) Fix localization in some ChoiceSet REs
+* (Tikael) Fix pluralized NPC names in compendium
+* (Tikael) Fix rule elements on Necklace of Knives
+* (Tikael) Remove diseases entered as equipment
+
+
+## Version 4.3.4
+
+### System Improvements
+* (Cerapter) Allow effects to be hidden from players
+
+### Bugfixes
+* (In3luki) Localize skill names in Compendium Browser filter
+* (stwlam) Fix crafting check rolls reporting incorrect degree of success
+* (stwlam) Restore DC adjustments to inline checks from elite/weak NPCs
+* (Supe) Fix damage rolls from heightened spells
+* (Supe) Fix issue causing some hazard sheets to not be openable
+
+### Data Updates
+* (Abaddon) Fix unique swords from Book of the Dead
+* (Abaddon) Review Blood Hag, Winter Hag, and Moon Hag, House Spirits, Huldra, Hyakume, Incutilis, Jorogumo, Kami, Kangaroo, Kappa, Kirin, Kishi, Kitsune Trickster, Kokogiak, Kongamato, and Kovintus Geomancer
+* (Abaddon) Add android infiltrator automation
+* (dogstarrb) Add missing Archetypes from DA, QftFF, NotGD, OoA, and BotD to Archetype Journal
+* (dogstarrb) Adds links from dedication feats to archetype journal
+* (MrVauxs) Correct typo in "Magic Warrior Dedication"
+* (Tikael) Automate Wellspring Magic feature
+
+
+## Version 4.3.3
+
+### System Improvements
+* (Forgent) Improve rotation behavior of measured template previews on hex grids
+* (KSops) Add "herbal" as a consumable tag, integrate with Herbalist archetype
+
+### Bugfixes
+* (stwlam) Fix item grants being duplicated given `reevaluateOnUpdate`
+* (stwlam) Default no-crowbar penalty to disabled
+* (Supe) Fix spell heightening for non-casted spell messages
+* (Supe) Correctly heighten spells retrieved from chat messages
+
+### Data Updates
+* (Manni) Fix targets  of Swarming Wasp Stings spell
+* (rectulo) Fix the format of Phantasmal protagonist
+* (Dire Weasel) Fix Staff Nexus source
+* (TMun) Correct errors following statistical outlier review
+* (TMun) Correct reference and text for spiked pit damage
+* (Tikael) Remove old individual archetype journals
+* (xdy) Add variants for bludgeoning, piercing and slashing damage to Telekinetic Projectile
+
+
+## Version 4.3.2
+
+### Bugfixes
+* (stwlam) Fix upgrading existing weaknesses and resistances
+* (stwlam) Fix issue causing Theather of the Mind toggles to appear when setting is disabled
+
+### Data Updates
+* (Far2Casual) Fix inline check of Acidic Poison Cloud Trap
+* (Dire Weasel) Fix Peryton Heart Ripper ability
+* (stwlam) Add TotM toggle for Flying Blade
+* (Tikael) Fix REs and prerequisites on Hellknight Armiger Dedication
+* (Tikael) Fully automate Hellknight Signifier Dedication
+* (TMun) Correct action cost of Thylacine's Hunting Cry
+* (TMun) Correct duration of Time Beacon
+* (TMun) Correct CON modifier for Aecora Silverfire
+
+
+## Version 4.3.1
+
+### System Improvements
+* (xdy) Add pf2e flags with sourceId, uuid and type to consumable-usage chat messages
+
+### Bugfixes
+* (Supe) Increase reliability of rule source lookup in grant item
+* (Supe) No longer return damage dice from rule element if damage type resolving fails
+* (Supe) Fix issue causing weapon item to not be retrievable from strike damage messages
+* (In3luki) Fix measured template rotation triggering the browser zoom in Firefox and Edge
+* (xdy) Adjust context.outcome based on result of reroll
+
+### Data Updates
+* (Abaddon) Localize Risky Surgery toggle and Dragon Claws spell effect
+* (dogstarrb) Fix some details in NPCs Agents of Edgewatch 1
+* (stwlam) Remove disabling of damage-doubling on crit for dragon claws effect
+* (SkepticRobot) Add star grenades
+* (SkepticRobot) Automate Skilled Familiar ability
+* (Tikael) Add damage to Sea Surge spell
+* (Tikael) Fix formulas in Phlogistonic Regulator
+* (Tikael) Set Psyche trait description
+
+
+## Version 4.3.0
+
+### System Improvements
+* (LebombJames) Remove double borders from some image frames
+* (stwlam) Move flat-footed toggle to relevant features, add "Theater of the Mind Toggles" setting to show/hide
+* (Supe) Add roll-inspector support for strike damage rolls
+* (Supe) Add roll mode param to cast() function
+* (Supe) Put top-level roll options at top in roll inspector
+
+### Bugfixes
+* (In3luki) Fix default width of line measured templates created from some workflows
+* (KSops) Fix close button for rules editing
+* (stwlam) Restore death-note icon for actions on NPC sheets
+
+### Data Updates
+* (Abaddon) Add journal page for Mummy archetype
+* (Abaddon) Fix 8th level permanent items rollable table
+* (Abaddon) Localize Treat Wounds macro
+* (Fin) Removed outdated duplicate README.md file, Update CONTRIBUTING.md to direct contributors to the pf2e foundry discord server
+* (LebombJames) Correct Greater Nosoi Charm, and touch up REs
+* (LebombJames) Correct Rebounding Barrier Requirement to Trigger
+* (rectulo) Add basic Reflex save in acid storm
+* (rectulo) Fix key for Android trait description
+* (SpartanCPA, Tikael, TMun) Add content from Kingmaker adventure path
+* (stwlam) Add effect for Calculate Threats action
+* (stwlam) Add inventor's innovation class features, initial armor modifications
+* (stwlam) Default pregen PCs to be in party alliance
+* (TMun) Add Psychic multiclass dedication feat as an option for Eldritch Trickster Rogue
+* (TMun) Add variant effect to PFS earplugs and correct links between effects and items
+* (TMun) Fix issue causing Eternal Wings to receive double bonuses and penalties
+* (TMun) Correct aura from 5 to 10 feet for Elemental Avalanche
+* (TMun) Standardize predicates for Virtuosic Performer rule elements
+* (TMun) Update sly striker rule elements to function in V10
+* (TMun) Add NPCs from PFS 4-05
+* (Tikael) Add localization keys for some equipment effects
+* (Tikael) Automate Life Oracle curse effects
+* (Tikael) Fix and standardize precision damage REs
+* (Tikael) Fix quantity of sacks
+* (VestOfHolding) Add NPCs and player options from Crown of the Kobold King
+
+
 ## Version 4.2.6
 
 ### Bugfixes
@@ -74,7 +621,6 @@
 * (stwlam) Add GM Vision (keybinding defaults to CTRL-G) as means of brightening dark scenes
 
 ### System Improvements
-* (stwlam) Have wild shape effect grant battle form effect
 * (xdy) Show players the total bulk for Loot actors they own
 * (xdy) Toggle defeated state for npcs when healed to above 0 hp when defeated
 
@@ -90,6 +636,7 @@
 * (Manni) Localize label for Pack Attack
 * (rectulo) Fix prereq format in psychic duelist dedication
 * (stwlam) Set range of Spined Azerketi's unarmed attack
+* (stwlam) Have wild shape effect grant battle form effect
 * (Surge) Remove incorrect label from Death Ward spell effect
 * (Tikael) Add Hispanic Heritage Month Paizo blog items
 * (Tikael) Fix inline check in Psi Burst

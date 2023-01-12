@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Gunslinger Dedication",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -13,7 +10,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You become trained in simple and martial crossbows and simple and martial firearms. You become trained in gunslinger class DC. Choose a @Compendium[pf2e.classfeatures.Gunslinger's Way]{Gunslinger Way}. You become trained in your way's associated skill; if you were already trained in this skill, you become trained in a skill of your choice. You don't gain any other abilities from your choice of way.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you've gained two other feats from the gunslinger archetype.</p>"
+            "value": "<p>You become trained in simple and martial crossbows and simple and martial firearms. You become trained in gunslinger class DC. Choose a @UUID[Compendium.pf2e.classfeatures.Gunslinger's Way]{Gunslinger Way}. You become trained in your way's associated skill; if you were already trained in this skill, you become trained in a skill of your choice. You don't gain any other abilities from your choice of way.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you've gained two other feats from the @UUID[Compendium.pf2e.journals.vx5FGEG34AxI2dow.JournalEntryPage.CSVoyUvynmM5LzPW]{Gunslinger} archetype.</p>"
         },
         "featType": {
             "value": "archetype"
@@ -35,11 +32,11 @@
             },
             {
                 "definition": [
-                    "weapon:category:simple",
+                    "item:category:simple",
                     {
                         "or": [
-                            "weapon:group:firearm",
-                            "weapon:tag:crossbow"
+                            "item:group:firearm",
+                            "item:tag:crossbow"
                         ]
                     }
                 ],
@@ -50,11 +47,11 @@
             },
             {
                 "definition": [
-                    "weapon:category:martial",
+                    "item:category:martial",
                     {
                         "or": [
-                            "weapon:group:firearm",
-                            "weapon:tag:crossbow"
+                            "item:group:firearm",
+                            "item:tag:crossbow"
                         ]
                     }
                 ],
@@ -62,6 +59,17 @@
                 "label": "PF2E.SpecificRule.MartialProficiency.MartialFirearmsCrossbows",
                 "slug": "martial-firearms-crossbows",
                 "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.classDCs.gunslinger",
+                "priority": 39,
+                "value": {
+                    "ability": "dex",
+                    "label": "PF2E.TraitGunslinger",
+                    "rank": 1
+                }
             }
         ],
         "source": {

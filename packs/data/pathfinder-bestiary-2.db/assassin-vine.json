@@ -152,7 +152,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The assassin vine can @Compendium[pf2e.actionspf2e.Hide]{Hide} in natural environments even if it doesn't have cover.</p>"
+                    "value": "<p>The assassin vine can @UUID[Compendium.pf2e.actionspf2e.Hide]{Hide} in natural environments even if it doesn't have cover.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -192,7 +192,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The assassin vine detects a creature within 20 feet via @Compendium[pf2e.bestiary-ability-glossary-srd.Tremorsense]{Tremorsense}</p>\n<hr />\n<p><strong>Effect</strong> The assassin vine causes vegetation within a @Template[type:emanation|distance:20] to writhe for 1 round, turning this area into difficult terrain. When a creature starts its turn in this area, it must attempt a @Check[type:reflex|dc:20] save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure it is also @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round. A creature can attempt to @Compendium[pf2e.actionspf2e.Escape]{Escape} to remove these effects.</p>\n<p>Assassin vines are immune to Grasping Foliage.</p>"
+                    "value": "<p><strong>Trigger</strong> The assassin vine detects a creature within 20 feet via @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Tremorsense]{Tremorsense}</p>\n<hr />\n<p><strong>Effect</strong> The assassin vine causes vegetation within a @Template[type:emanation|distance:20] to writhe for 1 round, turning this area into difficult terrain. When a creature starts its turn in this area, it must attempt a @Check[type:reflex|dc:20] save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure it is also @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} for 1 round. A creature can attempt to @UUID[Compendium.pf2e.actionspf2e.Escape]{Escape} to remove these effects.</p>\n<p>Assassin vines are immune to Grasping Foliage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -240,7 +240,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d8+4}[bludgeoning]]]{1d8+4 bludgeoning}, @Check[type:fortitude|dc:20|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (1d8+4)[bludgeoning]]], @Check[type:fortitude|dc:20|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -432,7 +432,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 5
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -468,24 +478,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

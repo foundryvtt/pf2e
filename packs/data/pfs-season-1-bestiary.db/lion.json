@@ -248,7 +248,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The lion Strides and makes a Strike at the end of that movement. If the lion began this action @Compendium[pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after the ability's Strike.</p>"
+                    "value": "<p>The lion Strides and makes a Strike at the end of that movement. If the lion began this action @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after the ability's Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -293,7 +293,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The lion deals [[/r {1d6}[precision]]]{1d6 extra precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>The lion deals [[/r {1d6}[precision]]]{1d6 extra precision damage} to @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -308,6 +308,13 @@
                             "target:condition:flat-footed"
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",
@@ -536,13 +543,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

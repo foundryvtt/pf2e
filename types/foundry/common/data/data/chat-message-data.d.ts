@@ -1,5 +1,3 @@
-declare type ChatMessageType = typeof CONST.CHAT_MESSAGE_TYPES[keyof typeof CONST.CHAT_MESSAGE_TYPES];
-
 declare module foundry {
     module data {
         interface ChatMessageSource {
@@ -12,8 +10,8 @@ declare module foundry {
             speaker: ChatSpeakerSource;
             whisper: string[];
             blind: boolean;
-            roll: string | RollJSON;
-            sound: AudioPath;
+            rolls: (string | RollJSON)[];
+            sound: AudioFilePath;
             emote?: boolean;
             flags: ChatMessageFlags;
         }

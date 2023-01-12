@@ -32,7 +32,7 @@ declare module foundry {
             width: number;
             borderColor: HexColorString;
             fillColor: HexColorString;
-            texture: ImagePath;
+            texture: ImageFilePath;
             flags: Record<string, unknown>;
         }
 
@@ -51,5 +51,3 @@ declare module foundry {
         }
     }
 }
-
-declare type MeasuredTemplateType = typeof CONST.MEASURED_TEMPLATE_TYPES[keyof typeof CONST.MEASURED_TEMPLATE_TYPES];

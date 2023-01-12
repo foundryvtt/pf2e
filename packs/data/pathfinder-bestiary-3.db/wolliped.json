@@ -218,9 +218,14 @@
             "type": "action"
         },
         {
-            "_id": "UeYUR7B1VqDUIBsA",
+            "_id": "a77can8I0pBhmKe0",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kquBnQ0kObZztnBc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 Circumstance Bonus vs. Shove and Trip",
+            "name": "+2 Circumstance to All Saves vs. Shove and Trip",
             "sort": 600000,
             "system": {
                 "actionCategory": {
@@ -242,21 +247,17 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "shove",
-                                    "trip"
-                                ]
-                            }
+                            "shove",
+                            "trip"
                         ],
                         "selector": "saving-throw",
                         "type": "circumstance",
                         "value": 2
                     }
                 ],
-                "slug": null,
+                "slug": "1-status-to-all-saves-vs-magic",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -328,7 +329,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The wolliped regurgitates the contents of its stomach and spits them at the target, dealing [[/r {2d6}[bludgeoning]]]{2d6 bludgeoning damage} and [[/r {2d6}[acid]]]{2d6 acid damage}. The target attempts a @Check[type:reflex|dc:20|basic:true] save, and on a failure also becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> The wolliped regurgitates the contents of its stomach and spits them at the target, dealing [[/r {2d6[bludgeoning],2d6[acid]}]]{2d6 bludgeoning damage and 2d6 acid damage}. The target attempts a @Check[type:reflex|dc:20|basic:true] save, and on a failure also becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -510,7 +511,7 @@
                 "value": 19
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 circumstance to all saves vs. shove and trip"
             },
             "hp": {
                 "details": "",
@@ -564,13 +565,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -152,7 +152,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The belker is accustomed to working together with the mist stalkers and ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from both smoke and mist.</p>"
+                    "value": "<p>The belker is accustomed to working together with the mist stalkers and ignores the @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition from both smoke and mist.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -232,7 +232,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The belker is occupying the same space as a Medium or smaller creature</p>\n<hr />\n<p><strong>Effect</strong> The belker attempts to flow into the creature's lungs; the creature must attempt a @Check[type:fortitude|dc:21] save. On a failure, the creature partially inhales the belker and is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} by the pain of the smoke rasping in its throat and lungs. The creature can attempt to exhale the belker by spending an action coughing and succeeding at a @Check[type:fortitude|dc:21] save.</p>\n<p>Most of the belker remains outside the creature, so the belker can still act normally. If the belker moves out of the creature's space or uses again, the creature automatically exhales it.</p>"
+                    "value": "<p><strong>Requirements</strong> The belker is occupying the same space as a Medium or smaller creature</p>\n<hr />\n<p><strong>Effect</strong> The belker attempts to flow into the creature's lungs; the creature must attempt a @Check[type:fortitude|dc:21] save. On a failure, the creature partially inhales the belker and is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} by the pain of the smoke rasping in its throat and lungs. The creature can attempt to exhale the belker by spending an action coughing and succeeding at a @Check[type:fortitude|dc:21] save.</p>\n<p>Most of the belker remains outside the creature, so the belker can still act normally. If the belker moves out of the creature's space or uses again, the creature automatically exhales it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -409,6 +409,23 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -456,19 +473,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

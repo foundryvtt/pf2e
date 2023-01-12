@@ -359,7 +359,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A shoggoth constantly voices syllables and mutterings that mortals were not meant to hear. A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:will|dc:38] save or become confused for 1 round ([[/br 2d4 #rounds]]{2d4 rounds} on a critical failure). A creature that successfully saves is temporarily immune for 24 hours.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A shoggoth constantly voices syllables and mutterings that mortals were not meant to hear. A creature entering the aura or starting its turn in the aura must succeed at a @Check[type:will|dc:38] save or become confused for 1 round ([[/br 2d4 #rounds]]{2d4 rounds} on a critical failure). A creature that successfully saves is temporarily immune for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -409,7 +409,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {2d10+15}[bludgeoning]]]{2d10+15 bludgeoning}, @Check[type:fortitude|dc:40|basic:true]</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (2d10+15)[bludgeoning]]], @Check[type:fortitude|dc:40|basic:true]</p>\n<hr />\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a moderate DC for the creature level according to the Gamemastery Guide creature building Tables.</em></p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -449,7 +449,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature that begins its turn inside the shoggoth takes [[/r {9d6}[acid]]]{9d6 acid damage}.</p>"
+                    "value": "<p>A creature that begins its turn inside the shoggoth takes [[/r 9d6[acid]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -494,7 +494,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>@Check[type:reflex|dc:40|traits:damaging-effect], [[/r {6d6}[acid]]]{6d6 acid damage}, Escape DC 40, Rupture 40</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                    "value": "<p>@Check[type:reflex|dc:40|traits:damaging-effect], [[/r 6d6[acid]]] damage, Escape DC 40, Rupture 40</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -656,12 +656,46 @@
                 "temp": 0,
                 "value": 275
             },
+            "immunities": [
+                {
+                    "type": "blinded"
+                },
+                {
+                    "type": "controlled"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "deafened"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 34
             },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 20
+                },
+                {
+                    "type": "cold",
+                    "value": 20
+                },
+                {
+                    "type": "sonic",
+                    "value": 20
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -707,33 +741,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "blinded",
-                    "controlled",
-                    "critical-hits",
-                    "deafened",
-                    "precision",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "acid",
-                    "value": 20
-                },
-                {
-                    "type": "cold",
-                    "value": 20
-                },
-                {
-                    "type": "sonic",
-                    "value": 20
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

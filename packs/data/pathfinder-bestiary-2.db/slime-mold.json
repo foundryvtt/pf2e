@@ -100,7 +100,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<p><strong>Onset</strong> [[/br 1d4 #days]]{1d4 days}</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} and @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} (1 day)</p>\n<p><strong>Stage 4</strong> as stage 3 (1 day)</p>\n<p><strong>Stage 5</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 2} plus @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (no Perception check to wake up) (1 day)</p>\n<p><strong>Stage 6</strong> dead, and the body erupts to release a new slime mold</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:18]</p>\n<p><strong>Onset</strong> [[/br 1d4 #days]]{1d4 days}</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} (1 day)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2} (1 day)</p>\n<p><strong>Stage 4</strong> as stage 3 (1 day)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} plus @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} (no Perception check to wake up) (1 day)</p>\n<p><strong>Stage 6</strong> dead, and the body erupts to release a new slime mold</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -240,6 +240,20 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -290,19 +304,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "critical-hits",
-                    "mental",
-                    "precision",
-                    "unconscious",
-                    "visual"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

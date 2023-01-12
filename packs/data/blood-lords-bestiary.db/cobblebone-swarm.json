@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -252,7 +246,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Cobblebone swarms have a hatred for secret doors, trick drawers, or anything else that conceals hidden spaces, as such things remind them of years or decades spent trapped within stone. They gain a +5 circumstance bonus to Athletics checks to @Compendium[pf2e.actionspf2e.Force Open]{Force Open} secret doors.</p>"
+                    "value": "<p>Cobblebone swarms have a hatred for secret doors, trick drawers, or anything else that conceals hidden spaces, as such things remind them of years or decades spent trapped within stone. They gain a +5 circumstance bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Force Open]{Force Open} secret doors.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -423,7 +417,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each foe in the cobblebone swarm's space takes [[/r {1d6}[bludgeoning]+{1d6}[negative]]]{1d6 bludgeoning damage and 1d6 negative damage} (@Check[type:reflex|dc:17|basic:true]).</p>"
+                    "value": "<p>Each foe in the cobblebone swarm's space takes [[/r {1d6[bludgeoning],1d6[negative]}]]{1d6 bludgeoning damage and 1d6 negative damage} (@Check[type:reflex|dc:17|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -602,12 +596,45 @@
                 "temp": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 9
             },
+            "resistances": [
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -616,7 +643,21 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 3
+                },
+                {
+                    "type": "positive",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -649,44 +690,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "swarm-mind",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 3
-                },
-                {
-                    "type": "positive",
-                    "value": 5
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 3
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

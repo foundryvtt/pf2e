@@ -1,16 +1,19 @@
 import { ActorPF2e } from "@actor";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
 import { ItemPF2e } from "@item";
-import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data";
+import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data";
 import { TokenDocumentPF2e } from "@scene";
 import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { UserPF2e } from "@module/user";
-import { CheckRoll } from "@system/check/roll";
+import { CheckRoll } from "@system/check";
 import { ChatRollDetails } from "./chat-roll-details";
 import { StrikeData } from "@actor/data/base";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { StrikeAttackRoll } from "@system/check/strike/attack-roll";
 import { htmlQuery } from "@util";
+import { DamageButtons, DamageTaken } from "./listeners";
+import { DamageRoll } from "@system/damage/roll";
+import { Statistic } from "@system/statistic";
+import { DegreeOfSuccess } from "@system/degree-of-success";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -35,9 +38,14 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (!firstRoll || firstRoll.terms.some((t) => t instanceof FateDie || t instanceof Coin)) {
             return false;
         }
+
+        if (this.flags.pf2e.context?.type === "damage-roll") {
+            return true;
+        }
+
+        const isCheck = firstRoll instanceof CheckRoll || firstRoll.dice[0]?.faces === 20;
         const fromRollTable = !!this.flags.core.RollTable;
-        const isD20 = firstRoll.dice[0]?.faces === 20 || !!this.flags.pf2e.context;
-        return !(isD20 || fromRollTable);
+        return !(isCheck || fromRollTable);
     }
 
     /** Get the actor associated with this chat message */
@@ -47,7 +55,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** If this is a check or damage roll, it will have target information */
     get target(): { actor: ActorPF2e; token: Embedded<TokenDocumentPF2e> } | null {
-        const targetUUID = this.flags.pf2e.context?.target?.token;
+        const context = this.flags.pf2e.context;
+        if (!context) return null;
+        const targetUUID = "target" in context ? context.target?.token : null;
         if (!targetUUID) return null;
 
         const match = /^Scene\.(\w+)\.Token\.(\w+)$/.exec(targetUUID ?? "") ?? [];
@@ -74,7 +84,8 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Does the message include a rerolled check? */
     get isReroll(): boolean {
-        return !!this.flags.pf2e.context?.isReroll;
+        const context = this.flags.pf2e.context;
+        return !!context && "isReroll" in context && !!context.isReroll;
     }
 
     /** Does the message include a check that hasn't been rerolled? */
@@ -112,11 +123,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             item.trickMagicEntry = trick;
         }
 
-        const spellVariant = this.flags.pf2e.spellVariant;
-        if (spellVariant && item?.isOfType("spell")) {
-            return item.loadVariant({
-                overlayIds: spellVariant.overlayIds,
-            });
+        if (item?.isOfType("spell")) {
+            const spellVariant = this.flags.pf2e.spellVariant;
+            const castLevel = this.flags.pf2e.casting?.level ?? item.level;
+            const modifiedSpell = item.loadVariant({ overlayIds: spellVariant?.overlayIds, castLevel });
+            return modifiedSpell ?? item;
         }
 
         return item;
@@ -124,21 +135,21 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** If this message was for a strike, return the strike. Strikes will change in a future release */
     get _strike(): StrikeData | null {
-        const actor = this.actor;
-        if (!actor?.isOfType("character", "npc")) return null;
+        const { actor } = this;
+        if (!actor?.system.actions) return null;
 
         // Get the strike index from either the flags or the DOM. In the case of roll macros, it's in the DOM
-        const roll = this.rolls.at(0);
-        const strikeIndex = (() => {
-            if (roll instanceof StrikeAttackRoll) return roll.data.strike?.index;
+        const strikeData = ((): Pick<StrikeLookupData, "index" | "altUsage"> | null => {
+            if (this.flags.pf2e.strike) return this.flags.pf2e.strike;
             const messageHTML = htmlQuery(ui.chat.element[0], `li[data-message-id="${this.id}"]`);
             const chatCard = htmlQuery(messageHTML, ".chat-card");
-            return chatCard?.dataset.strikeIndex === undefined ? undefined : Number(chatCard?.dataset.strikeIndex);
+            const index = chatCard?.dataset.strikeIndex === undefined ? null : Number(chatCard?.dataset.strikeIndex);
+            return typeof index === "number" ? { index } : null;
         })();
 
-        if (typeof strikeIndex === "number") {
-            const altUsage = this.flags.pf2e.context?.altUsage ?? null;
-            const action = actor.system.actions.at(strikeIndex) ?? null;
+        if (strikeData) {
+            const { index, altUsage } = strikeData;
+            const action = actor.system.actions.at(index) ?? null;
             return altUsage
                 ? action?.altUsages?.find((w) => (altUsage === "thrown" ? w.item.isThrown : w.item.isMelee)) ?? null
                 : action;
@@ -194,6 +205,56 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
         const $html = await super.getHTML();
         const html = $html[0]!;
+        if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll) {
+            await DamageButtons.listen(this, html);
+        }
+        await DamageTaken.listen(html);
+        CriticalHitAndFumbleCards.appendButtons(this, $html);
+
+        // Add persistent damage recovery button and listener (if evaluating persistent)
+        const roll = this.rolls[0];
+        if (this.isOwner && roll instanceof DamageRoll && roll.options.evaluatePersistent) {
+            const damageType = roll.instances.find((i) => i.persistent)?.type;
+            const condition = damageType ? this.actor?.getCondition(`persistent-damage-${damageType}`) : null;
+            if (condition) {
+                const buttonHTML = await renderTemplate("systems/pf2e/templates/chat/persistent-damage-recovery.hbs");
+                html.innerHTML += buttonHTML;
+            }
+
+            htmlQuery(html, "[data-action=recover-persistent-damage]")?.addEventListener("click", async () => {
+                const actor = this.actor;
+                if (!actor) return;
+
+                const damageType = roll.instances.find((i) => i.persistent)?.type;
+                if (!damageType) return;
+
+                const condition = this.actor?.getCondition(`persistent-damage-${damageType}`);
+                if (!condition?.system.persistent) {
+                    const damageTypeLocalized = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+                    const message = game.i18n.format("PF2E.Item.Condition.PersistentDamage.Error.DoesNotExist", {
+                        damageType: damageTypeLocalized,
+                    });
+                    return ui.notifications.warn(message);
+                }
+
+                console.log(this.target);
+
+                const dc = condition.system.persistent.dc;
+                const result = await new Statistic(actor, {
+                    slug: "recovery",
+                    label: game.i18n.format("PF2E.Item.Condition.PersistentDamage.Chat.RecoverLabel", {
+                        name: condition.name,
+                    }),
+                    check: { type: "flat-check" },
+                    domains: ["all", "flat-check"],
+                }).roll({ dc: { value: dc }, skipDialog: true });
+
+                if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
+                    actor.decreaseCondition(`persistent-damage-${damageType}`);
+                }
+            });
+        }
+
         html.addEventListener("mouseenter", () => this.onHoverIn());
         html.addEventListener("mouseleave", () => this.onHoverOut());
 

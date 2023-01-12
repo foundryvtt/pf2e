@@ -109,12 +109,35 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A will-o'-wisp is itself naturally invisible, but glows with a colored light, casting bright light in the aura and making it visible.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A will-o'-wisp is itself naturally invisible, but glows with a colored light, casting bright light in the aura and making it visible.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "glowing"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "bright": 20,
+                            "color": "#fff9a3"
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "glowing",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -152,7 +175,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A will-o'-wisp is immune to all spells except <em>@Compendium[pf2e.spells-srd.Faerie Fire]{Faerie Fire}</em>, <em>@Compendium[pf2e.spells-srd.Glitterdust]{Glitterdust}</em>, <em>@Compendium[pf2e.spells-srd.Magic Missile]{Magic Missile}</em>, and <em>@Compendium[pf2e.spells-srd.Maze]{Maze}</em>.</p>"
+                    "value": "<p>A will-o'-wisp is immune to all spells except <em>@UUID[Compendium.pf2e.spells-srd.Faerie Fire]{Faerie Fire}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Glitterdust]{Glitterdust}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Magic Missile]{Magic Missile}</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Maze]{Maze}</em>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -192,7 +215,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The dune candle extinguishes its glow, becoming @Compendium[pf2e.conditionitems.Invisible]{Invisible}. It can end this effect with another use of this action. Its body reflects creatures on fire (but not other fires) while it's invisible.</p>\n<p>As a result, when any creature within 20 feet of the dune candle is taking @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}, the dune candle is @Compendium[pf2e.conditionitems.Hidden]{Hidden} to observers rather than @Compendium[pf2e.conditionitems.Undetected]{Undetected}.</p>"
+                    "value": "<p>The dune candle extinguishes its glow, becoming @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible}. It can end this effect with another use of this action. Its body reflects creatures on fire (but not other fires) while it's invisible.</p>\n<p>As a result, when any creature within 20 feet of the dune candle is taking @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}, the dune candle is @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden} to observers rather than @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -234,7 +257,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature damaged by a dune candle's flare Strike must succeed at a @Check[type:fortitude|dc:24] save or catch on fire, taking [[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<p>If the creature is already taking persistent fire damage, a failed save increases the persistent fire damage by 1d4.</p>"
+                    "value": "<p>A creature damaged by a dune candle's flare Strike must succeed at a @Check[type:fortitude|dc:24] save or catch on fire, taking [[/r 1d4[persistent,fire]]] damage.</p>\n<p>If the creature is already taking persistent fire damage, a failed save increases the persistent fire damage by 1d4.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -410,6 +433,11 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "magic"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -460,15 +488,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "magic"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

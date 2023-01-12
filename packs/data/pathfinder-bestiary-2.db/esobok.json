@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -148,7 +142,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible}. This makes it @UUID[Compendium.pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -463,7 +457,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The esobok Strides and then makes a Strike. If it began this action @Compendium[pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after the Strike.</p>"
+                    "value": "<p>The esobok Strides and then makes a Strike. If it began this action @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}, it remains hidden until after the Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -503,7 +497,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An esobok's Strikes affect incorporeal creatures with the effects of a @Compendium[pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune and deal [[/r {1d6}[negative]]]{1d6 negative damage} to living creatures and [[/r {1d6}[positive]]]{1d6 positive damage} to undead.</p>"
+                    "value": "<p>An esobok's Strikes affect incorporeal creatures with the effects of a @UUID[Compendium.pf2e.equipment-srd.Ghost Touch]{Ghost Touch} property rune and deal [[/r 1d6[negative]]] damage to living creatures and [[/r 1d6[positive]]] damage to undead.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -545,7 +539,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> A creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the esobok's jaws</p>\n<hr />\n<p><strong>Effect</strong> The esobok releases the target from the Grab but wrenches its spirit free as it does so. The creature must attempt a @Check[type:will|dc:20] save. Creatures without souls (such as most constructs) and creatures whose bodies and souls are one (such as most celestials, fiends, and monitors) that roll a failure or critical failure on the save get a success instead.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The esobok wrenches the target's soul from its body into its jaws. mindless undead creatures of level 2 or lower are destroyed, other undead creatures are @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1 round, and all other creatures are @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. At the end of each of its turns, a creature paralyzed by this effect can attempt a new save to end the effect. The paralysis ends automatically if the esobok attempts a jaws Strike or speaks.</p>\n<p><strong>Critical Failure</strong> As failure, but as long as a creature is stunned or paralyzed, it is also @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>"
+                    "value": "<p><strong>Requirements</strong> A creature is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the esobok's jaws</p>\n<hr />\n<p><strong>Effect</strong> The esobok releases the target from the Grab but wrenches its spirit free as it does so. The creature must attempt a @Check[type:will|dc:20] save. Creatures without souls (such as most constructs) and creatures whose bodies and souls are one (such as most celestials, fiends, and monitors) that roll a failure or critical failure on the save get a success instead.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The esobok wrenches the target's soul from its body into its jaws. mindless undead creatures of level 2 or lower are destroyed, other undead creatures are @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned} for 1 round, and all other creatures are @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed}. At the end of each of its turns, a creature paralyzed by this effect can attempt a new save to end the effect. The paralysis ends automatically if the esobok attempts a jaws Strike or speaks.</p>\n<p><strong>Critical Failure</strong> As failure, but as long as a creature is stunned or paralyzed, it is also @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -830,12 +824,30 @@
                 "temp": 0,
                 "value": 55
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 12
             },
+            "resistances": [
+                {
+                    "type": "negative",
+                    "value": 5
+                },
+                {
+                    "type": "poison",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -880,27 +892,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Negative",
-                    "type": "negative",
-                    "value": "5"
-                },
-                {
-                    "label": "Poison",
-                    "type": "poison",
-                    "value": "5"
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

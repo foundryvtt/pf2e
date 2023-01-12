@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature touches the strongbox directly or with a held tool</p>\n<hr />\n<p><strong>Effect</strong> The trap deals [[/r {4d8+10}[acid]]]{4d8+10 acid damage} in a @Template[type:cone|distance:15] in the direction of the triggering creature (@Check[type:reflex|dc:21|basic:true]).</p>"
+                    "value": "<p><strong>Trigger</strong> A creature touches the strongbox directly or with a held tool</p>\n<hr />\n<p><strong>Effect</strong> The trap deals [[/r (4d8+10)[acid]]] damage in a @Template[type:cone|distance:15] in the direction of the triggering creature (@Check[type:reflex|dc:21|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -66,7 +66,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>An invisible magic field around the strongbox releases a spray of acid when disturbed.</p>",
-            "disable": "<p>@Check[type:thievery|dc:22|name:Bleed Away the Magical Field|traits:acid,evocation,magical,trap,hazard] (expert) to harmlessly bleed away the magical field or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (2nd level; counteract DC 20) to dispel it.</p>",
+            "disable": "<p>@Check[type:thievery|dc:22|name:Bleed Away the Magical Field|traits:acid,evocation,magical,trap,hazard] (expert) to harmlessly bleed away the magical field or <em>@UUID[Compendium.pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (2nd level; counteract DC 20) to dispel it.</p>",
             "isComplex": false,
             "level": {
                 "value": 4
@@ -93,14 +93,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

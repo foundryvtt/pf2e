@@ -125,12 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -567,7 +562,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>All devils of equal or lower level adjacent to a levaloch gain a +1 circumstance bonus to their AC as the levaloch shields them from harm.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Phalanx Fighter]{Effect: Phalanx Fighter}</p>"
+                    "value": "<p>All devils of equal or lower level adjacent to a levaloch gain a +1 circumstance bonus to their AC as the levaloch shields them from harm.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Phalanx Fighter]{Effect: Phalanx Fighter}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -647,7 +642,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a levaloch hits a creature with their barbed net, the net wraps around the target, which becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and takes a -10-foot circumstance penalty to its Speeds. If the Strike was a critical success, the target is also @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}.</p>\n<p>When a creature @Compendium[pf2e.actionspf2e.Escape]{Escapes} (DC 22), or if the Strike misses, the net crumbles into rust.</p>\n<p>Each time a creature attempts to Escape, it takes [[/r {1d6}[slashing]]]{1d6 slashing damage} from the net's barbs, regardless of whether the attempt succeeds.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Barbed Net]{Effect: Barbed Net}</p>"
+                    "value": "<p>When a levaloch hits a creature with their barbed net, the net wraps around the target, which becomes @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} and takes a -10-foot circumstance penalty to its Speeds. If the Strike was a critical success, the target is also @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}.</p>\n<p>When a creature @UUID[Compendium.pf2e.actionspf2e.Escape]{Escapes} (DC 22), or if the Strike misses, the net crumbles into rust.</p>\n<p>Each time a creature attempts to Escape, it takes [[/r 1d6[slashing]]] damage from the net's barbs, regardless of whether the attempt succeeds.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Barbed Net]{Effect: Barbed Net}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -687,7 +682,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>A levaloch reforges part of their barbed iron substance into a new <em>+1 @Compendium[pf2e.equipment-srd.Striking]{Striking} trident</em> or barbed net. Their previous trident crumbles to rust.</p>\n<p>When the levaloch is destroyed, any tridents or barbed nets they created crumble to rust.</p>"
+                    "value": "<p>A levaloch reforges part of their barbed iron substance into a new <em>+1 @UUID[Compendium.pf2e.equipment-srd.Striking]{Striking} trident</em> or barbed net. Their previous trident crumbles to rust.</p>\n<p>When the levaloch is destroyed, any tridents or barbed nets they created crumble to rust.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -729,7 +724,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a levaloch hits a creature that has the @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained} conditions with a melee trident Strike, the Strike deals an additional [[/r 2d6]] damage.</p>"
+                    "value": "<p>When a levaloch hits a creature that has the @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy}, @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled}, @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} conditions with a melee trident Strike, the Strike deals an additional [[/r 2d6]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -920,12 +915,62 @@
                 "temp": 0,
                 "value": 105
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 16
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "silver"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -934,7 +979,13 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -975,38 +1026,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "fire",
-                    "healing",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except silver",
-                    "type": "physical",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "good",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

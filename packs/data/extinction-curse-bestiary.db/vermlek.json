@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -148,7 +142,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -156,11 +150,20 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 3,
                     "value": "RqsjlbJfjDXjttuD"
                 },
                 "materials": {
@@ -217,6 +220,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "emotion",
                         "fear",
                         "mental"
@@ -240,11 +244,9 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "varies"
+                    "details": "varies",
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -261,8 +263,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "negative"
                             },
                             "value": "1d8"
@@ -270,7 +274,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, verbal, somatic)</strong> You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -289,11 +293,122 @@
                     "value": 1
                 },
                 "location": {
-                    "heightenedLevel": 3,
                     "value": "RqsjlbJfjDXjttuD"
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "4gyp3qlsv5ywdyjq": {
+                        "_id": "4gyp3qlsv5ywdyjq",
+                        "name": "Harm (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "value": "1d8+8"
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "spellType": {
+                                "value": "heal"
+                            },
+                            "target": {
+                                "value": "1 willing undead creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "pq7cxntbz4s8g5ik": {
+                        "_id": "pq7cxntbz4s8g5ik",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true
+                            },
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "rvhoa43rqqqp8izn": {
+                        "_id": "rvhoa43rqqqp8izn",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "z04svm1cvfcxtplb": {
+                        "_id": "z04svm1cvfcxtplb",
+                        "name": "Harm (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "target": {
+                                "value": "1 living creature"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -343,6 +458,7 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "divine",
                         "negative"
                     ]
                 }
@@ -583,7 +699,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Worm demons can't stand the sight of a good meal presented and then swiftly taken away. Whenever a @Compendium[pf2e.conditionitems.Dying]{Dying} creature within sight of the worm demon has its dying condition removed, the worm demon takes [[/r {1d6}[mental]]]{1d6 mental damage}.</p>"
+                    "value": "<p>Worm demons can't stand the sight of a good meal presented and then swiftly taken away. Whenever a @UUID[Compendium.pf2e.conditionitems.Dying]{Dying} creature within sight of the worm demon has its dying condition removed, the worm demon takes [[/r 1d6[mental]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -623,7 +739,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirement</strong> The worm demon is Inhabiting a Body</p>\n<hr />\n<p><strong>Effect</strong> The worm demon crawls out of the body it is inhabiting, devouring much of the body's remaining flesh and regaining 10 Hit Points in the process. The corpse it leaves behind is little more than a husk.</p>"
+                    "value": "<p><strong>Requirements</strong> The worm demon is Inhabiting a Body</p>\n<hr />\n<p><strong>Effect</strong> The worm demon crawls out of the body it is inhabiting, devouring much of the body's remaining flesh and regaining 10 Hit Points in the process. The corpse it leaves behind is little more than a husk.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -665,7 +781,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The worm demon crawls into the body of an adjacent dead Medium humanoid, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity.</p>\n<p>As long as it Inhabits a Body, the worm demon loses its bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to <span data-pf2-action=\"impersonate\">Deception</span> checks to @Compendium[pf2e.actionspf2e.Impersonate]{Impersonate} the creature it is inhabiting. It cannot use this ability if it is already Inhabiting a Body.</p>"
+                    "value": "<p>The worm demon crawls into the body of an adjacent dead Medium humanoid, consuming the bulk of the victim's skeleton and internal organs as it does so and cramming itself into the cavity.</p>\n<p>As long as it Inhabits a Body, the worm demon loses its bite attack, can wield weapons like a humanoid, gains a +3 circumstance bonus to AC, and gains a +3 circumstance bonus to <span data-pf2-action=\"impersonate\">Deception</span> checks to @UUID[Compendium.pf2e.actionspf2e.Impersonate]{Impersonate} the creature it is inhabiting. It cannot use this ability if it is already Inhabiting a Body.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -674,13 +790,13 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "option": "inhabitBody",
+                        "option": "inhabit-body",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "inhabitBody"
+                            "inhabit-body"
                         ],
                         "selector": "ac",
                         "type": "circumstance",
@@ -709,7 +825,7 @@
         },
         {
             "_id": "WmQ1U0HMX7ayTqMC",
-            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Unsettling Movement",
             "sort": 1200000,
             "system": {
@@ -717,13 +833,13 @@
                     "value": "offensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 3
+                    "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[type:emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[type:will|dc:19] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p>Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
+                    "value": "<p>Whenever the vermlek Abandons a Body or Inhabits a Body, all creatures within @Template[type:emanation|distance:30]{30 feet} who can see the vermlek must succeed at a @Check[type:will|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}. On a critical failure, the creature is frightened 1 and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p>Regardless of the result, creatures are immune to the same vermlek's unsettling movement for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -829,7 +945,7 @@
                         "label": "PF2E.SkillVariant.Impersonate",
                         "predicate": [
                             "action:impersonate",
-                            "inhabitBody"
+                            "inhabit-body"
                         ],
                         "selector": "deception",
                         "type": "circumstance",
@@ -933,7 +1049,21 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 5
+                },
+                {
+                    "type": "good",
+                    "value": 5
+                },
+                {
+                    "type": "sonic",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -971,26 +1101,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "coldiron",
-                    "value": 5
-                },
-                {
-                    "type": "good",
-                    "value": 5
-                },
-                {
-                    "type": "sonic",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

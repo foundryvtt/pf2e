@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The doorknob is turned</p>\n<hr />\n<p><strong>Effect</strong> The charge behind the door explodes, dealing [[/r {2d8+9}[fire]+{2d8+9}[piercing]]]{2d8+9 fire damage and 2d8+9 piercing damage} to all creatures in a @Template[type:cone|distance:10] blasting outward from the door (@Check[type:reflex|dc:27|basic:true]). The sound of the explosion can be heard up to 50 feet away.</p>"
+                    "value": "<p><strong>Trigger</strong> The doorknob is turned</p>\n<hr />\n<p><strong>Effect</strong> The charge behind the door explodes, dealing [[/r {(2d8+9)[fire],(2d8+9)[piercing]}]]{2d8+9 fire damage and 2d8+9 piercing damage} to all creatures in a @Template[type:cone|distance:10] blasting outward from the door (@Check[type:reflex|dc:27|basic:true]). The sound of the explosion can be heard up to 50 feet away.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -54,6 +54,17 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert) to see the brick wall behind the edges of the door</p>",
                 "value": 18
@@ -89,17 +100,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

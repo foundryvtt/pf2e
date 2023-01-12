@@ -3,9 +3,11 @@ import {
     ActorSystemSource,
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
-    BaseTraitsData,
-    BaseTraitsSource,
+    ActorTraitsData,
+    ActorTraitsSource,
     GangUpCircumstance,
+    ActorAttributesSource,
+    ActorAttributes,
 } from "@actor/data/base";
 import { LootPF2e } from ".";
 
@@ -22,23 +24,28 @@ interface LootSystemSource extends ActorSystemSource {
     details: LootDetailsSource;
     lootSheetType: "Merchant" | "Loot";
     hiddenWhenEmpty: boolean;
-    traits: BaseTraitsSource<string>;
+    traits: ActorTraitsSource<string>;
 }
 
-interface LootSystemData extends LootSystemSource, Omit<ActorSystemData, "attributes"> {
+interface LootSystemData extends Omit<LootSystemSource, "attributes">, Omit<ActorSystemData, "attributes"> {
     attributes: LootAttributesData;
 
     details: LootDetailsData;
 
-    traits: BaseTraitsData<string>;
+    traits: ActorTraitsData<string>;
 }
 
-interface LootAttributesSource {
+interface LootAttributesSource extends ActorAttributesSource {
     hp?: never;
     ac?: never;
+    immunities?: never;
+    weaknesses?: never;
+    resistances?: never;
 }
 
-interface LootAttributesData extends LootAttributesSource {
+interface LootAttributesData extends ActorAttributes {
+    hp?: never;
+    ac?: never;
     flanking: {
         canFlank: false;
         canGangUp: GangUpCircumstance[];
@@ -48,9 +55,7 @@ interface LootAttributesData extends LootAttributesSource {
 }
 
 interface LootDetailsSource {
-    description: {
-        value: string;
-    };
+    description: string;
     level: {
         value: number;
     };

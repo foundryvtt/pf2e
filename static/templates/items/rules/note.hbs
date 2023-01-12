@@ -1,0 +1,20 @@
+<div class="details-container-flex-row">
+    <label>
+        {{localize "PF2E.RuleEditor.General.Selector"}}
+        <input type="text" name="system.rules.{{index}}.selector" value="{{rule.selector}}" />
+    </label>
+    <label>
+        {{localize "PF2E.RuleEditor.Note.Hidden"}}
+        <input type="checkbox" class="hidden-value" {{checked (or (eq rule.visibility "gm") (eq rule.visibility "owner"))}}>
+    </label>
+</div>
+<input type="text" name="system.rules.{{index}}.title" value="{{rule.title}}" placeholder="{{localize "PF2E.RuleEditor.Note.Title"}}"/>
+<textarea name="system.rules.{{index}}.text" spellcheck="false" placeholder="{{localize "PF2E.RuleEditor.Note.Text"}}">{{rule.text}}</textarea>
+<div class="labelled-element">
+    {{localize "PF2E.RuleEditor.Note.Outcome"}}
+    <input class="pf2e-tagify outcomes" name="system.rules.{{index}}.outcome" value="{{json rule.outcome}}" data-dtype="JSON" />
+</div>
+<label>
+    {{localize "PF2E.RuleEditor.General.Predicate"}}
+    <input type="text" name="system.rules.{{index}}.predicate" value="{{json rule.predicate}}" />
+</label>

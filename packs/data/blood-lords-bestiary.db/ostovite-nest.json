@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature comes within 15 feet of the nest</p>\n<hr />\n<p><strong>Effect</strong> A mass of skittering ostovite hatchlings crawls all over the nest, spewing acid in all directions. Each creature within @Template[type:emanation|distance:30]{30 feet} of the nest takes [[/r {1d10+4}[acid]]]{1d10+4 acid damage} (@Check[type:reflex|dc:18|basic:true]). A creature who fails the save also takes [[/r {1}[persistent,acid]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}. The hazard then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature comes within 15 feet of the nest</p>\n<hr />\n<p><strong>Effect</strong> A mass of skittering ostovite hatchlings crawls all over the nest, spewing acid in all directions. Each creature within @Template[type:emanation|distance:30]{30 feet} of the nest takes [[/r (1d10+4)[acid]]] damage (@Check[type:reflex|dc:18|basic:true]). A creature who fails the save also takes [[/r 1[persistent,acid]]] damage. The hazard then rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -95,10 +95,38 @@
                 "temp": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained)</p>",
                 "value": 11
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "creatureType": "",
         "details": {
@@ -108,7 +136,7 @@
             "level": {
                 "value": 2
             },
-            "reset": "<p>The hazard deactivates if there are no targets for its acid spew at the start of its turn. The hatchlings return to the nest, and the hazard resets. If damaged but not destroyed, the nest recovers [[/r {1d6}[healing]]]{1d6 Hit Points} per hour as the hatchlings repair it.</p>",
+            "reset": "<p>The hazard deactivates if there are no targets for its acid spew at the start of its turn. The hatchlings return to the nest, and the hazard resets. If damaged but not destroyed, the nest recovers [[/r 1d6[healing]]]{1d6 Hit Points} per hour as the hatchlings repair it.</p>",
             "routine": "<p>(1 action) The hazard makes an acid spew Strike against the nearest creature.</p>"
         },
         "saves": {
@@ -131,31 +159,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "acid",
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 5
-                },
-                {
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 5
-                }
-            ],
             "rarity": "rare",
             "size": {
                 "value": "med"

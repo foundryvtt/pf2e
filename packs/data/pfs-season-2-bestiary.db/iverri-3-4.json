@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -239,13 +233,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -348,13 +336,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -475,11 +457,9 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
-                    "value": "20"
-                },
-                "areasize": {
-                    "value": "all squares in a 20-foot-radius burst that contain plants"
+                    "details": "all squares in a 20-foot-radius burst that contain plants",
+                    "type": "burst",
+                    "value": 20
                 },
                 "category": {
                     "value": "spell"
@@ -497,7 +477,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Plants in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
+                    "value": "<p>Plants in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -584,11 +564,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "cone",
-                    "value": "15"
-                },
-                "areasize": {
-                    "value": "15-foot cone"
+                    "type": "cone",
+                    "value": 15
                 },
                 "category": {
                     "value": "spell"
@@ -616,7 +593,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Toxic spores swarm over creatures in the area, causing them to erupt in grotesque fungal growths. These noxious growths deal @Localize[PF2E.PersistentDamage.Poison2d6.success], and each creature must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target takes half the persistent poison damage.</p>\n<p><strong>Failure</strong> The target takes the full persistent poison damage. While it is taking this persistent poison damage, it has weakness 1 to fire and weakness 1 to slashing.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Fungal Infestation (Failure)]{Spell Effect: Fungal Infestation (Failure)}</p>\n<p><strong>Critical Failure</strong> As failure, but double the persistent poison damage. While it is taking this persistent poison damage, it has weakness 2 to fire and weakness 2 to slashing.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Fungal Infestation (Critical Failure)]{Spell Effect: Fungal Infestation (Critical Failure)}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent damage increases by 2d6, and the weakness increases by 1, or by 2 on a critical failure.</p>"
+                    "value": "<p>Toxic spores swarm over creatures in the area, causing them to erupt in grotesque fungal growths. These noxious growths deal @Localize[PF2E.PersistentDamage.Poison2d6.success], and each creature must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target takes half the persistent poison damage.</p>\n<p><strong>Failure</strong> The target takes the full persistent poison damage. While it is taking this persistent poison damage, it has weakness 1 to fire and weakness 1 to slashing.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Fungal Infestation (Failure)]{Spell Effect: Fungal Infestation (Failure)}</p>\n<p><strong>Critical Failure</strong> As failure, but double the persistent poison damage. While it is taking this persistent poison damage, it has weakness 2 to fire and weakness 2 to slashing.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Fungal Infestation (Critical Failure)]{Spell Effect: Fungal Infestation (Critical Failure)}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent damage increases by 2d6, and the weakness increases by 1, or by 2 on a critical failure.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -712,11 +689,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 20
-                },
-                "areasize": {
-                    "value": "20-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -742,7 +716,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You accelerate the processes of decay in the area. Each living creature in the area takes [[/r {2d10}[negative]]]{2d10 negative damage} (basic Fortitude save). A creature afflicted by a disease takes a -2 circumstance penalty to this save.You can also direct the blight to rot all Small and Tiny non-creature plants in the area, eliminating non-magical undergrowth and any resulting difficult terrain, cover, and concealment. <em>Sudden blight</em> attempts to counteract any magical effect on the plants before withering them.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
+                    "value": "<p>You accelerate the processes of decay in the area. Each living creature in the area takes [[/r 2d10[negative]]] damage (basic Fortitude save). A creature afflicted by a disease takes a -2 circumstance penalty to this save.You can also direct the blight to rot all Small and Tiny non-creature plants in the area, eliminating non-magical undergrowth and any resulting difficult terrain, cover, and concealment. <em>Sudden blight</em> attempts to counteract any magical effect on the plants before withering them.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -836,13 +810,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -946,13 +914,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -969,7 +931,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Tanglefoot]{Spell Effect: Tanglefoot}</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
+                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Tanglefoot]{Spell Effect: Tanglefoot}</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1347,7 +1309,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Instead of being bonded to a specific tree, Iverri is bonded to blighted areas formerly ravaged by the Abyss. If she does not remain within 300 feet of at least one blighted tree, she becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} and is unable to recover. She must attempt a @Check[type:fortitude|dc:20] save every hour or increase the sickened value by 1 (to a maximum of @Compendium[pf2e.conditionitems.Sickened]{Sickened 4}). After 24 hours, she becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1}, with this value increasing by 1 every additional 24 hours.</p>"
+                    "value": "<p>Instead of being bonded to a specific tree, Iverri is bonded to blighted areas formerly ravaged by the Abyss. If she does not remain within 300 feet of at least one blighted tree, she becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} and is unable to recover. She must attempt a @Check[type:fortitude|dc:20] save every hour or increase the sickened value by 1 (to a maximum of @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 4}). After 24 hours, she becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}, with this value increasing by 1 every additional 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1659,7 +1621,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 5
+                },
+                {
+                    "type": "cold-iron",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1700,22 +1672,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "good",
-                    "value": 5
-                },
-                {
-                    "type": "coldIron",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "Speak With Plants",
                 "selected": [],

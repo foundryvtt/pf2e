@@ -1,0 +1,19 @@
+<article>
+    <section class="drop-item-zone">
+        {{#if item}}
+            <img src="{{item.img}}" class="item-icon" />
+            <span>{{item.name}}</span>
+        {{else}}
+            <img src="systems/pf2e/icons/actions/craft/unknown-item.webp" class="item-icon" />
+            <span>{{localize "PF2E.Actions.Craft.SelectItemDialog.DropItemZoneLabel"}}</span>
+        {{/if}}
+    </section>
+    <section class="button-panel">
+        <button type="button" data-event-handler="craft" {{disabled (not item)}}>
+            <i class="fa-solid fa-fw fa-hammer"></i> {{localize "PF2E.Actions.Craft.SelectItemDialog.CraftButtonLabel"}}
+        </button>
+        <button type="button" data-event-handler="cancel">
+            <i class="fa-solid fa-fw fa-hammer"></i> {{localize "PF2E.Actions.Craft.SelectItemDialog.CancelButtonLabel"}}
+        </button>
+    </section>
+</article>

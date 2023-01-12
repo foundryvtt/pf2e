@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This curved sickle sword has a pointed tip, allowing it to be swung like a handaxe or thrust like a short sword. The tip of a khopesh is usually hooked so that it can be used to disarm an opponent's shield or weapon.</p>"
@@ -69,20 +68,6 @@
                         "gp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -105,9 +90,6 @@
                 "slug": "khopesh",
                 "source": {
                     "value": "Pathfinder Lost Omens: Gods & Magic"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": null
@@ -685,7 +667,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>This curse affects only humanoids</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34].</p>\n<p>On each full moon, the cursed creature must succeed at another Fortitude save or turn into a wereant until dawn.</p>\n<p>The creature is under the GM's control and goes on a rampage for half the night before falling @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} until dawn.</p>"
+                    "value": "<p>This curse affects only humanoids</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34].</p>\n<p>On each full moon, the cursed creature must succeed at another Fortitude save or turn into a wereant until dawn.</p>\n<p>The creature is under the GM's control and goes on a rampage for half the night before falling @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} until dawn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -771,7 +753,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a full moon appears in the night sky, the wereant must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases its reach by 5 feet, and increases the damage of their mandibles Strike by 2.</p>\n<p>When the moon sets or the sun rises, the werecreature returns to humanoid form and is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for [[/br 2d4 #Fatigued duration]]{2d4 hours}.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Moon Frenzy]{Effect: Moon Frenzy}</p>"
+                    "value": "<p>When a full moon appears in the night sky, the wereant must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases its reach by 5 feet, and increases the damage of their mandibles Strike by 2.</p>\n<p>When the moon sets or the sun rises, the werecreature returns to humanoid form and is @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued} for [[/br 2d4 #Fatigued duration]]{2d4 hours}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Moon Frenzy]{Effect: Moon Frenzy}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -815,7 +797,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The wereant sentinel plants its feet in defiance of those who would move it. It gains a +2 circumstance bonus to defenses against being Shoved or Tripped, and its melee Strikes deal an additional [[/r {2d8}[mental]]]{2d8 mental damage}. These effects end when it moves from its square using anything other than Hasty Reposition.</p>"
+                    "value": "<p>The wereant sentinel plants its feet in defiance of those who would move it. It gains a +2 circumstance bonus to defenses against being Shoved or Tripped, and its melee Strikes deal an additional [[/r 2d8[mental]]] damage. These effects end when it moves from its square using anything other than Hasty Reposition.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1051,7 +1033,13 @@
                 "otherSpeeds": [],
                 "special": "",
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "silver",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1084,18 +1072,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "silver",
-                    "value": 20
-                }
-            ],
             "languages": {
                 "custom": "insect empathy, telepathy 120 feet",
                 "selected": [],

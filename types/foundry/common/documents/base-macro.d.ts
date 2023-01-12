@@ -41,5 +41,3 @@ declare module foundry {
         }
     }
 }
-
-declare type MacroType = typeof CONST.MACRO_TYPES[keyof typeof CONST.MACRO_TYPES];

@@ -14,8 +14,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -172,7 +172,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Viktor is holding an ignited baton</p>\n<hr />\n<p><strong>Effect</strong> Viktor breathes fire in a @Template[type:cone|distance:20]. Creatures within the cone take [[/r {3d6}[fire]]]{3d6 fire damage} (@Check[type:reflex|dc:18|basic:true] save).</p>\n<p>Once Viktor breathes fire, he cannot do so again for [[/br 1d4 #Recharge Breathe Fire]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Requirements</strong> Viktor is holding an ignited baton</p>\n<hr />\n<p><strong>Effect</strong> Viktor breathes fire in a @Template[type:cone|distance:20]. Creatures within the cone take [[/r 3d6[fire]]] damage (@Check[type:reflex|dc:18|basic:true] save).</p>\n<p>Once Viktor breathes fire, he cannot do so again for [[/br 1d4 #Recharge Breathe Fire]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -255,7 +255,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If Viktor critically hits a target with an attack that deals fire damage, or if a target of one of his effects that deals fire damage critically fails its saving throw, the target takes [[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>"
+                    "value": "<p>If Viktor critically hits a target with an attack that deals fire damage, or if a target of one of his effects that deals fire damage critically fails its saving throw, the target takes [[/r 1d4[persistent,fire]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -434,6 +434,12 @@
             "perception": {
                 "value": 7
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -470,19 +476,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

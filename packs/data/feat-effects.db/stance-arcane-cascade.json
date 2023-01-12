@@ -30,7 +30,7 @@
             {
                 "choices": [
                     {
-                        "label": "Weapon Damage",
+                        "label": "PF2E.SpecificRule.Magus.ArcaneCascade.WeaponDamage",
                         "value": ""
                     },
                     {
@@ -103,11 +103,11 @@
                     }
                 ],
                 "key": "ChoiceSet",
-                "prompt": "Select extra damage type"
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
             },
             {
                 "definition": [
-                    "weapon:melee"
+                    "item:melee"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
@@ -118,7 +118,7 @@
                 "damageType": "{item|flags.pf2e.rulesSelections.stanceArcaneCascade}",
                 "key": "FlatModifier",
                 "predicate": [
-                    "weapon:melee"
+                    "item:melee"
                 ],
                 "selector": "strike-damage",
                 "slug": "arcane-cascade-extra-damage",
@@ -128,7 +128,7 @@
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "weapon:melee",
+                    "item:melee",
                     "feature:weapon-specialization"
                 ],
                 "selector": "strike-damage",
@@ -139,7 +139,7 @@
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "weapon:melee",
+                    "item:melee",
                     "feature:greater-weapon-specialization"
                 ],
                 "selector": "strike-damage",

@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Gravity Weapon]{Gravity Weapon}</em> .</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Gravity Weapon]{Gravity Weapon}</em> .</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -29,13 +29,13 @@
                 "predicate": [
                     "gravity-weapon",
                     {
-                        "not": "weapon:category:unarmed"
+                        "not": "item:category:unarmed"
                     }
                 ],
                 "selector": "strike-damage",
                 "slug": "gravity-weapon",
                 "type": "status",
-                "value": "(1 + @weapon.system.runes.striking) * 2"
+                "value": "@weapon.system.damage.dice * 2"
             }
         ],
         "source": {

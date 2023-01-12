@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Brawling Focus",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -30,17 +27,17 @@
                 "predicate": [
                     {
                         "or": [
-                            "weapon:group:brawling",
+                            "item:group:brawling",
                             {
                                 "and": [
                                     "feat:monastic-weaponry",
-                                    "weapon:trait:monk",
+                                    "item:trait:monk",
                                     {
-                                        "not": "weapon:category:unarmed"
+                                        "not": "item:category:unarmed"
                                     },
                                     {
                                         "gte": [
-                                            "weapon:proficiency:rank",
+                                            "item:proficiency:rank",
                                             1
                                         ]
                                     }

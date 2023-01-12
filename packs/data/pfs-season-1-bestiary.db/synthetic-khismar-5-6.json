@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>As you invest these embroidered strips of cloth, you must meditate and slowly wrap them around your hands. These handwraps have weapon runes etched into them to give your unarmed attacks the benefits of those runes, making your unarmed attacks work like magic weapons. For example, <em>+1 striking handwraps of mighty blows</em> would give you a +1 item bonus to attack rolls with your unarmed attacks and increase the damage of your unarmed attacks from one weapon die to two (normally 2d4 instead of 1d4, but if your fists have a different weapon damage die or you have other unarmed attacks, use two of that die size instead).</p>\n<p>You can upgrade, add, and transfer runes to and from the handwraps just as you would for a weapon, and you can attach talismans to the handwraps. Treat the handwraps as melee weapons of the brawling group with light Bulk for these purposes. Property runes apply only when they would be applicable to the unarmed attack you're using. For example, a property that must be applied to a slashing weapon wouldn't function when you attacked with a fist, but you would gain its benefits if you attacked with a claw or some other slashing unarmed attack.</p>"
@@ -70,20 +69,6 @@
                         "gp": 35
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -106,9 +91,6 @@
                 "slug": "handwraps-of-mighty-blows",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": null
@@ -210,7 +192,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>plus @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}</p>"
+                    "value": "<p>plus @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -307,22 +289,20 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "construct-armor"
-                        ],
-                        "selector": "ac",
-                        "slug": "construct-armor-critical",
-                        "value": -4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
                             {
-                                "not": "construct-armor"
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "selector": "ac",
-                        "slug": "construct-armor-health",
-                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
+                        "value": -4
                     }
                 ],
                 "slug": null,
@@ -359,7 +339,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Synthetic Khismar takes electricity damage</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar gains resistance 20 to electricity against the triggering attack and becomes @Compendium[pf2e.conditionitems.Quickened]{Quickened} for [[/br 1d4 #Quickened Duration]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Trigger</strong> Synthetic Khismar takes electricity damage</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar gains resistance 20 to electricity against the triggering attack and becomes @UUID[Compendium.pf2e.conditionitems.Quickened]{Quickened} for [[/br 1d4 #Quickened Duration]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -396,7 +376,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>Synthetic Khismar makes two storm-fist Strikes against a single target. If either of the attacks deals damage, the target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the beginning of Synthetic Khismar's next turn. His multiple attack penalty increases after making both attacks.</p>"
+                    "value": "<p>Synthetic Khismar makes two storm-fist Strikes against a single target. If either of the attacks deals damage, the target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the beginning of Synthetic Khismar's next turn. His multiple attack penalty increases after making both attacks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -434,7 +414,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Synthetic Khismar has 20 HP or fewer</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar explodes in a ball of burning plasma, destroying himself completely and dealing [[/r {8d6}[electricity]]]{8d6 electricity damage} to all creatures within @Template[type:emanation|distance:10] (@Check[type:reflex|dc:24|basic:true])</p>\n<hr />\n<p><strong>Special</strong> Synthetic Khismar automatically activates this ability as a free action when brought to 0 Hit Points.</p>"
+                    "value": "<p><strong>Requirements</strong> Synthetic Khismar has 20 HP or fewer</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar explodes in a ball of burning plasma, destroying himself completely and dealing [[/r 8d6[electricity]]] damage to all creatures within @Template[type:emanation|distance:10] (@Check[type:reflex|dc:24|basic:true])</p>\n<hr />\n<p><strong>Special</strong> Synthetic Khismar automatically activates this ability as a free action when brought to 0 Hit Points.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -471,7 +451,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Range</strong> 100 feet</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar chooses the target of one technological construct or hazard; if this would cause the technological construct or hazard to attack a creature it would not normally attack, it takes a -2 circumstance penalty to its attack rolls and DCs against that creature.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Technology Control]{Effect: Technology Control}</p>"
+                    "value": "<p><strong>Frequency</strong> once per turn</p>\n<p><strong>Range</strong> 100 feet</p>\n<hr />\n<p><strong>Effect</strong> Synthetic Khismar chooses the target of one technological construct or hazard; if this would cause the technological construct or hazard to attack a creature it would not normally attack, it takes a -2 circumstance penalty to its attack rolls and DCs against that creature.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Technology Control]{Effect: Technology Control}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -677,6 +657,50 @@
                 "temp": 0,
                 "value": 70
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -720,28 +744,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

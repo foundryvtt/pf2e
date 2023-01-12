@@ -58,7 +58,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The amoeba swarm slithers over each creature in its space, dealing [[/r {1d6}[acid]]]{1d6 acid damage} (@Check[type:reflex|dc:14|basic:true] save). A creature that critically fails is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
+                    "value": "<p>The amoeba swarm slithers over each creature in its space, dealing [[/r 1d6[acid]]] damage (@Check[type:reflex|dc:14|basic:true] save). A creature that critically fails is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -203,12 +203,39 @@
                 "temp": 0,
                 "value": 35
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 3
             },
+            "resistances": [
+                {
+                    "type": "slashing",
+                    "value": 4
+                },
+                {
+                    "type": "piercing",
+                    "value": 4
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -221,7 +248,21 @@
                     }
                 ],
                 "value": 5
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 3
+                },
+                {
+                    "type": "fire",
+                    "value": 3
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -257,47 +298,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid",
-                    "critical-hits",
-                    "mental",
-                    "precision",
-                    "unconscious",
-                    "visual"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "4"
-                },
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "4"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Area Damage",
-                    "type": "area-damage",
-                    "value": "3"
-                },
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "3"
-                },
-                {
-                    "label": "Splash Damage",
-                    "type": "splash-damage",
-                    "value": "3"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

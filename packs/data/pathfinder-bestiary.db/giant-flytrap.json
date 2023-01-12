@@ -112,7 +112,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature hits or touches the flytrap.</p>\n<hr />\n<p><strong>Effect</strong> The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} in that leaf.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature hits or touches the flytrap.</p>\n<hr />\n<p><strong>Effect</strong> The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} in that leaf.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -161,7 +161,7 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "option": "focusedAssault",
+                        "option": "focused-assault",
                         "toggleable": true
                     },
                     {
@@ -169,7 +169,7 @@
                         "dieSize": "d8",
                         "key": "DamageDice",
                         "predicate": [
-                            "focusedAssault"
+                            "focused-assault"
                         ],
                         "selector": "leaf-damage"
                     }
@@ -217,13 +217,13 @@
                     {
                         "domain": "attack-roll",
                         "key": "RollOption",
-                        "option": "hungryFlurry",
+                        "option": "hungry-flurry",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "hungryFlurry"
+                            "hungry-flurry"
                         ],
                         "selector": "leaf-attack",
                         "value": -2
@@ -268,7 +268,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Large, [[/r {2d8+3}[bludgeoning]+{2d6}[acid]]]{2d8+3 bludgeoning damage plus 2d6 acid damage}, Rupture 17</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Large, [[/r {(2d8+3)[bludgeoning],2d6[acid]}]]{2d8+3 bludgeoning damage plus 2d6 acid damage}, Rupture 17</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -448,16 +448,29 @@
                 "temp": 0,
                 "value": 185
             },
+            "immunities": [],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 17
             },
+            "resistances": [
+                {
+                    "type": "acid",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -490,25 +503,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "mental"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "acid",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

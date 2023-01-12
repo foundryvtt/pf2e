@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature moves within reach of the carnivorous plants' vines</p>\n<hr />\n<p><strong>Effect</strong> The vines wrap around the triggering creature. The creature must succeed at a @Check[type:reflex|dc:22|traits:uncommon,enviornmental] save or be @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} until it Escapes (DC 22). Whether or not the creature is grabbed, the plants make a gnawing plants Strike against the creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature moves within reach of the carnivorous plants' vines</p>\n<hr />\n<p><strong>Effect</strong> The vines wrap around the triggering creature. The creature must succeed at a @Check[type:reflex|dc:22|traits:uncommon,enviornmental] save or be @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} until it Escapes (DC 22). Whether or not the creature is grabbed, the plants make a gnawing plants Strike against the creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -98,10 +98,29 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "mental"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained)</p>",
                 "value": 10
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "acid",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "creatureType": "",
         "details": {
@@ -133,32 +152,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "mental"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Acid",
-                    "type": "acid",
-                    "value": "10"
-                },
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "10"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "10"
-                }
-            ],
             "rarity": "uncommon",
             "size": {
                 "value": "med"

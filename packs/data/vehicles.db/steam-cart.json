@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever the steam cart takes collision damage, its engine expels a dense cloud of steam in a 5-foot emanation. The steam cart and all creatures in the steam become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and creatures outside the steam become concealed to creatures within it. The steam dissipates in 1 round.</p>"
+                    "value": "<p>Whenever the steam cart takes collision damage, its engine expels a dense cloud of steam in a 5-foot emanation. The steam cart and all creatures in the steam become @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and creatures outside the steam become concealed to creatures within it. The steam dissipates in 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -60,7 +60,18 @@
                 "max": 30,
                 "temp": 0,
                 "value": 30
-            }
+            },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ]
         },
         "details": {
             "AC": 0,
@@ -91,17 +102,6 @@
             "value": "Pathfinder Guns & Gears"
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "rare",
             "size": {
                 "value": "lg"

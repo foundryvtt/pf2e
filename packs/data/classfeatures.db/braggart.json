@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/classes/braggart-style.webp",
     "name": "Braggart",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -13,7 +10,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You boast, taunt, and psychologically needle your foes.</p>\n<p>You are trained in Intimidation. You gain @Compendium[pf2e.classfeatures.Panache]{Panache} during an encounter whenever you successfully @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} a foe.</p>"
+            "value": "<p>You boast, taunt, and psychologically needle your foes.</p>\n<p>You are trained in Intimidation. You gain @UUID[Compendium.pf2e.classfeatures.Panache]{Panache} during an encounter whenever you successfully @UUID[Compendium.pf2e.actionspf2e.Demoralize]{Demoralize} a foe.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -28,7 +25,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "panache",
+                    "self:effect:panache",
                     {
                         "or": [
                             "action:demoralize"

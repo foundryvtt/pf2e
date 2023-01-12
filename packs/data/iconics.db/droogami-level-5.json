@@ -9,14 +9,14 @@
                     "sourceId": "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.lOzvLCCy9QRnYw6w"
                 },
                 "pf2e": {
-                    "itemGrants": [
-                        {
+                    "itemGrants": {
+                        "cat": {
                             "id": "s3y4lms6yyzkw8qn"
                         },
-                        {
+                        "cat2": {
                             "id": "9agt6zvunkvshu0d"
                         }
-                    ]
+                    }
                 }
             },
             "img": "systems/pf2e/icons/default-icons/ancestry.svg",
@@ -47,7 +47,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Your companion is a big cat, such as a leopard or tiger.</p>\n<p><strong>Size</strong> Small</p>\n<p><strong>Melee</strong> <span class=\"pf2-icon\">1</span> jaws (finesse), <strong>Damage</strong> 1d6 piercing</p>\n<p><strong>Melee</strong> <span class=\"pf2-icon\">1</span> claw (agile, finesse), <strong>Damage</strong> 1d4 slashing</p>\n<p><strong>Str</strong> +2, <strong>Dex</strong> +3, <strong>Con</strong> +1, <strong>Int</strong> -4, <strong>Wis</strong> +2, <strong>Cha</strong> +0</p>\n<p><strong>Hit Points</strong> 4</p>\n<p><strong>Skill</strong> Stealth</p>\n<p><strong>Senses</strong> low-light vision, scent (imprecise, 30 feet)</p>\n<p><strong>Speed</strong> 35 feet</p>\n<p><strong>Special</strong> Your cat deals 1d4 extra precision damage against flat- footed targets.</p>\n<p><strong>Support Benefit</strong> Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature that your cat threatens make the target @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of your next turn.</p>\n<p><strong>Advanced Maneuver</strong> @Compendium[pf2e-animal-companions.AC-Advanced-Maneuvers.U0J8J5ukmqnOskE8]{Cat Pounce}</p>"
+                    "value": "<p>Your companion is a big cat, such as a leopard or tiger.</p>\n<p><strong>Size</strong> Small</p>\n<p><strong>Melee</strong> <span class=\"pf2-icon\">1</span> jaws (finesse), <strong>Damage</strong> 1d6 piercing</p>\n<p><strong>Melee</strong> <span class=\"pf2-icon\">1</span> claw (agile, finesse), <strong>Damage</strong> 1d4 slashing</p>\n<p><strong>Str</strong> +2, <strong>Dex</strong> +3, <strong>Con</strong> +1, <strong>Int</strong> -4, <strong>Wis</strong> +2, <strong>Cha</strong> +0</p>\n<p><strong>Hit Points</strong> 4</p>\n<p><strong>Skill</strong> Stealth</p>\n<p><strong>Senses</strong> low-light vision, scent (imprecise, 30 feet)</p>\n<p><strong>Speed</strong> 35 feet</p>\n<p><strong>Special</strong> Your cat deals 1d4 extra precision damage against flat- footed targets.</p>\n<p><strong>Support Benefit</strong> Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature that your cat threatens make the target @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of your next turn.</p>\n<p><strong>Advanced Maneuver</strong> @UUID[Compendium.pf2e-animal-companions.AC-Advanced-Maneuvers.U0J8J5ukmqnOskE8]{Cat Pounce}</p>"
                 },
                 "flaws": {
                     "0": {
@@ -344,7 +344,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature within your cat's reach make the target @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of your next turn.</p>"
+                    "value": "<p>Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature within your cat's reach make the target @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the end of your next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -381,9 +381,6 @@
             "name": "Mature Animal Companion",
             "sort": 0,
             "system": {
-                "actionCategory": {
-                    "value": ""
-                },
                 "actionType": {
                     "value": "passive"
                 },
@@ -559,7 +556,6 @@
             }
         },
         "crafting": {
-            "entries": {},
             "formulas": []
         },
         "details": {
@@ -569,6 +565,7 @@
             "alignment": {
                 "value": "N"
             },
+            "alliance": "party",
             "biography": {
                 "allies": "",
                 "appearance": "",
@@ -690,13 +687,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -148,13 +148,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -270,11 +264,9 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
+                    "details": "varies",
+                    "type": "emanation",
                     "value": 30
-                },
-                "areasize": {
-                    "value": "varies"
                 },
                 "category": {
                     "value": "spell"
@@ -396,10 +388,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -426,7 +415,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You form a wall of brilliant light that obscures creatures. You create a thin wall of light in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically. If you wish, the wall can be of a shorter length or height.</p>\n<p>Creatures adjacent to the wall are @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}. Creatures that move through the wall take 2d6 fire damage (basic Fortitude save) as the concentrated light burns them.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The bright light makes it difficult to discern creatures on the other side. Creatures are @Compendium[pf2e.conditionitems.Concealed]{Concealed} to other creatures on the opposite side of the wall from them. The fire damage increases to 3d6.</p>"
+                    "value": "<p>You form a wall of brilliant light that obscures creatures. You create a thin wall of light in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically. If you wish, the wall can be of a shorter length or height.</p>\n<p>Creatures adjacent to the wall are @UUID[Compendium.pf2e.conditionitems.Dazzled]{Dazzled}. Creatures that move through the wall take 2d6 fire damage (basic Fortitude save) as the concentrated light burns them.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The bright light makes it difficult to discern creatures on the other side. Creatures are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} to other creatures on the opposite side of the wall from them. The fire damage increases to 3d6.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -522,10 +511,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -542,7 +528,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You form a wall of pure darkness in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically and, if you wish, can be of a shorter length or height. The wall prevents light from passing through and appears as a sheet of pure darkness to creatures observing it.</p>\n<p>Creatures without darkvision or those unable to see through darkness can't see creatures on the other side of the wall. The wall is too thin for creatures to @Compendium[pf2e.actionspf2e.Hide]{Hide} in the darkness itself, but creatures can Hide from creatures on the other side of the wall as normal.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> Creatures with darkvision (but not greater darkvision) can barely see through the wall. They treat targets seen through the wall as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>\n<p><strong>Heightened (7th)</strong> Creatures with greater darkvision can barely see through the darkness. They treat targets seen through the wall as concealed. All other creatures are unable to see through the darkness at all.</p>"
+                    "value": "<p>You form a wall of pure darkness in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically and, if you wish, can be of a shorter length or height. The wall prevents light from passing through and appears as a sheet of pure darkness to creatures observing it.</p>\n<p>Creatures without darkvision or those unable to see through darkness can't see creatures on the other side of the wall. The wall is too thin for creatures to @UUID[Compendium.pf2e.actionspf2e.Hide]{Hide} in the darkness itself, but creatures can Hide from creatures on the other side of the wall as normal.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> Creatures with darkvision (but not greater darkvision) can barely see through the wall. They treat targets seen through the wall as @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}.</p>\n<p><strong>Heightened (7th)</strong> Creatures with greater darkvision can barely see through the darkness. They treat targets seen through the wall as concealed. All other creatures are unable to see through the darkness at all.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -860,7 +846,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r {4d6}[negative]]]{4d6 negative damage}, @Check[type:fortitude|dc:36|basic:true]</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 4d6[negative]]] damage, @Check[type:fortitude|dc:36|basic:true]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -989,7 +975,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the nemhaith damages a living creature with its spirit tendril Strike, the creature must succeed at a @Check[type:fortitude|dc:36] save or become @Compendium[pf2e.conditionitems.Drained]{Drained 2}.</p>\n<p>Further damage dealt by the nemhaith increases the condition value by 1 on a failed save, to a maximum of drained 4.</p>"
+                    "value": "<p>When the nemhaith damages a living creature with its spirit tendril Strike, the creature must succeed at a @Check[type:fortitude|dc:36] save or become @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2}.</p>\n<p>Further damage dealt by the nemhaith increases the condition value by 1 on a failed save, to a maximum of drained 4.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1032,7 +1018,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The nemhaith's bound spirits rage and smash everything in a @Template[type:emanation|distance:30]. Creatures in this area take [[/r {4d6}[sonic]]]{4d6 sonic damage} and [[/r {4d6}[negative]]]{4d6 negative damage} (@Check[type:fortitude|dc:36|basic:true] save).</p>"
+                    "value": "<p>The nemhaith's bound spirits rage and smash everything in a @Template[type:emanation|distance:30]. Creatures in this area take [[/r 4d6[sonic]]] damage and [[/r 4d6[negative]]] damage (@Check[type:fortitude|dc:36|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1301,12 +1287,46 @@
                 "temp": 0,
                 "value": 255
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 33
             },
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -1356,26 +1376,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
-                    "type": "all",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

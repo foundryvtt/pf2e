@@ -330,7 +330,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature entering the aura or starting its turn there is exposed to spore blight.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature entering the aura or starting its turn there is exposed to spore blight.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -373,7 +373,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirement</strong> The terotricus is in a swamp or forested area.</p>\n<hr />\n<p><strong>Effect</strong> The terotricus drains nutrients from nearby trees and undergrowth while simultaneously infesting them with fungal growth. All non-magical plant life (though not plant creatures) within a @Template[type:emanation|distance:60] withers and sprouts foul mold and slimy mushrooms, removing any cover and concealment provided by trees and undergrowth. The terotricus is healed [[/r {200}[healing]]]{200 Hit Points}.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The terotricus is in a swamp or forested area.</p>\n<hr />\n<p><strong>Effect</strong> The terotricus drains nutrients from nearby trees and undergrowth while simultaneously infesting them with fungal growth. All non-magical plant life (though not plant creatures) within a @Template[type:emanation|distance:60] withers and sprouts foul mold and slimy mushrooms, removing any cover and concealment provided by trees and undergrowth. The terotricus is healed [[/r 200[healing]]]{200 Hit Points}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -417,7 +417,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Plants and fungi are immune.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<hr />\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled4} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Controlled]{Controlled} by the terotricus (as <em>@Compendium[pf2e.spells-srd.Dominate]{Dominate}</em>; [[/br 5d8 #Dureation Controlled]]{5d8 days})</p>\n<p><strong>Stage 4</strong> dead</p>"
+                    "value": "<p>Plants and fungi are immune.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:40]</p>\n<hr />\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled4} and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Controlled]{Controlled} by the terotricus (as <em>@UUID[Compendium.pf2e.spells-srd.Dominate]{Dominate}</em>; [[/br 5d8 #Dureation Controlled]]{5d8 days})</p>\n<p><strong>Stage 4</strong> dead</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -459,7 +459,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by a terotricus's spores must succeed at a @Check[type:reflex|dc:40] save or take a -10-foot status penalty to all its Speeds for 1 minute. On a critical failure, the creature is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until it Escapes (DC 40).</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Sticky Spores]{Effect: Sticky Spores}</p>"
+                    "value": "<p>A creature hit by a terotricus's spores must succeed at a @Check[type:reflex|dc:40] save or take a -10-foot status penalty to all its Speeds for 1 minute. On a critical failure, the creature is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} until it Escapes (DC 40).</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Sticky Spores]{Effect: Sticky Spores}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -750,12 +750,32 @@
                 "temp": 0,
                 "value": 370
             },
+            "immunities": [
+                {
+                    "type": "controlled"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 31
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -772,7 +792,25 @@
                     }
                 ],
                 "value": 35
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 15
+                },
+                {
+                    "type": "cold-iron",
+                    "value": 15
+                },
+                {
+                    "type": "good",
+                    "value": 15
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -805,40 +843,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "controlled",
-                    "disease",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "fire",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 15
-                },
-                {
-                    "type": "coldiron",
-                    "value": 15
-                },
-                {
-                    "type": "good",
-                    "value": 15
-                },
-                {
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

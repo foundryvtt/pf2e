@@ -235,7 +235,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><span class=\"pf2-icon\">A</span> to <span class=\"pf2-icon\">T</span></p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The garrison makes a melee attack against each enemy within 5 feet (@Check[type:reflex|dc:30|basic:true] save). The damage depends on the number of actions.</p>\n<p><span class=\"pf2-icon\">A</span> [[/r {2d8+2}[bludgeoning]]]{2d8+2 bludgeoning damage}.</p>\n<p><span class=\"pf2-icon\">D</span> [[/r {8d8+12}[bludgeoning]]]{3d8+12 bludgeoning damage}.</p>\n<p><span class=\"pf2-icon\">T</span> [[/r {4d8+15}[bludgeoning]]]{4d8+15 bludgeoning damage}.</p>"
+                    "value": "<p><span class=\"pf2-icon\">A</span> to <span class=\"pf2-icon\">T</span></p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The garrison makes a melee attack against each enemy within 5 feet (@Check[type:reflex|dc:30|basic:true] save). The damage depends on the number of actions.</p>\n<p><span class=\"pf2-icon\">A</span> [[/r (2d8+2)[bludgeoning]]] damage.</p>\n<p><span class=\"pf2-icon\">D</span> [[/r (8d8+12)[bludgeoning]]] damage.</p>\n<p><span class=\"pf2-icon\">T</span> [[/r (4d8+15)[bludgeoning]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -395,6 +395,44 @@
                 "temp": 0,
                 "value": 260
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -404,7 +442,21 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 15
+                },
+                {
+                    "type": "bludgeoning",
+                    "value": 10
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 8
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -440,39 +492,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 15
-                },
-                {
-                    "type": "bludgeoning",
-                    "value": 10
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 8
-                }
-            ],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

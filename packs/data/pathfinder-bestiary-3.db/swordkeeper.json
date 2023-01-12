@@ -3,14 +3,14 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "AW1ZJLIrnfkmuPh9",
+            "_id": "fpKOIfEsphtEaCbR",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.LJdbVTOZog39EEbi"
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
-            "name": "+1 Striking Disrupting Longsword",
+            "name": "Longsword",
             "sort": 100000,
             "system": {
                 "MAP": {
@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>Longswords can be one‑edged or two‑edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
@@ -59,41 +58,27 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 1
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": "disrupting"
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -104,10 +89,7 @@
                 "size": "med",
                 "slug": "longsword",
                 "source": {
-                    "value": ""
-                },
-                "specific": {
-                    "value": false
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "splashDamage": {
                     "value": 0
@@ -120,6 +102,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "evocation",
+                        "magical",
                         "versatile-p"
                     ]
                 },
@@ -142,6 +126,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -190,6 +175,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -288,7 +274,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A swordkeeper's torso houses a single weapon of a level no higher than the swordkeeper. While the swordkeeper is operational, the chamber requires four successful @Check[type:thievery|dc:32|name:Open Swordkeeper Torso|traits:action:disable-device] checks to @Compendium[pf2e.actionspf2e.Disable Device]{Disable Device} to open; on a critical failure, the backlash deals [[/r {6d6}[force]]]{6d6 force damage} (@Check[type:reflex|dc:30|basic:true] save) to the creature attempting the check.</p>\n<p>If the swordkeeper is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, @Compendium[pf2e.conditionitems.Prone]{Prone}, or @Compendium[pf2e.conditionitems.Stunned]{Stunned}, both DCs are reduced by 2.</p>\n<p>If the weapon is removed, the swordkeeper's echoblades vanish.</p>"
+                    "value": "<p>A swordkeeper's torso houses a single weapon of a level no higher than the swordkeeper. While the swordkeeper is operational, the chamber requires four successful @Check[type:thievery|dc:32|traits:action:disable-device] checks to @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable Device} to open; on a critical failure, the backlash deals [[/r 6d6[force]]] damage (@Check[type:reflex|dc:30|basic:true] save) to the creature attempting the check.</p>\n<p>If the swordkeeper is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}, @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}, or @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned}, both DCs are reduced by 2.</p>\n<p>If the weapon is removed, the swordkeeper's echoblades vanish.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -373,7 +359,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The swordkeeper has a central weapon</p>\n<hr />\n<p><strong>Effect</strong> The swordkeeper projects a massive echoblade held in all four hands, dealing [[/r {9d8}[force]]]{9d8 force damage} to all creatures in a @Template[type:line|distance:30] (@Check[type:reflex|dc:30|basic:true] save). It can't use Colossal Echo again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Requirements</strong> The swordkeeper has a central weapon</p>\n<hr />\n<p><strong>Effect</strong> The swordkeeper projects a massive echoblade held in all four hands, dealing [[/r 9d8[force]]] damage to all creatures in a @Template[type:line|distance:30] (@Check[type:reflex|dc:30|basic:true] save).</p>\n<p>It can't use Colossal Echo again for [[/br 1d4 #Recharge Colossal Echo]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -455,12 +441,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The swordkeeper has a central weapon</p>\n<hr />\n<p><strong>Effect</strong> The swordkeeper projects an echoblade—a force copy of its central weapon that deals [[/r {1d8}[force]]]{1d8 additional force damage} and gains thrown 30 feet. Echoblades inherit the weapon damage dice, weapon traits, and runes of the central weapon, but no other abilities or activations. The swordkeeper gains access to their critical specialization effects. The swordkeeper can have up to four echoblades at once; unattended echoblades vanish at the end of the swordkeeper's turn.</p>"
+                    "value": "<p><strong>Requirements</strong> The swordkeeper has a central weapon</p>\n<hr />\n<p><strong>Effect</strong> The swordkeeper projects an echoblade-a force copy of its central weapon that deals [[/r 1d8[force]]] damage and gains thrown 30 feet. Echoblades inherit the weapon damage dice, weapon traits, and runes of the central weapon, but no other abilities or activations. The swordkeeper gains access to their critical specialization effects. The swordkeeper can have up to four echoblades at once; unattended echoblades vanish at the end of the swordkeeper's turn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "echoblade-attack",
+                        "text": "PF2E.Item.Weapon.CriticalSpecialization.sword",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -495,7 +492,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Effect</strong> The swordkeeper raises an echoblade to protect itself, gaining a +2 circumstance bonus to AC until the start of its next turn.</p>"
+                    "value": "<p><strong>Effect</strong> The swordkeeper raises an echoblade to protect itself, gaining a +2 circumstance bonus to AC until the start of its next turn.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Raise Guard]{Effect: Raise Guard}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -600,11 +597,11 @@
         },
         "attributes": {
             "ac": {
-                "details": "31 with guard raised",
+                "details": "(31 with guard raised)",
                 "value": 29
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -612,6 +609,38 @@
                 "temp": 0,
                 "value": 285
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -657,25 +686,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

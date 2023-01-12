@@ -1,0 +1,40 @@
+<div class="tab effects actions-pane" data-group="primary" data-tab="effects">
+    <h3 class="header">{{localize "PF2E.ConditionsLabel"}}</h3>
+    <ol class="effects-list directory-list item-list">
+        {{> systems/pf2e/templates/actors/partials/conditions.hbs}}
+    </ol>
+
+    <h3 class="header">{{localize "PF2E.EffectsLabel"}}</h3>
+    <ol class="effects-list directory-list item-list">
+        {{> systems/pf2e/templates/actors/partials/conditions.hbs conditions=document.itemTypes.effect}}
+    </ol>
+
+    <h3 class="header">
+        {{localize "PF2E.FeatDeityBoonCursesHeader"}}
+        {{#if owner}}
+        <button type="button" class="item-control feat-browse" data-type="feat"><i class="fas fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}</button>
+        {{/if}}
+    </h3>
+    <ol class="effects-list directory-list item-list">
+        {{#each actor.deityBoonsCurses as |feat|}}
+            <li class="item feat-item" data-item-id="{{feat.id}}">
+                <div class="item-name rollable">
+                    <div class="feat-slot-title">
+                    </div>
+                    <div class="item-image" style="background-image: url({{feat.img}})">
+                        <i class="fas fa-comment-alt"></i>
+                    </div>
+                    <h4>
+                        {{feat.name}}
+                    </h4>
+                </div>
+                {{#if ../owner}}
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
+                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
+                </div>
+                {{/if}}
+            </li>
+        {{/each}}
+    </ol>
+</div>

@@ -109,7 +109,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A homunculus can't speak, but it is telepathically linked to its creator. It can share information back and forth, including its master's knowledge and everything the homunculus hears. The range of this link is 1,500 feet. The homunculus adopts the same alignment as its creator and is utterly faithful. If the homunculus is destroyed, the master takes [[/r {2d10}[mental]]]{2d10 mental damage}. If the master is slain, the homunculus becomes mindless, claims its current location as its lair, and instinctively attacks anyone who comes near.</p>"
+                    "value": "<p>A homunculus can't speak, but it is telepathically linked to its creator. It can share information back and forth, including its master's knowledge and everything the homunculus hears. The range of this link is 1,500 feet. The homunculus adopts the same alignment as its creator and is utterly faithful. If the homunculus is destroyed, the master takes [[/r 2d10[mental]]] damage. If the master is slain, the homunculus becomes mindless, claims its current location as its lair, and instinctively attacks anyone who comes near.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -153,7 +153,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A homunculus has one dose of poison in a reservoir in its head. It can refill this poison from its reserves with an Interact action.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:15]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}</p>"
+                    "value": "<p>A homunculus has one dose of poison in a reservoir in its head. It can refill this poison from its reserves with an Interact action.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:15]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -272,6 +272,47 @@
                 "temp": 0,
                 "value": 17
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -319,27 +360,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "(Can't Speak Any Language), Master Link",
                 "selected": [],

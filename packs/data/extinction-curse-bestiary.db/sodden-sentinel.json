@@ -114,7 +114,7 @@
             "type": "melee"
         },
         {
-            "_id": "ADGboZCuEzAKS8mj",
+            "_id": "cceloNgYjNLlTIG8",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
@@ -174,7 +174,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A sodden sentinel is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
+                    "value": "<p>A sodden sentinel is permanently @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -199,7 +199,7 @@
             "type": "action"
         },
         {
-            "_id": "UQcuehm6C5xZysuB",
+            "_id": "rvtMyyj7UBsQraKA",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
@@ -267,7 +267,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a sodden sentinel is reduced to 0 Hit Points, it explodes, dealing [[/r {6d6}[bludgeoning]]]{6d6 bludgeoning damage} to each creature in a @Template[type:emanation|distance:10] (@Check[type:reflex|dc:30|basic:true] save). A creature that fails this save is also @Compendium[pf2e.conditionitems.Blinded]{Blinded} for [[/br 1d4 #rounds]]{1d4 rounds} (1 minute on a critical failure).</p>"
+                    "value": "<p>When a sodden sentinel is reduced to 0 Hit Points, it explodes, dealing [[/r 6d6[bludgeoning]]] damage to each creature in a @Template[type:emanation|distance:10] (@Check[type:reflex|dc:30|basic:true] save). A creature that fails this save is also @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for [[/br 1d4 #rounds]]{1d4 rounds} (1 minute on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -307,7 +307,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A sodden sentinel's fist Strike deals an additional [[/r {2d6}]]{2d6 damage} to prone creatures.</p>"
+                    "value": "<p>A sodden sentinel's fist Strike deals an additional [[/r {2d6}]]{2d6 damage} to @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -357,7 +357,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The sodden sentinel vomits up a supernaturally tainted wave of seawater in a @Template[type:cone|distance:30]. Each living creature in the area takes [[/r {6d10}[negative]]]{6d10 negative damage} (@Check[type:reflex|dc:30|basic:true] save). It can't use Seawater Retch again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The sodden sentinel vomits up a supernaturally tainted wave of seawater in a @Template[type:cone|distance:30]. Each living creature in the area takes [[/r 6d10[negative]]] damage (@Check[type:reflex|dc:30|basic:true] save). It can't use Seawater Retch again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -370,7 +370,11 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "necromancy",
+                        "occult",
+                        "water"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -491,6 +495,26 @@
                 "temp": 0,
                 "value": 320
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -500,13 +524,23 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 15
+                },
+                {
+                    "type": "slashing",
+                    "value": 15
+                }
+            ]
         },
         "details": {
             "alignment": {
                 "value": "NE"
             },
-            "blurb": "",
+            "blurb": "Variant zombie",
             "creatureType": "",
             "level": {
                 "value": 11
@@ -536,29 +570,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 15
-                },
-                {
-                    "type": "slashing",
-                    "value": 15
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -1,0 +1,89 @@
+{
+    "_id": "tUAfKD2iIrQxHYWp",
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/warriors-training-ring.webp",
+    "name": "Ring of Torag",
+    "system": {
+        "baseItem": null,
+        "containerId": null,
+        "description": {
+            "value": "<p>This simple golden ring has a large, red gemstone set into it that sparkles with an inner fire.</p>\n<hr />\n<p><strong>Activate</strong><span class=\"pf2-icon\">1</span> Interact</p>\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> You're taking persistent fire damage</p>\n<p><strong>Effect</strong> You call upon the ring to put out the flame and its magic attempts to bring the fire under control. This is especially effective assistance against persistent fire damage, so you gain an immediate flat check to remove the persistent fire damage, and the DC typically decreases from 15 to 10.</p>\n<hr />\n<p><strong>Activate</strong><span class=\"pf2-icon\">R</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You're targeted by a fire effect</p>\n<p><strong>Effect</strong> The ring's red gemstone flashes with light, granting you resistance 5 against fire and a +1 status bonus on your AC or saving throw against the fire effect targeting you; these benefits end as soon as the fire effect is resolved.</p>"
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "hardness": 0,
+        "hp": {
+            "brokenThreshold": 0,
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "preciousMaterial": {
+            "value": null
+        },
+        "preciousMaterialGrade": {
+            "value": null
+        },
+        "price": {
+            "value": {
+                "gp": 60
+            }
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Defending.FireSpell",
+                "option": "ring-of-torag",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "ring-of-torag"
+                ],
+                "type": "fire",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ring-of-torag"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "source": {
+            "value": "Pathfinder Adventure: Crown of the Kobold King"
+        },
+        "stackGroup": null,
+        "traits": {
+            "custom": "",
+            "rarity": "rare",
+            "value": [
+                "abjuration",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worn"
+        },
+        "weight": {
+            "value": "-"
+        }
+    },
+    "type": "equipment"
+}

@@ -36,7 +36,7 @@ declare module foundry {
              */
             can(action: UserAction): boolean;
 
-            getUserLevel(user: this): PermissionLevel;
+            getUserLevel(user: this): DocumentOwnershipLevel;
 
             /**
              * Test whether the User has at least a specific permission

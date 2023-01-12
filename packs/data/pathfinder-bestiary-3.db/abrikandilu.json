@@ -234,13 +234,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -339,13 +333,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -362,7 +350,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -692,7 +680,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An abrikandilu loathes the sight of their reflection. When a creature Interacts with a mirror within sight of the wrecker demon, the demon takes a -2 penalty to Will saves against Intimidation checks.</p>\n<p>An abrikandilu that ends their turn adjacent to a mirror or that's attacked by a creature holding a mirror takes [[/r {1d6}[mental]]]{1d6 mental damage} (this usually leads abrikandilus to focus their efforts on destroying nearby mirrors using Wreck).</p>"
+                    "value": "<p>An abrikandilu loathes the sight of their reflection. When a creature Interacts with a mirror within sight of the wrecker demon, the demon takes a -2 penalty to Will saves against Intimidation checks.</p>\n<p>An abrikandilu that ends their turn adjacent to a mirror or that's attacked by a creature holding a mirror takes [[/r 1d6[mental]]] damage (this usually leads abrikandilus to focus their efforts on destroying nearby mirrors using Wreck).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -732,7 +720,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the abrikandilu hits a creature with a jaws Strike, the creature must succeed at a @Check[type:fortitude|dc:21] save or become physically mutilated.</p>\n<p>The creature then takes a -1 status penalty to Charisma-based checks. This penalty is cumulative up to -3 and remains even if the wounds are healed.</p>\n<p>The penalty is reduced by 1 every 24 hours until it reaches 0.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Mutilating Bite]{Effect: Mutilating Bite}</p>"
+                    "value": "<p>When the abrikandilu hits a creature with a jaws Strike, the creature must succeed at a @Check[type:fortitude|dc:21] save or become physically mutilated.</p>\n<p>The creature then takes a -1 status penalty to Charisma-based checks. This penalty is cumulative up to -3 and remains even if the wounds are healed.</p>\n<p>The penalty is reduced by 1 every 24 hours until it reaches 0.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Mutilating Bite]{Effect: Mutilating Bite}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -902,7 +890,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 5
+                },
+                {
+                    "type": "good",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -940,22 +938,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "coldiron",
-                    "value": 5
-                },
-                {
-                    "type": "good",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

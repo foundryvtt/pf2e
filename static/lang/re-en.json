@@ -2,12 +2,12 @@
     "PF2E": {
         "AttackEffects": {
             "DropWeapon": "The creature drops the wielded weapon.",
-            "IgnoreConcealed": "The attack ignores the @Compendium[pf2e.conditionitems.DmAIPqOBomZ7H95W]{Concealed} condition.",
+            "IgnoreConcealed": "The attack ignores the @UUID[Compendium.pf2e.conditionitems.DmAIPqOBomZ7H95W]{Concealed} condition.",
             "IgnoreCover": "The target doesn't benefit from lesser cover, and it reduces the AC bonus from standard cover by 2 against the attack.",
             "IncreasedCriticalChance": "If the attack hits and the creature rolls a 19 on the d20 roll, the attack is a critical hit. This has no effect if the 19 would be a failure.",
             "IncreasedReach5": "Reach increased by 5 feet",
             "InterruptAction": "On a hit, the target's action is interrupted.",
-            "KnockProne": "On a hit, the target is knocked @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
+            "KnockProne": "On a hit, the target is knocked @UUID[Compendium.pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
         },
         "BattleForm": {
             "Attack": {
@@ -29,6 +29,7 @@
                 "Hoof": "Hoof",
                 "Horn": "Horn",
                 "Jaws": "Jaws",
+                "LavaFist": "Lava Fist",
                 "Leaf": "Leaf",
                 "Leg": "Leg",
                 "LightingLash": "Lightning Lash",
@@ -47,6 +48,7 @@
                 "Tendril": "Tendril",
                 "Tentacle": "Tentacle",
                 "TentacleArm": "Tentacle Arm",
+                "Thorn": "Thorns",
                 "Tongue": "Tongue",
                 "Trunk": "Trunk",
                 "Tusk": "Tusk",
@@ -58,378 +60,386 @@
             "Note": {
                 "GrabbingTrunk": {
                     "Title": "Grabbing Trunk",
-                    "Text": "A creature up to two sizes smaller that's hit by your trunk is @Compendium[pf2e.conditionitems.kWc1fhmv9LBiTuei]{Grabbed}. If you succeed at your @Compendium[pf2e.actionspf2e.PMbdMWc2QroouFGD]{Grapple} check against a creature grabbed by your trunk, you can reposition the creature to another space within your trunk's reach."
+                    "Text": "A creature up to two sizes smaller that's hit by your trunk is @UUID[Compendium.pf2e.conditionitems.kWc1fhmv9LBiTuei]{Grabbed}. If you succeed at your @UUID[Compendium.pf2e.actionspf2e.PMbdMWc2QroouFGD]{Grapple} check against a creature grabbed by your trunk, you can reposition the creature to another space within your trunk's reach."
                 }
             }
         },
         "BombNotes": {
             "AcidFlask": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage} and [[/r {3}[splash,acid]]]{3 acid splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*3d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage} and [[/r {3}[splash,acid]]]{3 acid splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 3d6[persistent,acid]]] and [[/r (3[splash])[acid]]]{3 acid splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*3d6)[persistent,acid]]] and [[/r (3[splash])[acid]]]{3 acid splash damage}."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage} and [[/r {1}[splash,acid]]]{1 acid splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage} and [[/r {1}[splash,acid]]]{1 acid splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 1d6[persistent,acid]]] and [[/r (1[splash])[acid]]]{1 acid splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*1d6)[persistent,acid]]] and [[/r (1[splash])[acid]]]{1 acid splash damage}."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage} and [[/r {4}[splash,acid]]]{4 acid splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*4d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage} and [[/r {4}[splash,acid]]]{4 acid splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 4d6[persistent,acid]]] and [[/r (4[splash])[acid]]]{4 acid splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*4d6)[persistent,acid]]] and [[/r (4[splash])[acid]]]{4 acid splash damage}."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage} and [[/r {2}[splash,acid]]]{2 acid splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*2d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage} and [[/r {2}[splash,acid]]]{2 acid splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 2d6[persistent,acid]]] and [[/r (2[splash])[acid]]]{2 acid splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*2d6)[persistent,acid]]] and [[/r (2[splash])[acid]]]{2 acid splash damage}."
                 }
             },
             "AlchemistsFire": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {3}[splash,fire]]]{3 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*3}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {3}[splash,fire]]]{3 fire splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 3[persistent,fire]]] and [[/r (3[splash])[fire]]]{3 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*3)[persistent,fire]]] and [[/r (3[splash])[fire]]]{3 fire splash damage}."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {1}[splash,fire]]]{1 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*1}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {1}[splash,fire]]]{1 fire splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 1[persistent,fire]]] and [[/r (1[splash])[fire]]]{1 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*1)[persistent,fire]]] and [[/r (1[splash])[fire]]]{1 fire splash damage}."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {4}[splash,fire]]]{4 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {4}[splash,fire]]]{4 fire splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 4[persistent,fire]]] and [[/r (4[splash])[fire]]]{4 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*4)[persistent,fire]]] and [[/r (4[splash])[fire]]]{4 fire splash damage}."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {2}[splash,fire]]]{2 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*2}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {2}[splash,fire]]]{2 fire splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 2[persistent,fire]]] and [[/r (2[splash])[fire]]]{2 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*2)[persistent,fire]]] and [[/r (2[splash])[fire]]]{2 fire splash damage}."
                 }
             },
             "BlightBomb": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage} and [[/r {3}[splash,poison]]]{3 poison splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*3d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage} and [[/r {3}[splash,poison]]]{3 poison splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 3d4[persistent,poison]]] and [[/r (3[splash])[poison]]]{3 poison splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*3d4)[persistent,poison]]] and [[/r (3[splash])[poison]]]{3 poison splash damage}."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage} and [[/r {1}[splash,poison]]]{1 poison splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*1d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage} and [[/r {1}[splash,poison]]]{1 poison splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 1d4[persistent,poison]]] and [[/r (1[splash])[poison]]]{1 poison splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*1d4)[persistent,poison]]] and [[/r (1[splash])[poison]]]{1 poison splash damage}."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage} and [[/r {4}[splash,poison]]]{4 poison splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*4d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage} and [[/r {4}[splash,poison]]]{4 poison splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 4d4[persistent,poison]]] and [[/r (4[splash])[poison]]]{4 poison splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*4d4)[persistent,poison]]] and [[/r (4[splash])[poison]]]{4 poison splash damage}."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage} and [[/r {2}[splash,poison]]]{2 poison splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*2d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage} and [[/r {2}[splash,poison]]]{2 poison splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 2d4[persistent,poison]]] and [[/r (2[splash])[poison]]]{2 poison splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*2d4)[persistent,poison]]] and [[/r (2[splash])[poison]]]{2 poison splash damage}."
                 }
             },
             "BottledLightning": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,electricity]]]{3 electricity splash damage} and the target becomes @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[electricity]]]{3 electricity splash damage} and the target becomes @UUID[Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,electricity]]]{1 electricity splash damage} and the target becomes @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[electricity]]]{1 electricity splash damage} and the target becomes @UUID[Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,electricity]]]{4 electricity splash damage} and the target becomes @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[electricity]]]{4 electricity splash damage} and the target becomes @UUID[Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,electricity]]]{2 electricity splash damage} and the target becomes @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[electricity]]]{2 electricity splash damage} and the target becomes @UUID[Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn."
                 }
             },
             "CrystalShards": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {5}[splash,piercing]]]{5 piercing splash damage} and the splash creates crystals that are @Compendium[pf2e.equipment-srd.7fSnvJ2xoSfa6JXD]{Caltrops} on level surfaces and handholds on vertical surfaces, granting +2 item bonus to the next Athletics check to Climb"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (5[splash])[piercing]]]{5 piercing splash damage} and the splash creates crystals that are @UUID[Compendium.pf2e.equipment-srd.7fSnvJ2xoSfa6JXD]{Caltrops} on level surfaces and handholds on vertical surfaces, granting +2 item bonus to the next Athletics check to Climb."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {6}[splash,piercing]]]{6 piercing splash damage} and the splash creates crystals that are @Compendium[pf2e.equipment-srd.7fSnvJ2xoSfa6JXD]{Caltrops} on level surfaces and handholds on vertical surfaces, granting +3 item bonus to the next Athletics check to Climb"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (6[splash])[piercing]]]{6 piercing splash damage} and the splash creates crystals that are @UUID[Compendium.pf2e.equipment-srd.7fSnvJ2xoSfa6JXD]{Caltrops} on level surfaces and handholds on vertical surfaces, granting +3 item bonus to the next Athletics check to Climb."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,piercing]]]{4 piercing splash damage} and the splash creates crystals that are @Compendium[pf2e.equipment-srd.7fSnvJ2xoSfa6JXD]{Caltrops} on level surfaces and handholds on vertical surfaces, granting +1 item bonus to the next Athletics check to Climb"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[piercing]]]{4 piercing splash damage} and the splash creates crystals that are @UUID[Compendium.pf2e.equipment-srd.7fSnvJ2xoSfa6JXD]{Caltrops} on level surfaces and handholds on vertical surfaces, granting +1 item bonus to the next Athletics check to Climb."
                 }
             },
             "DreadAmpoule": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,mental]]]{3 mental splash damage} and the target is @Compendium[pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 1} (@Compendium[pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 2} on a critical)"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[mental]]]{3 mental splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 2} on a critical)."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,mental]]]{1 mental splash damage} and the target is @Compendium[pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 1} (@Compendium[pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 2} on a critical)"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[mental]]]{1 mental splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 2} on a critical)."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,mental]]]{4 mental splash damage} and the target is @Compendium[pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 1} (@Compendium[pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 2} on a critical)"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[mental]]]{4 mental splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 2} on a critical)."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,mental]]]{2 mental splash damage} and the target is @Compendium[pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 1} (@Compendium[pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 2} on a critical)"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[mental]]]{2 mental splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 2} on a critical)."
                 }
             },
             "DwarvenDaisy": {
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,fire]]]{1 fire splash damage} and the target must succeed at a @Check[type:fortitude|dc:16|name:Lesser Dwarven Daisy|traits:damaging-effect|showDC:all] save or become @Compendium[pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[fire]]]{1 fire splash damage} and the target must succeed at a @Check[type:fortitude|dc:16|traits:damaging-effect|showDC:all] save or become @UUID[Compendium.pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,fire]]]{2 fire splash damage} and the target must succeed at a @Check[type:fortitude|dc:18|name:Moderate Dwarven Daisy|traits:damaging-effect|showDC:all] save or become @Compendium[pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[fire]]]{2 fire splash damage} and the target must succeed at a @Check[type:fortitude|dc:18|traits:damaging-effect|showDC:all] save or become @UUID[Compendium.pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round."
                 }
             },
             "FrostVial": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,cold]]]{3 cold splash damage} and the target takes a -10-foot penalty to its Speeds until the end of its next turn (@Compendium[pf2e.equipment-effects.nJRoiSyd67eQ1dYj]{Effect: Frost Vial (Greater)})"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[cold]]]{3 cold splash damage} and the target takes a -10-foot penalty to its Speeds until the end of its next turn (@UUID[Compendium.pf2e.equipment-effects.nJRoiSyd67eQ1dYj]{Effect: Frost Vial (Greater)})."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,cold]]]{1 cold splash damage} and the target takes a -5-foot penalty to its Speeds until the end of its next turn (@Compendium[pf2e.equipment-effects.RLsdvhmTh64Mmty9]{Effect: Frost Vial (Lesser)})"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[cold]]]{1 cold splash damage} and the target takes a -5-foot penalty to its Speeds until the end of its next turn (@UUID[Compendium.pf2e.equipment-effects.RLsdvhmTh64Mmty9]{Effect: Frost Vial (Lesser)})."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,cold]]]{4 cold splash damage} and the target takes a -15-foot penalty to its Speeds until the end of its next turn (@Compendium[pf2e.equipment-effects.4G9qnI0oRyL6eKFQ]{Effect: Frost Vial (Major)})"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[cold]]]{4 cold splash damage} and the target takes a -15-foot penalty to its Speeds until the end of its next turn (@UUID[Compendium.pf2e.equipment-effects.4G9qnI0oRyL6eKFQ]{Effect: Frost Vial (Major)})."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,cold]]]{2 cold splash damage} and the target takes a -10-foot penalty to its Speeds until the end of its next turn (@Compendium[pf2e.equipment-effects.dv0IKm5syOdP759w]{Effect: Frost Vial (Moderate)})"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[cold]]]{2 cold splash damage} and the target takes a -10-foot penalty to its Speeds until the end of its next turn (@UUID[Compendium.pf2e.equipment-effects.dv0IKm5syOdP759w]{Effect: Frost Vial (Moderate)})."
                 }
             },
             "GhostCharge": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,positive]]]{3 positive splash damage} and the target that takes damage becomes @Compendium[pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 2} until the start of my next turn."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[positive]]]{3 positive splash damage} and the target that takes damage becomes @UUID[Compendium.pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 2} until the start of my next turn."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,positive]]]{1 positive splash damage} and the target that takes damage becomes @Compendium[pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 1} until the start of my next turn."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[positive]]]{1 positive splash damage} and the target that takes damage becomes @UUID[Compendium.pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 1} until the start of my next turn."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,positive]]]{4 positive splash damage} and the target that takes damage becomes @Compendium[pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 2} until the start of my next turn."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[positive]]]{4 positive splash damage} and the target that takes damage becomes @UUID[Compendium.pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 2} until the start of my next turn."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,positive]]]{2 positive splash damage} and the target that takes damage becomes @Compendium[pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 1} until the start of my next turn."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[positive]]]{2 positive splash damage} and the target that takes damage becomes @UUID[Compendium.pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 1} until the start of my next turn."
                 }
+            },
+            "GooGrenade": {
+                "Greater": "Greater",
+                "Lesser": "Lesser",
+                "Major": "Major",
+                "Moderate": "Moderate",
+                "Prompt": "Select a goo grenade quality.",
+                "success": "<strong>Effect</strong> On a hit, the creature takes a penalty to its Speeds from the clinging goo. @UUID[Compendium.pf2e.equipment-effects.5JYchreCttBg7RcD]{Effect: Goo Grenade}"
             },
             "JunkBomb": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {3}[splash,slashing]]]{3 slashing splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {3}[splash,slashing]]]{3 slashing splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 3[persistent,bleed]]] and [[/r (3[splash])[slashing]]]{3 slashing splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*3)[persistent,bleed]]] and [[/r (3[splash])[slashing]]]{3 slashing splash damage}."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {1}[splash,slashing]]]{1 slashing splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {1}[splash,slashing]]]{1 slashing splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 1[persistent,bleed]]] and [[/r (1[splash])[slashing]]]{1 slashing splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*1)[persistent,bleed]]] and [[/r (1[splash])[slashing]]]{1 slashing splash damage}."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {4}[splash,slashing]]]{4 slashing splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {4}[splash,slashing]]]{4 slashing splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 4[persistent,bleed]]] and [[/r (4[splash])[slashing]]]{4 slashing splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*4)[persistent,bleed]]] and [[/r (4[splash])[slashing]]]{4 slashing splash damage}."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {2}[splash,slashing]]]{2 slashing splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {2}[splash,slashing]]]{2 slashing splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 2[persistent,bleed]]] and [[/r (2[splash])[slashing]]]{2 slashing splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*2)[persistent,bleed]]] and [[/r (2[splash])[slashing]]]{2 slashing splash damage}."
                 }
             },
             "MudBomb": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,bludgeoning]]]{3 bludgeoning splash damage}.",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,bludgeoning]]]{3 bludgeoning splash damage}. The target is @Compendium[pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[bludgeoning]]]{3 bludgeoning splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[bludgeoning]]]{3 bludgeoning splash damage}. The target is @UUID[Compendium.pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,bludgeoning]]]{1 bludgeoning splash damage}.",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,bludgeoning]]]{1 bludgeoning splash damage}. The target is @Compendium[pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[bludgeoning]]]{1 bludgeoning splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[bludgeoning]]]{1 bludgeoning splash damage}. The target is @UUID[Compendium.pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,bludgeoning]]]{4 bludgeoning splash damage}.",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,bludgeoning]]]{4 bludgeoning splash damage}. The target is @Compendium[pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[bludgeoning]]]{4 bludgeoning splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[bludgeoning]]]{4 bludgeoning splash damage}. The target is @UUID[Compendium.pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,bludgeoning]]]{2 bludgeoning splash damage}.",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,bludgeoning]]]{2 bludgeoning splash damage}. The target is @Compendium[pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[bludgeoning]]]{2 bludgeoning splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[bludgeoning]]]{2 bludgeoning splash damage}. The target is @UUID[Compendium.pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn."
                 }
             },
             "NecroticBomb": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,negative]]]{3 negative splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,negative]]]{3 negative splash damage} and the target is @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 3}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[negative]]]{3 negative splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[negative]]]{3 negative splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 3}."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,negative]]]{1 negative splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,negative]]]{1 negative splash damage} and the target is @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[negative]]]{1 negative splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[negative]]]{1 negative splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,negative]]]{4 negative splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,negative]]]{4 negative splash damage} and the target is @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 4}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[negative]]]{4 negative splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[negative]]]{4 negative splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 4}."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,negative]]]{2 negative splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,negative]]]{2 negative splash damage} and the target is @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 2}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[negative]]]{2 negative splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[negative]]]{2 negative splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 2}."
                 }
             },
             "PerniciousSporeBomb": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3d4}[persistent,piercing]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent piercing Damage} and [[/r {3}[splash,poison]]]{3 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round.",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {6d4}[persistent,piercing]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent piercing Damage} and [[/r {3}[splash,poison]]]{3 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 3d4[persistent,piercing]]] and [[/r (3[splash])[poison]]]{3 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*3d4)[persistent,piercing]]] and [[/r (3[splash])[poison]]]{3 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1d4}[persistent,piercing]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent piercing Damage} and [[/r {1}[splash,poison]]]{1 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round.",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2d4}[persistent,piercing]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent piercing Damage} and [[/r {1}[splash,poison]]]{1 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 1d4[persistent,piercing]]] and [[/r (1[splash])[poison]]]{1 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*1d4)[persistent,piercing]]] and [[/r (1[splash])[poison]]]{1 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4d4}[persistent,piercing]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent piercing Damage} and [[/r {4}[splash,poison]]]{4 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 minute.",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {8d4}[persistent,piercing]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent piercing Damage} and [[/r {4}[splash,poison]]]{4 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 minute."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 4d4[persistent,piercing]]] and [[/r (4[splash])[poison]]]{4 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 minute.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*4d4)[persistent,piercing]]] and [[/r (4[splash])[poison]]]{4 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 minute."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2d4}[persistent,piercing]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent piercing Damage} and [[/r {2}[splash,poison]]]{2 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round.",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {4d4}[persistent,piercing]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent piercing Damage} and [[/r {2}[splash,poison]]]{2 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 2d4[persistent,piercing]]] and [[/r (2[splash])[poison]]]{2 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*2d4)[persistent,piercing]]] and [[/r (2[splash])[poison]]]{2 poison splash damage}. The bomb's splash area is coated in vegetation, becoming difficult terrain for 1 round."
                 }
             },
             "PeshspineGrenade": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,piercing]]]{3 piercing splash damage} and the target is @Compendium[pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 2} until the end of its turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[piercing]]]{3 piercing splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 2} until the end of its turn."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,piercing]]]{1 piercing splash damage} and the target is @Compendium[pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 1} until the end of its turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[piercing]]]{1 piercing splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 1} until the end of its turn."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,piercing]]]{4 piercing splash damage} and the target is @Compendium[pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 3} until the end of its turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[piercing]]]{4 piercing splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 3} until the end of its turn."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,piercing]]]{2 piercing splash damage} and the target is @Compendium[pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 1} until the end of its turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[piercing]]]{2 piercing splash damage} and the target is @UUID[Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 1} until the end of its turn."
                 }
             },
             "PressureBomb": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,bludgeoning]]]{3 bludgeoning splash damage}, Medium or smaller targets are pushed 5 feet away from you",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,bludgeoning]]]{3 bludgeoning splash damage}, Medium or smaller targets are pushed 5 feet away from you, and the target is knocked @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[bludgeoning]]]{3 bludgeoning splash damage}, Medium or smaller targets are pushed 5 feet away from you.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[bludgeoning]]]{3 bludgeoning splash damage}, Medium or smaller targets are pushed 5 feet away from you, and the target is knocked @UUID[Compendium.pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,bludgeoning]]]{1 bludgeoning splash damage}, Tiny or smaller targets are pushed 5 feet away from you",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,bludgeoning]]]{1 bludgeoning splash damage}, Tiny or smaller targets are pushed 5 feet away from you, and the target is knocked @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[bludgeoning]]]{1 bludgeoning splash damage}, Tiny or smaller targets are pushed 5 feet away from you.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[bludgeoning]]]{1 bludgeoning splash damage}, Tiny or smaller targets are pushed 5 feet away from you, and the target is knocked @UUID[Compendium.pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,bludgeoning]]]{4 bludgeoning splash damage}, Medium or smaller creatures who take splash damage are pushed 5 feet away from the target, and then, if the target is Large or smaller, it is pushed 5 feet away from you",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,bludgeoning]]]{4 bludgeoning splash damage}, Medium or smaller creatures who take splash damage are pushed 5 feet away from the target, and then, if the target is Large or smaller, it is pushed 5 feet away from you, and the target is knocked @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[bludgeoning]]]{4 bludgeoning splash damage}, Medium or smaller creatures who take splash damage are pushed 5 feet away from the target, and then, if the target is Large or smaller, it is pushed 5 feet away from you.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[bludgeoning]]]{4 bludgeoning splash damage}, Medium or smaller creatures who take splash damage are pushed 5 feet away from the target, and then, if the target is Large or smaller, it is pushed 5 feet away from you, and the target is knocked @UUID[Compendium.pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,bludgeoning]]]{2 bludgeoning splash damage}, Small or smaller targets are pushed 5 feet away from you",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,bludgeoning]]]{2 bludgeoning splash damage}, Small or smaller targets are pushed 5 feet away from you, and the target is knocked @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[bludgeoning]]]{2 bludgeoning splash damage}, Small or smaller targets are pushed 5 feet away from you.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[bludgeoning]]]{2 bludgeoning splash damage}, Small or smaller targets are pushed 5 feet away from you, and the target is knocked @UUID[Compendium.pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
                 }
             },
             "RedpitchBomb": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {3}[splash,fire]]]{3 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*3d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {3}[splash,fire]]]{3 fire splash damage}. On a critical hit, Target is @Compendium[pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 2} until the start of my next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 3d4[persistent,fire]]] and [[/r (3[splash])[fire]]]{3 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*3d4)[persistent,fire]]] and [[/r (3[splash])[fire]]]{3 fire splash damage}. On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 2} until the start of my next turn."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {1}[splash,fire]]]{1 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {1}[splash,fire]]]{1 fire splash damage}. On a critical hit, Target is @Compendium[pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 1} until the start of my next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 1d4[persistent,fire]]] and [[/r (1[splash])[fire]]]{1 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*1d4)[persistent,fire]]] and [[/r (1[splash])[fire]]]{1 fire splash damage}. On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 1} until the start of my next turn."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {4}[splash,fire]]]{4 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*4d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {4}[splash,fire]]]{4 fire splash damage}. On a critical hit, Target is @Compendium[pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 3} until the start of my next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 4d4[persistent,fire]]] and [[/r (4[splash])[fire]]]{4 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*4d4)[persistent,fire]]] and [[/r (4[splash])[fire]]]{4 fire splash damage}. On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 3} until the start of my next turn."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {2}[splash,fire]]]{2 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*2d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {2}[splash,fire]]]{2 fire splash damage}. On a critical hit, Target is @Compendium[pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 1} until the start of my next turn"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 2d4[persistent,fire]]] and [[/r (2[splash])[fire]]]{2 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*2d4)[persistent,fire]]] and [[/r (2[splash])[fire]]]{2 fire splash damage}. On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 1} until the start of my next turn."
                 }
             },
             "SulfurBomb": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,acid]]]{3 acid splash damage} and the target takes a -1 status penalty to Perception checks and attack rolls until the end of its next turn (@Compendium[pf2e.equipment-effects.fuQVJiPPUsvL6fi5]{Effect: Sulfur Bomb (Failure)})",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,acid]]]{3 acid splash damage} and becomes @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[acid]]]{3 acid splash damage} and the target takes a -1 status penalty to Perception checks and attack rolls until the end of its next turn (@UUID[Compendium.pf2e.equipment-effects.fuQVJiPPUsvL6fi5]{Effect: Sulfur Bomb (Failure)}).",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[acid]]]{3 acid splash damage} and the target becomes @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,acid]]]{1 acid splash damage} and the target takes a -1 status penalty to Perception checks and attack rolls until the end of its next turn (@Compendium[pf2e.equipment-effects.fuQVJiPPUsvL6fi5]{Effect: Sulfur Bomb (Failure)})",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,acid]]]{1 acid splash damage} and becomes @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[acid]]]{1 acid splash damage} and the target takes a -1 status penalty to Perception checks and attack rolls until the end of its next turn (@UUID[Compendium.pf2e.equipment-effects.fuQVJiPPUsvL6fi5]{Effect: Sulfur Bomb (Failure)}).",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[acid]]]{1 acid splash damage} and the target becomes @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,acid]]]{4 acid splash damage} and the target takes a -1 status penalty to Perception checks and attack rolls until the end of its next turn (@Compendium[pf2e.equipment-effects.fuQVJiPPUsvL6fi5]{Effect: Sulfur Bomb (Failure)})",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,acid]]]{4 acid splash damage} and becomes @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[acid]]]{4 acid splash damage} and the target takes a -1 status penalty to Perception checks and attack rolls until the end of its next turn (@UUID[Compendium.pf2e.equipment-effects.fuQVJiPPUsvL6fi5]{Effect: Sulfur Bomb (Failure)}).",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[acid]]]{4 acid splash damage} and the target becomes @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,acid]]]{2 acid splash damage} and the target takes a -1 status penalty to Perception checks and attack rolls until the end of its next turn (@Compendium[pf2e.equipment-effects.fuQVJiPPUsvL6fi5]{Effect: Sulfur Bomb (Failure)})",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,acid]]]{2 acid splash damage} and becomes @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[acid]]]{2 acid splash damage} and the target takes a -1 status penalty to Perception checks and attack rolls until the end of its next turn (@UUID[Compendium.pf2e.equipment-effects.fuQVJiPPUsvL6fi5]{Effect: Sulfur Bomb (Failure)}).",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[acid]]]{2 acid splash damage} and the target becomes @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}."
                 }
             },
             "TallowBomb": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {3}[splash,fire]]]{3 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*3d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}, [[/r {3}[splash,fire]]]{3 fire splash damage}, and is @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1} from the stench of burning fat. The creature can't reduce its sickened value below 1 while the persistent fire damage lasts"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 3d4[persistent,fire]]] and [[/r (3[splash])[fire]]]{3 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*3d4)[persistent,fire]]], [[/r (3[splash])[fire]]]{3 fire splash damage}, and the target is @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1} from the stench of burning fat. The creature can't reduce its sickened value below 1 while the persistent fire damage lasts."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {1}[splash,fire]]]{1 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}, [[/r {1}[splash,fire]]]{1 fire splash damage}, and is @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1} from the stench of burning fat. The creature can't reduce its sickened value below 1 while the persistent fire damage lasts"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 1d4[persistent,fire]]] and [[/r (1[splash])[fire]]]{1 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*1d4)[persistent,fire]]], [[/r (1[splash])[fire]]]{1 fire splash damage}, and the target is @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1} from the stench of burning fat. The creature can't reduce its sickened value below 1 while the persistent fire damage lasts."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {4}[splash,fire]]]{4 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*4d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}, [[/r {4}[splash,fire]]]{4 fire splash damage}, and is @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1} from the stench of burning fat. The creature can't reduce its sickened value below 1 while the persistent fire damage lasts"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 4d4[persistent,fire]]] and [[/r (4[splash])[fire]]]{4 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*4d4)[persistent,fire]]], [[/r (4[splash])[fire]]]{4 fire splash damage}, and the target is @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1} from the stench of burning fat. The creature can't reduce its sickened value below 1 while the persistent fire damage lasts."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage} and [[/r {2}[splash,fire]]]{2 fire splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2*2d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}, [[/r {2}[splash,fire]]]{2 fire splash damage}, and is @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1} from the stench of burning fat. The creature can't reduce its sickened value below 1 while the persistent fire damage lasts"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 2d4[persistent,fire]]] and [[/r (2[splash])[fire]]]{2 fire splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*2d4)[persistent,fire]]], [[/r (2[splash])[fire]]]{2 fire splash damage}, and the target is @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1} from the stench of burning fat. The creature can't reduce its sickened value below 1 while the persistent fire damage lasts."
                 }
             },
             "TanglefootBag": {
                 "Greater": {
-                    "success": "On hit, @Compendium[pf2e.equipment-effects.csA4UAD2tQq7RjT8]{-15 ft Speed Penalty} for 1 minute.",
-                    "criticalSuccess": "On hit,  @Compendium[pf2e.equipment-effects.csA4UAD2tQq7RjT8]{-15 ft Speed Penalty} for 1 minute. On critical hit, @Compendium[pf2e.conditionitems.eIcWbB5o3pP6OIMe]{Immobilized} for 1 round."
+                    "success": "On hit, @UUID[Compendium.pf2e.equipment-effects.csA4UAD2tQq7RjT8]{-15 ft Speed Penalty} for 1 minute.",
+                    "criticalSuccess": "On hit,  @UUID[Compendium.pf2e.equipment-effects.csA4UAD2tQq7RjT8]{-15 ft Speed Penalty} for 1 minute. On critical hit, @UUID[Compendium.pf2e.conditionitems.eIcWbB5o3pP6OIMe]{Immobilized} for 1 round."
                 },
                 "Lesser": {
-                    "success": "On hit, @Compendium[pf2e.equipment-effects.fYZIanbYu0Vc4JEL]{-10 ft Speed Penalty} for 1 minute.",
-                    "criticalSuccess": "On hit, @Compendium[pf2e.equipment-effects.fYZIanbYu0Vc4JEL]{-10 ft Speed Penalty} for 1 minute. On critical hit, @Compendium[pf2e.conditionitems.eIcWbB5o3pP6OIMe]{Immobilized} for 1 round."
+                    "success": "On hit, @UUID[Compendium.pf2e.equipment-effects.fYZIanbYu0Vc4JEL]{-10 ft Speed Penalty} for 1 minute.",
+                    "criticalSuccess": "On hit, @UUID[Compendium.pf2e.equipment-effects.fYZIanbYu0Vc4JEL]{-10 ft Speed Penalty} for 1 minute. On critical hit, @UUID[Compendium.pf2e.conditionitems.eIcWbB5o3pP6OIMe]{Immobilized} for 1 round."
                 },
                 "Major": {
-                    "success": "On hit, @Compendium[pf2e.equipment-effects.ITAFsW3dQPupJ3DW]{-20 ft Speed Penalty} for 1 minute.",
-                    "criticalSuccess": "On hit, @Compendium[pf2e.equipment-effects.ITAFsW3dQPupJ3DW]{-20 ft Speed Penalty} for 1 minute. On critical hit, @Compendium[pf2e.conditionitems.eIcWbB5o3pP6OIMe]{Immobilized} for 1 round."
+                    "success": "On hit, @UUID[Compendium.pf2e.equipment-effects.ITAFsW3dQPupJ3DW]{-20 ft Speed Penalty} for 1 minute.",
+                    "criticalSuccess": "On hit, @UUID[Compendium.pf2e.equipment-effects.ITAFsW3dQPupJ3DW]{-20 ft Speed Penalty} for 1 minute. On critical hit, @UUID[Compendium.pf2e.conditionitems.eIcWbB5o3pP6OIMe]{Immobilized} for 1 round."
                 },
                 "Moderate": {
-                    "success": "On hit, @Compendium[pf2e.equipment-effects.MEreOgnjoRiXPEuq]{-15 ft Speed Penalty} for 1 minute.",
-                    "criticalSuccess": "On hit, @Compendium[pf2e.equipment-effects.MEreOgnjoRiXPEuq]{-15 ft Speed Penalty} for 1 minute. On critical hit, @Compendium[pf2e.conditionitems.eIcWbB5o3pP6OIMe]{Immobilized} for 1 round."
+                    "success": "On hit, @UUID[Compendium.pf2e.equipment-effects.MEreOgnjoRiXPEuq]{-15 ft Speed Penalty} for 1 minute.",
+                    "criticalSuccess": "On hit, @UUID[Compendium.pf2e.equipment-effects.MEreOgnjoRiXPEuq]{-15 ft Speed Penalty} for 1 minute. On critical hit, @UUID[Compendium.pf2e.conditionitems.eIcWbB5o3pP6OIMe]{Immobilized} for 1 round."
                 }
             },
             "Thunderstone": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,sonic]]]{3 sonic splash damage} and all creatures within 10 feet must succeed at a @Check[type:fortitude|dc:28|name:Greater Thunderstone|showDC:all] save or be @Compendium[pf2e.conditionitems.9PR9y0bi4JPKnHPR]{Deafened} until the end of its next turn."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[sonic]]]{3 sonic splash damage} and all creatures within 10 feet must succeed at a @Check[type:fortitude|dc:28|showDC:all] save or be @UUID[Compendium.pf2e.conditionitems.9PR9y0bi4JPKnHPR]{Deafened} until the end of its next turn."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,sonic]]]{1 sonic splash damage} and all creatures within 10 feet must succeed at a @Check[type:fortitude|dc:17|name:Lesser Thunderstone|showDC:all] save or be @Compendium[pf2e.conditionitems.9PR9y0bi4JPKnHPR]{Deafened} until the end of its next turn."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[sonic]]]{1 sonic splash damage} and all creatures within 10 feet must succeed at a @Check[type:fortitude|dc:17|showDC:all] save or be @UUID[Compendium.pf2e.conditionitems.9PR9y0bi4JPKnHPR]{Deafened} until the end of its next turn."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,sonic]]]{4 sonic splash damage} and all creatures within 10 feet must succeed at a @Check[type:fortitude|dc:36|name:Major Thunderstone|showDC:all] save or be @Compendium[pf2e.conditionitems.9PR9y0bi4JPKnHPR]{Deafened} until the end of its next turn."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[sonic]]]{4 sonic splash damage} and all creatures within 10 feet must succeed at a @Check[type:fortitude|dc:36|showDC:all] save or be @UUID[Compendium.pf2e.conditionitems.9PR9y0bi4JPKnHPR]{Deafened} until the end of its next turn."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,sonic]]]{2 sonic splash damage} and all creatures within 10 feet must succeed at a @Check[type:fortitude|dc:20|name:Moderate Thunderstone|showDC:all] save or be @Compendium[pf2e.conditionitems.9PR9y0bi4JPKnHPR]{Deafened} until the end of its next turn."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[sonic]]]{2 sonic splash damage} and all creatures within 10 feet must succeed at a @Check[type:fortitude|dc:20|showDC:all] save or be @UUID[Compendium.pf2e.conditionitems.9PR9y0bi4JPKnHPR]{Deafened} until the end of its next turn."
                 }
             },
             "TwigjackSack": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {3}[splash,piercing]]]{3 piercing splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {8)}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {3}[splash,piercing]]]{3 piercing splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 4[persistent,bleed]]] and [[/r (3[splash])[piercing]]]{3 piercing splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*4)[persistent,bleed]]] and [[/r (3[splash])[piercing]]]{3 piercing splash damage}."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {1}[splash,piercing]]]{1 piercing splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {1}[splash,piercing]]]{1 piercing splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 1[persistent,bleed]]] and [[/r (1[splash])[piercing]]]{1 piercing splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*1)[persistent,bleed]]] and [[/r (1[splash])[piercing]]]{1 piercing splash damage}."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {5}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {4}[splash,piercing]]]{4 piercing splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {10)}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {4}[splash,piercing]]]{4 piercing splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 5[persistent,bleed]]] and [[/r (4[splash])[piercing]]]{4 piercing splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*5)[persistent,bleed]]] and [[/r (4[splash])[piercing]]]{4 piercing splash damage}."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {2}[splash,piercing]]]{2 piercing splash damage}",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {6)}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} and [[/r {2}[splash,piercing]]]{2 piercing splash damage}"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r 3[persistent,bleed]]] and [[/r (2[splash])[piercing]]]{2 piercing splash damage}.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2*3)[persistent,bleed]]] and [[/r (2[splash])[piercing]]]{2 piercing splash damage}."
                 }
             },
             "VexingVapor": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,mental]]]{3 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts until the end of its next turn",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,mental]]]{3 mental splash damage} and must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts for 1 minute"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[mental]]]{3 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts until the end of its next turn.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[mental]]]{3 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts for 1 minute."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,mental]]]{1 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts until the end of its next turn",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,mental]]]{1 mental splash damage} and must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts for 1 minute"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[mental]]]{1 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts until the end of its next turn.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[mental]]]{1 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts for 1 minute."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,mental]]]{4 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts until the end of its next turn",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,mental]]]{4 mental splash damage} and must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts for 1 minute"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[mental]]]{4 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts until the end of its next turn.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[mental]]]{4 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts for 1 minute."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,mental]]]{2 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts until the end of its next turn",
-                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,mental]]]{2 mental splash damage} and must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts for 1 minute"
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[mental]]]{2 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts until the end of its next turn.",
+                    "criticalSuccess": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[mental]]]{2 mental splash damage} and the target must succeed at a @Check[type:flat|dc:5] before taking actions with the concentrate trait, this lasts for 1 minute."
                 }
             },
             "WaterBomb": {
                 "Greater": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {3}[splash,bludgeoning]]]{3 nonlethal bludgeoning splash damage}. The bomb extinguishes non-magical fires within its splash area."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (3[splash])[bludgeoning]]]{3 nonlethal bludgeoning splash damage}. The bomb extinguishes non-magical fires within its splash area."
                 },
                 "Lesser": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {1}[splash,bludgeoning]]]{1 nonlethal bludgeoning splash damage}."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (1[splash])[bludgeoning]]]{1 nonlethal bludgeoning splash damage}."
                 },
                 "Major": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {4}[splash,bludgeoning]]]{4 nonlethal bludgeoning splash damage}. The bomb extinguishes non-magical fires within its splash area."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (4[splash])[bludgeoning]]]{4 nonlethal bludgeoning splash damage}. The bomb extinguishes non-magical fires within its splash area."
                 },
                 "Moderate": {
-                    "success": "<strong>Effect</strong> The bomb also deals [[/r {2}[splash,bludgeoning]]]{2 nonlethal bludgeoning splash damage}."
+                    "success": "<strong>Effect</strong> The bomb also deals [[/r (2[splash])[bludgeoning]]]{2 nonlethal bludgeoning splash damage}."
                 }
             }
         },
@@ -439,6 +449,9 @@
             }
         },
         "NPCAbility": {
+            "AncientWisp": {
+                "PinpointLight": "Pinpoint Light"
+            },
             "BarghestFeed": "How many times has the Barghest fed?",
             "Calikang": {
                 "SixfoldFlurry": "Strikes not taken?",
@@ -473,7 +486,10 @@
             },
             "GiantAnimatedStatueBrazier": "Brazier is alight",
             "HobgoblinFormationArea": "Formation vs. Area Effects",
-            "LegionArchonFlameOfJustice": "Flame of Justice - Critical Hit",
+            "KrampusPunishTheNaughty": "Krampus rolls checks against Naughty Target",
+            "LegionArchon": {
+                "FlameOfJustice": "Flame of Justice - Critical Hit"
+            },
             "LemureSubservience": {
                 "Defend": "Subservience - Defend",
                 "Fetch": "Subservience - Fetch",
@@ -492,7 +508,10 @@
                 "SingleAttackEffect": "The attack deals [[/r {1d12}]]{1d12 damage} on a failure."
             },
             "PunishingStrike": {
-                "Note": "The reckless attack makes the user @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of their next turn. If they hit, they can add @Compendium[pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl]{Push} to the strike"
+                "Note": "The reckless attack makes the user @UUID[Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of their next turn. If they hit, they can add @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl]{Push} to the strike"
+            },
+            "Seugathi": {
+                "MindfogSuppression": "Suppress Mindfog Aura"
             },
             "SkyDragon": {
                 "DivineLightningGood": "Divine Lightning - Good Damage",
@@ -516,10 +535,14 @@
                         },
                         "SunderedVeins": {
                             "Label": "Sundered Veins Stance",
-                            "Note": "The target becomes @Compendium[pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 1}"
+                            "Note": "The target becomes @UUID[Compendium.pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 1}"
                         }
                     }
                 }
+            },
+            "Zetogeki": {
+                "TiltScalesTilted": "Scales Tilted",
+                "TiltScalesChannelEnergy": "Kinetic Energy Channeled"
             }
         },
         "OracleCurses": {
@@ -556,244 +579,262 @@
                 "Major": "Major",
                 "Extreme": "Extreme"
             },
+            "Life": {
+                "ToggleLabel": "All targets of Heal are living creatures"
+            },
             "Time": {
                 "ACLabel": "Defending against reactions or free actions while moving"
             }
         },
         "PersistentDamage": {
             "Acid1d4": {
-                "success": "[[/r {1d4}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage}",
-                "criticalSuccess": "[[/r {2*1d4}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage}"
+                "success": "[[/r 1d4[persistent,acid]]]",
+                "criticalSuccess": "[[/r (2*1d4)[persistent,acid]]]"
             },
             "Acid1d6": {
-                "success": "[[/r {1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage}",
-                "criticalSuccess": "[[/r {2*1d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage}"
+                "success": "[[/r 1d6[persistent,acid]]]",
+                "criticalSuccess": "[[/r (2*1d6)[persistent,acid]]]"
             },
             "Acid2d6": {
-                "success": "[[/r {2d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage}",
-                "criticalSuccess": "[[/r {2*2d6}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage}"
+                "success": "[[/r 2d6[persistent,acid]]]",
+                "criticalSuccess": "[[/r (2*2d6)[persistent,acid]]]"
             },
             "Acid2d6+2": {
-                "success": "[[/r {2d6+2}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage}",
-                "criticalSuccess": "[[/r {2*2d6+4}[persistent,acid]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage}"
+                "success": "[[/r (2d6+2)[persistent,acid]]]",
+                "criticalSuccess": "[[/r (2*2d6+4)[persistent,acid]]]"
             },
             "Bleed1": {
-                "success": "[[/r {1}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 1[persistent,bleed]]]",
+                "criticalSuccess": "[[/r 2[persistent,bleed]]]"
+            },
+            "Bleed2": {
+                "success": "[[/r 2[persistent,bleed]]]",
+                "criticalSuccess": "[[/r 4[persistent,bleed]]]"
             },
             "Bleed1d4": {
-                "success": "[[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 1d4[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*1d4)[persistent,bleed]]]"
             },
             "Bleed2d4": {
-                "success": "[[/r {2d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*2d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 2d4[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*2d4)[persistent,bleed]]]"
             },
             "Bleed8d4": {
-                "success": "[[/r {8d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*8d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 8d4[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*8d4)[persistent,bleed]]]"
             },
             "Bleed1d6": {
-                "success": "[[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 1d6[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*1d6)[persistent,bleed]]]"
             },
             "Bleed2d6": {
-                "success": "[[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 2d6[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*2d6)[persistent,bleed]]]"
             },
             "Bleed3d6": {
-                "success": "[[/r {3d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*3d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 3d6[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*3d6)[persistent,bleed]]]"
             },
             "Bleed4d6": {
-                "success": "[[/r {4d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*4d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 4d6[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*4d6)[persistent,bleed]]]"
             },
             "Bleed6d6": {
-                "success": "[[/r {6d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*6d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 6d6[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*6d6)[persistent,bleed]]]"
             },
             "Bleed1d8": {
-                "success": "[[/r {1d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*1d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 1d8[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*1d8)[persistent,bleed]]]"
             },
             "Bleed2d8": {
-                "success": "[[/r {2d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*2d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 2d8[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*2d8)[persistent,bleed]]]"
             },
             "Bleed3d8": {
-                "success": "[[/r {3d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*3d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 3d8[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*3d8)[persistent,bleed]]]"
             },
             "Bleed4d8": {
-                "success": "[[/r {4d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*4d8}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 4d8[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*4d8)[persistent,bleed]]]"
             },
             "Bleed1d10": {
-                "success": "[[/r {1d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*1d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 1d10[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*1d10)[persistent,bleed]]]"
             },
             "Bleed2d10": {
-                "success": "[[/r {2d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*2d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 2d10[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*2d10)[persistent,bleed]]]"
             },
             "Bleed3d10": {
-                "success": "[[/r {3d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*3d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 3d10[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*3d10)[persistent,bleed]]]"
             },
             "Bleed6d10": {
-                "success": "[[/r {6d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*6d10}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 6d10[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*6d10)[persistent,bleed]]]"
             },
             "Bleed1d12": {
-                "success": "[[/r {1d12}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*1d12}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 1d12[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*1d12)[persistent,bleed]]]"
             },
             "Bleed2d12": {
-                "success": "[[/r {2d12}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}",
-                "criticalSuccess": "[[/r {2*2d12}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}"
+                "success": "[[/r 2d12[persistent,bleed]]]",
+                "criticalSuccess": "[[/r (2*2d12)[persistent,bleed]]]"
             },
             "Cold1d6": {
-                "success": "[[/r {1d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Cold Damage}",
-                "criticalSuccess": "[[/r {2*1d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Cold Damage}"
+                "success": "[[/r 1d6[persistent,cold]]]",
+                "criticalSuccess": "[[/r (2*1d6)[persistent,cold]]]"
             },
             "Cold2d6": {
-                "success": "[[/r {2d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Cold Damage}",
-                "criticalSuccess": "[[/r {2*2d6}[persistent,cold]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Cold Damage}"
+                "success": "[[/r 2d6[persistent,cold]]]",
+                "criticalSuccess": "[[/r (2*2d6)[persistent,cold]]]"
             },
             "Cold1d8": {
-                "success": "[[/r {1d8}[persistent,cold]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Cold Damage}",
-                "criticalSuccess": "[[/r {2*1d8}[persistent,cold]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Cold Damage}"
+                "success": "[[/r 1d8[persistent,cold]]]",
+                "criticalSuccess": "[[/r (2*1d8)[persistent,cold]]]"
             },
             "Cold2d8": {
-                "success": "[[/r {2d8}[persistent,cold]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Cold Damage}",
-                "criticalSuccess": "[[/r {2*2d8}[persistent,cold]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Cold Damage}"
+                "success": "[[/r 2d8[persistent,cold]]]",
+                "criticalSuccess": "[[/r (2*2d8)[persistent,cold]]]"
             },
             "Fire1": {
-                "success": "[[/r {1}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {2*1}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 1[persistent,fire]]]",
+                "criticalSuccess": "[[/r 2[persistent,fire]]]"
             },
             "Fire1d4": {
-                "success": "[[/r {1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {2*1d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 1d4[persistent,fire]]]",
+                "criticalSuccess": "[[/r (2*1d4)[persistent,fire]]]"
             },
             "Fire1d6": {
-                "success": "[[/r {1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {2*1d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 1d6[persistent,fire]]]",
+                "criticalSuccess": "[[/r (2*1d6)[persistent,fire]]]"
             },
             "Fire2d4": {
-                "success": "[[/r {2d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {2*2d4}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 2d4[persistent,fire]]]",
+                "criticalSuccess": "[[/r (2*2d4)[persistent,fire]]]"
             },
             "Fire2d6": {
-                "success": "[[/r {2d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {2*2d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 2d6[persistent,fire]]]",
+                "criticalSuccess": "[[/r (2*2d6)[persistent,fire]]]"
             },
             "Fire3d6": {
-                "success": "[[/r {3d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {2*3d6}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 3d6[persistent,fire]]]",
+                "criticalSuccess": "[[/r (2*3d6)[persistent,fire]]]"
             },
             "Fire2d8": {
-                "success": "[[/r {2d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {2*2d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 2d8[persistent,fire]]]",
+                "criticalSuccess": "[[/r (2*2d8)[persistent,fire]]]"
             },
             "Fire3d8": {
-                "success": "[[/r {3d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {2*3d8}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 3d8[persistent,fire]]]",
+                "criticalSuccess": "[[/r (2*3d8)[persistent,fire]]]"
             },
             "Fire1d10": {
-                "success": "[[/r {1d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {2*1d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 1d10[persistent,fire]]]",
+                "criticalSuccess": "[[/r (2*1d10)[persistent,fire]]]"
             },
             "Fire2d10": {
-                "success": "[[/r {2d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {2*2d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 2d10[persistent,fire]]]",
+                "criticalSuccess": "[[/r (2*2d10)[persistent,fire]]]"
             },
             "Fire3d10": {
-                "success": "[[/r {3d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {3*2d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 3d10[persistent,fire]]]",
+                "criticalSuccess": "[[/r (2*3d10)[persistent,fire]]]"
             },
             "Fire4d10": {
-                "success": "[[/r {4d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}",
-                "criticalSuccess": "[[/r {2*4d10}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}"
+                "success": "[[/r 4d10[persistent,fire]]]",
+                "criticalSuccess": "[[/r (2*4d10)[persistent,fire]]]"
             },
             "Force1d12": {
-                "success": "[[/r {1d12}[persistent,force]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Force Damage}",
-                "criticalSuccess": "[[/r {2*1d12}[persistent,force]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Force Damage}"
+                "success": "[[/r 1d12[persistent,force]]]",
+                "criticalSuccess": "[[/r (2*1d12)[persistent,force]]]"
             },
             "Force2d12": {
-                "success": "[[/r {2d12}[persistent,force]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Force Damage}",
-                "criticalSuccess": "[[/r {2*2d12}[persistent,force]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Force Damage}"
+                "success": "[[/r 2d12[persistent,force]]]",
+                "criticalSuccess": "[[/r (2*2d12)[persistent,force]]]"
             },
             "Mental1d4": {
-                "success": "[[/r {1d4}[persistent,mental]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Mental Damage}",
-                "criticalSuccess": "[[/r {2*1d4}[persistent,mental]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Mental Damage}"
+                "success": "[[/r 1d4[persistent,mental]]]",
+                "criticalSuccess": "[[/r (2*1d4)[persistent,mental]]]"
             },
             "Mental1d6": {
-                "success": "[[/r {1d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Mental Damage}",
-                "criticalSuccess": "[[/r {2*1d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Mental Damage}"
+                "success": "[[/r 1d6[persistent,mental]]]",
+                "criticalSuccess": "[[/r (2*1d6)[persistent,mental]]]"
             },
             "Mental2d6": {
-                "success": "[[/r {2d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Mental Damage}",
-                "criticalSuccess": "[[/r {2*2d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Mental Damage}"
+                "success": "[[/r 2d6[persistent,mental]]]",
+                "criticalSuccess": "[[/r (2*2d6)[persistent,mental]]]"
             },
             "Mental3d6": {
-                "success": "[[/r {3d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Mental Damage}",
-                "criticalSuccess": "[[/r {2*3d6}[persistent,mental]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Mental Damage}"
+                "success": "[[/r 3d6[persistent,mental]]]",
+                "criticalSuccess": "[[/r (2*3d6)[persistent,mental]]]"
             },
             "Mental1d8": {
-                "success": "[[/r {1d8}[persistent,mental]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Mental Damage}",
-                "criticalSuccess": "[[/r {2*1d8}[persistent,mental]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Mental Damage}"
+                "success": "[[/r 1d8[persistent,mental]]]",
+                "criticalSuccess": "[[/r (2*1d8)[persistent,mental]]]"
+            },
+            "Negative1d6": {
+                "success": "[[/r 1d6[persistent,negative]]]",
+                "criticalSuccess": "[[/r (2*1d6)[persistent,negative]]]"
+            },
+            "Negative1d8": {
+                "success": "[[/r 1d8[persistent,negative]]]",
+                "criticalSuccess": "[[/r (2*1d8)[persistent,negative]]]"
+            },
+            "Negative1d10": {
+                "success": "[[/r 1d10[persistent,negative]]]",
+                "criticalSuccess": "[[/r (2*1d10)[persistent,negative]]]"
+            },
+            "Negative2d10": {
+                "success": "[[/r 2d10[persistent,negative]]]",
+                "criticalSuccess": "[[/r (2*2d10)[persistent,negative]]]"
             },
             "Piercing2d8+8": {
-                "success": "[[/r {2d8+8}[persistent,piercing]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Piercing Damage}",
-                "criticalSuccess": "[[/r {2*2d8+16}[persistent,piercing]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Piercing Damage}"
+                "success": "[[/r (2d8+8)[persistent,piercing]]]",
+                "criticalSuccess": "[[/r (2*2d8+16)[persistent,piercing]]]"
             },
             "Poison1d4": {
-                "success": "[[/r {1d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}",
-                "criticalSuccess": "[[/r {2*1d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}"
+                "success": "[[/r 1d4[persistent,poison]]]",
+                "criticalSuccess": "[[/r (2*1d4)[persistent,poison]]]"
             },
             "Poison2d4": {
-                "success": "[[/r {2d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}",
-                "criticalSuccess": "[[/r {2*2d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}"
+                "success": "[[/r 2d4[persistent,poison]]]",
+                "criticalSuccess": "[[/r (2*2d4)[persistent,poison]]]"
             },
             "Poison3d4": {
-                "success": "[[/r {3d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}",
-                "criticalSuccess": "[[/r {2*3d4}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}"
+                "success": "[[/r 3d4[persistent,poison]]]",
+                "criticalSuccess": "[[/r (2*3d4)[persistent,poison]]]"
             },
             "Poison1d6": {
-                "success": "[[/r {1d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}",
-                "criticalSuccess": "[[/r {2*1d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}"
+                "success": "[[/r 1d6[persistent,poison]]]",
+                "criticalSuccess": "[[/r (2*1d6)[persistent,poison]]]"
             },
             "Poison2d6": {
-                "success": "[[/r {2d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}",
-                "criticalSuccess": "[[/r {2*2d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}"
+                "success": "[[/r 2d6[persistent,poison]]]",
+                "criticalSuccess": "[[/r (2*2d6)[persistent,poison]]]"
             },
             "Poison3d6": {
-                "success": "[[/r {3d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}",
-                "criticalSuccess": "[[/r {2*3d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}"
+                "success": "[[/r 3d6[persistent,poison]]]",
+                "criticalSuccess": "[[/r (2*3d6)[persistent,poison]]]"
             },
             "Poison4d6": {
-                "success": "[[/r {4d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}",
-                "criticalSuccess": "[[/r {2*4d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}"
+                "success": "[[/r 4d6[persistent,poison]]]",
+                "criticalSuccess": "[[/r (2*4d6)[persistent,poison]]]"
             },
             "Poison1d8": {
-                "success": "[[/r {1d8}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}",
-                "criticalSuccess": "[[/r {2*1d8}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}"
+                "success": "[[/r 1d8[persistent,poison]]]",
+                "criticalSuccess": "[[/r (2*1d8)[persistent,poison]]]"
             },
             "Poison2d8": {
-                "success": "[[/r {2d8}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}",
-                "criticalSuccess": "[[/r {2*2d8}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}"
+                "success": "[[/r 2d8[persistent,poison]]]",
+                "criticalSuccess": "[[/r (2*2d8)[persistent,poison]]]"
             },
             "Poison1d12": {
-                "success": "[[/r {1d12}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}",
-                "criticalSuccess": "[[/r {2*1d12}[persistent,poison]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Poison Damage}"
+                "success": "[[/r 1d12[persistent,poison]]]",
+                "criticalSuccess": "[[/r (2*1d12)[persistent,poison]]]"
             }
-        },
-        "ResistanceException": {
-            "Bludgeoning": "except bludgeoning",
-            "ForceGhostTouchDoubleNonMagical": "except force, or ghost touch; double resistance vs. non-magical",
-            "ForceGhostTouchNegativeDoubleNonMagical": "except force, ghost touch, or negative; double resistance vs. non-magical"
         },
         "RuleElement": {
             "ActiveEffectLike": "ActiveEffect-Like",
@@ -817,6 +858,7 @@
             "GrantItem": "Grant Item",
             "Immunity": "Immunity",
             "LoseHitPoints": "Lose Hit Points",
+            "MarkToken": "Mark Token",
             "MartialProficiency": "Martial Proficiency",
             "MultipleAttackPenalty": "Multiple Attack Penalty",
             "Note": "Note",
@@ -838,6 +880,9 @@
             "Unrecognized": "Unrecognized Rule Element"
         },
         "RuleEditor": {
+            "FastHealing": {
+                "DeactivatedBy": "Deactivated By"
+            },
             "FlatModifier": {
                 "HideIfDisabled": "Hide (If Disabled)"
             },
@@ -870,21 +915,30 @@
         },
         "SkillVariant": {
             "AboutCaves": "About Caves",
+            "AcidicEnvironment": "In Acidic Surroundings",
             "Aid": "To Aid",
             "AttemptToFascinateOutdoorsInBrightSun": "Using Fascinating Performance Outdoors in Bright Sun",
             "Blacksmithing": "For Blacksmithing",
+            "BloodOrWater": "In Blood of Water",
+            "BoundHome": "Within Bound Home",
             "Buried": "Buried",
             "CanClearlyIdentifyTheStars": "Can Clearly Identify the Stars",
             "Climb": "To Climb",
             "ClimbOrSwim": "To Climb or Swim",
             "CommandAnAnimal": "To Command a Animal",
+            "CommandReptile": "To Command an Animal that is a Reptile",
+            "CraftBone": "Using Bone",
             "CraftJewelry": "To Craft Jewelry",
             "CraftTrap": "To Craft Traps",
             "CraftTrapSnare": "To Craft Traps and Snares",
             "CreateForgery": "To Create Forgery",
+            "Dance": "To Dance",
             "Darkness": "In Darkness",
+            "DecayingPlantFungus": "Amid Decaying Plant Matter or Fungus",
             "Demoralize": "To Demoralize",
+            "DemoralizeThreateningLunge": "To Demoralize with Threatening Lunge",
             "Deserts": "In Deserts",
+            "DimLightOrDarkness": "In Dim Light or Darkness",
             "Disarm": "To Disarm",
             "DisarmGrapple": "To Disarm or Grapple",
             "DisarmGrappleAvoidDisarm": "To Disarm, Grapple, or avoid being Disarmed",
@@ -899,23 +953,33 @@
             "Grapple": "To Grapple",
             "GrappleShove": "To Grapple or Shove",
             "Hide": "To Hide",
+            "HideSneakInscriptions": "To Hide or Sneak Among Inscriptions",
+            "HideSneakTree": "To Hide or Sneak while in a Tree",
+            "HideInDimOrDark": "To Hide in Dim Light or Darkness",
             "HighJumpOrLongJump": "To High Jump or Long Jump",
             "IceAndSnow": "In Ice or Snow",
             "ImitateStone": "To Imitate Stone",
             "Impersonate": "To Impersonate",
             "ImpersonateCloakSheetRay": "To Impersonate a Cloak, Sheet, or Ray",
+            "ImpersonateHumanVersion": "To Impersonate a Human Version of Themselves",
             "Jungles": "In Jungles",
+            "JunglesOrFlowerFields": "In Jungles or Flower Fields",
             "JunkOrDebris": "In Junk or Debris",
+            "Lava": "In Lava",
             "Lair": "In Lair",
             "Lie": "To Lie",
+            "LongJump": "To Long Jump",
             "MakeAnImpression": "To Make an Impression",
             "ManeuverInFlight": "To Maneuver in Flight",
             "Mountains": "In Mountains",
             "Navigate": "To Navigate",
             "NearTheOcean": "Near The Ocean",
             "NighttimeWithMoonVisible": "Nighttime, with the Moon Visible",
+            "OceansForests": "In Oceans and Forests",
             "Orate": "To Orate",
             "Paint": "To Paint",
+            "Rocky": "In Rocky Terrain",
+            "RustyTerrain": "In Areas of Rusty Objects",
             "Sand": "In Sand",
             "SenseMotive": "to Sense Motive",
             "Sewers": "In Sewers",
@@ -924,6 +988,7 @@
             "Snow": "In Snow",
             "Steal": "To Steal",
             "StonyOrIcyAreas": "In Stony or Icy Areas",
+            "StringedInstruments": "For Stringed Instruments",
             "Squeeze": "To Squeeze",
             "Subsist": "To Subsist",
             "Swamps": "In Swamps",
@@ -939,12 +1004,15 @@
             "TripTangle": "To Trip and Tangle",
             "Underground": "Underground",
             "Undergrowth": "In Undergrowth",
+            "UnderwaterVegetation": "In Underwater Vegetation",
             "Vegetation": "In Vegetation",
             "VsArthropods": "vs. Arthropods",
             "VsControlled": "vs. Controlled effects",
             "VsDarknessLightShadow": "vs. Darkness, Light or Shadow effects",
             "VsDiseases": "vs. diseases",
             "VsEmotion": "vs. Emotion effects",
+            "VsMagic": "vs. Magical effects",
+            "VsMental": "vs. Mental effects",
             "VsPlants": "vs. Plants",
             "VsProne": "vs. Prone effects",
             "VsShoveOrTrip": "vs. Shove or Trip",
@@ -961,6 +1029,17 @@
             "AftermathFeats": {
                 "DormantEruptionToggle": "You've Used Thermal Eruption Today",
                 "StoneFistLabel": "Stone Fist"
+            },
+            "Aid": {
+                "Prompt": "Choose the bonus from Aid."
+            },
+            "Alchemist": {
+                "AlchemicalCrossbow": {
+                    "Prompt": "Choose a bomb to add to the crossbow."
+                },
+                "ResearchField": {
+                    "Prompt": "Select a research field."
+                }
             },
             "AllowedDrops": {
                 "DeityOrPantheon": "deity or pantheon"
@@ -979,7 +1058,7 @@
                 "MageArmor": "Animal Skin w/ Mage Armor"
             },
             "Automaton": {
-                "ArcaneLomotion": {
+                "ArcaneLocomotion": {
                     "Prompt": "Select a movement type."
                 },
                 "AutomatonArmament": {
@@ -987,18 +1066,74 @@
                 },
                 "CoreCannon": {
                     "AttackNote": "You need to manually apply your highest Potency rune to this attack roll.",
-                    "CriticalHit": "On a critical hit, the target takes [[/r {10}[persistent,fire]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}. Your core cannon does not add critical specialization effects.</p>"
+                    "CriticalHit": "On a critical hit, the target takes [[/r {10}[persistent,fire]]] @UUID[Compendium.pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Fire Damage}. Your core cannon does not add critical specialization effects.</p>"
+                },
+                "EnhanceableFeats": {
+                    "ArcaneCamouflage": "Arcane Camouflage",
+                    "ArcaneCommunication": "Arcane Communication",
+                    "ArcaneEye": "Arcane Eye",
+                    "ArcaneLocomotion": "Arcane Locomotion",
+                    "ArcanePropulsion": "Arcane Propulsion",
+                    "ArcaneSafeguards": "Arcane Safeguards",
+                    "ArcaneSlam": "Arcane Slam",
+                    "AstralBlink": "Astral Blink",
+                    "AutomatonArmament": "Automaton Armament",
+                    "AutomatonLore": "Automaton Lore",
+                    "CoreAttunement": "Core Attunement",
+                    "CoreRejuvenation": "Core Rejuvenation",
+                    "EnergyBeam": "Energy Beam",
+                    "EnlargedChassis": "Enlarged Chassis",
+                    "IntegratedArmament": "Integrated Armament",
+                    "LesserAugmentation": "Lesser Augmentation",
+                    "MagicalResistance": "Magical Resistance",
+                    "RainOfBolts": "Rain of Bolts",
+                    "ReinforcedChassis": "Reinforced Chassis"
+                },
+                "Enhancement": {
+                    "ArcaneLocomotionClimbSpeed": "Gain a climb speed",
+                    "ArcaneLocomotionIncreaseSpeed": "Increase speeds",
+                    "ArcaneLocomotionSwimSpeed": "Gain a swim speed",
+                    "AugmentationPrompt": "Select a feat to augment",
+                    "MagicalResistanceAll": "Gain additional Resistances",
+                    "MagicalResistanceIncrease": "Enhance existing resistance",
+                    "EnhancementPrompt": "Choose an enhancement"
                 },
                 "EnergyBeam": {
                     "CriticalHit": "On a critical hit, the target takes persistent fire damage equal to the number of weapon damage dice. Your eye beam does not add critical specialization effects."
+                },
+                "HunterAutomaton": {
+                    "ToggleLabel": "Running on all fours"
                 },
                 "MagicalResistance": {
                     "Prompt": "Select a type of energy damage."
                 }
             },
+            "Barbarian": {
+                "Animal": {
+                    "Prompt": "Select an animal."
+                },
+                "Dragon": {
+                    "Prompt": "Select a dragon."
+                },
+                "Giant": {
+                    "Prompt": "Select an energy type for Raging Resistance."
+                },
+                "Instinct": {
+                    "Prompt": "Select an instinct."
+                }
+            },
+            "Bard": {
+                "Muse": {
+                    "Prompt": "Select a muse.",
+                    "Enigma": "Enigma",
+                    "Maestro": "Maestro",
+                    "Polymath": "Polymath",
+                    "Warrior": "Warrior"
+                }
+            },
             "Beastkin": {
                 "AnimalSenses": {
-                    "Prompt": "Select a sense available to your inherant animal."
+                    "Prompt": "Select a sense available to your inherent animal."
                 },
                 "Senses": {
                     "EcholocationImprecise": "Echolocation (Imprecise) 30 feet",
@@ -1007,6 +1142,16 @@
                     "TremorsensePrecise": "Improve your tremorsense to precise",
                     "Scent": "Scent (Imprecise) 30 feet"
                 }
+            },
+            "BlessingOfDefiance": {
+                "Prompt": "Choose one saving throw."
+            },
+            "BonusLabel": {
+                "NegativeOne": "-1",
+                "PlusOne": "+1",
+                "PlusTwo": "+2",
+                "PlusThree": "+3",
+                "PlusFour": "+4"
             },
             "BountyHunterDedication": {
                 "GatherInfoHuntedPrey": "To Gather Information regarding hunted prey"
@@ -1023,10 +1168,30 @@
             "CelestialResistance": {
                 "Prompt": "Select a type of energy associated with your bloodline."
             },
+            "ChromaticArmor": {
+                "Prompt": "Select a color.",
+                "Acid": "Orange (Acid)",
+                "Electricity": "Yellow (Electricity)",
+                "Fire": "Red (Fire)",
+                "Force": "Violet (Force)",
+                "Mental": "Indigo (Mental)",
+                "Poison": "Green (Poison)",
+                "Sonic": "Blue (Sonic)"
+            },
+            "Chronoskimmer": {
+                "DestabilizeFailureLabel": "Destabilize timestream (Failure)",
+                "DestabilizeSuccessLabel": "Destabilize timestream (Success)",
+                "StabilizeLabel": "Stabilize timestream"
+            },
             "ClanWeapon": {
                 "Label": "Clan Weapon",
                 "Prompt": "Select a clan weapon.",
                 "ClanPistol": "Clan Pistol (Ancestry Feat)"
+            },
+            "Cleric": {
+                "Doctrine": {
+                    "Prompt": "Select a doctrine."
+                }
             },
             "Conrasu": {
                 "CeremonyEvenedHand": {
@@ -1040,7 +1205,13 @@
                 "Prompt": "Select a level of cover.",
                 "Lesser": "Lesser",
                 "Standard": "Standard",
-                "Greater": "Greater"
+                "Greater": "Greater",
+                "Prone": "Prone"
+            },
+            "CriticalDeck" : {
+                "Effect": {
+                 "Label": "Critical Effect"
+                }
             },
             "DancingShield": {
                 "Prompt": "Select the shield's AC bonus."
@@ -1052,6 +1223,9 @@
                 "Snarecrafter": "Snarecrafter",
                 "TalismanDabbler": "Talisman Dabbler"
             },
+            "Defending": {
+                "FireSpell": "Defending against a fire spell"
+            },
             "DeityAndCause": {
                 "AllowedDrops": "1st-level champion class feature",
                 "Prompt": "Select a champion's cause"
@@ -1061,7 +1235,7 @@
                     "SaveNote": "When you roll a success on a Will save against an emotion effect, you get a critical success instead."
                  },
                 "BloodlettingFangs": {
-                    "AttackNote": "Your fangs Strike deals an additional [[/r {1d4}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} on a critical hit."
+                    "AttackNote": "Your fangs Strike deals an additional [[/r 1d4[persistent,bleed]]] on a critical hit."
                 }
             },
             "DragonDisciple": {
@@ -1094,6 +1268,11 @@
                 },
                 "Prompt": "Select a Dragon"
             },
+            "Druid": {
+                "DruidicOrder": {
+                    "Prompt": "Select a druidic order."
+                }
+            },
             "Dwarf": {
                 "DeathWardenDwarf": {
                     "Note": "When you roll a success against a necromancy effect, you get a critical success instead."
@@ -1102,7 +1281,7 @@
                     "Prompt": "Pick the type of your Elemental Heart"
                 },
                 "ForgeBlessedShot": {
-                    "Note": "Ignore your target's @Compendium[pf2e.conditionitems.DmAIPqOBomZ7H95W]{Concealed} condition, as well as your target's lesser, standard, and greater cover."
+                    "Note": "Ignore your target's @UUID[Compendium.pf2e.conditionitems.DmAIPqOBomZ7H95W]{Concealed} condition, as well as your target's lesser, standard, and greater cover."
                 },
                 "KneelForNoGod": {
                     "Note": "When you roll a success against a divine effect, you get a critical success instead."
@@ -1114,7 +1293,7 @@
                     "Note": "Each time you succeed on a fist Strike, you take [[/r (1+@weapon.data.data.runes.striking)[fire]]]{fire damage}."
                 },
                 "TombWatchersGlare": {
-                    "Note": "When you critically hit an undead creature, they are @Compendium[pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 1} for 1 round"
+                    "Note": "When you critically hit an undead creature, they are @UUID[Compendium.pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 1} for 1 round"
                 },
                 "VengefulHatred": {
                     "Prompt": "Choose an ancestral foe."
@@ -1157,14 +1336,24 @@
                     "Lesser": {
                         "SecretLabel": "Lesser Eagle Eye Elixir (To Find Secret Doors or Traps)"
                     },
+                    "Major": {
+                        "SecretLabel": "Major Eagle Eye Elixir (To Find Secret Doors or Traps)"
+                    },
                     "Moderate": {
                         "SecretLabel": "Moderate Eagle Eye Elixir (To Find Secret Doors or Traps)"
                     }
+                },
+                "NosoiCharm": {
+                    "RequestLabel": "Nosoi Charm (Request)",
+                    "PerformanceLabel": "Nosoi Charm (Play an instrument, orate or sing)"
+                },
+                "PhantomShroud": {
+                    "StrikeLabel": "Ghostly Hand"
                 }
             },
             "Fetchling": {
                 "DeepFetchling": {
-                    "Prompt": "Select a type of energy to resist"
+                    "Prompt": "Select a type of energy to resist."
                 }
             },
             "FighterWeaponMasteryLegend": {
@@ -1207,7 +1396,7 @@
             },
             "Fleshwarp": {
                 "CoatingOfSlime": {
-                    "CriticalHit": "On a critical hit, the target takes [[/r {1d4}[persistent,acid]]]  @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Acid Damage}."
+                    "CriticalHit": "On a critical hit, the target takes [[/r 1d4[persistent,acid]]]."
                 },
                 "LivingWeapon": {
                     "Prompt": "Select a part of your form to use as a weapon."
@@ -1220,7 +1409,7 @@
                 }
             },
             "FollowTheExpert": {
-                "Prompt": "Select expert's proficiency in skill"
+                "Prompt": "Select expert's proficiency in skill."
             },
             "GameHunterDedication": {
                 "TargetHuntedPrey": "Target is your Hunted Prey (Animal, Beast, or Dragon Only)"
@@ -1238,13 +1427,13 @@
                 "FullySatiated": "Fully Satiated",
                 "Satiated": "Satiated",
                 "SickeningBite": {
-                    "criticalSuccess": "When you critically hit a creature with your jaws, the creature is @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}. This is a disease effect.",
-                    "success": "You can end your satiation to make the target @Compendium[pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}"
+                    "criticalSuccess": "When you critically hit a creature with your jaws, the creature is @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}. This is a disease effect.",
+                    "success": "You can end your satiation to make the target @UUID[Compendium.pf2e.conditionitems.fesd1n5eVhpCSS18]{Sickened 1}"
                 }
             },
             "Gnome": {
                 "GrimInsight": {
-                    "SaveNote": "When you roll a success on a saving throw against a fear effect, you get a critical success instead, and the source of the fear effect is @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} to you until the end of your next turn."
+                    "SaveNote": "When you roll a success on a saving throw against a fear effect, you get a critical success instead, and the source of the fear effect is @UUID[Compendium.pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} to you until the end of your next turn."
                 }
             },
             "Goblin": {
@@ -1256,6 +1445,11 @@
                 },
                 "TorchGoblin": {
                     "Note": "As long as you are suffering persistent fire damage, all your melee attacks against adjacent creatures deal an additional [[/r {1}[fire]]]{1 Fire Damage} per weapon damage die."
+                }
+            },
+            "Gunslinger": {
+                "Way": {
+                    "Prompt": "Select a way."
                 }
             },
             "HalfElf": {
@@ -1297,6 +1491,14 @@
                     "Prompt": "Select a movement type."
                 }
             },
+            "HouseOfPerfection": {
+                "Label": "House of Perfection",
+                "Prompt": "Select a House of Perfection.",
+                "UnblinkingFlame": "Unblinking Flame",
+                "UnbreakingWaves": "Unbreaking Waves",
+                "UnfoldingWind": "Unfolding Wind",
+                "UntwistingIron": "Untwisting Iron"
+            },
             "Human": {
                 "SaocAstrology": {
                     "Prompt": "Select the circumstance penalty or bonus you obtained when using the Saoc Astrology action."
@@ -1315,6 +1517,33 @@
                 "FirstHitDamage": "First Hit on Hunted Prey",
                 "FirstHitSwitch": "Hitting Hunted Prey for the First Time This Round"
             },
+            "Inventor": {
+                "Innovation": {
+                    "Prompt": "Select an innovation.",
+                    "Armor": {
+                        "AllowedDrops": "level-zero unique armor",
+                        "Prompt": "Select an armor innovation."
+                    },
+                    "Construct": {
+                        "Prompt": "Select a construct innovation."
+                    },
+                    "Weapon": {
+                        "AllowedDrops": "level 0 or 1 simple or martial weapon",
+                        "Prompt": "Select a weapon innovation."
+                    }
+                },
+                "Modification": {
+                    "Initial": {
+                        "AllowedDrops": "1st-level inventor class feature",
+                        "Prompt": "Select an initial modification."
+                    }
+                }
+            },
+            "Investigator": {
+                "Methodology": {
+                    "Prompt": "Select a methodology."
+                }
+            },
             "Kobold": {
                 "DragonsPresence": {
                     "Note": "When you roll a success on a saving throw against a fear effect, you get a critical success instead. When you roll a failure against a fear effect, you get a critical failure instead."
@@ -1331,24 +1560,38 @@
                     "Note": "On a critical hit, a seedpod bursts, issuing forth a tangle of vegetation that imposes a -10-foot circumstance penalty on the target's Speed for 1 round."
                 },
                 "ThornedSeedpod": {
-                    "Note": "When you critically succeed at a seedpod Strike, vines twist and stab your foe, dealing [[/r {1d4}[persistent,piercing]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Piercing Damage}"
+                    "Note": "When you critically succeed at a seedpod Strike, vines twist and stab your foe, dealing [[/r 1d4[persistent,piercing]]]"
                 }
             },
             "Lich": {
                 "HandOfTheLich": {
-                    "Note": "The creature is @Compendium[pf2e.conditionitems.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:resolve(@actor.attributes.spellDC.value)] save against your spell DC."
+                    "Note": "The creature is @UUID[Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:resolve(@actor.attributes.spellDC.value)] save against your spell DC."
                 }
             },
             "LitTorch": "Torch is lit",
             "Lizardfolk": {
                 "ParthenogenicHatchling": {
                     "Note": "Each of your successful saving throws against a disease reduces its stage by 2, or by 1 for a virulent disease. Each critical success against an ongoing disease reduces its stage by 3, or by 2 for a virulent disease."
+                },
+                "GuidedByTheStars": {
+                    "Prompt": "Select saving throw or skill."
                 }
             },
             "MagicalExperiment": {
                 "EnhancedSenses": "Enhanced Senses",
                 "ResistantSkin": "Resistant Skin",
                 "TouchTelepathy": "Touch Telepathy"
+            },
+            "Magus": {
+                "ArcaneCascade": {
+                    "WeaponDamage": "Weapon Damage"
+                },
+                "HybridStudy": {
+                    "Prompt": "Select a hybrid study."
+                },
+                "SparklingTarge": {
+                    "DefendingLabel": "Defending against magic"
+                }
             },
             "MarkForDeath": {
                 "TargetMark": "Target is Marked for Death",
@@ -1363,6 +1606,7 @@
                 "AdvancedElfWeapons": "Advanced Elven Weapons",
                 "AdvancedFirearmsCrossbows": "Advanced Firearms & Crossbows",
                 "AdvancedGeniekinWeapons": "Advanced Geniekin Weapons",
+                "AdvancedGhoranWeapons": "Advanced Ghoran Weapons",
                 "AdvancedGnollWeapons": "Advanced Gnoll Weapons",
                 "AdvancedGnomeWeapons": "Advanced Gnome Weapons",
                 "AdvancedGoblinWeapons": "Advanced Goblin Weapons",
@@ -1390,6 +1634,8 @@
                 "AdvancedKoboldWeapons": "Advanced Kobold Weapons",
                 "AdvancedOrcWeapons": "Advanced Orc Weapons",
                 "AdvancedTenguWeapons": "Advanced Tengu Weapons",
+                "AdvancedVanaraWeapons": "Advanced Vanara Weapons",
+                "AdvancedVishkanyaWeapons": "Advanced Vishkanya Weapons",
                 "MartialAzarketiWeapons": "Martial Azarketi Weapons",
                 "MartialBombsFirearms": "Martial Bombs & Firearms",
                 "MartialCatfolkWeapons": "Martial Catfolk Weapons",
@@ -1398,6 +1644,7 @@
                 "MartialElfWeapons": "Martial Elven Weapons",
                 "MartialFirearmsCrossbows": "Martial Firearms & Crossbows",
                 "MartialGeniekinWeapons": "Martial Geniekin Weapons",
+                "MartialGhoranWeapons": "Martial Ghoran Weapons",
                 "MartialGnollWeapons": "Martial Gnoll Weapons",
                 "MartialGnomeWeapons": "Martial Gnome Weapons",
                 "MartialGoblinWeapons": "Martial Goblin Weapons",
@@ -1425,11 +1672,18 @@
                 "MartialKoboldWeapons": "Martial Kobold Weapons",
                 "MartialOrcWeapons": "Martial Orc Weapons",
                 "MartialTenguWeapons": "Martial Tengu Weapons",
+                "MartialVanaraWeapons": "Martial Vanara Weapons",
+                "MartialVishkanyaWeapons": "Martial Vishkanya Weapons",
                 "MonasticArchery": "Monastic Archery",
                 "SimpleBombsFirearms": "Simple Bombs & Firearms",
                 "SimpleFirearmsCrossbows": "Simple Firearms & Crossbows",
                 "SimpleMartialTwoHandedMeleeWeapons": "Simple & Martial Two-Handed Melee Weapons",
                 "SimpleMartialBows": "Simple & Martial Bows"
+            },
+            "Monk": {
+                "SacredKi": {
+                    "Prompt": "Choose your aligned damage."
+                }
             },
             "MountainStance": {
                 "BracersOfArmor": "Mountain Stance w/ Bracers of Armor",
@@ -1453,9 +1707,9 @@
             "Mummy": {
                 "AccursedTouch": {
                     "Note": {
-                        "Base": "The creature takes [[/r {2d6}[persistent,negative]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent negative Damage}. While the creature has this persistent damage, it's also @Compendium[pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
-                        "FourteenthLevel": "The creature takes [[/r {3d6}[persistent,negative]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent negative Damage}. While the creature has this persistent damage, it's also @Compendium[pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
-                        "TwentiethLevel": "The creature takes [[/r {4d6}[persistent,negative]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent negative Damage}. While the creature has this persistent damage, it's also @Compendium[pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 1}."
+                        "Base": "The creature takes [[/r 2d6[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent negative Damage}. While the creature has this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
+                        "FourteenthLevel": "The creature takes [[/r 3d6[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent negative Damage}. While the creature has this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 1}.",
+                        "TwentiethLevel": "The creature takes [[/r 4d6[persistent,negative]]] @UUID[Compendium.pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent negative Damage}. While the creature has this persistent damage, it's also @UUID[Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 1}."
                     }
                 },
                 "Terrain": {
@@ -1466,6 +1720,18 @@
                     "Swamp": "Swamp"
                 }
             },
+            "Nagaji": {
+                "VenomSpit": {
+                    "CriticalNote": "The target takes [[/r (1+@weapon.system.runes.striking)[persistent,poison]]]{persistent poison damage} equal to the number of weapon damage dice",
+                    "HoodedNote": "The target is also @UUID[Compendium.pf2e.conditionitems.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn.",
+                    "StrikeLabel": "Venomous Spit"
+                }
+            },
+            "Oracle": {
+                "Mystery": {
+                    "Prompt": "Select a mystery."
+                }
+            },
             "PackAttack": {
                 "Label": "Target is Within Range of At Least Two Allies"
             },
@@ -1473,11 +1739,19 @@
                 "Finisher": "Finisher"
             },
             "Prompt": {
+                "AdvancedMulticlassFeat": "Select a class feat up to half your character level.",
+                "CantripOrNonCantrip": "Select cantrip or non-cantrip spell.",
+                "ClassDCAbilityScore": "Select the class DC's ability score.",
                 "ConsciousMind": "Select a Conscious Mind.",
                 "CreatureSize": "Select a creature size.",
+                "DamageType": "Select a damage type.",
                 "Deity": "Select a deity.",
                 "DeitysDomain": "Select a deity's domain.",
+                "DragonBreathWeapon": "Select a dragon's Breath Weapon.",
+                "Element": "Select an element.",
+                "EnergyType": "Select an energy type.",
                 "EvolutionFeat": "Select your first Evolution Feat.",
+                "Feat": "Select a feat.",
                 "FirstImplement": "Select your first Implement.",
                 "Lesson": "Select a lesson.",
                 "LevelOneClassFeat": "Select a 1st-level class feat.",
@@ -1486,13 +1760,13 @@
                 "SecondImplement": "Select your second Implement.",
                 "Shillelagh": "Select a club or staff.",
                 "Skill": "Select a skill.",
-                "SkillFeat": "Select a skill feat",
+                "SkillFeat": "Select a skill feat.",
                 "SubconsciousMind": "Select a Subconscious Mind.",
                 "ThirdImplement": "Select your third Implement.",
+                "UnarmedAttack": "Select an unarmed attack.",
                 "Weapon": "Select a weapon.",
                 "WeaponGroup": "Select a weapon group.",
-                "WildShape": "Select a form effect.",
-                "UnarmedAttack": "Select an unarmed attack."
+                "WildShape": "Select a form effect."
             },
             "Orc": {
                 "HoldMark": {
@@ -1501,6 +1775,9 @@
                     "Torch": "Torch (Bomb or Knife).",
                     "Prompt": "Choose the shape of your hold mark."
                 }
+            },
+            "OverwhelmingBlow": {
+                "CriticalHit": "Critically hit with Overwhelming Blow"
             },
             "Poppet": {
                 "WashOut": {
@@ -1512,12 +1789,32 @@
                     "DamageLabel": "Casting a spell from Psychic Spellcasting"
                 }
             },
+            "Ranger": {
+                "HamstringingStrike": {
+                    "Note": "If you hit your prey, the creature takes a -5-foot status penalty to Speed. If you critically hit your prey, the creature takes a -10-foot status penalty to Speed.\n@UUID[Compendium.pf2e.feat-effects.ESnzqtwSgahLcxg2]{Effect: Hamstringing Strike}",
+                    "Prompt": "Select a hit result."
+                },
+                "HuntersEdge": {
+                    "Prompt": "Select a hunter's edge."
+                }
+            },
             "Ratfolk": {
                 "LabRat": {
                     "Note": "If you roll a success on your saving throw against an elixir or poison, you get a critical success instead."
                 },
                 "WarrenNavigator": {
                     "Note": "When you Sense Direction, you get a result one degree of success better than you rolled."
+                }
+            },
+            "Rogue": {
+                "EldritchTrickster": {
+                    "Prompt": "Select a spellcasting multiclass archetype."
+                },
+                "Racket": {
+                    "Prompt": "Select a racket."
+                },
+                "TrainSkill": {
+                    "Prompt": "Select a skill to become trained in."
                 }
             },
             "Shisk": {
@@ -1545,6 +1842,11 @@
             "SnipingDuoDedication": {
                 "Label": "Sniping Duo partner hit target with a strike this round"
             },
+            "Sorcerer": {
+                "Bloodline": {
+                    "Prompt": "Select a bloodline."
+                }
+            },
             "SpecialtyCrafting": {
                 "Alchemy": "Alchemy",
                 "Artistry": "Artistry",
@@ -1559,6 +1861,9 @@
                 "Tailoring": "Tailoring",
                 "Weaving": "Weaving",
                 "Woodworking": "Woodworking"
+            },
+            "SpellEffectProtection": {
+                "Prompt": "Choose which alignment trait you are protecting against."
             },
             "SpellmastersResilience": {
                 "Prompt": "Select a magical tradition to gain resistence in."
@@ -1588,6 +1893,11 @@
                 "ManualPercussive": "Manual Percussive Striker Dynamo",
                 "ManualPower": "Manual Power Driver Dynamo"
             },
+            "Swashbuckler": {
+                "Style": {
+                    "Prompt": "Select a style."
+                }
+            },
             "SoulWarden": {
                 "SafeguardSoul": {
                     "Label": "Defending against manipulation of your soul"
@@ -1610,6 +1920,12 @@
                     "Prompt": "Select an element."
                 }
             },
+            "Target": {
+                "Necromancer": "Target is a necromancer"
+            },
+            "TerrainExpertise": {
+                "Prompt": "Select a terrain to gain expertise"
+            },
             "Thaumaturge": {
                 "Implement": {
                     "Amulet": "Amulet",
@@ -1629,6 +1945,13 @@
                 "GourdHead": "Gourd Head: Increase perception DC",
                 "TagTeam": "Flanking with another member of the Secret Society"
             },
+            "TOTMToggle": {
+                "FirstRangeIncrement": "Enable abilities that require a target within the first range increment.",
+                "FlatFooted": "Enable abilities that require a flat-footed target",
+                "Vampire": "Enable abilities that require a vampire target",
+                "Undead": "Enable abilities that require an undead target"
+            },
+            "TrinityGeodeLabel": "Trinity Geode",
             "TwoHanded": {
                 "BastardSword": "Use Bastard Sword Two-Handed",
                 "BattleLute": "Use Battle Lute Two-Handed",
@@ -1642,20 +1965,39 @@
             },
             "UndeadSlayer": {
                 "SlayersBlessing": {
-                    "Note": "The target is @Compendium[pf2e.conditionitems.sDPxOjQ9kx2RZE8D]{Fleeing} for 1 round."
+                    "Note": "The target is @UUID[Compendium.pf2e.conditionitems.sDPxOjQ9kx2RZE8D]{Fleeing} for 1 round."
                 }
             },
             "Vampire": {
                 "ViciousFangs": {
                     "Note": {
-                        "Base": "Your fangs Strike deals an additional [[/r {1d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent bleed Damage}.",
-                        "FourteenthLevel": "Your fangs Strike deals an additional [[/r {2d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent bleed Damage}.",
-                        "TwentiethLevel": "Your fangs Strike deals an additional [[/r {3d6}[persistent,bleed]]] @Compendium[pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent bleed Damage}."
+                        "Base": "Your fangs Strike deals an additional [[/r 1d6[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent bleed Damage}.",
+                        "FourteenthLevel": "Your fangs Strike deals an additional [[/r 2d6[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent bleed Damage}.",
+                        "TwentiethLevel": "Your fangs Strike deals an additional [[/r 3d6[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent bleed Damage}."
                     }
                 }
             },
             "VirtuosicPerformer": {
                 "Prompt": "Select a Performance Type"
+            },
+            "Vishkanya": {
+                "VenomResistantVishkanya": {
+                    "PoisonSaveNote": "Each of your successful saving throws against a poison affliction reduces its stage by 2. Each critical success against an ongoing poison reduces its stage by 3.",
+                    "VirulentSaveNote": "Each of your successful saving throws against a virulent poison affliction reduces its stage by 1. Each critical success against an ongoing virulent poison reduces its stage by 2."
+                }
+            },
+            "VitalityManipulationStance": {
+                "StrikeLabel": "Vitality Blast",
+                "Note": "When you use Stunning Fist, instead of saving against being stunned, you can choose to have the target make a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)] save against your class DC with the following results. You must choose to do this before the target rolls its save.</p><hr><p><strong>Critical Success</strong> The target is unaffected.</p><p><strong>Success</strong> The target's muscles become temporarily weaker. For 1 round, the target is @UUID[Compendium.pf2e.conditionitems.MIRkyAjyBeXivMa7]{Enfeebled 2}, and any time it attempts to take an action with the manipulate trait, the action is disrupted unless it succeeds at a flat check with a DC equal to 5 + its enfeebled value.</p><p><strong>Failure</strong> As success, but the duration is 1 minute.</p><p><strong>Critical Failure</strong> As success, but the duration is 1 minute, the flat check is DC 11, and the target takes -10-foot status penalty to all Speeds for the duration.</p>"
+            },
+            "WardingRune": {
+                "Prompt": "Choose a school of magic other than divination"
+            },
+            "WellspringMage": {
+                "CriticalSuccess": "You temporarily recover an expended spell slot of any level of your choice. The temporary spell slot lasts for 1 minute, and if you don't use it by then, you experience an immediate @UUID[Compendium.pf2e.rollable-tables.N0pDFNCffTe2Du39]{Wellspring Surge}.",
+                "Failure": "You generate a @UUID[Compendium.pf2e.rollable-tables.N0pDFNCffTe2Du39]{Wellspring Surge}, with a spell level chosen randomly among your top three levels of spell slots (or all your levels if you have fewer than three)",
+                "Initiative": "When you roll initiative for a non-trivial combat encounter, as well as in other high-stress situations of the GM's choice, magic wells up within you. Attempt a @Check[type:flat|dc:6|traits:wellspring-magic] Check check.",
+                "Success": "You temporarily recover an expended spell slot of a spell level chosen randomly among your top three levels of spell slots (or all your levels if you have fewer than three). The temporary spell slot lasts for 1 minute, and if you don't use it by then, you experience an immediate @UUID[Compendium.pf2e.rollable-tables.N0pDFNCffTe2Du39]{Wellspring Surge}."
             },
             "WildMorph": {
                 "Prompt": "Select a morph.",
@@ -1665,9 +2007,36 @@
                 "ElementalMatter": "Elemental Matter",
                 "Wings": "Wings"
             },
+            "Witch": {
+                "Patron": {
+                    "Prompt": "Select a patron."
+                }
+            },
+            "Wizard": {
+                "ArcaneSchool": {
+                    "Prompt": "Select an arcane school."
+                },
+                "ArcaneThesis": {
+                    "Prompt": "Select an arcane thesis."
+                },
+                "Metamagic1": {
+                    "Prompt": "Select a 1st-level wizard metamagic feat."
+                }
+            },
             "Zombie": {
                 "Deteriorated": "Deteriorated"
             }
+        },
+        "Terrain": {
+            "Aquatic": "Aquatic",
+            "Arctic": "Arctic",
+            "Desert": "Desert",
+            "Forest": "Forest",
+            "Mountain": "Mountain",
+            "Plains": "Plains",
+            "Sky": "Sky",
+            "Swamp": "Swamp",
+            "Underground": "Underground"
         },
         "UI": {
             "RuleElements": {
@@ -1675,18 +2044,25 @@
                     "Decline": "Decline",
                     "DragHomebrewItem": "Drag a homebrew item here if using one instead of the above options",
                     "HomebrewItem": "Homebrew Item",
+                    "NoLabel": "No",
                     "Prompt": "Make a selection.",
-                    "SaveLabel": "Save"
+                    "SaveLabel": "Save",
+                    "SkillLabel": "Skill",
+                    "YesLabel": "Yes"
                 },
                 "EffectTarget": {
                     "Prompt": "Choose the target of this effect."
+                },
+                "MarkTarget": {
+                    "TargetToken": "Target a token by mouse-hovering one and pressing T. Press Escape to cancel.",
+                    "Timeout": "Effect creation cancelled due to lack of target."
                 },
                 "Prompt": {
                     "NoSelectionMade": "No selection was made: {item} is inactive.",
                     "NoValidOptions": "{actor} has no valid options for {item}."
                 },
                 "GrantItem": {
-                    "AlreadyHasItem": "{actor} already has {item} so it has not been added again."
+                    "AlreadyHasItem": "{actor} already has {item}, so it has not been added again."
                 }
             }
         }

@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -234,13 +228,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -348,11 +336,9 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
+                    "details": "varies",
+                    "type": "emanation",
                     "value": 30
-                },
-                "areasize": {
-                    "value": "varies"
                 },
                 "category": {
                     "value": "spell"
@@ -474,13 +460,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -695,7 +675,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A velstrac automatically knows whether a creature it sees has any of the @Compendium[pf2e.conditionitems.Doomed]{Doomed}, @Compendium[pf2e.conditionitems.Dying]{Dying}, and @Compendium[pf2e.conditionitems.Wounded]{Wounded} conditions, as well as the value of those conditions.</p>"
+                    "value": "<p>A velstrac automatically knows whether a creature it sees has any of the @UUID[Compendium.pf2e.conditionitems.Doomed]{Doomed}, @UUID[Compendium.pf2e.conditionitems.Dying]{Dying}, and @UUID[Compendium.pf2e.conditionitems.Wounded]{Wounded} conditions, as well as the value of those conditions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -730,7 +710,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration 2 (deactivated by good or silver)",
+            "name": "Regeneration 2 (Deactivated by Good or Silver)",
             "sort": 900000,
             "system": {
                 "actionCategory": {
@@ -783,7 +763,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet.</p>\n<p>When a creature ends its turn in the aura, it feels the sharp barbs of the augur's blades on its skin. The creature must succeed at a @Check[type:will|dc:17] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical failure).</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>When a creature ends its turn in the aura, it feels the sharp barbs of the augur's blades on its skin. The creature must succeed at a @Check[type:will|dc:17] save or become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1106,6 +1086,11 @@
                 "temp": 0,
                 "value": 14
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1120,7 +1105,17 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 5
+                },
+                {
+                    "type": "silver",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1161,26 +1156,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Good",
-                    "type": "good",
-                    "value": "5"
-                },
-                {
-                    "label": "Silver",
-                    "type": "silver",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

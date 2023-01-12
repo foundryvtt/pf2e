@@ -1,3 +1,4 @@
+import { SIZE_TO_REACH } from "@actor/creature/values";
 import { ItemPF2e } from "@item/base";
 import { ItemSummaryData } from "@item/data";
 import { WeaponDamage } from "@item/weapon/data";
@@ -33,6 +34,12 @@ class MeleePF2e extends ItemPF2e {
         return Number(this.system.bonus.value) || 0;
     }
 
+    get reach(): number | null {
+        if (this.isRanged) return null;
+        const reachTrait = this.system.traits.value.find((t) => /^reach-\d+$/.test(t));
+        return reachTrait ? Number(reachTrait.replace("reach-", "")) : SIZE_TO_REACH[this.actor?.size ?? "med"];
+    }
+
     /** The range increment of this attack, or null if a melee attack */
     get rangeIncrement(): WeaponRangeIncrement | null {
         if (this.isMelee) return null;
@@ -64,6 +71,7 @@ class MeleePF2e extends ItemPF2e {
                 die: null,
                 modifier: 0,
                 damageType: "untyped",
+                persistent: null,
             };
         }
 
@@ -129,7 +137,7 @@ class MeleePF2e extends ItemPF2e {
                     const operator = new OperatorTerm({ operator: adjustedBase >= 0 ? "+" : "-" });
                     terms.push(operator, modifier);
                 }
-                instance.damage = combineTerms(Roll.fromTerms(terms).formula).formula;
+                instance.damage = combineTerms(Roll.fromTerms(terms).formula);
             } else {
                 instance.damage = roll.formula;
             }

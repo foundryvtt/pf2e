@@ -194,7 +194,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The clockwork disposer coughs up a cloud of hot ash and embers that deals [[/r {6d6}[fire]]]{6d6 fire damage} in a @Template[type:cone|distance:15] (@Check[type:reflex|dc:22|basic:true]). The clockwork disposer can't use Furnace Belch again for [[/br 1d4 #Furnace Belch Recharge]]{1d4 rounds}.</p>"
+                    "value": "<p>The clockwork disposer coughs up a cloud of hot ash and embers that deals [[/r 6d6[fire]]] damage in a @Template[type:cone|distance:15] (@Check[type:reflex|dc:22|basic:true]). The clockwork disposer can't use Furnace Belch again for [[/br 1d4 #Furnace Belch Recharge]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -310,16 +310,74 @@
                 "temp": 0,
                 "value": 70
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 13
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 5
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -352,41 +410,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "xcept adamantine or orichalcum",
-                    "type": "physical",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 5
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

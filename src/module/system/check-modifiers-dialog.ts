@@ -1,8 +1,9 @@
 import { ModifierPF2e, MODIFIER_TYPES, StatisticModifier } from "@actor/modifiers";
 import { RollSubstitution } from "@module/rules/synthetics";
-import { ErrorPF2e, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlQuery, htmlQueryAll, setHasElement, tupleHasValue } from "@util";
+import { CheckRollContext } from "./check/types";
 import { LocalizePF2e } from "./localize";
-import { CheckRollContext, RollTwiceOption } from "./rolls";
+import { RollTwiceOption } from "./rolls";
 
 /**
  * Dialog for excluding certain modifiers before rolling a check.
@@ -31,18 +32,12 @@ export class CheckModifiersDialog extends Application {
         this.resolve = resolve;
         this.substitutions = context?.substitutions ?? [];
         this.context = context;
-
-        if (this.context.secret) {
-            this.context.rollMode = "blindroll";
-        } else {
-            this.context.rollMode ??= game.settings.get("core", "rollMode");
-        }
     }
 
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
-            template: "systems/pf2e/templates/chat/check-modifiers-dialog.html",
+            template: "systems/pf2e/templates/chat/check-modifiers-dialog.hbs",
             classes: ["dice-checks", "dialog"],
             popOut: true,
             width: 380,
@@ -69,104 +64,111 @@ export class CheckModifiersDialog extends Application {
     }
 
     override activateListeners($html: JQuery): void {
-        $html.find(".roll").on("click", () => {
+        const html = $html[0];
+
+        htmlQuery<HTMLButtonElement>(html, "button.roll")?.addEventListener("click", () => {
             this.resolve(true);
             this.isResolved = true;
             this.close();
         });
 
-        $html.find<HTMLInputElement>(".substitutions input[type=checkbox]").on("click", (event) => {
-            const checkbox = event.currentTarget;
-            const index = Number(checkbox.dataset.subIndex);
-            const substitution = this.substitutions.at(index);
-            if (!substitution) return;
+        for (const checkbox of htmlQueryAll<HTMLInputElement>(html, ".substitutions input[type=checkbox]")) {
+            checkbox.addEventListener("click", () => {
+                const index = Number(checkbox.dataset.subIndex);
+                const substitution = this.substitutions.at(index);
+                if (!substitution) return;
 
-            substitution.ignored = !checkbox.checked;
-            const options = (this.context.options ??= new Set());
-            const option = `substitute:${substitution.slug}`;
+                substitution.ignored = !checkbox.checked;
+                const options = (this.context.options ??= new Set());
+                const option = `substitute:${substitution.slug}`;
 
-            if (substitution.ignored) {
-                options.delete(option);
-            } else {
-                options.add(option);
+                if (substitution.ignored) {
+                    options.delete(option);
+                } else {
+                    options.add(option);
+                }
+
+                this.check.calculateTotal(this.context.options);
+                this.render();
+            });
+        }
+
+        for (const checkbox of htmlQueryAll<HTMLInputElement>(html, ".modifier-container input[type=checkbox]")) {
+            checkbox.addEventListener("click", () => {
+                const index = Number(checkbox.dataset.modifierIndex);
+                this.check.modifiers[index].ignored = !checkbox.checked;
+                this.check.calculateTotal();
+                this.render();
+            });
+        }
+
+        const addModifierButton = htmlQuery<HTMLButtonElement>(html, "button.add-modifier");
+        addModifierButton?.addEventListener("click", () => {
+            const parent = addModifierButton.parentElement as HTMLDivElement;
+            const value = Number(parent.querySelector<HTMLInputElement>(".add-modifier-value")?.value || 1);
+            const type = String(parent.querySelector<HTMLSelectElement>(".add-modifier-type")?.value);
+            let name = String(parent.querySelector<HTMLInputElement>(".add-modifier-name")?.value);
+            const errors: string[] = [];
+            if (Number.isNaN(value)) {
+                errors.push("Modifier value must be a number.");
+            } else if (value === 0) {
+                errors.push("Modifier value must not be zero.");
             }
-
-            this.check.calculateTotal(this.context.options);
-            this.render();
+            if (!setHasElement(MODIFIER_TYPES, type)) {
+                // Select menu should make this impossible
+                throw ErrorPF2e("Unexpected invalid modifier type");
+            }
+            if (!name || !name.trim()) {
+                name = game.i18n.localize(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
+            }
+            if (errors.length > 0) {
+                ui.notifications.error(errors.join(" "));
+            } else {
+                this.check.push(new ModifierPF2e(name, value, type));
+                this.render();
+            }
         });
 
-        $html.find<HTMLInputElement>(".modifier-container input[type=checkbox]").on("click", (event) => {
-            const checkbox = event.currentTarget;
-            const index = Number(checkbox.dataset.modifierIndex);
-            this.check.modifiers[index].ignored = !checkbox.checked;
-            this.check.calculateTotal();
-            this.render();
-        });
+        for (const rollTwice of htmlQueryAll<HTMLInputElement>(html, ".fate input[type=radio]")) {
+            rollTwice.addEventListener("click", () => {
+                this.context.rollTwice = (rollTwice.value || false) as RollTwiceOption;
+            });
+        }
 
-        $html.find(".add-modifier-panel").on("click", ".add-modifier", (event) => this.onAddModifier(event));
-
-        $html.find<HTMLInputElement>(".fate input[type=radio]").on("click", (event) => {
-            this.context.rollTwice = (event.currentTarget.value || false) as RollTwiceOption;
-        });
-
-        $html.find<HTMLInputElement>("[name=rollmode]").on("change", (event) => {
-            const rollMode = event.currentTarget.value;
+        const rollModeInput = htmlQuery<HTMLSelectElement>(html, "select[name=rollmode]");
+        rollModeInput?.addEventListener("change", () => {
+            const rollMode = rollModeInput.value;
             if (!tupleHasValue(Object.values(CONST.DICE_ROLL_MODES), rollMode)) {
                 throw ErrorPF2e("Unexpected roll mode");
             }
-
             this.context.rollMode = rollMode;
         });
 
         // Dialog settings menu
         const $settings = $html.closest(`#${this.id}`).find("a.header-button.settings");
-        const $tooltip = $settings.attr({ "data-tooltip-content": `#${this.id}-settings` }).tooltipster({
-            animation: "fade",
-            trigger: "click",
-            arrow: false,
-            contentAsHTML: true,
-            debug: BUILD_MODE === "development",
-            interactive: true,
-            side: ["top"],
-            theme: "crb-hover",
-            minWidth: 165,
-        });
-        $html.find<HTMLInputElement>(".settings-list input.quick-rolls-submit").on("change", async (event) => {
-            const $checkbox = $(event.delegateTarget);
-            await game.user.setFlag("pf2e", "settings.showRollDialogs", $checkbox[0].checked);
-            $tooltip.tooltipster("close");
-        });
+        if (!$settings[0].dataset.tooltipContent) {
+            const $tooltip = $settings.attr({ "data-tooltip-content": `#${this.id}-settings` }).tooltipster({
+                animation: "fade",
+                trigger: "click",
+                arrow: false,
+                contentAsHTML: true,
+                debug: BUILD_MODE === "development",
+                interactive: true,
+                side: ["top"],
+                theme: "crb-hover",
+                minWidth: 165,
+            });
+            $html.find<HTMLInputElement>(".settings-list input.quick-rolls-submit").on("change", async (event) => {
+                const $checkbox = $(event.delegateTarget);
+                await game.user.setFlag("pf2e", "settings.showRollDialogs", $checkbox[0].checked);
+                $tooltip.tooltipster("close");
+            });
+        }
     }
 
     override async close(options?: { force?: boolean }): Promise<void> {
         if (!this.isResolved) this.resolve(false);
         super.close(options);
-    }
-
-    async onAddModifier(event: JQuery.ClickEvent): Promise<void> {
-        const $parent = $(event.currentTarget).parents(".add-modifier-panel");
-        const value = Number($parent.find(".add-modifier-value").val() || 1);
-        const type = $parent.find(".add-modifier-type").val();
-        let name = `${$parent.find(".add-modifier-name").val()}`;
-        const errors: string[] = [];
-        if (Number.isNaN(value)) {
-            errors.push("Modifier value must be a number.");
-        } else if (value === 0) {
-            errors.push("Modifier value must not be zero.");
-        }
-        if (!setHasElement(MODIFIER_TYPES, type)) {
-            // Select menu should make this impossible
-            throw ErrorPF2e("Unexpected invalid modifier type");
-        }
-        if (!name || !name.trim()) {
-            name = game.i18n.localize(value < 0 ? `PF2E.PenaltyLabel.${type}` : `PF2E.BonusLabel.${type}`);
-        }
-        if (errors.length > 0) {
-            ui.notifications.error(errors.join(" "));
-        } else {
-            this.check.push(new ModifierPF2e(name, value, type));
-            await this.render();
-        }
     }
 
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {

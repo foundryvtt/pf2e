@@ -152,7 +152,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the dragon's blood puffball dies, it explodes, dealing [[/r {7d8}[poison]]]{7d8 poison damage} to each creature in a @Template[type:emanation|distance:20] (@Check[type:fortitude|dc:26|basic:true] save).</p>"
+                    "value": "<p>When the dragon's blood puffball dies, it explodes, dealing [[/r 7d8[poison]]] damage to each creature in a @Template[type:emanation|distance:20] (@Check[type:fortitude|dc:26|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -241,6 +241,23 @@
                 "temp": 0,
                 "value": 170
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -250,7 +267,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 10
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "piercing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -283,25 +306,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "fatigued",
-                    "mental",
-                    "poison",
-                    "sleep",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "piercing",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

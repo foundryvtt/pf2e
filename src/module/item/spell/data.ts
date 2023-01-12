@@ -8,9 +8,9 @@ import {
     ItemTraits,
 } from "@item/data/base";
 import { OneToTen, ValueAndMax, ValuesList } from "@module/data";
-import { DamageType } from "@system/damage";
+import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage";
 import type { SpellPF2e } from "./document";
-import { MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
+import { EffectAreaSize, EffectAreaType, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 
 type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 
@@ -18,12 +18,11 @@ type SpellData = Omit<SpellSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<SpellPF2e, "spell", SpellSystemData, SpellSource>;
 
 export type SpellTraits = ItemTraits<SpellTrait>;
-type SpellDamageCategory = keyof ConfigPF2e["PF2E"]["damageCategories"];
 
 export interface SpellDamageType {
     value: DamageType;
-    subtype?: "persistent" | "splash";
-    categories: SpellDamageCategory[];
+    subtype?: DamageCategoryUnique;
+    categories: MaterialDamageEffect[];
 }
 
 export interface SpellDamage {
@@ -91,9 +90,14 @@ interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
         value: string;
     };
     area: {
-        value: keyof ConfigPF2e["PF2E"]["areaSizes"];
-        areaType: keyof ConfigPF2e["PF2E"]["areaTypes"];
-    };
+        value: EffectAreaSize;
+        type: EffectAreaType;
+        /**
+         * Legacy text information about spell effect areas:
+         * if present, includes information not representable in a structured way
+         */
+        details?: string;
+    } | null;
     time: {
         value: string;
     };

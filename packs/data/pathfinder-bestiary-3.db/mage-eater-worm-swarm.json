@@ -108,7 +108,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {3d6}[acid]]]{3d6 acid damage} (@Check[type:reflex|dc:22|basic:true] save).</p>\n<p>Creatures that fail this save become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} from the swarm's painful bites. Additionally, the worms also attempt a counteract check against a single spell affecting the creature (counteract level 3, counteract modifier [[/r 1d20+12 #Counteract]]{+12}).</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 3d6[acid]]] damage (@Check[type:reflex|dc:22|basic:true] save).</p>\n<p>Creatures that fail this save become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} from the swarm's painful bites. Additionally, the worms also attempt a counteract check against a single spell affecting the creature (counteract level 3, counteract modifier [[/r 1d20+12 #Counteract]]{+12}).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -225,12 +225,37 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 12
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 4
+                },
+                {
+                    "type": "piercing",
+                    "value": 8
+                },
+                {
+                    "type": "slashing",
+                    "value": 8
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -239,7 +264,21 @@
                     }
                 ],
                 "value": 15
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 4
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 4
+                },
+                {
+                    "type": "water",
+                    "value": 8
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -275,49 +314,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid",
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "label": "Bludgeoning",
-                    "type": "bludgeoning",
-                    "value": 4
-                },
-                {
-                    "exceptions": "",
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": 8
-                },
-                {
-                    "exceptions": "",
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": 8
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 4
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 4
-                },
-                {
-                    "type": "water",
-                    "value": 8
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

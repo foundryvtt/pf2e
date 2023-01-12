@@ -151,7 +151,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the penanggalan takes slashing damage, their wound spews bile on adjacent creatures, dealing [[/r {2d10}[poison]]]{2d10 poison damage} (@Check[type:fortitude|dc:19|basic:true] save).</p>\n<p>The penanggalan loses their spewing bile and penanggalan bile abilities until the end of their next turn.</p>"
+                    "value": "<p>When the penanggalan takes slashing damage, their wound spews bile on adjacent creatures, dealing [[/r 2d10[poison]]] damage (@Check[type:fortitude|dc:19|basic:true] save).</p>\n<p>The penanggalan loses their spewing bile and penanggalan bile abilities until the end of their next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -196,7 +196,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {2d4+3}[bludgeoning]]]{2d4+3 bludgeoning damage}, @Check[type:fortitude|dc:21|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r (2d4+3)[bludgeoning]]], @Check[type:fortitude|dc:21|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -236,7 +236,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The penanggalan's tongue extends, the membrane stretching and becoming translucent. Until the end of the turn, the penanggalan's proboscis tongue Strikes have a 10-foot reach, and any target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the Strike unless it has a Perception DC of 22 or higher or the ability to precisely sense @Compendium[pf2e.conditionitems.Invisible]{Invisible} things.</p>"
+                    "value": "<p>The penanggalan's tongue extends, the membrane stretching and becoming translucent. Until the end of the turn, the penanggalan's proboscis tongue Strikes have a 10-foot reach, and any target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the Strike unless it has a Perception DC of 22 or higher or the ability to precisely sense @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} things.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -276,7 +276,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Rest doesn't decrease the drained value from penanggalan bile</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 week)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 2} (1 week)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 3} (1 week)</p>\n<p><strong>Stage 4</strong> dead</p>"
+                    "value": "<p>Rest doesn't decrease the drained value from penanggalan bile</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<hr />\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (1 week)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} (1 week)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 3} (1 week)</p>\n<p><strong>Stage 4</strong> dead</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -532,7 +532,7 @@
                 "value": 22
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -554,7 +554,13 @@
                     }
                 ],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -587,18 +593,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

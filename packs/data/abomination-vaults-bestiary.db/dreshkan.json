@@ -345,7 +345,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>The dreshkan braces itself on all four limbs and sprays needles at as many creatures as it would like in a @Template[type:cone|distance:30], dealing [[/r {2d4}[piercing]+{2d8}[electricity]]]{2d4 piercing damage plus 2d8 electricity damage}. Each targeted creature in the area must attempt a basic Reflex save.</p>\n<p><em>Note: Paizo did not provide a listed DC for this ability. The suggested DC to use per the GMG is @Check[type:reflex|dc:19|basic:true]</em></p>"
+                    "value": "<p>The dreshkan braces itself on all four limbs and sprays needles at as many creatures as it would like in a @Template[type:cone|distance:30], dealing [[/r {2d4[piercing],2d8[electricity]}]]{2d4 piercing damage plus 2d8 electricity damage}. Each targeted creature in the area must attempt a @Check[type:reflex|dc:21|basic:true].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -394,13 +394,13 @@
                     {
                         "domain": "attack-roll",
                         "key": "RollOption",
-                        "option": "swarmingStance",
+                        "option": "swarming-stance",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "swarmingStance"
+                            "swarming-stance"
                         ],
                         "selector": "attack",
                         "type": "circumstance",
@@ -590,6 +590,11 @@
                 "temp": 0,
                 "value": 72
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -616,7 +621,7 @@
                 "value": 4
             },
             "privateNotes": "",
-            "publicNotes": "<p>Because morlocks are descended from distant human ancestors, clumsily or hastily fleshwarping a morlock simply produces a @Compendium[pf2e.pathfinder-bestiary.Grothlut]{Grothlut}. Skilled fleshwarpers, however, can tease out a morlock's genetic differences to make an entirely different creature. Creating a dreshkan involves replacing the morlock's bones with a metal skeleton. This new skeleton is often heavily augmented, such as with spiderlike limbs protruding from the spine or magazines of tiny, deadly needles. Arcane electricity courses through the dreshkan thereafter, making it jumpy and irritable.</p>\n<p>Morlocks view dreshkans as impressive fusions of flesh and technology and gladly fight alongside these creatures, whom they view as paragons of morlock potential.</p>\n<hr />\n<p>Although twisting victims into horrid shapes is a well-known pastime of evil drow, other subterranean monsters have stolen these practices or developed them independently. The worm-like seugathis sometimes warp other creatures whose territories abut their lightless lands; the fleshwarps below result from morlocks and urdefhans, respectively.</p>",
+            "publicNotes": "<p>Because morlocks are descended from distant human ancestors, clumsily or hastily fleshwarping a morlock simply produces a @UUID[Compendium.pf2e.pathfinder-bestiary.Grothlut]{Grothlut}. Skilled fleshwarpers, however, can tease out a morlock's genetic differences to make an entirely different creature. Creating a dreshkan involves replacing the morlock's bones with a metal skeleton. This new skeleton is often heavily augmented, such as with spiderlike limbs protruding from the spine or magazines of tiny, deadly needles. Arcane electricity courses through the dreshkan thereafter, making it jumpy and irritable.</p>\n<p>Morlocks view dreshkans as impressive fusions of flesh and technology and gladly fight alongside these creatures, whom they view as paragons of morlock potential.</p>\n<hr />\n<p>Although twisting victims into horrid shapes is a well-known pastime of evil drow, other subterranean monsters have stolen these practices or developed them independently. The worm-like seugathis sometimes warp other creatures whose territories abut their lightless lands; the fleshwarps below result from morlocks and urdefhans, respectively.</p>",
             "source": {
                 "value": "Pathfinder #164: Hands of the Devil"
             }
@@ -637,15 +642,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

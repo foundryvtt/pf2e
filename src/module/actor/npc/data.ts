@@ -6,6 +6,7 @@ import {
     CreatureDetails,
     CreatureHitPoints,
     CreatureInitiative,
+    CreatureSpeeds,
     CreatureSystemData,
     CreatureSystemSource,
     CreatureTraitsData,
@@ -16,7 +17,7 @@ import {
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data";
-import { ActorFlagsPF2e, ArmorClassData, PerceptionData, StrikeData } from "@actor/data/base";
+import { ActorAttributesSource, ActorFlagsPF2e, ArmorClassData, PerceptionData, StrikeData } from "@actor/data/base";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { AbilityString, ActorAlliance, SaveType } from "@actor/types";
@@ -59,7 +60,7 @@ interface NPCSystemSource extends CreatureSystemSource {
     traits: NPCTraitsSource;
 }
 
-interface NPCAttributesSource {
+interface NPCAttributesSource extends ActorAttributesSource {
     ac: {
         value: number;
         details: string;
@@ -80,7 +81,7 @@ interface NPCAttributesSource {
     speed: {
         value: number;
         otherSpeeds: LabeledSpeed[];
-        details?: string;
+        details: string;
     };
     allSaves: {
         value: string;
@@ -138,8 +139,9 @@ interface NPCDetailsSource extends Omit<CreatureDetails, "creature"> {
     /** Which sourcebook this creature comes from. */
     source: {
         value: string;
-        author?: string;
+        author: string;
     };
+
     /** The type of this creature (such as 'undead') */
     creatureType: string;
     /** A very brief description */
@@ -225,6 +227,7 @@ interface NPCAttributes extends CreatureAttributes {
 
     initiative: CreatureInitiative;
 
+    speed: NPCSpeeds;
     /**
      * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
      * allow for the shield health to be shown in a token.
@@ -233,6 +236,10 @@ interface NPCAttributes extends CreatureAttributes {
     /** Textual information about any special benefits that apply to all saves. */
     allSaves: { value: string };
     familiarAbilities: StatisticModifier;
+}
+
+interface NPCSpeeds extends CreatureSpeeds {
+    details: string;
 }
 
 export {
@@ -250,4 +257,5 @@ export {
     NPCSystemData,
     NPCSystemSource,
     NPCTraitsData,
+    NPCTraitsSource,
 };

@@ -1,6 +1,7 @@
 import { ActorType } from "@actor/data";
 import { ItemPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message";
+import { DamageRoll } from "@system/damage/roll";
 import { LocalizePF2e } from "@system/localize";
 import { tupleHasValue, objectHasKey, localizeList } from "@util";
 import { RuleElementPF2e, RuleElementData, RuleElementSource, RuleElementOptions } from ".";
@@ -47,7 +48,7 @@ class FastHealingRuleElement extends RuleElementPF2e {
         return null;
     }
 
-    /** Refresh the actor's temporary hit points at the start of its turn */
+    /** Send a message with a "healing" (damage) roll at the start of its turn */
     override async onTurnStart(): Promise<void> {
         if (!this.test()) return;
 
@@ -56,15 +57,14 @@ class FastHealingRuleElement extends RuleElementPF2e {
             return this.failValidation("Healing requires a non-zero value field or a formula field");
         }
 
-        const roll = (await new Roll(`${value}`).evaluate({ async: true })).toJSON();
-        const { FastHealingLabel, RegenerationLabel } = LocalizePF2e.translations.PF2E.Encounter.Broadcast.FastHealing;
-        const preFlavor = game.i18n.localize(this.data.type === "fast-healing" ? FastHealingLabel : RegenerationLabel);
+        const roll = (await new DamageRoll(`${value}`).evaluate({ async: true })).toJSON();
+        const { ReceivedMessage } = LocalizePF2e.translations.PF2E.Encounter.Broadcast.FastHealing[this.data.type];
         const details = this.details;
         const postFlavor = details ? `<div data-visibility="owner">${details}</div>` : "";
-        const flavor = `${preFlavor}${postFlavor}`;
+        const flavor = `<div>${ReceivedMessage}</div>${postFlavor}`;
         const rollMode = this.actor.hasPlayerOwner ? "publicroll" : "gmroll";
         const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
-        ChatMessagePF2e.create({ flavor, speaker, type: CONST.CHAT_MESSAGE_TYPES.ROLL, roll }, { rollMode });
+        ChatMessagePF2e.create({ flavor, speaker, type: CONST.CHAT_MESSAGE_TYPES.ROLL, rolls: [roll] }, { rollMode });
     }
 }
 
@@ -84,4 +84,4 @@ interface FastHealingSource extends RuleElementSource {
     deactivatedBy?: string[];
 }
 
-export { FastHealingRuleElement as HealingRuleElement };
+export { FastHealingRuleElement, FastHealingData, FastHealingSource };

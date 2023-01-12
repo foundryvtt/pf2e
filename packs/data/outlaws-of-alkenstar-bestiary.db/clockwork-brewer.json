@@ -297,7 +297,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The clockwork brewer has a creature @Compendium[pf2e.conditionitems.Grabbed]{grappled}</p>\n<hr />\n<p><strong>Effect</strong> The clockwork brewer force- feeds the grappled creature 1 serving of whatever liquid is in the clockwork brewer's tank (typically beer such as Smokeside Sour). The creature is exposed to the liquid's effects, and it can't breathe or speak until the start of its turn.</p>"
+                    "value": "<p><strong>Requirements</strong> The clockwork brewer has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{grappled}</p>\n<hr />\n<p><strong>Effect</strong> The clockwork brewer force- feeds the grappled creature 1 serving of whatever liquid is in the clockwork brewer's tank (typically beer such as Smokeside Sour). The creature is exposed to the liquid's effects, and it can't breathe or speak until the start of its turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -334,7 +334,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The clockwork brewer clearly delivers a disarmingly friendly greeting to a creature within 30 feet. The creature attempts a @Check[type:will|dc:17] save. On a failure, the creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the clockwork brewer's next attack before the end of the brewer's next turn. The target is then immune to Pre-Programmed Greeting for 1 day.</p>"
+                    "value": "<p>The clockwork brewer clearly delivers a disarmingly friendly greeting to a creature within 30 feet. The creature attempts a @Check[type:will|dc:17] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the clockwork brewer's next attack before the end of the brewer's next turn. The target is then immune to Pre-Programmed Greeting for 1 day.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -374,7 +374,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:12]</p>\n<p><strong>Maximum Duration</strong> 1 hour</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (10 minutes)</p>\n<p><strong>Stage 2</strong> clumsy 1 and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (10 minutes)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2}, and sickened (40 minutes)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:12]</p>\n<p><strong>Maximum Duration</strong> 1 hour</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (10 minutes)</p>\n<p><strong>Stage 2</strong> clumsy 1 and @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} (10 minutes)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2}, @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2}, and sickened (40 minutes)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -536,16 +536,74 @@
                 "temp": 0,
                 "value": 40
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 8
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 3
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -578,42 +636,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": "3"
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 3
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 3
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

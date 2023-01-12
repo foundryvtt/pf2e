@@ -108,7 +108,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d8}[piercing]]]{2d8 piercing damage} (@Check[type:reflex|dc:21|basic:true] save) and is exposed to wasp venom. A successful save negates the poison exposure.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 2d8[piercing]]] damage (@Check[type:reflex|dc:21|basic:true] save) and is exposed to wasp venom. A successful save negates the poison exposure.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -148,7 +148,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {1d6}[poison]]]{1d6 poison} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {2d6}[poison]]]{2d6 poison} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (2 rounds)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<hr />\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6[poison]]] (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 2d6[poison]]] and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (2 rounds)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -242,12 +242,34 @@
                 "temp": 0,
                 "value": 45
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 10
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 7
+                },
+                {
+                    "type": "piercing",
+                    "value": 7
+                },
+                {
+                    "type": "slashing",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -256,7 +278,17 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -289,38 +321,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "bludgeoning",
-                    "value": 7
-                },
-                {
-                    "type": "piercing",
-                    "value": 7
-                },
-                {
-                    "type": "slashing",
-                    "value": 3
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 5
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

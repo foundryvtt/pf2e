@@ -3,7 +3,12 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "vP95gl8iCkHzSSmX",
+            "_id": "OrumAw48Pwq9fDTZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ZuyzSxmg4QdnZqLy"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/ankylostar.webp",
             "name": "Ankylostar",
             "sort": 100000,
@@ -11,7 +16,7 @@
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "morningstar",
                 "bonus": {
                     "value": 2
                 },
@@ -23,8 +28,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 3,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This hefty spiked club is made from the fossilized tail-club of a young ankylosaurus. It can be wielded as a +2 greater striking morningstar.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> command</p>\n<hr />\n<p><strong>Effect</strong> The <em>ankylostar</em> grows and transforms into a <em>+2 greater striking greatclub</em>, but it retains the versatile (piercing) trait of a morningstar. While in this form, the <em>ankylostar</em> has Bulk 2 and requires two hands to wield. It can be returned to its morningstar form with another 1-action command.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> The <em>ankylostar</em> is in its greatclub form</p>\n<hr />\n<p><strong>Effect</strong> The <em>ankylostar's</em> length extends as you swing the club in a wide arc. You Strike up to three creatures in a @Template[type:cone|distance:15]; this counts as one attack for the purpose of calculating your multiple attack penalty. Alternatively, you Shove up to three creatures in a @Template[type:cone|distance:15], rolling a separate Athletics check for each creature.</p>"
@@ -54,41 +58,27 @@
                     "value": 2
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 2800
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -97,15 +87,20 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "ankylostar",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder #154: Siege of the Dinosaurs"
                 },
                 "specific": {
-                    "value": false
+                    "material": null,
+                    "runes": {
+                        "potency": 2,
+                        "striking": "greaterStriking"
+                    },
+                    "value": true
                 },
                 "splashDamage": {
-                    "value": null
+                    "value": 0
                 },
                 "stackGroup": null,
                 "strikingRune": {
@@ -130,7 +125,12 @@
             "type": "weapon"
         },
         {
-            "_id": "5YJWGE8VHPDyFwQc",
+            "_id": "P1prRlTlxSzsnhNi",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ud3pqCquYA5UecaS"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/stoneraiser-javelin.webp",
             "name": "Stoneraiser Javelin",
             "sort": 200000,
@@ -138,7 +138,7 @@
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": null,
+                "baseItem": "javelin",
                 "bonus": {
                     "value": 2
                 },
@@ -149,12 +149,11 @@
                 "containerId": null,
                 "damage": {
                     "damageType": "piercing",
-                    "dice": 2,
-                    "die": "d6",
-                    "value": ""
+                    "dice": 1,
+                    "die": "d6"
                 },
                 "description": {
-                    "value": "<p>This stone-headed +2 striking returning javelin draws forth the power of the earth itself to strike at enemies.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You hurl the <em>stoneraiser javelin</em> at an unoccupied space within 30 feet. The javelin's power flows into the ground, which erupts in a 5-foot-radius burst of razor-sharp stalagmites. The stalagmites are 10 feet tall. Everything on each side of the stalagmites has cover from creatures on the opposite side, and the stalagmites' spaces are difficult terrain. A creature takes 4d4 piercing damage for every move action it takes that enters at least one of the affected spaces. Each 5-foot-by-5-foot section has AC 10, Hardness 14, and 30 Hit Points. It's immune to critical hits and precision damage. A destroyed section can be moved through freely. The stalagmites crumble to dust after 1 minute.</p>\n<p>Any creature in the area when the stalagmites appear is pushed to the nearest unoccupied space of its choice; this movement is forced movement. Pushed creatures must attempt a DC 28 Reflex saving throw or take 4d4 piercing damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is knocked prone.</p>"
+                    "value": "<p>This stone-headed +2 striking returning javelin draws forth the power of the earth itself to strike at enemies.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You hurl the <em>stoneraiser javelin</em> at an unoccupied space within 30 feet.</p>\n<p>The javelin's power flows into the ground, which erupts in a 5-foot-radius burst of razor-sharp stalagmites. The stalagmites are 10 feet tall.</p>\n<p>Everything on each side of the stalagmites has cover from creatures on the opposite side, and the stalagmites' spaces are difficult terrain. A creature takes [[/r 4d4]] piercing damage for every move action it takes that enters at least one of the affected spaces.</p>\n<p>Each 5-foot-by-5-foot section has AC 10, Hardness 14, and 30 Hit Points. It's immune to critical hits and precision damage. A destroyed section can be moved through freely. The stalagmites crumble to dust after 1 minute.</p>\n<p>Any creature in the area when the stalagmites appear is pushed to the nearest unoccupied space of its choice; this movement is forced movement. Pushed creatures must attempt a DC 28 Reflex saving throw or take [[/r 4d4]] piercing damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is knocked prone.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -181,41 +180,27 @@
                     "value": 2
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 1200
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": "returning"
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": 30,
@@ -224,12 +209,17 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": null,
+                "slug": "stoneraiser-javelin",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder #154: Siege of the Dinosaurs"
                 },
                 "specific": {
-                    "value": false
+                    "material": null,
+                    "runes": {
+                        "potency": 2,
+                        "striking": "striking"
+                    },
+                    "value": true
                 },
                 "splashDamage": {
                     "value": null
@@ -258,9 +248,14 @@
             "type": "weapon"
         },
         {
-            "_id": "DmmfGBVeBgj67C9H",
+            "_id": "1IjRwDjNaN8Y7Fm0",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.upzjwQ96cZG0Xlmx"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.webp",
-            "name": "Religious Symbol (Silver - Zevgavizeb)",
+            "name": "Religious Symbol of Zevgavizeb (Silver)",
             "sort": 300000,
             "system": {
                 "baseItem": null,
@@ -270,7 +265,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "inSlot": false,
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -300,11 +295,18 @@
                     }
                 },
                 "quantity": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "has-religious-symbol",
+                        "requiresEquipped": false
+                    }
+                ],
                 "size": "med",
-                "slug": null,
+                "slug": "religious-symbol-silver",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -353,7 +355,12 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "backswing",
+                        "magical",
+                        "shove",
+                        "versatile-p"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -486,10 +493,55 @@
             "type": "melee"
         },
         {
+            "_id": "hXMssBGUnnIgsqkV",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 800000,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "Kw8WsCyXZ9AnshFU",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Coward Sense",
-            "sort": 800000,
+            "name": "Coward Sense (Imprecise) 60 feet",
+            "sort": 900000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -526,10 +578,15 @@
             "type": "action"
         },
         {
-            "_id": "aospnVjNWYcf10Z9",
+            "_id": "OthdN7VZZ2OhjTnY",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -541,15 +598,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "attack-of-opportunity",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -569,7 +626,7 @@
             "_id": "k0JyHOPZZzOu7DCM",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fanatical Juggernaut",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -586,7 +643,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "selector": "fortitude",
+                        "type": "save"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "failure",
+                            "success"
+                        ],
+                        "selector": "fortitude",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -609,7 +685,7 @@
             "_id": "Jz2nWIs5hfh5nWak",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Powerful Stench",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -621,12 +697,21 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. As xulgath herd-tender, but DC 34.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters the area must attempt a @Check[type:fortitude|dc:34] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}, and on a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} for as long as it is sickened. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to all xulgaths' stenches for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "powerful-stench",
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -652,7 +737,7 @@
             "_id": "sdS6ZYyIEWr1joRs",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Intimidating Strike",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -664,7 +749,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Zashathal hits a creature with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> Zashathal makes an Intimidate check to Demoralize the target creature. If the target creature was reduced to 0 Hit Points by the triggering Strike, Zashathal can instead Demoralize all opponents within 30 feet by comparing the result of his Intimidation check to each creature's Will DC. Zashathal doesn't take a penalty to these Intimidation checks for not speaking a target's language.</p>"
+                    "value": "<p><strong>Trigger</strong> Zashathal hits a creature with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> Zashathal makes an Intimidate check to @UUID[Compendium.pf2e.actionspf2e.Demoralize]{Demoralize} the target creature. If the target creature was reduced to 0 Hit Points by the triggering Strike, Zashathal can instead Demoralize all opponents within 30 feet by comparing the result of his Intimidation check to each creature's Will DC. Zashathal doesn't take a penalty to these Intimidation checks for not speaking a target's language.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -694,7 +779,7 @@
             "_id": "2aiIUhx9Z3yMKGyS",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rage",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -706,12 +791,35 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Zashathal isn't fatigued or raging</p>\n<hr />\n<p><strong>Effect</strong> Zashathal gains 20 temporary Hit Points that last until the rage ends. While raging, he deals 12 additional damage with melee attacks and takes a -1 penalty to AC. Zashathal can't use concentrate actions except Seek and rage actions. The rage lasts for 1 minute, until there are no enemies Zashathal can perceive, or until Zashathal falls unconscious. Once the rage ends, Zashathal can't again for 1 minute.</p>"
+                    "value": "<p><strong>Requirements</strong> Zashathal isn't @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued} or raging</p>\n<hr />\n<p><strong>Effect</strong> Zashathal gains 20 temporary Hit Points that last until the rage ends. While raging, he deals 12 additional damage with melee attacks and takes a -1 penalty to AC. Zashathal can't use concentrate actions except Seek and rage actions. The rage lasts for 1 minute, until there are no enemies Zashathal can perceive, or until Zashathal falls unconscious. Once the rage ends, Zashathal can't again for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Effect: Rage]{Effect: Rage}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "ac",
+                        "value": -1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:rage"
+                        ],
+                        "selector": "strike-damage",
+                        "value": 12
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.rageTempHP",
+                        "value": 20
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -738,7 +846,7 @@
             "_id": "YIb66Svrt8CZOKjj",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Renewed Vigor",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -750,7 +858,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Zashathal gains 12 temporary Hit Points.</p>"
+                    "value": "<p>Zashathal gains 12 temporary Hit Points.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Effect: Renewed Vigor]{Effect: Renewed Vigor}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -781,7 +889,7 @@
             "_id": "8T1lphW5agh8iPDk",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Sudden Charge",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -821,7 +929,7 @@
             "_id": "yfi5yLVQJBHQQfgr",
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Whirlwind Strike",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -861,7 +969,7 @@
             "_id": "tc9Xs2rWuHRFxEC8",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -889,7 +997,7 @@
             "_id": "fcXjafcTfuQNZOpj",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -914,10 +1022,10 @@
             "type": "lore"
         },
         {
-            "_id": "UsWytgXC2Zt8HtOT",
+            "_id": "TFVafGVljhShJjij",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation (+27 to Demoralize)",
-            "sort": 1900000,
+            "name": "Intimidation",
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -928,7 +1036,17 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Demoralize",
+                        "predicate": [
+                            "action:demoralize"
+                        ],
+                        "selector": "intimidation",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -937,6 +1055,12 @@
                     "custom": "",
                     "rarity": "common",
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+27 to Demoralize",
+                        "options": "action:demoralize"
+                    }
                 }
             },
             "type": "lore"
@@ -945,7 +1069,7 @@
             "_id": "bCKO4S3CVaLd9ec4",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2000000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -973,7 +1097,7 @@
             "_id": "4PkyY6umGczTMwAt",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2100000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1001,7 +1125,7 @@
             "_id": "tG8BS5c7lyaTtvKM",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2200000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1068,6 +1192,15 @@
             "perception": {
                 "value": 27
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "weapons"
+                    ],
+                    "type": "physical",
+                    "value": 14
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 35
@@ -1077,7 +1210,7 @@
             "alignment": {
                 "value": "NE"
             },
-            "blurb": "",
+            "blurb": "Male xulgath zealous hardscale",
             "creatureType": "",
             "level": {
                 "value": 15
@@ -1104,19 +1237,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "label": "Physical 14 (from Weapons Only)",
-                    "type": "physical 14 (from weapons only)",
-                    "value": 0
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -1128,7 +1248,7 @@
             },
             "rarity": "unique",
             "senses": {
-                "value": "coward sense (imprecise) 60 feet,   darkvision"
+                "value": "coward sense (imprecise) 60 feet, darkvision"
             },
             "size": {
                 "value": "med"

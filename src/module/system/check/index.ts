@@ -1,7 +1,4 @@
-import { CheckRoll } from "./roll";
-import { StrikeAttackRoll } from "./strike/attack-roll";
-
-export const Check = {
-    Roll: CheckRoll,
-    StrikeAttackRoll,
-};
+export { CheckRoll } from "./roll";
+export { StrikeAttackRoll } from "./strike/attack-roll";
+export * from "./types";
+export * from "./check";

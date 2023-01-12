@@ -9,7 +9,6 @@ import {
     SelectableTagField,
     SELECTABLE_TAG_FIELDS,
     TagSelectorBasic,
-    TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
 import {
     ErrorPF2e,
@@ -32,7 +31,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.width = 650;
         options.height = 460;
         options.classes = options.classes.concat(["pf2e", "item"]);
-        options.template = "systems/pf2e/templates/items/item-sheet.html";
+        options.template = "systems/pf2e/templates/items/item-sheet.hbs";
         options.scrollY = [".tab.active"];
         options.tabs = [
             {
@@ -58,7 +57,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     private ruleElementForms: Record<number, RuleElementForm> = {};
 
-    get editingRuleElement() {
+    get editingRuleElement(): RuleElementSource | null {
         if (this.editingRuleElementIndex === null) return null;
         return this.item.toObject().system.rules[this.editingRuleElementIndex] ?? null;
     }
@@ -82,7 +81,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         // Enrich content
         const enrichedContent: Record<string, string> = {};
         const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
-        enrichedContent.description = await game.pf2e.TextEditor.enrichHTML(itemData.system.description.value, {
+        enrichedContent.description = await TextEditor.enrichHTML(itemData.system.description.value, {
             rollData,
             async: true,
         });
@@ -93,10 +92,28 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         // Activate rule element sub forms
         this.ruleElementForms = {};
-        for (const [idx, rule] of rules.entries()) {
+        for (const [index, rule] of rules.entries()) {
             const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
-            this.ruleElementForms[Number(idx)] = new FormClass(this.item, idx, rule);
+            this.ruleElementForms[Number(index)] = new FormClass({
+                item: this.item,
+                index,
+                rule,
+                object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
+            });
         }
+
+        // This variable name is obviously no longer accurate: needs sweep through item sheet templates for refactor
+        const traitSlugs = ((): { id: string; value: string; readonly: boolean }[] => {
+            const readonlyTraits: string[] =
+                this.item.system.traits?.value.filter((t) => {
+                    const sourceTraits: string[] = this.item._source.system.traits?.value ?? [];
+                    return !sourceTraits.includes(t);
+                }) ?? [];
+            return Object.keys(traits ?? {}).map((slug) => {
+                const label = game.i18n.localize(validTraits?.[slug] ?? slug);
+                return { id: slug, value: label, readonly: readonlyTraits.includes(slug) };
+            });
+        })();
 
         return {
             itemType: null,
@@ -121,7 +138,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rarity: hasRarity ? this.item.system.traits?.rarity ?? "common" : null,
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
-            traitSlugs: Object.keys(traits ?? {}),
+            traitSlugs,
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
@@ -150,15 +167,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     }))
                 ),
             },
-            sidebarTemplate: () => `systems/pf2e/templates/items/${item.type}-sidebar.html`,
-            detailsTemplate: () => `systems/pf2e/templates/items/${item.type}-details.html`,
+            sidebarTemplate: () => `systems/pf2e/templates/items/${item.type}-sidebar.hbs`,
+            detailsTemplate: () => `systems/pf2e/templates/items/${item.type}-details.hbs`,
             proficiencies: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
         };
     }
 
     protected onTagSelector(anchor: HTMLAnchorElement): void {
         const selectorType = anchor.dataset.tagSelector ?? "";
-        if (!(selectorType === "basic" && tupleHasValue(TAG_SELECTOR_TYPES, selectorType))) {
+        if (selectorType !== "basic") {
             throw ErrorPF2e("Item sheets can only use the basic tag selector");
         }
         const propertyIsFlat = anchor.dataset.flat === "true";
@@ -185,14 +202,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         new TagSelectorBasic(this.item, selectorOptions).render(true);
     }
 
-    /**
-     * Get NPC attack effect options
-     */
+    /** Get NPC attack effect options */
     protected getAttackEffectOptions(): Record<string, string> {
         // Melee attack effects can be chosen from the NPC's actions and consumable items
         const attackEffectOptions: Record<string, string> =
             this.actor?.items
-                .filter((item) => item.type === "action" || item.type === "consumable")
+                .filter((i) => i.type === "action" || i.type === "consumable")
                 .reduce((options, item) => {
                     const key = item.slug ?? sluggify(item.name);
                     return mergeObject(options, { [key]: item.name }, { inplace: false });
@@ -274,14 +289,13 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
             html.querySelector<HTMLDivElement>(".rule-editing .editor-placeholder")?.replaceWith(view.dom);
 
-            html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=close]")?.addEventListener(
-                "click",
-                (event) => {
-                    event.preventDefault();
-                    this.editingRuleElementIndex = null;
-                    this.render();
-                }
-            );
+            const closeBtn = html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=close]");
+            closeBtn?.addEventListener("click", (event) => {
+                event.preventDefault();
+                this.editingRuleElementIndex = null;
+                this.render();
+            });
+            closeBtn?.removeAttribute("disabled");
 
             html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")?.addEventListener(
                 "click",

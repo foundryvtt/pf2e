@@ -153,7 +153,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The trilobites in the swarm latch onto creatures and gnaw at them. Each enemy in the swarm's space takes [[/r {2d6}[slashing]]]{2d6 slashing damage} (@Check[type:reflex|dc:18|basic:true] save).</p>"
+                    "value": "<p>The trilobites in the swarm latch onto creatures and gnaw at them. Each enemy in the swarm's space takes [[/r 2d6[slashing]]] damage (@Check[type:reflex|dc:18|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -290,7 +290,7 @@
                 "value": 18
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -298,12 +298,34 @@
                 "temp": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 9
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 3
+                },
+                {
+                    "type": "piercing",
+                    "value": 3
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -312,7 +334,17 @@
                     }
                 ],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -324,7 +356,7 @@
                 "value": 3
             },
             "privateNotes": "",
-            "publicNotes": "<p>Often overlooked as little more than water-dwelling pests, trilobites are a varied species of arthropods found throughout the seas and oceans of Golarion. So ancient and widespread are these critters that trilobite fossils are as commonly found as living specimens.</p>\n<hr />\n<p>Trilobites typically live in close proximity to others of their kind. On rare occasions, particularly when the most common prey around is larger than what a single trilobite can take down, they form swarms that seem to actively cooperate with each other. These swarms latch onto their prey, and the combined efforts of so many trilobites at once make escape difficult.</p>",
+            "publicNotes": "<p>Trilobites typically live in close proximity to others of their kind. On rare occasions, particularly when the most common prey around is larger than what a single trilobite can take down, they form swarms that seem to actively cooperate with each other. These swarms latch onto their prey, and the combined efforts of so many trilobites at once make escape difficult.</p>\n<hr />\n<p>Often overlooked as little more than water-dwelling pests, trilobites are a varied species of arthropods found throughout the seas and oceans of Golarion. So ancient and widespread are these critters that trilobite fossils are as commonly found as living specimens.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -348,38 +380,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "bludgeoning",
-                    "value": 3
-                },
-                {
-                    "type": "piercing",
-                    "value": 3
-                },
-                {
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 5
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

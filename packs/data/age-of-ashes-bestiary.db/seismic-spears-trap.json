@@ -62,7 +62,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature struck by a seismic spear is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 3} for 1 round as their body shakes uncontrollably. On a critical hit, a target must succeed at a @Check[type:fortitude|dc:39] save or be @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 minute, or permanently on a critical failure.</p>"
+                    "value": "<p>A creature struck by a seismic spear is @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 3} for 1 round as their body shakes uncontrollably. On a critical hit, a target must succeed at a @Check[type:fortitude|dc:39] save or be @UUID[Compendium.pf2e.conditionitems.Petrified]{Petrified} for 1 minute, or permanently on a critical failure.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -99,7 +99,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "map-does-not-apply",
+                        "no-map",
                         "personal-quake"
                     ]
                 },
@@ -117,7 +117,7 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>No MAP applies to strikes made by seismic spear attacks</p>"
                 },
                 "rules": [],
                 "slug": null,
@@ -135,6 +135,43 @@
                 }
             },
             "type": "melee"
+        },
+        {
+            "_id": "uAtJgY4Z2GeiZYOi",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "No MAP",
+            "sort": 0,
+            "system": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The Seismic Spear Strikes do not apply a MAP.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                }
+            },
+            "type": "action"
         }
     ],
     "name": "Seismic Spears Trap",
@@ -143,6 +180,7 @@
             "ac": {
                 "value": 0
             },
+            "emitsSound": "encounter",
             "hardness": 0,
             "hasHealth": true,
             "hp": {
@@ -160,7 +198,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Lines of searing lava lance through the area, causing targets to shake as if caught in an earthquake and potentially become petrified.</p>",
-            "disable": "<p>@Check[type:thievery|dc:43|name:Disable the Wards|traits:magical,trap] (master) to disable the wards or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (9th level; counteract DC 38) to counteract the ward.</p>",
+            "disable": "<p>@Check[type:thievery|dc:43|name:Disable the Wards|traits:magical,trap] (master) to disable the wards or <em>@UUID[Compendium.pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (9th level; counteract DC 38) to counteract the ward.</p>",
             "isComplex": false,
             "level": {
                 "value": 19
@@ -183,18 +221,11 @@
             }
         },
         "source": {
+            "author": "",
             "value": "Pathfinder #149: Against the Scarlet Triad"
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

@@ -39,6 +39,10 @@
             padding: 12px;
             cursor: pointer;
             margin-right: 4px;
+
+            .item-icon {
+                border: none;
+            }
         }
 
         .size {
@@ -306,6 +310,13 @@
         border-top: 1px solid var(--alt);
         border-bottom: 1px solid var(--alt);
         background: var(--bg);
+
+        // Normalize styling of visible-to-all tag elements
+        span[data-visibility=all] {
+            display: inline-block;
+            line-height: 1em;
+            padding: 2px 1px 1px;
+        }
 
         .item-buttons {
             button {

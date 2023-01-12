@@ -125,11 +125,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -511,7 +508,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the cub reaches 0 Hit Points, its spirit dissipates. If its bonded vessel is intact, the cub re-forms in this vessel after [[/br 2d4 #Reconstitution]]{2d4 days}, fully healed. If the vessel is broken, it must first be @Compendium[pf2e.actionspf2e.Repair]{Repaired}, after which the cub reforms in [[/br 3d4 #Reconstitution]]{3d4 days}.</p>"
+                    "value": "<p>When the cub reaches 0 Hit Points, its spirit dissipates. If its bonded vessel is intact, the cub re-forms in this vessel after [[/br 2d4 #Reconstitution]]{2d4 days}, fully healed. If the vessel is broken, it must first be @UUID[Compendium.pf2e.actionspf2e.Repair]{Repaired}, after which the cub reforms in [[/br 3d4 #Reconstitution]]{3d4 days}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -554,7 +551,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The cub touches and melds with its bonded vessel, bringing the statue to life. It can cease Inhabiting its Vessel by spending a single action, which has the concentrate trait. While Inhabiting the Vessel, it loses its fly Speed and gains:</p>\n<p><strong>Immunities</strong> healing, nonlethal</p>\n<p><strong>Resistances</strong> physical 3 (except bludgeoning)</p>\n<p><strong>Speed</strong> 20 feet; and the following Strike.</p>\n<ul>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">A</span> Jaws [[/r 1d20+10 #Jaws]]{+10}/[[/r 1d20+6 #Jaws]]{+6}/[[/r 1d20+2 #Jaws]]{+2} (agile), <strong>Damage</strong> [[/r {1d6+5}[bludgeoning]]]{1d6+5 bludgeoning damage} plus @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab}.</li>\n</ul>"
+                    "value": "<p>The cub touches and melds with its bonded vessel, bringing the statue to life. It can cease Inhabiting its Vessel by spending a single action, which has the concentrate trait. While Inhabiting the Vessel, it loses its fly Speed and gains:</p>\n<p><strong>Immunities</strong> healing, nonlethal</p>\n<p><strong>Resistances</strong> physical 3 (except bludgeoning)</p>\n<p><strong>Speed</strong> 20 feet; and the following Strike.</p>\n<ul>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">A</span> Jaws [[/r 1d20+10 #Jaws]]{+10}/[[/r 1d20+6 #Jaws]]{+6}/[[/r 1d20+2 #Jaws]]{+2} (agile), <strong>Damage</strong> [[/r (1d6+5)[bludgeoning]]] damage plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Grab]{Grab}.</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -591,17 +588,15 @@
                         "predicate": [
                             "inhabit-vessel"
                         ],
-                        "type": "healing"
+                        "type": [
+                            "healing",
+                            "nonlethal"
+                        ]
                     },
                     {
-                        "key": "Immunity",
-                        "predicate": [
-                            "inhabit-vessel"
+                        "exceptions": [
+                            "bludgeoning"
                         ],
-                        "type": "nonlethal"
-                    },
-                    {
-                        "except": "PF2E.ResistanceException.Bludgeoning",
                         "key": "Resistance",
                         "predicate": [
                             "inhabit-vessel"
@@ -646,21 +641,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When not Inhabiting its Vessel, the cub is incorporeal and gains resistance 3 to all damage (except force damage and damage from Strikes with the <em>@Compendium[pf2e.equipment-srd.Ghost Touch]{Ghost Touch}</em> property rune; double resistance against non-magical).</p>"
+                    "value": "<p>When not Inhabiting its Vessel, the cub is incorporeal and gains resistance 3 to all damage (except force damage and damage from Strikes with the <em>@UUID[Compendium.pf2e.equipment-srd.Ghost Touch]{Ghost Touch}</em> property rune; double resistance against non-magical).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
-                        "except": "PF2E.ResistanceException.ForceGhostTouchDoubleNonMagical",
+                        "exceptions": [
+                            "force",
+                            "ghost-touch"
+                        ],
                         "key": "Resistance",
                         "predicate": [
                             {
                                 "not": "inhabit-vessel"
                             }
                         ],
-                        "type": "all",
+                        "type": "all-damage",
                         "value": 3
                     }
                 ],
@@ -831,6 +829,20 @@
                 "temp": 0,
                 "value": 28
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "petrified"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -881,18 +893,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "paralyzed",
-                    "petrified",
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Telepathy 60 feet",
                 "selected": [],

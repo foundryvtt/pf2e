@@ -344,7 +344,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When the shanrigol behemoth dies, its flesh rots away and sublimates into a foul-smelling gas that fills a @Template[type:emanation|distance:5] around the body. This gas deals [[/r {9d6}[negative]]]{9d6 negative damage} to creatures in this area as their flesh curdles and rots as well (@Check[type:fortitude|dc:27|basic:true] save).</p>"
+                    "value": "<p>When the shanrigol behemoth dies, its flesh rots away and sublimates into a foul-smelling gas that fills a @Template[type:emanation|distance:5] around the body. This gas deals [[/r 9d6[negative]]] damage to creatures in this area as their flesh curdles and rots as well (@Check[type:fortitude|dc:27|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -388,7 +388,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The shanrigol has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}</p>\n<hr />\n<p><strong>Effect</strong> The shanrigol squeezes the life essence from its target, dealing [[/r {1d10+11}[bludgeoning]]]{1d10+11 bludgeoning} and @Localize[PF2E.PersistentDamage.Bleed1d6.success] (@Check[type:fortitude|dc:25|basic:true] save).</p>\n<p>The shanrigol regains temporary Hit Points equal to half the amount of bludgeoning damage a single target takes; these temporary Hit Points last for 1 minute.</p>"
+                    "value": "<p><strong>Requirements</strong> The shanrigol has a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}</p>\n<hr />\n<p><strong>Effect</strong> The shanrigol squeezes the life essence from its target, dealing [[/r (1d10+11)[bludgeoning]]] and @Localize[PF2E.PersistentDamage.Bleed1d6.success] (@Check[type:fortitude|dc:25|basic:true] save).</p>\n<p>The shanrigol regains temporary Hit Points equal to half the amount of bludgeoning damage a single target takes; these temporary Hit Points last for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -428,7 +428,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A shanrigol behemoth's attacks brutally rend its foes. Creatures critically hit by the shanrigol's fleshy slap Strike take an additional @Localize[PF2E.PersistentDamage.Bleed2d6.success] and are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as they are bleeding.</p>"
+                    "value": "<p>A shanrigol behemoth's attacks brutally rend its foes. Creatures critically hit by the shanrigol's fleshy slap Strike take an additional @Localize[PF2E.PersistentDamage.Bleed2d6.success] and are @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for as long as they are bleeding.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -515,7 +515,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by the shanrigol behemoth's web attack is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and stuck to the nearest surface until it can Escape (DC 25).</p>"
+                    "value": "<p>A creature hit by the shanrigol behemoth's web attack is @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} and stuck to the nearest surface until it can Escape (DC 25).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -677,12 +677,39 @@
                 "temp": 0,
                 "value": 140
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 18
             },
+            "resistances": [
+                {
+                    "type": "piercing",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -695,7 +722,13 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -728,33 +761,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "piercing",
-                    "value": 10
-                },
-                {
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

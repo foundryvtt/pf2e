@@ -40,7 +40,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         this.ownUnarmed = this.data.ownUnarmed;
     }
 
-    static defaultIcons: Record<string, ImagePath | undefined> = [
+    static defaultIcons: Record<string, ImageFilePath | undefined> = [
         "antler",
         "beak",
         "body",
@@ -75,7 +75,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         "water-spout",
         "wave",
         "wing",
-    ].reduce((accumulated: Record<string, ImagePath | undefined>, strike) => {
+    ].reduce((accumulated: Record<string, ImageFilePath | undefined>, strike) => {
         const path = `systems/pf2e/icons/unarmed-attacks/${strike}.webp` as const;
         return { ...accumulated, [strike]: path };
     }, {});
@@ -121,9 +121,6 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         overrides.immunities ??= [];
         overrides.weaknesses ??= [];
         overrides.resistances ??= [];
-
-        // Disable Automatic Bonus Progression
-        this.actor.flags.pf2e.disableABP = true;
     }
 
     override async preCreate({ itemSource, ruleSource }: RuleElementPF2e.PreCreateParams): Promise<void> {
@@ -336,6 +333,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         for (const key of SKILL_ABBREVIATIONS) {
             const newSkill = this.overrides.skills[key];
             if (!newSkill) continue;
+            newSkill.ownIfHigher ??= true;
 
             const currentSkill = this.actor.system.skills[key];
             const newModifier = Number(this.resolveValue(newSkill.modifier)) || 0;
@@ -382,7 +380,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
 
             for (const datum of ruleData) {
                 if (!datum.traits.includes("magical")) datum.traits.push("magical");
-                new StrikeRuleElement(datum, this.item).beforePrepareData();
+                new StrikeRuleElement({ ...datum, battleForm: true }, this.item).beforePrepareData();
             }
         }
 
@@ -414,7 +412,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
                 const sign = action.totalModifier < 0 ? "" : "+";
                 action.variants[0].label = `${title} ${sign}${action.totalModifier}`;
             } else {
-                this.actor.rollOptions.all["battle-form:own-attack-modifier"] = true;
+                const options = (this.actor.rollOptions["strike-attack-roll"] ??= {});
+                options["battle-form:own-attack-modifier"] = true;
             }
         }
     }

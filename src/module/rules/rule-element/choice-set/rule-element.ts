@@ -2,7 +2,7 @@ import { RuleElementPF2e, RuleElementOptions } from "../";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
-import { ErrorPF2e, isObject, objectHasKey, sluggify } from "@util";
+import { isObject, objectHasKey, sluggify } from "@util";
 import { fromUUIDs, isItemUUID } from "@util/from-uuids";
 import { ChoiceSetData, ChoiceSetOwnedItems, ChoiceSetPackQuery, ChoiceSetSource } from "./data";
 import { ChoiceSetPrompt } from "./prompt";
@@ -62,18 +62,15 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         const selectionMade =
             typeof this.data.flag === "string" &&
             (typeof selection === "string" || typeof selection === "number" || isObject(selection));
-        if (!selectionMade) {
-            this.ignored = true;
-            return;
-        }
 
         // Assign the selection to a flag on the parent item so that it may be referenced by other rules elements on
         // the same item. If a roll option is specified, assign that as well.
         if (selectionMade) {
             item.flags.pf2e.rulesSelections[this.data.flag] = selection;
-            if (this.rollOption) this.setRollOption(selection.toString());
+            this.#setRollOption(selection.toString());
         } else if (!this.allowNoSelection) {
             // If no selection has been made, disable this and all other rule elements on the item.
+            this.ignored = true;
             for (const ruleData of this.item.system.rules) {
                 ruleData.ignored = true;
             }
@@ -130,14 +127,20 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             if (this.adjustName) {
                 const effectName = this.item._source.name;
                 const label = game.i18n.localize(selection.label);
-                this.item._source.name = `${effectName} (${label})`;
+                const name = `${effectName} (${label})`;
+                // Deduplicate if parenthetical is already present
+                const pattern = ((): RegExp => {
+                    const escaped = RegExp.escape(label);
+                    return new RegExp(`\\(${escaped}\\) \\(${escaped}\\)$`);
+                })();
+                this.item._source.name = name.replace(pattern, `(${label})`);
             }
 
             // Set the item flag in case other preCreate REs need it
             this.item.flags.pf2e.rulesSelections[this.data.flag] = selection.value;
 
             // Likewise with the roll option, if requested
-            if (this.rollOption) this.setRollOption(selection.value.toString());
+            this.#setRollOption(String(ruleSource.selection));
 
             for (const rule of this.item.rules) {
                 // Now that a selection is made, other rule elements can be set back to unignored
@@ -348,8 +351,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         return choice ?? null;
     }
 
-    private setRollOption(selection: string): void {
-        if (!this.rollOption) throw ErrorPF2e("There is no roll option to set");
+    #setRollOption(selection: string): void {
+        if (!this.rollOption) return;
         this.actor.rollOptions.all[`${this.rollOption}:${selection}`] = true;
     }
 }

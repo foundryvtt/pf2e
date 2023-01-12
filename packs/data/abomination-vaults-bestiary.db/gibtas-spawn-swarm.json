@@ -204,7 +204,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d8}[piercing]+{1d6}[acid]]]{2d8 piercing damage and 1d6 acid damage} (@Check[type:reflex|dc:22|basic:true] save). A creature that fails its save against Swarming Bites also takes @Localize[PF2E.PersistentDamage.Acid1d4.success].</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d8[piercing],1d6[acid]}]]{2d8 piercing damage and 1d6 acid damage} (@Check[type:reflex|dc:22|basic:true] save). A creature that fails its save against Swarming Bites also takes @Localize[PF2E.PersistentDamage.Acid1d4.success].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -321,16 +321,51 @@
                 "temp": 0,
                 "value": 70
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 14
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 9
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 5
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -366,39 +401,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid",
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "bludgeoning",
-                    "value": 9
-                },
-                {
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 5
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

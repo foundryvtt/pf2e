@@ -30,6 +30,10 @@
         @import "spell-sheet";
     }
 
+    &.weapon form {
+        @import "weapon-sheet";
+    }
+
     form {
         display: flex;
         flex-direction: column;
@@ -156,7 +160,6 @@
                     background: none;
                     padding: 0;
                     margin: 1px 0;
-                    color: #333;
                     border: 1px solid transparent;
 
                     &:hover:not(:disabled), &:focus {
@@ -196,8 +199,14 @@
                     @include scrollbar;
 
                     label {
-                        color: #353535;
+                        color: var(--color-text-dark-2);
                         font-weight: 500;
+                        padding-right: 0.5em;
+                        white-space: nowrap;
+
+                        &.no-data {
+                            color: var(--color-text-dark-4);
+                        }
                     }
 
                     select {
@@ -306,13 +315,18 @@
                     font-weight: 400;
                 }
             }
+
+            input.adjusted-lower:not(:focus) {
+                font-weight: 700;
+                color: $adjusted-lower;
+            }
         }
 
         .tags {
             padding-left: 0;
         }
 
-        .details-container {
+        .details-container, .dice-data {
             display: grid;
             grid: "dice die type" / 40px 60px auto;
         }
@@ -467,3 +481,5 @@
         }
     }
 }
+
+@import "persistent-damage-dialog";

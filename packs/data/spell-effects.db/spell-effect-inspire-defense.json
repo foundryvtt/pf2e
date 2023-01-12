@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Inspire Defense]{Inspire Defense}</em></p>\n<p>You gain a +1 status bonus to AC and saving throws, as well as resistance equal to half the spell's level to physical damage.</p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Inspire Defense]{Inspire Defense}</em></p>\n<p>You gain a +1 status bonus to AC and saving throws, as well as resistance equal to half the spell's level to physical damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -14,20 +14,15 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 2
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Inspire Defense",
-                "selector": "ac",
-                "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Inspire Defense",
-                "selector": "saving-throw",
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
                 "type": "status",
                 "value": 1
             },

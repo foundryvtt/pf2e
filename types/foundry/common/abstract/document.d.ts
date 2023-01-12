@@ -134,7 +134,7 @@ declare global {
                  * @param user The User being tested
                  * @returns A numeric permission level from CONST.ENTITY_PERMISSIONS or null
                  */
-                getUserLevel(user: documents.BaseUser): PermissionLevel | null;
+                getUserLevel(user: documents.BaseUser): DocumentOwnershipLevel | null;
 
                 /**
                  * Test whether a certain User has a requested permission level (or greater) over the Document
@@ -146,7 +146,7 @@ declare global {
                  */
                 testUserPermission(
                     user: documents.BaseUser,
-                    permission: DocumentPermission | DocumentPermissionNumber,
+                    permission: DocumentOwnershipString | DocumentOwnershipLevel,
                     { exact }?: { exact?: boolean }
                 ): boolean;
 
@@ -220,10 +220,11 @@ declare global {
                  * const updated = await Actor.updateDocuments([{_id: actor.id, name: "New Name"}], {pack: "mymodule.mypack"});
                  */
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                static updateDocuments<T extends ConstructorOf<any>>(
-                    updates?: DocumentUpdateData<InstanceType<T>>[],
+                static updateDocuments<T extends Document>(
+                    this: ConstructorOf<T>,
+                    updates?: DocumentUpdateData<T>[],
                     context?: DocumentModificationContext
-                ): Promise<InstanceType<T>[]>;
+                ): Promise<T[]>;
 
                 /**
                  * Delete one or multiple existing Documents using an array of provided ids.

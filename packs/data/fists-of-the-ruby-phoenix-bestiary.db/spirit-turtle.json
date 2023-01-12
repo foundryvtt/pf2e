@@ -153,7 +153,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Regeneration",
+            "name": "Regeneration (Deactivated by Cold Iron or Evil)",
             "sort": 400000,
             "system": {
                 "actionCategory": {
@@ -206,7 +206,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:100]{100 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A spirit turtle exudes a constant feeling of calm. Creatures within the aura are subjected to a 10th-level <em>@Compendium[pf2e.spells-srd.Calm Emotions]{Calm Emotions}</em> spell (@Check[type:will|dc:44] save). The effects persist up to 1 hour, even if the creature leaves the aura. Regardless of the result of the saving throw, the creature is temporarily immune for 1 hour.</p>"
+                    "value": "<p>@Template[type:emanation|distance:100]{100 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A spirit turtle exudes a constant feeling of calm. Creatures within the aura are subjected to a 10th-level <em>@UUID[Compendium.pf2e.spells-srd.Calm Emotions]{Calm Emotions}</em> spell (@Check[type:will|dc:44] save). The effects persist up to 1 hour, even if the creature leaves the aura. Regardless of the result of the saving throw, the creature is temporarily immune for 1 hour.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -250,7 +250,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The spirit turtle makes a foot Strike. Whether or not the Strike hits, the stomp creates a shockwave on the ground in a @Template[type:burst|distance:15] centered on the target. All creatures in the area other than the spirit turtle take [[/r {10d10}[bludgeoning]]]{10d10 bludgeoning damage} and [[/r 4d8 #energy]]{4d8 energy damage} and are knocked @Compendium[pf2e.conditionitems.Prone]{Prone} (@Check[type:reflex|dc:41|basic:true] save). Creatures that critically succeed at their Reflex save are not knocked prone. The spirit turtle can't use Unbalancing Stomp again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The spirit turtle makes a foot Strike. Whether or not the Strike hits, the stomp creates a shockwave on the ground in a @Template[type:burst|distance:15] centered on the target. All creatures in the area other than the spirit turtle take [[/r 10d10[bludgeoning]]] damage and [[/r 4d8 #energy]]{4d8 energy damage} and are knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} (@Check[type:reflex|dc:41|basic:true] save). Creatures that critically succeed at their Reflex save are not knocked prone. The spirit turtle can't use Unbalancing Stomp again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -575,6 +575,16 @@
             "perception": {
                 "value": 35
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 20
+                },
+                {
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -583,7 +593,13 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -616,28 +632,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "fire",
-                    "value": 20
-                },
-                {
-                    "type": "physical",
-                    "value": 15
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Cold Iron",
-                    "type": "coldiron",
-                    "value": "20"
-                }
-            ],
             "languages": {
                 "custom": "Tongues",
                 "selected": [],

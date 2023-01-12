@@ -85,13 +85,19 @@ class PredicatePF2e extends Array<PredicateStatement> {
     private testBinaryOp(statement: BinaryOperation, domain: Set<string>): boolean {
         const operator = Object.keys(statement)[0];
 
+        // Allow for tests of partial statements against numeric values
+        // E.g., `{ "gt": ["actor:level", 5] }` would match against "actor:level:6" and "actor:level:7"
         const [left, right] = Object.values(statement)[0];
         const domainArray = Array.from(domain);
-        const leftValues = domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
+        const leftValues = StatementValidator.isMathOperation(left)
+            ? this.resolveMathOperation(left, domain)
+            : typeof left === "number" || !Number.isNaN(Number(left))
+            ? [Number(left)]
+            : domainArray.flatMap((d) => (d.startsWith(left) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
         const rightValues = StatementValidator.isMathOperation(right)
             ? this.resolveMathOperation(right, domain)
-            : typeof right === "number"
-            ? [right]
+            : typeof right === "number" || !Number.isNaN(Number(right))
+            ? [Number(right)]
             : domainArray.flatMap((d) => (d.startsWith(right) ? Number(/:(-?\d+)$/.exec(d)?.[1]) : []));
 
         switch (operator) {
@@ -204,6 +210,7 @@ class StatementValidator {
             isObject(statement) &&
             (this.isAnd(statement) ||
                 this.isOr(statement) ||
+                this.isNand(statement) ||
                 this.isNor(statement) ||
                 this.isNot(statement) ||
                 this.isIf(statement))
@@ -215,6 +222,14 @@ class StatementValidator {
             Object.keys(statement).length === 1 &&
             Array.isArray(statement.and) &&
             statement.and.every((subProp) => this.isStatement(subProp))
+        );
+    }
+
+    static isNand(statement: { nand?: unknown }): statement is AlternativeDenial {
+        return (
+            Object.keys(statement).length === 1 &&
+            Array.isArray(statement.nand) &&
+            statement.nand.every((subProp) => this.isStatement(subProp))
         );
     }
 

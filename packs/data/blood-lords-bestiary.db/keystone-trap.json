@@ -92,7 +92,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The metal vault crackles with electricity. In air, this would damage only creatures touching it; in water, the trap deals [[/r {2d8}[electricity]]]{2d8 electricity damage} to all creatures in a @Template[type:emanation|distance:10] (@Check[type:fortitude|dc:25|basic:true]).</p>"
+                    "value": "<p>The metal vault crackles with electricity. In air, this would damage only creatures touching it; in water, the trap deals [[/r 2d8[electricity]]] damage to all creatures in a @Template[type:emanation|distance:10] (@Check[type:fortitude|dc:25|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -247,6 +247,17 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert)</p>",
                 "value": 17
@@ -283,17 +294,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "unique",
             "size": {
                 "value": "med"

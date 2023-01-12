@@ -141,7 +141,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Rend (Claw)",
+            "name": "Rend",
             "sort": 400000,
             "system": {
                 "actionCategory": {
@@ -154,7 +154,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Claw.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
+                    "value": "<p>Claw</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Rend]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -240,20 +240,15 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "To Hide while in a Tree",
+                        "label": "PF2E.SkillVariant.HideSneakTree",
                         "predicate": [
-                            "in-tree",
-                            "action:hide"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Sneak while in a Tree",
-                        "predicate": [
-                            "in-tree",
-                            "action:sneak"
+                            "terrain:tree",
+                            {
+                                "or": [
+                                    "action:hide",
+                                    "action:sneak"
+                                ]
+                            }
                         ],
                         "selector": "stealth",
                         "value": 2
@@ -270,12 +265,8 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+7 to Hide",
-                        "options": "action:hide,in-tree"
-                    },
-                    "1": {
-                        "label": "and Sneak , while in a tree",
-                        "options": "action:sneak,in-tree"
+                        "label": "+7 to Hide and Sneak while in a tree",
+                        "options": "action:hide,action:sneak,terrain:tree"
                     }
                 }
             },
@@ -372,7 +363,7 @@
                 "value": -1
             },
             "privateNotes": "",
-            "publicNotes": "<p>Despite their long, hooked claws being one of their most distinctive features, sloths are herbivorous creatures. Smaller sloths use their claws to climb from tree to tree, seeking fruits and young leaves among the canopy. Larger species can reach up to 20 feet tall and weigh more than 10,000 pounds.</p>\n<hr />\n<p>The diminutive three-toed sloth is a solitary, tree-dwelling creature. Possessing a gentle nature and unassuming countenance, it has little to defend itself with other than its surprisingly fearsome climbing claws. These sloths are sometimes used as lookouts by secretive druid enclaves, as the symbiotic algae in their fur makes them difficult to spot in tree canopies, though their slow speed leaves them vulnerable on the ground.</p>",
+            "publicNotes": "<p>The diminutive three-toed sloth is a solitary, tree-dwelling creature. Possessing a gentle nature and unassuming countenance, it has little to defend itself with other than its surprisingly fearsome climbing claws. These sloths are sometimes used as lookouts by secretive druid enclaves, as the symbiotic algae in their fur makes them difficult to spot in tree canopies, though their slow speed leaves them vulnerable on the ground.</p>\n<hr />\n<p>Despite their long, hooked claws being one of their most distinctive features, sloths are herbivorous creatures. Smaller sloths use their claws to climb from tree to tree, seeking fruits and young leaves among the canopy. Larger species can reach up to 20 feet tall and weigh more than 10,000 pounds.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -396,13 +387,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

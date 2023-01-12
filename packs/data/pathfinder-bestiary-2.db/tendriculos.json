@@ -197,7 +197,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A creature the tendriculos has Swallowed Whole has taken damage since the end of the tendriculos's last turn, and the tendriculos hasn't used any other actions this turn</p>\n<hr />\n<p><strong>Effect</strong> The tendriculos regains [[/r {3d8}[healing]]]{3d8 Hit Points} and recovers from the @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} and @Compendium[pf2e.conditionitems.Slowed]{Slowed} conditions. It reduces any @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} value it has by 2.</p>"
+                    "value": "<p><strong>Requirements</strong> A creature the tendriculos has Swallowed Whole has taken damage since the end of the tendriculos's last turn, and the tendriculos hasn't used any other actions this turn</p>\n<hr />\n<p><strong>Effect</strong> The tendriculos regains [[/r 3d8[healing]]]{3d8 Hit Points} and recovers from the @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued} and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed} conditions. It reduces any @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled} value it has by 2.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -242,7 +242,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Large, [[/r {2d10+7}[acid]]]{2d10+7 acid damage} plus tendriculos venom, Rupture 14</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Large, [[/r (2d10+7)[acid]]] damage plus tendriculos venom, Rupture 14</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -284,7 +284,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:21]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 2} (1 round)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -465,16 +465,37 @@
                 "temp": 0,
                 "value": 120
             },
+            "immunities": [
+                {
+                    "type": "acid"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 15
             },
+            "resistances": [
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -510,32 +531,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "acid"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "5"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "5"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

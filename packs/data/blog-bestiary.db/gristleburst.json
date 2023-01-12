@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
@@ -59,29 +58,15 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "sp": 2
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -105,9 +90,6 @@
                 "slug": "dagger",
                 "source": {
                     "value": ""
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -384,22 +366,12 @@
             "name": "Infused Reagents",
             "sort": 500000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 0,
                     "value": 0
                 },
@@ -407,16 +379,11 @@
                     "value": "potion"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": ""
                 },
                 "containerId": "null",
                 "description": {
                     "value": ""
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -447,11 +414,6 @@
                     "value": {}
                 },
                 "quantity": 2,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": null,
@@ -459,11 +421,6 @@
                     "value": ""
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -471,13 +428,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "-"
@@ -712,7 +662,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Gristleburst carries the following infused items, which last for 24 hours or until the next time he makes his daily preparations:</p>\n<p>@Compendium[pf2e.equipment-srd.Acid Flask (Lesser)]{Acid Flask (Lesser)} (2)</p>\n<p>@Compendium[pf2e.equipment-srd.Alchemist's Fire (Lesser)]{Alchemist's Fire (Lesser)} (4)</p>\n<p>@Compendium[pf2e.equipment-srd.Eagle Eye Elixir (Lesser)]{Eagle Eye Elixir (Lesser)} (2)</p>"
+                    "value": "<p>Gristleburst carries the following infused items, which last for 24 hours or until the next time he makes his daily preparations:</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Acid Flask (Lesser)]{Acid Flask (Lesser)} (2)</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Alchemist's Fire (Lesser)]{Alchemist's Fire (Lesser)} (4)</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Eagle Eye Elixir (Lesser)]{Eagle Eye Elixir (Lesser)} (2)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -792,7 +742,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Cost</strong> 1 batch of infused reagents</p>\n<hr />\n<p><strong>Effect</strong> Gristleburst mixes up a short-lived lesser acid flask or lesser alchemist's fire without attempting a Crafting check. It remains potent only until the end of his next turn. When he throws this bomb, in addition to its normal effects, it creates a cloud of smoke in a 10-foot radius burst. Creatures in that area have the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition, and other creatures are concealed to them. This smoke lasts for 1 minute or until dissipated by a strong wind.</p>"
+                    "value": "<p><strong>Cost</strong> 1 batch of infused reagents</p>\n<hr />\n<p><strong>Effect</strong> Gristleburst mixes up a short-lived lesser acid flask or lesser alchemist's fire without attempting a Crafting check. It remains potent only until the end of his next turn. When he throws this bomb, in addition to its normal effects, it creates a cloud of smoke in a 10-foot radius burst. Creatures in that area have the @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition, and other creatures are concealed to them. This smoke lasts for 1 minute or until dissipated by a strong wind.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1027,6 +977,12 @@
             "perception": {
                 "value": 7
             },
+            "resistances": [
+                {
+                    "type": "fire",
+                    "value": 1
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1063,18 +1019,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "fire",
-                    "value": 1
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -179,7 +179,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
+                    "value": "<p>A zombie is permanently @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -311,7 +311,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a grindylow Grabs a creature larger than itself, it attaches to that creature. The grabbed creature is not immobilized, but if it moves, the grindylow moves with it.</p>\n<p>If the creature is Medium or smaller, it takes a -5-foot status penalty to its Speeds while the grindylow is attached. The grindylow is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} while it is attached to a creature.</p>"
+                    "value": "<p>When a grindylow Grabs a creature larger than itself, it attaches to that creature. The grabbed creature is not immobilized, but if it moves, the grindylow moves with it.</p>\n<p>If the creature is Medium or smaller, it takes a -5-foot status penalty to its Speeds while the grindylow is attached. The grindylow is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} while it is attached to a creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -487,6 +487,23 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -496,7 +513,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -532,29 +559,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 10
-                },
-                {
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

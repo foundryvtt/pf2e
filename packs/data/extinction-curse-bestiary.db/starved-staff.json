@@ -12,6 +12,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "grab"
                     ]
@@ -26,7 +27,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(reach 10 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -68,7 +69,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, reach 15 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -90,13 +91,18 @@
             "type": "melee"
         },
         {
-            "_id": "rNe7hr19TVEKyp1e",
+            "_id": "6x5ndW51ukQRdEkd",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Starvation Aura",
+            "name": "Darkvision",
             "sort": 300000,
             "system": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -105,15 +111,15 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>(aura, divine, mental, necromancy) 60 feet. Any creature that ends its turn in the aura feels the intense pain of starvation and must attempt a @Check[type:fortitude|dc:32|traits:damaging-effect] save. On a failure, the creature becomes fatigued and takes [[/r {7d6}]]{7d6 damage}. The damage and fatigue a creature takes from this aura can't be healed until the affected creature has eaten a full meal.</p>"
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -130,10 +136,118 @@
             "type": "action"
         },
         {
+            "_id": "LqrQ3Kv7BGLa9Qyo",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "source": {
+                    "value": "Pathfinder Bestiary 2"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rNe7hr19TVEKyp1e",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Starvation Aura",
+            "sort": 500000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>Any creature that ends its turn in the aura feels the intense pain of starvation and must attempt a @Check[type:fortitude|dc:32] save. On a failure, the creature becomes @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued} and takes [[/r 7d6]]{7d6 damage}. Damage and fatigue a creature takes from this aura can't be healed until the affected creature has eaten a full meal.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "starvation-aura",
+                        "traits": [
+                            "divine",
+                            "mental",
+                            "necromancy"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "divine",
+                        "mental",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "tk1qMQuv7snMkpnc",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 400000,
+            "sort": 600000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -145,7 +259,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The gashadokuro breathes a spray of bone shards in a @Template[type:cone|distance:30]. Each creature in the area takes [[/r {9d12}[piercing]]]{9d12 piercing damage} (@Check[type:reflex|dc:36|basic:true] save). It can't use again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The gashadokuro breathes a spray of bone shards in a @Template[type:cone|distance:30]. Each creature in the area takes [[/r 9d12[piercing]]] damage (@Check[type:reflex|dc:36|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -176,7 +290,7 @@
             "_id": "vhSzb4rXivmMx69j",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Corpse Consumption",
-            "sort": 500000,
+            "sort": 700000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -188,7 +302,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>(divine, necromancy) If the gashadokuro kills a creature with Swallow Whole, it immediately regains Hit Points equal to the swallowed creature's level. As long as the gashadokuro still exists, creatures consumed in this way can't be resurrected except by wish or a similarly powerful effect.</p>"
+                    "value": "<p>If the gashadokuro kills a creature with Swallow Whole, it immediately regains Hit Points equal to the swallowed creature's level. As long as the gashadokuro still exists, creatures consumed in this way can't be resurrected except by <em>@UUID[Compendium.pf2e.spells-srd.Wish]{Wish}</em> or a similarly powerful effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -201,7 +315,10 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -213,10 +330,15 @@
             "type": "action"
         },
         {
-            "_id": "BvLfh5ffQBKPiHJF",
+            "_id": "3gJM7nNe6xASowZz",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -228,15 +350,15 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Large, 3d10 bludgeoning, Rupture 26</p>"
+                    "value": "<p>Large, [[/r 3d10[bludgeoning]]], Rupture 26</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "swallow-whole",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary"
                 },
                 "traits": {
                     "custom": "",
@@ -255,10 +377,55 @@
             "type": "action"
         },
         {
+            "_id": "uI0lVkJrLHDNJ0a3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 900000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "oNhifza8xpfHaIo5",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -286,7 +453,7 @@
             "_id": "5jRDZpBWMfM0nO8A",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 800000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -347,12 +514,51 @@
                 "temp": 0,
                 "value": 250
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 26
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "electricity",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "piercing",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -362,7 +568,7 @@
             "alignment": {
                 "value": "NE"
             },
-            "blurb": "",
+            "blurb": "Elite gashadokuro",
             "creatureType": "",
             "level": {
                 "value": 14
@@ -389,50 +595,11 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "10"
-                },
-                {
-                    "label": "Electricity",
-                    "type": "electricity",
-                    "value": "10"
-                },
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "10"
-                },
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "10"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "10"
-                }
-            ],
-            "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "Can't Speak Any Language",
                 "selected": [],
                 "value": [
-                    "common (can't speak any language)"
+                    "common"
                 ]
             },
             "rarity": "unique",

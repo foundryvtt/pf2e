@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Tengu Weapon Familiarity",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -13,7 +10,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You've trained with a blade and other tengu weapons ever since you hatched. You gain access to @Compendium[pf2e.equipment-srd.Khakkara]{Khakkaras}.</p>\n<p>Additionally, choose two weapons from the sword group. You can choose from among all common martial swords, plus the @Compendium[pf2e.equipment-srd.Katana]{Katana}, @Compendium[pf2e.equipment-srd.Temple Sword]{Temple Sword}, and @Compendium[pf2e.equipment-srd.Wakizashi]{Wakizashi}. For the purpose of determining your proficiency, that weapon is a simple weapon, and if the weapon isn't common, you gain access to it. If you are trained in all martial weapons, you add common advanced swords to the swords you can choose from.</p>\n<p>You also gain access to all uncommon tengu weapons. For the purpose of determining your proficiency, martial tengu weapons are simple weapons, and advanced tengu weapons are martial weapons.</p>"
+            "value": "<p>You've trained with a blade and other tengu weapons ever since you hatched. You gain access to @UUID[Compendium.pf2e.equipment-srd.Khakkara]{Khakkaras}.</p>\n<p>Additionally, choose two weapons from the sword group. You can choose from among all common martial swords, plus the @UUID[Compendium.pf2e.equipment-srd.Katana]{Katana}, @UUID[Compendium.pf2e.equipment-srd.Temple Sword]{Temple Sword}, and @UUID[Compendium.pf2e.equipment-srd.Wakizashi]{Wakizashi}. For the purpose of determining your proficiency, that weapon is a simple weapon, and if the weapon isn't common, you gain access to it. If you are trained in all martial weapons, you add common advanced swords to the swords you can choose from.</p>\n<p>You also gain access to all uncommon tengu weapons. For the purpose of determining your proficiency, martial tengu weapons are simple weapons, and advanced tengu weapons are martial weapons.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -27,8 +24,8 @@
         "rules": [
             {
                 "definition": [
-                    "weapon:trait:tengu",
-                    "weapon:category:advanced"
+                    "item:trait:tengu",
+                    "item:category:advanced"
                 ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.AdvancedTenguWeapons",
@@ -37,8 +34,8 @@
             },
             {
                 "definition": [
-                    "weapon:trait:tengu",
-                    "weapon:category:martial"
+                    "item:trait:tengu",
+                    "item:category:martial"
                 ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.MartialTenguWeapons",
@@ -218,7 +215,7 @@
             },
             {
                 "definition": [
-                    "weapon:base:{item|flags.pf2e.rulesSelections.tenguWeaponFamiliarityFirst}"
+                    "item:base:{item|flags.pf2e.rulesSelections.tenguWeaponFamiliarityFirst}"
                 ],
                 "key": "MartialProficiency",
                 "label": "PF2E.Weapon.Base.{item|flags.pf2e.rulesSelections.tenguWeaponFamiliarityFirst}",
@@ -227,7 +224,7 @@
             },
             {
                 "definition": [
-                    "weapon:base:{item|flags.pf2e.rulesSelections.tenguWeaponFamiliaritySecond}"
+                    "item:base:{item|flags.pf2e.rulesSelections.tenguWeaponFamiliaritySecond}"
                 ],
                 "key": "MartialProficiency",
                 "label": "PF2E.Weapon.Base.{item|flags.pf2e.rulesSelections.tenguWeaponFamiliaritySecond}",

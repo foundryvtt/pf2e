@@ -104,7 +104,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If the forest rot takes fire damage, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of its turn.</p>"
+                    "value": "<p>If the forest rot takes fire damage, it is @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} until the end of its turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -144,7 +144,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An adjacent creature damages the dragon forest rot.</p>\n<hr />\n<p><strong>Effect</strong> The dragon forest rot sprays spores on the triggering creature. The spores deal [[/r {2d4+5}[piercing]]]{2d4+5 piercing damage} with a @Check[type:fortitude|dc:19|basic:true] save. On a critical failure, the triggering creature gains weakness to slashing 5 for the next 4 rounds.</p>"
+                    "value": "<p><strong>Trigger</strong> An adjacent creature damages the dragon forest rot.</p>\n<hr />\n<p><strong>Effect</strong> The dragon forest rot sprays spores on the triggering creature. The spores deal [[/r (2d4+5)[piercing]]] damage with a @Check[type:fortitude|dc:19|basic:true] save. On a critical failure, the triggering creature gains weakness to slashing 5 for the next 4 rounds.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -184,12 +184,22 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters or starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:19] save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. On a critical failure, the creature also takes a -5-foot status penalty to its Speeds for 1 round. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to the of all dragon forest rots for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature that enters or starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:19] save or become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. On a critical failure, the creature also takes a -5-foot status penalty to its Speeds for 1 round. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to the of all dragon forest rots for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "stench",
+                        "traits": [
+                            "aura",
+                            "olfactory"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -227,7 +237,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The dragon forest rot breathes a toxic cloud that deals [[/r {5d6}[poison]]]{5d6 poison damage} in a @Template[type:cone|distance:15] (@Check[type:fortitude|dc:20|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The dragon forest rot breathes a toxic cloud that deals [[/r 5d6[poison]]] damage in a @Template[type:cone|distance:15] (@Check[type:fortitude|dc:20|basic:true] save).</p>\n<p>It can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -354,6 +364,12 @@
             "perception": {
                 "value": 8
             },
+            "resistances": [
+                {
+                    "type": "poison",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -366,7 +382,13 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -399,24 +421,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "poison",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

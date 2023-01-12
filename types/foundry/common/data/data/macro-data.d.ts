@@ -4,14 +4,14 @@ declare module foundry {
             _id: string;
             name: string;
             type: "chat" | "script";
-            img: ImagePath;
+            img: ImageFilePath;
             actorIds: string[];
             author: string;
             command: string;
             scope: string;
             folder?: string | null;
             sort: number;
-            ownership: Record<string, PermissionLevel>;
+            ownership: Record<string, DocumentOwnershipLevel>;
             flags: Record<string, Record<string, unknown>>;
         }
 

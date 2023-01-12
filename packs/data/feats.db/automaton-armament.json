@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Automaton Armament",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -13,7 +10,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You've been provided a body part designed for combat. You gain either a claw or pincer unarmed attack. The claw deals [[/r {1d4}[slashing]]]{1d4 slashing damage}, is in the brawling group, and has the agile, finesse, and unarmed traits. The pincer deals [[/r {1d6}[piercing]]]{1d6 piercing damage}, is in the brawling group, and has the grapple and unarmed traits. Your body can be reconfigured; you can select this feat at any level, and you can retrain into or out of this feat or change the type of attack you gain.</p>\n<p><strong>Enhancement</strong> Your attacking part is reinforced. Increase the damage die of the unarmed attack you gain from this feat by one step (from 1d4 to 1d6, or from 1d6 to 1d8).</p>"
+            "value": "<p>You've been provided a body part designed for combat. You gain either a claw or pincer unarmed attack. The claw deals [[/r 1d4[slashing]]] damage, is in the brawling group, and has the agile, finesse, and unarmed traits. The pincer deals [[/r 1d6[piercing]]] damage, is in the brawling group, and has the grapple and unarmed traits. Your body can be reconfigured; you can select this feat at any level, and you can retrain into or out of this feat or change the type of attack you gain.</p>\n<p><strong>Enhancement</strong> Your attacking part is reinforced. Increase the damage die of the unarmed attack you gain from this feat by one step (from 1d4 to 1d6, or from 1d6 to 1d8).</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -41,6 +38,7 @@
                 "predicate": [
                     "armament:claw"
                 ],
+                "slug": "claw",
                 "traits": [
                     "agile",
                     "finesse",
@@ -57,12 +55,13 @@
                     }
                 },
                 "group": "brawling",
-                "img": "systems/pf2e/icons/unarmed-attacks/claw.pincer",
+                "img": "systems/pf2e/icons/unarmed-attacks/pincer.webp",
                 "key": "Strike",
                 "label": "PF2E.BattleForm.Attack.Pincer",
                 "predicate": [
                     "armament:pincer"
                 ],
+                "slug": "pincer",
                 "traits": [
                     "grapple",
                     "unarmed"
@@ -82,6 +81,54 @@
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Automaton.AutomatonArmament.Prompt",
                 "rollOption": "armament"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d6"
+                },
+                "predicate": [
+                    "enhancement:automaton-armament"
+                ],
+                "selector": "claw-damage"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d8"
+                },
+                "predicate": [
+                    "enhancement:automaton-armament"
+                ],
+                "selector": "pincer-damage"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.lesser",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.AutomatonArmament",
+                    "predicate": [
+                        {
+                            "not": "enhancement:automaton-armament"
+                        }
+                    ],
+                    "value": "automaton-armament"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.AutomatonArmament",
+                    "predicate": [
+                        {
+                            "not": "enhancement:automaton-armament"
+                        }
+                    ],
+                    "value": "automaton-armament"
+                }
             }
         ],
         "source": {

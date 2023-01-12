@@ -1,8 +1,8 @@
 import { AlignmentTrait } from "@actor/creature/types";
 import { OtherArmorTag } from "@item/armor/types";
 import { ClassTrait } from "@item/class/data";
+import { OtherConsumableTag } from "@item/consumable/types";
 import { RANGE_TRAITS } from "@item/data/values";
-import { OtherEquipmentTag } from "@item/equipment/types";
 import { PreciousMaterialType } from "@item/physical/types";
 import { MagicSchool, MagicTradition } from "@item/spell/types";
 import { OtherWeaponTag } from "@item/weapon/types";
@@ -31,6 +31,7 @@ const ancestryTraits = {
     fleshwarp: "PF2E.TraitFleshwarp",
     ganzi: "PF2E.TraitGanzi",
     geniekin: "PF2E.TraitGeniekin",
+    ghoran: "PF2E.TraitGhoran",
     gnoll: "PF2E.TraitGnoll",
     gnome: "PF2E.TraitGnome",
     goblin: "PF2E.TraitGoblin",
@@ -40,10 +41,12 @@ const ancestryTraits = {
     hobgoblin: "PF2E.TraitHobgoblin",
     human: "PF2E.TraitHuman",
     ifrit: "PF2E.TraitIfrit",
+    kashrishi: "PF2E.TraitKashrishi",
     kitsune: "PF2E.TraitKitsune",
     kobold: "PF2E.TraitKobold",
     leshy: "PF2E.TraitLeshy",
     lizardfolk: "PF2E.TraitLizardfolk",
+    nagaji: "PF2E.TraitNagaji",
     orc: "PF2E.TraitOrc",
     oread: "PF2E.TraitOread",
     poppet: "PF2E.TraitPoppet",
@@ -58,6 +61,8 @@ const ancestryTraits = {
     tengu: "PF2E.TraitTengu",
     tiefling: "PF2E.TraitTiefling",
     undine: "PF2E.TraitUndine",
+    vanara: "PF2E.TraitVanara",
+    vishkanya: "PF2E.TraitVishkanya",
 };
 
 // Secondary traits of ancestries and heritages
@@ -190,7 +195,7 @@ const creatureTraits = {
     reflection: "PF2E.TraitReflection",
     sahkil: "PF2E.TraitSahkil",
     samsaran: "PF2E.TraitSamsaran",
-    "sea devil": "PF2E.TraitSeaDevil",
+    "sea-devil": "PF2E.TraitSeaDevil",
     serpentfolk: "PF2E.TraitSerpentfolk",
     seugathi: "PF2E.TraitSeugathi",
     shabti: "PF2E.TraitShabti",
@@ -396,6 +401,7 @@ const weaponTraits = {
     "deadly-2d12": "PF2E.TraitDeadly2D12",
     "deadly-3d12": "PF2E.TraitDeadly3D12",
     "deadly-4d12": "PF2E.TraitDeadly4D12",
+    death: "PF2E.TraitDeath",
     disarm: "PF2E.TraitDisarm",
     disease: "PF2E.TraitDisease",
     "double-barrel": "PF2E.TraitDoubleBarrel",
@@ -457,6 +463,7 @@ const weaponTraits = {
     "thrown-60": "PF2E.TraitThrown60",
     "thrown-80": "PF2E.TraitThrown80",
     "thrown-100": "PF2E.TraitThrown100",
+    "thrown-200": "PF2E.TraitThrown200",
     trip: "PF2E.TraitTrip",
     twin: "PF2E.TraitTwin",
     "two-hand-d6": "PF2E.TraitTwoHandD6",
@@ -487,7 +494,7 @@ const weaponTraits = {
 const preciousMaterials: Record<PreciousMaterialType, string> = {
     abysium: "PF2E.PreciousMaterialAbysium",
     adamantine: "PF2E.PreciousMaterialAdamantine",
-    coldIron: "PF2E.PreciousMaterialColdIron",
+    "cold-iron": "PF2E.PreciousMaterialColdIron",
     darkwood: "PF2E.PreciousMaterialDarkwood",
     djezet: "PF2E.PreciousMaterialDjezet",
     dragonhide: "PF2E.PreciousMaterialDragonhide",
@@ -501,21 +508,22 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     silver: "PF2E.PreciousMaterialSilver",
     "sisterstone-dusk": "PF2E.PreciousMaterialSisterstoneDusk",
     "sisterstone-scarlet": "PF2E.PreciousMaterialSisterstoneScarlet",
-    sovereignSteel: "PF2E.PreciousMaterialSovereignSteel",
+    "sovereign-steel": "PF2E.PreciousMaterialSovereignSteel",
     warpglass: "PF2E.PreciousMaterialWarpglass",
 };
 
 const otherArmorTags: Record<OtherArmorTag, string> = {
-    innovation: "PF2E.Item.Physical.OtherTag.Innovation",
+    shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
 
-const otherEquipmentTags: Record<OtherEquipmentTag, string> = {
-    implement: "PF2E.Item.Physical.OtherTag.Implement",
+const otherConsumableTags: Record<OtherConsumableTag, string> = {
+    herbal: "PF2E.Item.Physical.OtherTag.Herbal",
 };
 
 const otherWeaponTags: Record<OtherWeaponTag, string> = {
     crossbow: "PF2E.Weapon.Base.crossbow",
-    improvised: "PF2E.Item.Weapon.Improvised",
+    improvised: "PF2E.Item.Physical.OtherTag.Improvised",
+    shoddy: "PF2E.Item.Physical.OtherTag.Shoddy",
 };
 
 const rangeTraits = RANGE_TRAITS.reduce(
@@ -722,6 +730,7 @@ const equipmentTraits = {
     clockwork: "PF2E.TraitClockwork",
     companion: "PF2E.TraitCompanion",
     contract: "PF2E.TraitContract",
+    consecration: "PF2E.TraitConsecration",
     cursed: "PF2E.TraitCursed",
     darkness: "PF2E.TraitDarkness",
     death: "PF2E.TraitDeath",
@@ -805,7 +814,7 @@ export {
     magicTraditions,
     npcAttackTraits,
     otherArmorTags,
-    otherEquipmentTags,
+    otherConsumableTags,
     otherWeaponTags,
     preciousMaterials,
     spellOtherTraits,

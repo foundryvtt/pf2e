@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor/base";
 import { ActorSourcePF2e } from "@actor/data";
-import { NPCSystemData } from "@actor/npc/data";
+import { NPCAttributesSource, NPCSystemSource } from "@actor/npc/data";
 import type { ItemPF2e } from "@item/base";
 import { ActionItemSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
@@ -110,12 +110,6 @@ const npcSystemKeys = new Set(Object.keys({ ...templateJSON.Actor.templates.comm
 
 const idsToNames: Map<string, Map<string, string>> = new Map();
 
-const linkPatterns = {
-    world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/g,
-    compendium: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/g,
-    components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<docName>[^\]]+)\]\{?/,
-};
-
 type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | MacroPF2e | RollTable;
 type PackEntry = CompendiumDocumentPF2e["data"]["_source"];
 
@@ -146,7 +140,7 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
             docSource.img &&= docSource.img.replace(
                 "https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/",
                 "systems/pf2e/"
-            ) as ImagePath;
+            ) as ImageFilePath;
 
             if (isObject(docSource.flags?.pf2e) && Object.keys(docSource.flags.pf2e).length === 0) {
                 delete docSource.flags.pf2e;
@@ -170,26 +164,28 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         delete (docSource as { prototypeToken?: unknown }).prototypeToken;
                     } else if (docSource.prototypeToken) {
                         const withToken: {
-                            img: ImagePath;
+                            img: ImageFilePath;
                             prototypeToken: DeepPartial<foundry.data.PrototypeTokenSource>;
                         } = docSource;
                         withToken.prototypeToken = { name: docSource.prototypeToken.name };
                         // Iconics have special tokens
                         if (withToken.img?.includes("iconics")) {
-                            withToken.prototypeToken.texture = { src: withToken.img.replace("Full", "") as ImagePath };
+                            withToken.prototypeToken.texture = {
+                                src: withToken.img.replace("Full", "") as ImageFilePath,
+                            };
                         }
                     }
 
                     if (docSource.type === "npc") {
-                        const { source } = docSource.system.details;
-                        source.author = source.author?.trim() || undefined;
+                        const source: Partial<NPCSystemSource["details"]["source"]> = docSource.system.details.source;
+                        if (!source.author?.trim) delete source.author;
 
-                        const { speed } = docSource.system.attributes;
-                        speed.details = speed.details?.trim() || undefined;
+                        const speed: Partial<NPCAttributesSource["speed"]> = docSource.system.attributes.speed;
+                        if (!speed.details?.trim()) delete speed.details;
 
                         for (const key of Object.keys(docSource.system)) {
                             if (!npcSystemKeys.has(key)) {
-                                delete (docSource.system as NPCSystemData & { extraneous?: unknown })[
+                                delete (docSource.system as NPCSystemSource & { extraneous?: unknown })[
                                     key as "extraneous"
                                 ];
                             }
@@ -203,11 +199,27 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                         if (docSource.system.traits.otherTags?.length === 0) {
                             delete (docSource.system.traits as { otherTags?: unknown }).otherTags;
                         }
+
                         if (docSource.type === "consumable" && !docSource.system.spell) {
                             delete (docSource.system as { spell?: unknown }).spell;
                         }
+
+                        if (docSource.type === "weapon") {
+                            delete (docSource.system as { property1?: unknown }).property1;
+                            if ("value" in docSource.system.damage) {
+                                delete docSource.system.damage.value;
+                            }
+                            if (docSource.system.specific?.value === false) {
+                                delete docSource.system.specific;
+                            }
+                            if (!docSource.system.damage.persistent) {
+                                delete (docSource.system.damage as { persistent?: unknown }).persistent;
+                            }
+                        }
                     } else if (docSource.type === "action" && !docSource.system.deathNote) {
                         delete (docSource.system as { deathNote?: boolean }).deathNote;
+                    } else if (docSource.type === "effect") {
+                        delete (docSource.system as { context?: unknown }).context;
                     } else if (docSource.type === "feat") {
                         const isFeat = !["ancestryfeature", "classfeature"].includes(docSource.system.featType.value);
                         if (isFeat && docSource.img === "systems/pf2e/icons/default-icons/feat.svg") {
@@ -302,17 +314,6 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
             });
         }
 
-        // Sometimes Foundry's conversion of document links to anchor tags makes it into an export: convert them back
-        const $anchors = $description.find("a.content-link");
-        $anchors.each((_i, anchor) => {
-            const $anchor = $(anchor);
-            const label = $anchor.text().trim();
-            const packName = $anchor.attr("data-pack");
-            const docId = $anchor.attr("data-id");
-            $anchor.text(`@Compendium[${packName}.${docId}]{${label}}`);
-            $anchor.contents().unwrap();
-        });
-
         return $("<div>")
             .append($description)
             .html()
@@ -330,9 +331,12 @@ function sanitizeDocument<T extends PackEntry>(docSource: T, { isEmbedded } = { 
             .trim();
     };
 
-    if ("system" in docSource && "description" in docSource.system) {
-        const description = docSource.system.description;
-        description.value = cleanDescription(description.value);
+    if ("system" in docSource) {
+        if ("description" in docSource.system) {
+            docSource.system.description.value = cleanDescription(docSource.system.description.value);
+        } else if ("details" in docSource.system && "publicNotes" in docSource.system.details) {
+            docSource.system.details.publicNotes = cleanDescription(docSource.system.details.publicNotes);
+        }
     } else if ("content" in docSource) {
         docSource.content = cleanDescription(docSource.content);
     }
@@ -354,32 +358,37 @@ function convertLinks(docSource: PackEntry, packName: string): PackEntry {
         CompendiumPack.convertRuleUUIDs(sanitized, { to: "names", map: idsToNames });
     }
 
-    const docJSON = JSON.stringify(sanitized);
+    const docJSON = JSON.stringify(sanitized).replace(/@Compendium\[/g, "@UUID[Compendium.");
 
     // Link checks
-    const worldItemLinks = Array.from(docJSON.matchAll(linkPatterns.world));
+    const { LINK_PATTERNS } = CompendiumPack;
+    const worldItemLinks = Array.from(docJSON.matchAll(LINK_PATTERNS.world));
     if (worldItemLinks.length > 0) {
         const linkString = worldItemLinks.map((match) => match[0]).join(", ");
         console.warn(`${docSource.name} (${packName}) has links to world items: ${linkString}`);
     }
 
-    const compendiumLinks = Array.from(docJSON.matchAll(linkPatterns.compendium)).map((match) => match[0]);
+    const compendiumLinks = Array.from(docJSON.matchAll(LINK_PATTERNS.uuid))
+        .map((match) => match[0])
+        .filter((l) => !l.includes("JournalEntryPage."));
 
     // Convert links by ID to links by name
     const notFound: string[] = [];
-    const convertedJson = compendiumLinks.reduce((partiallyConverted, linkById) => {
-        const parts = linkPatterns.components.exec(linkById);
+    const convertedJson = compendiumLinks.reduce((partiallyConverted, linkById): string => {
+        const components = new RegExp(LINK_PATTERNS.uuid.source);
+        const parts = components.exec(linkById);
         if (!Array.isArray(parts)) {
             throw PackError("Unexpected error parsing compendium link");
         }
+
         const [packId, docId] = parts.slice(1, 3);
         const packMap = idsToNames.get(packId);
-        if (packMap === undefined) {
+        if (!packMap) {
             throw PackError(`Pack ${packId} has no ID-to-name map.`);
         }
 
         const docName = packMap.get(docId) ?? newDocIdMap[docId];
-        if (docName === undefined) {
+        if (!docName) {
             notFound.push(parts[0].replace(/\{$/, ""));
             return partiallyConverted;
         }

@@ -38,13 +38,7 @@
                         "value": [],
                         "selected": [],
                         "custom": ""
-                    },
-                    "di": {
-                        "value": [],
-                        "custom": ""
-                    },
-                    "dr": [],
-                    "dv": []
+                    }
                 },
                 "resources": {},
                 "schema": {
@@ -53,6 +47,23 @@
                 }
             }
         },
+        "htmlFields": [
+            "details.biography.appearance",
+            "details.biography.backstory",
+            "details.biography.birthPlace",
+            "details.biography.attitude",
+            "details.biography.beliefs",
+            "details.biography.likes",
+            "details.biography.dislikes",
+            "details.biography.catchphrases",
+            "details.biography.campaignNotes",
+            "details.biography.allies",
+            "details.biography.enemies",
+            "details.biography.organaizations",
+            "details.description",
+            "details.privateNotes",
+            "details.publicNotes"
+        ],
         "character": {
             "templates": [
                 "common"
@@ -167,8 +178,7 @@
             },
             "martial": {},
             "crafting": {
-                "formulas": [],
-                "entries": {}
+                "formulas": []
             },
             "resources": {
                 "heroPoints": {
@@ -231,6 +241,9 @@
                 },
                 "allSaves": {
                     "value": ""
+                },
+                "speed": {
+                    "details": ""
                 }
             },
             "saves": {
@@ -255,7 +268,8 @@
             },
             "details": {
                 "source": {
-                    "value": ""
+                    "value": "",
+                    "author": ""
                 },
                 "creatureType": "",
                 "blurb": "",
@@ -316,14 +330,7 @@
                 "rarity": "common",
                 "size": {
                     "value": "med"
-                },
-                "di": {
-                    "custom": "",
-                    "value": [],
-                    "selected": {}
-                },
-                "dr": [],
-                "dv": []
+                }
             },
             "schema": {
                 "version": null,
@@ -334,9 +341,7 @@
             "templates": [],
             "attributes": {},
             "details": {
-                "description": {
-                    "value": ""
-                },
+                "description": "",
                 "level": {
                     "value": 0
                 }
@@ -346,14 +351,7 @@
                 "rarity": "common",
                 "size": {
                     "value": "med"
-                },
-                "di": {
-                    "custom": "",
-                    "value": [],
-                    "selected": {}
-                },
-                "dr": [],
-                "dv": []
+                }
             },
             "lootSheetType": "Loot",
             "hiddenWhenEmpty": false,
@@ -408,7 +406,12 @@
                 },
                 "collisionDamage": {
                     "value": ""
-                }
+                },
+                "immunities": [
+                    {
+                        "type": "object-immunities"
+                    }
+                ]
             },
             "saves": {
                 "fortitude": {
@@ -430,7 +433,6 @@
                 "crew": "1 pilot",
                 "passengers": "",
                 "pilotingCheck": "",
-                "AC": 0,
                 "speed": 0
             },
             "traits": {
@@ -438,15 +440,7 @@
                 "rarity": "common",
                 "size": {
                     "value": "lg"
-                },
-                "di": {
-                    "value": [
-                        "object-immunities"
-                    ],
-                    "custom": ""
-                },
-                "dr": [],
-                "dv": []
+                }
             },
             "schema": {
                 "version": null,
@@ -557,36 +551,6 @@
                     "value": 0
                 }
             },
-            "activatedEffect": {
-                "activation": {
-                    "type": "",
-                    "cost": 0,
-                    "condition": ""
-                },
-                "duration": {
-                    "value": null,
-                    "units": ""
-                },
-                "target": {
-                    "value": null,
-                    "units": "",
-                    "type": ""
-                },
-                "range": {
-                    "value": null,
-                    "long": null,
-                    "units": ""
-                },
-                "uses": {
-                    "value": 0,
-                    "max": 0,
-                    "per": null
-                },
-                "spell": {
-                    "data":null,
-                    "heightenedLevel":null
-                }
-            },
             "investable": {
                 "equipped": {
                     "invested": null
@@ -617,6 +581,10 @@
                 "modifiers": []
             }
         },
+        "htmlFields": [
+            "description.value",
+            "identification.data.description.value"
+        ],
         "backpack": {
             "templates": [
                 "common",
@@ -627,9 +595,7 @@
             "bulkCapacity": {
                 "value": ""
             },
-            "collapsed": {
-                "value": false
-            },
+            "collapsed": false,
             "stowing": false,
             "usage": {
                 "value": "worn"
@@ -665,10 +631,10 @@
                 "value": 0
             },
             "damage": {
-                "value": "",
                 "dice": 1,
                 "die": "d6",
-                "damageType": "slashing"
+                "damageType": "slashing",
+                "persistent": null
             },
             "equipped": {
                 "handsHeld": 0
@@ -789,35 +755,20 @@
             "templates": [
                 "common",
                 "physical",
-                "activatedEffect",
                 "itemLevel"
             ],
             "consumableType": {
                 "value": "other"
             },
-            "uses": {
-                "value": 0,
-                "max": 0,
-                "per": null,
-                "autoUse": true,
-                "autoDestroy": true
-            },
             "charges": {
                 "value": 0,
-                "max": 0,
-                "_deprecated": true
+                "max": 0
             },
             "consume": {
-                "value": "",
-                "_deprecated": true
-            },
-            "autoUse": {
-                "value": true,
-                "_deprecated": true
+                "value": ""
             },
             "autoDestroy": {
-                "value": true,
-                "_deprecated": true
+                "value": true
             },
             "usage": {
                 "value": "held-in-one-hand"
@@ -927,9 +878,6 @@
             "actionType": {
                 "value": "passive"
             },
-            "actionCategory": {
-                "value": ""
-            },
             "actions": {
                 "value": null
             },
@@ -1008,9 +956,7 @@
             "range": {
                 "value": ""
             },
-            "area": {
-                "value": ""
-            },
+            "area": null,
             "time": {
                 "value": "2"
             },
@@ -1181,9 +1127,10 @@
             },
             "target": null,
             "tokenIcon": {
-                "show": false
+                "show": true
             },
-            "badge": null
+            "badge": null,
+            "context": null
         },
         "deity": {
             "templates": [],

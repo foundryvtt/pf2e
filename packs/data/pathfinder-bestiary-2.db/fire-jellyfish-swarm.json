@@ -103,7 +103,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Fire jellyfish swarms use Acrobatics to @Compendium[pf2e.actionspf2e.Swim]{Swim}.</p>"
+                    "value": "<p>Fire jellyfish swarms use Acrobatics to @UUID[Compendium.pf2e.actionspf2e.Swim]{Swim}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -143,7 +143,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {3d8}[poison]]]{3d8 poison damage} (@Check[type:reflex|dc:24|basic:true] save) and is exposed to fire jelly venom.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 3d8[poison]]] damage (@Check[type:reflex|dc:24|basic:true] save) and is exposed to fire jelly venom.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -185,7 +185,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 3} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 3} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -276,12 +276,38 @@
                 "temp": 0,
                 "value": 155
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 10
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 9
+                },
+                {
+                    "type": "piercing",
+                    "value": 9
+                },
+                {
+                    "type": "poison",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -290,7 +316,17 @@
                     }
                 ],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 7
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 7
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -326,49 +362,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "mental",
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Bludgeoning",
-                    "type": "bludgeoning",
-                    "value": "9"
-                },
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "9"
-                },
-                {
-                    "label": "Poison",
-                    "type": "poison",
-                    "value": "10"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "5"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Area Damage",
-                    "type": "area-damage",
-                    "value": "7"
-                },
-                {
-                    "label": "Splash Damage",
-                    "type": "splash-damage",
-                    "value": "7"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

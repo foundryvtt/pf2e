@@ -148,7 +148,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Whenever the drakauthix takes at least 15 slashing damage, it releases a cloud of brown spores that has the effect of <em>@Compendium[pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}</em> for 1 minute, centered around the drakauthix. This cloud of spores does not move with the drakauthix, nor is it displaced by its movement.</p>"
+                    "value": "<p>Whenever the drakauthix takes at least 15 slashing damage, it releases a cloud of brown spores that has the effect of <em>@UUID[Compendium.pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}</em> for 1 minute, centered around the drakauthix. This cloud of spores does not move with the drakauthix, nor is it displaced by its movement.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -188,7 +188,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The old drakauthix pulls all creatures it has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} 15 feet closer to itself.</p>"
+                    "value": "<p>The old drakauthix pulls all creatures it has @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} 15 feet closer to itself.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -228,7 +228,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The tendrils that cover the drakauthix's body reach out and infest adjacent creatures, dealing [[/r {5d6}[poison]]]{5d6 poison damage} and [[/r {1d6}[persistent,poison]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}. A creature can attempt a @Check[type:reflex|dc:29|basic:true] save to reduce this damage, but one @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the drakauthix takes a -4 circumstance penalty to this save.</p>"
+                    "value": "<p>The tendrils that cover the drakauthix's body reach out and infest adjacent creatures, dealing [[/r 5d6[poison]]] damage and [[/r 1d6[persistent,poison]]] damage. A creature can attempt a @Check[type:reflex|dc:29|basic:true] save to reduce this damage, but one @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the drakauthix takes a -4 circumstance penalty to this save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -475,7 +475,17 @@
                     }
                 ],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -508,22 +518,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 10
-                },
-                {
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

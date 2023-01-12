@@ -108,7 +108,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature leaves the trapjaw tangle's space</p>\n<hr />\n<p><strong>Effect</strong> The swarm takes [[/r 1d6]]{1d6 damage} as individual traps cling to the creature and continue chewing, dealing [[/r {2d10}[persistent,slashing]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Slashing Damage}. High winds or electricity damage reduces the DC of the flat check to end this persistent damage by 5. Any area damage dealt to the creature destroys these clinging trapjaws.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature leaves the trapjaw tangle's space</p>\n<hr />\n<p><strong>Effect</strong> The swarm takes [[/r 1d6]]{1d6 damage} as individual traps cling to the creature and continue chewing, dealing [[/r 2d10[persistent,slashing]]] damage. High winds or electricity damage reduces the DC of the flat check to end this persistent damage by 5. Any area damage dealt to the creature destroys these clinging trapjaws.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -145,7 +145,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d10}[slashing]]]{2d10 slashing damage} (@Check[type:reflex|dc:22|basic:true]). Creatures that fail this save become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} from the numerous painful wounds caused by the swarm.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 2d10[slashing]]] damage (@Check[type:reflex|dc:22|basic:true]). Creatures that fail this save become @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1} from the numerous painful wounds caused by the swarm.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -182,7 +182,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> A creature in the trapjaw tangle's space took damage from the swarm during this round</p>\n<hr />\n<p><strong>Effect</strong> The trapjaw tangle attempts an @Check[type:athletics|traits:trip-tangle] check with a +10 modifier against the creature's Fortitude DC. On a success, the creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of the trapjaw tangle's next turn. On a critical success, the creature also falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+                    "value": "<p><strong>Requirements</strong> A creature in the trapjaw tangle's space took damage from the swarm during this round</p>\n<hr />\n<p><strong>Effect</strong> The trapjaw tangle attempts an @Check[type:athletics|traits:trip-tangle] check with a +10 modifier against the creature's Fortitude DC. On a success, the creature is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of the trapjaw tangle's next turn. On a critical success, the creature also falls @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -340,16 +340,94 @@
                 "temp": 0,
                 "value": 58
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "mental"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "swarm-mind"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 11
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 4
+                },
+                {
+                    "type": "piercing",
+                    "value": 8
+                },
+                {
+                    "type": "slashing",
+                    "value": 8
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 4
+                },
+                {
+                    "type": "electricity",
+                    "value": 8
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 4
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -382,58 +460,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "sickened",
-                    "swarm-mind",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 4
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 8
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 8
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 4
-                },
-                {
-                    "type": "electricity",
-                    "value": 8
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 4
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

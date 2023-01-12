@@ -183,7 +183,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The alapolo whispers an invitation to a creature within 30 feet. The creature must attempt a @Check[type:will|dc:38] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and temporarily immune to all Enticing Invitations for 24 hours.</p>\n<p><strong>Success</strong> The target must spend 1 action on its next turn dancing in place.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1}. It is also @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the alapolo for 1 minute and can't attack the alapolo as long as it's fascinated. While fascinated, the target must spend 2 actions on each of its turns dancing in place.</p>\n<p><strong>Critical Failure</strong> As failure, except the target is @Compendium[pf2e.conditionitems.Drained]{Drained 3} and must spend 3 actions on each of its turns dancing in place.</p>"
+                    "value": "<p>The alapolo whispers an invitation to a creature within 30 feet. The creature must attempt a @Check[type:will|dc:38] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and temporarily immune to all Enticing Invitations for 24 hours.</p>\n<p><strong>Success</strong> The target must spend 1 action on its next turn dancing in place.</p>\n<p><strong>Failure</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}. It is also @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} by the alapolo for 1 minute and can't attack the alapolo as long as it's fascinated. While fascinated, the target must spend 2 actions on each of its turns dancing in place.</p>\n<p><strong>Critical Failure</strong> As failure, except the target is @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 3} and must spend 3 actions on each of its turns dancing in place.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -262,7 +262,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The alapolo is adjacent to a target creature, or the GM determines the alapolo is adjacent to that creature's shadow</p><hr />\n<p><strong>Effect</strong> The alapolo petulantly stomps on a target's shadow, making it incredibly heavy to drag around. The creature takes a -20-foot penalty to its Speeds for 1 minute. As normal, this penalty can't reduce a creature's Speed below 5 feet. Any creatures @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the alapolo due to its Enticing Invitation are freed from their fascination when the alapolo uses this ability, jarred by the graceless stomping.</p>"
+                    "value": "<p><strong>Requirements</strong> The alapolo is adjacent to a target creature, or the GM determines the alapolo is adjacent to that creature's shadow</p><hr />\n<p><strong>Effect</strong> The alapolo petulantly stomps on a target's shadow, making it incredibly heavy to drag around. The creature takes a -20-foot penalty to its Speeds for 1 minute. As normal, this penalty can't reduce a creature's Speed below 5 feet. Any creatures @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} by the alapolo due to its Enticing Invitation are freed from their fascination when the alapolo uses this ability, jarred by the graceless stomping.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -388,7 +388,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SkillVariants.Dance",
+                        "label": "PF2E.SkillVariant.Dance",
                         "predicate": [
                             "action:perform:dance"
                         ],
@@ -507,6 +507,11 @@
                 "temp": 0,
                 "value": 310
             },
+            "immunities": [
+                {
+                    "type": "light"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -557,15 +562,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "darkness, Shadow (see one with shadows)",
-                "value": [
-                    "light"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

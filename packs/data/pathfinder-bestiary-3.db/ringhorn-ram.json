@@ -192,7 +192,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "ram-charge",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "ram-charge"
+                        ],
+                        "selector": "horn-attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -382,7 +399,7 @@
                 "value": 0
             },
             "privateNotes": "",
-            "publicNotes": "<p>Rams are sturdy, stubborn herd animals suited to rugged terrain and cold weather. Regardless of their territory, all share a stubborn nature and surefootedness, navigating uncertain terrain with ease and weathering all seasons in scattered herds.</p>\n<hr />\n<p>Ringhorn rams, named for the massive, curving spirals protruding from their heads, travel the plains. Though these rams tend to be slightly more playful and less vindictive than those in the mountains, they are no less stubborn or hardy.</p>",
+            "publicNotes": "<p>Ringhorn rams, named for the massive, curving spirals protruding from their heads, travel the plains. Though these rams tend to be slightly more playful and less vindictive than those in the mountains, they are no less stubborn or hardy.</p>\n<hr />\n<p>Rams are sturdy, stubborn herd animals suited to rugged terrain and cold weather. Regardless of their territory, all share a stubborn nature and surefootedness, navigating uncertain terrain with ease and weathering all seasons in scattered herds.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -403,13 +420,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

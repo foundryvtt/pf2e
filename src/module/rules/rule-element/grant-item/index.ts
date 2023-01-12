@@ -1,1 +1,1 @@
-export { GrantItemRuleElement } from "./base";
+export { GrantItemRuleElement } from "./rule-element";

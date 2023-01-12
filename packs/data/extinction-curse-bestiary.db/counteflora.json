@@ -45,7 +45,7 @@
             "type": "melee"
         },
         {
-            "_id": "BfesIESGIRYqPbvi",
+            "_id": "tuA9DbCZRvsPkJ25",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
@@ -110,22 +110,7 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "domain": "speed",
-                        "key": "RollOption",
-                        "option": "frost-susceptibility",
-                        "toggleable": true,
-                        "value": false
-                    },
-                    {
-                        "key": "BaseSpeed",
-                        "predicate": [
-                            "frost-susceptibility"
-                        ],
-                        "value": 15
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -208,13 +193,13 @@
                             "tighten-bracts"
                         ],
                         "selector": "head-damage",
-                        "value": 2
+                        "value": 1
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
                             "tighten-bracts",
-                            "weapon:head"
+                            "item:head"
                         ],
                         "selector": "attack",
                         "value": 1
@@ -294,7 +279,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:30|traits:inhaled,poison] (@Check[type:fortitude|dc:32|name:Counteflora Toxin (Plant or Fungi)|traits:contact,poison] for plants and fungi)</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {4d6}[poison]]]{4d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {6d6}[poison]]]{6d6 poison damage}, enfeebled 1, and @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:30|traits:inhaled,poison] (@Check[type:fortitude|dc:32|name:Counteflora Toxin (Plant or Fungi)|traits:contact,poison] for plants and fungi)</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 4d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 6d6[poison]]] damage, enfeebled 1, and @UUID[Compendium.pf2e.conditionitems.Fascinated]{Fascinated} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -307,7 +292,9 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "poison"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -406,18 +393,14 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Jungle",
+                        "label": "PF2E.SkillVariant.JunglesOrFlowerFields",
                         "predicate": [
-                            "terrain:jungle"
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.FlowerField",
-                        "predicate": [
-                            "terrain:flower-field"
+                            {
+                                "or": [
+                                    "terrain:jungle",
+                                    "terrain:flower-field"
+                                ]
+                            }
                         ],
                         "selector": "stealth",
                         "value": 4
@@ -478,6 +461,11 @@
                 "temp": 0,
                 "value": 220
             },
+            "immunities": [
+                {
+                    "type": "poison"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -487,7 +475,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -499,7 +497,7 @@
                 "value": 10
             },
             "privateNotes": "",
-            "publicNotes": "",
+            "publicNotes": "<p>The counteflora resembles an oversized dandelion with black flowers and sinister patterns on its bracts, which it can contract for additional protection and to turn its flower head into a deadly bashing weapon. Unlike dandelions, countefloras do not have separate flowering and seeding stages, and can release their intoxicating seedpods as long as their bracts are open.</p>\n<p>Countefloras exhibit a strange intellect and communicate with one another by releasing invisible pheromones into the air. Alone, a desperate counteflora may ally with another creature if it is offered water or fertile soil. Contrary to popular belief, countefloras absorb sunlight for sustenance; they do not attack other creatures to feast upon them. Rather, the reason countefloras go to such lengths to kill their opponents is to fertilize the surrounding soil and create a nutrient-rich environment for their seedpods.</p>",
             "source": {
                 "value": "Pathfinder #153: Life's Long Shadows"
             }
@@ -520,26 +518,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "10"
-                },
-                {
-                    "label": "Fire",
-                    "type": "fire",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

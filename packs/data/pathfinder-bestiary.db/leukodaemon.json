@@ -124,13 +124,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -234,13 +228,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -344,13 +332,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -459,11 +441,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -580,8 +559,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
@@ -621,20 +599,6 @@
                         "gp": 20
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -657,9 +621,6 @@
                 "slug": "composite-longbow",
                 "source": {
                     "value": ""
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -1105,7 +1066,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Leukodaemons radiate infection. All creatures within 30 feet of a leukodaemon take a -2 status penalty to saves against disease effects. If a creature within range contracts or progresses a disease, all adjacent creatures are exposed to the same disease, at the same DC.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Infectious Aura]{Effect: Infectious Aura}</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Leukodaemons radiate infection. All creatures within 30 feet of a leukodaemon take a -2 status penalty to saves against disease effects. If a creature within range contracts or progresses a disease, all adjacent creatures are exposed to the same disease, at the same DC.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Infectious Aura]{Effect: Infectious Aura}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1148,7 +1109,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The leukodaemon exhales a cloud of corpse-bloated, biting black flies in a @Template[type:cone|distance:20]. Creatures within the cone take [[/r {4d8}[piercing]]]{4d8 piercing damage} (@Check[type:reflex|dc:28|basic:true] save).</p>\n<hr />\n<p><strong>Critical Success</strong> uneffected</p>\n<p><strong>Success</strong> half damage</p>\n<p><strong>Failure</strong> full damage and @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}</p>\n<p><strong>Critical Failure</strong> double damage and @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}</p>"
+                    "value": "<p>The leukodaemon exhales a cloud of corpse-bloated, biting black flies in a @Template[type:cone|distance:20]. Creatures within the cone take [[/r 4d8[piercing]]] damage (@Check[type:reflex|dc:28|basic:true] save).</p>\n<hr />\n<p><strong>Critical Success</strong> uneffected</p>\n<p><strong>Success</strong> half damage</p>\n<p><strong>Failure</strong> full damage and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}</p>\n<p><strong>Critical Failure</strong> double damage and @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 2}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1191,7 +1152,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The leukodaemon can telepathically communicate with the afflicted creature at any distance on the same plane.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:28]</p>\n<p><strong>Stage 1</strong> carrier (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 5</strong> @Compendium[pf2e.conditionitems.Drained]{Drained 3} (1 week)</p>\n<p><strong>Stage 6</strong> dead</p>"
+                    "value": "<p>The leukodaemon can telepathically communicate with the afflicted creature at any distance on the same plane.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:28]</p>\n<p><strong>Stage 1</strong> carrier (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 4</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2} (1 day)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 3} (1 week)</p>\n<p><strong>Stage 6</strong> dead</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1466,6 +1427,14 @@
                 "temp": 0,
                 "value": 155
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1480,7 +1449,13 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1518,21 +1493,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "good",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

@@ -145,7 +145,7 @@
             "sort": 400000,
             "system": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -154,7 +154,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A ledalusca can recall and replay any reflection ever cast on its surface, although it must still Seek to consciously notice fine or significant details.</p>"
+                    "value": "<p>A ledalusca can recall and replay any reflection ever cast on its surface, although it must still @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek} to consciously notice fine or significant details.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -197,7 +197,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The ledalusca takes physical damage from an attack</p>\n<p><strong>Requirements</strong> The ledalusca's shell is frozen (see Freeze Shell)</p>\n<hr />\n<p><strong>Effect</strong> The ledalusca angles their shell to absorb the blow, gaining resistance 5 to the triggering damage. If they takes bludgeoning or fire damage after applying this resistance, their frozen shell shatters until they freezes a new one.</p>"
+                    "value": "<p><strong>Trigger</strong> The ledalusca takes physical damage from an attack</p>\n<p><strong>Requirements</strong> The ledalusca's shell is frozen (see Freeze Shell)</p>\n<hr />\n<p><strong>Effect</strong> The ledalusca angles their shell to absorb the blow, gaining resistance 5 to the triggering damage. If they take bludgeoning or fire damage after applying this resistance, their frozen shell shatters until they freeze a new one.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -237,7 +237,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The ledalusca freezes their surface into a translucent, faintly colored ice sculpture matching the mirror image of a Medium creature or object they have seen before. While in this form, instead of a wave, they have the following Strike:</p>\n<p><strong>Melee</strong> <span class=\"pf2-icon\">a</span> ice shell [[/r 1d20+10]], <strong>Damage</strong> [[/r {1d6+4}]]{1d6+4 physical damage} plus [[/r {1d4}[cold]]]{1d4 cold damage}</p>\n<p>The physical damage is a type that matches the new shape of the ledalusca's frozen shell. The ledalusca can revert to their liquid form by taking this action again.</p>"
+                    "value": "<p>The ledalusca freezes their surface into a translucent, faintly colored ice sculpture matching the mirror image of a Medium creature or object they have seen before. While in this form, instead of a wave, they have the following Strike:</p>\n<p><strong>Melee</strong> <span class=\"pf2-icon\">a</span> ice shell [[/r 1d20+10 #Ice Shell]]{+10}/[[/r 1d20+5 #Ice Shell]]{+5}/[[/r 1d20+0 #Ice Shell]]{+0}, <strong>Damage</strong> [[/r 1d4[cold]]] damage</p>\n<p>The physical damage is a type that matches the new shape of the ledalusca's frozen shell. The ledalusca can revert to their liquid form by taking this action again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -520,7 +520,7 @@
                 "value": 17
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -528,6 +528,20 @@
                 "temp": 0,
                 "value": 40
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -542,7 +556,13 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -578,23 +598,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

@@ -1,4 +1,4 @@
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
 import { ItemSummaryData, MeleeSource } from "@item/data";
@@ -6,7 +6,6 @@ import { MeleeDamageRoll, NPCAttackTrait } from "@item/melee/data";
 import {
     Bulk,
     CoinsPF2e,
-    getStrikingDice,
     IdentificationStatus,
     MaterialGradeData,
     MystifiedData,
@@ -17,12 +16,15 @@ import {
     WEAPON_VALUATION_DATA,
 } from "@item/physical";
 import { MAGIC_SCHOOLS, MAGIC_TRADITIONS } from "@item/spell/values";
+import { OneToThree } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
-import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
+import { DamageCategorization } from "@system/damage";
+import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import { WeaponDamage, WeaponData, WeaponMaterialData, WeaponSource } from "./data";
 import {
     BaseWeaponType,
     OtherWeaponTag,
+    StrikingRuneType,
     WeaponCategory,
     WeaponGroup,
     WeaponPropertyRuneType,
@@ -112,7 +114,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     /** This weapon's damage before modification by creature abilities, effects, etc. */
     get baseDamage(): WeaponDamage {
-        return this.system.damage;
+        return deepClone(this.system.damage);
     }
 
     /** Does this weapon deal damage? */
@@ -143,8 +145,12 @@ class WeaponPF2e extends PhysicalItemPF2e {
     override getRollOptions(prefix = "weapon"): string[] {
         const delimitedPrefix = prefix ? `${prefix}:` : "";
         const damage = {
+            category: DamageCategorization.fromDamageType(this.system.damage.damageType),
             type: this.system.damage.damageType,
-            dieFaces: Number(this.system.damage.die?.replace(/^d/, "")),
+            dice: {
+                number: this.system.damage.die ? this.system.damage.dice : 0,
+                faces: Number(this.system.damage.die?.replace(/^d/, "")),
+            },
         };
         const { actor } = this;
         const actorSize = actor?.system.traits.size;
@@ -161,6 +167,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
             const baseTypes = [this.baseType ?? [], equivalentBases[this.baseType ?? ""] ?? []].flat();
             return baseTypes.reduce((types, t) => ({ ...types, [`base:${t}`]: true }), {} as Record<string, boolean>);
         })();
+        const { persistent } = this.system.damage;
+        const propertyRunes = this.system.runes.property
+            .map((p) => `rune:property:${sluggify(p)}`)
+            .reduce((statements, s) => ({ ...statements, [s]: true }), {} as Record<string, boolean>);
 
         return [
             super.getRollOptions(prefix),
@@ -174,18 +184,21 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
                 [`reload:${this.reload}`]: !!this.reload,
                 [`damage:type:${damage.type}`]: true,
-                [`damage:die:faces:${damage.dieFaces}`]: true,
-                [`damage-dice:${1 + this.system.runes.striking}`]: true,
+                [`damage:category:${damage.category}`]: !!damage.category,
+                [`damage:die:number:${damage.dice.number}`]: !!damage.dice.faces,
+                [`damage:die:faces:${damage.dice.faces}`]: !!damage.dice.faces,
+                [`damage-dice:${damage.dice.faces}`]: !!damage.dice.faces,
+                [`damage:persistent:${persistent?.type}`]: !!persistent,
                 "deity-favored": isDeityFavored,
                 oversized,
                 melee: this.isMelee,
                 ranged: this.isRanged,
                 thrown: this.isThrown,
                 "thrown-melee": thrownMelee,
+                ...propertyRunes,
             })
                 .filter(([_key, isTrue]) => isTrue)
                 .map(([key]) => `${delimitedPrefix}${key}`),
-            this.system.traits.otherTags.map((tag) => `${delimitedPrefix}tag:${tag}`),
         ]
             .flat()
             .sort();
@@ -207,7 +220,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
         systemData.propertyRune3.value ||= null;
         systemData.propertyRune4.value ||= null;
         systemData.reload.value ||= null;
-        systemData.traits.otherTags ??= [];
         systemData.selectedAmmoId ||= null;
         systemData.damage.die ||= null;
         systemData.damage.modifier ??= 0;
@@ -215,20 +227,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
         // (number of dice) of 1, yielding "" + "1" ("1") in the roll formula. An arrest warrant has been issued.
         if (!systemData.damage.die && systemData.damage.dice > 0) {
             systemData.damage.modifier ||= systemData.damage.dice;
-            systemData.damage.dice = 0;
         }
 
         const preciousMaterial =
             systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
                 ? { type: systemData.preciousMaterial.value, grade: systemData.preciousMaterialGrade.value }
                 : null;
+        systemData.material = { precious: preciousMaterial };
 
-        systemData.material = {
-            base: [{ type: "steel", thickness: "thin" }], // Stand-in until this data is utilized
-            precious: preciousMaterial,
-        };
-
-        AutomaticBonusProgression.cleanupRunes(this);
+        ABP.cleanupRunes(this);
 
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
@@ -245,7 +252,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
             if (traitSet.has("combination")) this.system.group = "firearm";
 
             // Categorize this weapon as a crossbow if it is among an enumerated set of base weapons
-            if (this.group === "bow" && setHasElement(CROSSBOW_WEAPONS, this.baseType)) {
+            const { otherTags } = systemData.traits;
+            const isCrossbow = this.group === "bow" && setHasElement(CROSSBOW_WEAPONS, this.baseType);
+            if (isCrossbow && !otherTags.includes("crossbow")) {
                 systemData.traits.otherTags.push("crossbow");
             }
         }
@@ -270,14 +279,32 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         const systemData = this.system;
         const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
+
+        const strikingDice: Map<StrikingRuneType | null, OneToThree> = new Map([
+            ["striking", 1],
+            ["greaterStriking", 2],
+            ["majorStriking", 3],
+        ]);
+
         this.system.runes = {
             potency: potencyRune.value ?? 0,
-            striking: getStrikingDice({ strikingRune }),
+            striking: strikingDice.get(strikingRune.value) ?? 0,
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
                 (rune): rune is WeaponPropertyRuneType => !!rune
             ),
             effects: [],
         };
+
+        // Set damage dice according to striking rune
+        const pcLevel = this.actor?.isOfType("character") ? this.actor.level : 0;
+        // Only increase damage dice from ABP if the dice number is 1
+        // Striking Rune: "A striking rune [...], increasing the weapon damage dice it deals to two instead of one"
+        // Devastating Attacks: "At 4th level, your weapon and unarmed Strikes deal two damage dice instead of one."
+        const inherentDiceNumber = this.system.damage.die ? this._source.system.damage.dice : 0;
+        this.system.damage.dice =
+            inherentDiceNumber === 1 && !this.flags.pf2e.battleForm
+                ? inherentDiceNumber + (ABP.isEnabled ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking)
+                : this.system.damage.dice;
     }
 
     processMaterialAndRunes(): void {
@@ -488,7 +515,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
     /** Generate a clone of this thrown melee weapon with its thrown usage overlain, or `null` if not applicable */
     private toThrownUsage(): this | null {
-        const traits = this.system.traits.value;
+        const traits = this._source.system.traits.value;
         const thrownTrait = traits.find((t) => /^thrown-\d{1,3}$/.test(t));
         if (this.isRanged || !thrownTrait) return null;
 
@@ -552,7 +579,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             })();
 
             return {
-                damage: `${dice}${weaponDamage.die}${constant}`,
+                damage: weaponDamage.die ? `${dice}${weaponDamage.die}${constant}` : dice.toString(),
                 damageType: weaponDamage.damageType,
             };
         })();

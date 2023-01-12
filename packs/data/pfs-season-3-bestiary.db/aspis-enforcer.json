@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
@@ -69,20 +68,6 @@
                         "sp": 2
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -105,9 +90,6 @@
                 "slug": "dagger",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -146,22 +128,12 @@
             "name": "Elixir of Life (Minor)",
             "sort": 200000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -169,16 +141,11 @@
                     "value": "elixir"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": "1d6"
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {1d6}[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r 1d6[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -210,11 +177,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "elixir-of-life-minor",
@@ -222,11 +184,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -240,13 +197,6 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
                 "weight": {
                     "value": "L"
                 }
@@ -256,7 +206,7 @@
         {
             "_id": "oKpXDvkEyLE9dw0W",
             "img": "systems/pf2e/icons/pathfinder-society/aspis-consortium.webp",
-            "name": "bronze Aspis Consortium badge",
+            "name": "Bronze Aspis Consortium Badge",
             "sort": 300000,
             "system": {
                 "baseItem": null,
@@ -315,54 +265,6 @@
             "type": "treasure"
         },
         {
-            "_id": "sEHp9sZNMb0Ixl7j",
-            "img": "systems/pf2e/icons/default-icons/effect.svg",
-            "name": "Effect: Prepare Fangs",
-            "sort": 400000,
-            "system": {
-                "badge": null,
-                "description": {
-                    "value": "<p>For 1 round, all daggers wielded by the usurper and allies within 30 feet of them deal an additional 2 poison damage.</p>"
-                },
-                "duration": {
-                    "expiry": "turn-start",
-                    "sustained": false,
-                    "unit": "rounds",
-                    "value": 1
-                },
-                "level": {
-                    "value": 1
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Prepare Fangs",
-                        "selector": "dagger-damage",
-                        "type": "poison",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "start": {
-                    "initiative": null,
-                    "value": 0
-                },
-                "target": null,
-                "tokenIcon": {
-                    "show": false
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "effect"
-        },
-        {
             "_id": "JFlW3IXkqBwnqZrE",
             "flags": {
                 "pf2e": {
@@ -371,7 +273,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "attack": {
                     "value": ""
@@ -420,7 +322,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dagger",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "attack": {
                     "value": ""
@@ -464,7 +366,7 @@
             "_id": "2xCTpKfQjViExhI1",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Prepare Fangs",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionCategory": {
                     "value": "offensive"
@@ -476,7 +378,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The Aspis usurper slices their palm with a dagger, and the blade glows as it absorbs some of their blood. The glow spreads to the daggers of the usurper's Aspis allies. For 1 round, all daggers wielded by the usurper and allies within 30 feet of them deal an additional 3 poison damage.</p>"
+                    "value": "<p>The Aspis enforcer slices their palm with a dagger, and the blade glows as it absorbs some of their blood. The glow spreads to the daggers of the enforcer's Aspis allies. For 1 round, all daggers wielded by the enforcer and allies within 30 feet of them deal an additional 3 poison damage.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Prepare Fangs]{Effect: Prepare Fangs 3}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -501,7 +403,7 @@
             "_id": "vU9rL1FjNOIv5SKR",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -529,7 +431,7 @@
             "_id": "BErGEBO1un5CRgL4",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -557,7 +459,7 @@
             "_id": "k3UuZgSXKScjo1ms",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -585,7 +487,7 @@
             "_id": "Metjis7jntZGnn6R",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -613,7 +515,7 @@
             "_id": "8OFDuwUUi9PReaQA",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -716,12 +618,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

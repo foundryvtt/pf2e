@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This very long spear, sometimes called a pike, is purely for thrusting rather than throwing. Used by many soldiers and city watch for crowd control and defense against charging enemies, it must be wielded with two hands.</p>"
@@ -69,20 +68,6 @@
                         "sp": 5
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -105,9 +90,6 @@
                 "slug": "longspear",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -384,12 +366,27 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Living creatures are @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} while in a mummy pharaoh's despair aura. They can't naturally recover from this fear while in the area but recover instantly once they leave the area. When a creature first enters the area, it must succeed at a @Check[type:will|dc:25] save (after taking the penalty from being frightened) or be @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. The creature is then temporarily immune for 24 hours.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Living creatures are @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} while in a mummy pharaoh's despair aura. They can't naturally recover from this fear while in the area but recover instantly once they leave the area. When a creature first enters the area, it must succeed at a @Check[type:will|dc:25] save (after taking the penalty from being frightened) or be @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. The creature is then temporarily immune for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "great-despair",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "emotion",
+                            "enchantment",
+                            "fear",
+                            "incapacitation",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -433,7 +430,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a mummy pharaoh is destroyed, necromantic energies rebuild its body in its tomb over [[/br 1d10 #Rejuvenation]]{1d10 days}. If the re-forming body is destroyed during that time, the process starts anew. A slain mummy pharaoh can be destroyed for good with a <em>@Compendium[pf2e.spells-srd.Consecrate]{Consecrate}</em> ritual.</p>"
+                    "value": "<p>When a mummy pharaoh is destroyed, necromantic energies rebuild its body in its tomb over [[/br 1d10 #Rejuvenation]]{1d10 days}. If the re-forming body is destroyed during that time, the process starts anew. A slain mummy pharaoh can be destroyed for good with a <em>@UUID[Compendium.pf2e.spells-srd.Consecrate]{Consecrate}</em> ritual.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -476,7 +473,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:100]{100 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Commanded or allied undead in the aura that have a lower level than the mummy pharaoh gain a +1 circumstance bonus to attack rolls, damage rolls, AC, saves, and skill checks.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Undead Mastery]{Effect: Undead Mastery}</p>"
+                    "value": "<p>@Template[type:emanation|distance:100]{100 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Commanded or allied undead in the aura that have a lower level than the mummy pharaoh gain a +1 circumstance bonus to attack rolls, damage rolls, AC, saves, and skill checks.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Undead Mastery]{Effect: Undead Mastery}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -563,7 +560,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>This disease and any damage from it can't be healed until this curse is removed. A creature killed by insidious mummy rot turns to sand and can't be resurrected except by a 7th-level <em>@Compendium[pf2e.spells-srd.Resurrect]{Resurrect}</em> ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> [[/r {8d6}[negative]]]{8d6 negative damage} and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 day)</p>"
+                    "value": "<p>This disease and any damage from it can't be healed until this curse is removed. A creature killed by insidious mummy rot turns to sand and can't be resurrected except by a 7th-level <em>@UUID[Compendium.pf2e.spells-srd.Resurrect]{Resurrect}</em> ritual or similar magic.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 minute)</p>\n<p><strong>Stage 2</strong> [[/r 8d6[negative]]] damage and @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} (1 day)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -608,7 +605,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The mummy pharaoh exhales a @Template[type:cone|distance:60] of superheated sand that deals [[/r {5d6}[fire]+{5d6}[slashing]]]{5d6 fire damage and 5d6 slashing damage} (@Check[type:reflex|dc:28|basic:true] save).</p>\n<p>The mummy pharaoh can't use Sandstorm Wrath again for [[/br 1d4 #Recharge Sandstorm Wrath]]{1d4 rounds}.</p>"
+                    "value": "<p>The mummy pharaoh exhales a @Template[type:cone|distance:60] of superheated sand that deals [[/r {5d6[fire],5d6[slashing]}]]{5d6 fire damage and 5d6 slashing damage} (@Check[type:reflex|dc:28|basic:true] save).</p>\n<p>The mummy pharaoh can't use Sandstorm Wrath again for [[/br 1d4 #Recharge Sandstorm Wrath]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -817,6 +814,23 @@
                 "temp": 0,
                 "value": 165
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -826,7 +840,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -859,24 +879,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "Ancient Osiriani",
                 "selected": [],

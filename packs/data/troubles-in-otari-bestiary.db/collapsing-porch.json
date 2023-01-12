@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>If a creature walks on the area marked on the map, it falls through the weakened floorboards onto uneven rocks and sharp shards of wood, taking [[/r {1d4}[piercing]]]{1d4 piercing damage} and [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage}. The creature can use the @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge} reaction to avoid the fall and the damage.</p>"
+                    "value": "<p>If a creature walks on the area marked on the map, it falls through the weakened floorboards onto uneven rocks and sharp shards of wood, taking [[/r 1d4[piercing]]] damage and [[/r 1d6[bludgeoning]]] damage. The creature can use the @UUID[Compendium.pf2e.actionspf2e.Grab an Edge]{Grab an Edge} reaction to avoid the fall and the damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -58,6 +58,11 @@
                 "tempmax": 0,
                 "value": 12
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                }
+            ],
             "stealth": {
                 "details": "<p>(or 0 after the hazard is triggered)</p>",
                 "value": 9
@@ -94,16 +99,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "sneak attack",
-                "selected": {},
-                "value": [
-                    "critical-hits"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

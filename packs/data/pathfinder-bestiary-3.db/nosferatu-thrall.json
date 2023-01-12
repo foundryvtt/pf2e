@@ -3,14 +3,14 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Mow2BwI2OwrZ0wZV",
+            "_id": "YC9q2aIlbYj8sEUp",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.kdGqnqbrwPzQfTsm"
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/greatclub.webp",
-            "name": "+1 Striking Greatclub",
+            "name": "Greatclub",
             "sort": 100000,
             "system": {
                 "MAP": {
@@ -28,15 +28,14 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d10",
-                    "value": ""
+                    "die": "d10"
                 },
                 "description": {
                     "value": "<p>While many greatclubs are intricately carved, others are little more than a sturdy tree branch. These massive clubs are too heavy to wield with only one hand.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 2,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -59,41 +58,27 @@
                     "value": 1
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 1
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune2": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune3": {
-                    "value": ""
+                    "value": null
                 },
                 "propertyRune4": {
-                    "value": ""
+                    "value": null
                 },
                 "quantity": 1,
                 "range": null,
@@ -104,10 +89,7 @@
                 "size": "med",
                 "slug": "greatclub",
                 "source": {
-                    "value": ""
-                },
-                "specific": {
-                    "value": false
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "splashDamage": {
                     "value": 0
@@ -268,7 +250,12 @@
             "type": "action"
         },
         {
-            "_id": "ggi7Q29qP6Lj1KZL",
+            "_id": "8wjQ8NlAQiJtzns1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.LKxsPOf0hAS32Sp8"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mindbound",
             "sort": 500000,
@@ -283,35 +270,34 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A nosferatu master exerts a fierce hold over their thrall's mind. If any creature other than the thrall's master targets them with an effect that would give them the controlled condition, the thrall's master rolls a counteract check against it using their Dominate DC - 10 as the counteract check modifier.</p>"
+                    "value": "<p>A nosferatu master exerts a fierce hold over their thrall's mind. If any creature other than the thrall's master targets them with an effect that would give them the @UUID[Compendium.pf2e.conditionitems.Controlled]{Controlled} condition, the thrall's master rolls a counteract check against it using their Dominate DC - 10 as the counteract check modifier.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "vampire-nosferatu-thrall-mindbound",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary 3"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": [
-                        "divine",
-                        "enchantment"
-                    ]
+                    "value": []
                 },
                 "trigger": {
-                    "value": ""
-                },
-                "weapon": {
                     "value": ""
                 }
             },
             "type": "action"
         },
         {
-            "_id": "QvjhsyzifSoVcT7O",
+            "_id": "adUdgeL10QH11zJu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.OQt7nHInDBAmHaG6"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Mortal Shield",
             "sort": 600000,
@@ -332,9 +318,9 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "vampire-nosferatu-thrall-mortal-shield",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary 3"
                 },
                 "traits": {
                     "custom": "",
@@ -343,15 +329,17 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
             "type": "action"
         },
         {
-            "_id": "fKrpDA7SXYuxSlQ8",
+            "_id": "5NPHDSBtMnU44c52",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.IL8wtCi23ch62zXG"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Rally",
             "sort": 700000,
@@ -372,9 +360,9 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "vampire-nosferatu-thrall-rally",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Bestiary 3"
                 },
                 "traits": {
                     "custom": "",
@@ -382,9 +370,6 @@
                     "value": []
                 },
                 "trigger": {
-                    "value": ""
-                },
-                "weapon": {
                     "value": ""
                 }
             },
@@ -571,7 +556,7 @@
                 "value": 27
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "fast healing 5",
@@ -588,7 +573,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "mental",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -600,7 +591,7 @@
                 "value": 8
             },
             "privateNotes": "",
-            "publicNotes": "<p>Among the most ancient of vampires are the nosferatus, twisted remnants of mortals who died in great plagues of old. Perhaps because of their age, nosferatus can no longer create more of their kind. Yet they still lurk among the living, manipulating the hearts and minds of their prey to either serve them beyond the limits of natural life or to become sustenance for the nosferatu like so many others before.</p>\n<hr />\n<p>Nosferatu thralls are mortals bound to a nosferatu's will. While thralls aren't undead, they stay alive through unnatural means: feeding on the blood of their masters.</p>",
+            "publicNotes": "<p>Nosferatu thralls are mortals bound to a nosferatu's will. While thralls aren't undead, they stay alive through unnatural means: feeding on the blood of their masters.</p>\n<hr />\n<p>Among the most ancient of vampires are the nosferatus, twisted remnants of mortals who died in great plagues of old. Perhaps because of their age, nosferatus can no longer create more of their kind. Yet they still lurk among the living, manipulating the hearts and minds of their prey to either serve them beyond the limits of natural life or to become sustenance for the nosferatu like so many others before.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -621,20 +612,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "label": "Mental",
-                    "type": "mental",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

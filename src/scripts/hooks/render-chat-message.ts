@@ -1,7 +1,5 @@
 import { ChatMessagePF2e } from "@module/chat-message";
-import { CriticalHitAndFumbleCards } from "@module/chat-message/crit-fumble-cards";
 import { ChatCards } from "@module/chat-message/listeners/cards";
-import { DamageButtons } from "@module/chat-message/listeners/damage-buttons";
 import { DegreeOfSuccessHighlights } from "@module/chat-message/listeners/degree-of-success";
 import { SetAsInitiative } from "@module/chat-message/listeners/set-as-initiative";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
@@ -19,23 +17,14 @@ export const RenderChatMessage = {
             const dcResult = html.querySelector<HTMLElement>(".dc-result");
             if (dcResult?.innerHTML.trim() === "") dcResult.remove();
 
-            if (!message.flags.pf2e.suppressDamageButtons && message.isDamageRoll && message.isContentVisible) {
-                await DamageButtons.append(message, $html);
-
-                // Clean up styling of old damage messages
-                $html.find(".flavor-text > div:has(.tags)").removeAttr("style").attr({ "data-pf2e-deprecated": true });
-            }
-
-            CriticalHitAndFumbleCards.appendButtons(message, $html);
-
             ChatCards.listen($html);
             InlineRollLinks.listen($html[0], message);
-            DegreeOfSuccessHighlights.listen(message, $html);
+            DegreeOfSuccessHighlights.listen(message, html);
             if (canvas.ready) SetAsInitiative.listen($html);
 
             // Check DC adjusted by circumstance bonuses or penalties
             try {
-                const $adjustedDC = $html.find(".adjusted-dc[data-circumstances]");
+                const $adjustedDC = $html.find(".adjusted[data-circumstances]");
                 if ($adjustedDC.length === 1) {
                     const circumstances = JSON.parse($adjustedDC.attr("data-circumstances") ?? "");
                     if (!Array.isArray(circumstances)) throw ErrorPF2e("Malformed adjustments array");
@@ -52,6 +41,16 @@ export const RenderChatMessage = {
                 }
             } catch (error) {
                 if (error instanceof Error) console.error(error.message);
+            }
+
+            // Adjusted check degree of success
+            const $degreeOfSuccess = $html.find(".degree-of-success .adjusted");
+            if ($degreeOfSuccess[0]?.dataset.adjustment) {
+                $degreeOfSuccess.tooltipster({
+                    content: game.i18n.localize($degreeOfSuccess[0].dataset.adjustment),
+                    contentAsHTML: true,
+                    theme: "crb-hover",
+                });
             }
 
             // Trait and material tooltips

@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of an aurochs skull</p>\n<hr />\n<p><strong>Effect</strong> The skulls rise into the air, form ghostly bodies, and bellow in rage. Each creature within @Template[type:emanation|distance:60]{60 feet} of an aurochs skull must attempt a @Check[type:will|dc:36] saving throw. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {1d12+6}[mental]]]{1d12+6 mental damage} and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {2d12+12}[mental]]]{2d12+12 mental damage} and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of an aurochs skull</p>\n<hr />\n<p><strong>Effect</strong> The skulls rise into the air, form ghostly bodies, and bellow in rage. Each creature within @Template[type:emanation|distance:60]{60 feet} of an aurochs skull must attempt a @Check[type:will|dc:36] saving throw. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature takes [[/r (1d12+6)[mental]]] damage and is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (2d12+12)[mental]]] damage and is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -98,10 +98,30 @@
                 "temp": 0,
                 "value": 20
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
             "stealth": {
                 "details": "<p>(master)</p>",
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 5
+                }
+            ]
         },
         "creatureType": "",
         "details": {
@@ -112,7 +132,7 @@
                 "value": 15
             },
             "reset": "<p>The haunt deactivates 1 minute after all living creatures leave the area or after all four aurochs skulls are destroyed. After 1 hour, if at least one aurochs skull remains, the haunt reactivates.</p>",
-            "routine": "<p>(4 actions) For each aurochs skull disabled or destroyed, the haunt has 1 fewer action. On each action, a different aurochs moves up to 60 feet and attempts a horn Strike against a different living creature. A creature critically hit by a horn Strike also takes @Localize[PF2E.PersistentDamage.Bleed2d6.success] and is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+            "routine": "<p>(4 actions) For each aurochs skull disabled or destroyed, the haunt has 1 fewer action. On each action, a different aurochs moves up to 60 feet and attempts a horn Strike against a different living creature. A creature critically hit by a horn Strike also takes @Localize[PF2E.PersistentDamage.Bleed2d6.success] and is knocked @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}.</p>"
         },
         "saves": {
             "fortitude": {
@@ -133,23 +153,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "positive",
-                    "value": 5
-                }
-            ],
             "rarity": "common",
             "size": {
                 "value": "med"

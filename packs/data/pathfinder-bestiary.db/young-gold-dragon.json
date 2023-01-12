@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -237,11 +231,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "spell"
@@ -729,7 +720,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:27]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:90]{90 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:27]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -774,7 +765,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The gold dragon breathes in one of two ways.</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Flame</strong> The dragon breathes a blast of flame in a @Template[type:cone|distance:30|traits:arcane,evocation,fire,damaging-effect] that deals [[/r {11d6}[fire]]]{11d6 fire damage} (@Check[type:reflex|dc:31|basic:true] save).</li>\n<li><strong>Weakening Gas</strong> The dragon breathes a blast of weakening gas. Each creature within a @Template[type:cone|distance:30|traits:arcane,necromancy] must succeed at a @Check[type:fortitude|dc:31] save or become @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute (or @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} on a critical failure).</li>\n</ul>"
+                    "value": "<p>The gold dragon breathes in one of two ways.</p>\n<p>The dragon can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<ul>\n<li><strong>Flame</strong> The dragon breathes a blast of flame in a @Template[type:cone|distance:30|traits:arcane,evocation,fire,damaging-effect] that deals [[/r 11d6[fire]]] damage (@Check[type:reflex|dc:31|basic:true] save).</li>\n<li><strong>Weakening Gas</strong> The dragon breathes a blast of weakening gas. Each creature within a @Template[type:cone|distance:30|traits:arcane,necromancy] must succeed at a @Check[type:fortitude|dc:31] save or become @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute (or @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} on a critical failure).</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
@@ -1126,6 +1117,17 @@
                 "temp": 0,
                 "value": 230
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1144,7 +1146,13 @@
                     }
                 ],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1182,22 +1190,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fire",
-                    "paralyzed",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

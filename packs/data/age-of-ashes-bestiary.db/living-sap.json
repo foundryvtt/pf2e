@@ -100,7 +100,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature that Strikes a living sap with a melee weapon must succeed at a @Check[type:reflex|dc:24] save or be disarmed of that weapon. If the creature critically fails, the weapon ends up in the living sap's space. A creature that hits a living sap with an unarmed attack must succeed at a @Check[type:reflex|dc:24] save or become @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the living sap until the end of its next turn.</p>"
+                    "value": "<p>A creature that Strikes a living sap with a melee weapon must succeed at a @Check[type:reflex|dc:24] save or be disarmed of that weapon. If the creature critically fails, the weapon ends up in the living sap's space. A creature that hits a living sap with an unarmed attack must succeed at a @Check[type:reflex|dc:24] save or become @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the living sap until the end of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -145,7 +145,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>@Check[type:reflex|dc:22|traits:damaging-effect] save, [[/r {2d6}[acid]]]{2d6 acid}, @Compendium[pf2e.actionspf2e.Escape]{Escape} DC 24, Rupture 10</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
+                    "value": "<p>@Check[type:reflex|dc:22|traits:damaging-effect] save, [[/r 2d6[acid]]], @UUID[Compendium.pf2e.actionspf2e.Escape]{Escape} DC 24, Rupture 10</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Engulf]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -185,7 +185,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by a living sap's pseudopod Strike must succeed at a @Check[type:reflex|dc:24] save or become @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} until the end of the living sap's next turn.</p>"
+                    "value": "<p>A creature hit by a living sap's pseudopod Strike must succeed at a @Check[type:reflex|dc:24] save or become @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} until the end of the living sap's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -302,6 +302,26 @@
                 "temp": 0,
                 "value": 175
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "piercing"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "slashing"
+                },
+                {
+                    "type": "unconscious"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -316,7 +336,13 @@
                     }
                 ],
                 "value": 10
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -349,27 +375,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "critical-hits",
-                    "mental",
-                    "piercing",
-                    "precision",
-                    "slashing",
-                    "unconscious",
-                    "visual"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Cold",
-                    "type": "cold",
-                    "value": "10"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

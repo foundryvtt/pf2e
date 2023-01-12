@@ -154,7 +154,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>With subtle alterations in the pitch and tone of its song, the cauthooj directs one creature @Compendium[pf2e.conditionitems.Confused]{Confused} by its Warbling Song to make a Strike. This works like other Strikes made by confused creatures, except that the cauthooj chooses the target. If no target is in reach or range, or the creature is unable to Strike for any other reason, this ability has no effect.</p>"
+                    "value": "<p>With subtle alterations in the pitch and tone of its song, the cauthooj directs one creature @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} by its Warbling Song to make a Strike. This works like other Strikes made by confused creatures, except that the cauthooj chooses the target. If no target is in reach or range, or the creature is unable to Strike for any other reason, this ability has no effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -198,7 +198,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The cauthooj gives a strange, ululating cry that causes nearby creatures to lash out violently and without control. Each creature within @Template[type:emanation|distance:120] that can hear the cauthooj must attempt a @Check[type:will|dc:32] save to resist the effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round and immediately attacks itself (in the normal fashion for attacking oneself while confused). This Strike doesn't give the creature a flat check to recover from the confusion.</p>"
+                    "value": "<p>The cauthooj gives a strange, ululating cry that causes nearby creatures to lash out violently and without control. Each creature within @Template[type:emanation|distance:120] that can hear the cauthooj must attempt a @Check[type:will|dc:32] save to resist the effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for 1 round and immediately attacks itself (in the normal fashion for attacking oneself while confused). This Strike doesn't give the creature a flat check to recover from the confusion.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -326,6 +326,12 @@
             "perception": {
                 "value": 22
             },
+            "resistances": [
+                {
+                    "type": "sonic",
+                    "value": 15
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 35
@@ -362,18 +368,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [
-                {
-                    "type": "sonic",
-                    "value": 15
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "(Can't Speak Any Language)",
                 "selected": [],

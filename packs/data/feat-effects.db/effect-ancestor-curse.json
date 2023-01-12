@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": ""
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Ancestors]{Ancestors}</p>"
         },
         "duration": {
             "expiry": null,
@@ -96,7 +96,6 @@
                         "value": "extreme:spell"
                     }
                 ],
-                "flag": "oracular-curse:stage",
                 "key": "ChoiceSet",
                 "predicate": [
                     {
@@ -106,7 +105,8 @@
                         ]
                     }
                 ],
-                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt",
+                "rollOption": "oracular-curse:stage"
             },
             {
                 "key": "Note",
@@ -118,7 +118,7 @@
                         ]
                     }
                 ],
-                "selector": "attack",
+                "selector": "strike-attack-roll",
                 "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
                 "title": "{item|name}"
             },
@@ -141,12 +141,26 @@
                 "predicate": [
                     {
                         "or": [
+                            "oracular-curse:stage:minor:battle",
+                            "oracular-curse:stage:minor:spell"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "text": "PF2E.OracleCurses.Ancestor.MinorFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
                             "oracular-curse:stage:moderate:skill",
                             "oracular-curse:stage:moderate:spell"
                         ]
                     }
                 ],
-                "selector": "attack",
+                "selector": "strike-attack-roll",
                 "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
                 "title": "{item|name}"
             },
@@ -169,6 +183,20 @@
                 "predicate": [
                     {
                         "or": [
+                            "oracular-curse:stage:moderate:battle",
+                            "oracular-curse:stage:moderate:spell"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "text": "PF2E.OracleCurses.Ancestor.ModerateFailure",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
                             "oracular-curse:stage:major:skill",
                             "oracular-curse:stage:major:spell",
                             "oracular-curse:stage:extreme:skill",
@@ -176,7 +204,7 @@
                         ]
                     }
                 ],
-                "selector": "attack",
+                "selector": "strike-attack-roll",
                 "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
                 "title": "{item|name}"
             },
@@ -197,11 +225,30 @@
                 "title": "{item|name}"
             },
             {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "oracular-curse:stage:major:battle",
+                            "oracular-curse:stage:major:spell",
+                            "oracular-curse:stage:extreme:battle",
+                            "oracular-curse:stage:extreme:spell"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "text": "PF2E.OracleCurses.Ancestor.MajorFailure",
+                "title": "{item|name}"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:spell-slot",
+                    {
+                        "nor": [
+                            "cantrip"
+                        ]
+                    },
                     "item:duration:0",
-                    "damaging-effect",
                     "oracular-curse:stage:moderate:spell"
                 ],
                 "selector": "spell-damage",
@@ -212,9 +259,12 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:spell-slot",
+                    {
+                        "nor": [
+                            "cantrip"
+                        ]
+                    },
                     "item:duration:0",
-                    "damaging-effect",
                     {
                         "or": [
                             "oracular-curse:stage:major:spell",
@@ -238,7 +288,7 @@
                         ]
                     }
                 ],
-                "selector": "attack",
+                "selector": "strike-attack-roll",
                 "type": "status",
                 "value": 1
             },

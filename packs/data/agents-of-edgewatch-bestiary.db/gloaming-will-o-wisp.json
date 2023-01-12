@@ -5,7 +5,7 @@
         {
             "_id": "LFIJhcEKJhKijVm1",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "shock",
+            "name": "Shock",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -62,12 +62,31 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>30 feet. Similar to other will-o'-wisps, a gloaming will-o'-wisp is naturally invisible, but glows with a faint colored light. They cast dim light in the aura, which makes them visible. In addition, any non-aberration creature that ends their turn in the aura and can see the gloaming will-o'-wisp is distracted by the gloaming will-o'-wisp's glow and must attempt a @Check[type:will|dc:31] save. On a failure, the creature is stupefied 1 for 1 round and takes 3d6 mental damage.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Similar to other will-o'-wisps, a gloaming will-o'-wisp is naturally invisible, but glows with a faint colored light. They cast dim light in the aura, which makes them visible. In addition, any non-aberration creature that ends their turn in the aura and can see the gloaming will-o'-wisp is distracted by the gloaming will-o'-wisp's glow and must attempt a @Check[type:will|dc:31] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round and takes [[/r 3d6[mental]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            {
+                                "not": "go-dark"
+                            }
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "color": "#fff9a3",
+                            "dim": 30,
+                            "shadows": 0.1
+                        }
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -193,7 +212,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "go-dark",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -366,6 +392,11 @@
                 "temp": 0,
                 "value": 110
             },
+            "immunities": [
+                {
+                    "type": "magic"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -413,15 +444,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "magic"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

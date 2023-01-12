@@ -21,10 +21,6 @@ function createSheetOptions(
         return compiledOptions;
     }, {});
 
-    if (selections.custom) {
-        sheetOptions.custom = { label: selections.custom, value: "", selected: true };
-    }
-
     return sortLabeledRecord(sheetOptions);
 }
 
@@ -44,7 +40,9 @@ function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, u
         const inputValue = data[path];
         const selections = inputValue && typeof inputValue === "string" ? JSON.parse(inputValue) : inputValue;
         if (Array.isArray(selections)) {
-            data[path] = selections.map((w: { id?: string; value?: string }) => w.id ?? w.value);
+            data[path] = selections
+                .filter((s: { id?: string; value?: string; readonly?: boolean }) => !s.readonly)
+                .map((s: { id?: string; value?: string }) => s.id ?? s.value);
         }
     }
 }
@@ -74,7 +72,7 @@ interface SheetOption {
 
 type SheetOptions = Record<string, SheetOption>;
 
-type SheetSelections = { value: (string | number)[]; custom?: string } | (string[] & { custom?: never });
+type SheetSelections = { value: (string | number)[] } | (string[] & { custom?: never });
 
 export {
     createSheetOptions,

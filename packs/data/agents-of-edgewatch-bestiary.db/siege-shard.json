@@ -126,13 +126,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -215,7 +209,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "earth"
+                        "earth",
+                        "occult"
                     ]
                 }
             },
@@ -235,13 +230,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -345,13 +334,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -454,13 +437,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -668,7 +645,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Mental damage ignores a siege shard's hardness.</p>\n<p>Additionally, proving the siege shard's generative conflict is over with the Prove Peace activity reverts the creature to ordinary stone.</p>"
+                    "value": "<p>Mental damage ignores a siege shard's hardness.</p>\n<p>Additionally, proving the siege shard's generative conflict is over with the @UUID[Compendium.pf2e.actionspf2e.Prove Peace]{Prove Peace} activity reverts the creature to ordinary stone.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -765,7 +742,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>While a siege shard is embedded within a structure while using <em>@Compendium[pf2e.spells-srd.Meld into Stone]{Meld into Stone}</em>, the structure and all objects within it take twice as long to repair.</p>"
+                    "value": "<p>While a siege shard is embedded within a structure while using <em>@UUID[Compendium.pf2e.spells-srd.Meld into Stone]{Meld into Stone}</em>, the structure and all objects within it take twice as long to repair.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -806,7 +783,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The siege shard emits a disorienting psychic blast. All creatures within a 15 feet emanation take [[/r {4d6}[mental]]]{4d6 mental damage} (@Check[type:will|dc:20|basic:true] save).</p>"
+                    "value": "<p><strong>Frequency</strong> once per minute</p>\n<hr />\n<p><strong>Effect</strong> The siege shard emits a disorienting psychic blast. All creatures within a 15 feet emanation take [[/r 4d6[mental]]] damage (@Check[type:will|dc:20|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -852,7 +829,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a siege shard is destroyed within 100 feet of a structure, it reforms after [[/br 2d4 #days]] days within the nearest structure, fully healed.</p>\n<p>A siege shard within a structure can permanently destroyed by the @Compendium[pf2e.adventure-specific-actions.Prove Peace]{Prove Peace} activity.</p>"
+                    "value": "<p>When a siege shard is destroyed within 100 feet of a structure, it reforms after [[/br 2d4 #days]] days within the nearest structure, fully healed.</p>\n<p>A siege shard within a structure can permanently destroyed by the @UUID[Compendium.pf2e.adventure-specific-actions.Prove Peace]{Prove Peace} activity.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -972,6 +949,47 @@
                 "temp": 0,
                 "value": 37
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1027,27 +1045,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

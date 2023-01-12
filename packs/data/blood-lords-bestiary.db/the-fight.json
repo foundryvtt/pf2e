@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of the spilled goblet</p>\n<hr />\n<p><strong>Effect</strong> The desperation of the sudden fight fills the minds of all creatures in the dining room as the apparition of Iron Taviah at the north end of the table lunges. The haunt deals [[/r {4d10}[mental]]]{4d10 mental damage} (@Check[type:will|dc:30|basic:true]) to each creature in the room. On a failed save, the creature also takes [[/r {1d6}[persistent,mental]]]{1d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent mental Damage}. The haunt then rolls for initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of the spilled goblet</p>\n<hr />\n<p><strong>Effect</strong> The desperation of the sudden fight fills the minds of all creatures in the dining room as the apparition of Iron Taviah at the north end of the table lunges. The haunt deals [[/r 4d10[mental]]] damage (@Check[type:will|dc:30|basic:true]) to each creature in the room. On a failed save, the creature also takes [[/r 1d6[persistent,mental]]] damage. The haunt then rolls for initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -74,7 +74,7 @@
                             "success"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "@Localize[PF2E.PersistentDamage.Mental1d6.success]",
+                        "text": "PF2E.PersistentDamage.Mental1d6.success",
                         "title": "{item|name}"
                     },
                     {
@@ -83,7 +83,7 @@
                             "criticalSuccess"
                         ],
                         "selector": "{item|_id}-damage",
-                        "text": "@Localize[PF2E.PersistentDamage.Mental1d6.criticalSuccess]",
+                        "text": "PF2E.PersistentDamage.Mental1d6.criticalSuccess",
                         "title": "{item|name}"
                     }
                 ],
@@ -118,10 +118,27 @@
                 "temp": 0,
                 "value": 70
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert)</p>",
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 10
+                }
+            ]
         },
         "creatureType": "",
         "details": {
@@ -154,23 +171,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "positive",
-                    "value": 10
-                }
-            ],
             "rarity": "common",
             "size": {
                 "value": "med"

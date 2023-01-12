@@ -14,7 +14,7 @@ interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourceP
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.794;
+    static LATEST_SCHEMA_VERSION = 0.813;
 
     static MINIMUM_SAFE_VERSION = 0.618;
 
@@ -132,19 +132,21 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
-        if (!("game" in globalThis && latestMigration)) return;
+    async getUpdatedTable(
+        tableSource: foundry.data.RollTableSource,
+        migrations: MigrationBase[]
+    ): Promise<foundry.data.RollTableSource> {
+        const current = deepClone(tableSource);
 
-        const fromVersion = typeof schema.version === "number" ? schema.version : null;
-        schema.version = latestMigration.version;
-        schema.lastMigration = {
-            datetime: DateTime.now().toISO(),
-            version: {
-                schema: fromVersion,
-                foundry: "game" in globalThis ? game.version : undefined,
-                system: "game" in globalThis ? game.system.version : undefined,
-            },
-        };
+        for (const migration of migrations) {
+            try {
+                await migration.updateTable?.(current);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
     }
 
     async getUpdatedMacro(
@@ -164,21 +166,21 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedTable(
-        tableSource: foundry.data.RollTableSource,
+    async getUpdatedJournalEntry(
+        source: foundry.data.JournalEntrySource,
         migrations: MigrationBase[]
-    ): Promise<foundry.data.RollTableSource> {
-        const current = deepClone(tableSource);
+    ): Promise<foundry.data.JournalEntrySource> {
+        const clone = deepClone(source);
 
         for (const migration of migrations) {
             try {
-                await migration.updateTable?.(current);
+                await migration.updateJournalEntry?.(clone);
             } catch (err) {
                 console.error(err);
             }
         }
 
-        return current;
+        return clone;
     }
 
     async getUpdatedToken(token: TokenDocumentPF2e, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
@@ -204,5 +206,20 @@ export class MigrationRunnerBase {
         }
 
         return current;
+    }
+
+    private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase): void {
+        if (!("game" in globalThis && latestMigration)) return;
+
+        const fromVersion = typeof schema.version === "number" ? schema.version : null;
+        schema.version = latestMigration.version;
+        schema.lastMigration = {
+            datetime: DateTime.now().toISO(),
+            version: {
+                schema: fromVersion,
+                foundry: "game" in globalThis ? game.version : undefined,
+                system: "game" in globalThis ? game.system.version : undefined,
+            },
+        };
     }
 }

@@ -234,13 +234,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -354,12 +348,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "value": ""
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "ritual"
                 },
@@ -469,8 +458,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d8",
-                    "value": ""
+                    "die": "d8"
                 },
                 "description": {
                     "value": "<p>This polearm consists of a long, single‑edged blade on the end of a 7‑foot pole. It is extremely effective at delivering lethal cuts at a distance.</p>"
@@ -500,29 +488,15 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "gp": 1
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -546,9 +520,6 @@
                 "slug": "glaive",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -940,7 +911,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature Nashaxian can see steps on one of the 10-foot-by-10-foot patches of flame in the throne room hallway</p>\n<hr />\n<p><strong>Effect</strong> The creature and any other creatures above that patch take [[/r {1d4}[fire]]]{1d4 fire damage}.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature Nashaxian can see steps on one of the 10-foot-by-10-foot patches of flame in the throne room hallway</p>\n<hr />\n<p><strong>Effect</strong> The creature and any other creatures above that patch take [[/r 1d4[fire]]] damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -980,7 +951,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:19]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1022,7 +993,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Nashaxian's glaive Strike also deals @Localize[PF2E.PersistentDamage.Bleed1d4.success] that resists attempts to heal it.</p>\n<p>The flat check to stop the bleeding starts at @Check[type:flat|dc:15]. The DC is reduced to @Check[type:flat|dc:10] only if the bleeding creature or an ally successfully assists with the recovery. The DC to @Compendium[pf2e.actionspf2e.Administer First Aid]{Administer First Aid} to a creature with an infernal wound is increased by 3.</p>\n<p>A spellcaster or item attempting to use healing magic on a creature suffering from an infernal wound must succeed at a DC 18 counteract check or the magic fails to heal the creature.</p>"
+                    "value": "<p>Nashaxian's glaive Strike also deals @Localize[PF2E.PersistentDamage.Bleed1d4.success] that resists attempts to heal it.</p>\n<p>The flat check to stop the bleeding starts at @Check[type:flat|dc:15]. The DC is reduced to @Check[type:flat|dc:10] only if the bleeding creature or an ally successfully assists with the recovery. The DC to @UUID[Compendium.pf2e.actionspf2e.Administer First Aid]{Administer First Aid} to a creature with an infernal wound is increased by 3.</p>\n<p>A spellcaster or item attempting to use healing magic on a creature suffering from an infernal wound must succeed at a DC 18 counteract check or the magic fails to heal the creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1266,6 +1237,11 @@
                 "temp": 0,
                 "value": 35
             },
+            "immunities": [
+                {
+                    "type": "fire"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -1275,7 +1251,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 35
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "good",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -1313,21 +1295,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "fire"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Good",
-                    "type": "good",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

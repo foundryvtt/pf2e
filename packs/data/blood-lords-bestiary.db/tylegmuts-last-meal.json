@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature looks over the contents of the desk</p>\n<hr />\n<p><strong>Effect</strong> The haunt tempts nearby creatures to eat from the plates and bowls arrayed on the desk by concealing it in an illusion of food the viewer finds delicious. Each creature in area <strong>D5</strong> must attempt a @Check[type:will|dc:21] save. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature sees through the illusion entirely and is temporarily immune to the haunt's routine for 1 minute.</p>\n<p><strong>Success</strong> The creature is not tempted by the food.</p>\n<p><strong>Failure</strong> The creature believes the food is appetizing and becomes driven to consume it. The creature takes [[/r {4d4+4}[slashing]]]{4d4+4 slashing damage} as it chews the jagged bones and husks.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature takes double damage and is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round as the haunt continues to tempt it.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature looks over the contents of the desk</p>\n<hr />\n<p><strong>Effect</strong> The haunt tempts nearby creatures to eat from the plates and bowls arrayed on the desk by concealing it in an illusion of food the viewer finds delicious. Each creature in area <strong>D5</strong> must attempt a @Check[type:will|dc:21] save. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature sees through the illusion entirely and is temporarily immune to the haunt's routine for 1 minute.</p>\n<p><strong>Success</strong> The creature is not tempted by the food.</p>\n<p><strong>Failure</strong> The creature believes the food is appetizing and becomes driven to consume it. The creature takes [[/r (4d4+4)[slashing]]] damage as it chews the jagged bones and husks.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round as the haunt continues to tempt it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -70,7 +70,7 @@
                 "value": 4
             },
             "reset": "<p>The haunt re-forms after 1 hour. The haunt becomes disabled and doesn't re-form if a creature eats a full meal at the desk-this can be any food, not just the \"food\" at hand.</p>",
-            "routine": "<p>(1 action) The haunt sends a cloud of dust and bone shards hurtling about the room. The dust and bones batter all creatures in the room, dealing [[/r {4d6}[bludgeoning]]]{4d6 bludgeoning damage} (@Check[type:reflex|dc:21|basic:true]). Creatures who fail the save are @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round (or 1 minute on a critical failure).</p>"
+            "routine": "<p>(1 action) The haunt sends a cloud of dust and bone shards hurtling about the room. The dust and bones batter all creatures in the room, dealing [[/r 4d6[bludgeoning]]] damage (@Check[type:reflex|dc:21|basic:true]). Creatures who fail the save are @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round (or 1 minute on a critical failure).</p>"
         },
         "saves": {
             "fortitude": {
@@ -92,13 +92,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "unique",
             "size": {
                 "value": "med"

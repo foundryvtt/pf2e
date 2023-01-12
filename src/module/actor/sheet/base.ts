@@ -1,19 +1,17 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
-import { RollFunction } from "@actor/data/base";
+import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
 import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
-import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option";
 import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 import {
     BasicConstructorOptions,
-    ResistanceSelector,
     SelectableTagField,
     SELECTABLE_TAG_FIELDS,
     SenseSelector,
@@ -22,15 +20,15 @@ import {
     TagSelectorOptions,
     TagSelectorType,
     TAG_SELECTOR_TYPES,
-    WeaknessSelector,
 } from "@system/tag-selector";
-import { ErrorPF2e, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlQuery, objectHasKey, tupleHasValue } from "@util";
 import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
-import { ItemSummaryRendererPF2e } from "./item-summary-renderer";
+import { ItemSummaryRenderer } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
+import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
 import { ScrollWandPopup } from "./popups/scroll-wand-popup";
 
@@ -39,18 +37,18 @@ import { ScrollWandPopup } from "./popups/scroll-wand-popup";
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
+abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     static override get defaultOptions(): ActorSheetOptions {
         const options = super.defaultOptions;
         options.dragDrop.push({ dragSelector: ".drag-handle" }, { dragSelector: ".item[draggable=true]" });
         return mergeObject(options, {
-            classes: options.classes.concat(["pf2e", "actor"]),
+            classes: ["default", "sheet", "actor"],
             scrollY: [".sheet-sidebar", ".tab.active", ".inventory-list"],
         });
     }
 
     /** Implementation used to handle the toggling and rendering of item summaries */
-    itemRenderer: ItemSummaryRendererPF2e<TActor> = new ItemSummaryRendererPF2e(this);
+    itemRenderer: ItemSummaryRenderer<TActor> = new ItemSummaryRenderer(this);
 
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
@@ -62,6 +60,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // The Actor and its Items
         const actorData = this.actor.toObject(false) as RawObject<ActorDataPF2e>;
 
+        // Alphabetize displayed IWR
+        const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
+        const attributes: Record<typeof iwrKeys[number], { label: string }[]> = actorData.system.attributes;
+        for (const key of iwrKeys) {
+            attributes[key] = [...attributes[key]].sort((a, b) => a.label.localeCompare(b.label));
+        }
+
         // Calculate financial and total wealth
         const coins = this.actor.inventory.coins;
         const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
@@ -69,15 +74,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         const totalWealth = this.actor.inventory.totalWealth;
         const totalWealthGold = (totalWealth.copperValue / 100).toFixed(2);
-
-        // IWR
-        const immunities = createSheetTags(CONFIG.PF2E.immunityTypes, actorData.system.traits.di);
-        for (const weakness of actorData.system.traits.dv) {
-            weakness.label = CONFIG.PF2E.weaknessTypes[weakness.type];
-        }
-        for (const resistance of actorData.system.traits.dr) {
-            resistance.label = CONFIG.PF2E.resistanceTypes[resistance.type];
-        }
 
         const traitsMap = ((): Record<string, string> => {
             switch (this.actor.type) {
@@ -104,8 +100,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             items: actorData.items,
             user: { isGM: game.user.isGM },
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
-            immunities,
-            hasImmunities: Object.keys(immunities).length > 0,
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
             totalCoinage,
             totalCoinageGold,
@@ -115,12 +109,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             enrichedContent: {},
         };
 
-        await this.prepareItems(sheetData);
+        await this.prepareItems?.(sheetData);
 
         return sheetData;
     }
-
-    protected abstract prepareItems(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
 
     protected prepareInventory(): SheetInventory {
         const sections: SheetInventory["sections"] = {
@@ -182,12 +174,27 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         );
     }
 
+    protected getStrikeFromDOM(target: HTMLElement): StrikeData | null {
+        const actionIndex = Number(target.closest<HTMLElement>("[data-action-index]")?.dataset.actionIndex);
+        const rootAction = this.actor.system.actions?.[actionIndex];
+        if (!rootAction) return null;
+
+        const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
+            ? target.dataset.altUsage
+            : null;
+
+        return altUsage
+            ? rootAction.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null
+            : rootAction;
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0]!;
 
         // Item summaries
         this.itemRenderer.activateListeners($html);
@@ -222,9 +229,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const $target = $(event.currentTarget);
             const { attributes } = this.actor.system;
             if (!$target.hasClass("disabled") && "initiative" in attributes) {
-                const { skipDialog, secret } = eventToRollParams(event);
-                const options = secret ? ["secret"] : [];
-                attributes.initiative.roll?.({ skipDialog, options });
+                attributes.initiative.roll?.(eventToRollParams(event));
             }
         });
 
@@ -233,13 +238,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const { domain, option, itemId } = event.target.dataset;
             if (domain && option) {
                 const value = !!event.target.checked;
-                await RollOptionRuleElement.toggleOption({
-                    domain,
-                    option,
-                    actor: this.actor,
-                    itemId: itemId ?? null,
-                    value,
-                });
+                this.actor.toggleRollOption(domain, option, itemId ?? null, value);
             }
         });
 
@@ -259,6 +258,44 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             } else {
                 this.actor.rollAttribute(event, key);
             }
+        });
+
+        // IWR
+        for (const listName of ["immunities", "weaknesses", "resistances"] as const) {
+            const editButton = htmlQuery(html, `a[data-action=edit-${listName}]`);
+            editButton?.addEventListener("click", () => {
+                new IWREditor(this.actor, { category: listName }).render(true);
+            });
+        }
+
+        // Strikes
+        const $strikesList = $html.find("ol.strikes-list");
+
+        $strikesList.find("button[data-action=strike-damage]").on("click", async (event) => {
+            await this.getStrikeFromDOM(event.currentTarget)?.damage?.({ event });
+        });
+
+        $strikesList.find("button[data-action=strike-critical]").on("click", async (event) => {
+            await this.getStrikeFromDOM(event.currentTarget)?.critical?.({ event });
+        });
+
+        const attackSelectors = ".item-image[data-action=strike-attack], button[data-action=strike-attack]";
+        $strikesList.find(attackSelectors).on("click", (event) => {
+            if (!("actions" in this.actor.system)) {
+                throw ErrorPF2e("Strikes are not supported on this actor");
+            }
+
+            const target = event.currentTarget;
+            const altUsage = tupleHasValue(["thrown", "melee"] as const, target.dataset.altUsage)
+                ? target.dataset.altUsage
+                : null;
+
+            const strike = this.getStrikeFromDOM(event.currentTarget);
+            if (!strike) return;
+            const $button = $(event.currentTarget);
+            const variantIndex = Number($button.attr("data-variant-index"));
+
+            strike.variants[variantIndex]?.roll({ event, altUsage });
         });
 
         // Remove Spell Slot
@@ -450,7 +487,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 return;
             }
 
-            const content = await renderTemplate("systems/pf2e/templates/actors/delete-condition-dialog.html", {
+            const content = await renderTemplate("systems/pf2e/templates/actors/delete-condition-dialog.hbs", {
                 question: game.i18n.format("PF2E.DeleteConditionQuestion", { condition: item.name }),
                 ref: references.html(),
             });
@@ -480,7 +517,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 return;
             }
 
-            const content = await renderTemplate("systems/pf2e/templates/actors/delete-item-dialog.html", {
+            const content = await renderTemplate("systems/pf2e/templates/actors/delete-item-dialog.hbs", {
                 name: item.name,
             });
             new Dialog({
@@ -542,7 +579,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     /** Add support for dropping actions and toggles */
     protected override _onDragStart(event: ElementDragEvent): void {
         // Avoid intercepting content-link drag targets
-        if (event.target !== event.currentTarget && event.target.classList.contains("content-link")) {
+        const isContentLink = event.target.classList.contains("content-link");
+        const isPersistent = "persistent" in event.target.dataset;
+        if (event.target !== event.currentTarget && (isContentLink || isPersistent)) {
             return;
         }
 
@@ -654,8 +693,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return super._onSortItem(event, itemSource);
     }
 
-    async onDropItem(data: DropCanvasItemDataPF2e) {
-        return await this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
+    /** Emulate a sheet item drop from the canvas */
+    async emulateItemDrop(data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
+        return this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
     }
 
     protected override async _onDropItem(event: ElementDragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
@@ -698,6 +738,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     ): Promise<ItemPF2e[]> {
         const { actor } = this;
         const itemSource = item.toObject();
+
+        // Set effect to unidentified if alt key is held
+        if (game.user.isGM && itemSource.type === "effect") {
+            const altHeld = event.altKey || game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.ALT);
+            itemSource.system.unidentified ||= altHeld;
+        }
 
         // mystify the item if the alt key was pressed
         if (event.altKey && item.isOfType("physical") && isPhysicalData(itemSource)) {
@@ -750,11 +796,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 });
                 return [updated ?? []].flat();
             }
-        } else if (itemSource.type === "effect" && data && "level" in data) {
-            const level = data.level;
+        } else if (itemSource.type === "effect") {
+            const { level, value, context } = data;
             if (typeof level === "number" && level >= 0) {
                 itemSource.system.level.value = level;
             }
+            if (typeof value === "number" && itemSource.system.badge?.type === "counter") {
+                itemSource.system.badge.value = value;
+            }
+            itemSource.system.context = context ?? null;
         } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
             const actorFormulas = deepClone(actor.system.crafting.formulas);
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
@@ -826,11 +876,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
         const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.findStackableItem(targetActor, item._source);
+        const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant && !sourceActor.isOwner;
+
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
             const popup = new MoveLootPopup(
                 sourceActor,
-                { maxQuantity: sourceItemQuantity, lockStack: !stackable },
+                { maxQuantity: sourceItemQuantity, lockStack: !stackable, isPurchase },
                 (quantity, newStack) => {
                     sourceActor.transferItemToActor(targetActor, item, quantity, containerId, newStack);
                 }
@@ -847,7 +899,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
         const item = this.actor.items.get(itemId ?? "", { strict: true });
         if (item.isOfType("physical") && !item.isIdentified) return;
-        await item.toChat(event);
+        await item.toMessage(event, { create: true });
     }
 
     /** Attempt to repair the item */
@@ -919,7 +971,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     private onSellAllTreasure(event: JQuery.ClickEvent) {
         event.preventDefault();
         // Render confirmation modal dialog
-        renderTemplate("systems/pf2e/templates/actors/sell-all-treasure-dialog.html").then((html) => {
+        renderTemplate("systems/pf2e/templates/actors/sell-all-treasure-dialog.hbs").then((html) => {
             new Dialog({
                 title: game.i18n.localize("PF2E.SellAllTreasureTitle"),
                 content: html,
@@ -976,10 +1028,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             throw ErrorPF2e("Insufficient options provided to render basic tag selector");
         } else {
             const TagSelector = {
-                resistances: ResistanceSelector,
                 senses: SenseSelector,
                 "speed-types": SpeedSelector,
-                weaknesses: WeaknessSelector,
             }[selectorType];
             new TagSelector(this.object, options).render(true);
         }
@@ -1038,3 +1088,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return data;
     }
 }
+
+interface ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
+    prepareItems?(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
+}
+
+export { ActorSheetPF2e };

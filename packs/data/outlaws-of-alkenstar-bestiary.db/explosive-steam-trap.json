@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The desk switch is pressed or the trapdoor is opened</p>\n<hr />\n<p><strong>Effect</strong> The charge on the door explodes. All creatures within 10 feet take [[/r {2d10+6}[fire]+{1d10+3}[piercing]]]{2d10+6 fire damage and 1d10+3 piercing damage}, and @Localize[PF2E.PersistentDamage.Bleed1d6.success] (@Check[type:reflex|dc:22|basic:true]). The room is filled with steam, making all creatures within the room @Compendium[pf2e.conditionitems.Concealed]{Concealed}. The trap then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> The desk switch is pressed or the trapdoor is opened</p>\n<hr />\n<p><strong>Effect</strong> The charge on the door explodes. All creatures within 10 feet take [[/r {(2d10+6)[fire],(1d10+3)[piercing]}]]{2d10+6 fire damage and 1d10+3 piercing damage}, and @Localize[PF2E.PersistentDamage.Bleed1d6.success] (@Check[type:reflex|dc:22|basic:true]). The room is filled with steam, making all creatures within the room @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. The trap then rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -54,6 +54,17 @@
                 "temp": 0,
                 "value": 50
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained) to find the desk switch; @Check[type:perception|dc:28|traits:action:seek] (expert) to find the trapdoor and charge</p>",
                 "value": 10
@@ -68,7 +79,7 @@
                 "value": 7
             },
             "reset": "",
-            "routine": "<p>(1 action) The trapdoor emits a jet of superheated steam. Each creature in the room must attempt a @Check[type:fortitude|dc:28] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r {1d10+3}[fire]]]{1d10+3 fire damage}.</p>\n<p><strong>Failure</strong> The creature takes [[/r {2d10+6}[fire]]]{2d10+6 fire damage} and is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r {2d10+6}[fire]]]{2d10+6 fire damage}, is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, and is blinded for 1 round.</p>"
+            "routine": "<p>(1 action) The trapdoor emits a jet of superheated steam. Each creature in the room must attempt a @Check[type:fortitude|dc:28] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r (1d10+3)[fire]]] damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r (2d10+6)[fire]]] damage and is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r (2d10+6)[fire]]] damage, is @UUID[Compendium.pf2e.conditionitems.Fatigued]{Fatigued}, and is blinded for 1 round.</p>"
         },
         "saves": {
             "fortitude": {
@@ -89,17 +100,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

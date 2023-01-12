@@ -146,7 +146,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A severely damaged mechanical carny has a chance of malfunctioning. If a mechanical carny has 15 or fewer Hit Points at the start of its turn, it must succeed at a @Check[type:flat|dc:5] check or go haywire. A haywire mechanical carny wildly attacks the nearest living creature, or the nearest object if no creatures are nearby. It takes a -1 circumstance penalty to Strikes but deals an additional [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage} plus @Compendium[pf2e.bestiary-ability-glossary-srd.Knockdown]{Knockdown}. This effect lasts 10 minutes or until the mechanical carny is destroyed.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Haywire]{Effect: Haywire}</p>"
+                    "value": "<p>A severely damaged mechanical carny has a chance of malfunctioning. If a mechanical carny has 15 or fewer Hit Points at the start of its turn, it must succeed at a @Check[type:flat|dc:5] check or go haywire. A haywire mechanical carny wildly attacks the nearest living creature, or the nearest object if no creatures are nearby. It takes a -1 circumstance penalty to Strikes but deals an additional [[/r 1d6[bludgeoning]]] damage plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Knockdown]{Knockdown}. This effect lasts 10 minutes or until the mechanical carny is destroyed.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Haywire]{Effect: Haywire}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -291,16 +291,72 @@
                 "temp": 0,
                 "value": 33
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 6
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine"
+                    ],
+                    "type": "physical",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 6
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -333,40 +389,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine",
-                    "type": "physical",
-                    "value": 3
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Electricity",
-                    "type": "electricity",
-                    "value": "6"
-                }
-            ],
             "languages": {
                 "custom": "(Can Speak Pre-Recorded Phrases Only)",
                 "selected": [],

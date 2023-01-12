@@ -1,0 +1,34 @@
+<form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();">
+    <div class="trait-list">
+        <table class="pf2-table">
+            <tr>
+                <th>{{localize "PF2E.Actor.Creature.Sense.Label"}}</th>
+                <th>{{localize "PF2E.Actor.Creature.Sense.Acuity.Label"}}</th>
+                <th>{{localize "PF2E.Actor.Creature.Sense.RangeLabel"}}</th>
+            </tr>
+            {{#each choices as |choice key|}}
+                <tr>
+                    <td class="list">
+                        <input type="checkbox" name="{{key}}" {{checked choice.selected}} {{disabled choice.disabled}} />
+                        <label class="trait-label" style="margin-left: 5px; margin-right: 5px;">{{choice.label}}</label>
+                    </td>
+                    <td>
+                        {{#unless (or (eq key "lowLightVision") (eq key "greaterDarkvision") (eq key "darkvision"))}}
+                            <select name="{{key}}" {{disabled choice.disabled}}>
+                                {{#each ../senseAcuity as |acuity k|}}
+                                    <option value={{k}} {{#if (eq k choice.acuity)}} selected {{/if}}>{{localize acuity}}</option>
+                                {{/each}}
+                            </select>
+                        {{/unless}}
+                    </td>
+                    <td>
+                        {{#unless (or (eq key "lowLightVision") (eq key "greaterDarkvision") (eq key "darkvision"))}}
+                            <input type="number" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" placeholder="{{PF2E.Sense.NoRangeLimit}}" {{choice.disabled}} />
+                        {{/unless}}
+                    </td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
+    <button class="trait-footer" type="submit"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>
+</form>

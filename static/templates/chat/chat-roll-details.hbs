@@ -1,0 +1,41 @@
+<section class="summary">
+    <div class="type">{{localize "PF2E.Roll.Type"}}: <input disabled value="{{context.type}}"></div>
+    {{#if domains}}
+        <div class="tags domains">
+            {{#each domains}}<span class="tag tag_alt">{{this}}</span>{{/each}}
+        </div>
+    {{/if}}
+</section>
+
+<div class="body">
+    <section class="roll-options">
+        <h3>{{localize "PF2E.ChatRollDetails.RollOptions"}}</h3>
+        <ul>
+            {{#each rollOptions}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </section>
+
+    {{#if hasModifiers}}
+        <section class="modifiers">
+            <h3>{{localize "PF2E.ModifiersTitle"}}</h3>
+            <div class="modifier-list">
+                {{#unless modifiers}}
+                    <div class="empty">
+                        {{localize "PF2E.ChatRollDetails.ModifiersEmpty"}}
+                    </div>
+                {{/unless}}
+                {{#each modifiers as |m|}}
+                    <div class="modifier {{disabled (not m.enabled)}}">
+                        <h4>{{m.label}} <span class="slug">({{m.slug}})</span></h4>
+                        <div>
+                            <span>{{m.type}} {{m.value}} {{m.damageType}} {{#if m.category}}({{m.category}}){{/if}}</span>
+                            <span>{{m.critical}} {{m.ability}}</span>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </section>
+    {{/if}}
+</div>

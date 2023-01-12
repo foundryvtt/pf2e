@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature other than a wendigo gains the @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition while within 100 feet of the way station</p>\n<hr />\n<p><strong>Effect</strong> The haunt rolls for initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A living creature other than a wendigo gains the @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened} condition while within 100 feet of the way station</p>\n<hr />\n<p><strong>Effect</strong> The haunt rolls for initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -96,6 +96,38 @@
                 "temp": 0,
                 "value": 24
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "exceptions": [
+                        "fire",
+                        "force",
+                        "ghost-touch",
+                        "positive"
+                    ],
+                    "type": "all-damage",
+                    "value": 20
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert) to hear the echoed shouts of panicked xulgaths</p>",
                 "value": 26
@@ -131,27 +163,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except fire, force, ghost touch, or positive",
-                    "type": "all",
-                    "value": 20
-                }
-            ],
-            "dv": [],
             "rarity": "unique",
             "size": {
                 "value": "med"

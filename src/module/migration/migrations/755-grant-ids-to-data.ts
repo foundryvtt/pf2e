@@ -38,7 +38,7 @@ export class Migration755GrantIdsToData extends MigrationBase {
 
 type MaybeWithOldGrantFlags = {
     grantedBy?: ItemGrantSource | string | null;
-    itemGrants?: ItemGrantSource[] | string[];
+    itemGrants?: ItemGrantSource[] | Record<string, ItemGrantSource> | string[];
     "-=grantedBy"?: null;
     "-=itemGrants"?: null;
 };

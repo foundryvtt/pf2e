@@ -55,16 +55,32 @@ class ClassPF2e extends ABCItemPF2e {
         };
     }
 
-    /** Include all class features in addition to any with the expected location ID */
-    override getLinkedFeatures(): Embedded<FeatPF2e>[] {
+    /** Include all top-level class features in addition to any with the expected location ID */
+    override getLinkedItems(): Embedded<FeatPF2e>[] {
         if (!this.actor) return [];
 
         return Array.from(
             new Set([
-                ...super.getLinkedFeatures(),
-                ...this.actor.itemTypes.feat.filter((f) => f.featType === "classfeature"),
+                ...super.getLinkedItems(),
+                ...this.actor.itemTypes.feat.filter(
+                    (f) =>
+                        f.featType === "classfeature" &&
+                        !(f.flags.pf2e.grantedBy && this.actor?.items.has(f.flags.pf2e.grantedBy.id))
+                ),
             ])
         );
+    }
+
+    /** Pulls the features that should be granted by this class, sorted by level and choice set */
+    override async createGrantedItems(options: { level?: number } = {}): Promise<FeatPF2e[]> {
+        const hasChoiceSet = (f: FeatPF2e) => f.system.rules.some((re) => re.key === "ChoiceSet");
+        return (await super.createGrantedItems(options)).sort((a, b) => {
+            const [aLevel, bLevel] = [a.system.level.value, b.system.level.value];
+            if (aLevel !== bLevel) return aLevel - bLevel;
+            const [aHasSet, bHasSet] = [hasChoiceSet(a), hasChoiceSet(b)];
+            if (aHasSet !== bHasSet) return aHasSet ? -1 : 1;
+            return a.name.localeCompare(b.name, game.i18n.lang);
+        });
     }
 
     override prepareBaseData(): void {

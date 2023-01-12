@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature moves within 5 feet of the pile of broken furniture</p>\n<hr />\n<p><strong>Effect</strong> The pile of furniture and entangling wires explodes outward. The trap deals [[/r {6d10+27}[slashing]]]{6d10+27 slashing damage} (@Check[type:reflex|dc:32|basic:true] save). On a failed save, the target takes a -10-foot penalty to all its Speeds for 1 round (1 minute on a critical failure).</p>"
+                    "value": "<p><strong>Trigger</strong> A creature moves within 5 feet of the pile of broken furniture</p>\n<hr />\n<p><strong>Effect</strong> The pile of furniture and entangling wires explodes outward. The trap deals [[/r (6d10+27)[slashing]]] damage (@Check[type:reflex|dc:32|basic:true] save). On a failed save, the target takes a -10-foot penalty to all its Speeds for 1 round (1 minute on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -49,6 +49,7 @@
             "ac": {
                 "value": 33
             },
+            "emitsSound": "encounter",
             "hardness": 21,
             "hasHealth": true,
             "hp": {
@@ -58,9 +59,20 @@
                 "tempmax": 0,
                 "value": 84
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert)</p>",
-                "value": 30
+                "value": 20
             }
         },
         "creatureType": "",
@@ -89,28 +101,18 @@
             }
         },
         "source": {
+            "author": "",
             "value": "Pathfinder #154: Siege of the Dinosaurs"
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"
             },
             "value": [
-                "mechanical"
+                "mechanical",
+                "trap"
             ]
         }
     },

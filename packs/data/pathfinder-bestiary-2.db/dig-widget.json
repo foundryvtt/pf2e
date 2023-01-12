@@ -212,7 +212,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A dig-widget's face consists of a set of @Compendium[pf2e.equipment-srd.Thieves' Tools (Infiltrator)]{Infiltrator Thieves' Tools}. They can be salvaged from a destroyed dig-widget with a successful @Check[type:crafting|dc:20|name:Salvage Infiltration Tools] check. On a failed check, the tools are destroyed.</p>"
+                    "value": "<p>A dig-widget's face consists of a set of @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Infiltrator)]{Infiltrator Thieves' Tools}. They can be salvaged from a destroyed dig-widget with a successful @Check[type:crafting|dc:20|name:Salvage Infiltration Tools] check. On a failed check, the tools are destroyed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -252,7 +252,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature with expert proficiency in Thievery can attempt a check to @Compendium[pf2e.actionspf2e.Disable Device]{Disable a Device} to damage a dig-widget. The DC is 22, and each success deals 20 damage.</p>"
+                    "value": "<p>A creature with expert proficiency in Thievery can attempt a check to @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable a Device} to damage a dig-widget. The DC is 22, and each success deals 20 damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -292,7 +292,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The dig-widget Leaps up 20 feet onto a creature or object and attempts a corkscrew Strike against it. If the Strike damages the target, the dig-widget attaches to the target (typically to the back of a creature). This is similar to @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grabbing} the creature, but the dig-widget moves with that creature rather than holding it in place. While attached, the dig-widget can't use its corkscrew. The dig-widget can be @Compendium[pf2e.actionspf2e.Shove]{Shoved} off, or it can detach itself with an Interact action.</p>"
+                    "value": "<p>The dig-widget Leaps up 20 feet onto a creature or object and attempts a corkscrew Strike against it. If the Strike damages the target, the dig-widget attaches to the target (typically to the back of a creature). This is similar to @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Grab]{Grabbing} the creature, but the dig-widget moves with that creature rather than holding it in place. While attached, the dig-widget can't use its corkscrew. The dig-widget can be @UUID[Compendium.pf2e.actionspf2e.Shove]{Shoved} off, or it can detach itself with an Interact action.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -352,13 +352,13 @@
                             "target:condition:flat-footed",
                             {
                                 "or": [
-                                    "weapon:trait:agile",
-                                    "weapon:trait:finesse",
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
                                     {
                                         "and": [
-                                            "weapon:ranged",
+                                            "item:ranged",
                                             {
-                                                "not": "weapon:thrown-melee"
+                                                "not": "item:thrown-melee"
                                             }
                                         ]
                                     }
@@ -366,6 +366,13 @@
                             }
                         ],
                         "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",
@@ -556,6 +563,47 @@
                 "temp": 0,
                 "value": 65
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -606,28 +654,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

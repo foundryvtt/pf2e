@@ -148,7 +148,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The cobbleswarm attempts an Athletics check and compares the result to the Fortitude DC of each creature in its space. This counts as two attacks for the cobbleswarm's multiple attack penalty.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature falls @Compendium[pf2e.conditionitems.Prone]{Prone}, takes [[/r {1d6}[bludgeoning]]]{1d6 bludgeoning damage}, and is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the cobbleswarm until the end of the cobbleswarm's next turn.</p>\n<p><strong>Success</strong> The creature falls prone.</p>"
+                    "value": "<p>The cobbleswarm attempts an Athletics check and compares the result to the Fortitude DC of each creature in its space. This counts as two attacks for the cobbleswarm's multiple attack penalty.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature falls @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}, takes [[/r 1d6[bludgeoning]]] damage, and is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} by the cobbleswarm until the end of the cobbleswarm's next turn.</p>\n<p><strong>Success</strong> The creature falls prone.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -190,7 +190,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each foe in the cobbleswarm's space takes [[/r {2d4}[bludgeoning]]]{2d4 bludgeoning damage} (@Check[type:reflex|dc:17|basic:true] save).</p>"
+                    "value": "<p>Each foe in the cobbleswarm's space takes [[/r 2d4[bludgeoning]]] damage (@Check[type:reflex|dc:17|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -307,12 +307,33 @@
                 "temp": 0,
                 "value": 20
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                },
+                {
+                    "type": "visual"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 9
             },
+            "resistances": [
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -321,7 +342,17 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 3
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -357,37 +388,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind",
-                    "visual"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 3
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 3
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],
@@ -395,7 +395,7 @@
             },
             "rarity": "common",
             "senses": {
-                "value": "no vision, tremorsense (precise) 40 feet, (imprecise) 80 feet"
+                "value": "no vision, tremorsense (precise) 40 feet, tremorsense (imprecise) 80 feet"
             },
             "size": {
                 "value": "lg"

@@ -5,7 +5,7 @@ import { Statistic } from "@system/statistic";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { htmlQueryAll, objectHasKey, sluggify } from "@util";
+import { htmlClosest, htmlQueryAll, objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
 
@@ -44,6 +44,8 @@ export const InlineRollLinks = {
         const links = htmlQueryAll(html, inlineSelector).filter((l) => l.nodeName === "SPAN");
         InlineRollLinks.injectRepostElement(links, foundryDoc);
         const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
+
+        InlineRollLinks.flavorDamageRolls(html, foundryDoc instanceof ActorPF2e ? foundryDoc : null);
 
         const documentFromDOM = (html: HTMLElement): ActorPF2e | JournalEntry | JournalEntryPage | null => {
             if (foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor ?? foundryDoc.journalEntry ?? null;
@@ -149,8 +151,11 @@ export const InlineRollLinks = {
                 case "will":
                 case "fortitude":
                 case "reflex": {
+                    // Get the origin actor if any
+                    const document = documentFromDOM(html);
+
                     for (const actor of actors) {
-                        const savingThrow = actor.saves?.[pf2Check ?? ""];
+                        const savingThrow = actor.saves?.[pf2Check];
                         if (pf2Check && savingThrow) {
                             const dc = Number.isInteger(Number(pf2Dc))
                                 ? { label: pf2Label, value: Number(pf2Dc) }
@@ -158,6 +163,7 @@ export const InlineRollLinks = {
                             savingThrow.check.roll({
                                 ...eventRollParams,
                                 extraRollOptions: parsedTraits,
+                                origin: document instanceof ActorPF2e ? document : null,
                                 dc,
                             });
                         } else {
@@ -216,7 +222,8 @@ export const InlineRollLinks = {
                 templateData.t = templateConversion[pf2EffectArea];
 
                 if (templateData.t === "ray") {
-                    templateData.width = Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width;
+                    templateData.width =
+                        Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1);
                 } else if (templateData.t === "cone") {
                     templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
                 }
@@ -264,5 +271,14 @@ export const InlineRollLinks = {
             content: `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim(),
             flags,
         });
+    },
+
+    /** Give inline damage-roll links from items flavor text of the item name */
+    flavorDamageRolls(html: HTMLElement, actor: ActorPF2e | null = null): void {
+        for (const rollLink of htmlQueryAll(html, "a.inline-roll[data-damage-roll]")) {
+            const itemId = htmlClosest(rollLink, "[data-item-id]")?.dataset.itemId;
+            const item = actor?.items.get(itemId ?? "");
+            if (item) rollLink.dataset.flavor ||= item.name;
+        }
     },
 };

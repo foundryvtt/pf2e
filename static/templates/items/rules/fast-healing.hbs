@@ -1,0 +1,24 @@
+
+<div class="spaced-fields details-container-flex-row">
+    <select name="system.rules.{{index}}.type">
+        {{#select rule.type}}
+            {{#each types as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
+    <input type="text" class="value" name="system.rules.{{index}}.value" value="{{rule.value}}" placeholder="0" />
+
+    {{#if (eq rule.type "regeneration")}}
+        <label>{{localize "PF2E.RuleEditor.FastHealing.DeactivatedBy"}}</label>
+        <input type="text" class="pf2e-tagify deactivated-by" name="system.rules.{{index}}.deactivatedBy" value="{{json rule.deactivatedBy}}" data-dtype="JSON"/>
+    {{else}}
+        <label>{{localize "PF2E.DetailsHeading"}}</label>
+        <input type="text" class="details" name="system.rules.{{index}}.details" value="{{rule.details}}"/>
+    {{/if}}
+</div>
+
+<div class="spaced-fields">
+    <label>{{localize "PF2E.RuleEditor.General.Predicate"}}</label>
+    <input type="text" name="system.rules.{{index}}.predicate" value="{{json rule.predicate}}" />
+</div>

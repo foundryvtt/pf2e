@@ -148,7 +148,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Marrow rot affects only creatures with a skeletal system</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>"
+                    "value": "<p>Marrow rot affects only creatures with a skeletal system</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:24]</p>\n<p><strong>Onset</strong> 1 day</p>\n<p><strong>Stage 1</strong> @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -190,7 +190,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {3d6}[piercing]]]{3d6 piercing damage} (@Check[type:reflex|dc:24|basic:true]) save plus exposure to marrow rot.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 3d6[piercing]]] damage (@Check[type:reflex|dc:24|basic:true]) save plus exposure to marrow rot.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -279,12 +279,34 @@
                 "temp": 0,
                 "value": 120
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 17
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "piercing",
+                    "value": 9
+                },
+                {
+                    "type": "slashing",
+                    "value": 9
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -293,7 +315,17 @@
                     }
                 ],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 9
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 9
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -329,40 +361,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "type": "piercing",
-                    "value": 9
-                },
-                {
-                    "type": "slashing",
-                    "value": 9
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Area Damage",
-                    "type": "area-damage",
-                    "value": "9"
-                },
-                {
-                    "label": "Splash Damage",
-                    "type": "splash-damage",
-                    "value": "9"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

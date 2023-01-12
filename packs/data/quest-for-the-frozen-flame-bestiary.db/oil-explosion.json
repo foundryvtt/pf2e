@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> An open flame is brought into area <strong>A4</strong></p><hr />\n<p><strong>Effect</strong> The oil on the walls explodes, dealing [[/r {4d8+10}[fire]]]{4d8+10 fire damage} to all creatures and objects in areas <strong>A4</strong> and <strong>A3</strong>(@Check[type:reflex|dc:21|traits:hazard,environmental,fire|basic:true]).</p>"
+                    "value": "<p><strong>Trigger</strong> An open flame is brought into area <strong>A4</strong></p><hr />\n<p><strong>Effect</strong> The oil on the walls explodes, dealing [[/r (4d8+10)[fire]]] damage to all creatures and objects in areas <strong>A4</strong> and <strong>A3</strong>(@Check[type:reflex|dc:21|traits:hazard,environmental,fire|basic:true]).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -54,6 +54,17 @@
                 "temp": 0,
                 "value": 0
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "(trained)",
                 "value": 12
@@ -93,18 +104,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

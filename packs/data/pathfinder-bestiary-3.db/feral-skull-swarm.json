@@ -229,7 +229,7 @@
                 },
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a feral skull swarm is reduced to 0 Hit Points, it erupts in an explosion of foul energy and bone fragments in a @Template[type:burst|distance:30], dealing [[/r {3d12}[piercing]+{2d12}[negative]]]{3d12 piercing damage and 2d12 negative damage} (@Check[type:reflex|dc:32|basic:true] save).</p>"
+                    "value": "<p>When a feral skull swarm is reduced to 0 Hit Points, it erupts in an explosion of foul energy and bone fragments in a @Template[type:burst|distance:30], dealing [[/r {3d12[piercing],2d12[negative]}]]{3d12 piercing damage and 2d12 negative damage} (@Check[type:reflex|dc:32|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -269,7 +269,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d6}[bludgeoning]+{2d6}[piercing]+{2d6}[slashing]]]{2d6 bludgeoning damage, 2d6 piercing damage, and 2d6 slashing damage} (@Check[type:reflex|dc:32|basic:true] save).</p>\n<p>A creature that fails its saving throw also takes @Localize[PF2E.PersistentDamage.Bleed1d10.success].</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r {2d6[bludgeoning],2d6[piercing],2d6[slashing]}]]{2d6 bludgeoning damage, 2d6 piercing damage, and 2d6 slashing damage} (@Check[type:reflex|dc:32|basic:true] save).</p>\n<p>A creature that fails its saving throw also takes @Localize[PF2E.PersistentDamage.Bleed1d10.success].</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -309,7 +309,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The feral skull swarm emits a terrifying howl. Each creature within @Template[type:emanation|distance:60]{60 feet} must succeed at a @Check[type:will|dc:32] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round on a critical failure).</p>\n<p>Whether it succeeds or fails its save, a creature is temporarily immune to Frightening Howl for 24 hours.</p>"
+                    "value": "<p>The feral skull swarm emits a terrifying howl. Each creature within @Template[type:emanation|distance:60]{60 feet} must succeed at a @Check[type:will|dc:32] save or become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2} (@UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} for 1 round on a critical failure).</p>\n<p>Whether it succeeds or fails its save, a creature is temporarily immune to Frightening Howl for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -432,16 +432,72 @@
                 "temp": 0,
                 "value": 160
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 21
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 5
+                },
+                {
+                    "type": "cold",
+                    "value": 10
+                },
+                {
+                    "type": "electricity",
+                    "value": 10
+                },
+                {
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "type": "piercing",
+                    "value": 10
+                },
+                {
+                    "type": "slashing",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -453,7 +509,7 @@
                 "value": 12
             },
             "privateNotes": "",
-            "publicNotes": "<p>Some skull swarms are crafted from the heads of feral and dangerous beasts. These can include predatory cats, bears, dinosaurs, and the like, but just as often they're made from bulls, horses, apes, and other creatures that were gentler in life. In death, a feral skull swarm is bloodthirsty regardless of its origins, with a keen scent for living flesh. Even herbivore skulls diligently chew on the flesh of their swarm's victims.</p>\n<hr>\n<p>A skull swarm is composed of reanimated masses of craniums and jawbones, forming a terrifying avalanche of undead fury. Most skull swarms are mindless, though some retain a vestige of wit, awareness, and even magical talents from life, culminating in a highly intelligent swarm mind.</p>",
+            "publicNotes": "<p>Some skull swarms are crafted from the heads of feral and dangerous beasts. These can include predatory cats, bears, dinosaurs, and the like, but just as often they're made from bulls, horses, apes, and other creatures that were gentler in life. In death, a feral skull swarm is bloodthirsty regardless of its origins, with a keen scent for living flesh. Even herbivore skulls diligently chew on the flesh of their swarm's victims.</p>\n<hr />\n<p>A skull swarm is composed of reanimated masses of craniums and jawbones, forming a terrifying avalanche of undead fury. Most skull swarms are mindless, though some retain a vestige of wit, awareness, and even magical talents from life, culminating in a highly intelligent swarm mind.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -477,63 +533,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "mental",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "bludgeoning",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "electricity",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 10
-                }
-            ],
-            "dv": [
-                {
-                    "exceptions": "",
-                    "type": "area-damage",
-                    "value": 10
-                },
-                {
-                    "exceptions": "",
-                    "type": "splash-damage",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

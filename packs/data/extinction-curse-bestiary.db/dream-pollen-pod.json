@@ -103,7 +103,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature hit by the trap's pollen spray must succeed at a @Check[type:will|dc:20] save or it is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round and takes a -2 status penalty to Perception checks and saves against mental effects for [[/br 1d4 #hours]] hours. On a critical failure, the penalty is instead -4.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Hallucinogenic Pollen (Failure)]{Effect: Hallucinogenic Pollen (Failure)}</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Hallucinogenic Pollen (Critical Failure)]{Effect: Hallucinogenic Pollen (Critical Failure)}</p>"
+                    "value": "<p>A creature hit by the trap's pollen spray must succeed at a @Check[type:will|dc:20] save or it is @UUID[Compendium.pf2e.conditionitems.Confused]{Confused} for 1 round and takes a -2 status penalty to Perception checks and saves against mental effects for [[/br 1d4 #hours]] hours. On a critical failure, the penalty is instead -4.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Hallucinogenic Pollen (Failure)]{Effect: Hallucinogenic Pollen (Failure)}</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Hallucinogenic Pollen (Critical Failure)]{Effect: Hallucinogenic Pollen (Critical Failure)}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -143,6 +143,17 @@
                 "tempmax": 0,
                 "value": 32
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained)</p>",
                 "value": 12
@@ -178,18 +189,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

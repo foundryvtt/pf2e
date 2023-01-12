@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/classes/spirit-instinct.webp",
     "name": "Spirit Instinct",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -29,7 +26,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     {
                         "not": "barbarian-dedication"
                     }
@@ -41,7 +38,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     {
                         "nor": [
                             "ranged",
@@ -60,7 +57,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "agile",
                     {
                         "nor": [
@@ -87,7 +84,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "positive-spirit",
                     {
                         "nor": [
@@ -124,7 +121,7 @@
                 "label": "PF2E.TraitRage",
                 "predicate": [
                     "agile",
-                    "rage",
+                    "self:effect:rage",
                     "positive-spirit",
                     {
                         "nor": [
@@ -166,7 +163,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "negative-spirit",
                     {
                         "nor": [
@@ -203,7 +200,7 @@
                 "label": "PF2E.TraitRage",
                 "predicate": [
                     "agile",
-                    "rage",
+                    "self:effect:rage",
                     "negative-spirit",
                     {
                         "nor": [
@@ -237,7 +234,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "instinct-ability",
                     {
                         "nor": [
@@ -256,7 +253,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "agile",
                     "instinct-ability",
                     {
@@ -276,7 +273,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "positive-spirit",
                     "instinct-ability",
                     {
@@ -297,7 +294,7 @@
                 "label": "PF2E.TraitRage",
                 "predicate": [
                     "agile",
-                    "rage",
+                    "self:effect:rage",
                     "positive-spirit",
                     "instinct-ability",
                     {
@@ -316,7 +313,7 @@
                 "key": "FlatModifier",
                 "label": "PF2E.TraitRage",
                 "predicate": [
-                    "rage",
+                    "self:effect:rage",
                     "negative-spirit",
                     "instinct-ability",
                     {
@@ -337,7 +334,7 @@
                 "label": "PF2E.TraitRage",
                 "predicate": [
                     "agile",
-                    "rage",
+                    "self:effect:rage",
                     "negative-spirit",
                     "instinct-ability",
                     {
@@ -350,6 +347,15 @@
                 "selector": "strike-damage",
                 "slug": "rage-spirit-negative-agile-dedication",
                 "value": 1
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "negative",
+                "value": "@actor.abilities.con.mod+3"
             }
         ],
         "source": {

@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>Granted by <em>@Compendium[pf2e.spells-srd.Armor of Bones]{Armor of Bones}</em></p>"
+            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Armor of Bones]{Armor of Bones}</em></p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -19,47 +19,13 @@
         "rules": [
             {
                 "key": "Resistance",
-                "type": "cold",
-                "value": "@item.level"
-            },
-            {
-                "key": "Resistance",
-                "type": "electricity",
-                "value": "@item.level"
-            },
-            {
-                "key": "Resistance",
-                "type": "fire",
-                "value": "@item.level"
-            },
-            {
-                "key": "Resistance",
-                "type": "piercing",
-                "value": "@item.level"
-            },
-            {
-                "key": "Resistance",
-                "type": "slashing",
-                "value": "@item.level"
-            },
-            {
-                "key": "Resistance",
-                "type": "electricity",
-                "value": "@item.level"
-            },
-            {
-                "key": "Resistance",
-                "type": "fire",
-                "value": "@item.level"
-            },
-            {
-                "key": "Resistance",
-                "type": "piercing",
-                "value": "@item.level"
-            },
-            {
-                "key": "Resistance",
-                "type": "slashing",
+                "type": [
+                    "cold",
+                    "electricity",
+                    "fire",
+                    "piercing",
+                    "slashing"
+                ],
                 "value": "@item.level"
             }
         ],

@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature approaches within 5 feet of the hatchet or more than 3 creatures enter area C10</p>\n<hr />\n<p><strong>Effect</strong> The furious shriek of Asethanna's rage resonates throughout the room, and all creatures within 25 feet of the hatchet must attempt a @Check[type:will|dc:25] save. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature feels as if the wrathful haunt is particularly enraged at them. The creature becomes frightened 2; their frightened condition doesn't decrease automatically as long as the haunt remains active, and the hatchet gains a +2 circumstance bonus to all wrathful hatchet Strikes it attempts against the creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 5 feet of the hatchet or more than 3 creatures enter area C10</p>\n<hr />\n<p><strong>Effect</strong> The furious shriek of Asethanna's rage resonates throughout the room, and all creatures within 25 feet of the hatchet must attempt a @Check[type:will|dc:25] save. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature feels as if the wrathful haunt is particularly enraged at them. The creature becomes frightened 2; their frightened condition doesn't decrease automatically as long as the haunt remains active, and the hatchet gains a +2 circumstance bonus to all wrathful hatchet Strikes it attempts against the creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -126,10 +126,27 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                }
+            ],
             "stealth": {
                 "details": "<p>(Expert) Darkvision</p>",
                 "value": 17
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "positive",
+                    "value": 7
+                }
+            ]
         },
         "creatureType": "",
         "details": {
@@ -161,24 +178,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "precision",
-                    "critical-hits",
-                    "object-immunities"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "label": "Positive",
-                    "type": "positive",
-                    "value": "7"
-                }
-            ],
             "rarity": "common",
             "size": {
                 "value": "med"

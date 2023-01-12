@@ -105,7 +105,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>On a critical hit, the target is @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 round. Additionally, if another stabbing sentinel has already been triggered, that sentinel immediately resets. If no other stabbing sentinels have been triggered, then another random statue in the room becomes infused with animating magic and becomes another stabbing sentinel hazard (to a maximum of four at a time).</p>"
+                    "value": "<p>On a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Petrified]{Petrified} for 1 round. Additionally, if another stabbing sentinel has already been triggered, that sentinel immediately resets. If no other stabbing sentinels have been triggered, then another random statue in the room becomes infused with animating magic and becomes another stabbing sentinel hazard (to a maximum of four at a time).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -136,6 +136,7 @@
             "ac": {
                 "value": 41
             },
+            "emitsSound": "encounter",
             "hardness": 30,
             "hasHealth": true,
             "hp": {
@@ -145,6 +146,17 @@
                 "tempmax": 0,
                 "value": 120
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>@Check[type:perception|dc:45|traits:action:seek] (master)</p>",
                 "value": 35
@@ -153,7 +165,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A petrified creature momentarily animates to attack an adjacent creature.</p>",
-            "disable": "<p>@Check[type:thievery|dc:40|name:Remove Animating Magic|traits:action:disable-a-device] (master) to remove the animating magic without triggering the trap, or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (8th level; counteract DC 38) to counteract the animating magic</p>",
+            "disable": "<p>@Check[type:thievery|dc:40|name:Remove Animating Magic|traits:action:disable-a-device] (master) to remove the animating magic without triggering the trap, or <em>@UUID[Compendium.pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (8th level; counteract DC 38) to counteract the animating magic</p>",
             "isComplex": false,
             "level": {
                 "value": 18
@@ -176,29 +188,19 @@
             }
         },
         "source": {
+            "author": "",
             "value": "Pathfinder #155: Lord of the Black Sands"
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"
             },
             "value": [
                 "magical",
-                "mechanical"
+                "mechanical",
+                "trap"
             ]
         }
     },

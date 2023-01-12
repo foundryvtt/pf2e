@@ -106,7 +106,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature moves away from the scrabbling ribcage, or a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by the scrabbling ribcage @Compendium[pf2e.actionspf2e.Escape]{Escapes} from it</p>\n<hr />\n<p><strong>Effect</strong> The ribcage Strides or Climbs. This movement doesn't trigger reactions.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature moves away from the scrabbling ribcage, or a creature @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained} by the scrabbling ribcage @UUID[Compendium.pf2e.actionspf2e.Escape]{Escapes} from it</p>\n<hr />\n<p><strong>Effect</strong> The ribcage Strides or Climbs. This movement doesn't trigger reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -148,7 +148,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>[[/r {1d8}[bludgenoning]]]{1d8 bludgeoning}, @Check[type:fortitude|dc:17|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>[[/r 1d8[bludgenoning]]], @Check[type:fortitude|dc:17|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -319,12 +319,75 @@
                 "temp": 0,
                 "value": 20
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 6
             },
+            "resistances": [
+                {
+                    "type": "cold",
+                    "value": 3
+                },
+                {
+                    "type": "electricity",
+                    "value": 3
+                },
+                {
+                    "type": "fire",
+                    "value": 3
+                },
+                {
+                    "type": "piercing",
+                    "value": 3
+                },
+                {
+                    "type": "slashing",
+                    "value": 3
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -333,7 +396,13 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "bludgeoning",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -366,58 +435,6 @@
             }
         },
         "traits": {
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "type": "cold",
-                    "value": 3
-                },
-                {
-                    "exceptions": "",
-                    "type": "electricity",
-                    "value": 3
-                },
-                {
-                    "exceptions": "",
-                    "type": "fire",
-                    "value": 3
-                },
-                {
-                    "exceptions": "",
-                    "type": "piercing",
-                    "value": 3
-                },
-                {
-                    "exceptions": "",
-                    "type": "slashing",
-                    "value": 3
-                }
-            ],
-            "dv": [
-                {
-                    "type": "bludgeoning",
-                    "value": 3
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

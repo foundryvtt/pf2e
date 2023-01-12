@@ -109,7 +109,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r {2d8}[poison]]]{2d8 poison damage} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r {3d6}[poison]]]{3d6 poison damage} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r {2d10}[poison]]]{2d10 poison damage} and @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:25]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 2d8[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 3d6[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d10[poison]]] damage and @UUID[Compendium.pf2e.conditionitems.Paralyzed]{Paralyzed} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -151,7 +151,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A giant jellyfish can fit into tight spaces as if it were a Medium creature. It can move at its full Speed while @Compendium[pf2e.actionspf2e.Squeeze]{Squeezing}.</p>"
+                    "value": "<p>A giant jellyfish can fit into tight spaces as if it were a Medium creature. It can move at its full Speed while @UUID[Compendium.pf2e.actionspf2e.Squeeze]{Squeezing}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -296,12 +296,27 @@
                 "temp": 0,
                 "value": 165
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 12
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 10
+                },
+                {
+                    "type": "poison",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -310,7 +325,17 @@
                     }
                 ],
                 "value": 0
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -346,38 +371,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "mental",
-                    "precision"
-                ]
-            },
-            "dr": [
-                {
-                    "label": "Bludgeoning",
-                    "type": "bludgeoning",
-                    "value": "10"
-                },
-                {
-                    "label": "Poison",
-                    "type": "poison",
-                    "value": "10"
-                }
-            ],
-            "dv": [
-                {
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": "5"
-                },
-                {
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": "5"
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

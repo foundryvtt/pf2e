@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature with blood moves through a patch of lifeleech crystals.</p>\n<hr />\n<p><strong>Effect</strong> The crystals twist and slash, animating and cutting into the creature as it walks, dealing [[/r {5d8}[slashing]]]{5d8 slashing damage}. The creature must attempt a @Check[type:reflex|dc:28|traits:damaging-effect,environmental,magical] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature takes double damage and is @Compendium[pf2e.conditionitems.Drained]{Drained 2}.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature's blood causes fresh growth. A new 10-foot-square patch of lifeleech crystals grows in an adjacent space to the current patch of crystals.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature with blood moves through a patch of lifeleech crystals.</p>\n<hr />\n<p><strong>Effect</strong> The crystals twist and slash, animating and cutting into the creature as it walks, dealing [[/r 5d8[slashing]]] damage. The creature must attempt a @Check[type:reflex|dc:28|traits:damaging-effect,environmental,magical] saving throw.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Failure</strong> The creature takes double damage and is @UUID[Compendium.pf2e.conditionitems.Drained]{Drained 2}.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature's blood causes fresh growth. A new 10-foot-square patch of lifeleech crystals grows in an adjacent space to the current patch of crystals.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -59,10 +59,24 @@
                 "tempmax": 0,
                 "value": 80
             },
+            "immunities": [
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
-                "details": "<p>(expert) or <em>@Compendium[pf2e.spells-srd.Detect Magic]{Detect Magic}</em> to note the presence of necromantic energies suffusing the crystals.</p>",
+                "details": "<p>(expert) or <em>@UUID[Compendium.pf2e.spells-srd.Detect Magic]{Detect Magic}</em> to note the presence of necromantic energies suffusing the crystals.</p>",
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "sonic",
+                    "value": 10
+                }
+            ]
         },
         "creatureType": "",
         "details": {
@@ -94,22 +108,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "Critical Hits (except bludgeoning or sonic)",
-                "selected": {},
-                "value": [
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "sonic",
-                    "value": 10
-                }
-            ],
             "rarity": "common",
             "size": {
                 "value": "med"

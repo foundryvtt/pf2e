@@ -242,7 +242,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The winter wolf breathes a cloud of frost in a @Template[type:cone|distance:15] that deals [[/r {5d8}[cold]]]{5d8 cold damage} (@Check[type:reflex|dc:23|basic:true] save).</p>\n<p>The winter wolf can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
+                    "value": "<p>The winter wolf breathes a cloud of frost in a @Template[type:cone|distance:15] that deals [[/r 5d8[cold]]] damage (@Check[type:reflex|dc:23|basic:true] save).</p>\n<p>The winter wolf can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -295,7 +295,7 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "option": "packAttack",
+                        "option": "pack-attack",
                         "toggleable": true
                     },
                     {
@@ -303,7 +303,7 @@
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
-                            "packAttack"
+                            "pack-attack"
                         ],
                         "selector": "strike-damage"
                     }
@@ -592,6 +592,11 @@
                 "temp": 0,
                 "value": 70
             },
+            "immunities": [
+                {
+                    "type": "cold"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -601,7 +606,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "fire",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -634,20 +645,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "cold"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "fire",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

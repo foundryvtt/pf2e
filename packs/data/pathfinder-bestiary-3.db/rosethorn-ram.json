@@ -235,7 +235,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "ram-charge",
+                        "toggleable": true,
+                        "value": false
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "ram-charge"
+                        ],
+                        "selector": "horn-attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -413,7 +430,6 @@
                 "details": "mountain stride",
                 "otherSpeeds": [
                     {
-                        "label": "Climb",
                         "type": "climb",
                         "value": 20
                     }
@@ -431,7 +447,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>Rams are sturdy, stubborn herd animals suited to rugged terrain and cold weather. Regardless of their territory, all share a stubborn nature and surefootedness, navigating uncertain terrain with ease and weathering all seasons in scattered herds.</p>\n<hr />\n<p>These hardy mountain dwellers surpass their lowlander cousins in stubbornness and agility. Rosethorn rams sport distinctive, twisted horns that measure up to 4 feet in length and bear thorny growths, which they use to damage enemies in combat and strip the bark from trees during harsh winters when other food is scarce.</p>\n<p>Though hardly a domesticated species, rosethorn rams' shaggy outer coats cover fine hair that makes a yarn prized for both its softness and rarity. Their milk also provides nourishment during severe seasons.</p>",
+            "publicNotes": "<p>These hardy mountain dwellers surpass their lowlander cousins in stubbornness and agility. Rosethorn rams sport distinctive, twisted horns that measure up to 4 feet in length and bear thorny growths, which they use to damage enemies in combat and strip the bark from trees during harsh winters when other food is scarce.</p>\n<p>Though hardly a domesticated species, rosethorn rams' shaggy outer coats cover fine hair that makes a yarn prized for both its softness and rarity. Their milk also provides nourishment during severe seasons.</p>\n<hr />\n<p>Rams are sturdy, stubborn herd animals suited to rugged terrain and cold weather. Regardless of their territory, all share a stubborn nature and surefootedness, navigating uncertain terrain with ease and weathering all seasons in scattered herds.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -452,13 +468,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

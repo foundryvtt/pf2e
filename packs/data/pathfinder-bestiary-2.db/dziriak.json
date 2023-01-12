@@ -126,13 +126,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -376,12 +370,36 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>20 feet.</p>\n<p>The colorful runes that decorate a d'ziriak's body create dim light. The natural bioluminescence is specially adapted to the Shadow Plane, able to overcome magical darkness as if it were magical light of the d'ziriak's level.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The colorful runes that decorate a d'ziriak's body create dim light. The natural bioluminescence is specially adapted to the Shadow Plane, able to overcome magical darkness as if it were magical light of the d'ziriak's level.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "glowing"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "color": "#fff9a3",
+                            "dim": 20,
+                            "shadows": 0.1
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "glowing",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -419,7 +437,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The d'ziriak causes its body to flare with intense colorful light. Non-d'ziriaks in a @Template[type:emanation|distance:20] must attempt a @Check[type:fortitude|dc:20] save. After using this ability, the d'ziriak loses its glow for 24 hours; during this time it can't use again.</p>\n<p>A creature that attempts this save is immune to all Dazzling Bursts for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is dazzled for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round and dazzled for 1 minute.</p>"
+                    "value": "<p>The d'ziriak causes its body to flare with intense colorful light. Non-d'ziriaks in a @Template[type:emanation|distance:20] must attempt a @Check[type:fortitude|dc:20] save. After using this ability, the d'ziriak loses its glow for 24 hours; during this time it can't use again.</p>\n<p>A creature that attempts this save is immune to all Dazzling Bursts for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is dazzled for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Blinded]{Blinded} for 1 round and dazzled for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -713,13 +731,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "Telepathy 100 feet",
                 "selected": [],

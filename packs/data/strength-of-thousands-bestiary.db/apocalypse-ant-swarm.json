@@ -108,7 +108,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature leaves the swarm's space</p>\n<hr />\n<p><strong>Effect</strong> The swarm loses [[/r 2d8 #Hit Points]] HP as ants cling to the creature and continue biting, dealing [[/r {7d8}[persistent,piercing]]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent piercing Damage}. High winds or immersion in water reduces the DC of the flat check to end this persistent damage to 5. Any area damage dealt to the creature destroys these clinging ants.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature leaves the swarm's space</p>\n<hr />\n<p><strong>Effect</strong> The swarm loses [[/r 2d8 #Hit Points]] HP as ants cling to the creature and continue biting, dealing [[/r 7d8[persistent,piercing]]] damage. High winds or immersion in water reduces the DC of the flat check to end this persistent damage to 5. Any area damage dealt to the creature destroys these clinging ants.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -182,7 +182,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {7d8}[piercing]]]{7d8 piercing damage} (@Check[type:fortitude|dc:39|basic:true]). A creature that fails its save against Swarming Bites becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 round (1 minute on a critical failure). If the creature attempts a concentrate or manipulate action while affected, it must succeed at a @Check[type:flat|dc:5] or the action is lost; roll the check after spending the action, but before any effects are applied.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 7d8[piercing]]] damage (@Check[type:fortitude|dc:39|basic:true]). A creature that fails its save against Swarming Bites becomes @UUID[Compendium.pf2e.conditionitems.Clumsy]{Clumsy 1} for 1 round (1 minute on a critical failure). If the creature attempts a concentrate or manipulate action while affected, it must succeed at a @Check[type:flat|dc:5] or the action is lost; roll the check after spending the action, but before any effects are applied.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -268,12 +268,34 @@
                 "temp": 0,
                 "value": 260
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 30
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 10
+                },
+                {
+                    "type": "piercing",
+                    "value": 20
+                },
+                {
+                    "type": "slashing",
+                    "value": 20
+                }
+            ],
             "shield": {
                 "ac": 2,
                 "brokenThreshold": 0,
@@ -289,7 +311,17 @@
                     }
                 ],
                 "value": 30
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 20
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -322,38 +354,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "bludgeoning",
-                    "value": 10
-                },
-                {
-                    "type": "piercing",
-                    "value": 20
-                },
-                {
-                    "type": "slashing",
-                    "value": 20
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 20
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 20
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

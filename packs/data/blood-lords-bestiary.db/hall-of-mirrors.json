@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Two or more creatures enter the room</p>\n<hr />\n<p><strong>Effect</strong> Three trapped souls appear in mirrors throughout the room, menacing the reflections of the triggering creatures. The triggering creatures must each succeed at a @Check[type:will|dc:28] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure). The haunt then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> Two or more creatures enter the room</p>\n<hr />\n<p><strong>Effect</strong> Three trapped souls appear in mirrors throughout the room, menacing the reflections of the triggering creatures. The triggering creatures must each succeed at a @Check[type:will|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure). The haunt then rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -60,7 +60,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A creature damaged by the haunt's reflective ripple Strike is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} until 1 minute after it leaves the room. This enfeebled condition is cumulative, up to enfeebled 4. If the creature dies from reflective rip, its soul is contained within the mirror until the mirror is broken and a @Compendium[pf2e.pathfinder-bestiary-2.Specter]{Specter} emerges.</p>"
+                    "value": "<p>A creature damaged by the haunt's reflective ripple Strike is @UUID[Compendium.pf2e.conditionitems.Enfeebled]{Enfeebled 1} until 1 minute after it leaves the room. This enfeebled condition is cumulative, up to enfeebled 4. If the creature dies from reflective rip, its soul is contained within the mirror until the mirror is broken and a @UUID[Compendium.pf2e.pathfinder-bestiary-2.Specter]{Specter} emerges.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -138,6 +138,17 @@
                 "temp": 0,
                 "value": 60
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "",
                 "value": 16
@@ -174,17 +185,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "unique",
             "size": {
                 "value": "med"

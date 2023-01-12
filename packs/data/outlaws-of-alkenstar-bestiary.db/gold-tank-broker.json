@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.</p>"
@@ -59,29 +58,15 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "sp": 1
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -105,9 +90,6 @@
                 "slug": "javelin",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -436,7 +418,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The clockwork handler can use the <em>@Compendium[pf2e.equipment-srd.Everburning Torch]{Everburning Torch}</em> built into its helmet to illuminate areas it's examining. Whenever it Seeks in a @Template[type:cone|distance:30] and rolls a successful Perception check, the clockwork handler gets a critical success instead.</p>"
+                    "value": "<p>The clockwork handler can use the <em>@UUID[Compendium.pf2e.equipment-srd.Everburning Torch]{Everburning Torch}</em> built into its helmet to illuminate areas it's examining. Whenever it Seeks in a @Template[type:cone|distance:30] and rolls a successful Perception check, the clockwork handler gets a critical success instead.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -600,7 +582,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The clockwork handler has a creature @Compendium[pf2e.conditionitems.Restrained]{Restrained}</p>\n<hr />\n<p><strong>Effect</strong> The clockwork handler cuts a length of rope from the supply in its chassis to tie up the restrained creature. The creature is restrained until it Escapes or Forces Open the rope with a successful DC 15 check (typically an attack roll or Thievery check to @Compendium[pf2e.actionspf2e.Escape]{Escape}, or an Athletics check to @Compendium[pf2e.actionspf2e.Force Open]{Force Open} the ropes; restrained creatures don't take a -2 penalty on this check for not using a crowbar). The rope has Hardness 2 and 8 Hit Points (BT 4).</p>"
+                    "value": "<p><strong>Requirements</strong> The clockwork handler has a creature @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}</p>\n<hr />\n<p><strong>Effect</strong> The clockwork handler cuts a length of rope from the supply in its chassis to tie up the restrained creature. The creature is restrained until it Escapes or Forces Open the rope with a successful DC 15 check (typically an attack roll or Thievery check to @UUID[Compendium.pf2e.actionspf2e.Escape]{Escape}, or an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Force Open]{Force Open} the ropes; restrained creatures don't take a -2 penalty on this check for not using a crowbar). The rope has Hardness 2 and 8 Hit Points (BT 4).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -721,7 +703,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DisarmGrappleOrAvoidDisarmed",
+                        "label": "PF2E.SkillVariant.DisarmGrappleAvoidDisarm",
                         "predicate": [
                             {
                                 "or": [
@@ -735,7 +717,7 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DisarmGrappleOrAvoidDisarmed",
+                        "label": "PF2E.SkillVariant.DisarmGrappleAvoidDisarm",
                         "predicate": [
                             "action:disarm"
                         ],
@@ -798,16 +780,74 @@
                 "temp": 0,
                 "value": 16
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 8
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "adamantine",
+                        "orichalcum"
+                    ],
+                    "type": "physical",
+                    "value": 2
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "electricity",
+                    "value": 2
+                },
+                {
+                    "type": "orichalcum",
+                    "value": 2
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -840,42 +880,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except adamantine or orichalcum",
-                    "type": "physical",
-                    "value": 2
-                }
-            ],
-            "dv": [
-                {
-                    "type": "electricity",
-                    "value": 2
-                },
-                {
-                    "type": "orichalcum",
-                    "value": 2
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

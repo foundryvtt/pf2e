@@ -125,7 +125,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The cinder rat ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
+                    "value": "<p>The cinder rat ignores the @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} condition from smoke.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -165,7 +165,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p>The cinder rat breathes fire in a @Template[type:cone|distance:15]{15-foot cone} that deals [[/r {4d6}[fire]]]{4d6 fire damage} (@Check[type:reflex|dc:19|basic:true] save). The cinder rat can't use Breath Weapon again for [[/br {1d4} #Breath Weapon Cooldown]]{1d4 rounds}.</p>"
+                    "value": "<p>The cinder rat breathes fire in a @Template[type:cone|distance:15]{15-foot cone} that deals [[/r 4d6[fire]]] damage (@Check[type:reflex|dc:19|basic:true] save). The cinder rat can't use Breath Weapon again for [[/br {1d4} #Breath Weapon Cooldown]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -314,6 +314,23 @@
                 "temp": 0,
                 "value": 45
             },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "fire"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -323,7 +340,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold",
+                    "value": 5
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -359,24 +382,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "bleed",
-                    "fire",
-                    "paralyzed",
-                    "poison",
-                    "sleep"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "cold",
-                    "value": 5
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

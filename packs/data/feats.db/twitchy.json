@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Twitchy",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -30,18 +27,17 @@
                 "key": "RollOption",
                 "label": "Saving or defending against hazards",
                 "option": "hazard",
-                "toggleable": true
+                "toggleable": "totm"
             },
             {
                 "domain": "all",
                 "key": "RollOption",
                 "label": "Opponent rolling Deception or Diplomacy for initiative",
-                "option": "twitchyDeceptionDiplomacy",
+                "option": "twitchy-deception-diplomacy",
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
-                "label": "Twitchy",
                 "selector": "initiative",
                 "type": "circumstance",
                 "value": 1
@@ -50,7 +46,7 @@
                 "key": "FlatModifier",
                 "label": "Twitchy (Opponent rolling Deception or Diplomacy)",
                 "predicate": [
-                    "twitchyDeceptionDiplomacy"
+                    "twitchy-deception-diplomacy"
                 ],
                 "selector": "initiative",
                 "type": "circumstance",
@@ -59,24 +55,12 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "hazard"
+                    "origin:type:hazard"
                 ],
-                "roll-options": [
-                    "all"
+                "selector": [
+                    "ac",
+                    "saving-throw"
                 ],
-                "selector": "ac",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "hazard"
-                ],
-                "roll-options": [
-                    "all"
-                ],
-                "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
             }

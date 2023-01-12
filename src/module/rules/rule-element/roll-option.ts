@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { RollToggle } from "@actor/data/base";
 import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication";
+import { tupleHasValue } from "@util";
 import { RuleElementOptions, RuleElementPF2e } from "./base";
 import { RuleElementSource } from "./data";
 
@@ -20,8 +21,11 @@ class RollOptionRuleElement extends RuleElementPF2e {
      */
     private value: string | boolean;
 
-    /** Whether this roll option can be toggled by the user on an actor sheet */
-    private toggleable: boolean;
+    /**
+     * Whether this roll option can be toggled by the user on an actor sheet: "totm" indicates it will only be present
+     * if the Theather of the Mind Toggles setting is enabled
+     */
+    private toggleable: boolean | "totm";
 
     /** An optional predicate to determine whether the toggle is interactable by the user */
     private disabledIf?: PredicatePF2e;
@@ -42,7 +46,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
 
         this.domain = String(data.domain).trim();
         this.option = String(data.option).trim();
-        this.toggleable = !!data.toggleable;
+        this.toggleable = data.toggleable === "totm" ? "totm" : !!data.toggleable;
         this.value = typeof data.value === "string" ? data.value : !!(data.value ?? !this.toggleable);
         if (this.toggleable && Array.isArray(data.disabledIf)) {
             this.disabledIf = new PredicatePF2e(...data.disabledIf);
@@ -62,8 +66,8 @@ class RollOptionRuleElement extends RuleElementPF2e {
             this.failValidation('The "value" property must be a boolean, string, or otherwise omitted.');
         }
 
-        if ("toggleable" in data && typeof data.toggleable !== "boolean") {
-            this.failValidation('The "togglable" property must be a boolean or otherwise omitted.');
+        if ("toggleable" in data && typeof data.toggleable !== "boolean" && data.toggleable !== "totm") {
+            this.failValidation('The "togglable" property must be a boolean, the string "totm", or otherwise omitted.');
         }
 
         if ("disabledIf" in data) {
@@ -91,6 +95,11 @@ class RollOptionRuleElement extends RuleElementPF2e {
             } else if (typeof data.count !== "boolean") {
                 this.failValidation('The "count" property must be a boolean or otherwise omitted.');
             }
+        }
+
+        // Prevent all further processing of this RE
+        if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
+            this.ignored = true;
         }
     }
 
@@ -134,7 +143,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 domainRecord[`${option}:1`] = true;
             }
         } else {
-            const value = !!this.resolveValue(this.value);
+            const value = this.resolveValue(this.value);
             if (value) domainRecord[option] = value;
 
             const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
@@ -161,6 +170,14 @@ class RollOptionRuleElement extends RuleElementPF2e {
         }
     }
 
+    /** Force false totm toggleable roll options if the totmToggles setting is disabled */
+    override resolveValue(value: string | boolean): boolean {
+        if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
+            return false;
+        }
+        return !!super.resolveValue(value);
+    }
+
     /**
      * Toggle the provided roll option (swapping it from true to false or vice versa).
      * @returns the new value if successful or otherwise `null`
@@ -169,36 +186,28 @@ class RollOptionRuleElement extends RuleElementPF2e {
         domain,
         option,
         actor,
-        itemId = null,
+        itemId,
         value = !actor.rollOptions[domain]?.[option],
     }: ToggleParameters): Promise<boolean | null> {
         domain = domain.replace(/[^-\w]/g, "");
         option = option.replace(/[^-:\w]/g, "");
+        if (!itemId) return null;
 
-        const flatFootedOption = "target:condition:flat-footed";
-        if (domain === "all" && option === flatFootedOption) {
-            const updateKey = value
-                ? `flags.pf2e.rollOptions.all.${flatFootedOption}`
-                : `flags.pf2e.rollOptions.all.-=${flatFootedOption}`;
-            return (await actor.update({ [updateKey]: value })) ? value : null;
-        } else if (itemId) {
-            // Directly update the rule element on the item
-            const item = actor.items.get(itemId, { strict: true });
-            const rules = item.toObject().system.rules;
-            const rule = rules.find(
-                (r: RollOptionSource) =>
-                    r.key === "RollOption" &&
-                    typeof r.toggleable === "boolean" &&
-                    r.toggleable &&
-                    r.domain === domain &&
-                    r.option === option &&
-                    r.value !== value
-            );
-            if (rule) {
-                rule.value = value;
-                const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "system.rules": rules }]);
-                return result.length === 1 ? value : null;
-            }
+        // Directly update the rule element on the item
+        const item = actor.items.get(itemId, { strict: true });
+        const rules = item.toObject().system.rules;
+        const rule = rules.find(
+            (r: RollOptionSource) =>
+                r.key === "RollOption" &&
+                tupleHasValue([true, "totm"], r.toggleable) &&
+                r.domain === domain &&
+                r.option === option &&
+                r.value !== value
+        );
+        if (rule) {
+            rule.value = value;
+            const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "system.rules": rules }]);
+            return result.length === 1 ? value : null;
         }
 
         return null;

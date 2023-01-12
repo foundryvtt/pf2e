@@ -58,7 +58,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>An unseen servant is @Compendium[pf2e.conditionitems.Invisible]{Invisible}, though it normally doesn't @Compendium[pf2e.actionspf2e.Sneak]{Sneak}, so it is usually only @Compendium[pf2e.conditionitems.Hidden]{Hidden}.</p>"
+                    "value": "<p>An unseen servant is @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible}, though it normally doesn't @UUID[Compendium.pf2e.actionspf2e.Sneak]{Sneak}, so it is usually only @UUID[Compendium.pf2e.conditionitems.Hidden]{Hidden}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -147,12 +147,42 @@
                 "temp": 0,
                 "value": 4
             },
+            "immunities": [
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "non-magical"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 0
             },
+            "resistances": [
+                {
+                    "exceptions": [
+                        "force",
+                        "ghost-touch"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -173,7 +203,7 @@
                 "value": -1
             },
             "privateNotes": "",
-            "publicNotes": "<p>This creature can be summoned with the spell @Compendium[pf2e.spells-srd.Unseen Servant]{Unseen Servant}.</p>",
+            "publicNotes": "<p>This creature can be summoned with the spell <em>@UUID[Compendium.pf2e.spells-srd.Unseen Servant]{Unseen Servant}</em>.</p>",
             "source": {
                 "value": "Pathfinder Core Rulebook"
             }
@@ -194,27 +224,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "disease",
-                    "mental",
-                    "nonmagical-attacks",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "unconscious"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "except force or ghost touch",
-                    "type": "all",
-                    "value": 5
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "Understands Its Creator",
                 "selected": [],

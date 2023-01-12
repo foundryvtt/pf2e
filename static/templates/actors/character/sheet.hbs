@@ -1,0 +1,118 @@
+<form class="{{cssClass}} crb-style{{#if isProficiencyLocked}} proficiency-lock{{/if}}" autocomplete="off">
+    <aside>
+        <img class="logo" src="systems/pf2e/assets/pathfinder_logo.webp" height="56" alt="" srcset="" />
+        <div class="sidebar" data-group="dashboard" data-tab="sidebar">
+            <!-- HEALTH -->
+            {{> "systems/pf2e/templates/actors/character/sidebar/health.hbs"}}
+
+            <!-- STAMINA (if enabled) -->
+            {{#if hasStamina}}
+                {{> "systems/pf2e/templates/actors/character/sidebar/stamina.hbs"}}
+            {{/if}}
+
+            <!-- ARMOR CLASS -->
+            {{> "systems/pf2e/templates/actors/character/sidebar/armor-class.hbs"}}
+
+            <!-- Perception -->
+            {{> "systems/pf2e/templates/actors/character/sidebar/perception.hbs"}}
+
+            <!-- Initiative -->
+            {{> "systems/pf2e/templates/actors/character/sidebar/initiative.hbs"}}
+
+            <!-- Saves -->
+            {{> "systems/pf2e/templates/actors/character/sidebar/saves.hbs"}}
+
+            <!-- Class DC -->
+            {{> "systems/pf2e/templates/actors/character/sidebar/class-dc.hbs"}}
+
+            <!-- IWR -->
+            {{> "systems/pf2e/templates/actors/character/sidebar/iwr.hbs"}}
+        </div>
+    </aside>
+
+    <!-- HEADER -->
+    {{> "systems/pf2e/templates/actors/character/partials/header.hbs"}}
+
+    <!-- SHEET NAVIGATION -->
+    <nav class="sheet-navigation" data-group="primary">
+        <span class="navigation-title">{{localize "PF2E.TabCharacterLabel"}}</span>
+        <a class="item{{#unless tabVisibility.character}} hidden{{/unless}}" data-tab="character" title="{{localize "PF2E.TabCharacterLabel"}}">
+            <i class="fas fa-address-card"></i>
+        </a>
+
+        <a class="item{{#unless tabVisibility.actions}} hidden{{/unless}}" data-tab="actions" title="{{localize "PF2E.TabActionsLabel"}}">
+            <span class="action-icon">A</span>
+        </a>
+
+        <a class="item{{#unless tabVisibility.inventory}} hidden{{/unless}}" data-tab="inventory" title="{{localize "PF2E.TabInventoryLabel"}}">
+            <i class="fas fa-box-open"></i>
+        </a>
+
+        <a class="item{{#unless tabVisibility.spellcasting}} hidden{{/unless}}" data-tab="spellcasting" title="{{localize "PF2E.TabSpellbookLabel"}}">
+            <i class="fas fa-wand-magic-sparkles"></i>
+        </a>
+
+        <a class="item{{#unless tabVisibility.crafting}} hidden{{/unless}}" data-tab="crafting" title="{{localize "PF2E.TabCraftingLabel"}}">
+            <i class="fas fa-hammer"></i>
+        </a>
+
+        <a class="item{{#unless tabVisibility.proficiencies}} hidden{{/unless}}" data-tab="proficiencies" title="{{localize "PF2E.TabSkillsLabel"}}">
+            <i class="fas fa-hand-paper"></i>
+        </a>
+
+        <a class="item{{#unless tabVisibility.feats}} hidden{{/unless}}" data-tab="feats" title="{{localize "PF2E.TabFeatsLabel"}}">
+            <i class="fas fa-medal"></i>
+        </a>
+
+        <a class="item{{#unless tabVisibility.effects}} hidden{{/unless}}" data-tab="effects" title="{{localize "PF2E.TabEffectsLabel"}}">
+            <i class="fas fa-star"></i>
+        </a>
+
+        <a class="item{{#unless tabVisibility.biography}} hidden{{/unless}}" data-tab="biography" title="{{localize "PF2E.Biography"}}">
+            <i class="fas fa-book-reader"></i>
+        </a>
+
+        <a class="item{{#unless tabVisibility.pfs}} hidden{{/unless}}" data-tab="pfs" title="{{localize "PF2E.TabPathfinderSociety"}}">
+            {{> "systems/pf2e/templates/actors/character/icons/pfs.hbs"}}
+        </a>
+
+        <a class="manage-tabs" data-action="manage-tabs" title="{{localize "PF2E.TabManageTabsLabel"}}">
+            <i class="fas fa-fw fa-ellipsis-v"></i>
+        </a>
+    </nav>
+
+    <!-- BODY -->
+    <section class="sheet-body">
+        <section class="sheet-content">
+            <!-- Character -->
+            {{> "systems/pf2e/templates/actors/character/tabs/general.hbs"}}
+
+            <!-- Actions -->
+            {{> "systems/pf2e/templates/actors/character/tabs/actions.hbs"}}
+
+            <!-- Crafting -->
+            {{> "systems/pf2e/templates/actors/character/tabs/crafting.hbs"}}
+
+            <!-- INVENTORY -->
+            {{> "systems/pf2e/templates/actors/character/tabs/inventory.hbs"}}
+
+            <!-- SPELLBOOK -->
+            {{> "systems/pf2e/templates/actors/character/tabs/spellcasting.hbs"}}
+
+            <!-- SKILLS -->
+            {{> "systems/pf2e/templates/actors/character/tabs/proficiencies.hbs"}}
+
+            <!-- FEATS -->
+            {{> "systems/pf2e/templates/actors/character/tabs/feats.hbs"}}
+
+            <!-- Effects -->
+            {{> "systems/pf2e/templates/actors/character/tabs/effects.hbs"}}
+
+            <!-- BIOGRAPHY -->
+            {{> "systems/pf2e/templates/actors/character/tabs/biography.hbs"}}
+
+            <!-- Pathfinder Society -->
+            {{> "systems/pf2e/templates/actors/character/tabs/pfs.hbs"}}
+        </section>
+    </section>
+</form>

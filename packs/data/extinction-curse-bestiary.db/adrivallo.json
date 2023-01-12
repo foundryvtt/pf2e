@@ -24,7 +24,7 @@
                 },
                 "rules": [],
                 "showSlotlessLevels": {
-                    "value": true
+                    "value": false
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -125,13 +125,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -156,11 +150,20 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "heightenedLevel": 4,
                     "value": "W6tZElfSPD000KNK"
                 },
                 "materials": {
@@ -217,7 +220,8 @@
                     "value": [
                         "incapacitation",
                         "linguistic",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -238,11 +242,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "30"
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
+                    "type": "emanation",
+                    "value": 30
                 },
                 "category": {
                     "value": "focus"
@@ -260,7 +261,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Foes within the area are @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}. They can't reduce their Frightened value below 1 while they remain in the area.</p>"
+                    "value": "<p>Foes within the area are @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}. They can't reduce their Frightened value below 1 while they remain in the area.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -329,7 +330,8 @@
                         "composition",
                         "emotion",
                         "fear",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -350,11 +352,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot emanation"
+                    "type": "emanation",
+                    "value": 60
                 },
                 "category": {
                     "value": "focus"
@@ -372,7 +371,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You dance at a lively tempo, speeding your allies' movement. You and all allies in the area gain a +10-foot status bonus to all Speeds for 1 round.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Triple Time]{Spell Effect: Triple Time}</p>"
+                    "value": "<p>You dance at a lively tempo, speeding your allies' movement. You and all allies in the area gain a +10-foot status bonus to all Speeds for 1 round.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Triple Time]{Spell Effect: Triple Time}</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -440,7 +439,8 @@
                         "cantrip",
                         "composition",
                         "emotion",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -460,13 +460,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -483,13 +477,23 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @UUID[Compendium.pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @UUID[Compendium.pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -553,7 +557,8 @@
                     "value": [
                         "emotion",
                         "incapacitation",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -573,13 +578,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -664,8 +663,9 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
+                        "cantrip",
                         "light",
-                        "cantrip"
+                        "primal"
                     ]
                 }
             },
@@ -685,13 +685,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -708,13 +702,23 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "5 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -779,7 +783,8 @@
                     "value": [
                         "emotion",
                         "fear",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -799,13 +804,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "spell"
                 },
@@ -829,6 +828,21 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "120 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -889,7 +903,8 @@
                     "rarity": "common",
                     "value": [
                         "auditory",
-                        "cantrip"
+                        "cantrip",
+                        "primal"
                     ]
                 }
             },
@@ -909,13 +924,7 @@
                 "ability": {
                     "value": ""
                 },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
+                "area": null,
                 "category": {
                     "value": "focus"
                 },
@@ -1000,7 +1009,8 @@
                         "cantrip",
                         "composition",
                         "emotion",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -1021,11 +1031,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "emanation",
-                    "value": "60"
-                },
-                "areasize": {
-                    "value": "60-foot emanation"
+                    "type": "emanation",
+                    "value": 60
                 },
                 "category": {
                     "value": "focus"
@@ -1043,7 +1050,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Inspire Courage]{Spell Effect: Inspire Courage}</p>"
+                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Inspire Courage]{Spell Effect: Inspire Courage}</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -1111,7 +1118,8 @@
                         "cantrip",
                         "composition",
                         "emotion",
-                        "mental"
+                        "mental",
+                        "primal"
                     ]
                 }
             },
@@ -1132,11 +1140,8 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "burst",
+                    "type": "burst",
                     "value": 5
-                },
-                "areasize": {
-                    "value": "5-foot burst"
                 },
                 "category": {
                     "value": "spell"
@@ -1154,7 +1159,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Each creature in the area becomes drowsy and might fall asleep. A creature that falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} from this spell doesn't fall @Compendium[pf2e.conditionitems.Prone]{Prone} or release what it's holding. This spell doesn't prevent creatures from waking up due to a successful Perception check, limiting its utility in combat.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes a -1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 hour, it wakes up automatically.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creatures fall Unconscious for 1 round on a failure or 1 minute on a critical failure. They fall Prone and release what they're holding, and they can't attempt Perception checks to wake up. When the duration ends, the creature is sleeping normally instead of automatically waking up.</p>"
+                    "value": "<p>Each creature in the area becomes drowsy and might fall asleep. A creature that falls @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} from this spell doesn't fall @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} or release what it's holding. This spell doesn't prevent creatures from waking up due to a successful Perception check, limiting its utility in combat.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes a -1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 hour, it wakes up automatically.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creatures fall Unconscious for 1 round on a failure or 1 minute on a critical failure. They fall Prone and release what they're holding, and they can't attempt Perception checks to wake up. When the duration ends, the creature is sleeping normally instead of automatically waking up.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1223,6 +1228,7 @@
                     "value": [
                         "incapacitation",
                         "mental",
+                        "primal",
                         "sleep"
                     ]
                 }
@@ -1255,15 +1261,14 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1283,7 +1288,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -1295,20 +1300,6 @@
                     "value": {
                         "sp": 2
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": null
@@ -1333,15 +1324,12 @@
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
-                "specific": {
-                    "value": false
-                },
                 "splashDamage": {
                     "value": 0
                 },
                 "stackGroup": null,
                 "strikingRune": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -1379,8 +1367,8 @@
                     "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
+                    "carryType": "held",
+                    "handsHeld": 1,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1445,10 +1433,11 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>A satyr's wineskin magically enchants any alcohol inside.</p>\n<p>With an Interact action, a living creature can imbibe the alcohol and gain a +1 item bonus to Will saves and a +3 item bonus to Will saves against fear effects for the following hour. When the wineskin is removed from a satyr's person, the magic remains only until the wine spoils. The wineskin holds up to eight drafts of wine.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Sylvan Wine]{Effect: Sylvan Wine}</p>"
+                    "value": "<p>A satyr's wineskin magically enchants any alcohol inside.</p>\n<p>With an Interact action, a living creature can imbibe the alcohol and gain a +1 item bonus to Will saves and a +3 item bonus to Will saves against fear effects for the following hour. When the wineskin is removed from a satyr's person, the magic remains only until the wine spoils. The wineskin holds up to eight drafts of wine.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Sylvan Wine]{Effect: Sylvan Wine}</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1708,7 +1697,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Adrivallo's wineskin magically enchants any alcohol inside.</p>\n<p>With an Interact action, a living creature can imbibe the alcohol and gain a +1 item bonus to Will saves and a +3 item bonus to Will saves against fear effects for the following hour. When the wineskin is removed from a satyr's person, the magic remains only until the wine spoils. The wineskin holds up to eight drafts of wine.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Sylvan Wine]{Effect: Sylvan Wine}</p>"
+                    "value": "<p>Adrivallo's wineskin magically enchants any alcohol inside.</p>\n<p>With an Interact action, a living creature can imbibe the alcohol and gain a +1 item bonus to Will saves and a +3 item bonus to Will saves against fear effects for the following hour. When the wineskin is removed from a satyr's person, the magic remains only until the wine spoils. The wineskin holds up to eight drafts of wine.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Sylvan Wine]{Effect: Sylvan Wine}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1848,7 +1837,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Adrivallo is holding a musical instrument</p>\n<hr />\n<p><strong>Effect</strong> The satyr plays a melody on his instrument to cast <em>@Compendium[pf2e.spells-srd.Charm]{Charm}</em>, <em>@Compendium[pf2e.spells-srd.Fear]{Fear}</em>, <em>@Compendium[pf2e.spells-srd.Sleep]{Sleep}</em>, or <em>@Compendium[pf2e.spells-srd.Suggestion]{Suggestion}</em> without expending the spell slot and using his music in place of providing the spell's component actions. The spell gains the auditory trait and targets all creatures in a @Template[type:emanation|distance:60] instead of its usual targets.</p>\n<p>A creature that succeeds at its Will save against any spell cast using this ability is then temporarily immune to spells played from Adrivallo's pipes for 1 minute.</p>\n<p>Satyrs are immune to this music.</p>"
+                    "value": "<p><strong>Requirements</strong> Adrivallo is holding a musical instrument</p>\n<hr />\n<p><strong>Effect</strong> The satyr plays a melody on his instrument to cast <em>@UUID[Compendium.pf2e.spells-srd.Charm]{Charm}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Fear]{Fear}</em>, <em>@UUID[Compendium.pf2e.spells-srd.Sleep]{Sleep}</em>, or <em>@UUID[Compendium.pf2e.spells-srd.Suggestion]{Suggestion}</em> without expending the spell slot and using his music in place of providing the spell's component actions. The spell gains the auditory trait and targets all creatures in a @Template[type:emanation|distance:60] instead of its usual targets.</p>\n<p>A creature that succeeds at its Will save against any spell cast using this ability is then temporarily immune to spells played from Adrivallo's pipes for 1 minute.</p>\n<p>Satyrs are immune to this music.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2173,7 +2162,13 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 35
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "cold-iron",
+                    "value": 10
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -2211,18 +2206,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "coldiron",
-                    "value": 10
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

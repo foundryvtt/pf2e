@@ -5,7 +5,7 @@
     "system": {
         "badge": null,
         "description": {
-            "value": "<p>You roll twice and take the better result on your next skill check or saving throw. If it's night and you can see the stars, you gain a +1 circumstance bonus to the triggering roll.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Guided by the Stars]{Guided by the Stars}</p>\n<p>You roll twice and take the better result on your next skill check or saving throw. If it's night and you can see the stars, you gain a +1 circumstance bonus to the triggering roll.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -20,16 +20,16 @@
             {
                 "choices": [
                     {
-                        "label": "Skill",
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.SkillLabel",
                         "value": "skill-check"
                     },
                     {
-                        "label": "Save",
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.SaveLabel",
                         "value": "saving-throw"
                     }
                 ],
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.GuidedByTheStars.Prompt",
+                "prompt": "PF2E.SpecificRule.Lizardfolk.GuidedByTheStars.Prompt",
                 "rollOption": "guided-by-the-stars"
             },
             {
@@ -56,17 +56,10 @@
                     "night-time",
                     "can-see-stars"
                 ],
-                "selector": "skill-check",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "night-time",
-                    "can-see-stars"
+                "selector": [
+                    "saving-throw",
+                    "skill-check"
                 ],
-                "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
             }

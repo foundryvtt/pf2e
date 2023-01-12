@@ -156,7 +156,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A buzzing static electricity surrounds the mpeshi. When a creature within the aura takes electricity damage, the damage arcs to a random adjacent creature, dealing [[/r {1d6}[electricity]]]{1d6 electricity damage}. A creature can only receive arcing damage once from each attack or effect.</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A buzzing static electricity surrounds the mpeshi. When a creature within the aura takes electricity damage, the damage arcs to a random adjacent creature, dealing [[/r 1d6[electricity]]] damage. A creature can only receive arcing damage once from each attack or effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -199,7 +199,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The mpeshi falls at least 10 feet</p>\n<hr />\n<p><strong>Effect</strong> The mpeshi reorients itself to slam headfirst into the ground with a thundering crash. Creatures within 10 feet of the mpeshi take sonic damage equal to the bludgeoning damage the mpeshi took from the fall (@Check[type:fortitude|dc:23|basic:true|traits:sonic,rare,beast] save). Creatures that fail this save are @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} (@Compendium[pf2e.conditionitems.Stunned]{Stunned 2} on a critical failure).</p>"
+                    "value": "<p><strong>Trigger</strong> The mpeshi falls at least 10 feet</p>\n<hr />\n<p><strong>Effect</strong> The mpeshi reorients itself to slam headfirst into the ground with a thundering crash. Creatures within 10 feet of the mpeshi take sonic damage equal to the bludgeoning damage the mpeshi took from the fall (@Check[type:fortitude|dc:23|basic:true|traits:sonic,rare,beast] save). Creatures that fail this save are @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1} (@UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 2} on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -430,12 +430,23 @@
                 "temp": 0,
                 "value": 110
             },
+            "immunities": [
+                {
+                    "type": "electricity"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 14
             },
+            "resistances": [
+                {
+                    "type": "sonic",
+                    "value": 10
+                }
+            ],
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -472,20 +483,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "electricity"
-                ]
-            },
-            "dr": [
-                {
-                    "type": "sonic",
-                    "value": 10
-                }
-            ],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

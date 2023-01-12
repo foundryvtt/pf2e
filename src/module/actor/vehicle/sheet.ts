@@ -1,22 +1,20 @@
 import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
-import { tupleHasValue } from "@util";
+import { getActionIcon } from "@util";
 import { VehicleSheetData } from "./data";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
+        const options = super.defaultOptions;
         return {
-            ...super.defaultOptions,
-            classes: ["default", "sheet", "actor", "vehicle"],
+            ...options,
+            classes: [...options.classes, "vehicle"],
             width: 670,
             height: 480,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "details" }],
+            template: "systems/pf2e/templates/actors/vehicle/sheet.hbs",
         };
-    }
-
-    override get template(): string {
-        return "systems/pf2e/templates/actors/vehicle/vehicle-sheet.html";
     }
 
     override async getData(): Promise<VehicleSheetData> {
@@ -28,12 +26,10 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
         sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity];
 
-        await this.prepareItems(sheetData);
-
         return sheetData;
     }
 
-    protected async prepareItems(sheetData: VehicleSheetData): Promise<void> {
+    override async prepareItems(sheetData: VehicleSheetData): Promise<void> {
         const actorData = sheetData.actor;
 
         // Actions
@@ -55,19 +51,10 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             }
 
             // Actions
-            if (itemData.type === "action") {
-                const actionTypes = ["free", "reaction", "passive"] as const;
-                const fromItem: string = itemData.system.actionType.value;
-                const actionType = tupleHasValue(actionTypes, fromItem) ? fromItem : "action";
-                itemData.img = VehiclePF2e.getActionGraphics(
-                    actionType,
-                    parseInt((itemData.system.actions || {}).value, 10) || 1
-                ).imageUrl;
-                if (actionType === "passive") {
-                    actions.free.actions.push(itemData);
-                } else {
-                    actions[actionType].actions.push(itemData);
-                }
+            if (item.isOfType("action")) {
+                itemData.img = getActionIcon(item.actionCost);
+                const actionType = item.actionCost?.type ?? "free";
+                actions[actionType].actions.push(itemData);
             }
         }
 

@@ -153,7 +153,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The rat snake swarm takes damage from a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> Snakes slither up and around the creature's weapon and limbs. The target must succeed at a @Check[type:will|dc:15] save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>"
+                    "value": "<p><strong>Trigger</strong> The rat snake swarm takes damage from a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> Snakes slither up and around the creature's weapon and limbs. The target must succeed at a @Check[type:will|dc:15] save or become @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -193,7 +193,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the swarm's space takes [[/r {1d8}[piercing]]]{1d8 piercing damage} (@Check[type:reflex|dc:17|basic:true] save).</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 1d8[piercing]]] damage (@Check[type:reflex|dc:17|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -302,7 +302,7 @@
                 "value": 16
             },
             "allSaves": {
-                "value": null
+                "value": ""
             },
             "hp": {
                 "details": "",
@@ -310,12 +310,34 @@
                 "temp": 0,
                 "value": 20
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "swarm-mind"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
                 "value": 8
             },
+            "resistances": [
+                {
+                    "type": "bludgeoning",
+                    "value": 3
+                },
+                {
+                    "type": "piercing",
+                    "value": 5
+                },
+                {
+                    "type": "slashing",
+                    "value": 5
+                }
+            ],
             "speed": {
                 "otherSpeeds": [
                     {
@@ -328,7 +350,17 @@
                     }
                 ],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 3
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -340,7 +372,7 @@
                 "value": 2
             },
             "privateNotes": "",
-            "publicNotes": "<p>While normally solitary creatures, snakes sometimes congregate in large masses. Whether gathered in the depths of a cave for warmth, a craggy mountainside for breeding, or through magical means for inscrutable purposes, these slithering swarms shouldn't be underestimated.</p>\n<hr />\n<p>A solitary snake might be no cause for alarm, but a hissing mass of frenzied snakes can make even seasoned adventurers shudder. Rat snakes can reach lengths of up to 10 feet, and they gather en masse to hibernate as well as to breed. Though nonvenomous, these territorial snakes will strike anything that threatens them.</p>",
+            "publicNotes": "<p>A solitary snake might be no cause for alarm, but a hissing mass of frenzied snakes can make even seasoned adventurers shudder. Rat snakes can reach lengths of up to 10 feet, and they gather en masse to hibernate as well as to breed. Though nonvenomous, these territorial snakes will strike anything that threatens them.</p>\n<hr />\n<p>While normally solitary creatures, snakes sometimes congregate in large masses. Whether gathered in the depths of a cave for warmth, a craggy mountainside for breeding, or through magical means for inscrutable purposes, these slithering swarms shouldn't be underestimated.</p>",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
@@ -361,44 +393,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "precision",
-                    "swarm-mind"
-                ]
-            },
-            "dr": [
-                {
-                    "exceptions": "",
-                    "label": "Bludgeoning",
-                    "type": "bludgeoning",
-                    "value": 3
-                },
-                {
-                    "exceptions": "",
-                    "label": "Piercing",
-                    "type": "piercing",
-                    "value": 5
-                },
-                {
-                    "exceptions": "",
-                    "label": "Slashing",
-                    "type": "slashing",
-                    "value": 5
-                }
-            ],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 3
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 3
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

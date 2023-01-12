@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Lesser Augmentation",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -24,7 +21,82 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "flags.pf2e.automaton.enhancements.lesser",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Automaton.Enhancement.AugmentationPrompt",
+                "rollOption": "enhancement"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.automaton.enhancements.greater",
+                "value": {
+                    "label": "PF2E.SpecificRule.Automaton.EnhanceableFeats.LesserAugmentation",
+                    "value": "lesser-augmentation"
+                }
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            "skill:arc:rank:1"
+                        ],
+                        "value": "arc-expert"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            "skill:cra:rank:1"
+                        ],
+                        "value": "cra-expert"
+                    },
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            "skill:arc:rank:2"
+                        ],
+                        "value": "arc-master"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            "skill:cra:rank:2"
+                        ],
+                        "value": "cra-master"
+                    }
+                ],
+                "flag": "automaton-lore-skill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "enhancement:automaton-lore"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "enhancement:automaton-lore"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Automaton.Enhancement.MagicalResistanceAll",
+                        "value": "all"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Automaton.Enhancement.MagicalResistanceIncrease",
+                        "value": "increase"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "enhancement:magical-resistance"
+                ],
+                "prompt": "PF2E.SpecificRule.Automaton.Enhancement.EnhancementPrompt",
+                "rollOption": "enhancement:magical-resistance"
+            }
+        ],
         "source": {
             "value": "Pathfinder Guns & Gears"
         },

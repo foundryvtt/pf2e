@@ -3,9 +3,6 @@
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Ageless Patience",
     "system": {
-        "actionCategory": {
-            "value": ""
-        },
         "actionType": {
             "value": "passive"
         },
@@ -28,31 +25,25 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "agelessPatience"
+                    "ageless-patience"
                 ],
-                "selector": "perception",
-                "type": "circumstance",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "agelessPatience"
+                "selector": [
+                    "perception",
+                    "skill-check"
                 ],
-                "selector": "skill-check",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "agelessPatience",
+                "option": "ageless-patience",
                 "toggleable": true
             },
             {
                 "key": "Note",
                 "predicate": [
-                    "agelessPatience"
+                    "ageless-patience"
                 ],
                 "selector": "perception",
                 "text": "You don't treat a natural 1 as worse than usual on perception checks; you get a critical failure only if your result is 10 lower than the DC.",
@@ -61,7 +52,7 @@
             {
                 "key": "Note",
                 "predicate": [
-                    "agelessPatience"
+                    "ageless-patience"
                 ],
                 "selector": "skill-check",
                 "text": "You don't treat a natural 1 as worse than usual on skill checks; you get a critical failure only if your result is 10 lower than the DC.",

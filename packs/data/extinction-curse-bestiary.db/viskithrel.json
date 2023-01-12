@@ -259,7 +259,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>A viskithrel can detect a creature's scent up to a week after the creature has passed through or left an area, and it gains a +4 circumstance bonus to @Compendium[pf2e.actionspf2e.Track]{Track} a creature whose scent it has detected.</p>"
+                    "value": "<p>A viskithrel can detect a creature's scent up to a week after the creature has passed through or left an area, and it gains a +4 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Track]{Track} a creature whose scent it has detected.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -408,7 +408,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Large, [[/r {3d10}[bludgeoning]+{2d10}[acid]]]{3d10 bludgeoning plus 2d10 acid}, Rupture 25</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Large, [[/r {3d10[bludgeoning],2d10[acid]}]]{3d10 bludgeoning plus 2d10 acid}, Rupture 25</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -600,6 +600,11 @@
                 "temp": 0,
                 "value": 275
             },
+            "immunities": [
+                {
+                    "type": "sickened"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -626,7 +631,7 @@
                 "value": 15
             },
             "privateNotes": "",
-            "publicNotes": "<p>One of the many horrid life-forms native to Zevgavizeb's Abyssal realm of Gluttondark, viskithrels-or \"gluttonraptors\"-are tireless hunters resembling tentacled theropods. They are social creatures by nature and prefer to hunt in large packs, chasing down prey and tearing them apart to share with their fellow hunters. A lone viskithrel forgoes hunting to frantically seek out others of its kind, starving to death if it cannot do so. Although viskithrels attack nearly any other creatures they encounter, they virtually never fight other viskithrels; even beasts in rival packs give each other space rather than fight over territory or prey.</p>\n<p>Other, smarter denizens of Gluttondark, such as @Compendium[pf2e.extinction-curse-bestiary.Xilvirek]{Xilvireks} herd and train viskithrels, working to convince the viskithrels that the trainer is one of their pack. This not only protects the trainer from attacks by the viskithrels, but also enables the trainer to easily direct them.</p>",
+            "publicNotes": "<p>One of the many horrid life-forms native to Zevgavizeb's Abyssal realm of Gluttondark, viskithrels-or \"gluttonraptors\"-are tireless hunters resembling tentacled theropods. They are social creatures by nature and prefer to hunt in large packs, chasing down prey and tearing them apart to share with their fellow hunters. A lone viskithrel forgoes hunting to frantically seek out others of its kind, starving to death if it cannot do so. Although viskithrels attack nearly any other creatures they encounter, they virtually never fight other viskithrels; even beasts in rival packs give each other space rather than fight over territory or prey.</p>\n<p>Other, smarter denizens of Gluttondark, such as @UUID[Compendium.pf2e.extinction-curse-bestiary.Xilvirek]{Xilvireks} herd and train viskithrels, working to convince the viskithrels that the trainer is one of their pack. This not only protects the trainer from attacks by the viskithrels, but also enables the trainer to easily direct them.</p>",
             "source": {
                 "value": "Pathfinder #156: The Apocalypse Prophet"
             }
@@ -647,15 +652,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "sickened"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "(Can't Speak Any Languages)",
                 "selected": [],

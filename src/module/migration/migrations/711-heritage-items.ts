@@ -8,6 +8,8 @@ import { Rarity } from "@module/data";
 import { creatureTraits } from "@scripts/config/traits";
 import { MigrationBase } from "../base";
 
+const toDelete = ["featType", "actionCategory", "actions", "actionType", "level", "location"] as const;
+
 export class Migration711HeritageItems extends MigrationBase {
     static override version = 0.711;
 
@@ -229,13 +231,12 @@ export class Migration711HeritageItems extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> {
         if (actorSource || !this.isHeritageFeature(itemSource)) return;
 
-        const newSource: { type: string; img: ImagePath; system: object } = itemSource;
+        const newSource: { type: string; img: ImageFilePath; system: object } = itemSource;
         newSource.type = "heritage";
         if (itemSource.img === "systems/pf2e/icons/default-icons/feat.svg") {
             itemSource.img = "systems/pf2e/icons/default-icons/heritage.svg";
         }
         const newSystemData: HeritageSystemSource & FeatPropertyDeletions = this.heritageFromFeat(itemSource).system;
-        const toDelete = ["featType", "actionCategory", "actions", "actionType", "level", "location"] as const;
         const deletionProperties = toDelete.map((k) => `-=${k}` as const);
         for (const property of deletionProperties) {
             newSystemData[property] = null;
@@ -249,9 +250,10 @@ export class Migration711HeritageItems extends MigrationBase {
     }
 }
 
-type DeletionKeys = `-=${keyof FeatSystemSource}`;
+type FeatKeys = typeof toDelete[number];
+type DeletionKeys = `-=${FeatKeys}`;
 type FeatPropertyDeletions = DeepPartial<Omit<FeatSystemSource, "traits">> & {
-    [K in DeletionKeys]?: null;
+    [K in DeletionKeys | FeatKeys]?: unknown;
 };
 
 type MaybeWithHeritageFeatType = ItemSourcePF2e & {

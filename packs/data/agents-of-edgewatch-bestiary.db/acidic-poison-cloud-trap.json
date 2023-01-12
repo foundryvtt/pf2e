@@ -58,6 +58,17 @@
                 "tempmax": 0,
                 "value": 40
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                }
+            ],
             "stealth": {
                 "details": "<p>(master)</p>",
                 "value": 30
@@ -66,13 +77,13 @@
         "creatureType": "",
         "details": {
             "description": "<p>Five nozzles hidden across the apartment's ceiling spew thick clouds of acidic poison from a reinforced tank behind the wall.</p>",
-            "disable": "<p>@Check[type:thievery|dc:35|name:Block One Nozzle|traits:action:disable-a-device] (expert) to block one of the nozzles or @Check[type:thievery|dc:40|name:Shut Off the Tank|traits:action:disable-a-device (master) to shut off the tank. The trap deactivates after 5 rounds, once the tank is empty.</p>",
+            "disable": "<p>@Check[type:thievery|dc:35|name:Block One Nozzle|traits:action:disable-a-device] (expert) to block one of the nozzles or @Check[type:thievery|dc:40|name:Shut Off the Tank|traits:action:disable-a-device] (master) to shut off the tank. The trap deactivates after 5 rounds, once the tank is empty.</p>",
             "isComplex": true,
             "level": {
                 "value": 13
             },
             "reset": "",
-            "routine": "<p>(1 action) When it's triggered, the trap has five active nozzles, but at the end of its turn each round, one random nozzle deactivates. On the trap's turn, the active nozzles emit a cloud of acidic poison gas that expands to fill the apartment. The cloud deals [[/r {1d6}[acid]]]{1d6 acid damage} and [[/r {1d6}[poison]]]{1d6 poison damage} per active nozzle to each creature and object in the room (@Check[type:fortitude|dc:33|basic:true|name:Spew Cloud|traits:poison] save). Unattended objects automatically fail saves to avoid the damage.</p>"
+            "routine": "<p>(1 action) When it's triggered, the trap has five active nozzles, but at the end of its turn each round, one random nozzle deactivates. On the trap's turn, the active nozzles emit a cloud of acidic poison gas that expands to fill the apartment. The cloud deals [[/r 1d6[acid]]] damage and [[/r 1d6[poison]]] damage per active nozzle to each creature and object in the room (@Check[type:fortitude|dc:33|basic:true|name:Spew Cloud|traits:poison] save). Unattended objects automatically fail saves to avoid the damage.</p>"
         },
         "saves": {
             "fortitude": {
@@ -93,18 +104,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "precision",
-                    "critical-hits",
-                    "object-immunities"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

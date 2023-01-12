@@ -28,8 +28,7 @@
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
-                    "die": "d6",
-                    "value": ""
+                    "die": "d6"
                 },
                 "description": {
                     "value": "<p>This throwing weapon consists of weights tied to the end of long cords, which can be used to bludgeon foes or entangle their legs.</p>"
@@ -59,29 +58,15 @@
                     "value": null
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": {
                         "sp": 5
                     }
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -105,9 +90,6 @@
                 "slug": "bola",
                 "source": {
                     "value": "Pathfinder Advanced Player's Guide"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": null
@@ -160,8 +142,7 @@
                 "damage": {
                     "damageType": "slashing",
                     "dice": 1,
-                    "die": "d4",
-                    "value": ""
+                    "die": "d4"
                 },
                 "description": {
                     "value": "<p>This long strand of thick leather, often braided, delivers a painful but nonlethal slash at a distance, usually accompanied by a distinctive cracking sound.</p>"
@@ -201,20 +182,6 @@
                         "sp": 1
                     }
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": null,
-                    "critDie": "",
-                    "criticalConditionType": "",
-                    "criticalConditionValue": null,
-                    "damageType": "",
-                    "dice": null,
-                    "die": "",
-                    "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": null
                 },
@@ -237,9 +204,6 @@
                 "slug": "whip",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "specific": {
-                    "value": false
                 },
                 "splashDamage": {
                     "value": null
@@ -445,22 +409,12 @@
             "name": "Elixir of Life (Minor)",
             "sort": 500000,
             "system": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
                 "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
                     "_deprecated": true,
                     "value": true
                 },
                 "baseItem": null,
                 "charges": {
-                    "_deprecated": true,
                     "max": 1,
                     "value": 1
                 },
@@ -468,16 +422,11 @@
                     "value": "elixir"
                 },
                 "consume": {
-                    "_deprecated": true,
                     "value": "1d6"
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r {1d6}[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r 1d6[healing]]]{1d6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -509,11 +458,6 @@
                     }
                 },
                 "quantity": 1,
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
                 "rules": [],
                 "size": "med",
                 "slug": "elixir-of-life-minor",
@@ -521,11 +465,6 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
@@ -538,13 +477,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
                 },
                 "weight": {
                     "value": "L"
@@ -734,7 +666,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "whipWhirlwind"
+                            "whip-whirlwind"
                         ],
                         "selector": "{item|_id}-attack",
                         "type": "circumstance",
@@ -824,7 +756,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The fluid in Bristlebane's pustules is harmful to other creatures. Whenever a creature hits Bristlebane with a melee attack, the attacker must succeed at a @Check[type:reflex|dc:14] save or take [[/r {1}[acid]]]{1 acid Damage} ([[/r {2}[acid]]]{2 acid damage} on a critical failure).</p>"
+                    "value": "<p>The fluid in Bristlebane's pustules is harmful to other creatures. Whenever a creature hits Bristlebane with a melee attack, the attacker must succeed at a @Check[type:reflex|dc:14] save or take [[/r 1[acid]]] damage ([[/r 2[acid]]] damage on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -907,7 +839,7 @@
                     {
                         "domain": "damage-roll",
                         "key": "RollOption",
-                        "option": "packAttack",
+                        "option": "pack-attack",
                         "toggleable": true
                     },
                     {
@@ -916,7 +848,7 @@
                         "dieSize": "d4",
                         "key": "DamageDice",
                         "predicate": [
-                            "packAttack"
+                            "pack-attack"
                         ],
                         "selector": "strike-damage"
                     }
@@ -952,7 +884,7 @@
                     "value": 3
                 },
                 "description": {
-                    "value": "<p>Bristlebane uses her whip to @Compendium[pf2e.actionspf2e.Disarm]{Disarm}, Strike, or @Compendium[pf2e.actionspf2e.Trip]{Trip} each creature within her reach. She can select a different action for each target. She takes a -2 circumstance penalty on the check for each action, and each action counts against her multiple attack penalty, but her multiple attack penalty doesn't increase until after all the actions.</p>"
+                    "value": "<p>Bristlebane uses her whip to @UUID[Compendium.pf2e.actionspf2e.Disarm]{Disarm}, Strike, or @UUID[Compendium.pf2e.actionspf2e.Trip]{Trip} each creature within her reach. She can select a different action for each target. She takes a -2 circumstance penalty on the check for each action, and each action counts against her multiple attack penalty, but her multiple attack penalty doesn't increase until after all the actions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -961,13 +893,13 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "option": "whipWhirlwind",
+                        "option": "whip-whirlwind",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "whipWhirlwind",
+                            "whip-whirlwind",
                             {
                                 "or": [
                                     "action:trip",
@@ -1270,13 +1202,6 @@
             }
         },
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": []
-            },
-            "dr": [],
-            "dv": [],
             "languages": {
                 "custom": "",
                 "selected": [],

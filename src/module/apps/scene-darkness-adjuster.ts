@@ -17,7 +17,7 @@ export class SceneDarknessAdjuster extends Application {
             ...super.defaultOptions,
             id: "darkness-adjuster",
             title: "CONTROLS.AdjustSceneDarkness",
-            template: "systems/pf2e/templates/system/scene-darkness-adjuster.html",
+            template: "systems/pf2e/templates/system/scene-darkness-adjuster.hbs",
             width: 400,
             height: 45,
             minimizable: false,
@@ -120,7 +120,7 @@ export class SceneDarknessAdjuster extends Application {
             const decoration: Record<number, [string, HTMLElement | null]> = {
                 0: ["threshold_bright-light", fontAwesomeIcon("sun")],
                 1: ["darkness-level", null],
-                2: ["threshold_darkness", fontAwesomeIcon("moon")],
+                2: ["threshold_darkness", fontAwesomeIcon("moon", { fixedWidth: true })],
             };
             const $handle = $(handle);
             const [cssClass, icon] = decoration[index];

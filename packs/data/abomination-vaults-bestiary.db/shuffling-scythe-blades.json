@@ -58,7 +58,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The blades travel erratically throughout the hallway's branches, out of sight under the floors or behind the walls. For each blade, roll [[/br 1d4 #Direction Scythe Blade]]{1d4} to determine the region in which it next makes scythe Strikes. A creature can @Compendium[pf2e.actionspf2e.Seek]{Seek} (@Check[type:perception|dc:22|traits:action:seek]) to learn clues about blades in the region they're currently occupying. On a success, the creature knows how many blades are currently in its region.</p>\n<p>1. Main intersection (the 15-foot-by-25-foot area where the hallways connect, as marked on area <strong>B20</strong>)</p>\n<p>2. North branch (from the main intersection to the secret door to area <strong>B14</strong>)</p>\n<p>3. Central hall (from the main intersection to the secret door to area <strong>B24</strong>)</p>\n<p>4. South branch (from the main intersection to the wall shared with area <strong>B25</strong>)</p>"
+                    "value": "<p>The blades travel erratically throughout the hallway's branches, out of sight under the floors or behind the walls. For each blade, roll [[/br 1d4 #Direction Scythe Blade]]{1d4} to determine the region in which it next makes scythe Strikes. A creature can @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek} (@Check[type:perception|dc:22|traits:action:seek]) to learn clues about blades in the region they're currently occupying. On a success, the creature knows how many blades are currently in its region.</p>\n<p>1. Main intersection (the 15-foot-by-25-foot area where the hallways connect, as marked on area <strong>B20</strong>)</p>\n<p>2. North branch (from the main intersection to the secret door to area <strong>B14</strong>)</p>\n<p>3. Central hall (from the main intersection to the secret door to area <strong>B24</strong>)</p>\n<p>4. South branch (from the main intersection to the wall shared with area <strong>B25</strong>)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -183,6 +183,17 @@
                 "tempmax": 0,
                 "value": 30
             },
+            "immunities": [
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                },
+                {
+                    "type": "precision"
+                }
+            ],
             "stealth": {
                 "details": "<p>(expert)</p>",
                 "value": 18
@@ -219,18 +230,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "critical-hits",
-                    "object-immunities",
-                    "precision"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

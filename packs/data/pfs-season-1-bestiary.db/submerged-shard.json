@@ -18,7 +18,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature or object moves into the shard's space.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature takes [[/r {2d6+5}[piercing]]]{2d6+5 piercing damage} (@Check[type:reflex|dc:17|basic:true] save).</p>"
+                    "value": "<p><strong>Trigger</strong> A creature or object moves into the shard's space.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature takes [[/r (2d6+5)[piercing]]] damage (@Check[type:reflex|dc:17|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -59,6 +59,17 @@
                 "temp": 0,
                 "value": 24
             },
+            "immunities": [
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "critical-hits"
+                },
+                {
+                    "type": "object-immunities"
+                }
+            ],
             "stealth": {
                 "details": "<p>(trained)</p>",
                 "value": 8
@@ -95,18 +106,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "ci": [],
-            "di": {
-                "custom": "",
-                "selected": {},
-                "value": [
-                    "precision",
-                    "critical-hits",
-                    "object-immunities"
-                ]
-            },
-            "dr": [],
-            "dv": [],
             "rarity": "common",
             "size": {
                 "value": "med"

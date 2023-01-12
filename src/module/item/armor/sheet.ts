@@ -1,5 +1,6 @@
 import {
     ARMOR_MATERIAL_VALUATION_DATA,
+    CoinsPF2e,
     getPropertySlots,
     PhysicalItemSheetData,
     PhysicalItemSheetPF2e,
@@ -36,6 +37,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             preciousMaterials: this.prepareMaterials(ARMOR_MATERIAL_VALUATION_DATA),
             ...propertyRuneSlots,
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
+            basePrice: new CoinsPF2e(this.item._source.system.price.value),
         };
     }
 
@@ -60,6 +62,7 @@ interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
     bulkTypes: ConfigPF2e["PF2E"]["bulkTypes"];
     preciousMaterials: PreparedMaterials;
     otherTags: SheetOptions;
+    basePrice: CoinsPF2e;
 }
 
 export { ArmorSheetPF2e };

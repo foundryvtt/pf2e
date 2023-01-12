@@ -79,22 +79,20 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "construct-armor"
-                        ],
-                        "selector": "ac",
-                        "slug": "construct-armor-critical",
-                        "value": -4
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
                             {
-                                "not": "construct-armor"
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
                             }
                         ],
                         "selector": "ac",
-                        "slug": "construct-armor-health",
-                        "value": "4*(min(round(@actor.attributes.hp.value/@actor.system.attributes.hp.max),1)-1)"
+                        "value": -4
                     }
                 ],
                 "slug": null,
@@ -131,7 +129,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>Each enemy in the animated silverware swarm's space takes [[/r {1d6}[piercing]]]{1d6 piercing damage} or [[/r {1d6}[slashing]]]{1d6 slashing damage} (@Check[type:reflex|dc:17|basic:true] save)</p>"
+                    "value": "<p>Each enemy in the animated silverware swarm's space takes [[/r 1d6[piercing]]] damage or [[/r 1d6[slashing]]] damage (@Check[type:reflex|dc:17|basic:true] save)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -173,7 +171,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The animated silverware swarm attempts to pin a single creature.</p>\n<p>The target must attempt a @Check[type:reflex|dc:17] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Silverware pins portions of the target's clothing and gear. The target takes a -10-foot circumstance penalty to its Speeds as long as it remains in the swarm's space.</p>\n<p><strong>Failure</strong> As success, and the target also can't Step until it leaves the swarm's space.</p>\n<p><strong>Critical Failure</strong> The target is thoroughly pinned by the silverware, becoming @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until it @Compendium[pf2e.actionspf2e.Escape]{Escapes} (DC 17) or uses 2 Interact actions to remove all of the silverware pinning them down.</p>\n<hr />\n<p>@Compendium[pf2e.bestiary-effects.Effect: Stick a Fork in It]{Effect: Stick a Fork in It}</p>"
+                    "value": "<p>The animated silverware swarm attempts to pin a single creature.</p>\n<p>The target must attempt a @Check[type:reflex|dc:17] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Silverware pins portions of the target's clothing and gear. The target takes a -10-foot circumstance penalty to its Speeds as long as it remains in the swarm's space.</p>\n<p><strong>Failure</strong> As success, and the target also can't Step until it leaves the swarm's space.</p>\n<p><strong>Critical Failure</strong> The target is thoroughly pinned by the silverware, becoming @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} until it @UUID[Compendium.pf2e.actionspf2e.Escape]{Escapes} (DC 17) or uses 2 Interact actions to remove all of the silverware pinning them down.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Stick a Fork in It]{Effect: Stick a Fork in It}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -265,6 +263,47 @@
                 "temp": 0,
                 "value": 14
             },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "doomed"
+                },
+                {
+                    "type": "drained"
+                },
+                {
+                    "type": "fatigued"
+                },
+                {
+                    "type": "healing"
+                },
+                {
+                    "type": "necromancy"
+                },
+                {
+                    "type": "nonlethal-attacks"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "precision"
+                },
+                {
+                    "type": "sickened"
+                },
+                {
+                    "type": "unconscious"
+                }
+            ],
             "initiative": {
                 "ability": "perception"
             },
@@ -274,7 +313,17 @@
             "speed": {
                 "otherSpeeds": [],
                 "value": 20
-            }
+            },
+            "weaknesses": [
+                {
+                    "type": "area-damage",
+                    "value": 3
+                },
+                {
+                    "type": "splash-damage",
+                    "value": 3
+                }
+            ]
         },
         "details": {
             "alignment": {
@@ -310,37 +359,6 @@
             "attitude": {
                 "value": "hostile"
             },
-            "ci": [],
-            "di": {
-                "custom": "",
-                "value": [
-                    "death-effects",
-                    "disease",
-                    "doomed",
-                    "drained",
-                    "fatigued",
-                    "healing",
-                    "mental",
-                    "necromancy",
-                    "nonlethal-attacks",
-                    "paralyzed",
-                    "poison",
-                    "precision",
-                    "sickened",
-                    "unconscious"
-                ]
-            },
-            "dr": [],
-            "dv": [
-                {
-                    "type": "area-damage",
-                    "value": 3
-                },
-                {
-                    "type": "splash-damage",
-                    "value": 3
-                }
-            ],
             "languages": {
                 "custom": "",
                 "selected": [],

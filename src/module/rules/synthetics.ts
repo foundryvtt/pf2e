@@ -1,11 +1,12 @@
 import { DexterityModifierCapData } from "@actor/character/types";
-import { MovementType, UnlabeledSpeed } from "@actor/creature/data";
+import { MovementType, LabeledSpeed } from "@actor/creature/data";
 import { CreatureSensePF2e } from "@actor/creature/sense";
 import { DamageDicePF2e, DeferredValue, ModifierAdjustment, ModifierPF2e } from "@actor/modifiers";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
-import { WeaponMaterialEffect, WeaponPropertyRuneType } from "@item/weapon/types";
+import { WeaponPropertyRuneType } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
+import { MaterialDamageEffect } from "@system/damage";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
 
@@ -29,7 +30,10 @@ interface RuleElementSynthetics {
     strikeAdjustments: StrikeAdjustment[];
     strikes: Map<string, Embedded<WeaponPF2e>>;
     striking: Record<string, StrikingSynthetic[]>;
-    tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name" | "texture">>;
+    targetMarks: Map<TokenDocumentUUID, string>;
+    tokenOverrides: DeepPartial<Pick<foundry.data.TokenSource, "light" | "name">> & {
+        texture?: { src: VideoFilePath } | { src: VideoFilePath; scaleX: number; scaleY: number };
+    };
     weaponPotency: Record<string, PotencySynthetic[]>;
     preparationWarnings: {
         /** Adds a new preparation warning to be printed when flushed. These warnings are de-duped. */
@@ -47,7 +51,16 @@ type ModifierAdjustmentSynthetics = { all: ModifierAdjustment[]; damage: Modifie
 };
 type DeferredModifier = DeferredValue<ModifierPF2e>;
 type DeferredDamageDice = DeferredValue<DamageDicePF2e>;
-type DeferredMovementType = DeferredValue<UnlabeledSpeed | null>;
+type DeferredMovementType = DeferredValue<BaseSpeedSynthetic | null>;
+
+interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label"> {
+    type: MovementType;
+    /**
+     * Whether this speed is derived from a creature's land speed:
+     * used as a cue to prevent double-application of modifiers
+     */
+    derivedFromLand: boolean;
+}
 
 interface MAPSynthetic {
     label: string;
@@ -78,7 +91,7 @@ interface SenseSynthetic {
 interface StrikeAdjustment {
     adjustDamageRoll?: (
         weapon: WeaponPF2e | MeleePF2e,
-        { materials }: { materials?: Set<WeaponMaterialEffect> }
+        { materials }: { materials?: Set<MaterialDamageEffect> }
     ) => void;
     adjustWeapon?: (weapon: Embedded<WeaponPF2e>) => void;
     adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]) => void;
@@ -99,6 +112,7 @@ interface PotencySynthetic {
 }
 
 export {
+    BaseSpeedSynthetic,
     DamageDiceSynthetics,
     DeferredDamageDice,
     DeferredModifier,

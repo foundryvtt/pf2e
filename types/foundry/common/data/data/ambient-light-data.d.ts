@@ -36,12 +36,11 @@ declare module foundry {
             darkness: DarknessActivation;
         }
 
-        interface AmbientLightData extends Omit<AmbientLightSource, "config"> {
+        interface AmbientLightData<TDocument extends documents.BaseAmbientLight = documents.BaseAmbientLight>
+            extends Omit<AmbientLightSource, "config"> {
             readonly _source: AmbientLightSource;
 
-            config: LightData<NonNullable<this["document"]>>;
+            config: LightData<TDocument>;
         }
     }
 }
-
-declare type LightSourceType = typeof CONST.SOURCE_TYPES[keyof typeof CONST.SOURCE_TYPES];
