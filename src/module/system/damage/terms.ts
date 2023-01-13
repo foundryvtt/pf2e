@@ -78,6 +78,12 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
         return `${operands[0].expression} ${operator} ${operands[1].expression}`;
     }
 
+    /** Preserve flavor of inner terms */
+    override get formula(): string {
+        const { operator, operands } = this;
+        return `${operands[0].formula} ${operator} ${operands[1].formula}`;
+    }
+
     override get total(): number | undefined {
         if (!this._evaluated && !this.isDeterministic) return undefined;
 
@@ -212,6 +218,13 @@ class Grouping extends RollTerm<GroupingData> {
 
     get expression(): string {
         return this.isDeterministic ? this.total!.toString() : `(${this.term.expression})`;
+    }
+
+    /** Preserve flavor of inner terms */
+    override get formula(): string {
+        const termFormula = this.term.formula;
+        const flavor = this.flavor ? `[${this.flavor}]` : "";
+        return `(${termFormula})${flavor}`;
     }
 
     override get total(): number | undefined {
