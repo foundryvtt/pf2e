@@ -1958,12 +1958,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, @Check[type:will|dc:37]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Check[type:will|dc:37]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "frightful-presence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": "frightful-presence",
                 "source": {
                     "value": "Pathfinder Bestiary"
