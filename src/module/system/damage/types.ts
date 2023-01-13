@@ -1,5 +1,5 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
-import { AttackTarget, StrikeSelf } from "@actor/types";
+import { AttackTarget, ResistanceType, StrikeSelf } from "@actor/types";
 import { RollNotePF2e } from "@module/notes";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { BaseRollContext } from "@system/rolls";
@@ -55,6 +55,7 @@ interface DamageFormulaData {
     base: BasicDamageData;
     dice: DamageDicePF2e[];
     modifiers: ModifierPF2e[];
+    ignoredResistances: { type: ResistanceType; max: number | null }[];
 }
 
 interface ResolvedDamageFormulaData extends DamageFormulaData {

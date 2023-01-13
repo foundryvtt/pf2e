@@ -130,7 +130,9 @@ export class DamagePF2e {
 
             const rollerId = game.userId;
             const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
-            return new DamageRoll(formula, {}, { rollerId, damage: data, degreeOfSuccess }).evaluate({ async: true });
+
+            const options = { rollerId, damage: data, degreeOfSuccess, ignoredResistances: damage.ignoredResistances };
+            return new DamageRoll(formula, {}, options).evaluate({ async: true });
         })();
 
         if (roll === null) return null;
