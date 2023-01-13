@@ -3,7 +3,7 @@ import { ItemSummaryData } from "@item/data";
 import { getResiliencyBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
-import { addSign, ErrorPF2e, setHasElement } from "@util";
+import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
 import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from ".";
 
 class ArmorPF2e extends PhysicalItemPF2e {
@@ -144,8 +144,30 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const shieldIsAssigned = ownerIsPCOrNPC && actor.attributes.shield.itemId !== null;
 
         if (this.isArmor && this.isEquipped) {
-            // Set the armor item's ID as a roll option
+            // Set some roll options for this armor
             actor.rollOptions.all[`armor:id:${this.id}`] = true;
+            actor.rollOptions.all[`armor:category:${this.category}`] = true;
+            if (this.group) {
+                actor.rollOptions.all[`armor:group:${this.group}`] = true;
+            }
+
+            if (this.baseType) {
+                actor.rollOptions.all[`armor:base:${this.baseType}`] = true;
+            }
+
+            if (this.system.runes.potency > 0) {
+                actor.rollOptions.all[`armor:rune:potency:${this.system.runes.potency}`] = true;
+            }
+
+            if (this.system.runes.resilient > 0) {
+                actor.rollOptions.all[`armor:rune:resilient:${this.system.runes.resilient}`] = true;
+            }
+
+            for (const rune of this.system.runes.property) {
+                const slug = sluggify(rune);
+                actor.rollOptions.all[`armor:rune:property:${slug}`] = true;
+            }
+
             // Set roll options for certain armor traits
             const traits = this.traits;
             for (const [trait, domain] of [
@@ -155,6 +177,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
             ] as const) {
                 if (traits.has(trait)) {
                     const checkOptions = (actor.rollOptions[domain] ??= {});
+                    checkOptions[`armor:trait:${trait}`] = true;
                     checkOptions[`self:armor:trait:${trait}`] = true;
                 }
             }
