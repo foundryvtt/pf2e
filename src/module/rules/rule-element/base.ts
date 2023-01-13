@@ -214,10 +214,15 @@ abstract class RuleElementPF2e {
     protected resolveValue(
         valueData = this.data.value,
         defaultValue: Exclude<RuleValue, BracketedValue> = 0,
-        { evaluate = true, resolvables = {} } = {}
+        { evaluate = true, resolvables = {} }: { evaluate?: boolean; resolvables?: Record<string, unknown> } = {}
     ): number | string | boolean | object | null {
         let value: RuleValue = valueData ?? defaultValue ?? null;
         if (typeof value === "string") value = this.resolveInjectedProperties(value);
+
+        // Include worn armor as resolvable for PCs since there is guaranteed to be no more than one
+        if (this.actor.isOfType("character")) {
+            resolvables.armor = this.actor.wornArmor;
+        }
 
         if (this.isBracketedValue(valueData)) {
             const bracketNumber = ((): number => {
