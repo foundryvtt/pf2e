@@ -24,6 +24,7 @@
         },
         "rules": [
             {
+                "baseType": "claw",
                 "category": "unarmed",
                 "damage": {
                     "base": {
@@ -32,15 +33,22 @@
                         "die": "d6"
                     }
                 },
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
                 "group": "brawling",
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.claw",
-                "range": null,
+                "slug": "slag-may-claw",
                 "traits": [
-                    "cold-iron",
-                    "grapple",
-                    "unarmed"
+                    "grapple"
                 ]
+            },
+            {
+                "definition": [],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "selector": "slag-may-claw-damage",
+                "value": "cold-iron"
             }
         ],
         "source": {
