@@ -927,7 +927,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     serrating: {
         damage: {
-            dice: [{ damageType: "slashing", diceNumber: 1, dieSize: "d4" }]
+            dice: [{ damageType: "slashing", diceNumber: 1, dieSize: "d4" }],
         },
         level: 10,
         name: "PF2E.WeaponPropertyRune.serrating.Name",
