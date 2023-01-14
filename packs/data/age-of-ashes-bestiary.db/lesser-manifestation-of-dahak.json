@@ -947,12 +947,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 6d6[fire]]] damage (@Check[type:reflex|dc:42|basic:true|name:Draconic Heat|traits:divine] save)</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 6d6[fire]]] damage (@Check[type:reflex|dc:42|basic:true] save)</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "dragon-heat",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "evocation",
+                            "fire"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -961,8 +973,8 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "arcane",
                         "aura",
+                        "divine",
                         "evocation",
                         "fire"
                     ]
