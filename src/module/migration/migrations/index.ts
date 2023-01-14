@@ -212,3 +212,4 @@ export { Migration811InlineDamageRollsPersistent } from "./811-inline-damage-rol
 export { Migration812RestructureIWR } from "./812-restructure-iwr";
 export { Migration813NormalizeColdIron } from "./813-normalize-cold-iron";
 export { Migration814CalculatedExpandedSplash } from "./814-calculated-expanded-splash";
+export { Migration815SpinTaleAdventureSpecific } from "./815-spin-tale-adventure-specific";
