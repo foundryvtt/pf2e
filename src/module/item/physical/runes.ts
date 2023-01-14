@@ -602,6 +602,18 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     critical: true,
                 },
             ],
+            notes: [
+                {
+                    outcome: ["criticalSuccess"],
+                    title: "PF2E.WeaponPropertyRune.greaterFlaming.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterFlaming.Note.criticalSuccess",
+                },
+                {
+                    outcome: ["success"],
+                    title: "PF2E.WeaponPropertyRune.greaterFlaming.Name",
+                    text: "PF2E.WeaponPropertyRune.greaterFlaming.Note.success",
+                },
+            ],
             ignoredResistances: [{ type: "fire", max: null }],
         },
         level: 15,
