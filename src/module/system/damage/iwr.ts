@@ -183,7 +183,11 @@ async function maxPersistentAfterIWR(
     rollOptions: Set<string>
 ): Promise<number> {
     const { damage, damageType } = new ConditionPF2e(data, { ready: true }).system.persistent!;
-    const roll = await new DamageRoll(`${damage.maximumValue}[${damageType}]`).evaluate({ async: true });
+    const roll = await new DamageRoll(
+        `${damage.maximumValue}[${damageType}]`,
+        {},
+        { evaluatePersistent: true } // In case of bleed damage
+    ).evaluate({ async: true });
     return applyIWR(actor, roll, rollOptions).finalDamage;
 }
 
