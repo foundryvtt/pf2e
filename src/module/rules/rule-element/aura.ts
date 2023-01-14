@@ -102,7 +102,8 @@ export class AuraRuleElement extends RuleElementPF2e {
             ["allies", "enemies", "all"].includes(effect.affects) &&
             Array.isArray(effect.events) &&
             effect.events.every((e) => typeof e === "string" && ["enter", "turn-start", "turn-end"].includes(e)) &&
-            typeof effect.removeOnExit === "boolean"
+            typeof effect.removeOnExit === "boolean" &&
+            (!("excludeSelf" in effect) || typeof effect.excludeSelf === "boolean")
         );
     }
 

@@ -44,6 +44,7 @@ interface AuraEffectData {
         dc: number;
     } | null;
     removeOnExit: boolean;
+    excludeSelf: boolean | null;
 }
 
 interface AuraColors {
