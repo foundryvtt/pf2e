@@ -35,7 +35,7 @@ type TokenHUDData<T extends Token = Token> = BasePlaceableHUDData<T> & {
 interface TokenHUDStatusEffectChoice {
     id: string;
     title: string | null;
-    src: ImagePath;
+    src: ImageFilePath;
     isActive: boolean;
     isOverlay: boolean;
     cssClass: string;

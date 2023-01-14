@@ -12,11 +12,17 @@ import {
 import { AbilityString } from "@actor/types";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { MeleeDamageRoll } from "@item/melee/data";
-import { getPropertyRuneModifiers } from "@item/physical/runes";
+import { getPropertyRuneDice } from "@item/physical/runes";
 import { WeaponDamage } from "@item/weapon/data";
 import { RollNotePF2e } from "@module/notes";
 import { PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
-import { extractDamageDice, extractModifiers, extractNotes } from "@module/rules/helpers";
+import {
+    extractDamageDice,
+    extractDamageModifiers,
+    extractModifierAdjustments,
+    extractModifiers,
+    extractNotes,
+} from "@module/rules/helpers";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
 import { objectHasKey, sluggify } from "@util";
 import { createDamageFormula } from "./formula";
@@ -126,7 +132,7 @@ class WeaponDamagePF2e {
             .concat(fromDamageSelector)
             .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")
             .flatMap((modifier) => {
-                const selectors = WeaponDamagePF2e.#getSelectors(weapon, modifier.ability, proficiencyRank);
+                const selectors = this.#getSelectors(weapon, modifier.ability, proficiencyRank);
                 return modifier.predicate.test(options) ? { modifier, selectors } : [];
             });
 
@@ -135,7 +141,7 @@ class WeaponDamagePF2e {
                 ? modifiersAndSelectors.reduce((best, candidate) =>
                       candidate.modifier.modifier > best.modifier.modifier ? candidate : best
                   )
-                : { selectors: WeaponDamagePF2e.#getSelectors(weapon, null, proficiencyRank) };
+                : { selectors: this.#getSelectors(weapon, null, proficiencyRank) };
 
         // Get just-in-time roll options from rule elements
         for (const rule of actor.rules.filter((r) => !r.ignored)) {
@@ -161,9 +167,24 @@ class WeaponDamagePF2e {
             const splashDamage = Number(weapon.system.splashDamage?.value);
             if (splashDamage > 0) {
                 const modifier = new ModifierPF2e({
+                    slug: "splash",
                     label: "PF2E.WeaponSplashDamageLabel",
                     modifier: splashDamage,
                     damageCategory: "splash",
+                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "splash"),
+                });
+                modifiers.push(modifier);
+            }
+
+            // Scatter damage
+            const scatterTrait = weaponTraits.find((t) => t.startsWith("scatter-"));
+            if (scatterTrait && baseDamage.die) {
+                const modifier = new ModifierPF2e({
+                    slug: "scatter",
+                    label: "PF2E.Damage.Scatter",
+                    modifier: baseDamage.dice,
+                    damageCategory: "splash",
+                    adjustments: extractModifierAdjustments(actor.synthetics.modifierAdjustments, selectors, "scatter"),
                 });
                 modifiers.push(modifier);
             }
@@ -274,7 +295,11 @@ class WeaponDamagePF2e {
 
         // Property Runes
         const propertyRunes = weaponPotency?.property ?? [];
-        damageDice.push(...getPropertyRuneModifiers(propertyRunes));
+        damageDice.push(...getPropertyRuneDice(propertyRunes));
+
+        const ignoredResistances = propertyRunes.flatMap(
+            (r) => CONFIG.PF2E.runes.weapon.property[r].damage?.ignoredResistances ?? []
+        );
 
         // Backstabber trait
         if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:flat-footed")) {
@@ -359,9 +384,8 @@ class WeaponDamagePF2e {
             }
         }
 
-        // Synthetic modifiers
-
         // Roll notes
+
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
             return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
@@ -383,9 +407,13 @@ class WeaponDamagePF2e {
             options.add(option);
         }
 
-        const syntheticModifiers = extractModifiers(actor.synthetics, selectors, { resolvables, injectables });
+        // Synthetics
+
+        // Separate damage modifiers into persistent and all others for stacking rules processing
+        const synthetics = extractDamageModifiers(actor.synthetics, selectors, { resolvables, injectables });
         const testedModifiers = [
-            ...new StatisticModifier("", [...modifiers, ...syntheticModifiers], options).modifiers,
+            ...new StatisticModifier("strike-damage", [...modifiers, ...synthetics.main], options).modifiers,
+            ...new StatisticModifier("strike-persistent", synthetics.persistent, options).modifiers,
         ];
 
         // Damage dice from synthetics
@@ -412,6 +440,7 @@ class WeaponDamagePF2e {
             // or the like.
             dice: damageDice,
             modifiers: testedModifiers,
+            ignoredResistances,
         };
 
         // include dice number and size in damage tag
@@ -446,6 +475,7 @@ class WeaponDamagePF2e {
             traits: (actionTraits ?? []).map((t) => t.name),
             materials: Array.from(materials),
             modifiers: [...modifiers, ...damageDice],
+            domains: selectors,
             damage: {
                 ...damage,
                 formula: {
@@ -531,6 +561,8 @@ class WeaponDamagePF2e {
             if (this.strengthBasedDamage(weapon)) {
                 selectors.push("str-damage");
             }
+
+            // Everything that follows is for weapon items only
             return selectors;
         }
 

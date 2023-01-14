@@ -53,7 +53,7 @@ class NPCPF2e extends CreaturePF2e {
     /** Users with limited permission can loot a dead NPC */
     override canUserModify(user: User, action: UserAction): boolean {
         if (action === "update" && this.isLootable) {
-            return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
+            return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
         }
         return super.canUserModify(user, action);
     }
@@ -62,7 +62,7 @@ class NPCPF2e extends CreaturePF2e {
     override get visible(): boolean {
         return !this.isToken && this.prototypeToken.actorLink
             ? super.visible
-            : this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
+            : this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER;
     }
 
     get isLootable(): boolean {
@@ -71,17 +71,17 @@ class NPCPF2e extends CreaturePF2e {
     }
 
     /** Grant all users at least limited permission on dead NPCs */
-    override get permission(): PermissionLevel {
+    override get permission(): DocumentOwnershipLevel {
         if (game.user.isGM || !this.isLootable) {
             return super.permission;
         }
-        return Math.max(super.permission, 1) as PermissionLevel;
+        return Math.max(super.permission, 1) as DocumentOwnershipLevel;
     }
 
     /** Grant players limited permission on dead NPCs */
     override testUserPermission(
         user: User,
-        permission: DocumentPermission | DocumentPermissionNumber,
+        permission: DocumentOwnershipString | DocumentOwnershipLevel,
         options?: { exact?: boolean }
     ) {
         // Temporary measure until a lootable view of the legacy sheet is ready
@@ -89,7 +89,7 @@ class NPCPF2e extends CreaturePF2e {
             return super.testUserPermission(user, permission, options);
         }
         if ([1, "LIMITED"].includes(permission) && !options) {
-            return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
+            return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
         }
         return super.testUserPermission(user, permission, options);
     }
@@ -109,7 +109,7 @@ class NPCPF2e extends CreaturePF2e {
         const { attributes, details } = systemData;
         attributes.perception.ability = "wis";
         attributes.reach = {
-            general: SIZE_TO_REACH[this.size],
+            base: SIZE_TO_REACH[this.size],
             manipulate: SIZE_TO_REACH[this.size],
         };
 

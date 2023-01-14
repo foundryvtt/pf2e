@@ -21,7 +21,21 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "not": "feat:expanded-splash"
+                    }
+                ],
+                "relabel": "{item|name}",
+                "selector": "alchemical-bomb-damage",
+                "slug": "splash",
+                "value": "@actor.abilities.int.mod"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

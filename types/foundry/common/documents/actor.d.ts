@@ -9,7 +9,7 @@ declare module foundry {
             prototypeToken: foundry.data.PrototypeToken;
 
             /** The default icon used for newly created Actor documents */
-            static DEFAULT_ICON: ImagePath;
+            static DEFAULT_ICON: ImageFilePath;
 
             static override get schema(): ConstructorOf<data.ActorData<BaseActor, BaseActiveEffect, BaseItem>>;
 

@@ -177,7 +177,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         // Nath mode
         const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${this.actor.type}.svg`];
         if (game.settings.get("pf2e", "nathMode") && defaultIcons.includes(this.texture.src)) {
-            this.texture.src = ((): VideoPath => {
+            this.texture.src = ((): VideoFilePath => {
                 switch (this.actor.alliance) {
                     case "party":
                         return "systems/pf2e/icons/default-icons/alternatives/nath/ally.webp";
@@ -489,7 +489,7 @@ interface TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenD
 
     get sheet(): TokenConfigPF2e<this>;
 
-    overlayEffect: ImagePath;
+    overlayEffect: ImageFilePath;
 }
 
 export { TokenDocumentPF2e };

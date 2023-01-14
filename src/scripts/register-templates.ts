@@ -1,6 +1,13 @@
 /** Register Handlebars template partials */
 export function registerTemplates(): void {
     const templatePaths = [
+        // Dice
+        "systems/pf2e/templates/chat/check/strike/attack-roll.hbs",
+        "systems/pf2e/templates/chat/check/target-dc-result.hbs",
+        "systems/pf2e/templates/chat/damage/damage-taken.hbs",
+        "systems/pf2e/templates/dice/damage-roll.hbs",
+        "systems/pf2e/templates/dice/damage-tooltip.hbs",
+
         // PC Sheet Tooltips
         "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs",
         "systems/pf2e/templates/actors/character/partials/traits.hbs",

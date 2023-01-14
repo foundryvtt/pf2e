@@ -27,6 +27,8 @@ interface RollParameters {
 interface StrikeRollParams extends RollParameters {
     /** Retrieve the formula of the strike roll without following through to the end */
     getFormula?: true;
+    /** Should this strike consume ammunition, if applicable? */
+    consumeAmmo?: boolean;
     /** The strike is involve throwing a thrown melee weapon or to use the melee usage of a combination weapon */
     altUsage?: "thrown" | "melee" | null;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */

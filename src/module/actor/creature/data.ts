@@ -150,9 +150,9 @@ interface CreatureAttributes extends ActorAttributes {
 
     /** The creature's natural reach */
     reach: {
-        /** The reach for any unqualified purpose */
-        general: number;
-        /** Its reach for the purpose of manipulate actions, usually the same as its general reach */
+        /** The default reach for all actions requiring one */
+        base: number;
+        /** Its reach for the purpose of manipulate actions, usually the same as its base reach */
         manipulate: number;
     };
 
@@ -244,7 +244,7 @@ interface HeldShieldData {
     /** Whether the shield is destroyed (hp.value === 0) */
     destroyed: boolean;
     /** An effect icon to use when the shield is raised */
-    icon: ImagePath;
+    icon: ImageFilePath;
 }
 
 export {

@@ -1,10 +1,11 @@
+import { ResistanceType } from "@actor/types";
 import { DamageRollFlag } from "@module/chat-message";
 import { UserPF2e } from "@module/user";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success";
 import { RollDataPF2e } from "@system/rolls";
 import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, setHasElement } from "@util";
 import Peggy from "peggy";
-import { DamageCategorization, deepFindTerms, renderSplashDamage } from "./helpers";
+import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./helpers";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms";
 import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types";
 import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
@@ -12,6 +13,7 @@ import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
 abstract class AbstractDamageRoll extends Roll {
     static parser = Peggy.generate(ROLL_GRAMMAR);
 
+    /** Strip out parentheses enclosing constants */
     static override replaceFormulaData(
         formula: string,
         data: Record<string, unknown>,
@@ -127,7 +129,7 @@ class DamageRoll extends AbstractDamageRoll {
         } else if (instances.length === 1 && firstInstance.head instanceof Grouping) {
             const instanceFormula = firstInstance.formula;
             return instanceFormula.startsWith("(")
-                ? instanceFormula.slice(1).replace(/\)([^)]+)$/i, "$1")
+                ? instanceFormula.slice(1).replace(/\)([^)]*)$/i, "$1")
                 : instanceFormula;
         }
 
@@ -218,11 +220,12 @@ class DamageRoll extends AbstractDamageRoll {
         const chatData = {
             formula,
             user: game.user.id,
-            tooltip: isPrivate ? "" : await this.getTooltip(),
+            tooltip: isPrivate || this.dice.length === 0 ? "" : await this.getTooltip(),
             instances: isPrivate ? [] : instances,
             total: isPrivate ? "?" : Math.floor((this.total! * 100) / 100),
             increasedFrom: this.options.increasedFrom,
             splashOnly: !!this.options.splashOnly,
+            allPersistent: this.instances.every((i) => i.persistent && !i.options.evaluatePersistent),
             showTripleDamage: game.settings.get("pf2e", "critFumbleButtons"),
         };
 
@@ -451,8 +454,8 @@ class DamageInstance extends AbstractDamageRoll {
         const head = this.head instanceof Grouping ? this.head.term : this.head;
         return head instanceof ArithmeticExpression
             ? head.render()
-            : head.flavor === "splash"
-            ? renderSplashDamage(head)
+            : ["precision", "splash"].includes(head.flavor)
+            ? renderComponentDamage(head)
             : head.expression;
     }
 
@@ -519,6 +522,7 @@ interface DamageRollDataPF2e extends RollDataPF2e {
     degreeOfSuccess?: DegreeOfSuccessIndex;
     increasedFrom?: number;
     splashOnly?: boolean;
+    ignoredResistances?: { type: ResistanceType; max: number | null }[];
 }
 
 interface DamageInstanceData extends RollOptions {

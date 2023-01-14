@@ -167,6 +167,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             const baseTypes = [this.baseType ?? [], equivalentBases[this.baseType ?? ""] ?? []].flat();
             return baseTypes.reduce((types, t) => ({ ...types, [`base:${t}`]: true }), {} as Record<string, boolean>);
         })();
+        const { persistent } = this.system.damage;
         const propertyRunes = this.system.runes.property
             .map((p) => `rune:property:${sluggify(p)}`)
             .reduce((statements, s) => ({ ...statements, [s]: true }), {} as Record<string, boolean>);
@@ -184,9 +185,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`reload:${this.reload}`]: !!this.reload,
                 [`damage:type:${damage.type}`]: true,
                 [`damage:category:${damage.category}`]: !!damage.category,
-                [`damage:die:number:${damage.dice.number}`]: true,
-                [`damage:die:faces:${damage.dice.faces}`]: true,
-                [`damage-dice:${this.system.damage.dice}`]: true,
+                [`damage:die:number:${damage.dice.number}`]: !!damage.dice.faces,
+                [`damage:die:faces:${damage.dice.faces}`]: !!damage.dice.faces,
+                [`damage-dice:${damage.dice.faces}`]: !!damage.dice.faces,
+                [`damage:persistent:${persistent?.type}`]: !!persistent,
                 "deity-favored": isDeityFavored,
                 oversized,
                 melee: this.isMelee,

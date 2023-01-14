@@ -27,7 +27,9 @@ class HeritagePF2e extends ItemPF2e {
             trait: slug in CONFIG.PF2E.ancestryTraits ? slug : null,
         };
 
-        // Add a self: roll option for this heritage
+        // Add a roll option for this heritage
+        this.actor.rollOptions.all[`heritage:${slug}`] = true;
+        // Backward compatibility until migration
         this.actor.rollOptions.all[`self:heritage:${slug}`] = true;
     }
 }

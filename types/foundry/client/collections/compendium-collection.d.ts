@@ -206,7 +206,7 @@ declare global {
         _id: string;
         type: string;
         name: string;
-        img: ImagePath;
+        img: ImageFilePath;
         pack?: string;
         [key: string]: any;
     }

@@ -1440,6 +1440,7 @@ export const PF2ECONFIG = {
         iblydan: "PF2E.LanguageIblydan",
         ignan: "PF2E.LanguageIgnan",
         ikeshti: "PF2E.LanguageIkeshti",
+        immolis: "PF2E.LanguageImmolis",
         infernal: "PF2E.LanguageInfernal",
         iruxi: "PF2E.LanguageIruxi",
         jistkan: "PF2E.LanguageJistkan",

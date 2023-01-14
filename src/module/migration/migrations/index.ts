@@ -211,4 +211,5 @@ export { Migration810LootDescriptionValue } from "./810-loot-description-value";
 export { Migration811InlineDamageRollsPersistent } from "./811-inline-damage-rolls-persistent";
 export { Migration812RestructureIWR } from "./812-restructure-iwr";
 export { Migration813NormalizeColdIron } from "./813-normalize-cold-iron";
-export { Migration814AlchemistResearchFields } from "./814-alchemist-research-fields";
+export { Migration814CalculatedExpandedSplash } from "./814-calculated-expanded-splash";
+export { Migration815AlchemistResearchFields } from "./815-alchemist-research-fields";

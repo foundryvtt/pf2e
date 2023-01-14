@@ -44,7 +44,7 @@ export class AbilityBuilderPopup extends Application {
             ancestryBoosts: this.calculateAncestryBoosts(),
             backgroundBoosts: this.calculateBackgroundBoosts(),
             alternateAncestryBoosts: !!actor.ancestry?.system.alternateAncestryBoosts,
-            voluntaryFlaw: !!actor.ancestry?.system.voluntary,
+            legacyFlaws: actor.ancestry?.system.voluntary?.boost !== undefined,
             levelBoosts: this.calculatedLeveledBoosts(),
         };
     }
@@ -97,40 +97,42 @@ export class AbilityBuilderPopup extends Application {
         }
 
         const { voluntary } = ancestry.system;
-        const voluntaryBoostsRemaining = voluntary && !voluntary.boost ? 1 : 0;
+        const legacyFlaws = voluntary?.boost !== undefined;
+        const voluntaryBoostsRemaining = voluntary && legacyFlaws && !voluntary.boost ? 1 : 0;
 
         if (voluntary) {
-            // Initalize ancestry boosts according to flaw/boost state
-            for (const boost of Object.values(ancestryBoosts)) {
-                boost.canVoluntaryFlaw = voluntary.flaws.length < 2;
-                boost.canVoluntaryBoost = !boost.canVoluntaryFlaw && voluntaryBoostsRemaining > 0;
-            }
-
             for (const flaw of voluntary.flaws) {
-                ancestryBoosts[flaw].voluntaryFlaws += 1;
-                ancestryBoosts[flaw].canVoluntaryFlaw = true;
-                ancestryBoosts[flaw].canVoluntaryFlawAgain =
-                    ancestryBoosts[flaw].lockedBoost && voluntary.flaws.length < 2;
+                ancestryBoosts[flaw].voluntary.selected += 1;
             }
 
             if (voluntary.boost) {
-                ancestryBoosts[voluntary.boost].voluntaryBoost = true;
-                ancestryBoosts[voluntary.boost].canVoluntaryBoost = true;
+                ancestryBoosts[voluntary.boost].voluntary.boosted = true;
+            }
+
+            if (legacyFlaws) {
+                const flawsComplete = voluntary.flaws.length >= 2;
+                for (const boost of Object.values(ancestryBoosts)) {
+                    boost.voluntary.canDoubleFlaw = boost.lockedBoost;
+                    boost.voluntary.disabled = !boost.voluntary.selected && flawsComplete;
+                    boost.voluntary.secondFlawDisabled =
+                        !boost.voluntary.selected || (boost.voluntary.selected !== 2 && flawsComplete);
+                    boost.voluntary.boostDisabled = !flawsComplete || (!!voluntary.boost && !boost.voluntary.boosted);
+                }
             }
         }
 
         // Do some house-keeping and make sure they can't do things multiple times
         for (const ability of Array.from(ABILITY_ABBREVIATIONS)) {
-            const hasFlaw = ancestryBoosts[ability].lockedFlaw || ancestryBoosts[ability].voluntaryFlaws;
+            const hasFlaw = ancestryBoosts[ability].lockedFlaw || ancestryBoosts[ability].voluntary.selected;
 
             if (ancestryBoosts[ability].lockedFlaw) {
-                ancestryBoosts[ability].canVoluntaryFlaw = false;
+                ancestryBoosts[ability].voluntary.disabled = true;
             }
             if (ancestryBoosts[ability].boosted && !hasFlaw) {
-                ancestryBoosts[ability].canVoluntaryBoost = false;
+                ancestryBoosts[ability].voluntary.boostDisabled = true;
             }
             if (
-                ancestryBoosts[ability].voluntaryBoost &&
+                ancestryBoosts[ability].voluntary.boosted &&
                 !hasFlaw &&
                 !ancestryBoosts[ability].boosted &&
                 !ancestryBoosts[ability].lockedBoost &&
@@ -263,7 +265,7 @@ export class AbilityBuilderPopup extends Application {
         const html = $html[0];
         const { actor } = this;
 
-        $html.find("div[data-tooltip-content]").tooltipster({
+        $html.find("[data-tooltip-content]").tooltipster({
             contentAsHTML: true,
             arrow: false,
             debug: BUILD_MODE === "development",
@@ -293,9 +295,19 @@ export class AbilityBuilderPopup extends Application {
             }
         });
 
-        $html.find<HTMLInputElement>("input[name=toggle-voluntary-flaw]").on("change", async (event) => {
-            if (event.originalEvent) {
-                await actor.ancestry?.toggleVoluntaryFlaw();
+        htmlQuery(html, "[data-action=toggle-legacy-voluntary-flaw]")?.addEventListener("click", async () => {
+            const ancestry = actor.ancestry;
+            if (!ancestry) return;
+
+            const voluntary = ancestry.system.voluntary;
+            if (voluntary?.boost !== undefined) {
+                // Convert from legacy. Flaws must each be unique
+                const flaws = [...new Set(voluntary.flaws)];
+                ancestry.update({ system: { voluntary: { "-=boost": null, flaws } } });
+            } else {
+                // Convert to legacy. We can only have up to 2 flaws in legacy
+                const flaws = voluntary?.flaws.slice(0, 2) ?? [];
+                ancestry.update({ system: { voluntary: { boost: null, flaws } } });
             }
         });
 
@@ -336,20 +348,24 @@ export class AbilityBuilderPopup extends Application {
             const { ancestry } = actor;
             if (!ancestry || !setHasElement(ABILITY_ABBREVIATIONS, ability)) return;
 
-            const { flaws, boost } = ancestry.system.voluntary ?? { flaws: [], boost: null };
+            const { flaws, boost } = ancestry.system.voluntary ?? { flaws: [] };
             const alreadyHasFlaw = flaws.includes(ability);
+            const isLegacy = boost !== undefined;
 
             // If removing, it must exist and there shouldn't be a boost selected
             if (removing && alreadyHasFlaw && !boost) {
                 flaws.splice(flaws.indexOf(ability), 1);
-                await ancestry.update({ system: { voluntary: { flaws } } });
+                ancestry.update({ system: { voluntary: { flaws } } });
+                return;
             }
 
-            // If adding, we need to be under 2 flaws, it must be new or be a locked ancestry boost (to double flaw)
+            // If adding, we need to be under 2 flaws if legacy, it must be new or be a locked ancestry boost (to double flaw)
             const boostedByAncestry = ancestry.lockedBoosts.includes(ability);
-            if (!removing && flaws.length < 2 && (!alreadyHasFlaw || boostedByAncestry)) {
+            const canDoubleFlaw = boostedByAncestry && isLegacy;
+            const maxFlaws = isLegacy ? 2 : 6;
+            if (flaws.length < maxFlaws && (!alreadyHasFlaw || canDoubleFlaw)) {
                 flaws.push(ability);
-                await ancestry.update({ system: { voluntary: { flaws } } });
+                ancestry.update({ system: { voluntary: { flaws } } });
             }
         });
 
@@ -443,7 +459,7 @@ interface AbilityBuilderSheetData {
     keyOptions: AbilityString[] | null;
     levelBoosts: Record<number, LevelBoostData>;
     alternateAncestryBoosts: boolean;
-    voluntaryFlaw: boolean;
+    legacyFlaws: boolean;
 }
 
 interface BoostFlawState {
@@ -451,11 +467,16 @@ interface BoostFlawState {
     lockedBoost: boolean;
     boosted: boolean;
     available: boolean;
-    voluntaryFlaws: number;
-    canVoluntaryFlaw: boolean;
-    canVoluntaryFlawAgain: boolean;
-    voluntaryBoost: boolean;
-    canVoluntaryBoost: boolean;
+    voluntary: {
+        /** How many times this flaw was applied. Some ancestries allow multiple legacy flaws on the same stat */
+        selected: number;
+        disabled: boolean;
+        /** Abilities with a locked boost can allow for 2 flaws with legacy flaws */
+        canDoubleFlaw: boolean;
+        secondFlawDisabled: boolean;
+        boosted: boolean;
+        boostDisabled: boolean;
+    };
 }
 
 function defaultBoostFlawState(): BoostFlawState {
@@ -464,11 +485,14 @@ function defaultBoostFlawState(): BoostFlawState {
         lockedBoost: false,
         boosted: false,
         available: false,
-        voluntaryFlaws: 0,
-        canVoluntaryFlaw: false,
-        canVoluntaryFlawAgain: false,
-        voluntaryBoost: false,
-        canVoluntaryBoost: false,
+        voluntary: {
+            selected: 0,
+            disabled: false,
+            canDoubleFlaw: false,
+            secondFlawDisabled: false,
+            boosted: false,
+            boostDisabled: false,
+        },
     };
 }
 

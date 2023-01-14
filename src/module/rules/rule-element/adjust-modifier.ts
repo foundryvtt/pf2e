@@ -24,8 +24,8 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
         if (data.suppress) {
             data.mode = "override";
             data.value = 0;
+            data.priority ??= 99; // Try to apply last
         }
-        data.priority ??= 90;
 
         super({ ...data, phase: "beforeDerived" }, item, options);
 

@@ -1,16 +1,17 @@
 {
-    "_id": "qIOEe4kUN7FOBifb",
-    "img": "systems/pf2e/icons/spells/beastmaster-trance.webp",
-    "name": "Effect: Hybrid Form",
+    "_id": "lBpprC8VD4GRzTtg",
+    "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+    "name": "Effect: Wild Shape (Oaksteward)",
     "system": {
+        "badge": null,
         "description": {
-            "value": "<p>In hybrid shape, you appear as a mix between your ancestry and your inherent animal. While in hybrid shape, you gain a jaws unarmed Strike resembling the features of your inherent animal (fangs for bats, beaks for eagles, mandibles for wasps, and so on). Your jaws deal 1d4 piercing damage, have the agile, finesse, and unarmed traits, and are in the brawling weapon group.</p>"
+            "value": "<p>The Oaksteward's hands transform into wild claws.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "minutes",
+            "value": 1
         },
         "level": {
             "value": 1
@@ -20,24 +21,25 @@
                 "category": "unarmed",
                 "damage": {
                     "base": {
-                        "damageType": "piercing",
+                        "damageType": "slashing",
                         "dice": 1,
-                        "die": "d4"
+                        "die": "d6"
                     }
                 },
                 "group": "brawling",
                 "key": "Strike",
-                "label": "PF2E.Weapon.Base.jaws",
+                "label": "PF2E.Weapon.Base.claw",
                 "range": null,
+                "slug": "claw",
                 "traits": [
-                    "agile",
                     "finesse",
+                    "agile",
                     "unarmed"
                 ]
             }
         ],
         "source": {
-            "value": "Pathfinder Lost Omens: Ancestry Guide"
+            "value": "Pathfinder #187: The Seventh Arch"
         },
         "start": {
             "initiative": null,
@@ -51,7 +53,8 @@
             "custom": "",
             "rarity": "common",
             "value": []
-        }
+        },
+        "unidentified": false
     },
     "type": "effect"
 }

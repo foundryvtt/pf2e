@@ -18,6 +18,7 @@ export class DamagePF2e {
         const outcome = context.outcome ?? "success";
 
         context.rollMode ??= (context.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
+        context.createMessage ??= true;
 
         // Change default roll mode to blind GM roll if the "secret" option is specified
         if (context.options.has("secret")) {
@@ -129,7 +130,9 @@ export class DamagePF2e {
 
             const rollerId = game.userId;
             const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
-            return new DamageRoll(formula, {}, { rollerId, damage: data, degreeOfSuccess }).evaluate({ async: true });
+
+            const options = { rollerId, damage: data, degreeOfSuccess, ignoredResistances: damage.ignoredResistances };
+            return new DamageRoll(formula, {}, options).evaluate({ async: true });
         })();
 
         if (roll === null) return null;
@@ -228,8 +231,10 @@ export class DamagePF2e {
             return rolls;
         })();
 
-        messageData.rolls.push(...splashRolls);
-        await ChatMessagePF2e.create(messageData);
+        if (context.createMessage) {
+            messageData.rolls.push(...splashRolls);
+            await ChatMessagePF2e.create(messageData);
+        }
 
         Hooks.call(`pf2e.damageRoll`, rollData);
         if (callback) callback(rollData);

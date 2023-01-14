@@ -370,12 +370,36 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>20 feet.</p>\n<p>The colorful runes that decorate a d'ziriak's body create dim light. The natural bioluminescence is specially adapted to the Shadow Plane, able to overcome magical darkness as if it were magical light of the d'ziriak's level.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The colorful runes that decorate a d'ziriak's body create dim light. The natural bioluminescence is specially adapted to the Shadow Plane, able to overcome magical darkness as if it were magical light of the d'ziriak's level.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "glowing"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "color": "#fff9a3",
+                            "dim": 20,
+                            "shadows": 0.1
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "glowing",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -711,7 +735,7 @@
                 "custom": "Telepathy 100 feet",
                 "selected": [],
                 "value": [
-                    "d'ziriak",
+                    "dziriak",
                     "shadowtongue"
                 ]
             },

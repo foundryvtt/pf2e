@@ -21,10 +21,10 @@ declare module foundry {
             name: string;
             pages: JournalEntryPageSource[];
             content: string;
-            img: ImagePath;
+            img: ImageFilePath;
             folder: string | null;
             sort: number;
-            ownership: Record<string, PermissionLevel>;
+            ownership: Record<string, DocumentOwnershipLevel>;
             flags: Record<string, Record<string, unknown>>;
         }
 
@@ -37,7 +37,7 @@ declare module foundry {
             pages: abstract.EmbeddedCollection<TPage>;
         }
 
-        interface JournalEntryData extends JournalEntrySource {
+        interface JournalEntryData extends Omit<JournalEntrySource, "pages"> {
             readonly _source: JournalEntrySource;
         }
     }

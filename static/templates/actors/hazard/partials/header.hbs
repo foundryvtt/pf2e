@@ -4,7 +4,7 @@
         <div class="frame">
             <img class="player-image" alt="{{actor.name}}" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
             {{#if editable}}
-                <div class="edit-mode-button" title="{{localize "PF2E.EditHazardLabel"}}"><i class="fas {{#if editing}}fa-lock-open{{else}}fa-lock{{/if}}"></i></div>
+                <div class="edit-mode-button" title="{{localize "PF2E.EditHazardLabel"}}"><i class="fa-solid fa-lock{{#if editing}}-open{{/if}}"></i></div>
             {{/if}}
         </div>
     </div>
@@ -39,8 +39,8 @@
                 {{#unless (eq data.details.isComplex "common")}}<span class="tag" value="{{data.traits.rarity}}">{{localize rarityLabel}}</span>{{/unless}}
                 {{#if data.details.isComplex}}<span class="tag">{{localize "PF2E.TraitComplex"}}</span>{{/if}}
 
-                {{#each actorTraits as |trait id|}}
-                    <span class="tag">{{trait}}</span>
+                {{#each actorTraits as |trait|}}
+                    <span class="tag" data-slug="{{trait.name}}">{{localize trait.label}}</span>
                 {{/each}}
             </div>
         {{/if}}

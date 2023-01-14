@@ -1,8 +1,5 @@
 declare module foundry {
     module data {
-        type DrawingType = keyof typeof CONST.DRAWING_TYPES;
-        type FillType = keyof typeof CONST.DRAWING_FILL_TYPES;
-
         /**
          * The data schema for a Drawing embedded document.
          * @see BaseDrawing
@@ -35,7 +32,7 @@ declare module foundry {
          * @property [locked=false]       Is the drawing currently locked?
          */
         interface DrawingSource extends abstract.DocumentSource {
-            t: DrawingType;
+            t: DrawingShapeType;
             x: number;
             y: number;
             width: number;

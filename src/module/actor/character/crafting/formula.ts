@@ -37,7 +37,7 @@ export class CraftingFormula implements CraftingFormulaData {
         return this.item.uuid;
     }
 
-    get img(): ImagePath {
+    get img(): ImageFilePath {
         return this.item.img;
     }
 

@@ -231,7 +231,7 @@ export class Migration711HeritageItems extends MigrationBase {
     override async updateItem(itemSource: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> {
         if (actorSource || !this.isHeritageFeature(itemSource)) return;
 
-        const newSource: { type: string; img: ImagePath; system: object } = itemSource;
+        const newSource: { type: string; img: ImageFilePath; system: object } = itemSource;
         newSource.type = "heritage";
         if (itemSource.img === "systems/pf2e/icons/default-icons/feat.svg") {
             itemSource.img = "systems/pf2e/icons/default-icons/heritage.svg";

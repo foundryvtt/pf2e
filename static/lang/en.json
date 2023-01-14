@@ -460,8 +460,8 @@
             },
             "Repair": {
                 "Chat": {
-                    "ItemRepaired": "{itemName} was repaired for {repairedDamage} points of damage for a total of {afterRepairHitPoints} out of {maximumHitPoints} Hit Points.",
-                    "ItemDamaged": "{itemName} was dealt {damageDealt} points of damage for a total of {afterDamageHitPoints} out of {maximumHitPoints} Hit Points."
+                    "ItemRepaired": "{itemName} was repaired for {repairedDamage} points of damage for a total of {afterRepairHitPoints} out of {maximumHitPoints} hit points.",
+                    "ItemDamaged": "{itemName} was dealt {damageDealt} points of damage for a total of {afterDamageHitPoints} out of {maximumHitPoints} hit points."
                 },
                 "Error": {
                     "ItemReferenceMismatch": "Only accepts physical items for Repair from an actor."
@@ -699,8 +699,9 @@
                     "Flaws": "Flaws",
                     "KeyIcon": "Key",
                     "VoluntaryFlaw": {
-                        "Title": "Voluntary Flaw",
-                        "Description": "Select two voluntary flaws to gain a free boost."
+                        "Title": "Voluntary Flaws",
+                        "Description": "You can take one or more additional penalties purely for roleplaying a highly flawed character.",
+                        "LegacyDescription": "This is the Voluntary Flaws feature that existed until the CRB's 4th printing. It is kept in place for older characters and as a continued option for Pathfinder Society play."
                     },
                     "BackgroundBoostDescription": "Two boosts: one must be {a} or {b}.",
                     "AbilityScoreMethod": {
@@ -1336,7 +1337,8 @@
                     "unaffected": "Unaffected by {type}: {adjustment}",
                     "immunity": "Immune to {type}: {adjustment}",
                     "weakness": "Weak to {type}: {adjustment}",
-                    "resistance": "Resistant to {type}: {adjustment}"
+                    "resistance": "Resistant to {type}: {adjustment}",
+                    "ignored": "Resistance to {type} ignored!"
                 },
                 "CompositeLabel": {
                     "Exceptions0DoubleVs0": "{type} {value}",
@@ -1487,7 +1489,8 @@
                 "sonic": "sonic",
                 "splash": "splash",
                 "untyped": "untyped"
-            }
+            },
+            "Scatter": "Scatter Damage"
         },
         "DamageCategoriesLabel": "Damage Categories",
         "DamageDieD10": "d10",
@@ -1589,10 +1592,9 @@
             "RevealName": "Reveal Name"
         },
         "Edit": "Edit",
-        "EditHazardLabel": "Edit Hazard?",
+        "EditHazardLabel": "Edit Hazard",
         "EditItemTitle": "Edit Item",
         "EditLabel": "Edit?",
-        "EditNPCLabel": "Edit NPC?",
         "EffectsLabel": "Effects",
         "EffectPanel": {
             "AppliedBy": "Applied by: {condition-list}",
@@ -1813,10 +1815,17 @@
                 "PersistentDamage": {
                     "Name": "Persistent Damage ({formula} {damageType})",
                     "NameWithDC": "Persistent Damage ({formula} DC{dc})",
+                    "Chat": {
+                        "Recover": "Roll Recovery Check",
+                        "RecoverLabel": "Recovery: {name}"
+                    },
                     "Dialog": {
                         "Title": "Persistent Damage ({actor})",
                         "Add": "Add Persistent Damage",
                         "Remove": "Remove Persistent Damage"
+                    },
+                    "Error": {
+                        "DoesNotExist": "No persistent {damageType} damage exists on the actor"
                     }
                 },
                 "Flanked": "Flat-Footed (Flanked)"
@@ -2430,6 +2439,7 @@
         "LanguageIblydan": "Iblydan",
         "LanguageIgnan": "Ignan",
         "LanguageIkeshti": "Ikeshti",
+        "LanguageImmolis": "Immolis",
         "LanguageInfernal": "Infernal",
         "LanguageIruxi": "Iruxi",
         "LanguageJistkan": "Jistkan",
@@ -2932,7 +2942,7 @@
                     "ManagedBy": "Managed by <rbv>rules-based vision</rbv>."
                 },
                 "IWR": {
-                    "Name": "Immunities, Weaknesses, & Resistances",
+                    "Name": "Immunities, weaknesses, & resistances",
                     "Hint": "When applying damage to an actor, adjust its value according to the actor's immunities, weaknesses, and resistances."
                 },
                 "EffectExpiration": {
@@ -4172,8 +4182,18 @@
         "TraitRange180": "Range 180 ft",
         "TraitRange190": "Range 190 ft",
         "TraitRange200": "Range 200 ft",
+        "TraitRange210": "Range 210 ft",
+        "TraitRange220": "Range 220 ft",
+        "TraitRange230": "Range 230 ft",
         "TraitRange240": "Range 240 ft",
+        "TraitRange250": "Range 250 ft",
+        "TraitRange260": "Range 260 ft",
+        "TraitRange270": "Range 270 ft",
+        "TraitRange280": "Range 280 ft",
+        "TraitRange290": "Range 290 ft",
         "TraitRange300": "Range 300 ft",
+        "TraitRange310": "Range 310 ft",
+        "TraitRange320": "Range 320 ft",
         "TraitRange500": "Range 500 ft",
         "TraitRangeIncrement10": "Range Increment 10 ft",
         "TraitRangeIncrement100": "Range Increment 100 ft",
@@ -4188,6 +4208,7 @@
         "TraitRangeIncrement180": "Range Increment 180 ft",
         "TraitRangeIncrement190": "Range Increment 190 ft",
         "TraitRangeIncrement20": "Range Increment 20 ft",
+        "TraitRangeIncrement25": "Range Increment 25 ft",
         "TraitRangeIncrement200": "Range Increment 200 ft",
         "TraitRangeIncrement210": "Range Increment 210 ft",
         "TraitRangeIncrement220": "Range Increment 220 ft",
@@ -4845,7 +4866,10 @@
                 }
             },
             "flaming": {
-                "Name": "Flaming"
+                "Name": "Flaming",
+                "Note": {
+                    "criticalSuccess": "On a critical hit, you deal an additional [[/r 1d10[persistent,fire]]]."
+                }
             },
             "frost": {
                 "Name": "Frost",

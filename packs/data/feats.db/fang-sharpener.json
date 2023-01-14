@@ -36,10 +36,11 @@
                         "die": "d4"
                     }
                 },
+                "img": "systems/pf2e/icons/features/ancestry/razortooth-goblin.webp",
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.jaws",
                 "predicate": [
-                    "self:heritage:irongut-goblin"
+                    "heritage:irongut-goblin"
                 ],
                 "slug": "irongut-jaws"
             },
@@ -64,6 +65,21 @@
                     "heritage:razortooth-goblin"
                 ],
                 "selector": "razortooth-jaws-damage"
+            },
+            {
+                "critical": true,
+                "damageType": "bleed",
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:irongut-jaws",
+                            "item:slug:razortooth-jaws"
+                        ]
+                    }
+                ],
+                "selector": "unarmed-damage",
+                "value": "@weapon.system.damage.dice"
             }
         ],
         "source": {

@@ -6,7 +6,7 @@ function setTraitIWR(actor: CreaturePF2e): void {
 
     const { traits } = actor;
     const { immunities } = actor.attributes;
-    if (traits.has("mindless") && immunities.some((i) => i.type === "mental")) {
+    if (traits.has("mindless") && !immunities.some((i) => i.type === "mental")) {
         immunities.push(new ImmunityData({ type: "mental" }));
     }
 }

@@ -17,21 +17,22 @@ async function applyDamageFromMessage({
 }: ApplyDamageFromMessageParams): Promise<void> {
     if (promptModifier) return shiftAdjustDamage(message, multiplier, rollIndex);
 
-    const tokens = canvas.tokens.controlled.filter((token) => !!token.actor);
+    const tokens = canvas.tokens.controlled.filter((token) => !!token.actor).map((t) => t.document);
     if (tokens.length === 0) {
         const errorMsg = LocalizePF2e.translations.PF2E.UI.errorTargetToken;
-        ui.notifications.error(errorMsg);
-        return;
+        return ui.notifications.error(errorMsg);
     }
 
     const shieldBlockRequest = CONFIG.PF2E.chatDamageButtonShieldToggle;
     const roll = message.rolls.at(rollIndex);
     if (!(roll instanceof DamageRoll)) throw ErrorPF2e("Unexpected error retrieving damage roll");
 
+    const damage = multiplier < 0 ? multiplier * roll.total + addend : roll.alter(multiplier, addend);
+
     for (const token of tokens) {
         await token.actor?.applyDamage({
-            damage: multiplier < 0 ? multiplier * roll.total + addend : roll.alter(multiplier, addend),
-            token: token.document,
+            damage,
+            token,
             skipIWR: multiplier <= 0,
             rollOptions: new Set(message.flags.pf2e.context?.options ?? []),
             shieldBlockRequest,

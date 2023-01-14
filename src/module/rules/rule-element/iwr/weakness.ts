@@ -11,6 +11,8 @@ class WeaknessRuleElement extends IWRRuleElement {
     }
 
     getIWR(value: number): WeaknessData[] {
+        if (value <= 0) return [];
+
         const weaknesses = this.property;
 
         for (const weaknessType of [...this.type]) {

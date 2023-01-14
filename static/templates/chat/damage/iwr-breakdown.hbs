@@ -1,5 +1,11 @@
 <ul>
     {{#each applications as |application|}}
-        <li>{{localize (concat "PF2E.Damage.IWR.ApplicationBreakdown." application.category) type=application.type adjustment=(numberFormat application.adjustment sign=true)}}</li>
+        <li>
+            {{#if application.ignored}}
+                {{localize "PF2E.Damage.IWR.ApplicationBreakdown.ignored" type=application.type}}
+            {{else}}
+                {{localize (concat "PF2E.Damage.IWR.ApplicationBreakdown." application.category) type=application.type adjustment=(numberFormat application.adjustment sign=true)}}
+            {{/if}}
+        </li>
     {{/each}}
 </ul>

@@ -10,7 +10,7 @@
             "value": null
         },
         "description": {
-            "value": "<p>You gain resistance equal to half your level to all damage from effects with the appropriate trait for your School of Perfection: fire for Unblinking Flame, water for Unbreaking Waves, air for Unfolding Wind, and earth for Untwisting Iron. After using a Student of Perfection ki spell, the resistance increases to be equal to your level for 1 round.</p>"
+            "value": "<p>You gain resistance equal to half your level to all damage from effects with the appropriate trait for your School of Perfection: fire for Unblinking Flame, water for Unbreaking Waves, air for Unfolding Wind, and earth for Untwisting Iron. After using a Student of Perfection ki spell, the resistance increases to be equal to your level for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Effect: Perfect Resistance]{Effect: Perfect Resistance}</p>"
         },
         "featType": {
             "value": "archetype"
@@ -25,7 +25,13 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "{actor|flags.pf2e.houseOfPerfection.element}",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
         "source": {
             "value": "Pathfinder Lost Omens: Impossible Lands"
         },

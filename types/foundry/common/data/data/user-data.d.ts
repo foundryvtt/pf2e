@@ -1,6 +1,3 @@
-declare type UserRole = keyof typeof CONST.USER_ROLES_NAMES;
-declare type UserRoleName = keyof typeof CONST.USER_ROLES;
-
 declare module foundry {
     module data {
         /**
@@ -12,8 +9,8 @@ declare module foundry {
          */
         interface UserSource {
             _id: string;
-            avatar: ImagePath;
-            img: ImagePath;
+            avatar: ImageFilePath;
+            img: ImageFilePath;
             character: string | null;
             color: HexColorString;
             hotbar: Record<number, string>;

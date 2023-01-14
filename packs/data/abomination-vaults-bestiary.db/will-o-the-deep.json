@@ -116,7 +116,9 @@
                     {
                         "key": "TokenLight",
                         "predicate": [
-                            "glowing"
+                            {
+                                "not": "go-dark"
+                            }
                         ],
                         "value": {
                             "animation": {
@@ -127,13 +129,6 @@
                             "bright": 20,
                             "color": "#fff9a3"
                         }
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "glowing",
-                        "toggleable": true,
-                        "value": true
                     }
                 ],
                 "slug": null,
@@ -305,7 +300,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "go-dark",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

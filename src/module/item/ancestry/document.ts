@@ -45,15 +45,6 @@ class AncestryPF2e extends ABCItemPF2e {
         );
     }
 
-    /** Toggle between voluntary flaws being on or off */
-    async toggleVoluntaryFlaw(): Promise<void> {
-        if (this._source.system.voluntary) {
-            await this.update({ "system.-=voluntary": null });
-        } else {
-            await this.update({ "system.voluntary": { boost: null, flaws: [] } });
-        }
-    }
-
     override prepareBaseData(): void {
         super.prepareBaseData();
 
@@ -87,7 +78,7 @@ class AncestryPF2e extends ABCItemPF2e {
         this.logAutoChange("system.traits.size.value", this.size);
 
         const reach = SIZE_TO_REACH[this.size];
-        actor.system.attributes.reach = { general: reach, manipulate: reach };
+        actor.system.attributes.reach = { base: reach, manipulate: reach };
 
         actor.system.attributes.speed.value = this.speed;
 

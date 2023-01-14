@@ -48,6 +48,6 @@ interface AncestrySystemDataMaybeOld extends AncestrySystemData {
     "-=voluntaryFlaws"?: null;
     voluntary?: {
         flaws: AbilityString[];
-        boost: AbilityString | null;
+        boost?: AbilityString | null;
     };
 }
