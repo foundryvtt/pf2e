@@ -94,6 +94,7 @@ export class AuraRuleElement extends RuleElementPF2e {
         effect.affects ??= "all";
         effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;
         effect.save ??= null;
+        effect.includesSelf ??= true;
 
         return (
             typeof effect.uuid === "string" &&
@@ -103,7 +104,7 @@ export class AuraRuleElement extends RuleElementPF2e {
             Array.isArray(effect.events) &&
             effect.events.every((e) => typeof e === "string" && ["enter", "turn-start", "turn-end"].includes(e)) &&
             typeof effect.removeOnExit === "boolean" &&
-            (!("includesSelf" in effect) || typeof effect.includesSelf === "boolean")
+            typeof effect.includesSelf === "boolean"
         );
     }
 
