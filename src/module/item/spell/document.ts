@@ -375,10 +375,12 @@ class SpellPF2e extends ItemPF2e {
                 }
 
                 // Create the damage roll
+                const critRule =
+                    game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
                 const instances = combinedInstanceData.map(
-                    ({ formula, flavor }) => new DamageInstance(formula, {}, { flavor })
+                    ({ formula, flavor }) => new DamageInstance(formula, {}, { flavor, critRule })
                 );
-                const roll = DamageRoll.fromTerms([InstancePool.fromRolls(instances)]);
+                const roll = DamageRoll.fromTerms([InstancePool.fromRolls(instances)], { critRule });
                 return { roll, breakdownTags, domains, options, modifiers: [...modifiers, ...damageDice] };
             }
         } catch (err) {

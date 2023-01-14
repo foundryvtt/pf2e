@@ -1,12 +1,13 @@
-import { VariantRulesSettings } from "./variant-rules";
-import { WorldClockSettings } from "./world-clock";
-import { HomebrewElements } from "./homebrew";
+import { resetAndRerenderActors } from "@actor/helpers";
+import { ActorSheetPF2e } from "@actor/sheet/base";
+import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { StatusEffects } from "@module/canvas/status-effects";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
+import { HomebrewElements } from "./homebrew";
 import { MetagameSettings } from "./metagame";
-import { resetAndRerenderActors } from "@actor/helpers";
-import { ItemPF2e, ItemSheetPF2e } from "@item";
+import { VariantRulesSettings } from "./variant-rules";
+import { WorldClockSettings } from "./world-clock";
 
 export function registerSettings(): void {
     if (BUILD_MODE === "development") {
@@ -47,6 +48,11 @@ export function registerSettings(): void {
         choices: {
             doubledamage: "PF2E.SETTINGS.CritRule.Choices.Doubledamage",
             doubledice: "PF2E.SETTINGS.CritRule.Choices.Doubledice",
+        },
+        onChange: () => {
+            for (const sheet of Object.values(ui.windows).filter((w) => w instanceof ActorSheetPF2e)) {
+                sheet.render();
+            }
         },
     });
 
