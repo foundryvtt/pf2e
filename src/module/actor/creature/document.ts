@@ -745,6 +745,7 @@ abstract class CreaturePF2e extends ActorPF2e {
                         .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
                 ].join(", "),
             };
+            this.rollOptions.all["speed:land"] = true;
 
             return mergeObject(stat, otherData);
         } else {
@@ -773,6 +774,8 @@ abstract class CreaturePF2e extends ActorPF2e {
             const speed: LabeledSpeed = { type: movementType, label, value: fastest.value };
             if (fastest.source) speed.source = fastest.source;
 
+            this.rollOptions.all[`speed:${movementType}`] = true;
+
             const base = speed.value;
             const modifiers = extractModifiers(this.synthetics, domains);
             const stat = mergeObject(new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions), speed, {
@@ -786,6 +789,7 @@ abstract class CreaturePF2e extends ActorPF2e {
                         .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 )
                 .join(", ");
+
             return stat;
         }
     }
