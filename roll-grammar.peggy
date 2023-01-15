@@ -65,7 +65,7 @@ MathTerm = fn:Identifier "(" _ head:FunctionArg? _ tail:(_ "," _ @FunctionArg)* 
 
 FunctionArg = Term / DiceTerm / Grouping / Number / MathTerm;
 
-DiceTerm = number:(Grouping / MathTerm / Number) [dD] faces:(Grouping / MathTerm / Number / Identifier) flavor:Flavor? {
+DiceTerm = number:(Grouping / MathTerm / Number)? [dD] faces:(Grouping / MathTerm / Number / Identifier) flavor:Flavor? {
   const obj =
     number instanceof Object || faces instanceof Object
       ? {
@@ -78,7 +78,7 @@ DiceTerm = number:(Grouping / MathTerm / Number) [dD] faces:(Grouping / MathTerm
       : {
             class: "DiceTerm",
             formula: text(),
-            number,
+            number: number ?? 1,
             faces,
             evaluated: false,
         };
