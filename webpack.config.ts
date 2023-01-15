@@ -188,7 +188,7 @@ const config: Configuration = {
                 {
                     from: "static/",
                     transform(content: Buffer, absoluteFrom: string) {
-                        if (path.basename(absoluteFrom) === "en.json") {
+                        if (path.basename(absoluteFrom).endsWith("en.json")) {
                             return JSON.stringify(JSON.parse(content.toString()));
                         }
                         return content;
