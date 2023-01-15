@@ -45,8 +45,13 @@ function renderComponentDamage(term: RollTerm): HTMLElement {
 
     const span = document.createElement("span");
     span.className = term.flavor;
-    span.title = game.i18n.localize("PF2E.TraitSplash");
-    const icon = fontAwesomeIcon(term.flavor === "precision" ? "crosshairs" : "burst");
+    const [title, faClass] =
+        term.flavor === "precision"
+            ? [game.i18n.localize("PF2E.Damage.Precision"), "crosshairs"]
+            : [game.i18n.localize("PF2E.TraitSplash"), "burst"];
+
+    span.title = title;
+    const icon = fontAwesomeIcon(faClass);
     icon.classList.add("icon");
     span.append(term.expression, " ", icon);
 
