@@ -18,7 +18,16 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
             return;
         }
 
+        const ignoreEffectlessAuras = !game.settings.get("pf2e", "showEffectlessAuras");
+
         for (const [slug, aura] of this.token.document.auras.entries()) {
+            if (ignoreEffectlessAuras) {
+                const effects = this.token.actor.auras.get(slug)?.effects ?? [];
+                if (effects.length === 0) {
+                    continue;
+                }
+            }
+
             const renderer = new AuraRenderer({ ...aura, token: this.token });
             this.set(slug, this.token.addChild(renderer));
         }

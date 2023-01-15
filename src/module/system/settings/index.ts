@@ -61,6 +61,22 @@ export function registerSettings(): void {
         },
     });
 
+    game.settings.register("pf2e", "showEffectlessAuras", {
+        name: "PF2E.SETTINGS.Auras.ShowEffectless.Name",
+        hint: "PF2E.SETTINGS.Auras.ShowEffectless.Hint",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean,
+        onChange: () => {
+            if (canvas.ready) {
+                for (const token of canvas.tokens.placeables) {
+                    token.drawEffects();
+                }
+            }
+        },
+    });
+
     game.settings.register("pf2e", "enabledRulesUI", {
         name: "PF2E.SETTINGS.EnabledRulesUI.Name",
         hint: "PF2E.SETTINGS.EnabledRulesUI.Hint",
