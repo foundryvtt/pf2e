@@ -355,7 +355,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         game.system.documentTypes.Item = original.filter(
             (itemType: string) =>
                 !["condition", "spellcastingEntry", "lore"].includes(itemType) &&
-                !(itemType === "book" && BUILD_MODE === "production")
+                !(["affliction", "book"].includes(itemType) && BUILD_MODE === "production")
         );
         options = { ...options, classes: [...(options.classes ?? []), "dialog-item-create"] };
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;

@@ -25,6 +25,7 @@ import {
     TreasurePF2e,
     WeaponPF2e,
 } from "@item";
+import { AfflictionPF2e } from "@item/affliction/document";
 import { ConditionSlug } from "@item/condition/data";
 import { RANGE_TRAITS } from "@item/data/values";
 import { DeityDomain } from "@item/deity/types";
@@ -1285,6 +1286,15 @@ export const PF2ECONFIG = {
         P1W: "PF2E.Duration.P1W",
     },
 
+    timeUnits: {
+        rounds: "PF2E.Time.Unit.Rounds",
+        minutes: "PF2E.Time.Unit.Minutes",
+        hours: "PF2E.Time.Unit.Hours",
+        days: "PF2E.Time.Unit.Days",
+        unlimited: "PF2E.Time.Unit.Unlimited",
+        encounter: "PF2E.Time.Unit.UntilEncounterEnds",
+    },
+
     // Proficiency Multipliers
     proficiencyLevels: [
         "PF2E.ProficiencyLevel0", // untrained
@@ -1918,6 +1928,7 @@ export const PF2ECONFIG = {
     Item: {
         documentClasses: {
             action: ActionItemPF2e,
+            affliction: AfflictionPF2e,
             ancestry: AncestryPF2e,
             armor: ArmorPF2e,
             background: BackgroundPF2e,
@@ -1941,6 +1952,7 @@ export const PF2ECONFIG = {
         },
         traits: {
             action: actionTraits,
+            affliction: actionTraits,
             armor: armorTraits,
             ancestry: creatureTraits,
             backpack: equipmentTraits,

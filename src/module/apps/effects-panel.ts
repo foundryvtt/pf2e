@@ -1,5 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectPF2e } from "@item";
+import { AfflictionPF2e } from "@item/affliction";
 import { EffectExpiryType } from "@item/effect/data";
 import { FlattenedCondition } from "../system/conditions";
 
@@ -25,7 +26,7 @@ export class EffectsPanel extends Application {
     override async getData(options?: ApplicationOptions): Promise<EffectsPanelData> {
         const { actor } = this;
         if (!actor || !game.user.settings.showEffectPanel) {
-            return { conditions: [], effects: [], actor: null, user: { isGM: false } };
+            return { afflictions: [], conditions: [], effects: [], actor: null, user: { isGM: false } };
         }
 
         const effects =
@@ -60,6 +61,7 @@ export class EffectsPanel extends Application {
             actor,
             effects,
             conditions,
+            afflictions: actor.itemTypes.affliction,
             user: {
                 isGM: game.user.isGM,
             },
@@ -160,6 +162,7 @@ export class EffectsPanel extends Application {
 }
 
 interface EffectsPanelData {
+    afflictions: AfflictionPF2e[];
     conditions: FlattenedCondition[];
     effects: EffectPF2e[];
     actor: ActorPF2e | null;
