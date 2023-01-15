@@ -4,7 +4,7 @@ import { MigrationBase } from "../base";
 
 /** Update rule elements on Bomber, Chirurgeon, Mutagenist, Toxicologist, Research Field, Field Discovery, Greater Field Discovery, Perpetual Infusions, Perpetual Potency and Perpetual Perfection */
 export class Migration815AlchemistResearchFields extends MigrationBase {
-    static override version = 0.815;
+    static override version = 0.816;
 
     get #bomberSetFlags(): AELikeSource {
         return {

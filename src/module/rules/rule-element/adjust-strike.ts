@@ -117,7 +117,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             if (this.mode === "add" && !traits.includes(change)) {
                                 traits.push(change);
                             } else if (["subtract", "remove"].includes(this.mode) && traits.includes(change)) {
-                                traits.splice(traits.indexOf(change));
+                                traits.splice(traits.indexOf(change), 1);
                             }
                         },
                     };
@@ -167,7 +167,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             if (this.mode === "add" && !traits.includes(change)) {
                                 traits.push(change);
                             } else if (traits.includes(change)) {
-                                traits.splice(traits.indexOf(change));
+                                traits.splice(traits.indexOf(change), 1);
                             }
                         },
                     };

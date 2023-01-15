@@ -81,7 +81,10 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
      * Adjust the effect's name and set the targetId from the user's selection, or set the entire rule element to be
      * ignored if no selection was made.
      */
-    override async preCreate({ ruleSource }: RuleElementPF2e.PreCreateParams<ChoiceSetSource>): Promise<void> {
+    override async preCreate({
+        itemSource,
+        ruleSource,
+    }: RuleElementPF2e.PreCreateParams<ChoiceSetSource>): Promise<void> {
         const rollOptions = [this.actor.getRollOptions(), this.item.getRollOptions("item")].flat();
 
         const predicate = this.resolveInjectedProperties(this.predicate);
@@ -125,7 +128,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
             // Change the name of the parent item
             if (this.adjustName) {
-                const effectName = this.item._source.name;
+                const effectName = itemSource.name;
                 const label = game.i18n.localize(selection.label);
                 const name = `${effectName} (${label})`;
                 // Deduplicate if parenthetical is already present
@@ -133,7 +136,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                     const escaped = RegExp.escape(label);
                     return new RegExp(`\\(${escaped}\\) \\(${escaped}\\)$`);
                 })();
-                this.item._source.name = name.replace(pattern, `(${label})`);
+                itemSource.name = name.replace(pattern, `(${label})`);
             }
 
             // Set the item flag in case other preCreate REs need it

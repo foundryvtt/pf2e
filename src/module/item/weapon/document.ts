@@ -243,6 +243,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
             this.system.reload.value = "-";
         }
 
+        if (systemData.category === "unarmed" && !systemData.traits.value.includes("unarmed")) {
+            systemData.traits.value.push("unarmed");
+        }
+
         // Force a weapon to be ranged if it is among a set of certain groups or has a thrown trait
         const traitSet = this.traits;
         const mandatoryRanged = setHasElement(MANDATORY_RANGED_GROUPS, systemData.group) || traitSet.has("thrown");
