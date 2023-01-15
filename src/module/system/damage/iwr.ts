@@ -84,7 +84,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 
             const afterImmunities = Math.max(total + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0), 0);
 
-            if (instance.persistent) {
+            if (instance.persistent && !instance.options.evaluatePersistent) {
                 persistent.push(instance);
             }
 

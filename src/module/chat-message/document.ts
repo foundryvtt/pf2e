@@ -217,8 +217,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             const damageType = roll.instances.find((i) => i.persistent)?.type;
             const condition = damageType ? this.actor?.getCondition(`persistent-damage-${damageType}`) : null;
             if (condition) {
-                const buttonHTML = await renderTemplate("systems/pf2e/templates/chat/persistent-damage-recovery.hbs");
-                html.innerHTML += buttonHTML;
+                const section = document.createElement("section");
+                section.classList.add("persistent-damage-recovery");
+                section.innerHTML = await renderTemplate("systems/pf2e/templates/chat/persistent-damage-recovery.hbs");
+                html.append(section);
             }
 
             htmlQuery(html, "[data-action=recover-persistent-damage]")?.addEventListener("click", async () => {
