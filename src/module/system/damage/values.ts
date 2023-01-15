@@ -111,7 +111,7 @@ const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImageFilePath>> = {
     poison: "systems/pf2e/icons/spells/acidic-burst.webp",
     lawful: "systems/pf2e/icons/equipment/adventuring-gear/merchant-scale.webp",
     chaotic: "systems/pf2e/icons/spells/dinosaur-form.webp",
-    good: "systems/pf2e/icons/spells/angelic-wings.webp",
+    good: "systems/pf2e/icons/damage/persistent/good.webp",
     evil: "systems/pf2e/icons/spells/daemonic-pact.webp",
     positive: "systems/pf2e/icons/spells/moment-of-renewal.webp",
     negative: "systems/pf2e/icons/spells/grim-tendrils.webp",

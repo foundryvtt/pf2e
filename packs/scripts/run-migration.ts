@@ -31,7 +31,8 @@ import { Migration811InlineDamageRollsPersistent } from "@module/migration/migra
 import { Migration812RestructureIWR } from "@module/migration/migrations/812-restructure-iwr";
 import { Migration813NormalizeColdIron } from "@module/migration/migrations/813-normalize-cold-iron";
 import { Migration814CalculatedExpandedSplash } from "@module/migration/migrations/814-calculated-expanded-splash";
-import { Migration815SpinTaleAdventureSpecific } from "@module/migration/migrations/815-spin-tale-adventure-specific";
+import { Migration815ConsumableDataCleanup } from "@module/migration/migrations/815-consumable-data-cleanup";
+import { Migration816SpinTaleAdventureSpecific } from "@module/migration/migrations/816-spin-tale-adventure-specific";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -66,7 +67,8 @@ const migrations: MigrationBase[] = [
     new Migration812RestructureIWR(),
     new Migration813NormalizeColdIron(),
     new Migration814CalculatedExpandedSplash(),
-    new Migration815SpinTaleAdventureSpecific(),
+    new Migration815ConsumableDataCleanup(),
+    new Migration816SpinTaleAdventureSpecific(),
 ];
 
 global.deepClone = <T>(original: T): T => {

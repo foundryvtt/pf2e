@@ -113,7 +113,7 @@ const weaponPropertyRunes = {
 
 const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
     persistent: "PF2E.ConditionTypePersistentShort",
-    precision: "PF2E.TraitPrecision",
+    precision: "PF2E.Damage.Precision",
     splash: "PF2E.TraitSplash",
 };
 
