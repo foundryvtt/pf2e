@@ -19,6 +19,9 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Traits associated with this aura: used to configure collision detection */
     traits: Set<ItemTrait>;
 
+    /** The slug associated with this aura: used to generate a unique layer id */
+    slug: string;
+
     /** Border and fill colors in hexadecimal */
     private colors: TokenAuraColors;
 
@@ -33,6 +36,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         this.radius = params.radius;
         this.radiusPixels = 0.5 * this.token.w + (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
         this.traits = new Set(params.traits);
+        this.slug = params.slug;
 
         this.draw();
     }
@@ -51,11 +55,6 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** The center of an aura is the center of its originating token */
     get center(): Point {
         return this.token.center;
-    }
-
-    /** ID of `GridHighlight` container for this aura's token */
-    private get highlightId(): string {
-        return this.token.highlightId;
     }
 
     /** The squares covered by this aura */
@@ -99,21 +98,18 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     }
 
     /** Highlight the affected grid squares of this aura and indicate the radius */
-    highlight(): void {
-        const { dimensions, grid } = canvas;
+    highlight(layer: GridHighlight): void {
+        const { dimensions } = canvas;
         if (!dimensions) return;
 
         // For now, only highlight if there is an active combat
         const { shouldRender } = this;
-        if (!game.combats.active?.started && shouldRender) return this.#drawLabel();
-
-        const highlightLayer = grid.getHighlightLayer(this.highlightId)?.clear();
-        if (!(highlightLayer && shouldRender)) return;
+        if (!game.combats.active?.started && shouldRender) return this.#drawLabel(layer);
 
         for (const square of this.squares) {
-            square.highlight(highlightLayer, this.colors);
+            square.highlight(layer, this.colors);
         }
-        this.#drawLabel();
+        this.#drawLabel(layer);
     }
 
     /**
@@ -138,7 +134,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     }
 
     /** Add a numeric label and marker dot indicating the emanation radius */
-    #drawLabel(): void {
+    #drawLabel(layer: GridHighlight): void {
         const style = CONFIG.canvasTextStyle.clone();
         const gridSize = canvas.dimensions?.size ?? 100;
         style.fontSize = Math.max(Math.round(gridSize * 0.36 * 12) / 12, 36);
@@ -149,9 +145,8 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         const text = new PreciseText(label, style);
         text.position.set(this.center.x, this.center.y - this.radiusPixels);
 
-        canvas.grid
-            .getHighlightLayer(this.highlightId)
-            ?.lineStyle(AuraRenderer.LINE_THICKNESS, 0x000000)
+        layer
+            .lineStyle(AuraRenderer.LINE_THICKNESS, 0x000000)
             .beginFill(0x000000, 0.5)
             .drawCircle(text.position.x, text.position.y, 6)
             .addChild(text);

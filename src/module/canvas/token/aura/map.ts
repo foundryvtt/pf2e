@@ -6,8 +6,11 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         super();
     }
 
-    /** The ID of the highlight layer for this aura's token */
-    get highlightId(): string {
+    /** The set of IDs for the aura highlight layers of this token */
+    private auraHighlightIds = new Set<string>();
+
+    /** The base ID for this token's highlight layers */
+    get baseHighlightId(): string {
         return this.token.highlightId;
     }
 
@@ -33,12 +36,16 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         if (this.token.isPreview || this.token.isAnimating) return;
 
         if (this.token.hover) {
-            const { highlightId } = this;
-            const highlight = canvas.grid.highlightLayers[highlightId] ?? canvas.grid.addHighlightLayer(highlightId);
-            highlight.clear();
-
             for (const aura of this.values()) {
-                aura.highlight();
+                const highlightId = `${this.baseHighlightId}.${aura.slug}`;
+                const highlight =
+                    canvas.grid.highlightLayers[highlightId] ?? canvas.grid.addHighlightLayer(highlightId);
+                if (highlight) {
+                    highlight.clear();
+                    this.auraHighlightIds.add(highlightId);
+
+                    aura.highlight(highlight as GridHighlight);
+                }
             }
         }
     }
@@ -67,6 +74,10 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
     }
 
     clearHighlights(): void {
-        canvas.grid.destroyHighlightLayer(this.highlightId);
+        canvas.grid.destroyHighlightLayer(this.baseHighlightId);
+        for (const highlightId of this.auraHighlightIds) {
+            canvas.grid.destroyHighlightLayer(highlightId);
+        }
+        this.auraHighlightIds.clear();
     }
 }
