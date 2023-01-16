@@ -174,6 +174,19 @@ interface Price extends PartialPrice {
     per: number;
 }
 
+interface PartialSystem {
+    actionType: PartialActionType;
+    traits: PartialTraits;
+}
+
+interface PartialActionType {
+    value: string;
+}
+
+interface PartialTraits {
+    value: string[];
+}
+
 export {
     BasePhysicalItemData,
     BasePhysicalItemSource,
@@ -193,4 +206,5 @@ export {
     PhysicalSystemData,
     PhysicalSystemSource,
     Price,
+    PartialSystem,
 };
