@@ -1,5 +1,27 @@
 # Changelog
 
+## Version 4.6.7
+
+### Bugfixes
+* (stwlam) Fix click listeners of persistent damage application buttons
+* (stwlam) Fix visibility of persistent-damage recovery button
+* (stwlam) Have damage-formula parser accept dice expressions with no leading number
+
+### Data Updates
+* (Dire Weasel) Add Aura rule elements to additional NPCs
+* (Dire Weasel) Add hyphen to long-term rest action name
+* (Dire Weasel) Added Curse of Stone to Stone Sister's attacks
+* (Dire Weasel) Update augnagar to new bleed format
+* (stwlam) Add negative healing to Basic Undead Benefits and Revenant background
+* (stwlam) Fix rule element on Expanded Splash
+* (stwlam) Have Aquatic Combat effect grant Flat-Footed condition
+* (stwlam) Remove (Kingmaker) Amiri's extra Intimidating Glare feat
+* (TMun) Correct will save modifier of Tarrasque
+* (Tikael) Add missing source details to critical hit deck effect
+* (Tikael) Fix feat type of Fey Influence
+* (xdy) Add flat-footed Critical Deck effect
+
+
 ## Version 4.6.6
 
 ### System Improvements
