@@ -9,7 +9,7 @@ import { CheckRoll } from "@system/check";
 import { ChatRollDetails } from "./chat-roll-details";
 import { StrikeData } from "@actor/data/base";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { htmlQuery } from "@util";
+import { htmlQuery, parseHTML } from "@util";
 import { DamageButtons, DamageTaken } from "./listeners";
 import { DamageRoll } from "@system/damage/roll";
 import { Statistic } from "@system/statistic";
@@ -213,24 +213,24 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
         // Add persistent damage recovery button and listener (if evaluating persistent)
         const roll = this.rolls[0];
-        if (this.isOwner && roll instanceof DamageRoll && roll.options.evaluatePersistent) {
+        if (actor?.isOwner && roll instanceof DamageRoll && roll.options.evaluatePersistent) {
             const damageType = roll.instances.find((i) => i.persistent)?.type;
             const condition = damageType ? this.actor?.getCondition(`persistent-damage-${damageType}`) : null;
             if (condition) {
-                const section = document.createElement("section");
-                section.classList.add("persistent-damage-recovery");
-                section.innerHTML = await renderTemplate("systems/pf2e/templates/chat/persistent-damage-recovery.hbs");
-                html.append(section);
+                const template = "systems/pf2e/templates/chat/persistent-damage-recovery.hbs";
+                const section = parseHTML(await renderTemplate(template));
+                html.querySelector(".message-content")?.append(section);
+                html.dataset.actorIsTarget = "true";
             }
 
             htmlQuery(html, "[data-action=recover-persistent-damage]")?.addEventListener("click", async () => {
-                const actor = this.actor;
+                const { actor } = this;
                 if (!actor) return;
 
                 const damageType = roll.instances.find((i) => i.persistent)?.type;
                 if (!damageType) return;
 
-                const condition = this.actor?.getCondition(`persistent-damage-${damageType}`);
+                const condition = actor.getCondition(`persistent-damage-${damageType}`);
                 if (!condition?.system.persistent) {
                     const damageTypeLocalized = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
                     const message = game.i18n.format("PF2E.Item.Condition.PersistentDamage.Error.DoesNotExist", {
@@ -238,8 +238,6 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
                     });
                     return ui.notifications.warn(message);
                 }
-
-                console.log(this.target);
 
                 const dc = condition.system.persistent.dc;
                 const result = await new Statistic(actor, {
