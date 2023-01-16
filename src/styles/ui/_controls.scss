@@ -1,0 +1,46 @@
+/* ----------------------------------------- */
+/* Controls                                  */
+/* ----------------------------------------- */
+
+nav#controls {
+    padding-top: 12px;
+
+    ol.control-tools {
+        &.main-control {
+            margin-right: 8px;
+        }
+        li.control-tool,
+        li.scene-control {
+            @include glass;
+            @include quick-transition;
+            text-shadow: 0px 0px 3px black;
+            border-radius: 3px;
+            margin-bottom: 8px;
+
+            img {
+                filter: sepia() brightness(0.8) drop-shadow(0px 0px 3px black);
+            }
+
+            &.active, &:hover {
+                @include glass;
+                color: var(--color-text-light-highlight);
+                background-color: var(--primary);
+
+                img {
+                    filter: sepia() grayscale(0.95) brightness(1) drop-shadow(0px 0px 3px black)
+                }
+            }
+            
+            &.toggle {
+                @include glass;
+                background-color: var(--secondary-dark);
+
+                &.active, &:hover {
+                    @include glass;
+                    color: white;
+                    background-color: var(--secondary-light);
+                }
+            }
+        }
+    }
+}
