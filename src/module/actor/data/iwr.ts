@@ -91,6 +91,10 @@ abstract class IWRData<TType extends IWRType> {
             return [`item:trait:${iwrType}`];
         }
 
+        if (iwrType === "unarmed-attacks") {
+            return ["item:category:unarmed"];
+        }
+
         if (iwrType === "axe-vulnerability") {
             return ["item:group:axe"];
         }

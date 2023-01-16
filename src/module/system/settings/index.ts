@@ -6,6 +6,7 @@ import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { MetagameSettings } from "./metagame";
 import { resetAndRerenderActors } from "@actor/helpers";
+import { ItemPF2e, ItemSheetPF2e } from "@item";
 
 export function registerSettings(): void {
     if (BUILD_MODE === "development") {
@@ -67,6 +68,14 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
+        onChange: () => {
+            const itemSheets = Object.values(ui.windows).filter(
+                (w): w is ItemSheetPF2e<ItemPF2e> => w instanceof ItemSheetPF2e
+            );
+            for (const sheet of itemSheets) {
+                sheet.render();
+            }
+        },
     });
 
     game.settings.register("pf2e", "critFumbleButtons", {

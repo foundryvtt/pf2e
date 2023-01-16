@@ -153,6 +153,7 @@ class MeleePF2e extends ItemPF2e {
             melee: this.isMelee,
             ranged: this.isRanged,
             thrown: this.isThrown,
+            ["category:unarmed"]: this.traits.has("unarmed"),
             [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
         })
             .filter(([_key, isTrue]) => isTrue)
