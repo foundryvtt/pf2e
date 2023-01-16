@@ -1635,14 +1635,13 @@ class CharacterPF2e extends CreaturePF2e {
 
         const flavor = this.getStrikeDescription(weapon);
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
-        const strikeStat = new StatisticModifier(`${slug}-strike`, modifiers, rollOptions);
+        const strikeStat = new StatisticModifier(slug, modifiers, rollOptions);
         const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             label: weapon.name,
             imageUrl: weapon.img,
             quantity: weapon.quantity,
-            slug: weapon.slug,
             ready: weapon.isEquipped,
             visible: weapon.slug !== "basic-unarmed" || this.flags.pf2e.showBasicUnarmed,
             glyph: "A",
