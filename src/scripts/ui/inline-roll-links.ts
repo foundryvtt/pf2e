@@ -131,7 +131,7 @@ export const InlineRollLinks = {
                             slug: "flat-check",
                             modifiers: [],
                             check: { type: "flat-check" },
-                            domains: ["all", "flat-check"],
+                            domains: ["flat-check"],
                         });
                         if (flatCheck) {
                             const dc = Number.isInteger(Number(pf2Dc))
