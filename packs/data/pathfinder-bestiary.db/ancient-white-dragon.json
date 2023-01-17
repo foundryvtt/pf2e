@@ -839,7 +839,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:50]{50 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>After the dragon uses its Breath Weapon, a fierce blizzard of blinding snow surrounds its body for 1 round. Everything in the aura is diffcult terrain for other creatures that are on the ground, climbing, or flying. The blowing snow also makes all creatures in the area @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. While the blizzard rages, the dragon's dragon chill extends to the full area of the blizzard.</p>"
+                    "value": "<p>@Template[type:emanation|distance:50]{50 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>After the dragon uses its Breath Weapon, a fierce blizzard of blinding snow surrounds its body for 1 round. Everything in the aura is difficult terrain for other creatures that are on the ground, climbing, or flying. The blowing snow also makes all creatures in the area @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}. While the blizzard rages, the dragon's dragon chill extends to the full area of the blizzard.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -888,7 +888,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "dragon-chill",
+                        "traits": [
+                            "arcane",
+                            "aura",
+                            "cold",
+                            "evocation"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
