@@ -1,0 +1,68 @@
+/* ----------------------------------------- */
+/* Scene Navigation                          */
+/* ----------------------------------------- */
+
+nav#navigation {
+    color: var(--color-text-light-heading);
+    width: calc(100% - 46px); // Add some breathing room to ensure navigation isn't covering effect panel
+
+    #nav-toggle {
+        @include glass;
+        transition: 0.25s;
+        flex: 0 0 32px;
+        height: 32px;
+    }
+
+
+    ol#scene-list {
+        li.nav-item {
+            @include glass;
+            transition: 0.25s;
+            text-shadow: 0px 0px 3px black;
+
+            > a:hover {
+                text-shadow: unset;
+            }
+
+            .scene-players {
+                text-shadow: none;
+            }
+
+            &:hover {
+                color: var(--color-text-light-highlight);
+                background-color: var(--primary);
+            }
+
+            &.view {
+                @include glass;
+                background-color: var(--primary);
+                color: var(--color-text-light-highlight);
+
+                &:hover {
+                    color: white;
+                    background-color: var(--primary-light);
+                }
+            }
+
+            &.gm {
+                @include glass;
+                background-color: var(--secondary-dark);
+
+                &:hover,
+                &.view {
+                    color: var(--color-text-light-highlight);
+                    background-color: var(--secondary-light);
+                }
+            }
+
+            &.context {
+                box-shadow: var(--glassy);
+                border: none;
+            }
+
+            &.active {
+                box-shadow: var(--gold-and-glow), var(--glassy);
+            }
+        }
+    }
+}
