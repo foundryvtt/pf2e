@@ -112,19 +112,17 @@ class ClassPF2e extends ABCItemPF2e {
         attributes.perception.rank = Math.max(attributes.perception.rank, this.perception) as ZeroToFour;
         this.logAutoChange("system.attributes.perception.rank", this.perception);
 
-        // Set class DC if trained
-        if (this.classDC > 0) {
-            type PartialClassDCs = Record<string, Pick<ClassDCData, "label" | "ability" | "rank" | "primary">>;
-            const classDCs: PartialClassDCs = proficiencies.classDCs;
-            classDCs[slug] = {
-                label: this.name,
-                rank: this.classDC,
-                ability: this.system.keyAbility.selected ?? "str",
-                primary: true,
-            };
+        // Set class DC
+        type PartialClassDCs = Record<string, Pick<ClassDCData, "label" | "ability" | "rank" | "primary">>;
+        const classDCs: PartialClassDCs = proficiencies.classDCs;
+        classDCs[slug] = {
+            label: this.name,
+            rank: this.classDC,
+            ability: this.system.keyAbility.selected ?? "str",
+            primary: true,
+        };
 
-            this.logAutoChange(`system.proficiencies.classDCs.${slug}.rank`, this.classDC);
-        }
+        this.logAutoChange(`system.proficiencies.classDCs.${slug}.rank`, this.classDC);
 
         for (const category of ARMOR_CATEGORIES) {
             martial[category].rank = Math.max(martial[category].rank, this.defenses[category]) as ZeroToFour;
