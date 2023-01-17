@@ -246,7 +246,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
                         name: condition.name,
                     }),
                     check: { type: "flat-check" },
-                    domains: ["all", "flat-check"],
+                    domains: [],
                 }).roll({ dc: { value: dc }, skipDialog: true });
 
                 if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
