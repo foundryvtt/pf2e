@@ -50,7 +50,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
             const critImmunityApplies =
                 isCriticalSuccess && !!critImmunity?.test([...formalDescription, "damage:component:critical"]);
-            const total =
+            const critImmuneTotal =
                 critImmunityApplies && roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
                     ? instance.critImmuneTotal!
                     : instance.total;
@@ -58,23 +58,23 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const instanceApplications: IWRApplication[] = [];
 
             // If the total was undoubled, log it as an immunity application
-            if (critImmunity && total < instance.total) {
+            if (critImmunity && critImmuneTotal < instance.total) {
                 instanceApplications.push({
                     category: "immunity",
                     type: critImmunity.label,
-                    adjustment: -1 * (instance.total - total),
+                    adjustment: -1 * (instance.total - critImmuneTotal),
                 });
             }
 
             const precisionImmunity = immunities.find((i) => i.type === "precision");
-            const precisionDamage = Math.min(instance.componentTotal("precision"), total);
+            const precisionDamage = Math.min(instance.componentTotal("precision"), critImmuneTotal);
 
             if (precisionDamage > 0 && precisionImmunity?.test([...formalDescription, "damage:component:precision"])) {
                 // If the creature is immune to both critical hits and precision damage, precision immunity will only
                 // reduce damage by half the precision damage dealt (with critical-hit immunity effectively reducing
                 // the other half).
                 const adjustedPrecisionDamage = critImmunityApplies ? Math.floor(precisionDamage / 2) : precisionDamage;
-                const adjustment = -1 * Math.min(total, adjustedPrecisionDamage);
+                const adjustment = -1 * Math.min(critImmuneTotal, adjustedPrecisionDamage);
                 instanceApplications.push({
                     category: "immunity",
                     type: precisionImmunity.applicationLabel,
@@ -82,7 +82,10 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 });
             }
 
-            const afterImmunities = Math.max(total + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0), 0);
+            const afterImmunities = Math.max(
+                instance.total + instanceApplications.reduce((sum, a) => sum + a.adjustment, 0),
+                0
+            );
 
             if (instance.persistent && !instance.options.evaluatePersistent) {
                 persistent.push(instance);
