@@ -144,6 +144,7 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
         const tokenImgIsDefault = [
             ActorPF2e.DEFAULT_ICON,
             `systems/pf2e/icons/default-icons/${this.actor.type}.svg`,
+            `https://assets.forge-vtt.com/bazaar/systems/pf2e/assets/icons/default-icons/${this.actor.type}.svg`,
         ].includes(this.texture.src);
         if (tokenImgIsDefault) {
             this.texture.src = this.actor._source.img;
