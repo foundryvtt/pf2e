@@ -103,7 +103,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         );
 
         // Class DCs
-        const classDCs = Object.values(sheetData.data.proficiencies.classDCs)
+        const allClassDCs = Object.values(sheetData.data.proficiencies.classDCs);
+        const classDCs = allClassDCs
+            .filter((cdc) => cdc.rank > 0 || allClassDCs.length > 1)
             .map(
                 (classDC): ClassDCSheetData => ({
                     ...classDC,

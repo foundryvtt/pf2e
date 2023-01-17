@@ -1246,6 +1246,10 @@ class CharacterPF2e extends CreaturePF2e {
         classDC.ability ??= "str";
         classDC.rank ??= 0;
         classDC.primary ??= false;
+
+        const classNames: Record<string, string | undefined> = CONFIG.PF2E.classTraits;
+        classDC.label = classDC.label ?? classNames[slug] ?? slug.titleCase();
+
         return new Statistic(this, {
             slug,
             label: classDC.label,
