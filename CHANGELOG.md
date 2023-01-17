@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 4.6.8
+
+### Bugfixes
+* (stwlam) Fix issue causing button listeners to fail on some damage chat messages
+* (stwlam) Fix application of resistances/weaknesses following crit immunity
+* (stwlam) Fix adding base weapon types from homebrew elements
+* (Supe) Prevent flat checks acquiring bonuses and penalties
+
+### Data Updates
+* (Dire Weasel) Add Aura rule elements to additional NPCs
+* (TiloBuechsenschuss) Fix Tzitzimitl spellcasting DC for innate spells
+
+
 ## Version 4.6.7
 
 ### Bugfixes
