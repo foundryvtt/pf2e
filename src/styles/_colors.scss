@@ -1,5 +1,3 @@
-@use "sass:color";
-
 /* ----------------------------------------- */
 /* Color definitions                         */
 /* ----------------------------------------- */
@@ -18,7 +16,6 @@ $tertiary-color: #E9D7A1 !default; /* compliments the primary color, usually use
 
 $alt-color: #786452 !default; /* for all other uses */
 $alt-dark: #443730 !default;
-$gold-brown: #956d58 !default;
 $background-color: #F8F4F1 !default;
 $background-dark: darken($background-color, 10);
 $sub-color: #605856 !default;
@@ -88,18 +85,13 @@ $adjusted-lower: #cc3311 !default;
 :root {
   /* Global */
   --primary: #{$primary-color};
-  --primary-light: #{color.scale($primary-color, $lightness: +20%)};
-  --primary-dark: #{color.scale($primary-color, $lightness: -40%)};
   --secondary: #{$secondary-color};
-  --secondary-light: #{color.scale($secondary-color, $lightness: +20%)};
-  --secondary-dark: #{color.scale($secondary-color, $lightness: -40%)};
   --tertiary: #{$tertiary-color};
 
   --alt: #{$alt-color};
   --alt-dark: #{$alt-dark};
   --bg: #{$background-color};
   --bg-dark: #{$background-dark};
-  --gold-brown: #{$gold-brown};
   --sub: #{$sub-color};
   --color-disabled: #{$light-gray-color};
 
@@ -133,19 +125,4 @@ $adjusted-lower: #cc3311 !default;
   /* Sidebar */
   --sidebar-label: var(--tertiary-dark);
   --sidebar-title: var(--tertiary);
-
-  /* App UI */
-  --glass-bg: rgba(20, 20, 20, 0.60);
-  --glass-bg-light: rgba(255, 255, 255, 0.1);
-  --glass-bg-dark: rgba(0, 0, 0, 0.70);
-  --glassy:
-    0px 0px 3px 0px rgba(255, 255, 255, 0.4) inset,
-    0px 0px 2px 1px rgba(0, 0, 0, 1),
-    0px 0px 5px 0px rgba(0, 0, 0, 0.5);
-  --gold-and-glow:
-    0px 0px 0px 1px var(--tertiary),
-    0px 0px 0px 2px var(--gold-brown),
-    0px 0px 3px 0px rgba(255, 255, 255, .5) inset;
-
-  --sheet-light: url("../assets/sheet/background.webp");
 }
