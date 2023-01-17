@@ -15,7 +15,7 @@ import { SaveType } from "@actor/types";
 import { SKILL_DICTIONARY } from "@actor/values";
 import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isCycle } from "@item/container/helpers";
-import { ArmorSource } from "@item/data";
+import { ArmorSource, ItemType } from "@item/data";
 import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isEquipped } from "@item/physical/usage";
 import { ActiveEffectPF2e } from "@module/active-effect";
@@ -108,6 +108,10 @@ abstract class CreaturePF2e extends ActorPF2e {
 
     get rarity(): Rarity {
         return this.system.traits.rarity;
+    }
+
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "affliction"];
     }
 
     /**
