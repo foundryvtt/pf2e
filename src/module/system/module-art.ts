@@ -32,6 +32,13 @@ class ModuleArt {
                 }
             }
         }
+
+        const apps = Object.values(ui.windows).filter(
+            (w): w is Compendium<CompendiumDocument> => w instanceof Compendium
+        );
+        for (const compendium of apps) {
+            compendium.render();
+        }
     }
 
     async #getArtMap(art: unknown): Promise<ModuleArtRecord | null> {
