@@ -387,12 +387,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Template[type:emanation|distance:5].</p>\n<p>Cuetzmonquali's flesh burns as hot as flame. Creatures that end their turn in the emanation take [[/r 4d6[fire]]] damage (@Check[type:fortitude|dc:35|basic:true] save).</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Cuetzmonquali's flesh burns as hot as flame. Creatures that end their turn in the emanation take [[/r 4d6[fire]]] damage (@Check[type:fortitude|dc:35|basic:true] save).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "searing-skin",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "evocation",
+                            "fire"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
