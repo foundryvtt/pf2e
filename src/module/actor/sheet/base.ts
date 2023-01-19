@@ -30,7 +30,7 @@ import { AddCoinsPopup } from "./popups/add-coins-popup";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
-import { ScrollWandPopup } from "./popups/scroll-wand-popup";
+import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -762,13 +762,12 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // we still need to put it in the correct spellcastingEntry
         if (item.isOfType("spell") && itemSource.type === "spell") {
             if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
-                const popup = new ScrollWandPopup(
+                const popup = new CastingItemCreateDialog(
                     actor,
                     {},
                     async (heightenedLevel, itemType, spell) => {
-                        if (!(itemType === "scroll" || itemType === "wand")) return;
-                        const item = await createConsumableFromSpell(itemType, spell, heightenedLevel);
-                        await this._onDropItemCreate(item);
+                        const createdItem = await createConsumableFromSpell(itemType, spell, heightenedLevel);
+                        await this._onDropItemCreate(createdItem);
                     },
                     item
                 );
