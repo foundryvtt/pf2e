@@ -21,7 +21,7 @@ import {
     TagSelectorType,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, htmlQuery, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, objectHasKey, tupleHasValue } from "@util";
 import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
 import { ItemSummaryRenderer } from "./item-summary-renderer";
@@ -585,19 +585,17 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             return;
         }
 
-        const $target = $(event.currentTarget);
-        const $itemRef = $target.closest(".item");
+        const targetElement = event.currentTarget;
+        const previewElement = htmlClosest(targetElement, ".item");
 
         // Show a different drag/drop preview element and copy some data if this is a handle
         // This will make the preview nicer and also trick foundry into thinking the actual item started drag/drop
-        const targetElement = $target.get(0);
-        const previewElement = $itemRef.get(0);
         if (previewElement && targetElement && targetElement !== previewElement) {
             const { x, y } = previewElement.getBoundingClientRect();
             event.dataTransfer.setDragImage(previewElement, event.pageX - x, event.pageY - y);
         }
 
-        const itemId = $itemRef.attr("data-item-id");
+        const itemId = previewElement?.dataset.itemId;
         const item = this.actor.items.get(itemId ?? "");
 
         const baseDragData: { [key: string]: unknown } = {
@@ -606,26 +604,27 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             tokenId: this.actor.token?.id ?? null,
             ...item?.toDragData(),
         };
+        if (previewElement?.dataset.isFormula) {
+            baseDragData.isFormula = true;
+        }
 
         // Dragging ...
         const supplementalData = (() => {
-            const actionIndex = $itemRef.attr("data-action-index");
+            const actionIndex = previewElement?.dataset.actionIndex;
             const rollOptionData = {
-                ...($itemRef.find("input[type=checkbox][data-action=toggle-roll-option]").get(0)?.dataset ?? {}),
+                ...(htmlQuery(previewElement, "input[type=checkbox][data-action=toggle-roll-option]")?.dataset ?? {}),
             };
-            const itemType = $itemRef.attr("data-item-type");
 
-            // ... an action?
+            // ... an action (or melee item possibly to be treated as an action)?
             if (actionIndex) {
-                return {
-                    type: "Action",
-                    index: Number(actionIndex),
-                };
+                return "itemType" in baseDragData && baseDragData.itemType === "melee"
+                    ? { index: Number(actionIndex) }
+                    : { type: "Action", index: Number(actionIndex) };
             }
 
             // ... a roll-option toggle?
-            if (item && Object.keys(rollOptionData).length > 0) {
-                const label = $itemRef.text().trim();
+            const label = previewElement?.innerText.trim();
+            if (item && label && Object.keys(rollOptionData).length > 0) {
                 delete rollOptionData.action;
                 return {
                     type: "RollOption",
@@ -636,7 +635,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
 
             // ... a crafting formula?
-            if (itemType === "formula") {
+            if (baseDragData.isFormula) {
                 return {
                     pf2e: {
                         type: "CraftingFormula",
@@ -831,7 +830,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 actor.isOfType("creature");
             if (resizeItem) itemSource.system.size = actor.size;
         }
-        return this._onDropItemCreate(itemSource);
+
+        // Creating a new item: clear the _id via cloning it
+        return this._onDropItemCreate(new ItemPF2e(itemSource).clone().toObject());
     }
 
     protected override async _onDropFolder(
