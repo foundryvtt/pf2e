@@ -95,11 +95,10 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Retribution Axe",
                         "predicate": [
                             "retribution-axe"
                         ],
-                        "selector": "retribution-axe-damage",
+                        "selector": "{item|_id}-damage",
                         "type": "circumstance",
                         "value": 2
                     }
@@ -457,7 +456,24 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage-roll",
+                        "key": "RollOption",
+                        "label": "Target was last creature to damage you",
+                        "option": "retribution-axe",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "retribution-axe"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
