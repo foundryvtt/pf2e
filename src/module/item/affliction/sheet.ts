@@ -1,13 +1,14 @@
 import { ActionTrait } from "@item/action/data";
 import { ItemPF2e } from "@item/base";
-import { ConditionPF2e, ConditionSlug } from "@item/condition";
+import { ConditionPF2e } from "@item/condition";
 import { EffectPF2e } from "@item/effect";
 import { ItemSheetPF2e } from "@item/sheet";
 import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 import { ConditionManager } from "@system/conditions";
-import { htmlClosest, htmlQuery, htmlQueryAll, omit } from "@util";
+import { DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
+import { htmlClosest, htmlQuery, htmlQueryAll, pick, omit } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
-import { AfflictionConditionData, AfflictionOnset, AfflictionStageData } from "./data";
+import { AfflictionConditionData, AfflictionDamage, AfflictionOnset, AfflictionStageData } from "./data";
 import { AfflictionPF2e } from "./document";
 
 class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
@@ -28,7 +29,9 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
             hasDetails: true,
             hasSidebar: true,
             itemType: game.i18n.localize(definingTrait ? CONFIG.PF2E.actionTraits[definingTrait] : "PF2E.LevelLabel"),
-            conditionTypes: CONFIG.PF2E.conditionTypes,
+            conditionTypes: omit(CONFIG.PF2E.conditionTypes, ["persistent-damage"]),
+            damageTypes: CONFIG.PF2E.damageTypes,
+            damageCategories: pick(CONFIG.PF2E.damageCategories, DAMAGE_CATEGORIES_UNIQUE),
             durationUnits: omit(CONFIG.PF2E.timeUnits, ["encounter"]),
             onsetUnits: omit(CONFIG.PF2E.timeUnits, ["encounter", "unlimited"]),
             saves: CONFIG.PF2E.saves,
@@ -40,11 +43,11 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
         const stages: Record<string, AfflictionStageSheetData> = {};
 
         for (const [idx, [id, stage]] of Object.entries(Object.entries(this.item.system.stages))) {
-            const conditions = Object.entries(stage.conditions).reduce((result, [slug, data]) => {
-                const document = ConditionManager.getCondition(slug);
-                result[slug as ConditionSlug] = { ...data, document };
+            const conditions = Object.entries(stage.conditions).reduce((result, [key, data]) => {
+                const document = ConditionManager.getCondition(data.slug);
+                result[key] = { ...data, document };
                 return result;
-            }, {} as Record<ConditionSlug, AfflictionConditionSheetData>);
+            }, {} as Record<string, AfflictionConditionSheetData>);
 
             const effectDocuments = await fromUUIDs(stage.effects.map((e) => e.uuid));
 
@@ -98,19 +101,47 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
             });
         }
 
-        for (const deleteIcon of htmlQueryAll(html, "[data-action=remove-condition")) {
+        htmlQuery(html, "[data-action=damage-create]")?.addEventListener("click", (event) => {
+            const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
+            if (!this.item.system.stages[stageId ?? ""]) return;
+
+            const damage: AfflictionDamage = { value: "", type: "untyped" };
+            this.item.update({ [`system.stages.${stageId}.damage.${randomID()}`]: damage });
+        });
+
+        for (const deleteIcon of htmlQueryAll(html, "[data-action=damage-delete")) {
             deleteIcon.addEventListener("click", (event) => {
                 const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
-                const stage = this.item.system.stages[stageId ?? ""];
-                if (!stage) return;
+                if (!this.item.system.stages[stageId ?? ""]) return;
 
-                const deleteId = htmlClosest(event.target, "[data-uuid]")?.dataset.uuid;
-                const effects = stage.effects.filter((e) => e.uuid !== deleteId);
-                this.item.update({ [`system.stages.${stageId}.effects`]: effects });
+                const deleteId = htmlClosest(event.target, "[data-id]")?.dataset.conditionId;
+                this.item.update({ [`system.stages.${stageId}.damage.-=${deleteId}`]: null });
             });
         }
 
-        for (const deleteIcon of htmlQueryAll(html, "[data-action=remove-effect")) {
+        htmlQuery(html, "[data-action=condition-create")?.addEventListener("click", (event) => {
+            const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
+            if (!this.item.system.stages[stageId ?? ""]) return;
+
+            const newCondition: AfflictionConditionData = {
+                slug: "frightened",
+                value: 1,
+            };
+
+            this.item.update({ [`system.stages.${stageId}.conditions.${randomID()}`]: newCondition });
+        });
+
+        for (const deleteIcon of htmlQueryAll(html, "[data-action=condition-delete")) {
+            deleteIcon.addEventListener("click", (event) => {
+                const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
+                if (!this.item.system.stages[stageId ?? ""]) return;
+
+                const deleteId = htmlClosest(event.target, "[data-condition-id]")?.dataset.conditionId;
+                this.item.update({ [`system.stages.${stageId}.conditions.-=${deleteId}`]: null });
+            });
+        }
+
+        for (const deleteIcon of htmlQueryAll(html, "[data-action=effect-delete")) {
             deleteIcon.addEventListener("click", (event) => {
                 const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
                 const stage = this.item.system.stages[stageId ?? ""];
@@ -162,7 +193,9 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
 }
 
 interface AfflictionSheetData extends ItemSheetDataPF2e<AfflictionPF2e> {
-    conditionTypes: ConfigPF2e["PF2E"]["conditionTypes"];
+    conditionTypes: Omit<ConfigPF2e["PF2E"]["conditionTypes"], "persistent-damage">;
+    damageTypes: ConfigPF2e["PF2E"]["damageTypes"];
+    damageCategories: Pick<ConfigPF2e["PF2E"]["damageCategories"], DamageCategoryUnique>;
     durationUnits: Omit<ConfigPF2e["PF2E"]["timeUnits"], "encounter">;
     onsetUnits: Omit<ConfigPF2e["PF2E"]["timeUnits"], "unlimited" | "encounter">;
     saves: ConfigPF2e["PF2E"]["saves"];
