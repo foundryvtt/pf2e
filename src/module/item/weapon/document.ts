@@ -187,7 +187,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`damage:category:${damage.category}`]: !!damage.category,
                 [`damage:die:number:${damage.dice.number}`]: !!damage.dice.faces,
                 [`damage:die:faces:${damage.dice.faces}`]: !!damage.dice.faces,
-                [`damage-dice:${damage.dice.faces}`]: !!damage.dice.faces,
+                [`damage-dice:${damage.dice.number}`]: !!damage.dice.faces,
                 [`damage:persistent:${persistent?.type}`]: !!persistent,
                 "deity-favored": isDeityFavored,
                 oversized,
