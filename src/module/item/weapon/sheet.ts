@@ -25,6 +25,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         } = await super.getData(options);
 
         const ABPVariant = game.settings.get("pf2e", "automaticBonusVariant");
+        const abpEnabled = ABP.isEnabled(this.actor);
+
         // Limit shown property-rune slots by potency rune level and a material composition of orichalcum
         const potencyRuneValue = ABPVariant === "ABPFundamentalPotency" ? 4 : sheetData.data.potencyRune.value ?? 0;
         const propertyRuneSlots = [
@@ -50,7 +52,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         // Weapons have derived damage dice, level, price, and traits: base data is shown for editing
         const baseData = this.item.toObject();
         sheetData.data.traits.rarity = baseData.system.traits.rarity;
-        const hintText = ABP.isEnabled
+        const hintText = abpEnabled
             ? LocalizePF2e.translations.PF2E.Item.Weapon.FromABP
             : LocalizePF2e.translations.PF2E.Item.Weapon.FromMaterialAndRunes;
 
@@ -132,7 +134,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             damage: { type: "piercing", die: "d4" },
             traits: [],
         };
-        const abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
         return {
             ...sheetData,
