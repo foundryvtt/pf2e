@@ -93,16 +93,6 @@ class HazardPF2e extends ActorPF2e {
 
         this.saves = this.prepareSaves();
         this.system.actions = this.itemTypes.melee.map((m) => strikeFromMeleeItem(m));
-
-        // Call post-data-preparation RuleElement hooks
-        for (const rule of this.rules) {
-            try {
-                rule.afterPrepareData?.();
-            } catch (error) {
-                // ensure that a failing rule element does not block actor initialization
-                console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
-            }
-        }
     }
 
     protected prepareSaves(): { [K in SaveType]?: Statistic } {
