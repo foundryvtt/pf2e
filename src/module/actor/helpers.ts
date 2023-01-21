@@ -25,7 +25,7 @@ import { AttackItem } from "./types";
 import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
-async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<void> {
+const resetAndRerenderActors = foundry.utils.debounce(async (actors?: Iterable<ActorPF2e>): Promise<void> => {
     actors ??= [
         game.actors.contents,
         game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
@@ -55,7 +55,15 @@ async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<voi
             }
         }
     }
-}
+}, 50);
+
+type ApplicationConstructor = ConstructorOf<Application> | AbstractConstructorOf<Application>;
+const rerenderApplications = foundry.utils.debounce((...classes: ApplicationConstructor[]): void => {
+    const apps = Object.values(ui.windows).filter((w) => classes.some((C) => w instanceof C));
+    for (const app of apps) {
+        app.render();
+    }
+}, 50);
 
 async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<ActorSourcePF2e> {
     if (Object.keys(source).length === 2 && "name" in source && "type" in source) {
@@ -439,6 +447,7 @@ export {
     getRangeIncrement,
     isReallyPC,
     migrateActorSource,
+    rerenderApplications,
     resetAndRerenderActors,
     strikeFromMeleeItem,
 };

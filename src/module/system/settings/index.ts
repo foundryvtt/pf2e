@@ -1,6 +1,6 @@
-import { resetAndRerenderActors } from "@actor/helpers";
+import { rerenderApplications, resetAndRerenderActors } from "@actor/helpers";
 import { ActorSheetPF2e } from "@actor/sheet/base";
-import { ItemPF2e, ItemSheetPF2e } from "@item";
+import { ItemSheetPF2e } from "@item/sheet/base";
 import { StatusEffects } from "@module/canvas/status-effects";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
@@ -75,12 +75,7 @@ export function registerSettings(): void {
         default: false,
         type: Boolean,
         onChange: () => {
-            const itemSheets = Object.values(ui.windows).filter(
-                (w): w is ItemSheetPF2e<ItemPF2e> => w instanceof ItemSheetPF2e
-            );
-            for (const sheet of itemSheets) {
-                sheet.render();
-            }
+            rerenderApplications(ItemSheetPF2e);
         },
     });
 

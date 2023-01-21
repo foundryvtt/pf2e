@@ -1,12 +1,10 @@
-import { ItemSheetPF2e } from "@item/sheet/base";
+import { rerenderApplications } from "@actor/helpers";
+import { ActorSheetPF2e } from "@actor/sheet";
+import { ItemSheetPF2e } from "@item/sheet";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunner } from "@module/migration/runner";
 import { LocalizePF2e } from "@module/system/localize";
-import { htmlClosest, htmlQuery, htmlQueryAll, isObject, objectHasKey, pick, sluggify, tupleHasValue } from "@util";
-import Tagify from "@yaireo/tagify";
-import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu";
-import { isHomebrewCustomDamage, isHomebrewFlagCategory, prepareCleanup } from "./helpers";
-import "@yaireo/tagify/src/tagify.scss";
+import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
 import {
     BASE_DAMAGE_TYPES_TO_CATEGORIES,
     DamageType,
@@ -15,6 +13,9 @@ import {
     ENERGY_DAMAGE_TYPES,
     PHYSICAL_DAMAGE_TYPES,
 } from "@system/damage";
+import { htmlClosest, htmlQuery, htmlQueryAll, isObject, objectHasKey, pick, sluggify, tupleHasValue } from "@util";
+import Tagify from "@yaireo/tagify";
+import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu";
 import {
     CustomDamageData,
     HomebrewElementsSheetData,
@@ -25,7 +26,9 @@ import {
     HOMEBREW_TRAIT_KEYS,
     SECONDARY_TRAIT_RECORDS,
 } from "./data";
-import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
+import { isHomebrewCustomDamage, isHomebrewFlagCategory, prepareCleanup } from "./helpers";
+
+import "@yaireo/tagify/src/tagify.scss";
 
 class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
@@ -248,12 +251,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         if (this.initialRefresh) {
             this.initialRefresh = false;
         } else {
-            const sheets = Object.values(ui.windows).filter(
-                (app): app is DocumentSheet => app instanceof ActorSheet || app instanceof ItemSheetPF2e
-            );
-            for (const sheet of sheets) {
-                sheet.render(false);
-            }
+            rerenderApplications(ActorSheetPF2e, ItemSheetPF2e);
         }
     }
 

@@ -1,3 +1,4 @@
+import { rerenderApplications } from "@actor/helpers";
 import { isObject } from "@util";
 
 /** A mapping of module-provided art to be used for compendium actors and their prototype tokens */
@@ -33,12 +34,7 @@ class ModuleArt {
             }
         }
 
-        const apps = Object.values(ui.windows).filter(
-            (w): w is Compendium<CompendiumDocument> => w instanceof Compendium
-        );
-        for (const compendium of apps) {
-            compendium.render();
-        }
+        rerenderApplications(Compendium);
     }
 
     async #getArtMap(art: unknown): Promise<ModuleArtRecord | null> {
