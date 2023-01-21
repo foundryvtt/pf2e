@@ -284,7 +284,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const systemData = this.system;
         const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
 
-        const strikingDice: Map<StrikingRuneType | null, OneToThree> = new Map([
+        const strikingRuneDice: Map<StrikingRuneType | null, OneToThree> = new Map([
             ["striking", 1],
             ["greaterStriking", 2],
             ["majorStriking", 3],
@@ -292,7 +292,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         this.system.runes = {
             potency: potencyRune.value ?? 0,
-            striking: strikingDice.get(strikingRune.value) ?? 0,
+            striking: strikingRuneDice.get(strikingRune.value) ?? 0,
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
                 (rune): rune is WeaponPropertyRuneType => !!rune
             ),
@@ -305,9 +305,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
         // Striking Rune: "A striking rune [...], increasing the weapon damage dice it deals to two instead of one"
         // Devastating Attacks: "At 4th level, your weapon and unarmed Strikes deal two damage dice instead of one."
         const inherentDiceNumber = this.system.damage.die ? this._source.system.damage.dice : 0;
+        const strikingDice = ABP.isEnabled(this.actor) ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking;
         this.system.damage.dice =
             inherentDiceNumber === 1 && !this.flags.pf2e.battleForm
-                ? inherentDiceNumber + (ABP.isEnabled ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking)
+                ? inherentDiceNumber + strikingDice
                 : this.system.damage.dice;
     }
 

@@ -1,6 +1,6 @@
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 import { ItemSummaryData } from "@item/data";
-import { getResiliencyBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical";
+import { getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
@@ -123,7 +123,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
         this.system.runes = {
             potency: potencyRune.value ?? 0,
-            resilient: getResiliencyBonus({ resiliencyRune }),
+            resilient: getResilientBonus({ resiliencyRune }),
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
                 (rune): rune is string => !!rune
             ),
