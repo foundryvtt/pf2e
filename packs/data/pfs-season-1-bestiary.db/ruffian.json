@@ -551,7 +551,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AttackOfOpportunity]</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -578,7 +578,7 @@
         {
             "_id": "mx38RpF2iCeWWNqW",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Brutal Beating The ruffian's brutality shakes foes' confidence.",
+            "name": "Brutal Beating",
             "sort": 900000,
             "system": {
                 "actionCategory": {
@@ -591,12 +591,21 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When the ruffian deals damage on a critical hit, the target is frightened 1, and the ruffian can knock the target up to 10 feet away (this is forced movement).</p>"
+                    "value": "<p>The ruffian's brutality shakes foes' confidence.</p>\n<p>When the ruffian deals damage on a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}, and the ruffian can knock the target up to 10 feet away (this is forced movement).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> The ruffian's brutality shakes foes' confidence.</p>\n<p class='compact-text'>When the ruffian deals damage on a critical hit, the target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}, and the ruffian can knock the target up to 10 feet away (this is forced movement).</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -631,7 +640,7 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The ruffian has one hand free, and their target is within reach of that hand</p>\n<hr />\n<p><strong>Effect</strong> The ruffian makes a melee Strike while keeping one hand free.</p>\n<p>If this Strike hits, the target is flat-footed until the start of the ruffian's next turn or until it leaves the ruffian's reach, whichever comes first.</p>\n<p>Sneak Attack The ruffian deals an extra [[/r {1d6}[precision]]]{1d6 precision damage} to flat-footed creatures.</p>"
+                    "value": "<p><strong>Trigger</strong> The ruffian has one hand free, and their target is within reach of that hand.</p>\n<hr />\n<p><strong>Effect</strong> The ruffian makes a melee Strike while keeping one hand free. If this Strike hits, the target is @UUID[Compendium.pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of the ruffian's next turn or until it leaves the ruffian's reach, whichever comes first.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -656,10 +665,87 @@
             "type": "action"
         },
         {
+            "_id": "FvetFejyN15f6MQv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1100000,
+            "system": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The ruffian deals an extra 1d6 precision damage to flat-footed creatures.</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SneakAttack]</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:flat-footed",
+                            {
+                                "or": [
+                                    "item:trait:agile",
+                                    "item:trait:finesse",
+                                    {
+                                        "and": [
+                                            "item:ranged",
+                                            {
+                                                "not": "item:thrown-melee"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.FlatFooted",
+                        "option": "target:condition:flat-footed",
+                        "toggleable": "totm"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "source": {
+                    "value": "Pathfinder Bestiary"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "liqWHWpEHmVurf4C",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -687,7 +773,7 @@
             "_id": "sw2V8C4HYf29zTdM",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -715,7 +801,7 @@
             "_id": "DJKQ4KZobrFDPu5M",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -799,6 +885,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
+                "author": "",
                 "value": "Pathfinder Society: Season 1"
             }
         },
@@ -827,7 +914,9 @@
                 ]
             },
             "rarity": "common",
-            "senses": [],
+            "senses": {
+                "value": ""
+            },
             "size": {
                 "value": "med"
             },
