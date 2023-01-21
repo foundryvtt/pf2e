@@ -567,6 +567,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         super.prepareData();
 
+        // Call post-derived-preparation `RuleElement` hooks
+        for (const rule of this.rules) {
+            rule.afterPrepareData?.();
+        }
+
         this.preparePrototypeToken();
         if (this.initialized && canvas.ready) {
             const thisTokenIsControlled = canvas.tokens.controlled.some((t) => t.actor === this);

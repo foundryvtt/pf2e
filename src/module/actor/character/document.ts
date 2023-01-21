@@ -253,7 +253,7 @@ class CharacterPF2e extends CreaturePF2e {
         super.prepareData();
 
         if (game.ready && this.familiar && game.actors.has(this.familiar.id)) {
-            this.familiar.prepareData({ fromMaster: true });
+            this.familiar.reset({ fromMaster: true });
         }
     }
 
@@ -822,16 +822,6 @@ class CharacterPF2e extends CreaturePF2e {
         // Set a roll option for whether this character has a familiar
         if (systemData.attributes.familiarAbilities.value > 0) {
             this.rollOptions.all["self:has-familiar"] = true;
-        }
-
-        // Call post-data-preparation RuleElement hooks
-        for (const rule of this.rules) {
-            try {
-                rule.afterPrepareData?.();
-            } catch (error) {
-                // ensure that a failing rule element does not block actor initialization
-                console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
-            }
         }
     }
 
