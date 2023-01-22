@@ -2773,137 +2773,6 @@
             "type": "feat"
         },
         {
-            "_id": "KvD8UGQa4xMfz6FX",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.IxxPEahbqXwIXum7"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "fieldDiscoveryBomber": {
-                            "id": "3erTXnKrPuTIiner",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
-            "name": "Field Discovery",
-            "sort": 1500,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You learn a special discovery depending on your field.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": "QB3Flsf6OyQP3zOp",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "flag": "fieldDiscoveryBomber",
-                        "key": "GrantItem",
-                        "predicate": [
-                            "feature:bomber"
-                        ],
-                        "uuid": "Compendium.pf2e.classfeatures.8QAFgy9U8PxEa7Dw"
-                    },
-                    {
-                        "flag": "fieldDiscoveryChirurgeon",
-                        "key": "GrantItem",
-                        "predicate": [
-                            "feature:chirurgeon"
-                        ],
-                        "uuid": "Compendium.pf2e.classfeatures.qC0Iz6SlG2i9gv6g"
-                    },
-                    {
-                        "flag": "fieldDiscoveryMutagenist",
-                        "key": "GrantItem",
-                        "predicate": [
-                            "feature:mutagenist"
-                        ],
-                        "uuid": "Compendium.pf2e.classfeatures.V4Jt7eDnJBLv5bDj"
-                    },
-                    {
-                        "flag": "fieldDiscoveryToxicologist",
-                        "key": "GrantItem",
-                        "predicate": [
-                            "feature:toxicologist"
-                        ],
-                        "uuid": "Compendium.pf2e.classfeatures.6zo2PJGYoig7nFpR"
-                    }
-                ],
-                "slug": "field-discovery",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "alchemist"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "96c93MrQM5KHG8t9",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.7JK2a1D3VeWDcObo"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/powerful-alchemy.webp",
-            "name": "Powerful Alchemy",
-            "sort": 2000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Alchemical items you create on the fly are particularly potent. When you use @UUID[Compendium.pf2e.classfeatures.Quick Alchemy]{Quick Alchemy} to create an infused alchemical item that allows a saving throw, you can change its DC to your class DC.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": "QB3Flsf6OyQP3zOp",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [],
-                "slug": "powerful-alchemy",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "alchemist"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "4BrzG2LDIjxAiS7F",
             "flags": {
                 "core": {
@@ -2950,6 +2819,18 @@
                         "selector": "strike-damage",
                         "text": "You can deal splash damage to only your primary target instead of the usual splash area.",
                         "title": "{item|name}"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.alchemist",
+                        "value": {
+                            "fieldDiscovery": "Compendium.pf2e.classfeatures.8QAFgy9U8PxEa7Dw",
+                            "greaterFieldDiscovery": "Compendium.pf2e.classfeatures.RGs4uR3CAvgbtBAA",
+                            "perpetualInfusions": "Compendium.pf2e.classfeatures.DFQDtT1Van4fFEHi",
+                            "perpetualPerfection": "Compendium.pf2e.classfeatures.xO90iBD8XNGyaCkz",
+                            "perpetualPotency": "Compendium.pf2e.classfeatures.8rEVg03QJ71ic3PP"
+                        }
                     }
                 ],
                 "slug": "bomber",
@@ -3304,65 +3185,6 @@
                     }
                 ],
                 "slug": "quick-alchemy",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "alchemist"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "3erTXnKrPuTIiner",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.8QAFgy9U8PxEa7Dw"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "KvD8UGQa4xMfz6FX",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/field-discovery-bomber.webp",
-            "name": "Field Discovery (Bomber)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>You learn a special discovery depending on your field.</p>\n<p>When using @UUID[Compendium.pf2e.classfeatures.Advanced Alchemy]{Advanced Alchemy} to make bombs during your daily preparations, you can use a batch of @UUID[Compendium.pf2e.classfeatures.Infused Reagents]{reagents} to create any three bombs instead of just two of the same bomb.</p>"
-                },
-                "featType": {
-                    "value": "classfeature"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "system.crafting.entries.alchemist.fieldDiscovery",
-                        "phase": "beforeDerived",
-                        "value": "bomb"
-                    }
-                ],
-                "slug": "field-discovery-bomber",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
@@ -4096,6 +3918,169 @@
                 }
             },
             "type": "consumable"
+        },
+        {
+            "_id": "MKFz9FqiY3MCUO6P",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.IxxPEahbqXwIXum7"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "fieldDiscoveryBomber": {
+                            "id": "mqofGziWFDygktGx",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/choice-feature.webp",
+            "name": "Field Discovery",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You learn a special discovery depending on your field.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "QB3Flsf6OyQP3zOp",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "flag": "fieldDiscoveryBomber",
+                        "key": "GrantItem",
+                        "uuid": "{actor|flags.pf2e.alchemist.fieldDiscovery}"
+                    }
+                ],
+                "slug": "field-discovery",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "3FVEqdCa7Tn7AaYL",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.7JK2a1D3VeWDcObo"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/powerful-alchemy.webp",
+            "name": "Powerful Alchemy",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>Alchemical items you create on the fly are particularly potent. When you use @UUID[Compendium.pf2e.classfeatures.Quick Alchemy]{Quick Alchemy} to create an infused alchemical item that allows a saving throw, you can change its DC to your class DC.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "QB3Flsf6OyQP3zOp",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [],
+                "slug": "powerful-alchemy",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "mqofGziWFDygktGx",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.8QAFgy9U8PxEa7Dw"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "MKFz9FqiY3MCUO6P",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/field-discovery-bomber.webp",
+            "name": "Field Discovery (Bomber)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You learn a special discovery depending on your field.</p>\n<p>When using @UUID[Compendium.pf2e.classfeatures.Advanced Alchemy]{Advanced Alchemy} to make bombs during your daily preparations, you can use a batch of @UUID[Compendium.pf2e.classfeatures.Infused Reagents]{reagents} to create any three bombs instead of just two of the same bomb.</p>"
+                },
+                "featType": {
+                    "value": "classfeature"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.crafting.entries.alchemist.fieldDiscovery",
+                        "phase": "beforeDerived",
+                        "value": "bomb"
+                    }
+                ],
+                "slug": "field-discovery-bomber",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemist"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Fumbus (Level 5)",
