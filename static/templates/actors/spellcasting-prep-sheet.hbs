@@ -20,7 +20,7 @@
     <section class="sheet-content">
         <ol class="directory-list item-list spell-list">
             {{#unless entry.spellPrepList}}
-                {{#if @root.owner}}
+                {{#if @root.options.editable}}
                     <li class="spellbook-header spellbook-empty">
                         <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
                         <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-location="{{entry.id}}">
@@ -47,7 +47,7 @@
 
                         <div class="spell-range">{{localize "PF2E.SpellRangeLabel"}}</div>
                         <div class="spell-components">{{localize "PF2E.SpellComponentsLabel"}}</div>
-                        {{#if @root.owner}}
+                        {{#if @root.options.editable}}
                             <div class="item-controls">
                                 <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"
                                     data-level="{{level}}" data-location="{{entry.id}}"><i class="fas fa-plus fa-fw"></i></a>

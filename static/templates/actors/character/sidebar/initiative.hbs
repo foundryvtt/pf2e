@@ -1,7 +1,7 @@
 <div class="sidebar_title">
     <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
     <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-initiative-modifiers">
-        <i class="fas fa-eye"></i> {{localize 'PF2E.ModifiersTitle'}}
+        <i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
     </button>
 </div>
 <div class="roll-data initiative-sidebar" data-attribute="initiative">
@@ -12,7 +12,7 @@
     <h4 class="initiative-select">
         <select name="system.attributes.initiative.ability">
             {{#select data.attributes.initiative.ability}}
-                <option value="perception">{{localize 'PF2E.PerceptionLabel'}}</option>
+                <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
                 {{#each skills as |label skill|}}
                     <option value="{{skill}}">{{localize label}}</option>
                 {{/each}}
@@ -21,5 +21,5 @@
     </h4>
 </div>
 {{#with data.attributes.initiative}}
-    {{> systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs title=label }}
+    {{> "systems/pf2e/templates/actors/character/partials/modifiers-tooltip.hbs" title=label }}
 {{/with}}
