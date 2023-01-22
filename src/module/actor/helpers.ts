@@ -12,7 +12,7 @@ import {
 } from "@module/rules/helpers";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e, CheckRoll } from "@system/check";
-import { DamagePF2e, DamageType, WeaponDamagePF2e } from "@system/damage";
+import { DamagePF2e, DamageRollContext, DamageType, WeaponDamagePF2e } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
 import { RollParameters } from "@system/rolls";
 import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
@@ -23,6 +23,7 @@ import { NPCStrike } from "./npc/data";
 import { StrikeAttackTraits } from "./npc/strike-attack-traits";
 import { AttackItem } from "./types";
 import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<void> {
@@ -337,22 +338,28 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                 return null;
             }
 
-            const damage = WeaponDamagePF2e.calculateStrikeNPC(
-                context.self.item,
-                context.self.actor,
-                [attackTrait],
-                1,
-                options
-            );
+            const { self, target } = context;
+            const damageContext: DamageRollContext = {
+                type: "damage-roll",
+                sourceType: "attack",
+                self,
+                target,
+                outcome,
+                options,
+                domains,
+                ...eventToRollParams(params.event),
+            };
+
+            const damage = await WeaponDamagePF2e.calculateStrikeNPC({
+                attack: context.self.item,
+                actor: context.self.actor,
+                actionTraits: [attackTrait],
+                proficiencyRank: 1,
+                context: damageContext,
+            });
             if (!damage) throw ErrorPF2e("This weapon deals no damage");
 
-            const { self, target } = context;
-
-            return DamagePF2e.roll(
-                damage,
-                { type: "damage-roll", sourceType: "attack", self, target, outcome, options, domains },
-                params.callback
-            );
+            return DamagePF2e.roll(damage, damageContext, params.callback);
         };
 
     strike.damage = damageRoll("success");

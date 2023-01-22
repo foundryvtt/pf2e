@@ -104,6 +104,7 @@ import { CharacterFeats } from "./feats";
 import { createForceOpenPenalty, createShoddyPenalty, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 import { CHARACTER_SHEET_TABS } from "./values";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -1815,32 +1816,37 @@ class CharacterPF2e extends CreaturePF2e {
                     return "";
                 }
 
-                const damage = WeaponDamagePF2e.calculate({
+                const outcome = method === "damage" ? "success" : "criticalSuccess";
+                const { self, target, options } = context;
+                const damageContext: DamageRollContext = {
+                    type: "damage-roll",
+                    sourceType: "attack",
+                    self,
+                    target,
+                    outcome,
+                    options,
+                    domains,
+                    ...eventToRollParams(params.event),
+                };
+
+                if (params.getFormula) {
+                    damageContext.skipDialog = true;
+                }
+
+                const damage = await WeaponDamagePF2e.calculate({
                     weapon: context.self.item,
                     actor: context.self.actor,
                     actionTraits: context.traits,
                     proficiencyRank,
-                    options: context.options,
                     weaponPotency,
+                    context: damageContext,
                 });
                 if (!damage) return null;
 
-                const outcome = method === "damage" ? "success" : "criticalSuccess";
                 if (params.getFormula) {
                     const formula = damage.damage.formula[outcome];
                     return formula ? new DamageRoll(formula).formula : "";
                 } else {
-                    const { self, target, options } = context;
-                    const damageContext: DamageRollContext = {
-                        type: "damage-roll",
-                        sourceType: "attack",
-                        self,
-                        target,
-                        outcome,
-                        options,
-                        domains: damage.domains,
-                    };
-
                     return DamagePF2e.roll(damage, damageContext, params.callback);
                 }
             };

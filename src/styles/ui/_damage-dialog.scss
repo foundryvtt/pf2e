@@ -1,0 +1,386 @@
+.damage-dialog {
+    background: none;
+    box-shadow: none;
+
+    .window-header {
+        @include inset-gold-border;
+        background: linear-gradient(
+            90deg,
+            var(--secondary) 0%,
+            lighten($secondary-color, 10) 50%,
+            var(--secondary) 100%
+        );
+        border-radius: 0;
+        margin-bottom: 2px;
+        font-size: var(--font-size-13);
+    }
+
+    .window-content {
+        @include corner-boxes;
+        padding-top: 0;
+
+        button {
+            @include button;
+            background-color: var(--alt);
+            border-radius: 2px;
+            color: white;
+            cursor: pointer;
+            font-family: var(--sans-serif);
+
+            &:hover {
+                text-shadow: 0 0 2px var(--tertiary);
+            }
+        }
+
+        .dialog-row {
+            align-items: center;
+            display: grid;
+            grid: "mod type value exclude" 1fr
+                  / 1.5fr 1fr 60px 55px;
+            padding: 8px 0;
+
+            &.header {
+                font-size: var(--font-size-13);
+                font-weight: 700;
+                padding-bottom: 0;
+
+                & + hr {
+                    margin-bottom: 0;
+                }
+            }
+
+            .type {
+                grid-area: type;
+                text-transform: capitalize;
+            }
+
+            .dice-type {
+                margin-right: 10px;
+            }
+
+            .dice-type, .modifier-type {
+                display: flex;
+
+                .value {
+                    margin-right: 8px;
+                }
+
+                .icon-container {
+                    display: table;
+                    width: 35px;
+
+                    i {
+                        display: table-cell;
+                        vertical-align: middle;
+                        text-align: start;
+
+                        font-size: 1rem;
+                    }
+                }
+            }
+
+            .mod {
+                grid-area: mod;
+            }
+
+            .no-mod {
+                filter: opacity(0.7);
+            }
+
+            .value {
+                grid-area: value;
+                justify-self: center;
+            }
+
+            .exclude {
+                grid-area: exclude;
+                justify-self: right;
+
+                &.toggle {
+                    background: var(--secondary);
+                    border-radius: 50px;
+                    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5),
+                                0px 1px 0px rgba(255, 255, 255, 0.2);
+                    cursor: pointer;
+                    height: 19px;
+                    margin: 4px auto;
+                    position: relative;
+                    width: 46px;
+
+                    &::before {
+                        color: white;
+                        content: "ON";
+                        left: 6px;
+                        position: absolute;
+                        z-index: 0;
+                    }
+
+                    &::after {
+                        color: black;
+                        content: "OFF";
+                        position: absolute;
+                        right: 4px;
+                        text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.15);
+                        z-index: 0;
+                    }
+
+                    &::after, &::before {
+                        @include micro;
+                        top: 4px;
+                    }
+
+                    label {
+                        background: #fcfff4;
+                        background: linear-gradient(
+                            to bottom,
+                            #fcfff4 0%,
+                            #dfe5d7 40%,
+                            #b3bead 100%
+                        );
+                        border-radius: 50px;
+                        box-shadow: 0 0 0 1px rgba(black, 0.2),
+                                    0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+                        cursor: pointer;
+                        display: block;
+                        height: 16px;
+                        position: absolute;
+                        right: 1px;
+                        top: 1px;
+                        transition: all 0.4s ease;
+                        width: 19px;
+                        z-index: 1;
+                    }
+
+                    input[type=checkbox] {
+                        visibility: hidden;
+                        &:not(:checked) + label {
+                            right: 23px;
+                        }
+                    }
+                }
+            }
+
+            .acid {
+                color: $damage-acid;
+            }
+
+            .bleed {
+                color: $damage-bleed;
+            }
+
+            .bludgeoning {
+                color: $damage-bludgeoning;
+            }
+
+            .chaotic {
+                color: $damage-chaotic;
+            }
+
+            .cold {
+                color: $damage-cold;
+            }
+
+            .electricity {
+                color: $damage-electricity;
+            }
+
+            .evil {
+                color: $damage-evil;
+            }
+
+            .fire {
+                color: $damage-fire;
+            }
+
+            .force {
+                color: $damage-force;
+            }
+
+            .good {
+                color: $damage-good;
+            }
+
+            .lawful {
+                color: $damage-lawful;
+            }
+
+            .mental {
+                color: $damage-mental;
+            }
+
+            .negative {
+                color: $damage-negative;
+            }
+
+            .piercing {
+                color: $damage-piercing;
+            }
+
+            .poision {
+                color: $damage-poison;
+            }
+
+            .positive {
+                color: $damage-positive;
+            }
+
+            .slashing {
+                color: $damage-slashing;
+            }
+
+            .sonic {
+                color: $damage-sonic;
+            }
+        }
+
+        .modifier-container {
+            display: flex;
+            flex-direction: column;
+
+            .dialog-row {
+                border-bottom: 1px solid rgba(black, 0.1);
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .tag {
+                    background-color: var(--sub);
+                    border-radius: 2px;
+                    box-shadow: inset 0 0 0 1px rgba(black, 0.25);
+                    color: white;
+                    font-family: var(--sans-serif);
+                    font-size: var(--font-size-10);
+                    letter-spacing: 0.5px;
+                    padding: 4px 8px;
+                    text-transform: uppercase;
+                    width: fit-content;
+                }
+
+                &.disabled {
+                    text-decoration: line-through;
+
+                    span, div {
+                        filter: opacity(0.5);
+
+                        i {
+                            color: black;
+                        }
+                    }
+
+                    .toggle {
+                        background: rgba(black, 0.4);
+                        input[type=checkbox] + label {
+                            right: 26px;
+                        }
+                    }
+
+                    &.hidden {
+                        display: none;
+                    }
+                }
+            }
+
+            & + hr {
+                margin-top: 0;
+            }
+        }
+
+        .total-mod {
+            font-weight: 700;
+            padding: 0;
+        }
+
+        .add-modifier-panel {
+            display: grid;
+            grid-template-columns: 100px 4.5fr 4.5fr 3.5fr 32px 50px;
+            column-gap: 4px;
+            justify-items: center;
+
+            select,
+            input {
+                height: auto;
+            }
+
+            .add-modifier-type {
+                cursor: pointer;
+                width: 100%;
+            }
+            .add-modifier-category {
+                cursor: pointer;
+                width: 100%;
+            }
+            .add-modifier-damage-type {
+                cursor: pointer;
+                width: 100%;
+            }
+            .add-modifier {
+                line-height: 1;
+                margin: 0;
+                padding: 4px 0;
+                text-transform: uppercase;
+                font-weight: 700;
+                font-size: 0.75rem;
+            }
+        }
+
+        .add-dice-panel {
+            display: grid;
+            grid-template-columns: 100px 32px 1.5fr 3.5fr 3fr 50px;
+            column-gap: 4px;
+            justify-items: center;
+
+            select,
+            input {
+                height: auto;
+            }
+            select:disabled {
+                cursor: default;
+            }
+
+            .add-dice-faces {
+                cursor: pointer;
+            }
+            .add-dice-type {
+                cursor: pointer;
+                width: 100%;
+            }
+            .add-dice-category {
+                cursor: pointer;
+                width: 100%;
+            }
+            .add-dice {
+                line-height: 1;
+                margin: 0;
+                padding: 4px 0;
+                text-transform: uppercase;
+                font-weight: 700;
+                font-size: 0.75rem;
+            }
+        }
+
+        .roll-mode-panel {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: stretch;
+
+            .label {
+                flex: 1 40%;
+            }
+
+            select {
+                flex: 2 60%;
+                height: auto;
+                width: 100%;
+                margin-right: 4px;
+                border-radius: 2px;
+                cursor: pointer;
+            }
+        }
+
+        .roll {
+            color: white;
+            background-color: var(--secondary);
+        }
+    }
+}
