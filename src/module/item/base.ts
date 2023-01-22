@@ -32,7 +32,7 @@ interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e extends Item<ActorPF2e> {
     /** Has this item gone through at least one cycle of data preparation? */
-    private initialized?: true;
+    protected initialized?: true;
 
     /** Prepared rule elements from this item */
     rules!: RuleElementPF2e[];
