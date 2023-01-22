@@ -24,6 +24,7 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
 import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-proficiencies";
+import { AutomaticBonusProgression } from "./automatic-bonus-progression";
 import { CharacterConfig } from "./config";
 import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting";
 import { CharacterProficiency, CharacterSkillData, CharacterStrike, MartialProficiencies } from "./data";
@@ -103,7 +104,9 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         );
 
         // Class DCs
-        const classDCs = Object.values(sheetData.data.proficiencies.classDCs)
+        const allClassDCs = Object.values(sheetData.data.proficiencies.classDCs);
+        const classDCs = allClassDCs
+            .filter((cdc) => cdc.rank > 0 || allClassDCs.length > 1)
             .map(
                 (classDC): ClassDCSheetData => ({
                     ...classDC,
@@ -176,7 +179,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 return result;
             }, {});
 
-        sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
+        sheetData.abpEnabled = AutomaticBonusProgression.isEnabled(this.actor);
 
         // Sort attack/defense proficiencies
         const combatProficiencies: MartialProficiencies = sheetData.data.martial;

@@ -15,7 +15,7 @@ import { SaveType } from "@actor/types";
 import { SKILL_DICTIONARY } from "@actor/values";
 import { ArmorPF2e, ConditionPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
 import { isCycle } from "@item/container/helpers";
-import { ArmorSource } from "@item/data";
+import { ArmorSource, ItemType } from "@item/data";
 import { EquippedData, ItemCarryType } from "@item/physical/data";
 import { isEquipped } from "@item/physical/usage";
 import { ActiveEffectPF2e } from "@module/active-effect";
@@ -108,6 +108,10 @@ abstract class CreaturePF2e extends ActorPF2e {
 
     get rarity(): Rarity {
         return this.system.traits.rarity;
+    }
+
+    override get allowedItemTypes(): (ItemType | "physical")[] {
+        return [...super.allowedItemTypes, "affliction"];
     }
 
     /**
@@ -745,6 +749,7 @@ abstract class CreaturePF2e extends ActorPF2e {
                         .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
                 ].join(", "),
             };
+            this.rollOptions.all["speed:land"] = true;
 
             return mergeObject(stat, otherData);
         } else {
@@ -773,6 +778,8 @@ abstract class CreaturePF2e extends ActorPF2e {
             const speed: LabeledSpeed = { type: movementType, label, value: fastest.value };
             if (fastest.source) speed.source = fastest.source;
 
+            this.rollOptions.all[`speed:${movementType}`] = true;
+
             const base = speed.value;
             const modifiers = extractModifiers(this.synthetics, domains);
             const stat = mergeObject(new StatisticModifier(`${movementType}-speed`, modifiers, rollOptions), speed, {
@@ -786,6 +793,7 @@ abstract class CreaturePF2e extends ActorPF2e {
                         .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                 )
                 .join(", ");
+
             return stat;
         }
     }

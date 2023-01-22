@@ -311,5 +311,5 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      * Serialize salient information about this Document when dragging it.
      * @return An object of drag data.
      */
-    toDragData(): object;
+    toDragData(): { type: string; [key: string]: unknown };
 }

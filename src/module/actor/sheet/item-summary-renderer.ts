@@ -29,8 +29,10 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
         const itemId = $element.attr("data-item-id");
         const itemType = $element.attr("data-item-type");
+        const isFormula = !!$element.attr("data-is-formula");
+
         if (itemType === "spellSlot") return;
-        const item = itemType === "formula" ? await fromUuid(itemId ?? "") : actor.items.get(itemId ?? "");
+        const item = isFormula ? await fromUuid(itemId ?? "") : actor.items.get(itemId ?? "");
 
         // If there is no item id (such as PC strikes) or it is a condition, this is just a visibility toggle
         // We need a better way to detect pre-rendered item-summaries

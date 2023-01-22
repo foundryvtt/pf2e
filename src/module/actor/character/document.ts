@@ -46,7 +46,7 @@ import { ActionTrait } from "@item/action/data";
 import { ARMOR_CATEGORIES } from "@item/armor/values";
 import { ItemType, PhysicalItemSource } from "@item/data";
 import { ItemCarryType } from "@item/physical/data";
-import { getPropertyRunes, getPropertySlots, getResiliencyBonus } from "@item/physical/runes";
+import { getPropertyRunes, getPropertySlots, getResilientBonus } from "@item/physical/runes";
 import { MagicTradition } from "@item/spell/types";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data";
@@ -461,9 +461,7 @@ class CharacterPF2e extends CreaturePF2e {
         const systemData = this.system;
         const { synthetics } = this;
 
-        if (!this.flags.pf2e.disableABP) {
-            game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this.level, synthetics);
-        }
+        game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this);
 
         // Extract as separate variables for easier use in this method.
         const { statisticsModifiers, rollNotes } = synthetics;
@@ -940,7 +938,7 @@ class CharacterPF2e extends CreaturePF2e {
 
             // Add resilient bonuses for wearing armor with a resilient rune.
             if (wornArmor?.system.resiliencyRune.value) {
-                const resilientBonus = getResiliencyBonus(wornArmor.system);
+                const resilientBonus = getResilientBonus(wornArmor.system);
                 if (resilientBonus > 0 && wornArmor.isInvested) {
                     modifiers.push(new ModifierPF2e(wornArmor.name, resilientBonus, MODIFIER_TYPE.ITEM));
                 }
@@ -1246,6 +1244,10 @@ class CharacterPF2e extends CreaturePF2e {
         classDC.ability ??= "str";
         classDC.rank ??= 0;
         classDC.primary ??= false;
+
+        const classNames: Record<string, string | undefined> = CONFIG.PF2E.classTraits;
+        classDC.label = classDC.label ?? classNames[slug] ?? slug.titleCase();
+
         return new Statistic(this, {
             slug,
             label: classDC.label,
@@ -1525,7 +1527,7 @@ class CharacterPF2e extends CreaturePF2e {
         const attackRollNotes = extractNotes(synthetics.rollNotes, selectors);
         const ABP = game.pf2e.variantRules.AutomaticBonusProgression;
 
-        if (weapon.group === "bomb" && !ABP.isEnabled) {
+        if (weapon.group === "bomb" && !ABP.isEnabled(this)) {
             const attackBonus = Number(weapon.system.bonus?.value) || 0;
             if (attackBonus !== 0) {
                 modifiers.push(new ModifierPF2e("PF2E.ItemBonusLabel", attackBonus, MODIFIER_TYPE.ITEM));
@@ -1635,14 +1637,13 @@ class CharacterPF2e extends CreaturePF2e {
 
         const flavor = this.getStrikeDescription(weapon);
         const rollOptions = [...this.getRollOptions(selectors), ...weaponRollOptions, ...weaponTraits, meleeOrRanged];
-        const strikeStat = new StatisticModifier(`${slug}-strike`, modifiers, rollOptions);
+        const strikeStat = new StatisticModifier(slug, modifiers, rollOptions);
         const altUsages = weapon.getAltUsages().map((w) => this.prepareStrike(w, { categories }));
 
         const action: CharacterStrike = mergeObject(strikeStat, {
             label: weapon.name,
             imageUrl: weapon.img,
             quantity: weapon.quantity,
-            slug: weapon.slug,
             ready: weapon.isEquipped,
             visible: weapon.slug !== "basic-unarmed" || this.flags.pf2e.showBasicUnarmed,
             glyph: "A",

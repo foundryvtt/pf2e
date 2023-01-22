@@ -4,12 +4,13 @@ import { EffectPF2e } from ".";
 import { ItemSheetPF2e } from "../sheet/base";
 
 export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
-    override async getData(options?: Partial<DocumentSheetOptions>): Promise<ItemSheetDataPF2e<EffectPF2e>> {
+    override async getData(options?: Partial<DocumentSheetOptions>): Promise<EffectSheetData> {
         return {
             ...(await super.getData(options)),
             hasSidebar: true,
             hasDetails: false,
             itemType: game.i18n.localize("PF2E.LevelLabel"),
+            timeUnits: CONFIG.PF2E.timeUnits,
         };
     }
 
@@ -25,4 +26,8 @@ export class EffectSheetPF2e extends ItemSheetPF2e<EffectPF2e> {
             this.item.update({ "system.-=badge": null });
         });
     }
+}
+
+interface EffectSheetData extends ItemSheetDataPF2e<EffectPF2e> {
+    timeUnits: ConfigPF2e["PF2E"]["timeUnits"];
 }

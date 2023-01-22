@@ -560,7 +560,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You fire a torrent of jagged bone shards from your hands, dealing 2d10 piercing damage and [[/r 1[persistent,bleed]]] damage to all creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The piercing damage increases by 1d10 and the persistent bleed damage increases by 1 ([[/r (@spell.level-1)[persistent,bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]).</p>"
+                    "value": "<p>You fire a torrent of jagged bone shards from your hands, dealing 2d10 piercing damage and [[/r 1[bleed]]] damage to all creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The piercing damage increases by 1d10 and the persistent bleed damage increases by 1 ([[/r (@spell.level-1)[bleed]]] @UUID[Compendium.pf2e.conditionitems.Persistent Damage]).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1186,7 +1186,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and [[/r 1[persistent,bleed]]] damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr /><strong>Heightened (+1)</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1."
+                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and [[/r 1[bleed]]] damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr /><strong>Heightened (+1)</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1."
                 },
                 "duration": {
                     "value": ""
@@ -2330,12 +2330,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 30 feet.</p>\n<hr />\n<p>Around Turkek, wounds heal slowly and blood flows faster. The flat check to stop persistent bleed damage is DC 16, rather than DC 15. In addition, each time a creature in the emanation takes persistent bleed damage, it takes 1d6 additional bleed damage.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Around Turkek, wounds heal slowly and blood flows faster. The flat check to stop persistent bleed damage is DC 16, rather than DC 15. In addition, each time a creature in the emanation takes persistent bleed damage, it takes [[/r 1d6[bleed]]]{1d6 additional bleed} damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 30,
+                        "slug": "sanguine-aura",
+                        "traits": [
+                            "arcane",
+                            "aura",
+                            "necromancy"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

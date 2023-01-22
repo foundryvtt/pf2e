@@ -3266,12 +3266,32 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} [[/r 1d12[electricity]]] damage</p>\n<p>The bronze dragon can turn this aura on or off using a single action, which has the concentrate trait, and it can choose to not affect allies with the aura.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>[[/r 1d12[electricity]]] damage</p>\n<p>The bronze dragon can turn this aura on or off using a single action, which has the concentrate trait, and it can choose to not affect allies with the aura.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "electricity-aura-active"
+                        ],
+                        "radius": 10,
+                        "slug": "electricity-aura",
+                        "traits": [
+                            "aura",
+                            "electricity"
+                        ]
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "electricity-aura-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

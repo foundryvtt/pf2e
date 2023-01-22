@@ -1,4 +1,5 @@
 import { EffectBadge } from "@item/abstract-effect";
+import { TimeUnit } from "@item/abstract-effect/data";
 import {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
@@ -32,7 +33,7 @@ interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
     };
     duration: {
         value: number;
-        unit: "rounds" | "minutes" | "hours" | "days" | "encounter" | "unlimited";
+        unit: TimeUnit | "unlimited" | "encounter";
         sustained: boolean;
         expiry: EffectExpiryType | null;
     };

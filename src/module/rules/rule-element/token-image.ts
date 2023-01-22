@@ -21,7 +21,7 @@ export class TokenImageRuleElement extends RuleElementPF2e {
             this.value = null;
         }
 
-        if (typeof data.scale === "number" && Number.isInteger(data.scale)) {
+        if (typeof data.scale === "number" && data.scale > 0) {
             this.scale = data.scale;
         }
     }

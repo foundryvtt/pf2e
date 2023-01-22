@@ -120,7 +120,7 @@ class HomebrewElements extends SettingsMenuPF2e {
             ...data,
             traitSettings,
             damageCategories,
-            customDamageTypes: this.cache.damageTypes.map((customType) => ({
+            customDamageTypes: (this.cache.damageTypes ?? []).map((customType) => ({
                 ...customType,
                 slug: `hb_${sluggify(customType.label)}`,
             })),
@@ -200,7 +200,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         return game.user.isGM && deletions.length > 0 ? prepareCleanup(listKey, deletions) : null;
     }
 
-    onSetup() {
+    onSetup(): void {
         this.#refreshSettings();
         this.#registerModuleTags();
     }
@@ -216,7 +216,7 @@ class HomebrewElements extends SettingsMenuPF2e {
         for (const listKey of HOMEBREW_TRAIT_KEYS) {
             const settingsKey: HomebrewTraitSettingsKey = `homebrew.${listKey}` as const;
             const elements = game.settings.get("pf2e", settingsKey);
-            this.updateConfigRecords(elements, listKey);
+            this.#updateConfigRecords(elements, listKey);
         }
 
         // Add custom damage from settings
@@ -280,7 +280,7 @@ class HomebrewElements extends SettingsMenuPF2e {
                         id: `hb_${id}`,
                         value: typeof value === "string" ? value : value.label,
                     })) as unknown as HomebrewTag[];
-                    this.updateConfigRecords(tags, recordKey);
+                    this.#updateConfigRecords(tags, recordKey);
 
                     // Register descriptions if present
                     for (const [key, value] of Object.entries(elements)) {
@@ -297,13 +297,13 @@ class HomebrewElements extends SettingsMenuPF2e {
         }
     }
 
-    private getConfigRecord(recordKey: HomebrewTraitKey): Record<string, string> {
-        return recordKey === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[recordKey];
+    #getConfigRecord(recordKey: HomebrewTraitKey): Record<string, string> {
+        return recordKey === "baseWeapons" ? CONFIG.PF2E.baseWeaponTypes : CONFIG.PF2E[recordKey];
     }
 
-    private updateConfigRecords(elements: HomebrewTag[], listKey: HomebrewTraitKey): void {
+    #updateConfigRecords(elements: HomebrewTag[], listKey: HomebrewTraitKey): void {
         // The base-weapons map only exists in the localization file
-        const coreElements: Record<string, string> = this.getConfigRecord(listKey);
+        const coreElements: Record<string, string> = this.#getConfigRecord(listKey);
         for (const element of elements) {
             coreElements[element.id] = element.value;
             if (objectHasKey(SECONDARY_TRAIT_RECORDS, listKey)) {
