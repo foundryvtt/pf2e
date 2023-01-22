@@ -34,6 +34,7 @@ export class Migration815ConsumableDataCleanup extends MigrationBase {
         "source",
         "spell",
         "stackGroup",
+        "temporary",
         "traits",
         "usage",
         "weight",
