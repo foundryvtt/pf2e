@@ -223,8 +223,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
         systemData.selectedAmmoId ||= null;
         systemData.damage.die ||= null;
         systemData.damage.modifier ??= 0;
-        // Alchemical bombs fake a constant damage value by having a `die` (number of faces) of "" and a `dice`
-        // (number of dice) of 1, yielding "" + "1" ("1") in the roll formula. An arrest warrant has been issued.
+        // Some weapons fake a constant damage value by having a `die` (number of faces) of "" and a `dice`
+        // (number of dice) of 1, yielding "" + "1" ("1") in the roll formula.
         if (!systemData.damage.die && systemData.damage.dice > 0) {
             systemData.damage.modifier ||= systemData.damage.dice;
         }
@@ -235,7 +235,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 : null;
         systemData.material = { precious: preciousMaterial };
 
-        ABP.cleanupRunes(this);
+        // This method checks data on the actor, which may not yet be initialized:
+        // use the item's initialization status as a proxy check
+        if (this.initialized) ABP.cleanupRunes(this);
 
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
@@ -305,7 +307,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
         // Striking Rune: "A striking rune [...], increasing the weapon damage dice it deals to two instead of one"
         // Devastating Attacks: "At 4th level, your weapon and unarmed Strikes deal two damage dice instead of one."
         const inherentDiceNumber = this.system.damage.die ? this._source.system.damage.dice : 0;
-        const strikingDice = ABP.isEnabled(this.actor) ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking;
+        const strikingDice =
+            this.initialized && ABP.isEnabled(this.actor) ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking;
         this.system.damage.dice =
             inherentDiceNumber === 1 && !this.flags.pf2e.battleForm
                 ? inherentDiceNumber + strikingDice

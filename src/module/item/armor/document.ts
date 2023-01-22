@@ -1,4 +1,4 @@
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { ItemSummaryData } from "@item/data";
 import { getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
@@ -102,8 +102,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
 
         this.system.potencyRune.value ||= null;
         this.system.resiliencyRune.value ||= null;
-        // Strip out fundamental runes if ABP is enabled
-        AutomaticBonusProgression.cleanupRunes(this);
+        // Strip out fundamental runes if ABP is enabled: requires this item and its actor (if any) to be initialized
+        if (this.initialized) ABP.cleanupRunes(this);
 
         // Add traits from potency rune
         const baseTraits = this.system.traits.value;
