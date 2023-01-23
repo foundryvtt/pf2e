@@ -102,7 +102,7 @@ class TextEditorPF2e extends TextEditor {
         const roll = new DamageRoll(anchor.dataset.formula, rollData, options);
 
         const speaker = ChatMessagePF2e.getSpeaker({ actor });
-        const rollMode = objectHasKey(CONFIG.Dice.rollModes, anchor.dataset.mode) ? anchor.dataset.mode : "publicroll";
+        const rollMode = objectHasKey(CONFIG.Dice.rollModes, anchor.dataset.mode) ? anchor.dataset.mode : "roll";
 
         return roll.toMessage({ speaker, flavor: roll.options.flavor }, { rollMode });
     }

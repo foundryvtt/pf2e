@@ -177,7 +177,7 @@ export class DamagePF2e {
         // Create the damage roll, roll it, and pull the result
         const rollData = roll.options.result;
 
-        const rollMode = context.rollMode ?? "publicroll";
+        const rollMode = context.rollMode ?? "roll";
         const contextFlag: DamageRollContextFlag = {
             type: context.type,
             sourceType: context.sourceType,

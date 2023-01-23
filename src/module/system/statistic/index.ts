@@ -43,7 +43,7 @@ export interface StatisticRollParameters {
     /** The originating item of this attack, if any */
     item?: Embedded<ItemPF2e> | null;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
-    rollMode?: RollMode;
+    rollMode?: RollMode | "roll";
     /** Should the dialog be skipped */
     skipDialog?: boolean;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
