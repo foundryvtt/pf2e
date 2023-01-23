@@ -159,6 +159,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                                     if (changeTraitScore > existingTraitScore) {
                                         traits.findSplice((trait) => trait === existingTraitMatch[0], change);
                                     }
+
                                     return;
                                 }
                             }
