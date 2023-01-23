@@ -45,7 +45,7 @@ import { ActorDataPF2e, ActorSourcePF2e, ActorType } from "./data";
 import { ActorFlagsPF2e, ActorTraitsData, PrototypeTokenPF2e, RollOptionFlags, StrikeData } from "./data/base";
 import { ImmunityData, ResistanceData, WeaknessData } from "./data/iwr";
 import { ActorSizePF2e } from "./data/size";
-import { calculateRangePenalty, getRangeIncrement, isReallyPC, migrateActorSource } from "./helpers";
+import { calculateRangePenalty, checkAreaEffects, getRangeIncrement, isReallyPC, migrateActorSource } from "./helpers";
 import { ActorInventory } from "./inventory";
 import { ItemTransfer } from "./item-transfer";
 import { ActorSheetPF2e } from "./sheet/base";
@@ -107,6 +107,14 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             }
 
             super(data, context);
+
+            // Add debounced checkAreaEffects method
+            Object.defineProperty(this, "checkAreaEffects", {
+                configurable: false,
+                enumerable: false,
+                writable: false,
+                value: foundry.utils.debounce(checkAreaEffects, 50),
+            });
         } else {
             context.pf2e = mergeObject(context.pf2e ?? {}, { ready: true });
             const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
@@ -387,56 +395,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         if (toCreate.length > 0) {
             await this.createEmbeddedDocuments("Item", toCreate);
-        }
-    }
-
-    /** Review `removeOnExit` aura effects and remove any that no longer apply */
-    async checkAreaEffects(): Promise<void> {
-        if (!canvas.ready || game.user !== this.primaryUpdater) return;
-
-        const thisTokens = this.getActiveTokens(false, true);
-        const toDelete: string[] = [];
-        const toKeep: string[] = [];
-
-        for (const effect of this.itemTypes.effect) {
-            const auraData = effect.flags.pf2e.aura;
-            if (!auraData?.removeOnExit) continue;
-
-            const auraToken = await (async (): Promise<TokenDocumentPF2e | null> => {
-                const document = await fromUuid(auraData.origin);
-                if (document instanceof TokenDocumentPF2e) {
-                    return document;
-                } else if (document instanceof ActorPF2e) {
-                    return document.getActiveTokens(false, true).shift() ?? null;
-                }
-                return null;
-            })();
-
-            const aura = auraToken?.auras.get(auraData.slug);
-
-            // Main sure this isn't an identically-slugged aura with different effects
-            const effects = auraToken?.actor?.auras.get(auraData.slug)?.effects ?? [];
-            const auraHasEffect = effects.some((e) => e.uuid === effect.sourceId);
-
-            for (const token of thisTokens) {
-                if (auraHasEffect && aura?.containsToken(token)) {
-                    toKeep.push(effect.id);
-                } else {
-                    toDelete.push(effect.id);
-                }
-            }
-
-            // If no tokens for this actor remain in the scene, always remove the effect
-            if (thisTokens.length === 0) {
-                toDelete.push(effect.id);
-            }
-        }
-
-        // In case there are multiple tokens for this actor, avoid deleting aura effects if at least one token is
-        // exposed to the aura
-        const finalToDelete = toDelete.filter((id) => !toKeep.includes(id));
-        if (finalToDelete.length > 0) {
-            await this.deleteEmbeddedDocuments("Item", finalToDelete);
         }
     }
 
@@ -1547,6 +1505,9 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         conditionType: ConditionKey,
         { all }: { all: boolean }
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null;
+
+    /** Added as debounced method */
+    checkAreaEffects(): void;
 }
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
