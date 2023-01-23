@@ -602,7 +602,7 @@ declare global {
         /** Block the dispatch of preCreate hooks for this operation */
         noHook?: boolean;
         /** A Compendium pack identifier within which the Documents should be modified */
-        pack?: string;
+        pack?: string | null;
         /** Return an index of the Document collection, used only during a get operation. */
         index?: boolean;
         /** When performing a creation operation, keep the provided _id instead of clearing it. */
