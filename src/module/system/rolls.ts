@@ -41,7 +41,7 @@ interface BaseRollContext {
     /** Any notes which should be shown for the roll. */
     notes?: (RollNotePF2e | RollNoteSource)[];
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
-    rollMode?: RollMode;
+    rollMode?: RollMode | "roll";
     /** If this is an attack, the target of that attack */
     target?: AttackTarget | null;
     /** Any traits for the check. */
