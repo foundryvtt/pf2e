@@ -161,7 +161,7 @@ FlavoredNumber = number:Number flavor:Flavor {
 
 Identifier = $([a-z$_]i [a-z$_0-9]i*);
 
-Modifiers = [^ (){}\[\]+\-*/]+ {
+Modifiers = [^ (){}\[\]+\-*/,]+ {
   return Array.from(text().matchAll(/([A-z]+)([^A-z\s()+\-*\/]+)?/g)).map((m) => m[0]);
 };
 
