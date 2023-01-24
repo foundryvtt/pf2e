@@ -115,9 +115,12 @@ interface SpellDamageTemplate extends BaseDamageTemplate {
     };
 }
 
-type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate;
+type AfflictionDamageTemplate = SpellDamageTemplate;
+
+type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate | AfflictionDamageTemplate;
 
 export {
+    AfflictionDamageTemplate,
     BaseDamageData,
     CriticalInclusion,
     DamageCategory,

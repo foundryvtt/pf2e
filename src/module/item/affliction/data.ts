@@ -41,9 +41,9 @@ interface AfflictionOnset {
 }
 
 interface AfflictionDamage {
-    value: string;
+    formula: string;
     type: DamageType;
-    category?: DamageCategoryUnique;
+    category?: DamageCategoryUnique | null;
 }
 
 interface AfflictionStageData {
