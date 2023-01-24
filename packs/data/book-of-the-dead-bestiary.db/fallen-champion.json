@@ -1171,12 +1171,26 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:15]{15-feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A fallen champion emanates an aura of utter despair. Living creatures are @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} while in a fallen champion's aura. They can't naturally recover from this fear while in the area but recover instantly once they leave the aura.</p>"
+                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A fallen champion emanates an aura of utter despair. Living creatures are @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} while in a fallen champion's aura. They can't naturally recover from this fear while in the area but recover instantly once they leave the aura.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 15,
+                        "slug": "agent-of-despair",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "emotion",
+                            "enchantment",
+                            "fear",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

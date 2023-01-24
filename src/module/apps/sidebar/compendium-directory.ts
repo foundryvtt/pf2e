@@ -1,3 +1,6 @@
+import { ActorPF2e } from "@actor";
+import { ItemPF2e } from "@item";
+import { MigrationList, MigrationRunner } from "@module/migration";
 import { ErrorPF2e, fontAwesomeIcon, htmlQueryAll } from "@util";
 import MiniSearch from "minisearch";
 
@@ -60,6 +63,32 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         $html[0]!.querySelector("footer > button")?.addEventListener("click", () => {
             game.pf2e.compendiumBrowser.render(true);
         });
+    }
+
+    protected override _getEntryContextOptions(): EntryContextOption[] {
+        const options = super._getEntryContextOptions();
+
+        if (BUILD_MODE !== "production") {
+            options.push({
+                name: "COMPENDIUM.Migrate",
+                icon: fontAwesomeIcon("crow").outerHTML,
+                condition: ($li) => {
+                    const compendium = game.packs.get($li.data("pack"), { strict: true });
+                    const actorOrItem = compendium.documentClass === ActorPF2e || compendium.documentClass === ItemPF2e;
+                    const isSystemCompendium = compendium.metadata.packageType === "system";
+                    return game.user.isGM && actorOrItem && !isSystemCompendium && !compendium.locked;
+                },
+                callback: async ($li) => {
+                    const compendium = game.packs.get($li.data("pack"), { strict: true }) as CompendiumCollection<
+                        ActorPF2e | ItemPF2e
+                    >;
+                    const runner = new MigrationRunner(MigrationList.constructFromVersion(null));
+                    runner.runCompendiumMigration(compendium);
+                },
+            });
+        }
+
+        return options;
     }
 
     /** Add a context menu for content search results */

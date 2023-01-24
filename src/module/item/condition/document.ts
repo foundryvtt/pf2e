@@ -91,7 +91,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
                     speaker: ChatMessagePF2e.getSpeaker({ actor: actor, token }),
                     flavor: `<strong>${this.name}</strong>`,
                 },
-                { rollMode: "publicroll" }
+                { rollMode: "roll" }
             );
         }
     }

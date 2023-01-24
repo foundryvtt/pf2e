@@ -389,7 +389,45 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "calming-bioluminescence-active"
+                        ],
+                        "radius": 30,
+                        "slug": "calming-bioluminescence",
+                        "traits": [
+                            "aura",
+                            "emotion",
+                            "mental",
+                            "visual"
+                        ]
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "calming-bioluminescence-active"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 3,
+                                "type": "pulse"
+                            },
+                            "color": "#fff9a3",
+                            "dim": 30,
+                            "shadows": 0.1
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "calming-bioluminescence-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

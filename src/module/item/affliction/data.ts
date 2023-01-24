@@ -36,10 +36,8 @@ interface AfflictionOnset {
 
 interface AfflictionDamage {
     value: string;
-    type: {
-        value: DamageType;
-        category?: DamageCategoryUnique;
-    };
+    type: DamageType;
+    category?: DamageCategoryUnique;
 }
 
 interface AfflictionStageData {
@@ -59,6 +57,7 @@ interface AfflictionSystemData extends Omit<AfflictionSystemSource, "items">, Om
 
 export {
     AfflictionConditionData,
+    AfflictionDamage,
     AfflictionData,
     AfflictionOnset,
     AfflictionSource,

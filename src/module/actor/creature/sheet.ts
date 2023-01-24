@@ -388,14 +388,18 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         });
 
         $html.find(".toggle-signature-spell").on("click", (event) => {
-            this.onToggleSignatureSpell(event);
+            this.#onToggleSignatureSpell(event);
         });
 
         // Action Browser
-        $html.find(".action-browse").on("click", () => game.pf2e.compendiumBrowser.openTab("action"));
+        for (const button of htmlQueryAll(html, ".action-browse")) {
+            button.addEventListener("click", () => game.pf2e.compendiumBrowser.openTab("action"));
+        }
 
         // Spell Browser
-        $html.find(".spell-browse").on("click", (event) => this.onClickBrowseSpellCompendia(event));
+        for (const button of htmlQueryAll(html, ".spell-browse")) {
+            button.addEventListener("click", () => this.#onClickBrowseSpellCompendia(button));
+        }
 
         // Decrease effect value
         $html.find(".effects-list .decrement").on("click", async (event) => {
@@ -542,7 +546,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 label: "Configure", // Top-level foundry localization key
                 class: "configure-creature",
                 icon: "fas fa-cog",
-                onclick: () => this.onConfigureActor(),
+                onclick: () => this.#onConfigureActor(),
             });
         }
 
@@ -550,12 +554,12 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
     }
 
     /** Open actor configuration for this sheet's creature */
-    private onConfigureActor(): void {
+    #onConfigureActor(): void {
         if (!this.actorConfigClass) return;
         new this.actorConfigClass(this.actor).render(true);
     }
 
-    private onToggleSignatureSpell(event: JQuery.ClickEvent): void {
+    #onToggleSignatureSpell(event: JQuery.ClickEvent): void {
         const { itemId } = event.target.closest(".item").dataset;
         const spell = this.actor.items.get(itemId);
         if (!(spell instanceof SpellPF2e)) {
@@ -565,15 +569,14 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         spell.update({ "system.location.signature": !spell.system.location.signature });
     }
 
-    private onClickBrowseSpellCompendia(event: JQuery.ClickEvent<HTMLElement>) {
-        const level = Number($(event.currentTarget).attr("data-level")) ?? null;
-        const spellcastingIndex = $(event.currentTarget).closest("[data-container-id]").attr("data-container-id") ?? "";
+    #onClickBrowseSpellCompendia(button: HTMLElement) {
+        const level = Number(button.dataset.level ?? null);
+        const spellcastingIndex = htmlClosest(button, "[data-container-id]")?.dataset.containerId ?? "";
         const entry = this.actor.spellcasting.get(spellcastingIndex);
-        if (!(entry instanceof SpellcastingEntryPF2e)) {
-            return;
-        }
 
-        game.pf2e.compendiumBrowser.openSpellTab(entry, level);
+        if (entry) {
+            game.pf2e.compendiumBrowser.openSpellTab(entry, level);
+        }
     }
 
     // Ensure a minimum of zero hit points and a maximum of the current max
