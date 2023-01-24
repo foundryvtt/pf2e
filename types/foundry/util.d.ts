@@ -8,6 +8,8 @@ declare global {
         readonly dataTransfer: DataTransfer;
     }
 
+    type Maybe<T> = T | null | undefined;
+
     type DeepPartial<T> = {
         [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
     };

@@ -37,7 +37,7 @@ abstract class IWRRuleElement extends RuleElementPF2e {
 
     abstract get property(): unknown[];
 
-    validate(value: unknown): boolean {
+    #isValid(value: unknown): boolean {
         if (this.type.length === 0) {
             this.failValidation("A type must be provided");
             return false;
@@ -75,7 +75,7 @@ abstract class IWRRuleElement extends RuleElementPF2e {
         this.type = this.resolveInjectedProperties(this.type);
 
         const value = Math.floor(Number(this.resolveValue()));
-        if (!this.validate(value)) {
+        if (!this.#isValid(value)) {
             this.ignored = true;
             return;
         }

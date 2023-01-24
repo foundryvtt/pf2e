@@ -24,19 +24,16 @@ export class AuraRuleElement extends RuleElementPF2e {
      */
     colors: AuraColors | null;
 
-    constructor(data: AuraRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
+    constructor(source: AuraRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(source, item, options);
 
-        data.effects ??= [];
-        data.traits ??= [];
-        data.colors ??= null;
-        this.slug = typeof data.slug === "string" ? sluggify(data.slug) : this.item.slug ?? sluggify(this.item.name);
+        this.slug ??= this.item.slug ?? sluggify(this.item.name);
 
-        if (this.#isValid(data)) {
-            this.radius = data.radius;
-            this.effects = deepClone(data.effects);
-            this.traits = deepClone(data.traits);
-            this.colors = data.colors;
+        if (this.#isValid(source)) {
+            this.radius = source.radius;
+            this.effects = deepClone(source.effects ?? []);
+            this.traits = deepClone(source.traits ?? []);
+            this.colors = source.colors ?? null;
         } else {
             this.radius = 0;
             this.effects = [];
@@ -67,7 +64,7 @@ export class AuraRuleElement extends RuleElementPF2e {
             predicate: PredicatePF2e.isValid(data.predicate ?? []),
             radius: ["number", "string"].includes(typeof data.radius),
             effects: Array.isArray(data.effects) && data.effects.every(this.#isEffectData),
-            colors: data.colors === null || this.#isAuraColors(data.colors),
+            colors: !("colors" in data) || data.colors === null || this.#isAuraColors(data.colors),
         };
         const properties = ["predicate", "radius", "effects", "colors"] as const;
         for (const property of properties) {
@@ -121,9 +118,9 @@ interface AuraRuleElementSource extends RuleElementSource {
 
 interface AuraRuleElementData extends RuleElementSource {
     radius: string | number;
-    effects: AuraREEffectData[];
-    traits: ItemTrait[];
-    colors: AuraColors | null;
+    effects?: AuraREEffectData[];
+    traits?: ItemTrait[];
+    colors?: AuraColors | null;
 }
 
 interface AuraREEffectData extends Omit<AuraEffectData, "level"> {

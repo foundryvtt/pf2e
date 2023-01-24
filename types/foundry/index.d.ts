@@ -114,6 +114,7 @@ import "./client/ui";
 import "./common";
 import "./common/abstract";
 import "./common/constants.mjs";
+import "./common/data";
 import "./common/data/data";
 import "./common/data/validators";
 import "./common/documents";
