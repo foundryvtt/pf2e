@@ -187,7 +187,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 [`damage:category:${damage.category}`]: !!damage.category,
                 [`damage:die:number:${damage.dice.number}`]: !!damage.dice.faces,
                 [`damage:die:faces:${damage.dice.faces}`]: !!damage.dice.faces,
-                [`damage-dice:${damage.dice.faces}`]: !!damage.dice.faces,
+                [`damage-dice:${damage.dice.number}`]: !!damage.dice.faces,
                 [`damage:persistent:${persistent?.type}`]: !!persistent,
                 "deity-favored": isDeityFavored,
                 oversized,
@@ -223,8 +223,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
         systemData.selectedAmmoId ||= null;
         systemData.damage.die ||= null;
         systemData.damage.modifier ??= 0;
-        // Alchemical bombs fake a constant damage value by having a `die` (number of faces) of "" and a `dice`
-        // (number of dice) of 1, yielding "" + "1" ("1") in the roll formula. An arrest warrant has been issued.
+        // Some weapons fake a constant damage value by having a `die` (number of faces) of "" and a `dice`
+        // (number of dice) of 1, yielding "" + "1" ("1") in the roll formula.
         if (!systemData.damage.die && systemData.damage.dice > 0) {
             systemData.damage.modifier ||= systemData.damage.dice;
         }
@@ -235,7 +235,9 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 : null;
         systemData.material = { precious: preciousMaterial };
 
-        ABP.cleanupRunes(this);
+        // This method checks data on the actor, which may not yet be initialized:
+        // use the item's initialization status as a proxy check
+        if (this.initialized) ABP.cleanupRunes(this);
 
         const traitsArray = systemData.traits.value;
         // Thrown weapons always have a reload of "-"
@@ -284,7 +286,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const systemData = this.system;
         const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
 
-        const strikingDice: Map<StrikingRuneType | null, OneToThree> = new Map([
+        const strikingRuneDice: Map<StrikingRuneType | null, OneToThree> = new Map([
             ["striking", 1],
             ["greaterStriking", 2],
             ["majorStriking", 3],
@@ -292,7 +294,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
 
         this.system.runes = {
             potency: potencyRune.value ?? 0,
-            striking: strikingDice.get(strikingRune.value) ?? 0,
+            striking: strikingRuneDice.get(strikingRune.value) ?? 0,
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
                 (rune): rune is WeaponPropertyRuneType => !!rune
             ),
@@ -300,14 +302,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
         };
 
         // Set damage dice according to striking rune
-        const pcLevel = this.actor?.isOfType("character") ? this.actor.level : 0;
         // Only increase damage dice from ABP if the dice number is 1
         // Striking Rune: "A striking rune [...], increasing the weapon damage dice it deals to two instead of one"
         // Devastating Attacks: "At 4th level, your weapon and unarmed Strikes deal two damage dice instead of one."
+        const { actor } = this;
         const inherentDiceNumber = this.system.damage.die ? this._source.system.damage.dice : 0;
+        const strikingDice = ABP.isEnabled(actor) ? ABP.getStrikingDice(actor?.level ?? 0) : this.system.runes.striking;
         this.system.damage.dice =
             inherentDiceNumber === 1 && !this.flags.pf2e.battleForm
-                ? inherentDiceNumber + (ABP.isEnabled ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking)
+                ? inherentDiceNumber + strikingDice
                 : this.system.damage.dice;
     }
 

@@ -79,7 +79,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
         }
     }
 
-    async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}) {
+    async onEndTurn(options: { token?: TokenDocumentPF2e | null } = {}): Promise<void> {
         const actor = this.actor;
         const token = options?.token ?? actor?.token;
         if (!this.isActive || !actor) return;
@@ -91,7 +91,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
                     speaker: ChatMessagePF2e.getSpeaker({ actor: actor, token }),
                     flavor: `<strong>${this.name}</strong>`,
                 },
-                { rollMode: "publicroll" }
+                { rollMode: "roll" }
             );
         }
     }
@@ -108,7 +108,11 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
         if (systemData.persistent) {
             const { formula, damageType } = systemData.persistent;
-            const roll = new DamageRoll(`(${formula})[persistent,${damageType}]`, {}, { evaluatePersistent: true });
+
+            const fullFormula = `(${formula})[persistent,${damageType}]`;
+            const critRule = game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
+            const roll = new DamageRoll(fullFormula, {}, { evaluatePersistent: true, critRule });
+
             const dc = game.user.isGM && systemData.persistent.dc !== 15 ? systemData.persistent.dc : null;
 
             const localizationKey = `PF2E.Item.Condition.PersistentDamage.${dc !== null ? "NameWithDC" : "Name"}`;

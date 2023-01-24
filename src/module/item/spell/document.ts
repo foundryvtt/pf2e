@@ -32,7 +32,7 @@ import {
     SpellSystemData,
     SpellSystemSource,
 } from "./data";
-import { applyDamageDice, createFormulaAndTagsForPartial, DamageInstanceData } from "./helpers";
+import { applyDamageDiceOverrides, createFormulaAndTagsForPartial, DamageInstancePartial } from "./helpers";
 import { SpellOverlayCollection } from "./overlay";
 import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
 import { DamageInstance, DamageRoll } from "@system/damage/roll";
@@ -211,7 +211,7 @@ class SpellPF2e extends ItemPF2e {
 
         // Set up the damage instances we're adding to, and a function to either fetch or create a new one
         type DamageTypeCategory = `${DamageType}-${string}`;
-        const formulas: Record<DamageTypeCategory, DamageInstanceData> = {};
+        const formulas: Record<DamageTypeCategory, DamageInstancePartial> = {};
         function getInstance(options: { formula?: string; damageType: DamageType; damageCategory?: string | null }) {
             const { formula, damageType, damageCategory } = options;
             const key: DamageTypeCategory = `${damageType}-${damageCategory || "normal"}`;
@@ -227,6 +227,7 @@ class SpellPF2e extends ItemPF2e {
                     damageType,
                     damageCategory: damageCategory || null,
                     modifiers: [],
+                    dice: [],
                     tags: new Set<string>(),
                 };
                 formulas[key] = newInstance;
@@ -301,24 +302,34 @@ class SpellPF2e extends ItemPF2e {
                 ...new StatisticModifier("spell-persistent", syntheticModifiers.persistent, options).modifiers,
             ].filter((m) => m.enabled);
 
-            // Add modifiers to instances
-            for (const modifier of testedModifiers) {
-                const damageType = modifier.damageType;
-                if (!damageType) {
-                    Object.values(formulas)[0]?.modifiers.push(modifier);
-                } else {
-                    const instance = getInstance({ damageType, damageCategory: modifier.damageCategory });
-                    instance.modifiers.push(modifier);
-                }
-            }
-
             damageDice.push(
                 ...extractDamageDice(actor.synthetics.damageDice, domains, {
                     test: options,
                     resolvables: { spell: this },
                 })
             );
-            applyDamageDice(Object.values(formulas), damageDice);
+
+            // Apply any damage dice upgrades (such as harmful font)
+            applyDamageDiceOverrides(Object.values(formulas), damageDice);
+
+            // Add modifiers to instances
+            for (const modifier of testedModifiers) {
+                const firstInstance = Object.values(formulas)[0];
+                const damageCategory = modifier.damageCategory;
+                const damageType = modifier.damageType ?? (damageCategory ? firstInstance.damageType : null);
+                const instance = !damageType ? firstInstance : getInstance({ damageType, damageCategory });
+                instance.modifiers.push(modifier);
+            }
+
+            // Add damage dice to instances
+            for (const dice of damageDice) {
+                if (dice.override) continue;
+                const firstInstance = Object.values(formulas)[0];
+                const damageCategory = dice.category;
+                const damageType = dice.damageType ?? (damageCategory ? firstInstance.damageType : null);
+                const instance = !damageType ? firstInstance : getInstance({ damageType, damageCategory });
+                instance.dice.push(dice);
+            }
         }
 
         // Get a list of all flattened damage partial values, sorted by category
@@ -345,7 +356,9 @@ class SpellPF2e extends ItemPF2e {
 
             for (const subInstance of group.filter((g) => !!g.damageCategory)) {
                 const result = createFormulaAndTagsForPartial(subInstance, subInstance.damageCategory);
-                subFormulas.push(`(${result.formula})[${subInstance.damageCategory}]`);
+                const isSingle = !!result.formula.match(/^[0-9d]*$/);
+                const formattedFormula = isSingle ? result.formula : `(${result.formula})`;
+                subFormulas.push(`${formattedFormula}[${subInstance.damageCategory}]`);
                 breakdownTags.push(...result.breakdownTags);
             }
 
@@ -375,10 +388,12 @@ class SpellPF2e extends ItemPF2e {
                 }
 
                 // Create the damage roll
+                const critRule =
+                    game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
                 const instances = combinedInstanceData.map(
-                    ({ formula, flavor }) => new DamageInstance(formula, {}, { flavor })
+                    ({ formula, flavor }) => new DamageInstance(formula, {}, { flavor, critRule })
                 );
-                const roll = DamageRoll.fromTerms([InstancePool.fromRolls(instances)]);
+                const roll = DamageRoll.fromTerms([InstancePool.fromRolls(instances)], { critRule });
                 return { roll, breakdownTags, domains, options, modifiers: [...modifiers, ...damageDice] };
             }
         } catch (err) {

@@ -99,6 +99,12 @@ class LootPF2e extends ActorPF2e {
         await Promise.allSettled(promises);
     }
 
+    /** Never process rules elements on loot actors */
+    override prepareDerivedData(): void {
+        this.rules = [];
+        super.prepareDerivedData();
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */

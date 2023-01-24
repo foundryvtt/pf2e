@@ -2942,12 +2942,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 5-feet</p>\n<hr />\n<p>The Blue Streak mage emits a scent of putrid rot in a @Template[type:emanation|distance:5]. A creature that enters or begins its turn in the aura is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
+                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The Blue Streak mage emits a scent of putrid rot in a 5-foot emanation. A creature that enters or begins its turn in the aura is @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 5,
+                        "slug": "stench-of-decay",
+                        "traits": [
+                            "arcane",
+                            "aura",
+                            "conjuration",
+                            "poison"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

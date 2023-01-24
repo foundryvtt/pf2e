@@ -72,8 +72,8 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
      * Multiplication is almost always going to be critical-hit doubling, which must be preserved for IWR analysis.
      */
     get expression(): string {
+        // If this expression is deterministic and not a (likely critical) doubling, return the total as the expression
         if (this.isDeterministic && this.operator !== "*") return this.total!.toString();
-
         const { operator, operands } = this;
         return `${operands[0].expression} ${operator} ${operands[1].expression}`;
     }
@@ -91,7 +91,9 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
         return ArithmeticExpression.totalOf(this.operator, ...operands);
     }
 
-    get critImmuneTotal(): number | undefined {
+    get critImmuneTotal(): this["total"] {
+        if (!this._evaluated) return undefined;
+
         const [left, right] = this.operands;
 
         // Critical doubling will always have the 2 operand on the left
@@ -99,13 +101,18 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
             return typeof right.total === "string" ? Number(right.total) : right.total;
         }
 
-        const undoubledLeft =
-            left instanceof ArithmeticExpression || left instanceof Grouping ? left.critImmuneTotal : left.total;
-        return ArithmeticExpression.totalOf(
-            this.operator,
-            typeof undoubledLeft === "string" ? Number(undoubledLeft) : undoubledLeft,
-            typeof right.total === "string" ? Number(right.total) : right.total
-        );
+        const undoubledLeft = ((): number => {
+            return left instanceof ArithmeticExpression || left instanceof Grouping
+                ? Number(left.critImmuneTotal)
+                : Number(left.total);
+        })();
+
+        const undoubledRight =
+            right instanceof ArithmeticExpression || right instanceof Grouping
+                ? Number(right.critImmuneTotal)
+                : Number(right.total);
+
+        return ArithmeticExpression.totalOf(this.operator, undoubledLeft, undoubledRight);
     }
 
     override get isDeterministic(): boolean {
@@ -216,8 +223,13 @@ class Grouping extends RollTerm<GroupingData> {
         return [];
     }
 
+    /** Show a simplified expression if it is known that order of operations won't be lost */
     get expression(): string {
-        return this.isDeterministic ? this.total!.toString() : `(${this.term.expression})`;
+        return this.isDeterministic
+            ? this.total!.toString()
+            : this.term instanceof DiceTerm
+            ? this.term.expression
+            : `(${this.term.expression})`;
     }
 
     /** Preserve flavor of inner terms */

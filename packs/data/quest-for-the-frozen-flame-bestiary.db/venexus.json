@@ -1206,12 +1206,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura} @Template[type:emanation|distance:10]{10 feet}. The <em>Primordial Flame</em> continually heats the cold emanating from Venexus's body, surrounding the dragon in a thin veil of fog. Creatures in the aura are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and other creatures are concealed to creatures in the area. Venexus's storm vision allows her to see through this concealment, however. If wind disperses the aura, it returns automatically at the start of Venexus's turn. The aura is suppressed in water.</p>"
+                    "value": "<p>@Template[type:emanation|distance:10]{10 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The <em>Primordial Flame</em> continually heats the cold emanating from Venexus's body, surrounding the dragon in a thin veil of fog. Creatures in the aura are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed}, and other creatures are concealed to creatures in the area. Venexus's storm vision allows her to see through this concealment, however. If wind disperses the aura, it returns automatically at the start of Venexus's turn. The aura is suppressed in water.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "mist-shroud",
+                        "traits": [
+                            "arcane",
+                            "aura",
+                            "evocation",
+                            "water"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

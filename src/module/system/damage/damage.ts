@@ -5,7 +5,7 @@ import { ItemType } from "@item/data";
 import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
 import { DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
-import { DamageRoll } from "./roll";
+import { DamageRoll, DamageRollDataPF2e } from "./roll";
 import { DamageRollContext, DamageTemplate } from "./types";
 
 /** Create a chat message containing a damage roll */
@@ -130,8 +130,15 @@ export class DamagePF2e {
 
             const rollerId = game.userId;
             const degreeOfSuccess = DEGREE_OF_SUCCESS_STRINGS.indexOf(outcome) as ZeroToThree;
+            const critRule = game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
 
-            const options = { rollerId, damage: data, degreeOfSuccess, ignoredResistances: damage.ignoredResistances };
+            const options: DamageRollDataPF2e = {
+                rollerId,
+                damage: data,
+                degreeOfSuccess,
+                ignoredResistances: damage.ignoredResistances,
+                critRule,
+            };
             return new DamageRoll(formula, {}, options).evaluate({ async: true });
         })();
 
@@ -177,7 +184,7 @@ export class DamagePF2e {
         // Create the damage roll, roll it, and pull the result
         const rollData = roll.options.result;
 
-        const rollMode = context.rollMode ?? "publicroll";
+        const rollMode = context.rollMode ?? "roll";
         const contextFlag: DamageRollContextFlag = {
             type: context.type,
             sourceType: context.sourceType,
@@ -233,7 +240,7 @@ export class DamagePF2e {
 
         if (context.createMessage) {
             messageData.rolls.push(...splashRolls);
-            await ChatMessagePF2e.create(messageData);
+            await ChatMessagePF2e.create(messageData, { rollMode });
         }
 
         Hooks.call(`pf2e.damageRoll`, rollData);
