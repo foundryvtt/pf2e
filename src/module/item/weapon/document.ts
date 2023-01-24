@@ -302,13 +302,12 @@ class WeaponPF2e extends PhysicalItemPF2e {
         };
 
         // Set damage dice according to striking rune
-        const pcLevel = this.actor?.isOfType("character") ? this.actor.level : 0;
         // Only increase damage dice from ABP if the dice number is 1
         // Striking Rune: "A striking rune [...], increasing the weapon damage dice it deals to two instead of one"
         // Devastating Attacks: "At 4th level, your weapon and unarmed Strikes deal two damage dice instead of one."
+        const { actor } = this;
         const inherentDiceNumber = this.system.damage.die ? this._source.system.damage.dice : 0;
-        const strikingDice =
-            this.initialized && ABP.isEnabled(this.actor) ? ABP.getStrikingDice(pcLevel) : this.system.runes.striking;
+        const strikingDice = ABP.isEnabled(actor) ? ABP.getStrikingDice(actor?.level ?? 0) : this.system.runes.striking;
         this.system.damage.dice =
             inherentDiceNumber === 1 && !this.flags.pf2e.battleForm
                 ? inherentDiceNumber + strikingDice
