@@ -52,7 +52,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 isCriticalSuccess && !!critImmunity?.test([...formalDescription, "damage:component:critical"]);
             const critImmuneTotal =
                 critImmunityApplies && roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS
-                    ? instance.critImmuneTotal!
+                    ? instance.critImmuneTotal
                     : instance.total;
 
             const instanceApplications: IWRApplication[] = [];
