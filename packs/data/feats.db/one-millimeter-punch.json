@@ -25,7 +25,34 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "melee",
+                    {
+                        "or": [
+                            "unarmed",
+                            {
+                                "and": [
+                                    "feat:monastic-weaponry",
+                                    "item:trait:monk"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "or": [
+                            "one-inch-punch-3",
+                            "one-inch-punch-2"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Advanced Player's Guide"
         },
