@@ -2862,12 +2862,22 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The Somnalu Oculus scrutinizes creatures around it, causing them to falter with nervousness and self-doubt. Upon entering the emanation, a creature must attempt a @Check[type:will|dc:34] save. On a failed save, the creature is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 round. Regardless of the result of the saving throw, the creature is temporarily immune to scrutinizing presence for 1 minute.</p>"
+                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>The Somnalu Oculus scrutinizes creatures around it, causing them to falter with nervousness and self-doubt. Upon entering the emanation, a creature must attempt a @Check[type:will|dc:34] save. On a failed save, the creature is @UUID[Compendium.pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 round. Regardless of the result of the saving throw, the creature is temporarily immune to scrutinizing presence for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 60,
+                        "slug": "scrutinizing-presence",
+                        "traits": [
+                            "aura",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2877,8 +2887,7 @@
                     "rarity": "common",
                     "value": [
                         "aura",
-                        "mental",
-                        "range-60"
+                        "mental"
                     ]
                 },
                 "trigger": {

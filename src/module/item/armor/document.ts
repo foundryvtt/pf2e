@@ -1,6 +1,6 @@
-import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { ItemSummaryData } from "@item/data";
-import { getResiliencyBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical";
+import { getResilientBonus, PhysicalItemHitPoints, PhysicalItemPF2e } from "@item/physical";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { LocalizePF2e } from "@module/system/localize";
 import { addSign, ErrorPF2e, setHasElement, sluggify } from "@util";
@@ -102,8 +102,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
 
         this.system.potencyRune.value ||= null;
         this.system.resiliencyRune.value ||= null;
-        // Strip out fundamental runes if ABP is enabled
-        AutomaticBonusProgression.cleanupRunes(this);
+        // Strip out fundamental runes if ABP is enabled: requires this item and its actor (if any) to be initialized
+        if (this.initialized) ABP.cleanupRunes(this);
 
         // Add traits from potency rune
         const baseTraits = this.system.traits.value;
@@ -123,7 +123,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
         const { potencyRune, resiliencyRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
         this.system.runes = {
             potency: potencyRune.value ?? 0,
-            resilient: getResiliencyBonus({ resiliencyRune }),
+            resilient: getResilientBonus({ resiliencyRune }),
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
                 (rune): rune is string => !!rune
             ),

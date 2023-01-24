@@ -53,8 +53,8 @@ class CheckPF2e {
         const rollOptions = context.options ?? new Set();
 
         // Figure out the default roll mode (if not already set by the event)
-        if (rollOptions.has("secret")) context.rollMode ??= "blindroll";
-        context.rollMode ??= game.settings.get("core", "rollMode");
+        if (rollOptions.has("secret")) context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";
+        context.rollMode ??= "roll";
 
         if (rollOptions.size > 0 && !context.isReroll) {
             check.calculateTotal(rollOptions);
@@ -210,7 +210,7 @@ class CheckPF2e {
             target: context.target ? { actor: context.target.actor.uuid, token: context.target.token.uuid } : null,
             options: Array.from(rollOptions).sort(),
             notes: notes.filter((n) => n.predicate.test(rollOptions)).map((n) => n.toObject()),
-            rollMode: context.rollMode ?? game.settings.get("core", "rollMode"),
+            rollMode: context.rollMode,
             rollTwice: context.rollTwice ?? false,
             title: context.title ?? "PF2E.Check.Label",
             type: context.type ?? "check",
@@ -443,9 +443,7 @@ class CheckPF2e {
                     pf2e: systemFlags,
                 },
             },
-            {
-                rollMode: context.rollMode ?? "publicroll",
-            }
+            { rollMode: context.rollMode }
         );
     }
 

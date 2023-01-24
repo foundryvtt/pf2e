@@ -503,12 +503,54 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Shots from a pale stranger's firearms deal an additional [[/r {1d6}[precision]]]{1d6 precision damage}, or [[/r {2d6}[precision]]]{2d6 precision damage} against the one who murdered them. A creature who has never killed a living being doesn't take this precision damage. When a pale stranger critically succeeds at a ranged Strike with a pistol, the target must succeed at a @Check[type:fortitude|dc:29] save or be @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
+                    "value": "<p>Shots from a pale stranger's firearms deal an additional 1d6 precision damage, or 2d6 precision damage against the one who murdered them. A creature who has never killed a living being doesn't take this precision damage. When a pale stranger critically succeeds at a ranged Strike with a pistol, the target must succeed at a @Check[type:fortitude|dc:29] save or be @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:flintlock-pistol",
+                            {
+                                "not": "target-never-killed"
+                            },
+                            {
+                                "not": "target-murdered-pale-stranger"
+                            }
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:flintlock-pistol",
+                            "target-murdered-pale-stranger"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.PaleStranger.TargetNeverKilled",
+                        "option": "target-never-killed",
+                        "toggleable": true
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.PaleStranger.TargetMurderedPaleStranger",
+                        "option": "target-murdered-pale-stranger",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

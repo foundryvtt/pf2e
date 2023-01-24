@@ -1,3 +1,4 @@
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { DamageDiceParameters, DamageDicePF2e } from "@actor/modifiers";
 import { ResistanceType } from "@actor/types";
 import { ArmorPF2e, WeaponPF2e } from "@item";
@@ -7,24 +8,15 @@ import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNoteSource } from "@module/notes";
 import { isBlank } from "@util";
 
-export function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
-    let slots = 0;
-    if (item.system.preciousMaterial?.value === "orichalcum") {
-        slots += 1;
-    }
-    let potencyRune = item.system.potencyRune.value ?? 0;
-    if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
-        potencyRune = 0;
-        slots += getPropertyRunes(item, 4).length;
-        slots += 1;
-    }
-    if (potencyRune) {
-        slots += potencyRune;
-    }
-    return slots as ZeroToFour;
+function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
+    const fromMaterial = item.system.preciousMaterial?.value === "orichalcum" ? 1 : 0;
+    const fromPotency = ABP.isEnabled(item.actor)
+        ? ABP.getAttackPotency(item.actor?.level ?? 1)
+        : item.system.runes.potency;
+    return (fromMaterial + fromPotency) as ZeroToFour;
 }
 
-export function getPropertyRunes(item: WeaponPF2e | ArmorPF2e, slots: number): string[] {
+function getPropertyRunes(item: WeaponPF2e | ArmorPF2e, slots: number): string[] {
     const runes: string[] = [];
     type RuneIndex = "propertyRune1" | "propertyRune2" | "propertyRune3" | "propertyRune4";
     for (let i = 1; i <= slots; i += 1) {
@@ -42,7 +34,7 @@ const strikingRuneValues: Map<StrikingRuneType | null, ZeroToThree | undefined> 
     ["majorStriking", 3],
 ]);
 
-export function getStrikingDice(itemData: { strikingRune: { value: StrikingRuneType | null } }): ZeroToThree {
+function getStrikingDice(itemData: { strikingRune: { value: StrikingRuneType | null } }): ZeroToThree {
     return strikingRuneValues.get(itemData.strikingRune.value) ?? 0;
 }
 
@@ -51,7 +43,8 @@ const resilientRuneValues: Map<ResilientRuneType | null, ZeroToThree | undefined
     ["greaterResilient", 2],
     ["majorResilient", 3],
 ]);
-export function getResiliencyBonus(itemData: { resiliencyRune: { value: ResilientRuneType | null } }): ZeroToThree {
+
+function getResilientBonus(itemData: { resiliencyRune: { value: ResilientRuneType | null } }): ZeroToThree {
     return resilientRuneValues.get(itemData.resiliencyRune.value) ?? 0;
 }
 
@@ -75,7 +68,7 @@ function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceData[]): Damage
     );
 }
 
-export interface WeaponPropertyRuneData {
+interface WeaponPropertyRuneData {
     attack?: {
         notes?: RuneNoteData[];
     };
@@ -1034,7 +1027,7 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
 };
 
-export function getPropertyRuneDice(runes: WeaponPropertyRuneType[]): DamageDicePF2e[] {
+function getPropertyRuneDice(runes: WeaponPropertyRuneType[]): DamageDicePF2e[] {
     return runes.flatMap((rune) => {
         const runeConfig = CONFIG.PF2E.runes.weapon.property[rune];
         if (runeConfig) {
@@ -1048,7 +1041,7 @@ export function getPropertyRuneDice(runes: WeaponPropertyRuneType[]): DamageDice
 /*  Rune Valuation                              */
 /* -------------------------------------------- */
 
-export interface RuneValuationData {
+interface RuneValuationData {
     level: number;
     price: number;
     rarity: Rarity;
@@ -1076,7 +1069,18 @@ interface WeaponValuationData {
     striking: { "": null } & Record<StrikingRuneType, RuneValuationData>;
 }
 
-export const WEAPON_VALUATION_DATA: WeaponValuationData = {
+const WEAPON_VALUATION_DATA: WeaponValuationData = {
     potency: { 0: null, ...POTENCY_RUNE_DATA },
     striking: { "": null, ...STRIKING_RUNE_DATA },
+};
+
+export {
+    RuneValuationData,
+    WEAPON_VALUATION_DATA,
+    WeaponPropertyRuneData,
+    getPropertyRuneDice,
+    getPropertyRunes,
+    getPropertySlots,
+    getResilientBonus,
+    getStrikingDice,
 };

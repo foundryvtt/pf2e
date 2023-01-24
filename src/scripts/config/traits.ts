@@ -763,6 +763,7 @@ const equipmentTraits = {
     revelation: "PF2E.TraitRevelation",
     saggorak: "PF2E.TraitSaggorak",
     scrying: "PF2E.TraitScrying",
+    shadow: "PF2E.TraitShadow",
     sleep: "PF2E.TraitSleep",
     spellheart: "PF2E.TraitSpellheart",
     staff: "PF2E.TraitStaff",

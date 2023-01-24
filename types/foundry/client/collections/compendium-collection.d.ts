@@ -199,6 +199,8 @@ declare global {
         private?: string;
         module?: string;
         package?: string;
+        packageName: string;
+        packageType: "world" | "system" | "module";
         system: string;
     }
 

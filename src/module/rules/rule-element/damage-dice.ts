@@ -98,10 +98,9 @@ class DamageDiceRuleElement extends RuleElementPF2e {
             // e.g., "Spell Effect: Ooze Form (Gelatinous Cube)" will become "Ooze Form"
             const label = this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "");
 
-            const diceNumber =
-                typeof this.diceNumber === "string" ? Number(this.resolveValue(this.diceNumber)) || 0 : this.diceNumber;
+            const diceNumber = Number(this.resolveValue(this.diceNumber, 0, { resolvables: params.resolvables })) || 0;
 
-            const resolvedBrackets = this.resolveValue(this.brackets, {});
+            const resolvedBrackets = this.resolveValue(this.brackets, { resolvables: params.resolvables });
             if (!this.#resolvedBracketsIsValid(resolvedBrackets)) {
                 this.failValidation("Brackets failed to validate");
                 return null;
@@ -139,6 +138,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
                 damageType,
                 predicate: this.predicate ?? {},
                 override: deepClone(this.override),
+                enabled: true,
                 ...resolvedBrackets,
             });
         };

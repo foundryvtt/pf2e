@@ -32,7 +32,7 @@ interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e extends Item<ActorPF2e> {
     /** Has this item gone through at least one cycle of data preparation? */
-    private initialized?: true;
+    protected initialized?: true;
 
     /** Prepared rule elements from this item */
     rules!: RuleElementPF2e[];
@@ -367,6 +367,11 @@ class ItemPF2e extends Item<ActorPF2e> {
     override async importFromJSON(json: string): Promise<this> {
         const processed = await preImportJSON(this, json);
         return processed ? super.importFromJSON(processed) : this;
+    }
+
+    /** Include the item type along with data from upstream */
+    override toDragData(): { type: string; itemType: string; [key: string]: unknown } {
+        return { ...super.toDragData(), itemType: this.type };
     }
 
     static override async createDocuments<T extends foundry.abstract.Document>(

@@ -17,6 +17,7 @@ import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { SimpleRollActionCheckOptions } from "./types";
 import { getRangeIncrement } from "@actor/helpers";
 import { CheckPF2e, CheckType } from "@system/check";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 
 export class ActionMacroHelpers {
     static resolveStat(stat: string): {
@@ -234,7 +235,7 @@ export class ActionMacroHelpers {
     private static getWeaponPotencyModifier(item: Embedded<WeaponPF2e>, selector: string): ModifierPF2e | null {
         const itemBonus = item.system.runes.potency;
         const slug = "potency";
-        if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
+        if (AutomaticBonusProgression.isEnabled(item.actor)) {
             return new ModifierPF2e({
                 slug,
                 type: MODIFIER_TYPE.POTENCY,

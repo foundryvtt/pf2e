@@ -197,7 +197,7 @@ interface CheckDialogData {
     modifiers: readonly ModifierPF2e[];
     totalModifier: number;
     rollModes: Record<RollMode, string>;
-    rollMode: RollMode | undefined;
+    rollMode: RollMode | "roll" | undefined;
     showRollDialogs: boolean;
     substitutions: RollSubstitution[];
     fortune: boolean;

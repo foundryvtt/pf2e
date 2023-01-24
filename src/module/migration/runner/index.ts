@@ -45,17 +45,18 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     /** Migrate actor or item documents in batches of 50 */
-    private async migrateWorldDocuments<TDocument extends ActorPF2e | ItemPF2e>(
-        collection: WorldCollection<TDocument>,
+    private async migrateDocuments<TDocument extends ActorPF2e | ItemPF2e>(
+        collection: WorldCollection<TDocument> | CompendiumCollection<TDocument>,
         migrations: MigrationBase[]
     ): Promise<void> {
         const DocumentClass = collection.documentClass as unknown as typeof ClientDocument;
+        const pack = "metadata" in collection ? collection.metadata.id : null;
         const updateGroup: TDocument["_source"][] = [];
         // Have familiars go last so that their data migration and re-preparation happen after their master's
         for (const document of collection.contents.sort((a) => (a.type === "familiar" ? 1 : -1))) {
             if (updateGroup.length === 50) {
                 try {
-                    await DocumentClass.updateDocuments(updateGroup, { noHook: true });
+                    await DocumentClass.updateDocuments(updateGroup, { noHook: true, pack });
                 } catch (error) {
                     console.warn(error);
                 } finally {
@@ -64,20 +65,25 @@ export class MigrationRunner extends MigrationRunnerBase {
             }
             const updated =
                 "items" in document
-                    ? await this.migrateWorldActor(migrations, document)
-                    : await this.migrateWorldItem(migrations, document);
+                    ? await this.migrateActor(migrations, document, { pack })
+                    : await this.migrateItem(migrations, document, { pack });
             if (updated) updateGroup.push(updated);
         }
         if (updateGroup.length > 0) {
             try {
-                await DocumentClass.updateDocuments(updateGroup, { noHook: true });
+                await DocumentClass.updateDocuments(updateGroup, { noHook: true, pack });
             } catch (error) {
                 console.warn(error);
             }
         }
     }
 
-    private async migrateWorldItem(migrations: MigrationBase[], item: ItemPF2e): Promise<ItemSourcePF2e | null> {
+    private async migrateItem(
+        migrations: MigrationBase[],
+        item: ItemPF2e,
+        options: { pack?: string | null } = {}
+    ): Promise<ItemSourcePF2e | null> {
+        const { pack } = options;
         const baseItem = item.toObject();
         const updatedItem = await (() => {
             try {
@@ -97,7 +103,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 const finalDeleted = aeDiff.deleted.filter((deletedId) =>
                     item.effects.some((effect) => effect.id === deletedId)
                 );
-                await item.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true });
+                await item.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true, pack });
             } catch (error) {
                 console.warn(error);
             }
@@ -107,7 +113,12 @@ export class MigrationRunner extends MigrationRunnerBase {
         return updatedItem;
     }
 
-    private async migrateWorldActor(migrations: MigrationBase[], actor: ActorPF2e): Promise<ActorSourcePF2e | null> {
+    private async migrateActor(
+        migrations: MigrationBase[],
+        actor: ActorPF2e,
+        options: { pack?: string | null } = {}
+    ): Promise<ActorSourcePF2e | null> {
+        const { pack } = options;
         const baseActor = actor.toObject();
         const updatedActor = await (() => {
             try {
@@ -132,7 +143,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 const finalDeleted = itemDiff.deleted.filter((deletedId) =>
                     actor.items.some((item) => item.id === deletedId)
                 );
-                await actor.deleteEmbeddedDocuments("Item", finalDeleted, { noHook: true });
+                await actor.deleteEmbeddedDocuments("Item", finalDeleted, { noHook: true, pack });
             } catch (error) {
                 // Output as a warning, since this merely means data preparation following the update
                 // (hopefully intermittently) threw an error
@@ -146,7 +157,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 const finalDeleted = aeDiff.deleted.filter((deletedId) =>
                     actor.effects.some((effect) => effect.id === deletedId)
                 );
-                await actor.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true });
+                await actor.deleteEmbeddedDocuments("ActiveEffect", finalDeleted, { noHook: true, pack });
             } catch (error) {
                 console.warn(error);
             }
@@ -154,7 +165,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         if (itemDiff.inserted.length > 0) {
             try {
-                await actor.createEmbeddedDocuments("Item", itemDiff.inserted, { noHook: true });
+                await actor.createEmbeddedDocuments("Item", itemDiff.inserted, { noHook: true, pack });
             } catch (error) {
                 console.warn(error);
             }
@@ -169,7 +180,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                 // Doubly-embedded documents can't be updated or deleted directly, so send up the entire item
                 // as a full replacement update
                 try {
-                    await Item.updateDocuments([updated], { parent: actor, diff: false, recursive: false });
+                    await Item.updateDocuments([updated], { parent: actor, diff: false, recursive: false, pack });
                 } catch (error) {
                     console.warn(error);
                 }
@@ -261,14 +272,33 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
+    async runCompendiumMigration<T extends ActorPF2e | ItemPF2e>(compendium: CompendiumCollection<T>) {
+        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: game.system.version }), {
+            permanent: true,
+        });
+
+        const documents = await compendium.getDocuments();
+        const lowestSchemaVersion = Math.min(
+            MigrationRunnerBase.LATEST_SCHEMA_VERSION,
+            ...documents.map((d) => d.system.schema.version).filter((d): d is number => !!d)
+        );
+
+        const migrations = this.migrations.filter((migration) => migration.version > lowestSchemaVersion);
+        await this.migrateDocuments(compendium, migrations);
+
+        ui.notifications.info(game.i18n.format("PF2E.Migrations.Finished", { version: game.system.version }), {
+            permanent: true,
+        });
+    }
+
     async runMigrations(migrations: MigrationBase[]): Promise<void> {
         if (migrations.length === 0) return;
 
         // Migrate World Actors
-        await this.migrateWorldDocuments(game.actors as WorldCollection<ActorPF2e>, migrations);
+        await this.migrateDocuments(game.actors as WorldCollection<ActorPF2e>, migrations);
 
         // Migrate World Items
-        await this.migrateWorldDocuments(game.items, migrations);
+        await this.migrateDocuments(game.items, migrations);
 
         // Migrate world journal entries
         for (const entry of game.journal) {
@@ -315,7 +345,7 @@ export class MigrationRunner extends MigrationRunnerBase {
                     Object.keys(token._source.actorData).some((k) => ["items", "system"].includes(k));
 
                 if (actor.isToken && hasMigratableData) {
-                    const updated = await this.migrateWorldActor(migrations, actor);
+                    const updated = await this.migrateActor(migrations, actor);
                     if (updated) {
                         try {
                             await actor.update(updated);
