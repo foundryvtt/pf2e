@@ -284,7 +284,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             const ruleText = JSON.stringify(editingRuleElement, null, 2);
             const view = new CodeMirror.EditorView({
                 doc: ruleText,
-                extensions: [CodeMirror.basicSetup, CodeMirror.keybindings, CodeMirror.json(), CodeMirror.jsonLinter()],
+                extensions: [CodeMirror.basicSetup, CodeMirror.keybindings, ...CodeMirror.ruleElementExtensions()],
             });
 
             html.querySelector<HTMLDivElement>(".rule-editing .editor-placeholder")?.replaceWith(view.dom);
