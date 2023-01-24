@@ -1874,12 +1874,24 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Creatures in the balisse's aura are subject to <em>@UUID[Compendium.pf2e.spells-srd.Zone of Truth]{Zone of Truth}</em> (DC 23). Additionally, if these creatures choose to honestly express their own conflicted feelings, the aura makes it easier for them to put words to those feelings.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Creatures in the balisse's aura are subject to <em>@UUID[Compendium.pf2e.spells-srd.Zone of Truth]{Zone of Truth}</em> @Check[type:will|dc:23]. Additionally, if these creatures choose to honestly express their own conflicted feelings, the aura makes it easier for them to put words to those feelings.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "confessors-aura",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "enchantment",
+                            "mental"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
