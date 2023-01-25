@@ -10,7 +10,7 @@ import { Duration } from "luxon";
 /** A macro for the Rest for the Night quasi-action */
 export async function restForTheNight(options: ActionDefaultOptions): Promise<ChatMessagePF2e[]> {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
-    const characters = actors.filter((a): a is CharacterPF2e => a?.data.type === "character");
+    const characters = actors.filter((a): a is CharacterPF2e => a?.type === "character");
     if (actors.length === 0) {
         ui.notifications.error(game.i18n.localize("PF2E.ErrorMessage.NoPCTokenSelected"));
         return [];
