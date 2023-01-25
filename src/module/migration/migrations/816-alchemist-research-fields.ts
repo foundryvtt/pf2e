@@ -1,5 +1,6 @@
 import { ItemSourcePF2e } from "@item/data";
 import { AELikeSource } from "@module/rules/rule-element/ae-like";
+import { RuleElementSource } from "@module/rules";
 import { MigrationBase } from "../base";
 
 /** Update rule elements on Bomber, Chirurgeon, Mutagenist, Toxicologist, Research Field, Field Discovery, Greater Field Discovery, Perpetual Infusions, Perpetual Potency and Perpetual Perfection */
@@ -68,6 +69,16 @@ export class Migration816AlchemistResearchFields extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type !== "feat" || !source.system.slug) return;
+
+        if (
+            source.system.rules.some(
+                (r: MaybeAELikeSource): r is MaybeAELikeSource =>
+                    r.key === "ActiveEffectLike" && r.path === "flags.pf2e.alchemist"
+            )
+        ) {
+            return;
+        }
+
         switch (source.system.slug) {
             case "bomber": {
                 source.system.rules.push(this.#bomberSetFlags);
@@ -87,4 +98,8 @@ export class Migration816AlchemistResearchFields extends MigrationBase {
             }
         }
     }
+}
+
+interface MaybeAELikeSource extends RuleElementSource {
+    path?: unknown;
 }
