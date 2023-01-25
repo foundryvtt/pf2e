@@ -100,7 +100,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
             const diceNumber = Number(this.resolveValue(this.diceNumber, 0, { resolvables: params.resolvables })) || 0;
 
-            const resolvedBrackets = this.resolveValue(this.brackets, { resolvables: params.resolvables });
+            const resolvedBrackets = this.resolveValue(this.brackets, {}, { resolvables: params.resolvables });
             if (!this.#resolvedBracketsIsValid(resolvedBrackets)) {
                 this.failValidation("Brackets failed to validate");
                 return null;
