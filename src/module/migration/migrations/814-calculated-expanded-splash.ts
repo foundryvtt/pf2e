@@ -29,6 +29,7 @@ export class Migration814CalculatedExpandedSplash extends MigrationBase {
             case "expanded-splash": {
                 const rules = [
                     {
+                        damageCategory: "splash",
                         key: "FlatModifier",
                         predicate: ["item:trait:splash"],
                         selector: "alchemical-bomb-damage",

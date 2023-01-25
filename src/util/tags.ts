@@ -7,10 +7,9 @@ type WhitelistData = string[] | Record<string, string | { label: string }>;
 function traitSlugToObject(trait: string, dictionary: Record<string, string | undefined>): TraitViewData {
     // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
     // in use, which can include what are normally NPC-only traits
-    const label = dictionary[trait] ?? trait;
     const traitObject: TraitViewData = {
         name: trait,
-        label,
+        label: game.i18n.localize(dictionary[trait] ?? trait),
     };
     if (objectHasKey(CONFIG.PF2E.traitsDescriptions, trait)) {
         traitObject.description = CONFIG.PF2E.traitsDescriptions[trait];

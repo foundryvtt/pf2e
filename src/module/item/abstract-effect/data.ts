@@ -12,4 +12,6 @@ interface EffectBadgeValue {
 
 type EffectBadge = EffectBadgeCounter | EffectBadgeValue;
 
-export { EffectBadge };
+type TimeUnit = "rounds" | "minutes" | "hours" | "days";
+
+export { TimeUnit, EffectBadge };

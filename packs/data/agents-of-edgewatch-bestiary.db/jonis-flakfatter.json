@@ -3887,7 +3887,42 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "call-toxins-active"
+                        ],
+                        "radius": 30,
+                        "slug": "call-toxins",
+                        "traits": [
+                            "aura",
+                            "divine",
+                            "misfortune",
+                            "poison",
+                            "transmutation"
+                        ]
+                    },
+                    {
+                        "category": "persistent",
+                        "damageType": "poison",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "call-toxins-active",
+                            "item:melee"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "call-toxins-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

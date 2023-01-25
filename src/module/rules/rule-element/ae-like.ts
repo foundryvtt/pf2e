@@ -119,7 +119,7 @@ class AELikeRuleElement extends RuleElementPF2e {
                 current.push(newValue);
             }
         } else if (["subtract", "remove"].includes(this.mode) && Array.isArray(current)) {
-            current.splice(current.indexOf(newValue));
+            current.splice(current.indexOf(newValue), 1);
         } else {
             try {
                 setProperty(actor, path, newValue);

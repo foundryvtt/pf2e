@@ -3,7 +3,7 @@ import { DamageRollFlag } from "@module/chat-message";
 import { UserPF2e } from "@module/user";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success";
 import { RollDataPF2e } from "@system/rolls";
-import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, isObject, objectHasKey, setHasElement, tupleHasValue } from "@util";
 import Peggy from "peggy";
 import { DamageCategorization, deepFindTerms, renderComponentDamage } from "./helpers";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms";
@@ -11,6 +11,18 @@ import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from
 import { DAMAGE_TYPES, DAMAGE_TYPE_ICONS } from "./values";
 
 abstract class AbstractDamageRoll extends Roll {
+    /** Ensure the presence and validity of the `critRule` option for this roll */
+    constructor(formula: string, data = {}, options: DamageInstanceData = {}) {
+        options.critRule = ((): CriticalDoublingRule => {
+            if (tupleHasValue(["double-damage", "double-dice"] as const, options.critRule)) {
+                return options.critRule;
+            }
+            return game.settings.get("pf2e", "critRule") === "doubledamage" ? "double-damage" : "double-dice";
+        })();
+
+        super(formula, data, options);
+    }
+
     static parser = Peggy.generate(ROLL_GRAMMAR);
 
     /** Strip out parentheses enclosing constants */
@@ -40,16 +52,21 @@ abstract class AbstractDamageRoll extends Roll {
 class DamageRoll extends AbstractDamageRoll {
     roller: UserPF2e | null;
 
-    constructor(formula: string, data = {}, options?: DamageRollDataPF2e) {
+    constructor(formula: string, data = {}, options: DamageRollDataPF2e = {}) {
         const wrapped = formula.startsWith("{") ? formula : `{${formula}}`;
         super(wrapped, data, options);
 
-        this.roller = game.users.get(options?.rollerId ?? "") ?? null;
+        this.roller = game.users.get(options.rollerId ?? "") ?? null;
 
-        if (this.options.evaluatePersistent) {
+        if (options.evaluatePersistent) {
             for (const instance of this.instances) {
                 instance.options.evaluatePersistent = true;
             }
+        }
+
+        // Ensure same crit rule is present on all instances
+        for (const instance of this.instances) {
+            instance.options.critRule = this.options.critRule;
         }
     }
 
@@ -295,10 +312,10 @@ class DamageInstance extends AbstractDamageRoll {
 
     materials: MaterialDamageEffect[];
 
-    constructor(formula: string, data = {}, options?: RollOptions) {
+    constructor(formula: string, data = {}, options: DamageInstanceData = {}) {
         super(formula, data, options);
 
-        const flavorIdentifiers = this.options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
+        const flavorIdentifiers = options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
         this.type = flavorIdentifiers.find((t): t is DamageType => setHasElement(DAMAGE_TYPES, t)) ?? "untyped";
         this.persistent = flavorIdentifiers.includes("persistent") || flavorIdentifiers.includes("bleed");
         this.materials = flavorIdentifiers.filter((i): i is MaterialDamageEffect =>
@@ -492,11 +509,24 @@ class DamageInstance extends AbstractDamageRoll {
     }
 
     /** Get the total of this instance without any doubling or tripling from a critical hit */
-    get critImmuneTotal(): number | undefined {
+    get critImmuneTotal(): this["total"] {
         if (!this._evaluated) return undefined;
 
         const { head } = this;
-        return head instanceof ArithmeticExpression || head instanceof Grouping ? head.critImmuneTotal : this.total;
+
+        // Get the total with all damage-doubling removed
+        const undoubledTotal =
+            head instanceof ArithmeticExpression || head instanceof Grouping ? head.critImmuneTotal : this.total;
+
+        if (this.options.critRule === "double-damage") {
+            return undoubledTotal;
+        } else {
+            // Dice doubling for crits is enabled: discard the second half of all doubled dice
+            const secondHalf = this.dice
+                .filter((d) => /\bdoubled\b/.test(d.flavor))
+                .flatMap((d) => d.results.slice(Math.ceil(d.results.length / 2)));
+            return undoubledTotal! - secondHalf.reduce((sum, r) => sum + r.result, 0);
+        }
     }
 
     componentTotal(component: "precision" | "splash"): number {
@@ -515,18 +545,26 @@ interface DamageInstance extends AbstractDamageRoll {
     options: DamageInstanceData;
 }
 
-interface DamageRollDataPF2e extends RollDataPF2e {
+type CriticalDoublingRule = "double-damage" | "double-dice";
+
+interface AbstractDamageRollData extends RollOptions {
+    evaluatePersistent?: boolean;
+    critRule?: CriticalDoublingRule;
+}
+
+interface DamageRollDataPF2e extends RollDataPF2e, AbstractDamageRollData {
+    /** Data used to construct the damage formula and options */
     damage?: DamageTemplate;
     result?: DamageRollFlag;
-    evaluatePersistent?: boolean;
     degreeOfSuccess?: DegreeOfSuccessIndex;
+    /** If the total was increased to 1, the original total */
     increasedFrom?: number;
+    /** Whether this roll is the splash damage from another roll */
     splashOnly?: boolean;
+    /** Resistance types to be ignored */
     ignoredResistances?: { type: ResistanceType; max: number | null }[];
 }
 
-interface DamageInstanceData extends RollOptions {
-    evaluatePersistent?: boolean;
-}
+type DamageInstanceData = AbstractDamageRollData;
 
-export { DamageRoll, DamageInstance };
+export { DamageInstance, DamageRoll, DamageRollDataPF2e };

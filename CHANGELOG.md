@@ -1,5 +1,98 @@
 # Changelog
 
+## Version 4.6.8
+
+### Bugfixes
+* (stwlam) Fix issue causing button listeners to fail on some damage chat messages
+* (stwlam) Fix application of resistances/weaknesses following crit immunity
+* (stwlam) Fix adding base weapon types from homebrew elements
+* (Supe) Prevent flat checks acquiring bonuses and penalties
+
+### Data Updates
+* (Dire Weasel) Add Aura rule elements to additional NPCs
+* (TiloBuechsenschuss) Fix Tzitzimitl spellcasting DC for innate spells
+
+
+## Version 4.6.7
+
+### Bugfixes
+* (stwlam) Fix click listeners of persistent damage application buttons
+* (stwlam) Fix visibility of persistent-damage recovery button
+* (stwlam) Have damage-formula parser accept dice expressions with no leading number
+
+### Data Updates
+* (Dire Weasel) Add Aura rule elements to additional NPCs
+* (Dire Weasel) Add hyphen to long-term rest action name
+* (Dire Weasel) Added Curse of Stone to Stone Sister's attacks
+* (Dire Weasel) Update augnagar to new bleed format
+* (stwlam) Add negative healing to Basic Undead Benefits and Revenant background
+* (stwlam) Fix rule element on Expanded Splash
+* (stwlam) Have Aquatic Combat effect grant Flat-Footed condition
+* (stwlam) Remove (Kingmaker) Amiri's extra Intimidating Glare feat
+* (TMun) Correct will save modifier of Tarrasque
+* (Tikael) Add missing source details to critical hit deck effect
+* (Tikael) Fix feat type of Fey Influence
+* (xdy) Add flat-footed Critical Deck effect
+
+
+## Version 4.6.6
+
+### System Improvements
+* (Dire Weasel) Add splash damage to weapons with Scatter trait
+* (stwlam) Add IWR support for unarmed attacks
+* (stwlam) Add resistance-ignoring to applicable weapon runes
+* (stwlam) Add support for setting reach from CreatureSize rule elements
+* (stwlam) Allow strike attack-roll methods to skip ammo consumption
+* (Supe) Add persistent recovery button and auto-recover on success
+
+### Bugfixes
+* (Jamz) Add more specificity to the CSS selectors for Critical Hit/Fumble Journals
+* (Roxim) Remove Serrating Critical Success Note
+* (stwlam) Fix application of persistent damage when IWR setting is disabled
+* (stwlam) Fix automatic inclusion of mental immunity for mindless creatures
+* (stwlam) Fix localization of hazard traits outside edit mode
+* (stwlam) Fix name adjustments of nested feats with choice sets
+
+### Data Updates
+* (Abaddon) Localize actions tab on hazard sheet
+* (Dire Weasel) Add "Conrasu" trait to Conrasu Lore
+* (Dire Weasel) Add AdjustDegreeOfSuccess rule element to Effect: Bravo's Brew (Greater)
+* (Dire Weasel) Add several inert Aura rule elements to NPCs for visual reference
+* (Dire Weasel) Add Effect: Dragon's Rage Wings
+* (Dire Weasel) Add TokenLight rule elements for "Glow" abilities
+* (Dire Weasel) Add effects for Perfect Droplet - Armor
+* (Dire Weasel) Add metal resistance to Rust Ooze
+* (Dire Weasel) Restore missing note for flaming rune critical
+* (Dire Weasel) Add representative image to Apricot of Bestial Might strike
+* (Dire Weasel) Add resistance rule elements to several abilities
+* (Dire Weasel) Add splash trait to Alignment Ampoule
+* (Dire Weasel) Added resistance rule elements to Perfect Resistance
+* (Dire Weasel) Fix Jakaki's Mindfog Aura to be passive. Add Aura RE to Mindfog Aura.
+* (Dire Weasel) Fix D'ziriak language tag
+* (Dire Weasel) Fix description of maximum damage for Bottled Sunlight (Moderate)
+* (Dire Weasel) Fix formatting of several aura descriptions
+* (Dire Weasel) Update Brighite Herexen to new Harm spell
+* (InfamousSky) Fix zombie rival necromancer hit points
+* (squirrelkiller) Correct gun sword's weapon category
+* (Roxim) Add Missing Immunity on Derghodaemon
+* (SpartanCPA) Add Imeckus Stroon
+* (SpartanCPA) Remove redundant Elk and Megaloceros from Kingmaker Compendium
+* (rectulo) Fix a typo in Divine evolution
+* (stwlam) Add rule element to Calculated Splash feat
+* (stwlam) Add class DC training to applicable multiclass dedications
+* (stwlam) Add resistance rule elements to Armor Expertise class feature
+* (stwlam) Add weapon base type to claws from two heritages
+* (stwlam) Fix flag mismatch in Effect: Elemental Assault rule elements
+* (stwlam) Fix Slag May claw's cold-iron material
+* (Surge) Fix Grazing Deer hazard disable checks typo
+* (Tikael) Add inline damage rolls to Bottled Sunlight
+* (Tikael) Add missing human heritages from the Beginner Box
+* (Tikael) Add rule elements to Bomb Launcher
+* (Tikael) Fix actions of Thunder Helm
+* (Tikael) Fix granted feat of Musical Prodigy
+* (Tikael) Fix item grants of Molten Wit feat
+
+
 ## Version 4.6.5
 
 ### New Features

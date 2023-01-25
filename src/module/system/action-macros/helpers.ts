@@ -10,13 +10,18 @@ import {
 import { WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
-import { extractModifierAdjustments, extractRollSubstitutions } from "@module/rules/helpers";
+import {
+    extractDegreeOfSuccessAdjustments,
+    extractModifierAdjustments,
+    extractRollSubstitutions,
+} from "@module/rules/helpers";
 import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success";
 import { setHasElement, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { SimpleRollActionCheckOptions } from "./types";
 import { getRangeIncrement } from "@actor/helpers";
 import { CheckPF2e, CheckType } from "@system/check";
+import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression";
 
 export class ActionMacroHelpers {
     static resolveStat(stat: string): {
@@ -197,6 +202,8 @@ export class ActionMacroHelpers {
                 finalOptions
             );
 
+            const dosAdjustments = extractDegreeOfSuccessAdjustments(actor.synthetics, [stat.slug]);
+
             CheckPF2e.roll(
                 check,
                 {
@@ -209,6 +216,7 @@ export class ActionMacroHelpers {
                     type: options.checkType,
                     options: finalOptions,
                     notes,
+                    dosAdjustments,
                     substitutions,
                     traits: traitObjects,
                     title: `${game.i18n.localize(options.title)} - ${game.i18n.localize(options.subtitle)}`,
@@ -234,7 +242,7 @@ export class ActionMacroHelpers {
     private static getWeaponPotencyModifier(item: Embedded<WeaponPF2e>, selector: string): ModifierPF2e | null {
         const itemBonus = item.system.runes.potency;
         const slug = "potency";
-        if (game.settings.get("pf2e", "automaticBonusVariant") !== "noABP") {
+        if (AutomaticBonusProgression.isEnabled(item.actor)) {
             return new ModifierPF2e({
                 slug,
                 type: MODIFIER_TYPE.POTENCY,

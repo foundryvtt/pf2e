@@ -117,7 +117,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             if (this.mode === "add" && !traits.includes(change)) {
                                 traits.push(change);
                             } else if (["subtract", "remove"].includes(this.mode) && traits.includes(change)) {
-                                traits.splice(traits.indexOf(change));
+                                traits.splice(traits.indexOf(change), 1);
                             }
                         },
                     };
@@ -157,7 +157,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                                     // the existing one otherwise just return out as we don't want to add the new
                                     // (lesser) trait
                                     if (changeTraitScore > existingTraitScore) {
-                                        traits.findSplice((trait) => trait === existingTraitMatch[0]);
+                                        traits.findSplice((trait) => trait === existingTraitMatch[0], change);
                                     }
 
                                     return;
@@ -167,7 +167,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
                             if (this.mode === "add" && !traits.includes(change)) {
                                 traits.push(change);
                             } else if (traits.includes(change)) {
-                                traits.splice(traits.indexOf(change));
+                                traits.splice(traits.indexOf(change), 1);
                             }
                         },
                     };

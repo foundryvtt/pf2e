@@ -356,15 +356,15 @@ declare global {
          */
         toMessage(
             messageData: PreCreate<foundry.data.ChatMessageSource> | undefined,
-            { rollMode, create }: { rollMode?: RollMode; create: false }
+            { rollMode, create }: { rollMode?: RollMode | "roll"; create: false }
         ): Promise<foundry.data.ChatMessageSource>;
         toMessage(
             messageData?: PreCreate<foundry.data.ChatMessageSource>,
-            { rollMode, create }?: { rollMode?: RollMode; create?: true }
+            { rollMode, create }?: { rollMode?: RollMode | "roll"; create?: true }
         ): Promise<ChatMessage>;
         toMessage(
             messageData?: PreCreate<foundry.data.ChatMessageSource>,
-            { rollMode, create }?: { rollMode?: RollMode; create?: boolean }
+            { rollMode, create }?: { rollMode?: RollMode | "roll"; create?: boolean }
         ): Promise<ChatMessage | foundry.data.ChatMessageSource>;
 
         /* -------------------------------------------- */

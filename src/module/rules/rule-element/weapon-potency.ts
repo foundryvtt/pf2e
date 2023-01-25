@@ -1,5 +1,5 @@
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { ActorType } from "@actor/data";
-import { MODIFIER_TYPE } from "@actor/modifiers";
 import { ItemPF2e, WeaponPF2e } from "@item";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from ".";
 import { PotencySynthetic } from "../synthetics";
@@ -27,10 +27,7 @@ export class WeaponPotencyRuleElement extends RuleElementPF2e {
         const potencyValue = this.data.value ?? (item instanceof WeaponPF2e ? item.system.potencyRune.value : 0);
         const value = this.resolveValue(potencyValue);
         if (selector && typeof value === "number") {
-            const bonusType =
-                game.settings.get("pf2e", "automaticBonusVariant") === "noABP"
-                    ? MODIFIER_TYPE.ITEM
-                    : MODIFIER_TYPE.POTENCY;
+            const bonusType = ABP.isEnabled(this.actor) ? "potency" : "item";
 
             const label = this.data.label.includes(":")
                 ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "")

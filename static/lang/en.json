@@ -11,6 +11,7 @@
     },
     "ITEM": {
         "TypeAction": "Action",
+        "TypeAffliction": "Affliction",
         "TypeAncestry": "Ancestry",
         "TypeArmor": "Armor",
         "TypeBackground": "Background",
@@ -50,7 +51,8 @@
         "UnknownCombatant": "Unknown Participant"
     },
     "COMPENDIUM": {
-        "Search": "Search Compendiums"
+        "Search": "Search Compendiums",
+        "Migrate": "Migrate Compendium"
     },
     "CONTROLS": {
         "AdjustSceneDarkness": "Adjust Scene Darkness",
@@ -718,6 +720,7 @@
                 "AncestryClass": "{ancestry} {class}",
                 "ClassDC": {
                     "Label": "Class DC",
+                    "LabelSpecific": "Class DC ({class})",
                     "Plural": "Class DCs"
                 },
                 "Configure": {
@@ -1086,6 +1089,17 @@
             "worn-in-slot": "Worn (In Slot)",
             "stowed": "Stowed",
             "dropped": "Dropped"
+        },
+        "CastingItemCreateDialog": {
+            "10thLevelWand": "10th level wands don't exist",
+            "cantripDeck5": "Cantrip Deck (5-pack)",
+            "itemTypeLabel": "Item type: ",
+            "label": "Create a spellcasting item from the dropped spell",
+            "scroll": "Scroll",
+            "spellLevelLabel": "Heightened Level: ",
+            "submit": "Create item",
+            "title": "Create a spellcasting item",
+            "wand": "Wand"
         },
         "CastLabel": "Cast",
         "CharacterDetails": "Character Details",
@@ -1808,6 +1822,16 @@
                     "studded-leather-armor": "Studded Leather Armor"
                 }
             },
+            "Affliction": {
+                "AddStage": "Add Stage",
+                "Error": {
+                    "RestrictedStageItem": "Only effect items can be directly added to afflictions"
+                },
+                "SaveLabel": "Save DC",
+                "StageLabel": "Stage",
+                "Stage": "Stage {stage}",
+                "OnsetLabel": "Onset"
+            },
             "Backpack": {
                 "StowingLabel": "Is Stowing Container?"
             },
@@ -2204,19 +2228,24 @@
             "IconLabel": "Icon",
             "NameLabel": "Name",
             "Physical": {
+                "Broken": "Broken",
+                "Destroyed": "Destroyed",
+                "FromSpell": {
+                    "CantripDeck5": "Cantrip Deck of {name} (5-pack)",
+                    "Scroll": "Scroll of {name} (Level {level})",
+                    "Wand": "Wand of {name} (Level {level})"
+                },
                 "LevelLabel": "Item {level}",
-                "PriceLabel": "Price: {price}",
                 "OtherTag": {
                     "Herbal": "Herbal",
                     "Improvised": "Improvised",
                     "Shoddy": "Shoddy"
                 },
                 "OtherTags": {
-                    "Label": "Other Tags",
-                    "Hint": "These are tags indicating classifications in 2nd Edition rules that lack explicit status/definition but are still yet heavily relied upon. Some may be automatically added when other properties are present."
+                    "Hint": "These are tags indicating classifications in 2nd Edition rules that lack explicit status/definition but are still yet heavily relied upon. Some may be automatically added when other properties are present.",
+                    "Label": "Other Tags"
                 },
-                "Broken": "Broken",
-                "Destroyed": "Destroyed",
+                "PriceLabel": "Price: {price}",
                 "Usage": {
                     "WornParenthetical": "Worn ({where})",
                     "WornSlot": {
@@ -2265,7 +2294,8 @@
                     "SheetTitle": "{originalName} (Variant)"
                 },
                 "Warning": {
-                    "InvalidLevel": "Attempted to add spell {name} at {targetLevel}, but spell is {baseLevel}."
+                    "InvalidLevel": "Attempted to add spell {name} at {targetLevel}, but spell is {baseLevel}.",
+                    "WrongSpellType": "Cannot add {spellType} spell to this casting entry."
                 }
             },
             "Weapon": {
@@ -3205,17 +3235,6 @@
         "SavesWillShort": "Will",
         "SavingThrowWithName": "{saveName} Saving Throw",
         "ScoreTitle": "Score",
-        "ScrollFromSpell": "Scroll of {name} (Level {level})",
-        "ScrollWandPopup": {
-            "10thLevelWand": "10th level wands don't exist",
-            "itemTypeLabel": "Consumable type: ",
-            "label": "Create a scroll or wand from the dropped spell",
-            "scroll": "Scroll",
-            "spellLevelLabel": "Heightened Level: ",
-            "submit": "Create item",
-            "title": "Create a scroll or wand",
-            "wand": "Wand"
-        },
         "SelectLabel": "Select",
         "SellAllTreasureTitle": "Sell All Treasure",
         "SellAllTreasureQuestion": "Convert all treasure items into coins",
@@ -3847,7 +3866,7 @@
         "TraitDescriptionOracle": "This indicates abilities from the oracle class.",
         "TraitDescriptionOread": "A type of geniekin descended from a being from the Plane of Earth.",
         "TraitDescriptionOrc": "A creature with this trait is a member of the orc ancestry. A weapon with this trait is a weapon which orcs craft and use.",
-        "TraitDescriptionParry": "This weapon can be used defensively to block attacks. While wielding this weapon, if your proficiency with it is trained or better, you can spend an Interact action to position your weapon defensively, gaining a +1 circumstance bonus to AC until the start of your next turn.",
+        "TraitDescriptionParry": "This weapon can be used defensively to block attacks. While wielding this weapon, if your proficiency with it is trained or better, you can spend a single action to position your weapon defensively, gaining a +1 circumstance bonus to AC until the start of your next turn.",
         "TraitDescriptionPeachwood": "Peachwood weapons have a particularly auburn tinge to them when under direct sunlight. Peachwood is treated as darkwood for any undead creatures' resistances or weaknesses related to darkwood (allowing a peachwood weapon to bypass a jiang-shi's resistance, for example). In addition, peachwood weapons bypass a small portion of the resistances of any undead creature. Strikes with a peachwood weapon treat an undead's resistances against physical damage as 2 lower for standard-grade peachwood, and 4 lower for high-grade.",
         "TraitDescriptionPlant": "Vegetable creatures have the plant trait. They are distinct from normal plants. Magical effects with this trait manipulate or conjure plants or plant matter in some way. Those that manipulate plants have no effect in an area with no plants.",
         "TraitDescriptionPoison": "An effect with this trait delivers a poison or deals poison damage. An item with this trait is poisonous and might cause an affliction.",
@@ -4513,7 +4532,6 @@
             }
         },
         "ValueLabel": "Value",
-        "WandFromSpell": "Wand of {name} (Level {level})",
         "WeaknessesLabel": "Weaknesses",
         "Weapon": {
             "Base": {
@@ -4939,7 +4957,7 @@
             "greaterFrost": {
                 "Name": "Greater Frost",
                 "Note": {
-                    "criticalSuccess": "Cold damage dealt by this weapon ignores the target's cold resistance. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:34|name:Greater Thundering Rune] save.",
+                    "criticalSuccess": "Cold damage dealt by this weapon ignores the target's cold resistance. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:34|name:Greater Frost Rune] save.",
                     "success": "<strong>Greater Frost Rune</strong> Cold damage dealt by this weapon ignores the target's cold resistance."
                 }
             },
@@ -4973,7 +4991,7 @@
                     "Bow": "<strong>Grievous Rune</strong> The Athletics check to pull the missile free is DC 20.",
                     "Brawling": "<strong>Grievous Rune</strong> The target takes a -4 circumstance penalty to its save.",
                     "Club": "<strong>Grievous Rune</strong> You can knock the target up to 15 feet away.",
-                    "Dart": "<strong>Grievous Rune</strong> The base persistent bleed damage increases to [[/r 2d6[persistent,bleed]]].",
+                    "Dart": "<strong>Grievous Rune</strong> The base persistent bleed damage increases to [[/r 2d6[bleed]]].",
                     "Flail": "<strong>Grievous Rune</strong> You move the target 5 feet. You can't move it away from you, but you can move it in another direction of your choice.",
                     "Hammer": "<strong>Grievous Rune</strong> You can also knock the target 5 feet away from you.",
                     "Knife": "<strong>Grievous Rune</strong> The target takes a -5-foot status penalty to its Speed while it has the @UUID[Compendium.pf2e.conditionitems.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}.",
@@ -5493,7 +5511,7 @@
             "SpaceWideLabel": "Width",
             "SpaceHighLabel": "Height",
             "BrokenThresholdShortLabel": "BT",
-            "CurrentHPTitel": "Current Hitpoints",
+            "CurrentHPTitle": "Current Hitpoints",
             "MaxHPTitle": "Maximum Hitpoints",
             "HardnessShortLabel": "Hard.",
             "HardnessLabel": "Hardness",

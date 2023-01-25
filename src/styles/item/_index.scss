@@ -85,7 +85,7 @@
 
         .item-controls {
             display: flex;
-            margin: 0 4px;
+            margin: 0 0 0 4px;
             align-items: baseline;
             gap: 2px;
         }
@@ -276,6 +276,38 @@
                 font-weight: 600;
                 font-size: 1.05em;
                 margin-bottom: 0.25em;
+            }
+        }
+
+        .form-list.subsection {
+            padding: 0;
+
+            & > * {
+                padding: 0.25rem;
+            }
+
+            & > header {
+                align-items: baseline;
+                background-color: var(--secondary);
+                border-radius: 5px 5px 0 0;
+                color: white;
+                display: flex;
+                justify-content: space-between;
+                margin: -1px -1px 0 -1px;
+                padding: 1px;
+                h3, .item-controls {
+                    padding: 0.25rem;
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .two-by-two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 0.25rem;
+            .item-controls {
+                margin: 0;
             }
         }
 

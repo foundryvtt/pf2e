@@ -936,38 +936,19 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Investigating a designated subject with Pursue a Lead",
+                        "label": "PF2E.SpecificRule.Investigator.PursueALead.Label",
                         "option": "pursue-a-lead",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Pursue a Lead",
                         "predicate": [
                             "pursue-a-lead"
                         ],
-                        "selector": "skill-check",
-                        "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 8,
-                                    "value": 1
-                                },
-                                {
-                                    "start": 9,
-                                    "value": 2
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Pursue a Lead",
-                        "predicate": [
-                            "pursue-a-lead"
+                        "selector": [
+                            "perception",
+                            "skill-check"
                         ],
-                        "selector": "perception",
                         "type": "circumstance",
                         "value": {
                             "brackets": [
@@ -985,7 +966,7 @@
                 ],
                 "slug": "pursue-a-lead",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Advanced Player's Guide"
                 },
                 "traits": {
                     "custom": "",
@@ -2453,122 +2434,6 @@
             "type": "equipment"
         },
         {
-            "_id": "OWS5WtHYxbbxVqq7",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.gWr4q4HiyGhETA8H"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
-            "name": "Alchemist's Fire (Moderate)",
-            "sort": 3900000,
-            "system": {
-                "MAP": {
-                    "value": ""
-                },
-                "baseItem": "alchemical-bomb",
-                "bonus": {
-                    "value": 1
-                },
-                "bonusDamage": {
-                    "value": 0
-                },
-                "category": "martial",
-                "containerId": null,
-                "damage": {
-                    "damageType": "fire",
-                    "dice": 2,
-                    "die": "d8"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
-                },
-                "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "group": "bomb",
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potencyRune": {
-                    "value": null
-                },
-                "preciousMaterial": {
-                    "value": null
-                },
-                "preciousMaterialGrade": {
-                    "value": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 10
-                    }
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
-                },
-                "quantity": 1,
-                "range": 20,
-                "reload": {
-                    "value": "-"
-                },
-                "rules": [],
-                "size": "med",
-                "slug": "alchemists-fire-moderate",
-                "source": {
-                    "value": ""
-                },
-                "splashDamage": {
-                    "value": 2
-                },
-                "stackGroup": null,
-                "strikingRune": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "bomb",
-                        "consumable",
-                        "fire",
-                        "splash"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "type": "weapon"
-        },
-        {
             "_id": "NiMrIfbrieuHov17",
             "flags": {
                 "core": {
@@ -3470,11 +3335,10 @@
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks to Pick Locks and Disable Devices.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Infiltrator Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
+                    "value": "<p>You need thieves' tools to @UUID[Compendium.pf2e.actionspf2e.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Disable Device]{Disable Devices} (of some types) using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks to Pick Locks and Disable Devices.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Thieves' Tools (Infiltrator Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action. If you wear your thieves’ tools, you can draw and replace them as part of the action that uses them.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
-                    "handsHeld": 0,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -3507,7 +3371,6 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Thieves' Tools (Pick Lock & Disable Devices)",
                         "predicate": [
                             {
                                 "or": [
@@ -3524,7 +3387,7 @@
                 "size": "med",
                 "slug": "thieves-tools-infiltrator",
                 "source": {
-                    "value": ""
+                    "value": "Pathfinder Core Rulebook"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -3533,7 +3396,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
                     "value": "L"
@@ -3773,6 +3636,127 @@
                 }
             },
             "type": "heritage"
+        },
+        {
+            "_id": "4QhqvgHRD4YmhVlH",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.gWr4q4HiyGhETA8H"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
+            "name": "Alchemist's Fire (Moderate)",
+            "sort": 0,
+            "system": {
+                "MAP": {
+                    "value": ""
+                },
+                "baseItem": "alchemical-bomb",
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "fire",
+                    "dice": 2,
+                    "die": "d8",
+                    "persistent": {
+                        "faces": null,
+                        "number": 2,
+                        "type": "fire"
+                    }
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": "bomb",
+                "hardness": 0,
+                "hp": {
+                    "brokenThreshold": 0,
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": null
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 10
+                    }
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
+                },
+                "quantity": 1,
+                "range": 20,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "size": "med",
+                "slug": "alchemists-fire-moderate",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "splashDamage": {
+                    "value": 2
+                },
+                "stackGroup": null,
+                "strikingRune": {
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "fire",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "type": "weapon"
         }
     ],
     "name": "Oraka",
@@ -3805,7 +3789,7 @@
                 "value": 60
             },
             "initiative": {
-                "ability": ""
+                "ability": "perception"
             },
             "resolve": {
                 "max": 0,
@@ -3891,11 +3875,11 @@
         },
         "martial": {},
         "pfs": {
-            "characterNumber": "",
+            "characterNumber": null,
             "currentFaction": "EA",
             "fame": 0,
             "levelBump": false,
-            "playerNumber": "",
+            "playerNumber": null,
             "reputation": {
                 "EA": 0,
                 "GA": 0,

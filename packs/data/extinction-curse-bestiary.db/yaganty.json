@@ -784,7 +784,46 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "light-in-the-darkness-active"
+                        ],
+                        "radius": 60,
+                        "slug": "light-in-the-darkness",
+                        "traits": [
+                            "aura",
+                            "light",
+                            "mental",
+                            "primal",
+                            "visual"
+                        ]
+                    },
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "light-in-the-darkness-active"
+                        ],
+                        "value": {
+                            "animation": {
+                                "intensity": 4,
+                                "speed": 1,
+                                "type": "torch"
+                            },
+                            "bright": 10,
+                            "color": "#9b7337",
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "light-in-the-darkness-active",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

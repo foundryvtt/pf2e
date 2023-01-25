@@ -17,6 +17,11 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
         }
         if (Hooks.call("hotbarDrop", this, data, slot) === false) return;
 
+        // A melee item dropped on the hotbar is to instead generate an action macro
+        if (data.type === "Item" && data.itemType === "melee" && typeof data.index === "number") {
+            data.type = "Action";
+        }
+
         switch (data.type) {
             case "Item": {
                 const itemId = data.id ?? (isObject<{ _id?: unknown }>(data.data) ? data.data._id : null);
@@ -96,6 +101,7 @@ type HotbarDropData = Partial<DropCanvasData> & {
     skill?: string;
     skillName?: string;
     index?: number;
+    itemType?: string;
     pf2e?: {
         type: string;
         property: string;

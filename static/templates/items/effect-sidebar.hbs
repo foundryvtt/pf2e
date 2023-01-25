@@ -1,23 +1,7 @@
 <div class="inventory-details">
     <div class="form-group">
         <label for="{{#if (eq data.duration.unit "unlimited")}}effect-duration-unit{{else}}effect-duration-value{{/if}}">{{localize "PF2E.Time.Duration"}}</label>
-        <div class="form-fields">
-            {{#if (or (eq data.duration.unit "unlimited") (eq data.duration.unit "encounter"))}}
-                <input type="hidden" name="system.duration.value" value="-1" data-dtype="Number" />
-            {{else}}
-                <input type="number" name="system.duration.value" class="left-of-select" value="{{data.duration.value}}" />
-            {{/if}}
-            <select name="system.duration.unit">
-                {{#select data.duration.unit}}
-                    <option value="rounds">{{localize "PF2E.Time.Unit.Rounds"}}</option>
-                    <option value="minutes">{{localize "PF2E.Time.Unit.Minutes"}}</option>
-                    <option value="hours">{{localize "PF2E.Time.Unit.Hours"}}</option>
-                    <option value="days">{{localize "PF2E.Time.Unit.Days"}}</option>
-                    <option value="unlimited">{{localize "PF2E.Time.Unit.Unlimited"}}</option>
-                    <option value="encounter">{{localize "PF2E.Time.Unit.UntilEncounterEnds"}}</option>
-                {{/select}}
-            </select>
-        </div>
+        {{> systems/pf2e/templates/items/partials/duration.hbs base="system.duration" duration=data.duration units=timeUnits}}
     </div>
     <div class="form-group">
         <label for="effect-duration-sustained">{{localize "PF2E.Item.Effect.Sustained"}}</label>
