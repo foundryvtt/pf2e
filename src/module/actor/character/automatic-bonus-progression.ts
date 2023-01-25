@@ -10,7 +10,8 @@ import { CharacterPF2e } from "./document";
 class AutomaticBonusProgression {
     /** Whether the ABP variant is enabled and also not selectively disabled for a particular actor */
     static isEnabled(actor: ActorPF2e | null): boolean {
-        if (!actor) return false;
+        // Synthetic actors begin data preparation before their data model is initialized
+        if (!actor?.flags) return false;
 
         const settingEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
         const actorIsPC = actor.isOfType("character") && !actor.flags.pf2e.disableABP;

@@ -10,6 +10,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers";
+import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e, CheckRoll } from "@system/check";
 import { DamagePF2e, DamageType, WeaponDamagePF2e } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
@@ -70,6 +71,56 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
     await MigrationRunner.ensureSchemaVersion(actor, MigrationList.constructFromVersion(lowestSchemaVersion));
 
     return actor.toObject();
+}
+
+/** Review `removeOnExit` aura effects and remove any that no longer apply */
+async function checkAreaEffects(this: ActorPF2e): Promise<void> {
+    if (!canvas.ready || game.user !== this.primaryUpdater) return;
+
+    const thisTokens = this.getActiveTokens(false, true);
+    const toDelete: string[] = [];
+    const toKeep: string[] = [];
+
+    for (const effect of this.itemTypes.effect) {
+        const auraData = effect.flags.pf2e.aura;
+        if (!auraData?.removeOnExit) continue;
+
+        const auraToken = await (async (): Promise<TokenDocumentPF2e | null> => {
+            const document = await fromUuid(auraData.origin);
+            if (document instanceof TokenDocumentPF2e) {
+                return document;
+            } else if (document instanceof ActorPF2e) {
+                return document.getActiveTokens(false, true).shift() ?? null;
+            }
+            return null;
+        })();
+
+        const aura = auraToken?.auras.get(auraData.slug);
+
+        // Main sure this isn't an identically-slugged aura with different effects
+        const effects = auraToken?.actor?.auras.get(auraData.slug)?.effects ?? [];
+        const auraHasEffect = effects.some((e) => e.uuid === effect.sourceId);
+
+        for (const token of thisTokens) {
+            if (auraHasEffect && aura?.containsToken(token)) {
+                toKeep.push(effect.id);
+            } else {
+                toDelete.push(effect.id);
+            }
+        }
+
+        // If no tokens for this actor remain in the scene, always remove the effect
+        if (thisTokens.length === 0) {
+            toDelete.push(effect.id);
+        }
+    }
+
+    // In case there are multiple tokens for this actor, avoid deleting aura effects if at least one token is
+    // exposed to the aura
+    const finalToDelete = toDelete.filter((id) => !toKeep.includes(id));
+    if (finalToDelete.length > 0) {
+        await this.deleteEmbeddedDocuments("Item", finalToDelete);
+    }
 }
 
 /** Find the lowest multiple attack penalty for an attack with a given item */
@@ -384,8 +435,9 @@ interface MAPData {
 export {
     calculateMAPs,
     calculateRangePenalty,
-    isReallyPC,
+    checkAreaEffects,
     getRangeIncrement,
+    isReallyPC,
     migrateActorSource,
     resetAndRerenderActors,
     strikeFromMeleeItem,
