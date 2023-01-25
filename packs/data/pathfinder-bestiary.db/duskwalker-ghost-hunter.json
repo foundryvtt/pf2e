@@ -743,9 +743,10 @@
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                         "predicate": [
-                            "hunt-prey-checks",
-                            "action:seek"
+                            "action:seek",
+                            "hunt-prey-checks"
                         ],
                         "selector": "perception",
                         "type": "circumstance",
@@ -753,9 +754,10 @@
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                         "predicate": [
-                            "hunt-prey-checks",
-                            "action:track"
+                            "action:track",
+                            "hunt-prey-checks"
                         ],
                         "selector": "survival",
                         "type": "circumstance",
@@ -766,27 +768,21 @@
                         "predicate": [
                             "hunt-prey-checks"
                         ],
-                        "selector": "deception",
+                        "selector": [
+                            "deception",
+                            "intimidation",
+                            "stealth"
+                        ],
                         "type": "circumstance",
                         "value": 2
                     },
                     {
-                        "key": "FlatModifier",
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
                         "predicate": [
                             "hunt-prey-checks"
-                        ],
-                        "selector": "intimidation",
-                        "type": "circumstance",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "hunt-prey-checks"
-                        ],
-                        "selector": "stealth",
-                        "type": "circumstance",
-                        "value": 2
+                        ]
                     },
                     {
                         "key": "FlatModifier",
