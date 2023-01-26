@@ -1,4 +1,3 @@
-// import { ItemPF2e } from "@item/base";
 import { htmlQueryAll } from "@util";
 
 /** Extend ItemDirectory to show more information */
