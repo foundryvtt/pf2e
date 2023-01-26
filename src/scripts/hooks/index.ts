@@ -11,7 +11,6 @@ import { LightingRefresh } from "./lighting-refresh";
 import { Load } from "./load";
 import { Ready } from "./ready";
 import { RenderActorDirectory } from "./render-actor-directory";
-import { RenderChatMessage } from "./render-chat-message";
 import { RenderCombatTrackerConfig } from "./render-combat-tracker-config";
 import { RenderDialog } from "./render-dialog";
 import { RenderJournalPageSheet } from "./render-journal-page-sheet";
@@ -37,7 +36,6 @@ export const HooksPF2e = {
             LightingRefresh,
             Ready,
             RenderActorDirectory,
-            RenderChatMessage,
             RenderCombatTrackerConfig,
             RenderDialog,
             RenderJournalPageSheet,

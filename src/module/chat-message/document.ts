@@ -1,19 +1,20 @@
 import { ActorPF2e } from "@actor";
-import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
+import { StrikeData } from "@actor/data/base";
 import { ItemPF2e } from "@item";
-import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data";
-import { TokenDocumentPF2e } from "@scene";
 import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { UserPF2e } from "@module/user";
-import { CheckRoll } from "@system/check";
-import { ChatRollDetails } from "./chat-roll-details";
-import { StrikeData } from "@actor/data/base";
+import { TokenDocumentPF2e } from "@scene";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { htmlQuery, parseHTML } from "@util";
-import { DamageButtons, DamageTaken } from "./listeners";
+import { CheckRoll } from "@system/check";
 import { DamageRoll } from "@system/damage/roll";
-import { Statistic } from "@system/statistic";
 import { DegreeOfSuccess } from "@system/degree-of-success";
+import { Statistic } from "@system/statistic";
+import { htmlQuery, parseHTML } from "@util";
+import { ChatRollDetails } from "./chat-roll-details";
+import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
+import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data";
+import * as Listeners from "./listeners";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -206,10 +207,16 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
         const html = $html[0]!;
         if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll) {
-            await DamageButtons.listen(this, html);
+            await Listeners.DamageButtons.listen(this, html);
         }
-        await DamageTaken.listen(html);
+
+        await Listeners.DamageTaken.listen(html);
         CriticalHitAndFumbleCards.appendButtons(this, $html);
+        Listeners.ChatCards.listen($html);
+        InlineRollLinks.listen(html, this);
+        Listeners.DegreeOfSuccessHighlights.listen(this, html);
+        Listeners.MessageTooltips.listen($html);
+        if (canvas.ready) Listeners.SetAsInitiative.listen($html);
 
         // Add persistent damage recovery button and listener (if evaluating persistent)
         const roll = this.rolls[0];
