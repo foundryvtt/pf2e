@@ -11,8 +11,6 @@ import { PredicatePF2e, RawPredicate } from "@system/predication";
 class CraftingEntryRuleElement extends RuleElementPF2e {
     protected static override validActorTypes: ActorType[] = ["character"];
 
-    private name: string;
-
     private selector: string;
 
     constructor(data: CraftingEntryRuleSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
@@ -20,8 +18,6 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
 
         // For the purpose of AE-Like predication, this rule element should set its roll option very early
         this.data.priority = 19;
-
-        this.name = String(data.name || this.data.label);
 
         if (data.selector && typeof data.selector === "string") {
             this.selector = data.selector;
@@ -36,19 +32,18 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
 
         const selector = this.resolveInjectedProperties(this.selector);
 
-        const craftableItems = new PredicatePF2e(this.data.craftableItems ?? []);
-
-        if (!craftableItems.isValid) {
-            this.failValidation("Malformed craftableItems predicate");
+        const craftableItems = this.data.craftableItems ?? [];
+        if (!PredicatePF2e.isValid(craftableItems)) {
+            return this.failValidation("Malformed craftableItems predicate");
         }
 
         this.actor.system.crafting.entries[this.selector] = {
             selector: selector,
-            name: this.name,
+            name: this.label,
             isAlchemical: this.data.isAlchemical,
             isDailyPrep: this.data.isDailyPrep,
             isPrepared: this.data.isPrepared,
-            craftableItems: craftableItems,
+            craftableItems,
             maxItemLevel: this.data.maxItemLevel,
             maxSlots: this.data.maxSlots,
             parentItem: this.item.id,

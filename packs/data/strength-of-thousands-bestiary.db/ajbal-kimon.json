@@ -686,13 +686,13 @@
                     {
                         "domain": "all",
                         "key": "RollOption",
-                        "label": "Target is your Hunted Prey",
+                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
                         "option": "hunted-prey",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "To Seek hunted prey",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                         "predicate": [
                             "action:seek",
                             "hunted-prey"
@@ -703,7 +703,7 @@
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "To Track hunted prey",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                         "predicate": [
                             "action:track",
                             "hunted-prey"
@@ -711,6 +711,14 @@
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": [
+                            "hunted-prey"
+                        ]
                     },
                     {
                         "domain": "all",

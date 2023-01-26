@@ -1816,14 +1816,14 @@ class CharacterPF2e extends CreaturePF2e {
                     return "";
                 }
 
-                const damage = WeaponDamagePF2e.calculate(
-                    context.self.item,
-                    context.self.actor,
-                    context.traits,
+                const damage = WeaponDamagePF2e.calculate({
+                    weapon: context.self.item,
+                    actor: context.self.actor,
+                    actionTraits: context.traits,
                     proficiencyRank,
-                    context.options,
-                    weaponPotency
-                );
+                    options: context.options,
+                    weaponPotency,
+                });
                 if (!damage) return null;
 
                 const outcome = method === "damage" ? "success" : "criticalSuccess";
