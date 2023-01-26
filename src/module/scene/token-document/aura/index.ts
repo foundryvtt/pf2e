@@ -23,6 +23,8 @@ class TokenAura implements TokenAuraData {
     /** Does this aura affect its emanating token? */
     private includesSelf: boolean;
 
+    #squares?: EffectAreaSquare[];
+
     constructor(args: TokenAuraParams) {
         this.slug = args.slug;
         this.token = args.token;
@@ -65,7 +67,7 @@ class TokenAura implements TokenAuraData {
 
     /** The squares covered by this aura */
     get squares(): EffectAreaSquare[] {
-        return getAreaSquares(this);
+        return (this.#squares ??= getAreaSquares(this));
     }
 
     /** Does this aura overlap with (at least part of) a token? */
