@@ -1,6 +1,12 @@
 import { MystifiedTraits } from "@item/data/values";
 import { HotbarPF2e } from "@module/apps/hotbar";
-import { ActorDirectoryPF2e, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/sidebar";
+import {
+    ActorDirectoryPF2e,
+    ItemDirectoryPF2e,
+    ChatLogPF2e,
+    CompendiumDirectoryPF2e,
+    EncounterTrackerPF2e,
+} from "@module/apps/sidebar";
 import {
     AmbientLightPF2e,
     EffectsCanvasGroupPF2e,
@@ -54,6 +60,7 @@ export const Init = {
 
             // Assign the PF2e Sidebar subclasses
             CONFIG.ui.actors = ActorDirectoryPF2e;
+            CONFIG.ui.items = ItemDirectoryPF2e;
             CONFIG.ui.combat = EncounterTrackerPF2e;
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;

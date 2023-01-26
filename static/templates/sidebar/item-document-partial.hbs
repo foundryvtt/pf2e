@@ -1,0 +1,11 @@
+<li class="directory-item document {{@root.documentCls}} flexrow" data-document-id="{{this.id}}">
+  {{#if this.thumbnail}}
+      <img class="thumbnail" title="{{this.name}}" data-src="{{this.thumbnail}}"/>
+  {{/if}}
+  <h4 class="document-name">
+      <a>{{this.name}}</a>
+      {{#if (gte this.level 0)}}
+      <span class="item-level">{{localize "PF2E.LevelN" level=this.level}}</span>
+      {{/if}}
+  </h4>
+</li>
