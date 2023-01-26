@@ -46,6 +46,17 @@ function padArray<T>(array: T[], requiredLength: number, padWith: T): T[] {
     return result;
 }
 
+/** Given an object, returns a new object with the same keys, but with each value converted by a function. */
+function mapValues<K extends string | number | symbol, V, R>(
+    object: Record<K, V>,
+    mapping: (value: V, key: K) => R
+): Record<K, R> {
+    return Object.entries<V>(object).reduce((result, [key, value]) => {
+        result[key as K] = mapping(value, key as K);
+        return result;
+    }, {} as Record<K, R>);
+}
+
 type Optional<T> = T | null | undefined;
 
 /**
@@ -386,6 +397,7 @@ export {
     isBlank,
     isObject,
     localizeList,
+    mapValues,
     objectHasKey,
     omit,
     ordinal,
