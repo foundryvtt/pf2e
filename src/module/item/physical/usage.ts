@@ -104,12 +104,19 @@ export function getUsageDetails(usage: string): UsageDetails {
         case "each-rune-applied-to-a-separate-item-that-has-pockets":
         case "tattooed-on-the-body":
         case "etched-onto-armor":
+        case "etched-onto-light-armor":
         case "etched-onto-med-heavy-armor":
+        case "etched-onto-lm-nonmetal-armor":
         case "etched-onto-a-weapon":
         case "etched-onto-thrown-weapon":
         case "etched-onto-melee-weapon":
+        case "etched-onto-slashing-melee-weapon":
+        case "etched-onto-piercing-or-slashing-melee-weapon":
         case "etched-onto-clan-dagger":
-        case "etched-onto-lm-nonmetal-armor":
+        case "etched-onto-weapon-wo-anarchic-rune":
+        case "etched-onto-weapon-wo-axiomatic-rune":
+        case "etched-onto-weapon-wo-unholy-rune":
+        case "etched-onto-weapon-wo-holy-rune":
         case "sewn-into-clothing":
         case "":
             return { value: usage, type: "worn" };
