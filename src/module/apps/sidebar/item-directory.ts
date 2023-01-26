@@ -4,7 +4,7 @@ import { htmlQueryAll } from "@util";
 export class ItemDirectoryPF2e<TItem extends Item> extends ItemDirectory<TItem> {
     static override get defaultOptions(): SidebarDirectoryOptions {
         const options = super.defaultOptions;
-        options.renderUpdateKeys.push("system.details.level.value", "system.attributes.adjustment");
+        options.renderUpdateKeys.push("system.details.level.value");
         return options;
     }
 
