@@ -780,7 +780,7 @@
                     "value": "1"
                 },
                 "description": {
-                    "value": "<p>Hegremon designates a single creature he can see and hear, or one he's Tracking, as his prey. Hegremon has a +2 circumstance bonus to Perception checks to Seek his prey and a +2 circumstance bonus to Survival checks to Track his prey. He ignores the penalty to ranged attacks within his second range increment against his prey. The first time Hegremon hits his prey in a round, he inflicts an additional 2d8 precision damage. These effects last until Hegremon uses Hunt Prey again.</p>"
+                    "value": "<p>Hegremon designates a single creature he can see and hear, or one he's Tracking, as his prey. Hegremon has a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Seek]{Seek} his prey and a +2 circumstance bonus to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Track]{Track} his prey. He ignores the penalty to ranged attacks within his second range increment against his prey. The first time Hegremon hits his prey in a round, he inflicts an additional 2d8 precision damage. These effects last until Hegremon uses Hunt Prey again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -795,9 +795,10 @@
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                         "predicate": [
-                            "hunted-prey",
-                            "action:seek"
+                            "action:seek",
+                            "hunted-prey"
                         ],
                         "selector": "perception",
                         "type": "circumstance",
@@ -805,13 +806,22 @@
                     },
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                         "predicate": [
-                            "hunted-prey",
-                            "action:track"
+                            "action:track",
+                            "hunted-prey"
                         ],
                         "selector": "survival",
                         "type": "circumstance",
                         "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": [
+                            "hunted-prey"
+                        ]
                     },
                     {
                         "domain": "all",
