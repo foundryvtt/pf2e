@@ -3,7 +3,10 @@ import { AELikeSource } from "@module/rules/rule-element/ae-like";
 import { RuleElementSource } from "@module/rules";
 import { MigrationBase } from "../base";
 
-/** Update rule elements on Bomber, Chirurgeon, Mutagenist, Toxicologist, Research Field, Field Discovery, Greater Field Discovery, Perpetual Infusions, Perpetual Potency and Perpetual Perfection */
+/**
+ * Update rule elements on Bomber, Chirurgeon, Mutagenist, Toxicologist, Research Field, Field Discovery,
+ * Greater Field Discovery, Perpetual Infusions, Perpetual Potency and Perpetual Perfection
+ */
 export class Migration816AlchemistResearchFields extends MigrationBase {
     static override version = 0.816;
 
