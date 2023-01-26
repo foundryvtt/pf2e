@@ -182,7 +182,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 li.addEventListener("click", async (event) => {
                     event.stopPropagation();
                     const doc = await fromUuid(matchUUID);
-                    await doc?.sheet?.render(true);
+                    await doc?.sheet?.render(true, { editable: doc.sheet.isEditable });
                 });
 
                 const anchor = li.querySelector("a")!;
