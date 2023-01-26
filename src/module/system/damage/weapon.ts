@@ -391,8 +391,9 @@ class WeaponDamagePF2e {
             return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
         });
 
-        (actor.synthetics.rollNotes["strike-damage"] ??= []).push(...runeNotes);
-        const notes = extractNotes(actor.synthetics.rollNotes, selectors).filter((n) => n.predicate.test(options));
+        const notes = [runeNotes, extractNotes(actor.synthetics.rollNotes, selectors)]
+            .flat()
+            .filter((n) => n.predicate.test(options));
 
         // Accumulate damage-affecting precious materials
         const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.precious?.type)
