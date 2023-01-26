@@ -67,8 +67,7 @@ class TokenAura implements TokenAuraData {
 
     /** The squares covered by this aura */
     get squares(): EffectAreaSquare[] {
-        this.#squares ??= getAreaSquares(this);
-        return this.#squares;
+        return (this.#squares ??= getAreaSquares(this));
     }
 
     /** Does this aura overlap with (at least part of) a token? */
