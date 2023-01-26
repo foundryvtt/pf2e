@@ -31,8 +31,8 @@ class AfflictionPF2e extends AbstractEffectPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const maxStage = Object.values(this.system.stages).length;
-        this.system.stage = Math.min(this.system.stage, maxStage);
+        const maxStage = Object.values(this.system.stages).length || 1;
+        this.system.stage = Math.clamped(this.system.stage, 1, maxStage);
     }
 
     protected override async _preUpdate(
