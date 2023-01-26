@@ -673,7 +673,10 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             selfOptions.push("self:flanking");
         }
 
-        const selfActor = params.viewOnly ? this : this.getContextualClone(selfOptions);
+        const selfActor =
+            params.viewOnly || !targetToken?.actor
+                ? this
+                : this.getContextualClone([...selfOptions, ...targetToken.actor.getSelfRollOptions("target")]);
         const actions: StrikeData[] = selfActor.system.actions?.flatMap((a) => [a, a.altUsages ?? []].flat()) ?? [];
 
         const selfItem: AttackItem =

@@ -4,7 +4,7 @@ import { ActionTrait } from "@item/action/data";
 import { WeaponRangeIncrement } from "@item/weapon/types";
 import { MaterialDamageEffect } from "@system/damage";
 import { PredicatePF2e } from "@system/predication";
-import { ErrorPF2e, objectHasKey, setHasElement } from "@util";
+import { ErrorPF2e, objectHasKey, setHasElement, sluggify } from "@util";
 import { StrikeAdjustment } from "../synthetics";
 import { AELikeData, AELikeRuleElement, AELikeSource } from "./ae-like";
 import { RuleElementOptions } from "./base";
@@ -12,7 +12,13 @@ import { RuleElementOptions } from "./base";
 class AdjustStrikeRuleElement extends AELikeRuleElement {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    private static VALID_PROPERTIES = new Set(["materials", "range-increment", "traits", "weapon-traits"] as const);
+    private static VALID_PROPERTIES = new Set([
+        "materials",
+        "property-runes",
+        "range-increment",
+        "traits",
+        "weapon-traits",
+    ] as const);
 
     /** The property of the strike to adjust */
     private property: SetElement<typeof AdjustStrikeRuleElement["VALID_PROPERTIES"]> | null;
@@ -166,8 +172,33 @@ class AdjustStrikeRuleElement extends AELikeRuleElement {
 
                             if (this.mode === "add" && !traits.includes(change)) {
                                 traits.push(change);
-                            } else if (traits.includes(change)) {
+                            } else if (this.mode !== "add" && traits.includes(change)) {
                                 traits.splice(traits.indexOf(change), 1);
+                            }
+                        },
+                    };
+                case "property-runes":
+                    return {
+                        adjustWeapon: (weapon: Embedded<WeaponPF2e>): void => {
+                            if (!["add", "subtract", "remove"].includes(this.mode)) {
+                                return this.failValidation(
+                                    'A strike adjustment of weapon property runes must be used with the "add", "subtract", or "remove" mode.'
+                                );
+                            }
+                            const runeSlug = sluggify(String(change), { camel: "dromedary" });
+                            if (!objectHasKey(CONFIG.PF2E.weaponPropertyRunes, runeSlug)) {
+                                return this.failValidation(`"${change} is not a recognized weapon property rune.`);
+                            }
+                            if (!definition.test(weapon.getRollOptions("item"))) {
+                                return;
+                            }
+
+                            const propertyRunes = weapon.system.runes.property;
+
+                            if (this.mode === "add" && !propertyRunes.includes(runeSlug)) {
+                                propertyRunes.push(runeSlug);
+                            } else if (this.mode !== "add" && propertyRunes.includes(runeSlug)) {
+                                propertyRunes.splice(propertyRunes.indexOf(runeSlug), 1);
                             }
                         },
                     };

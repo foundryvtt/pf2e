@@ -214,4 +214,5 @@ export { Migration813NormalizeColdIron } from "./813-normalize-cold-iron";
 export { Migration814CalculatedExpandedSplash } from "./814-calculated-expanded-splash";
 export { Migration815ConsumableDataCleanup } from "./815-consumable-data-cleanup";
 export { Migration816AlchemistResearchFields } from "./816-alchemist-research-fields";
-export { Migration817SpinTaleAdventureSpecific } from "./817-spin-tale-adventure-specific";
+export { Migration817FieldDiscoveryPredicates } from "./817-field-discovery-predicates";
+export { Migration818SpinTaleAdventureSpecific } from "./818-spin-tale-adventure-specific";

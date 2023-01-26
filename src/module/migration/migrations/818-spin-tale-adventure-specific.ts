@@ -2,8 +2,8 @@ import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
 
 /** Replace links to adventure-specific Spin Tale */
-export class Migration817SpinTaleAdventureSpecific extends MigrationBase {
-    static override version = 0.817;
+export class Migration818SpinTaleAdventureSpecific extends MigrationBase {
+    static override version = 0.818;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type === "feat") {

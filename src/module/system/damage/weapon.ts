@@ -39,40 +39,49 @@ class WeaponDamagePF2e {
     ): WeaponDamageTemplate | null {
         const secondaryInstances = Object.values(attack.system.damageRolls).slice(1).map(this.npcDamageToWeaponDamage);
 
-        // Add secondary damage instances to flat modifier and damage dice synthetics
+        // Collect damage dice and modifiers from secondary damage instances
+        const damageDice: DamageDicePF2e[] = [];
+        const modifiers: ModifierPF2e[] = [];
         for (const instance of secondaryInstances) {
             const { damageType } = instance;
             if (instance.dice > 0 && instance.die) {
-                actor.synthetics.damageDice.damage.push(
-                    () =>
-                        new DamageDicePF2e({
-                            slug: "base",
-                            label: "",
-                            selector: "damage",
-                            diceNumber: instance.dice,
-                            dieSize: instance.die,
-                            damageType: instance.damageType,
-                        })
+                damageDice.push(
+                    new DamageDicePF2e({
+                        slug: "base",
+                        label: "",
+                        selector: "damage",
+                        diceNumber: instance.dice,
+                        dieSize: instance.die,
+                        damageType: instance.damageType,
+                    })
                 );
             }
-            // Amend numeric modifiers with any flat modifier
             if (instance.modifier) {
-                const modifiers = actor.synthetics.statisticsModifiers.damage;
-                modifiers.push(() => new ModifierPF2e({ label: "", modifier: instance.modifier, damageType }));
+                modifiers.push(new ModifierPF2e({ label: "", modifier: instance.modifier, damageType }));
             }
         }
 
-        return WeaponDamagePF2e.calculate(attack, actor, actionTraits, proficiencyRank, options);
+        return WeaponDamagePF2e.calculate({
+            weapon: attack,
+            actor,
+            damageDice,
+            modifiers,
+            actionTraits,
+            proficiencyRank,
+            options,
+        });
     }
 
-    static calculate(
-        weapon: WeaponPF2e | MeleePF2e,
-        actor: CharacterPF2e | NPCPF2e | HazardPF2e,
-        actionTraits: TraitViewData[] = [],
-        proficiencyRank: number,
-        options: Set<string>,
-        weaponPotency: PotencySynthetic | null = null
-    ): WeaponDamageTemplate | null {
+    static calculate({
+        weapon,
+        actor,
+        damageDice = [],
+        modifiers = [],
+        actionTraits = [],
+        proficiencyRank,
+        options,
+        weaponPotency = null,
+    }: WeaponDamageCalculateParams): WeaponDamageTemplate | null {
         const { baseDamage } = weapon;
         if (baseDamage.die === null && baseDamage.modifier > 0) {
             baseDamage.dice = 0;
@@ -80,8 +89,6 @@ class WeaponDamagePF2e {
             return null;
         }
 
-        const damageDice: DamageDicePF2e[] = [];
-        const modifiers: ModifierPF2e[] = [];
         const weaponTraits = weapon.system.traits.value;
         // NPC attacks have precious materials as quasi-traits: separate for IWR processing and separate display in chat
         const materialTraits = weapon.isOfType("melee")
@@ -391,8 +398,9 @@ class WeaponDamagePF2e {
             return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
         });
 
-        (actor.synthetics.rollNotes["strike-damage"] ??= []).push(...runeNotes);
-        const notes = extractNotes(actor.synthetics.rollNotes, selectors).filter((n) => n.predicate.test(options));
+        const notes = [runeNotes, extractNotes(actor.synthetics.rollNotes, selectors)]
+            .flat()
+            .filter((n) => n.predicate.test(options));
 
         // Accumulate damage-affecting precious materials
         const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.precious?.type)
@@ -632,6 +640,17 @@ class WeaponDamagePF2e {
     static strengthModToDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
         return weapon.isOfType("weapon") && this.strengthBasedDamage(weapon);
     }
+}
+
+interface WeaponDamageCalculateParams {
+    weapon: WeaponPF2e | MeleePF2e;
+    actor: CharacterPF2e | NPCPF2e | HazardPF2e;
+    actionTraits: TraitViewData[];
+    proficiencyRank: number;
+    options: Set<string>;
+    weaponPotency?: PotencySynthetic | null;
+    damageDice?: DamageDicePF2e[];
+    modifiers?: ModifierPF2e[];
 }
 
 interface ExcludeDamageParams {

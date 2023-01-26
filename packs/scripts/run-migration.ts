@@ -33,7 +33,8 @@ import { Migration813NormalizeColdIron } from "@module/migration/migrations/813-
 import { Migration814CalculatedExpandedSplash } from "@module/migration/migrations/814-calculated-expanded-splash";
 import { Migration815ConsumableDataCleanup } from "@module/migration/migrations/815-consumable-data-cleanup";
 import { Migration816AlchemistResearchFields } from "@module/migration/migrations/816-alchemist-research-fields";
-import { Migration817SpinTaleAdventureSpecific } from "@module/migration/migrations/817-spin-tale-adventure-specific";
+import { Migration817FieldDiscoveryPredicates } from "@module/migration/migrations/817-field-discovery-predicates";
+import { Migration818SpinTaleAdventureSpecific } from "@module/migration/migrations/818-spin-tale-adventure-specific";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -70,7 +71,8 @@ const migrations: MigrationBase[] = [
     new Migration814CalculatedExpandedSplash(),
     new Migration815ConsumableDataCleanup(),
     new Migration816AlchemistResearchFields(),
-    new Migration817SpinTaleAdventureSpecific(),
+    new Migration817FieldDiscoveryPredicates(),
+    new Migration818SpinTaleAdventureSpecific(),
 ];
 
 global.deepClone = <T>(original: T): T => {

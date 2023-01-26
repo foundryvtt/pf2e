@@ -21,7 +21,37 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.DivineAlly.AllowedDrops",
+                    "predicate": [
+                        "item:type:feature",
+                        "item:trait:champion"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Blade Ally"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Shield Ally"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Steed Ally"
+                    }
+                ],
+                "flag": "divineAlly",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DivineAlly.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.divineAlly}"
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

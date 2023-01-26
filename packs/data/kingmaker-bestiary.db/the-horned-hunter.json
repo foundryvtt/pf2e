@@ -1977,12 +1977,50 @@
                     "value": 1
                 },
                 "description": {
-                    "value": "<p>The Horned Hunter designates a single creature he can see or hear as his prey. He gains a +2 circumstance bonus to Perception checks when he Seeks his prey and a +2 circumstance bonus to Survival when he Tracks his prey, and he ignores the penalty for making ranged attacks within his second range increment against his prey. He can have only one creature designated as prey at a time. If he uses Hunt Prey against a creature when he already has a creature designated, the prior creature loses the designation and the new prey gains the designation. Otherwise, a designation lasts until his next daily preparations.</p>"
+                    "value": "<p>The Horned Hunter designates a single creature he can see or hear as his prey. He gains a +2 circumstance bonus to Perception checks when he @UUID[Compendium.pf2e.actionspf2e.Seek]{Seeks} his prey and a +2 circumstance bonus to Survival when he @UUID[Compendium.pf2e.actionspf2e.Track]{Tracks} his prey, and he ignores the penalty for making ranged attacks within his second range increment against his prey. He can have only one creature designated as prey at a time. If he uses Hunt Prey against a creature when he already has a creature designated, the prior creature loses the designation and the new prey gains the designation. Otherwise, a designation lasts until his next daily preparations.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
+                        "option": "hunted-prey",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
+                        "predicate": [
+                            "action:seek",
+                            "hunted-prey"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                        "predicate": [
+                            "action:track",
+                            "hunted-prey"
+                        ],
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "domain": "ranged-attack-roll",
+                        "key": "RollOption",
+                        "option": "ignore-range-penalty:2",
+                        "predicate": [
+                            "hunted-prey"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

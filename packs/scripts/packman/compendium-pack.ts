@@ -248,7 +248,8 @@ export class CompendiumPack {
             if (docName) {
                 return parts.slice(0, 3).concat(docName).join(".");
             } else {
-                throw PackError(`Unable to find document name corresponding with ${uuid}`);
+                console.debug(`Warning: Unable to find document name corresponding with ${uuid}`);
+                return uuid;
             }
         };
 
