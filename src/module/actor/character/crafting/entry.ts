@@ -1,7 +1,7 @@
 import { ActorPF2e, CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry";
-import { PredicatePF2e } from "@system/predication";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { CraftingFormula } from "./formula";
 
 export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
@@ -14,7 +14,7 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
     isPrepared: boolean;
     craftableItems: PredicatePF2e;
     maxSlots: number;
-    fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
+    fieldDiscovery: PredicatePF2e | null;
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel: number;
@@ -28,10 +28,10 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
         this.isPrepared = !!data.isPrepared;
         this.maxSlots = data.maxSlots ?? 0;
         this.maxItemLevel = data.maxItemLevel || actor.level;
-        this.fieldDiscovery = data.fieldDiscovery;
+        this.fieldDiscovery = data.fieldDiscovery ? new PredicatePF2e(data.fieldDiscovery) : null;
         this.batchSize = data.batchSize;
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize;
-        this.craftableItems = data.craftableItems;
+        this.craftableItems = new PredicatePF2e(data.craftableItems);
         this.preparedFormulaData = (data.preparedFormulaData || [])
             .map((prepData) => {
                 const formula = knownFormulas.find((formula) => formula.uuid === prepData.itemUUID);
@@ -84,11 +84,11 @@ export class CraftingEntry implements Omit<CraftingEntryData, "parentItem"> {
         if (!this.isAlchemical) return 0;
 
         const fieldDiscoveryQuantity = this.preparedCraftingFormulas
-            .filter((f) => (this.fieldDiscovery && f.item.traits.has(this.fieldDiscovery)) || f.isSignatureItem)
+            .filter((f) => !!this.fieldDiscovery?.test(f.item.getRollOptions("item")) || f.isSignatureItem)
             .reduce((sum, current) => sum + current.quantity, 0);
 
         const otherQuantity = this.preparedCraftingFormulas
-            .filter((f) => !f.item.traits.has(this.fieldDiscovery!) && !f.isSignatureItem)
+            .filter((f) => !this.fieldDiscovery?.test(f.item.getRollOptions("item")) && !f.isSignatureItem)
             .reduce((sum, current) => sum + current.quantity, 0);
 
         const fieldDiscoveryBatchSize = this.fieldDiscoveryBatchSize || 3;
@@ -231,8 +231,8 @@ export interface CraftingEntryData {
     isDailyPrep?: boolean;
     isPrepared?: boolean;
     maxSlots?: number;
-    craftableItems: PredicatePF2e;
-    fieldDiscovery?: "bomb" | "elixir" | "mutagen" | "poison";
+    craftableItems: RawPredicate;
+    fieldDiscovery?: RawPredicate | null;
     batchSize?: number;
     fieldDiscoveryBatchSize?: number;
     maxItemLevel?: number;
