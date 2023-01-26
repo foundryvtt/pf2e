@@ -32,7 +32,7 @@ abstract class AbstractDamageRoll extends Roll {
         options: { missing?: string; warn?: boolean } = {}
     ): string {
         const replaced = super.replaceFormulaData(formula, data, options);
-        return replaced.replace(/\((\d+)\)/g, "$1");
+        return replaced.replace(/(?<![a-z])\((\d+)\)/gi, "$1");
     }
 
     /** The theoretically lowest total of this roll */
@@ -98,7 +98,7 @@ class DamageRoll extends AbstractDamageRoll {
 
     /** Ensure the roll is parsable as `PoolTermData` */
     static override validate(formula: string): boolean {
-        const wrapped = formula.startsWith("{") ? formula : `{${formula}}`;
+        const wrapped = this.replaceFormulaData(formula.startsWith("{") ? formula : `{${formula}}`, {});
         try {
             const result = this.parser.parse(wrapped);
             return isObject(result) && "class" in result && ["PoolTerm", "InstancePool"].includes(String(result.class));
