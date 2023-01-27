@@ -25,6 +25,8 @@ export class AuraRuleElement extends RuleElementPF2e {
     colors: AuraColors | null;
 
     constructor(source: AuraRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        source.effects ??= [];
+
         super(source, item, options);
 
         this.slug ??= this.item.slug ?? sluggify(this.item.name);
