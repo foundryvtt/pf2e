@@ -14,15 +14,15 @@ class CritSpecRuleElement extends RuleElementPF2e {
     /** Alternative note text: if not provided, the standard one for a given weapon group is used */
     private text: string | null;
 
-    constructor(data: CritSpecSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        data.predicate ??= [];
-        super(data, item, options);
+    constructor(source: CritSpecSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        source.alternate ??= false;
+        source.text ??= null;
 
-        data.text ??= null;
-        data.alternate ??= false;
-        if (this.isValid(data)) {
-            this.alternate = data.alternate;
-            this.text = data.text;
+        super(source, item, options);
+
+        if (this.isValid(source)) {
+            this.alternate = source.alternate;
+            this.text = source.text;
         } else {
             this.alternate = false;
             this.text = null;

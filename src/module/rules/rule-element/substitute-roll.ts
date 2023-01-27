@@ -14,14 +14,14 @@ class SubstituteRollRuleElement extends RuleElementPF2e {
     effectType: "fortune" | "misfortune";
 
     constructor(data: SubstituteRollSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        data.slug ??= item.slug ?? sluggify(item.name);
+
         super(data, item, options);
 
         if (this.#isValid(data)) {
             this.selector = data.selector;
             this.required = data.required ?? false;
         }
-
-        this.slug ??= item.slug ?? sluggify(item.name);
 
         this.effectType = tupleHasValue(["fortune", "misfortune"] as const, data.effectType)
             ? data.effectType
