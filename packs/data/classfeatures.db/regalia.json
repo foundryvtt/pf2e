@@ -21,7 +21,114 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Thaumaturge.Implement.Holding.Regalia",
+                "option": "holding-regalia",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "holding-regalia"
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "slug": "regalia-authority",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "adept:regalia",
+                    "holding-regalia",
+                    {
+                        "gte": [
+                            "skill:dec:rank",
+                            3
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "skill:dip:rank",
+                            3
+                        ]
+                    },
+                    {
+                        "gte": [
+                            "skill:itm:rank",
+                            3
+                        ]
+                    }
+                ],
+                "selector": [
+                    "deception",
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "slug": "regalia-authority-adept",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Aura",
+                "predicate": [
+                    "holding-regalia"
+                ],
+                "radius": 15,
+                "slug": "regalia",
+                "traits": [
+                    "emotion",
+                    "mental",
+                    "visual"
+                ]
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:coerce",
+                    "holding-regalia",
+                    "paragon:regalia"
+                ],
+                "selector": "intimidation",
+                "type": "skill"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:make-an-impression",
+                    "holding-regalia",
+                    "paragon:regalia"
+                ],
+                "selector": "diplomacy",
+                "type": "skill"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:request",
+                    "holding-regalia",
+                    "paragon:regalia"
+                ],
+                "selector": "diplomacy",
+                "type": "skill"
+            }
+        ],
         "source": {
             "value": "Pathfinder Dark Archive"
         },
