@@ -2,6 +2,7 @@ import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { AfflictionPF2e } from "@item/affliction";
 import { EffectExpiryType } from "@item/effect/data";
+import { htmlQueryAll } from "@util";
 import { FlattenedCondition } from "../system/conditions";
 
 export class EffectsPanel extends Application {
@@ -15,12 +16,13 @@ export class EffectsPanel extends Application {
      */
     refresh = foundry.utils.debounce(this.render, 100);
 
-    static override get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+    static override get defaultOptions(): ApplicationOptions {
+        return {
+            ...super.defaultOptions,
             id: "pf2e-effects-panel",
             popOut: false,
             template: "systems/pf2e/templates/system/effects-panel.hbs",
-        });
+        };
     }
 
     override async getData(options?: ApplicationOptions): Promise<EffectsPanelData> {
@@ -62,42 +64,35 @@ export class EffectsPanel extends Application {
             effects,
             conditions,
             afflictions: actor.itemTypes.affliction,
-            user: {
-                isGM: game.user.isGM,
-            },
+            user: { isGM: game.user.isGM },
         };
     }
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0]!;
 
-        const $icons = $html.find("div[data-item-id]");
+        for (const iconElem of htmlQueryAll(html, "div[data-item-id]")) {
+            // Remove an effect on right-click
+            iconElem.addEventListener("contextmenu", async () => {
+                const { actor } = this;
+                const effect = actor?.items.get(iconElem.dataset.itemId ?? "");
+                if (effect instanceof AbstractEffectPF2e) {
+                    await effect.decrease();
+                } else {
+                    // Failover in case of a stale effect
+                    this.refresh();
+                }
+            });
 
-        // Remove an effect on right-click
-        $icons.on("contextmenu", async (event) => {
-            const $target = $(event.currentTarget);
-            if ($target.attr("data-locked")) return;
-
-            const actor = this.actor;
-            const effect = actor?.items.get($target.attr("data-item-id") ?? "");
-            if (effect instanceof AbstractEffectPF2e) {
-                await effect.decrease();
-            } else {
-                // Failover in case of a stale effect
-                this.refresh();
-            }
-        });
-
-        $icons.on("click", async (event) => {
-            const $target = $(event.currentTarget);
-            if ($target.attr("data-locked")) return;
-
-            const actor = this.actor;
-            const effect = actor?.items.get($target.attr("data-item-id") ?? "");
-            if (effect instanceof AbstractEffectPF2e) {
-                await effect.increase();
-            }
-        });
+            iconElem.addEventListener("click", async () => {
+                const { actor } = this;
+                const effect = actor?.items.get(iconElem.dataset.itemId ?? "");
+                if (effect instanceof AbstractEffectPF2e) {
+                    await effect.increase();
+                }
+            });
+        }
     }
 
     private static getRemainingDurationLabel(
@@ -166,7 +161,5 @@ interface EffectsPanelData {
     conditions: FlattenedCondition[];
     effects: EffectPF2e[];
     actor: ActorPF2e | null;
-    user: {
-        isGM: boolean;
-    };
+    user: { isGM: boolean };
 }
