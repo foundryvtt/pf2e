@@ -455,9 +455,9 @@ class SpellPF2e extends ItemPF2e {
                 mergeObject(source.system, overlay.system);
             }
 
-            // Set the spell as heightened if necessary
+            // Set the spell as heightened if necessary (either up or down)
             const currentLevel = source.system.location.heightenedLevel ?? source.system.level.value;
-            if (castLevel && castLevel > currentLevel) {
+            if (castLevel && castLevel !== currentLevel) {
                 source.system.location.heightenedLevel = castLevel;
             }
 
