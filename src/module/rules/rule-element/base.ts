@@ -215,7 +215,9 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     ): number | string | boolean | object | null {
         let value: RuleValue = valueData ?? defaultValue ?? null;
 
-        if (["number", "boolean"].includes(typeof value)) return value;
+        if (["number", "boolean"].includes(typeof value) || value === null) {
+            return value;
+        }
         if (typeof value === "string") value = this.resolveInjectedProperties(value);
 
         // Include worn armor as resolvable for PCs since there is guaranteed to be no more than one
