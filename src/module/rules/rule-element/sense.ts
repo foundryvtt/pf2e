@@ -21,7 +21,7 @@ export class SenseRuleElement extends RuleElementPF2e {
         data.range ??= "";
         data.acuity ??= "precise";
         const defaultLabels: Record<string, string | undefined> = CONFIG.PF2E.senses;
-        data.label ??= defaultLabels[String(data.selector) ?? ""];
+        data.label ??= defaultLabels[String(data.selector)];
 
         super(data, item, options);
 

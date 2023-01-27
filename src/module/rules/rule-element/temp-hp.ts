@@ -14,8 +14,10 @@ class TempHPRuleElement extends RuleElementPF2e {
     constructor(data: TempHPSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
-        this.data.onCreate = Boolean(this.data.onCreate ?? true);
-        this.data.onTurnStart = Boolean(this.data.onTurnStart);
+        /** Whether the temporary hit points are immediately applied */
+        this.data.onCreate = !!(this.data.onCreate ?? true);
+        /** Whether the temporary hit points renew each round */
+        this.data.onTurnStart = !!this.data.onTurnStart;
     }
 
     override onCreate(actorUpdates: Record<string, unknown>): void {
