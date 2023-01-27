@@ -16,13 +16,12 @@ class SubstituteRollRuleElement extends RuleElementPF2e {
     constructor(data: SubstituteRollSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
 
-        data.required ??= false;
         if (this.#isValid(data)) {
             this.selector = data.selector;
-            this.required = data.required;
+            this.required = data.required ?? false;
         }
 
-        this.slug = typeof data.slug === "string" ? data.slug : sluggify(this.item.name);
+        this.slug ??= item.slug ?? sluggify(item.name);
 
         this.effectType = tupleHasValue(["fortune", "misfortune"] as const, data.effectType)
             ? data.effectType
@@ -30,7 +29,7 @@ class SubstituteRollRuleElement extends RuleElementPF2e {
     }
 
     #isValid(data: SubstituteRollSource): data is SubstituteRollData {
-        return typeof data.selector === "string" && typeof data.required === "boolean";
+        return typeof data.selector === "string" && (!("required" in data) || typeof data.required === "boolean");
     }
 
     override beforePrepareData(): void {
@@ -66,7 +65,7 @@ interface SubstituteRollSource extends RuleElementSource {
 interface SubstituteRollData {
     key: "SubstituteRoll";
     selector: string;
-    required: boolean;
+    required?: boolean;
 }
 
 export { SubstituteRollRuleElement };

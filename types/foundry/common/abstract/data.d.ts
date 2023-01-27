@@ -1,8 +1,11 @@
-export {};
+import * as AbstractDataModel from "./data.mjs";
 
 declare global {
     module foundry {
         module abstract {
+            export import DataModel = AbstractDataModel.DataModel;
+            export import _DataModel = AbstractDataModel._DataModel;
+
             /**
              * A schema entry which describes a field of DocumentData
              * @property type           An object which defines the data type of this field

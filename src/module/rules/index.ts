@@ -95,23 +95,22 @@ class RuleElements {
 
     static fromOwnedItem(item: Embedded<ItemPF2e>, options?: RuleElementOptions): RuleElementPF2e[] {
         const rules: RuleElementPF2e[] = [];
-        for (const [sourceIndex, data] of item.system.rules.entries()) {
-            if (typeof data.key !== "string") {
+        for (const [sourceIndex, source] of item.system.rules.entries()) {
+            if (typeof source.key !== "string") {
                 console.error(
-                    `PF2e System | Missing key in rule element ${data.key} on item ${item.name} (${item.uuid})`
+                    `PF2e System | Missing key in rule element ${source.key} on item ${item.name} (${item.uuid})`
                 );
                 continue;
             }
-            const key = data.key.replace(/^PF2E\.RuleElement\./, "");
-            const REConstructor = this.custom[key] ?? this.custom[data.key] ?? this.builtin[key];
+            const REConstructor = this.custom[source.key] ?? this.custom[source.key] ?? this.builtin[source.key];
             if (REConstructor) {
                 const rule = ((): RuleElementPF2e | null => {
                     try {
-                        return new REConstructor(data, item, { ...(options ?? {}), sourceIndex });
+                        return new REConstructor(source, item, { ...(options ?? {}), sourceIndex });
                     } catch (error) {
                         if (!options?.suppressWarnings) {
                             console.warn(
-                                `PF2e System | Failed to construct rule element ${data.key} on item ${item.name}`,
+                                `PF2e System | Failed to construct rule element ${source.key} on item ${item.name}`,
                                 `(${item.uuid})`
                             );
                             console.warn(error);
@@ -122,7 +121,7 @@ class RuleElements {
                 if (rule) rules.push(rule);
             } else {
                 const { name, uuid } = item;
-                console.warn(`PF2e System | Unrecognized rule element ${data.key} on item ${name} (${uuid})`);
+                console.warn(`PF2e System | Unrecognized rule element ${source.key} on item ${name} (${uuid})`);
             }
         }
         return rules;

@@ -1,18 +1,34 @@
 import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values";
 import { FeatPF2e, ItemPF2e } from "@item";
 import { isObject, objectHasKey, tupleHasValue } from "@util";
-import { RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions, RuleValue } from "./";
+import { ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
+import {
+    RuleElementPF2e,
+    RuleElementSource,
+    RuleElementData,
+    RuleElementOptions,
+    RuleValue,
+    RuleElementSchema,
+} from "./";
+
+const { fields } = foundry.data;
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
  * @category RuleElement
  */
-class AELikeRuleElement extends RuleElementPF2e {
-    mode: AELikeChangeMode;
-
-    path: string;
-
-    phase: AELikeDataPrepPhase;
+class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
+    static override defineSchema(): AELikeSchema {
+        return {
+            ...super.defineSchema(),
+            mode: new fields.StringField<AELikeChangeMode>({
+                required: true,
+                choices: Object.keys(this.CHANGE_MODES) as AELikeChangeMode[],
+            }),
+            path: new fields.StringField({ required: true, blank: false }),
+            phase: new fields.StringField<AELikeDataPrepPhase>({ required: true, choices: deepClone(this.PHASES) }),
+        };
+    }
 
     /** Change modes and their default priority orders */
     static CHANGE_MODES = {
@@ -43,7 +59,6 @@ class AELikeRuleElement extends RuleElementPF2e {
 
         super(data, item, options);
 
-        this.mode = mode ?? "override";
         this.path = typeof data.path === "string" ? data.path.replace(/^data\./, "system.") : "";
         this.phase = tupleHasValue(AELikeRuleElement.PHASES, data.phase) ? data.phase : "applyAEs";
     }
@@ -224,6 +239,12 @@ class AELikeRuleElement extends RuleElementPF2e {
     }
 }
 
+interface AELikeRuleElement<TSchema extends AELikeSchema>
+    extends RuleElementPF2e<TSchema>,
+        ModelPropsFromSchema<AELikeSchema> {
+    data: AELikeData;
+}
+
 interface AutoChangeEntry {
     source: string;
     level: number | null;
@@ -231,12 +252,14 @@ interface AutoChangeEntry {
     mode: AELikeChangeMode;
 }
 
-interface AELikeRuleElement extends RuleElementPF2e {
-    data: AELikeData;
-}
+type AELikeSchema = RuleElementSchema & {
+    mode: StringField<AELikeChangeMode>;
+    path: StringField;
+    phase: StringField<AELikeDataPrepPhase>;
+};
 
-type AELikeChangeMode = "add" | "subtract" | "remove" | "multiply" | "upgrade" | "downgrade" | "override";
-type AELikeDataPrepPhase = "applyAEs" | "beforeDerived" | "afterDerived" | "beforeRoll";
+type AELikeChangeMode = keyof typeof AELikeRuleElement["CHANGE_MODES"];
+type AELikeDataPrepPhase = typeof AELikeRuleElement["PHASES"][number];
 
 interface AELikeData extends RuleElementData {
     path: string;
@@ -252,4 +275,4 @@ interface AELikeSource extends RuleElementSource {
     phase?: unknown;
 }
 
-export { AELikeData, AELikeRuleElement, AELikeSource, AutoChangeEntry };
+export { AELikeData, AELikeRuleElement, AELikeSchema, AELikeSource, AutoChangeEntry };
