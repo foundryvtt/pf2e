@@ -6,7 +6,6 @@ import { ItemSourcePF2e } from "@item/data";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckRoll } from "@system/check";
-import { PredicatePF2e } from "@system/predication";
 import { isObject, tupleHasValue } from "@util";
 import { BracketedValue, RuleElementData, RuleElementSchema, RuleElementSource, RuleValue } from "./data";
 
@@ -26,7 +25,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             slug: new SlugField({ required: true }),
             label: new fields.StringField({ required: false, initial: undefined }),
             priority: new fields.NumberField({ required: false, nullable: false, integer: true, initial: 100 }),
-            ignored: new fields.BooleanField({ required: false }),
+            ignored: new fields.BooleanField(),
             predicate: new PredicateField(),
             requiresEquipped: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
             requiresInvestment: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
@@ -84,25 +83,22 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             removeUponCreate: Boolean(source.removeUponCreate ?? false),
         } as RuleElementData;
 
-        this.predicate = new PredicatePF2e(...(this.data.predicate ?? []));
-
-        if (!this.predicate.isValid) {
-            this.failValidation(`Malformed predicate: must be an array of predication statements`);
-        }
-
-        if (item instanceof PhysicalItemPF2e) {
+        if (this.invalid) {
+            this.ignored = true;
+        } else if (item instanceof PhysicalItemPF2e) {
             this.requiresEquipped = !!(source.requiresEquipped ?? true);
             this.requiresInvestment =
                 item.isInvested === null ? null : !!(source.requiresInvestment ?? this.requiresEquipped);
-            this.ignored ??=
-                (!!this.requiresEquipped && !item.isEquipped) || (!!this.requiresInvestment && !item.isInvested);
+
+            // The DataModel schema defaulted `ignored` to `false`: only change to true if not already true
+            if (this.ignored === false) {
+                this.ignored =
+                    (!!this.requiresEquipped && !item.isEquipped) || (!!this.requiresInvestment && !item.isInvested);
+            }
         } else {
             this.requiresEquipped = null;
             this.requiresInvestment = null;
-            this.ignored ??= false;
         }
-
-        if (this.invalid) this.ignored = true;
     }
 
     get actor(): ActorPF2e {
