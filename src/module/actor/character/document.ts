@@ -1845,7 +1845,8 @@ class CharacterPF2e extends CreaturePF2e {
                 }
 
                 if (params.getFormula) {
-                    return new DamageRoll(damage.damage.formula[outcome]).formula;
+                    const formula = damage.damage.formula[outcome];
+                    return formula ? new DamageRoll(formula).formula : "";
                 } else {
                     const { self, target, options } = context;
                     const damageContext: DamageRollContext = {

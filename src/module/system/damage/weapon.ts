@@ -24,8 +24,8 @@ import {
     extractNotes,
 } from "@module/rules/helpers";
 import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-success";
-import { objectHasKey, sluggify } from "@util";
-import { createDamageFormula } from "./formula";
+import { mapValues, objectHasKey, sluggify } from "@util";
+import { createDamageFormula, AssembledFormula } from "./formula";
 import { nextDamageDieSize } from "./helpers";
 import { DamageDieSize, DamageFormulaData, MaterialDamageEffect, WeaponDamageTemplate } from "./types";
 
@@ -477,6 +477,13 @@ class WeaponDamagePF2e {
         const excludeFrom = weapon.isOfType("weapon") ? weapon : null;
         this.#excludeDamage({ actor, weapon: excludeFrom, modifiers: [...modifiers, ...damageDice], options });
 
+        const computedFormulas = {
+            criticalFailure: null,
+            failure: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.FAILURE),
+            success: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.SUCCESS),
+            criticalSuccess: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
+        };
+
         return {
             name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
             notes,
@@ -486,12 +493,8 @@ class WeaponDamagePF2e {
             domains: selectors,
             damage: {
                 ...damage,
-                formula: {
-                    criticalFailure: null,
-                    failure: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.FAILURE),
-                    success: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.SUCCESS),
-                    criticalSuccess: this.#finalizeDamage(damage, DEGREE_OF_SUCCESS.CRITICAL_SUCCESS),
-                },
+                formula: mapValues(computedFormulas, (formula) => formula?.formula ?? null),
+                breakdown: mapValues(computedFormulas, (formula) => formula?.breakdown ?? []),
             },
         };
     }
@@ -500,10 +503,10 @@ class WeaponDamagePF2e {
     static #finalizeDamage(
         damage: DamageFormulaData,
         degree: typeof DEGREE_OF_SUCCESS["SUCCESS" | "CRITICAL_SUCCESS"]
-    ): string;
+    ): AssembledFormula;
     static #finalizeDamage(damage: DamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
-    static #finalizeDamage(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): string | null;
-    static #finalizeDamage(damage: DamageFormulaData, degree: DegreeOfSuccessIndex): string | null {
+    static #finalizeDamage(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;
+    static #finalizeDamage(damage: DamageFormulaData, degree: DegreeOfSuccessIndex): AssembledFormula | null {
         damage = deepClone(damage);
         const { base } = damage;
         const critical = degree === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
