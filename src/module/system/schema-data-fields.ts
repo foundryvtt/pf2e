@@ -15,6 +15,22 @@ import {
 
 const { fields } = foundry.data;
 
+/** A `SchemaField` that preserves fields not declared in its `DataSchema` */
+class LaxSchemaField<TSourceProp extends DataSchema = DataSchema> extends fields.SchemaField<TSourceProp> {
+    protected override _cleanType(data: Record<string, unknown>, options: CleanFieldOptions = {}): TSourceProp {
+        options.source = options.source || data;
+
+        // Clean each field that belongs to the schema
+        for (const [name, field] of this.entries()) {
+            if (!(name in data) && options.partial) continue;
+            data[name] = field.clean(data[name], options);
+            if (data[name] === undefined) delete data[name];
+        }
+
+        return data as TSourceProp;
+    }
+}
+
 /** A sluggified string field */
 class SlugField<TNullable extends boolean = true> extends fields.StringField<string, string, TNullable> {
     protected static override get _defaults(): StringFieldOptions {
@@ -73,22 +89,6 @@ class PredicateField<TNullable extends boolean = false> extends fields.ArrayFiel
     ): PredicatePF2e | null {
         const statements = super.initialize(value, model, options);
         return statements ? new PredicatePF2e(...statements) : statements;
-    }
-}
-
-/** A `SchemaField` that preserves fields not declared in its `DataSchema` */
-class LaxSchemaField<TSourceProp extends DataSchema = DataSchema> extends fields.SchemaField<TSourceProp> {
-    protected override _cleanType(data: Record<string, unknown>, options: CleanFieldOptions = {}): TSourceProp {
-        options.source = options.source || data;
-
-        // Clean each field that belongs to the schema
-        for (const [name, field] of this.entries()) {
-            if (!(name in data) && options.partial) continue;
-            data[name] = field.clean(data[name], options);
-            if (data[name] === undefined) delete data[name];
-        }
-
-        return data as TSourceProp;
     }
 }
 
