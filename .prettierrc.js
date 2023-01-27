@@ -10,7 +10,7 @@ module.exports = {
             },
         },
         {
-            files: "*.html",
+            files: "*.hbs",
             options: {
                 requirePragma: false,
                 parser: "html",

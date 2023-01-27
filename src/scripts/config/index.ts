@@ -40,7 +40,6 @@ import {
     WeaponReloadTime,
 } from "@item/weapon/types";
 import { Size } from "@module/data";
-import { JournalSheetPF2e } from "@module/journal-entry/sheet";
 import { DAMAGE_TYPES } from "@system/damage";
 import { DamageCategoryUnique, DamageType } from "@system/damage/types";
 import { pick, sluggify } from "@util";
@@ -72,6 +71,7 @@ import {
     vehicleTraits,
     weaponTraits,
 } from "./traits";
+import { ResourcePagePF2e } from "@module/journal-entry-page";
 
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
@@ -1723,9 +1723,11 @@ export const PF2ECONFIG = {
             weapon: weaponTraits,
         },
     },
-
-    JournalEntry: { sheetClass: JournalSheetPF2e },
-
+    JournalEntryPage: {
+        documentClasses: {
+            resource: ResourcePagePF2e,
+        },
+    },
     Canvas: {
         darkness: {
             default: CONFIG.Canvas.darknessColor,

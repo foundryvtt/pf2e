@@ -19,6 +19,7 @@ import { monkeyPatchFoundry } from "@scripts/🐵🩹";
 import { CheckRoll, StrikeAttackRoll } from "@system/check";
 import { DamageInstance, DamageRoll } from "@system/damage/roll";
 import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "@system/damage/terms";
+import { JournalEntryPagePF2e } from "@module/journal-entry-page";
 
 /** Not an actual hook listener but rather things to run on initial load */
 export const Load = {
@@ -32,6 +33,7 @@ export const Load = {
         CONFIG.Combat.documentClass = EncounterPF2e;
         CONFIG.Combatant.documentClass = CombatantPF2e;
         CONFIG.Item.documentClass = ItemPF2e;
+        CONFIG.JournalEntryPage.documentClass = JournalEntryPagePF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
         CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
         CONFIG.Scene.documentClass = ScenePF2e;

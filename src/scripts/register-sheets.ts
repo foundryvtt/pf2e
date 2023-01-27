@@ -28,7 +28,10 @@ import {
     WeaponSheetPF2e,
 } from "@item";
 import { AfflictionSheetPF2e } from "@item/affliction";
-import { JournalSheetPF2e, JournalTextTinyMCESheetPF2e } from "@module/journal-entry/sheet";
+import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+import { JournalTextTinyMCESheetPF2e } from "@module/journal-entry-page/sheet";
+import { ResourcePageSheetPF2e } from "@module/journal-entry-page/resource/sheet";
+import { JournalEntryPagePF2e } from "@module/journal-entry-page";
 import { UserPF2e } from "@module/user";
 import { UserConfigPF2e } from "@module/user/sheet";
 import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
@@ -60,7 +63,12 @@ export function registerSheets() {
     Actors.unregisterSheet("core", ActorSheet);
 
     const localizeType = (type: string) => {
-        const entityType = type in CONFIG.PF2E.Actor.documentClasses ? "ACTOR" : "ITEM";
+        const entityType =
+            type in CONFIG.PF2E.Actor.documentClasses
+                ? "ACTOR"
+                : type in CONFIG.PF2E.Item.documentClasses
+                ? "ITEM"
+                : "JOURNAL";
         const camelized = type[0].toUpperCase() + type.slice(1).toLowerCase();
         return game.i18n.localize(`${entityType}.Type${camelized}`);
     };
@@ -155,6 +163,13 @@ export function registerSheets() {
             makeDefault: true,
         });
     }
+
+    // Register Resource Sheet
+    DocumentSheetConfig.registerSheet(JournalEntryPagePF2e, "pf2e", ResourcePageSheetPF2e, {
+        types: ["resource"],
+        label: game.i18n.format(sheetLabel, { type: localizeType("resource") }),
+        makeDefault: true,
+    });
 
     // User
 

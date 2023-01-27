@@ -20,5 +20,25 @@ declare global {
          * @param force   Display the entry to all players regardless of normal permissions
          */
         static _showEntry(entryId: string, mode?: string, force?: boolean): Promise<void>;
+
+        /* -------------------------------------------- */
+        /*  Methods                                     */
+        /* -------------------------------------------- */
+
+        /**
+         * Register a Journal sheet class as a candidate which can be used to display Journals of a given type
+         * See DocumentSheetConfig.registerSheet for details
+         */
+        static registerSheet(
+            scope: string,
+            sheetClass: ConstructorOf<JournalPageSheet>,
+            options?: RegisterSheetOptions
+        ): void;
+
+        /**
+         * Unregister a Journal sheet class, removing it from the list of avaliable sheet Applications to use
+         * See DocumentSheetConfig.unregisterSheet for details
+         */
+        static unregisterSheet(scope: string, sheetClass: ConstructorOf<JournalPageSheet>, types?: string[]): void;
     }
 }

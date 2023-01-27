@@ -63,15 +63,16 @@ declare module foundry {
          * @property {object} [ownership]  An object which configures the ownership of this page.
          * @property {object} [flags]      An object of optional key/value flags.
          */
-        interface JournalEntryPageSource {
+        interface JournalEntryPageSource<TType extends string = string, TSystemSource extends object = object> {
             _id: string;
             name: string;
             title: JournalEntryPageTitleData;
+            type: TType;
             image: JournalEntryPageImageData;
             text: JournalEntryPageTextData;
             video: JournalEntryPageVideoData;
             src?: string | null;
-            system: object; // will be filled out later
+            system: TSystemSource;
             sort: number;
             ownership?: Record<string, DocumentOwnershipLevel>;
             flags: object; // will be filled out later
@@ -83,7 +84,8 @@ declare module foundry {
             protected override _initializeSource(data: this["_source"]): this["_source"];
         }
 
-        interface JournalEntryPageData<TDocument extends documents.BaseJournalEntryPage> {
+        interface JournalEntryPageData<TDocument extends documents.BaseJournalEntryPage>
+            extends JournalEntryPageSource {
             readonly _source: JournalEntryPageSource;
         }
     }

@@ -204,6 +204,7 @@ type ConfiguredConfig = Config<
     CompendiumDirectoryPF2e,
     HotbarPF2e,
     ItemPF2e,
+    JournalEntryPagePF2e,
     MacroPF2e,
     MeasuredTemplateDocumentPF2e,
     TileDocumentPF2e,

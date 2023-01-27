@@ -1,0 +1,33 @@
+<section class="journal-page-content resource-page">
+    <section class="resource-block">
+        {{#if data.title.show}}
+        <header class="journal-page-header">
+            <h{{data.title.level}}>{{data.name}}</h{{data.title.level}}>
+        </header>
+        {{/if}} {{#if (ne data.system.img "")}}
+        <img src="{{data.system.img}}" class="resource-image" />
+        {{/if}} {{#if document.isOwner}}
+        <div class="meter-edit">
+            <a class="reduce-resource-value resource-change-button"><i class="fas fa-minus"></i></a>
+            <div class="meter">
+                <span style="width: {{percentage data.system.value data.system.max data.system.min}}%"></span>
+                <p class="meter-label">
+                    {{currentThreshold}}{{#if (eq data.system.min 0)}}
+                    <strong>{{data.system.value}}</strong>
+                    /
+                    <strong>{{data.system.max}}</strong>
+                    {{/if}}
+                </p>
+            </div>
+            <a class="increase-resource-value resource-change-button"><i class="fas fa-plus"></i></a>
+        </div>
+        {{else}}
+        <div class="meter">
+            <span style="width: {{percentage data.system.value data.system.max data.system.min}}%"></span>
+            <p class="meter-label">{{currentThreshold}}</p>
+        </div>
+        {{/if}} {{#if (ne editor.content "")}}
+        <div class="resource-content">{{{editor.content}}}</div>
+        {{/if}}
+    </section>
+</section>

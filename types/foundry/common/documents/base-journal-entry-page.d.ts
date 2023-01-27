@@ -8,11 +8,14 @@ declare module foundry {
         }
 
         interface BaseJournalEntryPage {
-            readonly data: data.JournalEntryPageData<this>;
+            readonly data: data.JournalEntryPageData<BaseJournalEntryPage>;
 
             readonly parent: BaseJournalEntry | null;
 
             get documentName(): typeof BaseJournalEntryPage["metadata"]["name"];
+
+            /** Shim for V10 preparation */
+            readonly system: this["data"]["system"];
         }
     }
 

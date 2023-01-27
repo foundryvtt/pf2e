@@ -1,0 +1,50 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+    {{> journalEntryPageHeader}}
+    <ol class="form-list">
+        <div class="form-group">
+            <label>{{localize "PF2E.ImageLabel"}}</label>
+            <div class="form-fields">
+                {{filePicker target="system.img" type="imagevideo"}}
+                <input
+                    class="image"
+                    type="text"
+                    name="system.img"
+                    placeholder="path/image.png"
+                    value="{{data.system.img}}"
+                />
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <label>{{localize "PF2E.JournalResourceMin"}}</label>
+            <input type="number" name="system.min" value="{{data.system.min}}" placeholder="{{localize
+            "PF2E.JournalResourceMinPlaceholder"}}" />
+            <label>{{localize "PF2E.JournalResourceMax"}}</label>
+            <input type="number" name="system.max" value="{{data.system.max}}" placeholder="{{localize
+            "PF2E.JournalResourceMaxPlaceholder"}}" />
+        </div>
+        <div class="form-group">
+            <label>{{localize "PF2E.JournalResourceValue"}}</label>
+            <input type="number" value="{{data.system.value}}" class="resource-value" />
+        </div>
+        <div class="form-group">
+            <label>{{localize "PF2E.JournalResourceThresholdValue"}}</label>
+            <label>{{localize "PF2E.JournalResourceThresholdName"}}</label>
+        </div>
+        {{#each data.system.thresholds as |threshold idx|}}
+        <div class="form-group" data-threshold-index="{{idx}}">
+            <input type="number" value="{{threshold.value}}" class="threshold-array-value" />
+            <input type="text" value="{{threshold.label}}" class="threshold-array-label" />
+            <a class="delete-threshold" style="flex-grow: unset"><i class="fas fa-trash"></i></a>
+        </div>
+        {{/each}}
+        <div>
+            <a class="add-threshold">
+                <i class="fas fa-plus add-threshold"></i>
+                {{localize "PF2E.JournalAddThreshold"}}
+            </a>
+        </div>
+    </ol>
+    {{editor editor.content target="text.content" class="journal-page-content" button=false editable=true button=true
+    owner=owner}}
+</form>

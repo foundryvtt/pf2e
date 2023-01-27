@@ -1,0 +1,55 @@
+.resource-page {
+    .resource-block {
+        @include frame-elegant;
+        padding: 7px;
+    }
+
+    .meter {
+        height: auto;
+        width: 100%;
+        position: relative;
+        background: rgba(10, 0, 0, 0.7);
+        padding: 2px;
+        border-radius: 4px;
+        margin: 5px;
+        margin-bottom: 8px;
+        .meter-label {
+            position: absolute;
+            top: 3px;
+            right: 5px;
+            margin: 0px;
+            color: white;
+        }
+    }
+    .meter > span {
+        display: block;
+        height: 20px;
+        border-radius: 4px;
+        background-color: var(--color-underline-header);
+        box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3), inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+    .resource-content {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        padding: 8px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+    .meter-edit {
+        display: flex;
+    }
+    .resource-change-button {
+        height: 20px;
+        width: 20px;
+        margin-top: 6px;
+        margin-bottom: 8px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 2px;
+        border-radius: 4px;
+        box-shadow: 0px 0px 2px rgb(0, 0, 0);
+        flex-shrink: none;
+        flex-grow: none;
+    }
+}

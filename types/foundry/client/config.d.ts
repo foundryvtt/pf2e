@@ -14,6 +14,7 @@ declare global {
         TCompendiumDirectory extends CompendiumDirectory = CompendiumDirectory,
         THotbar extends Hotbar = Hotbar,
         TItem extends Item = Item,
+        TJournalEntryPage extends JournalEntryPage = JournalEntryPage,
         TMacro extends Macro = Macro,
         TMeasuredTemplateDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument,
         TTileDocument extends TileDocument = TileDocument,
@@ -107,6 +108,29 @@ declare global {
                     {
                         id: string;
                         cls: typeof ItemSheet;
+                        default: boolean;
+                    }
+                >
+            >;
+            typeLabels: Record<string, string | undefined>;
+        };
+
+        /** Configuration for the JournalEntryPage document */
+        JournalEntryPage: {
+            documentClass: {
+                new (
+                    data: PreCreate<TJournalEntryPage["_source"]>,
+                    context?: DocumentConstructionContext<TJournalEntryPage>
+                ): TJournalEntryPage;
+            };
+            collection: typeof JournalEntryPage;
+            sheetClasses: Record<
+                string,
+                Record<
+                    string,
+                    {
+                        id: string;
+                        cls: typeof JournalPageSheet;
                         default: boolean;
                     }
                 >

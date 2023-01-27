@@ -1,5 +1,3 @@
-import type * as TinyMCE from "tinymce";
-
 class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extends JournalSheet<TJournalEntry> {
     static get theme(): string | null {
         return null;
@@ -16,24 +14,4 @@ class JournalSheetPF2e<TJournalEntry extends JournalEntry = JournalEntry> extend
     }
 }
 
-class JournalTextTinyMCESheetPF2e extends JournalTextTinyMCESheet {
-    override async activateEditor(
-        name: string,
-        options: Partial<TinyMCE.EditorOptions> = {},
-        initialContent = ""
-    ): Promise<TinyMCE.Editor> {
-        const editor = await super.activateEditor(name, options, initialContent);
-
-        const parentSheet = this.object.parent?.sheet.constructor as { theme?: string } | undefined;
-        const theme = parentSheet?.theme;
-        editor.contentDocument.documentElement.classList.add("journal-entry-page", "text");
-        editor.contentDocument.body.classList.add("journal-page-content");
-        if (theme) {
-            editor.contentDocument.documentElement.classList.add(theme);
-        }
-
-        return editor;
-    }
-}
-
-export { JournalSheetPF2e, JournalTextTinyMCESheetPF2e };
+export { JournalSheetPF2e };

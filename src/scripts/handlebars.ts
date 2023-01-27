@@ -50,8 +50,8 @@ export function registerHandlebarsHelpers(): void {
         return a * b;
     });
 
-    Handlebars.registerHelper("percentage", (value, max) => {
-        return (value * 100) / max;
+    Handlebars.registerHelper("percentage", (value, max, min = 0) => {
+        return ((value - min) * 100) / (max - min);
     });
 
     Handlebars.registerHelper("strip_tags", (value) => {
