@@ -15,7 +15,7 @@ import {
     TokenConfigPF2e,
     TokenDocumentPF2e,
 } from "@scene";
-import { monkeyPatchFoundry } from "@scripts/🐵🩹";
+import { MonkeyPatcher } from "@scripts/🐵🩹";
 import { CheckRoll, StrikeAttackRoll } from "@system/check";
 import { DamageInstance, DamageRoll } from "@system/damage/roll";
 import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "@system/damage/terms";
@@ -65,7 +65,7 @@ export const Load = {
         window.AutomaticBonusProgression = AutomaticBonusProgression;
 
         // Monkey-patch `TextEditor.enrichHTML`
-        monkeyPatchFoundry();
+        MonkeyPatcher.patchTextEditor();
 
         // Prevent buttons from retaining focus when clicked so that canvas hotkeys still work
         document.addEventListener("mouseup", (): void => {
