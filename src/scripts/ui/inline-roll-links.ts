@@ -9,7 +9,6 @@ import { htmlClosest, htmlQueryAll, objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
 import { ChatMessageSaveEventArgs } from "@module/chat-message/listeners/cards";
-import { ItemPF2e } from "@item";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
@@ -176,7 +175,7 @@ export const InlineRollLinks = {
                                         message: message,
                                         actor: message?.token?.actor,
                                         token: rollMessage.token?.object,
-                                        item: {} as Embedded<ItemPF2e>, // item,
+                                        item: message?.item,
                                         roll: roll,
                                         outcome: outcome,
                                         rollMessage: rollMessage,

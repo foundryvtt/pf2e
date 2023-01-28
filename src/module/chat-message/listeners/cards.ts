@@ -19,7 +19,7 @@ export interface ChatMessageSaveEventArgs {
     message: ChatMessagePF2e;
     actor: ActorPF2e | null | undefined;
     token: TokenPF2e | null | undefined;
-    item: Embedded<ItemPF2e>;
+    item: Embedded<ItemPF2e> | null | undefined;
     roll: Rolled<CheckRoll>;
     outcome: DegreeOfSuccessString | null | undefined;
     rollMessage: ChatMessagePF2e;
