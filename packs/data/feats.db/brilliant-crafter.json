@@ -53,14 +53,15 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.proficiencies.classDCs.inventor.rank",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 15,
-                            "value": 2
-                        }
-                    ]
-                }
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            15
+                        ]
+                    }
+                ],
+                "value": 2
             }
         ],
         "source": {
