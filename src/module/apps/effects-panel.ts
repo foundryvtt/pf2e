@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { AfflictionPF2e } from "@item/affliction";
 import { EffectExpiryType } from "@item/effect/data";
-import { htmlQueryAll } from "@util";
+import { htmlQuery, htmlQueryAll } from "@util";
 import { FlattenedCondition } from "../system/conditions";
 
 export class EffectsPanel extends Application {
@@ -90,6 +90,19 @@ export class EffectsPanel extends Application {
                 const effect = actor?.items.get(iconElem.dataset.itemId ?? "");
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.increase();
+                }
+            });
+        }
+
+        // Add listeners for any effect controls
+        for (const effectEl of htmlQueryAll(html, "[data-item-id]")) {
+            const id = effectEl.dataset.itemId;
+            if (!id) continue;
+
+            htmlQuery(effectEl, "[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
+                const item = this.actor?.items.get(id);
+                if (item?.isOfType("condition")) {
+                    item.rollRecovery();
                 }
             });
         }
