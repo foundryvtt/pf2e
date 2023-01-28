@@ -35,13 +35,24 @@ class StrikeRuleElement extends RuleElementPF2e {
 
     otherTags: OtherWeaponTag[];
 
+    /** A representative icon for the strike */
+    img: ImageFilePath;
+
     range: {
         increment: number;
         max: number | null;
     } | null;
 
+    /** Whether to replace all other strike actions */
+    replaceAll: boolean;
+
+    /** Whether to replace the "basic unarmed" strike action */
+    replaceBasicUnarmed: boolean;
+
     /** Whether this attack is from a battle form */
     battleForm: boolean;
+
+    options: string[];
 
     constructor(data: StrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
@@ -68,9 +79,14 @@ class StrikeRuleElement extends RuleElementPF2e {
 
         this.battleForm = !!data.battleForm;
 
-        this.data.replaceAll = !!(this.data.replaceAll ?? false);
-        this.data.replaceBasicUnarmed = !!(this.data.replaceBasicUnarmed ?? false);
+        this.replaceAll = !!data.replaceAll;
+        this.replaceBasicUnarmed = !!data.replaceBasicUnarmed;
         this.slug ??= sluggify(this.label);
+        this.img = typeof data.img === "string" ? (data.img as ImageFilePath) : item.img;
+        this.options =
+            Array.isArray(data.options) && data.options.every((o): o is string => typeof o === "string")
+                ? data.options
+                : [];
     }
 
     #isValidRange(range: unknown): range is number {
@@ -96,12 +112,12 @@ class StrikeRuleElement extends RuleElementPF2e {
     override afterPrepareData(): void {
         if (!this.actor.isOfType("character")) return;
 
-        if (this.data.replaceAll) {
+        if (this.replaceAll) {
             const systemData = this.actor.system;
             systemData.actions = systemData.actions.filter(
                 (a) => a.item.id === this.item.id && a.item.name === this.label && a.item.group === this.group
             );
-        } else if (this.data.replaceBasicUnarmed) {
+        } else if (this.replaceBasicUnarmed) {
             const systemData = this.actor.system;
             systemData.actions.findSplice((a) => a.item?.slug === "basic-unarmed");
         }
@@ -119,7 +135,7 @@ class StrikeRuleElement extends RuleElementPF2e {
             _id: this.item.id,
             name: this.label,
             type: "weapon",
-            img: this.data.img ?? this.item.img,
+            img: this.img,
             flags: { pf2e: { battleForm: this.battleForm } },
             system: {
                 slug: this.slug,
@@ -131,7 +147,7 @@ class StrikeRuleElement extends RuleElementPF2e {
                 range: (this.range?.increment ?? null) as WeaponRangeIncrement | null,
                 maxRange: this.range?.max ?? null,
                 traits: { value: this.traits, otherTags: this.otherTags, rarity: "common", custom: "" },
-                options: { value: this.data.options ?? [] },
+                options: { value: this.options ?? [] },
                 usage: { value: "held-in-one-hand" },
                 equipped: {
                     carryType: "held",
@@ -167,12 +183,7 @@ interface StrikeSource extends RuleElementSource {
 }
 
 interface StrikeData extends RuleElementData {
-    slug?: string;
-    img?: ImageFilePath;
     damage?: { base?: WeaponDamage };
-    replaceAll: boolean;
-    replaceBasicUnarmed: boolean;
-    options?: string[];
 }
 
 export { StrikeRuleElement };

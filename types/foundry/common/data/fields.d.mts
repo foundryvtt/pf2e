@@ -87,7 +87,7 @@ export abstract class DataField<
      * @param [options.source]  The root data model being cleaned
      * @returns The cast value
      */
-    clean(value: unknown, options?: CleanFieldOptions): TNullable extends true ? TSourceProp | null : TSourceProp;
+    clean(value: unknown, options?: CleanFieldOptions): TNullable extends false ? TSourceProp : TSourceProp | null;
 
     /**
      * Apply any cleaning logic specific to this DataField type.
@@ -317,15 +317,12 @@ export class NumberField<
     protected override _validateType(value: unknown): void;
 }
 
-/**
- * @typedef StringFieldOptions
- * @property [blank=true]       Is the string allowed to be blank (empty)?
- * @property [trim=true]        Should any provided string be trimmed as part of cleaning?
- */
-interface StringFieldOptions<TSourceProp extends string = string, TNullable extends boolean = boolean>
+interface StringFieldOptions<TSourceProp extends string, TNullable extends boolean>
     extends DataFieldOptions<TSourceProp, TNullable> {
     choices?: readonly TSourceProp[] | Record<TSourceProp, string> | Function;
+    /** [blank=true] Is the string allowed to be blank (empty)? */
     blank?: boolean;
+    /** [trim=true]  Should any provided string be trimmed as part of cleaning? */
     trim?: boolean;
 }
 
@@ -338,7 +335,7 @@ export class StringField<
     extends DataField<TSourceProp, TModelProp, TNullable>
     implements StringFieldOptions<TSourceProp, TNullable>
 {
-    /** @param options  Options which configure the behavior of the field */
+    /** @param options Options which configure the behavior of the field */
     constructor(options?: StringFieldOptions<TSourceProp, TNullable>);
 
     protected static override get _defaults(): StringFieldOptions<string, boolean>;
@@ -346,7 +343,7 @@ export class StringField<
     override clean(
         value: unknown,
         options?: CleanFieldOptions
-    ): TNullable extends true ? TSourceProp | null : TSourceProp;
+    ): TNullable extends false ? TSourceProp : TSourceProp | null;
 
     protected override _cast(value: unknown): TSourceProp;
 
@@ -429,7 +426,7 @@ export class ArrayField<
      * @param element A DataField instance which defines the type of element contained in the Array.
      * @param options Options which configure the behavior of the field
      */
-    constructor(element: DataField, options?: ArrayFieldOptions<TElementField, TNullable>);
+    constructor(element: TElementField, options?: ArrayFieldOptions<TElementField, TNullable>);
 
     /** The data type of each element in this array */
     element: TElementField;
@@ -471,6 +468,15 @@ export class ArrayField<
         data?: object,
         options?: Record<string, unknown>
     ): TSourceProp;
+}
+
+export interface ArrayField<
+    TElementField extends DataField,
+    TSourceProp extends SourcePropFromDataField<TElementField>[] = SourcePropFromDataField<TElementField>[],
+    TModelProp extends object = TSourceProp,
+    TNullable extends boolean = false
+> extends DataField<TSourceProp, TModelProp, TNullable> {
+    clean(value: unknown, options?: CleanFieldOptions): TNullable extends false ? TSourceProp : TSourceProp | null;
 }
 
 /**
@@ -569,7 +575,7 @@ export class DocumentIdField<
     TModelProp extends string | DataModel = string,
     TNullable extends boolean = true
 > extends StringField<string, TModelProp, TNullable> {
-    protected static override get _defaults(): StringFieldOptions;
+    protected static override get _defaults(): StringFieldOptions<string, boolean>;
 
     protected override _cast(value: unknown): string;
 
@@ -588,12 +594,12 @@ export class ForeignDocumentField<
      * @param model   The foreign DataModel class definition which this field should link to.
      * @param options Options which configure the behavior of the field
      */
-    constructor(model: ConstructorOf<DataModel>, options?: StringFieldOptions);
+    constructor(model: ConstructorOf<DataModel>, options?: StringFieldOptions<string, TNullable>);
 
     /** A reference to the model class which is stored in this field */
     model: DataModel;
 
-    protected static override get _defaults(): StringFieldOptions;
+    protected static override get _defaults(): StringFieldOptions<string, boolean>;
 
     _cast(value: unknown): string;
 
@@ -698,17 +704,15 @@ export class DocumentOwnershipField extends ObjectField<Record<string, DocumentO
     protected override _validateType(value: object): boolean | void;
 }
 
-/**
- * A special [StringField]{@link StringField} which contains serialized JSON data.
- */
+/** A special [StringField]{@link StringField} which contains serialized JSON data. */
 export class JSONField<TModelProp = object, TNullable extends boolean = false> extends StringField<
     string,
     TModelProp,
     TNullable
 > {
-    protected static override get _defaults(): StringFieldOptions;
+    protected static override get _defaults(): StringFieldOptions<string, boolean>;
 
-    override clean(value: unknown, options?: CleanFieldOptions): TNullable extends true ? string | null : string;
+    override clean(value: unknown, options?: CleanFieldOptions): TNullable extends false ? string : string | null;
 
     protected override _validateType(value: unknown): boolean;
 
@@ -727,7 +731,7 @@ export class HTMLField<
     TModelProp = TSourceProp,
     TNullable extends boolean = false
 > extends StringField<TSourceProp, TModelProp, TNullable> {
-    protected static override get _defaults(): StringFieldOptions;
+    protected static override get _defaults(): StringFieldOptions<string, boolean>;
 }
 
 /** A subclass of `NumberField` which is used for storing integer sort keys. */

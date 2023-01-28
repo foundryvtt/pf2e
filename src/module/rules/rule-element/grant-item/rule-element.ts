@@ -237,9 +237,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
             // The on-delete action determines what will happen to the granted item when the granter is deleted:
             // Default to "cascade" (delete the granted item) unless the granted item is physical.
             onDelete:
-                this.onDeleteActions?.granter ?? setHasElement(PHYSICAL_ITEM_TYPES, grantee.type)
-                    ? "detach"
-                    : "cascade",
+                this.onDeleteActions?.granter ??
+                (setHasElement(PHYSICAL_ITEM_TYPES, grantee.type) ? "detach" : "cascade"),
         };
 
         if (grantee instanceof ItemPF2e) {

@@ -7,10 +7,10 @@ class ActorTraitsRuleElement extends RuleElementPF2e {
     remove: string[] = [];
 
     constructor(data: ActorTraitsSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super({ ...data, priority: 99 }, item, options);
-
         data.add ??= [];
         data.remove ??= [];
+
+        super({ ...data, priority: 99 }, item, options);
 
         if (!(Array.isArray(data.add) && Array.isArray(data.remove))) {
             this.failValidation("`add` and `remove` properties must be arrays or omitted");
