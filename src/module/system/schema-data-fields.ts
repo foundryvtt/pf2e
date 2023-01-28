@@ -33,7 +33,7 @@ class LaxSchemaField<TSourceProp extends DataSchema = DataSchema> extends fields
 
 /** A sluggified string field */
 class SlugField<TNullable extends boolean = true> extends fields.StringField<string, string, TNullable> {
-    protected static override get _defaults(): StringFieldOptions {
+    protected static override get _defaults(): StringFieldOptions<string, boolean> {
         return mergeObject(super._defaults, {
             initial: null,
             nullable: true,
