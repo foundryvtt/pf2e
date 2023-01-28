@@ -9,6 +9,21 @@ import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "..";
+import { DegreeOfSuccessString } from "@system/degree-of-success";
+import { CheckRoll } from "@system/check/roll";
+import { TokenPF2e } from "@module/canvas";
+
+export interface ChatMessageSaveEventArgs {
+    event: JQuery.ClickEvent;
+    button: HTMLElement;
+    message: ChatMessagePF2e;
+    actor: ActorPF2e | null | undefined;
+    token: TokenPF2e | null | undefined;
+    item: Embedded<ItemPF2e>;
+    roll: Rolled<CheckRoll>;
+    outcome: DegreeOfSuccessString | null | undefined;
+    rollMessage: ChatMessagePF2e;
+}
 
 export const ChatCards = {
     listen: ($html: JQuery): void => {
@@ -120,7 +135,8 @@ export const ChatCards = {
                         }
                     }
                 } else if (action === "save") {
-                    ChatCards.rollActorSaves({ event, actor, item });
+                    const button = $button;
+                    ChatCards.rollActorSaves({ event, button, message, actor, item });
                 }
             } else if (actor.isOfType("character", "npc")) {
                 if (action === "repair-item") {
@@ -212,10 +228,14 @@ export const ChatCards = {
      */
     rollActorSaves: async ({
         event,
+        button,
+        message,
         actor,
         item,
     }: {
         event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>;
+        button: JQuery<HTMLElement>;
+        message: ChatMessagePF2e;
         actor: ActorPF2e;
         item: Embedded<ItemPF2e>;
     }): Promise<void> => {
@@ -247,6 +267,20 @@ export const ChatCards = {
                     item,
                     origin: actor,
                     extraRollOptions: rollOptions,
+                    callback: (roll, outcome, rollMessage) => {
+                        const eventArgs: ChatMessageSaveEventArgs = {
+                            event: event,
+                            button: button[0],
+                            message: message,
+                            actor: actor,
+                            token: t,
+                            item: item,
+                            roll: roll,
+                            outcome: outcome,
+                            rollMessage: rollMessage,
+                        };
+                        Hooks.call("pf2e.chatMessageSave", eventArgs);
+                    },
                 });
             }
         } else {

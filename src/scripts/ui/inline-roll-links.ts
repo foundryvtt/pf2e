@@ -8,6 +8,8 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { htmlClosest, htmlQueryAll, objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
+import { ChatMessageSaveEventArgs } from "@module/chat-message/listeners/cards";
+import { ItemPF2e } from "@item";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
@@ -165,6 +167,22 @@ export const InlineRollLinks = {
                                 extraRollOptions: parsedTraits,
                                 origin: document instanceof ActorPF2e ? document : null,
                                 dc,
+                                callback: (roll, outcome, rollMessage) => {
+                                    const messageId = html.getAttribute("data-message-id") ?? "";
+                                    const message = game.messages.get(messageId, { strict: true });
+                                    const eventArgs: ChatMessageSaveEventArgs = {
+                                        event: event,
+                                        button: event.target,
+                                        message: message,
+                                        actor: message?.token?.actor,
+                                        token: rollMessage.token?.object,
+                                        item: {} as Embedded<ItemPF2e>, // item,
+                                        roll: roll,
+                                        outcome: outcome,
+                                        rollMessage: rollMessage,
+                                    };
+                                    Hooks.call("pf2e.chatMessageSave", eventArgs);
+                                },
                             });
                         } else {
                             console.warn(`PF2e System | Skip rolling unknown saving throw '${pf2Check}'`);
