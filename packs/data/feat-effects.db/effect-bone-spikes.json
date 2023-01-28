@@ -35,6 +35,39 @@
                     "sweep",
                     "unarmed"
                 ]
+            },
+            {
+                "definition": [
+                    "item:slug:bone-spike"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "awakening:bone-spikes:reach:active"
+                ],
+                "property": "weapon-traits",
+                "value": "reach"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.DeviantAbilities.BoneSpikes.ReachLabel",
+                "option": "awakening:bone-spikes:reach:active",
+                "predicate": [
+                    "awakening:bone-spikes:reach"
+                ],
+                "toggleable": true
+            },
+            {
+                "category": "persistent",
+                "damageType": "poison",
+                "diceNumber": "ternary(gte(@actor.level,18),3,ternary(gte(@actor.level,10),2,1))",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "awakening:bone-spikes:poison"
+                ],
+                "selector": "{item|_id}-damage"
             }
         ],
         "source": {

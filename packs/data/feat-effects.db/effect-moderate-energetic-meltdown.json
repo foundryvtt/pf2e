@@ -1,0 +1,45 @@
+{
+    "_id": "rXi7QJJV6hSjbT22",
+    "img": "systems/pf2e/icons/spells/horrific-visage.webp",
+    "name": "Effect: Moderate Energetic Meltdown",
+    "system": {
+        "badge": null,
+        "description": {
+            "value": "<p>You gain weakness to your chosen energy type equal to one third your level.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "type": "{actor|flags.pf2e.deviantAbilities.dragon.damageType}",
+                "value": "floor(@actor.level/3)"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": "common",
+            "value": []
+        },
+        "unidentified": false
+    },
+    "type": "effect"
+}
