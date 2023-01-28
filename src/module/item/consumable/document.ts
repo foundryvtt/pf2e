@@ -153,6 +153,16 @@ class ConsumablePF2e extends PhysicalItemPF2e {
                     flags,
                 });
             }
+
+            const uuid = this.system.consume.uuid;
+            if (uuid) {
+                const effect = await fromUuid(uuid);
+                if (effect instanceof ItemPF2e && effect.isOfType("effect")) {
+                    await this.actor.createEmbeddedDocuments("Item", [effect.toObject()]);
+                } else {
+                    console.warn(`Effect from ${uuid} not found`);
+                }
+            }
         }
 
         const quantity = this.quantity;

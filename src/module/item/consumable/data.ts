@@ -32,6 +32,7 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
     };
     consume: {
         value: string;
+        uuid: string;
     };
     autoDestroy: {
         value: boolean;
