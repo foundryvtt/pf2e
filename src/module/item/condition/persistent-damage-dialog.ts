@@ -116,6 +116,14 @@ class PersistentDamageDialog extends Application {
             dc: htmlQuery<HTMLInputElement>(section, ".dc"),
         };
     }
+
+    /** Overriden to autofocus on first render behavior */
+    protected override _injectHTML($html: JQuery<HTMLElement>): void {
+        super._injectHTML($html);
+
+        // Since this is an initial render, focus the roll button
+        htmlQuery($html[0], ".new .formula")?.focus();
+    }
 }
 
 interface PersistentDialogData {
