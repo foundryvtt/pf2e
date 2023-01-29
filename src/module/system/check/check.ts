@@ -31,7 +31,8 @@ interface RerollOptions {
 type CheckRollCallback = (
     roll: Rolled<CheckRoll>,
     outcome: DegreeOfSuccessString | null | undefined,
-    message: ChatMessagePF2e
+    message: ChatMessagePF2e,
+    event: Event | null
 ) => Promise<void> | void;
 
 class CheckPF2e {
@@ -249,10 +250,8 @@ class CheckPF2e {
         })();
 
         if (callback) {
-            // Roll#toMessage with createMessage set to false returns a plain object instead of a ChatMessageData
-            // instance in V9
             const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);
-            await callback(roll, context.outcome, msg);
+            await callback(roll, context.outcome, msg, event?.originalEvent ?? null);
         }
 
         // Consume one unit of the weapon if it has the consumable trait
