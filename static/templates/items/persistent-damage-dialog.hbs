@@ -1,5 +1,12 @@
 <form>
-    <h3>{{localize "PF2E.ConditionTypePersistent"}}</h3>
+    <h3>
+        {{localize "PF2E.ConditionTypePersistent"}}
+        {{#if existing}}
+            <a data-action="roll-persistent">
+                <i class="fas fa-dice-d20"></i> {{localize "PF2E.Item.Condition.PersistentDamage.RollDamage"}}
+            </a>
+        {{/if}}
+    </h3>
 
     <section class="entries new">
         <section class="persistent-entry">
