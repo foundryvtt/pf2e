@@ -29,6 +29,7 @@ import { avoidNotice } from "./exploration/avoid-notice";
 import { senseDirection } from "./exploration/sense-direction";
 import { track } from "./exploration/track";
 import { decipherWriting } from "./general/decipher-writing";
+import { subsist } from "./general/subsist";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
 import { treatDisease } from "./medicine/treat-disease";
@@ -94,6 +95,7 @@ export const ActionMacros = {
 
     // General Skill Actions
     decipherWriting,
+    subsist,
 
     // Intimidation
     coerce,
