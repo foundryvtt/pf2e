@@ -193,7 +193,10 @@ function pruneTree(docSource: PackEntry, topLevel: PackEntry): void {
                     }
                 } else if (isItemSource(docSource)) {
                     // Prune several common item data defaults
-                    docSource.system.description = { value: docSource.system.description.value };
+                    docSource.system.description = {
+                        gm: docSource.system.description.gm,
+                        value: docSource.system.description.value,
+                    };
                     if (isPhysicalData(docSource)) {
                         delete (docSource.system as { identification?: unknown }).identification;
                         if (docSource.system.traits.otherTags?.length === 0) {

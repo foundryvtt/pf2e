@@ -33,7 +33,7 @@ import { RuleElementForm, RULE_ELEMENT_FORMS } from "./rule-elements";
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions(): DocumentSheetOptions {
         const options = super.defaultOptions;
-        options.width = 650;
+        options.width = 691;
         options.height = 460;
         options.classes = options.classes.concat(["pf2e", "item"]);
         options.template = "systems/pf2e/templates/items/item-sheet.hbs";
@@ -88,6 +88,10 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const enrichedContent: Record<string, string> = {};
         const rollData = { ...this.item.getRollData(), ...this.actor?.getRollData() };
         enrichedContent.description = await TextEditor.enrichHTML(itemData.system.description.value, {
+            rollData,
+            async: true,
+        });
+        enrichedContent.gmNotes = await TextEditor.enrichHTML(itemData.system.description.gm.trim(), {
             rollData,
             async: true,
         });
@@ -410,6 +414,24 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 });
             }
         }
+
+        htmlQuery(html, ".description-sections")?.addEventListener("click", async (event) => {
+            if (!(event.target instanceof HTMLElement)) return;
+            const { action } = event.target.dataset;
+            if (action === "edit-gm-notes") {
+                const section = event.target.closest(".description-sections")?.querySelector(".gm-notes-section");
+                if (section instanceof HTMLElement) {
+                    section.classList.add("force-visible");
+                    event.target.remove();
+                    return this.activateEditor("system.description.gm");
+                }
+            }
+            const name = event.target.closest("section")?.querySelector("[data-edit]")?.getAttribute("data-edit");
+            if (name) {
+                return this.activateEditor(name);
+            }
+            return null;
+        });
     }
 
     /** When tabs are changed, change visibility of elements such as the sidebar */

@@ -78,6 +78,7 @@ interface ItemLevelData {
 
 interface ItemSystemSource {
     description: {
+        gm: string;
         value: string;
     };
     source: {

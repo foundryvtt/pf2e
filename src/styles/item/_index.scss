@@ -251,6 +251,37 @@
                 --radius: 3px;
                 @include tinymce-system-specific;
             }
+
+            .item-description {
+                .description-sections {
+                    height: 100%;
+                    overflow: hidden scroll;
+                    .gm-notes-section {
+                        display: none;
+                        &.force-visible {
+                            display: unset;
+                        }
+                    }
+                    .section-header {
+                        display: flex;
+                        justify-content: space-between;
+                        .section-heading {
+                            margin-bottom: 0;
+                        }
+                        .controls {
+                            a {
+                                margin-left: 8px;
+                            }
+                        }
+                    }
+                    .section-editor .editor .editor-edit {
+                        display: none;
+                    }
+                    .tox.tox-tinymce {
+                        min-height: 200px !important;
+                    }
+                }
+            }
         }
 
         h3, header {
