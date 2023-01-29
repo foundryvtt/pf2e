@@ -8,6 +8,8 @@ import { DamageRoll } from "@system/damage/roll";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { TokenDocumentPF2e } from "@scene";
 import { DamageCategorization, PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
+import { Statistic } from "@system/statistic";
+import { DegreeOfSuccess } from "@system/degree-of-success";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
@@ -93,6 +95,27 @@ class ConditionPF2e extends AbstractEffectPF2e {
                 },
                 { rollMode: "roll" }
             );
+        }
+    }
+
+    /** Rolls recovery for this condition if it is persistent damage */
+    async rollRecovery(): Promise<void> {
+        if (!this.actor) return;
+
+        if (this.system.persistent) {
+            const { dc, damageType } = this.system.persistent;
+            const result = await new Statistic(this.actor, {
+                slug: "recovery",
+                label: game.i18n.format("PF2E.Item.Condition.PersistentDamage.Chat.RecoverLabel", {
+                    name: this.name,
+                }),
+                check: { type: "flat-check" },
+                domains: [],
+            }).roll({ dc: { value: dc }, skipDialog: true });
+
+            if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
+                this.actor.decreaseCondition(`persistent-damage-${damageType}`);
+            }
         }
     }
 
