@@ -14,7 +14,7 @@ import { DegreeOfSuccess } from "@system/degree-of-success";
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
         if (this.system.persistent) {
-            return { type: "value", value: this.system.persistent.formula };
+            return { type: "formula", value: this.system.persistent.formula };
         }
 
         return this.system.value.value ? { type: "counter", value: this.system.value.value } : null;

@@ -60,7 +60,10 @@
         {{#if effect.system.expired}}
             <span class="expired">{{localize "PF2E.EffectPanel.Expired"}}</span>
         {{else if effect.badge}}
-            <div class="value"><strong>{{effect.badge.value}}</strong></div>
+            <div class="value-wrapper">
+                <div class="value"><strong>{{coalesce effect.badge.label effect.badge.value}}</strong></div>
+            </div>
+
         {{/if}}
     </div>
 </div>
