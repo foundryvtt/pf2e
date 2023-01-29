@@ -1,8 +1,9 @@
 import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { AfflictionPF2e } from "@item/affliction";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
 import { EffectExpiryType } from "@item/effect/data";
-import { htmlQuery, htmlQueryAll } from "@util";
+import { htmlQueryAll } from "@util";
 import { FlattenedCondition } from "../system/conditions";
 
 export class EffectsPanel extends Application {
@@ -72,11 +73,15 @@ export class EffectsPanel extends Application {
         super.activateListeners($html);
         const html = $html[0]!;
 
-        for (const iconElem of htmlQueryAll(html, "div[data-item-id]")) {
+        for (const effectEl of htmlQueryAll(html, ".effect-item[data-item-id]")) {
+            const itemId = effectEl.dataset.itemId;
+            const iconElem = effectEl.querySelector(".icon");
+            if (!itemId) continue;
+
             // Remove an effect on right-click
-            iconElem.addEventListener("contextmenu", async () => {
+            iconElem?.addEventListener("contextmenu", async () => {
                 const { actor } = this;
-                const effect = actor?.items.get(iconElem.dataset.itemId ?? "");
+                const effect = actor?.items.get(itemId);
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.decrease();
                 } else {
@@ -85,22 +90,18 @@ export class EffectsPanel extends Application {
                 }
             });
 
-            iconElem.addEventListener("click", async () => {
+            iconElem?.addEventListener("click", async () => {
                 const { actor } = this;
-                const effect = actor?.items.get(iconElem.dataset.itemId ?? "");
-                if (effect instanceof AbstractEffectPF2e) {
+                const effect = actor?.items.get(itemId);
+                if (actor && effect?.isOfType("condition") && effect.slug === "persistent-damage") {
+                    new PersistentDialog(actor).render(true);
+                } else if (effect instanceof AbstractEffectPF2e) {
                     await effect.increase();
                 }
             });
-        }
 
-        // Add listeners for any effect controls
-        for (const effectEl of htmlQueryAll(html, "[data-item-id]")) {
-            const id = effectEl.dataset.itemId;
-            if (!id) continue;
-
-            htmlQuery(effectEl, "[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
-                const item = this.actor?.items.get(id);
+            effectEl.querySelector("[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
+                const item = this.actor?.items.get(itemId);
                 if (item?.isOfType("condition")) {
                     item.rollRecovery();
                 }
