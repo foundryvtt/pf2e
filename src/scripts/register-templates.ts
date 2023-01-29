@@ -132,6 +132,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-actions.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-inventory.hbs",
         "systems/pf2e/templates/actors/vehicle/tabs/vehicle-description.hbs",
+        "systems/pf2e/templates/actors/vehicle/tabs/vehicle-effects.hbs",
 
         // Compendium Browser Partials
         "systems/pf2e/templates/compendium-browser/browser-settings.hbs",

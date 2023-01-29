@@ -3,6 +3,8 @@ import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
 import { getActionIcon } from "@util";
 import { VehicleSheetData } from "./data";
+import { htmlClosest } from "@util";
+import { AbstractEffectPF2e } from "@item";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -86,5 +88,35 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
         // get buttons
         $html.find(".crb-tag-selector").on("click", (event) => this.onTraitSelector(event));
+
+        // Change whether an effect is secret to players or not
+        $html.find(".effects-list [data-action=effect-toggle-unidentified]").on("click", async (event) => {
+            const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+            const effect = this.actor.items.get(effectId, { strict: true });
+            if (effect instanceof AbstractEffectPF2e) {
+                const isUnidentified = effect.unidentified;
+                await effect.update({ "system.unidentified": !isUnidentified });
+            }
+        });
+
+        // Decrease effect value
+        $html.find(".effects-list .decrement").on("click", async (event) => {
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = this.actor.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof AbstractEffectPF2e) {
+                await effect.decrease();
+            }
+        });
+
+        // Increase effect value
+        $html.find(".effects-list .increment").on("click", async (event) => {
+            const target = $(event.currentTarget);
+            const parent = target.parents(".item");
+            const effect = this.actor?.items.get(parent.attr("data-item-id") ?? "");
+            if (effect instanceof AbstractEffectPF2e) {
+                await effect.increase();
+            }
+        });
     }
 }
