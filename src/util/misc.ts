@@ -384,6 +384,11 @@ function recursiveReplaceString(source: unknown, replace: (s: string) => string)
     return clone;
 }
 
+/** Does the parameter look like an image file path? */
+function isImageFilePath(path: unknown): path is ImageFilePath {
+    return typeof path === "string" && Object.keys(CONST.IMAGE_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
+}
+
 export {
     ErrorPF2e,
     Fraction,
@@ -395,6 +400,7 @@ export {
     getActionIcon,
     groupBy,
     isBlank,
+    isImageFilePath,
     isObject,
     localizeList,
     mapValues,

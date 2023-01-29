@@ -28,15 +28,23 @@
         "rules": [
             {
                 "add": [
-                    "undead"
+                    "undead",
+                    "zombie"
                 ],
                 "key": "ActorTraits"
             },
             {
-                "add": [
-                    "zombie"
+                "fist": true,
+                "key": "Strike"
+            },
+            {
+                "definition": [
+                    "item:base:fist"
                 ],
-                "key": "ActorTraits"
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "property": "weapon-traits",
+                "value": "nonlethal"
             },
             {
                 "category": "unarmed",
