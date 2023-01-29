@@ -174,6 +174,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 ? this.choicesFromUnarmedAttacks(this.data.choices.predicate)
                 : "query" in this.data.choices && typeof this.data.choices.query === "string"
                 ? await this.queryCompendium(this.data.choices)
+                : this.data.choices.strikes
+                ? this.choicesFromStrikes(this.data.choices.predicate)
                 : []
             : typeof this.data.choices === "string"
             ? this.choicesFromPath(this.data.choices)
@@ -268,6 +270,20 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                     a.item.isOfType("weapon") &&
                     a.item.category === "unarmed" &&
                     predicate.test(a.item.getRollOptions("item"))
+            )
+            .map((a) => ({
+                img: a.item.img,
+                label: a.item.name,
+                value: a.item.slug ?? sluggify(a.item.name),
+            }));
+    }
+
+    private choicesFromStrikes(predicate = new PredicatePF2e()): PickableThing<string>[] {
+        if (!this.actor.isOfType("character")) return [];
+
+        return this.actor.system.actions
+            .filter(
+                (a): a is CharacterStrike => a.item.isOfType("weapon") && predicate.test(a.item.getRollOptions("item"))
             )
             .map((a) => ({
                 img: a.item.img,

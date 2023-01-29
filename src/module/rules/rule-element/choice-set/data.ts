@@ -14,7 +14,8 @@ interface ChoiceSetData extends RuleElementData {
         | PickableThing<string | number>[]
         | ChoiceSetOwnedItems
         | ChoiceSetUnarmedAttacks
-        | ChoiceSetPackQuery;
+        | ChoiceSetPackQuery
+        | ChoiceSetStrikes;
     /**
      * The name of the flag that will contain the user's selection. If not set, it defaults to the camel-casing of the
      * parent item's slug, falling back to name.
@@ -46,6 +47,7 @@ interface ChoiceSetOwnedItems {
     /** The filter to apply the actor's own weapons/unarmed attacks */
     predicate?: PredicatePF2e;
     unarmedAttacks?: never;
+    strikes?: never;
     types: (ItemType | "physical")[];
 }
 
@@ -54,7 +56,17 @@ interface ChoiceSetUnarmedAttacks {
     unarmedAttacks: boolean;
     /** The filter to apply the actor's own weapons/unarmed attacks */
     predicate?: PredicatePF2e;
+    strikes?: never;
     ownedItems?: never;
+}
+
+interface ChoiceSetStrikes {
+    /** Include all weapons and unarmed strikes as the basis of the choices */
+    strikes: boolean;
+    /** The filter to apply the actor's own weapons/unarmed attacks */
+    predicate?: PredicatePF2e;
+    ownedItems?: never;
+    unarmedAttacks?: never;
 }
 
 interface ChoiceSetPackQuery {
@@ -63,8 +75,16 @@ interface ChoiceSetPackQuery {
     /** A system item type: if omitted, "feat" is used */
     itemType?: ItemType;
     query: string;
+    strikes: never;
     ownedItems?: never;
     unarmedAttacks?: never;
 }
 
-export { ChoiceSetData, ChoiceSetOwnedItems, ChoiceSetPackQuery, ChoiceSetSource, ChoiceSetUnarmedAttacks };
+export {
+    ChoiceSetData,
+    ChoiceSetOwnedItems,
+    ChoiceSetPackQuery,
+    ChoiceSetSource,
+    ChoiceSetUnarmedAttacks,
+    ChoiceSetStrikes,
+};
