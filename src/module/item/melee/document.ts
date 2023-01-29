@@ -1,6 +1,7 @@
 import { SIZE_TO_REACH } from "@actor/creature/values";
 import { ItemPF2e } from "@item/base";
 import { ItemSummaryData } from "@item/data";
+import { WeaponPF2e } from "@item/weapon";
 import { WeaponDamage } from "@item/weapon/data";
 import { WeaponRangeIncrement } from "@item/weapon/types";
 import { combineTerms } from "@scripts/dice";
@@ -86,6 +87,12 @@ class MeleePF2e extends ItemPF2e {
     /** Additional effects that are part of this attack */
     get attackEffects(): string[] {
         return this.system.attackEffects.value;
+    }
+
+    /** The linked inventory weapon, if this melee item was spawned from one */
+    get linkedWeapon(): Embedded<WeaponPF2e> | null {
+        const item = this.actor?.items.get(this.flags.pf2e.linkedWeapon ?? "");
+        return item?.isOfType("weapon") ? item : null;
     }
 
     override prepareBaseData(): void {
