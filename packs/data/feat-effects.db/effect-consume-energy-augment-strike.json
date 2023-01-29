@@ -16,7 +16,30 @@
         "level": {
             "value": 1
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "strike",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "consume-energy:weapon"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "damageType": "{actor|flags.pf2e.deviantAbilities.dragon.damageType}",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "{item|flags.pf2e.rulesSelections.strike}-damage"
+            }
+        ],
         "source": {
             "value": "Pathfinder Dark Archive"
         },
