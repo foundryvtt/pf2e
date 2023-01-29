@@ -35,6 +35,7 @@ import { treatPoison } from "./medicine/treat-poison";
 import { commandAnAnimal } from "./nature/command-an-animal";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
+import { disableDevice } from "./thievery/disable-device";
 import { pickALock } from "./thievery/pick-a-lock";
 export { ActionMacroHelpers } from "./helpers";
 export { ActionDefaultOptions, SkillActionOptions } from "./types";
@@ -105,5 +106,6 @@ export const ActionMacros = {
     sneak,
 
     // Thievery
+    disableDevice,
     pickALock,
 };
