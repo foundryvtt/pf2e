@@ -275,4 +275,4 @@ interface AELikeSource extends RuleElementSource {
     phase?: unknown;
 }
 
-export { AELikeData, AELikeRuleElement, AELikeSchema, AELikeSource, AutoChangeEntry };
+export { AELikeChangeMode, AELikeData, AELikeRuleElement, AELikeSchema, AELikeSource, AutoChangeEntry };
