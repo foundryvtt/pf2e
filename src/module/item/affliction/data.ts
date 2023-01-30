@@ -1,19 +1,34 @@
 import { SaveType } from "@actor/types";
-import { ABCSystemData } from "@item/abc/data";
-import { TimeUnit } from "@item/abstract-effect/data";
-import { ActionTraits } from "@item/action/data";
+import { EffectAuraData, EffectTraits, TimeUnit } from "@item/abstract-effect/data";
 import { ConditionSlug } from "@item/condition";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData, ItemSystemSource } from "@item/data/base";
+import {
+    BaseItemDataPF2e,
+    BaseItemSourcePF2e,
+    ItemFlagsPF2e,
+    ItemLevelData,
+    ItemSystemData,
+    ItemSystemSource,
+} from "@item/data/base";
 import { DamageCategoryUnique, DamageType } from "@system/damage";
 import { AfflictionPF2e } from "./document";
 
-type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource>;
+type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
+    flags: DeepPartial<AfflictionFlags>;
+};
 
 type AfflictionData = Omit<AfflictionSource, "system" | "effects" | "flags"> &
-    BaseItemDataPF2e<AfflictionPF2e, "affliction", AfflictionSystemData, AfflictionSource>;
+    BaseItemDataPF2e<AfflictionPF2e, "affliction", AfflictionSystemData, AfflictionSource> & {
+        flags: AfflictionFlags;
+    };
+
+type AfflictionFlags = ItemFlagsPF2e & {
+    pf2e: {
+        aura?: EffectAuraData;
+    };
+};
 
 interface AfflictionSystemSource extends ItemSystemSource, ItemLevelData {
-    traits: ActionTraits;
+    traits: EffectTraits;
     save: {
         type: SaveType;
         value: number;
@@ -24,6 +39,7 @@ interface AfflictionSystemSource extends ItemSystemSource, ItemLevelData {
     duration: {
         value: number;
         unit: TimeUnit | "unlimited";
+        expiry?: null;
     };
 }
 
@@ -53,7 +69,7 @@ interface AfflictionConditionData {
     value?: number;
 }
 
-interface AfflictionSystemData extends Omit<AfflictionSystemSource, "items">, Omit<ABCSystemData, "traits"> {}
+interface AfflictionSystemData extends Omit<AfflictionSystemSource, "items">, Omit<ItemSystemData, "traits"> {}
 
 export {
     AfflictionConditionData,

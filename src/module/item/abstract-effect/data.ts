@@ -1,9 +1,20 @@
+import { ActionTrait } from "@item/action";
+import { SpellTrait } from "@item/spell";
+
 interface EffectBadgeCounter {
     type: "counter";
     value: number;
     label?: string;
     labels?: string[];
 }
+
+interface EffectTraits {
+    value: EffectTrait[];
+    rarity?: never;
+    custom?: never;
+}
+
+type EffectTrait = ActionTrait | SpellTrait;
 
 // currently unused until specifices can be figured out
 interface EffectBadgeValue {
@@ -17,8 +28,14 @@ interface EffectBadgeFormula {
     evaluate?: boolean;
 }
 
+interface EffectAuraData {
+    slug: string;
+    origin: ActorUUID | TokenDocumentUUID;
+    removeOnExit: boolean;
+}
+
 type EffectBadge = EffectBadgeCounter | EffectBadgeValue | EffectBadgeFormula;
 
 type TimeUnit = "rounds" | "minutes" | "hours" | "days";
 
-export { TimeUnit, EffectBadge };
+export { EffectAuraData, EffectBadge, EffectTrait, EffectTraits, TimeUnit };

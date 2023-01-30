@@ -8,6 +8,7 @@ import {
 import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types";
 import { ArmorPF2e, ContainerPF2e, EffectPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
+import { AfflictionPF2e, AfflictionSource } from "@item/affliction";
 import { ConditionKey, ConditionSlug } from "@item/condition/data";
 import { isCycle } from "@item/container/helpers";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
@@ -280,11 +281,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Whether this actor is an ally of the provided actor */
     isAllyOf(actor: ActorPF2e): boolean {
-        return this.alliance !== null && this.alliance === actor.alliance;
+        return this.alliance !== null && this !== actor && this.alliance === actor.alliance;
+    }
+
+    /** Whether this actor is an ally of the provided actor */
+    isEnemyOf(actor: ActorPF2e): boolean {
+        return this.alliance !== null && actor.alliance !== null && this.alliance !== actor.alliance;
     }
 
     /** Whether this actor is immune to an effect of a certain type */
-    isImmuneTo(effect: EffectPF2e | ConditionPF2e): boolean {
+    isImmuneTo(effect: AfflictionPF2e | ConditionPF2e | EffectPF2e): boolean {
         const statements = effect.getRollOptions("item");
         return this.attributes.immunities.some((i) => i.test(statements));
     }
@@ -295,7 +301,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         const damageType = objectHasKey(CONFIG.PF2E.damageTypes, damage)
             ? damage
-            : isObject(damage)
+            : damage.isOfType("condition")
             ? damage.system.persistent?.damageType ?? null
             : null;
 
@@ -341,15 +347,21 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     async applyAreaEffects(aura: AuraData, { origin }: { origin: ActorPF2e }): Promise<void> {
         if (game.user !== this.primaryUpdater) return;
 
-        const toCreate: EffectSource[] = [];
+        const toCreate: (AfflictionSource | EffectSource)[] = [];
         for (const data of aura.effects) {
             if (this.itemTypes.effect.some((e) => e.sourceId === data.uuid)) {
                 continue;
             }
 
-            if (data.affects === "allies" && (data.includesSelf || this !== origin) && this.isAllyOf(origin)) {
+            const affectsSelf =
+                (data.includesSelf && this === origin) ||
+                (data.affects === "allies" && this.isAllyOf(origin)) ||
+                (data.affects === "enemies" && this.isEnemyOf(origin)) ||
+                (data.affects === "all" && this !== origin);
+
+            if (affectsSelf) {
                 const effect = await fromUuid(data.uuid);
-                if (!(effect instanceof ItemPF2e && effect.isOfType("effect"))) {
+                if (!(effect instanceof ItemPF2e && effect.isOfType("affliction", "effect"))) {
                     console.warn(`Effect from ${data.uuid} not found`);
                     continue;
                 }
@@ -369,6 +381,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 source.system.level.value = data.level ?? source.system.level.value;
                 source.system.duration.unit = "unlimited";
                 source.system.duration.expiry = null;
+                // Only transfer traits from the aura if the effect lacks its own
+                if (source.system.traits.value.length === 0) {
+                    source.system.traits.value.push(...aura.traits);
+                }
+
                 toCreate.push(source);
             }
         }

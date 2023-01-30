@@ -17,7 +17,9 @@ type ActionItemData = Omit<ActionItemSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<ActionItemPF2e, "action", ActionSystemData, ActionItemSource>;
 
 type ActionTrait = keyof ConfigPF2e["PF2E"]["actionTraits"];
-type ActionTraits = ItemTraits<ActionTrait>;
+interface ActionTraits extends ItemTraits<ActionTrait> {
+    rarity?: never;
+}
 
 interface ActionSystemSource extends ItemSystemSource {
     traits: ActionTraits;

@@ -1,5 +1,5 @@
 import { EffectBadge } from "@item/abstract-effect";
-import { TimeUnit } from "@item/abstract-effect/data";
+import { EffectAuraData, EffectTraits, TimeUnit } from "@item/abstract-effect/data";
 import {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
@@ -26,7 +26,8 @@ type EffectFlags = ItemFlagsPF2e & {
     };
 };
 
-interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
+interface EffectSystemSource extends Omit<ItemSystemSource, "traits">, ItemLevelData {
+    traits: EffectTraits;
     start: {
         value: number;
         initiative: number | null;
@@ -49,18 +50,12 @@ interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
     context: EffectContextData | null;
 }
 
-interface EffectSystemData extends EffectSystemSource, ItemSystemData {
+interface EffectSystemData extends EffectSystemSource, Omit<ItemSystemData, "traits"> {
     expired: boolean;
     remaining: string;
 }
 
 type EffectExpiryType = "turn-start" | "turn-end";
-
-interface EffectAuraData {
-    slug: string;
-    origin: ActorUUID | TokenDocumentUUID;
-    removeOnExit: boolean;
-}
 
 interface EffectContextData {
     origin: {
