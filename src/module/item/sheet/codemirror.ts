@@ -6,7 +6,7 @@ import { linter } from "@codemirror/lint";
 import { syntaxTree } from "@codemirror/language";
 import { json, jsonParseLinter } from "@codemirror/lang-json";
 import { RuleElements } from "@module/rules";
-import { LaxSchemaField } from "@system/schema-data-fields";
+import { DataSchema } from "types/foundry/common/data/fields.mjs";
 
 export const CodeMirror = {
     EditorView,
@@ -26,7 +26,7 @@ export const CodeMirror = {
 };
 
 interface RuleElementOptions {
-    schema?: LaxSchemaField;
+    schema?: DataSchema;
 }
 
 function ruleElementAutocomplete(options: RuleElementOptions) {
