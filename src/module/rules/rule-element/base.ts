@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data";
 import { DiceModifierPF2e, ModifierPF2e } from "@actor/modifiers";
-import { ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
+import { EffectAuraData, ItemPF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields";
 import { TokenDocumentPF2e } from "@scene";
@@ -46,6 +46,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     data: RuleElementData;
 
     sourceIndex: number | null;
+
+    originId: ActorUUID | TokenDocumentUUID | null;
 
     protected suppressWarnings: boolean;
 
@@ -99,10 +101,29 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             this.requiresEquipped = null;
             this.requiresInvestment = null;
         }
+
+        this.originId = (item.flags.pf2e.aura as EffectAuraData)?.origin ?? null;
     }
 
     get actor(): ActorPF2e {
         return this.item.actor;
+    }
+
+    get originActor(): ActorPF2e | null {
+        if (this.originId) {
+            const sceneTokenMatch = /^Scene\.(\w+)\.Token\.(\w+)$/.exec(this.originId);
+            if (sceneTokenMatch) {
+                const scene = game.scenes.get(sceneTokenMatch[1]);
+                const token = scene?.tokens.get(sceneTokenMatch[2]);
+                return token?.actor ?? null;
+            } else {
+                const actorMatch = /^Actor\.(\w+)$/.exec(this.originId);
+                if (actorMatch) {
+                    return game.actors.get(actorMatch[1]) ?? null;
+                }
+            }
+        }
+        return null;
     }
 
     /** Retrieves the token from the actor, or from the active tokens. */
@@ -180,8 +201,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
             return source;
         } else if (typeof source === "string") {
-            return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
-                const data = key === "rule" ? this.data : key === "actor" || key === "item" ? this[key] : this.item;
+            return source.replace(/{(actor|item|origin|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
+                const data = key === "rule" ? this.data : key === "origin" ? this.originActor ?? {} : key === "actor" || key === "item" ? this[key] : this.item;
                 const value = getProperty(data, prop);
                 if (value === undefined) {
                     this.failValidation("Failed to resolve injected property");

@@ -19,6 +19,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:undead",
+                    {
+                        "lt": [
+                            "{actor|level}",
+                            "{origin|level}"
+                        ]
+                    }
+                ],
                 "selector": [
                     "ac",
                     "attack",

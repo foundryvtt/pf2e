@@ -19,6 +19,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
+                "predicate": [
+                    "self:trait:evil",
+                    {
+                        "lt": [
+                            "{actor|level}",
+                            "{origin|level}"
+                        ]
+                    }
+                ],
                 "selector": [
                     "ac",
                     "attack",

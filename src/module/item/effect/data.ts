@@ -74,4 +74,4 @@ interface EffectContextData {
     roll: Pick<CheckRoll, "total" | "degreeOfSuccess"> | null;
 }
 
-export { EffectData, EffectExpiryType, EffectFlags, EffectContextData, EffectSource, EffectSystemData };
+export { EffectAuraData, EffectData, EffectExpiryType, EffectFlags, EffectContextData, EffectSource, EffectSystemData };
