@@ -1,6 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { AfflictionPF2e } from "@item/affliction";
+import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
 import { EffectExpiryType } from "@item/effect/data";
 import { htmlQueryAll } from "@util";
 import { FlattenedCondition } from "../system/conditions";
@@ -47,7 +48,7 @@ export class EffectsPanel extends Application {
                     const duration = effect.remainingDuration;
                     system.remaining = system.expired
                         ? game.i18n.localize("PF2E.EffectPanel.Expired")
-                        : EffectsPanel.getRemainingDurationLabel(
+                        : this.#getRemainingDurationLabel(
                               duration.remaining,
                               system.start.initiative ?? 0,
                               system.duration.expiry
@@ -72,11 +73,26 @@ export class EffectsPanel extends Application {
         super.activateListeners($html);
         const html = $html[0]!;
 
-        for (const iconElem of htmlQueryAll(html, "div[data-item-id]")) {
-            // Remove an effect on right-click
-            iconElem.addEventListener("contextmenu", async () => {
+        for (const effectEl of htmlQueryAll(html, ".effect-item[data-item-id]")) {
+            const itemId = effectEl.dataset.itemId;
+            if (!itemId) continue;
+
+            const iconElem = effectEl.querySelector(".icon");
+            // Increase or render persistent-damage dialog on left click
+            iconElem?.addEventListener("click", async () => {
                 const { actor } = this;
-                const effect = actor?.items.get(iconElem.dataset.itemId ?? "");
+                const effect = actor?.items.get(itemId);
+                if (actor && effect?.isOfType("condition") && effect.slug === "persistent-damage") {
+                    new PersistentDialog(actor).render(true);
+                } else if (effect instanceof AbstractEffectPF2e) {
+                    await effect.increase();
+                }
+            });
+
+            // Remove effect or decrease its badge value on right-click
+            iconElem?.addEventListener("contextmenu", async () => {
+                const { actor } = this;
+                const effect = actor?.items.get(itemId);
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.decrease();
                 } else {
@@ -85,21 +101,16 @@ export class EffectsPanel extends Application {
                 }
             });
 
-            iconElem.addEventListener("click", async () => {
-                const { actor } = this;
-                const effect = actor?.items.get(iconElem.dataset.itemId ?? "");
-                if (effect instanceof AbstractEffectPF2e) {
-                    await effect.increase();
+            effectEl.querySelector("[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
+                const item = this.actor?.items.get(itemId);
+                if (item?.isOfType("condition")) {
+                    item.rollRecovery();
                 }
             });
         }
     }
 
-    private static getRemainingDurationLabel(
-        remaining: number,
-        initiative: number,
-        expiry: EffectExpiryType | null
-    ): string {
+    #getRemainingDurationLabel(remaining: number, initiative: number, expiry: EffectExpiryType | null): string {
         if (remaining >= 63_072_000) {
             // two years
             return game.i18n.format("PF2E.EffectPanel.RemainingDuration.MultipleYears", {

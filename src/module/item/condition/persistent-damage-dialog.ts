@@ -107,6 +107,16 @@ class PersistentDamageDialog extends Application {
                 this.actor.createEmbeddedDocuments("Item", [persistentSource]);
             }
         });
+
+        html.querySelector("[data-action=roll-persistent]")?.addEventListener("click", () => {
+            const existing = this.actor.itemTypes.condition.filter(
+                (c): c is Embedded<PersistentDamagePF2e> => c.slug === "persistent-damage"
+            );
+
+            for (const condition of existing) {
+                condition.onEndTurn();
+            }
+        });
     }
 
     #getInputElements(section: HTMLElement) {

@@ -81,6 +81,7 @@ export class ConditionManager {
                 badge: condition.badge,
                 active: condition.isActive,
                 name: condition.name,
+                slug: condition.slug,
                 value: condition.value,
                 description: condition.description,
                 img: condition.img,

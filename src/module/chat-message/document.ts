@@ -8,8 +8,6 @@ import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 import { CheckRoll } from "@system/check";
 import { DamageRoll } from "@system/damage/roll";
-import { DegreeOfSuccess } from "@system/degree-of-success";
-import { Statistic } from "@system/statistic";
 import { htmlQuery, parseHTML } from "@util";
 import { ChatRollDetails } from "./chat-roll-details";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
@@ -230,7 +228,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
                 html.dataset.actorIsTarget = "true";
             }
 
-            htmlQuery(html, "[data-action=recover-persistent-damage]")?.addEventListener("click", async () => {
+            htmlQuery(html, "[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
                 const { actor } = this;
                 if (!actor) return;
 
@@ -246,19 +244,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
                     return ui.notifications.warn(message);
                 }
 
-                const dc = condition.system.persistent.dc;
-                const result = await new Statistic(actor, {
-                    slug: "recovery",
-                    label: game.i18n.format("PF2E.Item.Condition.PersistentDamage.Chat.RecoverLabel", {
-                        name: condition.name,
-                    }),
-                    check: { type: "flat-check" },
-                    domains: [],
-                }).roll({ dc: { value: dc }, skipDialog: true });
-
-                if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
-                    actor.decreaseCondition(`persistent-damage-${damageType}`);
-                }
+                condition.rollRecovery();
             });
         }
 

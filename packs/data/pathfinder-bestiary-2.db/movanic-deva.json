@@ -1773,12 +1773,33 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>20 feet. Allies in the movanic deva's aura gain a +1 status bonus to all saving throws, resistance 10 to positive and negative damage, and are unharmed by the effects of a plane's positive and negative traits. Animals in the aura of 12th level or lower don't attack the movanic deva or the deva's allies unless they are controlled or otherwise forced to attack.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Allies in the movanic deva's aura gain a +1 status bonus to all saving throws, resistance 10 to positive and negative damage, and are unharmed by the effects of a plane's positive and negative traits. Animals in the aura of 12th level or lower don't attack the movanic deva or the deva's allies unless they are controlled or otherwise forced to attack.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.RjrsiEloXs7ze1TZ"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "aura-of-vitality",
+                        "traits": [
+                            "abjuration",
+                            "aura",
+                            "divine"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1789,9 +1810,7 @@
                     "value": [
                         "abjuration",
                         "aura",
-                        "divine",
-                        "positive",
-                        "negative"
+                        "divine"
                     ]
                 },
                 "trigger": {

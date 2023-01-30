@@ -577,6 +577,10 @@ class WeaponDamagePF2e {
             return selectors;
         }
 
+        if (weapon.baseType) {
+            selectors.push(`${weapon.baseType}-base-type-damage`);
+        }
+
         if (weapon.group) {
             selectors.push(`${weapon.group}-weapon-group-damage`);
         }

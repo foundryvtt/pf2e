@@ -54,8 +54,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
 
         this.allowNoSelection = !!data.allowNoSelection;
         this.rollOption = typeof data.rollOption === "string" && data.rollOption ? data.rollOption : null;
-        if (isObject(this.data.choices) && "predicate" in this.data.choices) {
+        if (isObject(this.data.choices) && !Array.isArray(this.data.choices) && !("query" in this.data.choices)) {
             this.data.choices.predicate = new PredicatePF2e(this.data.choices.predicate ?? []);
+            if (this.data.choices.unarmedAttacks) this.data.choices.predicate.push("item:category:unarmed");
         }
 
         const { selection } = this.data;
@@ -170,8 +171,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             : isObject(this.data.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
             ? this.data.choices.ownedItems
                 ? this.choicesFromOwnedItems(this.data.choices)
-                : this.data.choices.unarmedAttacks
-                ? this.choicesFromUnarmedAttacks(this.data.choices.predicate)
+                : this.data.choices.attacks || this.data.choices.unarmedAttacks
+                ? this.choicesFromAttacks(this.data.choices.predicate)
                 : "query" in this.data.choices && typeof this.data.choices.query === "string"
                 ? await this.queryCompendium(this.data.choices)
                 : []
@@ -259,15 +260,12 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         return choices;
     }
 
-    private choicesFromUnarmedAttacks(predicate = new PredicatePF2e()): PickableThing<string>[] {
+    private choicesFromAttacks(predicate: PredicatePF2e): PickableThing<string>[] {
         if (!this.actor.isOfType("character")) return [];
 
         return this.actor.system.actions
             .filter(
-                (a): a is CharacterStrike =>
-                    a.item.isOfType("weapon") &&
-                    a.item.category === "unarmed" &&
-                    predicate.test(a.item.getRollOptions("item"))
+                (a): a is CharacterStrike => a.item.isOfType("weapon") && predicate.test(a.item.getRollOptions("item"))
             )
             .map((a) => ({
                 img: a.item.img,

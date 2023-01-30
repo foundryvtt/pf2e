@@ -367,7 +367,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 continue;
             }
 
-            if (data.affects === "allies" && this.isAllyOf(origin)) {
+            if (data.affects === "allies" && (data.includesSelf || this !== origin) && this.isAllyOf(origin)) {
                 const effect = await fromUuid(data.uuid);
                 if (!(effect instanceof ItemPF2e && effect.isOfType("effect"))) {
                     console.warn(`Effect from ${data.uuid} not found`);

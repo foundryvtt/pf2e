@@ -18,7 +18,7 @@
 
 {{#*inline "effect"}}
 {{#if (or (not effect.unidentified) @root.user.isGM)}}
-<div class="effect-item">
+<div class="effect-item" data-item-id="{{effect.id}}">
     <div class="effect-info">
         <h1>{{effect.name}}</h1>
         {{#if (or (eq effect.type "effect") effect.breakdown)}}
@@ -37,6 +37,11 @@
                 {{/if}}
             </div>
         {{/if}}
+        {{#if (eq effect.slug "persistent-damage")}}
+            <a data-action="recover-persistent-damage">
+                <i class="fas fa-dice-d20"></i> {{localize "PF2E.Item.Condition.PersistentDamage.Chat.Recover"}}
+            </a>
+        {{/if}}
         <div class="instructions">
             {{#if (not effect.locked)}}
                 {{#if (eq effect.badge.type "counter")}}
@@ -48,7 +53,7 @@
             {{/if}}
         </div>
     </div>
-    <div class="icon {{#if effect.unidentified}}unidentified{{/if}}" data-item-id="{{effect.id}}" data-locked="{{#if effect.locked}}true{{/if}}" style="background-image: url({{effect.img}})">
+    <div class="icon{{#if effect.unidentified}} unidentified{{/if}}" data-locked="{{#if effect.locked}}true{{/if}}" style="background-image: url({{effect.img}})">
         {{#if effect.locked}}
             <div class="linked"><i class="fas fa-link"></i></div>
         {{/if}}

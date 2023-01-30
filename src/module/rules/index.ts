@@ -1,4 +1,5 @@
 import type { ItemPF2e } from "@item";
+import { LaxSchemaField } from "@system/schema-data-fields";
 import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./rule-element";
 import { ActorTraitsRuleElement } from "./rule-element/actor-traits";
 import { AdjustDegreeOfSuccessRuleElement } from "./rule-element/adjust-degree-of-success";
@@ -128,10 +129,10 @@ class RuleElements {
     }
 }
 
-type RuleElementConstructor = new (
+type RuleElementConstructor = { schema: LaxSchemaField } & (new (
     data: RuleElementSource,
     item: Embedded<ItemPF2e>,
     options?: RuleElementOptions
-) => RuleElementPF2e;
+) => RuleElementPF2e);
 
 export { RuleElements, RuleElementPF2e, RuleElementSource, RuleElementData, RuleElementOptions };

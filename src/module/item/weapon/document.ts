@@ -265,6 +265,11 @@ class WeaponPF2e extends PhysicalItemPF2e {
             }
         }
 
+        // Ensure unarmed attacks always have the unarmed trait
+        if (systemData.category === "unarmed" && !traitsArray.includes("unarmed")) {
+            systemData.traits.value.push("unarmed");
+        }
+
         // Force a weapon to be melee if it isn't "mandatory ranged" and has a thrown-N trait
         const mandatoryMelee = !mandatoryRanged && traitsArray.some((t) => /^thrown-\d+$/.test(t));
         if (mandatoryMelee) this.system.range = null;
