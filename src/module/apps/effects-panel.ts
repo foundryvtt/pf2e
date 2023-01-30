@@ -3,7 +3,7 @@ import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { AfflictionPF2e } from "@item/affliction";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
 import { EffectExpiryType } from "@item/effect/data";
-import { htmlQueryAll } from "@util";
+import { htmlQuery, htmlQueryAll } from "@util";
 import { FlattenedCondition } from "../system/conditions";
 
 export class EffectsPanel extends Application {
@@ -107,6 +107,29 @@ export class EffectsPanel extends Application {
                     item.rollRecovery();
                 }
             });
+
+            // Uses a scale transform to fit the text within the box
+            // Note that the value container cannot have padding or measuring will fail.
+            // They cannot be inline elements pre-computation, but most be post-computation (for ellipses)
+            const valueContainer = htmlQuery(iconElem, ".value");
+            const textElement = htmlQuery(valueContainer, "strong");
+            if (valueContainer && textElement) {
+                const minScale = 0.75;
+                const parentWidth = valueContainer.clientWidth;
+                const scale = textElement.clientWidth
+                    ? Math.clamped(parentWidth / textElement.clientWidth, minScale, 1)
+                    : 1;
+                if (scale < 1) {
+                    valueContainer.style.transformOrigin = "left";
+                    valueContainer.style.transform = `scaleX(${scale})`;
+
+                    // Unfortunately, width is pre scaling, so we need to scale it back up
+                    // +1 prevents certain scenarios where ellipses will show even above min scale.
+                    valueContainer.style.width = `${(1 / scale) * 100 + 1}%`;
+                }
+
+                textElement.style.display = "inline";
+            }
         }
     }
 

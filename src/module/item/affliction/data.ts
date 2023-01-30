@@ -3,7 +3,7 @@ import { ABCSystemData } from "@item/abc/data";
 import { TimeUnit } from "@item/abstract-effect/data";
 import { ActionTraits } from "@item/action/data";
 import { ConditionSlug } from "@item/condition";
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData, ItemSystemSource } from "@item/data/base";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData, ItemSystemSource } from "@item/data/base";
 import { DamageCategoryUnique, DamageType } from "@system/damage";
 import { AfflictionPF2e } from "./document";
 
@@ -12,7 +12,7 @@ type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource>
 type AfflictionData = Omit<AfflictionSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<AfflictionPF2e, "affliction", AfflictionSystemData, AfflictionSource>;
 
-interface AfflictionSystemSource extends ItemSystemSource {
+interface AfflictionSystemSource extends ItemSystemSource, ItemLevelData {
     traits: ActionTraits;
     save: {
         type: SaveType;

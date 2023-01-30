@@ -1,6 +1,7 @@
 interface EffectBadgeCounter {
     type: "counter";
     value: number;
+    label?: string;
     labels?: string[];
 }
 
@@ -10,7 +11,13 @@ interface EffectBadgeValue {
     value: number | string;
 }
 
-type EffectBadge = EffectBadgeCounter | EffectBadgeValue;
+interface EffectBadgeFormula {
+    type: "formula";
+    value: string;
+    evaluate?: boolean;
+}
+
+type EffectBadge = EffectBadgeCounter | EffectBadgeValue | EffectBadgeFormula;
 
 type TimeUnit = "rounds" | "minutes" | "hours" | "days";
 

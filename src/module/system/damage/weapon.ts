@@ -15,7 +15,7 @@ import { MeleeDamageRoll } from "@item/melee/data";
 import { getPropertyRuneDice } from "@item/physical/runes";
 import { WeaponDamage } from "@item/weapon/data";
 import { RollNotePF2e } from "@module/notes";
-import { PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
+import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
 import {
     extractDamageDice,
     extractDamageModifiers,
@@ -391,14 +391,38 @@ class WeaponDamagePF2e {
             }
         }
 
-        // Roll notes
+        // Critical specialization effects
+        const critSpecEffect = ((): CritSpecEffect => {
+            if (!weapon.isOfType("weapon")) return [];
 
+            // If an alternate critical specialization effect is available, apply it only if there is also a
+            // qualifying non-alternate
+            const critSpecs = actor.synthetics.criticalSpecalizations;
+            const standard = critSpecs.standard
+                .map((cs) => cs(weapon, options))
+                .filter((ce): ce is CritSpecEffect => !!ce)
+                .pop();
+            const alternate = critSpecs.alternate
+                .map((cs) => cs(weapon, options))
+                .filter((ce): ce is CritSpecEffect => !!ce)
+                .pop();
+
+            return standard ? alternate ?? standard : [];
+        })();
+        modifiers.push(...critSpecEffect.filter((e): e is ModifierPF2e => e instanceof ModifierPF2e));
+        damageDice.push(...critSpecEffect.filter((e): e is DamageDicePF2e => e instanceof DamageDicePF2e));
+
+        // Roll notes
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
             return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
         });
 
-        const notes = [runeNotes, extractNotes(actor.synthetics.rollNotes, selectors)]
+        const notes = [
+            runeNotes,
+            extractNotes(actor.synthetics.rollNotes, selectors),
+            critSpecEffect.filter((e): e is RollNotePF2e => e instanceof RollNotePF2e),
+        ]
             .flat()
             .filter((n) => n.predicate.test(options));
 
