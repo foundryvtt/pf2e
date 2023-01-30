@@ -25,29 +25,13 @@ import { PhysicalItemPF2e } from "./physical/document";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values";
 import { ItemSheetPF2e } from "./sheet/base";
 
-interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
-    pf2e?: {
-        ready?: boolean;
-    };
-}
-
 /** Override and extend the basic :class:`Item` implementation */
 class ItemPF2e extends Item<ActorPF2e> {
     /** Has this item gone through at least one cycle of data preparation? */
     protected initialized?: true;
 
     /** Prepared rule elements from this item */
-    rules!: RuleElementPF2e[];
-
-    constructor(data: PreCreate<ItemSourcePF2e>, context: ItemConstructionContextPF2e = {}) {
-        if (context.pf2e?.ready) {
-            super(data, context);
-        } else {
-            context.pf2e = mergeObject(context.pf2e ?? {}, { ready: true });
-            const ItemConstructor = CONFIG.PF2E.Item.documentClasses[data.type];
-            return ItemConstructor ? new ItemConstructor(data, context) : new ItemPF2e(data, context);
-        }
-    }
+    rules: RuleElementPF2e[] = [];
 
     /** The sluggified name of the item **/
     get slug(): string | null {
@@ -389,7 +373,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
                 continue;
             }
-            const item = new ItemPF2e(source);
+            const item = new CONFIG.Item.documentClass(source);
             await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));
             data.splice(data.indexOf(source), 1, item.toObject());
         }
@@ -449,7 +433,9 @@ class ItemPF2e extends Item<ActorPF2e> {
                 if (!granted.length) return [];
                 const reparented = granted.map(
                     (i): Embedded<ItemPF2e> =>
-                        (i.parent ? i : new ItemPF2e(i._source, { parent: actor })) as Embedded<ItemPF2e>
+                        (i.parent
+                            ? i
+                            : new CONFIG.Item.documentClass(i._source, { parent: actor })) as Embedded<ItemPF2e>
                 );
                 return [...reparented, ...(await Promise.all(reparented.map(getSimpleGrants))).flat()];
             }
@@ -458,7 +444,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 if (!(context.keepId || context.keepEmbeddedIds)) {
                     source._id = randomID();
                 }
-                return new ItemPF2e(source, { parent: actor }) as Embedded<ItemPF2e>;
+                return new CONFIG.Item.documentClass(source, { parent: actor }) as Embedded<ItemPF2e>;
             });
 
             // If any item we plan to add will add new items (such as ABC items), add those too
@@ -700,4 +686,11 @@ interface ItemPF2e {
     getLinkedItems?(): Embedded<ItemPF2e>[];
 }
 
-export { ItemPF2e, ItemConstructionContextPF2e };
+/** A `Proxy` to to get Foundry to construct `ItemPF2e` subclasses */
+const ItemProxyPF2e = new Proxy(ItemPF2e, {
+    construct(_target, args: [source: PreCreate<ItemSourcePF2e>, context: DocumentConstructionContext<ItemPF2e>]) {
+        return new CONFIG.PF2E.Item.documentClasses[args[0].type](...args);
+    },
+});
+
+export { ItemPF2e, ItemProxyPF2e };

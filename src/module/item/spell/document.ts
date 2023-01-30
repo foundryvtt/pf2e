@@ -7,7 +7,7 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
-import { ItemConstructionContextPF2e, ItemPF2e, SpellcastingEntryPF2e } from "@item";
+import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
@@ -38,7 +38,7 @@ import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait
 import { DamageInstance, DamageRoll } from "@system/damage/roll";
 import { InstancePool } from "@system/damage/terms";
 
-interface SpellConstructionContext extends ItemConstructionContextPF2e {
+interface SpellConstructionContext extends DocumentConstructionContext<SpellPF2e> {
     fromConsumable?: boolean;
 }
 
@@ -60,6 +60,11 @@ class SpellPF2e extends ItemPF2e {
 
     /** Set if casted with trick magic item. Will be replaced via overriding spellcasting on cast later. */
     trickMagicEntry: TrickMagicItemEntry | null = null;
+
+    constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
+        super(data, context);
+        this.isFromConsumable = !!context.fromConsumable;
+    }
 
     get baseLevel(): OneToTen {
         return this.system.level.value;
@@ -162,11 +167,6 @@ class SpellPF2e extends ItemPF2e {
 
     override get uuid(): ItemUUID {
         return this.isVariant ? this.original!.uuid : super.uuid;
-    }
-
-    constructor(data: PreCreate<ItemSourcePF2e>, context: SpellConstructionContext = {}) {
-        super(data, mergeObject(context, { pf2e: { ready: true } }));
-        this.isFromConsumable = context.fromConsumable ?? false;
     }
 
     /** Given a slot level, compute the actual level the spell will be cast at */

@@ -2,7 +2,7 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, PhysicalItemPF2e } from "@item";
+import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -27,10 +27,10 @@ import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } fro
 import { ItemSummaryRenderer } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
+import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
-import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -830,7 +830,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Creating a new item: clear the _id via cloning it
-        return this._onDropItemCreate(new ItemPF2e(itemSource).clone().toObject());
+        return this._onDropItemCreate(new ItemProxyPF2e(itemSource).clone().toObject());
     }
 
     protected override async _onDropFolder(
