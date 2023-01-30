@@ -14,7 +14,7 @@ type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemSou
 type ConsumableData = Omit<ConsumableSource, "system" | "effects" | "flags"> &
     BasePhysicalItemData<ConsumablePF2e, "consumable", ConsumableSystemData, ConsumableSource>;
 
-type ConsumableType = keyof ConfigPF2e["PF2E"]["consumableTypes"];
+type ConsumableCategory = keyof ConfigPF2e["PF2E"]["consumableTypes"];
 
 interface ConsumableTraits extends PhysicalItemTraits<ConsumableTrait> {
     otherTags: OtherConsumableTag[];
@@ -24,7 +24,7 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
     traits: ConsumableTraits;
 
     consumableType: {
-        value: ConsumableType;
+        value: ConsumableCategory;
     };
     charges: {
         value: number;
@@ -43,4 +43,4 @@ interface ConsumableSystemData
     extends Omit<ConsumableSystemSource, "identification" | "price" | "temporary" | "usage">,
         Omit<PhysicalSystemData, "traits"> {}
 
-export { ConsumableData, ConsumableSource, ConsumableSystemSource, ConsumableTrait, ConsumableType };
+export { ConsumableData, ConsumableSource, ConsumableSystemSource, ConsumableTrait, ConsumableCategory };

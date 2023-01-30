@@ -105,7 +105,7 @@ export async function craftSpellConsumable(
     itemQuantity: number,
     actor: ActorPF2e
 ): Promise<void> {
-    const consumableType = item.consumableType;
+    const consumableType = item.category;
     if (!(consumableType === "scroll" || consumableType === "wand")) return;
     const spellLevel = (
         consumableType === "wand" ? Math.ceil(item.level / 2) - 1 : Math.ceil(item.level / 2)
