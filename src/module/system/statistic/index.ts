@@ -147,6 +147,11 @@ export class Statistic {
         });
     }
 
+    /** Convenience getter to the statistic's total modifier */
+    get mod(): number {
+        return this.check.mod;
+    }
+
     createRollOptions(domains: string[], args: RollOptionParameters = {}): Set<string> {
         const { item, extraRollOptions, origin, target } = args;
 
