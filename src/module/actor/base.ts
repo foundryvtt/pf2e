@@ -86,26 +86,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
-            // Set module art if available
-            if (context.pack && data._id) {
-                const art = game.pf2e.system.moduleArt.map.get(`Compendium.${context.pack}.${data._id}`);
-                if (art) {
-                    data.img = art.actor;
-                    const tokenArt =
-                        typeof art.token === "string"
-                            ? { texture: { src: art.token } }
-                            : {
-                                  texture: {
-                                      src: art.token.img,
-                                      scaleX: art.token.scale,
-                                      scaleY: art.token.scale,
-                                  },
-                                  flags: { pf2e: { autoscale: false } },
-                              };
-                    data.prototypeToken = mergeObject(data.prototypeToken ?? {}, tokenArt);
-                }
-            }
-
             super(data, context);
 
             // Add debounced checkAreaEffects method
@@ -517,6 +497,22 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (game._documentsReady) {
             this.synthetics.preparationWarnings.flush();
         }
+    }
+
+    /** Set module art if available */
+    protected override _initializeSource(
+        source: Record<string, unknown>,
+        options?: DocumentConstructionContext<this>
+    ): this["_source"] {
+        const initialized = super._initializeSource(source, options);
+
+        if (options?.pack && initialized._id) {
+            const uuid: CompendiumUUID = `Compendium.${options.pack}.${initialized._id}`;
+            const art = game.pf2e.system.moduleArt.map.get(uuid) ?? {};
+            return mergeObject(initialized, art);
+        }
+
+        return initialized;
     }
 
     /** Prepare token data derived from this actor, refresh Effects Panel */

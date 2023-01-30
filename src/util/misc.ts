@@ -389,6 +389,15 @@ function isImageFilePath(path: unknown): path is ImageFilePath {
     return typeof path === "string" && Object.keys(CONST.IMAGE_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
 }
 
+/** Does the parameter look like a video file path? */
+function isVideoFilePath(path: unknown): path is ImageFilePath {
+    return typeof path === "string" && Object.keys(CONST.VIDEO_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
+}
+
+function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePath {
+    return isImageFilePath(path) || isVideoFilePath(path);
+}
+
 export {
     ErrorPF2e,
     Fraction,
@@ -401,7 +410,9 @@ export {
     groupBy,
     isBlank,
     isImageFilePath,
+    isImageOrVideoPath,
     isObject,
+    isVideoFilePath,
     localizeList,
     mapValues,
     objectHasKey,
