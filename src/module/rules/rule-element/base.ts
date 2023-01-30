@@ -202,7 +202,14 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             return source;
         } else if (typeof source === "string") {
             return source.replace(/{(actor|item|origin|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
-                const data = key === "rule" ? this.data : key === "origin" ? this.originActor ?? {} : key === "actor" || key === "item" ? this[key] : this.item;
+                const data =
+                    key === "rule"
+                        ? this.data
+                        : key === "origin"
+                        ? this.originActor ?? {}
+                        : key === "actor" || key === "item"
+                        ? this[key]
+                        : this.item;
                 const value = getProperty(data, prop);
                 if (value === undefined) {
                     this.failValidation("Failed to resolve injected property");
