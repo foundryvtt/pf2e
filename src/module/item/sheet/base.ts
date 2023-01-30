@@ -282,7 +282,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const editingRuleElement = this.editingRuleElement;
         if (editingRuleElement) {
             const ruleText = JSON.stringify(editingRuleElement, null, 2);
-            const schema = RuleElements.all[String(editingRuleElement.key)]?.schema;
+            const schema = RuleElements.all[String(editingRuleElement.key)]?.schema.fields;
             const view = new CodeMirror.EditorView({
                 doc: ruleText,
                 extensions: [
