@@ -704,20 +704,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (!item) return [];
         const itemSource = item.toObject();
 
-        const actor = this.actor;
-        const sourceActorId = item.parent?.id ?? "";
-        const sourceTokenId = item.parent?.token?.id ?? "";
-        const isSameActor = sourceActorId === actor.id || (item.parent?.isToken && sourceTokenId === actor.token?.id);
-        if (isSameActor) return this._onSortItem(event, itemSource);
+        if (item.actor?.uuid === this.actor.uuid) {
+            return this._onSortItem(event, itemSource);
+        }
 
         const sourceItemId = itemSource._id;
-        if (sourceActorId && item.isOfType("physical")) {
+        if (item.actor && item.isOfType("physical")) {
             await this.moveItemBetweenActors(
                 event,
-                sourceActorId,
-                sourceTokenId,
-                actor.id,
-                actor.token?.id ?? "",
+                item.actor.id,
+                item.actor?.token?.id ?? null,
+                this.actor.id,
+                this.actor.token?.id ?? null,
                 sourceItemId
             );
             return [item];
@@ -856,9 +854,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     async moveItemBetweenActors(
         event: ElementDragEvent,
         sourceActorId: string,
-        sourceTokenId: string,
+        sourceTokenId: string | null,
         targetActorId: string,
-        targetTokenId: string,
+        targetTokenId: string | null,
         itemId: string
     ): Promise<void> {
         const sourceActor = canvas.scene?.tokens.get(sourceTokenId ?? "")?.actor ?? game.actors.get(sourceActorId);
@@ -872,7 +870,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             throw ErrorPF2e("Missing or invalid item");
         }
 
-        const container = $(event.target).parents('[data-item-is-container="true"]');
+        const container = $(event.target).parents("[data-item-is-container=true]");
         const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
         const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.findStackableItem(targetActor, item._source);
