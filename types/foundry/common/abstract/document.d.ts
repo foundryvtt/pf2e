@@ -29,6 +29,19 @@ declare global {
                 protected _initialize(): void;
 
                 /**
+                 * Initialize the source data for a new DataModel instance.
+                 * One-time migrations and initial cleaning operations are applied to the source data.
+                 * @param data      The candidate source data from which the model will be constructed
+                 * @param [options] Options provided to the model constructor
+                 * @returns Migrated and cleaned source data which will be stored to the model instance
+                 * System note: actually in `DataModel`
+                 */
+                protected _initializeSource(
+                    data: Record<string, unknown>,
+                    options?: DocumentConstructionContext<this>
+                ): this["_source"];
+
+                /**
                  * Reset the state of this data instance back to mirror the contained source data, erasing any changes.
                  */
                 reset(): void;
