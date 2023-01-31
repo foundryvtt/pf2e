@@ -27,16 +27,23 @@ import { DegreeOfSuccessIndex, DEGREE_OF_SUCCESS } from "@system/degree-of-succe
 import { mapValues, objectHasKey, sluggify } from "@util";
 import { createDamageFormula, AssembledFormula } from "./formula";
 import { nextDamageDieSize } from "./helpers";
-import { DamageDieSize, DamageFormulaData, MaterialDamageEffect, WeaponDamageTemplate } from "./types";
+import {
+    DamageDieSize,
+    DamageFormulaData,
+    DamageRollContext,
+    MaterialDamageEffect,
+    WeaponDamageTemplate,
+} from "./types";
+import { DamageModifierDialog } from "./modifier-dialog";
 
 class WeaponDamagePF2e {
-    static calculateStrikeNPC(
-        attack: MeleePF2e,
-        actor: NPCPF2e | HazardPF2e,
-        actionTraits: TraitViewData[] = [],
+    static async calculateStrikeNPC({
+        attack,
+        actor,
+        actionTraits = [],
         proficiencyRank = 0,
-        options: Set<string> = new Set()
-    ): WeaponDamageTemplate | null {
+        context,
+    }: NPCStrikeCalculateParams): Promise<WeaponDamageTemplate | null> {
         const secondaryInstances = Object.values(attack.system.damageRolls).slice(1).map(this.npcDamageToWeaponDamage);
 
         // Collect damage dice and modifiers from secondary damage instances
@@ -68,21 +75,22 @@ class WeaponDamagePF2e {
             modifiers,
             actionTraits,
             proficiencyRank,
-            options,
+            context,
         });
     }
 
-    static calculate({
+    static async calculate({
         weapon,
         actor,
         damageDice = [],
         modifiers = [],
         actionTraits = [],
         proficiencyRank,
-        options,
         weaponPotency = null,
-    }: WeaponDamageCalculateParams): WeaponDamageTemplate | null {
+        context,
+    }: WeaponDamageCalculateParams): Promise<WeaponDamageTemplate | null> {
         const { baseDamage } = weapon;
+        const { options } = context;
         if (baseDamage.die === null && baseDamage.modifier > 0) {
             baseDamage.dice = 0;
         } else if (baseDamage.dice === 0 && baseDamage.modifier === 0) {
@@ -343,6 +351,7 @@ class WeaponDamagePF2e {
                     selector: `${weapon.id}-damage`,
                     slug,
                     label: traitLabels[slug],
+                    damageType: baseDamage.damageType,
                     diceNumber,
                     dieSize: (/-\d?(d\d{1,2})$/.exec(slug)?.at(1) ?? baseDamage.die) as DamageDieSize,
                     critical: true,
@@ -358,6 +367,7 @@ class WeaponDamagePF2e {
                     selector: `${weapon.id}-damage`,
                     slug: trait,
                     label: traitLabels[trait],
+                    damageType: baseDamage.damageType,
                     diceNumber: 1,
                     dieSize,
                     critical: true,
@@ -500,6 +510,17 @@ class WeaponDamagePF2e {
 
         const excludeFrom = weapon.isOfType("weapon") ? weapon : null;
         this.#excludeDamage({ actor, weapon: excludeFrom, modifiers: [...modifiers, ...damageDice], options });
+
+        if (BUILD_MODE === "development" && !context.skipDialog) {
+            const rolled = await new DamageModifierDialog({
+                modifiers: damage.modifiers,
+                dice: damage.dice,
+                context,
+                baseDamageType: baseDamage.damageType,
+            }).resolve();
+
+            if (!rolled) return null;
+        }
 
         const computedFormulas = {
             criticalFailure: null,
@@ -678,10 +699,18 @@ interface WeaponDamageCalculateParams {
     actor: CharacterPF2e | NPCPF2e | HazardPF2e;
     actionTraits: TraitViewData[];
     proficiencyRank: number;
-    options: Set<string>;
     weaponPotency?: PotencySynthetic | null;
     damageDice?: DamageDicePF2e[];
     modifiers?: ModifierPF2e[];
+    context: DamageRollContext;
+}
+
+interface NPCStrikeCalculateParams {
+    attack: MeleePF2e;
+    actor: NPCPF2e | HazardPF2e;
+    actionTraits: TraitViewData[];
+    proficiencyRank: number;
+    context: DamageRollContext;
 }
 
 interface ExcludeDamageParams {
