@@ -35,8 +35,10 @@ interface TypeAndValue<TType extends string> {
     value: number;
 }
 
-interface TraitsWithRarity<T extends string> extends ValuesList<T> {
+interface TraitsWithRarity<T extends string> {
+    value: T[];
     rarity: Rarity;
+    custom?: string;
 }
 
 /** Literal numeric types */
