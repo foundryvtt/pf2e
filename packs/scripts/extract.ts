@@ -397,15 +397,6 @@ function convertLinks(docSource: PackEntry, packName: string): PackEntry {
         return partiallyConverted.replace(replacePattern, docName);
     }, docJSON);
 
-    // In case some new items with links to other new items weren't found
-    if (notFound.length > 0) {
-        const idsNotFound = notFound.join(", ");
-        console.debug(
-            `Warning: Unable to find names for the following links in ${docSource.name} ` +
-                `(${packName}): ${idsNotFound}`
-        );
-    }
-
     return JSON.parse(convertedJson) as PackEntry;
 }
 
