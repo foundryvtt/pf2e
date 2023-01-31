@@ -1607,13 +1607,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Gosregs project a field of discordant energy that unsettles the minds of thinking creatures. Any non-mindless creature within 30 feet of a gosreg takes a -1 status penalty to Will saves.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Gosregs project a field of discordant energy that unsettles the minds of thinking creatures. Any non-mindless creature within 30 feet of a gosreg takes a -1 status penalty to Will saves.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Unsettled Aura]{Effect: Unsettled Aura}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.aOpSI5tApXF5xHCM"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 30,
                         "slug": "unsettled-aura",
