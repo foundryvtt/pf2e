@@ -1,9 +1,21 @@
 import { IWRApplication } from "@system/damage/iwr";
 import { htmlQuery } from "@util";
+import { ChatMessagePF2e } from "../document";
 
 export const DamageTaken = {
-    listen: async (html: HTMLElement): Promise<void> => {
-        const iwrInfo = htmlQuery(html, ".damage-taken .iwr");
+    listen: async (message: ChatMessagePF2e, html: HTMLElement): Promise<void> => {
+        const damageTakenCard = htmlQuery(html, ".damage-taken");
+        if (!damageTakenCard) return;
+
+        // Obscure target name if "tokenSetsNameVisibility" setting is enabled
+        const settingEnabled = game.settings.get("pf2e", "metagame_tokenSetsNameVisibility");
+        if (!game.user.isGM && settingEnabled && message.token && !message.token.playersCanSeeName) {
+            const nameElem = htmlQuery(damageTakenCard, ".target-name");
+            if (nameElem) nameElem.innerText = game.i18n.localize("PF2E.Actor.ApplyDamage.TheTarget");
+        }
+
+        // Add IWR-application tooltip
+        const iwrInfo = htmlQuery(damageTakenCard, ".iwr");
         if (!iwrInfo) return;
 
         const iwrApplications = ((): IWRApplication[] | null => {

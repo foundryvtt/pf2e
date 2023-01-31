@@ -33,6 +33,7 @@ import { DicePF2e } from "@scripts/dice";
 import { DamageType } from "@system/damage";
 import { applyIWR, IWRApplicationData, maxPersistentAfterIWR } from "@system/damage/iwr";
 import { Statistic } from "@system/statistic";
+import { TextEditorPF2e } from "@system/text-editor";
 import {
     ErrorPF2e,
     getActionGlyph,
@@ -993,12 +994,28 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     ? translations.ShieldDamagedForNDestroyed
                     : translations.ShieldDamagedForN
                 : null;
-        const statements = [hpStatement, shieldStatement]
-            .filter((s): s is string => !!s)
-            .map((s) =>
-                game.i18n.format(s, { actor: token.name, hpDamage: Math.abs(hpDamage), absorbedDamage, shieldDamage })
-            )
-            .join(" ");
+
+        const statements = ((): string => {
+            const concatenated = [hpStatement, shieldStatement]
+                .filter((s): s is string => !!s)
+                .map((s) =>
+                    game.i18n.format(s, {
+                        actor: token.name.replace(/[<>]/g, ""),
+                        hpDamage: Math.abs(hpDamage),
+                        absorbedDamage,
+                        shieldDamage,
+                    })
+                )
+                .join(" ");
+
+            // In case "tokenSetsNameVisibility" is enabled, replace <actor> XML nodes with span elements indicating
+            // where the damage recipient's name is in the message so that it may be obscured to players.
+            const tempElem = document.createElement("div");
+            tempElem.innerHTML = concatenated;
+            TextEditorPF2e.convertXMLNode(tempElem, "actor", { whose: null, classes: ["target-name"] });
+
+            return tempElem.innerHTML;
+        })();
 
         const deparenthesize = (formula: string) => formula.replace(/^\(([^)]+)\)$/, "$1");
 
@@ -1033,7 +1050,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         });
 
         await ChatMessagePF2e.create({
-            speaker: { alias: token.name, token: token.id ?? null },
+            speaker: ChatMessagePF2e.getSpeaker({ token }),
             content,
             type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
             whisper:

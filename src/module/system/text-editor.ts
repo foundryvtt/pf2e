@@ -494,7 +494,7 @@ interface ConvertXMLNodeOptions {
      * Whether this piece of data belongs to the "self" actor or the target: used by UserVisibilityPF2e to
      * determine which actor's ownership to check
      */
-    whose?: "self" | "target";
+    whose?: "self" | "target" | null;
     /** Any additional classes to add to the span element */
     classes?: string[];
 }
