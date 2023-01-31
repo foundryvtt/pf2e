@@ -52,7 +52,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
 
         if (this.alternate) return note();
 
-        const slug = "crit-spec";
+        const slug = "critical-specialization";
 
         switch (weapon.group) {
             case "dart":
