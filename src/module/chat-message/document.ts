@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { UserPF2e } from "@module/user";
 import { TokenDocumentPF2e } from "@scene";
@@ -164,7 +164,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         try {
             const itemSource = JSON.parse(sourceString);
             const item = itemSource
-                ? new ItemPF2e(itemSource, {
+                ? new ItemProxyPF2e(itemSource, {
                       parent: this.actor,
                       fromConsumable: this.flags?.pf2e?.isFromConsumable,
                   })

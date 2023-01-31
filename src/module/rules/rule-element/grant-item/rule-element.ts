@@ -1,5 +1,5 @@
 import { ActorType } from "@actor/data";
-import { ItemPF2e, PHYSICAL_ITEM_TYPES } from "@item";
+import { ItemPF2e, ItemProxyPF2e, PHYSICAL_ITEM_TYPES } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { ItemGrantDeleteAction } from "@item/data/base";
 import { MigrationList, MigrationRunner } from "@module/migration";
@@ -137,7 +137,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         grantedSource.flags = mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
 
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
-        const tempGranted = new ItemPF2e(deepClone(grantedSource), { parent: this.actor }) as Embedded<ItemPF2e>;
+        const tempGranted = new ItemProxyPF2e(deepClone(grantedSource), { parent: this.actor }) as Embedded<ItemPF2e>;
         tempGranted.prepareActorData?.();
         for (const rule of tempGranted.prepareRuleElements({ suppressWarnings: true })) {
             rule.onApplyActiveEffects?.();

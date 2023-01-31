@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import { ItemPF2e, MeleePF2e } from "@item";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
@@ -67,7 +67,7 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
         source.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
         ...(source.items ?? []).map((i) => i!.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION)
     );
-    const actor = new ActorPF2e(source);
+    const actor = new ActorProxyPF2e(source);
     await MigrationRunner.ensureSchemaVersion(actor, MigrationList.constructFromVersion(lowestSchemaVersion));
 
     return actor.toObject();

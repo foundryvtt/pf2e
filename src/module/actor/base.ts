@@ -1,15 +1,18 @@
 import {
+    ActorAlliance,
+    ActorDimensions,
     ApplyDamageParams,
     AttackItem,
     AttackRollContext,
+    AuraData,
+    SaveType,
     StrikeRollContext,
     StrikeRollContextParams,
 } from "@actor/types";
-import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types";
-import { ArmorPF2e, ContainerPF2e, EffectPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
+import { ArmorPF2e, ContainerPF2e, EffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { AfflictionPF2e, AfflictionSource } from "@item/affliction";
-import { ConditionKey, ConditionSlug } from "@item/condition/data";
+import { ConditionKey, ConditionSlug, type ConditionPF2e } from "@item/condition";
 import { isCycle } from "@item/container/helpers";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ActionCost, ActionType } from "@item/data/base";
@@ -60,7 +63,7 @@ import { CREATURE_ACTOR_TYPES } from "./values";
  */
 class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Has this actor gone through at least one cycle of data preparation? */
-    private initialized?: true;
+    private initialized = true;
 
     /** A separate collection of owned physical items for convenient access */
     inventory!: ActorInventory;
@@ -69,7 +72,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     spellcasting!: ActorSpellcasting;
 
     /** Rule elements drawn from owned items */
-    rules!: RuleElementPF2e[];
+    rules: RuleElementPF2e[] = [];
 
     synthetics!: RuleElementSynthetics;
 
@@ -83,24 +86,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     conditions!: Map<ConditionSlug, ConditionPF2e>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
-    private _itemTypes?: { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] };
+    private _itemTypes?: { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] } | null;
 
-    constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
-        if (context.pf2e?.ready) {
-            super(data, context);
+    constructor(data: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<ActorPF2e> = {}) {
+        super(data, context);
 
-            // Add debounced checkAreaEffects method
-            Object.defineProperty(this, "checkAreaEffects", {
-                configurable: false,
-                enumerable: false,
-                writable: false,
-                value: foundry.utils.debounce(checkAreaEffects, 50),
-            });
-        } else {
-            context.pf2e = mergeObject(context.pf2e ?? {}, { ready: true });
-            const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
-            return ActorConstructor ? new ActorConstructor(data, context) : new ActorPF2e(data, context);
-        }
+        // Add debounced checkAreaEffects method
+        Object.defineProperty(this, "checkAreaEffects", {
+            configurable: false,
+            enumerable: false,
+            writable: false,
+            value: foundry.utils.debounce(checkAreaEffects, 50),
+        });
     }
 
     /** Cache the return data before passing it to the caller */
@@ -508,8 +505,6 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         };
 
         super._initialize();
-
-        this.initialized = true;
 
         if (game._documentsReady) {
             this.synthetics.preparationWarnings.flush();
@@ -1151,7 +1146,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */
     findStackableItem(actor: ActorPF2e, itemSource: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
         // Prevent upstream from mutating property descriptors
-        const testItem = new ItemPF2e(deepClone(itemSource));
+        const testItem = new ItemProxyPF2e(deepClone(itemSource));
         const stackCandidates = actor.inventory.filter(
             (stackCandidate) =>
                 !stackCandidate.isInContainer &&
@@ -1531,12 +1526,6 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     checkAreaEffects(): void;
 }
 
-interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
-    pf2e?: {
-        ready?: boolean;
-    };
-}
-
 type ItemTypeMap = {
     [K in ItemType]: InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][K]>;
 };
@@ -1552,4 +1541,11 @@ interface ActorUpdateContext<T extends ActorPF2e> extends DocumentUpdateContext<
     damageTaken?: number;
 }
 
-export { ActorPF2e, HitPointsSummary, ActorUpdateContext };
+/** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */
+const ActorProxyPF2e = new Proxy(ActorPF2e, {
+    construct(_target, args: [source: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<ActorPF2e>]) {
+        return new CONFIG.PF2E.Actor.documentClasses[args[0].type](...args);
+    },
+});
+
+export { ActorPF2e, ActorProxyPF2e, ActorUpdateContext, HitPointsSummary };
