@@ -121,7 +121,6 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
                 (b) =>
                     b.actor?.isOfType("character") &&
                     b.actor.class?.sourceId === ANIMAL_COMPANION_SOURCE_ID &&
-                    game.modules.get("pf2e-animal-companions")?.active &&
                     b.isAdjacentTo(flankee)
             );
         if (sideBySide) return true;
