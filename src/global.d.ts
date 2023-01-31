@@ -43,8 +43,9 @@ import { ModuleArt } from "@system/module-art";
 import { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew";
 import { TextEditorPF2e } from "@system/text-editor";
 import { sluggify } from "@util";
-import { CombatantPF2e, EncounterPF2e } from "./module/encounter";
-import { ConditionManager } from "./module/system/conditions";
+import { CombatantPF2e, EncounterPF2e } from "@module/encounter";
+import { ConditionManager } from "@system/conditions";
+import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 
 declare global {
     interface Game {
@@ -76,6 +77,7 @@ declare global {
             Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
             ConditionManager: typeof ConditionManager;
+            GhostTemplate: typeof GhostTemplate;
             ModifierType: typeof MODIFIER_TYPE;
             Modifier: typeof ModifierPF2e;
             StatisticModifier: typeof StatisticModifier;

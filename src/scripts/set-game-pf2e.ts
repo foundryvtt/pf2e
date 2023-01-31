@@ -2,6 +2,7 @@ import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-prog
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "@actor/modifiers";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { CompendiumBrowser } from "@module/apps/compendium-browser";
+import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { EffectsPanel } from "@module/apps/effects-panel";
 import { LicenseViewer } from "@module/apps/license-viewer";
 import { WorldClock } from "@module/apps/world-clock";
@@ -51,6 +52,7 @@ export const SetGamePF2e = {
             Coins: CoinsPF2e,
             ConditionManager: ConditionManager,
             Dice: DicePF2e,
+            GhostTemplate: GhostTemplate,
             Modifier: ModifierPF2e,
             ModifierType: MODIFIER_TYPE,
             RuleElement: RuleElementPF2e,
