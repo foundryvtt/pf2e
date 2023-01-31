@@ -1190,13 +1190,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Living creatures in the aura must roll twice on all d20 rolls and use the lower result.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Living creatures in the aura must roll twice on all d20 rolls and use the lower result.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Aura of Misfortune]{Effect: Aura of Misfortune}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.QoneHsjZKtGHWlam"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 20,
                         "slug": "aura-of-misfortune",
