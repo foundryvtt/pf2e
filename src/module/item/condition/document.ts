@@ -10,6 +10,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { DamageCategorization, PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
 import { Statistic } from "@system/statistic";
 import { DegreeOfSuccess } from "@system/degree-of-success";
+import { ActorPF2e } from "@actor";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
@@ -18,6 +19,12 @@ class ConditionPF2e extends AbstractEffectPF2e {
         }
 
         return this.system.value.value ? { type: "counter", value: this.system.value.value } : null;
+    }
+
+    /** Retrieve this condition's origin from its granting effect, if any */
+    override get origin(): { actor: ActorPF2e | null; item: Embedded<ItemPF2e> | null } {
+        const grantingItem = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
+        return grantingItem?.isOfType("affliction", "effect") ? grantingItem.origin : { actor: null, item: null };
     }
 
     /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
