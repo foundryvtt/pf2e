@@ -109,6 +109,9 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Dark Archive © 2022, Paizo Inc.; Authors: James Case, Mikhail Rekun, Mark Seifter, Rigby Bendele, Logan Bonner, Dan Cascone, Jessica Catalan, Banana Chan, Kay Hashimoto, Sen H.H.S., Patrick Hurley, Joshua Kim, Avi Kool, Daniel Kwan, Kendra Leigh Speedling, Luis Loza, Ron Lundeen, Liane Merciel, Jacob W. Michaels, Andrew Mullen, Quinn Murphy, K. Tessa Newton, Patrick Renie, Solomon St. John, Michael Sayre, Shay Snow, Alex Speidel, Geoffrey Suthers, Ruvaid Virk, Jabari Weathers, and Isis Wozniakowska
     * Pathfinder Dark Archive Web Supplement: In Darkness © 2022, Paizo Inc.; Author: James Case.
 
+* Treasure Vault
+    * Pathfinder Treasure Vault © 2023, Paizo Inc.; Authors: Michael Sayre, Mark Seifter, Kendra Leigh Speedling, Logan Bonner, Dan Cascone, Jessica Catalan, Kim Frandsen, Andrew Geels, Steven Hammond, Sen H.H.S., Joshua Kim, Dustin Knight, Luis Loza, Jacob W. Michaels, Matt Morris, Dave Nelson, Stephen Radney-McFarland, Jessica Redekop, Andrew Stoeckle, Mari Tokuda, and Andrew White.
+
 
 * Adventures and Adventure Paths
     *  Pathfinder Adventure: The Fall of Plaguestone © 2019, Paizo Inc.; Author: Jason Bulmahn.
@@ -174,6 +177,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #184: The Ghouls Hunger © 2022, Paizo Inc.; Author: Leo Glass.
     *  Pathfinder Adventure Path #185: A Taste of Ashes © 2022, Paizo Inc.; Author: Brian Duckwitz.
     *  Pathfinder Adventure Path #186: Ghost King's Rage © 2022, Paizo Inc.; Author: Jessica Catalan.
+    *  Pathfinder Fists of the Ruby Phoenix Adventure Path © 2023, Paizo Inc.; Authors: James Case, Luis Loza, and David N. Ross, with Joan Hong, Sen H.H.S., Tan Shao Han, Danita Rambo, William Thompson, and Ruvaid Virk.
     *  Gatewalkers Player’s Guide © 2022, Paizo Inc.; Author: Patrick Renie.
 	*  Pathfinder Adventure Path #187: The Seventh Arch © 2023, Paizo Inc.; Author: James L. Sutter.
 	*  Pathfinder Adventure Path #188: They Watched The Stars © 2023, Paizo Inc.; Author: Jason Keeley.
