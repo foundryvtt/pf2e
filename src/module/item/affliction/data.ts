@@ -1,5 +1,5 @@
 import { SaveType } from "@actor/types";
-import { EffectAuraData, EffectTraits, TimeUnit } from "@item/abstract-effect/data";
+import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/data";
 import { ConditionSlug } from "@item/condition";
 import {
     BaseItemDataPF2e,
@@ -41,6 +41,8 @@ interface AfflictionSystemSource extends ItemSystemSource, ItemLevelData {
         unit: TimeUnit | "unlimited";
         expiry?: null;
     };
+    /** Origin, target, and roll context of the action that spawned this effect */
+    context: EffectContextData | null;
 }
 
 interface AfflictionSystemData extends AfflictionSystemSource, Omit<ItemSystemData, "traits"> {}

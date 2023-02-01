@@ -1,5 +1,5 @@
 import { EffectBadge } from "@item/abstract-effect";
-import { EffectAuraData, EffectTraits, TimeUnit } from "@item/abstract-effect/data";
+import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/data";
 import {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
@@ -8,7 +8,6 @@ import {
     ItemSystemData,
     ItemSystemSource,
 } from "@item/data/base";
-import { CheckRoll } from "@system/check";
 import { EffectPF2e } from ".";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
@@ -57,16 +56,4 @@ interface EffectSystemData extends EffectSystemSource, Omit<ItemSystemData, "tra
 
 type EffectExpiryType = "turn-start" | "turn-end";
 
-interface EffectContextData {
-    origin: {
-        actor: ActorUUID | TokenDocumentUUID;
-        token: TokenDocumentUUID | null;
-    };
-    target: {
-        actor: ActorUUID | TokenDocumentUUID;
-        token: TokenDocumentUUID | null;
-    } | null;
-    roll: Pick<CheckRoll, "total" | "degreeOfSuccess"> | null;
-}
-
-export { EffectData, EffectExpiryType, EffectFlags, EffectContextData, EffectSource, EffectSystemData };
+export { EffectData, EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };

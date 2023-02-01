@@ -2,7 +2,15 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
+import {
+    Coins,
+    createConsumableFromSpell,
+    DENOMINATIONS,
+    ItemPF2e,
+    ItemProxyPF2e,
+    PhysicalItemPF2e,
+    SpellPF2e,
+} from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -792,15 +800,21 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 });
                 return [updated ?? []].flat();
             }
-        } else if (itemSource.type === "effect") {
+        } else if (itemSource.type === "effect" || itemSource.type === "affliction") {
+            // Pass along level, badge-value, and traits to an effect dragged from a spell
             const { level, value, context } = data;
             if (typeof level === "number" && level >= 0) {
-                itemSource.system.level.value = level;
+                itemSource.system.level.value = Math.floor(level);
             }
-            if (typeof value === "number" && itemSource.system.badge?.type === "counter") {
-                itemSource.system.badge.value = value;
+            const hasCounterBadge = itemSource.type === "effect" && itemSource.system.badge?.type === "counter";
+            if (hasCounterBadge && typeof value === "number") {
+                itemSource.system.badge!.value = value;
             }
             itemSource.system.context = context ?? null;
+            const originItem = fromUuidSync(context?.origin.item ?? "");
+            if (itemSource.system.traits?.value.length === 0 && originItem instanceof SpellPF2e) {
+                itemSource.system.traits.value.push(...originItem.traits);
+            }
         } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
             const actorFormulas = deepClone(actor.system.crafting.formulas);
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
