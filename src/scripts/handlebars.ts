@@ -1,4 +1,4 @@
-import { Coins, PartialPrice, PartialSystem } from "@item/physical/data";
+import { Coins, PartialPrice } from "@item/physical/data";
 import { CoinsPF2e } from "@item/physical/helpers";
 import { getActionGlyph, ordinal } from "../util";
 
@@ -184,9 +184,5 @@ export function registerHandlebarsHelpers(): void {
 
     Handlebars.registerHelper("contains", function (arr: object[], element: object) {
         return Array.isArray(arr) && arr.includes(element);
-    });
-
-    Handlebars.registerHelper("hasAura", (system: PartialSystem): boolean => {
-        return system.actionType.value === "passive" && system.traits.value.includes("aura");
     });
 }
