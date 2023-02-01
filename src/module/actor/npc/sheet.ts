@@ -374,9 +374,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
 
             const actionType = item.actionCost?.type || "passive";
 
-            const hasAura =
-                actionType === "passive" &&
-                (item.system.traits.value.includes("aura") || !!item.system.rules.find((r) => r.key === "Aura"));
+            const hasAura = actionType === "passive" && item.system.traits.value.includes("aura");
 
             if (objectHasKey(actions, actionType)) {
                 actions[actionType].actions.push({
