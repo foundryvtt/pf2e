@@ -19,30 +19,6 @@ const { fields } = foundry.data;
  * @category RuleElement
  */
 abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends DataModel<null, TSchema> {
-    static override defineSchema(): RuleElementSchema {
-        return {
-            key: new fields.StringField({ required: true, blank: false }),
-            slug: new SlugField({ required: true }),
-            label: new fields.StringField({ required: false, initial: undefined }),
-            priority: new fields.NumberField({ required: false, nullable: false, integer: true, initial: 100 }),
-            ignored: new fields.BooleanField(),
-            predicate: new PredicateField(),
-            requiresEquipped: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
-            requiresInvestment: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
-        };
-    }
-
-    /** Use a "lax" schema field that preserves properties not defined in the `DataSchema` */
-    static override get schema(): LaxSchemaField {
-        if (Object.hasOwn(this, "_schema")) return this._schema as unknown as LaxSchemaField;
-
-        const schema = new LaxSchemaField(Object.freeze(this.defineSchema()));
-        schema.name = this.name;
-        Object.defineProperty(this, "_schema", { value: schema, writable: false });
-
-        return schema;
-    }
-
     data: RuleElementData;
 
     sourceIndex: number | null;
@@ -99,6 +75,30 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             this.requiresEquipped = null;
             this.requiresInvestment = null;
         }
+    }
+
+    static override defineSchema(): RuleElementSchema {
+        return {
+            key: new fields.StringField({ required: true, blank: false }),
+            slug: new SlugField({ required: true }),
+            label: new fields.StringField({ required: false, initial: undefined }),
+            priority: new fields.NumberField({ required: false, nullable: false, integer: true, initial: 100 }),
+            ignored: new fields.BooleanField(),
+            predicate: new PredicateField(),
+            requiresEquipped: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
+            requiresInvestment: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
+        };
+    }
+
+    /** Use a "lax" schema field that preserves properties not defined in the `DataSchema` */
+    static override get schema(): LaxSchemaField {
+        if (Object.hasOwn(this, "_schema")) return this._schema as unknown as LaxSchemaField;
+
+        const schema = new LaxSchemaField(Object.freeze(this.defineSchema()));
+        schema.name = this.name;
+        Object.defineProperty(this, "_schema", { value: schema, writable: false });
+
+        return schema;
     }
 
     get actor(): ActorPF2e {
@@ -306,7 +306,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 interface RuleElementPF2e<TSchema extends RuleElementSchema>
     extends foundry.abstract.DataModel<null, TSchema>,
         foundry.data.fields.ModelPropsFromSchema<RuleElementSchema> {
-    constructor: typeof RuleElementPF2e;
+    constructor: typeof RuleElementPF2e<TSchema>;
 
     /**
      * Run between Actor#applyActiveEffects and Actor#prepareDerivedData. Generally limited to ActiveEffect-Like
