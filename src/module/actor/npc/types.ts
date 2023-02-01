@@ -118,6 +118,7 @@ type NPCSheetItemData<T extends ItemDataPF2e | RawObject<ItemDataPF2e> = ItemDat
         };
         weaponType?: string;
     };
+    hasAura: boolean;
 };
 
 export {
