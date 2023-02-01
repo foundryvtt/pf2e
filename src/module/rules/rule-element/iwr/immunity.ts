@@ -1,10 +1,25 @@
 import { ImmunityData } from "@actor/data/iwr";
 import { ImmunityType } from "@actor/types";
-import { IWRRuleElement } from "./base";
+import { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
+import { IWRRuleElement, IWRRuleSchema } from "./base";
+
+const { fields } = foundry.data;
 
 /** @category RuleElement */
-class ImmunityRuleElement extends IWRRuleElement {
-    protected dictionary = CONFIG.PF2E.immunityTypes;
+class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
+    static override defineSchema(): ImmunityRuleSchema {
+        return {
+            ...super.defineSchema(),
+            exceptions: new fields.ArrayField(
+                new fields.StringField({ required: true, blank: false, choices: this.dictionary }),
+                { nullable: false }
+            ),
+        };
+    }
+
+    static override get dictionary(): Record<ImmunityType, string> {
+        return CONFIG.PF2E.immunityTypes;
+    }
 
     get property(): ImmunityData[] {
         return this.actor.system.attributes.immunities;
@@ -30,10 +45,16 @@ class ImmunityRuleElement extends IWRRuleElement {
     }
 }
 
-interface ImmunityRuleElement extends IWRRuleElement {
+interface ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema>, ModelPropsFromSchema<ImmunityRuleSchema> {
+    // Just a string at compile time, but ensured by parent class at runtime
     type: ImmunityType[];
 
+    // Typescript 4.9 doesn't fully resolve conditional types, so it is redefined here
     exceptions: ImmunityType[];
 }
+
+type ImmunityRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
+    exceptions: ArrayField<StringField<ImmunityType>>;
+};
 
 export { ImmunityRuleElement };
