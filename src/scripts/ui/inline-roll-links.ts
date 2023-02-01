@@ -1,6 +1,5 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { SKILL_DICTIONARY } from "@actor/values";
-import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { Statistic } from "@system/statistic";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
@@ -8,6 +7,7 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { htmlClosest, htmlQueryAll, objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
+import { MeasuredTemplatePF2e } from "@module/canvas";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
@@ -240,8 +240,7 @@ export const InlineRollLinks = {
                 }
 
                 const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
-                const ghostTemplate = new GhostTemplate(templateDoc);
-                await ghostTemplate.drawPreview();
+                await new MeasuredTemplatePF2e(templateDoc).drawPreview();
             } else {
                 console.warn(`PF2e System | Could not create template'`);
             }
