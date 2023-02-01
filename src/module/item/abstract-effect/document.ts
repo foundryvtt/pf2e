@@ -1,4 +1,6 @@
+import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
+import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data";
 
@@ -11,6 +13,28 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
 
     abstract increase(): Promise<void>;
     abstract decrease(): Promise<void>;
+
+    /** Get the actor that created this effect */
+    get origin(): { actor: ActorPF2e | null; item: Embedded<ItemPF2e> | null } {
+        const [actorOrToken, item] = this.isOfType("affliction", "effect")
+            ? [
+                  fromUuidSync(this.system.context?.origin.actor ?? ""),
+                  fromUuidSync(this.system.context?.origin.item ?? ""),
+              ]
+            : [null, null];
+
+        const actor =
+            actorOrToken instanceof ActorPF2e
+                ? actorOrToken
+                : actorOrToken instanceof TokenDocumentPF2e
+                ? actorOrToken.actor
+                : null;
+
+        return {
+            actor,
+            item: item instanceof ItemPF2e ? (item as Embedded<ItemPF2e>) : null,
+        };
+    }
 
     /** If true, the AbstractEffect should be hidden from the user unless they are a GM */
     get unidentified(): boolean {
