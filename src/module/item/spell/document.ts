@@ -11,7 +11,6 @@ import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
-import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { OneToTen } from "@module/data";
 import { extractDamageDice, extractDamageModifiers } from "@module/rules/helpers";
@@ -38,6 +37,7 @@ import { EffectAreaSize, MagicSchool, MagicTradition, SpellComponent, SpellTrait
 import { DamageInstance, DamageRoll } from "@system/damage/roll";
 import { InstancePool } from "@system/damage/terms";
 import { DamageModifierDialog } from "@system/damage/modifier-dialog";
+import { MeasuredTemplatePF2e } from "@module/canvas";
 
 interface SpellConstructionContext extends DocumentConstructionContext<SpellPF2e> {
     fromConsumable?: boolean;
@@ -520,7 +520,7 @@ class SpellPF2e extends ItemPF2e {
             .sort((first, second) => first.level - second.level);
     }
 
-    createTemplate(): GhostTemplate {
+    createTemplate(): MeasuredTemplatePF2e {
         const templateConversion = {
             burst: "circle",
             emanation: "circle",
@@ -559,7 +559,7 @@ class SpellPF2e extends ItemPF2e {
         }
 
         const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
-        return new GhostTemplate(templateDoc);
+        return new MeasuredTemplatePF2e(templateDoc);
     }
 
     placeTemplate(): void {
