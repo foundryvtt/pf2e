@@ -201,7 +201,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 r.key === "RollOption" &&
                 tupleHasValue([true, "totm"], r.toggleable) &&
                 r.domain === domain &&
-                r.option === option &&
+                this.resolveInjectedProperties(r.option) === option &&
                 r.value !== value
         );
         if (rule) {
