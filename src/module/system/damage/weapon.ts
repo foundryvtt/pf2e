@@ -315,14 +315,14 @@ class WeaponDamagePF2e {
             // If an alternate critical specialization effect is available, apply it only if there is also a
             // qualifying non-alternate
             const critSpecs = actor.synthetics.criticalSpecalizations;
-            const standard = critSpecs.standard
-                .map((cs) => cs(weapon, options))
-                .filter((ce): ce is CritSpecEffect => !!ce)
-                .pop();
-            const alternate = critSpecs.alternate
-                .map((cs) => cs(weapon, options))
-                .filter((ce): ce is CritSpecEffect => !!ce)
-                .pop();
+            const standard = critSpecs.standard.reduceRight(
+                (result: CritSpecEffect | null, cs) => result ?? cs?.(weapon, options),
+                null
+            );
+            const alternate = critSpecs.alternate.reduceRight(
+                (result: CritSpecEffect | null, cs) => result ?? cs?.(weapon, options),
+                null
+            );
 
             return standard ? alternate ?? standard : [];
         })();
