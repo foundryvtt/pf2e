@@ -3,6 +3,7 @@ import { ActorSheetPF2e } from "@actor/sheet/base";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { StatusEffects } from "@module/canvas/status-effects";
 import { MigrationRunner } from "@module/migration/runner";
+import { isImageOrVideoPath } from "@util";
 import { AutomationSettings } from "./automation";
 import { HomebrewElements } from "./homebrew";
 import { MetagameSettings } from "./metagame";
@@ -140,7 +141,7 @@ export function registerSettings(): void {
         default: "icons/svg/skull.svg",
         type: String,
         onChange: (choice?: string) => {
-            if (choice) CONFIG.controlIcons.defeated = choice;
+            if (isImageOrVideoPath(choice)) CONFIG.controlIcons.defeated = choice;
         },
     });
 

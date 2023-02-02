@@ -346,7 +346,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         if (game.user !== this.primaryUpdater) return;
 
         const toCreate: (AfflictionSource | EffectSource)[] = [];
-        for (const data of aura.effects) {
+        const rollOptions = aura.effects.some((e) => e.predicate.length > 0)
+            ? new Set([...origin.getRollOptions(), ...this.getSelfRollOptions("target")])
+            : new Set([]);
+
+        for (const data of aura.effects.filter((e) => e.predicate.test(rollOptions))) {
             if (this.itemTypes.effect.some((e) => e.sourceId === data.uuid)) {
                 continue;
             }
@@ -666,7 +670,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /* -------------------------------------------- */
 
     getStrikeRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): StrikeRollContext<this, I> {
-        const targetToken = Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard")) ?? null;
+        const targetToken =
+            Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle")) ?? null;
 
         const selfToken = canvas.ready
             ? canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null

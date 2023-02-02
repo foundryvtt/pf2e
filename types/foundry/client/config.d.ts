@@ -472,14 +472,14 @@ declare global {
 
         /** The control icons used for rendering common HUD operations */
         controlIcons: {
-            combat: string;
-            visibility: string;
-            effects: string;
-            lock: string;
-            up: string;
-            down: string;
-            defeated: string;
-            [key: string]: string | undefined;
+            combat: ImageFilePath | VideoFilePath;
+            visibility: ImageFilePath | VideoFilePath;
+            effects: ImageFilePath | VideoFilePath;
+            lock: ImageFilePath | VideoFilePath;
+            up: ImageFilePath | VideoFilePath;
+            down: ImageFilePath | VideoFilePath;
+            defeated: ImageFilePath | VideoFilePath;
+            [key: string]: ImageFilePath | VideoFilePath | undefined;
         };
 
         /** A collection of fonts to load either from the user's local system, or remotely. */

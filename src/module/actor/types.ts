@@ -5,6 +5,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
 import { DamageRoll } from "@system/damage/roll";
 import { CheckDC } from "@system/degree-of-success";
+import { PredicatePF2e } from "@system/predication";
 import { TraitViewData } from "./data/base";
 import { ModifierPF2e } from "./modifiers";
 import { ABILITY_ABBREVIATIONS, DC_SLUGS, SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_LONG_FORMS } from "./values";
@@ -43,6 +44,7 @@ interface AuraEffectData {
         type: SaveType;
         dc: number;
     } | null;
+    predicate: PredicatePF2e;
     removeOnExit: boolean;
     includesSelf: boolean;
 }
