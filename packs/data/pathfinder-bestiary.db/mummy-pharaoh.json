@@ -491,7 +491,36 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:trait:undead",
+                                    {
+                                        "lt": [
+                                            "target:level",
+                                            "self:level"
+                                        ]
+                                    }
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.4M2K16mH4gndHAKa"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 100,
+                        "slug": "undead-mastery",
+                        "traits": [
+                            "divine",
+                            "necromancy"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
