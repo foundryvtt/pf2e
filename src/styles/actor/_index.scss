@@ -23,6 +23,36 @@ $header-height: 89px;   /* Adjust height of the header */
     @import "../reset";
     @import "inventory";
 
+    .alignment-select {
+        background-color: #566193;
+        border: 2px solid #d8c384;
+        color: white;
+    }
+
+    .size-select {
+        background-color: #3a7a58;
+        border: 2px solid #d8c384;
+        color: white;
+    }
+
+    .rarity-select {
+        border: 2px solid #d8c384;
+        color: white;
+
+        &.common {
+            background-color: $rarity-common;
+        }
+        &.uncommon {
+            background-color: $rarity-uncommon;
+        }
+        &.rare {
+            background-color: $rarity-rare;
+        }
+        &.unique {
+            background-color: $rarity-unique;
+        }
+    }
+
     &.character .crb-style {
         @import "character";
     }
