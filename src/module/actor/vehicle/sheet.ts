@@ -2,7 +2,7 @@ import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
 import { getActionIcon } from "@util";
-import { VehicleSheetData } from "./data";
+import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     static override get defaultOptions(): ActorSheetOptions {
@@ -18,15 +18,22 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     }
 
     override async getData(): Promise<VehicleSheetData> {
-        const sheetData = (await super.getData()) as VehicleSheetData;
+        const sheetData = await super.getData();
 
-        sheetData.actorSizes = CONFIG.PF2E.actorSizes;
-        sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
-
-        sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
-        sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity];
-
-        return sheetData;
+        return {
+            ...sheetData,
+            actorSizes: CONFIG.PF2E.actorSizes,
+            actorSize: CONFIG.PF2E.actorSizes[this.actor.size],
+            actorRarities: CONFIG.PF2E.rarityTraits,
+            actorRarity: CONFIG.PF2E.rarityTraits[this.actor.system.traits.rarity],
+            ac: getAdjustment(this.actor.attributes.ac.value, this.actor._source.system.attributes.ac.value),
+            saves: {
+                fortitude: getAdjustment(
+                    this.actor.saves.fortitude.mod,
+                    this.actor._source.system.saves.fortitude.value
+                ),
+            },
+        };
     }
 
     override async prepareItems(sheetData: VehicleSheetData): Promise<void> {
@@ -87,4 +94,23 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         // get buttons
         $html.find(".crb-tag-selector").on("click", (event) => this.onTraitSelector(event));
     }
+}
+
+function getAdjustment(value: number, reference: number): AdjustedValue {
+    const adjustmentClass = value > reference ? "adjusted-higher" : value < reference ? "adjusted-lower" : null;
+    return { value, adjustmentClass };
+}
+
+interface AdjustedValue {
+    value: number;
+    adjustmentClass: "adjusted-higher" | "adjusted-lower" | null;
+}
+
+interface VehicleSheetData extends ActorSheetDataPF2e<VehiclePF2e> {
+    actorRarities: typeof CONFIG.PF2E.rarityTraits;
+    actorRarity: string;
+    actorSizes: typeof CONFIG.PF2E.actorSizes;
+    actorSize: string;
+    ac: AdjustedValue;
+    saves: { fortitude: AdjustedValue };
 }

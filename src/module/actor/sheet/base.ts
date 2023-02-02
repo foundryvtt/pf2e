@@ -29,7 +29,7 @@ import {
     TagSelectorType,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, htmlClosest, htmlQuery, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
 import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
 import { ItemSummaryRenderer } from "./item-summary-renderer";
@@ -209,6 +209,31 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
+
+        // Handlers for number inputs of properties subject to modification by AE-like rules elements
+        const manualPropertyInputs = htmlQueryAll(html, "select[data-property],input[data-property]");
+        for (const input of manualPropertyInputs) {
+            input.addEventListener("focus", () => {
+                const propertyPath = input.dataset.property ?? "";
+                input.setAttribute("name", propertyPath);
+                if (input instanceof HTMLInputElement) {
+                    const baseValue = Number(getProperty(this.actor._source, propertyPath));
+                    input.value = String(baseValue);
+                }
+            });
+
+            input.addEventListener("blur", () => {
+                input.removeAttribute("name");
+                input.removeAttribute("style");
+                const propertyPath = input.dataset.property ?? "";
+                const preparedValue = getProperty(this.actor, propertyPath);
+                if (input instanceof HTMLInputElement) {
+                    const isModifier = input.classList.contains("modifier") && Number(preparedValue) >= 0;
+                    const value = isModifier ? `+${preparedValue}` : preparedValue;
+                    input.value = String(value);
+                }
+            });
+        }
 
         /* -------------------------------------------- */
         /*  Attributes, Skills, Saves and Traits        */
