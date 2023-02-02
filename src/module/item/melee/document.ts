@@ -100,6 +100,13 @@ class MeleePF2e extends ItemPF2e {
 
         // Set precious material (currently unused)
         this.system.material = { precious: null };
+
+        for (const attackDamage of Object.values(this.system.damageRolls)) {
+            attackDamage.category ??= null;
+            if (attackDamage.damageType === "bleed") {
+                attackDamage.category = "persistent";
+            }
+        }
     }
 
     override prepareActorData(): void {
@@ -109,7 +116,7 @@ class MeleePF2e extends ItemPF2e {
         const damageInstances = Object.values(this.system.damageRolls);
         for (const instance of Object.values(this.system.damageRolls)) {
             try {
-                instance.damage = new Roll(instance.damage).formula;
+                instance.damage = new Roll(instance.damage)._formula;
             } catch {
                 const message = `Unable to parse damage formula on NPC attack ${this.name}`;
                 console.warn(`PF2e System | ${message}`);
@@ -144,9 +151,9 @@ class MeleePF2e extends ItemPF2e {
                     const operator = new OperatorTerm({ operator: adjustedBase >= 0 ? "+" : "-" });
                     terms.push(operator, modifier);
                 }
-                instance.damage = combineTerms(Roll.fromTerms(terms).formula);
+                instance.damage = combineTerms(Roll.fromTerms(terms)._formula);
             } else {
-                instance.damage = roll.formula;
+                instance.damage = roll._formula;
             }
         }
     }

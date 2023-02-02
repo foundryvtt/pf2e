@@ -331,6 +331,25 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             strike.variants[variantIndex]?.roll({ event, altUsage });
         });
 
+        // Set damage-formula tooltips on damage buttons
+        const damageButtons = htmlQueryAll<HTMLButtonElement>(
+            $strikesList[0],
+            ["button[data-action=strike-damage]", "button[data-action=strike-critical]"].join(",")
+        );
+        for (const button of damageButtons) {
+            const method = button.dataset.action === "strike-damage" ? "damage" : "critical";
+            const altUsage = tupleHasValue(["thrown", "melee"] as const, button.dataset.altUsage)
+                ? button.dataset.altUsage
+                : null;
+
+            const strike = this.getStrikeFromDOM(button);
+            strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
+                if (!formula) return;
+                button.title = formula.toString();
+                $(button).tooltipster({ position: "bottom", theme: "crb-hover" });
+            });
+        }
+
         // Remove Spell Slot
         $html.find(".item-unprepare").on("click", (event) => {
             const slotLevel = Number($(event.currentTarget).parents(".item").attr("data-slot-level") ?? 0);

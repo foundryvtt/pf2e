@@ -11,7 +11,7 @@ import {
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { MeleePF2e, WeaponPF2e } from "@item";
-import { MeleeDamageRoll } from "@item/melee/data";
+import { NPCAttackDamage } from "@item/melee/data";
 import { getPropertyRuneAdjustments, getPropertyRuneDice } from "@item/physical/runes";
 import { WeaponDamage } from "@item/weapon/data";
 import { RollNotePF2e } from "@module/notes";
@@ -28,6 +28,7 @@ import { mapValues, objectHasKey, sluggify } from "@util";
 import { createDamageFormula, AssembledFormula } from "./formula";
 import { nextDamageDieSize } from "./helpers";
 import {
+    DamageCategoryUnique,
     DamageDieSize,
     DamageFormulaData,
     DamageRollContext,
@@ -37,7 +38,7 @@ import {
 import { DamageModifierDialog } from "./modifier-dialog";
 
 class WeaponDamagePF2e {
-    static async calculateStrikeNPC({
+    static async fromNPCAttack({
         attack,
         actor,
         actionTraits = [],
@@ -49,22 +50,36 @@ class WeaponDamagePF2e {
         // Collect damage dice and modifiers from secondary damage instances
         const damageDice: DamageDicePF2e[] = [];
         const modifiers: ModifierPF2e[] = [];
+        const labelFromCategory = {
+            null: "",
+            persistent: "PF2E.ConditionTypePersistent",
+            precision: "PF2E.Damage.Precision",
+            splash: "PF2E.WeaponSplashDamageLabel",
+        };
         for (const instance of secondaryInstances) {
             const { damageType } = instance;
             if (instance.dice > 0 && instance.die) {
                 damageDice.push(
                     new DamageDicePF2e({
                         slug: "base",
-                        label: "",
+                        label: labelFromCategory[instance.category ?? "null"],
                         selector: "damage",
                         diceNumber: instance.dice,
                         dieSize: instance.die,
                         damageType: instance.damageType,
+                        category: instance.category,
                     })
                 );
             }
             if (instance.modifier) {
-                modifiers.push(new ModifierPF2e({ label: "", modifier: instance.modifier, damageType }));
+                modifiers.push(
+                    new ModifierPF2e({
+                        label: labelFromCategory[instance.category ?? "null"],
+                        modifier: instance.modifier,
+                        damageType,
+                        damageCategory: instance.category,
+                    })
+                );
             }
         }
 
@@ -662,7 +677,7 @@ class WeaponDamagePF2e {
     }
 
     /** Parse damage formulas from melee items and construct `WeaponDamage` objects out of them */
-    static npcDamageToWeaponDamage(instance: MeleeDamageRoll): WeaponDamage {
+    static npcDamageToWeaponDamage(instance: NPCAttackDamage): ConvertedNPCDamage {
         const roll = new Roll(instance.damage);
         const die = roll.dice.at(0);
         const operator = ((): ArithmeticOperator => {
@@ -689,6 +704,7 @@ class WeaponDamagePF2e {
             modifier: operator === "+" ? modifier : -1 * modifier,
             damageType: instance.damageType,
             persistent: null,
+            category: instance.category,
         };
     }
 
@@ -701,6 +717,10 @@ class WeaponDamagePF2e {
     static strengthModToDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
         return weapon.isOfType("weapon") && this.strengthBasedDamage(weapon);
     }
+}
+
+interface ConvertedNPCDamage extends WeaponDamage {
+    category: DamageCategoryUnique | null;
 }
 
 interface WeaponDamageCalculateParams {
