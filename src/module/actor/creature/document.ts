@@ -726,8 +726,8 @@ abstract class CreaturePF2e extends ActorPF2e {
             const landSpeed = systemData.attributes.speed;
             landSpeed.value = Number(landSpeed.value) || 0;
 
-            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).map((d) => d() ?? []).flat();
-            landSpeed.value = [landSpeed.value, ...fromSynthetics.map((s) => s.value)].sort().pop()!;
+            const fromSynthetics = (this.synthetics.movementTypes[movementType] ?? []).flatMap((d) => d() ?? []);
+            landSpeed.value = Math.max(landSpeed.value, ...fromSynthetics.map((s) => s.value));
 
             const base = landSpeed.value;
             const modifiers = extractModifiers(this.synthetics, domains);
