@@ -318,7 +318,6 @@ abstract class CreaturePF2e extends ActorPF2e {
         setTraitIWR(this);
     }
 
-    /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
