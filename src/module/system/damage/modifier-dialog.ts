@@ -11,7 +11,6 @@ import {
 } from "@util";
 import { DamageCategoryUnique, DamageDieSize, DamageRollContext, DamageType } from "./types";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values";
-// import { LocalizePF2e } from "../localize";
 
 /**
  * Dialog for excluding certain modifiers before rolling damage.
@@ -107,6 +106,15 @@ class DamageModifierDialog extends Application {
     }
 
     override async getData(): Promise<DamageDialogData> {
+        const showModifier = (m: ModifierPF2e): boolean => {
+            if (this.isCritical && !m.critical) {
+                return false;
+            }
+            if (!m.enabled && m.hideIfDisabled) {
+                return false;
+            }
+            return true;
+        };
         const modifiers: ModifierData[] = this.modifiers.map((m) => {
             const damageType = m.damageType ?? this.baseDamageType;
 
@@ -121,7 +129,7 @@ class DamageModifierDialog extends Application {
                 enabled: m.enabled,
                 ignored: m.ignored,
                 critical: m.critical,
-                show: this.isCritical || !m.critical,
+                show: showModifier(m),
                 icon: this.#getDamageIcon(damageType),
                 categoryIcon: this.#getCategoryIcon(m.category, damageType),
             } satisfies ModifierData;
