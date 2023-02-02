@@ -13,10 +13,8 @@ export class Migration818SpinTaleAdventureSpecific extends MigrationBase {
             const oldSpinTaleId = "Compendium.pf2e.adventure-specific-actions.5gahZQXf3UVwATSC";
             const newSpinTaleId = "Compendium.pf2e.actionspf2e.hPZQ5vA9QHEPtjFW";
 
-            if (source.system.description.value && source.system.description.value.length > 0) {
-                source.system.description.value = source.system.description.value.replace(oldSpinTale, newSpinTale);
-                source.system.description.value = source.system.description.value.replace(oldSpinTaleId, newSpinTaleId);
-            }
+            source.system.description.value = source.system.description.value.replace(oldSpinTale, newSpinTale);
+            source.system.description.value = source.system.description.value.replace(oldSpinTaleId, newSpinTaleId);
         }
     }
 }
