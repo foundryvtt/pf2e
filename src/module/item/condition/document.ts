@@ -60,7 +60,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
     /** Is the condition found in the token HUD menu? */
     get isInHUD(): boolean {
-        return this.system.sources.hud;
+        return this.slug in CONFIG.PF2E.statusEffects.conditions;
     }
 
     /** Include damage type and possibly category for persistent-damage conditions */
@@ -245,6 +245,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
         for (const token of this.actor?.getActiveTokens() ?? []) {
             token._onApplyStatusEffect(this.rollOptionSlug, true);
         }
+
+        game.pf2e.StatusEffects.refresh();
     }
 
     protected override _onUpdate(
@@ -265,6 +267,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
             const change = newValue > priorValue ? { create: this } : { delete: this };
             this.actor?.getActiveTokens().shift()?.showFloatyText(change);
         }
+
+        game.pf2e.StatusEffects.refresh();
     }
 
     protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
@@ -284,6 +288,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
         for (const token of this.actor?.getActiveTokens() ?? []) {
             token._onApplyStatusEffect(this.rollOptionSlug, false);
         }
+
+        game.pf2e.StatusEffects.refresh();
     }
 }
 
