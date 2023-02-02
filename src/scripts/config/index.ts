@@ -546,6 +546,7 @@ const traitsDescriptions = {
     social: "PF2E.TraitDescriptionSocial",
     sonic: "PF2E.TraitDescriptionSonic",
     sorcerer: "PF2E.TraitDescriptionSorcerer",
+    spellgun: "PF2E.TraitDescriptionSpellgun",
     spellheart: "PF2E.TraitDescriptionSpellheart",
     spellshot: "PF2E.TraitNoDescription",
     splash: "PF2E.TraitDescriptionSplash",
