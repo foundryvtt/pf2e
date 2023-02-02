@@ -1,6 +1,7 @@
 import { AuraColors, AuraEffectData } from "@actor/types";
 import { ItemPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/data";
+import { PredicatePF2e } from "@system/predication";
 import { isObject, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
 
@@ -33,8 +34,11 @@ export class AuraRuleElement extends RuleElementPF2e {
 
         if (this.#isValid(source)) {
             this.radius = source.radius;
-            this.effects = deepClone(source.effects ?? []);
-            this.traits = deepClone(source.traits ?? []);
+            this.effects = deepClone(source.effects ?? []).map((e) => ({
+                ...e,
+                predicate: new PredicatePF2e(e.predicate ?? []),
+            }));
+            this.traits = deepClone(source.traits ?? []).filter((t) => t !== "aura");
             this.colors = source.colors ?? null;
         } else {
             this.radius = 0;
@@ -69,6 +73,7 @@ export class AuraRuleElement extends RuleElementPF2e {
             radius: ["number", "string"].includes(typeof data.radius),
             effects: Array.isArray(data.effects) && data.effects.every(this.#isEffectData),
             colors: !("colors" in data) || data.colors === null || this.#isAuraColors(data.colors),
+            predicate: !("predicate" in data) || PredicatePF2e.isValid(data.predicate),
         };
         const properties = ["traits", "radius", "effects", "colors"] as const;
         for (const property of properties) {
