@@ -12,7 +12,7 @@ import {
 import { AbilityString } from "@actor/types";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import { MeleeDamageRoll } from "@item/melee/data";
-import { getPropertyRuneDice } from "@item/physical/runes";
+import { getPropertyRuneAdjustments, getPropertyRuneDice } from "@item/physical/runes";
 import { WeaponDamage } from "@item/weapon/data";
 import { RollNotePF2e } from "@module/notes";
 import { CritSpecEffect, PotencySynthetic, StrikingSynthetic } from "@module/rules/synthetics";
@@ -308,6 +308,29 @@ class WeaponDamagePF2e {
             );
         }
 
+        // Critical specialization effects
+        const critSpecEffect = ((): CritSpecEffect => {
+            if (!weapon.isOfType("weapon")) return [];
+
+            // If an alternate critical specialization effect is available, apply it only if there is also a
+            // qualifying non-alternate
+            const critSpecs = actor.synthetics.criticalSpecalizations;
+            const standard = critSpecs.standard
+                .map((cs) => cs(weapon, options))
+                .filter((ce): ce is CritSpecEffect => !!ce)
+                .pop();
+            const alternate = critSpecs.alternate
+                .map((cs) => cs(weapon, options))
+                .filter((ce): ce is CritSpecEffect => !!ce)
+                .pop();
+
+            return standard ? alternate ?? standard : [];
+        })();
+
+        if (critSpecEffect.length > 0) options.add("critical-specialization");
+        modifiers.push(...critSpecEffect.filter((e): e is ModifierPF2e => e instanceof ModifierPF2e));
+        damageDice.push(...critSpecEffect.filter((e): e is DamageDicePF2e => e instanceof DamageDicePF2e));
+
         // Property Runes
         const propertyRunes = weaponPotency?.property ?? [];
         damageDice.push(...getPropertyRuneDice(propertyRunes));
@@ -315,6 +338,8 @@ class WeaponDamagePF2e {
         const ignoredResistances = propertyRunes.flatMap(
             (r) => CONFIG.PF2E.runes.weapon.property[r].damage?.ignoredResistances ?? []
         );
+
+        const propertyRuneAdjustments = getPropertyRuneAdjustments(propertyRunes);
 
         // Backstabber trait
         if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:flat-footed")) {
@@ -401,27 +426,6 @@ class WeaponDamagePF2e {
             }
         }
 
-        // Critical specialization effects
-        const critSpecEffect = ((): CritSpecEffect => {
-            if (!weapon.isOfType("weapon")) return [];
-
-            // If an alternate critical specialization effect is available, apply it only if there is also a
-            // qualifying non-alternate
-            const critSpecs = actor.synthetics.criticalSpecalizations;
-            const standard = critSpecs.standard
-                .map((cs) => cs(weapon, options))
-                .filter((ce): ce is CritSpecEffect => !!ce)
-                .pop();
-            const alternate = critSpecs.alternate
-                .map((cs) => cs(weapon, options))
-                .filter((ce): ce is CritSpecEffect => !!ce)
-                .pop();
-
-            return standard ? alternate ?? standard : [];
-        })();
-        modifiers.push(...critSpecEffect.filter((e): e is ModifierPF2e => e instanceof ModifierPF2e));
-        damageDice.push(...critSpecEffect.filter((e): e is DamageDicePF2e => e instanceof DamageDicePF2e));
-
         // Roll notes
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = CONFIG.PF2E.runes.weapon.property[r].damage?.notes ?? [];
@@ -447,6 +451,11 @@ class WeaponDamagePF2e {
 
         for (const option of Array.from(materials).map((m) => `weapon:material:${m}`)) {
             options.add(option);
+        }
+
+        // Attach modifier adjustments from property runes
+        for (const modifier of modifiers) {
+            modifier.adjustments.push(...propertyRuneAdjustments.filter((a) => a.slug === modifier.slug));
         }
 
         // Synthetics
