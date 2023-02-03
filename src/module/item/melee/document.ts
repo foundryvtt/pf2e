@@ -102,7 +102,7 @@ class MeleePF2e extends ItemPF2e {
         this.system.material = { precious: null };
 
         for (const attackDamage of Object.values(this.system.damageRolls)) {
-            attackDamage.category ??= null;
+            attackDamage.category ||= null;
             if (attackDamage.damageType === "bleed") {
                 attackDamage.category = "persistent";
             }
