@@ -196,14 +196,26 @@ class RollOptionRuleElement extends RuleElementPF2e {
         // Directly update the rule element on the item
         const item = actor.items.get(itemId, { strict: true });
         const rules = item.toObject().system.rules;
-        const rule = rules.find(
+
+        const possibleRuleMatches = rules.filter(
             (r: RollOptionSource) =>
                 r.key === "RollOption" &&
                 tupleHasValue([true, "totm"], r.toggleable) &&
                 r.domain === domain &&
-                this.resolveInjectedProperties(r.option) === option &&
                 r.value !== value
         );
+
+        let rule;
+
+        for (const possibleRuleMatch of possibleRuleMatches) {
+            const rollOptionRuleElement = new RollOptionRuleElement(possibleRuleMatch, item);
+
+            if (rollOptionRuleElement.resolveInjectedProperties(rollOptionRuleElement.option) === option) {
+                rule = possibleRuleMatch;
+                break;
+            }
+        }
+
         if (rule) {
             rule.value = value;
             const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "system.rules": rules }]);
