@@ -52,7 +52,7 @@ class WeaponDamagePF2e {
         const modifiers: ModifierPF2e[] = [];
         const labelFromCategory = {
             null: "",
-            persistent: "PF2E.ConditionTypePersistent",
+            persistent: "",
             precision: "PF2E.Damage.Precision",
             splash: "PF2E.WeaponSplashDamageLabel",
         };
@@ -497,7 +497,7 @@ class WeaponDamagePF2e {
                 dieSize: baseDamage.die,
                 modifier: baseDamage.modifier,
                 damageType: baseDamage.damageType,
-                category: null,
+                category: "category" in baseDamage && baseDamage.category === "persistent" ? "persistent" : null,
                 materials: Array.from(materials),
             },
             // CRB p. 279, Counting Damage Dice: Effects based on a weapon's number of damage dice include
@@ -749,4 +749,4 @@ interface ExcludeDamageParams {
     options: Set<string>;
 }
 
-export { WeaponDamagePF2e };
+export { ConvertedNPCDamage, WeaponDamagePF2e };
