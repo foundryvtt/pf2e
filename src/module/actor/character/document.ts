@@ -54,7 +54,6 @@ import { WeaponCategory, WeaponPropertyRuneType } from "@item/weapon/types";
 import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
-import { RollNotePF2e } from "@module/notes";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -105,6 +104,7 @@ import { CharacterFeats } from "./feats";
 import { createForceOpenPenalty, createShoddyPenalty, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 import { CHARACTER_SHEET_TABS } from "./values";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -1384,7 +1384,7 @@ class CharacterPF2e extends CreaturePF2e {
             }
         }
 
-        const ammos = itemTypes.consumable.filter((i) => i.consumableType === "ammo" && !i.isStowed);
+        const ammos = itemTypes.consumable.filter((i) => i.category === "ammo" && !i.isStowed);
         const homebrewCategoryTags = game.settings.get("pf2e", "homebrew.weaponCategories");
         const offensiveCategories = [...WEAPON_CATEGORIES, ...homebrewCategoryTags.map((tag) => tag.id)];
 
@@ -1816,48 +1816,34 @@ class CharacterPF2e extends CreaturePF2e {
                     return "";
                 }
 
-                const damage = WeaponDamagePF2e.calculate({
+                const outcome = method === "damage" ? "success" : "criticalSuccess";
+                const { self, target, options } = context;
+                const damageContext: DamageRollContext = {
+                    type: "damage-roll",
+                    sourceType: "attack",
+                    self,
+                    target,
+                    outcome,
+                    options,
+                    domains,
+                    ...eventToRollParams(params.event),
+                };
+                if (params.getFormula) damageContext.skipDialog = true;
+
+                const damage = await WeaponDamagePF2e.calculate({
                     weapon: context.self.item,
                     actor: context.self.actor,
                     actionTraits: context.traits,
                     proficiencyRank,
-                    options: context.options,
                     weaponPotency,
+                    context: damageContext,
                 });
                 if (!damage) return null;
 
-                const outcome = method === "damage" ? "success" : "criticalSuccess";
-
-                // Find a critical specialization note
-                const critSpecs = context.self.actor.synthetics.criticalSpecalizations;
-                if (outcome === "criticalSuccess" && !params.getFormula && critSpecs.standard.length > 0) {
-                    // If an alternate critical specialization effect is available, apply it only if there is also a
-                    // qualifying non-alternate
-                    const standard = critSpecs.standard
-                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, context.options) ?? [])
-                        .pop();
-                    const alternate = critSpecs.alternate
-                        .flatMap((cs): RollNotePF2e | never[] => cs(context.self.item, context.options) ?? [])
-                        .pop();
-                    const note = standard ? alternate ?? standard : null;
-
-                    if (note) damage.notes.push(note);
-                }
-
                 if (params.getFormula) {
-                    return new DamageRoll(damage.damage.formula[outcome]).formula;
+                    const formula = damage.damage.formula[outcome];
+                    return formula ? new DamageRoll(formula).formula : "";
                 } else {
-                    const { self, target, options } = context;
-                    const damageContext: DamageRollContext = {
-                        type: "damage-roll",
-                        sourceType: "attack",
-                        self,
-                        target,
-                        outcome,
-                        options,
-                        domains: damage.domains,
-                    };
-
                     return DamagePF2e.roll(damage, damageContext, params.callback);
                 }
             };

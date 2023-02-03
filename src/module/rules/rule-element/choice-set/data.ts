@@ -9,12 +9,7 @@ interface ChoiceSetData extends RuleElementData {
      * The options from which the user can choose. If a string is provided, it is treated as a reference to a record in
      * `CONFIG.PF2E`, and the `PromptChoice` array is composed from its entries.
      */
-    choices:
-        | string
-        | PickableThing<string | number>[]
-        | ChoiceSetOwnedItems
-        | ChoiceSetUnarmedAttacks
-        | ChoiceSetPackQuery;
+    choices: string | PickableThing<string | number>[] | ChoiceSetOwnedItems | ChoiceSetAttacks | ChoiceSetPackQuery;
     /**
      * The name of the flag that will contain the user's selection. If not set, it defaults to the camel-casing of the
      * parent item's slug, falling back to name.
@@ -44,16 +39,19 @@ interface ChoiceSetOwnedItems {
     /** Whether the choices should include handwraps of mighty blows in addition to weapons */
     includeHandwraps?: boolean;
     /** The filter to apply the actor's own weapons/unarmed attacks */
-    predicate?: PredicatePF2e;
+    predicate: PredicatePF2e;
+    attacks?: never;
     unarmedAttacks?: never;
     types: (ItemType | "physical")[];
 }
 
-interface ChoiceSetUnarmedAttacks {
-    /** Include all unarmed attacks as the basis of the choices */
-    unarmedAttacks: boolean;
+interface ChoiceSetAttacks {
+    /** Include all attacks, limited by predicate */
+    attacks?: boolean;
+    /** Include only unarmed attacks as the basis of the choices */
+    unarmedAttacks?: boolean;
     /** The filter to apply the actor's own weapons/unarmed attacks */
-    predicate?: PredicatePF2e;
+    predicate: PredicatePF2e;
     ownedItems?: never;
 }
 
@@ -64,7 +62,8 @@ interface ChoiceSetPackQuery {
     itemType?: ItemType;
     query: string;
     ownedItems?: never;
+    attacks?: never;
     unarmedAttacks?: never;
 }
 
-export { ChoiceSetData, ChoiceSetOwnedItems, ChoiceSetPackQuery, ChoiceSetSource, ChoiceSetUnarmedAttacks };
+export { ChoiceSetData, ChoiceSetOwnedItems, ChoiceSetPackQuery, ChoiceSetSource, ChoiceSetAttacks };

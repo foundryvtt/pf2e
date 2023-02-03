@@ -28,13 +28,17 @@ import { request } from "./diplomacy/request";
 import { avoidNotice } from "./exploration/avoid-notice";
 import { senseDirection } from "./exploration/sense-direction";
 import { track } from "./exploration/track";
+import { decipherWriting } from "./general/decipher-writing";
+import { subsist } from "./general/subsist";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
 import { treatDisease } from "./medicine/treat-disease";
 import { treatPoison } from "./medicine/treat-poison";
 import { commandAnAnimal } from "./nature/command-an-animal";
+import { perform } from "./performance/perform";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
+import { disableDevice } from "./thievery/disable-device";
 import { pickALock } from "./thievery/pick-a-lock";
 export { ActionMacroHelpers } from "./helpers";
 export { ActionDefaultOptions, SkillActionOptions } from "./types";
@@ -89,6 +93,10 @@ export const ActionMacros = {
     makeAnImpression,
     request,
 
+    // General Skill Actions
+    decipherWriting,
+    subsist,
+
     // Intimidation
     coerce,
     demoralize,
@@ -100,10 +108,14 @@ export const ActionMacros = {
     // Nature
     commandAnAnimal,
 
+    // Performance
+    perform,
+
     // Stealth
     hide,
     sneak,
 
     // Thievery
+    disableDevice,
     pickALock,
 };

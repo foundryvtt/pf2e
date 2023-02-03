@@ -11,7 +11,7 @@
     .effect-item {
         display: flex;
         justify-content: flex-end;
-        height: 46px;
+        height: 52px;
 
         &:hover {
             .effect-info {
@@ -25,10 +25,10 @@
             margin-right: 0.5em;
             padding: 0.25em;
             background-color: rgba(0, 0, 0, 0.75);
+            color: white;
 
             h1 {
                 font-size: var(--font-size-12);
-                color: white;
                 text-align: right;
                 border: none;
                 @include p-reset;
@@ -47,8 +47,14 @@
                 }
             }
 
+            a {
+                display: block;
+                font-size: var(--font-size-11);
+                margin-top: 0.1rem;
+                text-align: right;
+            }
+
             .instructions {
-                color: white;
                 font-size: 0.75em;
                 text-align: right;
             }
@@ -65,8 +71,8 @@
             justify-content: center;
             position: relative;
             margin: 2px 0;
-            height: 42px;
-            width: 42px;
+            height: 48px;
+            width: 48px;
 
             .expired {
                 position: absolute;
@@ -87,13 +93,12 @@
                 color: white;
                 background-color: rgba(0, 0, 0, 0.75);
             }
-            .value {
-                display: inline-block;
+            .value-wrapper {
                 position: absolute;
                 bottom: -1px;
                 left: -1px;
+                max-width: calc(100% + 2px);
                 padding: 0px 2px;
-                max-width: 100%;
 
                 color: white;
                 background-color: rgba(0, 0, 0, 0.75);
@@ -101,7 +106,15 @@
                 letter-spacing: -0.05em;
                 white-space: nowrap;
                 overflow: hidden;
-                text-overflow: ellipsis;
+
+                .value {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    strong {
+                        display: inline-block;
+                        padding-right: 1px; // prevent clipping
+                    }
+                }
             }
 
             &.unidentified {
@@ -112,6 +125,6 @@
 
     hr {
         margin-right: 0;
-        width: 36px;
+        width: 40px;
     }
 }

@@ -36,6 +36,7 @@ export function extendDragData(): void {
                     origin: {
                         actor: actor.uuid,
                         token: token?.uuid ?? null,
+                        item: message.item?.uuid ?? null,
                     },
                     target: target ? { actor: target.actor.uuid, token: target.token.uuid } : null,
                     roll: roll

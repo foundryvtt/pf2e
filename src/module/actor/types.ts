@@ -1,10 +1,11 @@
 import { ActorPF2e } from "@actor";
 import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { ItemTrait } from "@item/data/base";
+import { EffectTrait } from "@item/abstract-effect";
 import { TokenDocumentPF2e } from "@scene";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
 import { DamageRoll } from "@system/damage/roll";
 import { CheckDC } from "@system/degree-of-success";
+import { PredicatePF2e } from "@system/predication";
 import { TraitViewData } from "./data/base";
 import { ModifierPF2e } from "./modifiers";
 import { ABILITY_ABBREVIATIONS, DC_SLUGS, SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_LONG_FORMS } from "./values";
@@ -31,7 +32,7 @@ interface AuraData {
     radius: number;
     effects: AuraEffectData[];
     colors: AuraColors | null;
-    traits: ItemTrait[];
+    traits: EffectTrait[];
 }
 
 interface AuraEffectData {
@@ -43,7 +44,9 @@ interface AuraEffectData {
         type: SaveType;
         dc: number;
     } | null;
+    predicate: PredicatePF2e;
     removeOnExit: boolean;
+    includesSelf: boolean;
 }
 
 interface AuraColors {

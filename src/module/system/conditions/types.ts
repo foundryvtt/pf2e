@@ -4,6 +4,7 @@ interface FlattenedCondition {
     id: string;
     active: boolean;
     name: string;
+    slug: string;
     badge: EffectBadge | null;
     value: number | null;
     description: string;

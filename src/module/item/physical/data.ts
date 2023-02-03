@@ -4,7 +4,7 @@ import { ConsumableTrait } from "@item/consumable/data";
 import { EquipmentTrait } from "@item/equipment/data";
 import type { PhysicalItemPF2e } from "@item/physical";
 import { WeaponTrait } from "@item/weapon/types";
-import { Size, ValuesList } from "@module/data";
+import { Size, TraitsWithRarity, ValuesList } from "@module/data";
 import {
     ActionCost,
     BaseItemDataPF2e,
@@ -13,7 +13,6 @@ import {
     ItemLevelData,
     ItemSystemData,
     ItemSystemSource,
-    ItemTraits,
 } from "../data/base";
 import type { ITEM_CARRY_TYPES } from "../data/values";
 import { CoinsPF2e } from "./helpers";
@@ -131,7 +130,7 @@ type EquippedData = {
 };
 
 type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | WeaponTrait;
-interface PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> extends ItemTraits<T> {
+interface PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> extends TraitsWithRarity<T> {
     otherTags: string[];
 }
 

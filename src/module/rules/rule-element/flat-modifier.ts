@@ -1,74 +1,79 @@
 import { ActorType } from "@actor/data";
-import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPE, MODIFIER_TYPES } from "@actor/modifiers";
+import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPES } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS } from "@actor/values";
-import { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { CriticalInclusion, DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
+import { ItemPF2e } from "@item";
+import { DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
 import { objectHasKey, setHasElement, sluggify } from "@util";
-import { RuleElementData, RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
+import {
+    ArrayField,
+    BooleanField,
+    ModelPropsFromSchema,
+    NumberField,
+    StringField,
+} from "types/foundry/common/data/fields.mjs";
+import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./";
+
+const { fields } = foundry.data;
 
 /**
  * Apply a constant modifier (or penalty/bonus) to a statistic or usage thereof
  * @category RuleElement
  */
-class FlatModifierRuleElement extends RuleElementPF2e {
+class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    /** All domains to add a modifier to */
-    selectors: string[];
+    static override defineSchema(): FlatModifierSchema {
+        return {
+            ...super.defineSchema(),
+            selector: new fields.ArrayField(new fields.StringField({ required: true, blank: false }), {
+                required: true,
+                nullable: false,
+            }),
+            type: new fields.StringField({
+                required: true,
+                choices: Array.from(MODIFIER_TYPES),
+                initial: "untyped",
+            }),
+            ability: new fields.StringField({
+                required: false,
+                choices: Array.from(ABILITY_ABBREVIATIONS),
+                initial: undefined,
+            }),
+            min: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
+            max: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
+            force: new fields.BooleanField(),
+            hideIfDisabled: new fields.BooleanField(),
+            fromEquipment: new fields.BooleanField({ initial: true }),
+            damageType: new fields.StringField({ required: false, blank: false, initial: undefined }),
+            damageCategory: new fields.StringField({
+                required: false,
+                blank: false,
+                choices: Array.from(DAMAGE_CATEGORIES_UNIQUE),
+                initial: undefined,
+            }),
+            critical: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
+        };
+    }
 
-    type: ModifierType = MODIFIER_TYPE.UNTYPED;
+    get selectors(): string[] {
+        return this.selector;
+    }
 
-    /** If this is an ability modifier, the ability score it modifies */
-    ability: AbilityString | null = null;
-
-    /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
-    force: boolean;
-
-    /** Hide this modifier from breakdown tooltips if it is disabled */
-    hideIfDisabled: boolean;
-
-    /** Whether this modifier comes from equipment or an equipment effect */
-    fromEquipment: boolean;
-
-    /** If a damage modifier, a damage type */
-    damageType: string | null = null;
-
-    /** If a damage modifier, a special category */
-    damageCategory: DamageCategoryUnique | null = null;
-
-    /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
-    critical: CriticalInclusion;
-
-    constructor(data: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
-        data.type ??= MODIFIER_TYPE.UNTYPED;
-
-        this.hideIfDisabled = !!data.hideIfDisabled;
-
-        if (setHasElement(MODIFIER_TYPES, data.type)) {
-            this.type = data.type;
-        } else {
-            const validTypes = Array.from(MODIFIER_TYPES).join(", ");
-            this.failValidation(`A flat modifier must have one of the following types: ${validTypes}`);
+    constructor(source: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        if (typeof source.selector === "string") {
+            source.selector = [source.selector];
         }
 
-        this.force = !!data.force;
+        if (!item.isOfType("physical") && source.type !== "item") {
+            source.fromEquipment = false;
+        }
 
-        this.selectors =
-            typeof data.selector === "string"
-                ? [data.selector]
-                : Array.isArray(data.selector) && data.selector.every((s): s is string => typeof s === "string")
-                ? data.selector
-                : [];
-
-        this.fromEquipment =
-            this.item instanceof PhysicalItemPF2e || (this.type === "item" && !!(data.fromEquipment ?? true));
+        super(source, item, options);
 
         if (this.type === "ability") {
-            if (setHasElement(ABILITY_ABBREVIATIONS, data.ability)) {
-                this.ability = data.ability;
-                this.data.label = typeof data.label === "string" ? data.label : CONFIG.PF2E.abilities[this.ability];
+            if (setHasElement(ABILITY_ABBREVIATIONS, source.ability)) {
+                this.data.label = typeof source.label === "string" ? source.label : CONFIG.PF2E.abilities[this.ability];
                 this.data.value ??= `@actor.abilities.${this.ability}.mod`;
             } else {
                 this.failValidation(
@@ -78,22 +83,12 @@ class FlatModifierRuleElement extends RuleElementPF2e {
         }
 
         this.critical =
-            typeof data.critical === "boolean" && this.selectors.some((s) => s.includes("damage"))
-                ? data.critical
+            typeof source.critical === "boolean" && this.selectors.some((s) => s.includes("damage"))
+                ? source.critical
                 : null;
 
         if (this.force && this.type === "untyped") {
             this.failValidation("A forced bonus or penalty must have a type");
-        }
-
-        if (typeof data.damageType === "string") {
-            this.damageType = data.damageType;
-        }
-
-        if (setHasElement(DAMAGE_CATEGORIES_UNIQUE, data.damageCategory)) {
-            this.damageCategory = data.damageCategory;
-        } else if (data.damageCategory) {
-            this.failValidation('category must be "persistent", "precision", "splash", or omitted');
         }
     }
 
@@ -114,20 +109,16 @@ class FlatModifierRuleElement extends RuleElementPF2e {
 
         for (const selector of selectors) {
             const construct = (options: DeferredValueParams = {}): ModifierPF2e | null => {
-                const resolvedValue = Number(this.resolveValue(this.data.value, undefined, options)) || 0;
+                const resolvedValue = Number(this.resolveValue(this.data.value, 0, options)) || 0;
                 if (this.ignored) return null;
 
-                const finalValue = Math.clamped(
-                    resolvedValue,
-                    this.data.min ?? resolvedValue,
-                    this.data.max ?? resolvedValue
-                );
+                const finalValue = Math.clamped(resolvedValue, this.min ?? resolvedValue, this.max ?? resolvedValue);
 
                 if (game.pf2e.variantRules.AutomaticBonusProgression.suppressRuleElement(this, finalValue)) {
                     return null;
                 }
 
-                const damageType = this.resolveInjectedProperties(this.damageType);
+                const damageType = this.damageType ? this.resolveInjectedProperties(this.damageType) : null;
                 if (damageType !== null && !objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
                     this.failValidation(`Unrecognized damage type: ${damageType}`);
                     return null;
@@ -158,18 +149,32 @@ class FlatModifierRuleElement extends RuleElementPF2e {
     }
 }
 
-type ModifierPhase = "beforeDerived" | "afterDerived" | "beforeRoll";
+interface FlatModifierRuleElement
+    extends RuleElementPF2e<FlatModifierSchema>,
+        ModelPropsFromSchema<FlatModifierSchema> {}
 
-interface FlatModifierRuleElement {
-    data: FlatModifierData;
-}
-
-interface FlatModifierData extends RuleElementData {
-    min?: number;
-    max?: number;
-    damageType?: string;
-    phase: ModifierPhase;
-}
+type FlatModifierSchema = RuleElementSchema & {
+    /** All domains to add a modifier to */
+    selector: ArrayField<StringField>;
+    /** The modifier (or bonus/penalty) type */
+    type: StringField<ModifierType>;
+    /** If this is an ability modifier, the ability score it modifies */
+    ability: StringField<AbilityString>;
+    /** Hide this modifier from breakdown tooltips if it is disabled */
+    min: NumberField<number, number, false>;
+    max: NumberField<number, number, false>;
+    hideIfDisabled: BooleanField;
+    /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
+    force: BooleanField;
+    /** Whether this modifier comes from equipment or an equipment effect */
+    fromEquipment: BooleanField;
+    /** If a damage modifier, a damage type */
+    damageType: StringField;
+    /** If a damage modifier, a special category */
+    damageCategory: StringField<DamageCategoryUnique>;
+    /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
+    critical: BooleanField<boolean, boolean, true>;
+};
 
 interface FlatModifierSource extends RuleElementSource {
     selector?: unknown;

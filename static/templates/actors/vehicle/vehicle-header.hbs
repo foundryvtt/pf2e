@@ -3,14 +3,22 @@
         <h1 class="char-name">
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}" />
         </h1>
-        <div class="traits-bar">
-            {{#unless (eq data.traits.rarity "common")}}
-                <span class="trait {{data.traits.rarity}}" data-trait="{{data.traits.rarity}}">{{localize actorRarity}}</span>
-            {{/unless}}
-            <span class="trait size">{{localize actorSize}}</span>
-            {{#each traits as |trait|}}
-                <span class="trait" data-trait="{{trait.value}}">{{trait.label}}</span>
-            {{/each}}
+        <div class="tags">
+            <select class="rarity rarity-select {{data.traits.rarity}}" name="system.traits.rarity" data-dtype="String">
+                {{#select data.traits.rarity}}
+                    {{#each actorRarities as |label key|}}
+                        <option value="{{key}}">{{localize label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+
+            <select class="size size-select" name="system.traits.size.value" data-dtype="String">
+                {{#select data.traits.size.value}}
+                    {{#each actorSizes as |label size|}}
+                        <option value="{{size}}">{{localize label}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
         </div>
     </div>
     <div class="char-level">

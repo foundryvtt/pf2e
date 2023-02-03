@@ -9,7 +9,7 @@
             "sort": 100000,
             "system": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -49,7 +49,7 @@
             "sort": 200000,
             "system": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -128,11 +128,11 @@
         {
             "_id": "r4GLtMTPNISHccTL",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "No MAP Penalty",
+            "name": "No Multiple Attack Penalty",
             "sort": 400000,
             "system": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -187,9 +187,18 @@
                     }
                 },
                 "description": {
-                    "value": "<p>[[/r 1d6[persistent,electricity]]] damage</p>"
+                    "value": "<p>Plus 1d6 persistent electricity damage</p>"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "persistent",
+                        "damageType": "electricity",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "selector": "{item|_id}-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -198,7 +207,7 @@
                     "custom": "Range 40 feet",
                     "rarity": "common",
                     "value": [
-                        "range-increment-40"
+                        "range-40"
                     ]
                 },
                 "weaponType": {
@@ -214,11 +223,12 @@
             "ac": {
                 "value": 28
             },
+            "emitsSound": "encounter",
             "hardness": 16,
             "hasHealth": true,
             "hp": {
-                "details": "",
-                "max": 10,
+                "details": "See Symbol and Panel Stats",
+                "max": 64,
                 "temp": 0,
                 "tempmax": 0,
                 "value": 64
@@ -253,7 +263,7 @@
             "level": {
                 "value": 9
             },
-            "reset": "<p>The trap deactivates 1 round after it has no target ncreatures and resets after 1 minute.</p>",
+            "reset": "<p>The trap deactivates 1 round after it has no target creatures and resets after 1 minute.</p>",
             "routine": "<p>(5 actions) Each disabled symbol reduces the trap's number of actions by 1.</p>\n<p>For each of its actions, a different symbol shoots an electricity bolt at a random creature in the room. The trap doesn't take multiple attack penalties.</p>"
         },
         "saves": {
@@ -271,6 +281,7 @@
             }
         },
         "source": {
+            "author": "",
             "value": "Pathfinder Adventure: The Slithering"
         },
         "statusEffects": [],
@@ -280,7 +291,6 @@
                 "value": "med"
             },
             "value": [
-                "magical",
                 "mechanical",
                 "trap"
             ]

@@ -2,57 +2,49 @@ import { ItemPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes";
 import { UserVisibility } from "@scripts/ui/user-visibility";
 import { DegreeOfSuccessString, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success";
-import { isObject, tupleHasValue } from "@util";
-import { BracketedValue, RuleElementPF2e, RuleElementSource } from "./";
-import { RuleElementOptions } from "./base";
+import { isObject } from "@util";
+import { ArrayField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
+import { BracketedValue, RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./";
 
-export class RollNoteRuleElement extends RuleElementPF2e {
-    private selector: string;
+const { fields } = foundry.data;
 
-    /** An optional title prepended to the note */
-    private title: string | null;
+class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
+    static override defineSchema(): RollNoteSchema {
+        return {
+            ...super.defineSchema(),
+            selector: new fields.StringField({ required: true, blank: false }),
+            title: new fields.StringField({ required: true, nullable: true, initial: null }),
+            visibility: new fields.StringField({
+                required: true,
+                nullable: true,
+                choices: ["gm", "owner"],
+                initial: null,
+            }),
+            outcome: new fields.ArrayField(
+                new fields.StringField({ required: true, blank: false, choices: DEGREE_OF_SUCCESS_STRINGS }),
+                { required: false, nullable: false, initial: undefined }
+            ),
+        };
+    }
 
-    /** The text of the note */
-    private text: string | BracketedValue<string>;
+    /** The main text of the note */
+    text: string | BracketedValue<string>;
 
-    /** Applicable degree-of-success outcomes for the note */
-    private outcomes: DegreeOfSuccessString[];
+    constructor(source: RollNoteSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super(source, item, options);
 
-    /** An optional visibility setting for the note */
-    private visibility: UserVisibility | null;
-
-    constructor(data: RollNoteSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
-
-        data.title ??= null;
-        data.outcome ??= [];
-        data.visibility ??= null;
-        if (this.#isValid(data)) {
-            this.selector = data.selector;
-            this.title = data.title;
-            this.text = data.text;
-            this.outcomes = data.outcome;
-            this.visibility = data.visibility;
+        if (this.#isValid(source)) {
+            this.text = source.text;
         } else {
-            this.selector = "";
-            this.title = null;
             this.text = "";
-            this.outcomes = [];
-            this.visibility = null;
         }
     }
 
-    #isValid(data: RollNoteSource): data is RollNoteData {
-        const textIsValidBracket = isObject<{ brackets: unknown }>(data.text) && Array.isArray(data.text.brackets);
+    #isValid(source: RollNoteSource): source is RollNoteData {
+        const textIsValidBracket = isObject<{ brackets: unknown }>(source.text) && Array.isArray(source.text.brackets);
 
         const tests = {
-            title: data.title === null || (typeof data.title === "string" && data.title.length > 0),
-            text: textIsValidBracket || (typeof data.text === "string" && data.text.length > 0),
-            visibility:
-                data.visibility === null ||
-                (typeof data.visibility === "string" && ["owner", "gm"].includes(data.visibility)),
-            outcome:
-                Array.isArray(data.outcome) && data.outcome.every((o) => tupleHasValue(DEGREE_OF_SUCCESS_STRINGS, o)),
+            text: textIsValidBracket || (typeof source.text === "string" && source.text.length > 0),
         };
 
         for (const [property, result] of Object.entries(tests)) {
@@ -66,7 +58,7 @@ export class RollNoteRuleElement extends RuleElementPF2e {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.selector);
-        const title = this.title ? this.resolveInjectedProperties(this.title) : null;
+        const title = this.resolveInjectedProperties(this.title);
         const text = this.resolveInjectedProperties(String(this.resolveValue(this.text, "", { evaluate: false })));
         if (selector && text) {
             const note = new RollNotePF2e({
@@ -74,7 +66,7 @@ export class RollNoteRuleElement extends RuleElementPF2e {
                 title,
                 text,
                 predicate: this.predicate,
-                outcome: this.outcomes,
+                outcome: this.outcome,
                 visibility: this.visibility,
             });
             const notes = (this.actor.synthetics.rollNotes[selector] ??= []);
@@ -84,6 +76,19 @@ export class RollNoteRuleElement extends RuleElementPF2e {
         }
     }
 }
+
+interface RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema>, ModelPropsFromSchema<RollNoteSchema> {}
+
+type RollNoteSchema = RuleElementSchema & {
+    /** The statistic(s) slugs of the rolls for which this note will be appended */
+    selector: StringField;
+    /** An optional title prepended to the note */
+    title: StringField<string, string, true>;
+    /** An optional limitation of the notes visibility to GMs */
+    visibility: StringField<UserVisibility, UserVisibility, true>;
+    /** Applicable degree-of-success outcomes for the note */
+    outcome: ArrayField<StringField<DegreeOfSuccessString>>;
+};
 
 interface RollNoteSource extends RuleElementSource {
     selector?: unknown;
@@ -96,7 +101,8 @@ interface RollNoteSource extends RuleElementSource {
 interface RollNoteData extends RollNoteSource {
     selector: string;
     outcome: DegreeOfSuccessString[];
-    title: string | null;
+    title?: string | null;
     text: string | BracketedValue<string>;
-    visibility: UserVisibility | null;
 }
+
+export { RollNoteRuleElement };

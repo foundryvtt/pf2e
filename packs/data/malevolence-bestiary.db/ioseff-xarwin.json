@@ -2053,7 +2053,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Light]{Spell Effect: Light}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -2738,7 +2738,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>Ioseff takes a -1 item penalty to attack rolls and saving throws against a character who carries Fulvia's ring. This penalty doubles to -2 against a character who wears Fulvia's ring. At the start of ttheir turn, a character who possesses Fulvia's ring can attempt a secret @Check[type:perception|dc:20] check; on a success, they sense a faint compulsion fueled by outrage to present Fulvia's ring to the ghost.</p>"
+                    "value": "<p>Ioseff takes a -1 item penalty to attack rolls and saving throws against a character who carries Fulvia's ring. This penalty doubles to -2 against a character who wears Fulvia's ring. At the start of ttheir turn, a character who possesses Fulvia's ring can attempt a secret @Check[type:perception|dc:20|traits:secret] check; on a success, they sense a faint compulsion fueled by outrage to present Fulvia's ring to the ghost.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2747,68 +2747,68 @@
                     {
                         "domain": "attack-roll",
                         "key": "RollOption",
-                        "label": "Target possesses Fulvia's Ring",
+                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.TargetPossess",
                         "option": "possess-fulvia-ring",
                         "toggleable": true
                     },
                     {
                         "domain": "attack-roll",
                         "key": "RollOption",
-                        "label": "Target is wearing Fulvia's Ring",
+                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.TargetWear",
                         "option": "wearing-fulvia-ring",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Shame",
                         "predicate": [
                             "possess-fulvia-ring"
                         ],
                         "selector": "attack",
+                        "slug": "shame",
                         "type": "item",
                         "value": -1
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "More Shame",
                         "predicate": [
                             "wearing-fulvia-ring"
                         ],
                         "selector": "attack",
+                        "slug": "more-shame",
                         "type": "item",
                         "value": -2
                     },
                     {
                         "domain": "saving-throw",
                         "key": "RollOption",
-                        "label": "Save against Target possessing Fulvia's Ring",
+                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.SavePossess",
                         "option": "save-possess-fulvia-ring",
                         "toggleable": true
                     },
                     {
                         "domain": "saving-throw",
                         "key": "RollOption",
-                        "label": "Save against Target wearing Fulvia's Ring",
+                        "label": "PF2E.NPCAbility.IoseffXarwin.FulviasRing.SaveWear",
                         "option": "save-wearing-fulvia-ring",
                         "toggleable": true
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "Shame",
                         "predicate": [
                             "save-possess-fulvia-ring"
                         ],
                         "selector": "saving-throw",
+                        "slug": "shame",
                         "type": "item",
                         "value": -1
                     },
                     {
                         "key": "FlatModifier",
-                        "label": "More Shame",
                         "predicate": [
                             "save-wearing-fulvia-ring"
                         ],
                         "selector": "saving-throw",
+                        "slug": "more-shame",
                         "type": "item",
                         "value": -2
                     }

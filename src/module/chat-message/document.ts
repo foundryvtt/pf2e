@@ -1,19 +1,18 @@
 import { ActorPF2e } from "@actor";
-import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
-import { ItemPF2e } from "@item";
-import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data";
-import { TokenDocumentPF2e } from "@scene";
+import { StrikeData } from "@actor/data/base";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { traditionSkills, TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { UserPF2e } from "@module/user";
-import { CheckRoll } from "@system/check";
-import { ChatRollDetails } from "./chat-roll-details";
-import { StrikeData } from "@actor/data/base";
+import { TokenDocumentPF2e } from "@scene";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
-import { htmlQuery, parseHTML } from "@util";
-import { DamageButtons, DamageTaken } from "./listeners";
+import { CheckRoll } from "@system/check";
 import { DamageRoll } from "@system/damage/roll";
-import { Statistic } from "@system/statistic";
-import { DegreeOfSuccess } from "@system/degree-of-success";
+import { htmlQuery, parseHTML } from "@util";
+import { ChatRollDetails } from "./chat-roll-details";
+import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
+import { ChatMessageDataPF2e, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, StrikeLookupData } from "./data";
+import * as Listeners from "./listeners";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
@@ -165,7 +164,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         try {
             const itemSource = JSON.parse(sourceString);
             const item = itemSource
-                ? new ItemPF2e(itemSource, {
+                ? new ItemProxyPF2e(itemSource, {
                       parent: this.actor,
                       fromConsumable: this.flags?.pf2e?.isFromConsumable,
                   })
@@ -206,10 +205,16 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
         const html = $html[0]!;
         if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll) {
-            await DamageButtons.listen(this, html);
+            await Listeners.DamageButtons.listen(this, html);
         }
-        await DamageTaken.listen(html);
+
+        await Listeners.DamageTaken.listen(this, html);
         CriticalHitAndFumbleCards.appendButtons(this, $html);
+        Listeners.ChatCards.listen($html);
+        InlineRollLinks.listen(html, this);
+        Listeners.DegreeOfSuccessHighlights.listen(this, html);
+        Listeners.MessageTooltips.listen($html);
+        if (canvas.ready) Listeners.SetAsInitiative.listen($html);
 
         // Add persistent damage recovery button and listener (if evaluating persistent)
         const roll = this.rolls[0];
@@ -223,7 +228,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
                 html.dataset.actorIsTarget = "true";
             }
 
-            htmlQuery(html, "[data-action=recover-persistent-damage]")?.addEventListener("click", async () => {
+            htmlQuery(html, "[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
                 const { actor } = this;
                 if (!actor) return;
 
@@ -239,19 +244,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
                     return ui.notifications.warn(message);
                 }
 
-                const dc = condition.system.persistent.dc;
-                const result = await new Statistic(actor, {
-                    slug: "recovery",
-                    label: game.i18n.format("PF2E.Item.Condition.PersistentDamage.Chat.RecoverLabel", {
-                        name: condition.name,
-                    }),
-                    check: { type: "flat-check" },
-                    domains: [],
-                }).roll({ dc: { value: dc }, skipDialog: true });
-
-                if ((result?.degreeOfSuccess ?? 0) >= DegreeOfSuccess.SUCCESS) {
-                    actor.decreaseCondition(`persistent-damage-${damageType}`);
-                }
+                condition.rollRecovery();
             });
         }
 

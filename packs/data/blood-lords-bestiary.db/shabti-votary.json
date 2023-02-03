@@ -43,7 +43,6 @@
                                 "id": "nqgDhBQQ5I6QqI53"
                             },
                             "3": {
-                                "expended": false,
                                 "id": "z8it19HTW2RS9WDm"
                             },
                             "4": {
@@ -4052,18 +4051,29 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>All undead within the aura glow blue, shedding dim light in a 5-foot radius. Visible undead can't be @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} while affected by this aura. Invisible undead are concealed while affected by this aura, rather than being undetected.</p>"
+                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>All undead within the aura glow blue, shedding dim light in a 5-foot radius. Visible undead can't be @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} while affected by this aura. Invisible undead are concealed while affected by this aura, rather than being undetected.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Discerning Aura]{Effect: Discerning Aura}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "predicate": [
+                                    "target:trait:undead"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.mo4IRyv7GGRBJihU"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 30,
                         "slug": "discerning-aura",
                         "traits": [
-                            "aura",
                             "divine",
                             "necromancy"
                         ]

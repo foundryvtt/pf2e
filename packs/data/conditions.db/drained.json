@@ -53,12 +53,12 @@
                 "selector": "hp",
                 "slug": "drained",
                 "type": "status",
-                "value": "-1 * @actor.level * @item.badge.value"
+                "value": "min(-1 * @actor.level,-1) * @item.badge.value"
             },
             {
                 "key": "LoseHitPoints",
                 "reevaluateOnUpdate": true,
-                "value": "@actor.level * @item.badge.value"
+                "value": "max(1,@actor.level) * @item.badge.value"
             }
         ],
         "source": {

@@ -4,7 +4,8 @@ import { AfflictionData } from "./data";
 
 class AfflictionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge {
-        return { type: "counter", value: this.stage };
+        const label = game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage });
+        return { type: "counter", value: this.stage, label };
     }
 
     get stage() {
@@ -31,8 +32,8 @@ class AfflictionPF2e extends AbstractEffectPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const maxStage = Object.values(this.system.stages).length;
-        this.system.stage = Math.min(this.system.stage, maxStage);
+        const maxStage = Object.values(this.system.stages).length || 1;
+        this.system.stage = Math.clamped(this.system.stage, 1, maxStage);
     }
 
     protected override async _preUpdate(

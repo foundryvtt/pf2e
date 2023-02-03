@@ -1,14 +1,18 @@
 import {
+    ActorAlliance,
+    ActorDimensions,
     ApplyDamageParams,
     AttackItem,
     AttackRollContext,
+    AuraData,
+    SaveType,
     StrikeRollContext,
     StrikeRollContextParams,
 } from "@actor/types";
-import { ActorAlliance, ActorDimensions, AuraData, SaveType } from "@actor/types";
-import { ArmorPF2e, ContainerPF2e, EffectPF2e, ItemPF2e, PhysicalItemPF2e, type ConditionPF2e } from "@item";
+import { ArmorPF2e, ContainerPF2e, EffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
-import { ConditionKey, ConditionSlug } from "@item/condition/data";
+import { AfflictionPF2e, AfflictionSource } from "@item/affliction";
+import { ConditionKey, ConditionSlug, type ConditionPF2e } from "@item/condition";
 import { isCycle } from "@item/container/helpers";
 import { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/data";
 import { ActionCost, ActionType } from "@item/data/base";
@@ -29,6 +33,7 @@ import { DicePF2e } from "@scripts/dice";
 import { DamageType } from "@system/damage";
 import { applyIWR, IWRApplicationData, maxPersistentAfterIWR } from "@system/damage/iwr";
 import { Statistic } from "@system/statistic";
+import { TextEditorPF2e } from "@system/text-editor";
 import {
     ErrorPF2e,
     getActionGlyph,
@@ -59,7 +64,7 @@ import { CREATURE_ACTOR_TYPES } from "./values";
  */
 class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Has this actor gone through at least one cycle of data preparation? */
-    private initialized?: true;
+    private initialized = true;
 
     /** A separate collection of owned physical items for convenient access */
     inventory!: ActorInventory;
@@ -68,7 +73,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     spellcasting!: ActorSpellcasting;
 
     /** Rule elements drawn from owned items */
-    rules!: RuleElementPF2e[];
+    rules: RuleElementPF2e[] = [];
 
     synthetics!: RuleElementSynthetics;
 
@@ -82,44 +87,18 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     conditions!: Map<ConditionSlug, ConditionPF2e>;
 
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
-    private _itemTypes?: { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] };
+    private _itemTypes?: { [K in keyof ItemTypeMap]: Embedded<ItemTypeMap[K]>[] } | null;
 
-    constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
-        if (context.pf2e?.ready) {
-            // Set module art if available
-            if (context.pack && data._id) {
-                const art = game.pf2e.system.moduleArt.map.get(`Compendium.${context.pack}.${data._id}`);
-                if (art) {
-                    data.img = art.actor;
-                    const tokenArt =
-                        typeof art.token === "string"
-                            ? { texture: { src: art.token } }
-                            : {
-                                  texture: {
-                                      src: art.token.img,
-                                      scaleX: art.token.scale,
-                                      scaleY: art.token.scale,
-                                  },
-                                  flags: { pf2e: { autoscale: false } },
-                              };
-                    data.prototypeToken = mergeObject(data.prototypeToken ?? {}, tokenArt);
-                }
-            }
+    constructor(data: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<ActorPF2e> = {}) {
+        super(data, context);
 
-            super(data, context);
-
-            // Add debounced checkAreaEffects method
-            Object.defineProperty(this, "checkAreaEffects", {
-                configurable: false,
-                enumerable: false,
-                writable: false,
-                value: foundry.utils.debounce(checkAreaEffects, 50),
-            });
-        } else {
-            context.pf2e = mergeObject(context.pf2e ?? {}, { ready: true });
-            const ActorConstructor = CONFIG.PF2E.Actor.documentClasses[data.type];
-            return ActorConstructor ? new ActorConstructor(data, context) : new ActorPF2e(data, context);
-        }
+        // Add debounced checkAreaEffects method
+        Object.defineProperty(this, "checkAreaEffects", {
+            configurable: false,
+            enumerable: false,
+            writable: false,
+            value: foundry.utils.debounce(checkAreaEffects, 50),
+        });
     }
 
     /** Cache the return data before passing it to the caller */
@@ -300,11 +279,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Whether this actor is an ally of the provided actor */
     isAllyOf(actor: ActorPF2e): boolean {
-        return this.alliance !== null && this.alliance === actor.alliance;
+        return this.alliance !== null && this !== actor && this.alliance === actor.alliance;
+    }
+
+    /** Whether this actor is an ally of the provided actor */
+    isEnemyOf(actor: ActorPF2e): boolean {
+        return this.alliance !== null && actor.alliance !== null && this.alliance !== actor.alliance;
     }
 
     /** Whether this actor is immune to an effect of a certain type */
-    isImmuneTo(effect: EffectPF2e | ConditionPF2e): boolean {
+    isImmuneTo(effect: AfflictionPF2e | ConditionPF2e | EffectPF2e): boolean {
         const statements = effect.getRollOptions("item");
         return this.attributes.immunities.some((i) => i.test(statements));
     }
@@ -315,7 +299,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         const damageType = objectHasKey(CONFIG.PF2E.damageTypes, damage)
             ? damage
-            : isObject(damage)
+            : damage.isOfType("condition")
             ? damage.system.persistent?.damageType ?? null
             : null;
 
@@ -361,15 +345,25 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     async applyAreaEffects(aura: AuraData, { origin }: { origin: ActorPF2e }): Promise<void> {
         if (game.user !== this.primaryUpdater) return;
 
-        const toCreate: EffectSource[] = [];
-        for (const data of aura.effects) {
+        const toCreate: (AfflictionSource | EffectSource)[] = [];
+        const rollOptions = aura.effects.some((e) => e.predicate.length > 0)
+            ? new Set([...origin.getRollOptions(), ...this.getSelfRollOptions("target")])
+            : new Set([]);
+
+        for (const data of aura.effects.filter((e) => e.predicate.test(rollOptions))) {
             if (this.itemTypes.effect.some((e) => e.sourceId === data.uuid)) {
                 continue;
             }
 
-            if (data.affects === "allies" && this.isAllyOf(origin)) {
+            const affectsSelf =
+                (data.includesSelf && this === origin) ||
+                (data.affects === "allies" && this.isAllyOf(origin)) ||
+                (data.affects === "enemies" && this.isEnemyOf(origin)) ||
+                (data.affects === "all" && this !== origin);
+
+            if (affectsSelf) {
                 const effect = await fromUuid(data.uuid);
-                if (!(effect instanceof ItemPF2e && effect.isOfType("effect"))) {
+                if (!(effect instanceof ItemPF2e && effect.isOfType("affliction", "effect"))) {
                     console.warn(`Effect from ${data.uuid} not found`);
                     continue;
                 }
@@ -389,6 +383,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 source.system.level.value = data.level ?? source.system.level.value;
                 source.system.duration.unit = "unlimited";
                 source.system.duration.expiry = null;
+                // Only transfer traits from the aura if the effect lacks its own
+                if (source.system.traits.value.length === 0) {
+                    source.system.traits.value.push(...aura.traits);
+                }
+
                 toCreate.push(source);
             }
         }
@@ -512,11 +511,25 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
         super._initialize();
 
-        this.initialized = true;
-
         if (game._documentsReady) {
             this.synthetics.preparationWarnings.flush();
         }
+    }
+
+    /** Set module art if available */
+    protected override _initializeSource(
+        source: Record<string, unknown>,
+        options?: DocumentConstructionContext<this>
+    ): this["_source"] {
+        const initialized = super._initializeSource(source, options);
+
+        if (options?.pack && initialized._id) {
+            const uuid: CompendiumUUID = `Compendium.${options.pack}.${initialized._id}`;
+            const art = game.pf2e.system.moduleArt.map.get(uuid) ?? {};
+            return mergeObject(initialized, art);
+        }
+
+        return initialized;
     }
 
     /** Prepare token data derived from this actor, refresh Effects Panel */
@@ -657,7 +670,8 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /* -------------------------------------------- */
 
     getStrikeRollContext<I extends AttackItem>(params: StrikeRollContextParams<I>): StrikeRollContext<this, I> {
-        const targetToken = Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard")) ?? null;
+        const targetToken =
+            Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle")) ?? null;
 
         const selfToken = canvas.ready
             ? canvas.tokens.controlled.find((t) => t.actor === this) ?? this.getActiveTokens().shift() ?? null
@@ -985,12 +999,28 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     ? translations.ShieldDamagedForNDestroyed
                     : translations.ShieldDamagedForN
                 : null;
-        const statements = [hpStatement, shieldStatement]
-            .filter((s): s is string => !!s)
-            .map((s) =>
-                game.i18n.format(s, { actor: token.name, hpDamage: Math.abs(hpDamage), absorbedDamage, shieldDamage })
-            )
-            .join(" ");
+
+        const statements = ((): string => {
+            const concatenated = [hpStatement, shieldStatement]
+                .filter((s): s is string => !!s)
+                .map((s) =>
+                    game.i18n.format(s, {
+                        actor: token.name.replace(/[<>]/g, ""),
+                        hpDamage: Math.abs(hpDamage),
+                        absorbedDamage,
+                        shieldDamage,
+                    })
+                )
+                .join(" ");
+
+            // In case "tokenSetsNameVisibility" is enabled, replace <actor> XML nodes with span elements indicating
+            // where the damage recipient's name is in the message so that it may be obscured to players.
+            const tempElem = document.createElement("div");
+            tempElem.innerHTML = concatenated;
+            TextEditorPF2e.convertXMLNode(tempElem, "actor", { whose: null, classes: ["target-name"] });
+
+            return tempElem.innerHTML;
+        })();
 
         const deparenthesize = (formula: string) => formula.replace(/^\(([^)]+)\)$/, "$1");
 
@@ -1025,7 +1055,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         });
 
         await ChatMessagePF2e.create({
-            speaker: { alias: token.name, token: token.id ?? null },
+            speaker: ChatMessagePF2e.getSpeaker({ token }),
             content,
             type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
             whisper:
@@ -1138,7 +1168,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */
     findStackableItem(actor: ActorPF2e, itemSource: ItemSourcePF2e): Embedded<PhysicalItemPF2e> | null {
         // Prevent upstream from mutating property descriptors
-        const testItem = new ItemPF2e(deepClone(itemSource));
+        const testItem = new ItemProxyPF2e(deepClone(itemSource));
         const stackCandidates = actor.inventory.filter(
             (stackCandidate) =>
                 !stackCandidate.isInContainer &&
@@ -1518,12 +1548,6 @@ interface ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     checkAreaEffects(): void;
 }
 
-interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
-    pf2e?: {
-        ready?: boolean;
-    };
-}
-
 type ItemTypeMap = {
     [K in ItemType]: InstanceType<ConfigPF2e["PF2E"]["Item"]["documentClasses"][K]>;
 };
@@ -1539,4 +1563,11 @@ interface ActorUpdateContext<T extends ActorPF2e> extends DocumentUpdateContext<
     damageTaken?: number;
 }
 
-export { ActorPF2e, HitPointsSummary, ActorUpdateContext };
+/** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */
+const ActorProxyPF2e = new Proxy(ActorPF2e, {
+    construct(_target, args: [source: PreCreate<ActorSourcePF2e>, context: DocumentConstructionContext<ActorPF2e>]) {
+        return new CONFIG.PF2E.Actor.documentClasses[args[0].type](...args);
+    },
+});
+
+export { ActorPF2e, ActorProxyPF2e, ActorUpdateContext, HitPointsSummary };

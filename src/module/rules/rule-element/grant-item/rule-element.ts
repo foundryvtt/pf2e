@@ -1,10 +1,11 @@
 import { ActorType } from "@actor/data";
-import { ItemPF2e, PHYSICAL_ITEM_TYPES } from "@item";
+import { ItemPF2e, ItemProxyPF2e, PHYSICAL_ITEM_TYPES } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { ItemGrantDeleteAction } from "@item/data/base";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { ErrorPF2e, isObject, pick, setHasElement, sluggify, tupleHasValue } from "@util";
 import { RuleElementPF2e, RuleElementSource } from "..";
+import { AELikeChangeMode } from "../ae-like";
 import { RuleElementOptions } from "../base";
 import { ChoiceSetSource } from "../choice-set/data";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element";
@@ -31,7 +32,14 @@ class GrantItemRuleElement extends RuleElementPF2e {
      */
     preselectChoices: Record<string, string | number>;
 
+    /** Actions taken when either the parent or child item are deleted */
     onDeleteActions: Partial<OnDeleteActions> | null;
+
+    /**
+     * An array of alterations to make to the item: currently only supports badge value overrides for conditions and
+     * effects
+     */
+    alterations: ItemAlterationData[];
 
     constructor(data: GrantItemSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         super(data, item, options);
@@ -53,6 +61,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
             typeof data.flag === "string" && data.flag.length > 0 ? sluggify(data.flag, { camel: "dromedary" }) : null;
 
         this.grantedId = this.item.flags.pf2e.itemGrants[this.flag ?? ""]?.id ?? null;
+
+        this.alterations = data.alterations && this.#isValidItemAlteration(data.alterations) ? data.alterations : [];
     }
 
     static ON_DELETE_ACTIONS = ["cascade", "detach", "restrict"] as const;
@@ -127,13 +137,16 @@ class GrantItemRuleElement extends RuleElementPF2e {
         grantedSource.flags = mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
 
         // Create a temporary owned item and run its actor-data preparation and early-stage rule-element callbacks
-        const tempGranted = new ItemPF2e(deepClone(grantedSource), { parent: this.actor }) as Embedded<ItemPF2e>;
+        const tempGranted = new ItemProxyPF2e(deepClone(grantedSource), { parent: this.actor }) as Embedded<ItemPF2e>;
         tempGranted.prepareActorData?.();
         for (const rule of tempGranted.prepareRuleElements({ suppressWarnings: true })) {
             rule.onApplyActiveEffects?.();
         }
 
         this.#applyChoiceSelections(tempGranted);
+        this.#applyAlterations(grantedSource);
+
+        if (this.ignored) return;
 
         // Set the self:class and self:feat(ure) roll option for predication from subsequent pending items
         for (const item of [this.item, tempGranted]) {
@@ -147,7 +160,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         // If the granted item is replacing the granting item, swap it out and return early
         if (this.replaceSelf) {
             pendingItems.findSplice((i) => i === itemSource, grantedSource);
-            await this.runGrantedItemPreCreates(args, tempGranted, grantedSource, context);
+            await this.#runGrantedItemPreCreates(args, tempGranted, grantedSource, context);
             return;
         }
 
@@ -157,7 +170,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
 
         // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
         if (!args.reevaluation) {
-            await this.runGrantedItemPreCreates(args, tempGranted, grantedSource, context);
+            await this.#runGrantedItemPreCreates(args, tempGranted, grantedSource, context);
         }
 
         pendingItems.push(grantedSource);
@@ -193,6 +206,52 @@ class GrantItemRuleElement extends RuleElementPF2e {
         return noAction;
     }
 
+    /** Is the item-alteration data structurally sound? Currently only overrides are supported. */
+    #isValidItemAlteration(data: {}): data is ItemAlterationData[] {
+        return (
+            Array.isArray(data) &&
+            data.every(
+                (d: unknown) =>
+                    d instanceof Object &&
+                    "mode" in d &&
+                    d.mode === "override" &&
+                    "property" in d &&
+                    d.property === "badge-value" &&
+                    "value" in d &&
+                    (["string", "number"].includes(typeof d.value) || d.value === null)
+            )
+        );
+    }
+
+    /** Is the item alteration valid for the granted item type? */
+    #itemCanBeAltered(grantedSource: ItemSourcePF2e, value: unknown): boolean | null {
+        const sourceId = grantedSource.flags.core?.sourceId ? ` (${grantedSource.flags.core.sourceId})` : "";
+        if (grantedSource.type !== "condition" && grantedSource.type !== "effect") {
+            this.failValidation(`unable to alter "${grantedSource.name}"${sourceId}: must be condition or effect`);
+            return false;
+        }
+
+        const hasBadge =
+            grantedSource.type === "condition"
+                ? typeof grantedSource.system.value.value === "number"
+                : grantedSource.type === "effect"
+                ? grantedSource.system.badge?.type === "counter"
+                : false;
+        if (!hasBadge) {
+            this.failValidation(`unable to alter "${grantedSource.name}"${sourceId}: effect lacks a badge`);
+        }
+
+        const positiveInteger = typeof value === "number" && Number.isInteger(value) && value > 0;
+        // Hard-coded until condition data can indicate that it can operate valueless
+        const nullValuedStun = value === null && grantedSource.system.slug === "stunned";
+        if (!(positiveInteger || nullValuedStun)) {
+            this.failValidation("badge-value alteration not applicable to item");
+            return false;
+        }
+
+        return hasBadge;
+    }
+
     #getOnDeleteActions(data: GrantItemSource): Partial<OnDeleteActions> | null {
         const actions = data.onDeleteActions;
         if (isObject<OnDeleteActions>(actions)) {
@@ -219,6 +278,20 @@ class GrantItemRuleElement extends RuleElementPF2e {
         }
     }
 
+    /** Set the badge value of a condition or effect */
+    #applyAlterations(grantedSource: ItemSourcePF2e): void {
+        for (const alteration of this.alterations) {
+            const value: unknown = this.resolveValue(alteration.value);
+            if (!this.#itemCanBeAltered(grantedSource, value)) continue;
+
+            if (grantedSource.type === "condition" && (typeof value === "number" || value === null)) {
+                grantedSource.system.value.value = value;
+            } else if (grantedSource.type === "effect" && typeof value === "number") {
+                grantedSource.system.badge!.value = value;
+            }
+        }
+    }
+
     /** Set flags on granting and grantee items to indicate relationship between the two */
     #setGrantFlags(granter: PreCreate<ItemSourcePF2e>, grantee: ItemSourcePF2e | ItemPF2e): void {
         const flags = mergeObject(granter.flags ?? {}, { pf2e: { itemGrants: {} } });
@@ -237,9 +310,8 @@ class GrantItemRuleElement extends RuleElementPF2e {
             // The on-delete action determines what will happen to the granted item when the granter is deleted:
             // Default to "cascade" (delete the granted item) unless the granted item is physical.
             onDelete:
-                this.onDeleteActions?.granter ?? setHasElement(PHYSICAL_ITEM_TYPES, grantee.type)
-                    ? "detach"
-                    : "cascade",
+                this.onDeleteActions?.granter ??
+                (setHasElement(PHYSICAL_ITEM_TYPES, grantee.type) ? "detach" : "cascade"),
         };
 
         if (grantee instanceof ItemPF2e) {
@@ -252,7 +324,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
     }
 
     /** Run the preCreate callbacks of REs from the granted item */
-    private async runGrantedItemPreCreates(
+    async #runGrantedItemPreCreates(
         originalArgs: Omit<RuleElementPF2e.PreCreateParams, "ruleSource">,
         grantedItem: Embedded<ItemPF2e>,
         grantedSource: ItemSourcePF2e,
@@ -279,6 +351,13 @@ interface GrantItemSource extends RuleElementSource {
     allowDuplicate?: unknown;
     onDeleteActions?: unknown;
     flag?: unknown;
+    alterations?: unknown;
+}
+
+interface ItemAlterationData {
+    mode: AELikeChangeMode;
+    property: string;
+    value: string | number | null;
 }
 
 interface OnDeleteActions {

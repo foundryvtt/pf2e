@@ -10,6 +10,7 @@ import type { ActiveEffectPF2e } from "@module/active-effect";
 import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax } from "@module/data";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
 import { RollParameters, StrikeRollParams } from "@module/system/rolls";
+import { DamageRoll } from "@system/damage/roll";
 import { ActorType } from ".";
 import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr";
 
@@ -159,6 +160,8 @@ type RollFunction<T extends RollParameters = RollParameters> = (
     params: T
 ) => Promise<Rolled<Roll> | null | string | void>;
 
+type DamageRollFunction = (params?: StrikeRollParams) => Promise<string | Rolled<DamageRoll> | null>;
+
 /** Basic initiative-relevant data. */
 interface InitiativeData {
     /** What skill or ability is currently being used to compute initiative. */
@@ -222,9 +225,9 @@ interface StrikeData extends StatisticModifier {
     /** Roll to attack with the given strike (with no MAP penalty; see `variants` for MAP penalties.) */
     attack?: RollFunction<StrikeRollParams>;
     /** Roll normal (non-critical) damage for this weapon. */
-    damage?: RollFunction<StrikeRollParams>;
+    damage?: DamageRollFunction;
     /** Roll critical damage for this weapon. */
-    critical?: RollFunction<StrikeRollParams>;
+    critical?: DamageRollFunction;
     /** Alternative usages of a strike weapon: thrown, combination-melee, etc. */
     altUsages?: StrikeData[];
     /** A list of attack variants which apply the Multiple Attack Penalty. */
@@ -293,6 +296,7 @@ export {
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseHitPointsData,
+    DamageRollFunction,
     GangUpCircumstance,
     HitPointsData,
     InitiativeData,

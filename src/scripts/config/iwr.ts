@@ -158,6 +158,7 @@ const resistanceTypes = {
     cold: "PF2E.Damage.RollFlavor.cold",
     "cold-iron": "PF2E.Damage.IWR.Type.cold-iron",
     "critical-hits": "PF2E.Damage.IWR.Type.critical-hits",
+    "damage-from-spells": "PF2E.Damage.IWR.Type.damage-from-spells",
     darkwood: "PF2E.Damage.IWR.Type.darkwood",
     earth: "PF2E.Damage.RollFlavor.earth",
     electricity: "PF2E.Damage.RollFlavor.electricity",

@@ -47,12 +47,12 @@ export function rollItemMacro(itemId: string): ReturnType<ItemPF2e["toChat"]> | 
 }
 
 export async function createActionMacro(actionIndex: number, actorId: string, slot: number): Promise<void> {
-    const actor = game.actors.get(actorId, { strict: true });
-    const action = actor.isOfType("character", "npc") ? actor.system.actions[actionIndex] : null;
+    const speaker = ChatMessage.getSpeaker();
+    const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
+    const action = actor?.isOfType("character", "npc") ? actor.system.actions[actionIndex] : null;
     if (!action) return;
     const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.label}`;
-    const actionSlug = JSON.stringify(action.slug);
-    const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, ${actionSlug})`;
+    const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, "${action.slug}")`;
     const actionMacro =
         game.macros.find((macro) => macro.name === macroName && macro.command === command) ??
         (await MacroPF2e.create(
@@ -68,8 +68,9 @@ export async function createActionMacro(actionIndex: number, actorId: string, sl
     game.user.assignHotbarMacro(actionMacro ?? null, slot);
 }
 
-export async function rollActionMacro(actorId: string, _actionIndex: number, actionSlug: string): Promise<void> {
-    const actor = game.actors.get(actorId);
+export async function rollActionMacro(_actorId: string, _actionIndex: number, actionSlug: string): Promise<void> {
+    const speaker = ChatMessage.getSpeaker();
+    const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
     if (!actor?.isOfType("character", "npc")) {
         return ui.notifications.error("PF2E.MacroActionNoActorError", { localize: true });
     }

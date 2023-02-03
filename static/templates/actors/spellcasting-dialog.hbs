@@ -49,7 +49,9 @@
                     <select name="system.proficiency.slug">
                         {{#select data.proficiency.slug}}
                             {{#if data.tradition.value}}
-                                <option value="">{{localize "PF2E.MagicTraditionLabel"}}</option>
+                                <option value="">
+                                    {{localize "PF2E.Actor.Creature.Spellcasting.TraditionSpellcasting" tradition=(localize (lookup @root.magicTraditions data.tradition.value))}}
+                                </option>
                             {{/if}}
                             {{#each classDCs as |classDC|}}
                                 <option value="{{classDC.slug}}">{{localize "PF2E.Actor.Character.ClassDC.LabelSpecific" class=classDC.label}}</option>

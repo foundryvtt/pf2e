@@ -266,12 +266,32 @@
                 },
                 "Trick": "Create a Diversion - Trick"
             },
+            "DecipherWriting": {
+                "Notes": {
+                    "criticalSuccess": "<strong>Critical Success</strong> You understand the true meaning of the text.",
+                    "success": "<strong>Success</strong> You understand the true meaning of the text. If it was a coded document, you know the general meaning but might not have a word-for-word translation.",
+                    "failure": "<strong>Failure</strong> You can't understand the text and take a –2 circumstance penalty to further checks to decipher it.",
+                    "criticalFailure": "<strong>Critical Failure</strong> You believe you understand the text on that page, but you have in fact misconstrued its message."
+                },
+                "Title": "Decipher Writing",
+                "Warning": {
+                    "NoSkill": "The Decipher Writing action can be used with different skills, and no skill was specified. Arcana is typically used for writing about magic or science, Occultism for esoteric texts about mysteries and philosophy, Religion for scripture, and Society for coded messages or archaic documents."
+                }
+            },
             "Demoralize": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 2}.",
                     "success": "<strong>Success</strong> The target becomes @UUID[Compendium.pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened 1}."
                 },
                 "Title": "Demoralize"
+            },
+            "DisableDevice": {
+                "Notes": {
+                    "criticalSuccess": "<strong>Critical Success</strong> You disable the device, or you achieve two successes toward disabling a complex device. You leave no trace of your tampering, and you can rearm the device later, if that type of device can be rearmed.",
+                    "success": "<strong>Success</strong> You disable the device, or you achieve one success toward disabling a complex device.",
+                    "criticalFailure": "<strong>Critical Failure</strong> You trigger the device."
+                },
+                "Title": "Disable Device"
             },
             "Disarm": {
                 "EffectLabel": "Using weapon with loose grip",
@@ -432,6 +452,28 @@
                 },
                 "Title": "Maneuver in Flight"
             },
+            "Perform": {
+                "Notes": {
+                    "criticalSuccess": "<strong>Critical Success</strong> Your performance impresses the observers, and they're likely to share stories of your ability.",
+                    "success": "<strong>Success</strong> You prove yourself, and observers appreciate the quality of your performance.",
+                    "failure": "<strong>Failure</strong> Your performance falls flat.",
+                    "criticalFailure": "<strong>Critical Failure</strong> You demonstrate only incompetence."
+                },
+                "Title": {
+                    "Acting": "Perform - Acting",
+                    "Comedy": "Perform - Comedy",
+                    "Dance": "Perform - Dance",
+                    "Keyboards": "Perform - Play keyboard instrument",
+                    "Oratory": "Perform - Oratory",
+                    "Percussion": "Perform - Play percussion instrument",
+                    "Singing": "Perform - Singing",
+                    "Strings": "Perform - Play string instrument",
+                    "Winds": "Perform - Play wind instrument"
+                },
+                "Warning": {
+                    "UnknownVariant": "Unknown variant '{variant}' used for Perform, use either acting, comedy, dance, keyboards, oratory, percussion, singing, strings, or winds."
+                }
+            },
             "PickALock": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> You unlock the lock, or you achieve two successes toward opening a complex lock. You leave no trace of your tampering.",
@@ -563,6 +605,19 @@
                 "NoStamina": "{name} is tired and needs to go to bed! No resolve points remaining.",
                 "RecoverStamina": "{name} has {ratio} SP and spends a resolve point, recovering half their maximum Stamina."
             },
+            "Subsist": {
+                "AfterExplorationPenalty": "After Exploration",
+                "Notes": {
+                    "criticalSuccess": "<strong>Critical Success</strong> You either provide a subsistence living for yourself and one additional creature, or you improve your own food and shelter, granting yourself a comfortable living.",
+                    "success": "<strong>Success</strong> You find enough food and shelter with basic protection from the elements to provide you a subsistence living.",
+                    "failure": "<strong>Failure</strong> You're exposed to the elements and don't get enough food, becoming fatigued until you attain sufficient food and shelter.",
+                    "criticalFailure": "<strong>Critical Failure</strong> You attract trouble, eat something you shouldn't, or otherwise worsen your situation. You take a –2 circumstance penalty to checks to Subsist for 1 week. You don't find any food at all; if you don't have any stored up, you're in danger of starving or dying of thirst if you continue failing. @UUID[Compendium.pf2e.other-effects.wHWWHkjDXmJl4Ia6]{Effect: Adverse Subsist Situation}"
+                },
+                "Title": "Subsist",
+                "Warning": {
+                    "NoSkill": "The Subsist action can be used with different skills, and no skill was specified. This typically uses Society if you're in a settlement or Survival if you're in the wild."
+                }
+            },
             "Swim": {
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> You move through the water 10 feet, plus 5 feet per 20 feet of your land Speed (a total of 15 feet for most PCs).",
@@ -681,16 +736,17 @@
         "ActionsReactionsHeader": "Reactions",
         "Actor": {
             "ApplyDamage": {
-                "AtFullHealth": "{actor} is already at full health.",
-                "DamagedForN": "{actor} takes {hpDamage} damage.",
-                "ShieldAbsorbsAll": "{actor} is unscathed, their shield completely absorbing {absorbedDamage} damage.",
-                "DamagedForNShield": "{actor}'s shield absorbs {absorbedDamage} damage, with an additional {hpDamage} making it through.",
-                "HealedForN": "{actor} is healed for {hpDamage} damage.",
+                "AtFullHealth": "<actor>{actor}</actor> is already at full health.",
+                "DamagedForN": "<actor>{actor}</actor> takes {hpDamage} damage.",
+                "ShieldAbsorbsAll": "<actor>{actor}</actor> is unscathed, their shield completely absorbing {absorbedDamage} damage.",
+                "DamagedForNShield": "<actor>{actor}</actor>'s shield absorbs {absorbedDamage} damage, with an additional {hpDamage} making it through.",
+                "HealedForN": "<actor>{actor}</actor> is healed for {hpDamage} damage.",
                 "ShieldDamagedForN": "Their shield is also damaged for {shieldDamage}.",
                 "ShieldDamagedForNBroken": "Their shield also takes {shieldDamage} damage, breaking it.",
                 "ShieldDamagedForNDestroyed": "Their shield also takes {shieldDamage} damage, destroying it.",
                 "ShieldNotRaised": "{actor} has not raised their shield.",
-                "TakesNoDamage": "{actor} takes no damage."
+                "TakesNoDamage": "<actor>{actor}</actor> takes no damage.",
+                "TheTarget": "The target"
             },
             "Character": {
                 "AbilityBuilder": {
@@ -750,6 +806,7 @@
                 "CriticalSpecialization": "Critical Specialization",
                 "Spellcasting": {
                     "Cantrips": "Cantrips",
+                    "TraditionSpellcasting": "{tradition} Spellcasting",
                     "InvalidProficiency": "Invalid",
                     "MagicItemTypesLabel": "Magic Item Types",
                     "ValidItemTypes": {
@@ -1102,6 +1159,7 @@
             "wand": "Wand"
         },
         "CastLabel": "Cast",
+        "Category": "Category",
         "CharacterDetails": "Character Details",
         "CharacterLevelLabel": "Level",
         "CharacterNamePlaceholder": "Character Name",
@@ -1343,6 +1401,15 @@
         "CurrentStaminaTitle": "The amount of stamina points you have",
         "Damage": {
             "Base": "Base",
+            "Dialog": {
+                "Bonus": "Bonus {dice}",
+                "BonusDice": "Bonus Dice",
+                "CriticalDamageRoll": "Critical Damage Roll",
+                "DamageRoll": "Damage Roll",
+                "Label": "Label",
+                "None": "None",
+                "Splash": "{damageType} Splash"
+            },
             "IncreasedFrom": "Increased from {original} to minimum of 1",
             "IWR": {
                 "ActorIsImmune": "{actor} is immune to {effect}.",
@@ -1398,6 +1465,7 @@
                     "controlled": "controlled",
                     "critical-hits": "critical hits",
                     "curse": "curse",
+                    "damage-from-spells": "damage from spells",
                     "darkwood": "darkwood",
                     "dazzled": "dazzled",
                     "deafened": "deafened",
@@ -1453,8 +1521,8 @@
                     "silver": "silver",
                     "sleep": "sleep",
                     "slowed": "slowed",
-                    "splash-damage": "splash damage",
                     "spell-deflection": "spell deflection",
+                    "splash-damage": "splash damage",
                     "stunned": "stunned",
                     "stupefied": "stupefied",
                     "swarm-attacks": "swarm attacks",
@@ -1851,7 +1919,8 @@
                     },
                     "Error": {
                         "DoesNotExist": "No persistent {damageType} damage exists on the actor"
-                    }
+                    },
+                    "RollDamage": "Roll Damage"
                 },
                 "Flanked": "Flat-Footed (Flanked)"
             },
@@ -2193,9 +2262,16 @@
                 },
                 "ShowTokenIcon": "Show token icon?",
                 "Unidentified": "Unidentified?",
-                "AddBadge": "Add Counter",
+                "AddBadge": "Add",
+                "AddLabel": "Add Label",
+                "LabelPlaceholder": "Stage Label",
                 "BadgeType": {
-                    "Counter": "Counter"
+                    "counter": "Counter",
+                    "formula": "Formula",
+                    "value": "Fixed Value"
+                },
+                "ExtraSelections": {
+                    "Labels": "Counter (Labeled)"
                 }
             },
             "Feat": {
@@ -2217,7 +2293,8 @@
                 "Info": {
                     "Added": "{item} was added to {category}."
                 },
-                "LevelLabel": "Feat"
+                "LevelLabel": "Feat",
+                "LevelN": "Feat {level}"
             },
             "Heritage": {
                 "AncestryNotFound": "The referenced ancestry item was not found.",
@@ -2227,6 +2304,9 @@
             },
             "IconLabel": "Icon",
             "NameLabel": "Name",
+            "NPCAttack": {
+                "CantSetCategory": "Cannot set category without a matching uncategorized partial of the same damage type."
+            },
             "Physical": {
                 "Broken": "Broken",
                 "Destroyed": "Destroyed",
@@ -2284,6 +2364,7 @@
             "RemovalPrevented": "Removal of {item} is prevented by {preventer}.",
             "SidebarSummary": "{type} Summary",
             "Spell": {
+                "LevelN": "Spell {level}",
                 "PlaceMeasuredTemplate": "Place {size}-{unit} {shape}",
                 "Variants": {
                     "DeleteDialogTitle": "Delete Spell Variant",
@@ -2654,11 +2735,10 @@
         "NPCAttackRanged": "Ranged",
         "NPCNotesLabel": "Notes/Conditions",
         "NPCNotesTitle": "Write any notes for this NPC here.",
-        "NPCWeaponAddDamage": "Add Damage Part",
+        "NPCWeaponAddDamage": "Add Damage Partial",
         "NPCWeaponAttackEffect": "Additional Attack Effects",
         "NPCWeaponAttackLabel": "Attack Modifier",
         "NPCWeaponDamageLabel": "Damage Formula",
-        "NPCWeaponDamageTypeLabel": "Damage Type",
         "NegligibleOption": "Negligible",
         "NewLabel": "New",
         "NewPlaceholders": {
@@ -3569,6 +3649,7 @@
         "TraitAppliedToBootsCapeCloakOrUmbrella": "Applied to boots, cape, cloak, or umbrella",
         "TraitAppliedToDuelingCapeOrShield": "Applied to dueling cape or shield",
         "TraitAppliedToBucklerShield": "Applied to a buckler or a shield",
+        "TraitAppliedToMediumHeavyArmor": "Applied to Medium or Heavy Armor",
         "TraitAppliedToShield": "Applied to shield",
         "TraitAquatic": "Aquatic",
         "TraitArcane": "Arcane",
@@ -3618,7 +3699,6 @@
         "TraitChangeling": "Changeling",
         "TraitChaotic": "Chaotic",
         "TraitCharauKa": "Charau-ka",
-        "TraitCharm": "Charm",
         "TraitCircus": "Circus",
         "TraitCleric": "Cleric",
         "TraitClimbing": "Climbing",
@@ -3709,7 +3789,6 @@
         "TraitDescriptionChampion": "This indicates abilities from the champion class.",
         "TraitDescriptionChangeling": "A creature with this trait is a member of the changeling ancestry.",
         "TraitDescriptionChaotic": "Chaotic effects often manipulate energy from chaos-aligned Outer Planes and are anathema to lawful divine servants or divine servants of lawful deities. A creature with this trait is chaotic in alignment. An ability with this trait can be selected or used only by chaotic creatures.",
-        "TraitDescriptionCharm": "Abilities that magically influence attitudes.",
         "TraitDescriptionClass": "Archetypes with the class trait fundamentally diverge from your class's specialties but still fit within the theme of your class. You can select a class archetype only if your class meets the criteria listed in the archetype's prerequisites. Class archetypes always alter or replace some of a class's static class features in addition to any new feats they offer. It might be possible to take a class archetype at 1st level if it alters or replaces some of the class's initial class features. The 1st-level ability is presented much like a class feature and includes the class archetype's prerequisites and rules on how it changes your class. If you select this ability, you must take that archetype's dedication feat at 2nd level, and you proceed normally afterward. You can never have more than one class archetype.",
         "TraitDescriptionCleric": "This indicates abilities from the cleric class.",
         "TraitDescriptionClockwork": "Clockworks are intricate, complex constructs that can be programmed to perform specific functions.",
@@ -3967,6 +4046,7 @@
         "TraitDescriptionPotion": "A potion is a magical liquid activated when you drink it.",
         "TraitDescriptionScroll": "A scroll contains a single spell you can cast without a spell slot.",
         "TraitDescriptionSnare": "Traps typically made by rangers, snares follow special rules that allow them to be constructed quickly and used on the battlefield.",
+        "TraitDescriptionSpellgun": "This trait lacks a published description",
         "TraitDescriptionSpellheart": "Spellhearts are permanent items that work similarly to talismans. You affix a spellheart using the Affix a Spellheart activity, which is otherwise identical to Affix a Talisman. The limit of one talisman per item remains—an item can have one spellheart or one talisman, not both. When casting a cantrip from a spellheart, you can use your own spell attack roll or spell DC if it's higher. Crafting a spellheart requires the spells the spellheart can cast. For example, a major five-feather wreath requires air walk, gale blast, and wall of wind.",
         "TraitDescriptionTalisman": "A talisman is a small object affixed to armor, a shield, or a weapon (called the affixed item). You must be wielding or wearing an item to activate a talisman attached to it. Once activated, a talisman burns out permanently.",
         "TraitDescriptionWand": "A wand contains a single spell which you can cast once per day.",
@@ -4310,6 +4390,7 @@
         "TraitSonic": "Sonic",
         "TraitSorcerer": "Sorcerer",
         "TraitSoulbound": "Soulbound",
+        "TraitSpellgun": "Spellgun",
         "TraitSpellheart": "Spellheart",
         "TraitSpellshot": "Spellshot",
         "TraitSpirit": "Spirit",
@@ -5508,6 +5589,7 @@
             "VehicleString": "Vehicle",
             "NamePlaceholder": "Vehicle",
             "VehicleLevelLabel": "Vehicle",
+            "LevelN": "Vehicle {level}",
             "DescriptionHeading": "Description",
             "PilotingCheckLabel": "Piloting Check",
             "CrewLabel": "Crew",

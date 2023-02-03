@@ -6,6 +6,7 @@ import { linter } from "@codemirror/lint";
 import { syntaxTree } from "@codemirror/language";
 import { json, jsonParseLinter } from "@codemirror/lang-json";
 import { RuleElements } from "@module/rules";
+import { DataSchema } from "types/foundry/common/data/fields.mjs";
 
 export const CodeMirror = {
     EditorView,
@@ -15,49 +16,65 @@ export const CodeMirror = {
     keybindings: keymap.of([indentWithTab]),
 
     /** All language and autocomplete extensions for rule element editing */
-    ruleElementExtensions: () => [
+    ruleElementExtensions: (options: RuleElementOptions) => [
         json(),
         CodeMirror.jsonLinter(),
         autocompletion({
-            override: [ruleElementAutocomplete],
+            override: [ruleElementAutocomplete(options)],
         }),
     ],
 };
 
-function ruleElementAutocomplete(context: CompletionContext): null | CompletionResult {
-    const node = syntaxTree(context.state).resolveInner(context.pos, -1);
+interface RuleElementOptions {
+    schema?: DataSchema;
+}
 
-    // Check if this is a property
-    if (node.name === "Object" || node.type.name === "PropertyName") {
-        const basePath = resolveNodePath(context, node);
-        if (basePath === "") {
-            return {
-                from: node.from,
-                to: node.to,
-                options: ["key"].map((o) => ({ label: `"${o}"` })),
-            };
+function ruleElementAutocomplete(options: RuleElementOptions) {
+    // Pre-process valid keys by base path
+    const validKeysByPath = ((): Record<string, string[] | undefined> => {
+        if (!options.schema) {
+            return { "": ["key"] };
+        }
+
+        // todo: make recursive
+        const topLevel = Object.keys(options.schema);
+        return { "": topLevel };
+    })();
+
+    return (context: CompletionContext): null | CompletionResult => {
+        const node = syntaxTree(context.state).resolveInner(context.pos, -1);
+
+        // Note that node's for values that haven't been typed yet (such as "key": have the name property)
+        // Once the value has started being typed, the parent is property
+        const isProperty = node.name === "Object" || node.type.name === "PropertyName";
+        const isValue = !isProperty && (node.name === "Property" || node.parent?.name === "Property");
+
+        if (isProperty) {
+            const basePath = resolveNodePath(context, node);
+            const keys = basePath !== null ? validKeysByPath[basePath] : [];
+            if (keys?.length) {
+                return {
+                    from: node.from,
+                    to: node.to,
+                    options: keys.map((o) => ({ label: `"${o}"` })),
+                };
+            }
+
+            return null;
+        } else if (isValue) {
+            const basePath = resolveNodePath(context, node);
+            if (basePath === "key") {
+                const options: string[] = Object.keys(RuleElements.all);
+                return {
+                    from: node.from,
+                    to: node.to,
+                    options: options.map((o) => ({ label: `"${o}"` })),
+                };
+            }
         }
 
         return null;
-    }
-
-    // Check if this is a value. If the value hasn't started yet (ex: "key": ), the node name is Property.
-    // If it has (ex: "key": ""), the parent is Property
-    if (node.name === "Property" || node.parent?.name === "Property") {
-        const basePath = resolveNodePath(context, node);
-        if (basePath === "key") {
-            const options: string[] = Object.keys(RuleElements.all);
-            return {
-                from: node.from,
-                to: node.to,
-                options: options.map((o) => ({ label: `"${o}"` })),
-            };
-        }
-
-        return null;
-    }
-
-    return null;
+    };
 }
 
 type SyntaxNode = ReturnType<ReturnType<typeof syntaxTree>["resolveInner"]>;

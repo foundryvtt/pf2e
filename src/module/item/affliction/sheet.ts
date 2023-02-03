@@ -101,35 +101,39 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
             });
         }
 
-        htmlQuery(html, "[data-action=damage-create]")?.addEventListener("click", (event) => {
-            const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
-            if (!this.item.system.stages[stageId ?? ""]) return;
+        for (const addIcon of htmlQueryAll(html, "[data-action=damage-create]") ?? []) {
+            addIcon?.addEventListener("click", (event) => {
+                const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
+                if (!this.item.system.stages[stageId ?? ""]) return;
 
-            const damage: AfflictionDamage = { value: "", type: "untyped" };
-            this.item.update({ [`system.stages.${stageId}.damage.${randomID()}`]: damage });
-        });
+                const damage: AfflictionDamage = { value: "", type: "untyped" };
+                this.item.update({ [`system.stages.${stageId}.damage.${randomID()}`]: damage });
+            });
+        }
 
         for (const deleteIcon of htmlQueryAll(html, "[data-action=damage-delete")) {
             deleteIcon.addEventListener("click", (event) => {
                 const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
                 if (!this.item.system.stages[stageId ?? ""]) return;
 
-                const deleteId = htmlClosest(event.target, "[data-id]")?.dataset.conditionId;
+                const deleteId = htmlClosest(event.target, "[data-id]")?.dataset.id;
                 this.item.update({ [`system.stages.${stageId}.damage.-=${deleteId}`]: null });
             });
         }
 
-        htmlQuery(html, "[data-action=condition-create")?.addEventListener("click", (event) => {
-            const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
-            if (!this.item.system.stages[stageId ?? ""]) return;
+        for (const addIcon of htmlQueryAll(html, "[data-action=condition-create") ?? []) {
+            addIcon?.addEventListener("click", (event) => {
+                const stageId = htmlClosest(event.target, "[data-stage-id]")?.dataset.stageId;
+                if (!this.item.system.stages[stageId ?? ""]) return;
 
-            const newCondition: AfflictionConditionData = {
-                slug: "frightened",
-                value: 1,
-            };
+                const newCondition: AfflictionConditionData = {
+                    slug: "frightened",
+                    value: 1,
+                };
 
-            this.item.update({ [`system.stages.${stageId}.conditions.${randomID()}`]: newCondition });
-        });
+                this.item.update({ [`system.stages.${stageId}.conditions.${randomID()}`]: newCondition });
+            });
+        }
 
         for (const deleteIcon of htmlQueryAll(html, "[data-action=condition-delete")) {
             deleteIcon.addEventListener("click", (event) => {

@@ -3,24 +3,37 @@ import { ModifierAdjustment } from "@actor/modifiers";
 import { ItemPF2e } from "@item";
 import { DamageType } from "@system/damage/types";
 import { DAMAGE_TYPES } from "@system/damage/values";
-import { isObject, objectHasKey, setHasElement } from "@util";
+import { isObject, setHasElement } from "@util";
+import { ArrayField, BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
 import { RuleElementOptions } from "./";
-import { AELikeData, AELikeRuleElement, AELikeSource } from "./ae-like";
+import { AELikeData, AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like";
+
+const { fields } = foundry.data;
 
 /** Adjust the value of a modifier, change its damage type (in case of damage modifiers) or suppress it entirely */
-class AdjustModifierRuleElement extends AELikeRuleElement {
+class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    /** An optional relabeling of the adjusted modifier */
-    relabel?: string;
-
-    selectors: string[];
-
-    damageType: string | null;
-
-    suppress: boolean;
+    static override defineSchema(): AdjustModifierSchema {
+        return {
+            ...super.defineSchema(),
+            // `path` isn't used for AdjustModifier REs
+            path: new fields.StringField({ required: false, blank: true, initial: undefined }),
+            selector: new fields.StringField({ required: false, blank: false, initial: undefined }),
+            selectors: new fields.ArrayField(new fields.StringField({ required: true, blank: false }), {
+                required: false,
+                nullable: false,
+                initial: [],
+            }),
+            relabel: new fields.StringField({ required: false, blank: false, initial: undefined }),
+            damageType: new fields.StringField({ required: false, blank: false, initial: undefined }),
+            suppress: new fields.BooleanField({ required: true, initial: false }),
+        };
+    }
 
     constructor(data: AdjustModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        data.path = "ignore"; // Maybe this shouldn't subclass AELikeRuleElement
+
         if (data.suppress) {
             data.mode = "override";
             data.value = 0;
@@ -29,18 +42,10 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
 
         super({ ...data, phase: "beforeDerived" }, item, options);
 
-        if (typeof data.relabel === "string") {
-            this.relabel = data.relabel;
+        if (typeof data.selector === "string" && this.selectors.length === 0) {
+            this.selectors = [data.selector];
         }
 
-        this.selectors =
-            typeof data.selector === "string"
-                ? [data.selector]
-                : Array.isArray(data.selectors) && data.selectors.every((s): s is string => typeof s === "string")
-                ? data.selectors
-                : [];
-
-        this.damageType = typeof data.damageType === "string" ? data.damageType : null;
         this.suppress = !!data.suppress;
     }
 
@@ -48,13 +53,6 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
         if (this.ignored) return;
 
         const tests = {
-            selectors:
-                Array.isArray(this.selectors) &&
-                this.selectors.length > 0 &&
-                this.selectors.every((s) => typeof s === "string"),
-            slug: typeof this.slug === "string" || this.slug === null,
-            predicate: this.predicate.isValid,
-            mode: objectHasKey(AELikeRuleElement.CHANGE_MODES, this.data.mode),
             value: ["string", "number"].includes(typeof this.value) || isObject(this.value),
         };
 
@@ -105,9 +103,20 @@ class AdjustModifierRuleElement extends AELikeRuleElement {
     }
 }
 
-interface AdjustModifierRuleElement extends AELikeRuleElement {
+interface AdjustModifierRuleElement
+    extends AELikeRuleElement<AdjustModifierSchema>,
+        ModelPropsFromSchema<AdjustModifierSchema> {
     data: AELikeData;
 }
+
+type AdjustModifierSchema = AELikeSchema & {
+    /** An optional relabeling of the adjusted modifier */
+    relabel: StringField;
+    selector: StringField;
+    selectors: ArrayField<StringField>;
+    damageType: StringField;
+    suppress: BooleanField;
+};
 
 interface AdjustModifierSource extends Exclude<AELikeSource, "path"> {
     selector?: unknown;

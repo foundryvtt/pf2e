@@ -59,12 +59,8 @@ interface DamageFormulaData {
 }
 
 interface ResolvedDamageFormulaData extends DamageFormulaData {
-    formula: {
-        criticalFailure: null;
-        failure: string | null;
-        success: string;
-        criticalSuccess: string;
-    };
+    formula: Record<DegreeOfSuccessString, string | null>;
+    breakdown: Record<DegreeOfSuccessString, string[]>;
 }
 
 interface BasicDamageData {
@@ -72,7 +68,7 @@ interface BasicDamageData {
     diceNumber: number;
     dieSize: DamageDieSize | null;
     modifier: number;
-    category: DamageCategory | null;
+    category: DamageCategoryUnique | null;
     materials?: MaterialDamageEffect[];
 }
 

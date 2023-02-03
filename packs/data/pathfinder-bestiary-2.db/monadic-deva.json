@@ -1862,12 +1862,32 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Allies in the aura gain a +2 status bonus to saving throws against death effects and effects that target or manipulate their souls.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Allies in the aura gain a +2 status bonus to saving throws against death effects and effects that target or manipulate their souls.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Spiritual Warden]{Effect: Spiritual Warden}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.kOGRUuyK04MjLc3m"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "spiritual-warden",
+                        "traits": [
+                            "abjuration",
+                            "divine"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1878,8 +1898,7 @@
                     "value": [
                         "abjuration",
                         "aura",
-                        "divine",
-                        "death"
+                        "divine"
                     ]
                 },
                 "trigger": {

@@ -1,6 +1,5 @@
 import { ActorPF2e, CreaturePF2e } from "@actor";
 import { SKILL_DICTIONARY } from "@actor/values";
-import { GhostTemplate } from "@module/canvas/ghost-measured-template";
 import { Statistic } from "@system/statistic";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { calculateDC } from "@module/dc";
@@ -8,6 +7,7 @@ import { eventToRollParams } from "@scripts/sheet-util";
 import { htmlClosest, htmlQueryAll, objectHasKey, sluggify } from "@util";
 import { getSelectedOrOwnActors } from "@util/token-actor-utils";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
+import { MeasuredTemplatePF2e } from "@module/canvas";
 
 const inlineSelector = ["action", "check", "effect-area", "repost"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
 
@@ -76,7 +76,7 @@ export const InlineRollLinks = {
         const $links = $(links);
         $links.filter("[data-pf2-action]").on("click", (event) => {
             const $target = $(event.currentTarget);
-            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc } = $target[0]?.dataset ?? {};
+            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill } = $target[0]?.dataset ?? {};
             const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
             const visibility = pf2ShowDc ?? "all";
             if (pf2Action && action) {
@@ -85,6 +85,7 @@ export const InlineRollLinks = {
                     glyph: pf2Glyph,
                     variant: pf2Variant,
                     difficultyClass: pf2Dc ? { scope: "check", value: Number(pf2Dc) || 0, visibility } : undefined,
+                    skill: pf2Skill,
                 });
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
@@ -239,8 +240,7 @@ export const InlineRollLinks = {
                 }
 
                 const templateDoc = new MeasuredTemplateDocumentPF2e(templateData, { parent: canvas.scene });
-                const ghostTemplate = new GhostTemplate(templateDoc);
-                await ghostTemplate.drawPreview();
+                await new MeasuredTemplatePF2e(templateDoc).drawPreview();
             } else {
                 console.warn(`PF2e System | Could not create template'`);
             }
