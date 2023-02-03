@@ -11,8 +11,7 @@ class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
         return {
             ...super.defineSchema(),
             exceptions: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, choices: this.dictionary }),
-                { nullable: false }
+                new fields.StringField({ required: true, blank: false, choices: this.dictionary, initial: undefined })
             ),
         };
     }
@@ -54,7 +53,7 @@ interface ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema>, ModelP
 }
 
 type ImmunityRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
-    exceptions: ArrayField<StringField<ImmunityType>>;
+    exceptions: ArrayField<StringField<ImmunityType, ImmunityType, true, false, false>>;
 };
 
 export { ImmunityRuleElement };

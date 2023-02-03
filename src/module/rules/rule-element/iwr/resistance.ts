@@ -8,10 +8,14 @@ const { fields } = foundry.data;
 /** @category RuleElement */
 class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
     static override defineSchema(): ResistanceRuleSchema {
-        const exceptionsOrDoubleVs = () =>
+        const exceptionsOrDoubleVs = (): ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>> =>
             new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, choices: CONFIG.PF2E.resistanceTypes }),
-                { nullable: false }
+                new fields.StringField({
+                    required: true as const,
+                    blank: false,
+                    choices: this.dictionary,
+                    initial: undefined,
+                })
             );
 
         return {
@@ -70,8 +74,8 @@ interface ResistanceRuleElement
 }
 
 type ResistanceRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
-    exceptions: ArrayField<StringField<ResistanceType>>;
-    doubleVs: ArrayField<StringField<ResistanceType>>;
+    exceptions: ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>>;
+    doubleVs: ArrayField<StringField<ResistanceType, ResistanceType, true, false, false>>;
 };
 
 export { ResistanceRuleElement };

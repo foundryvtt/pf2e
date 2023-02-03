@@ -12,7 +12,7 @@ class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
     static override defineSchema(): RollNoteSchema {
         return {
             ...super.defineSchema(),
-            selector: new fields.StringField({ required: true, blank: false }),
+            selector: new fields.StringField({ required: true, blank: false, initial: undefined }),
             title: new fields.StringField({ required: true, nullable: true, initial: null }),
             visibility: new fields.StringField({
                 required: true,
@@ -81,13 +81,13 @@ interface RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema>, ModelProp
 
 type RollNoteSchema = RuleElementSchema & {
     /** The statistic(s) slugs of the rolls for which this note will be appended */
-    selector: StringField;
+    selector: StringField<string, string, true, false, false>;
     /** An optional title prepended to the note */
-    title: StringField<string, string, true>;
+    title: StringField<string, string, true, true, true>;
     /** An optional limitation of the notes visibility to GMs */
-    visibility: StringField<UserVisibility, UserVisibility, true>;
+    visibility: StringField<UserVisibility, UserVisibility, true, true, true>;
     /** Applicable degree-of-success outcomes for the note */
-    outcome: ArrayField<StringField<DegreeOfSuccessString>>;
+    outcome: ArrayField<StringField<DegreeOfSuccessString, DegreeOfSuccessString, true, false, false>>;
 };
 
 interface RollNoteSource extends RuleElementSource {

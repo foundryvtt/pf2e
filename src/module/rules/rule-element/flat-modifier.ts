@@ -23,43 +23,6 @@ const { fields } = foundry.data;
 class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    static override defineSchema(): FlatModifierSchema {
-        return {
-            ...super.defineSchema(),
-            selector: new fields.ArrayField(new fields.StringField({ required: true, blank: false }), {
-                required: true,
-                nullable: false,
-            }),
-            type: new fields.StringField({
-                required: true,
-                choices: Array.from(MODIFIER_TYPES),
-                initial: "untyped",
-            }),
-            ability: new fields.StringField({
-                required: false,
-                choices: Array.from(ABILITY_ABBREVIATIONS),
-                initial: undefined,
-            }),
-            min: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
-            max: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
-            force: new fields.BooleanField(),
-            hideIfDisabled: new fields.BooleanField(),
-            fromEquipment: new fields.BooleanField({ initial: true }),
-            damageType: new fields.StringField({ required: false, blank: false, initial: undefined }),
-            damageCategory: new fields.StringField({
-                required: false,
-                blank: false,
-                choices: Array.from(DAMAGE_CATEGORIES_UNIQUE),
-                initial: undefined,
-            }),
-            critical: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
-        };
-    }
-
-    get selectors(): string[] {
-        return this.selector;
-    }
-
     constructor(source: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         if (typeof source.selector === "string") {
             source.selector = [source.selector];
@@ -90,6 +53,42 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
         if (this.force && this.type === "untyped") {
             this.failValidation("A forced bonus or penalty must have a type");
         }
+    }
+
+    static override defineSchema(): FlatModifierSchema {
+        return {
+            ...super.defineSchema(),
+            selector: new fields.ArrayField(
+                new fields.StringField({ required: true, blank: false, initial: undefined })
+            ),
+            type: new fields.StringField({
+                required: true,
+                choices: Array.from(MODIFIER_TYPES),
+                initial: "untyped",
+            }),
+            ability: new fields.StringField({
+                required: false,
+                choices: Array.from(ABILITY_ABBREVIATIONS),
+                initial: undefined,
+            }),
+            min: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
+            max: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
+            force: new fields.BooleanField(),
+            hideIfDisabled: new fields.BooleanField(),
+            fromEquipment: new fields.BooleanField({ initial: true }),
+            damageType: new fields.StringField({ required: false, blank: false, initial: undefined }),
+            damageCategory: new fields.StringField({
+                required: false,
+                blank: false,
+                choices: Array.from(DAMAGE_CATEGORIES_UNIQUE),
+                initial: undefined,
+            }),
+            critical: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
+        };
+    }
+
+    get selectors(): string[] {
+        return this.selector;
     }
 
     override beforePrepareData(): void {
@@ -155,14 +154,14 @@ interface FlatModifierRuleElement
 
 type FlatModifierSchema = RuleElementSchema & {
     /** All domains to add a modifier to */
-    selector: ArrayField<StringField>;
+    selector: ArrayField<StringField<string, string, true, false, false>>;
     /** The modifier (or bonus/penalty) type */
-    type: StringField<ModifierType>;
+    type: StringField<ModifierType, ModifierType, true, false, true>;
     /** If this is an ability modifier, the ability score it modifies */
     ability: StringField<AbilityString>;
     /** Hide this modifier from breakdown tooltips if it is disabled */
-    min: NumberField<number, number, false>;
-    max: NumberField<number, number, false>;
+    min: NumberField<number, number, false, false, false>;
+    max: NumberField<number, number, false, false, false>;
     hideIfDisabled: BooleanField;
     /** Whether to use this bonus/penalty/modifier even if it isn't the greatest magnitude */
     force: BooleanField;
@@ -173,7 +172,7 @@ type FlatModifierSchema = RuleElementSchema & {
     /** If a damage modifier, a special category */
     damageCategory: StringField<DamageCategoryUnique>;
     /** If a damage modifier, whether it applies given the presence or absence of a critically successful attack roll */
-    critical: BooleanField<boolean, boolean, true>;
+    critical: BooleanField<boolean, boolean, false, true, false>;
 };
 
 interface FlatModifierSource extends RuleElementSource {

@@ -22,14 +22,10 @@ abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElement
     static override defineSchema(): IWRRuleSchema {
         return {
             ...super.defineSchema(),
-            type: new fields.ArrayField(new fields.StringField({ required: true, blank: false }), {
-                required: true,
-                nullable: false,
-            }),
-            exceptions: new fields.ArrayField(new fields.StringField({ required: true, blank: false }), {
-                required: true,
-                nullable: false,
-            }),
+            type: new fields.ArrayField(new fields.StringField({ required: true, blank: false, initial: undefined })),
+            exceptions: new fields.ArrayField(
+                new fields.StringField({ required: true, blank: false, initial: undefined })
+            ),
             override: new fields.BooleanField(),
         };
     }
@@ -87,8 +83,8 @@ interface IWRRuleElement<TSchema extends IWRRuleSchema>
 }
 
 type IWRRuleSchema = RuleElementSchema & {
-    type: ArrayField<StringField>;
-    exceptions: ArrayField<StringField>;
+    type: ArrayField<StringField<string, string, true, false, false>>;
+    exceptions: ArrayField<StringField<string, string, true, false, false>>;
     override: BooleanField;
 };
 

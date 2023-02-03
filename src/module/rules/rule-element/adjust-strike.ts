@@ -15,7 +15,11 @@ const { fields } = foundry.data;
 class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
 
-    private static VALID_PROPERTIES = new Set([
+    constructor(data: AdjustStrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        super({ ...data, path: "ignore", phase: "beforeDerived", priority: 110 }, item, options);
+    }
+
+    static VALID_PROPERTIES = new Set([
         "materials",
         "property-runes",
         "range-increment",
@@ -27,17 +31,14 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
         return {
             ...super.defineSchema(),
             // `path` isn't used for AdjustAdjustStrike REs
-            path: new fields.StringField({ required: false, blank: false, initial: undefined }),
-            property: new fields.StringField<AdjustStrikeProperty>({
+            path: new fields.StringField({ blank: true }),
+            property: new fields.StringField({
                 required: true,
                 choices: Array.from(this.VALID_PROPERTIES),
+                initial: undefined,
             }),
             definition: new PredicateField(),
         };
-    }
-
-    constructor(data: AdjustStrikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super({ ...data, path: "ignore", phase: "beforeDerived", priority: 110 }, item, options);
     }
 
     protected override validateData(): void {
@@ -227,7 +228,7 @@ interface AdjustStrikeRuleElement
 
 type AdjustStrikeSchema = AELikeSchema & {
     /** The property of the strike to adjust */
-    property: StringField<AdjustStrikeProperty>;
+    property: StringField<AdjustStrikeProperty, AdjustStrikeProperty, true, false, false>;
     /** The definition of the strike in terms of its item (weapon) roll options */
     definition: PredicateField;
 };
