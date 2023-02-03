@@ -930,6 +930,7 @@ export const PF2ECONFIG = {
         "applied-to-boots-cape-cloak-or-umbrella": "PF2E.TraitAppliedToBootsCapeCloakOrUmbrella",
         "applied-to-dueling-cape-or-shield": "PF2E.TraitAppliedToDuelingCapeOrShield",
         "applied-to-buckler-shield": "PF2E.TraitAppliedToBucklerShield",
+        "applied-to-medium-heavy-armor": "PF2E.TraitAppliedToMediumHeavyArmor",
         "applied-to-shield": "PF2E.TraitAppliedToShield",
         "attached-to-a-thrown-weapon": "PF2E.TraitAttachedToAThrownWeapon",
         "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",
