@@ -344,6 +344,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                 domains,
                 ...eventToRollParams(params.event),
             };
+            if (params.getFormula) damageContext.skipDialog = true;
 
             const damage = await WeaponDamagePF2e.fromNPCAttack({
                 attack: context.self.item,
