@@ -449,12 +449,23 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>When a pup of Tindalos is not adjacent to a structural angle of 90° (or more acute), its resistance to physical damage is suppressed and it becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. It can't recover from this sickened condition, but the condition ends automatically once the pup is again adjacent to a suitable angle.</p>"
+                    "value": "<p>When a pup of Tindalos is not adjacent to a structural angle of 90° (or more acute), its resistance to physical damage is suppressed and it becomes @UUID[Compendium.pf2e.conditionitems.Sickened]{Sickened 1}. It can't recover from this sickened condition, but the condition ends automatically once the pup is again adjacent to a suitable angle.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Vulnerable to Curved Space]{Effect: Vulnerable to Curved Space}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "self:effect:vulnerable-to-curved-space"
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -718,10 +729,6 @@
             "resistances": [
                 {
                     "type": "mental",
-                    "value": 5
-                },
-                {
-                    "type": "physical",
                     "value": 5
                 },
                 {
