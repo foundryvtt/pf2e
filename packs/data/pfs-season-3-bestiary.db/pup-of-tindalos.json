@@ -454,7 +454,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "vulnerable-curved-space",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "vulnerable-curved-space"
+                            }
+                        ],
+                        "type": "physical",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -718,10 +735,6 @@
             "resistances": [
                 {
                     "type": "mental",
-                    "value": 5
-                },
-                {
-                    "type": "physical",
                     "value": 5
                 },
                 {
