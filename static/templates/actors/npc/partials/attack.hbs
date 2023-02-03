@@ -24,13 +24,13 @@
     <div class="attack-body">
         <div class="flexrow">
             <div class="attacks sub-section">
-                {{#each action.variants as |variant vi|}}
-                    <button type="button" class="btn attack-button" {{#if (eq vi 0) }}title="{{action.breakdown}}"{{/if}} data-action="strike-attack" data-variant-index="{{vi}}">{{variant.label}}</button>
+                {{#each action.variants as |variant index|}}
+                    <button type="button" class="btn attack-button" {{#if (eq index 0) }}title="{{action.breakdown}}"{{/if}} data-action="strike-attack" data-variant-index="{{index}}">{{variant.label}}</button>
                 {{/each}}
             </div>
             {{#if action.item.dealsDamage}}
                 <div class="damage sub-section">
-                    <button type="button" class="damage-button" data-action="strike-damage">{{#each action.damageBreakdown}}{{this}}{{#unless @last}} + {{/unless}}{{/each}}</button>
+                    <button type="button" class="damage-button" data-action="strike-damage">{{localize "PF2E.DamageLabel"}}</button>
                     <button type="button" class="critical-button" data-action="strike-critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
                 </div>
             {{/if}}

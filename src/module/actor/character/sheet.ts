@@ -10,16 +10,7 @@ import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import {
-    ErrorPF2e,
-    getActionIcon,
-    groupBy,
-    htmlQueryAll,
-    isObject,
-    objectHasKey,
-    setHasElement,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, getActionIcon, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement } from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
@@ -452,30 +443,6 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         const $strikesList = $actions.find(".strikes-list");
-
-        // Set damage-formula tooltips on damage buttons
-        const damageButtonSelectors = [
-            'button[data-action="strike-damage"]',
-            'button[data-action="strike-critical"]',
-        ].join(", ");
-        const $damageButtons = $strikesList.find<HTMLButtonElement>(damageButtonSelectors);
-        for (const damageButton of $damageButtons) {
-            const $button = $(damageButton);
-            const method = $button.attr("data-action") === "strike-damage" ? "damage" : "critical";
-            const altUsage = tupleHasValue(["thrown", "melee"] as const, damageButton.dataset.altUsage)
-                ? damageButton.dataset.altUsage
-                : null;
-
-            const strike = this.getStrikeFromDOM($button[0]);
-            strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
-                if (!formula) return;
-                $button.attr({ title: formula });
-                $button.tooltipster({
-                    position: "bottom",
-                    theme: "crb-hover",
-                });
-            });
-        }
 
         $strikesList.find(".item-summary .item-properties.tags .tag").each((_idx, span) => {
             if (span.dataset.description) {

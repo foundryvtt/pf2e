@@ -171,8 +171,6 @@ interface NPCStrike extends StrikeData {
     attackRollType?: string;
     /** The id of the item this strike is generated from */
     sourceId?: string;
-    /** A list of all damage roll parts */
-    damageBreakdown?: string[];
     /** Additional effects from a successful strike, like "Grab" */
     additionalEffects: { tag: string; label: string }[];
     /** A melee usage of a firearm: not available on NPC strikes */

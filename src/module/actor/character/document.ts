@@ -1829,10 +1829,6 @@ class CharacterPF2e extends CreaturePF2e {
                     ...eventToRollParams(params.event),
                 };
 
-                if (params.getFormula) {
-                    damageContext.skipDialog = true;
-                }
-
                 const damage = await WeaponDamagePF2e.calculate({
                     weapon: context.self.item,
                     actor: context.self.actor,
