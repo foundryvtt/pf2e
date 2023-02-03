@@ -2,10 +2,9 @@ import { SIZE_TO_REACH } from "@actor/creature/values";
 import { ItemPF2e } from "@item/base";
 import { ItemSummaryData } from "@item/data";
 import { WeaponPF2e } from "@item/weapon";
-import { WeaponDamage } from "@item/weapon/data";
 import { WeaponRangeIncrement } from "@item/weapon/types";
 import { combineTerms } from "@scripts/dice";
-import { WeaponDamagePF2e } from "@system/damage";
+import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage";
 import { MeleeData, MeleeSystemData, NPCAttackTrait } from "./data";
 
 class MeleePF2e extends ItemPF2e {
@@ -64,7 +63,7 @@ class MeleePF2e extends ItemPF2e {
     }
 
     /** The first of this attack's damage instances */
-    get baseDamage(): WeaponDamage {
+    get baseDamage(): ConvertedNPCDamage {
         const instance = Object.values(this.system.damageRolls).shift();
         if (!instance) {
             return {
@@ -73,6 +72,7 @@ class MeleePF2e extends ItemPF2e {
                 modifier: 0,
                 damageType: "untyped",
                 persistent: null,
+                category: null,
             };
         }
 

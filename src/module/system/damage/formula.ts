@@ -52,7 +52,7 @@ function createDamageFormula(
                         : null,
                 modifier: base.modifier ?? 0,
                 critical: null,
-                category: null,
+                category: base.category,
                 materials: base.materials ?? [],
             },
         ]);
@@ -165,10 +165,16 @@ function instancesFromTypeMap(
 
             if (!breakdownDamage.length) return [];
 
-            const damageTypeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
-            const breakdown = breakdownDamage.map((d) => d.label);
-            breakdown[0] = `${breakdown[0]} ${damageTypeLabel}`;
-            return breakdown;
+            const damageTypeLabel =
+                breakdownDamage[0].category === "persistent"
+                    ? game.i18n.format("PF2E.Damage.PersistentTooltip", {
+                          damageType: game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType),
+                      })
+                    : game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+            const labelParts = breakdownDamage.map((d) => d.label);
+            labelParts[0] = `${labelParts[0].replace(/^\s+\+/, "")} ${damageTypeLabel}`;
+
+            return labelParts;
         })();
 
         const formula = enclosed && flavor ? `${enclosed}${flavor}` : enclosed;
