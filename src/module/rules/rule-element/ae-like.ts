@@ -18,15 +18,30 @@ const { fields } = foundry.data;
  * @category RuleElement
  */
 class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
+    constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
+        const mode = objectHasKey(AELikeRuleElement.CHANGE_MODES, data.mode) ? data.mode : null;
+        data.priority ??= mode ? AELikeRuleElement.CHANGE_MODES[mode] : NaN;
+        data.phase ??= "applyAEs";
+
+        super(data, item, options);
+
+        this.path = typeof data.path === "string" ? data.path.replace(/^data\./, "system.") : "";
+        this.phase = tupleHasValue(AELikeRuleElement.PHASES, data.phase) ? data.phase : "applyAEs";
+    }
+
     static override defineSchema(): AELikeSchema {
         return {
             ...super.defineSchema(),
-            mode: new fields.StringField<AELikeChangeMode>({
+            mode: new fields.StringField({
                 required: true,
                 choices: Object.keys(this.CHANGE_MODES) as AELikeChangeMode[],
             }),
             path: new fields.StringField({ required: true, blank: false }),
-            phase: new fields.StringField<AELikeDataPrepPhase>({ required: true, choices: deepClone(this.PHASES) }),
+            phase: new fields.StringField({
+                required: true,
+                choices: deepClone(this.PHASES),
+                initial: "applyAEs",
+            }),
         };
     }
 
@@ -51,17 +66,6 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         const skillLongForms = Array.from(SKILL_LONG_FORMS).join("|");
         return new RegExp(String.raw`^system\.skills\.(${skillLongForms})\b`);
     })();
-
-    constructor(data: AELikeSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        const mode = objectHasKey(AELikeRuleElement.CHANGE_MODES, data.mode) ? data.mode : null;
-        data.priority ??= mode ? AELikeRuleElement.CHANGE_MODES[mode] : NaN;
-        data.phase ??= "applyAEs";
-
-        super(data, item, options);
-
-        this.path = typeof data.path === "string" ? data.path.replace(/^data\./, "system.") : "";
-        this.phase = tupleHasValue(AELikeRuleElement.PHASES, data.phase) ? data.phase : "applyAEs";
-    }
 
     protected validateData(): void {
         if (!objectHasKey(AELikeRuleElement.CHANGE_MODES, this.data.mode)) {
@@ -253,9 +257,9 @@ interface AutoChangeEntry {
 }
 
 type AELikeSchema = RuleElementSchema & {
-    mode: StringField<AELikeChangeMode>;
-    path: StringField;
-    phase: StringField<AELikeDataPrepPhase>;
+    mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
+    path: StringField<string, string, true>;
+    phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, true, false, true>;
 };
 
 type AELikeChangeMode = keyof typeof AELikeRuleElement["CHANGE_MODES"];

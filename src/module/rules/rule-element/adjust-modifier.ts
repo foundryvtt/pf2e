@@ -18,16 +18,12 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
         return {
             ...super.defineSchema(),
             // `path` isn't used for AdjustModifier REs
-            path: new fields.StringField({ required: false, blank: true, initial: undefined }),
+            path: new fields.StringField({ blank: true }),
             selector: new fields.StringField({ required: false, blank: false, initial: undefined }),
-            selectors: new fields.ArrayField(new fields.StringField({ required: true, blank: false }), {
-                required: false,
-                nullable: false,
-                initial: [],
-            }),
+            selectors: new fields.ArrayField(new fields.StringField({ required: true, blank: false })),
             relabel: new fields.StringField({ required: false, blank: false, initial: undefined }),
             damageType: new fields.StringField({ required: false, blank: false, initial: undefined }),
-            suppress: new fields.BooleanField({ required: true, initial: false }),
+            suppress: new fields.BooleanField({ required: false, initial: undefined }),
         };
     }
 
@@ -107,15 +103,17 @@ interface AdjustModifierRuleElement
     extends AELikeRuleElement<AdjustModifierSchema>,
         ModelPropsFromSchema<AdjustModifierSchema> {
     data: AELikeData;
+
+    suppress: boolean;
 }
 
 type AdjustModifierSchema = AELikeSchema & {
     /** An optional relabeling of the adjusted modifier */
-    relabel: StringField;
-    selector: StringField;
-    selectors: ArrayField<StringField>;
-    damageType: StringField;
-    suppress: BooleanField;
+    relabel: StringField<string, string, false, true>;
+    selector: StringField<string, string, false, false, false>;
+    selectors: ArrayField<StringField<string, string, true>>;
+    damageType: StringField<string, string, false, false, false>;
+    suppress: BooleanField<boolean, boolean, false, false, false>;
 };
 
 interface AdjustModifierSource extends Exclude<AELikeSource, "path"> {

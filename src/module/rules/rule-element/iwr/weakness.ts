@@ -11,8 +11,7 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
         return {
             ...super.defineSchema(),
             exceptions: new fields.ArrayField(
-                new fields.StringField({ required: true, blank: false, choices: this.dictionary }),
-                { nullable: false }
+                new fields.StringField({ required: true, blank: false, choices: this.dictionary, initial: undefined })
             ),
         };
     }
@@ -64,7 +63,7 @@ interface WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema>, ModelP
 }
 
 type WeaknessRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
-    exceptions: ArrayField<StringField<WeaknessType>>;
+    exceptions: ArrayField<StringField<WeaknessType, WeaknessType, true, false, false>>;
 };
 
 export { WeaknessRuleElement };

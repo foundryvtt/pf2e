@@ -6,6 +6,7 @@ import {
     CleanFieldOptions,
     DataFieldOptions,
     DataSchema,
+    MaybeSchemaProp,
     StringFieldOptions,
 } from "types/foundry/common/data/fields.mjs";
 
@@ -32,24 +33,29 @@ class LaxSchemaField<TSourceProp extends DataSchema = DataSchema> extends fields
 }
 
 /** A sluggified string field */
-class SlugField<TNullable extends boolean = true> extends fields.StringField<string, string, TNullable> {
-    protected static override get _defaults(): StringFieldOptions<string, boolean> {
-        return mergeObject(super._defaults, {
-            initial: null,
-            nullable: true,
-        });
+class SlugField<
+    TRequired extends boolean = true,
+    TNullable extends boolean = true,
+    THasInitial extends boolean = true
+> extends fields.StringField<string, string, TRequired, TNullable, THasInitial> {
+    protected static override get _defaults(): StringFieldOptions<string, boolean, boolean, boolean> {
+        return { ...super._defaults, nullable: true, initial: null };
     }
 
-    protected override _cleanType(value: Maybe<string>, options?: CleanFieldOptions): Maybe<string> {
+    protected override _cleanType(
+        value: Maybe<string>,
+        options?: CleanFieldOptions
+    ): MaybeSchemaProp<string, TRequired, TNullable, THasInitial>;
+    protected override _cleanType(value: Maybe<string>, options?: CleanFieldOptions): string | null | undefined {
         const slug = super._cleanType(value, options);
         return typeof slug === "string" ? sluggify(slug) : slug;
     }
 }
 
-class PredicateStatementField extends fields.DataField<PredicateStatement, PredicateStatement> {
+class PredicateStatementField extends fields.DataField<PredicateStatement, PredicateStatement, true, false, false> {
     /** A `PredicateStatement` is always required (not `undefined`) and never nullable */
-    constructor(options: DataFieldOptions<PredicateStatement, false> = {}) {
-        super({ ...options, required: true, nullable: false });
+    constructor(options: DataFieldOptions<PredicateStatement, true, false, false> = {}) {
+        super({ ...options, required: true, nullable: false, initial: undefined });
     }
 
     protected override _validateType(value: unknown): boolean {
@@ -66,13 +72,12 @@ class PredicateStatementField extends fields.DataField<PredicateStatement, Predi
     }
 }
 
-class PredicateField<TNullable extends boolean = false> extends fields.ArrayField<
-    PredicateStatementField,
-    RawPredicate,
-    RawPredicate,
-    TNullable
-> {
-    constructor(options: Pick<ArrayFieldOptions<PredicateStatementField, TNullable>, "initial" | "nullable"> = {}) {
+class PredicateField<
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true
+> extends fields.ArrayField<PredicateStatementField, RawPredicate, PredicatePF2e, TRequired, TNullable, THasInitial> {
+    constructor(options?: ArrayFieldOptions<PredicateStatementField, TRequired, TNullable, THasInitial>) {
         super(new PredicateStatementField(), options);
     }
 
@@ -80,13 +85,13 @@ class PredicateField<TNullable extends boolean = false> extends fields.ArrayFiel
     override initialize(
         value: RawPredicate,
         model: ConstructorOf<DataModel>,
-        options?: ArrayFieldOptions<PredicateStatementField, TNullable>
-    ): TNullable extends true ? PredicatePF2e | null : PredicatePF2e;
+        options?: ArrayFieldOptions<PredicateStatementField, TRequired, TNullable, THasInitial>
+    ): MaybeSchemaProp<PredicatePF2e, TRequired, TNullable, THasInitial>;
     override initialize(
         value: RawPredicate,
         model: ConstructorOf<DataModel>,
-        options: ArrayFieldOptions<PredicateStatementField, TNullable>
-    ): PredicatePF2e | null {
+        options: ArrayFieldOptions<PredicateStatementField, TRequired, TNullable, THasInitial>
+    ): PredicatePF2e | null | undefined {
         const statements = super.initialize(value, model, options);
         return statements ? new PredicatePF2e(...statements) : statements;
     }
