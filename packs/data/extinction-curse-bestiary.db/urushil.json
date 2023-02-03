@@ -1701,7 +1701,36 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:trait:evil",
+                                    {
+                                        "lt": [
+                                            "target:level",
+                                            "self:level"
+                                        ]
+                                    }
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.5NSWRxAsJuvwyl0E"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 100,
+                        "slug": "commanders-aura",
+                        "traits": [
+                            "divine",
+                            "enchantment"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
