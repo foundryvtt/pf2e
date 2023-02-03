@@ -312,6 +312,8 @@ export class StatusEffects {
 
     /** Re-render the token HUD */
     static refresh(): void {
-        debouncedRender();
+        if (canvas.ready && canvas.tokens.hud.rendered) {
+            debouncedRender();
+        }
     }
 }
