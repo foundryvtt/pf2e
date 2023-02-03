@@ -25,7 +25,7 @@
                 <select name="system.damageRolls.{{key}}.category">
                     {{#select (lookup damageRoll "category")}}
                         <option value=""></option>
-                        {{#each damageCategories as |label category|}}
+                        {{#each @root.damageCategories as |label category|}}
                             <option value="{{category}}">{{localize label}}</option>
                         {{/each}}
                     {{/select}}
