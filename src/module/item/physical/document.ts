@@ -470,7 +470,7 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 }
 
-interface PhysicalItemPF2e {
+interface PhysicalItemPF2e extends ItemPF2e {
     readonly data: PhysicalItemData;
 
     computeAdjustedPrice?(): CoinsPF2e | null;

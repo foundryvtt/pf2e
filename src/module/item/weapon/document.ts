@@ -712,7 +712,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface WeaponPF2e {
+interface WeaponPF2e extends PhysicalItemPF2e {
     readonly data: WeaponData;
 
     get traits(): Set<WeaponTrait>;

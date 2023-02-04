@@ -241,7 +241,7 @@ class ArmorPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface ArmorPF2e {
+interface ArmorPF2e extends PhysicalItemPF2e {
     readonly data: ArmorData;
 }
 

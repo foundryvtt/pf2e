@@ -976,7 +976,7 @@ class SpellPF2e extends ItemPF2e {
     }
 }
 
-interface SpellPF2e {
+interface SpellPF2e extends ItemPF2e {
     readonly data: SpellData;
 
     overlays: SpellOverlayCollection;

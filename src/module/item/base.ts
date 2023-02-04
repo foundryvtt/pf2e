@@ -666,7 +666,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 }
 
-interface ItemPF2e {
+interface ItemPF2e extends Item<ActorPF2e> {
     readonly data: ItemDataPF2e;
 
     readonly parent: ActorPF2e | null;

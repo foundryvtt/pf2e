@@ -150,7 +150,7 @@ class ClassPF2e extends ABCItemPF2e {
     }
 }
 
-interface ClassPF2e {
+interface ClassPF2e extends ABCItemPF2e {
     readonly data: ClassData;
 
     get slug(): ClassTrait | null;

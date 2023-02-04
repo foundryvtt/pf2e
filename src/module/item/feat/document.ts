@@ -225,7 +225,7 @@ class FeatPF2e extends ItemPF2e {
     }
 }
 
-interface FeatPF2e {
+interface FeatPF2e extends ItemPF2e {
     readonly data: FeatData;
 }
 

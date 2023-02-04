@@ -739,7 +739,7 @@ class NPCPF2e extends CreaturePF2e {
     }
 }
 
-interface NPCPF2e {
+interface NPCPF2e extends CreaturePF2e {
     readonly data: NPCData;
 
     flags: NPCFlags;
