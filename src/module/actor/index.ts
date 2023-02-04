@@ -1,4 +1,4 @@
-export { ActorPF2e } from "./base";
+export { ActorPF2e, ActorProxyPF2e } from "./base";
 export { CreaturePF2e } from "./creature";
 export { CharacterPF2e } from "./character";
 export { NPCPF2e } from "./npc";

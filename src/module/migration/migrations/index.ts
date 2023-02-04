@@ -215,3 +215,5 @@ export { Migration814CalculatedExpandedSplash } from "./814-calculated-expanded-
 export { Migration815ConsumableDataCleanup } from "./815-consumable-data-cleanup";
 export { Migration816AlchemistResearchFields } from "./816-alchemist-research-fields";
 export { Migration817FieldDiscoveryPredicates } from "./817-field-discovery-predicates";
+export { Migration818BasicUndeadNegativeHealing } from "./818-basic-undead-negative-healing";
+export { Migration819SpinTaleAdventureSpecific } from "./819-spin-tale-adventure-specific";

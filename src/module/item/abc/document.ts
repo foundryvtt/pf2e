@@ -63,7 +63,7 @@ abstract class ABCItemPF2e extends ItemPF2e {
     }
 }
 
-interface ABCItemPF2e {
+interface ABCItemPF2e extends ItemPF2e {
     readonly data: AncestryData | BackgroundData | ClassData;
 }
 

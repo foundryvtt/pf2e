@@ -1,13 +1,6 @@
 import { AbilityString, SaveType } from "@actor/types";
-import {
-    BaseItemDataPF2e,
-    BaseItemSourcePF2e,
-    ItemLevelData,
-    ItemSystemData,
-    ItemSystemSource,
-    ItemTraits,
-} from "@item/data/base";
-import { OneToTen, ValueAndMax, ValuesList } from "@module/data";
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData, ItemSystemSource } from "@item/data/base";
+import { OneToTen, TraitsWithRarity, ValueAndMax, ValuesList } from "@module/data";
 import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage";
 import type { SpellPF2e } from "./document";
 import { EffectAreaSize, EffectAreaType, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
@@ -17,7 +10,7 @@ type SpellSource = BaseItemSourcePF2e<"spell", SpellSystemSource>;
 type SpellData = Omit<SpellSource, "system" | "effects" | "flags"> &
     BaseItemDataPF2e<SpellPF2e, "spell", SpellSystemData, SpellSource>;
 
-export type SpellTraits = ItemTraits<SpellTrait>;
+export type SpellTraits = TraitsWithRarity<SpellTrait>;
 
 export interface SpellDamageType {
     value: DamageType;

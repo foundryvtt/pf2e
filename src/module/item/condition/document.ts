@@ -10,14 +10,21 @@ import { TokenDocumentPF2e } from "@scene";
 import { DamageCategorization, PERSISTENT_DAMAGE_IMAGES } from "@system/damage";
 import { Statistic } from "@system/statistic";
 import { DegreeOfSuccess } from "@system/degree-of-success";
+import { ActorPF2e } from "@actor";
 
 class ConditionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge | null {
         if (this.system.persistent) {
-            return { type: "value", value: this.system.persistent.formula };
+            return { type: "formula", value: this.system.persistent.formula };
         }
 
         return this.system.value.value ? { type: "counter", value: this.system.value.value } : null;
+    }
+
+    /** Retrieve this condition's origin from its granting effect, if any */
+    override get origin(): ActorPF2e | null {
+        const grantingItem = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
+        return grantingItem?.isOfType("affliction", "effect") ? grantingItem.origin : null;
     }
 
     /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
@@ -53,7 +60,7 @@ class ConditionPF2e extends AbstractEffectPF2e {
 
     /** Is the condition found in the token HUD menu? */
     get isInHUD(): boolean {
-        return this.system.sources.hud;
+        return this.slug in CONFIG.PF2E.statusEffects.conditions;
     }
 
     /** Include damage type and possibly category for persistent-damage conditions */
@@ -238,6 +245,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
         for (const token of this.actor?.getActiveTokens() ?? []) {
             token._onApplyStatusEffect(this.rollOptionSlug, true);
         }
+
+        game.pf2e.StatusEffects.refresh();
     }
 
     protected override _onUpdate(
@@ -258,6 +267,8 @@ class ConditionPF2e extends AbstractEffectPF2e {
             const change = newValue > priorValue ? { create: this } : { delete: this };
             this.actor?.getActiveTokens().shift()?.showFloatyText(change);
         }
+
+        game.pf2e.StatusEffects.refresh();
     }
 
     protected override _onDelete(options: DocumentModificationContext<this>, userId: string): void {
@@ -277,10 +288,12 @@ class ConditionPF2e extends AbstractEffectPF2e {
         for (const token of this.actor?.getActiveTokens() ?? []) {
             token._onApplyStatusEffect(this.rollOptionSlug, false);
         }
+
+        game.pf2e.StatusEffects.refresh();
     }
 }
 
-interface ConditionPF2e {
+interface ConditionPF2e extends AbstractEffectPF2e {
     readonly data: ConditionData;
 
     get slug(): ConditionSlug;

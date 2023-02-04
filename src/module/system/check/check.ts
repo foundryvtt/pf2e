@@ -143,7 +143,8 @@ class CheckPF2e {
         const options: CheckRollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
         if (strike) options.strike = strike;
 
-        const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
+        const numberFormat = new Intl.NumberFormat(game.i18n.lang, { maximumFractionDigits: 0, signDisplay: "always" });
+        const totalModifierPart = check.totalModifier === 0 ? "" : numberFormat.format(check.totalModifier);
         const roll = await new RollCls(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
 
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be

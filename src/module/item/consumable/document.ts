@@ -6,7 +6,7 @@ import { ValueAndMax } from "@module/data";
 import { LocalizePF2e } from "@module/system/localize";
 import { DamageRoll } from "@system/damage/roll";
 import { ErrorPF2e } from "@util";
-import { ConsumableData, ConsumableType } from "./data";
+import { ConsumableData, ConsumableCategory } from "./data";
 import { OtherConsumableTag } from "./types";
 
 class ConsumablePF2e extends PhysicalItemPF2e {
@@ -14,12 +14,12 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         return new Set(this.system.traits.otherTags);
     }
 
-    get consumableType(): ConsumableType {
+    get category(): ConsumableCategory {
         return this.system.consumableType.value;
     }
 
     get isAmmunition(): boolean {
-        return this.consumableType === "ammo";
+        return this.category === "ammo";
     }
 
     get uses(): ValueAndMax {
@@ -52,10 +52,10 @@ class ConsumablePF2e extends PhysicalItemPF2e {
         const translations = LocalizePF2e.translations.PF2E;
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
         const [consumableType, isUsable] = this.isIdentified
-            ? [game.i18n.localize(this.consumableType), true]
+            ? [game.i18n.localize(CONFIG.PF2E.consumableTypes[this.category]), true]
             : [
                   this.generateUnidentifiedName({ typeOnly: true }),
-                  !["other", "scroll", "talisman", "tool", "wand"].includes(this.consumableType),
+                  !["other", "scroll", "talisman", "tool", "wand"].includes(this.category),
               ];
 
         return this.processChatData(htmlOptions, {
@@ -78,16 +78,29 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             this.traits.has("inhaled") || this.traits.has("contact")
                 ? translations.UnidentifiedType.Substance
                 : translations.UnidentifiedType.Liquid;
-        const itemType = ["drug", "elixir", "mutagen", "oil", "poison", "potion"].includes(this.consumableType)
+        const itemType = ["drug", "elixir", "mutagen", "oil", "poison", "potion"].includes(this.category)
             ? liquidOrSubstance()
-            : ["scroll", "snare", "ammo"].includes(this.consumableType)
-            ? game.i18n.localize(CONFIG.PF2E.consumableTypes[this.consumableType])
+            : ["scroll", "snare", "ammo"].includes(this.category)
+            ? game.i18n.localize(CONFIG.PF2E.consumableTypes[this.category])
             : translations.UnidentifiedType.Object;
 
         if (typeOnly) return itemType;
 
         const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
         return game.i18n.format(formatString, { item: itemType });
+    }
+
+    override getRollOptions(prefix = "consumable"): string[] {
+        return super.getRollOptions(prefix).concat(
+            Object.entries({
+                [`category:${this.category}`]: true,
+            })
+                .filter(([_key, isTrue]) => isTrue)
+                .map(([key]) => {
+                    const delimitedPrefix = prefix ? `${prefix}:` : "";
+                    return `${delimitedPrefix}${key}`;
+                })
+        );
     }
 
     isAmmoFor(weapon: ItemPF2e): boolean {
@@ -145,7 +158,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
                     flavor: content,
                     flags,
                 });
-            } else if (this.consumableType !== "ammo") {
+            } else if (this.category !== "ammo") {
                 ChatMessage.create({
                     user: game.user.id,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -204,7 +217,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     }
 }
 
-interface ConsumablePF2e {
+interface ConsumablePF2e extends PhysicalItemPF2e {
     readonly data: ConsumableData;
 }
 

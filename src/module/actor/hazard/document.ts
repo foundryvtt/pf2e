@@ -131,7 +131,7 @@ class HazardPF2e extends ActorPF2e {
     }
 }
 
-interface HazardPF2e {
+interface HazardPF2e extends ActorPF2e {
     readonly data: HazardData;
 
     saves: { [K in SaveType]?: Statistic };

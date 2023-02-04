@@ -1171,18 +1171,30 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A fallen champion emanates an aura of utter despair. Living creatures are @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} while in a fallen champion's aura. They can't naturally recover from this fear while in the area but recover instantly once they leave the aura.</p>"
+                    "value": "<p>@Template[type:emanation|distance:15]{15 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<p>A fallen champion emanates an aura of utter despair. Living creatures are @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1} while in a fallen champion's aura. They can't naturally recover from this fear while in the area but recover instantly once they leave the aura.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Despair]{Effect: Despair}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [
                     {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "predicate": [
+                                    "target:mode:living"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.1bOSJ2LbEC28aI9f"
+                            }
+                        ],
                         "key": "Aura",
                         "radius": 15,
                         "slug": "agent-of-despair",
                         "traits": [
-                            "aura",
                             "divine",
                             "emotion",
                             "enchantment",

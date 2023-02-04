@@ -39,16 +39,20 @@ function createDamageFormula(
     // Group dice by damage type
     const typeMap: DamageTypeMap = new Map();
     if ((base.diceNumber && base.dieSize) || base.modifier) {
+        const diceSection = base.diceNumber ? `${base.diceNumber}${base.dieSize}` : null;
+        const modifier = base.modifier ? base.modifier : null;
+        const label = [diceSection, modifier].filter((p) => p !== null).join(" + ");
+
         typeMap.set(base.damageType, [
             {
-                label: `${base.diceNumber}${base.dieSize}`,
+                label,
                 dice:
                     base.diceNumber && base.dieSize
                         ? { number: base.diceNumber, faces: Number(base.dieSize.replace("d", "")) }
                         : null,
                 modifier: base.modifier ?? 0,
                 critical: null,
-                category: null,
+                category: base.category,
                 materials: base.materials ?? [],
             },
         ]);
@@ -161,10 +165,16 @@ function instancesFromTypeMap(
 
             if (!breakdownDamage.length) return [];
 
-            const damageTypeLabel = game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
-            const breakdown = breakdownDamage.map((d) => d.label);
-            breakdown[0] = `${breakdown[0]} ${damageTypeLabel}`;
-            return breakdown;
+            const damageTypeLabel =
+                breakdownDamage[0].category === "persistent"
+                    ? game.i18n.format("PF2E.Damage.PersistentTooltip", {
+                          damageType: game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType),
+                      })
+                    : game.i18n.localize(CONFIG.PF2E.damageTypes[damageType] ?? damageType);
+            const labelParts = breakdownDamage.map((d) => d.label);
+            labelParts[0] = `${labelParts[0].replace(/^\s+\+/, "")} ${damageTypeLabel}`;
+
+            return labelParts;
         })();
 
         const formula = enclosed && flavor ? `${enclosed}${flavor}` : enclosed;

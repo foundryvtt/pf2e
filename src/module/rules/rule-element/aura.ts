@@ -1,6 +1,6 @@
 import { AuraColors, AuraEffectData } from "@actor/types";
 import { ItemPF2e } from "@item";
-import { ItemTrait } from "@item/data/base";
+import { EffectTrait } from "@item/abstract-effect/data";
 import { PredicatePF2e } from "@system/predication";
 import { isObject, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
@@ -16,7 +16,7 @@ export class AuraRuleElement extends RuleElementPF2e {
     effects: AuraREEffectData[];
 
     /** Associated traits, including ones that determine transmission through walls ("visual", "auditory") */
-    traits: ItemTrait[];
+    traits: EffectTrait[];
 
     /**
      * Custom border and fill colors for the aura: if omitted, the border color will be black, and the fill color the
@@ -26,6 +26,7 @@ export class AuraRuleElement extends RuleElementPF2e {
 
     constructor(source: AuraRuleElementSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         source.effects ??= [];
+        source.traits ??= [];
 
         super(source, item, options);
 
@@ -33,8 +34,11 @@ export class AuraRuleElement extends RuleElementPF2e {
 
         if (this.#isValid(source)) {
             this.radius = source.radius;
-            this.effects = deepClone(source.effects ?? []);
-            this.traits = deepClone(source.traits ?? []);
+            this.effects = deepClone(source.effects ?? []).map((e) => ({
+                ...e,
+                predicate: new PredicatePF2e(e.predicate ?? []),
+            }));
+            this.traits = deepClone(source.traits ?? []).filter((t) => t !== "aura");
             this.colors = source.colors ?? null;
         } else {
             this.radius = 0;
@@ -63,12 +67,15 @@ export class AuraRuleElement extends RuleElementPF2e {
 
     #isValid(data: AuraRuleElementSource): data is AuraRuleElementData {
         const validations = {
-            predicate: PredicatePF2e.isValid(data.predicate ?? []),
+            traits:
+                Array.isArray(data.traits) &&
+                data.traits.every((t) => t in CONFIG.PF2E.spellTraits || t in CONFIG.PF2E.actionTraits),
             radius: ["number", "string"].includes(typeof data.radius),
             effects: Array.isArray(data.effects) && data.effects.every(this.#isEffectData),
             colors: !("colors" in data) || data.colors === null || this.#isAuraColors(data.colors),
+            predicate: !("predicate" in data) || PredicatePF2e.isValid(data.predicate),
         };
-        const properties = ["predicate", "radius", "effects", "colors"] as const;
+        const properties = ["traits", "radius", "effects", "colors"] as const;
         for (const property of properties) {
             if (!validations[property]) {
                 this.failValidation(`"${property}" property is invalid.`);
@@ -95,8 +102,16 @@ export class AuraRuleElement extends RuleElementPF2e {
         effect.save ??= null;
         effect.includesSelf ??= effect.affects !== "enemies";
 
+        if (typeof effect.uuid !== "string") return false;
+
+        const indexEntry = fromUuidSync(effect.uuid);
+        if (!(indexEntry && "type" in indexEntry && typeof indexEntry.type === "string")) {
+            this.failValidation(`Unable to resolve effect uuid: ${effect.uuid}`);
+            return false;
+        }
+
         return (
-            typeof effect.uuid === "string" &&
+            ["effect", "affliction"].includes(indexEntry.type) &&
             (!("level" in effect) || ["string", "number"].includes(typeof effect.level)) &&
             typeof effect.affects === "string" &&
             ["allies", "enemies", "all"].includes(effect.affects) &&
@@ -123,7 +138,7 @@ interface AuraRuleElementSource extends RuleElementSource {
 interface AuraRuleElementData extends RuleElementSource {
     radius: string | number;
     effects?: AuraREEffectData[];
-    traits?: ItemTrait[];
+    traits?: EffectTrait[];
     colors?: AuraColors | null;
 }
 

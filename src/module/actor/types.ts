@@ -1,13 +1,21 @@
 import { ActorPF2e } from "@actor";
 import { MeleePF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { ItemTrait } from "@item/data/base";
+import { EffectTrait } from "@item/abstract-effect";
 import { TokenDocumentPF2e } from "@scene";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr";
 import { DamageRoll } from "@system/damage/roll";
 import { CheckDC } from "@system/degree-of-success";
+import { PredicatePF2e } from "@system/predication";
 import { TraitViewData } from "./data/base";
 import { ModifierPF2e } from "./modifiers";
-import { ABILITY_ABBREVIATIONS, DC_SLUGS, SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_LONG_FORMS } from "./values";
+import {
+    ABILITY_ABBREVIATIONS,
+    DC_SLUGS,
+    SAVE_TYPES,
+    SKILL_ABBREVIATIONS,
+    SKILL_LONG_FORMS,
+    UNAFFECTED_TYPES,
+} from "./values";
 
 type AbilityString = SetElement<typeof ABILITY_ABBREVIATIONS>;
 
@@ -31,7 +39,7 @@ interface AuraData {
     radius: number;
     effects: AuraEffectData[];
     colors: AuraColors | null;
-    traits: ItemTrait[];
+    traits: EffectTrait[];
 }
 
 interface AuraEffectData {
@@ -43,6 +51,7 @@ interface AuraEffectData {
         type: SaveType;
         dc: number;
     } | null;
+    predicate: PredicatePF2e;
     removeOnExit: boolean;
     includesSelf: boolean;
 }
@@ -109,6 +118,8 @@ interface ApplyDamageParams {
 type ImmunityType = keyof typeof immunityTypes;
 type WeaknessType = keyof typeof weaknessTypes;
 type ResistanceType = keyof typeof resistanceTypes;
+/** Damage types a creature or hazard is possibly unaffected by, outside the IWR framework */
+type UnaffectedType = SetElement<typeof UNAFFECTED_TYPES>;
 type IWRType = ImmunityType | WeaknessType | ResistanceType;
 
 export {
@@ -132,5 +143,6 @@ export {
     StrikeRollContext,
     StrikeRollContextParams,
     StrikeSelf,
+    UnaffectedType,
     WeaknessType,
 };

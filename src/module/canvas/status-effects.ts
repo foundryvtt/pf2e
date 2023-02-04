@@ -7,6 +7,10 @@ import { ChatMessagePF2e } from "@module/chat-message";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
 import { resetAndRerenderActors } from "@actor/helpers";
 
+const debouncedRender = foundry.utils.debounce(() => {
+    canvas.tokens.hud.render();
+}, 20);
+
 /** Handle interaction with the TokenHUD's status effects menu */
 export class StatusEffects {
     /** The ID of the last token processed following an encounter update */
@@ -89,7 +93,7 @@ export class StatusEffects {
         CONFIG.statusEffects.push({
             id: "dead",
             label: "PF2E.Actor.Dead",
-            icon: CONFIG.controlIcons.defeated as ImageFilePath,
+            icon: CONFIG.controlIcons.defeated,
         });
     }
 
@@ -100,7 +104,7 @@ export class StatusEffects {
         const iconGrid = html.querySelector<HTMLElement>(".status-effects");
         if (!iconGrid) throw ErrorPF2e("Unexpected error retrieving status effects grid");
 
-        const affectingConditions = token.actor?.itemTypes.condition.filter((condition) => condition.isInHUD) ?? [];
+        const affectingConditions = token.actor?.itemTypes.condition.filter((c) => c.isInHUD) ?? [];
 
         const titleBar = document.createElement("div");
         titleBar.className = "title-bar";
@@ -230,9 +234,6 @@ export class StatusEffects {
                 this.#toggleStatus(event, token);
             }
         }
-
-        // An update of a synthetic actor is a token update, which will trigger the HUD re-render
-        if (token.document.isLinked) await canvas.hud?.token.render();
     }
 
     static async #toggleStatus(event: MouseEvent, token: TokenPF2e): Promise<void> {
@@ -250,11 +251,9 @@ export class StatusEffects {
         if (event.type === "click" && !affecting) {
             if (objectHasKey(CONFIG.PF2E.conditionTypes, slug)) {
                 const newCondition = game.pf2e.ConditionManager.getCondition(slug).toObject();
-                newCondition.system.sources.hud = true;
                 await token.actor?.createEmbeddedDocuments("Item", [newCondition]);
             } else if (iconSrc && (event.shiftKey || icon.dataset.statusId === "dead")) {
                 await token.toggleEffect(iconSrc, { overlay: true, active: true });
-                await canvas.tokens.hud.render();
             }
         } else if (event.type === "contextmenu") {
             if (affecting) conditionIds.push(affecting.id);
@@ -263,7 +262,6 @@ export class StatusEffects {
                 await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
             } else if (token.document.overlayEffect === iconSrc) {
                 await token.toggleEffect(iconSrc, { overlay: true, active: false });
-                await canvas.tokens.hud.render();
             }
         }
     }
@@ -310,5 +308,12 @@ export class StatusEffects {
             messageSource.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
         }
         ChatMessagePF2e.create(messageSource);
+    }
+
+    /** Re-render the token HUD */
+    static refresh(): void {
+        if (canvas.ready && canvas.tokens.hud.rendered) {
+            debouncedRender();
+        }
     }
 }

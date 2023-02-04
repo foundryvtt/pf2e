@@ -50,7 +50,7 @@ Term = head:TermOperand tail:(_ ("*" / "/") _ TermOperand)* {
 
 TermOperand = DiceTerm / MathTerm / Grouping / FlavoredNumber / Number;
 
-MathTerm = fn:Identifier "(" _ head:FunctionArg? _ tail:(_ "," _ @FunctionArg)* _ ")" {
+MathTerm = fn:Identifier "(" _ head:Expression? _ tail:(_ "," _ @Expression)* _ ")" {
   const terms = head
     ? [head, ...tail].map((t) => typeof t === "number" ? t.toString() : t.formula)
     : [];
@@ -62,8 +62,6 @@ MathTerm = fn:Identifier "(" _ head:FunctionArg? _ tail:(_ "," _ @FunctionArg)* 
     evaluated: false,
   };
 };
-
-FunctionArg = Term / DiceTerm / Grouping / Number / MathTerm;
 
 DiceTerm = number:(Grouping / MathTerm / Number)? [dD] faces:(Grouping / MathTerm / Number / Identifier) modifiers:Modifiers? flavor:Flavor? {
   const obj =

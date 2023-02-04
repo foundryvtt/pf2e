@@ -1,5 +1,5 @@
 import { EffectBadge } from "@item/abstract-effect";
-import { TimeUnit } from "@item/abstract-effect/data";
+import { EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/data";
 import {
     BaseItemDataPF2e,
     BaseItemSourcePF2e,
@@ -8,7 +8,6 @@ import {
     ItemSystemData,
     ItemSystemSource,
 } from "@item/data/base";
-import { CheckRoll } from "@system/check";
 import { EffectPF2e } from ".";
 
 type EffectSource = BaseItemSourcePF2e<"effect", EffectSystemSource> & {
@@ -26,7 +25,8 @@ type EffectFlags = ItemFlagsPF2e & {
     };
 };
 
-interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
+interface EffectSystemSource extends Omit<ItemSystemSource, "traits">, ItemLevelData {
+    traits: EffectTraits;
     start: {
         value: number;
         initiative: number | null;
@@ -49,29 +49,11 @@ interface EffectSystemSource extends ItemSystemSource, ItemLevelData {
     context: EffectContextData | null;
 }
 
-interface EffectSystemData extends EffectSystemSource, ItemSystemData {
+interface EffectSystemData extends EffectSystemSource, Omit<ItemSystemData, "traits"> {
     expired: boolean;
     remaining: string;
 }
 
 type EffectExpiryType = "turn-start" | "turn-end";
 
-interface EffectAuraData {
-    slug: string;
-    origin: ActorUUID | TokenDocumentUUID;
-    removeOnExit: boolean;
-}
-
-interface EffectContextData {
-    origin: {
-        actor: ActorUUID | TokenDocumentUUID;
-        token: TokenDocumentUUID | null;
-    };
-    target: {
-        actor: ActorUUID | TokenDocumentUUID;
-        token: TokenDocumentUUID | null;
-    } | null;
-    roll: Pick<CheckRoll, "total" | "degreeOfSuccess"> | null;
-}
-
-export { EffectData, EffectExpiryType, EffectFlags, EffectContextData, EffectSource, EffectSystemData };
+export { EffectData, EffectExpiryType, EffectFlags, EffectSource, EffectSystemData };

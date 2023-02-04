@@ -53,14 +53,17 @@
             {{/if}}
         </div>
     </div>
-    <div class="icon {{#if effect.unidentified}}unidentified{{/if}}" data-item-id="{{effect.id}}" data-locked="{{#if effect.locked}}true{{/if}}" style="background-image: url({{effect.img}})">
+    <div class="icon{{#if effect.unidentified}} unidentified{{/if}}" data-locked="{{#if effect.locked}}true{{/if}}" style="background-image: url({{effect.img}})">
         {{#if effect.locked}}
             <div class="linked"><i class="fas fa-link"></i></div>
         {{/if}}
         {{#if effect.system.expired}}
             <span class="expired">{{localize "PF2E.EffectPanel.Expired"}}</span>
         {{else if effect.badge}}
-            <div class="value"><strong>{{effect.badge.value}}</strong></div>
+            <div class="value-wrapper">
+                <div class="value"><strong>{{coalesce effect.badge.label effect.badge.value}}</strong></div>
+            </div>
+
         {{/if}}
     </div>
 </div>

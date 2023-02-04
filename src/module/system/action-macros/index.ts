@@ -29,11 +29,13 @@ import { avoidNotice } from "./exploration/avoid-notice";
 import { senseDirection } from "./exploration/sense-direction";
 import { track } from "./exploration/track";
 import { decipherWriting } from "./general/decipher-writing";
+import { subsist } from "./general/subsist";
 import { coerce } from "./intimidation/coerce";
 import { demoralize } from "./intimidation/demoralize";
 import { treatDisease } from "./medicine/treat-disease";
 import { treatPoison } from "./medicine/treat-poison";
 import { commandAnAnimal } from "./nature/command-an-animal";
+import { perform } from "./performance/perform";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
 import { disableDevice } from "./thievery/disable-device";
@@ -93,6 +95,7 @@ export const ActionMacros = {
 
     // General Skill Actions
     decipherWriting,
+    subsist,
 
     // Intimidation
     coerce,
@@ -104,6 +107,9 @@ export const ActionMacros = {
 
     // Nature
     commandAnAnimal,
+
+    // Performance
+    perform,
 
     // Stealth
     hide,

@@ -68,7 +68,7 @@ interface BasicDamageData {
     diceNumber: number;
     dieSize: DamageDieSize | null;
     modifier: number;
-    category: DamageCategory | null;
+    category: DamageCategoryUnique | null;
     materials?: MaterialDamageEffect[];
 }
 

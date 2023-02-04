@@ -232,7 +232,7 @@ interface ClassDCData extends Required<AbilityBasedStatistic>, StatisticTraceDat
     primary: boolean;
 }
 
-/** The full data for a character action (used primarily for strikes.) */
+/** The full data for a character strike */
 interface CharacterStrike extends StrikeData {
     item: Embedded<WeaponPF2e>;
     slug: string;

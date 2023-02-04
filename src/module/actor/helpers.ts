@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, ActorProxyPF2e } from "@actor";
 import { ItemPF2e, MeleePF2e } from "@item";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
@@ -12,17 +12,18 @@ import {
 } from "@module/rules/helpers";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e, CheckRoll } from "@system/check";
-import { DamagePF2e, DamageType, WeaponDamagePF2e } from "@system/damage";
+import { DamagePF2e, DamageRollContext, WeaponDamagePF2e } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
-import { RollParameters } from "@system/rolls";
+import { RollParameters, StrikeRollParams } from "@system/rolls";
 import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
 import { ActorSourcePF2e } from "./data";
-import { RollFunction, TraitViewData } from "./data/base";
+import { DamageRollFunction, TraitViewData } from "./data/base";
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from "./modifiers";
 import { NPCStrike } from "./npc/data";
 import { StrikeAttackTraits } from "./npc/strike-attack-traits";
 import { AttackItem } from "./types";
 import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values";
+import { eventToRollParams } from "@scripts/sheet-util";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<void> {
@@ -67,7 +68,8 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
         source.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION,
         ...(source.items ?? []).map((i) => i!.system?.schema?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION)
     );
-    const actor = new ActorPF2e(source);
+    const tokenDefaults = deepClone(game.settings.get("core", "defaultToken"));
+    const actor = new ActorProxyPF2e(mergeObject({ prototypeToken: tokenDefaults }, source));
     await MigrationRunner.ensureSchemaVersion(actor, MigrationList.constructFromVersion(lowestSchemaVersion));
 
     return actor.toObject();
@@ -232,12 +234,6 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
         .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
         .join(", ");
 
-    // Add a damage roll breakdown
-    strike.damageBreakdown = Object.values(item.system.damageRolls).flatMap((roll) => {
-        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[roll.damageType as DamageType]);
-        return [`${roll.damage} ${damageType}`];
-    });
-
     const strikeLabel = game.i18n.localize("PF2E.WeaponStrikeLabel");
     const multipleAttackPenalty = calculateMAPs(item, { domains, options: baseOptions });
     const sign = strike.totalModifier < 0 ? "" : "+";
@@ -320,8 +316,8 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     strike.roll = strike.attack = strike.variants[0].roll;
 
     const damageRoll =
-        (outcome: "success" | "criticalSuccess"): RollFunction =>
-        async (params: RollParameters = {}): Promise<Rolled<DamageRoll> | null> => {
+        (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
+        async (params: StrikeRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
             const domains = ["all", "strike-damage", "damage-roll"];
             const context = actor.getStrikeRollContext({
                 item,
@@ -337,22 +333,34 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                 return null;
             }
 
-            const damage = WeaponDamagePF2e.calculateStrikeNPC(
-                context.self.item,
-                context.self.actor,
-                [attackTrait],
-                1,
-                options
-            );
-            if (!damage) throw ErrorPF2e("This weapon deals no damage");
-
             const { self, target } = context;
+            const damageContext: DamageRollContext = {
+                type: "damage-roll",
+                sourceType: "attack",
+                self,
+                target,
+                outcome,
+                options,
+                domains,
+                ...eventToRollParams(params.event),
+            };
+            if (params.getFormula) damageContext.skipDialog = true;
 
-            return DamagePF2e.roll(
-                damage,
-                { type: "damage-roll", sourceType: "attack", self, target, outcome, options, domains },
-                params.callback
-            );
+            const damage = await WeaponDamagePF2e.fromNPCAttack({
+                attack: context.self.item,
+                actor: context.self.actor,
+                actionTraits: [attackTrait],
+                proficiencyRank: 1,
+                context: damageContext,
+            });
+            if (!damage) return null;
+
+            if (params.getFormula) {
+                const formula = damage.damage.formula[outcome];
+                return formula ? new DamageRoll(formula).formula : "";
+            } else {
+                return DamagePF2e.roll(damage, damageContext, params.callback);
+            }
         };
 
     strike.damage = damageRoll("success");

@@ -69,7 +69,7 @@ export class CraftingFormula implements CraftingFormulaData {
         const { item } = this;
         const isMundaneAmmo = item instanceof ConsumablePF2e && item.isAmmunition && !item.isMagical;
         const isConsumable =
-            (item instanceof ConsumablePF2e && item.consumableType !== "wand") ||
+            (item instanceof ConsumablePF2e && item.category !== "wand") ||
             (item instanceof WeaponPF2e && item.baseType === "alchemical-bomb");
 
         return Math.max(this.minimumBatchSize, isMundaneAmmo ? 10 : isConsumable ? 4 : 1);

@@ -2,7 +2,7 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import { ActorSizePF2e } from "@actor/data/size";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
 import { ItemSummaryData, MeleeSource } from "@item/data";
-import { MeleeDamageRoll, NPCAttackTrait } from "@item/melee/data";
+import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data";
 import {
     Bulk,
     CoinsPF2e,
@@ -572,7 +572,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const { actor } = this;
         if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
-        const baseDamage = ((): MeleeDamageRoll => {
+        const baseDamage = ((): NPCAttackDamage => {
             const weaponDamage = this.baseDamage;
             const ability = this.rangeIncrement && !this.isThrown ? "dex" : "str";
             const actorLevel = actor.system.details.level.base;
@@ -593,14 +593,16 @@ class WeaponPF2e extends PhysicalItemPF2e {
             return {
                 damage: weaponDamage.die ? `${dice}${weaponDamage.die}${constant}` : dice.toString(),
                 damageType: weaponDamage.damageType,
+                category: null,
             };
         })();
         const fromPropertyRunes = this.system.runes.property
             .flatMap((r) => WEAPON_PROPERTY_RUNES[r].damage?.dice ?? [])
             .map(
-                (d): MeleeDamageRoll => ({
+                (d): NPCAttackDamage => ({
                     damage: `${d.diceNumber}${d.dieSize}`,
                     damageType: d.damageType ?? baseDamage.damageType,
+                    category: d.category ?? null,
                 })
             );
 
@@ -633,7 +635,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
                         // Thrown(-N) trait on melee attacks with thrown melee weapons
                         !(t.startsWith("thrown") && !this.isThrown) &&
                         // Finesse trait on thrown attacks with thrown melee weapons
-                        !(t === "finesse" && this.isRanged) &&
+                        !(["grapple", "finesse", "shove", "trip"].includes(t) && this.isRanged) &&
                         // Brutal trait on melee attacks
                         !(t === "brutal" && this.isMelee) &&
                         // Combination trait on melee or thrown attacks with combination weapons
@@ -659,6 +661,27 @@ class WeaponPF2e extends PhysicalItemPF2e {
             return newTraits.sort();
         };
 
+        const persistentDamage = ((): NPCAttackDamage | never[] => {
+            const { persistent } = this.system.damage;
+            if (!persistent) return [];
+            const formula = persistent.faces
+                ? `${persistent.number}d${persistent.faces}`
+                : persistent.number.toString();
+            return {
+                damage: formula,
+                damageType: persistent.type,
+                category: "persistent",
+            };
+        })();
+
+        const splashDamage: NPCAttackDamage | never[] = this.system.splashDamage.value
+            ? {
+                  damage: this.system.splashDamage.value.toString(),
+                  damageType: this.system.damage.damageType,
+                  category: "splash",
+              }
+            : [];
+
         const source: PreCreate<MeleeSource> = {
             name: this._source.name,
             type: "melee",
@@ -668,10 +691,10 @@ class WeaponPF2e extends PhysicalItemPF2e {
                     // Give an attack bonus approximating a high-threat NPC
                     value: Math.round(1.5 * this.actor.level + 7),
                 },
-                damageRolls: [baseDamage, fromPropertyRunes]
+                damageRolls: [baseDamage, splashDamage, fromPropertyRunes, persistentDamage]
                     .flat()
                     .reduce(
-                        (rolls: Record<string, MeleeDamageRoll>, roll) => mergeObject(rolls, { [randomID()]: roll }),
+                        (rolls: Record<string, NPCAttackDamage>, roll) => mergeObject(rolls, { [randomID()]: roll }),
                         {}
                     ),
                 traits: {
@@ -689,7 +712,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface WeaponPF2e {
+interface WeaponPF2e extends PhysicalItemPF2e {
     readonly data: WeaponData;
 
     get traits(): Set<WeaponTrait>;

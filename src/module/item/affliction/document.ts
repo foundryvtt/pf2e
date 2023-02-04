@@ -4,7 +4,8 @@ import { AfflictionData } from "./data";
 
 class AfflictionPF2e extends AbstractEffectPF2e {
     override get badge(): EffectBadge {
-        return { type: "counter", value: this.stage };
+        const label = game.i18n.format("PF2E.Item.Affliction.Stage", { stage: this.stage });
+        return { type: "counter", value: this.stage, label };
     }
 
     get stage() {
@@ -49,7 +50,7 @@ class AfflictionPF2e extends AbstractEffectPF2e {
     }
 }
 
-interface AfflictionPF2e {
+interface AfflictionPF2e extends AbstractEffectPF2e {
     readonly data: AfflictionData;
 }
 

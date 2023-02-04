@@ -42,7 +42,7 @@ export abstract class DataModel<
     static defineSchema(): fields.DataSchema;
 
     /** Define the data schema for documents of this type. */
-    static get schema(): fields.SchemaField;
+    static get schema(): fields.SchemaField<ReturnType<typeof this["defineSchema"]>>;
 
     /** Define the data schema for this document instance. */
     // PROJECT NOTE: this must be overloaded in an interface merge declaration

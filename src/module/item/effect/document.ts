@@ -1,5 +1,6 @@
 import { AbstractEffectPF2e } from "@item/abstract-effect";
 import { EffectBadge } from "@item/abstract-effect/data";
+import { ChatMessagePF2e } from "@module/chat-message";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules";
 import { UserPF2e } from "@module/user";
 import { isObject, objectHasKey, sluggify } from "@util";
@@ -82,6 +83,15 @@ class EffectPF2e extends AbstractEffectPF2e {
             system.duration.expiry ||= "turn-start";
         }
         system.expired = this.remainingDuration.expired;
+
+        const badge = this.system.badge;
+        if (badge?.type === "counter") {
+            const max = badge.labels?.length ?? Infinity;
+            badge.value = Math.clamped(badge.value, 1, max);
+            if (badge.labels) {
+                badge.label = badge.labels.at(badge.value - 1);
+            }
+        }
     }
 
     /** Unless this effect is temporarily constructed, ignore rule elements if it is expired */
@@ -98,8 +108,12 @@ class EffectPF2e extends AbstractEffectPF2e {
 
     /** Increases if this is a counter effect, otherwise ignored outright */
     async increase(): Promise<void> {
-        if (this.system.badge?.type === "counter" && !this.isExpired) {
-            const value = this.system.badge.value + 1;
+        const badge = this.system.badge;
+        if (badge?.type === "counter" && !this.isExpired) {
+            const max = badge.labels?.length ?? Infinity;
+            if (badge.value >= max) return;
+
+            const value = badge.value + 1;
             await this.update({ system: { badge: { value } } });
         }
     }
@@ -148,6 +162,15 @@ class EffectPF2e extends AbstractEffectPF2e {
                     initiative,
                 },
             });
+        }
+
+        // If this is an immediate evaluation formula effect, pre-roll and change the badge type on creation
+        const badge = data.system.badge;
+        if (this.actor && badge?.type === "formula" && badge.evaluate) {
+            const roll = await new Roll(badge.value, this.getRollData()).evaluate({ async: true });
+            this._source.system.badge = { type: "value", value: roll.total };
+            const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.actor.token });
+            roll.toMessage({ flavor: this.name, speaker });
         }
 
         return super._preCreate(data, options, user);
@@ -201,7 +224,7 @@ class EffectPF2e extends AbstractEffectPF2e {
     }
 }
 
-interface EffectPF2e {
+interface EffectPF2e extends AbstractEffectPF2e {
     readonly data: EffectData;
 }
 

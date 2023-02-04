@@ -1,11 +1,12 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
-import { DamageDiceParameters, DamageDicePF2e } from "@actor/modifiers";
+import { DamageDiceParameters, DamageDicePF2e, ModifierAdjustment } from "@actor/modifiers";
 import { ResistanceType } from "@actor/types";
 import { ArmorPF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types";
 import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNoteSource } from "@module/notes";
+import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { isBlank } from "@util";
 
 function getPropertySlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
@@ -51,7 +52,7 @@ function getResilientBonus(itemData: { resiliencyRune: { value: ResilientRuneTyp
 type RuneDiceProperty = "damageType" | "category" | "diceNumber" | "dieSize" | "predicate" | "critical";
 type RuneDiceData = Partial<Pick<DamageDiceParameters, RuneDiceProperty>>;
 
-function toModifiers(rune: WeaponPropertyRuneType, dice: RuneDiceData[]): DamageDicePF2e[] {
+function toDamageDice(rune: WeaponPropertyRuneType, dice: RuneDiceData[]): DamageDicePF2e[] {
     return deepClone(dice).map(
         (d) =>
             new DamageDicePF2e({
@@ -75,6 +76,7 @@ interface WeaponPropertyRuneData {
     damage?: {
         dice?: RuneDiceData[];
         notes?: RuneNoteData[];
+        adjustments?: (Omit<ModifierAdjustment, "predicate"> & { predicate?: RawPredicate })[];
         /**
          * A list of resistances this weapon's damage will ignore--not limited to damage from the rune.
          * If `max` is numeric, the resistance ignored will be equal to the lower of the provided maximum and the
@@ -716,6 +718,15 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
     },
     grievous: {
         damage: {
+            dice: [
+                {
+                    damageType: "bleed",
+                    diceNumber: 1,
+                    dieSize: "d6",
+                    critical: true,
+                    predicate: ["critical-specialization", "item:group:dart"],
+                },
+            ],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -737,12 +748,6 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                 },
                 {
                     outcome: ["criticalSuccess"],
-                    predicate: ["item:group:dart"],
-                    title: "PF2E.WeaponPropertyRune.grievous.Name",
-                    text: "PF2E.WeaponPropertyRune.grievous.Note.Dart",
-                },
-                {
-                    outcome: ["criticalSuccess"],
                     predicate: ["item:group:flail"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Flail",
@@ -758,12 +763,6 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     predicate: ["item:group:knife"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Knife",
-                },
-                {
-                    outcome: ["criticalSuccess"],
-                    predicate: ["item:group:pick"],
-                    title: "PF2E.WeaponPropertyRune.grievous.Name",
-                    text: "PF2E.WeaponPropertyRune.grievous.Note.Pick",
                 },
                 {
                     outcome: ["criticalSuccess"],
@@ -794,6 +793,13 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
                     predicate: ["item:group:sword"],
                     title: "PF2E.WeaponPropertyRune.grievous.Name",
                     text: "PF2E.WeaponPropertyRune.grievous.Note.Sword",
+                },
+            ],
+            adjustments: [
+                {
+                    slug: "critical-specialization",
+                    predicate: ["item:group:pick"],
+                    getNewValue: (current) => current * 2,
                 },
             ],
         },
@@ -1029,12 +1035,18 @@ export const WEAPON_PROPERTY_RUNES: Record<WeaponPropertyRuneType, WeaponPropert
 
 function getPropertyRuneDice(runes: WeaponPropertyRuneType[]): DamageDicePF2e[] {
     return runes.flatMap((rune) => {
-        const runeConfig = CONFIG.PF2E.runes.weapon.property[rune];
-        if (runeConfig) {
-            return runeConfig.damage?.dice ? toModifiers(rune, runeConfig.damage.dice) : [];
-        }
-        return [];
+        const runeData = CONFIG.PF2E.runes.weapon.property[rune];
+        return toDamageDice(rune, runeData.damage?.dice ?? []);
     });
+}
+
+function getPropertyRuneAdjustments(runes: WeaponPropertyRuneType[]): ModifierAdjustment[] {
+    return runes.flatMap(
+        (rune) =>
+            CONFIG.PF2E.runes.weapon.property[rune].damage?.adjustments?.map(
+                (a): ModifierAdjustment => ({ ...a, predicate: new PredicatePF2e(a.predicate ?? []) })
+            ) ?? []
+    );
 }
 
 /* -------------------------------------------- */
@@ -1078,6 +1090,7 @@ export {
     RuneValuationData,
     WEAPON_VALUATION_DATA,
     WeaponPropertyRuneData,
+    getPropertyRuneAdjustments,
     getPropertyRuneDice,
     getPropertyRunes,
     getPropertySlots,

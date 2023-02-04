@@ -3498,12 +3498,32 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Allies in the planetar's aura gain a +2 status bonus to AC against evil creatures and a +2 status bonus to damage rolls against evil creatures. The area in the aura is difficult terrain for evil creatures.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>Allies in the planetar's aura gain a +2 status bonus to AC against evil creatures and a +2 status bonus to damage rolls against evil creatures. The area in the aura is difficult terrain for evil creatures.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Aura of Righteousness (Planetar)]{Effect: Aura of Righteousness (Planetar)}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "events": [
+                                    "enter"
+                                ],
+                                "includesSelf": false,
+                                "uuid": "Compendium.pf2e.bestiary-effects.I5Fd4TkIKRJT6WXf"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 20,
+                        "slug": "aura-of-righteousness",
+                        "traits": [
+                            "divine",
+                            "evocation"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

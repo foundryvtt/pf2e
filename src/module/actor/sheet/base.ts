@@ -2,7 +2,15 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ActorDataPF2e } from "@actor/data";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
-import { Coins, createConsumableFromSpell, DENOMINATIONS, ItemPF2e, PhysicalItemPF2e } from "@item";
+import {
+    Coins,
+    createConsumableFromSpell,
+    DENOMINATIONS,
+    ItemPF2e,
+    ItemProxyPF2e,
+    PhysicalItemPF2e,
+    SpellPF2e,
+} from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -21,16 +29,16 @@ import {
     TagSelectorType,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, htmlClosest, htmlQuery, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
 import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
 import { ItemSummaryRenderer } from "./item-summary-renderer";
 import { MoveLootPopup } from "./loot/move-loot-popup";
 import { AddCoinsPopup } from "./popups/add-coins-popup";
+import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
-import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -202,6 +210,31 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
 
+        // Handlers for number inputs of properties subject to modification by AE-like rules elements
+        const manualPropertyInputs = htmlQueryAll(html, "select[data-property],input[data-property]");
+        for (const input of manualPropertyInputs) {
+            input.addEventListener("focus", () => {
+                const propertyPath = input.dataset.property ?? "";
+                input.setAttribute("name", propertyPath);
+                if (input instanceof HTMLInputElement) {
+                    const baseValue = Number(getProperty(this.actor._source, propertyPath));
+                    input.value = String(baseValue);
+                }
+            });
+
+            input.addEventListener("blur", () => {
+                input.removeAttribute("name");
+                input.removeAttribute("style");
+                const propertyPath = input.dataset.property ?? "";
+                const preparedValue = getProperty(this.actor, propertyPath);
+                if (input instanceof HTMLInputElement) {
+                    const isModifier = input.classList.contains("modifier") && Number(preparedValue) >= 0;
+                    const value = isModifier ? `+${preparedValue}` : preparedValue;
+                    input.value = String(value);
+                }
+            });
+        }
+
         /* -------------------------------------------- */
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
@@ -297,6 +330,25 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
             strike.variants[variantIndex]?.roll({ event, altUsage });
         });
+
+        // Set damage-formula tooltips on damage buttons
+        const damageButtons = htmlQueryAll<HTMLButtonElement>(
+            $strikesList[0],
+            ["button[data-action=strike-damage]", "button[data-action=strike-critical]"].join(",")
+        );
+        for (const button of damageButtons) {
+            const method = button.dataset.action === "strike-damage" ? "damage" : "critical";
+            const altUsage = tupleHasValue(["thrown", "melee"] as const, button.dataset.altUsage)
+                ? button.dataset.altUsage
+                : null;
+
+            const strike = this.getStrikeFromDOM(button);
+            strike?.[method]?.({ getFormula: true, altUsage }).then((formula) => {
+                if (!formula) return;
+                button.title = formula.toString();
+                $(button).tooltipster({ position: "bottom", theme: "crb-hover" });
+            });
+        }
 
         // Remove Spell Slot
         $html.find(".item-unprepare").on("click", (event) => {
@@ -704,20 +756,18 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         if (!item) return [];
         const itemSource = item.toObject();
 
-        const actor = this.actor;
-        const sourceActorId = item.parent?.id ?? "";
-        const sourceTokenId = item.parent?.token?.id ?? "";
-        const isSameActor = sourceActorId === actor.id || (item.parent?.isToken && sourceTokenId === actor.token?.id);
-        if (isSameActor) return this._onSortItem(event, itemSource);
+        if (item.actor?.uuid === this.actor.uuid) {
+            return this._onSortItem(event, itemSource);
+        }
 
         const sourceItemId = itemSource._id;
-        if (sourceActorId && item.isOfType("physical")) {
+        if (item.actor && item.isOfType("physical")) {
             await this.moveItemBetweenActors(
                 event,
-                sourceActorId,
-                sourceTokenId,
-                actor.id,
-                actor.token?.id ?? "",
+                item.actor.id,
+                item.actor?.token?.id ?? null,
+                this.actor.id,
+                this.actor.token?.id ?? null,
                 sourceItemId
             );
             return [item];
@@ -794,15 +844,21 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 });
                 return [updated ?? []].flat();
             }
-        } else if (itemSource.type === "effect") {
+        } else if (itemSource.type === "effect" || itemSource.type === "affliction") {
+            // Pass along level, badge-value, and traits to an effect dragged from a spell
             const { level, value, context } = data;
             if (typeof level === "number" && level >= 0) {
-                itemSource.system.level.value = level;
+                itemSource.system.level.value = Math.floor(level);
             }
-            if (typeof value === "number" && itemSource.system.badge?.type === "counter") {
-                itemSource.system.badge.value = value;
+            const hasCounterBadge = itemSource.type === "effect" && itemSource.system.badge?.type === "counter";
+            if (hasCounterBadge && typeof value === "number") {
+                itemSource.system.badge!.value = value;
             }
             itemSource.system.context = context ?? null;
+            const originItem = fromUuidSync(context?.origin.item ?? "");
+            if (itemSource.system.traits?.value.length === 0 && originItem instanceof SpellPF2e) {
+                itemSource.system.traits.value.push(...originItem.traits);
+            }
         } else if (item.isOfType("physical") && actor.isOfType("character") && craftingTab) {
             const actorFormulas = deepClone(actor.system.crafting.formulas);
             if (!actorFormulas.some((f) => f.uuid === item.uuid)) {
@@ -832,7 +888,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Creating a new item: clear the _id via cloning it
-        return this._onDropItemCreate(new ItemPF2e(itemSource).clone().toObject());
+        return this._onDropItemCreate(new ItemProxyPF2e(itemSource).clone().toObject());
     }
 
     protected override async _onDropFolder(
@@ -856,9 +912,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     async moveItemBetweenActors(
         event: ElementDragEvent,
         sourceActorId: string,
-        sourceTokenId: string,
+        sourceTokenId: string | null,
         targetActorId: string,
-        targetTokenId: string,
+        targetTokenId: string | null,
         itemId: string
     ): Promise<void> {
         const sourceActor = canvas.scene?.tokens.get(sourceTokenId ?? "")?.actor ?? game.actors.get(sourceActorId);
@@ -872,7 +928,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             throw ErrorPF2e("Missing or invalid item");
         }
 
-        const container = $(event.target).parents('[data-item-is-container="true"]');
+        const container = $(event.target).parents("[data-item-is-container=true]");
         const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
         const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.findStackableItem(targetActor, item._source);

@@ -41,10 +41,9 @@ import {
 } from "@item/weapon/types";
 import { Size } from "@module/data";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
-import { DAMAGE_TYPES } from "@system/damage";
-import { DamageCategoryUnique, DamageType } from "@system/damage/types";
-import { pick, sluggify } from "@util";
+import { sluggify } from "@util";
 import enJSON from "../../../static/lang/en.json";
+import { damageCategories, damageRollFlavors, damageTypes, materialDamageEffects } from "./damage";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr";
 import {
     actionTraits,
@@ -56,7 +55,6 @@ import {
     consumableTraits,
     creatureTraits,
     damageTraits,
-    energyDamageTypes,
     equipmentTraits,
     featTraits,
     hazardTraits,
@@ -111,56 +109,6 @@ const weaponPropertyRunes = {
         return { ...accumulated, [slug]: rune.name };
     }, {} as Record<WeaponPropertyRuneType, string>),
 };
-
-const damageCategoriesUnique: Record<DamageCategoryUnique, string> = {
-    persistent: "PF2E.ConditionTypePersistentShort",
-    precision: "PF2E.Damage.Precision",
-    splash: "PF2E.TraitSplash",
-};
-
-const materialDamageEffects = pick(preciousMaterials, [
-    "abysium",
-    "adamantine",
-    "cold-iron",
-    "djezet",
-    "mithral",
-    "noqual",
-    "peachwood",
-    "silver",
-    "sisterstone-dusk",
-    "sisterstone-scarlet",
-    "sovereign-steel",
-    "warpglass",
-]);
-
-const damageCategories = {
-    ...damageCategoriesUnique,
-    ...materialDamageEffects,
-    alignment: "PF2E.Alignment",
-    energy: "PF2E.TraitEnergy",
-    physical: "PF2E.TraitPhysical",
-};
-
-const physicalDamageTypes = {
-    bleed: "PF2E.TraitBleed",
-    bludgeoning: "PF2E.TraitBludgeoning",
-    piercing: "PF2E.TraitPiercing",
-    slashing: "PF2E.TraitSlashing",
-};
-
-const damageTypes: Record<DamageType, string> = {
-    ...alignmentTraits,
-    ...energyDamageTypes,
-    ...physicalDamageTypes,
-    mental: "PF2E.TraitMental",
-    poison: "PF2E.TraitPoison",
-    untyped: "PF2E.TraitUntyped",
-};
-
-const damageRollFlavors = [...DAMAGE_TYPES].reduce((result, key) => {
-    result[key] = `PF2E.Damage.RollFlavor.${key}`;
-    return result;
-}, {} as Record<DamageType, string>);
 
 /** Non-detection- and attitude- related conditions added to the Token HUD */
 const tokenHUDConditions = {
@@ -310,7 +258,6 @@ const traitsDescriptions = {
     champion: "PF2E.TraitDescriptionChampion",
     changeling: "PF2E.TraitDescriptionChangeling",
     chaotic: "PF2E.TraitDescriptionChaotic",
-    charm: "PF2E.TraitDescriptionCharm",
     class: "PF2E.TraitDescriptionClass",
     cleric: "PF2E.TraitDescriptionCleric",
     climbing: "PF2E.TraitDescriptionClimbing",
@@ -547,6 +494,7 @@ const traitsDescriptions = {
     social: "PF2E.TraitDescriptionSocial",
     sonic: "PF2E.TraitDescriptionSonic",
     sorcerer: "PF2E.TraitDescriptionSorcerer",
+    spellgun: "PF2E.TraitDescriptionSpellgun",
     spellheart: "PF2E.TraitDescriptionSpellheart",
     spellshot: "PF2E.TraitNoDescription",
     splash: "PF2E.TraitDescriptionSplash",
@@ -982,6 +930,7 @@ export const PF2ECONFIG = {
         "applied-to-boots-cape-cloak-or-umbrella": "PF2E.TraitAppliedToBootsCapeCloakOrUmbrella",
         "applied-to-dueling-cape-or-shield": "PF2E.TraitAppliedToDuelingCapeOrShield",
         "applied-to-buckler-shield": "PF2E.TraitAppliedToBucklerShield",
+        "applied-to-medium-heavy-armor": "PF2E.TraitAppliedToMediumHeavyArmor",
         "applied-to-shield": "PF2E.TraitAppliedToShield",
         "attached-to-a-thrown-weapon": "PF2E.TraitAttachedToAThrownWeapon",
         "attached-to-crossbow-or-firearm": "PF2E.TraitAttachedToCrossbowOrFirearm",

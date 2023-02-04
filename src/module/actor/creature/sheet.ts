@@ -170,31 +170,6 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         super.activateListeners($html);
         const html = $html[0]!;
 
-        // Handlers for number inputs of properties subject to modification by AE-like rules elements
-        const manualPropertyInputs = htmlQueryAll(html, "select[data-property],input[data-property]");
-        for (const input of manualPropertyInputs) {
-            input.addEventListener("focus", () => {
-                const propertyPath = input.dataset.property ?? "";
-                input.setAttribute("name", propertyPath);
-                if (input instanceof HTMLInputElement) {
-                    const baseValue = Number(getProperty(this.actor._source, propertyPath));
-                    input.value = String(baseValue);
-                }
-            });
-
-            input.addEventListener("blur", () => {
-                input.removeAttribute("name");
-                input.removeAttribute("style");
-                const propertyPath = input.dataset.property ?? "";
-                const preparedValue = getProperty(this.actor, propertyPath);
-                if (input instanceof HTMLInputElement) {
-                    const isModifier = input.classList.contains("modifier") && Number(preparedValue) >= 0;
-                    const value = isModifier ? `+${preparedValue}` : preparedValue;
-                    input.value = String(value);
-                }
-            });
-        }
-
         // Toggle equip
         $html.find(".tab.inventory a[data-carry-type]").on("click", (event) => {
             $html.find(".carry-type-hover").tooltipster("close");
