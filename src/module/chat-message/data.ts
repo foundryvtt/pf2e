@@ -6,6 +6,7 @@ import { ChatMessagePF2e } from ".";
 import { RollNoteSource } from "@module/notes";
 import { CheckRollContext } from "@system/check";
 import { DamageRollContext } from "@system/damage";
+import { ZeroToTwo } from "@module/data";
 
 interface ChatMessageDataPF2e<TChatMessage extends ChatMessagePF2e = ChatMessagePF2e>
     extends foundry.data.ChatMessageData<TChatMessage> {
@@ -70,6 +71,7 @@ type ContextFlagOmission =
     | "createMessage"
     | "dosAdjustments"
     | "item"
+    | "mapIncreases"
     | "notes"
     | "options"
     | "target"
@@ -90,6 +92,7 @@ interface DamageRollContextFlag extends Required<Omit<DamageRollContext, Context
     actor: string | null;
     token: string | null;
     item?: undefined;
+    mapIncreases?: ZeroToTwo;
     target: TargetFlag | null;
     notes: RollNoteSource[];
     options: string[];

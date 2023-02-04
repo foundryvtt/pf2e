@@ -157,7 +157,8 @@ class WeaponDamagePF2e {
         // Find the best active ability modifier in order to get the correct synthetics selectors
         const resolvables = { weapon };
         const injectables = resolvables;
-        const fromDamageSelector = extractModifiers(actor.synthetics, ["damage"], { resolvables, injectables });
+        const baseDomains = ["damage", "strike-damage"];
+        const fromDamageSelector = extractModifiers(actor.synthetics, baseDomains, { resolvables, injectables });
         const modifiersAndSelectors = modifiers
             .concat(fromDamageSelector)
             .filter((m): m is ModifierPF2e & { ability: AbilityString } => m.type === "ability")

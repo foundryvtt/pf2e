@@ -21,7 +21,47 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "strike-damage",
+                "key": "RollOption",
+                "option": "advantageous-assault",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "advantageous-assault",
+                    {
+                        "or": [
+                            "target:condition:grabbed",
+                            "target:condition:prone",
+                            "target:condition:restrained"
+                        ]
+                    },
+                    {
+                        "gt": [
+                            "map:increases",
+                            0
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "advantageous-assault",
+                "type": "circumstance",
+                "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "item:hands-held:2"
+                ],
+                "selector": "strike-damage",
+                "slug": "advantageous-assault",
+                "value": 2
+            }
+        ],
         "source": {
             "value": "Pathfinder Core Rulebook"
         },

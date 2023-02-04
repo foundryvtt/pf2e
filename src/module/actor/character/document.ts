@@ -53,7 +53,7 @@ import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/dat
 import { WeaponCategory, WeaponPropertyRuneType } from "@item/weapon/types";
 import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree } from "@module/data";
+import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree, ZeroToTwo } from "@module/data";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifierAdjustments,
@@ -67,7 +67,7 @@ import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
 import { DamagePF2e, DamageRollContext, WeaponDamagePF2e } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
 import { PredicatePF2e } from "@system/predication";
-import { RollParameters, StrikeRollParams } from "@system/rolls";
+import { DamageRollParams, RollParameters, AttackRollParams } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import {
     ErrorPF2e,
@@ -1718,9 +1718,9 @@ class CharacterPF2e extends CreaturePF2e {
                 labels[index],
                 checkModifiers[index],
             ])
-            .map(([label, constructModifier]) => ({
+            .map(([label, constructModifier], mapIncreases) => ({
                 label,
-                roll: async (params: StrikeRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
+                roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
                     params.consumeAmmo ??= weapon.requiresAmmo;
                     if (weapon.requiresAmmo && params.consumeAmmo && !weapon.ammo) {
                         ui.notifications.warn(
@@ -1775,6 +1775,7 @@ class CharacterPF2e extends CreaturePF2e {
                         rollTwice,
                         substitutions,
                         dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, selectors),
+                        mapIncreases: mapIncreases as ZeroToTwo,
                     };
 
                     if (params.consumeAmmo && !this.consumeAmmo(context.self.item, params)) {
@@ -1798,7 +1799,7 @@ class CharacterPF2e extends CreaturePF2e {
         action.attack = action.roll = action.variants[0].roll;
 
         for (const method of ["damage", "critical"] as const) {
-            action[method] = async (params: StrikeRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
+            action[method] = async (params: DamageRollParams = {}): Promise<string | Rolled<DamageRoll> | null> => {
                 const domains = ["all", "strike-damage", "damage-roll"];
                 params.options ??= [];
                 const context = this.getStrikeRollContext({
@@ -1828,6 +1829,13 @@ class CharacterPF2e extends CreaturePF2e {
                     domains,
                     ...eventToRollParams(params.event),
                 };
+
+                // Include MAP increases in case any ability depends on it
+                if (typeof params.mapIncreases === "number") {
+                    damageContext.mapIncreases = params.mapIncreases;
+                    damageContext.options.add(`map:increases:${params.mapIncreases}`);
+                }
+
                 if (params.getFormula) damageContext.skipDialog = true;
 
                 const damage = await WeaponDamagePF2e.calculate({

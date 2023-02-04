@@ -12,7 +12,7 @@ import { ActionTrait } from "@item/action/data";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ChatMessagePF2e } from "@module/chat-message";
-import { OneToTen } from "@module/data";
+import { OneToTen, ZeroToTwo } from "@module/data";
 import { extractDamageDice, extractDamageModifiers } from "@module/rules/helpers";
 import { UserPF2e } from "@module/user";
 import { MeasuredTemplateDocumentPF2e } from "@scene";
@@ -851,7 +851,8 @@ class SpellPF2e extends ItemPF2e {
 
     async rollDamage(
         this: Embedded<SpellPF2e>,
-        event: JQuery.ClickEvent<unknown, unknown, HTMLElement>
+        event: JQuery.ClickEvent<unknown, unknown, HTMLElement>,
+        mapIncreases?: ZeroToTwo
     ): Promise<Rolled<DamageRoll> | null> {
         const castLevel =
             Number(event.currentTarget.closest<HTMLElement>("*[data-cast-level]")?.dataset.castLevel) || this.level;
@@ -866,6 +867,12 @@ class SpellPF2e extends ItemPF2e {
         if (!spellDamage) return null;
 
         const { template, context } = spellDamage;
+
+        // Include MAP increases in case any ability depends on it
+        if (typeof mapIncreases === "number") {
+            context.mapIncreases = mapIncreases;
+            context.options.add(`map:increases:${mapIncreases}`);
+        }
 
         return DamagePF2e.roll(template, context);
     }
