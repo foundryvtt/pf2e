@@ -8,6 +8,7 @@ import {
     SaveType,
     StrikeRollContext,
     StrikeRollContextParams,
+    UnaffectedType,
 } from "@actor/types";
 import { ArmorPF2e, ContainerPF2e, EffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
@@ -40,6 +41,7 @@ import {
     getActionIcon,
     isObject,
     objectHasKey,
+    setHasElement,
     traitSlugToObject,
     tupleHasValue,
 } from "@util";
@@ -56,7 +58,7 @@ import { ItemTransfer } from "./item-transfer";
 import { ActorSheetPF2e } from "./sheet/base";
 import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
-import { CREATURE_ACTOR_TYPES } from "./values";
+import { CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -295,18 +297,16 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
     /** Whether this actor is affected by damage of a certain type despite lack of explicit immunity */
     isAffectedBy(damage: DamageType | ConditionPF2e): boolean {
-        const possiblyUnaffected = ["good", "evil", "lawful", "chaotic", "negative", "positive", "bleed"] as const;
-
         const damageType = objectHasKey(CONFIG.PF2E.damageTypes, damage)
             ? damage
             : damage.isOfType("condition")
             ? damage.system.persistent?.damageType ?? null
             : null;
 
-        if (!tupleHasValue(possiblyUnaffected, damageType)) return true;
+        if (!setHasElement(UNAFFECTED_TYPES, damageType)) return true;
 
         const { traits } = this;
-        const damageIsApplicable: Record<typeof possiblyUnaffected[number], boolean> = {
+        const damageIsApplicable: Record<UnaffectedType, boolean> = {
             good: traits.has("evil"),
             evil: traits.has("good"),
             lawful: traits.has("chaotic"),

@@ -59,6 +59,8 @@ const WEAKNESS_TYPES = new Set(Object.keys(weaknessTypes)) as Set<WeaknessType>;
 
 const RESISTANCE_TYPES = new Set(Object.keys(resistanceTypes)) as Set<ResistanceType>;
 
+const UNAFFECTED_TYPES = new Set(["good", "evil", "lawful", "chaotic", "negative", "positive", "bleed"] as const);
+
 const SKILL_ABBREVIATIONS = new Set([
     "acr",
     "arc",
@@ -151,5 +153,6 @@ export {
     SKILL_DICTIONARY_REVERSE,
     SKILL_EXPANDED,
     SKILL_LONG_FORMS,
+    UNAFFECTED_TYPES,
     WEAKNESS_TYPES,
 };
