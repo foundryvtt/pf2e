@@ -8,7 +8,14 @@ import { CheckDC } from "@system/degree-of-success";
 import { PredicatePF2e } from "@system/predication";
 import { TraitViewData } from "./data/base";
 import { ModifierPF2e } from "./modifiers";
-import { ABILITY_ABBREVIATIONS, DC_SLUGS, SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_LONG_FORMS } from "./values";
+import {
+    ABILITY_ABBREVIATIONS,
+    DC_SLUGS,
+    SAVE_TYPES,
+    SKILL_ABBREVIATIONS,
+    SKILL_LONG_FORMS,
+    UNAFFECTED_TYPES,
+} from "./values";
 
 type AbilityString = SetElement<typeof ABILITY_ABBREVIATIONS>;
 
@@ -111,6 +118,8 @@ interface ApplyDamageParams {
 type ImmunityType = keyof typeof immunityTypes;
 type WeaknessType = keyof typeof weaknessTypes;
 type ResistanceType = keyof typeof resistanceTypes;
+/** Damage types a creature or hazard is possibly unaffected by, outside the IWR framework */
+type UnaffectedType = SetElement<typeof UNAFFECTED_TYPES>;
 type IWRType = ImmunityType | WeaknessType | ResistanceType;
 
 export {
@@ -134,5 +143,6 @@ export {
     StrikeRollContext,
     StrikeRollContextParams,
     StrikeSelf,
+    UnaffectedType,
     WeaknessType,
 };
