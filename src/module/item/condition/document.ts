@@ -22,9 +22,9 @@ class ConditionPF2e extends AbstractEffectPF2e {
     }
 
     /** Retrieve this condition's origin from its granting effect, if any */
-    override get origin(): { actor: ActorPF2e | null; item: Embedded<ItemPF2e> | null } {
+    override get origin(): ActorPF2e | null {
         const grantingItem = this.actor?.items.get(this.flags.pf2e.grantedBy?.id ?? "");
-        return grantingItem?.isOfType("affliction", "effect") ? grantingItem.origin : { actor: null, item: null };
+        return grantingItem?.isOfType("affliction", "effect") ? grantingItem.origin : null;
     }
 
     /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
