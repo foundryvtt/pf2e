@@ -266,6 +266,11 @@ abstract class CreaturePF2e extends ActorPF2e {
             return flanking.flatFootable && PredicatePF2e.test(["origin:flanking"], rollOptions);
         }
 
+        if (dueTo === "ability") {
+            const rollOptions = this.getRollOptions();
+            return PredicatePF2e.test(["origin:override-target-flat-footed"], rollOptions);
+        }
+
         return false;
     }
 
@@ -386,6 +391,19 @@ abstract class CreaturePF2e extends ActorPF2e {
         // Add modifiers from being flanked
         if (this.isFlatFooted({ dueTo: "flanking" })) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
+            const condition = game.pf2e.ConditionManager.getCondition("flat-footed", { name });
+            const flatFooted = new ConditionPF2e(condition.toObject(), { parent: this }) as Embedded<ConditionPF2e>;
+
+            const rule = flatFooted.prepareRuleElements().shift();
+            if (!rule) throw ErrorPF2e("Unexpected error retrieving condition");
+            rule.beforePrepareData?.();
+
+            this.rollOptions.all["self:condition:flat-footed"] = true;
+        }
+
+        // Add modifiers from being flat-footed due to surprise attack
+        if (this.isFlatFooted({ dueTo: "ability" })) {
+            const name = game.i18n.localize("PF2E.Item.Condition.FlatFootedAbility");
             const condition = game.pf2e.ConditionManager.getCondition("flat-footed", { name });
             const flatFooted = new ConditionPF2e(condition.toObject(), { parent: this }) as Embedded<ConditionPF2e>;
 

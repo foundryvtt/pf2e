@@ -23,7 +23,7 @@ interface GetReachParameters {
 
 interface IsFlatFootedParams {
     /** The circumstance potentially imposing the flat-footed condition */
-    dueTo: "flanking" | "surprise" | "hidden" | "undetected";
+    dueTo: "flanking" | "ability" | "hidden" | "undetected";
 }
 
 interface CreatureUpdateContext<T extends CreaturePF2e> extends ActorUpdateContext<T> {
