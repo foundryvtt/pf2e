@@ -344,7 +344,7 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         };
 
         // "Unlike with measuring most distances, 10-foot reach can reach 2 squares diagonally." (CRB pg 455)
-        const reduction = squares.diagonal > 1 && reach === 10 ? 1 : 0;
+        const reduction = (squares.diagonal > 1 || squares.doubleDiagonal > 1) && reach === 10 ? 1 : 0;
 
         // Diagonals in PF pretty much count as 1.5 times a straight
         const actualDistance =
