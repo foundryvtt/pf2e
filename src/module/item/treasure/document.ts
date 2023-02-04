@@ -33,7 +33,7 @@ class TreasurePF2e extends PhysicalItemPF2e {
     }
 }
 
-interface TreasurePF2e {
+interface TreasurePF2e extends PhysicalItemPF2e {
     readonly data: TreasureData;
 }
 

@@ -50,7 +50,7 @@ class AfflictionPF2e extends AbstractEffectPF2e {
     }
 }
 
-interface AfflictionPF2e {
+interface AfflictionPF2e extends AbstractEffectPF2e {
     readonly data: AfflictionData;
 }
 

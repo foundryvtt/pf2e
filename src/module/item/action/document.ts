@@ -73,7 +73,7 @@ class ActionItemPF2e extends ItemPF2e {
     }
 }
 
-interface ActionItemPF2e {
+interface ActionItemPF2e extends ItemPF2e {
     readonly data: ActionItemData;
 }
 

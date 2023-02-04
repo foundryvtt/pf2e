@@ -224,7 +224,7 @@ class EffectPF2e extends AbstractEffectPF2e {
     }
 }
 
-interface EffectPF2e {
+interface EffectPF2e extends AbstractEffectPF2e {
     readonly data: EffectData;
 }
 

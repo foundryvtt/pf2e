@@ -63,7 +63,7 @@ class ContainerPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface ContainerPF2e {
+interface ContainerPF2e extends PhysicalItemPF2e {
     readonly data: ContainerData;
 
     get traits(): Set<EquipmentTrait>;

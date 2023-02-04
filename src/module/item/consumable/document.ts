@@ -217,7 +217,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     }
 }
 
-interface ConsumablePF2e {
+interface ConsumablePF2e extends PhysicalItemPF2e {
     readonly data: ConsumableData;
 }
 

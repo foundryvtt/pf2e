@@ -849,7 +849,7 @@ abstract class CreaturePF2e extends ActorPF2e {
     }
 }
 
-interface CreaturePF2e {
+interface CreaturePF2e extends ActorPF2e {
     readonly data: CreatureData;
 
     /** Saving throw rolls for the creature, built during data prep */

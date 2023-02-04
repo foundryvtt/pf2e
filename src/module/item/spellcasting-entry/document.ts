@@ -315,7 +315,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
     }
 }
 
-interface SpellcastingEntryPF2e {
+interface SpellcastingEntryPF2e extends ItemPF2e {
     readonly data: SpellcastingEntryData;
 }
 

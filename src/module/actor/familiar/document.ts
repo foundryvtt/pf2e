@@ -358,7 +358,7 @@ class FamiliarPF2e extends CreaturePF2e {
     }
 }
 
-interface FamiliarPF2e {
+interface FamiliarPF2e extends CreaturePF2e {
     readonly data: FamiliarData;
 }
 

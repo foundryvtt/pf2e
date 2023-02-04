@@ -54,7 +54,7 @@ class EquipmentPF2e extends PhysicalItemPF2e {
     }
 }
 
-interface EquipmentPF2e {
+interface EquipmentPF2e extends PhysicalItemPF2e {
     readonly data: EquipmentData;
 
     get traits(): Set<EquipmentTrait>;

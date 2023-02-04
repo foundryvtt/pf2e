@@ -148,7 +148,7 @@ class VehiclePF2e extends ActorPF2e {
     }
 }
 
-interface VehiclePF2e {
+interface VehiclePF2e extends ActorPF2e {
     readonly data: VehicleData;
 
     get hitPoints(): HitPointsSummary;

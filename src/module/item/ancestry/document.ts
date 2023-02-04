@@ -134,7 +134,7 @@ class AncestryPF2e extends ABCItemPF2e {
     }
 }
 
-interface AncestryPF2e {
+interface AncestryPF2e extends ABCItemPF2e {
     readonly data: AncestryData;
 }
 
