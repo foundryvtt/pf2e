@@ -1,7 +1,7 @@
 import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
-import { getActionIcon } from "@util";
+import { getActionIcon, htmlQueryAll } from "@util";
 import { VehicleSheetData } from "./data";
 import { htmlClosest } from "@util";
 import { AbstractEffectPF2e } from "@item";
@@ -65,58 +65,74 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
         {
             // ensure correct tab name is displayed after actor update
-            const title = $(".sheet-navigation .active").attr("title");
-            if (title) {
-                $html.find(".navigation-title").text(title);
-            }
+            const title = html.querySelector(".sheet-navigation .active")?.getAttribute("title");
+            if (title) html.querySelector(".navigation-title")!.textContent = title;
         }
-        $html.find(".sheet-navigation").on("mouseover", ".item", (event) => {
-            const title = event.currentTarget.title;
-            if (title) {
-                $(event.currentTarget).parents(".sheet-navigation").find(".navigation-title").text(title);
-            }
-        });
-        $html.find(".sheet-navigation").on("mouseout", ".item", (event) => {
-            const parent = $(event.currentTarget).parents(".sheet-navigation");
-            const title = parent.find(".item.active").attr("title");
-            if (title) {
-                parent.find(".navigation-title").text(title);
-            }
-        });
+        for (const element of htmlQueryAll(html, ".sheet-navigation .item") ?? []) {
+            element.addEventListener("mouseover", (event) => {
+                const el = event.currentTarget as HTMLElement;
+                const title = el?.getAttribute("title");
+                if (title) {
+                    const parent = el.parentElement?.querySelector(".navigation-title");
+                    if (parent) parent.textContent = title;
+                }
+            });
+        }
+
+        for (const element of htmlQueryAll(html, ".sheet-navigation .item") ?? []) {
+            element.addEventListener("mouseout", (event) => {
+                const el = event.currentTarget as HTMLElement;
+                const parent = htmlClosest(el.parentElement, ".sheet-navigation");
+                const title = parent?.querySelector(".item.active")?.getAttribute("title");
+                if (title) {
+                    const navigation = parent?.querySelector(".navigation-title");
+                    if (navigation) navigation.textContent = title;
+                }
+            });
+        }
 
         // get buttons
-        $html.find(".crb-tag-selector").on("click", (event) => this.onTraitSelector(event));
+        for (const element of htmlQueryAll(html, ".crb-tag-selector") ?? []) {
+            element.addEventListener("click", (event: MouseEvent) => this.onTraitSelector(event));
+        }
 
         // Change whether an effect is secret to players or not
-        $html.find(".effects-list [data-action=effect-toggle-unidentified]").on("click", async (event) => {
-            const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
-            const effect = this.actor.items.get(effectId, { strict: true });
-            if (effect instanceof AbstractEffectPF2e) {
-                const isUnidentified = effect.unidentified;
-                await effect.update({ "system.unidentified": !isUnidentified });
-            }
-        });
+        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]") ?? []) {
+            element.addEventListener("click", async (event) => {
+                const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+                const effect = this.actor.items.get(effectId, { strict: true });
+                if (effect instanceof AbstractEffectPF2e) {
+                    const isUnidentified = effect.unidentified;
+                    await effect.update({ "system.unidentified": !isUnidentified });
+                }
+            });
+        }
 
         // Decrease effect value
-        $html.find(".effects-list .decrement").on("click", async (event) => {
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = this.actor.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof AbstractEffectPF2e) {
-                await effect.decrease();
-            }
-        });
+        for (const element of htmlQueryAll(html, ".effects-list .decrement") ?? []) {
+            element.addEventListener("click", async (event) => {
+                const el = event.currentTarget as HTMLElement;
+                const parent = htmlClosest(el.parentElement, ".item");
+                const effect = this.actor.items.get(parent?.getAttribute("data-item-id") ?? "");
+                if (effect instanceof AbstractEffectPF2e) {
+                    await effect.decrease();
+                }
+            });
+        }
 
         // Increase effect value
-        $html.find(".effects-list .increment").on("click", async (event) => {
-            const target = $(event.currentTarget);
-            const parent = target.parents(".item");
-            const effect = this.actor?.items.get(parent.attr("data-item-id") ?? "");
-            if (effect instanceof AbstractEffectPF2e) {
-                await effect.increase();
-            }
-        });
+        for (const element of htmlQueryAll(html, ".effects-list .increment") ?? []) {
+            element.addEventListener("click", async (event) => {
+                const el = event.currentTarget as HTMLElement;
+                const parent = htmlClosest(el.parentElement, ".item");
+                const effect = this.actor.items.get(parent?.getAttribute("data-item-id") ?? "");
+                if (effect instanceof AbstractEffectPF2e) {
+                    await effect.increase();
+                }
+            });
+        }
     }
 }
