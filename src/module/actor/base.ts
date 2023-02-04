@@ -275,7 +275,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     isOfType<T extends "creature" | ActorType>(
         ...types: T[]
     ): this is CreaturePF2e | InstanceType<ConfigPF2e["PF2E"]["Actor"]["documentClasses"][Exclude<T, "creature">]>;
-    isOfType<T extends ActorType | "creature">(...types: T[]): boolean {
+    isOfType(...types: string[]): boolean {
         return types.some((t) => (t === "creature" ? tupleHasValue(CREATURE_ACTOR_TYPES, this.type) : this.type === t));
     }
 
@@ -284,7 +284,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         return this.alliance !== null && this !== actor && this.alliance === actor.alliance;
     }
 
-    /** Whether this actor is an ally of the provided actor */
+    /** Whether this actor is an enemy of the provided actor */
     isEnemyOf(actor: ActorPF2e): boolean {
         return this.alliance !== null && actor.alliance !== null && this.alliance !== actor.alliance;
     }
