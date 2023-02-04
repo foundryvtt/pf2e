@@ -14,26 +14,17 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
     abstract increase(): Promise<void>;
     abstract decrease(): Promise<void>;
 
-    /** Get the actor that created this effect */
-    get origin(): { actor: ActorPF2e | null; item: Embedded<ItemPF2e> | null } {
-        const [actorOrToken, item] = this.isOfType("affliction", "effect")
-            ? [
-                  fromUuidSync(this.system.context?.origin.actor ?? ""),
-                  fromUuidSync(this.system.context?.origin.item ?? ""),
-              ]
-            : [null, null];
+    /** Get the actor from which this effect originated */
+    get origin(): ActorPF2e | null {
+        const actorOrToken = this.isOfType("affliction", "effect")
+            ? fromUuidSync(this.system.context?.origin.actor ?? "")
+            : null;
 
-        const actor =
-            actorOrToken instanceof ActorPF2e
-                ? actorOrToken
-                : actorOrToken instanceof TokenDocumentPF2e
-                ? actorOrToken.actor
-                : null;
-
-        return {
-            actor,
-            item: item instanceof ItemPF2e ? (item as Embedded<ItemPF2e>) : null,
-        };
+        return actorOrToken instanceof ActorPF2e
+            ? actorOrToken
+            : actorOrToken instanceof TokenDocumentPF2e
+            ? actorOrToken.actor
+            : null;
     }
 
     /** If true, the AbstractEffect should be hidden from the user unless they are a GM */
