@@ -338,7 +338,8 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         const sortedDistance = [nx, ny, nz].sort();
         // Get the number of straight and diagonal moves
         const squares = {
-            diagonal: sortedDistance[1],
+            doubleDiagonal: sortedDistance[0],
+            diagonal: sortedDistance[1] - sortedDistance[0],
             straight: sortedDistance[2] - sortedDistance[1],
         };
 
@@ -346,7 +347,8 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         const reduction = squares.diagonal > 1 && reach === 10 ? 1 : 0;
 
         // Diagonals in PF pretty much count as 1.5 times a straight
-        const actualDistance = Math.floor(squares.diagonal * 1.5 + squares.straight) - reduction;
+        const actualDistance =
+            Math.floor(squares.doubleDiagonal * 1.75 + squares.diagonal * 1.5 + squares.straight) - reduction;
 
         return actualDistance * gridDistance;
     }

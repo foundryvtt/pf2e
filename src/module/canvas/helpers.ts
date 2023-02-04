@@ -18,33 +18,7 @@ function measureDistanceRect(
         return canvas.grid.measureDistance(r0, r1);
     }
 
-    const gridWidth = canvas.grid.grid.w;
-
-    // Return early if the rectangles overlap
-    const rectanglesOverlap = [
-        [r0, r1],
-        [r1, r0],
-    ].some(([rA, rB]) => rB.right > rA.left && rB.left < rA.right && rB.bottom > rA.top && rB.top < rA.bottom);
-    if (rectanglesOverlap) return 0;
-
-    // Snap the dimensions and position of the rectangle to grid square units
-    const snapBounds = (rectangle: PIXI.Rectangle, { toward }: { toward: PIXI.Rectangle }): PIXI.Rectangle => {
-        const roundLeft = rectangle.left < toward.left ? Math.ceil : Math.floor;
-        const roundTop = rectangle.top < toward.top ? Math.ceil : Math.floor;
-
-        const left = roundLeft(rectangle.left / gridWidth) * gridWidth;
-        const top = roundTop(rectangle.top / gridWidth) * gridWidth;
-        const width = Math.ceil(rectangle.width / gridWidth) * gridWidth;
-        const height = Math.ceil(rectangle.height / gridWidth) * gridWidth;
-
-        return new PIXI.Rectangle(left, top, width, height);
-    };
-
-    // Find the minimum distance between the rectangles for each dimension
-    const r0Snapped = snapBounds(r0, { toward: r1 });
-    const r1Snapped = snapBounds(r1, { toward: r0 });
-    const dx = Math.max(r0Snapped.left - r1Snapped.right, r1Snapped.left - r0Snapped.right, 0) + gridWidth;
-    const dy = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
+    const { dx, dy } = measureDistanceRectDimensions(r0, r1);
 
     return measureDistanceOnGrid({ dx, dy }, { reach });
 }
