@@ -120,8 +120,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         // Decrease effect value
         for (const element of htmlQueryAll(html, ".effects-list .decrement")) {
             element.addEventListener("click", async (event) => {
-                const el = event.currentTarget as HTMLElement;
-                const parent = htmlClosest(el.parentElement, ".item");
+                const parent = htmlClosest(element.parentElement, ".item");
                 const effect = this.actor.items.get(parent?.dataset.dataItemId ?? "");
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.decrease();
@@ -132,8 +131,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         // Increase effect value
         for (const element of htmlQueryAll(html, ".effects-list .increment")) {
             element.addEventListener("click", async (event) => {
-                const el = event.currentTarget as HTMLElement;
-                const parent = htmlClosest(el.parentElement, ".item");
+                const parent = htmlClosest(element.parentElement, ".item");
                 const effect = this.actor.items.get(parent?.dataset.dataItemId ?? "");
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.increase();
