@@ -6,7 +6,6 @@ import { ItemSourcePF2e, LoreData } from "@item/data";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { PROFICIENCY_RANKS } from "@module/data";
-import { restForTheNight } from "@scripts/macros/rest-for-the-night";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
@@ -533,7 +532,7 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             .find("a[data-action=rest]")
             .tooltipster({ theme: "crb-hover" })
             .on("click", (event) => {
-                restForTheNight({ event, actors: this.actor });
+                game.pf2e.actions.restForTheNight({ event, actors: [this.actor] });
             });
 
         $html.find("a[data-action=perception-check]").tooltipster({ theme: "crb-hover" });
