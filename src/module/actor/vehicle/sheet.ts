@@ -2,7 +2,6 @@ import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
 import { getActionIcon, htmlQueryAll } from "@util";
-import { VehicleSheetData } from "./data";
 import { htmlClosest } from "@util";
 import { AbstractEffectPF2e } from "@item";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
