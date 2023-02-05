@@ -25,25 +25,49 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.TrapFinder.Label",
+                "label": "PF2E.SpecificRule.TrapFinder.SearchLabel",
                 "option": "trap-finder",
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    {
-                        "or": [
-                            "origin:trait:trap",
-                            "trap-finder"
-                        ]
-                    }
+                    "trap-finder"
                 ],
                 "selector": [
-                    "perception",
                     "saving-throw",
                     "ac"
                 ],
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 1
+                        },
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 2
+                        }
+                    ],
+                    "field": "actor|system.skills.thi.rank"
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.TrapFinder.DefendingLabel",
+                "option": "origin:trait:trap",
+                "toggleable": "totm"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:trap"
+                ],
+                "selector": "perception",
                 "type": "circumstance",
                 "value": {
                     "brackets": [
