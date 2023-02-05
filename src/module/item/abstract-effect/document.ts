@@ -24,7 +24,7 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
             ? actorOrToken
             : actorOrToken instanceof TokenDocumentPF2e
             ? actorOrToken.actor
-            : null;
+            : this.actor;
     }
 
     /** If true, the AbstractEffect should be hidden from the user unless they are a GM */
