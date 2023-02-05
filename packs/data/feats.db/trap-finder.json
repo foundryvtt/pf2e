@@ -25,65 +25,20 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Trap Finder (detecting or defending against traps)",
-                "option": "trap-finder",
+                "label": "PF2E.SpecificRule.TrapFinder.Label",
+                "option": "origin:trait:trap",
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
-                "label": "Trap Finder (to find traps)",
                 "predicate": [
-                    "trap-finder"
+                    "origin:trait:trap"
                 ],
-                "selector": "perception",
-                "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 1,
-                            "value": 1
-                        },
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.skills.thi.rank"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Trap Finder (against traps)",
-                "predicate": [
-                    "trap-finder"
+                "selector": [
+                    "perception",
+                    "saving-throw",
+                    "ac"
                 ],
-                "selector": "ac",
-                "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "start": 1,
-                            "value": 1
-                        },
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.skills.thi.rank"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Trap Finder (against traps)",
-                "predicate": [
-                    "trap-finder"
-                ],
-                "selector": "saving-throw",
                 "type": "circumstance",
                 "value": {
                     "brackets": [
