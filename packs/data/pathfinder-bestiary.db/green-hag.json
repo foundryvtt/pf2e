@@ -786,11 +786,6 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "heightening": {
-                    "damage": {},
-                    "interval": 1,
-                    "type": "interval"
-                },
                 "level": {
                     "value": 5
                 },
@@ -1127,7 +1122,7 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1306,10 +1301,20 @@
                     "value": "<p>You send a message to your target's dream. The message is one-way, up to 1 minute of speech (roughly 150 words). If the target is asleep, they receive the message instantly. If not, they receive it the next time they sleep. As soon as they receive it, the spell ends, and you know the message was sent.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You can target up to 10 creatures you know by name and have met in person. You must send the same message to all of them; the spell ends for each creature individually.</p>"
                 },
                 "duration": {
-                    "value": "1 day"
+                    "value": "until the next time you make your daily preparations"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "target": {
+                                "value": "10 creatures you know by name and have met in person"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 3
@@ -1407,8 +1412,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "piercing"
                             },
                             "value": "3d4"
@@ -1416,7 +1423,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Over the course of a minute, you cause a thick wall of thorny brambles to grow from the ground. You create a 5-foot-thick wall of brambles and thorns in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically. If you wish, the wall can be of a shorter length or height. Everything on each side of the wall has cover from creatures on the opposite side, and the wall's spaces are difficult terrain. For every move action a creature uses to enter at least one of the wall's spaces, that creature takes 3d4 piercing damage.</p>\n<p>Each 5-foot-by-5-foot section of the wall has AC 10, Hardness 10, and 20 Hit Points. It's immune to critical hits and precision damage. A destroyed section can be moved through freely.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The Hit Points of each section of the wall increase by 5, and the piercing damage increases by 1d4.</p>"
+                    "value": "<p>Over the course of a minute, you cause a thick wall of thorny brambles to grow from the ground. You create a 5-foot-thick wall of brambles and thorns in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically. If you wish, the wall can be of a shorter length or height. Everything on each side of the wall has cover from creatures on the opposite side, and the wall's spaces are difficult terrain. For every move action a creature uses to enter at least one of the wall's spaces, that creature takes 3d4 piercing damage.</p>\n<p>Each 10-foot-by-10-foot section of the wall has AC 10, Hardness 10, and 20 Hit Points. It's immune to critical hits and precision damage. A destroyed section can be moved through freely.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The Hit Points of each section of the wall increase by 5, and the piercing damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1634,7 +1641,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Plants in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
+                    "value": "<p><strong>Area</strong> all squares in a 20-foot burst that contain plants or fungi</p>\n<p>Plants and fungi in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2051,18 +2058,128 @@
                                 "subtype": "",
                                 "value": "acid"
                             },
-                            "value": "1d6+1"
+                            "value": "1d6"
+                        },
+                        "gcovwqxwitqchoin": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "splash",
+                                "value": "acid"
+                            },
+                            "value": "1"
                         }
                     }
                 },
                 "description": {
-                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes [[/r 1[persistent,acid]]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 2.</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to 3, and the splash damage increases to 2.</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to 4, and the splash damage increases to 3.</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to 5, and the splash damage increases to 4.</p>"
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus [[/r (1[splash])[acid]]]. On a critical success, the target also takes [[/r 1[persistent,acid]]] damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @UUID[Compendium.pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to [[/r 2[persistent,acid]]].</p>\n<p><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 3[persistent,acid]]], and the splash damage increases to [[/r (2[splash])[acid]]].</p>\n<p><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 4[persistent,acid]]], and the splash damage increases to [[/r (3[splash])[acid]]].</p>\n<p><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to [[/r 5[persistent,acid]]], and the splash damage increases to [[/r (4[splash])[acid]]].</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": true,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "acid"
+                                        },
+                                        "value": "1d6"
+                                    },
+                                    "gcovwqxwitqchoin": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "splash",
+                                            "value": "acid"
+                                        },
+                                        "value": "1"
+                                    }
+                                }
+                            }
+                        },
+                        "5": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": true,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "acid"
+                                        },
+                                        "value": "2d6"
+                                    },
+                                    "gcovwqxwitqchoin": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "splash",
+                                            "value": "acid"
+                                        },
+                                        "value": "2"
+                                    }
+                                }
+                            }
+                        },
+                        "7": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": true,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "acid"
+                                        },
+                                        "value": "3d6"
+                                    },
+                                    "gcovwqxwitqchoin": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "splash",
+                                            "value": "acid"
+                                        },
+                                        "value": "3"
+                                    }
+                                }
+                            }
+                        },
+                        "9": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "applyMod": true,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "",
+                                            "value": "acid"
+                                        },
+                                        "value": "4d6"
+                                    },
+                                    "gcovwqxwitqchoin": {
+                                        "applyMod": false,
+                                        "type": {
+                                            "categories": [],
+                                            "subtype": "splash",
+                                            "value": "acid"
+                                        },
+                                        "value": "4"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -2169,6 +2286,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -2383,6 +2510,21 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "120 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2591,6 +2733,16 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "500 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2697,6 +2849,20 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "area": {
+                                "areaType": "emanation",
+                                "value": "20"
+                            },
+                            "range": {
+                                "value": "20 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -3523,6 +3689,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Green hags hate beauty and purity, so they use disguises and treachery to lure and murder innocents, corrupt the pure of heart, and shatter the minds and morals of their victims. Green hags create imaginative schemes to utterly ruin anyone who crosses them, as well as good or righteous folk whose very existence insults the hag's twisted sensibilities. The complicated scandals perpetuated by green hags involve impersonation, mistaken identity, the seduction and betrayal of loved ones, or all these things in combination.</p>\n<hr />\n<p>Malevolent crones who lurk at the edges of civilization, hags use their deceptive, magical abilities to prey upon humanoids, manipulating and corrupting them. Some say hags arose from fey that became twisted by their inner selfishness. Hags gather together in covens for greater power, craft unique magical items known as <em>@UUID[Compendium.pf2e.equipment-srd.Hag Eye]{Hag Eyes}</em>, and are known to replace infant humanoids with their own offspring-these children are @UUID[Compendium.pf2e.pathfinder-bestiary.Changeling Exile]{Changelings} who have the potential to become hags themselves.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
