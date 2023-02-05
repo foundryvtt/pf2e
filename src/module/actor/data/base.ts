@@ -9,7 +9,7 @@ import { ItemSourcePF2e } from "@item/data";
 import type { ActiveEffectPF2e } from "@module/active-effect";
 import { DocumentSchemaRecord, Rarity, Size, ValueAndMaybeMax } from "@module/data";
 import { AutoChangeEntry } from "@module/rules/rule-element/ae-like";
-import { RollParameters, StrikeRollParams } from "@module/system/rolls";
+import { RollParameters, AttackRollParams } from "@module/system/rolls";
 import { DamageRoll } from "@system/damage/roll";
 import { ActorType } from ".";
 import { ImmunityData, ImmunitySource, ResistanceData, ResistanceSource, WeaknessData, WeaknessSource } from "./iwr";
@@ -160,7 +160,7 @@ type RollFunction<T extends RollParameters = RollParameters> = (
     params: T
 ) => Promise<Rolled<Roll> | null | string | void>;
 
-type DamageRollFunction = (params?: StrikeRollParams) => Promise<string | Rolled<DamageRoll> | null>;
+type DamageRollFunction = (params?: AttackRollParams) => Promise<string | Rolled<DamageRoll> | null>;
 
 /** Basic initiative-relevant data. */
 interface InitiativeData {
@@ -221,9 +221,9 @@ interface StrikeData extends StatisticModifier {
     /** Whether the strike is ready (usually when the weapon corresponding with the strike is equipped) */
     ready: boolean;
     /** Alias for `attack`. */
-    roll?: RollFunction<StrikeRollParams>;
+    roll?: RollFunction<AttackRollParams>;
     /** Roll to attack with the given strike (with no MAP penalty; see `variants` for MAP penalties.) */
-    attack?: RollFunction<StrikeRollParams>;
+    attack?: RollFunction<AttackRollParams>;
     /** Roll normal (non-critical) damage for this weapon. */
     damage?: DamageRollFunction;
     /** Roll critical damage for this weapon. */
@@ -231,7 +231,7 @@ interface StrikeData extends StatisticModifier {
     /** Alternative usages of a strike weapon: thrown, combination-melee, etc. */
     altUsages?: StrikeData[];
     /** A list of attack variants which apply the Multiple Attack Penalty. */
-    variants: { label: string; roll: RollFunction<StrikeRollParams> }[];
+    variants: { label: string; roll: RollFunction<AttackRollParams> }[];
 
     /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
     ammunition?: {

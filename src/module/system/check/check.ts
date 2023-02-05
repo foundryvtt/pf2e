@@ -52,6 +52,9 @@ class CheckPF2e {
         // System code must pass a set, but macros and modules may instead pass an array
         if (Array.isArray(context.options)) context.options = new Set(context.options);
         const rollOptions = context.options ?? new Set();
+        if (typeof context.mapIncreases === "number") {
+            rollOptions.add(`map:increases:${context.mapIncreases}`);
+        }
 
         // Figure out the default roll mode (if not already set by the event)
         if (rollOptions.has("secret")) context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";

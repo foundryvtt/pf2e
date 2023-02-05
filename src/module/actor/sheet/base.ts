@@ -207,6 +207,13 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         // Item summaries
         this.itemRenderer.activateListeners($html);
 
+        // Pop out window with actor portrait
+        htmlQuery(html, "a[data-action=show-image]")?.addEventListener("click", () => {
+            const actor = this.actor;
+            const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
+            new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
+        });
+
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
 
@@ -240,12 +247,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         /* -------------------------------------------- */
 
         if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html, this.actor);
-
-        $html.find("[data-action=show-image]").on("click", () => {
-            const actor = this.actor;
-            const title = actor.token?.name ?? actor.prototypeToken?.name ?? actor.name;
-            new ImagePopout(actor.img, { title, uuid: actor.uuid }).render(true);
-        });
 
         // Roll Save Checks
         $html.find(".save-name").on("click", (event) => {

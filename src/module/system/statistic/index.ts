@@ -11,7 +11,7 @@ import {
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { ItemPF2e } from "@item";
-import { ZeroToFour } from "@module/data";
+import { ZeroToFour, ZeroToTwo } from "@module/data";
 import {
     extractDegreeOfSuccessAdjustments,
     extractModifiers,
@@ -394,15 +394,15 @@ class StatisticCheck {
                 });
             }
         }
+        const mapIncreases = Math.clamped((args.attackNumber ?? 1) - 1, 0, 2) as ZeroToTwo;
 
         // Include multiple attack penalty to extra modifiers if given
-        if (args.attackNumber && args.attackNumber > 1) {
+        if (mapIncreases !== 0) {
             if (!item) {
                 console.warn("Missing item argument while calculating MAP during check");
             } else {
                 const maps = calculateMAPs(item, { domains, options });
-                const mapStage = (Math.clamped(args.attackNumber, 2, 3) - 1) as 1 | 2;
-                const penalty = maps[`map${mapStage}`];
+                const penalty = maps[`map${mapIncreases}`];
                 extraModifiers.push(new ModifierPF2e(maps.label, penalty, "untyped"));
             }
         }
@@ -433,6 +433,11 @@ class StatisticCheck {
             traits,
             createMessage: args.createMessage ?? true,
         };
+
+        if (typeof args.attackNumber === "number") {
+            context.mapIncreases = mapIncreases;
+            context.options?.add(`map:increases:${mapIncreases}`);
+        }
 
         const roll = await CheckPF2e.roll(
             new CheckModifier(this.label, this.#stat, extraModifiers),

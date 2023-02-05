@@ -339,7 +339,10 @@
                 "ability": {
                     "value": ""
                 },
-                "area": null,
+                "area": {
+                    "type": "burst",
+                    "value": 60
+                },
                 "category": {
                     "value": "spell"
                 },
@@ -355,11 +358,22 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "cold"
                             },
                             "value": "8d10"
+                        },
+                        "v1pnjhfu6e9akqe0": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "negative"
+                            },
+                            "value": "8d4"
                         }
                     }
                 },
@@ -374,7 +388,8 @@
                 },
                 "heightening": {
                     "damage": {
-                        "0": "1d10"
+                        "0": "1d10",
+                        "v1pnjhfu6e9akqe0": "1d4"
                     },
                     "interval": 1,
                     "type": "interval"
@@ -577,8 +592,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
                             "value": "12d10"
@@ -586,7 +603,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You fire a green ray at your target. Make a spell attack. You deal 12d10 damage, and the target must attempt a basic Fortitude save. On a critical hit, treat the save result as one degree worse. A creature reduced to 0 HP is reduced to fine powder; its gear remains. An object you hit is destroyed (no save), regardless of Hardness, unless it's an artifact or similarly hard to destroy. A single casting can destroy no more than a 10-foot cube of matter. This automatically destroys any force construct, such as a wall of force.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d10.</p>"
+                    "value": "<p>You fire a green ray at your target. Make a spell attack. On a hit, you deal 12d10 damage, and the target must attempt a basic Fortitude save. On a critical hit, treat the save result as one degree worse. A creature reduced to 0 HP is reduced to fine powder; its gear remains. An object you hit is destroyed (no save), regardless of Hardness, unless it's an artifact or similarly hard to destroy. A single casting can destroy no more than a 10-foot cube of matter. This automatically destroys any force construct, such as a wall of force.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d10.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -904,7 +921,11 @@
                 "ability": {
                     "value": ""
                 },
-                "area": null,
+                "area": {
+                    "details": "20-foot burst adjacent to a flat surface",
+                    "type": "burst",
+                    "value": 20
+                },
                 "category": {
                     "value": "spell"
                 },
@@ -920,8 +941,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "bludgeoning"
                             },
                             "value": "3d6"
@@ -974,7 +997,7 @@
                     "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "attack"
                 },
                 "sustained": {
                     "value": false
@@ -1032,8 +1055,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "poison"
                             },
                             "value": "6d8"
@@ -1160,6 +1185,16 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "range": {
+                                "value": "1 mile"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 4
                 },
@@ -1254,8 +1289,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "fire"
                             },
                             "value": "2d6"
@@ -1263,7 +1300,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You wreathe yourself in ghostly flames, gaining cold resistance 5. Additionally, adjacent creatures that hit you with a melee attack, as well as creatures that touch you or hit you with an unarmed attack, take 2d6 fire damage each time they do.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The cold resistance increases by 5, and the fire damage increases by 1d6.</p>"
+                    "value": "<p>You wreathe yourself in ghostly flames, gaining cold resistance 5. Additionally, adjacent creatures that hit you with a melee attack, as well as creatures that touch you or hit you with an unarmed attack, take 2d6 fire damage each time they do.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Fire Shield]{Spell Effect: Fire Shield}</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The cold resistance increases by 5, and the fire damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1373,7 +1410,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>The target can soar through the air, gaining a fly Speed equal to its Speed or 20 feet, whichever is greater.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The duration increases to 1 hour.</p>"
+                    "value": "<p>The target can soar through the air, gaining a fly Speed equal to its Speed or 20 feet, whichever is greater.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Fly]{Spell Effect: Fly}</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The duration increases to 1 hour.</p>"
                 },
                 "duration": {
                     "value": "5 minutes"
@@ -2212,7 +2249,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>"
+                    "value": "<p>You can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: See Invisibility]{Spell Effect: See Invisibility}</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -2656,6 +2693,26 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "1 unattended object with a Bulk of 1 or less"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "7": {
+                            "target": {
+                                "value": "1 unattended object with a Bulk of 2 or less"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2750,8 +2807,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "force"
                             },
                             "value": "1d4+1"
@@ -2776,6 +2835,7 @@
                 "materials": {
                     "value": ""
                 },
+                "overlays": {},
                 "prepared": {
                     "value": ""
                 },
@@ -2869,6 +2929,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "500 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -3073,7 +3143,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Effect: Shield Immunity]{Effect: Shield Immunity}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -4184,6 +4254,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
+                "author": "",
                 "value": "Pathfinder #148: Fires of the Haunted City"
             }
         },

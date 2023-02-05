@@ -35,23 +35,26 @@ export const ChatCards = {
             const strikeAction = message._strike;
             if (strikeAction && action?.startsWith("strike-")) {
                 const context = message.flags.pf2e.context;
+                const mapIncreases = context && "mapIncreases" in context ? context.mapIncreases : null;
                 const altUsage = context && "altUsage" in context ? context.altUsage : null;
                 const options = actor.getRollOptions(["all", "attack-roll"]);
+                const rollArgs = { event, altUsage, mapIncreases, options };
+
                 switch (sluggify(action ?? "")) {
                     case "strike-attack":
-                        strikeAction.variants[0].roll({ event, altUsage, options });
+                        strikeAction.variants[0].roll(rollArgs);
                         return;
                     case "strike-attack2":
-                        strikeAction.variants[1].roll({ event, altUsage, options });
+                        strikeAction.variants[1].roll(rollArgs);
                         return;
                     case "strike-attack3":
-                        strikeAction.variants[2].roll({ event, altUsage, options });
+                        strikeAction.variants[2].roll(rollArgs);
                         return;
                     case "strike-damage":
-                        strikeAction.damage?.({ event, altUsage, options });
+                        strikeAction.damage?.(rollArgs);
                         return;
                     case "strike-critical":
-                        strikeAction.critical?.({ event, altUsage, options });
+                        strikeAction.critical?.(rollArgs);
                         return;
                 }
             }

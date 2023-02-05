@@ -4,6 +4,7 @@ import { RollNotePF2e, RollNoteSource } from "@module/notes";
 import { ModifierPF2e } from "../actor/modifiers";
 import { RollTwiceOption } from "./check";
 import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success";
+import { ZeroToTwo } from "@module/data";
 
 interface RollDataPF2e extends RollOptions {
     rollerId?: string;
@@ -24,7 +25,7 @@ interface RollParameters {
     modifiers?: ModifierPF2e[];
 }
 
-interface StrikeRollParams extends RollParameters {
+interface AttackRollParams extends RollParameters {
     /** Retrieve the formula of the strike roll without following through to the end */
     getFormula?: true;
     /** Should this strike consume ammunition, if applicable? */
@@ -33,6 +34,10 @@ interface StrikeRollParams extends RollParameters {
     altUsage?: "thrown" | "melee" | null;
     /** Should this roll be rolled twice? If so, should it keep highest or lowest? */
     rollTwice?: RollTwiceOption;
+}
+
+interface DamageRollParams extends Omit<AttackRollParams, "consumAmmo" | "rollTwice"> {
+    mapIncreases?: ZeroToTwo;
 }
 
 interface BaseRollContext {
@@ -56,4 +61,4 @@ interface BaseRollContext {
     skipDialog?: boolean;
 }
 
-export { BaseRollContext, RollDataPF2e, RollParameters, RollTwiceOption, StrikeRollParams };
+export { BaseRollContext, DamageRollParams, RollDataPF2e, RollParameters, RollTwiceOption, AttackRollParams };

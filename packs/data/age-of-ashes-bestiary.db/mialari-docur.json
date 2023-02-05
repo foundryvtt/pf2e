@@ -255,6 +255,16 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "7": {
+                            "target": {
+                                "value": "6 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 3
                 },
@@ -458,7 +468,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You forcibly calm creatures in the area, soothing them into a nonviolent state; each creature must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> Calming urges impose a -1 status penalty to the creature's attack rolls.</p>\n<p><strong>Failure</strong> Any emotion effects that would affect the creature are suppressed and the creature can't use hostile actions. If the target is subject to hostility from any other creature, it ceases to be affected by calm emotions.</p>\n<p><strong>Critical Failure</strong> As failure, but hostility doesn't end the effect.</p>"
+                    "value": "<p>You forcibly calm creatures in the area, soothing them into a nonviolent state; each creature must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> Calming urges impose a -1 status penalty to the creature's attack rolls.</p>\n<p><strong>Failure</strong> Any emotion effects that would affect the creature are suppressed and the creature can't use hostile actions. If the target is subject to hostility from any other creature, it ceases to be affected by calm emotions.</p>\n<p><strong>Critical Failure</strong> As failure, but hostility doesn't end the effect.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Calm Emotions]{Spell Effect: Calm Emotions}</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -781,6 +791,16 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
@@ -998,6 +1018,26 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "1 unattended object with a Bulk of 1 or less"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "7": {
+                            "target": {
+                                "value": "1 unattended object with a Bulk of 2 or less"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
@@ -1093,7 +1133,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Effect: Shield Immunity]{Effect: Shield Immunity}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -1197,9 +1237,11 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "value": "healing"
+                                "subtype": "",
+                                "value": ""
                             },
                             "value": "1d10+4"
                         }
@@ -1265,7 +1307,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 willing living creature"
+                    "value": "1 willing creature"
                 },
                 "time": {
                     "value": "2"
@@ -1320,6 +1362,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
                             "value": "1d6"
@@ -1350,6 +1393,59 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "2I469pfbYcmFvzOA": {
+                        "_id": "2I469pfbYcmFvzOA",
+                        "name": "Telekinetic Projectile (Bludgeoning)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "bludgeoning"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "cUFX7ExSLeoa3vIF": {
+                        "_id": "cUFX7ExSLeoa3vIF",
+                        "name": "Telekinetic Projectile (Piercing)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "piercing"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "zFWsMjoeCnLxqJaV": {
+                        "_id": "zFWsMjoeCnLxqJaV",
+                        "name": "Telekinetic Projectile (Slashing)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "slashing"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""

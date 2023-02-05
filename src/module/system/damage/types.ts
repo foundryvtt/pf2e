@@ -1,5 +1,6 @@
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
 import { AttackTarget, ResistanceType, StrikeSelf } from "@actor/types";
+import { ZeroToTwo } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
 import { DegreeOfSuccessString } from "@system/degree-of-success";
 import { BaseRollContext } from "@system/rolls";
@@ -49,6 +50,8 @@ interface DamageRollContext extends BaseRollContext {
     secret?: boolean;
     /** The domains this roll had, for reporting purposes */
     domains?: string[];
+    /** The number of MAP increases from the preceding check */
+    mapIncreases?: ZeroToTwo;
 }
 
 interface DamageFormulaData {
