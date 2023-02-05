@@ -75,13 +75,14 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const html = $html[0];
         {
             // ensure correct tab name is displayed after actor update
-            const title = html.querySelector(".sheet-navigation .active")?.getAttribute("title");
+            const el = html.querySelector(".sheet-navigation .active") as HTMLElement;
+            const title = el?.title;
             if (title) html.querySelector(".navigation-title")!.textContent = title;
         }
         for (const element of htmlQueryAll(html, ".sheet-navigation .item") ?? []) {
             element.addEventListener("mouseover", (event) => {
                 const el = event.currentTarget as HTMLElement;
-                const title = el?.getAttribute("title");
+                const title = el?.title;
                 if (title) {
                     const parent = el.parentElement?.querySelector(".navigation-title");
                     if (parent) parent.textContent = title;
@@ -93,7 +94,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             element.addEventListener("mouseout", (event) => {
                 const el = event.currentTarget as HTMLElement;
                 const parent = htmlClosest(el.parentElement, ".sheet-navigation");
-                const title = parent?.querySelector(".item.active")?.getAttribute("title");
+                const title = (parent?.querySelector(".item.active") as HTMLElement).title;
                 if (title) {
                     const navigation = parent?.querySelector(".navigation-title");
                     if (navigation) navigation.textContent = title;
@@ -123,7 +124,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             element.addEventListener("click", async (event) => {
                 const el = event.currentTarget as HTMLElement;
                 const parent = htmlClosest(el.parentElement, ".item");
-                const effect = this.actor.items.get(parent?.getAttribute("data-item-id") ?? "");
+                const effect = this.actor.items.get(parent?.dataset.dataItemId ?? "");
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.decrease();
                 }
@@ -135,7 +136,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             element.addEventListener("click", async (event) => {
                 const el = event.currentTarget as HTMLElement;
                 const parent = htmlClosest(el.parentElement, ".item");
-                const effect = this.actor.items.get(parent?.getAttribute("data-item-id") ?? "");
+                const effect = this.actor.items.get(parent?.dataset.dataItemId ?? "");
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.increase();
                 }
