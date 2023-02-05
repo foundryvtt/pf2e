@@ -213,7 +213,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
-    async refreshFromCompendium(): Promise<void> {
+    async refreshFromCompendium(keepNPCSettings: boolean = false): Promise<void> {
         if (!this.isOwned) return ui.notifications.error("This utility may only be used on owned items");
 
         if (!this.sourceId?.startsWith("Compendium.")) {
@@ -243,8 +243,46 @@ class ItemPF2e extends Item<ActorPF2e> {
             const { containerId, quantity } = currentSource.system;
             mergeObject(updates, expandObject({ "system.containerId": containerId, "system.quantity": quantity }));
         } else if (currentSource.type === "spell") {
-            // Preserve spellcasting entry location
-            mergeObject(updates, expandObject({ "system.location.value": currentSource.system.location.value }));
+            if (!keepNPCSettings) {
+                // Preserve spellcasting entry location
+                mergeObject(updates, expandObject({ "system.location.value": currentSource.system.location.value }));
+            } else {
+                console.warn("Hallo");
+                // Preserve spellcasting entry location and category
+                mergeObject(
+                    updates,
+                    expandObject({
+                        "system.category.value": currentSource.system.category.value,
+                        "system.location.value": currentSource.system.location.value,
+                    })
+                );
+                // Preserve heightening
+                if (currentSource.system.location.heightenedLevel) {
+                    mergeObject(
+                        updates,
+                        expandObject({
+                            "system.location.heightenedLevel": currentSource.system.location.heightenedLevel,
+                        })
+                    );
+                }
+                // Preserve uses
+                if (currentSource.system.location.uses) {
+                    mergeObject(updates, expandObject({ "system.location.uses": currentSource.system.location.uses }));
+                }
+                // Set range and target for self only spells to touch and self
+                if (currentSource.name.includes("(Self Only)")) {
+                    mergeObject(
+                        updates,
+                        expandObject({ "system.range.value": "touch", "system.target.value": "self" })
+                    );
+                }
+                // Notify modified rituals
+                if (currentSource.system.category.value === "ritual" && currentSource.name.includes("(")) {
+                    ui.notifications.error(
+                        `Modified Ritual "${this.name}" has been refreshed, validate primary check, secondary caster and secondary check.`
+                    );
+                }
+            }
         } else if (currentSource.type === "feat") {
             // Preserve feat location
             mergeObject(updates, expandObject({ "system.location": currentSource.system.location }));
