@@ -75,8 +75,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const html = $html[0];
         {
             // ensure correct tab name is displayed after actor update
-            const el = html.querySelector(".sheet-navigation .active") as HTMLElement;
-            const title = el?.title;
+            const title = (html.querySelector(".sheet-navigation .active") as HTMLElement)?.title;
             if (title) html.querySelector(".navigation-title")!.textContent = title;
         }
         for (const element of htmlQueryAll(html, ".sheet-navigation .item") ?? []) {
