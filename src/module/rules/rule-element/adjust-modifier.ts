@@ -42,7 +42,7 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
             this.selectors = [data.selector];
         }
 
-        this.suppress = !!data.suppress;
+        this.suppress ??= false;
     }
 
     protected override validateData(): void {

@@ -14,7 +14,7 @@ import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e, CheckRoll } from "@system/check";
 import { DamagePF2e, DamageRollContext, WeaponDamagePF2e } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
-import { RollParameters, StrikeRollParams } from "@system/rolls";
+import { AttackRollParams, DamageRollParams } from "@system/rolls";
 import { ErrorPF2e, getActionGlyph, getActionIcon, sluggify } from "@util";
 import { ActorSourcePF2e } from "./data";
 import { DamageRollFunction, TraitViewData } from "./data/base";
@@ -24,6 +24,7 @@ import { StrikeAttackTraits } from "./npc/strike-attack-traits";
 import { AttackItem } from "./types";
 import { ANIMAL_COMPANION_SOURCE_ID, CONSTRUCT_COMPANION_SOURCE_ID } from "./values";
 import { eventToRollParams } from "@scripts/sheet-util";
+import { ZeroToTwo } from "@module/data";
 
 /** Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors */
 async function resetAndRerenderActors(actors?: Iterable<ActorPF2e>): Promise<void> {
@@ -247,13 +248,13 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
         null,
         new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map1, MODIFIER_TYPE.UNTYPED),
         new ModifierPF2e("PF2E.MultipleAttackPenalty", multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
-    ].map((map) => {
+    ].map((map, mapIncreases) => {
         const label = map
             ? game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: map.modifier })
             : `${strikeLabel} ${sign}${strike.totalModifier}`;
         return {
             label,
-            roll: async (params: RollParameters = {}): Promise<Rolled<CheckRoll> | null> => {
+            roll: async (params: AttackRollParams = {}): Promise<Rolled<CheckRoll> | null> => {
                 const attackEffects = actor.isOfType("npc") ? await actor.getAttackEffects(item) : [];
                 const rollNotes = notes.concat(attackEffects);
 
@@ -293,6 +294,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                         traits: [attackTrait],
                         notes: rollNotes,
                         dc: params.dc ?? context.dc,
+                        mapIncreases: mapIncreases as ZeroToTwo,
                         rollTwice: extractRollTwice(synthetics.rollTwice, domains, context.options),
                         substitutions: extractRollSubstitutions(synthetics.rollSubstitutions, domains, context.options),
                         dosAdjustments: extractDegreeOfSuccessAdjustments(synthetics, domains),
@@ -317,7 +319,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
 
     const damageRoll =
         (outcome: "success" | "criticalSuccess"): DamageRollFunction =>
-        async (params: StrikeRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
+        async (params: DamageRollParams = {}): Promise<Rolled<DamageRoll> | string | null> => {
             const domains = ["all", "strike-damage", "damage-roll"];
             const context = actor.getStrikeRollContext({
                 item,
@@ -325,8 +327,6 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                 domains,
                 options: new Set(params.options ?? []),
             });
-            // always add all weapon traits as options
-            const options = new Set([...context.options, ...traits, ...context.self.item.getRollOptions("item")]);
 
             if (!context.self.item.dealsDamage) {
                 ui.notifications.warn("PF2E.ErrorMessage.WeaponNoDamage", { localize: true });
@@ -340,10 +340,17 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                 self,
                 target,
                 outcome,
-                options,
+                options: context.options,
                 domains,
                 ...eventToRollParams(params.event),
             };
+
+            // Include MAP increases in case any ability depends on it
+            if (typeof params.mapIncreases === "number") {
+                damageContext.mapIncreases = params.mapIncreases;
+                damageContext.options.add(`map:increases:${params.mapIncreases}`);
+            }
+
             if (params.getFormula) damageContext.skipDialog = true;
 
             const damage = await WeaponDamagePF2e.fromNPCAttack({

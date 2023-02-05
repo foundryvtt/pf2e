@@ -194,6 +194,7 @@ export class DamagePF2e {
             target: targetFlag,
             domains: context.domains ?? [],
             options: Array.from(context.options).sort(),
+            mapIncreases: context.mapIncreases,
             notes: context.notes ?? [],
             secret: context.secret ?? false,
             rollMode,
