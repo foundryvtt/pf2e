@@ -67,6 +67,10 @@ abstract class IWRData<TType extends IWRType> {
                 return ["item:type:effect", "item:trait:fear"];
             case "damage-from-spells":
                 return ["damage", "item:type:spell"];
+            case "auditory":
+                return ["item:trait:auditory"];
+            case "visual":
+                return ["item:trait:visual"];
             case "axe-vulnerability":
                 return ["item:group:axe"];
             case "arrow-vulnerability":
