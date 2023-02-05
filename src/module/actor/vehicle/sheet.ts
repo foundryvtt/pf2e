@@ -1,7 +1,7 @@
 import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
-import { getActionIcon, htmlQueryAll } from "@util";
+import { getActionIcon, htmlQuery, htmlQueryAll } from "@util";
 import { htmlClosest } from "@util";
 import { AbstractEffectPF2e } from "@item";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
@@ -75,15 +75,15 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const html = $html[0];
         {
             // ensure correct tab name is displayed after actor update
-            const title = (html.querySelector(".sheet-navigation .active") as HTMLElement)?.title;
-            if (title) html.querySelector(".navigation-title")!.textContent = title;
+            const title = htmlQuery(html, ".sheet-navigation .active")?.title;
+            if (title) htmlQuery(html, ".navigation-title")!.textContent = title;
         }
         for (const element of htmlQueryAll(html, ".sheet-navigation .item") ?? []) {
             element.addEventListener("mouseover", (event) => {
                 const el = event.currentTarget as HTMLElement;
                 const title = el?.title;
                 if (title) {
-                    const parent = el.parentElement?.querySelector(".navigation-title");
+                    const parent = htmlQuery(el.parentElement, ".navigation-title");
                     if (parent) parent.textContent = title;
                 }
             });
@@ -93,9 +93,9 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             element.addEventListener("mouseout", (event) => {
                 const el = event.currentTarget as HTMLElement;
                 const parent = htmlClosest(el.parentElement, ".sheet-navigation");
-                const title = (parent?.querySelector(".item.active") as HTMLElement).title;
+                const title = htmlQuery(parent, ".item.active")?.title;
                 if (title) {
-                    const navigation = parent?.querySelector(".navigation-title");
+                    const navigation = htmlQuery(parent, ".navigation-title");
                     if (navigation) navigation.textContent = title;
                 }
             });
