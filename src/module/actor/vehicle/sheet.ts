@@ -85,7 +85,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             });
         }
 
-        for (const element of htmlQueryAll(html, ".sheet-navigation .item") {
+        for (const element of htmlQueryAll(html, ".sheet-navigation .item")) {
             element.addEventListener("mouseout", (event) => {
                 const el = event.currentTarget as HTMLElement;
                 const parent = htmlClosest(el.parentElement, ".sheet-navigation");
@@ -103,7 +103,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         }
 
         // Change whether an effect is secret to players or not
-        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]") ?? []) {
+        for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]")) {
             element.addEventListener("click", async (event) => {
                 const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
                 const effect = this.actor.items.get(effectId, { strict: true });
@@ -129,7 +129,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         for (const element of htmlQueryAll(html, ".effects-list .increment")) {
             element.addEventListener("click", async (event) => {
                 const parent = htmlClosest(element.parentElement, ".item");
-                const effect = this.actor.items.get(parent?.dataset.dataItemId ?? "");
+                const effect = this.actor?.items.get(parent?.dataset.dataItemId ?? "");
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.increase();
                 }
