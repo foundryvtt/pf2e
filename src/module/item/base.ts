@@ -213,7 +213,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Pull the latest system data from the source compendium and replace this item's with it */
-    async refreshFromCompendium(keepNPCSettings: boolean = false): Promise<void> {
+    async refreshFromCompendium(keepNPCSettings = false): Promise<void> {
         if (!this.isOwned) return ui.notifications.error("This utility may only be used on owned items");
 
         if (!this.sourceId?.startsWith("Compendium.")) {
@@ -247,7 +247,6 @@ class ItemPF2e extends Item<ActorPF2e> {
                 // Preserve spellcasting entry location
                 mergeObject(updates, expandObject({ "system.location.value": currentSource.system.location.value }));
             } else {
-                console.warn("Hallo");
                 // Preserve spellcasting entry location and category
                 mergeObject(
                     updates,
