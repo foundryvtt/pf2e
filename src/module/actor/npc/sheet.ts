@@ -195,7 +195,7 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
 
-        $html.find(".trait-edit").on("click", (event) => this.onTraitSelector(event));
+        $html.find(".trait-edit").on("click", (event) => this.openTagSelector(event));
         $html.find(".skills-edit").on("click", () => {
             new NPCSkillsEditor(this.actor).render(true);
         });

@@ -1,7 +1,7 @@
 import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
-import { getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
+import { ErrorPF2e, getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 
@@ -72,32 +72,29 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
-        {
-            // ensure correct tab name is displayed after actor update
-            const title = htmlQuery(html, ".sheet-navigation .active")?.title;
-            if (title) htmlQuery(html, ".navigation-title")!.textContent = title;
-        }
-        for (const element of htmlQueryAll(html, ".sheet-navigation .item")) {
-            element.addEventListener("mouseover", () => {
-                const parent = htmlQuery(element, ".navigation-title");
-                if (parent) parent.textContent = element.title;
-            });
-        }
+
+        // Ensure correct tab name is displayed after actor update
+        const titleElem = htmlQuery(html, ".navigation-title");
+        if (!titleElem) throw ErrorPF2e("Unexpected missing DOM element");
+
+        const initialTitle = htmlQuery(html, ".sheet-navigation .active")?.title;
+        if (initialTitle) titleElem.title = initialTitle;
 
         for (const element of htmlQueryAll(html, ".sheet-navigation .item")) {
+            element.addEventListener("mouseover", () => {
+                titleElem.textContent = element.title;
+            });
+
             element.addEventListener("mouseout", () => {
                 const parent = htmlClosest(element, ".sheet-navigation");
                 const title = htmlQuery(parent, ".item.active")?.title;
-                if (title) {
-                    const navigation = htmlQuery(parent, ".navigation-title");
-                    if (navigation) navigation.textContent = title;
-                }
+                if (title) titleElem.textContent = title;
             });
         }
 
-        // get buttons
+        // Add tag selector listeners
         for (const element of htmlQueryAll(html, ".crb-tag-selector")) {
-            element.addEventListener("click", (event: MouseEvent) => this.onTraitSelector(event));
+            element.addEventListener("click", (event) => this.openTagSelector(event));
         }
 
         // Change whether an effect is secret to players or not

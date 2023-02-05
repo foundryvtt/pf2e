@@ -388,7 +388,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
 
         // Trait Selector
-        $html.find(".tag-selector").on("click", (event) => this.onTraitSelector(event));
+        $html.find(".tag-selector").on("click", (event) => this.openTagSelector(event));
 
         $html.find(".add-coins-popup button").on("click", (event) => this.onAddCoinsPopup(event));
 
@@ -1048,7 +1048,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
     }
 
-    protected onTraitSelector(event: JQuery.ClickEvent | MouseEvent) {
+    protected openTagSelector(event: JQuery.ClickEvent | MouseEvent) {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
         const selectorType = $anchor.attr("data-tag-selector") ?? "";
