@@ -2,7 +2,7 @@ import { ActorSheetPF2e } from "../sheet/base";
 import { VehiclePF2e } from "@actor/vehicle";
 import { ItemDataPF2e } from "@item/data";
 import { getActionIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
-import { AbstractEffectPF2e } from "@item";
+import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types";
 
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
@@ -79,9 +79,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         }
         for (const element of htmlQueryAll(html, ".sheet-navigation .item")) {
             element.addEventListener("mouseover", (event) => {
-                    const parent = htmlQuery(el.parentElement, ".navigation-title");
-                    parent.textContent = element.title;
-                }
+                const parent = htmlQuery(element.parentElement, ".navigation-title");
+                parent!.textContent = element.title;
             });
         }
 
@@ -107,7 +106,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             element.addEventListener("click", async (event) => {
                 const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
                 const effect = this.actor.items.get(effectId, { strict: true });
-                if (effect instanceof AbstractEffectPF2e) {
+                if (effect instanceof EffectPF2e) {
                     const isUnidentified = effect.unidentified;
                     await effect.update({ "system.unidentified": !isUnidentified });
                 }
