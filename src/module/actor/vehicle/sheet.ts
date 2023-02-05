@@ -101,7 +101,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         }
 
         // get buttons
-        for (const element of htmlQueryAll(html, ".crb-tag-selector") ?? []) {
+        for (const element of htmlQueryAll(html, ".crb-tag-selector")) {
             element.addEventListener("click", (event: MouseEvent) => this.onTraitSelector(event));
         }
 
