@@ -1048,7 +1048,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
     }
 
-    protected onTraitSelector(event: JQuery.ClickEvent) {
+    protected onTraitSelector(event: JQuery.ClickEvent | MouseEvent) {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
         const selectorType = $anchor.attr("data-tag-selector") ?? "";

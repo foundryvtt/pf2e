@@ -103,6 +103,29 @@ header.char-header {
             margin-bottom: 8px;
         }
     }
+
+    &.effects {
+        @import 'effects';
+        @import 'header';
+
+        ol.directory-list {
+            @include p-reset;
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            width: 100%;
+
+            h4 {
+                @include p-reset;
+            }
+
+            .item {
+                ol {
+                    list-style: none;
+                }
+            }
+        }
+    }
 }
 
 input.adjustable:not(:focus),
