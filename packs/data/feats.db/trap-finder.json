@@ -26,13 +26,18 @@
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.TrapFinder.Label",
-                "option": "origin:trait:trap",
+                "option": "trap-finder",
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "origin:trait:trap"
+                    {
+                        "or": [
+                            "origin:trait:trap",
+                            "trap-finder"
+                        ]
+                    }
                 ],
                 "selector": [
                     "perception",
