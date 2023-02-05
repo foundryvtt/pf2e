@@ -79,15 +79,14 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         }
         for (const element of htmlQueryAll(html, ".sheet-navigation .item")) {
             element.addEventListener("mouseover", () => {
-                const parent = htmlQuery(element.parentElement, ".navigation-title");
+                const parent = htmlQuery(element, ".navigation-title");
                 parent!.textContent = element.title;
             });
         }
 
         for (const element of htmlQueryAll(html, ".sheet-navigation .item")) {
-            element.addEventListener("mouseout", (event) => {
-                const el = event.currentTarget as HTMLElement;
-                const parent = htmlClosest(el.parentElement, ".sheet-navigation");
+            element.addEventListener("mouseout", () => {
+                const parent = htmlClosest(element, ".sheet-navigation");
                 const title = htmlQuery(parent, ".item.active")?.title;
                 if (title) {
                     const navigation = htmlQuery(parent, ".navigation-title");
@@ -116,7 +115,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         // Decrease effect value
         for (const element of htmlQueryAll(html, ".effects-list .decrement")) {
             element.addEventListener("click", async () => {
-                const parent = htmlClosest(element.parentElement, ".item");
+                const parent = htmlClosest(element, ".item");
                 const effect = this.actor.items.get(parent?.dataset.dataItemId ?? "");
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.decrease();
@@ -127,7 +126,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         // Increase effect value
         for (const element of htmlQueryAll(html, ".effects-list .increment")) {
             element.addEventListener("click", async () => {
-                const parent = htmlClosest(element.parentElement, ".item");
+                const parent = htmlClosest(element, ".item");
                 const effect = this.actor?.items.get(parent?.dataset.dataItemId ?? "");
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.increase();
