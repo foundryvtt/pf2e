@@ -77,18 +77,15 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             const title = htmlQuery(html, ".sheet-navigation .active")?.title;
             if (title) htmlQuery(html, ".navigation-title")!.textContent = title;
         }
-        for (const element of htmlQueryAll(html, ".sheet-navigation .item") ?? []) {
+        for (const element of htmlQueryAll(html, ".sheet-navigation .item")) {
             element.addEventListener("mouseover", (event) => {
-                const el = event.currentTarget as HTMLElement;
-                const title = el?.title;
-                if (title) {
                     const parent = htmlQuery(el.parentElement, ".navigation-title");
-                    if (parent) parent.textContent = title;
+                    parent.textContent = element.title;
                 }
             });
         }
 
-        for (const element of htmlQueryAll(html, ".sheet-navigation .item") ?? []) {
+        for (const element of htmlQueryAll(html, ".sheet-navigation .item") {
             element.addEventListener("mouseout", (event) => {
                 const el = event.currentTarget as HTMLElement;
                 const parent = htmlClosest(el.parentElement, ".sheet-navigation");
