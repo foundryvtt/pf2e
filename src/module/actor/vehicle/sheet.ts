@@ -102,8 +102,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
         // Change whether an effect is secret to players or not
         for (const element of htmlQueryAll(html, ".effects-list [data-action=effect-toggle-unidentified]")) {
-            element.addEventListener("click", async (event) => {
-                const effectId = htmlClosest(event.currentTarget, "[data-item-id]")?.dataset.itemId;
+            element.addEventListener("click", async () => {
+                const effectId = htmlClosest(element, "[data-item-id]")?.dataset.itemId;
                 const effect = this.actor.items.get(effectId, { strict: true });
                 if (effect instanceof EffectPF2e) {
                     const isUnidentified = effect.unidentified;
