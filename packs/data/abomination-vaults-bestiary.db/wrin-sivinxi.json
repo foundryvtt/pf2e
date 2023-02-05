@@ -786,6 +786,20 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "area": {
+                                "areaType": "burst",
+                                "value": "20"
+                            },
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 2
                 },
@@ -887,6 +901,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -1095,6 +1119,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "positive"
                             },
                             "value": "1d6"
@@ -1137,7 +1162,7 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "value": "fortitude"
                 },
                 "school": {
@@ -1218,13 +1243,18 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You sprinkle magical dust in the spell's area, making those within easier to trick. Each creature in the area must attempt a Will save. For each additional action you use Casting the Spell, the burst's radius increases by 5 feet.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature can't use reactions and takes a -2 status penalty to Perception checks and Will saves.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature also takes a -1 status penalty to Perception checks and Will saves for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+3)</strong> The initial radius increases by 5 feet.</p>"
+                    "value": "<p>You sprinkle magical dust in the spell's area, making those within easier to trick. Each creature in the area must attempt a Will save. For each additional action you use Casting the Spell, the burst's radius increases by 5 feet.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature can't use reactions and takes a -2 status penalty to Perception checks and Will saves.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Faerie Dust (Failure)]{Spell Effect: Faerie Dust (Failure)}</p>\n<p><strong>Critical Failure</strong> As failure, and the creature also takes a -1 status penalty to Perception checks and Will saves for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Faerie Dust (Critical Failure)]{Spell Effect: Faerie Dust (Critical Failure)}</p>\n<hr />\n<p><strong>Heightened (+3)</strong> The initial radius increases by 5 feet.</p>"
                 },
                 "duration": {
                     "value": "1 round"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "damage": {},
+                    "interval": 3,
+                    "type": "interval"
                 },
                 "level": {
                     "value": 1
@@ -1234,6 +1264,44 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "4fq7k05nvyujd8et": {
+                        "_id": "4fq7k05nvyujd8et",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "area": {
+                                "value": "15"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "va07sxrcj8n2715r": {
+                        "_id": "va07sxrcj8n2715r",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "area": {
+                                "value": "10"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "vr5fwgm0r9nazh6j": {
+                        "_id": "vr5fwgm0r9nazh6j",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -1428,6 +1496,21 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "120 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -1646,7 +1729,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> (somatic) The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8. [[/r (@item.level)d8[positive]+@item.level*8[healing]]]{2-Action Healing}</p>\n<p><span class=\"pf2-icon\">3</span> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, somatic, verbal)</strong> You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1670,6 +1753,119 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "37gy7l19tik74o4s": {
+                        "_id": "37gy7l19tik74o4s",
+                        "name": "Heal (vs. Living)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "value": "1d8+8"
+                                    }
+                                }
+                            },
+                            "heightenedLevel": {},
+                            "heightening": {
+                                "damage": {
+                                    "0": "1d8+8"
+                                }
+                            },
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    },
+                    "7qdtetowq348s9oc": {
+                        "_id": "7qdtetowq348s9oc",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true
+                            },
+                            "heightenedLevel": {},
+                            "range": {
+                                "value": "touch"
+                            },
+                            "time": {
+                                "value": "1"
+                            }
+                        }
+                    },
+                    "7vbvdrv2cl87sqta": {
+                        "_id": "7vbvdrv2cl87sqta",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "heightenedLevel": {},
+                            "range": {
+                                "value": ""
+                            },
+                            "target": {
+                                "value": "all living and undead creatures"
+                            },
+                            "time": {
+                                "value": "3"
+                            }
+                        }
+                    },
+                    "lfxcoz2d3f8j2zq1": {
+                        "_id": "lfxcoz2d3f8j2zq1",
+                        "name": "Heal (vs. Undead)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "area": {
+                                "areaType": "",
+                                "value": ""
+                            },
+                            "components": {
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "heightenedLevel": {},
+                            "range": {
+                                "value": "30 feet"
+                            },
+                            "spellType": {
+                                "value": "save"
+                            },
+                            "target": {
+                                "value": "1 undead"
+                            },
+                            "time": {
+                                "value": "2"
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -1759,7 +1955,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You transform into the battle form of a Tiny animal, such as a cat, insect, lizard, or rat. You can decide the specific type of animal (such as a rat or praying mantis), but this has no effect on the form's Size or statistics. While in this form, you gain the animal trait. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities:</p>\n<ul>\n<li>AC = 15 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>Speed 10 feet.</li>\n<li>Weakness 5 to physical damage. (If you take physical damage in this form, you take 5 additional damage.)</li>\n<li>Low-light vision and imprecise scent 30 feet.</li>\n<li>Acrobatics and Stealth modifiers of +10, unless your own modifier is higher; Athletics modifier -4.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> You can turn into a flying creature, such as a bird, which grants you a fly Speed of 20 feet.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Pest Form]{Spell Effect: Pest Form}</p>"
+                    "value": "<p>You transform into the battle form of a Tiny animal, such as a cat, insect, lizard, or rat. You can decide the specific type of animal (such as a rat or praying mantis), but this has no effect on the form's Size or statistics. While in this form, you gain the animal trait, and you can't make @UUID[Compendium.pf2e.actionspf2e.Strike]{Strikes}. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities:</p>\n<ul>\n<li>AC = 15 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>Speed 20 feet.</li>\n<li>Weakness 5 to physical damage. (If you take physical damage in this form, you take 5 additional damage.)</li>\n<li>Low-light vision and imprecise scent 30 feet.</li>\n<li>Acrobatics and Stealth modifiers of +10, unless your own modifier is higher; Athletics modifier -4.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> You can turn into a flying creature, such as a bird, which grants you a fly Speed of 20 feet.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Pest Form]{Spell Effect: Pest Form}</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -2975,6 +3171,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
+                "author": "",
                 "value": "Pathfinder #163: Ruins of Gauntlight"
             }
         },

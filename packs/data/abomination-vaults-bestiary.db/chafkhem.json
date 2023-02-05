@@ -551,7 +551,7 @@
                     "value": "<p>You ward a creature against the effects of a single spell. Choose a spell and name it aloud as part of the verbal component. Spell immunity attempts to counteract that spell whenever spell immunity's target is the target of the named spell or in that spell's area. Successfully counteracting a spell that targets an area or multiple targets with spell immunity negates the effects only for the target affected by spell immunity.</p>"
                 },
                 "duration": {
-                    "value": "24 hours"
+                    "value": "until the next time you make your daily preparations"
                 },
                 "hasCounteractCheck": {
                     "value": true
@@ -860,6 +860,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "7": {
+                            "target": {
+                                "value": "6 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 3
@@ -1672,7 +1682,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>"
+                    "value": "<p>You can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: See Invisibility]{Spell Effect: See Invisibility}</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -1904,6 +1914,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "5": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -2364,6 +2384,21 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "2": {
+                            "target": {
+                                "value": "non-magical object of 1 Bulk or less"
+                            }
+                        },
+                        "3": {
+                            "target": {
+                                "value": "non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2563,7 +2598,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Effect: Shield Immunity]{Effect: Shield Immunity}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -2774,7 +2809,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You summon an unseen servant, which you can command as part of Sustaining the Spell. It serves you until its Hit Points are reduced to 0, at which point the spell ends, or until you stop Sustaining the Spell. The unseen servant gains the summoned trait.</p>\n<p><strong>Unseen Servant</strong> [Creature] [-1] [No Alignment] [Medium]</p>\n<hr />\n<p><strong>AC</strong> 13, <strong>Fort</strong> +0, <strong>Ref</strong> +4, <strong>Will</strong> +0 <strong>HP</strong> 4</p>\n<p><strong>Immunities</strong> disease, mental, non-magical attacks, paralysis, poison, precision, unconscious</p>\n<p><strong>Resistances</strong> all damage 5 (except force or ghost touch)</p>\n<p><strong>Speed</strong> fly 30 feet</p>\n<p><strong>Force Body</strong> An unseen servant's physical body is made of force. It can't use attack actions. It can move and use Interact actions to do things such as fetch objects, open unstuck or unlocked doors, hold chairs, and clean. It can't pass through solid objects.</p>"
+                    "value": "<p>You summon an unseen servant, which you can command as part of Sustaining the Spell. It serves you until its Hit Points are reduced to 0, at which point the spell ends, or until you stop Sustaining the Spell. The unseen servant gains the summoned trait.</p>\n<hr />\n<p>@UUID[Compendium.pf2e.pathfinder-bestiary.Unseen Servant]{Unseen Servant} (No Alignment)</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -2839,9 +2874,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": [
-                        "mindless"
-                    ]
+                    "value": []
                 }
             },
             "type": "spell"
@@ -3718,6 +3751,7 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
+                "author": "",
                 "value": "Pathfinder #164: Hands of the Devil"
             }
         },

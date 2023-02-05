@@ -699,6 +699,17 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "7": {
+                            "area": {
+                                "areaType": "cone",
+                                "value": "60"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 5
                 },
@@ -1010,7 +1021,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You conjure an aberration to fight for you. This works like summon animal, except you summon a common creature that has the aberration trait and whose level is 5 or lower.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
+                    "value": "<p>You conjure an aberration to fight for you. This works like <em>@UUID[Compendium.pf2e.spells-srd.Summon Animal]{Summon Animal}</em>, except you summon a common creature that has the aberration trait and whose level is 5 or lower.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -1111,7 +1122,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You conjure an aberration to fight for you. This works like summon animal, except you summon a common creature that has the aberration trait and whose level is 5 or lower.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
+                    "value": "<p>You conjure an aberration to fight for you. This works like <em>@UUID[Compendium.pf2e.spells-srd.Summon Animal]{Summon Animal}</em>, except you summon a common creature that has the aberration trait and whose level is 5 or lower.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> Level 7</p>\n<p><strong>Heightened (7th)</strong> Level 9</p>\n<p><strong>Heightened (8th)</strong> Level 11</p>\n<p><strong>Heightened (9th)</strong> Level 13</p>\n<p><strong>Heightened (10th)</strong> Level 15</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -1541,10 +1552,8 @@
                 "damage": {
                     "value": {
                         "0": {
-                            "applyMod": false,
                             "type": {
                                 "categories": [],
-                                "subtype": "",
                                 "value": "mental"
                             },
                             "value": "8d6"
@@ -1696,7 +1705,7 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
                     "value": "necromancy"
@@ -1875,10 +1884,20 @@
                     "value": "<p>You send a message to your target's dream. The message is one-way, up to 1 minute of speech (roughly 150 words). If the target is asleep, they receive the message instantly. If not, they receive it the next time they sleep. As soon as they receive it, the spell ends, and you know the message was sent.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You can target up to 10 creatures you know by name and have met in person. You must send the same message to all of them; the spell ends for each creature individually.</p>"
                 },
                 "duration": {
-                    "value": "1 day"
+                    "value": "until the next time you make your daily preparations"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "4": {
+                            "target": {
+                                "value": "10 creatures you know by name and have met in person"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 3
@@ -2191,6 +2210,16 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
+                "heightening": {
+                    "levels": {
+                        "8": {
+                            "target": {
+                                "value": "10 creatures"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
                 "level": {
                     "value": 1
                 },
@@ -2403,6 +2432,21 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "range": {
+                                "value": "60 feet"
+                            }
+                        },
+                        "5": {
+                            "range": {
+                                "value": "120 feet"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
@@ -3514,6 +3558,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Manifesting as a sinuous form wreathed in sickly green flames, this incorporeal undead forms when a powerful hag or witch dies in agony or rage. The body at the center of the flames usually resembles the witch's idealized self-image, regardless of their age and appearance at the time of their death.</p>\n<p>A witchfire often resides in a bog or swamp, which slowly blackens and decays around them. These regions are often plagued by will-o'-wisps, which seem to have an uncanny relationship with the resident witchfire. A witchfire might visit villages on the edge of their home terrain to lure away villagers, but always attack victims within earshot to make sure that other villagers hear the screams. A witchfire might also ally with other hags or witches and even join their covens, but a witchfire is incapable of forming covens entirely on their own.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder #164: Hands of the Devil"
             }
         },
