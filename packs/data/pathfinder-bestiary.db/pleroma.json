@@ -142,7 +142,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You use your occult lore and the power of your mind to manipulate the spiritual multiverse, resulting in any of the following effects:</p>\n<ul>\n<li>Duplicate any occult spell of 9th level or lower.</li>\n<li>Duplicate any non-occult spell of 7th level or lower.</li>\n<li>Produce any effect whose power is equivalent to any occult spell 9th level or lower, or non-occult spell 7th level or lower.</li>\n<li>Reverse certain effects that refer to the wish spell</li>\n</ul>\n<p>At the GM's discretion, you can try to produce greater effects, but this is dangerous and the spell may have only a partial effect.</p>"
+                    "value": "<p>You use your occult lore and the power of your mind to manipulate the spiritual multiverse, resulting in any of the following effects:</p>\n<ul>\n<li>Duplicate any occult spell of 9th level or lower to which you have access.</li>\n<li>Duplicate any spell from another spell list of 7th level or lower. It must be common or you must have access.</li>\n<li>Produce any effect whose power is in line with the above.</li>\n<li>Reverse certain effects that refer to the <em>@UUID[Compendium.pf2e.spells-srd.Wish]{Wish}</em> spell.</li>\n</ul>\n<p>At the GM's discretion, you can try to produce greater effects, but this is dangerous and the spell may have only a partial effect.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -886,8 +886,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
                             "value": "12d10"
@@ -895,7 +897,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You fire a green ray at your target. Make a spell attack. You deal 12d10 damage, and the target must attempt a basic Fortitude save. On a critical hit, treat the save result as one degree worse. A creature reduced to 0 HP is reduced to fine powder; its gear remains. An object you hit is destroyed (no save), regardless of Hardness, unless it's an artifact or similarly hard to destroy. A single casting can destroy no more than a 10-foot cube of matter. This automatically destroys any force construct, such as a wall of force.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d10.</p>"
+                    "value": "<p>You fire a green ray at your target. Make a spell attack. On a hit, you deal 12d10 damage, and the target must attempt a basic Fortitude save. On a critical hit, treat the save result as one degree worse. A creature reduced to 0 HP is reduced to fine powder; its gear remains. An object you hit is destroyed (no save), regardless of Hardness, unless it's an artifact or similarly hard to destroy. A single casting can destroy no more than a 10-foot cube of matter. This automatically destroys any force construct, such as a wall of force.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d10.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1122,6 +1124,16 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "9": {
+                            "target": {
+                                "value": "10 creatures that aren't on their home plane"
+                            }
+                        }
+                    },
+                    "type": "fixed"
                 },
                 "level": {
                     "value": 5
@@ -2836,6 +2848,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Among the most powerful of all the true aeons, pleromas are a manifestation of the duality of creation and destruction. Their physical manifestation is a constant state of flux between these two poles, their forms a shifting cloak of black where galaxies and other celestial objects flit in and out of existence, as if depicting the constant life, death, and rebirth of a miniature, self-contained universe.</p>\n<p>Pleromas see the multiverse as both eternal and cyclical, doomed and malleable, ending only if these cycles ever become unbalanced. They believe the current Convergence is necessary to obtain this essential balance, and act to ensure that the grand design of the Monad is carried out to the smallest detail.</p>\n<hr />\n<p>Aeons have always been the caretakers of reality and defenders of the natural order of balance. Each type of aeon takes on some form of duality in its manifestation and works either to shape the multiverse within the aspects of this duality in some way, or to correct imbalances to the perfect order of existence. Aeons can bring weal or woe when they appear in a region, and their machinations can raise a nation, raze it, or restore it from ruin. Their reasons are their own, and they rarely share their motivations with others-they simply create the results they insist through their strange envisioning communication are necessary to maintain the balance of the multiverse.</p>\n<p>As a result of recent shifts in reality, aeons have begun to reassert a presence in the perfect planar city of Axis. To the aeons, this is merely the latest in a recurring cycle, albeit one that mortals have not yet borne witness to. Once regarded as an independent faction, the living machines known as inevitables are now revealed as having been agents of the aeons all along, and while inevitables have their own shared themes and features, they are very much living but constructed manifestations of the aeons' war against imbalance-particularly with regard to how this war is waged against the forces of chaos.</p>\n<p>Aeons have a name for this cyclic return, in which they welcome the industrious axiomites back to their fold and bring the inevitables once again under their control: the \"Convergence.\" At the onset of the Convergence, a council of pleroma aeons appeared in the Eternal City of Axis, where they revealed that axiomites were wayward aeons, split off long ago to pursue the act of creation. With the latest cycle of change it was time for the axiomites and their creations, the inevitables, to rejoin the aeon cause. While most axiomites and inevitables fell in line, realizing perhaps on a fundamental level of reality that what the aeons said was the truth, some refused to heed the call and waited for the wrath of the aeons-but that wrath has yet to come. The dual-natured aeons have responded to those who have declined in confusing ways. With some they treat and even bargain, while a handful of others they have destroyed, and a few have been exterminated by the axiomites and allied inevitables. But most of these quiet insurgents they leave alone, allowing these axiomites to continue to create in peace and the inevitables to continue with their duties. How-or if-this Convergence will end is as little understood as the aeons themselves.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },

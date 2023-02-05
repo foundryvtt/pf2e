@@ -475,7 +475,7 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a -10- foot circumstance penalty to its Speeds while in the area. Once per round, you can make a vine lash out from any square within the expanse of creepers by using a single action, which has the concentrate trait. This vine has a 15-foot reach. Make a melee spell attack roll against the target; on a success, the vine pulls the target into the creepers and makes it @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
+                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a -10-foot circumstance penalty to its Speeds while in the area. Once per round, you can make a vine lash out from any square within the expanse of creepers by using a single action, which has the concentrate trait. This vine has a 15-foot reach. Make a melee spell attack roll against the target; on a success, the vine pulls the target into the creepers and makes it @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized} for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -799,6 +799,15 @@
                                 "value": "untyped"
                             },
                             "value": "4d6"
+                        },
+                        "zvXU9ZdRVHSORUUn": {
+                            "applyMod": false,
+                            "type": {
+                                "categories": [],
+                                "subtype": "",
+                                "value": "untyped"
+                            },
+                            "value": "4d6"
                         }
                     }
                 },
@@ -813,7 +822,8 @@
                 },
                 "heightening": {
                     "damage": {
-                        "0": "1d6"
+                        "0": "1d6",
+                        "zvXU9ZdRVHSORUUn": "1d6"
                     },
                     "interval": 1,
                     "type": "interval"
@@ -827,6 +837,116 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "BbMuJTegkAU3FWLe": {
+                        "_id": "BbMuJTegkAU3FWLe",
+                        "name": "Abyssal Wrath (Depths)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "acid"
+                                        }
+                                    },
+                                    "zvXU9ZdRVHSORUUn": {
+                                        "type": {
+                                            "value": "slashing"
+                                        }
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "zvXU9ZdRVHSORUUn": "1d6"
+                                }
+                            }
+                        }
+                    },
+                    "CCyXVS0emyKH4mbU": {
+                        "_id": "CCyXVS0emyKH4mbU",
+                        "name": "Abyssal Wrath (Volcanic)",
+                        "overlayType": "override",
+                        "sort": 4,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "fire"
+                                        }
+                                    },
+                                    "zvXU9ZdRVHSORUUn": {
+                                        "type": {
+                                            "value": "piercing"
+                                        }
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "zvXU9ZdRVHSORUUn": "1d6"
+                                }
+                            }
+                        }
+                    },
+                    "iS7lFrCWupPSb8Rv": {
+                        "_id": "iS7lFrCWupPSb8Rv",
+                        "name": "Abyssal Wrath (Frozen)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "bludgeoning"
+                                        }
+                                    },
+                                    "zvXU9ZdRVHSORUUn": {
+                                        "type": {
+                                            "value": "cold"
+                                        }
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "zvXU9ZdRVHSORUUn": "1d6"
+                                }
+                            }
+                        }
+                    },
+                    "tDZV8KuCodZHCSsA": {
+                        "_id": "tDZV8KuCodZHCSsA",
+                        "name": "Abyssal Wrath (Skies)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "bludgeoning"
+                                        }
+                                    },
+                                    "zvXU9ZdRVHSORUUn": {
+                                        "type": {
+                                            "value": "electricity"
+                                        }
+                                    }
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "zvXU9ZdRVHSORUUn": "1d6"
+                                }
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -1214,8 +1334,10 @@
                 "damage": {
                     "value": {
                         "0": {
+                            "applyMod": false,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "piercing"
                             },
                             "value": "3d4"
@@ -1223,7 +1345,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Over the course of a minute, you cause a thick wall of thorny brambles to grow from the ground. You create a 5-foot-thick wall of brambles and thorns in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically. If you wish, the wall can be of a shorter length or height. Everything on each side of the wall has cover from creatures on the opposite side, and the wall's spaces are difficult terrain. For every move action a creature uses to enter at least one of the wall's spaces, that creature takes 3d4 piercing damage.</p>\n<p>Each 5-foot-by-5-foot section of the wall has AC 10, Hardness 10, and 20 Hit Points. It's immune to critical hits and precision damage. A destroyed section can be moved through freely.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The Hit Points of each section of the wall increase by 5, and the piercing damage increases by 1d4.</p>"
+                    "value": "<p>Over the course of a minute, you cause a thick wall of thorny brambles to grow from the ground. You create a 5-foot-thick wall of brambles and thorns in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically. If you wish, the wall can be of a shorter length or height. Everything on each side of the wall has cover from creatures on the opposite side, and the wall's spaces are difficult terrain. For every move action a creature uses to enter at least one of the wall's spaces, that creature takes 3d4 piercing damage.</p>\n<p>Each 10-foot-by-10-foot section of the wall has AC 10, Hardness 10, and 20 Hit Points. It's immune to critical hits and precision damage. A destroyed section can be moved through freely.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The Hit Points of each section of the wall increase by 5, and the piercing damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1643,6 +1765,7 @@
                             "applyMod": true,
                             "type": {
                                 "categories": [],
+                                "subtype": "",
                                 "value": "untyped"
                             },
                             "value": "1d6"
@@ -1673,6 +1796,59 @@
                 },
                 "materials": {
                     "value": ""
+                },
+                "overlays": {
+                    "2I469pfbYcmFvzOA": {
+                        "_id": "2I469pfbYcmFvzOA",
+                        "name": "Telekinetic Projectile (Bludgeoning)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "bludgeoning"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "cUFX7ExSLeoa3vIF": {
+                        "_id": "cUFX7ExSLeoa3vIF",
+                        "name": "Telekinetic Projectile (Piercing)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "piercing"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "zFWsMjoeCnLxqJaV": {
+                        "_id": "zFWsMjoeCnLxqJaV",
+                        "name": "Telekinetic Projectile (Slashing)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "value": {
+                                    "0": {
+                                        "type": {
+                                            "value": "slashing"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
                 "prepared": {
                     "value": ""
@@ -2999,6 +3175,7 @@
             "privateNotes": "",
             "publicNotes": "<p>Treerazer, the self-styled Lord of the Blasted Tarn, is a powerful demon on the cusp of ascending to the true power of one of the rulers of the Abyss itself-a demon lord. For now, even as a nascent demon lord, Treerazer is a dangerous foe.</p>\n<p>Treerazer rarely leaves his swampy realm of Tanglebriar-a large thicket of tainted foliage and rotting detritus just south of Kyonin's Fierani Forest-but can be encountered anywhere within that toxic mire, often accompanied by a small legion of demons, corrupted fey, and other deadly allies. Certain occult rituals have the power to call him forth from Tanglebriar, granting him the opportunity to directly work his evils beyond the realm to which he has been exiled. Some believe that no eldritch force contains Treerazer and that, were he willing, he could travel Golarion with impunity, spreading the twisted blessings of his touch and the corruption of his presence, yet the Lord of the Blasted Tarn is as cunning and canny as he is deadly, and prefers to work his evils on the world from the safety of his nightmare realm.</p>",
             "source": {
+                "author": "",
                 "value": "Pathfinder Bestiary"
             }
         },
