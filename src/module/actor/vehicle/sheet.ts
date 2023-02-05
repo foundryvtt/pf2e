@@ -118,7 +118,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         }
 
         // Decrease effect value
-        for (const element of htmlQueryAll(html, ".effects-list .decrement") ?? []) {
+        for (const element of htmlQueryAll(html, ".effects-list .decrement")) {
             element.addEventListener("click", async (event) => {
                 const el = event.currentTarget as HTMLElement;
                 const parent = htmlClosest(el.parentElement, ".item");
@@ -130,7 +130,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         }
 
         // Increase effect value
-        for (const element of htmlQueryAll(html, ".effects-list .increment") ?? []) {
+        for (const element of htmlQueryAll(html, ".effects-list .increment")) {
             element.addEventListener("click", async (event) => {
                 const el = event.currentTarget as HTMLElement;
                 const parent = htmlClosest(el.parentElement, ".item");
