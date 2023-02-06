@@ -458,6 +458,7 @@ export class BattleFormRuleElement extends RuleElementPF2e {
         }
     }
 
+    /** Disable ineligible damage adjustments (modifiers, bonuses, additional damage) */
     override applyDamageExclusion(weapon: WeaponPF2e, modifiers: (DiceModifierPF2e | ModifierPF2e)[]): void {
         if (this.ownUnarmed) return;
 

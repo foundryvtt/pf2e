@@ -31,7 +31,7 @@ class ItemPF2e extends Item<ActorPF2e> {
     protected initialized?: true;
 
     /** Prepared rule elements from this item */
-    rules: RuleElementPF2e[] = [];
+    rules!: RuleElementPF2e[];
 
     /** The sluggified name of the item **/
     get slug(): string | null {
