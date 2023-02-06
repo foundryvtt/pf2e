@@ -197,7 +197,9 @@ export const InlineRollLinks = {
                                 dc,
                             });
                         } else {
-                            console.warn(`PF2e System | Skip rolling unknown skill check or untrained lore '${skill}'`);
+                            console.warn(
+                                `PF2e System | Skip rolling unknown skill check or untrained lore '${skillName}'`
+                            );
                         }
                     }
                 }
