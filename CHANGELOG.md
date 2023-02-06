@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 4.7.1
+
+## Bugfixes
+* (stwlam) Fix issue causing some target-situational modifiers to fail to surface
+
+
 ## Version 4.7.0
 
 ### System Improvements
