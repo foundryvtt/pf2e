@@ -75,7 +75,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     spellcasting!: ActorSpellcasting;
 
     /** Rule elements drawn from owned items */
-    rules: RuleElementPF2e[] = [];
+    rules!: RuleElementPF2e[];
 
     synthetics!: RuleElementSynthetics;
 
