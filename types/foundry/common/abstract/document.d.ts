@@ -203,7 +203,7 @@ declare global {
                  */
                 static createDocuments<T extends Document>(
                     this: ConstructorOf<T>,
-                    data?: PreCreate<T["_source"]>[],
+                    data?: (T | PreCreate<T["_source"]>)[],
                     context?: DocumentModificationContext<T>
                 ): Promise<T[]>;
 

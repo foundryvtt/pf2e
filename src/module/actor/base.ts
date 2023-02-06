@@ -403,24 +403,27 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
      */
     static override async createDocuments<T extends foundry.abstract.Document>(
         this: ConstructorOf<T>,
-        data?: PreCreate<T["_source"]>[],
+        data?: (T | PreCreate<T["_source"]>)[],
         context?: DocumentModificationContext<T>
     ): Promise<T[]>;
     static override async createDocuments(
-        data: PreCreate<ActorSourcePF2e>[] = [],
+        data: (ActorPF2e | PreCreate<ActorSourcePF2e>)[] = [],
         context: DocumentModificationContext<ActorPF2e> = {}
     ): Promise<Actor[]> {
+        // Convert all `ActorPF2e`s to source objects
+        const sources = data.map((d) => (d instanceof ActorPF2e ? d.toObject() : d));
+
         // Set additional defaults, some according to actor type
-        for (const datum of [...data]) {
-            const linkToActorSize = ["hazard", "loot"].includes(datum.type)
+        for (const source of [...sources]) {
+            const linkToActorSize = ["hazard", "loot"].includes(source.type)
                 ? false
-                : datum.prototypeToken?.flags?.pf2e?.linkToActorSize ?? true;
-            const autoscale = ["hazard", "loot"].includes(datum.type)
+                : source.prototypeToken?.flags?.pf2e?.linkToActorSize ?? true;
+            const autoscale = ["hazard", "loot"].includes(source.type)
                 ? false
-                : datum.prototypeToken?.flags?.pf2e?.autoscale ??
+                : source.prototypeToken?.flags?.pf2e?.autoscale ??
                   (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale"));
-            const merged = mergeObject(datum, {
-                ownership: datum.ownership ?? { default: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE },
+            const merged = mergeObject(source, {
+                ownership: source.ownership ?? { default: CONST.DOCUMENT_OWNERSHIP_LEVELS.NONE },
                 prototypeToken: {
                     flags: {
                         // Sync token dimensions with actor size?
@@ -431,7 +434,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
 
             // Set default token dimensions for familiars and vehicles
             const dimensionMap: { [K in ActorType]?: number } = { familiar: 0.5, vehicle: 2 };
-            merged.prototypeToken.height ??= dimensionMap[datum.type] ?? 1;
+            merged.prototypeToken.height ??= dimensionMap[source.type] ?? 1;
             merged.prototypeToken.width ??= merged.prototypeToken.height;
 
             switch (merged.type) {
@@ -449,11 +452,11 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                     break;
             }
 
-            const migrated = await migrateActorSource(datum);
-            data.splice(data.indexOf(datum), 1, migrated);
+            const migrated = await migrateActorSource(source);
+            sources.splice(sources.indexOf(source), 1, migrated);
         }
 
-        return super.createDocuments(data, context);
+        return super.createDocuments(sources, context);
     }
 
     static override updateDocuments<T extends foundry.abstract.Document>(
