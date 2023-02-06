@@ -247,9 +247,8 @@ function hasOperators(formula: string | null): boolean {
 /** Ensures the formula is valid as a damage instance formula before flavor is attached */
 function ensureValidFormulaHead(formula: string | null): string | null {
     if (!formula) return null;
-
-    const isWrapped = /^\(.*\)$/.test(formula ?? "");
-    const isSimple = /^\d+(d\d+)?$/.test(formula ?? "");
+    const isWrapped = /^\(.*\)$/.test(formula);
+    const isSimple = /^\d+(d\d+)?$/.test(formula);
     return isWrapped || isSimple ? formula : `(${formula})`;
 }
 
