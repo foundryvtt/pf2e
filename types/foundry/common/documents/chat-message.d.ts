@@ -36,7 +36,7 @@ declare module foundry {
 
             static createDocuments<T extends abstract.Document>(
                 this: ConstructorOf<T>,
-                data?: PreCreate<T["_source"]>[],
+                data?: (T | PreCreate<T["_source"]>)[],
                 context?: ChatMessageModificationContext
             ): Promise<T[]>;
         }

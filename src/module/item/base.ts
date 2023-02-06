@@ -359,15 +359,18 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     static override async createDocuments<T extends foundry.abstract.Document>(
         this: ConstructorOf<T>,
-        data?: PreCreate<T["_source"]>[],
+        data?: (T | PreCreate<T["_source"]>)[],
         context?: DocumentModificationContext<T>
     ): Promise<T[]>;
     static override async createDocuments(
-        data: PreCreate<ItemSourcePF2e>[] = [],
+        data: (ItemPF2e | PreCreate<ItemSourcePF2e>)[] = [],
         context: DocumentModificationContext<ItemPF2e> = {}
     ): Promise<Item[]> {
+        // Convert all `ItemPF2e`s to source objects
+        const sources = data.map((d) => (d instanceof ItemPF2e ? d.toObject() : d));
+
         // Migrate source in case of importing from an old compendium
-        for (const source of [...data]) {
+        for (const source of [...sources]) {
             if (Object.keys(source).length === 2 && "name" in source && "type" in source) {
                 // The item consists of only a `name` and `type`: set schema version and skip
                 source.system = { schema: { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION } };
@@ -379,17 +382,17 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
 
         const actor = context.parent;
-        if (!actor) return super.createDocuments(data, context);
+        if (!actor) return super.createDocuments(sources, context);
 
         const validTypes = actor.allowedItemTypes;
         if (validTypes.includes("physical")) validTypes.push(...PHYSICAL_ITEM_TYPES, "kit");
 
         // Check if this item is valid for this actor
-        for (const datum of data) {
-            if (!validTypes.includes(datum.type)) {
+        for (const source of sources) {
+            if (!validTypes.includes(source.type)) {
                 ui.notifications.error(
                     game.i18n.format("PF2E.Item.CannotAddType", {
-                        type: game.i18n.localize(CONFIG.Item.typeLabels[datum.type] ?? datum.type.titleCase()),
+                        type: game.i18n.localize(CONFIG.Item.typeLabels[source.type] ?? source.type.titleCase()),
                     })
                 );
                 return [];
@@ -397,14 +400,15 @@ class ItemPF2e extends Item<ActorPF2e> {
         }
 
         // Prevent creation of effects to which the actor is immune
-        for (const datum of data.filter((d): d is PreCreate<AfflictionSource | ConditionSource | EffectSource> =>
-            ["affliction", "condition", "effect"].includes(d.type)
-        )) {
-            const effect = new CONFIG.PF2E.Item.documentClasses[datum.type](deepClone(datum), { parent: actor });
+        const effectSources = sources.filter((s): s is PreCreate<AfflictionSource | ConditionSource | EffectSource> =>
+            ["affliction", "condition", "effect"].includes(s.type)
+        );
+        for (const source of effectSources) {
+            const effect = new CONFIG.PF2E.Item.documentClasses[source.type](deepClone(source), { parent: actor });
             const isUnaffected = effect.isOfType("condition") && !actor.isAffectedBy(effect);
             const isImmune = actor.isImmuneTo(effect);
             if (isUnaffected || isImmune) {
-                data.splice(data.indexOf(datum), 1);
+                sources.splice(sources.indexOf(source), 1);
 
                 // Send a notification if the effect wasn't automatically added by an aura
                 if (!(effect.isOfType("effect") && effect.fromAura)) {
@@ -418,7 +422,7 @@ class ItemPF2e extends Item<ActorPF2e> {
         // If any created types are "singular", remove existing competing ones.
         // actor.deleteEmbeddedDocuments() will also delete any linked items.
         const singularTypes = ["ancestry", "background", "class", "heritage", "deity"] as const;
-        const singularTypesToDelete = singularTypes.filter((type) => data.some((source) => source.type === type));
+        const singularTypesToDelete = singularTypes.filter((type) => sources.some((s) => s.type === type));
         const preCreateDeletions = singularTypesToDelete.flatMap((type): Embedded<ItemPF2e>[] => actor.itemTypes[type]);
         if (preCreateDeletions.length) {
             const idsToDelete = preCreateDeletions.map((i) => i.id);
@@ -440,7 +444,7 @@ class ItemPF2e extends Item<ActorPF2e> {
                 return [...reparented, ...(await Promise.all(reparented.map(getSimpleGrants))).flat()];
             }
 
-            const items = data.map((source) => {
+            const items = sources.map((source): Embedded<ItemPF2e> => {
                 if (!(context.keepId || context.keepEmbeddedIds)) {
                     source._id = randomID();
                 }
