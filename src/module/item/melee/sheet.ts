@@ -48,26 +48,7 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
             formData[key] ||= null;
         }
 
-        if (this.#categoriesAreValid(formData)) {
-            return super._updateObject(event, formData);
-        } else {
-            ui.notifications.warn("PF2E.Item.NPCAttack.CantSetCategory", { localize: true });
-            this.render();
-        }
-    }
-
-    /** Check whether, for each precision or splash partial, another uncategorized partial is also present */
-    #categoriesAreValid(formData: Record<string, unknown>): boolean {
-        const withUpdate = this.item.clone(formData);
-        const updatedDamage = Object.values(withUpdate.system.damageRolls);
-
-        for (const partial of updatedDamage.filter((p) => ["precision", "splash"].includes(p.category ?? ""))) {
-            if (!updatedDamage.some((p) => p.damageType === partial.damageType && p.category === null)) {
-                return false;
-            }
-        }
-
-        return true;
+        return super._updateObject(event, formData);
     }
 }
 
