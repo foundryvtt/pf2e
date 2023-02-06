@@ -145,7 +145,7 @@ function instancesFromTypeMap(
         })();
 
         const summedDamage = sumExpression(degree ? [nonCriticalDamage, criticalDamage] : [nonCriticalDamage]);
-        const enclosed = hasOperators(summedDamage) ? `(${summedDamage})` : summedDamage;
+        const enclosed = ensureValidFormulaHead(summedDamage);
 
         const flavor = ((): string => {
             const typeFlavor = damageType === "untyped" && !persistent ? [] : [damageType];
@@ -242,6 +242,15 @@ function sumExpression(terms: (string | null)[], { double = false } = {}): strin
 /** Helper for helpers */
 function hasOperators(formula: string | null): boolean {
     return /[-+*/]/.test(formula ?? "");
+}
+
+/** Ensures the formula is valid as a damage instance formula before flavor is attached */
+function ensureValidFormulaHead(formula: string | null): string | null {
+    if (!formula) return null;
+
+    const isWrapped = /^\(.*\)$/.test(formula ?? "");
+    const isSimple = /^\d+(d\d+)?$/.test(formula ?? "");
+    return isWrapped || isSimple ? formula : `(${formula})`;
 }
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
