@@ -5,7 +5,7 @@ export const SetAsInitiative = {
         const { context } = message.flags.pf2e;
         if (
             message.token &&
-            (message.isAuthor || game.user.isGM) &&
+            ((message.isAuthor && !message.blind) || game.user.isGM) &&
             (context?.type === "skill-check" || context?.type === "perception-check")
         ) {
             const btnStyling = "width: 22px; height:22px; font-size:10px;line-height:1px";
@@ -21,7 +21,10 @@ export const SetAsInitiative = {
             $diceTotal.append(btnContainer);
 
             setInitiativeButton.on("click", () => {
-                message.token?.setInitiative({ initiative: message.rolls.at(0)?.total ?? 0 });
+                message.token?.setInitiative({
+                    initiative: message.rolls.at(0)?.total ?? 0,
+                    sendMessage: !message.blind,
+                });
             });
         }
     },
