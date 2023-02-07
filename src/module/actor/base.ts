@@ -972,11 +972,15 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             );
         }
         if (hpDamage !== 0) {
-            await this.update(hpUpdate.updates);
-        }
-        const deadAtZero = ["npcsOnly", "both"].includes(game.settings.get("pf2e", "automation.actorsDeadAtZero"));
-        if (this.isOfType("npc") && deadAtZero && this.isDead !== token.combatant?.isDefeated) {
-            token.combatant?.toggleDefeated();
+            const updated = await this.update(hpUpdate.updates);
+            const deadAtZero = ["npcsOnly", "both"].includes(game.settings.get("pf2e", "automation.actorsDeadAtZero"));
+            const toggleDefeated =
+                updated.isDead &&
+                ((hpDamage >= 0 && !token.combatant?.isDefeated) || (hpDamage < 0 && !!token.combatant?.isDefeated));
+
+            if (updated.isOfType("npc") && deadAtZero && toggleDefeated) {
+                token.combatant?.toggleDefeated();
+            }
         }
 
         // Send chat message
