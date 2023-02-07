@@ -107,7 +107,7 @@ class DamageModifierDialog extends Application {
 
     override async getData(): Promise<DamageDialogData> {
         const showModifier = (m: ModifierPF2e): boolean => {
-            if (this.isCritical && !m.critical) {
+            if (!this.isCritical && m.critical) {
                 return false;
             }
             if (!m.enabled && m.hideIfDisabled) {
