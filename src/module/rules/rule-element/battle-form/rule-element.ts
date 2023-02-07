@@ -361,7 +361,8 @@ export class BattleFormRuleElement extends RuleElementPF2e {
             baseItem: strikeData.baseType,
             options: [slug],
             damage: { base: strikeData.damage },
-            range: null,
+            range: strikeData.range,
+            maxRange: strikeData.maxRange,
             traits: strikeData.traits,
         }));
 
