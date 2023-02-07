@@ -1,5 +1,27 @@
 # Changelog
 
+## Version 4.7.2
+
+### System Improvements
+* (Supe) Allow NPC melee categorized partial without matching base
+
+### Bugfixes
+* (stwlam) Fix issue causing cloned actors to lose their items
+* (stwlam) Wrap long summings of damage instance totals in chat
+
+### Data Updates
+* (Abaddon) Fix energy mutagen effect descriptions
+* (Abaddon) Update NPC spells for Bestiary 1
+* (Dire Weasel) Add missing feats from Impossible Lands
+* (Dire Weasel) Add persistent damage to some NPC attacks
+* (Dire Weasel) Fix Captivating Intensity journal entry
+* (KSops) Fix inline roll warning message
+* (KSops) Normalize skill action traits
+* (rectulo) Fix terminate bloodline ritual details
+* (stwlam) Add icons for class archetype features
+* (Trent) Localize NPC critical specialization notes
+
+
 ## Version 4.7.1
 
 ## Bugfixes
