@@ -5,7 +5,7 @@ import { ItemTrait } from "@item/data/base";
 import { getAreaSquares } from "./util";
 import { TokenAuraData } from "@scene/token-document/aura";
 
-/** Visual and statial facilities for auras emanated by a token's actor */
+/** Visual rendering of auras emanated by a token's actor */
 class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** The token associated with this aura */
     token: TokenPF2e;
@@ -65,24 +65,15 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 
     /**
      * Whether this aura should be rendered to the user:
-     * The scene must be active, have an active combat, or a GM must be the only user logged in.
+     * The scene must be active, or a GM must be the only user logged in. If rendering for a player, the aura must
+     * emanate from an ally.
      */
     get shouldRender(): boolean {
         if (canvas.scene?.grid.type !== CONST.GRID_TYPES.SQUARE || !canvas.scene.tokenVision) {
             return false;
         }
 
-        const soleUserIsGM = game.user.isGM && game.users.filter((u) => u.active).length === 1;
-        const sceneOfFocus = game.combats.active?.combatant?.token?.scene ?? game.scenes.active ?? null;
-        const sceneIsInFocus = canvas.scene === sceneOfFocus;
-
-        return (
-            (sceneIsInFocus || soleUserIsGM) &&
-            (this.token.actor?.alliance === "party" ||
-                this.traits.has("visual") ||
-                this.traits.has("auditory") ||
-                game.user.isGM)
-        );
+        return canvas.scene.isInFocus && (this.token.actor?.alliance === "party" || game.user.isGM);
     }
 
     /** Draw the aura's circular emanation */

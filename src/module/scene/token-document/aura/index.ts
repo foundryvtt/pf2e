@@ -88,10 +88,7 @@ class TokenAura implements TokenAuraData {
      */
     async notifyActors(specific?: TokenDocumentPF2e[]): Promise<void> {
         const auraActor = this.token.actor;
-
-        // Get either the scene with an active combat or the active scene
-        const sceneOfFocus = game.combats.active?.combatant?.token?.scene ?? game.scenes.active ?? null;
-        if (!(auraActor && sceneOfFocus && this.scene === sceneOfFocus)) return;
+        if (!(auraActor && this.scene.isInFocus)) return;
 
         const tokensToCheck = (specific ? specific : this.token.scene?.tokens.contents ?? []).filter(
             (t): t is Embedded<TokenDocumentPF2e> & { actor: ActorPF2e } =>
