@@ -14,10 +14,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
     private selector: string;
 
     constructor(data: CraftingEntryRuleSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        super(data, item, options);
-
-        // For the purpose of AE-Like predication, this rule element should set its roll option very early
-        this.data.priority = 19;
+        super({ maxItemLevel: 1, priority: 19, ...data }, item, options);
 
         if (data.selector && typeof data.selector === "string") {
             this.selector = data.selector;
@@ -44,7 +41,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e {
             isDailyPrep: this.data.isDailyPrep,
             isPrepared: this.data.isPrepared,
             craftableItems,
-            maxItemLevel: this.data.maxItemLevel,
+            maxItemLevel: Number(this.resolveValue(this.data.maxItemLevel)),
             maxSlots: this.data.maxSlots,
             parentItem: this.item.id,
             preparedFormulaData: this.data.preparedFormulas,
