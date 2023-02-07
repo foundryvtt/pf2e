@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { AbilityString } from "@actor/types";
-import { SpellPF2e } from "@item";
+import { SpellPF2e, SpellSource } from "@item";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemSystemData } from "@item/data/base";
 import { MagicTradition } from "@item/spell/types";
 import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data";
@@ -71,6 +71,14 @@ interface SpellSlotData {
 }
 
 type PreparationType = keyof ConfigPF2e["PF2E"]["preparationType"];
+type SpellReferenceData = {
+    _id: string;
+    img?: ImageFilePath;
+    name?: string;
+    sort: number;
+    system?: DeepPartial<SpellSource["system"]>;
+    sourceId?: ItemUUID;
+};
 
 interface SpellcastingEntrySystemData extends ItemSystemData {
     ability: {
@@ -99,6 +107,7 @@ interface SpellcastingEntrySystemData extends ItemSystemData {
     autoHeightenLevel: {
         value: OneToTen | null;
     };
+    spellReferences: Record<string, SpellReferenceData>;
 }
 
 export {
@@ -113,4 +122,5 @@ export {
     SpellcastingEntryPF2eCastOptions,
     SpellcastingEntrySource,
     SpellcastingEntrySystemData,
+    SpellReferenceData,
 };

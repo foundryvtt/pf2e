@@ -355,6 +355,48 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         }
     }
 
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        if (BUILD_MODE === "development" && this.item.isOwned && this.item.sourceId?.startsWith("Compendium.")) {
+            buttons.unshift({
+                label: "To Reference",
+                class: "refresh-from-compendium",
+                icon: "fas fa-atlas",
+                onclick: () => {
+                    new Dialog({
+                        title: "Convert To Compendium Reference?",
+                        content: `<p>
+                                    Converting this Spell to a Compendium Reference means it will be kept up to date with system changes automatically.<br><br>
+                                    <strong>Warning: All local changes made to this item will be lost!</strong>
+                                  </p>`,
+                        buttons: {
+                            convert: {
+                                icon: fontAwesomeIcon("fa-atlas").outerHTML,
+                                label: "Convert",
+                                callback: () => {
+                                    this.item.spellcasting?.spells?.createReference(this.item.id);
+                                },
+                            },
+                            cancel: {
+                                icon: fontAwesomeIcon("fa-times").outerHTML,
+                                label: game.i18n.localize("Cancel"),
+                            },
+                        },
+                        default: "cancel",
+                    }).render(true);
+                },
+            });
+        }
+        return buttons;
+    }
+
+    protected override _render(force?: boolean, options?: RenderOptions): Promise<void> {
+        if (this.item.isReference) {
+            throw ErrorPF2e(`Editing of spell references is not supported! Spell [${this.item.uuid}]`);
+        }
+        return super._render(force, options);
+    }
+
     private formatSpellComponents(data: SpellSystemData): string[] {
         if (!data.components) return [];
         const comps: string[] = [];

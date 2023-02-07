@@ -133,7 +133,11 @@
                                                 </a>
                                             {{/if}}
                                             {{#unless virtual}}
-                                                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
+                                                {{#if spell.isReference}}
+                                                    <a data-action="convert-spell-from-reference" title="Convert this compendium reference to a normal embedded item"><i class="fas fa-fw fa-atlas"></i></a>
+                                                {{else}}
+                                                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-fw fa-edit"></i></a>
+                                                {{/if}}
                                                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-fw fa-trash"></i></a>
                                             {{/unless}}
                                         {{/if}}

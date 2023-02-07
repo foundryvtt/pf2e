@@ -1,8 +1,8 @@
-import { SpellPF2e } from "@item";
+import { SpellPF2e, SpellSource } from "@item";
 import { OneToTen, ZeroToTen } from "@module/data";
 import { ErrorPF2e, groupBy, ordinal } from "@util";
 import { SpellcastingEntryPF2e } from ".";
-import { ActiveSpell, SlotKey, SpellcastingSlotLevel, SpellPrepEntry } from "./data";
+import { ActiveSpell, SlotKey, SpellcastingSlotLevel, SpellPrepEntry, SpellReferenceData } from "./data";
 
 export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     constructor(public entry: Embedded<SpellcastingEntryPF2e>) {
@@ -142,6 +142,170 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
     setSlotExpendedState(slotLevel: number, spellSlot: number, isExpended: boolean): Promise<SpellcastingEntryPF2e> {
         const key = `system.slots.slot${slotLevel}.prepared.${spellSlot}.expended`;
         return this.entry.update({ [key]: isExpended });
+    }
+
+    /** Resolves spell references and adds derived items to this Collection and the owning Actor.
+     *  Does nothing if all references are already resolved.
+    async resolveReferences(): Promise<void> {
+        if (!this.actor) return;
+
+        const start = performance.now();
+        let counter = 0;
+        for (const reference of Object.values(this.entry.spellReferences)) {
+            if (!reference.sourceId || this.has(reference._id)) continue;
+
+            const refSpellSource = (await fromUuid<SpellPF2e>(reference.sourceId!))?.toObject();
+            if (!refSpellSource) {
+                console.warn(
+                    `Could not resolve UUID [${reference.sourceId}] in SpellcastingEntry [${this.entry.uuid}]!`
+                );
+                continue;
+            }
+            const refSource = deepClone(reference);
+            delete refSource.sourceId;
+
+            const newSource = mergeObject(refSpellSource, refSource);
+            newSource.system.location.value = this.entry.id;
+            const spell = new SpellPF2e(newSource, { parent: this.actor }) as Embedded<SpellPF2e>;
+            spell.isReference = true;
+
+            this.actor.items.set(spell.id, spell);
+            this.actor.itemTypes.spell.push(spell);
+            this.set(spell.id, spell);
+            counter += 1;
+        }
+        const end = performance.now();
+        console.log(`Execution time (${this.actor.name}) [${this.entry.uuid}] (${counter}): ${end - start} ms`);
+    } */
+
+    /** Resolves spell references and adds derived items to this Collection and the owning Actor.
+     *  Does nothing if all references are already resolved.
+     */
+    async resolveReferences() {
+        if (!this.actor) return;
+        const start = performance.now();
+        const compendiumMap: Map<string, Map<string, SpellReferenceData>> = new Map();
+        for (const reference of Object.values(this.entry.spellReferences)) {
+            if (!reference.sourceId || this.has(reference._id)) continue;
+            const [type, scope, packId, id]: (string | undefined)[] = reference.sourceId.split(".");
+            if (type !== "Compendium") continue;
+
+            const pack = `${scope}.${packId}`;
+            const refSource = deepClone(reference);
+            delete refSource.sourceId;
+
+            if (compendiumMap.has(pack)) {
+                compendiumMap.get(pack)!.set(id, refSource);
+            } else {
+                const idMap: Map<string, SpellReferenceData> = new Map();
+                idMap.set(id, refSource);
+                compendiumMap.set(pack, idMap);
+            }
+        }
+        let counter = 0;
+        for (const [packId, idMap] of compendiumMap.entries()) {
+            const pack = game.packs.get(packId);
+            if (!pack) {
+                console.warn("Pack doesn't exist");
+                continue;
+            }
+            const ids = [...idMap.keys()];
+            const docs = (await pack.getDocuments({ _id: { $in: ids } })) as SpellPF2e[];
+            counter = docs.length;
+            for (const doc of docs) {
+                const refSpellSource = doc.toObject();
+                const refSource = idMap.get(doc.id)!;
+
+                const newSource = mergeObject(refSpellSource, refSource);
+                newSource.system.location.value = this.entry.id;
+                const spell = new SpellPF2e(newSource, { parent: this.actor }) as Embedded<SpellPF2e>;
+                spell.isReference = true;
+
+                this.actor.items.set(spell.id, spell);
+                this.actor.itemTypes.spell.push(spell);
+                this.set(spell.id, spell);
+            }
+        }
+        const end = performance.now();
+        console.log(`Execution time (${this.actor.name}) [${this.entry.uuid}] (${counter} Items): ${end - start} ms`);
+    }
+
+    /** Create a new spell reference from a spell in this Collection */
+    async createReference(id: string): Promise<void> {
+        const spell = this.get(id, { strict: true });
+        const sourceId = spell.flags.core?.sourceId;
+        if (!sourceId) {
+            throw ErrorPF2e(`Spell [${spell.uuid}] in SpellcastingEntry [${this.entry.uuid}] has no source flag!`);
+        }
+        if (this.entry.spellReferences[id]) {
+            throw ErrorPF2e(
+                `A spell reference with id [${id}] already exists in SpellcastingEntry [${this.entry.uuid}]!`
+            );
+        }
+        const compendiumSource = (await fromUuid<SpellPF2e>(sourceId))?.toObject();
+        if (!compendiumSource) {
+            throw ErrorPF2e(`Could not resolve UUID [${sourceId}] in SpellcastingEntry [${this.entry.uuid}]!`);
+        }
+        const spellSource = spell.toObject() as DeepPartial<SpellSource> & { _stats: unknown };
+        // Clean up spell source
+        delete spellSource._stats;
+        delete spellSource.ownership;
+        delete spellSource.system?.damage;
+        delete spellSource.system?.schema;
+        delete spellSource.system?.location?.value;
+
+        const diff = diffObject<SpellReferenceData>(compendiumSource, spellSource);
+        diff.sourceId = sourceId;
+
+        await spell.delete({ render: false });
+        await this.entry.update({ [`system.spellReferences.${id}`]: diff });
+    }
+
+    async convertReference(id: string): Promise<void> {
+        const reference = this.entry.spellReferences[id];
+        if (!reference) {
+            throw ErrorPF2e(`SpellcastingEntry [${this.entry.uuid}] has no reference with id ${id}!`);
+        }
+        if (!reference.sourceId) {
+            throw ErrorPF2e(`Reference [${id}] in SpellcastingEntry [${this.entry.uuid}] has no sourceId!`);
+        }
+        const spellSource = this.get(id, { strict: true })?.toObject();
+        await this.deleteReference(id, { render: false });
+        await this.actor.createEmbeddedDocuments("Item", [spellSource]);
+    }
+
+    /** Update spell reference data */
+    async updateReference(
+        id: string,
+        data: DocumentUpdateData<SpellPF2e>,
+        options?: DocumentModificationContext<Embedded<SpellcastingEntryPF2e>>
+    ): Promise<SpellPF2e> {
+        const reference = this.entry.spellReferences[id];
+        if (!reference) {
+            throw ErrorPF2e(`SpellcastingEntry [${this.entry.uuid}] has no reference with id ${id}!`);
+        }
+
+        const spell = this.get(id, { strict: true });
+        spell.updateSource(data, options);
+        await this.entry.update({ [`system.spellReferences.${id}`]: data }, options);
+
+        return spell;
+    }
+
+    /** Delete a spell reference from this Collection and the owning Actor */
+    async deleteReference(id: string, options: { render?: boolean } = {}): Promise<SpellPF2e> {
+        const reference = this.entry.spellReferences[id];
+        if (!reference) {
+            throw ErrorPF2e(`SpellcastingEntry [${this.entry.uuid}] has no reference with id ${id}!`);
+        }
+        const spell = this.get(id, { strict: true });
+        this.delete(id);
+        this.actor.items.delete(id);
+        this.actor.itemTypes.spell.findSplice((s) => s.id === id);
+
+        await this.entry.update({ [`system.spellReferences.-=${id}`]: null }, { ...options });
+
+        return spell;
     }
 
     async getSpellData() {

@@ -46,6 +46,8 @@ interface SpellConstructionContext extends DocumentConstructionContext<SpellPF2e
 class SpellPF2e extends ItemPF2e {
     readonly isFromConsumable: boolean;
 
+    /** Was this spell created from a Compendium reference?  */
+    isReference = false;
     /** The original spell. Only exists if this is a variant */
     original?: SpellPF2e;
     /** The overlays that were applied to create this variant */
@@ -942,11 +944,25 @@ class SpellPF2e extends ItemPF2e {
     }
 
     override async update(data: DocumentUpdateData<this>, options?: DocumentModificationContext<this>): Promise<this> {
+        if (this.isReference) {
+            return this.spellcasting!.spells!.updateReference(
+                this.id,
+                data,
+                options as unknown as DocumentModificationContext<Embedded<SpellcastingEntryPF2e>>
+            ) as Promise<this>;
+        }
         // Redirect the update of override spell variants to the appropriate update method if the spell sheet is currently rendered
         if (this.original && this.appliedOverlays!.has("override") && this.sheet.rendered) {
             return this.original.overlays.updateOverride(this as Embedded<SpellPF2e>, data, options) as Promise<this>;
         }
         return super.update(data, options);
+    }
+
+    override async delete(context?: DocumentModificationContext<this>): Promise<this> {
+        if (this.isReference) {
+            return this.spellcasting!.spells!.deleteReference(this.id) as Promise<this>;
+        }
+        return super.delete(context);
     }
 
     protected override async _preUpdate(

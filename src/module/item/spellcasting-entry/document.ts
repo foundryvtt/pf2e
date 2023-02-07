@@ -9,6 +9,7 @@ import { Statistic } from "@system/statistic";
 import { ErrorPF2e, setHasElement, sluggify } from "@util";
 import { SpellCollection } from "./collection";
 import {
+    SpellReferenceData,
     SpellcastingAbilityData,
     SpellcastingEntry,
     SpellcastingEntryData,
@@ -69,6 +70,10 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         return this.spells?.highestLevel ?? 0;
     }
 
+    get spellReferences(): Record<string, SpellReferenceData> {
+        return this.system.spellReferences ?? {};
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.system.proficiency.slug ||= this.system.tradition.value;
@@ -96,6 +101,10 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
             }
 
             this.actor.spellcasting.collections.set(this.spells.id, this.spells);
+
+            if (Object.keys(this.spellReferences).length) {
+                // this.spells.resolveReferences();
+            }
         }
     }
 
@@ -115,7 +124,7 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
 
     /** All spells associated with this spellcasting entry on the actor that should also be deleted */
     override getLinkedItems() {
-        return this.actor?.itemTypes.spell.filter((i) => i.system.location.value === this.id) ?? [];
+        return this.actor?.itemTypes.spell.filter((i) => !i.isReference && i.system.location.value === this.id) ?? [];
     }
 
     /** Returns if the spell is valid to cast by this spellcasting entry */
@@ -261,6 +270,9 @@ class SpellcastingEntryPF2e extends ItemPF2e implements SpellcastingEntry {
         if (!this.actor?.isOfType("character", "npc")) {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
         }
+
+        // Resolve any unresolved spell references before rendering the sheet
+        await this.spells?.resolveReferences();
 
         const spellCollectionData = await this.spells?.getSpellData();
 

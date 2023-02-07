@@ -407,6 +407,34 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
                 }
             });
         }
+
+        for (const element of htmlQueryAll(html, "a[data-action=convert-spell-from-reference]")) {
+            element.addEventListener("click", async () => {
+                const parent = htmlClosest(element, "[data-item-id]");
+                const entry = this.actor.spellcasting.get(parent?.dataset.entryId ?? "");
+                const referenceId = parent?.dataset.itemId;
+                if (entry && referenceId) {
+                    new Dialog({
+                        title: "Convert Reference?",
+                        content: `<p>Convert this Compendium Reference back to a normal embedded item?</p>`,
+                        buttons: {
+                            convert: {
+                                icon: fontAwesomeIcon("fa-atlas").outerHTML,
+                                label: "Convert",
+                                callback: async () => {
+                                    await entry.spells?.convertReference(referenceId);
+                                },
+                            },
+                            cancel: {
+                                icon: fontAwesomeIcon("fa-times").outerHTML,
+                                label: game.i18n.localize("Cancel"),
+                            },
+                        },
+                        default: "cancel",
+                    }).render(true);
+                }
+            });
+        }
     }
 
     /** Adds support for moving spells between spell levels, spell collections, and spell preparation */
@@ -456,7 +484,30 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
 
                     if (sourceLocation === targetLocation && testSibling(item, target)) {
                         const siblings = collection.filter((spell) => testSibling(item, spell));
-                        await item.sortRelative({ target, siblings });
+
+                        if (!item.isReference) {
+                            await item.sortRelative({ target, siblings });
+                        } else {
+                            // Spell references can't be sorted as part of the actor item collection
+                            const result = SortingHelpers.performIntegerSort(item, {
+                                target,
+                                siblings,
+                                sortBefore: true,
+                            });
+                            for (const sortData of result) {
+                                const sortTarget = sortData.target;
+                                if (sortTarget.isReference) {
+                                    await sortTarget.spellcasting!.spells!.updateReference(
+                                        sortTarget.id,
+                                        sortData.update,
+                                        { render: false }
+                                    );
+                                } else {
+                                    await sortTarget.update(sortData.update, { render: false });
+                                }
+                            }
+                            await this.render();
+                        }
                         return [target];
                     } else {
                         const spell = await collection.addSpell(item, { slotLevel: target.level });
