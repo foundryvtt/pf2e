@@ -78,10 +78,7 @@ const SELECTABLE_TAG_FIELDS = [
     "weaponGroups",
     "weaponHands",
     "weaponMAP",
-    "weaponPotencyRunes",
-    "weaponPropertyRunes",
     "weaponReload",
-    "weaponStrikingRunes",
     "weaponTraits",
 ] as const;
 

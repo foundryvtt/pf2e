@@ -6,6 +6,7 @@ import { NPCAttackDamage, NPCAttackTrait } from "@item/melee/data";
 import {
     Bulk,
     CoinsPF2e,
+    getPropertySlots,
     IdentificationStatus,
     MaterialGradeData,
     MystifiedData,
@@ -229,12 +230,6 @@ class WeaponPF2e extends PhysicalItemPF2e {
             systemData.damage.modifier ||= systemData.damage.dice;
         }
 
-        const preciousMaterial =
-            systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
-                ? { type: systemData.preciousMaterial.value, grade: systemData.preciousMaterialGrade.value }
-                : null;
-        systemData.material = { precious: preciousMaterial };
-
         // This method checks data on the actor, which may not yet be initialized:
         // use the item's initialization status as a proxy check
         if (this.initialized) ABP.cleanupRunes(this);
@@ -282,14 +277,25 @@ class WeaponPF2e extends PhysicalItemPF2e {
         // Ensure presence of traits array on melee usage if not have been added yet
         if (this.system.meleeUsage) this.system.meleeUsage.traits ??= [];
 
-        this.processMaterialAndRunes();
+        this.prepareMaterialAndRunes();
+        this.prepareLevelAndRarity();
     }
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const systemData = this.system;
-        const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = systemData;
+        // Set the name according to the precious material and runes
+        this.name = this.generateMagicName();
+    }
+
+    private prepareMaterialAndRunes(): void {
+        const preciousMaterial =
+            this.system.preciousMaterial.value && this.system.preciousMaterialGrade.value
+                ? { type: this.system.preciousMaterial.value, grade: this.system.preciousMaterialGrade.value }
+                : null;
+        this.system.material = { precious: preciousMaterial };
+
+        const { potencyRune, strikingRune, propertyRune1, propertyRune2, propertyRune3, propertyRune4 } = this.system;
 
         const strikingRuneDice: Map<StrikingRuneType | null, OneToThree> = new Map([
             ["striking", 1],
@@ -297,14 +303,22 @@ class WeaponPF2e extends PhysicalItemPF2e {
             ["majorStriking", 3],
         ]);
 
-        this.system.runes = {
+        // Derived rune data structure
+        const runes = (this.system.runes = {
             potency: potencyRune.value ?? 0,
             striking: strikingRuneDice.get(strikingRune.value) ?? 0,
             property: [propertyRune1.value, propertyRune2.value, propertyRune3.value, propertyRune4.value].filter(
-                (rune): rune is WeaponPropertyRuneType => !!rune
+                (r): r is WeaponPropertyRuneType => !!r && r in WEAPON_PROPERTY_RUNES
             ),
             effects: [],
-        };
+        });
+
+        // Limit property rune slots
+        const propertyRuneSlots =
+            ABP.isEnabled(this.actor) && this.actor?.isOfType("character")
+                ? ABP.getAttackPotency(this.actor.level)
+                : getPropertySlots(this);
+        runes.property.length = Math.min(runes.property.length, propertyRuneSlots);
 
         // Set damage dice according to striking rune
         // Only increase damage dice from ABP if the dice number is 1
@@ -319,20 +333,15 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 : this.system.damage.dice;
     }
 
-    processMaterialAndRunes(): void {
+    /** Set level, price, and rarity according to precious material and runes */
+    private prepareLevelAndRarity(): void {
         const systemData = this.system;
 
         // Collect all traits from the runes and apply them to the weapon
-        const runesData = this.getRunesData();
+        const runesData = this.getRunesValuationData();
         const baseTraits = systemData.traits.value;
-        const hasRunes = (() => {
-            const hasFundamentalRunes = !!this.system.potencyRune.value || !!this.system.strikingRune.value;
-            const hasPropertyRunes = ([1, 2, 3, 4] as const)
-                .map((n) => this.system[`propertyRune${n}` as const])
-                .some((r) => !!r.value);
-            const abpSetting = game.settings.get("pf2e", "automaticBonusVariant");
-            return hasFundamentalRunes || (hasPropertyRunes && abpSetting === "ABPFundamentalPotency");
-        })();
+        const { runes } = this.system;
+        const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
         const magicTraits: ("evocation" | "magical")[] = hasRunes ? ["evocation", "magical"] : [];
         systemData.traits.value = Array.from(new Set([...baseTraits, ...magicTraits]));
 
@@ -340,7 +349,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
         systemData.traits.otherTags.push(...runesData.flatMap((runeData) => runeData.otherTags ?? []));
 
         // Stop here if this weapon is not a magical or precious-material item, or if it is a specific magic weapon
-        const materialData = this.getMaterialData();
+        const materialData = this.getMaterialValuationData();
         if (!(this.isMagical || materialData) || this.isSpecific) return;
 
         const baseLevel = this.level;
@@ -360,43 +369,37 @@ class WeaponPF2e extends PhysicalItemPF2e {
             .map((runeData) => runeData.rarity)
             .concat(materialData?.rarity ?? "common")
             .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
-
-        // Set the name according to the precious material and runes
-        this.name = this.generateMagicName();
     }
 
     override computeAdjustedPrice(): CoinsPF2e | null {
-        const materialData = this.getMaterialData();
+        const materialData = this.getMaterialValuationData();
         if (!(this.isMagical || materialData) || this.isSpecific) return null;
 
         // Adjust the weapon price according to precious material and runes
         // Base Prices are not included in these cases
         // https://2e.aonprd.com/Rules.aspx?ID=731
         // https://2e.aonprd.com/Equipment.aspx?ID=380
-        const runesData = this.getRunesData();
+        const runesData = this.getRunesValuationData();
         const materialPrice = materialData?.price ?? 0;
         const heldOrStowedBulk = new Bulk({ light: this.system.bulk.heldOrStowed });
         const bulk = Math.max(Math.ceil(heldOrStowedBulk.normal), 1);
         const materialValue = materialPrice + (bulk * materialPrice) / 10;
         const runeValue = runesData.reduce((sum, rune) => sum + rune.price, 0);
         const modifiedPrice = new CoinsPF2e({ gp: runeValue + materialValue });
+
         return modifiedPrice;
     }
 
-    getRunesData(): RuneValuationData[] {
-        const systemData = this.system;
+    private getRunesValuationData(): RuneValuationData[] {
         const propertyRuneData: Record<string, WeaponPropertyRuneData | undefined> = CONFIG.PF2E.runes.weapon.property;
         return [
-            WEAPON_VALUATION_DATA.potency[systemData.potencyRune.value ?? 0],
-            WEAPON_VALUATION_DATA.striking[systemData.strikingRune.value ?? ""],
-            propertyRuneData[systemData.propertyRune1.value ?? ""],
-            propertyRuneData[systemData.propertyRune2.value ?? ""],
-            propertyRuneData[systemData.propertyRune3.value ?? ""],
-            propertyRuneData[systemData.propertyRune4.value ?? ""],
+            WEAPON_VALUATION_DATA.potency[this.system.runes.potency],
+            WEAPON_VALUATION_DATA.striking[this.system.runes.striking],
+            ...this.system.runes.property.map((p) => propertyRuneData[p]),
         ].filter((datum): datum is RuneValuationData => !!datum);
     }
 
-    getMaterialData(): MaterialGradeData | null {
+    private getMaterialValuationData(): MaterialGradeData | null {
         const material = this.material;
         const materialData = WEAPON_MATERIAL_VALUATION_DATA[material.precious?.type ?? ""];
         return materialData?.[material.precious?.grade ?? "low"] ?? null;
@@ -426,26 +429,23 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const storedName = this._source.name;
         if (this.isSpecific || !this.baseType || storedName !== baseWeapons[this.baseType]) return this.name;
 
-        const systemData = this.system;
-
-        const potencyRune = systemData.potencyRune.value;
-        const strikingRune = systemData.strikingRune.value;
-        const propertyRunes = {
-            1: systemData.propertyRune1?.value ?? null,
-            2: systemData.propertyRune2?.value ?? null,
-            3: systemData.propertyRune3?.value ?? null,
-            4: systemData.propertyRune4?.value ?? null,
-        };
         const { material } = this;
+        const { runes } = this.system;
+        const potencyRune = runes.potency;
+        const strikingRune = ((): keyof ConfigPF2e["PF2E"]["weaponStrikingRunes"] | null => {
+            const locMap = { 0: null, 1: "striking", 2: "greaterStriking", 3: "majorStriking" } as const;
+            return locMap[runes.striking];
+        })();
+
         const params = {
             base: this.baseType ? baseWeapons[this.baseType] : this.name,
             material: material.precious && game.i18n.localize(CONFIG.PF2E.preciousMaterials[material.precious.type]),
             potency: potencyRune,
             striking: strikingRune && game.i18n.localize(CONFIG.PF2E.weaponStrikingRunes[strikingRune]),
-            property1: propertyRunes[1] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[propertyRunes[1]]),
-            property2: propertyRunes[2] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[propertyRunes[2]]),
-            property3: propertyRunes[3] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[propertyRunes[3]]),
-            property4: propertyRunes[4] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[propertyRunes[4]]),
+            property1: runes.property[0] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[0]]),
+            property2: runes.property[1] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[1]]),
+            property3: runes.property[2] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[2]]),
+            property4: runes.property[3] && game.i18n.localize(CONFIG.PF2E.weaponPropertyRunes[runes.property[3]]),
         };
         const formatStrings = translations.Item.Weapon.GeneratedName;
         // Construct a localization key from the weapon material and runes

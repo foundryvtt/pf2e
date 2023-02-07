@@ -128,14 +128,6 @@ class AutomaticBonusProgression {
         }
     }
 
-    static applyPropertyRunes(potency: PotencySynthetic[], weapon: Embedded<WeaponPF2e>): void {
-        if (game.settings.get("pf2e", "automaticBonusVariant") !== "ABPFundamentalPotency") return;
-        const potencyBonuses = potency.filter((p) => p.type === "potency");
-        for (const bonus of potencyBonuses) {
-            bonus.property = deepClone(weapon.system.runes.property);
-        }
-    }
-
     /**
      * Determine whether a rule element can be applied to an actor.
      * @param rule The rule element to assess

@@ -348,14 +348,12 @@ class WeaponDamagePF2e {
         damageDice.push(...critSpecEffect.filter((e): e is DamageDicePF2e => e instanceof DamageDicePF2e));
 
         // Property Runes
-        const propertyRunes = weaponPotency?.property ?? [];
+        const propertyRunes = weapon.isOfType("weapon") ? weapon.system.runes.property : [];
         damageDice.push(...getPropertyRuneDice(propertyRunes));
-
+        const propertyRuneAdjustments = getPropertyRuneAdjustments(propertyRunes);
         const ignoredResistances = propertyRunes.flatMap(
             (r) => CONFIG.PF2E.runes.weapon.property[r].damage?.ignoredResistances ?? []
         );
-
-        const propertyRuneAdjustments = getPropertyRuneAdjustments(propertyRunes);
 
         // Backstabber trait
         if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:flat-footed")) {
