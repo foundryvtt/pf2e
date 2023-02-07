@@ -111,12 +111,13 @@ export class CompendiumPack {
                         throw PackError(msg);
                     }
 
+                    const isCoreIconPath = /^icons\//.test(imgPath);
                     const repoImgPath = path.resolve(
                         process.cwd(),
                         "static",
                         decodeURIComponent(imgPath).replace("systems/pf2e/", "")
                     );
-                    if (!imgPath.match(/^\/?icons\/svg/) && !fs.existsSync(repoImgPath)) {
+                    if (!isCoreIconPath && !fs.existsSync(repoImgPath)) {
                         throw PackError(`${documentName} (${this.packId}) has a broken image link: ${imgPath}`);
                     }
                     if (!(imgPath === "" || imgPath.match(/\.(?:svg|webp)$/))) {
