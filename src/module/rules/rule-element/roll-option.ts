@@ -1,8 +1,7 @@
-import { ActorPF2e } from "@actor";
 import { RollToggle } from "@actor/data/base";
 import { ItemPF2e } from "@item";
 import { PredicatePF2e } from "@system/predication";
-import { tupleHasValue } from "@util";
+import { ErrorPF2e } from "@util";
 import { RuleElementOptions, RuleElementPF2e } from "./base";
 import { RuleElementSource } from "./data";
 
@@ -25,7 +24,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
      * Whether this roll option can be toggled by the user on an actor sheet: "totm" indicates it will only be present
      * if the Theather of the Mind Toggles setting is enabled
      */
-    private toggleable: boolean | "totm";
+    toggleable: boolean | "totm";
 
     /** An optional predicate to determine whether the toggle is interactable by the user */
     private disabledIf?: PredicatePF2e;
@@ -41,8 +40,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
 
     constructor(data: RollOptionSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         // This rule element behaves much like an override AE-like, so set its default priority to 50
-        data.priority ??= CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10;
-        super({ ...data, label: data.label ?? item.name }, item, options);
+        super({ priority: CONST.ACTIVE_EFFECT_MODES.OVERRIDE * 10, ...data }, item, options);
 
         this.domain = String(data.domain).trim();
         this.option = String(data.option).trim();
@@ -103,7 +101,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
         }
     }
 
-    private resolveOption(): string {
+    #resolveOption(): string {
         return this.resolveInjectedProperties(this.option)
             .replace(/[^-:\w]/g, "")
             .replace(/:+/g, ":")
@@ -118,7 +116,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
 
         const { rollOptions } = this.actor;
         const domainRecord = (rollOptions[this.domain] ??= {});
-        const option = this.resolveOption();
+        const option = (this.option = this.#resolveOption());
 
         if (!option) {
             this.failValidation(
@@ -143,7 +141,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
                 domainRecord[`${option}:1`] = true;
             }
         } else {
-            const value = this.resolveValue(this.value);
+            const value = this.resolveValue();
             if (value) domainRecord[option] = value;
 
             const label = this.label.includes(":") ? this.label.replace(/^[^:]+:\s*|\s*\([^)]+\)$/g, "") : this.label;
@@ -171,46 +169,31 @@ class RollOptionRuleElement extends RuleElementPF2e {
     }
 
     /** Force false totm toggleable roll options if the totmToggles setting is disabled */
-    override resolveValue(value: string | boolean): boolean {
+    override resolveValue(): boolean {
         if (this.toggleable === "totm" && !game.settings.get("pf2e", "totmToggles")) {
             return false;
         }
-        return !!super.resolveValue(value);
+        return !!super.resolveValue(this.value);
     }
 
     /**
      * Toggle the provided roll option (swapping it from true to false or vice versa).
      * @returns the new value if successful or otherwise `null`
      */
-    static async toggleOption({
-        domain,
-        option,
-        actor,
-        itemId,
-        value = !actor.rollOptions[domain]?.[option],
-    }: ToggleParameters): Promise<boolean | null> {
-        domain = domain.replace(/[^-\w]/g, "");
-        option = option.replace(/[^-:\w]/g, "");
-        if (!itemId) return null;
+    async toggle(newValue = !this.resolveValue()): Promise<boolean | null> {
+        if (!this.toggleable) throw ErrorPF2e("Attempted to toggle non-toggleable roll option");
 
         // Directly update the rule element on the item
-        const item = actor.items.get(itemId, { strict: true });
-        const rules = item.toObject().system.rules;
-        const rule = rules.find(
-            (r: RollOptionSource) =>
-                r.key === "RollOption" &&
-                tupleHasValue([true, "totm"], r.toggleable) &&
-                r.domain === domain &&
-                r.option === option &&
-                r.value !== value
-        );
-        if (rule) {
-            rule.value = value;
-            const result = await actor.updateEmbeddedDocuments("Item", [{ _id: item.id, "system.rules": rules }]);
-            return result.length === 1 ? value : null;
-        }
+        const rulesSource = this.item.toObject().system.rules;
+        const thisSource = typeof this.sourceIndex === "number" ? rulesSource.at(this.sourceIndex) : null;
+        if (!thisSource) return null;
+        thisSource.value = newValue;
 
-        return null;
+        const result = await this.actor.updateEmbeddedDocuments("Item", [
+            { _id: this.item.id, "system.rules": rulesSource },
+        ]);
+
+        return result.length === 1 ? newValue : null;
     }
 
     /* -------------------------------------------- */
@@ -224,8 +207,7 @@ class RollOptionRuleElement extends RuleElementPF2e {
     override beforeRoll(domains: string[], rollOptions: Set<string>): void {
         if (!(this.test(rollOptions) && domains.includes(this.domain))) return;
 
-        this.option = this.resolveOption();
-        this.value = !!this.resolveValue(this.value);
+        this.value = this.resolveValue();
         if (this.value) {
             rollOptions.add(this.option);
         } else {
@@ -260,14 +242,6 @@ interface RollOptionSource extends RuleElementSource {
     disabledValue?: unknown;
     count?: unknown;
     removeAfterRoll?: unknown;
-}
-
-interface ToggleParameters {
-    domain: string;
-    option: string;
-    actor: ActorPF2e;
-    itemId?: string | null;
-    value?: boolean;
 }
 
 export { RollOptionRuleElement };

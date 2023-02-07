@@ -310,9 +310,6 @@ abstract class CreaturePF2e extends ActorPF2e {
             };
         }
 
-        // Toggles
-        this.system.toggles = [];
-
         attributes.doomed = { value: 0, max: 3 };
         attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
         attributes.wounded = { value: 0, max: 3 };
