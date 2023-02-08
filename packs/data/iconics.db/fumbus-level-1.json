@@ -2452,6 +2452,7 @@
                         "isDailyPrep": true,
                         "key": "CraftingEntry",
                         "label": "PF2E.TraitAlchemist",
+                        "maxItemLevel": "@actor.level",
                         "predicate": [
                             "class:alchemist"
                         ],
@@ -2470,17 +2471,6 @@
                             }
                         ],
                         "selector": "alchemist"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.crafting.entries.alchemist.maxItemLevel",
-                        "phase": "beforeDerived",
-                        "predicate": [
-                            "class:alchemist",
-                            "crafting:entry:alchemist"
-                        ],
-                        "value": "@actor.level"
                     }
                 ],
                 "slug": "advanced-alchemy",
