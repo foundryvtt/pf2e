@@ -8,6 +8,7 @@ import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS, SAVE_TYPES, SKILL_DICTIONARY } from "@actor/values";
 import { EffectData } from "@item/data";
 import { Size } from "@module/data";
+import { createTagifyTraits } from "@module/sheet/helpers";
 import { DicePF2e } from "@scripts/dice";
 import { eventToRollParams } from "@scripts/sheet-util";
 import { getActionGlyph, getActionIcon, objectHasKey, setHasElement, tagify } from "@util";
@@ -167,6 +168,11 @@ class NPCSheetPF2e<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
         sheetData.enrichedContent.privateNotes = await TextEditor.enrichHTML(sheetData.data.details.privateNotes, {
             rollData,
             async: true,
+        });
+
+        sheetData.traitTagifyData = createTagifyTraits(this.actor.system.traits.value, {
+            sourceTraits: this.actor._source.system.traits.value,
+            record: CONFIG.PF2E.creatureTraits,
         });
 
         // Return data for rendering

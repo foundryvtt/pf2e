@@ -1,7 +1,12 @@
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElements, RuleElementSource } from "@module/rules";
-import { createSheetTags, maintainTagifyFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers";
+import {
+    createSheetTags,
+    createTagifyTraits,
+    maintainTagifyFocusInRender,
+    processTagifyInSubmitData,
+} from "@module/sheet/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { LocalizePF2e } from "@system/localize";
 import {
@@ -88,7 +93,12 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         const validTraits = this.validTraits;
         const hasRarity = !this.item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
-        const traits = validTraits ? createSheetTags(validTraits, this.item.system.traits?.value ?? []) : null;
+        const itemTraits = this.item.system.traits?.value ?? [];
+        const sourceTraits = this.item._source.system.traits?.value ?? [];
+        const traits = validTraits ? createSheetTags(validTraits, itemTraits) : null;
+        const traitTagifyData = validTraits
+            ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
+            : null;
 
         // Activate rule element sub forms
         this.ruleElementForms = {};
@@ -101,19 +111,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 object: this.item.rules.find((r) => r.sourceIndex === index) ?? null,
             });
         }
-
-        // This variable name is obviously no longer accurate: needs sweep through item sheet templates for refactor
-        const traitSlugs = ((): { id: string; value: string; readonly: boolean }[] => {
-            const readonlyTraits: string[] =
-                this.item.system.traits?.value.filter((t) => {
-                    const sourceTraits: string[] = this.item._source.system.traits?.value ?? [];
-                    return !sourceTraits.includes(t);
-                }) ?? [];
-            return Object.keys(traits ?? {}).map((slug) => {
-                const label = game.i18n.localize(validTraits?.[slug] ?? slug);
-                return { id: slug, value: label, readonly: readonlyTraits.includes(slug) };
-            });
-        })();
 
         return {
             itemType: null,
@@ -138,7 +135,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             rarity: hasRarity ? this.item.system.traits?.rarity ?? "common" : null,
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
-            traitSlugs,
+            traitTagifyData,
             enabledRulesUI: game.settings.get("pf2e", "enabledRulesUI"),
             ruleEditing: !!this.editingRuleElement,
             rules: {
