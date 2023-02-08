@@ -40,6 +40,7 @@ import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
 import { disableDevice } from "./thievery/disable-device";
 import { pickALock } from "./thievery/pick-a-lock";
+import { steal } from "./thievery/steal";
 export { ActionMacroHelpers } from "./helpers";
 export { ActionDefaultOptions, SkillActionOptions } from "./types";
 
@@ -118,4 +119,5 @@ export const ActionMacros = {
     // Thievery
     disableDevice,
     pickALock,
+    steal,
 };
