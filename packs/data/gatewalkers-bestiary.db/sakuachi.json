@@ -1,11 +1,11 @@
 {
-    "_id": "6Ut7YjjLZADMU7NY",
+    "_id": "wdeje31VJ7Ivcdd6",
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "UkurqY6wQGrS67eI",
+            "_id": "cUEFT9wclaEW6ab2",
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Divine Prepared Spells",
+            "name": "Occult Prepared Spells",
             "sort": 100000,
             "system": {
                 "autoHeightenLevel": {
@@ -20,7 +20,7 @@
                     "value": "prepared"
                 },
                 "proficiency": {
-                    "value": 0
+                    "value": 1
                 },
                 "rules": [],
                 "showSlotlessLevels": {
@@ -31,19 +31,22 @@
                 },
                 "slots": {
                     "slot0": {
-                        "max": 4,
+                        "max": 5,
                         "prepared": {
                             "0": {
-                                "id": "5LiB74vZFWO3FsR9"
+                                "id": "5vURTeoQAq8Ae0uy"
                             },
                             "1": {
-                                "id": "PkJ838MOnCA6uFhw"
+                                "id": "tVr058P4LewGVwzn"
                             },
                             "2": {
-                                "id": "shacH1AQI4X8jnok"
+                                "id": "g8OixqLGeoSqyaPa"
                             },
                             "3": {
-                                "id": "CTHBLIHECUKqUgkR"
+                                "id": "ve5S6BCz26dnPgBT"
+                            },
+                            "4": {
+                                "id": "nxoFdI2xBN4OKTvV"
                             }
                         },
                         "value": 0
@@ -52,13 +55,13 @@
                         "max": 3,
                         "prepared": {
                             "0": {
-                                "id": "im2oO2yyYG0V2Ola"
+                                "id": "mmeiLZmOmEJuyAb1"
                             },
                             "1": {
-                                "id": "9oCpjkRCB3aY1YWG"
+                                "id": "PFEz9GTSmXpMz8EJ"
                             },
                             "2": {
-                                "id": "Me5OnQEtFuBYIaRp"
+                                "id": "KSowp90KgwXUwzgv"
                             }
                         },
                         "value": 0
@@ -74,25 +77,16 @@
                         "value": 0
                     },
                     "slot2": {
-                        "max": 6,
+                        "max": 3,
                         "prepared": {
                             "0": {
-                                "id": "xjZXoApb03fZ7qQr"
+                                "id": "gtWJCZbCN2Ah21IH"
                             },
                             "1": {
-                                "id": "xjZXoApb03fZ7qQr"
+                                "id": "MDueUn34fyleM23D"
                             },
                             "2": {
-                                "id": "8fRVJdroiaTuEP9n"
-                            },
-                            "3": {
-                                "id": "8fRVJdroiaTuEP9n"
-                            },
-                            "4": {
-                                "id": "QrWx62dd141Neimf"
-                            },
-                            "5": {
-                                "id": "oLyTtWtLiYftOoqy"
+                                "id": "D3Kar1VCPreGR4Rw"
                             }
                         },
                         "value": 0
@@ -138,30 +132,24 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": 21,
-                    "mod": 0,
-                    "value": 13
+                    "dc": 18,
+                    "value": 12
                 },
                 "tradition": {
-                    "value": "divine"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
+                    "value": "occult"
                 }
             },
             "type": "spellcastingEntry"
         },
         {
-            "_id": "xjZXoApb03fZ7qQr",
+            "_id": "gtWJCZbCN2Ah21IH",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.9HpwDN4MYQJnW0LG"
+                    "sourceId": "Compendium.pf2e.spells-srd.41TZEjhO6D1nWw2X"
                 }
             },
-            "img": "systems/pf2e/icons/spells/dispel-magic.webp",
-            "name": "Dispel Magic",
+            "img": "systems/pf2e/icons/spells/augury.webp",
+            "name": "Augury",
             "sort": 200000,
             "system": {
                 "ability": {
@@ -173,7 +161,7 @@
                 },
                 "components": {
                     "focus": false,
-                    "material": false,
+                    "material": true,
                     "somatic": true,
                     "verbal": true
                 },
@@ -184,19 +172,19 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you successfully counteract a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
+                    "value": "<p>You gain a vague glimpse of the future. During the casting of this spell, ask about the results of a particular course of action. The spell can predict results up to 30 minutes into the future and reveals the GM's best guess among the following outcomes:</p>\n<ul>\n<li><strong>Weal</strong> The results will be good.</li>\n<li><strong>Woe</strong> The results will be bad.</li>\n<li><strong>Weal</strong> and Woe The results will be a mix of good and bad.</li>\n<li><strong>Nothing</strong> There won't be particularly good or bad results.</li>\n</ul>\n<p>The GM rolls a secret @Check[type:flat|dc:6|traits:secret]. On a failure, the result is always \"nothing.\" This makes it impossible to tell whether a \"nothing\" result is accurate. If anyone asks about the same topic as the first casting of augury during an additional casting, the GM uses the secret roll result from the first casting. If circumstances change, though, it's possible to get a different result.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": true
+                    "value": false
                 },
                 "level": {
                     "value": 2
                 },
                 "location": {
-                    "value": "UkurqY6wQGrS67eI"
+                    "value": "cUEFT9wclaEW6ab2"
                 },
                 "materials": {
                     "value": ""
@@ -208,7 +196,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "120 feet"
+                    "value": ""
                 },
                 "rules": [],
                 "save": {
@@ -216,7 +204,7 @@
                     "value": ""
                 },
                 "school": {
-                    "value": "abjuration"
+                    "value": "divination"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -224,7 +212,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "dispel-magic",
+                "slug": "augury",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
@@ -235,29 +223,29 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 spell effect or unattended magic item"
+                    "value": ""
                 },
                 "time": {
-                    "value": "2"
+                    "value": "10 minutes"
                 },
                 "traditions": {
                     "value": [
-                        "arcane",
                         "divine",
-                        "occult",
-                        "primal"
+                        "occult"
                     ]
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "prediction"
+                    ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "QrWx62dd141Neimf",
+            "_id": "MDueUn34fyleM23D",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.Fr58LDSrbndgld9n"
@@ -314,7 +302,7 @@
                     "value": 2
                 },
                 "location": {
-                    "value": "UkurqY6wQGrS67eI"
+                    "value": "cUEFT9wclaEW6ab2"
                 },
                 "materials": {
                     "value": ""
@@ -375,20 +363,124 @@
             "type": "spell"
         },
         {
-            "_id": "oLyTtWtLiYftOoqy",
+            "_id": "D3Kar1VCPreGR4Rw",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.jwK43yKsHTkJQvQ9"
+                    "sourceId": "Compendium.pf2e.spells-srd.gIdDLrbswTV3OBJy"
                 }
             },
-            "img": "systems/pf2e/icons/spells/see-invisibility.webp",
-            "name": "See Invisibility",
+            "img": "systems/pf2e/icons/spells/silence.webp",
+            "name": "Silence",
             "sort": 400000,
             "system": {
                 "ability": {
                     "value": ""
                 },
                 "area": null,
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": true,
+                    "somatic": true,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>The target makes no sound, preventing creatures from noticing it using hearing alone. The target can't use sonic attacks, nor can it use actions with the auditory trait. This prevents it from casting spells that include verbal components.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Silence]{Spell Effect: Silence}</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell effect emanates from the touched creature, silencing all sound in or passing through a 10- foot radius and preventing any auditory and sonic effects in the affected area. While within the radius, creatures are subject to the same effects as the target. Depending upon the position of the effect, a creature might notice the lack of sound reaching it (blocking off the noise coming from a party, for example).</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "cUEFT9wclaEW6ab2"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "illusion"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "silence",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 willing creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "mmeiLZmOmEJuyAb1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XSujb7EsSwKl19Uu"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/bless.webp",
+            "name": "Bless",
+            "sort": 500000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "type": "emanation",
+                    "value": 5
+                },
                 "category": {
                     "value": "spell"
                 },
@@ -405,19 +497,125 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You can see @UUID[Compendium.pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>"
+                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet.</p>\n<p>Bless can counteract <em>@UUID[Compendium.pf2e.spells-srd.Bane]{Bane}</em>.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Bless]{Spell Effect: Bless}</p>"
                 },
                 "duration": {
-                    "value": "10 minutes"
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": true
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "cUEFT9wclaEW6ab2"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "bless",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "you and allies in the area"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "5vURTeoQAq8Ae0uy",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/detect-magic.webp",
+            "name": "Detect Magic",
+            "sort": 600000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "type": "emanation",
+                    "value": 30
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                },
+                "duration": {
+                    "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "value": 2
+                    "value": 1
                 },
                 "location": {
-                    "value": "UkurqY6wQGrS67eI"
+                    "value": "cUEFT9wclaEW6ab2"
                 },
                 "materials": {
                     "value": ""
@@ -445,7 +643,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "see-invisibility",
+                "slug": "detect-magic",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
@@ -462,130 +660,11 @@
                     "value": "2"
                 },
                 "traditions": {
+                    "custom": "",
                     "value": [
                         "arcane",
                         "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "revelation"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "im2oO2yyYG0V2Ola",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.y6rAdMK6EFlV6U0t"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/burning-hands.webp",
-            "name": "Burning Hands",
-            "sort": 500000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "type": "cone",
-                    "value": 15
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "type": {
-                                "categories": [],
-                                "value": "fire"
-                            },
-                            "value": "2d6"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>Gouts of flame rush from your hands. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "UkurqY6wQGrS67eI"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": ""
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "reflex"
-                },
-                "school": {
-                    "value": "evocation"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "burning-hands",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
+                        "occult",
                         "primal"
                     ]
                 },
@@ -593,22 +672,23 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "fire"
+                        "detection",
+                        "cantrip"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "9oCpjkRCB3aY1YWG",
+            "_id": "tVr058P4LewGVwzn",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.aIHY2DArKFweIrpf"
+                    "sourceId": "Compendium.pf2e.spells-srd.izcxFQFwf3woCnFs"
                 }
             },
-            "img": "systems/pf2e/icons/spells/command.webp",
-            "name": "Command",
-            "sort": 600000,
+            "img": "systems/pf2e/icons/spells/guidance.webp",
+            "name": "Guidance",
+            "sort": 700000,
             "system": {
                 "ability": {
                     "value": ""
@@ -620,7 +700,7 @@
                 "components": {
                     "focus": false,
                     "material": false,
-                    "somatic": true,
+                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
@@ -630,29 +710,19 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} condition), release what it's holding, drop @UUID[Compendium.pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened (5th)</strong> You can target up to 10 creatures."
+                    "value": "<p>You ask for divine guidance, granting the target a +1 status bonus to one attack roll, Perception check, saving throw, or skill check the target attempts before the duration ends. The target chooses which roll to use the bonus on before rolling. If the target uses the bonus, the spell ends. Either way, the target is then temporarily immune for 1 hour.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Guidance]{Spell Effect: Guidance}</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Effect: Guidance Immunity]{Effect: Guidance Immunity}</p>"
                 },
                 "duration": {
-                    "value": "until the end of the target's next turn"
+                    "value": "until the start of your next turn"
                 },
                 "hasCounteractCheck": {
                     "value": false
-                },
-                "heightening": {
-                    "levels": {
-                        "5": {
-                            "target": {
-                                "value": "10 creatures"
-                            }
-                        }
-                    },
-                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "UkurqY6wQGrS67eI"
+                    "value": "cUEFT9wclaEW6ab2"
                 },
                 "materials": {
                     "value": ""
@@ -669,10 +739,10 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": "will"
+                    "value": ""
                 },
                 "school": {
-                    "value": "enchantment"
+                    "value": "divination"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -680,12 +750,12 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "command",
+                "slug": "guidance",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
@@ -694,37 +764,36 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": "2"
+                    "value": "1"
                 },
                 "traditions": {
+                    "custom": "",
                     "value": [
-                        "arcane",
                         "divine",
-                        "occult"
+                        "occult",
+                        "primal"
                     ]
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "auditory",
-                        "linguistic",
-                        "mental"
+                        "cantrip"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "5LiB74vZFWO3FsR9",
+            "_id": "PFEz9GTSmXpMz8EJ",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
+                    "sourceId": "Compendium.pf2e.spells-srd.0Dcd4iEXqCrkm4Jn"
                 }
             },
-            "img": "systems/pf2e/icons/spells/daze.webp",
-            "name": "Daze",
-            "sort": 700000,
+            "img": "systems/pf2e/icons/spells/liberating-command.webp",
+            "name": "Liberating Command",
+            "sort": 800000,
             "system": {
                 "ability": {
                     "value": ""
@@ -736,45 +805,29 @@
                 "components": {
                     "focus": false,
                     "material": false,
-                    "somatic": true,
+                    "somatic": false,
                     "verbal": true
                 },
                 "cost": {
                     "value": ""
                 },
                 "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": true,
-                            "type": {
-                                "categories": [],
-                                "value": "mental"
-                            },
-                            "value": "0"
-                        }
-                    }
+                    "value": {}
                 },
                 "description": {
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @UUID[Compendium.pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You call out a liberating cry, urging an ally to break free of an effect that holds them in place. If the target is @UUID[Compendium.pf2e.conditionitems.Grabbed]{Grabbed}, @UUID[Compendium.pf2e.conditionitems.Immobilized]{Immobilized}, or @UUID[Compendium.pf2e.conditionitems.Restrained]{Restrained}, it can immediately use a reaction to attempt to @UUID[Compendium.pf2e.actionspf2e.Escape]{Escape}.</p>"
                 },
                 "duration": {
-                    "value": "1 round"
+                    "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d6"
-                    },
-                    "interval": 2,
-                    "type": "interval"
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "UkurqY6wQGrS67eI"
+                    "value": "cUEFT9wclaEW6ab2"
                 },
                 "materials": {
                     "value": ""
@@ -790,8 +843,8 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "basic",
-                    "value": "will"
+                    "basic": "",
+                    "value": ""
                 },
                 "school": {
                     "value": "enchantment"
@@ -802,12 +855,12 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "daze",
+                "slug": "liberating-command",
                 "source": {
-                    "value": "Pathfinder Core Rulebook"
+                    "value": "Pathfinder Lost Omens: Gods & Magic"
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
@@ -816,12 +869,11 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": "2"
+                    "value": "1"
                 },
                 "traditions": {
+                    "custom": "",
                     "value": [
-                        "arcane",
-                        "divine",
                         "occult"
                     ]
                 },
@@ -829,125 +881,6 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "cantrip",
-                        "mental",
-                        "nonlethal"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "Me5OnQEtFuBYIaRp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/fear.webp",
-            "name": "Fear",
-            "sort": 800000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": null,
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": true,
-                    "verbal": true
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {}
-                },
-                "description": {
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Frightened]{Frightened 3} and @UUID[Compendium.pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
-                },
-                "duration": {
-                    "value": "varies"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightening": {
-                    "levels": {
-                        "3": {
-                            "target": {
-                                "value": "5 creatures"
-                            }
-                        }
-                    },
-                    "type": "fixed"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "UkurqY6wQGrS67eI"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "school": {
-                    "value": "enchantment"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "fear",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "emotion",
-                        "fear",
                         "mental"
                     ]
                 }
@@ -955,133 +888,7 @@
             "type": "spell"
         },
         {
-            "_id": "8fRVJdroiaTuEP9n",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/heal.webp",
-            "name": "Heal",
-            "sort": 900000,
-            "system": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "details": "varies",
-                    "type": "emanation",
-                    "value": 30
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "focus": false,
-                    "material": false,
-                    "somatic": false,
-                    "verbal": false
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "value": {
-                        "0": {
-                            "applyMod": false,
-                            "type": {
-                                "categories": [],
-                                "subtype": "",
-                                "value": "positive"
-                            },
-                            "value": "1d8"
-                        }
-                    }
-                },
-                "description": {
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> (somatic) The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8. [[/r (@item.level)d8[positive]+@item.level*8[healing]]]{2-Action Healing}</p>\n<p><span class=\"pf2-icon\">3</span> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "1d8"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "UkurqY6wQGrS67eI"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "varies"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "school": {
-                    "value": "necromancy"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "slug": "heal",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "spellType": {
-                    "value": "heal"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 willing living creature or 1 undead"
-                },
-                "time": {
-                    "value": "1 to 3"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "healing",
-                        "positive"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "PkJ838MOnCA6uFhw",
+            "_id": "g8OixqLGeoSqyaPa",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4"
@@ -1089,7 +896,7 @@
             },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "ability": {
                     "value": ""
@@ -1123,7 +930,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "UkurqY6wQGrS67eI"
+                    "value": "cUEFT9wclaEW6ab2"
                 },
                 "materials": {
                     "value": ""
@@ -1188,14 +995,136 @@
             "type": "spell"
         },
         {
-            "_id": "shacH1AQI4X8jnok",
+            "_id": "ve5S6BCz26dnPgBT",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.vLzFcIaSXs7YTIqJ"
+                    "sourceId": "Compendium.pf2e.spells-srd.OhD2Z6rIGGD5ocZA"
                 }
             },
-            "img": "systems/pf2e/icons/spells/message.webp",
-            "name": "Message",
+            "img": "systems/pf2e/icons/spells/read-aura.webp",
+            "name": "Read Aura",
+            "sort": 1000000,
+            "system": {
+                "ability": {
+                    "value": ""
+                },
+                "area": null,
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "focus": false,
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "value": {}
+                },
+                "description": {
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "heightening": {
+                    "levels": {
+                        "3": {
+                            "target": {
+                                "value": "10 objects"
+                            }
+                        },
+                        "6": {
+                            "target": {
+                                "value": "any number of objects"
+                            }
+                        }
+                    },
+                    "type": "fixed"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "cUEFT9wclaEW6ab2"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "read-aura",
+                "source": {
+                    "value": "Pathfinder Core Rulebook"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 object"
+                },
+                "time": {
+                    "value": "1 Minute"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": "common",
+                    "value": [
+                        "detection",
+                        "cantrip"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "nxoFdI2xBN4OKTvV",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.TVKNbcgTee19PXZR"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/shield.webp",
+            "name": "Shield",
             "sort": 1100000,
             "system": {
                 "ability": {
@@ -1218,29 +1147,19 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The spell's range increases to 500 feet.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Shield Block]{Shield Block} reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Magic Missile]{Magic Missile}</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Effect: Shield Immunity]{Effect: Shield Immunity}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
-                    "value": "see below"
+                    "value": "until the start of your next turn"
                 },
                 "hasCounteractCheck": {
                     "value": false
-                },
-                "heightening": {
-                    "levels": {
-                        "3": {
-                            "range": {
-                                "value": "500 feet"
-                            }
-                        }
-                    },
-                    "type": "fixed"
                 },
                 "level": {
                     "value": 1
                 },
                 "location": {
-                    "value": "UkurqY6wQGrS67eI"
+                    "value": "cUEFT9wclaEW6ab2"
                 },
                 "materials": {
                     "value": ""
@@ -1252,7 +1171,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "120 feet"
+                    "value": ""
                 },
                 "rules": [],
                 "save": {
@@ -1260,7 +1179,7 @@
                     "value": ""
                 },
                 "school": {
-                    "value": "illusion"
+                    "value": "abjuration"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -1268,7 +1187,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "message",
+                "slug": "shield",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
@@ -1279,7 +1198,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature"
+                    "value": ""
                 },
                 "time": {
                     "value": "1"
@@ -1295,30 +1214,31 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "auditory",
                         "cantrip",
-                        "linguistic",
-                        "mental"
+                        "force"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "CTHBLIHECUKqUgkR",
+            "_id": "KSowp90KgwXUwzgv",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.AUctDF2fqPZN2w4W"
+                    "sourceId": "Compendium.pf2e.spells-srd.o4lRVTwSxnOOn5vl"
                 }
             },
-            "img": "systems/pf2e/icons/spells/sigil.webp",
-            "name": "Sigil",
+            "img": "systems/pf2e/icons/spells/sleep.webp",
+            "name": "Sleep",
             "sort": 1200000,
             "system": {
                 "ability": {
                     "value": ""
                 },
-                "area": null,
+                "area": {
+                    "type": "burst",
+                    "value": 5
+                },
                 "category": {
                     "value": "spell"
                 },
@@ -1335,10 +1255,10 @@
                     "value": {}
                 },
                 "description": {
-                    "value": "<p>You harmlessly place your unique magical sigil, which is about 1 square inch in size, on the targeted creature or object. The mark can be visible or invisible, and you can change it from one state to another by using an Interact action to touch the target. The mark can be scrubbed or scraped off with 5 minutes of work. If it's on a creature, it fades naturally over the course of a week. The time before the mark fades increases depending on your heightened level.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The sigil instead fades after 1 month.</p>\n<p><strong>Heightened (5th)</strong> The sigil instead fades after 1 year.</p>\n<p><strong>Heightened (7th)</strong> The sigil never fades.</p>"
+                    "value": "<p>Each creature in the area becomes drowsy and might fall asleep. A creature that falls @UUID[Compendium.pf2e.conditionitems.Unconscious]{Unconscious} from this spell doesn't fall @UUID[Compendium.pf2e.conditionitems.Prone]{Prone} or release what it's holding. This spell doesn't prevent creatures from waking up due to a successful Perception check, limiting its utility in combat.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes a -1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 hour, it wakes up automatically.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creatures fall Unconscious for 1 round on a failure or 1 minute on a critical failure. They fall Prone and release what they're holding, and they can't attempt Perception checks to wake up. When the duration ends, the creature is sleeping normally instead of automatically waking up.</p>"
                 },
                 "duration": {
-                    "value": "unlimited"
+                    "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
@@ -1347,7 +1267,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "UkurqY6wQGrS67eI"
+                    "value": "cUEFT9wclaEW6ab2"
                 },
                 "materials": {
                     "value": ""
@@ -1359,15 +1279,15 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "touch"
+                    "value": "30 feet"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "school": {
-                    "value": "transmutation"
+                    "value": "enchantment"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -1375,56 +1295,55 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "sigil",
+                "slug": "sleep",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature or object"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
                 "traditions": {
-                    "custom": "",
                     "value": [
                         "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
+                        "occult"
                     ]
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "cantrip"
+                        "incapacitation",
+                        "mental",
+                        "sleep"
                     ]
                 }
             },
             "type": "spell"
         },
         {
-            "_id": "VmpGQOac5GRmdaDj",
+            "_id": "ncq1KRzNU5j3HRHV",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.rQWaJhI5Bko5x14Z"
+                    "sourceId": "Compendium.pf2e.equipment-srd.tOhoGvmCMw4JpWcS"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
-            "name": "Dagger",
+            "img": "systems/pf2e/icons/equipment/weapons/spear.webp",
+            "name": "Spear",
             "sort": 1300000,
             "system": {
                 "MAP": {
                     "value": ""
                 },
-                "baseItem": "dagger",
+                "baseItem": "spear",
                 "bonus": {
                     "value": 0
                 },
@@ -1436,10 +1355,10 @@
                 "damage": {
                     "damageType": "piercing",
                     "dice": 1,
-                    "die": "d4"
+                    "die": "d6"
                 },
                 "description": {
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                    "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one‑handed as a melee weapon and can be thrown.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -1449,7 +1368,7 @@
                 "equippedBulk": {
                     "value": ""
                 },
-                "group": "knife",
+                "group": "spear",
                 "hardness": 0,
                 "hp": {
                     "brokenThreshold": 0,
@@ -1463,7 +1382,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 1
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": null
@@ -1473,20 +1392,20 @@
                 },
                 "price": {
                     "value": {
-                        "sp": 2
+                        "sp": 1
                     }
                 },
                 "propertyRune1": {
-                    "value": null
+                    "value": ""
                 },
                 "propertyRune2": {
-                    "value": null
+                    "value": ""
                 },
                 "propertyRune3": {
-                    "value": null
+                    "value": ""
                 },
                 "propertyRune4": {
-                    "value": null
+                    "value": ""
                 },
                 "quantity": 1,
                 "range": null,
@@ -1495,7 +1414,7 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": "dagger",
+                "slug": "spear",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
@@ -1510,55 +1429,53 @@
                     "custom": "",
                     "rarity": "common",
                     "value": [
-                        "agile",
-                        "finesse",
-                        "thrown-10",
-                        "versatile-s"
+                        "thrown-20"
                     ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": "L"
+                    "value": "1"
                 }
             },
             "type": "weapon"
         },
         {
-            "_id": "kTxHlTVAuyTkaLZP",
+            "_id": "JCXhiuXg7xv8MoI6",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.pRoikbRo5HFW6YUB"
+                    "sourceId": "Compendium.pf2e.equipment-srd.zBYEU9E7034ENCmh"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/armor/halfplate.webp",
-            "name": "Half Plate",
+            "img": "systems/pf2e/icons/equipment/armor/padded-armor.webp",
+            "name": "Padded Armor",
             "sort": 1400000,
             "system": {
                 "armor": {
-                    "value": 5
+                    "value": 1
                 },
-                "baseItem": "half-plate",
-                "category": "heavy",
+                "baseItem": "padded-armor",
+                "category": "light",
                 "check": {
-                    "value": -3
+                    "value": 0
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
+                    "value": "<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor or undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep the armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
                 },
                 "dex": {
-                    "value": 1
+                    "value": 3
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "inSlot": false,
                     "invested": null
                 },
                 "equippedBulk": {
-                    "value": "3"
+                    "value": "L"
                 },
-                "group": "plate",
+                "group": null,
                 "hardness": 0,
                 "hp": {
                     "brokenThreshold": 0,
@@ -1566,7 +1483,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 1
+                    "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
@@ -1583,7 +1500,7 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 18
+                        "sp": 2
                     }
                 },
                 "propertyRune1": {
@@ -1604,51 +1521,52 @@
                 },
                 "rules": [],
                 "size": "med",
-                "slug": "half-plate",
+                "slug": "padded-armor",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
                 },
                 "speed": {
-                    "value": -10
+                    "value": 0
                 },
                 "stackGroup": null,
                 "strength": {
-                    "value": 16
+                    "value": 10
                 },
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": []
+                    "value": [
+                        "comfort"
+                    ]
                 },
                 "usage": {
                     "value": "wornarmor"
                 },
                 "weight": {
-                    "value": "4"
+                    "value": "1"
                 }
             },
             "type": "armor"
         },
         {
-            "_id": "HWwf9OfDEQH53F11",
+            "_id": "1kT39pGCcu00wngQ",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.plplsXJsqrdqNQVI"
+                    "sourceId": "Compendium.pf2e.equipment-srd.n8nmqJdfHrDfuG1J"
                 }
             },
-            "img": "systems/pf2e/icons/deity/Asmodeus.webp",
-            "name": "Religious Symbol of Asmodeus (Wooden)",
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/astrolabe.webp",
+            "name": "Standard Astrolabe",
             "sort": 1500000,
             "system": {
                 "baseItem": null,
                 "containerId": null,
                 "description": {
-                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
+                    "value": "<p><strong>Activate</strong> 1 minute (Interact)</p>\n<p>Astrolabes can be used for navigation in unfamiliar or featureless locations. To use an astrolabe, the holder must be trained in Survival. By spending 1 minute to measure the height of the stars and planets, a holder who knows the time and date can determine the latitude, and a holder who knows their latitude can determine the date and time. An astrolabe also grants a +1 item bonus to checks to identify celestial bodies. A standard astrolabe functions only on steady ground.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
                     "handsHeld": 0,
-                    "inSlot": false,
                     "invested": null
                 },
                 "equippedBulk": {
@@ -1661,7 +1579,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 0
+                    "value": 2
                 },
                 "negateBulk": {
                     "value": "0"
@@ -1674,95 +1592,15 @@
                 },
                 "price": {
                     "value": {
-                        "sp": 1
-                    }
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "religious-symbol-wooden",
-                "source": {
-                    "value": "Pathfinder Core Rulebook"
-                },
-                "stackGroup": null,
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "type": "equipment"
-        },
-        {
-            "_id": "jgcCZHnrNbS5iREn",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.UhcRWtnjU2WLSClx"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/survey-map.webp",
-            "name": "Area Map",
-            "sort": 1600000,
-            "system": {
-                "baseItem": null,
-                "containerId": null,
-                "description": {
-                    "value": "<p>This map shows Maunder Castle, the logging camp, logger movements, and plans of attack.</p>\n<hr />\n<p>Maps are uncommon. Most maps you can find are simple and functional. A survey map details a single location in excellent detail.</p>\n<p>One of these maps gives you a +1 item bonus to Survival checks and any skill checks to Recall Knowledge, provided the checks are related to the location detailed on the map.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0,
-                    "invested": null
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": 0,
-                "hp": {
-                    "brokenThreshold": 0,
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "negateBulk": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": {
-                        "gp": 10
+                        "gp": 30
                     }
                 },
                 "quantity": 1,
                 "rules": [
                     {
                         "key": "FlatModifier",
-                        "label": "Area Map (mapped area)",
                         "predicate": [
-                            "mapped-area"
-                        ],
-                        "selector": "survival",
-                        "type": "item",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "mapped-area",
-                            "action:recall-knowledge"
+                            "identify-celestial-body"
                         ],
                         "selector": "skill-check",
                         "type": "item",
@@ -1770,9 +1608,9 @@
                     }
                 ],
                 "size": "med",
-                "slug": "survey-map",
+                "slug": "standard-astrolabe",
                 "source": {
-                    "value": "Pathfinder Core Rulebook"
+                    "value": "Pathfinder Lost Omens: Pathfinder Society Guide"
                 },
                 "stackGroup": null,
                 "traits": {
@@ -1781,7 +1619,7 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
                     "value": "L"
@@ -1790,36 +1628,24 @@
             "type": "equipment"
         },
         {
-            "_id": "fq5jsjB5HkWo1JYN",
+            "_id": "72qYsio68IyiSz2U",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.RjuupS9xyXDLgyIr"
+                    "sourceId": "Compendium.pf2e.equipment-srd.SLQgdLk5K9JV4ACF"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/consumables/other-consumables/spell-scroll.webp",
-            "name": "Scroll of Magic Weapon (Level 1)",
-            "sort": 1700000,
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/clothes-winter.webp",
+            "name": "Clothing (Winter)",
+            "sort": 1600000,
             "system": {
-                "autoDestroy": {
-                    "value": true
-                },
                 "baseItem": null,
-                "charges": {
-                    "max": 1,
-                    "value": 1
-                },
-                "consumableType": {
-                    "value": "scroll"
-                },
-                "consume": {
-                    "value": ""
-                },
                 "containerId": null,
                 "description": {
-                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Magic Weapon]</p><hr /><p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>Winter clothing allows you to negate the damage from severe environmental cold and reduce the damage from extreme cold to that of severe cold.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "invested": null
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1831,7 +1657,7 @@
                     "value": 0
                 },
                 "level": {
-                    "value": 1
+                    "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
@@ -1844,145 +1670,84 @@
                 },
                 "price": {
                     "value": {
-                        "gp": 4
+                        "sp": 4
                     }
                 },
                 "quantity": 1,
                 "rules": [],
                 "size": "med",
-                "slug": "scroll-of-1st-level-spell",
+                "slug": "clothing-winter",
                 "source": {
                     "value": "Pathfinder Core Rulebook"
-                },
-                "spell": {
-                    "_id": "TFitdEOpQC4SzKQQ",
-                    "flags": {
-                        "core": {
-                            "sourceId": "Compendium.pf2e.spells-srd.TFitdEOpQC4SzKQQ"
-                        }
-                    },
-                    "img": "systems/pf2e/icons/spells/magic-weapon.webp",
-                    "name": "Magic Weapon",
-                    "sort": 0,
-                    "system": {
-                        "ability": {
-                            "value": ""
-                        },
-                        "area": null,
-                        "category": {
-                            "value": "spell"
-                        },
-                        "components": {
-                            "focus": false,
-                            "material": false,
-                            "somatic": true,
-                            "verbal": true
-                        },
-                        "cost": {
-                            "value": ""
-                        },
-                        "damage": {
-                            "value": {}
-                        },
-                        "description": {
-                            "value": "<p>The weapon glimmers with magic and energy. The target becomes a +1 striking weapon, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Spell Effect: Magic Weapon]{Spell Effect: Magic Weapon}</p>"
-                        },
-                        "duration": {
-                            "value": "1 minute"
-                        },
-                        "hasCounteractCheck": {
-                            "value": false
-                        },
-                        "level": {
-                            "value": 1
-                        },
-                        "location": {
-                            "heightenedLevel": 1,
-                            "value": ""
-                        },
-                        "materials": {
-                            "value": ""
-                        },
-                        "prepared": {
-                            "value": ""
-                        },
-                        "primarycheck": {
-                            "value": ""
-                        },
-                        "range": {
-                            "value": "touch"
-                        },
-                        "rules": [],
-                        "save": {
-                            "basic": "",
-                            "value": ""
-                        },
-                        "school": {
-                            "value": "transmutation"
-                        },
-                        "secondarycasters": {
-                            "value": ""
-                        },
-                        "secondarycheck": {
-                            "value": ""
-                        },
-                        "slug": "magic-weapon",
-                        "source": {
-                            "value": "Pathfinder Core Rulebook"
-                        },
-                        "spellType": {
-                            "value": "utility"
-                        },
-                        "sustained": {
-                            "value": false
-                        },
-                        "target": {
-                            "value": "1 weapon that is unattended or wielded by you or a willing ally"
-                        },
-                        "time": {
-                            "value": "2"
-                        },
-                        "traditions": {
-                            "value": [
-                                "arcane",
-                                "divine",
-                                "occult"
-                            ]
-                        },
-                        "traits": {
-                            "custom": "",
-                            "rarity": "common",
-                            "value": []
-                        }
-                    },
-                    "type": "spell"
                 },
                 "stackGroup": null,
                 "traits": {
                     "custom": "",
                     "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "magical",
-                        "scroll",
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ]
+                    "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "worn"
                 },
                 "weight": {
                     "value": "L"
                 }
             },
-            "type": "consumable"
+            "type": "equipment"
         },
         {
-            "_id": "qEbFimPOeE5aFvE7",
+            "_id": "DVocwINL7cZlT4KW",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ncq1KRzNU5j3HRHV"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
+            "name": "Spear",
+            "sort": 1700000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "NbyDy977Wq40loPu": {
+                        "category": null,
+                        "damage": "1d6",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "j4VyTUHFRu9puCrg",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "ncq1KRzNU5j3HRHV"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Spear",
             "sort": 1800000,
             "system": {
                 "attack": {
@@ -1992,16 +1757,13 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 14
+                    "value": 10
                 },
                 "damageRolls": {
-                    "v28iwchuz7az2tigcmd6": {
-                        "damage": "1d4+4",
+                    "r2QAOsHuoaWUxEBg": {
+                        "category": null,
+                        "damage": "1d6",
                         "damageType": "piercing"
-                    },
-                    "dm4wasmj3jkdlxjlwmsg": {
-                        "damage": "1d10",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -2013,63 +1775,8 @@
                     "value": ""
                 },
                 "traits": {
-                    "custom": "",
-                    "rarity": "common",
                     "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "versatile-s"
-                    ]
-                },
-                "weaponType": {
-                    "value": "melee"
-                }
-            },
-            "type": "melee"
-        },
-        {
-            "_id": "8hva3s7KDSqeUTKh",
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Dagger",
-            "sort": 1900000,
-            "system": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 12
-                },
-                "damageRolls": {
-                    "9t859gxpuwthtpdqdpdl": {
-                        "damage": "1d4+4",
-                        "damageType": "piercing"
-                    },
-                    "pwak28cykmjyw96covss": {
-                        "damage": "1d10",
-                        "damageType": "fire"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": [
-                        "agile",
-                        "finesse",
-                        "magical",
-                        "thrown-10",
-                        "versatile-s"
+                        "thrown-20"
                     ]
                 },
                 "weaponType": {
@@ -2079,15 +1786,10 @@
             "type": "melee"
         },
         {
-            "_id": "5v6fepRCSyg6ZABC",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
+            "_id": "RxJo83KC2PSlP4ke",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 2000000,
+            "name": "Search the Stars",
+            "sort": 1900000,
             "system": {
                 "actionCategory": {
                     "value": "interaction"
@@ -2099,47 +1801,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": "Pathfinder Bestiary"
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "9Nve1oYElRWcJhIh",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Unburdened Iron",
-            "sort": 2100000,
-            "system": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>Hargrit ignores the reduction to his Speed from armor and deducts 5 feet from any one penalty to his Speed (such as from a spell)</p>"
+                    "value": "<p><strong>Requirements</strong> Sakuachi is holding an astrolabe and can see the stars</p>\n<hr />\n<p><strong>Effect</strong> Sakuachi spends 1 hour attempting to gain a vague glimpse of the future written in the stars. She attempts a @Check[type:fortune-telling-lore|dc:24]{Fortune-Telling Lore} or @Check[type:occultism|dc:24] check.</p>\n<hr />\n<p><strong>Critical Success</strong> Sakuachi receives an accurate vision of an event to come within the next week. While this vision can be vague and confusing, it's typically true.</p>\n<p><strong>Success</strong> As critical success, but the vision is of an event that will occur within the next day. If nothing noteworthy is to happen within the next day, she sees nothing written in the stars.</p>\n<p><strong>Failure</strong> Sakuachi sees nothing written in the stars.</p>\n<p><strong>Critical Failure</strong> Sakuachi misinterprets the writing in the stars and receives an inaccurate vision of an upcoming event. Such a vision looks the same as one achieved with a critical success, but is typically false.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2151,22 +1813,67 @@
                 },
                 "traits": {
                     "custom": "",
-                    "rarity": "common",
-                    "value": []
+                    "value": [
+                        "concentrate",
+                        "manipulate"
+                    ]
                 },
                 "trigger": {
-                    "value": ""
-                },
-                "weapon": {
                     "value": ""
                 }
             },
             "type": "action"
         },
         {
-            "_id": "rio6I4h12OtJdAbs",
+            "_id": "Me6sHP532x67MFA0",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
+            "name": "Astronomy Lore",
+            "sort": 2000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "vwa0e57IaMPg1Acb",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Fortune-Telling Lore",
+            "sort": 2100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                }
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "2G2tk9B5y3VQRc8S",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Medicine",
             "sort": 2200000,
             "system": {
                 "description": {
@@ -2182,19 +1889,14 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
         },
         {
-            "_id": "OW9XOD4ssqRZAZk2",
+            "_id": "Y9fEyVFZZuFhRsWl",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
+            "name": "Nature",
             "sort": 2300000,
             "system": {
                 "description": {
@@ -2206,46 +1908,25 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.Target.AgainstDevils",
-                        "predicate": [
-                            "target:trait:devil"
-                        ],
-                        "selector": "diplomacy",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
-                },
-                "variants": {
-                    "0": {
-                        "label": "+14 against Devils",
-                        "options": "target:trait:devil"
-                    }
                 }
             },
             "type": "lore"
         },
         {
-            "_id": "2uDTTLnPGGNUafjb",
+            "_id": "d0I2e8VDWfkRiVZs",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Fiend Lore",
+            "name": "Occultism",
             "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 10
+                    "value": 15
                 },
                 "proficient": {
                     "value": 0
@@ -2254,26 +1935,21 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
         },
         {
-            "_id": "nCPW9aZAEem1FKo5",
+            "_id": "ZjFaDpMc1r2X0Xi2",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
+            "name": "Religion",
             "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 10
+                    "value": 12
                 },
                 "proficient": {
                     "value": 0
@@ -2282,19 +1958,14 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
         },
         {
-            "_id": "S7ZddRdy0Odnf5HE",
+            "_id": "lNUBiy2b17YPpxol",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
+            "name": "Survival",
             "sort": 2600000,
             "system": {
                 "description": {
@@ -2310,68 +1981,63 @@
                 "slug": null,
                 "source": {
                     "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": "common",
-                    "value": []
                 }
             },
             "type": "lore"
         }
     ],
-    "name": "Hargrit Leadbuster",
+    "name": "Sakuachi",
     "system": {
         "abilities": {
             "cha": {
-                "mod": 2
+                "mod": 4
             },
             "con": {
-                "mod": 3
-            },
-            "dex": {
-                "mod": 0
-            },
-            "int": {
-                "mod": 0
-            },
-            "str": {
                 "mod": 2
             },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 0
+            },
             "wis": {
-                "mod": 4
+                "mod": 3
             }
         },
         "attributes": {
             "ac": {
                 "details": "",
-                "value": 20
+                "value": 21
             },
             "allSaves": {
                 "value": ""
             },
             "hp": {
                 "details": "",
-                "max": 65,
+                "max": 60,
                 "temp": 0,
-                "value": 65
+                "value": 60
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
-                "value": 16
+                "value": 14
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": 20
+                "value": 25
             }
         },
         "details": {
             "alignment": {
-                "value": "LE"
+                "value": "NG"
             },
-            "blurb": "",
+            "blurb": "Female human dream seer",
             "creatureType": "",
             "level": {
                 "value": 4
@@ -2379,15 +2045,11 @@
             "privateNotes": "",
             "publicNotes": "",
             "source": {
-                "value": "Pathfinder Adventure: Troubles in Otari"
+                "author": "",
+                "value": "Pathfinder #188: They Watched the Stars"
             }
         },
-        "resources": {
-            "focus": {
-                "max": 1,
-                "value": 1
-            }
-        },
+        "resources": {},
         "saves": {
             "fortitude": {
                 "saveDetail": "",
@@ -2395,7 +2057,7 @@
             },
             "reflex": {
                 "saveDetail": "",
-                "value": 8
+                "value": 10
             },
             "will": {
                 "saveDetail": "",
@@ -2406,17 +2068,22 @@
             "languages": {
                 "custom": "",
                 "selected": [],
-                "value": []
+                "value": [
+                    "celestial",
+                    "common",
+                    "elven",
+                    "erutaki"
+                ]
             },
             "rarity": "unique",
             "senses": {
-                "value": "darkvision"
+                "value": ""
             },
             "size": {
                 "value": "med"
             },
             "value": [
-                "dwarf",
+                "human",
                 "humanoid"
             ]
         }
