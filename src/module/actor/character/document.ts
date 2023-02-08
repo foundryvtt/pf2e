@@ -46,12 +46,12 @@ import { ActionTrait } from "@item/action/data";
 import { ARMOR_CATEGORIES } from "@item/armor/values";
 import { ItemType, PhysicalItemSource } from "@item/data";
 import { ItemCarryType } from "@item/physical/data";
-import { getPropertyRunes, getPropertySlots, getResilientBonus } from "@item/physical/runes";
+import { getResilientBonus } from "@item/physical/runes";
 import { MagicTradition } from "@item/spell/types";
 import { MAGIC_TRADITIONS } from "@item/spell/values";
 import { WeaponDamage, WeaponSource, WeaponSystemSource } from "@item/weapon/data";
-import { WeaponCategory, WeaponPropertyRuneType } from "@item/weapon/types";
-import { WEAPON_CATEGORIES, WEAPON_PROPERTY_RUNE_TYPES } from "@item/weapon/values";
+import { WeaponCategory } from "@item/weapon/types";
+import { WEAPON_CATEGORIES } from "@item/weapon/values";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToThree, ZeroToTwo } from "@module/data";
 import {
@@ -63,21 +63,14 @@ import {
     extractRollTwice,
 } from "@module/rules/helpers";
 import { UserPF2e } from "@module/user";
+import { eventToRollParams } from "@scripts/sheet-util";
 import { CheckPF2e, CheckRoll, CheckRollContext } from "@system/check";
 import { DamagePF2e, DamageRollContext, WeaponDamagePF2e } from "@system/damage";
 import { DamageRoll } from "@system/damage/roll";
 import { PredicatePF2e } from "@system/predication";
-import { DamageRollParams, RollParameters, AttackRollParams } from "@system/rolls";
+import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
-import {
-    ErrorPF2e,
-    getActionGlyph,
-    objectHasKey,
-    setHasElement,
-    sluggify,
-    sortedStringify,
-    traitSlugToObject,
-} from "@util";
+import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
 import { fromUUIDs } from "@util/from-uuids";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
 import {
@@ -104,7 +97,6 @@ import { CharacterFeats } from "./feats";
 import { createForceOpenPenalty, createShoddyPenalty, StrikeWeaponTraits } from "./helpers";
 import { CharacterHitPointsSummary, CharacterSkills, CreateAuxiliaryParams, DexterityModifierCapData } from "./types";
 import { CHARACTER_SHEET_TABS } from "./values";
-import { eventToRollParams } from "@scripts/sheet-util";
 
 class CharacterPF2e extends CreaturePF2e {
     /** Core singular embeds for PCs */
@@ -1528,22 +1520,8 @@ class CharacterPF2e extends CreaturePF2e {
         const weaponPotency = (() => {
             const potency = selectors
                 .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
-                .filter((wp) => PredicatePF2e.test(wp.predicate, baseOptions));
-            ABP.applyPropertyRunes(potency, weapon);
-            const potencyRune = weapon.system.runes.potency;
+                .filter((wp) => wp.predicate.test(baseOptions));
 
-            if (potencyRune) {
-                const property = getPropertyRunes(weapon, getPropertySlots(weapon)).filter(
-                    (r): r is WeaponPropertyRuneType => setHasElement(WEAPON_PROPERTY_RUNE_TYPES, r)
-                );
-                potency.push({
-                    label: "PF2E.PotencyRuneLabel",
-                    bonus: potencyRune,
-                    type: "item",
-                    property,
-                    predicate: new PredicatePF2e(),
-                });
-            }
             return potency.length > 0
                 ? potency.reduce((highest, current) => (highest.bonus > current.bonus ? highest : current))
                 : null;
@@ -1551,7 +1529,6 @@ class CharacterPF2e extends CreaturePF2e {
 
         if (weaponPotency) {
             modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, weaponPotency.type));
-            weaponTraits.add("magical");
         }
 
         const shoddyPenalty = createShoddyPenalty(this, weapon, selectors);

@@ -4,7 +4,7 @@ import { ResistanceType } from "@actor/types";
 import { ArmorPF2e, WeaponPF2e } from "@item";
 import type { ResilientRuneType } from "@item/armor/types";
 import type { OtherWeaponTag, StrikingRuneType, WeaponPropertyRuneType, WeaponTrait } from "@item/weapon/types";
-import { OneToFour, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
+import { OneToFour, OneToThree, Rarity, ZeroToFour, ZeroToThree } from "@module/data";
 import { RollNoteSource } from "@module/notes";
 import { PredicatePF2e, RawPredicate } from "@system/predication";
 import { isBlank } from "@util";
@@ -1070,20 +1070,20 @@ const POTENCY_RUNE_DATA: Record<OneToFour, RuneValuationData> = {
 };
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
-const STRIKING_RUNE_DATA: Record<StrikingRuneType, RuneValuationData> = {
-    striking: { level: 4, price: 65, rarity: "common", traits: ["evocation"] },
-    greaterStriking: { level: 12, price: 1065, rarity: "common", traits: ["evocation"] },
-    majorStriking: { level: 19, price: 31065, rarity: "common", traits: ["evocation"] },
+const STRIKING_RUNE_DATA: Record<OneToThree, RuneValuationData> = {
+    1: { level: 4, price: 65, rarity: "common", traits: ["evocation"] },
+    2: { level: 12, price: 1065, rarity: "common", traits: ["evocation"] },
+    3: { level: 19, price: 31065, rarity: "common", traits: ["evocation"] },
 };
 
 interface WeaponValuationData {
     potency: { 0: null } & Record<OneToFour, RuneValuationData>;
-    striking: { "": null } & Record<StrikingRuneType, RuneValuationData>;
+    striking: { 0: null } & Record<OneToThree, RuneValuationData>;
 }
 
 const WEAPON_VALUATION_DATA: WeaponValuationData = {
     potency: { 0: null, ...POTENCY_RUNE_DATA },
-    striking: { "": null, ...STRIKING_RUNE_DATA },
+    striking: { 0: null, ...STRIKING_RUNE_DATA },
 };
 
 export {
