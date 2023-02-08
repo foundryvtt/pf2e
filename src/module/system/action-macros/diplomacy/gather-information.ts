@@ -1,12 +1,14 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 
+const PREFIX = "PF2E.Actions.GatherInformation";
+
 export function gatherInformation(options: SkillActionOptions) {
     const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "diplomacy");
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
-        title: "PF2E.Actions.GatherInformation.Title",
+        title: `${PREFIX}.Title`,
         subtitle,
         modifiers: options.modifiers,
         rollOptions: ["all", checkType, stat, "action:gather-information"],
@@ -17,9 +19,8 @@ export function gatherInformation(options: SkillActionOptions) {
         callback: options.callback,
         difficultyClass: options.difficultyClass,
         extraNotes: (selector: string) => [
-            ActionMacroHelpers.note(selector, "PF2E.Actions.GatherInformation", "criticalSuccess"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.GatherInformation", "success"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.GatherInformation", "criticalFailure"),
+            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
+            ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
     });
 }

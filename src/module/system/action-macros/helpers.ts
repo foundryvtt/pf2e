@@ -68,6 +68,16 @@ export class ActionMacroHelpers {
         });
     }
 
+    static outcomesNote(selector: string, translationKey: string, outcomes: DegreeOfSuccessString[]): RollNotePF2e {
+        const visible = game.settings.get("pf2e", "metagame_showResults");
+        const visibleOutcomes = visible ? outcomes : [];
+        return new RollNotePF2e({
+            selector: selector,
+            text: game.i18n.localize(translationKey),
+            outcome: visibleOutcomes,
+        });
+    }
+
     static async simpleRollActionCheck(options: SimpleRollActionCheckOptions): Promise<void> {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];

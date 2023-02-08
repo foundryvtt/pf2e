@@ -1,12 +1,14 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 
+const PREFIX = "PF2E.Actions.Impersonate";
+
 export function impersonate(options: SkillActionOptions) {
     const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "deception");
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph,
-        title: "PF2E.Actions.Impersonate.Title",
+        title: `${PREFIX}.Title`,
         subtitle,
         modifiers: options.modifiers,
         rollOptions: ["all", checkType, stat, "action:impersonate"],
@@ -18,10 +20,9 @@ export function impersonate(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "criticalSuccess"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "success"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "failure"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Impersonate", "criticalFailure"),
+            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
+            ActionMacroHelpers.note(selector, PREFIX, "failure"),
+            ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
     });
 }
