@@ -191,7 +191,8 @@ export type DataSchema = Record<string, DataField<unknown, unknown, boolean>>;
 
 /** A special class of {@link DataField} which defines a data schema. */
 export class SchemaField<
-    TSourceProp extends DataSchema,
+    TDataSchema extends DataSchema,
+    TSourceProp extends SourceFromSchema<TDataSchema> = SourceFromSchema<TDataSchema>,
     TModelProp = TSourceProp,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
@@ -201,7 +202,7 @@ export class SchemaField<
      * @param fields  The contained field definitions
      * @param options Options which configure the behavior of the field
      */
-    constructor(fields: DataSchema, options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>);
+    constructor(fields: TDataSchema, options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>);
 
     protected static override get _defaults(): DataFieldOptions<DataSchema, boolean, boolean, boolean>;
 
@@ -532,12 +533,13 @@ export class SetField<
 
 /** A subclass of `SchemaField` which embeds some other DataModel definition as an inner object. */
 export class EmbeddedDataField<
-    TSourceProp extends DataSchema = DataSchema,
+    TDataSchema extends DataSchema,
+    TSourceProp extends SourceFromSchema<TDataSchema>,
     TModelProp extends DataModel<any> = DataModel<any>,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true
-> extends SchemaField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+> extends SchemaField<TDataSchema, TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
     /**
      * @param model   The class of DataModel which should be embedded in this field
      * @param options Options which configure the behavior of the field
@@ -737,8 +739,8 @@ interface FilePathFieldOptions<
 export class FilePathField<
     TSourceProp extends FilePath = FilePath,
     TModelProp = TSourceProp,
-    TNullable extends boolean = true,
     TRequired extends boolean = false,
+    TNullable extends boolean = true,
     THasInitial extends boolean = true
 > extends StringField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
     /** @param options  Options which configure the behavior of the field */
@@ -894,13 +896,14 @@ export class ModelValidationError extends Error {
 // System utility types
 
 export type SourcePropFromDataField<TDataField extends DataField> = TDataField extends SchemaField<
+    infer _TSchemaDataSchema,
     infer TSchemaSourceProp,
     infer _TSchemaModelProp,
     infer TSchemaRequired,
     infer TSchemaNullable,
     infer TSchemaHasInitial
 >
-    ? MaybeSchemaProp<SourceFromSchema<TSchemaSourceProp>, TSchemaRequired, TSchemaNullable, TSchemaHasInitial>
+    ? MaybeSchemaProp<TSchemaSourceProp, TSchemaRequired, TSchemaNullable, TSchemaHasInitial>
     : TDataField extends DataField<
           infer TSourceProp,
           infer _TModelProp,
@@ -912,13 +915,14 @@ export type SourcePropFromDataField<TDataField extends DataField> = TDataField e
     : never;
 
 export type ModelPropFromDataField<TDataField extends DataField> = TDataField extends SchemaField<
-    infer TSchemaSourceProp,
-    infer _TSchemaModelProp,
+    infer _TSchemaDataSchema,
+    infer _TSchemaSourceProp,
+    infer TSchemaModelProp,
     infer TSchemaRequired,
     infer TSchemaNullable,
     infer TSchemaHasInitial
 >
-    ? MaybeSchemaProp<ModelPropsFromSchema<TSchemaSourceProp>, TSchemaRequired, TSchemaNullable, TSchemaHasInitial>
+    ? MaybeSchemaProp<TSchemaModelProp, TSchemaRequired, TSchemaNullable, TSchemaHasInitial>
     : ReturnType<TDataField["initialize"]>;
 
 type ModelPropsFromSchema<TDataSchema extends DataSchema> = {
