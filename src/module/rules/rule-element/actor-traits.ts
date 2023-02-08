@@ -36,17 +36,19 @@ class ActorTraitsRuleElement extends RuleElementPF2e {
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const traits: { value: string[] } = this.actor.system.traits;
-        const newTraits = this.resolveInjectedProperties(this.add).filter((t) => !traits.value.includes(t));
-        for (const trait of newTraits) {
-            traits.value.push(trait);
-            this.actor.rollOptions.all[`self:trait:${trait}`] = true;
-        }
+        if (this.actor.system.traits) {
+            const traits: { value: string[] } = this.actor.system.traits;
+            const newTraits = this.resolveInjectedProperties(this.add).filter((t) => !traits.value.includes(t));
+            for (const trait of newTraits) {
+                traits.value.push(trait);
+                this.actor.rollOptions.all[`self:trait:${trait}`] = true;
+            }
 
-        const toRemoves = this.resolveInjectedProperties(this.remove);
-        for (const trait of toRemoves) {
-            traits.value = traits.value.filter((t) => t !== trait);
-            delete this.actor.rollOptions.all[`self:trait:${trait}`];
+            const toRemoves = this.resolveInjectedProperties(this.remove);
+            for (const trait of toRemoves) {
+                traits.value = traits.value.filter((t) => t !== trait);
+                delete this.actor.rollOptions.all[`self:trait:${trait}`];
+            }
         }
     }
 }
