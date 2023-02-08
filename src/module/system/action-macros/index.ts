@@ -39,6 +39,7 @@ import { perform } from "./performance/perform";
 import { concealAnObject } from "./stealth/conceal-an-object";
 import { hide } from "./stealth/hide";
 import { sneak } from "./stealth/sneak";
+import { palmAnObject } from "./thievery/palm-an-object";
 import { disableDevice } from "./thievery/disable-device";
 import { pickALock } from "./thievery/pick-a-lock";
 export { ActionMacroHelpers } from "./helpers";
@@ -118,6 +119,7 @@ export const ActionMacros = {
     sneak,
 
     // Thievery
+    palmAnObject,
     disableDevice,
     pickALock,
 };
