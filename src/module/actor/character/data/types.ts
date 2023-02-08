@@ -235,7 +235,6 @@ interface ClassDCData extends Required<AbilityBasedStatistic>, StatisticTraceDat
 /** The full data for a character strike */
 interface CharacterStrike extends StrikeData {
     item: Embedded<WeaponPF2e>;
-    slug: string;
     /** Whether this attack is visible on the sheet */
     visible: boolean;
     altUsages: CharacterStrike[];
