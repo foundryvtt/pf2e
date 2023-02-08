@@ -76,6 +76,38 @@ declare global {
             document: TDocument | TDocument["_source"],
             options?: FromCompendiumOptions
         ): TDocument["_source"];
+
+        /* -------------------------------------------- */
+        /*  Sheet Registration Methods                  */
+        /* -------------------------------------------- */
+
+        /**
+         * Register a Document sheet class as a candidate which can be used to display Documents of a given type.
+         * See {@link DocumentSheetConfig.registerSheet} for details.
+         * @static
+         * @param args Arguments forwarded to the DocumentSheetConfig.registerSheet method
+         *
+         * @example Register a new ActorSheet subclass for use with certain Actor types.
+         * ```js
+         * Actors.registerSheet("dnd5e", ActorSheet5eCharacter, { types: ["character], makeDefault: true });
+         * ```
+         */
+        static registerSheet(...args: DropFirst<Parameters<typeof DocumentSheetConfig["registerSheet"]>>): void;
+
+        /**
+         * Unregister a Document sheet class, removing it from the list of available sheet Applications to use.
+         * See {@link DocumentSheetConfig.unregisterSheet} for detauls.
+         * @static
+         * @param args Arguments forwarded to the DocumentSheetConfig.unregisterSheet method
+         *
+         * @example Deregister the default ActorSheet subclass to replace it with others.
+         * ```js
+         * Actors.unregisterSheet("core", ActorSheet);
+         * ```
+         */
+        static unregisterSheet(...args: DropFirst<Parameters<typeof DocumentSheetConfig["unregisterSheet"]>>): void;
+
+        static get registeredSheets(): DocumentSheet[];
     }
 
     interface FromCompendiumOptions {
