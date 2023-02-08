@@ -1,12 +1,14 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 
+const PREFIX = "PF2E.Actions.Sneak";
+
 export function sneak(options: SkillActionOptions) {
     const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "stealth");
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
-        title: "PF2E.Actions.Sneak.Title",
+        title: `${PREFIX}.Title`,
         subtitle,
         modifiers: options.modifiers,
         rollOptions: ["all", checkType, stat, "action:sneak"],
@@ -18,10 +20,9 @@ export function sneak(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Sneak", "criticalSuccess"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Sneak", "success"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Sneak", "failure"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Sneak", "criticalFailure"),
+            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
+            ActionMacroHelpers.note(selector, PREFIX, "failure"),
+            ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
     });
 }

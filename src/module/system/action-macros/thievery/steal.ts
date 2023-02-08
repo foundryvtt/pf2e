@@ -1,6 +1,8 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 import { ModifierPF2e } from "@actor/modifiers";
 
+const PREFIX = "PF2E.Actions.Steal";
+
 export function steal(options: SkillActionOptions) {
     const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "thievery");
     const modifiers = [
@@ -14,7 +16,7 @@ export function steal(options: SkillActionOptions) {
         actors: options.actors,
         statName: property,
         actionGlyph: options.glyph ?? "A",
-        title: "PF2E.Actions.Steal.Title",
+        title: `${PREFIX}.Title`,
         subtitle,
         modifiers: modifiers.concat(options.modifiers ?? []),
         rollOptions: ["all", checkType, stat, "action:steal"],
@@ -26,10 +28,8 @@ export function steal(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.perception,
         extraNotes: (selector: string) => [
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Steal", "criticalSuccess"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Steal", "success"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Steal", "failure"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Steal", "criticalFailure"),
+            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
+            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.failure`, ["failure", "criticalFailure"]),
         ],
     });
 }
