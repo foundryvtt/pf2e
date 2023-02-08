@@ -842,7 +842,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     async toggleRollOption(
         domain: string,
         option: string,
-        itemId: string | null,
+        itemId?: string | null,
         value?: boolean
     ): Promise<boolean | null>;
     async toggleRollOption(
@@ -851,25 +851,32 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         itemId: string | boolean | null = null,
         value?: boolean
     ): Promise<boolean | null> {
+        // Backward compatibility
         value = typeof itemId === "boolean" ? itemId : value ?? !this.rollOptions[domain]?.[option];
-        if (typeof itemId === "string") {
-            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
-        } else {
-            /** If no itemId is provided, attempt to find the first matching Rule Element with the exact Domain and Option. */
-            const match = this.rules.find(
-                (rule) => rule instanceof RollOptionRuleElement && rule.domain === domain && rule.option === option
-            );
 
-            /** If a matching item is found toggle this option. */
-            const itemId = match?.item.id ?? null;
-            return RollOptionRuleElement.toggleOption({ actor: this, domain, option, itemId, value });
+        if (typeof itemId === "string") {
+            // An item ID is provided: find the rule on the item
+            const item = this.items.get(itemId, { strict: true });
+            const rule = item.rules.find(
+                (r): r is RollOptionRuleElement =>
+                    r instanceof RollOptionRuleElement && r.domain === domain && r.option === option
+            );
+            return rule?.toggle(value) ?? null;
+        } else {
+            // Less precise: no item ID is provided, so find the rule on the actor
+            const rule = this.rules.find(
+                (r): r is RollOptionRuleElement =>
+                    r instanceof RollOptionRuleElement && r.domain === domain && r.option === option
+            );
+            return rule?.toggle(value) ?? null;
         }
     }
 
     /**
      * Handle how changes to a Token attribute bar are applied to the Actor.
      *
-     * If the attribute bar is for hp and the change is in delta form, defer to the applyDamage method. Otherwise, do nothing special
+     * If the attribute bar is for hp and the change is in delta form, defer to the applyDamage method. Otherwise, do
+     * nothing special.
      * @param attribute The attribute path
      * @param value     The target attribute value
      * @param isDelta   Whether the number represents a relative change (true) or an absolute change (false)
