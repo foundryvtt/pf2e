@@ -57,7 +57,7 @@ interface ActorSystemData extends ActorSystemSource {
     };
     actions?: StrikeData[];
     attributes: ActorAttributes;
-    traits: ActorTraitsData<string>;
+    traits?: ActorTraitsData<string>;
     /** Icons appearing in the Effects Tracker application */
     tokenEffects: TemporaryEffect[];
     /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
@@ -98,6 +98,7 @@ interface ActorAttributesSource {
 
 interface ActorAttributes extends ActorAttributesSource {
     hp?: Required<BaseHitPointsData>;
+    ac?: { value: number };
     immunities: ImmunityData[];
     weaknesses: WeaknessData[];
     resistances: ResistanceData[];

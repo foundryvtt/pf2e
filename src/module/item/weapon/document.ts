@@ -153,7 +153,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             },
         };
         const { actor } = this;
-        const actorSize = actor?.system.traits.size;
+        const actorSize = actor?.system.traits?.size;
         const oversized = this.category !== "unarmed" && !!actorSize?.isSmallerThan(this.size, { smallIsMedium: true });
         const isDeityFavored = !!(
             this.baseType &&

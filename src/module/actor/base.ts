@@ -163,7 +163,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     get traits(): Set<string> {
-        return new Set(this.system.traits.value);
+        return new Set(this.system.traits?.value ?? []);
     }
 
     get level(): number {
@@ -171,7 +171,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
     }
 
     get size(): Size {
-        return this.system.traits.size.value;
+        return this.system.traits?.size.value ?? "med";
     }
 
     /**
@@ -179,7 +179,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
      * token-distance measurement, however, the system will generally treat actors as cubes.
      */
     get dimensions(): ActorDimensions {
-        const { size } = this.system.traits;
+        const size = this.system.traits?.size ?? new ActorSizePF2e({ value: "med" });
         return {
             length: size.length,
             width: size.width,
