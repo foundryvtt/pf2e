@@ -152,11 +152,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 selection: {
                     selected: this.selectedRuleElementType,
                     types: sortStringRecord(
-                        Object.keys(RuleElements.all).reduce((result: Record<string, string>, key) => {
-                            const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
-                            result[key] = game.i18n.localize(translations[key] ?? key);
-                            return result;
-                        }, {})
+                        Object.keys(RuleElements.all).reduce(
+                            (result: Record<string, string>, key) =>
+                                mergeObject(result, { [key]: `PF2E.RuleElement.${key}` }),
+                            {}
+                        )
                     ),
                 },
                 elements: await Promise.all(

@@ -2,8 +2,8 @@
     <label>{{localize "PF2E.WeaponTypeLabel"}}</label>
     <select name="system.category">
         {{#select data.category}}
-            {{#each categories as |name type|}}
-                <option value="{{type}}">{{localize name}}</option>
+            {{#each categories as |label slug|}}
+                <option value="{{slug}}">{{label}}</option>
             {{/each}}
         {{/select}}
     </select>
@@ -19,8 +19,8 @@
         <select name="system.group">
             {{#select data.group}}
                 <option value=""></option>
-                {{#each groups as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
+                {{#each groups as |label slug|}}
+                    <option value="{{slug}}">{{label}}</option>
                 {{/each}}
             {{/select}}
         </select>
@@ -31,8 +31,8 @@
     <select name="system.baseItem">
         {{#select data.baseItem}}
             <option value=""></option>
-            {{#each baseTypes as |name slug|}}
-                <option value="{{slug}}">{{name}}</option>
+            {{#each baseTypes as |label slug|}}
+                <option value="{{slug}}">{{label}}</option>
             {{/each}}
         {{/select}}
     </select>
@@ -180,8 +180,8 @@
             </select>
             <select name="system.damage.damageType">
                 {{#select data.damage.damageType}}
-                    {{#each damageTypes as |name type|}}
-                        {{#unless (eq type "bleed")}}<option value="{{type}}">{{localize name}}</option>{{/unless}}
+                    {{#each damageTypes as |label slug|}}
+                        {{#unless (eq slug "bleed")}}<option value="{{slug}}">{{label}}</option>{{/unless}}
                     {{/each}}
                 {{/select}}
             </select>
@@ -211,8 +211,8 @@
             <select data-action="update-persistent" data-persistent-field="type" value="{{data.damage.persistent.damageType}}">
                 {{#select data.damage.persistent.type}}
                     <option value=""></option>
-                    {{#each damageTypes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
+                    {{#each damageTypes as |label slug|}}
+                        <option value="{{slug}}">{{label}}</option>
                     {{/each}}
                 {{/select}}
             </select>
@@ -250,8 +250,8 @@
             <select name="system.property1.damageType">
                 {{#select data.property1.damageType}}
                     <option value=""></option>
-                    {{#each damageTypes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
+                    {{#each damageTypes as |label slug|}}
+                        <option value="{{slug}}">{{label}}</option>
                     {{/each}}
                 {{/select}}
             </select>
@@ -263,8 +263,8 @@
             <select name="system.property1.strikeConditionType">
                 {{#select data.property1.strikeConditionType}}
                     <option value=""></option>
-                    {{#each conditionTypes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
+                    {{#each conditionTypes as |label slug|}}
+                        <option value="{{slug}}">{{label}}</option>
                     {{/each}}
                 {{/select}}
             </select>
@@ -306,8 +306,8 @@
             <select name="system.property1.criticalConditionType">
                 {{#select data.property1.criticalConditionType}}
                     <option value=""></option>
-                    {{#each conditionTypes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
+                    {{#each conditionTypes as |label slug|}}
+                        <option value="{{slug}}">{{localize label}}</option>
                     {{/each}}
                 {{/select}}
             </select>
@@ -332,8 +332,8 @@
             <label>{{localize "PF2E.WeaponGroupLabel"}}</label>
             <select name="system.meleeUsage.group">
                 {{#select meleeUsage.group}}
-                    {{#each meleeGroups as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
+                    {{#each meleeGroups as |label slug|}}
+                        <option value="{{slug}}">{{label}}</option>
                     {{/each}}
                 {{/select}}
             </select>

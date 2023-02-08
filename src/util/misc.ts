@@ -338,10 +338,17 @@ function sortLabeledRecord<T extends Record<string, { label: string }>>(record: 
         .reduce((copy, [key, value]) => mergeObject(copy, { [key]: value }), {} as T);
 }
 
-function sortStringRecord<T extends Record<string, string>>(record: T): T {
-    return Object.entries(record)
-        .sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang))
-        .reduce((copy, [key, value]) => mergeObject(copy, { [key]: value }), {} as T);
+/** Localize the values of a `Record<string, string>` and sort by those values */
+function sortStringRecord<T extends Record<string, string>>(record: T): T;
+function sortStringRecord(record: Record<string, string>): Record<string, string> {
+    return Object.fromEntries(
+        Object.entries(record)
+            .map((entry) => {
+                entry[1] = game.i18n.localize(entry[1]);
+                return entry;
+            })
+            .sort((a, b) => a[1].localeCompare(b[1], game.i18n.lang))
+    );
 }
 
 /** JSON.stringify with recursive key sorting */
