@@ -20,7 +20,7 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
     critical: CriticalInclusion;
 
-    category: "precision" | "persistent" | null;
+    category: "persistent" | "precision" | "splash" | null;
 
     brackets: BracketedValue | null;
 
@@ -64,10 +64,10 @@ class DamageDiceRuleElement extends RuleElementPF2e {
 
         // Add precision damage
         const category = data.category ?? data.damageCategory ?? null;
-        if (tupleHasValue(["persistent", "precision", null] as const, category)) {
+        if (tupleHasValue(["persistent", "precision", "splash", null] as const, category)) {
             this.category = category;
         } else {
-            this.failValidation('category must be "precision", "persistent", or omitted');
+            this.failValidation('category must be "persistent", "precision", "splash", or omitted');
             this.category = null;
         }
 
