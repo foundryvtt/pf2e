@@ -260,7 +260,7 @@ class SpellPF2e extends ItemPF2e {
         }
 
         const { actor, ability } = this;
-        const domains = ["damage", "spell-damage"];
+        const domains = ["damage", "spell-damage", `${this.id}-damage`];
         const targetToken =
             Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle")) ?? null;
         const options = new Set(
