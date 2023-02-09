@@ -7,6 +7,7 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
+import { ActorPF2e } from "@actor";
 import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data";
@@ -193,7 +194,10 @@ class SpellPF2e extends ItemPF2e {
         return rollData;
     }
 
-    async getDamage(damageOptions: SpellDamageOptions = { skipDialog: true }): Promise<SpellDamage | null> {
+    async getDamage(
+        target?: ActorPF2e,
+        damageOptions: SpellDamageOptions = { skipDialog: true }
+    ): Promise<SpellDamage | null> {
         // Return early if the spell doesn't deal damage
         if (!Object.keys(this.system.damage.value).length || !this.actor) {
             return null;
@@ -261,11 +265,9 @@ class SpellPF2e extends ItemPF2e {
 
         const { actor, ability } = this;
         const domains = ["damage", "spell-damage", `${this.id}-damage`];
-        const targetToken =
-            Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle")) ?? null;
         const options = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
-            ...(targetToken?.actor?.getSelfRollOptions("target") ?? []),
+            ...(target?.getSelfRollOptions("target") ?? []),
             ...this.getRollOptions("item"),
             ...this.traits,
         ]);
@@ -868,7 +870,9 @@ class SpellPF2e extends ItemPF2e {
             if (variant) return variant.rollDamage(event);
         }
 
-        const spellDamage = await this.getDamage(eventToRollParams(event));
+        const targetToken =
+            Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle")) ?? null;
+        const spellDamage = await this.getDamage(targetToken?.actor ?? undefined, eventToRollParams(event));
         if (!spellDamage) return null;
 
         const { template, context } = spellDamage;
