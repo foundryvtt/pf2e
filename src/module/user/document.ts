@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor/base";
+import { ActorSheetPF2e } from "@actor/sheet/base";
 import { UserFlagsPF2e } from "./data";
 
 class UserPF2e extends User<ActorPF2e> {
@@ -45,12 +46,24 @@ class UserPF2e extends User<ActorPF2e> {
         if (game.user.id !== userId) return;
 
         const keys = Object.keys(flattenObject(changed));
+
         if (keys.includes("flags.pf2e.settings.showEffectPanel")) {
             game.pf2e.effectPanel.refresh();
         }
+
         if (keys.includes("flags.pf2e.settings.monochromeDarkvision") && canvas.ready) {
             canvas.scene?.reset();
             canvas.perception.update({ initializeVision: true, refreshLighting: true }, true);
+        }
+
+        // Refresh roll tooltips on actor sheets
+        if (keys.includes("flags.pf2e.settings.showRollDialogs")) {
+            const actorSheets = Object.values(ui.windows).filter(
+                (a): a is ActorSheetPF2e<ActorPF2e> => a instanceof ActorSheetPF2e
+            );
+            for (const sheet of actorSheets) {
+                ui.windows[sheet.appId].render();
+            }
         }
     }
 }

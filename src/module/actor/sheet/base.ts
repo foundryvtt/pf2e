@@ -94,6 +94,16 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             }
         })();
 
+        // Create tooltip language informing the user how to blind-roll a check, and to roll with or without a dialog
+        const checkTooltip = ((): string => {
+            const click = game.i18n.localize("CONTROLS.Click");
+            const shiftClick = game.i18n.localize("CONTROLS.ShiftClick");
+            const [roll, dialogRoll] = game.user.settings.showRollDialogs ? [shiftClick, click] : [click, shiftClick];
+            const secretCheck = game.i18n.localize("CONTROLS.CtrlClick");
+
+            return game.i18n.format("PF2E.Check.Tooltip", { roll, dialogRoll, secretCheck });
+        })();
+
         const sheetData: ActorSheetDataPF2e<TActor> = {
             cssClass: this.actor.isOwner ? "editable" : "locked",
             editable: this.isEditable,
@@ -107,6 +117,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             effects: [],
             items: actorData.items,
             user: { isGM: game.user.isGM },
+            checkTooltip,
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
             isTargetFlatFooted: !!this.actor.rollOptions.all["target:condition:flat-footed"],
             totalCoinage,
@@ -259,10 +270,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             this.actor.saves?.[saveType]?.check.roll(eventToRollParams(event));
         });
 
-        $html.find(".roll-init").on("click", (event) => {
-            const $target = $(event.currentTarget);
+        const initiativeLink = htmlQuery(html, "a[data-action=roll-initiative]");
+        initiativeLink?.addEventListener("click", (event) => {
             const { attributes } = this.actor.system;
-            if (!$target.hasClass("disabled") && "initiative" in attributes) {
+            if (!initiativeLink.classList.contains("disabled") && "initiative" in attributes) {
                 attributes.initiative.roll?.(eventToRollParams(event));
             }
         });

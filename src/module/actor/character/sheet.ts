@@ -9,7 +9,16 @@ import { PROFICIENCY_RANKS } from "@module/data";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, getActionIcon, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement } from "@util";
+import {
+    ErrorPF2e,
+    getActionIcon,
+    groupBy,
+    htmlQuery,
+    htmlQueryAll,
+    isObject,
+    objectHasKey,
+    setHasElement,
+} from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
@@ -354,15 +363,22 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     /** Disable the initiative button located on the sidebar */
     disableInitiativeButton(): void {
-        this.element
-            .find(".sidebar a.roll-init")
-            .addClass("disabled")
-            .attr({ title: game.i18n.localize("PF2E.Encounter.NoActiveEncounter") });
+        const rollLink = htmlQuery(this.element[0], "a[data-action=roll-initiative]");
+        if (!rollLink) throw ErrorPF2e("Unexpected error finding DOM element");
+        rollLink.classList.add("disabled");
+        rollLink.dataset.controlsTitle = rollLink.title;
+        rollLink.title = game.i18n.localize("PF2E.Encounter.NoActiveEncounter");
     }
 
     /** Enable the initiative button located on the sidebar */
     enableInitiativeButton(): void {
-        this.element.find(".sidebar a.roll-init").removeClass("disabled").removeAttr("title");
+        const rollLink = htmlQuery(this.element[0], "a[data-action=roll-initiative]");
+        rollLink?.classList.remove("disabled");
+
+        if (rollLink?.dataset.controlsTitle) {
+            rollLink.title = rollLink.dataset.controlsTitle ?? "";
+            rollLink.dataset.controlsTitle = "";
+        }
     }
 
     /* -------------------------------------------- */
@@ -381,11 +397,11 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         // Recheck for the presence of an encounter in case the button state has somehow fallen out of sync
-        $html.find(".roll-init").on("mouseenter", (event) => {
-            const $target = $(event.currentTarget);
-            if ($target.hasClass("disabled") && game.combat) {
+        const rollInitiativeLink = htmlQuery(html, "a[data-action=roll-initiative]");
+        rollInitiativeLink?.addEventListener("mouseenter", () => {
+            if (rollInitiativeLink.classList.contains("disabled") && game.combat) {
                 this.enableInitiativeButton();
-            } else if (!$target.hasClass("disabled") && !game.combat) {
+            } else if (!rollInitiativeLink.classList.contains("disabled") && !game.combat) {
                 this.disableInitiativeButton();
             }
         });

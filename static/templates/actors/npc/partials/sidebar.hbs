@@ -73,7 +73,7 @@
         </div>
     </div>
     <div class="side-bar-section-content">
-        <input class="hp-details" type="text" name="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" data-dtype="String" placeholder="{{localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder'}}"/>
+        <input class="hp-details" type="text" name="system.attributes.hp.details" value="{{data.attributes.hp.details}}" title="{{data.attributes.hp.details}}" placeholder="{{localize "PF2E.NPC.HPExtraInfoLabelPlaceholder"}}"/>
     </div>
 </div>
 <!-- INITIATIVE -->
@@ -82,7 +82,7 @@
         <div class="side-bar-label">
             <i class="fa-solid fa-swords fa-fw"></i>
             <h4>{{localize "PF2E.InitiativeLabel"}}</h4>
-            <a class="roll-icon roll-init">
+            <a class="roll-icon roll-init" data-action="roll-initiative">
                 <i class="fas fa-dice-d20"></i>
                 <div>{{numberFormat data.attributes.initiative.totalModifier decimals=0 sign=true}}</div>
             </a>

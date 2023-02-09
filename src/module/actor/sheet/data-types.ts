@@ -45,6 +45,7 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     traits: SheetOptions;
     isTargetFlatFooted: boolean;
     user: { isGM: boolean };
+    checkTooltip: string;
     totalCoinage: CoinageSummary;
     totalCoinageGold: string;
     totalWealth: Coins;

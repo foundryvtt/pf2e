@@ -8,7 +8,7 @@ export function eventToRollParams(event?: JQuery.TriggeredEvent | MouseEvent): P
     if (!event) return { skipDialog: skipDefault };
 
     const params: ParamsFromEvent = { skipDialog: event.shiftKey ? !skipDefault : skipDefault };
-    if (event.ctrlKey || event.metaKey) params.rollMode = "blindroll";
+    if (event.ctrlKey || event.metaKey) params.rollMode = game.user.isGM ? "gmroll" : "blindroll";
 
     return params;
 }
