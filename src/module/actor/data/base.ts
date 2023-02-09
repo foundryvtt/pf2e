@@ -203,6 +203,8 @@ interface TraitViewData {
 
 /** An strike which a character can use. */
 interface StrikeData extends StatisticModifier {
+    slug: string;
+    label: string;
     /** The type of action; currently just 'strike'. */
     type: "strike";
     /** The image URL for this strike (shown on the UI). */

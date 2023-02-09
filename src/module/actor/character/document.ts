@@ -735,11 +735,6 @@ class CharacterPF2e extends CreaturePF2e {
 
         systemData.actions = this.prepareStrikes();
 
-        systemData.actions.sort((l, r) => {
-            if (l.ready !== r.ready) return (l.ready ? 0 : 1) - (r.ready ? 0 : 1);
-            return (l.item.sort ?? 0) - (r.item.sort ?? 0);
-        });
-
         // Spellcasting Entries
         for (const entry of itemTypes.spellcastingEntry) {
             if (entry.isInnate) {
@@ -1387,7 +1382,17 @@ class CharacterPF2e extends CreaturePF2e {
             basicUnarmed ?? [],
         ].flat();
 
-        return weapons.map((w) => this.prepareStrike(w, { categories: offensiveCategories, ammos }));
+        // Sort alphabetically, force basic unarmed attack to end, and finally move all readied strikes to beginning
+        return weapons
+            .map((w) => this.prepareStrike(w, { categories: offensiveCategories, ammos }))
+            .sort((a, b) =>
+                a.label
+                    .toLocaleLowerCase(game.i18n.lang)
+                    .replace(/[-0-9\s]/g, "")
+                    .localeCompare(b.label.toLocaleLowerCase(game.i18n.lang).replace(/[-0-9\s]/gi, ""), game.i18n.lang)
+            )
+            .sort((a, b) => (a.slug === "basic-unarmed" ? 1 : b.slug === "basic-unarmed" ? -1 : 0))
+            .sort((a, b) => (a.ready !== b.ready ? (a.ready ? 0 : 1) - (b.ready ? 0 : 1) : 0));
     }
 
     /** Prepare a strike action from a weapon */
