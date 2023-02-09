@@ -7,6 +7,7 @@ import {
     StatisticModifier,
 } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
+import { ActorPF2e } from "@actor";
 import { ItemPF2e, SpellcastingEntryPF2e } from "@item";
 import { ActionTrait } from "@item/action/data";
 import { ItemSourcePF2e, ItemSummaryData } from "@item/data";
@@ -260,10 +261,13 @@ class SpellPF2e extends ItemPF2e {
         }
 
         const { actor, ability } = this;
-        const domains = ["damage", "spell-damage"];
-        const options = new Set<string>(
-            [actor?.getRollOptions(domains) ?? [], this.getRollOptions("item"), [...this.traits]].flat()
-        );
+        const domains = ["damage", "spell-damage", `${this.id}-damage`];
+        const options = new Set([
+            ...(actor?.getRollOptions(domains) ?? []),
+            ...(damageOptions.target?.getSelfRollOptions("target") ?? []),
+            ...this.getRollOptions("item"),
+            ...this.traits,
+        ]);
 
         const context: DamageRollContext = {
             type: "damage-roll",
@@ -863,7 +867,9 @@ class SpellPF2e extends ItemPF2e {
             if (variant) return variant.rollDamage(event);
         }
 
-        const spellDamage = await this.getDamage(eventToRollParams(event));
+        const targetToken =
+            Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle")) ?? null;
+        const spellDamage = await this.getDamage({ target: targetToken?.actor, ...eventToRollParams(event) });
         if (!spellDamage) return null;
 
         const { template, context } = spellDamage;
@@ -1010,6 +1016,7 @@ interface SpellToMessageOptions {
 interface SpellDamageOptions {
     rollMode?: RollMode | "roll";
     skipDialog?: boolean;
+    target?: ActorPF2e | null;
 }
 
 export { SpellPF2e, SpellToMessageOptions };
