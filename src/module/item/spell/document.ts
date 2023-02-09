@@ -194,10 +194,7 @@ class SpellPF2e extends ItemPF2e {
         return rollData;
     }
 
-    async getDamage(
-        target?: ActorPF2e,
-        damageOptions: SpellDamageOptions = { skipDialog: true }
-    ): Promise<SpellDamage | null> {
+    async getDamage(damageOptions: SpellDamageOptions = { skipDialog: true }): Promise<SpellDamage | null> {
         // Return early if the spell doesn't deal damage
         if (!Object.keys(this.system.damage.value).length || !this.actor) {
             return null;
@@ -267,7 +264,7 @@ class SpellPF2e extends ItemPF2e {
         const domains = ["damage", "spell-damage", `${this.id}-damage`];
         const options = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
-            ...(target?.getSelfRollOptions("target") ?? []),
+            ...(damageOptions.target?.getSelfRollOptions("target") ?? []),
             ...this.getRollOptions("item"),
             ...this.traits,
         ]);
@@ -872,7 +869,7 @@ class SpellPF2e extends ItemPF2e {
 
         const targetToken =
             Array.from(game.user.targets).find((t) => t.actor?.isOfType("creature", "hazard", "vehicle")) ?? null;
-        const spellDamage = await this.getDamage(targetToken?.actor ?? undefined, eventToRollParams(event));
+        const spellDamage = await this.getDamage({ target: targetToken?.actor, ...eventToRollParams(event) });
         if (!spellDamage) return null;
 
         const { template, context } = spellDamage;
@@ -1019,6 +1016,7 @@ interface SpellToMessageOptions {
 interface SpellDamageOptions {
     rollMode?: RollMode | "roll";
     skipDialog?: boolean;
+    target?: ActorPF2e | null;
 }
 
 export { SpellPF2e, SpellToMessageOptions };
