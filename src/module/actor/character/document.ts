@@ -1527,6 +1527,15 @@ class CharacterPF2e extends CreaturePF2e {
                 .flatMap((key) => deepClone(synthetics.weaponPotency[key] ?? []))
                 .filter((wp) => wp.predicate.test(baseOptions));
 
+            if (weapon.system.runes.potency) {
+                potency.push({
+                    label: "PF2E.PotencyRuneLabel",
+                    bonus: weapon.system.runes.potency,
+                    type: "item",
+                    predicate: new PredicatePF2e(),
+                });
+            }
+
             return potency.length > 0
                 ? potency.reduce((highest, current) => (highest.bonus > current.bonus ? highest : current))
                 : null;
