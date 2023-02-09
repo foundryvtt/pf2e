@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 4.7.4
+
+### Bugfixes
+* (stwlam) Fix inclusion of item bonuses from weapon potency runes
+
+
 ## Version 4.7.3
 
 ### System Improvements
@@ -11,11 +17,11 @@
 
 ### Bugfixes
 * (nikolaj-a) Refine action macro degree of success roll notes
-* (Supe) Avoid persisting synthetic npc traits
-* (stwlam) Restore traits to heritage template.json defaults
+* (Supe) Avoid persisting synthetic NPC traits
+* (stwlam) Fix issue causing sheets of new heritage items to become unopenable
 * (stwlam) Fix application of "deadAtZero" setting
 * (stwlam) Restore inclusion of homebrew base weapon types to weapon sheet
-* (Trent) Allow ranged BattleForm RE strikes
+* (Trent) Allow ranged battle-form strikes
 
 ### Data Updates
 * (Abaddon) Update abomination vaults Galudu
@@ -86,6 +92,7 @@
 * (stwlam) Brighten darker scene default colors for basic usability
 * (stwlam) Handle immunity to auditory, emotional, fear, mental, and visual effects
 * (stwlam) Enable simple enemy- and all-affecting auras, add support for predicating each effect in Aura REs
+* (stwlam) Add support for shorthand Strike RE data to create standard fist attack
 * (Supe) Add full DamageDice RE support to spells
 * (Supe) Add manual persistent damage roll to editor dialog
 * (Supe) Add autocomplete key options based on schema in rule element editor
@@ -102,7 +109,6 @@
 * (JDCalvert) Fix AdjustStrike trait upgrading for annotated traits (deadly, fatal, etc.)
 * (Kendall Rundquist) Fix placement of save button in compendium browser settings on resizing
 * (LebombJames) Allow for decimal scales in TokenImage
-* (stwlam) Add support for shorthand Strike RE data to create standard fist attack
 * (stwlam) Fix ABP not being ignored when requested by actors
 * (stwlam) Fix display of custom critical damage types on weapon sheet
 * (stwlam) Fix parsing of damage formulas with `MathTerm`s
