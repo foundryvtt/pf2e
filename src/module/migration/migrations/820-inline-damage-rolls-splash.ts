@@ -21,7 +21,7 @@ export class Migration820InlineDamageRollsSplash extends MigrationBase {
     // [[/r 2[splash,negative] #Tag]]{Label}
     #pattern2 = /\[\[\/r\s*([^[]*)\[splash,\s*([^\]]*)\]\s*(#[^]]*)?\]\]/g;
 
-    #buildSplashFormula(formula: string, damage: string, tag?: string | null): string {
+    #buildSplashFormula(formula: string, damage: string, tag?: string): string {
         formula = formula.replace(/\s+/g, "");
         damage = damage.trim();
         tag = tag?.trim() ?? "";
