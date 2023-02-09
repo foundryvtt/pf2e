@@ -19,7 +19,7 @@ export class Migration820InlineDamageRollsSplash extends MigrationBase {
     // [[/r 2[splash,negative] #Tag]]
     // [[/r 2[splash,negative]]]{Label}
     // [[/r 2[splash,negative] #Tag]]{Label}
-    #pattern2 = /\[\[\/r\s*([^\[]*)\[splash,\s*([^\]]*)\]\s*(#[^]]*)?\]\]/g;
+    #pattern2 = /\[\[\/r\s*([^[]*)\[splash,\s*([^\]]*)\]\s*(#[^]]*)?\]\]/g;
 
     #buildSplashFormula(formula: string, damage: string, tag?: string | null): string {
         formula = formula.replace(/\s+/g, "");
@@ -37,14 +37,14 @@ export class Migration820InlineDamageRollsSplash extends MigrationBase {
 
     #updateDamageFormula(text: string): string {
         text = text.replace(this.#pattern1, (_, formula: string, damage: string, tag: string) => {
-            return this.#buildSplashFormula(formula, damage, tag)
+            return this.#buildSplashFormula(formula, damage, tag);
         });
 
         text = text.replace(this.#pattern2, (_, formula: string, damage: string, tag: string) => {
-            return this.#buildSplashFormula(formula, damage, tag)
+            return this.#buildSplashFormula(formula, damage, tag);
         });
 
-        return text
+        return text;
     }
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
