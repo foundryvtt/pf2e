@@ -1,5 +1,46 @@
 # Changelog
 
+## Version 4.7.3
+
+### System Improvements
+* (Dire Weasel) Include target roll options in spell damage rolls, allow use of use "{item|id}-damage" selector for rule elements stored on spells
+* (nikolaj-a) Add action macros for Conceal an Object, Palm and Object, and Steal
+* (stwlam) Don't render enemy visual/auditory auras to players
+* (stwlam) Sort strikes on PC sheet alphabetically, force basic unarmed attack to bottom of readied strikes
+* (Trent) Add range increment display to strike action summaries
+
+### Bugfixes
+* (nikolaj-a) Refine action macro degree of success roll notes
+* (Supe) Avoid persisting synthetic npc traits
+* (stwlam) Restore traits to heritage template.json defaults
+* (stwlam) Fix application of "deadAtZero" setting
+* (stwlam) Restore inclusion of homebrew base weapon types to weapon sheet
+* (Trent) Allow ranged BattleForm RE strikes
+
+### Data Updates
+* (Abaddon) Update abomination vaults Galudu
+* (Abaddon) Update age of ashes spell exceptions
+* (Dire Weasel) Add persistent damage to more NPC attacks
+* (Dire Weasel) Change Fire Mephit Breath Weapon to unique id
+* (Dire Weasel) Fix several Strike rule element damageTypes
+* (Dire Weasel) Fix blowgun damage on NPC inventory items
+* (Dire Weasel) Fix damage of Enervation, Fungal Infestation, and Vampiric Maiden spells
+* (Dire Weasel) Fix some persistent damage that were skipped by migration due to data errors
+* (Dire Weasel) Update Mysterious Breadth feat description and its journal page
+* (Dire Weasel) Update holy water splash note
+* (Dire Weasel) Automate Searing Light good damage
+* (Dwim) Fix localization issues with NPC attack effects in Abomination Vaults
+* (InfamousSky) Fix Virtuous Defender shield hardness
+* (Manni) Fix typos in Master Magus Spellcasting feat description
+* (nikolaj-a) Add roll notes to Scoundrel Racket for successful Feints
+* (Roxim) Add a Blade Ally effect with new AdjustStrike rule elements
+* (SpartanCPA) De-Pluralize name of Giant Joro Spider
+* (stwlam) Remove errant grant from Mithbreath Azarketi heritage
+* (stwlam) Fix rule elements on Zombie Dedication and Numb feats, add Deteriorated effect
+* (Tikael) Fix strike rule element in Deer Instinct
+* (Trent) Make Green Man's battle form thorns ranged, fix label on localized Thorns strikes
+
+
 ## Version 4.7.2
 
 ### System Improvements
