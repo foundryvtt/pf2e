@@ -740,9 +740,7 @@ abstract class CreaturePF2e extends ActorPF2e {
                 total: base + stat.totalModifier,
                 breakdown: [
                     `${game.i18n.format("PF2E.SpeedBaseLabel", { type: typeLabel })} ${landSpeed.value}`,
-                    ...stat.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
+                    ...stat.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${m.signedValue}`),
                 ].join(", "),
             };
             this.rollOptions.all["speed:land"] = true;

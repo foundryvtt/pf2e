@@ -7,7 +7,7 @@ import { ChatMessageSourcePF2e, CheckRollContextFlag, TargetFlag } from "@module
 import { RollNotePF2e } from "@module/notes";
 import { TokenDocumentPF2e } from "@scene";
 import { eventToRollParams } from "@scripts/sheet-util";
-import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, sluggify, traitSlugToObject } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, objectHasKey, parseHTML, signedInteger, sluggify, traitSlugToObject } from "@util";
 import { CheckModifier, StatisticModifier } from "@actor/modifiers";
 import { CheckModifiersDialog } from "../check-modifiers-dialog";
 import { CheckRoll, CheckRollDataPF2e } from "./roll";
@@ -146,8 +146,7 @@ class CheckPF2e {
         const options: CheckRollDataPF2e = { rollerId: game.userId, isReroll, totalModifier: check.totalModifier };
         if (strike) options.strike = strike;
 
-        const numberFormat = new Intl.NumberFormat(game.i18n.lang, { maximumFractionDigits: 0, signDisplay: "always" });
-        const totalModifierPart = check.totalModifier === 0 ? "" : numberFormat.format(check.totalModifier);
+        const totalModifierPart = signedInteger(check.totalModifier);
         const roll = await new RollCls(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
 
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be

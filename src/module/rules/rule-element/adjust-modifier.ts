@@ -2,8 +2,14 @@ import { ModifierAdjustment } from "@actor/modifiers";
 import { ItemPF2e } from "@item";
 import { DamageType } from "@system/damage/types";
 import { DAMAGE_TYPES } from "@system/damage/values";
-import { isObject, setHasElement } from "@util";
-import { ArrayField, BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
+import { setHasElement } from "@util";
+import {
+    ArrayField,
+    BooleanField,
+    ModelPropsFromSchema,
+    NumberField,
+    StringField,
+} from "types/foundry/common/data/fields.mjs";
 import { RuleElementOptions } from "./";
 import { AELikeData, AELikeRuleElement, AELikeSchema, AELikeSource } from "./ae-like";
 
@@ -11,18 +17,8 @@ const { fields } = foundry.data;
 
 /** Adjust the value of a modifier, change its damage type (in case of damage modifiers) or suppress it entirely */
 class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> {
-    static override defineSchema(): AdjustModifierSchema {
-        return {
-            ...super.defineSchema(),
-            // `path` isn't used for AdjustModifier REs
-            path: new fields.StringField({ blank: true }),
-            selector: new fields.StringField({ required: false, blank: false, initial: undefined }),
-            selectors: new fields.ArrayField(new fields.StringField({ required: true, blank: false })),
-            relabel: new fields.StringField({ required: false, blank: false, initial: undefined }),
-            damageType: new fields.StringField({ required: false, blank: false, initial: undefined }),
-            suppress: new fields.BooleanField({ required: false, initial: undefined }),
-        };
-    }
+    /** The number of times this adjustment has been applied */
+    applications = 0;
 
     constructor(data: AdjustModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
         data.path = "ignore"; // Maybe this shouldn't subclass AELikeRuleElement
@@ -40,17 +36,30 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
         }
 
         this.suppress ??= false;
+        this.maxApplications ??= Infinity;
     }
 
-    protected override validateData(): void {
-        if (this.ignored) return;
-
-        const tests = {
-            value: ["string", "number"].includes(typeof this.value) || isObject(this.value),
+    static override defineSchema(): AdjustModifierSchema {
+        return {
+            ...super.defineSchema(),
+            // `path` isn't used for AdjustModifier REs
+            path: new fields.StringField({ blank: true }),
+            selector: new fields.StringField({ required: false, blank: false, initial: undefined }),
+            selectors: new fields.ArrayField(new fields.StringField({ required: true, blank: false })),
+            relabel: new fields.StringField({ required: false, blank: false, initial: undefined }),
+            damageType: new fields.StringField({ required: false, blank: false, initial: undefined }),
+            suppress: new fields.BooleanField({ required: false, initial: undefined }),
+            maxApplications: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
         };
+    }
 
-        for (const [key, result] of Object.entries(tests)) {
-            if (!result) this.warn(key);
+    protected override _validateModel(data: Record<string, unknown>): void {
+        if (!["string", "number"].includes(typeof data.value) && !this.isBracketedValue(data.value)) {
+            throw Error("`value` must be a string, number, or bracketed value");
+        }
+
+        if (data.suppress === true && typeof data.maxApplications === "number") {
+            throw Error("use of `maxApplications` in combination with `suppress` is not currently supported");
         }
     }
 
@@ -68,6 +77,13 @@ class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> 
                 if (typeof change !== "number") {
                     this.failValidation("value does not resolve to a number");
                     return current;
+                } else if (this.ignored) {
+                    return current;
+                }
+
+                this.applications += 1;
+                if (this.applications === this.maxApplications) {
+                    this.ignored = true;
                 }
 
                 return this.getNewValue(current, change);
@@ -102,6 +118,7 @@ interface AdjustModifierRuleElement
     data: AELikeData;
 
     suppress: boolean;
+    maxApplications: number;
 }
 
 type AdjustModifierSchema = AELikeSchema & {
@@ -110,7 +127,10 @@ type AdjustModifierSchema = AELikeSchema & {
     selector: StringField<string, string, false, false, false>;
     selectors: ArrayField<StringField<string, string, true>>;
     damageType: StringField<string, string, false, false, false>;
+    /** Rather than changing a modifier's value, ignore it entirely */
     suppress: BooleanField<boolean, boolean, false, false, false>;
+    /** The maximum number of times this adjustment can be applied */
+    maxApplications: NumberField<number, number, false, false, false>;
 };
 
 interface AdjustModifierSource extends Exclude<AELikeSource, "path"> {
