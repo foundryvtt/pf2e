@@ -8,20 +8,26 @@ export class Migration820InlineDamageRollsSplash extends MigrationBase {
     static override version = 0.82;
 
     // [[/r {2}[splash,negative]]]
+    // [[/br {2}[splash,negative]]]
     // [[/r {2}[splash, negative]]]
+    // [[/r {2d4}[splash,negative]]]
     // [[/r {2}[splash,negative] #Tag]]
+    // [[/r {2d4}[splash,negative] #Tag]]
     // [[/r {2}[splash,negative]]]{Label}
     // [[/r {2}[splash,negative] #Tag]]{Label}
-    #pattern1 = /\[\[\/r\s*{([^}]*)}\[splash,\s*([^\]]*)\]\s*(#[^]]*)?\]\]/g;
+    #pattern1 = /\[\[(\/r|\/br)\s*{([^}]*)}\[splash,\s*([^\]]*)\]\s*(#[^\]]*)?\]\]/g;
 
     // [[/r 2[splash,negative]]]
+    // [[/br 2[splash,negative]]]
     // [[/r 2[splash, negative]]]
+    // [[/r 2d4[splash,negative]]]
     // [[/r 2[splash,negative] #Tag]]
+    // [[/r 2d4[splash,negative] #Tag]]
     // [[/r 2[splash,negative]]]{Label}
     // [[/r 2[splash,negative] #Tag]]{Label}
-    #pattern2 = /\[\[\/r\s*([^[]*)\[splash,\s*([^\]]*)\]\s*(#[^]]*)?\]\]/g;
+    #pattern2 = /\[\[(\/r|\/br)\s*([^[]*)\[splash,\s*([^\]]*)\]\s*(#[^\]]*)?\]\]/g;
 
-    #buildSplashFormula(formula: string, damage: string, tag?: string): string {
+    #buildSplashFormula(roll: string, formula: string, damage: string, tag?: string): string {
         formula = formula.replace(/\s+/g, "");
         damage = damage.trim();
         tag = tag?.trim() ?? "";
@@ -29,19 +35,19 @@ export class Migration820InlineDamageRollsSplash extends MigrationBase {
         formula = ["+", "-", "*", "/"].some((o) => formula.includes(o)) ? `(${formula})` : formula;
 
         if (tag.length > 0) {
-            return `[[/r (${formula}[splash])[${damage}] ${tag}]]`;
+            return `[[${roll} (${formula}[splash])[${damage}] ${tag}]]`;
         } else {
-            return `[[/r (${formula}[splash])[${damage}]]]`;
+            return `[[${roll} (${formula}[splash])[${damage}]]]`;
         }
     }
 
     #updateDamageFormula(text: string): string {
-        text = text.replace(this.#pattern1, (_, formula: string, damage: string, tag: string) => {
-            return this.#buildSplashFormula(formula, damage, tag);
+        text = text.replace(this.#pattern1, (_, roll: string, formula: string, damage: string, tag: string) => {
+            return this.#buildSplashFormula(roll, formula, damage, tag);
         });
 
-        text = text.replace(this.#pattern2, (_, formula: string, damage: string, tag: string) => {
-            return this.#buildSplashFormula(formula, damage, tag);
+        text = text.replace(this.#pattern2, (_, roll: string, formula: string, damage: string, tag: string) => {
+            return this.#buildSplashFormula(roll, formula, damage, tag);
         });
 
         return text;
