@@ -1,4 +1,3 @@
-import { ActorType } from "@actor/data";
 import { DeferredValueParams, ModifierPF2e, ModifierType, MODIFIER_TYPES } from "@actor/modifiers";
 import { AbilityString } from "@actor/types";
 import { ABILITY_ABBREVIATIONS } from "@actor/values";
@@ -21,13 +20,7 @@ const { fields } = foundry.data;
  * @category RuleElement
  */
 class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
-    protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
-
     constructor(source: FlatModifierSource, item: Embedded<ItemPF2e>, options?: RuleElementOptions) {
-        if (typeof source.selector === "string") {
-            source.selector = [source.selector];
-        }
-
         if (!item.isOfType("physical") && source.type !== "item") {
             source.fromEquipment = false;
         }

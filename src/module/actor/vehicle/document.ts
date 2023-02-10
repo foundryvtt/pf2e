@@ -1,4 +1,4 @@
-import { ModifierPF2e } from "@actor/modifiers";
+import { ModifierPF2e, StatisticModifier } from "@actor/modifiers";
 import { ActorDimensions } from "@actor/types";
 import { ItemType } from "@item/data";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers";
@@ -34,10 +34,7 @@ class VehiclePF2e extends ActorPF2e {
 
         // Vehicles never have negative healing
         const { attributes, details } = this.system;
-
         attributes.hp.negativeHealing = false;
-        attributes.hp.brokenThreshold = Math.floor(attributes.hp.max / 2);
-
         details.alliance = null;
 
         // Set the dimensions of this vehicle in its size object
@@ -54,8 +51,17 @@ class VehiclePF2e extends ActorPF2e {
         }
     }
 
+    override prepareEmbeddedDocuments(): void {
+        super.prepareEmbeddedDocuments();
+
+        for (const rule of this.rules) {
+            rule.onApplyActiveEffects?.();
+        }
+    }
+
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+        this.prepareSynthetics();
 
         const { modifierAdjustments, statisticsModifiers } = this.synthetics;
 
@@ -72,6 +78,42 @@ class VehiclePF2e extends ActorPF2e {
 
                 modifiers.push(() => brokenModifier);
             }
+        }
+
+        // Hit Points
+        {
+            const system = this.system;
+            const base = system.attributes.hp.max;
+            const modifiers: ModifierPF2e[] = [
+                extractModifiers(this.synthetics, ["hp"], { test: this.getRollOptions(["hp"]) }),
+                extractModifiers(this.synthetics, ["hp-per-level"], {
+                    test: this.getRollOptions(["hp-per-level"]),
+                }).map((modifier) => {
+                    modifier.modifier *= this.level;
+                    return modifier;
+                }),
+            ].flat();
+
+            const hpData = deepClone(system.attributes.hp);
+            const stat = mergeObject(new StatisticModifier("hp", modifiers), hpData, { overwrite: false });
+            stat.max = stat.max + stat.totalModifier;
+            stat.value = Math.min(stat.value, stat.max); // Make sure the current HP isn't higher than the max HP
+            stat.breakdown = [
+                game.i18n.format("PF2E.MaxHitPointsBaseLabel", { base }),
+                ...stat.modifiers
+                    .filter((m) => m.enabled)
+                    .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`),
+            ].join(", ");
+
+            system.attributes.hp = stat;
+
+            // Set a roll option for HP percentage
+            const percentRemaining = Math.floor((stat.value / stat.max) * 100);
+            this.rollOptions.all[`hp-remaining:${stat.value}`] = true;
+            this.rollOptions.all[`hp-percent:${percentRemaining}`] = true;
+
+            // Broken threshold is based on the maximum health
+            system.attributes.hp.brokenThreshold = Math.floor(system.attributes.hp.max / 2);
         }
 
         // Prepare AC
