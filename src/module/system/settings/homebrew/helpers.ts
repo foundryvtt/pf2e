@@ -105,11 +105,11 @@ export function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): 
 
         override async updateItem(source: ItemSourcePF2e) {
             switch (listKey) {
-                // Creature traits can be on many item
+                // Creature traits can be on many items
                 case "creatureTraits": {
                     if (source.system.traits) {
                         const traits = source.system.traits;
-                        traits.value = traits.value.filter((t) => !deletions.includes(t));
+                        traits.value = traits.value?.filter((t) => !deletions.includes(t));
                     }
                     break;
                 }

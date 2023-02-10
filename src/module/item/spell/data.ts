@@ -1,6 +1,6 @@
 import { AbilityString, SaveType } from "@actor/types";
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData, ItemSystemSource } from "@item/data/base";
-import { OneToTen, TraitsWithRarity, ValueAndMax, ValuesList } from "@module/data";
+import { OneToTen, TraitsWithRarity, ValueAndMax } from "@module/data";
 import { MaterialDamageEffect, DamageCategoryUnique, DamageType } from "@system/damage";
 import type { SpellPF2e } from "./document";
 import { EffectAreaSize, EffectAreaType, MagicSchool, MagicTradition, SpellComponent, SpellTrait } from "./types";
@@ -68,10 +68,8 @@ interface SpellSystemSource extends ItemSystemSource, ItemLevelData {
     category: {
         value: keyof ConfigPF2e["PF2E"]["spellCategories"];
     };
-    traditions: ValuesList<MagicTradition>;
-    school: {
-        value: MagicSchool;
-    };
+    traditions: { value: MagicTradition[] };
+    school: { value: MagicSchool };
     components: Record<SpellComponent, boolean>;
     materials: {
         value: string;

@@ -217,3 +217,4 @@ export { Migration816AlchemistResearchFields } from "./816-alchemist-research-fi
 export { Migration817FieldDiscoveryPredicates } from "./817-field-discovery-predicates";
 export { Migration818BasicUndeadNegativeHealing } from "./818-basic-undead-negative-healing";
 export { Migration819SpinTaleAdventureSpecific } from "./819-spin-tale-adventure-specific";
+export { Migration820RemoveUnusedTraitsData } from "./820-remove-unused-traits-data";
