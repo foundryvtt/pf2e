@@ -28,7 +28,23 @@
             "text": "The creature you hit is @UUID[Compendium.pf2e.conditionitems.Flat-Footed] to a designated ally on the next attack the ally makes against the creature before the start of your next turn.",
             "title": "{item|name}",
             "predicate": [
-              "devise-a-stratagem"
+                "class:investigator",
+                "devise-a-stratagem",
+                {
+                    "or": [
+                        "item:trait:agile",
+                        "item:trait:finesse",
+                        {
+                          "and": [
+                            "item:ranged",
+                            {
+                              "not": "item:thrown-melee"
+                            }
+                          ]
+                        },
+                        "item:base:sap"
+                    ]
+                }
             ]
           }
         ],
