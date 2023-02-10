@@ -1,6 +1,5 @@
-import type { ItemSourcePF2e } from "@item/data";
+import { ItemSourcePF2e } from "@item/data";
 import { SpellSystemSource } from "@item/spell/data";
-import { ValuesList } from "@module/data";
 import { MigrationBase } from "../base";
 
 /**
@@ -13,15 +12,15 @@ export class Migration626UpdateSpellCategory extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e) {
         if (source.type !== "spell") return;
 
-        interface MaybeCategorie extends Partial<SpellSystemSource> {
-            traditions: ValuesList<keyof ConfigPF2e["PF2E"]["magicTraditions"]>;
+        interface MaybeCategorie extends Omit<Partial<SpellSystemSource>, "traditions"> {
+            traditions: { value: string[] };
             spellCategorie?: { value: "spell" | "focus" | "ritual" | "" };
             spellCategory?: { value: "spell" | "focus" | "ritual" | "" };
             "-=spellCategorie"?: unknown;
             "-=spellCategory"?: unknown;
         }
         const systemData: MaybeCategorie = source.system;
-        const traditions: ValuesList = systemData.traditions;
+        const traditions = systemData.traditions;
         const isFocus = traditions.value.includes("focus");
         const isRitual = traditions.value.includes("ritual");
 
