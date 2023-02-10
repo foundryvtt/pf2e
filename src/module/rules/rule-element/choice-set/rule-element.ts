@@ -26,9 +26,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
     /** A predicate to valide dropped item selections */
     private allowedDrops: { label: string | null; predicate: PredicatePF2e };
 
-    /** If the choice set contains UUIDs, the item slug can be recorded instead of the selected UUID */
-    private recordSlug: boolean;
-
     /** An optional roll option to be set from the selection */
     private rollOption: string | null;
 
@@ -38,7 +35,6 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         this.setDefaultFlag(this.data);
         this.prompt = typeof data.prompt === "string" ? data.prompt : "PF2E.UI.RuleElements.ChoiceSet.Prompt";
         this.adjustName = !!(data.adjustName ?? true);
-        this.recordSlug = !!data.recordSlug;
 
         this.allowedDrops = ((): { label: string | null; predicate: PredicatePF2e } => {
             if (!isObject<{ label: unknown; predicate: unknown }>(data.allowedDrops)) {
@@ -68,7 +64,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         // the same item. If a roll option is specified, assign that as well.
         if (selectionMade) {
             item.flags.pf2e.rulesSelections[this.data.flag] = selection;
-            this.#setRollOption(selection.toString());
+            this.#setRollOption(selection);
         } else if (!this.allowNoSelection) {
             // If no selection has been made, disable this and all other rule elements on the item.
             this.ignored = true;
@@ -110,7 +106,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
                 prompt: this.prompt,
                 item: this.item,
                 title: this.label,
-                choices: (await this.inflateChoices()).filter((c) => !c.predicate || c.predicate.test(rollOptions)),
+                choices: (await this.inflateChoices()).filter((c) => c.predicate?.test(rollOptions) ?? true),
                 containsUUIDs: this.data.containsUUIDs,
                 // Selection validation can predicate on item:-prefixed and [itemType]:-prefixed item roll options
                 allowedDrops: this.allowedDrops,
@@ -118,14 +114,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             }).resolveSelection());
 
         if (selection) {
-            // Record the slug instead of the UUID
-            ruleSource.selection = await (async (): Promise<string | number | object | null> => {
-                if (isItemUUID(selection.value) && this.recordSlug) {
-                    const item = await fromUuid(selection.value);
-                    return item instanceof ItemPF2e ? item.slug ?? sluggify(item.name) : null;
-                }
-                return selection.value;
-            })();
+            ruleSource.selection = selection.value;
 
             // Change the name of the parent item
             if (this.adjustName) {
@@ -143,8 +132,15 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             // Set the item flag in case other preCreate REs need it
             this.item.flags.pf2e.rulesSelections[this.data.flag] = selection.value;
 
-            // Likewise with the roll option, if requested
-            this.#setRollOption(String(ruleSource.selection));
+            // If the selection is an item UUID, retrieve the item's slug and use that for the roll option instead
+            if (typeof ruleSource.rollOption === "string" && isItemUUID(selection.value)) {
+                const item = await fromUuid(selection.value);
+                if (item instanceof ItemPF2e) {
+                    const slug = item.slug ?? sluggify(item.name);
+                    this.rollOption = ruleSource.rollOption = `${ruleSource.rollOption}:${slug}`;
+                }
+            }
+            this.#setRollOption(ruleSource.selection);
 
             for (const rule of this.item.rules) {
                 // Now that a selection is made, other rule elements can be set back to unignored
@@ -345,9 +341,14 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         return choice ?? null;
     }
 
-    #setRollOption(selection: string): void {
-        if (!this.rollOption) return;
-        this.actor.rollOptions.all[`${this.rollOption}:${selection}`] = true;
+    #setRollOption(selection: unknown): void {
+        if (!(this.rollOption && (typeof selection === "string" || typeof selection === "number"))) {
+            return;
+        }
+
+        // If the selection was a UUID, the roll option had its suffix appended at item creation
+        const suffix = isItemUUID(selection) ? "" : `:${selection}`;
+        this.actor.rollOptions.all[`${this.rollOption}${suffix}`] = true;
     }
 }
 
