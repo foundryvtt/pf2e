@@ -4,12 +4,13 @@ import type { FamiliarData, FamiliarSource } from "@actor/familiar/data";
 import type { HazardData, HazardSource } from "@actor/hazard/data";
 import type { LootData, LootSource } from "@actor/loot/data";
 import type { NPCData, NPCSource } from "@actor/npc/data";
+import type { PartyData } from "@actor/party/data";
 import type { VehicleData, VehicleSource } from "@actor/vehicle/data";
 
 type CreatureData = CharacterData | NPCData | FamiliarData;
-type ActorType = CreatureType | "hazard" | "loot" | "vehicle";
+type ActorType = CreatureType | "hazard" | "loot" | "party" | "vehicle";
 
-type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
+type ActorDataPF2e = CreatureData | HazardData | LootData | PartyData | VehicleData;
 type ActorSourcePF2e = ActorDataPF2e["_source"];
 
 interface RollInitiativeOptionsPF2e extends RollInitiativeOptions {
