@@ -10,13 +10,15 @@ async function fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
     const actors: ActorPF2e[] = [];
     const items: ItemPF2e[] = [];
 
-    const docsOrIndices = uuids.map((u): [string, ReturnType<typeof fromUuidSync>] => [u, fromUuidSync(u)]);
-    for (const [uuid, docOrIndex] of docsOrIndices) {
-        if (docOrIndex instanceof ActorPF2e) {
-            actors.push(docOrIndex);
-        } else if (docOrIndex instanceof ItemPF2e) {
-            items.push(docOrIndex);
-        } else if (docOrIndex) {
+    const documents = uuids.map((u): [string, ReturnType<typeof fromUuidSync>] =>
+        u.startsWith("Compendium") ? [u, fromCompendiumUuidSync(u)] : [u, fromUuidSync(u)]
+    );
+    for (const [uuid, doc] of documents) {
+        if (doc instanceof ActorPF2e) {
+            actors.push(doc);
+        } else if (doc instanceof ItemPF2e) {
+            items.push(doc);
+        } else {
             // Cache miss: retrieve from server
             const document = await fromUuid(uuid);
             if (document instanceof ActorPF2e) {
@@ -28,6 +30,14 @@ async function fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
     }
 
     return actors.length > 0 ? actors : items;
+}
+
+function fromCompendiumUuidSync(uuid: Exclude<ActorUUID | TokenDocumentUUID, CompendiumUUID>): ActorPF2e | null;
+function fromCompendiumUuidSync(uuid: Exclude<ItemUUID, CompendiumUUID>): ItemPF2e | null;
+function fromCompendiumUuidSync(uuid: string): ClientDocument | null;
+function fromCompendiumUuidSync(uuid: string): ClientDocument | null {
+    const [_type, scope, packId, id]: (string | undefined)[] = uuid.split(".");
+    return game.packs.get(`${scope}.${packId}`)?.get(id) ?? null;
 }
 
 function isItemUUID(uuid: unknown): uuid is ItemUUID {
