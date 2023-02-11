@@ -15,7 +15,7 @@ export class Migration820InlineDamageRollsSplash extends MigrationBase {
     // [[/r {2d4}[splash,negative] #Tag]]
     // [[/r {2}[splash,negative]]]{Label}
     // [[/r {2}[splash,negative] #Tag]]{Label}
-    #pattern1 = /\[\[(\/b?r)\s*{([^}]*)}\[splash,\s*([^\]]*)\]\s*(#[^\]]*)?\]\]/g;
+    #splashPattern1 = /\[\[(\/b?r)\s*{([^}]*)}\[splash,\s*([^\]]*)\]\s*(#[^\]]*)?\]\]/g;
 
     // [[/r 2[splash,negative]]]
     // [[/br 2[splash,negative]]]
@@ -25,19 +25,25 @@ export class Migration820InlineDamageRollsSplash extends MigrationBase {
     // [[/r 2d4[splash,negative] #Tag]]
     // [[/r 2[splash,negative]]]{Label}
     // [[/r 2[splash,negative] #Tag]]{Label}
-    #pattern2 = /\[\[(\/b?r)\s*([^[]*)\[splash,\s*([^\]]*)\]\s*(#[^\]]*)?\]\]/g;
+    #splashPattern2 = /\[\[(\/b?r)\s*([^[]*)\[splash,\s*([^\]]*)\]\s*(#[^\]]*)?\]\]/g;
 
     // [[/r {2}[slashing]]]
     // [[/r {2}[slashing] #Tag]]
     // [[/br {2d4}[slashing]]]
-    #pattern3 = /\[\[(\/b?r)\s*{([^}]*)}\[\s*([^\]]*)\]\s*(#[^\]]*)?\]\]/g;
+    #damagePatternSingle = /\[\[(\/b?r)\s*{([^}]*)}\[\s*([^\]]*)\]\s*(#[^\]]*)?\]\]/g;
+
+    // [[/r {1d6}[piercing] + {2}[poison] #Beak]]
+    #damagePatternPair = /\[\[(\/b?r)\s*{([^}]*)}\[\s*([^\]]*)\]\s*[+,]\s*{([^}]*)}\[\s*([^\]]*)\]\s*(#[^\]]*)?\]\]/g;
+
+    #cleanFormula(formula: string): string {
+        formula = formula.replace(/\s+/g, "");
+        return ["+", "-", "*", "/"].some((o) => formula.includes(o)) ? `(${formula})` : formula;
+    }
 
     #buildSplashFormula(roll: string, formula: string, damage: string, tag?: string): string {
-        formula = formula.replace(/\s+/g, "");
+        formula = this.#cleanFormula(formula);
         damage = damage.trim();
         tag = tag?.trim() ?? "";
-
-        formula = ["+", "-", "*", "/"].some((o) => formula.includes(o)) ? `(${formula})` : formula;
 
         if (tag.length > 0) {
             return `[[${roll} (${formula}[splash])[${damage}] ${tag}]]`;
@@ -46,32 +52,63 @@ export class Migration820InlineDamageRollsSplash extends MigrationBase {
         }
     }
 
-    #buildFormula(roll: string, formula: string, damage: string, tag?: string): string {
-        formula = formula.replace(/\s+/g, "");
-        damage = damage.trim();
+    #buildDamageFormula(roll: string, parts: DamagePart[], tag?: string): string {
         tag = tag?.trim() ?? "";
 
-        formula = ["+", "-", "*", "/"].some((o) => formula.includes(o)) ? `(${formula})` : formula;
+        if (parts.length === 1) {
+            const formula = this.#cleanFormula(parts[0].formula);
+            const damage = parts[0].damage.trim();
 
-        if (tag.length > 0) {
-            return `[[${roll} ${formula}[${damage}] ${tag}]]`;
+            if (tag.length > 0) {
+                return `[[${roll} ${formula}[${damage}] ${tag}]]`;
+            } else {
+                return `[[${roll} ${formula}[${damage}]]]`;
+            }
+        } else if (parts.length > 1) {
+            const assembled = parts
+                .map((p) => {
+                    const formula = this.#cleanFormula(p.formula);
+                    const damage = p.damage.trim();
+                    return `${formula}[${damage}]`;
+                })
+                .join(",");
+
+            if (tag.length > 0) {
+                return `[[${roll} {${assembled}} ${tag}]]`;
+            } else {
+                return `[[${roll} {${assembled}}]]`;
+            }
         } else {
-            return `[[${roll} ${formula}[${damage}]]]`;
+            return "";
         }
     }
 
     #updateDamageFormula(text: string): string {
-        text = text.replace(this.#pattern1, (_, roll: string, formula: string, damage: string, tag: string) => {
+        text = text.replace(this.#splashPattern1, (_, roll: string, formula: string, damage: string, tag?: string) => {
             return this.#buildSplashFormula(roll, formula, damage, tag);
         });
 
-        text = text.replace(this.#pattern2, (_, roll: string, formula: string, damage: string, tag: string) => {
+        text = text.replace(this.#splashPattern2, (_, roll: string, formula: string, damage: string, tag?: string) => {
             return this.#buildSplashFormula(roll, formula, damage, tag);
         });
 
-        text = text.replace(this.#pattern3, (_, roll: string, formula: string, damage: string, tag: string) => {
-            return this.#buildFormula(roll, formula, damage, tag);
+        text = text.replace(this.#damagePatternSingle, (_, roll: string, formula: string, damage: string, tag?: string) => {
+            return this.#buildDamageFormula(roll, [{ formula, damage }], tag);
         });
+
+        text = text.replace(
+            this.#damagePatternPair,
+            (_, roll: string, formula1: string, damage1: string, formula2: string, damage2: string, tag?: string) => {
+                return this.#buildDamageFormula(
+                    roll,
+                    [
+                        { formula: formula1, damage: damage1 },
+                        { formula: formula2, damage: damage2 },
+                    ],
+                    tag
+                );
+            }
+        );
 
         return text;
     }
@@ -87,4 +124,9 @@ export class Migration820InlineDamageRollsSplash extends MigrationBase {
     override async updateJournalEntry(source: foundry.data.JournalEntrySource): Promise<void> {
         source.pages = recursiveReplaceString(source.pages, (s) => this.#updateDamageFormula(s));
     }
+}
+
+interface DamagePart {
+    formula: string;
+    damage: string;
 }
