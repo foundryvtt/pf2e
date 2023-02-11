@@ -120,6 +120,8 @@ abstract class IWRData<TType extends IWRType> {
                 if (setHasElement(WEAPON_MATERIAL_EFFECTS, iwrType)) {
                     return iwrType === "silver"
                         ? [{ or: ["damage:material:silver", "damage:material:mithral"] }]
+                        : iwrType === "cold-iron"
+                        ? [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }]
                         : [`damage:material:${iwrType}`];
                 }
 
