@@ -161,7 +161,6 @@ class MeleePF2e extends ItemPF2e {
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
         const otherOptions = Object.entries({
             equipped: true,
             melee: this.isMelee,
@@ -171,7 +170,7 @@ class MeleePF2e extends ItemPF2e {
             [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
         })
             .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => `${delimitedPrefix}${key}`);
+            .map(([key]) => `${prefix}:${key}`);
 
         return [baseOptions, otherOptions].flat().sort();
     }
