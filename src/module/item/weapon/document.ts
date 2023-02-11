@@ -417,7 +417,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
             properties: [
                 CONFIG.PF2E.weaponCategories[this.category],
                 this.rangeIncrement ? `PF2E.TraitRangeIncrement${this.rangeIncrement}` : null,
-            ],
+            ].filter((p) => !!p),
         });
     }
 
