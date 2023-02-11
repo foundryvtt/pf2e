@@ -58,11 +58,12 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                 animation: 200,
                 dataIdAttr: "data-combatant-id",
                 direction: "vertical",
+                dragClass: "drag-preview",
                 dragoverBubble: true,
                 easing: "cubic-bezier(1, 0, 0, 1)",
                 ghostClass: "drag-gap",
-                onUpdate: (event) => this.#onDropCombatant(event),
                 onEnd: (event) => this.adjustFinalOrder(event),
+                onUpdate: (event) => this.#onDropCombatant(event),
             });
         }
 
