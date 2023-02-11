@@ -1,7 +1,7 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression";
 import { ActorType } from "@actor/data";
 import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers";
-import { WeaponPF2e } from "@item";
+import { MeleePF2e, WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes";
 import { BooleanField, ModelPropsFromSchema, StringField } from "types/foundry/common/data/fields.mjs";
 import { RuleElementPF2e, RuleElementSchema } from ".";
@@ -11,7 +11,7 @@ const { fields } = foundry.data;
 
 /** Substitute a pre-determined result for a check's D20 roll */
 class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
-    static override validActorTypes: ActorType[] = ["character"];
+    static override validActorTypes: ActorType[] = ["character", "npc"];
 
     static override defineSchema(): CritSpecRuleSchema {
         return {
@@ -31,7 +31,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
         this.#validate();
         if (this.ignored) return;
 
-        const synthetic = (weapon: WeaponPF2e, options: Set<string>): CritSpecEffect | null => {
+        const synthetic = (weapon: WeaponPF2e | MeleePF2e, options: Set<string>): CritSpecEffect | null => {
             const predicate = this.resolveInjectedProperties(this.predicate);
             return predicate.test(options) ? this.#getEffect(weapon) : null;
         };
@@ -39,7 +39,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
         this.actor.synthetics.criticalSpecalizations[this.alternate ? "alternate" : "standard"].push(synthetic);
     }
 
-    #getEffect(weapon: WeaponPF2e): CritSpecEffect {
+    #getEffect(weapon: WeaponPF2e | MeleePF2e): CritSpecEffect {
         const text = this.text ? this.resolveInjectedProperties(this.text.trim()) : null;
         const note = () => [
             new RollNotePF2e({
@@ -68,6 +68,8 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
                 });
                 const bonusValue = ABP.isEnabled(this.actor)
                     ? ABP.getAttackPotency(this.actor.level)
+                    : weapon.isOfType("melee")
+                    ? weapon.linkedWeapon?.system.runes.potency ?? 0
                     : weapon.system.runes.potency;
                 const bonus =
                     bonusValue > 0
@@ -83,13 +85,13 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
                 return [dice, bonus ?? []].flat();
             }
             case "pick":
-                return weapon.system.damage.die
+                return weapon.baseDamage.die
                     ? [
                           new ModifierPF2e({
                               slug,
                               label: "PF2E.Actor.Creature.CriticalSpecialization",
                               type: "untyped",
-                              modifier: 2 * weapon.system.damage.dice,
+                              modifier: 2 * weapon.baseDamage.dice,
                               critical: true,
                           }),
                       ]
