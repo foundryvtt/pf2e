@@ -311,9 +311,6 @@ class ItemPF2e extends Item<ActorPF2e> {
     }
 
     protected traitChatData(dictionary: Record<string, string | undefined> = {}): TraitChatData[] {
-        if (this.isOfType("affliction")) {
-            this.system.traits;
-        }
         const traits: string[] = [...(this.system.traits?.value ?? [])].sort();
 
         const traitChatLabels = traits.map((trait) => {
