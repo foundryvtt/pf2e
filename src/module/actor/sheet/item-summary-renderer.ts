@@ -68,7 +68,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             })();
 
             const chatData = await item.getChatData({ secrets: actor.isOwner }, $element.data());
-            this.renderItemSummary($summary, item, chatData);
+            await this.renderItemSummary($summary, item, chatData);
             if (options.instant) {
                 InlineRollLinks.listen($summary, actor);
             } else {
@@ -185,11 +185,11 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         // Re-open hidden item summaries
         for (const itemId of openItemsIds) {
             const $item = result.find(`.item[data-item-id="${itemId}"]:not([data-item-summary-id])`);
-            this.toggleSummary($item, { instant: true });
+            await this.toggleSummary($item, { instant: true });
         }
 
         for (const summaryId of openSummaryIds) {
-            this.toggleSummary(result.find(`.item[data-item-summary-id="${summaryId}"]`), { instant: true });
+            await this.toggleSummary(result.find(`.item[data-item-summary-id="${summaryId}"]`), { instant: true });
         }
 
         // Reopen hidden actions
