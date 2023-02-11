@@ -31,7 +31,7 @@ abstract class AbstractDamageRoll extends Roll {
         data: Record<string, unknown>,
         options: { missing?: string; warn?: boolean } = {}
     ): string {
-        const replaced = super.replaceFormulaData(formula, data, options);
+        const replaced = super.replaceFormulaData(formula.trim(), data, options);
         return replaced.replace(/(?<![a-z])\((\d+)\)/gi, "$1");
     }
 
@@ -53,6 +53,7 @@ class DamageRoll extends AbstractDamageRoll {
     roller: UserPF2e | null;
 
     constructor(formula: string, data = {}, options: DamageRollDataPF2e = {}) {
+        formula = formula.trim();
         const wrapped = formula.startsWith("{") ? formula : `{${formula}}`;
         super(wrapped, data, options);
 
@@ -98,6 +99,7 @@ class DamageRoll extends AbstractDamageRoll {
 
     /** Ensure the roll is parsable as `PoolTermData` */
     static override validate(formula: string): boolean {
+        formula = formula.trim();
         const wrapped = this.replaceFormulaData(formula.startsWith("{") ? formula : `{${formula}}`, {});
         try {
             const result = this.parser.parse(wrapped);
@@ -313,7 +315,7 @@ class DamageInstance extends AbstractDamageRoll {
     materials: MaterialDamageEffect[];
 
     constructor(formula: string, data = {}, options: DamageInstanceData = {}) {
-        super(formula, data, options);
+        super(formula.trim(), data, options);
 
         const flavorIdentifiers = options.flavor?.replace(/[^a-z,_-]/g, "").split(",") ?? [];
         this.type = flavorIdentifiers.find((t): t is DamageType => setHasElement(DAMAGE_TYPES, t)) ?? "untyped";
