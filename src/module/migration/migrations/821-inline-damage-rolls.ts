@@ -92,9 +92,12 @@ export class Migration821InlineDamageRolls extends MigrationBase {
             return this.#buildSplashFormula(roll, formula, damage, tag);
         });
 
-        text = text.replace(this.#damagePatternSingle, (_, roll: string, formula: string, damage: string, tag?: string) => {
-            return this.#buildDamageFormula(roll, [{ formula, damage }], tag);
-        });
+        text = text.replace(
+            this.#damagePatternSingle,
+            (_, roll: string, formula: string, damage: string, tag?: string) => {
+                return this.#buildDamageFormula(roll, [{ formula, damage }], tag);
+            }
+        );
 
         text = text.replace(
             this.#damagePatternPair,
