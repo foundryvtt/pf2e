@@ -6,8 +6,8 @@ export class Migration695SummonToSummoned extends MigrationBase {
     static override version = 0.695;
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
-        const traits: { value: string[]; custom?: string } | undefined = itemSource.system.traits;
-        if (!traits) return;
+        const traits: { value?: string[]; custom?: string } | undefined = itemSource.system.traits;
+        if (!traits?.value) return;
 
         if (itemSource.type === "action") {
             traits.custom ??= "";

@@ -397,6 +397,20 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
         }
     }
 
+    /** Don't allow the user to create in development actor types. */
+    static override async createDialog(
+        data: { folder?: string | undefined } = {},
+        options: Partial<FormApplicationOptions> = {}
+    ): Promise<ClientDocument<foundry.documents.BaseActor> | undefined> {
+        const original = game.system.documentTypes.Actor;
+        game.system.documentTypes.Actor = original.filter(
+            (actorType: string) => actorType !== "party" || BUILD_MODE !== "production"
+        );
+        const newActor = super.createDialog(data, options) as Promise<ActorPF2e | undefined>;
+        game.system.documentTypes.Actor = original;
+        return newActor;
+    }
+
     /**
      * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
      * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.

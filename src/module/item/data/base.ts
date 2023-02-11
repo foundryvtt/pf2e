@@ -41,7 +41,6 @@ interface ActionCost {
 interface ItemTraits<T extends ItemTrait = ItemTrait> {
     value: T[];
     rarity?: Rarity;
-    custom?: string;
 }
 
 interface ItemFlagsPF2e extends foundry.data.ItemFlags {

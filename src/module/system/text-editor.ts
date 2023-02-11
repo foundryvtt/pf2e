@@ -230,17 +230,7 @@ class TextEditorPF2e extends TextEditor {
             return null;
         } else {
             // If no traits are entered manually use the traits from rollOptions if available
-            if (!params.traits) {
-                params.traits = "";
-
-                if (itemData?.traits) {
-                    let traits = itemData.traits.value.join(",");
-                    if (!(itemData.traits.custom === "")) {
-                        traits = traits.concat(`, ${itemData.traits.custom}`);
-                    }
-                    params.traits = traits;
-                }
-            }
+            params.traits ||= itemData?.traits?.value?.join(",") ?? "";
 
             // If no button label is entered directly create default label
             if (!label) {
@@ -301,12 +291,9 @@ class TextEditorPF2e extends TextEditor {
         const traits: string[] = [];
 
         // Set item traits
-        const itemTraits = item?.system.traits;
-        if (itemTraits && params.overrideTraits !== "true") {
-            traits.push(...itemTraits.value);
-            if (itemTraits.custom) {
-                traits.push(...itemTraits.custom.split(",").map((trait) => trait.trim()));
-            }
+        const itemTraits = item?.system.traits?.value ?? [];
+        if (params.overrideTraits !== "true") {
+            traits.push(...itemTraits);
         }
 
         // Set action slug as a roll option

@@ -57,10 +57,13 @@ class PredicatePF2e extends Array<PredicateStatement> {
 
     /** Test this predicate against a domain of discourse */
     test(options: Set<string> | string[]): boolean {
-        if (!this.isValid) {
+        if (this.length === 0) {
+            return true;
+        } else if (!this.isValid) {
             console.error("PF2e System | The provided predicate set is malformed.");
             return false;
         }
+
         const domain = options instanceof Set ? options : new Set(options);
         return this.every((s) => this.isTrue(s, domain));
     }

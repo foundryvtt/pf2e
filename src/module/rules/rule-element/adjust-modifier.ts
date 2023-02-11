@@ -1,4 +1,3 @@
-import { ActorType } from "@actor/data";
 import { ModifierAdjustment } from "@actor/modifiers";
 import { ItemPF2e } from "@item";
 import { DamageType } from "@system/damage/types";
@@ -12,8 +11,6 @@ const { fields } = foundry.data;
 
 /** Adjust the value of a modifier, change its damage type (in case of damage modifiers) or suppress it entirely */
 class AdjustModifierRuleElement extends AELikeRuleElement<AdjustModifierSchema> {
-    protected static override validActorTypes: ActorType[] = ["character", "familiar", "npc"];
-
     static override defineSchema(): AdjustModifierSchema {
         return {
             ...super.defineSchema(),

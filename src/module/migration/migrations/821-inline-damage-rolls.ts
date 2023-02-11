@@ -3,9 +3,9 @@ import { ItemSourcePF2e } from "@item/data";
 import { recursiveReplaceString } from "@util";
 import { MigrationBase } from "../base";
 
-/** Update splash damage roll links to also be formatted to new standard */
-export class Migration820InlineDamageRollsSplash extends MigrationBase {
-    static override version = 0.82;
+/** Update damage roll links to be formatted to new standard */
+export class Migration821InlineDamageRolls extends MigrationBase {
+    static override version = 0.821;
 
     // [[/r {2}[splash,negative]]]
     // [[/br {2}[splash,negative]]]
