@@ -1,4 +1,5 @@
 import { CreaturePF2e } from "@actor";
+import { SIZE_TO_REACH } from "@actor/creature/values";
 import { ActorType } from "@actor/data";
 import { ActorSizePF2e } from "@actor/data/size";
 import { ItemPF2e, TreasurePF2e } from "@item";
@@ -113,7 +114,9 @@ class CreatureSizeRuleElement extends RuleElementPF2e {
             return;
         }
 
-        actor.attributes.reach.base = this.#getReach();
+        const { reach } = actor.system.attributes;
+        reach.base = this.#getReach(originalSize);
+        reach.manipulate = Math.max(reach.manipulate, reach.base);
 
         if (this.resizeEquipment) {
             const sizeDifference = originalSize.difference(actor.system.traits.size);
@@ -128,22 +131,29 @@ class CreatureSizeRuleElement extends RuleElementPF2e {
     }
 
     /** Return a new reach distance if one is specified */
-    #getReach(): number {
+    #getReach(originalSize: ActorSizePF2e): number {
         const current = this.actor.attributes.reach.base;
-        if (this.reach === null) return current;
 
-        const reachChange: { [K in "add" | "upgrade" | "override"]?: ReachValue } = this.reach;
-        const changeValue = ((): number => {
-            const resolved = this.resolveValue(reachChange.add ?? reachChange.upgrade ?? reachChange.override);
-            return Math.trunc(Math.abs(Number(resolved)));
-        })();
+        if (this.reach) {
+            const reachChange: { [K in "add" | "upgrade" | "override"]?: ReachValue } = this.reach;
+            const changeValue = ((): number => {
+                const resolved = this.resolveValue(reachChange.add ?? reachChange.upgrade ?? reachChange.override);
+                return Math.trunc(Math.abs(Number(resolved)));
+            })();
 
-        if (!Number.isInteger(changeValue)) return current;
-        if (reachChange.add) return current + changeValue;
-        if ("upgrade" in reachChange) return Math.max(current, changeValue);
-        if ("override" in reachChange) return changeValue;
+            if (!Number.isInteger(changeValue)) return current;
+            if (reachChange.add) return current + changeValue;
+            if ("upgrade" in reachChange) return Math.max(current, changeValue);
+            if ("override" in reachChange) return changeValue;
+        }
 
-        return current;
+        const newSize = this.actor.system.traits.size;
+
+        return newSize.isLargerThan(originalSize)
+            ? Math.max(SIZE_TO_REACH[this.actor.size], current)
+            : newSize.isSmallerThan(originalSize)
+            ? Math.min(SIZE_TO_REACH[this.actor.size], current)
+            : current;
     }
 }
 
