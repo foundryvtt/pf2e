@@ -73,6 +73,8 @@ class ItemPF2e extends Item<ActorPF2e> {
 
     /** Generate a list of strings for use in predication */
     getRollOptions(prefix = this.type): string[] {
+        if (prefix.length === 0) throw ErrorPF2e("`prefix` must be at least one character long");
+
         const slug = this.slug ?? sluggify(this.name);
 
         const traitOptions = ((): string[] => {
@@ -87,22 +89,21 @@ class ItemPF2e extends Item<ActorPF2e> {
             return [traits, deannotated].flat().map((t) => `trait:${t}`);
         })();
 
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
         const options = [
-            `${delimitedPrefix}id:${this.id}`,
-            `${delimitedPrefix}${slug}`,
-            `${delimitedPrefix}slug:${slug}`,
-            ...traitOptions.map((t) => `${delimitedPrefix}${t}`),
+            `${prefix}:id:${this.id}`,
+            `${prefix}:${slug}`,
+            `${prefix}:slug:${slug}`,
+            ...traitOptions.map((t) => `${prefix}:${t}`),
         ];
 
         const level = "level" in this ? this.level : "level" in this.system ? this.system.level.value : null;
         if (typeof level === "number") {
-            options.push(`${delimitedPrefix}level:${level}`);
+            options.push(`${prefix}:level:${level}`);
         }
 
         if (["item", ""].includes(prefix)) {
             const itemType = this.isOfType("feat") && this.isFeature ? "feature" : this.type;
-            options.unshift(`${delimitedPrefix}type:${itemType}`);
+            options.unshift(`${prefix}:type:${itemType}`);
         }
 
         return options;

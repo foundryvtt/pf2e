@@ -143,8 +143,7 @@ class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = "weapon"): string[] {
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
+    override getRollOptions(prefix = this.type): string[] {
         const damage = {
             category: DamageCategorization.fromDamageType(this.system.damage.damageType),
             type: this.system.damage.damageType,
@@ -198,8 +197,8 @@ class WeaponPF2e extends PhysicalItemPF2e {
                 "thrown-melee": thrownMelee,
                 ...propertyRunes,
             })
-                .filter(([_key, isTrue]) => isTrue)
-                .map(([key]) => `${delimitedPrefix}${key}`),
+                .filter(([, isTrue]) => isTrue)
+                .map(([key]) => `${prefix}:${key}`),
         ]
             .flat()
             .sort();

@@ -89,11 +89,8 @@ class ArmorPF2e extends PhysicalItemPF2e {
                 [`group:${this.group}`]: !!this.group,
                 [`base:${this.baseType}`]: !!this.baseType,
             })
-                .filter(([_key, isTrue]) => isTrue)
-                .map(([key]) => {
-                    const delimitedPrefix = prefix ? `${prefix}:` : "";
-                    return `${delimitedPrefix}${key}`;
-                })
+                .filter(([, isTrue]) => isTrue)
+                .map(([key]) => `${prefix}:${key}`)
         );
     }
 
