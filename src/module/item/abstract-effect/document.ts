@@ -32,6 +32,23 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
         return false;
     }
 
+    override getRollOptions(prefix = this.type): string[] {
+        const originRollOptions = new Set(
+            this.origin?.getRollOptions().map((o) => o.replace(/^(?:self:)?/, `${prefix}:origin:`)) ?? []
+        );
+
+        return [
+            ...super.getRollOptions(prefix),
+            ...Object.entries({
+                [`badge:type:${this.badge?.type}`]: !!this.badge,
+                [`badge:value:${this.badge?.value}`]: !!this.badge,
+            })
+                .filter(([, isTrue]) => isTrue)
+                .map(([key]) => `${prefix}:${key}`),
+            ...originRollOptions,
+        ];
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
