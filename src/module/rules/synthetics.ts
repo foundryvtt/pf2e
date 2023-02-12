@@ -44,7 +44,7 @@ interface RuleElementSynthetics {
 }
 
 type CritSpecEffect = (DamageDicePF2e | ModifierPF2e | RollNotePF2e)[];
-type CritSpecSynthetic = (weapon: WeaponPF2e, options: Set<string>) => CritSpecEffect | null;
+type CritSpecSynthetic = (weapon: WeaponPF2e | MeleePF2e, options: Set<string>) => CritSpecEffect | null;
 
 type DamageDiceSynthetics = { damage: DeferredDamageDice[] } & { [K in string]?: DeferredDamageDice[] };
 type ModifierSynthetics = Record<"all" | "damage", DeferredModifier[]> & { [K in string]?: DeferredModifier[] };

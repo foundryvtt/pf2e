@@ -326,8 +326,6 @@ class WeaponDamagePF2e {
 
         // Critical specialization effects
         const critSpecEffect = ((): CritSpecEffect => {
-            if (!weapon.isOfType("weapon")) return [];
-
             // If an alternate critical specialization effect is available, apply it only if there is also a
             // qualifying non-alternate
             const critSpecs = actor.synthetics.criticalSpecalizations;
@@ -636,6 +634,25 @@ class WeaponDamagePF2e {
             "damage",
         ];
 
+        if (weapon.category === "unarmed") {
+            selectors.push("unarmed-damage");
+        }
+
+        if (weapon.group) {
+            selectors.push(`${weapon.group}-weapon-group-damage`);
+        }
+
+        if (weapon.baseType) {
+            selectors.push(`${weapon.baseType}-base-type-damage`);
+        }
+
+        // Include selectors for "equivalent weapons": longbow for composite longbow, etc.
+        const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
+        const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
+        if (baseType && !selectors.includes(`${baseType}-damage`)) {
+            selectors.push(`${baseType}-damage`);
+        }
+
         if (weapon.isOfType("melee")) {
             if (this.strengthBasedDamage(weapon)) {
                 selectors.push("str-damage");
@@ -645,18 +662,6 @@ class WeaponDamagePF2e {
             return selectors;
         }
 
-        if (weapon.baseType) {
-            selectors.push(`${weapon.baseType}-base-type-damage`);
-        }
-
-        if (weapon.group) {
-            selectors.push(`${weapon.group}-weapon-group-damage`);
-        }
-
-        if (weapon.category === "unarmed") {
-            selectors.push("unarmed-damage");
-        }
-
         if (ability) {
             selectors.push(`${ability}-damage`);
         }
@@ -664,12 +669,6 @@ class WeaponDamagePF2e {
         if (proficiencyRank >= 0) {
             const proficiencies = ["untrained", "trained", "expert", "master", "legendary"];
             selectors.push(`${proficiencies[proficiencyRank]}-damage`);
-        }
-
-        const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
-        const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
-        if (baseType && !selectors.includes(`${baseType}-damage`)) {
-            selectors.push(`${baseType}-damage`);
         }
 
         return selectors;
@@ -709,7 +708,10 @@ class WeaponDamagePF2e {
 
     /** Determine whether the damage source is a strength-based statistic */
     static strengthBasedDamage(weapon: WeaponPF2e | MeleePF2e): boolean {
-        return weapon.isMelee || (weapon.isThrown && !weapon.traits.has("splash"));
+        return (
+            !!weapon.actor?.isOfType("creature") &&
+            (weapon.isMelee || (weapon.isThrown && !weapon.traits.has("splash")))
+        );
     }
 
     /** Determine whether a strike's damage includes the actor's strength modifier */
