@@ -26,6 +26,28 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         this.refresh();
     }
 
+    updateAll(): void {
+        if (!(canvas.ready && this.token.actor)) {
+            return;
+        }
+
+        let anyChanges = false;
+
+        for (const [slug, aura] of this.token.document.auras.entries()) {
+            const existingRenderer = this.get(slug);
+            if (existingRenderer && existingRenderer.radius !== aura.radius) {
+                this.delete(slug);
+                const renderer = new AuraRenderer({ ...aura, token: this.token });
+                this.set(slug, this.token.addChild(renderer));
+                anyChanges = true;
+            }
+        }
+
+        if (anyChanges) {
+            this.refresh();
+        }
+    }
+
     refresh(): void {
         if (this.size === 0) return;
 

@@ -408,6 +408,8 @@ class TokenDocumentPF2e<TActor extends ActorPF2e = ActorPF2e> extends TokenDocum
             delete changed.actorData; // Prevent upstream from doing so a second time
         }
 
+        this.object.auras.updateAll();
+
         return super._onUpdate(changed, options, userId);
     }
 
