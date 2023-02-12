@@ -1177,7 +1177,7 @@ class CharacterPF2e extends CreaturePF2e {
                   type: MODIFIER_TYPE.UNTYPED,
                   adjustments: extractModifierAdjustments(
                       this.synthetics.modifierAdjustments,
-                      ["speed", `${movementType}-speed`],
+                      ["speed", "all-speeds", `${movementType}-speed`],
                       slug
                   ),
               })

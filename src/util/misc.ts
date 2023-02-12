@@ -156,6 +156,22 @@ function omit<T extends object, K extends keyof T>(obj: T, keys: Iterable<K>): O
     return clone;
 }
 
+let intlNumberFormat: Intl.NumberFormat;
+/**
+ * Return an integer string of a number, always with sign (+/-)
+ * @param value The number to convert to a string
+ * @param [emptyStringZero] If the value is zero, return an empty string
+ */
+function signedInteger(value: number, { emptyStringZero = true } = {}): string {
+    if (value === 0 && emptyStringZero) return "";
+
+    const nf = (intlNumberFormat ??= new Intl.NumberFormat(game.i18n.lang, {
+        maximumFractionDigits: 0,
+        signDisplay: "always",
+    }));
+    return nf.format(value);
+}
+
 const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
 const nonWordCharacter = String.raw`[^\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
 const nonWordCharacterRE = new RegExp(nonWordCharacter, "gu");
@@ -430,6 +446,7 @@ export {
     pick,
     recursiveReplaceString,
     setHasElement,
+    signedInteger,
     sluggify,
     sortBy,
     sortLabeledRecord,
