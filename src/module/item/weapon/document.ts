@@ -341,7 +341,11 @@ class WeaponPF2e extends PhysicalItemPF2e {
         const baseTraits = systemData.traits.value;
         const { runes } = this.system;
         const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
-        const magicTraits: ("evocation" | "magical")[] = hasRunes ? ["evocation", "magical"] : [];
+        const magicTraits: ("evocation" | "magical")[] = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t))
+            ? ["evocation"]
+            : hasRunes
+            ? ["evocation", "magical"]
+            : [];
         systemData.traits.value = Array.from(new Set([...baseTraits, ...magicTraits]));
 
         // Set tags from runes
