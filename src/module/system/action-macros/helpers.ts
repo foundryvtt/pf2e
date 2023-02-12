@@ -7,7 +7,7 @@ import {
     MODIFIER_TYPE,
     StatisticModifier,
 } from "@actor/modifiers";
-import { WeaponPF2e } from "@item";
+import { ItemPF2e, WeaponPF2e } from "@item";
 import { WeaponTrait } from "@item/weapon/types";
 import { RollNotePF2e } from "@module/notes";
 import {
@@ -78,7 +78,9 @@ export class ActionMacroHelpers {
         });
     }
 
-    static async simpleRollActionCheck(options: SimpleRollActionCheckOptions): Promise<void> {
+    static async simpleRollActionCheck<ItemType extends Embedded<ItemPF2e>>(
+        options: SimpleRollActionCheckOptions<ItemType>
+    ): Promise<void> {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
         if (Array.isArray(options.actors)) {
@@ -118,49 +120,16 @@ export class ActionMacroHelpers {
             ].flat();
             const selfActor = actor.getContextualClone(combinedOptions.filter((o) => o.startsWith("self:")));
 
-            // Modifier from roller's equipped weapon
-            const weapon = ((): Embedded<WeaponPF2e> | null => {
-                if (!options.traits.includes("attack")) return null;
-                return (
-                    [
-                        ...(options.weaponTrait
-                            ? this.getApplicableEquippedWeapons(selfActor, options.weaponTrait)
-                            : []),
-                        ...(options.weaponTraitWithPenalty
-                            ? this.getApplicableEquippedWeapons(selfActor, options.weaponTraitWithPenalty)
-                            : []),
-                    ].shift() ?? null
-                );
-            })();
+            const weapon = options.item?.(selfActor);
             combinedOptions.push(...(weapon?.getRollOptions("item") ?? []));
 
             const stat = getProperty(selfActor, options.statName) as StatisticModifier & { rank?: number };
-            const itemBonus =
-                weapon && weapon.slug !== "basic-unarmed" ? this.getWeaponPotencyModifier(weapon, stat.slug) : null;
 
             const modifiers =
-                (typeof options.modifiers === "function" ? options.modifiers(selfActor) : options.modifiers) ?? [];
-            if (itemBonus) modifiers.push(itemBonus);
+                (typeof options.modifiers === "function"
+                    ? options.modifiers({ actor: selfActor, item: weapon, rollOptions: options.rollOptions })
+                    : options.modifiers) ?? [];
             const check = new CheckModifier(content, stat, modifiers);
-            const domains = options.rollOptions;
-
-            const weaponTraits = weapon?.traits;
-
-            // Modifier from roller's equipped weapon with -2 ranged penalty
-            if (options.weaponTraitWithPenalty === "ranged-trip" && weaponTraits?.has("ranged-trip")) {
-                const slug = "ranged-trip";
-
-                const syntheticAdjustments = selfActor.synthetics.modifierAdjustments;
-                check.push(
-                    new ModifierPF2e({
-                        slug,
-                        adjustments: extractModifierAdjustments(syntheticAdjustments, domains, slug),
-                        type: MODIFIER_TYPE.CIRCUMSTANCE,
-                        label: CONFIG.PF2E.weaponTraits["ranged-trip"],
-                        modifier: -2,
-                    })
-                );
-            }
 
             const dc = ((): CheckDC | null => {
                 if (options.difficultyClass) {
@@ -194,12 +163,15 @@ export class ActionMacroHelpers {
 
             const distance = ((): number | null => {
                 const reach =
-                    selfActor instanceof CreaturePF2e ? selfActor.getReach({ action: "attack", weapon }) ?? null : null;
+                    selfActor instanceof CreaturePF2e && weapon?.isOfType("weapon")
+                        ? selfActor.getReach({ action: "attack", weapon }) ?? null
+                        : null;
                 return selfToken?.object && target?.object
                     ? selfToken.object.distanceTo(target.object, { reach })
                     : null;
             })();
-            const rangeIncrement = weapon && typeof distance === "number" ? getRangeIncrement(weapon, distance) : null;
+            const rangeIncrement =
+                weapon?.isOfType("weapon") && typeof distance === "number" ? getRangeIncrement(weapon, distance) : null;
 
             const targetInfo =
                 target && targetActor && typeof distance === "number"
@@ -249,23 +221,22 @@ export class ActionMacroHelpers {
         };
     }
 
-    private static getWeaponPotencyModifier(item: Embedded<WeaponPF2e>, selector: string): ModifierPF2e | null {
-        const itemBonus = item.system.runes.potency;
+    static getWeaponPotencyModifier(item: Embedded<WeaponPF2e>, selector: string): ModifierPF2e | null {
         const slug = "potency";
         if (AutomaticBonusProgression.isEnabled(item.actor)) {
             return new ModifierPF2e({
                 slug,
                 type: MODIFIER_TYPE.POTENCY,
-                label: item.name,
+                label: "PF2E.AutomaticBonusProgression.attackPotency",
                 modifier: item.actor.synthetics.weaponPotency["mundane-attack"]?.[0]?.bonus ?? 0,
                 adjustments: extractModifierAdjustments(item.actor.synthetics.modifierAdjustments, [selector], slug),
             });
-        } else if (itemBonus > 0) {
+        } else if (item.system.runes.potency > 0) {
             return new ModifierPF2e({
                 slug,
                 type: MODIFIER_TYPE.ITEM,
-                label: item.name,
-                modifier: itemBonus,
+                label: "PF2E.PotencyRuneLabel",
+                modifier: item.system.runes.potency,
                 adjustments: extractModifierAdjustments(item.actor.synthetics.modifierAdjustments, [selector], slug),
             });
         } else {
@@ -273,7 +244,7 @@ export class ActionMacroHelpers {
         }
     }
 
-    private static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): Embedded<WeaponPF2e>[] {
+    static getApplicableEquippedWeapons(actor: ActorPF2e, trait: WeaponTrait): Embedded<WeaponPF2e>[] {
         if (actor.isOfType("character")) {
             return actor.system.actions.flatMap((s) => (s.ready && s.item.traits.has(trait) ? s.item : []));
         } else {

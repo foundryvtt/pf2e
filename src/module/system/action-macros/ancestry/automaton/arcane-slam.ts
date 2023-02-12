@@ -1,13 +1,13 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../..";
 import { RollNotePF2e } from "@module/notes";
 import { PredicatePF2e } from "@system/predication";
-import { ActorPF2e, CreaturePF2e } from "@actor";
+import { CreaturePF2e } from "@actor";
 import { MODIFIER_TYPE, ModifierPF2e } from "@actor/modifiers";
 
 export function arcaneSlam(options: SkillActionOptions) {
     const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "athletics");
 
-    const { actor, token } = ActionMacroHelpers.target();
+    const { actor: target, token } = ActionMacroHelpers.target();
 
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
@@ -15,11 +15,11 @@ export function arcaneSlam(options: SkillActionOptions) {
         actionGlyph: options.glyph ?? "D",
         title: "PF2E.Actions.ArcaneSlam.Title",
         subtitle,
-        modifiers: (roller: ActorPF2e) => {
+        modifiers: (args) => {
             const modifiers = options.modifiers?.length ? [...options.modifiers] : [];
-            if (roller instanceof CreaturePF2e && actor instanceof CreaturePF2e) {
-                const attackerSize = roller.system.traits.size;
-                const targetSize = actor.system.traits.size;
+            if (args.actor instanceof CreaturePF2e && target instanceof CreaturePF2e) {
+                const attackerSize = args.actor.system.traits.size;
+                const targetSize = target.system.traits.size;
                 const sizeDifference = attackerSize.difference(targetSize);
                 const sizeModifier = new ModifierPF2e(
                     "PF2E.Actions.ArcaneSlam.Modifier.SizeDifference",
@@ -47,7 +47,7 @@ export function arcaneSlam(options: SkillActionOptions) {
                 ActionMacroHelpers.note(selector, "PF2E.Actions.ArcaneSlam", "failure"),
                 ActionMacroHelpers.note(selector, "PF2E.Actions.ArcaneSlam", "criticalFailure"),
             ];
-            if (!actor) {
+            if (!target) {
                 const translated = game.i18n.localize("PF2E.Actions.ArcaneSlam.Notes.NoTarget");
                 notes.unshift(
                     new RollNotePF2e({
@@ -60,6 +60,6 @@ export function arcaneSlam(options: SkillActionOptions) {
             }
             return notes;
         },
-        target: () => (actor && token ? { actor, token } : null),
+        target: () => (target && token ? { actor: target, token } : null),
     });
 }
