@@ -303,18 +303,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             return measureDistanceRect(this.bounds, target.bounds, { reach });
         }
 
-        const [selfDimensions, targetDimensions] = [this.actor.dimensions, target.actor.dimensions];
-        if (!(selfDimensions && targetDimensions)) return measureDistanceRect(this.bounds, target.bounds, { reach });
-
-        const gridSize = canvas.dimensions.size;
-        const gridDistance = canvas.dimensions.distance;
-
         return measureDistanceRect(this.bounds, target.bounds, {
             reach,
-            elevationThis: Math.floor((selfElevation / gridDistance) * gridSize),
-            heightThis: Math.floor((selfDimensions.height / gridDistance) * gridSize),
-            elevationTarget: Math.floor((targetElevation / gridDistance) * gridSize),
-            heightTarget: Math.floor((targetDimensions.height / gridDistance) * gridSize),
+            token: this,
+            target,
         });
     }
 

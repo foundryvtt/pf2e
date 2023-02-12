@@ -12,16 +12,12 @@ function measureDistanceRect(
     r1: PIXI.Rectangle,
     {
         reach = null,
-        elevationThis = 0,
-        heightThis = 0,
-        elevationTarget = 0,
-        heightTarget = 0,
+        token = null,
+        target = null,
     }: {
         reach?: number | null;
-        elevationThis?: number;
-        heightThis?: number;
-        elevationTarget?: number;
-        heightTarget?: number;
+        token?: TokenPF2e | null;
+        target?: TokenPF2e | null;
     } = {}
 ): number {
     if (!canvas.dimensions) return NaN;
@@ -65,11 +61,24 @@ function measureDistanceRect(
         distance.dx = Math.max(r0Snapped.left - r1Snapped.right, r1Snapped.left - r0Snapped.right, 0) + gridWidth;
         distance.dy = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
     }
-    if (elevationThis !== elevationTarget) {
+    if (token && target && token?.document?.elevation !== target?.document.elevation && token.actor && target.actor) {
+        const selfElevation = token.document.elevation;
+        const targetElevation = target.document.elevation;
+
+        const [selfDimensions, targetDimensions] = [token.actor.dimensions, target.actor.dimensions];
+
+        const gridSize = canvas.dimensions.size;
+        const gridDistance = canvas.dimensions.distance;
+
+        const elevation0 = Math.floor((selfElevation / gridDistance) * gridSize);
+        const height0 = Math.floor((selfDimensions.height / gridDistance) * gridSize);
+        const elevation1 = Math.floor((targetElevation / gridDistance) * gridSize);
+        const height1 = Math.floor((targetDimensions.height / gridDistance) * gridSize);
+
         // simulate xz plane
         const xzPlane = {
-            self: new PIXI.Rectangle(r0.x, elevationThis, r0.width, heightThis),
-            target: new PIXI.Rectangle(r1.x, elevationTarget, r1.width, heightTarget),
+            self: new PIXI.Rectangle(r0.x, elevation0, r0.width, height0),
+            target: new PIXI.Rectangle(r1.x, elevation1, r1.width, height1),
         };
 
         // check for overlappig
