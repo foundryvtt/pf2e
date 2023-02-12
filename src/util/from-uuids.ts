@@ -10,9 +10,7 @@ async function fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
     const actors: ActorPF2e[] = [];
     const items: ItemPF2e[] = [];
 
-    const documents = uuids.map((u): [string, ReturnType<typeof fromUuidSync>] =>
-        u.startsWith("Compendium") ? [u, fromCompendiumUuidSync(u)] : [u, fromUuidSync(u)]
-    );
+    const documents = uuids.map((u): [string, ReturnType<typeof fromUuidSync>] => [u, fromUuidSync(u)]);
     for (const [uuid, doc] of documents) {
         if (doc instanceof ActorPF2e) {
             actors.push(doc);
@@ -30,14 +28,6 @@ async function fromUUIDs(uuids: string[]): Promise<ClientDocument[]> {
     }
 
     return actors.length > 0 ? actors : items;
-}
-
-function fromCompendiumUuidSync(uuid: Exclude<ActorUUID | TokenDocumentUUID, CompendiumUUID>): ActorPF2e | null;
-function fromCompendiumUuidSync(uuid: Exclude<ItemUUID, CompendiumUUID>): ItemPF2e | null;
-function fromCompendiumUuidSync(uuid: string): ClientDocument | null;
-function fromCompendiumUuidSync(uuid: string): ClientDocument | null {
-    const [_type, scope, packId, id]: (string | undefined)[] = uuid.split(".");
-    return game.packs.get(`${scope}.${packId}`)?.get(id) ?? null;
 }
 
 function isItemUUID(uuid: unknown): uuid is ItemUUID {
