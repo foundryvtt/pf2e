@@ -1804,6 +1804,11 @@
         },
         {
             "_id": "8cmpySrr93cq7eJX",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "shCmYfLaCikPqgDt"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Greatpick",
             "sort": 1700000,
@@ -1830,35 +1835,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.pick",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization"
-                    },
-                    {
-                        "critical": true,
-                        "damageType": "slashing",
-                        "key": "FlatModifier",
-                        "label": "PF2E.Actor.Creature.CriticalSpecialization",
-                        "selector": "{item|_id}-damage",
-                        "slug": "specialization-slashing",
-                        "value": 6
-                    },
-                    {
-                        "critical": true,
-                        "damageType": "fire",
-                        "key": "FlatModifier",
-                        "label": "PF2E.Actor.Creature.CriticalSpecialization",
-                        "selector": "{item|_id}-damage",
-                        "slug": "specialization-fire",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1893,25 +1870,19 @@
                     "value": 30
                 },
                 "damageRolls": {
-                    "xt05805t9u8kgda1wprh": {
+                    "0": {
                         "damage": "3d6+16",
                         "damageType": "bludgeoning"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "The target must succeed at a @Check[type:fortitude|dc:34|name:Brawling Critical Specialization] save or be @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} until the end of the graveknight captain's next turn",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1920,7 +1891,8 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "fire"
+                        "fire",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -1931,6 +1903,11 @@
         },
         {
             "_id": "Lq5V4JBt7MGYWKpd",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "xgvYGAW4OSTwj0Mg"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Shortbow",
             "sort": 1900000,
@@ -1957,17 +1934,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.bow",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1978,7 +1945,6 @@
                         "deadly-d10",
                         "fire",
                         "magical",
-                        "range",
                         "range-increment-60",
                         "reload-0"
                     ]
@@ -2393,12 +2359,16 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The graveknight has access to the critical specialization effects of any weapons it wields.</p>\n<p><em>As NPC strikes are not generated from the weapons it holds, this feature cannot be automated. Add a \"Note\" rule element to each of the graveknight's strikes for the correct critical specialization.</em></p>"
+                    "value": "<p>The graveknight has access to the critical specialization effects of any weapons it wields.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization"
+                    }
+                ],
                 "slug": "graveknight-weapon-master",
                 "source": {
                     "value": "Pathfinder Bestiary"
