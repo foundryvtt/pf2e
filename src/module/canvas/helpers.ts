@@ -64,7 +64,7 @@ function measureDistanceRect(
             target: new PIXI.Rectangle(r1.x, elevation1, r1.width, height1),
         };
 
-        //check for overlappig
+        // check for overlappig
         const elevationOverlap = [
             [xzPlane.self, xzPlane.target],
             [xzPlane.target, xzPlane.self],
