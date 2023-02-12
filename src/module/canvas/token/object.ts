@@ -2,7 +2,7 @@ import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values";
 import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@module/scene";
 import { pick } from "@util";
-import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e, measureDistanceRectDimensions } from "..";
+import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
 import { HearingSource } from "../perception/hearing-source";
 import { AuraRenderers } from "./aura";
 
@@ -303,54 +303,19 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             return measureDistanceRect(this.bounds, target.bounds, { reach });
         }
 
-        const distance = {
-            ...measureDistanceRectDimensions(this.bounds, target.bounds),
-            dz: 0,
-        };
-
         const [selfDimensions, targetDimensions] = [this.actor.dimensions, target.actor.dimensions];
         if (!(selfDimensions && targetDimensions)) return measureDistanceRect(this.bounds, target.bounds, { reach });
 
         const gridSize = canvas.dimensions.size;
         const gridDistance = canvas.dimensions.distance;
 
-        const xzPlane = {
-            self: new PIXI.Rectangle(
-                this.bounds.x,
-                Math.floor((selfElevation / gridDistance) * gridSize),
-                this.bounds.width,
-                Math.floor((selfDimensions.height / gridDistance) * gridSize)
-            ),
-            target: new PIXI.Rectangle(
-                target.bounds.x,
-                Math.floor((targetElevation / gridDistance) * gridSize),
-                target.bounds.width,
-                Math.floor((targetDimensions.height / gridDistance) * gridSize)
-            ),
-        };
-        distance.dz = measureDistanceRectDimensions(xzPlane.self, xzPlane.target).dy;
-
-        const nx = Math.ceil(Math.abs(distance.dx / gridSize));
-        const ny = Math.ceil(Math.abs(distance.dy / gridSize));
-        const nz = Math.ceil(Math.abs(distance.dz / gridSize));
-
-        // ingore the lowest difference
-        const sortedDistance = [nx, ny, nz].sort();
-        // Get the number of straight and diagonal moves
-        const squares = {
-            doubleDiagonal: sortedDistance[0],
-            diagonal: sortedDistance[1] - sortedDistance[0],
-            straight: sortedDistance[2] - sortedDistance[1],
-        };
-
-        // "Unlike with measuring most distances, 10-foot reach can reach 2 squares diagonally." (CRB pg 455)
-        const reduction = (squares.diagonal > 1 || squares.doubleDiagonal > 1) && reach === 10 ? 1 : 0;
-
-        // Diagonals in PF pretty much count as 1.5 times a straight
-        const actualDistance =
-            Math.floor(squares.doubleDiagonal * 1.75 + squares.diagonal * 1.5 + squares.straight) - reduction;
-
-        return actualDistance * gridDistance;
+        return measureDistanceRect(this.bounds, target.bounds, {
+            reach,
+            elevation0: Math.floor((selfElevation / gridDistance) * gridSize),
+            height0: Math.floor((selfDimensions.height / gridDistance) * gridSize),
+            elevation1: Math.floor((targetElevation / gridDistance) * gridSize),
+            height1: Math.floor((targetDimensions.height / gridDistance) * gridSize),
+        });
     }
 
     /** Add a callback for when a movement animation finishes */

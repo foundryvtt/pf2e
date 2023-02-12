@@ -10,7 +10,13 @@ import { TokenPF2e } from "./token";
 function measureDistanceRect(
     r0: PIXI.Rectangle,
     r1: PIXI.Rectangle,
-    { reach = null }: { reach?: number | null } = {}
+    {
+        reach = null,
+        elevation0 = 0,
+        height0 = 0,
+        elevation1 = 0,
+        height1 = 0,
+    }: { reach?: number | null; elevation0?: number; height0?: number; elevation1?: number; height1?: number } = {}
 ): number {
     if (!canvas.dimensions) return NaN;
 
@@ -18,55 +24,77 @@ function measureDistanceRect(
         return canvas.grid.measureDistance(r0, r1);
     }
 
-    const { dx, dy } = measureDistanceRectDimensions(r0, r1);
-
-    return measureDistanceOnGrid({ dx, dy }, { reach });
-}
-
-/**
- * Measure the minimum distance between two rectangles on x and y Dimensions
- * @param r0      The origin rectangle
- * @param r1      The destination rectangle
- */
-function measureDistanceRectDimensions(r0: PIXI.Rectangle, r1: PIXI.Rectangle): { dx: number; dy: number } {
-    if (!canvas.dimensions) return { dx: NaN, dy: NaN };
-
     const gridWidth = canvas.grid.grid.w;
 
+    let dx = 0;
+    let dy = 0;
+    let dz = 0;
     // Return early if the rectangles overlap
     const rectanglesOverlap = [
         [r0, r1],
         [r1, r0],
     ].some(([rA, rB]) => rB.right > rA.left && rB.left < rA.right && rB.bottom > rA.top && rB.top < rA.bottom);
-    if (rectanglesOverlap) return { dx: 0, dy: 0 };
+    if (rectanglesOverlap) {
+        dx = 0;
+        dy = 0;
+    } else {
+        // Snap the dimensions and position of the rectangle to grid square units
+        const snapBounds = (rectangle: PIXI.Rectangle, { toward }: { toward: PIXI.Rectangle }): PIXI.Rectangle => {
+            const roundLeft = rectangle.left < toward.left ? Math.ceil : Math.floor;
+            const roundTop = rectangle.top < toward.top ? Math.ceil : Math.floor;
 
-    if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
-        return {
-            dx: Math.abs(r0.x - r1.x),
-            dy: Math.abs(r0.y - r1.y),
+            const left = roundLeft(rectangle.left / gridWidth) * gridWidth;
+            const top = roundTop(rectangle.top / gridWidth) * gridWidth;
+            const width = Math.ceil(rectangle.width / gridWidth) * gridWidth;
+            const height = Math.ceil(rectangle.height / gridWidth) * gridWidth;
+
+            return new PIXI.Rectangle(left, top, width, height);
         };
+
+        // Find the minimum distance between the rectangles for each dimension
+        const r0Snapped = snapBounds(r0, { toward: r1 });
+        const r1Snapped = snapBounds(r1, { toward: r0 });
+        dx = Math.max(r0Snapped.left - r1Snapped.right, r1Snapped.left - r0Snapped.right, 0) + gridWidth;
+        dy = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
+    }
+    if (elevation0 !== elevation1) {
+        // simulate xz plane
+        const xzPlane = {
+            self: new PIXI.Rectangle(r0.x, elevation0, r0.width, height0),
+            target: new PIXI.Rectangle(r1.x, elevation1, r1.width, height1),
+        };
+
+        //check for overlappig
+        const elevationOverlap = [
+            [xzPlane.self, xzPlane.target],
+            [xzPlane.target, xzPlane.self],
+        ].some(([rA, rB]) => rB.bottom > rA.top && rB.top < rA.bottom);
+        if (elevationOverlap) {
+            dz = 0;
+        } else {
+            // Snap the dimensions and position of the rectangle to grid square units
+            const snapBounds = (rectangle: PIXI.Rectangle, { toward }: { toward: PIXI.Rectangle }): PIXI.Rectangle => {
+                const roundLeft = rectangle.left < toward.left ? Math.ceil : Math.floor;
+                const roundTop = rectangle.top < toward.top ? Math.ceil : Math.floor;
+
+                const left = roundLeft(rectangle.left / gridWidth) * gridWidth;
+                const top = roundTop(rectangle.top / gridWidth) * gridWidth;
+                const width = Math.ceil(rectangle.width / gridWidth) * gridWidth;
+                const height = Math.ceil(rectangle.height / gridWidth) * gridWidth;
+
+                return new PIXI.Rectangle(left, top, width, height);
+            };
+
+            // Find the minimum distance between the rectangles for each dimension
+            const r0Snapped = snapBounds(xzPlane.self, { toward: xzPlane.target });
+            const r1Snapped = snapBounds(xzPlane.target, { toward: xzPlane.self });
+            dz = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
+        }
+    } else {
+        dz = 0;
     }
 
-    // Snap the dimensions and position of the rectangle to grid square units
-    const snapBounds = (rectangle: PIXI.Rectangle, { toward }: { toward: PIXI.Rectangle }): PIXI.Rectangle => {
-        const roundLeft = rectangle.left < toward.left ? Math.ceil : Math.floor;
-        const roundTop = rectangle.top < toward.top ? Math.ceil : Math.floor;
-
-        const left = roundLeft(rectangle.left / gridWidth) * gridWidth;
-        const top = roundTop(rectangle.top / gridWidth) * gridWidth;
-        const width = Math.ceil(rectangle.width / gridWidth) * gridWidth;
-        const height = Math.ceil(rectangle.height / gridWidth) * gridWidth;
-
-        return new PIXI.Rectangle(left, top, width, height);
-    };
-
-    // Find the minimum distance between the rectangles for each dimension
-    const r0Snapped = snapBounds(r0, { toward: r1 });
-    const r1Snapped = snapBounds(r1, { toward: r0 });
-    const dx = Math.max(r0Snapped.left - r1Snapped.right, r1Snapped.left - r0Snapped.right, 0) + gridWidth;
-    const dy = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
-
-    return { dx: dx, dy: dy };
+    return measureDistanceOnGrid({ dx, dy, dz }, { reach });
 }
 
 /**
@@ -90,7 +118,7 @@ function measureDistance(p0: Point, p1: Point): number {
  * @param [reach] If this is a reach measurement, the origin actor's reach
  */
 function measureDistanceOnGrid(
-    segment: { dx: number; dy: number },
+    segment: { dx: number; dy: number; dz?: number | null },
     { reach = null }: { reach?: number | null } = {}
 ): number {
     if (!canvas.dimensions) return NaN;
@@ -100,15 +128,23 @@ function measureDistanceOnGrid(
 
     const nx = Math.ceil(Math.abs(segment.dx / gridSize));
     const ny = Math.ceil(Math.abs(segment.dy / gridSize));
+    const nz = Math.ceil(Math.abs((segment.dz || 0) / gridSize));
 
+    // ingore the lowest difference
+    const sortedDistance = [nx, ny, nz].sort();
     // Get the number of straight and diagonal moves
-    const squares = { diagonal: Math.min(nx, ny), straight: Math.abs(ny - nx) };
+    const squares = {
+        doubleDiagonal: sortedDistance[0],
+        diagonal: sortedDistance[1] - sortedDistance[0],
+        straight: sortedDistance[2] - sortedDistance[1],
+    };
 
     // "Unlike with measuring most distances, 10-foot reach can reach 2 squares diagonally." (CRB pg 455)
-    const reduction = squares.diagonal > 1 && reach === 10 ? 1 : 0;
+    const reduction = squares.diagonal + squares.doubleDiagonal > 1 && reach === 10 ? 1 : 0;
 
     // Diagonals in PF pretty much count as 1.5 times a straight
-    const distance = Math.floor(squares.diagonal * 1.5 + squares.straight) - reduction;
+    // for diagonals across the x, y, and z axis count it as 1.75 as a best guess
+    const distance = Math.floor(squares.doubleDiagonal * 1.75 + squares.diagonal * 1.5 + squares.straight) - reduction;
 
     return distance * gridDistance;
 }
@@ -260,4 +296,4 @@ interface HighlightGridParams {
     collisionType?: WallRestrictionType;
 }
 
-export { highlightGrid, measureDistanceRect, measureDistanceRectDimensions };
+export { highlightGrid, measureDistanceRect };
