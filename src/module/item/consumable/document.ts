@@ -91,16 +91,14 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     }
 
     override getRollOptions(prefix = "consumable"): string[] {
-        return super.getRollOptions(prefix).concat(
-            Object.entries({
+        return [
+            ...super.getRollOptions(prefix),
+            ...Object.entries({
                 [`category:${this.category}`]: true,
             })
-                .filter(([_key, isTrue]) => isTrue)
-                .map(([key]) => {
-                    const delimitedPrefix = prefix ? `${prefix}:` : "";
-                    return `${delimitedPrefix}${key}`;
-                })
-        );
+                .filter(([, isTrue]) => isTrue)
+                .map(([key]) => `${prefix}:${key}`),
+        ];
     }
 
     isAmmoFor(weapon: ItemPF2e): boolean {

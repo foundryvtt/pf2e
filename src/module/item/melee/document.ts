@@ -2,12 +2,18 @@ import { SIZE_TO_REACH } from "@actor/creature/values";
 import { ItemPF2e } from "@item/base";
 import { ItemSummaryData } from "@item/data";
 import { WeaponPF2e } from "@item/weapon";
-import { WeaponRangeIncrement } from "@item/weapon/types";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types";
 import { combineTerms } from "@scripts/dice";
 import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage";
+import { tupleHasValue } from "@util";
 import { MeleeData, MeleeSystemData, NPCAttackTrait } from "./data";
 
 class MeleePF2e extends ItemPF2e {
+    /** Set during data preparation if a linked weapon is found */
+    category: WeaponCategory | null = null;
+    group: WeaponGroup | null = null;
+    baseType: BaseWeaponType | null = null;
+
     get traits(): Set<NPCAttackTrait> {
         return new Set(this.system.traits.value);
     }
@@ -109,6 +115,15 @@ class MeleePF2e extends ItemPF2e {
         }
     }
 
+    /** Set weapon category, group, and base if that information is available */
+    override prepareSiblingData(): void {
+        const { linkedWeapon } = this;
+        const isUnarmed = this.traits.has("unarmed");
+        this.category = isUnarmed ? "unarmed" : linkedWeapon?.category ?? null;
+        this.group = isUnarmed ? "brawling" : this.linkedWeapon?.group ?? null;
+        this.baseType = tupleHasValue(["claw", "fist", "jaws"] as const, this.slug) ? this.slug : null;
+    }
+
     override prepareActorData(): void {
         if (!this.actor?.isOfType("npc")) return;
 
@@ -158,20 +173,21 @@ class MeleePF2e extends ItemPF2e {
         }
     }
 
-    /** Generate a list of strings for use in predication */
     override getRollOptions(prefix = this.type): string[] {
         const baseOptions = super.getRollOptions(prefix);
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
+
         const otherOptions = Object.entries({
             equipped: true,
             melee: this.isMelee,
             ranged: this.isRanged,
             thrown: this.isThrown,
-            ["category:unarmed"]: this.traits.has("unarmed"),
+            [`category:${this.category}`]: !!this.category,
+            [`group:${this.group}`]: !!this.group,
+            [`base:${this.baseType}`]: !!this.baseType,
             [`range-increment:${this.rangeIncrement}`]: !!this.rangeIncrement,
         })
-            .filter(([_key, isTrue]) => isTrue)
-            .map(([key]) => `${delimitedPrefix}${key}`);
+            .filter(([, isTrue]) => isTrue)
+            .map(([key]) => `${prefix}:${key}`);
 
         return [baseOptions, otherOptions].flat().sort();
     }

@@ -596,30 +596,29 @@ class SpellPF2e extends ItemPF2e {
     }
 
     override getRollOptions(prefix = this.type): string[] {
-        const delimitedPrefix = prefix ? `${prefix}:` : "";
-        const options = new Set(["magical", `${delimitedPrefix}magical`]);
+        const options = new Set(["magical", `${prefix}:magical`]);
 
         const entryHasSlots = this.spellcasting?.isPrepared || this.spellcasting?.isSpontaneous;
         if (entryHasSlots && !this.isCantrip && !this.isFromConsumable) {
-            options.add(`${delimitedPrefix}spell-slot`);
+            options.add(`${prefix}:spell-slot`);
         }
 
         if (!this.system.duration.value) {
-            options.add(`${delimitedPrefix}duration:0`);
+            options.add(`${prefix}:duration:0`);
         }
 
         const damageValues = Object.values(this.system.damage.value);
         for (const damage of damageValues) {
             if (damage.type) {
-                options.add(`${delimitedPrefix}damage:${damage.type.value}`);
-                options.add(`${delimitedPrefix}damage:type:${damage.type.value}`);
+                options.add(`${prefix}:damage:${damage.type.value}`);
+                options.add(`${prefix}:damage:type:${damage.type.value}`);
             }
             const category = DamageCategorization.fromDamageType(damage.type.value);
             if (category) {
-                options.add(`${delimitedPrefix}damage:category:${category}`);
+                options.add(`${prefix}:damage:category:${category}`);
             }
             if (damage.type.subtype === "persistent") {
-                options.add(`${delimitedPrefix}damage:persistent:${damage.type.value}`);
+                options.add(`${prefix}:damage:persistent:${damage.type.value}`);
             }
         }
 

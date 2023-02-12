@@ -34,7 +34,7 @@ class ActorTraitsRuleElement extends RuleElementPF2e {
     }
 
     override beforePrepareData(): void {
-        if (this.ignored) return;
+        if (!this.test()) return;
 
         if (this.actor.system.traits) {
             const traits: { value: string[] } = this.actor.system.traits;

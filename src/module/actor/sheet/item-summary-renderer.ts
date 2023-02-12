@@ -3,7 +3,7 @@ import { ConsumablePF2e, ItemPF2e, SpellPF2e } from "@item";
 import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
-import { UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
 
 /**
  * Implementation used to populate item summaries, toggle visibility
@@ -34,10 +34,9 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         if (itemType === "spellSlot") return;
         const item = isFormula ? await fromUuid(itemId ?? "") : actor.items.get(itemId ?? "");
 
-        // If there is no item id (such as PC strikes) or it is a condition, this is just a visibility toggle
+        // If there is no item id (such as PC strikes), this is just a visibility toggle
         // We need a better way to detect pre-rendered item-summaries
-        const isCondition = item instanceof ItemPF2e && item?.isOfType("condition");
-        if ((!itemId || isCondition) && $element.hasClass("expandable")) {
+        if (!itemId && $element.hasClass("expandable")) {
             const $summary = $element.find(".item-summary");
             if ($summary.css("display") === "none") {
                 $summary.slideDown();
@@ -48,7 +47,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
             return;
         }
 
-        if (!(item instanceof ItemPF2e) || ["condition", "spellcastingEntry"].includes(item.type)) return;
+        if (!(item instanceof ItemPF2e) || item.isOfType("spellcastingEntry")) return;
 
         // Toggle summary
         if ($element.hasClass("expanded")) {
@@ -83,83 +82,23 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
 
     /**
      * Called when an item summary is expanded and needs to be filled out.
-     * @todo Move this to templates
      */
     async renderItemSummary($div: JQuery, item: ItemPF2e, chatData: ItemSummaryData): Promise<void> {
-        const itemIsPhysical = item.isOfType("physical");
-
-        // Wrap a span element in another with GM visibility set
-        const gmVisibilityWrap = (span: HTMLSpanElement, visibility: UserVisibility): HTMLSpanElement => {
-            const wrapper = document.createElement("span");
-            wrapper.dataset.visibility = visibility;
-            wrapper.append(span);
-            return wrapper;
-        };
-
-        const rarityTag = itemIsPhysical
-            ? ((): HTMLElement => {
-                  const span = document.createElement("span");
-                  span.classList.add("tag", item.rarity);
-                  span.innerText = game.i18n.localize(CONFIG.PF2E.rarityTraits[item.rarity]);
-
-                  // Set GM user visibility of rarity if unidentified
-                  return gmVisibilityWrap(span, item.isIdentified ? "all" : "gm");
-              })()
-            : null;
-
-        const levelPriceLabel =
-            itemIsPhysical && item.system.stackGroup !== "coins"
-                ? ((): HTMLElement => {
-                      const price = item.price.value.toString();
-                      const priceLabel = game.i18n.format("PF2E.Item.Physical.PriceLabel", { price });
-                      const levelLabel = game.i18n.format("PF2E.LevelN", { level: item.level });
-
-                      const paragraph = document.createElement("p");
-                      paragraph.dataset.visibility = item.isIdentified ? "all" : "gm";
-                      paragraph.append(levelLabel, document.createElement("br"), priceLabel);
-                      return paragraph;
-                  })()
-                : $();
-
-        const properties =
-            chatData.properties
-                ?.filter((property): property is string => typeof property === "string")
-                .map((property): HTMLElement => {
-                    const span = document.createElement("span");
-                    span.classList.add("tag", "tag_secondary");
-                    span.innerText = game.i18n.localize(property);
-                    return itemIsPhysical ? gmVisibilityWrap(span, item.isIdentified ? "all" : "gm") : span;
-                }) ?? [];
-
-        // append traits (only style the tags if they contain description data)
-        const traitTags = Array.isArray(chatData.traits)
-            ? chatData.traits
-                  .filter((trait) => !trait.excluded)
-                  .map((trait): HTMLElement => {
-                      const span = document.createElement("span");
-                      span.classList.add("tag");
-                      span.innerText = game.i18n.localize(trait.label);
-                      if (trait.description) {
-                          span.title = game.i18n.localize(trait.description);
-                          $(span).tooltipster({ maxWidth: 400, theme: "crb-hover", contentAsHTML: true });
-                      }
-
-                      return itemIsPhysical
-                          ? gmVisibilityWrap(span, item.isIdentified || !trait.mystified ? "all" : "gm")
-                          : span;
-                  })
-            : [];
-
-        const allTags = [rarityTag, ...traitTags, ...properties].filter((tag): tag is HTMLElement => !!tag);
-        const propertiesElem = document.createElement("div");
-        propertiesElem.classList.add("tags", "item-properties");
-        propertiesElem.append(...allTags);
-
         const description = isItemSystemData(chatData)
             ? chatData.description.value
             : await TextEditor.enrichHTML(item.description, { rollData: item.getRollData(), async: true });
 
-        $div.append(propertiesElem, levelPriceLabel, `<div class="item-description">${description}</div>`);
+        const rarity = item.system.traits?.rarity;
+
+        const summary = await renderTemplate("systems/pf2e/templates/actors/partials/item-summary.hbs", {
+            item,
+            description,
+            identified: game.user.isGM || !item.isOfType("physical") || item.isIdentified,
+            rarityLabel: rarity && item.isOfType("physical") ? CONFIG.PF2E.rarityTraits[rarity] : null,
+            chatData,
+        });
+
+        $div.append(summary);
         UserVisibilityPF2e.process($div);
     }
 
