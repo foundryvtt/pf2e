@@ -1267,6 +1267,11 @@
         },
         {
             "_id": "j5LDyAGkf9FeoBAt",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "cH86pXBWXoCzfFuA"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Rapier",
             "sort": 1400000,
@@ -1300,7 +1305,8 @@
                     "value": [
                         "deadly-d8",
                         "disarm",
-                        "finesse"
+                        "finesse",
+                        "magical"
                     ]
                 },
                 "weaponType": {
@@ -1311,6 +1317,11 @@
         },
         {
             "_id": "CadzQEjQFp41MtkP",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "iwjhcDyX2SKcHon0"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Blowgun",
             "sort": 1500000,
@@ -1346,6 +1357,7 @@
                     "rarity": "common",
                     "value": [
                         "agile",
+                        "magical",
                         "nonlethal",
                         "range-increment-20",
                         "reload-1"
@@ -1542,30 +1554,10 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
+                        "key": "CriticalSpecialization",
                         "predicate": [
                             "target:condition:flat-footed"
-                        ],
-                        "selector": "rapier-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.sword",
-                        "title": "{item|name}",
-                        "visibility": "gm"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "predicate": [
-                            "target:condition:flat-footed"
-                        ],
-                        "selector": "blowgun-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.dart",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        ]
                     }
                 ],
                 "slug": null,
