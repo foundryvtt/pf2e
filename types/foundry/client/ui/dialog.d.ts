@@ -11,7 +11,7 @@ interface DialogButton {
     icon?: string;
     label?: string;
     condition?: boolean;
-    callback?: (html: JQuery) => void;
+    callback?: (html: JQuery) => void | Promise<void>;
 }
 
 interface ConfirmDialogParameters<Y = true, N = false> {
