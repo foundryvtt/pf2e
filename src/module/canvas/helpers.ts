@@ -26,17 +26,19 @@ function measureDistanceRect(
 
     const gridWidth = canvas.grid.grid.w;
 
-    let dx = 0;
-    let dy = 0;
-    let dz = 0;
+    const distance = {
+        dx: 0,
+        dy: 0,
+        dz: 0,
+    };
     // Return early if the rectangles overlap
     const rectanglesOverlap = [
         [r0, r1],
         [r1, r0],
     ].some(([rA, rB]) => rB.right > rA.left && rB.left < rA.right && rB.bottom > rA.top && rB.top < rA.bottom);
     if (rectanglesOverlap) {
-        dx = 0;
-        dy = 0;
+        distance.dx = 0;
+        distance.dy = 0;
     } else {
         // Snap the dimensions and position of the rectangle to grid square units
         const snapBounds = (rectangle: PIXI.Rectangle, { toward }: { toward: PIXI.Rectangle }): PIXI.Rectangle => {
@@ -54,8 +56,8 @@ function measureDistanceRect(
         // Find the minimum distance between the rectangles for each dimension
         const r0Snapped = snapBounds(r0, { toward: r1 });
         const r1Snapped = snapBounds(r1, { toward: r0 });
-        dx = Math.max(r0Snapped.left - r1Snapped.right, r1Snapped.left - r0Snapped.right, 0) + gridWidth;
-        dy = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
+        distance.dx = Math.max(r0Snapped.left - r1Snapped.right, r1Snapped.left - r0Snapped.right, 0) + gridWidth;
+        distance.dy = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
     }
     if (elevation0 !== elevation1) {
         // simulate xz plane
@@ -70,7 +72,7 @@ function measureDistanceRect(
             [xzPlane.target, xzPlane.self],
         ].some(([rA, rB]) => rB.bottom > rA.top && rB.top < rA.bottom);
         if (elevationOverlap) {
-            dz = 0;
+            distance.dz = 0;
         } else {
             // Snap the dimensions and position of the rectangle to grid square units
             const snapBounds = (rectangle: PIXI.Rectangle, { toward }: { toward: PIXI.Rectangle }): PIXI.Rectangle => {
@@ -88,13 +90,13 @@ function measureDistanceRect(
             // Find the minimum distance between the rectangles for each dimension
             const r0Snapped = snapBounds(xzPlane.self, { toward: xzPlane.target });
             const r1Snapped = snapBounds(xzPlane.target, { toward: xzPlane.self });
-            dz = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
+            distance.dz = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
         }
     } else {
-        dz = 0;
+        distance.dz = 0;
     }
 
-    return measureDistanceOnGrid({ dx, dy, dz }, { reach });
+    return measureDistanceOnGrid(distance, { reach });
 }
 
 /**
