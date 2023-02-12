@@ -7,7 +7,7 @@ import { TokenPF2e } from "./token";
  * @param r1      The destination rectangle
  * @param [reach] If this is a reach measurement, the origin actor's reach
  */
-function measureDistanceRect(
+function measureDistanceCuboid(
     r0: PIXI.Rectangle,
     r1: PIXI.Rectangle,
     {
@@ -313,4 +313,4 @@ interface HighlightGridParams {
     collisionType?: WallRestrictionType;
 }
 
-export { highlightGrid, measureDistanceRect };
+export { highlightGrid, measureDistanceCuboid };

@@ -2,7 +2,7 @@ import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values";
 import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@module/scene";
 import { pick } from "@util";
-import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
+import { CanvasPF2e, measureDistanceCuboid, TokenLayerPF2e } from "..";
 import { HearingSource } from "../perception/hearing-source";
 import { AuraRenderers } from "./aura";
 
@@ -300,10 +300,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
         const selfElevation = this.document.elevation;
         const targetElevation = target.document.elevation;
         if (selfElevation === targetElevation || !this.actor || !target.actor) {
-            return measureDistanceRect(this.bounds, target.bounds, { reach });
+            return measureDistanceCuboid(this.bounds, target.bounds, { reach });
         }
 
-        return measureDistanceRect(this.bounds, target.bounds, {
+        return measureDistanceCuboid(this.bounds, target.bounds, {
             reach,
             token: this,
             target,

@@ -4,7 +4,7 @@ import { getAreaSquares } from "@module/canvas/token/aura/util";
 import { ScenePF2e } from "@scene/document";
 import { TokenAuraData } from "./types";
 import { TokenDocumentPF2e } from "../document";
-import { measureDistanceRect } from "@module/canvas";
+import { measureDistanceCuboid } from "@module/canvas";
 import { ActorPF2e } from "@actor";
 import { AuraColors, AuraData } from "@actor/types";
 
@@ -79,7 +79,7 @@ class TokenAura implements TokenAuraData {
         if (this.token.object.distanceTo(token.object) > this.radius) return false;
 
         // 3. Check whether any aura square intersects the token's space
-        return this.squares.some((s) => s.active && measureDistanceRect(s, token.bounds) === 0);
+        return this.squares.some((s) => s.active && measureDistanceCuboid(s, token.bounds) === 0);
     }
 
     /**

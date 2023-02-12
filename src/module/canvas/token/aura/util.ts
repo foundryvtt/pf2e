@@ -1,5 +1,5 @@
 import { EffectAreaSquare } from "@module/canvas/effect-area-square";
-import { measureDistanceRect } from "@module/canvas/helpers";
+import { measureDistanceCuboid } from "@module/canvas/helpers";
 import { TokenAuraData } from "@scene/token-document/aura/types";
 
 export function getAreaSquares(aura: TokenAuraData) {
@@ -46,7 +46,7 @@ export function getAreaSquares(aura: TokenAuraData) {
             [genColumn(topLeftSquare)]
         )
         .flat()
-        .filter((s) => measureDistanceRect(aura.token.bounds, s) <= aura.radius)
+        .filter((s) => measureDistanceCuboid(aura.token.bounds, s) <= aura.radius)
         .map((square) => {
             const ray = new Ray(aura.token.center, square.center);
             square.active = !canvas.walls.checkCollision(ray, { type: collisionType, mode: "any" });
