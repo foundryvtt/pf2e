@@ -202,7 +202,7 @@ class EncounterPF2e extends Combat {
         super._onDelete(options, userId);
 
         if (this.started) {
-            Hooks.call("pf2e.endTurn", this.combatant ?? null, this, userId);
+            Hooks.callAll("pf2e.endTurn", this.combatant ?? null, this, userId);
             game.pf2e.effectTracker.onEncounterEnd(this);
         }
 

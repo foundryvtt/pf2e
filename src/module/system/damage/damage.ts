@@ -245,7 +245,7 @@ export class DamagePF2e {
             await ChatMessagePF2e.create(messageData, { rollMode });
         }
 
-        Hooks.call(`pf2e.damageRoll`, rollData);
+        Hooks.callAll(`pf2e.damageRoll`, rollData);
         if (callback) callback(rollData);
 
         return roll;

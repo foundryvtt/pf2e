@@ -144,7 +144,6 @@ declare global {
          * @param hook  The hook being triggered
          * @param args  Arguments passed to the hook callback functions
          */
-
         static callAll(hook: string, ...args: unknown[]): boolean;
 
         /**
