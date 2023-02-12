@@ -2,7 +2,7 @@ import { ANIMAL_COMPANION_SOURCE_ID } from "@actor/values";
 import { EffectPF2e } from "@item";
 import { TokenDocumentPF2e } from "@module/scene";
 import { pick } from "@util";
-import { CanvasPF2e, measureDistanceRect, TokenLayerPF2e } from "..";
+import { CanvasPF2e, measureDistanceCuboid, TokenLayerPF2e } from "..";
 import { HearingSource } from "../perception/hearing-source";
 import { AuraRenderers } from "./aura";
 
@@ -297,57 +297,17 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
             return canvas.grid.measureDistance(this.position, target.position);
         }
 
-        const distance = {
-            xy: measureDistanceRect(this.bounds, target.bounds, { reach }),
-            xz: 0,
-            yz: 0,
-        };
-
         const selfElevation = this.document.elevation;
         const targetElevation = target.document.elevation;
-        if (selfElevation === targetElevation || !this.actor || !target.actor) return distance.xy;
+        if (selfElevation === targetElevation || !this.actor || !target.actor) {
+            return measureDistanceCuboid(this.bounds, target.bounds, { reach });
+        }
 
-        const [selfDimensions, targetDimensions] = [this.actor.dimensions, target.actor.dimensions];
-        if (!(selfDimensions && targetDimensions)) return distance.xy;
-
-        const gridSize = canvas.dimensions.size;
-        const gridDistance = canvas.dimensions.distance;
-
-        const xzPlane = {
-            self: new PIXI.Rectangle(
-                this.bounds.x,
-                Math.floor((selfElevation / gridDistance) * gridSize),
-                this.bounds.width,
-                Math.floor((selfDimensions.height / gridDistance) * gridSize)
-            ),
-            target: new PIXI.Rectangle(
-                target.bounds.x,
-                Math.floor((targetElevation / gridDistance) * gridSize),
-                target.bounds.width,
-                Math.floor((targetDimensions.height / gridDistance) * gridSize)
-            ),
-        };
-        distance.xz = measureDistanceRect(xzPlane.self, xzPlane.target, { reach });
-
-        const yzPlane = {
-            self: new PIXI.Rectangle(
-                this.bounds.y,
-                Math.floor((selfElevation / gridDistance) * gridSize),
-                this.bounds.height,
-                Math.floor((selfDimensions.height / gridDistance) * gridSize)
-            ),
-            target: new PIXI.Rectangle(
-                target.bounds.y,
-                Math.floor((targetElevation / gridDistance) * gridSize),
-                target.bounds.height,
-                Math.floor((targetDimensions.height / gridDistance) * gridSize)
-            ),
-        };
-        distance.yz = measureDistanceRect(yzPlane.self, yzPlane.target, { reach });
-
-        const hypotenuse = Math.sqrt(Math.pow(distance.xy, 2) + Math.pow(Math.max(distance.xz, distance.yz), 2));
-
-        return Math.floor(hypotenuse / gridDistance) * gridDistance;
+        return measureDistanceCuboid(this.bounds, target.bounds, {
+            reach,
+            token: this,
+            target,
+        });
     }
 
     /** Add a callback for when a movement animation finishes */
