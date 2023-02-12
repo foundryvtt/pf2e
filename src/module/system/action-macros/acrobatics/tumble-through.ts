@@ -1,6 +1,6 @@
 import { ActionMacroHelpers, SkillActionOptions } from "..";
 
-const PREFIX = "PF2E.Actions.TumbleThrough.Notes";
+const PREFIX = "PF2E.Actions.TumbleThrough";
 
 export function tumbleThrough(options: SkillActionOptions) {
     const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "acrobatics");
@@ -20,8 +20,8 @@ export function tumbleThrough(options: SkillActionOptions) {
         difficultyClass: options.difficultyClass,
         difficultyClassStatistic: (target) => target.saves.reflex,
         extraNotes: (selector: string) => [
-            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.success`, ["success", "criticalSuccess"]),
-            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.failure`, ["failure", "criticalFailure"]),
+            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.success`, ["success", "criticalSuccess"]),
+            ActionMacroHelpers.outcomesNote(selector, `${PREFIX}.Notes.failure`, ["failure", "criticalFailure"]),
         ],
     });
 }
