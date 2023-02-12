@@ -26,7 +26,7 @@ export abstract class DataModel<
     readonly parent: TParent;
 
     /** The defined and cached Data Schema for all instances of this DataModel. */
-    protected static _schema: fields.DataSchema | undefined;
+    protected static _schema: fields.SchemaField<ReturnType<typeof this["defineSchema"]>> | undefined;
 
     /** Configure the data model instance before validation and initialization workflows are performed. */
     protected _configure(): void;
@@ -42,7 +42,7 @@ export abstract class DataModel<
     static defineSchema(): fields.DataSchema;
 
     /** Define the data schema for documents of this type. */
-    static get schema(): fields.SchemaField<ReturnType<typeof this["defineSchema"]>>;
+    static get schema(): Required<typeof this["_schema"]>;
 
     /** Define the data schema for this document instance. */
     // PROJECT NOTE: this must be overloaded in an interface merge declaration
@@ -62,7 +62,7 @@ export abstract class DataModel<
      * @param [options] Options provided to the model constructor
      * @returns Migrated and cleaned source data which will be stored to the model instance
      */
-    protected _initializeSource(data?: object, options?: Record<string, unknown>): this["_source"];
+    protected _initializeSource(data: object, options?: DataModelConstructionOptions<TParent>): this["_source"];
 
     /**
      * Clean a data source object to conform to a specific provided schema.
@@ -110,7 +110,7 @@ export abstract class DataModel<
      * @return An indicator for whether the document contains valid data
      */
     validate(options?: {
-        changes?: DeepPartial<SourceFromSchema<TSchema>>;
+        changes?: object;
         clean?: boolean;
         fallback?: boolean;
         strict?: boolean;

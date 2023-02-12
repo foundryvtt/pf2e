@@ -91,8 +91,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     }
 
     /** Use a "lax" schema field that preserves properties not defined in the `DataSchema` */
-    static override get schema(): LaxSchemaField {
-        if (Object.hasOwn(this, "_schema")) return this._schema as unknown as LaxSchemaField;
+    static override get schema(): LaxSchemaField<RuleElementSchema> {
+        if (this._schema && Object.hasOwn(this, "_schema")) return this._schema;
 
         const schema = new LaxSchemaField(Object.freeze(this.defineSchema()));
         schema.name = this.name;
@@ -398,6 +398,8 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace RuleElementPF2e {
+    export let _schema: LaxSchemaField<RuleElementSchema> | undefined;
+
     export interface PreCreateParams<T extends RuleElementSource = RuleElementSource> {
         /** The source partial of the rule element's parent item to be created */
         itemSource: PreCreate<ItemSourcePF2e>;

@@ -17,8 +17,11 @@ import {
 const { fields } = foundry.data;
 
 /** A `SchemaField` that preserves fields not declared in its `DataSchema` */
-class LaxSchemaField<TSourceProp extends DataSchema = DataSchema> extends fields.SchemaField<TSourceProp> {
-    protected override _cleanType(data: Record<string, unknown>, options: CleanFieldOptions = {}): TSourceProp {
+class LaxSchemaField<TDataSchema extends DataSchema> extends fields.SchemaField<TDataSchema> {
+    protected override _cleanType(
+        data: Record<string, unknown>,
+        options: CleanFieldOptions = {}
+    ): SourceFromSchema<TDataSchema> {
         options.source = options.source || data;
 
         // Clean each field that belongs to the schema
@@ -28,7 +31,7 @@ class LaxSchemaField<TSourceProp extends DataSchema = DataSchema> extends fields
             if (data[name] === undefined) delete data[name];
         }
 
-        return data as TSourceProp;
+        return data as SourceFromSchema<TDataSchema>;
     }
 }
 
