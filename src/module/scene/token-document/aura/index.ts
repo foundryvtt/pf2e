@@ -20,9 +20,6 @@ class TokenAura implements TokenAuraData {
 
     colors: AuraColors | null;
 
-    /** Does this aura affect its emanating token? */
-    private includesSelf: boolean;
-
     #squares?: EffectAreaSquare[];
 
     constructor(args: TokenAuraParams) {
@@ -33,7 +30,6 @@ class TokenAura implements TokenAuraData {
 
         this.traits = args.traits;
         this.colors = args.colors ?? null;
-        this.includesSelf = args.includesSelf;
     }
 
     /** The aura radius from the center in pixels */
@@ -72,8 +68,8 @@ class TokenAura implements TokenAuraData {
 
     /** Does this aura overlap with (at least part of) a token? */
     containsToken(token: Embedded<TokenDocumentPF2e>): boolean {
-        // 1. If the token is the one emitting the aura, return early according to whether it `includesSelf`
-        if (token === this.token) return this.includesSelf;
+        // 1. If the token is the one emitting the aura, return true early
+        if (token === this.token) return true;
 
         // 2. If this aura is out of range, return false early
         if (this.token.object.distanceTo(token.object) > this.radius) return false;
@@ -98,9 +94,7 @@ class TokenAura implements TokenAuraData {
         const auraData = auraActor.auras.get(this.slug);
         if (!auraData) return;
 
-        const containedTokens = tokensToCheck.filter(
-            (t) => (this.includesSelf || t !== this.token) && this.containsToken(t)
-        );
+        const containedTokens = tokensToCheck.filter((t) => this.containsToken(t));
 
         // Get unique actors and notify
         const affectedActors = new Set(containedTokens.map((t) => t.actor));
@@ -115,7 +109,6 @@ interface TokenAuraParams extends Omit<AuraData, "effects" | "traits"> {
     radius: number;
     token: Embedded<TokenDocumentPF2e>;
     traits: Set<ItemTrait>;
-    includesSelf: boolean;
 }
 
 export { TokenAura, TokenAuraData };
