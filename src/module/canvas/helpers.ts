@@ -12,11 +12,17 @@ function measureDistanceRect(
     r1: PIXI.Rectangle,
     {
         reach = null,
-        elevation0 = 0,
-        height0 = 0,
-        elevation1 = 0,
-        height1 = 0,
-    }: { reach?: number | null; elevation0?: number; height0?: number; elevation1?: number; height1?: number } = {}
+        elevationThis = 0,
+        heightThis = 0,
+        elevationTarget = 0,
+        heightTarget = 0,
+    }: {
+        reach?: number | null;
+        elevationThis?: number;
+        heightThis?: number;
+        elevationTarget?: number;
+        heightTarget?: number;
+    } = {}
 ): number {
     if (!canvas.dimensions) return NaN;
 
@@ -59,11 +65,11 @@ function measureDistanceRect(
         distance.dx = Math.max(r0Snapped.left - r1Snapped.right, r1Snapped.left - r0Snapped.right, 0) + gridWidth;
         distance.dy = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
     }
-    if (elevation0 !== elevation1) {
+    if (elevationThis !== elevationTarget) {
         // simulate xz plane
         const xzPlane = {
-            self: new PIXI.Rectangle(r0.x, elevation0, r0.width, height0),
-            target: new PIXI.Rectangle(r1.x, elevation1, r1.width, height1),
+            self: new PIXI.Rectangle(r0.x, elevationThis, r0.width, heightThis),
+            target: new PIXI.Rectangle(r1.x, elevationTarget, r1.width, heightTarget),
         };
 
         // check for overlappig

@@ -311,10 +311,10 @@ class TokenPF2e extends Token<TokenDocumentPF2e> {
 
         return measureDistanceRect(this.bounds, target.bounds, {
             reach,
-            elevation0: Math.floor((selfElevation / gridDistance) * gridSize),
-            height0: Math.floor((selfDimensions.height / gridDistance) * gridSize),
-            elevation1: Math.floor((targetElevation / gridDistance) * gridSize),
-            height1: Math.floor((targetDimensions.height / gridDistance) * gridSize),
+            elevationThis: Math.floor((selfElevation / gridDistance) * gridSize),
+            heightThis: Math.floor((selfDimensions.height / gridDistance) * gridSize),
+            elevationTarget: Math.floor((targetElevation / gridDistance) * gridSize),
+            heightTarget: Math.floor((targetDimensions.height / gridDistance) * gridSize),
         });
     }
 
