@@ -27,7 +27,7 @@ declare module foundry {
             isPrimary: true;
             permissions: {
                 create: "PLAYER";
-                update: typeof BaseCombatant["_canUpdate"];
+                update: (typeof BaseCombatant)["_canUpdate"];
                 delete: "ASSISTANT";
             };
         }

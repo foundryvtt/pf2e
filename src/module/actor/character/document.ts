@@ -283,7 +283,7 @@ class CharacterPF2e extends CreaturePF2e {
 
             result[level] = allowed;
             return result;
-        }, {} as Record<typeof boostLevels[number], number>);
+        }, {} as Record<(typeof boostLevels)[number], number>);
         const existingBoosts = systemData.build?.abilities?.boosts;
         systemData.build = {
             abilities: {

@@ -166,7 +166,7 @@ declare global {
         protected _onModifyContents(documents: TDocument[], options: DocumentModificationContext, userId: string): void;
     }
 
-    type CompendiumDocumentType = typeof CONST.COMPENDIUM_DOCUMENT_TYPES[number];
+    type CompendiumDocumentType = (typeof CONST.COMPENDIUM_DOCUMENT_TYPES)[number];
     type CompendiumUUID = `Compendium.${string}.${string}`;
     type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUID;
 

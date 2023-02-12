@@ -1,6 +1,6 @@
 import { PartialSettingsData, SettingsMenuPF2e } from "./menu";
 
-type ConfigPF2eListName = typeof AutomationSettings.SETTINGS[number];
+type ConfigPF2eListName = (typeof AutomationSettings.SETTINGS)[number];
 
 export class AutomationSettings extends SettingsMenuPF2e {
     static override readonly namespace = "automation";

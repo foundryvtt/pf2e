@@ -28,7 +28,7 @@ declare module foundry {
             isEmbedded: true;
             permissions: {
                 create: "ASSISTANT";
-                update: typeof documents.BaseWall["_canUpdate"];
+                update: (typeof documents.BaseWall)["_canUpdate"];
                 delete: "ASSISTANT";
             };
         }

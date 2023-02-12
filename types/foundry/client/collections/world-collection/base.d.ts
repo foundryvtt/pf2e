@@ -92,7 +92,7 @@ declare global {
          * Actors.registerSheet("dnd5e", ActorSheet5eCharacter, { types: ["character], makeDefault: true });
          * ```
          */
-        static registerSheet(...args: DropFirst<Parameters<typeof DocumentSheetConfig["registerSheet"]>>): void;
+        static registerSheet(...args: DropFirst<Parameters<(typeof DocumentSheetConfig)["registerSheet"]>>): void;
 
         /**
          * Unregister a Document sheet class, removing it from the list of available sheet Applications to use.
@@ -105,7 +105,7 @@ declare global {
          * Actors.unregisterSheet("core", ActorSheet);
          * ```
          */
-        static unregisterSheet(...args: DropFirst<Parameters<typeof DocumentSheetConfig["unregisterSheet"]>>): void;
+        static unregisterSheet(...args: DropFirst<Parameters<(typeof DocumentSheetConfig)["unregisterSheet"]>>): void;
 
         static get registeredSheets(): DocumentSheet[];
     }

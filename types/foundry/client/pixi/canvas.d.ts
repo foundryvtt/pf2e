@@ -50,7 +50,7 @@ declare global {
         blurDistance: number;
 
         /** An array of blur filter instances which are modified by the zoom level and the "soft shadows" setting */
-        blurFilters: InstanceType<typeof PIXI.filters["BlurFilter"]>[];
+        blurFilters: InstanceType<(typeof PIXI.filters)["BlurFilter"]>[];
 
         /** A reference to the MouseInteractionManager that is currently controlling pointer-based interaction, or null. */
         currentMouseManager: MouseInteractionManager | null;
@@ -260,7 +260,7 @@ declare global {
         };
 
         /** Create a BlurFilter instance and register it to the array for updates when the zoom level changes. */
-        createBlurFilter(): InstanceType<typeof PIXI["filters"]["BlurFilter"]>;
+        createBlurFilter(): InstanceType<(typeof PIXI)["filters"]["BlurFilter"]>;
 
         /**
          * Update the blur strength depending on the scale of the canvas stage.

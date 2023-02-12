@@ -61,7 +61,7 @@ declare module foundry {
             // V10 shim
             readonly system: this["data"]["system"];
 
-            get documentName(): typeof BaseActor["metadata"]["name"];
+            get documentName(): (typeof BaseActor)["metadata"]["name"];
         }
 
         interface ActorMetadata extends abstract.DocumentMetadata {

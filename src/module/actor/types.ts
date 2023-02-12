@@ -32,7 +32,7 @@ type ActorAlliance = "party" | "opposition" | null;
 
 type DCSlug = SetElement<typeof DC_SLUGS>;
 
-type SaveType = typeof SAVE_TYPES[number];
+type SaveType = (typeof SAVE_TYPES)[number];
 
 interface AuraData {
     slug: string;

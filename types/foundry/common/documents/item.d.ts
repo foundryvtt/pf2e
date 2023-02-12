@@ -50,7 +50,7 @@ declare module foundry {
 
             readonly parent: BaseActor | null;
 
-            get documentName(): typeof BaseItem["metadata"]["name"];
+            get documentName(): (typeof BaseItem)["metadata"]["name"];
         }
 
         interface ItemMetadata extends abstract.DocumentMetadata {

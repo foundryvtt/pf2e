@@ -262,8 +262,8 @@ type AELikeSchema = RuleElementSchema & {
     phase: StringField<AELikeDataPrepPhase, AELikeDataPrepPhase, true, false, true>;
 };
 
-type AELikeChangeMode = keyof typeof AELikeRuleElement["CHANGE_MODES"];
-type AELikeDataPrepPhase = typeof AELikeRuleElement["PHASES"][number];
+type AELikeChangeMode = keyof (typeof AELikeRuleElement)["CHANGE_MODES"];
+type AELikeDataPrepPhase = (typeof AELikeRuleElement)["PHASES"][number];
 
 interface AELikeData extends RuleElementData {
     path: string;

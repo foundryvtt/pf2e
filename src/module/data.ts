@@ -5,11 +5,11 @@ import { ItemPF2e } from "@item";
 const SIZES = ["tiny", "sm", "med", "lg", "huge", "grg"] as const;
 const SIZE_SLUGS = ["tiny", "small", "medium", "large", "huge", "gargantuan"] as const;
 
-type Size = typeof SIZES[number];
+type Size = (typeof SIZES)[number];
 
 /** The rarity trait of creatures, equipment, spells, etc. */
 const RARITIES = ["common", "uncommon", "rare", "unique"] as const;
-type Rarity = typeof RARITIES[number];
+type Rarity = (typeof RARITIES)[number];
 
 interface ValuesList<T extends string = string> {
     value: T[];

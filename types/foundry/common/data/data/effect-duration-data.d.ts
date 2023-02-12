@@ -32,7 +32,7 @@ declare module foundry {
         }
 
         namespace EffectDurationData {
-            const schema: ReturnType<typeof EffectDurationData["defineSchema"]>;
+            const schema: ReturnType<(typeof EffectDurationData)["defineSchema"]>;
         }
     }
 }

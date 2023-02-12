@@ -186,7 +186,7 @@ const equivalentWeapons = {
 
 const rangeDescriptions = RANGE_TRAITS.reduce(
     (descriptions, trait) => mergeObject(descriptions, { [trait]: "PF2E.TraitDescriptionRange" }),
-    {} as Record<typeof RANGE_TRAITS[number], string>
+    {} as Record<(typeof RANGE_TRAITS)[number], string>
 );
 
 const preciousMaterialDescriptions = {
