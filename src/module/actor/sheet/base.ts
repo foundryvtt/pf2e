@@ -1,4 +1,4 @@
-import type { ActorPF2e, CharacterPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { RollFunction, StrikeData } from "@actor/data/base";
 import { SAVE_TYPES } from "@actor/values";
 import { AbstractEffectPF2e, ItemPF2e, ItemProxyPF2e, PhysicalItemPF2e, SpellPF2e } from "@item";
@@ -23,7 +23,7 @@ import {
     TagSelectorType,
     TAG_SELECTOR_TYPES,
 } from "@system/tag-selector";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, isObject, objectHasKey, tupleHasValue } from "@util";
 import { ActorSizePF2e } from "../data/size";
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types";
 import { ItemSummaryRenderer } from "./item-summary-renderer";
@@ -33,6 +33,8 @@ import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog";
 import { IdentifyItemPopup } from "./popups/identify-popup";
 import { IWREditor } from "./popups/iwr-editor";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup";
+import { CraftingFormula } from "@actor/character/crafting";
+import { UUIDUtils } from "@util/uuid-utils";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -511,23 +513,28 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
 
         // Item Rolling
-        $html
-            .find(".item[data-item-id] .item-image, .item[data-item-id] .item-chat")
-            .on("click", (event) => this.onClickItemToChat(event));
+        for (const element of htmlQueryAll(html, ".item[data-item-id] .item-image, .item[data-item-id] .item-chat")) {
+            element.addEventListener("click", async () => {
+                const itemId = htmlClosest(element, "[data-item-id]")?.dataset.itemId ?? "";
+                const [item, fromFormula] = (() => {
+                    // Handle formula UUIDs
+                    if (UUIDUtils.isItemUUID(itemId)) {
+                        if ("knownFormulas" in this && isObject<Record<string, CraftingFormula>>(this.knownFormulas)) {
+                            const formula = this.knownFormulas[itemId] as CraftingFormula;
+                            if (formula) {
+                                return [new ItemProxyPF2e(formula.item.toObject(), { parent: this.actor }), true];
+                            }
+                        }
+                        throw ErrorPF2e(`Invalid UUID [${itemId}]!`);
+                    }
+                    return [this.actor.items.get(itemId, { strict: true }), false];
+                })();
 
-        // Delete Formula
-        $html.find(".formula-delete").on("click", (event) => {
-            event.preventDefault();
-
-            const itemUuid = $(event.currentTarget).parents(".item").attr("data-item-id");
-            if (!itemUuid) return;
-
-            if (this.actor.isOfType("character")) {
-                const actorFormulas = (this.actor.toObject().system as CharacterPF2e["system"]).crafting.formulas ?? [];
-                actorFormulas.findSplice((f) => f.uuid === itemUuid);
-                this.actor.update({ "system.crafting.formulas": actorFormulas });
-            }
-        });
+                if (!item.isOfType("physical") || item.isIdentified) {
+                    await item.toMessage(undefined, { create: true, data: { fromFormula } });
+                }
+            });
+        }
 
         // Modify select element
         $html.find<HTMLSelectElement>(".ability-select").on("change", async (event) => {
@@ -631,6 +638,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     }
 
     async #onClickBrowseEquipmentCompendia(element: HTMLElement): Promise<void> {
+        const maxLevel = Number(element.dataset.level) || this.actor.level;
         const checkboxesFilterCodes = (element.dataset.filter ?? "")
             .split(",")
             .filter((s) => !!s)
@@ -639,6 +647,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const eqTab = game.pf2e.compendiumBrowser.tabs.equipment;
         const filter = await eqTab.getFilterData();
         const { checkboxes } = filter;
+        const { level } = filter.sliders;
+        level.values.max = Math.min(maxLevel, level.values.upperLimit);
+        level.isExpanded = level.values.max !== level.values.upperLimit;
 
         for (const filterCode of checkboxesFilterCodes) {
             const splitValues = filterCode.split("-");
@@ -699,6 +710,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         };
         if (previewElement?.dataset.isFormula) {
             baseDragData.isFormula = true;
+            baseDragData.entrySelector = previewElement.dataset.entrySelector;
         }
 
         // Dragging ...
@@ -989,14 +1001,6 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         } else {
             sourceActor.transferItemToActor(targetActor, item, 1, containerId);
         }
-    }
-
-    /** Post the item's summary as a chat message */
-    private async onClickItemToChat(event: JQuery.ClickEvent) {
-        const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id");
-        const item = this.actor.items.get(itemId ?? "", { strict: true });
-        if (item.isOfType("physical") && !item.isIdentified) return;
-        await item.toMessage(event, { create: true });
     }
 
     /** Attempt to repair the item */
