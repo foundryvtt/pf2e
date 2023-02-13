@@ -1090,6 +1090,11 @@
         },
         {
             "_id": "SvKEuXIi5eUaqkLA",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "3pDy4fG7Gyy7veGs"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Warhammer",
             "sort": 1200000,
@@ -1118,7 +1123,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "magical",
                         "shove"
@@ -1132,6 +1136,11 @@
         },
         {
             "_id": "kx6tL1KbenrQWtCB",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "lWk7EJdUr0IOisEA"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Longbow",
             "sort": 1300000,
@@ -1160,11 +1169,12 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "deadly-d10",
                         "magical",
+                        "propulsive",
                         "range-increment-100",
+                        "reload-0",
                         "volley-30"
                     ]
                 },
@@ -1454,13 +1464,10 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "warhammer-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.hammer",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:hammer"
+                        ]
                     }
                 ],
                 "slug": null,
