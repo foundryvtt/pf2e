@@ -762,6 +762,11 @@
         },
         {
             "_id": "ecTmjgnYP4UQHwva",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "1v3vDVTwteCXrnQ9"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Hex Blaster",
             "sort": 900000,
@@ -790,7 +795,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "concussive",
                         "fatal-d12",
@@ -808,6 +812,11 @@
         },
         {
             "_id": "48j68BXGq8EQ2Lrd",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "IRqZhq2Q3dwLJkV7"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Redeemer's Pistol",
             "sort": 1000000,
@@ -836,7 +845,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "concealable",
                         "concussive",
@@ -955,22 +963,16 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "hex-blaster-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:firearm"
+                        ]
                     },
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "redeemers-pistol-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.classDC.value",
+                        "value": 34
                     }
                 ],
                 "slug": null,
