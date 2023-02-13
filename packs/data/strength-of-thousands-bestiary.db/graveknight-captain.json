@@ -327,6 +327,11 @@
         },
         {
             "_id": "ae7iPoPNQn5LYD8d",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "j6VJfA3sYbz5HlDP"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Warhammer",
             "sort": 400000,
@@ -353,23 +358,12 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.hammer",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "electricity",
                         "magical",
@@ -410,17 +404,7 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "The target must succeed at a @Check[type:fortitude|dc:22|name:Brawling Critical Specialization] save or be @UUID[Compendium.pf2e.conditionitems.Slowed]{Slowed 1} until the end of the graveknight captain's next turn",
-                        "title": "PF2E.Actor.Creature.CriticalSpecialization"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -429,7 +413,8 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "electricity"
+                        "electricity",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -534,50 +519,6 @@
             "type": "action"
         },
         {
-            "_id": "3US5FatueRfGAZ7c",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.mZpX54PgTxPta5y4"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "(Graveknight) Graveknight's Shield",
-            "sort": 800000,
-            "system": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "description": {
-                    "value": "<p>The graveknight's curse extends to their shield, or the graveknight's armor uses a portion of itself to produce a shield.</p>\n<p>The graveknight has a shield that uses the statistics of a <em>@UUID[Compendium.pf2e.equipment-srd.Sturdy Shield (Minor)]{Sturdy Shield (Minor)}</em>.</p>\n<p>The shield is quasi-independent of the graveknight and automatically protects the graveknight from harm. When the shield is raised, it automatically uses Shield Block to reduce the damage of the first attack against the graveknight each round without the graveknight needing to spend their reaction to do so.</p>\n<p>The shield automatically rejuvenates with the rest of the graveknight and must be destroyed in the same manner as the graveknight's armor.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "graveknight-graveknights-shield",
-                "source": {
-                    "value": "Pathfinder #172: Secrets of the Temple-City"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "arcane",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "9vARP9LTpwoCfgeI",
             "flags": {
                 "core": {
@@ -586,7 +527,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionCategory": {
                     "value": "defensive"
@@ -616,6 +557,50 @@
                     "value": ""
                 },
                 "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3US5FatueRfGAZ7c",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.mZpX54PgTxPta5y4"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Graveknight's Shield",
+            "sort": 900000,
+            "system": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>The graveknight's curse extends to their shield, or the graveknight's armor uses a portion of itself to produce a shield.</p>\n<p>The graveknight has a shield that uses the statistics of a <em>@UUID[Compendium.pf2e.equipment-srd.Sturdy Shield (Minor)]{Sturdy Shield (Minor)}</em>.</p>\n<p>The shield is quasi-independent of the graveknight and automatically protects the graveknight from harm. When the shield is raised, it automatically uses Shield Block to reduce the damage of the first attack against the graveknight each round without the graveknight needing to spend their reaction to do so.</p>\n<p>The shield automatically rejuvenates with the rest of the graveknight and must be destroyed in the same manner as the graveknight's armor.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "graveknight-graveknights-shield",
+                "source": {
+                    "value": "Pathfinder #172: Secrets of the Temple-City"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "arcane",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
                     "value": ""
                 }
             },
@@ -785,12 +770,16 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>The graveknight has access to the critical specialization effects of any weapons it wields.</p>\n<p><em>As NPC strikes are not generated from the weapons it holds, this feature cannot be automated. Add a \"Note\" rule element to each of the graveknight's strikes for the correct critical specialization.</em></p>"
+                    "value": "<p>The graveknight has access to the critical specialization effects of any weapons it wields.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization"
+                    }
+                ],
                 "slug": "graveknight-weapon-master",
                 "source": {
                     "value": "Pathfinder Bestiary"
