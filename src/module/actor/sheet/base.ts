@@ -802,14 +802,14 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             itemSource.system.identification.status = "unidentified";
         }
 
-        // get the item type of the drop target
+        // Get the item type of the drop target
         const $containerEl = $(event.target).closest(".item-container");
         const containerAttribute = $containerEl.attr("data-container-type");
         const unspecificInventory = this._tabs[0]?.active === "inventory" && !containerAttribute;
         const dropContainerType = unspecificInventory ? "actorInventory" : containerAttribute;
         const craftingTab = this._tabs[0]?.active === "crafting";
 
-        // otherwise they are dragging a new spell onto their sheet.
+        // Otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
         if (item.isOfType("spell") && itemSource.type === "spell") {
             if (dropContainerType === "actorInventory" && itemSource.system.level.value > 0) {
