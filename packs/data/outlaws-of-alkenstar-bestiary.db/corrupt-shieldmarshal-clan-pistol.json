@@ -331,6 +331,11 @@
         },
         {
             "_id": "wC7XC7NHZoe9YRGQ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "AyWY3WzqSMamF3Ku"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longsword",
             "sort": 400000,
@@ -359,7 +364,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "versatile-p"
                     ]
@@ -372,6 +376,11 @@
         },
         {
             "_id": "b03BvTHZ8qv133Qu",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "Ubo6LvDsVN5cw4g7"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Clan Pistol",
             "sort": 500000,
@@ -400,7 +409,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "concussive",
                         "fatal-d10",
@@ -438,13 +446,10 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "clan-pistol-attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:firearm"
+                        ]
                     }
                 ],
                 "slug": null,
