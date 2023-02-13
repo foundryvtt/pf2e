@@ -330,6 +330,11 @@
         },
         {
             "_id": "wC7XC7NHZoe9YRGQ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "AyWY3WzqSMamF3Ku"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Longsword",
             "sort": 400000,
@@ -358,7 +363,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "versatile-p"
                     ]
@@ -371,6 +375,11 @@
         },
         {
             "_id": "ldstBLH2MyouK6H6",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "pghnPaIlwCMxbSHq"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jezail",
             "sort": 500000,
@@ -399,7 +408,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "concussive",
                         "fatal-aim-d12",
@@ -437,13 +445,16 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "jezail-attack",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:firearm"
+                        ]
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.classDC.value",
+                        "value": 25
                     }
                 ],
                 "slug": null,
