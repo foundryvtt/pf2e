@@ -18,7 +18,7 @@
 
 {{#*inline "effect"}}
 {{#if (or (not effect.unidentified) @root.user.isGM)}}
-<div class="effect-item" data-item-id="{{effect.id}}">
+<div class="effect-item" data-item-id="{{effect.id}}" data-badge-type="{{effect.badge.type}}">
     <div class="effect-info">
         <h1>{{effect.name}}</h1>
         {{#if (or (eq effect.type "effect") effect.breakdown)}}
@@ -39,11 +39,15 @@
         {{/if}}
         {{#if (eq effect.slug "persistent-damage")}}
             <a data-action="recover-persistent-damage">
-                <i class="fas fa-dice-d20"></i> {{localize "PF2E.Item.Condition.PersistentDamage.Chat.Recover"}}
+                {{localize "PF2E.Item.Condition.PersistentDamage.AssistedRecovery"}}
             </a>
         {{/if}}
         <div class="instructions">
             {{#if (not effect.locked)}}
+                {{#if (eq effect.badge.type "formula")}}
+                    <p>{{localize "PF2E.EffectPanel.RollDamageToolTip"}}</p>
+                {{/if}}
+
                 {{#if (eq effect.badge.type "counter")}}
                     <p>{{localize "PF2E.EffectPanel.IncrementToolTip"}}</p>
                     <p>{{localize "PF2E.EffectPanel.DecrementToolTip"}}</p>
