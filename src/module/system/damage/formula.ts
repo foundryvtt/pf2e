@@ -213,10 +213,16 @@ function createPartialFormulas(
             }, [])
             .join(" + ");
 
-        const term = [combinedDice, Math.abs(constant)]
-            .filter((e) => !!e)
-            .map((e) => (typeof e === "number" && doubleDice ? `2 * ${e}` : e))
-            .join(constant > 0 ? " + " : " - ");
+        const term = ((): string => {
+            const expression = [combinedDice, Math.abs(constant)]
+                .filter((e) => !!e)
+                .map((e) => (typeof e === "number" && doubleDice ? `2 * ${e}` : e))
+                .join(constant > 0 ? " + " : " - ");
+            return ["precision", "splash"].includes(category ?? "") && hasOperators(expression)
+                ? `(${expression})`
+                : expression;
+        })();
+
         const flavored = term && category && category !== "persistent" ? `${term}[${category}]` : term;
 
         return flavored || [];
