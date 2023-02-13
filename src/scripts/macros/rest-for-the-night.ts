@@ -192,6 +192,9 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         // Re-render the actor's sheet after all writes have completed
         await actor.sheet.render();
+
+        // Call a hook for modules to do anything extra
+        Hooks.callAll("pf2e.restForTheNight", actor);
     }
 
     return ChatMessagePF2e.createDocuments(messages);

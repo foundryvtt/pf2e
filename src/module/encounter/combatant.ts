@@ -53,7 +53,7 @@ class CombatantPF2e<
             await actor.update(actorUpdates, { render: false });
         }
 
-        Hooks.call("pf2e.startTurn", this, encounter, game.user.id);
+        Hooks.callAll("pf2e.startTurn", this, encounter, game.user.id);
     }
 
     async endTurn(options: { round: number }) {
@@ -68,7 +68,7 @@ class CombatantPF2e<
         }
 
         await this.update({ "flags.pf2e.roundOfLastTurnEnd": round });
-        Hooks.call("pf2e.endTurn", this, encounter, game.user.id);
+        Hooks.callAll("pf2e.endTurn", this, encounter, game.user.id);
     }
 
     override prepareBaseData(): void {
