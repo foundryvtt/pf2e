@@ -4,6 +4,7 @@ import { ItemSummaryData } from "@item/data";
 import { isItemSystemData } from "@item/data/helpers";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility";
+import { UUIDUtils } from "@util/uuid-utils";
 
 /**
  * Implementation used to populate item summaries, toggle visibility
@@ -32,7 +33,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e> {
         const isFormula = !!$element.attr("data-is-formula");
 
         if (itemType === "spellSlot") return;
-        const item = isFormula ? await fromUuid(itemId ?? "") : actor.items.get(itemId ?? "");
+        const item = isFormula ? await UUIDUtils.fromUuid(itemId ?? "") : actor.items.get(itemId ?? "");
 
         // If there is no item id (such as PC strikes), this is just a visibility toggle
         // We need a better way to detect pre-rendered item-summaries

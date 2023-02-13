@@ -3,7 +3,7 @@ import { FeatPF2e, ItemPF2e } from "@item";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt";
 import { PredicatePF2e } from "@system/predication";
 import { isObject, objectHasKey, sluggify } from "@util";
-import { fromUUIDs, isItemUUID } from "@util/from-uuids";
+import { UUIDUtils } from "@util/uuid-utils";
 import { ChoiceSetData, ChoiceSetOwnedItems, ChoiceSetPackQuery, ChoiceSetSource } from "./data";
 import { ChoiceSetPrompt } from "./prompt";
 import { ItemType } from "@item/data";
@@ -133,7 +133,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
             this.item.flags.pf2e.rulesSelections[this.data.flag] = selection.value;
 
             // If the selection is an item UUID, retrieve the item's slug and use that for the roll option instead
-            if (typeof ruleSource.rollOption === "string" && isItemUUID(selection.value)) {
+            if (typeof ruleSource.rollOption === "string" && UUIDUtils.isItemUUID(selection.value)) {
                 const item = await fromUuid(selection.value);
                 if (item instanceof ItemPF2e) {
                     const slug = item.slug ?? sluggify(item.name);
@@ -181,8 +181,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         }
 
         // If every choice is an item UUID, get the label and images from those items
-        if (choices.every((c): c is ItemChoice => isItemUUID(c.value))) {
-            const itemChoices = await fromUUIDs(choices.map((c) => c.value));
+        if (choices.every((c): c is ItemChoice => UUIDUtils.isItemUUID(c.value))) {
+            const itemChoices = await UUIDUtils.fromUUIDs(choices.map((c) => c.value));
             for (let i = 0; i < choices.length; i++) {
                 const item = itemChoices[i];
                 if (item instanceof ItemPF2e) {
@@ -347,7 +347,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e {
         }
 
         // If the selection was a UUID, the roll option had its suffix appended at item creation
-        const suffix = isItemUUID(selection) ? "" : `:${selection}`;
+        const suffix = UUIDUtils.isItemUUID(selection) ? "" : `:${selection}`;
         this.actor.rollOptions.all[`${this.rollOption}${suffix}`] = true;
     }
 }

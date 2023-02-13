@@ -59,6 +59,7 @@ import { ActorSheetPF2e } from "./sheet/base";
 import { ActorSpellcasting } from "./spellcasting";
 import { TokenEffect } from "./token-effect";
 import { CREATURE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values";
+import { UUIDUtils } from "@util/uuid-utils";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -362,7 +363,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
                 (data.affects === "all" && this !== origin);
 
             if (affectsSelf) {
-                const effect = await fromUuid(data.uuid);
+                const effect = await UUIDUtils.fromUuid(data.uuid);
                 if (!(effect instanceof ItemPF2e && effect.isOfType("affliction", "effect"))) {
                     console.warn(`Effect from ${data.uuid} not found`);
                     continue;

@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { FeatPF2e } from "@item";
 import { EffectSource, ItemSourcePF2e } from "@item/data";
-import { fromUUIDs } from "@util/from-uuids";
+import { UUIDUtils } from "@util/uuid-utils";
 import { MigrationBase } from "../base";
 
 /** Update feats, items, and rule elements to accurately process cumulative item bonuses */
@@ -10,7 +10,7 @@ export class Migration723CumulativeItemBonuses extends MigrationBase {
 
     /** Feat items: Animal Skin, Mountance Stance, Mountance Quake, and Mountance Stronghold */
     private stanceFeats = (async (): Promise<Record<string, FeatPF2e | undefined>> => {
-        const documents: ClientDocument[] = await fromUUIDs([
+        const documents: ClientDocument[] = await UUIDUtils.fromUUIDs([
             "Compendium.pf2e.feats-srd.ZPclfDmiHzEqblry", // Animal Skin
             "Compendium.pf2e.feats-srd.ZL5UU9quCTvcWzfY", // Mountain Stance
             "Compendium.pf2e.feats-srd.n2hawNmzW7DBn1Lm", // Mountain Stronghold

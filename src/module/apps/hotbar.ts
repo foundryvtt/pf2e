@@ -3,6 +3,7 @@ import { EffectPF2e, ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro";
 import { createActionMacro, createItemMacro, createSkillMacro, createToggleEffectMacro } from "@scripts/macros/hotbar";
 import { isObject, setHasElement } from "@util";
+import { UUIDUtils } from "@util/uuid-utils";
 
 class HotbarPF2e extends Hotbar<MacroPF2e> {
     /** Handle macro creation from non-macros */
@@ -33,7 +34,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                         : typeof data.actorId === "string"
                         ? `Actor.${data.actorId}.Item`
                         : "Item";
-                const item = await fromUuid(uuid ?? `${prefix}.${itemId}`);
+                const item = await UUIDUtils.fromUuid(uuid ?? `${prefix}.${itemId}`);
 
                 if (item instanceof EffectPF2e) {
                     return createToggleEffectMacro(item, slot);

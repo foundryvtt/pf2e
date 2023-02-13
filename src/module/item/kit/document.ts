@@ -4,7 +4,7 @@ import { CoinsPF2e } from "@item/physical/helpers";
 import { DENOMINATIONS } from "@item/physical/values";
 import { UserPF2e } from "@module/user";
 import { ErrorPF2e, isObject } from "@util";
-import { fromUUIDs } from "@util/from-uuids";
+import { UUIDUtils } from "@util/uuid-utils";
 import { KitData, KitEntryData } from "./data";
 
 class KitPF2e extends ItemPF2e {
@@ -25,7 +25,7 @@ class KitPF2e extends ItemPF2e {
     ): Promise<PhysicalItemPF2e[]> {
         const entries = options.entries ?? this.entries;
         const itemUUIDs = entries.map((e): ItemUUID => e.uuid);
-        const items: unknown[] = await fromUUIDs(itemUUIDs);
+        const items: unknown[] = await UUIDUtils.fromUUIDs(itemUUIDs);
         if (entries.length !== items.length) throw ErrorPF2e(`Some items from ${this.name} were not found`);
         if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
 

@@ -7,7 +7,7 @@ import { ItemSheetDataPF2e } from "@item/sheet/data-types";
 import { ConditionManager } from "@system/conditions";
 import { DamageCategoryUnique, DAMAGE_CATEGORIES_UNIQUE } from "@system/damage";
 import { htmlClosest, htmlQuery, htmlQueryAll, pick, omit } from "@util";
-import { fromUUIDs } from "@util/from-uuids";
+import { UUIDUtils } from "@util/uuid-utils";
 import { AfflictionConditionData, AfflictionDamage, AfflictionOnset, AfflictionStageData } from "./data";
 import { AfflictionPF2e } from "./document";
 
@@ -49,7 +49,7 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
                 return result;
             }, {} as Record<string, AfflictionConditionSheetData>);
 
-            const effectDocuments = await fromUUIDs(stage.effects.map((e) => e.uuid));
+            const effectDocuments = await UUIDUtils.fromUUIDs(stage.effects.map((e) => e.uuid));
 
             const effects = stage.effects.map((effect) => {
                 const document = effectDocuments.find((d) => d.uuid === effect.uuid);
