@@ -27,8 +27,11 @@ export class Migration822BladeAllyConsolidation extends MigrationBase {
                 .replace(/\bfeat-effects\.rGSc2PtvU3mgm18S\b/g, "equipment-srd.gmMrJREf4JSHd2dZ")
                 .replace(/\bfeat-effects\.Effect: Blade Ally Ghost Touch Rune\b/g, "equipment-srd.Ghost Touch")
                 .replace(/\bfeat-effects\.Rgio0hasm2epEMfh\b/g, "equipment-srd.JQdwHECogcTzdd8R")
-                .replace(/\bfeat-effects\.Effect: Blade Ally Disrupting Rune (Greater)\b/g, "equipment-srd.Disrupting (Greater)")
-                .replace(/\bfeat-effects\.HjfIXg5btodThCTW\b/g, "equipment-srd.oVrVzML63VFvVfKk")
+                .replace(
+                    /\bfeat-effects\.Effect: Blade Ally Disrupting Rune (Greater)\b/g,
+                    "equipment-srd.Disrupting (Greater)"
+                )
+                .replace(/\bfeat-effects\.HjfIXg5btodThCTW\b/g, "equipment-srd.oVrVzML63VFvVfKk");
 
         source.system.description = recursiveReplaceString(source.system.description, rename);
     }
