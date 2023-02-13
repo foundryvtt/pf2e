@@ -57,6 +57,19 @@ export function registerSettings(): void {
         },
     });
 
+    game.settings.register("pf2e", "heroPointRerollType", {
+        name: "PF2E.SETTINGS.HeroPointRerollType.Name",
+        hint: "PF2E.SETTINGS.HeroPointRerollType.Hint",
+        scope: "world",
+        config: true,
+        default: "new",
+        type: String,
+        choices: {
+            new: "PF2E.SETTINGS.HeroPointRerollType.Choices.New",
+            best: "PF2E.SETTINGS.HeroPointRerollType.Choices.Best",
+        },
+    });
+
     game.settings.register("pf2e", "compendiumBrowserPacks", {
         name: "PF2E.SETTINGS.CompendiumBrowserPacks.Name",
         hint: "PF2E.SETTINGS.CompendiumBrowserPacks.Hint",

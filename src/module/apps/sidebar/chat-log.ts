@@ -150,7 +150,10 @@ export class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 condition: canHeroPointReroll,
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    CheckPF2e.rerollFromMessage(message, { heroPoint: true });
+                    CheckPF2e.rerollFromMessage(message, {
+                        heroPoint: true,
+                        keep: game.settings.get("pf2e", "heroPointRerollType"),
+                    });
                 },
             },
             {
