@@ -1,5 +1,6 @@
 ol.spell-list {
     @include p-reset;
+    border-bottom: 1px solid var(--color-border-light-2);
     flex-basis: 100%;
     gap: 1px;
     position: relative;
@@ -14,7 +15,7 @@ ol.spell-list {
         display: grid;
         grid: "name range components cast-spell controls" auto
               "content content content content content" auto
-              / 8fr 3fr 3fr 2fr 2fr;
+              / 9fr 4fr 4fr 2fr 2.5fr;
         justify-content: center;
         padding: 0 0.3em 1px 0.35em;
 
@@ -88,15 +89,14 @@ ol.spell-list {
 
         &.spell-level-header, .uses {
             input {
-                height: 14px;
                 background: var(--alt);
-                color: white;
-                text-align: center;
                 border-radius: 3px;
                 border: 1px solid var(--sub);
-                font-size: var(--font-size-11);
-                width: 22px;
-                padding-top: 2px;
+                color: white;
+                font: var(--font-size-12) var(--sans-serif);
+                height: unset;
+                text-align: center;
+                width: 2em;
             }
 
             .spell-slots-increment-reset {
@@ -216,6 +216,7 @@ ol.spell-list {
 
         .spell-range {
             grid-area: range;
+            padding-left: 0.2em;
         }
 
         .spell-components {

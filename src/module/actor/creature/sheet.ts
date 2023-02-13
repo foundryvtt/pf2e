@@ -498,8 +498,8 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         item: ItemPF2e,
         data: DropCanvasItemDataPF2e
     ): Promise<ItemPF2e[]> {
-        const containerEl = htmlClosest(event.target, ".item-container");
-        if (item.isOfType("spell") && containerEl?.dataset.containerType === "spellcastingEntry") {
+        const containerEl = htmlClosest(event.target, ".item-container[data-container-type=spellcastingEntry]");
+        if (containerEl && item.isOfType("spell")) {
             const entryId = containerEl.dataset.containerId;
             const collection = this.actor.spellcasting.collections.get(entryId, { strict: true });
             const slotLevel = Number(htmlClosest(event.target, "[data-slot-level]")?.dataset.slotLevel ?? 0);
