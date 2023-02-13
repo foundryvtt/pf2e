@@ -1,14 +1,18 @@
 import { ActorPF2e } from "@actor";
 import { AbstractEffectPF2e, EffectPF2e } from "@item";
 import { AfflictionPF2e } from "@item/affliction";
-import { PersistentDialog } from "@item/condition/persistent-damage-dialog";
 import { EffectExpiryType } from "@item/effect/data";
+import { TokenDocumentPF2e } from "@scene";
 import { htmlQuery, htmlQueryAll } from "@util";
 import { FlattenedCondition } from "../system/conditions";
 
 export class EffectsPanel extends Application {
+    private get token(): TokenDocumentPF2e | null {
+        return canvas.tokens.controlled.at(0)?.document ?? null;
+    }
+
     private get actor(): ActorPF2e | null {
-        return canvas.tokens.controlled[0]?.actor ?? game.user?.character ?? null;
+        return this.token?.actor ?? game.user?.character ?? null;
     }
 
     /**
@@ -83,7 +87,7 @@ export class EffectsPanel extends Application {
                 const { actor } = this;
                 const effect = actor?.items.get(itemId);
                 if (actor && effect?.isOfType("condition") && effect.slug === "persistent-damage") {
-                    new PersistentDialog(actor).render(true);
+                    await effect.onEndTurn({ token: this.token });
                 } else if (effect instanceof AbstractEffectPF2e) {
                     await effect.increase();
                 }

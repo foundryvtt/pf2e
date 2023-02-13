@@ -13,9 +13,32 @@
         justify-content: flex-end;
         height: 52px;
 
+        &[data-badge-type=formula] .icon {
+            cursor: pointer;
+            &:hover {
+                &::before {
+                    content: "\f6cf";
+                    background: rgba(0, 0, 0, 0.5);
+                    font-family: "Font Awesome 5 Free";
+                    font-weight: 900;
+                    font-size: var(--font-size-26);
+                    color: white;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding-bottom: 4px; // offset
+                }
+            }
+        }
+
         &:hover {
             .effect-info {
-                display: block;
+                display: flex;
+                align-items: flex-end;
+                flex-direction: column;
             }
         }
 
@@ -23,7 +46,7 @@
             display: none;
             height: min-content;
             margin-right: 0.5em;
-            padding: 0.25em;
+            padding: 0.25em 0.5rem;
             background-color: rgba(0, 0, 0, 0.75);
             color: white;
 
@@ -49,9 +72,10 @@
 
             a {
                 display: block;
-                font-size: var(--font-size-11);
-                margin-top: 0.1rem;
-                text-align: right;
+                border: 1px outset white;
+                font-size: var(--font-size-10);
+                margin-top: 0.125rem;
+                padding: 0.125rem;
             }
 
             .instructions {
