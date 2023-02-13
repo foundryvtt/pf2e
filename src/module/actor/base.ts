@@ -314,7 +314,7 @@ class ActorPF2e extends Actor<TokenDocumentPF2e, ItemTypeMap> {
             chaotic: traits.has("lawful"),
             positive: !!this.attributes.hp?.negativeHealing,
             negative: !(this.modeOfBeing === "construct" || this.attributes.hp?.negativeHealing),
-            bleed: this.modeOfBeing === "living" || isReallyPC(this),
+            bleed: this.modeOfBeing === "living",
         };
 
         return damageIsApplicable[damageType];
