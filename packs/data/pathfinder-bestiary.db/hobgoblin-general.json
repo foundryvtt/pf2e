@@ -414,6 +414,11 @@
         },
         {
             "_id": "kXAwzMH9r670KlCp",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "GcOylKqDGhKS2Ut0"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Glaive",
             "sort": 500000,
@@ -422,7 +427,6 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -443,11 +447,11 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "deadly-d8",
                         "forceful",
-                        "reach"
+                        "magical",
+                        "reach-10"
                     ]
                 },
                 "weaponType": {
@@ -458,6 +462,11 @@
         },
         {
             "_id": "t1tq9YiGmfqQQV5C",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "HmoPqyEMUxifKw9y"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Shortbow",
             "sort": 600000,
@@ -466,7 +475,6 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -487,7 +495,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "brutal",
                         "deadly-d10",
@@ -683,14 +690,10 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "glaive-attack",
-                        "text": "PF2E.Item.Weapon.CriticalSpecialization.polearm",
-                        "title": "{item|name}",
-                        "visibility": "gm"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:polearm"
+                        ]
                     }
                 ],
                 "slug": null,
