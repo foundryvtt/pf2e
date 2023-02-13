@@ -4,7 +4,7 @@ import type { BackgroundData } from "@item/background/data";
 import type { ClassData } from "@item/class/data";
 import { MigrationList, MigrationRunner } from "@module/migration";
 import { objectHasKey } from "@util";
-import { fromUUIDs } from "@util/from-uuids";
+import { UUIDUtils } from "@util/uuid-utils";
 
 /** Abstract base class representing a Pathfinder (A)ncestry, (B)ackground, or (C)lass */
 abstract class ABCItemPF2e extends ItemPF2e {
@@ -21,7 +21,7 @@ abstract class ABCItemPF2e extends ItemPF2e {
         const packEntries = entries.filter((entry) => !!entry.uuid);
         if (!packEntries.length) return [];
 
-        const items = (await fromUUIDs(entries.map((e) => e.uuid))).map((i) => i.clone());
+        const items = (await UUIDUtils.fromUUIDs(entries.map((e) => e.uuid))).map((i) => i.clone());
         for (const item of items) {
             if (item instanceof ItemPF2e) {
                 await MigrationRunner.ensureSchemaVersion(item, MigrationList.constructFromVersion(item.schemaVersion));

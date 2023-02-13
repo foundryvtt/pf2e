@@ -23,6 +23,7 @@ import noUiSlider from "nouislider";
 import { SpellcastingEntryPF2e } from "@item";
 import Tagify from "@yaireo/tagify";
 import { CoinsPF2e } from "@item/physical/helpers";
+import { UUIDUtils } from "@util/uuid-utils";
 
 class PackLoader {
     loadedPacks: {
@@ -797,7 +798,7 @@ class CompendiumBrowser extends Application {
             const nameAnchor = liElement.querySelector<HTMLAnchorElement>("div.name > a");
             if (nameAnchor) {
                 nameAnchor.addEventListener("click", async () => {
-                    const document = await fromUuid(entryUuid);
+                    const document = await UUIDUtils.fromUuid(entryUuid);
                     if (document?.sheet) {
                         document.sheet.render(true);
                     }
@@ -897,7 +898,7 @@ class CompendiumBrowser extends Application {
     }
 
     private async getPhysicalItem(uuid: string): Promise<PhysicalItemPF2e | KitPF2e> {
-        const item = await fromUuid(uuid);
+        const item = await UUIDUtils.fromUuid(uuid);
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             throw ErrorPF2e("Unexpected failure retrieving compendium item");
         }

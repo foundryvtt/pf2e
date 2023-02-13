@@ -9,6 +9,7 @@ import { AELikeChangeMode } from "../ae-like";
 import { RuleElementOptions } from "../base";
 import { ChoiceSetSource } from "../choice-set/data";
 import { ChoiceSetRuleElement } from "../choice-set/rule-element";
+import { UUIDUtils } from "@util/uuid-utils";
 
 class GrantItemRuleElement extends RuleElementPF2e {
     static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
@@ -79,7 +80,7 @@ class GrantItemRuleElement extends RuleElementPF2e {
         const uuid = this.resolveInjectedProperties(this.uuid);
         const grantedItem: ClientDocument | null = await (async () => {
             try {
-                return (await fromUuid(uuid))?.clone() ?? null;
+                return (await UUIDUtils.fromUuid(uuid))?.clone() ?? null;
             } catch (error) {
                 console.error(error);
                 return null;

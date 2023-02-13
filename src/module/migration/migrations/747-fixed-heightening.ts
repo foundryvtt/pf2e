@@ -1,7 +1,7 @@
 import { SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/data";
 import { sluggify } from "@util";
-import { fromUUIDs } from "@util/from-uuids";
+import { UUIDUtils } from "@util/uuid-utils";
 import { MigrationBase } from "../base";
 
 /** Handle spells gaining fixed level heightening */
@@ -44,7 +44,7 @@ export class Migration747FixedHeightening extends MigrationBase {
             return this.#loadedSpells;
         }
 
-        const spells = await fromUUIDs([...this.fixedHeightenSpells]);
+        const spells = await UUIDUtils.fromUUIDs([...this.fixedHeightenSpells]);
         this.#loadedSpells = spells.reduce((record, spell) => ({ ...record, [spell.uuid]: spell }), {});
         return this.#loadedSpells;
     }

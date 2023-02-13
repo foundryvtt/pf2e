@@ -4,6 +4,7 @@ import { EffectTrait } from "@item/abstract-effect/data";
 import { PredicatePF2e } from "@system/predication";
 import { isObject, sluggify } from "@util";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./";
+import { UUIDUtils } from "@util/uuid-utils";
 
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
 export class AuraRuleElement extends RuleElementPF2e {
@@ -104,7 +105,7 @@ export class AuraRuleElement extends RuleElementPF2e {
 
         if (typeof effect.uuid !== "string") return false;
 
-        const indexEntry = fromUuidSync(effect.uuid);
+        const indexEntry = UUIDUtils.fromUuidSync(effect.uuid);
         if (!(indexEntry && "type" in indexEntry && typeof indexEntry.type === "string")) {
             this.failValidation(`Unable to resolve effect uuid: ${effect.uuid}`);
             return false;

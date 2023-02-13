@@ -71,7 +71,7 @@ import { PredicatePF2e } from "@system/predication";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls";
 import { Statistic } from "@system/statistic";
 import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, sortedStringify, traitSlugToObject } from "@util";
-import { fromUUIDs } from "@util/from-uuids";
+import { UUIDUtils } from "@util/uuid-utils";
 import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting";
 import {
     AuxiliaryAction,
@@ -175,7 +175,7 @@ class CharacterPF2e extends CreaturePF2e {
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         const { formulas } = this.system.crafting;
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
-        const items: unknown[] = await fromUUIDs(formulas.map((data) => data.uuid));
+        const items: unknown[] = await UUIDUtils.fromUUIDs(formulas.map((data) => data.uuid));
         if (!items.every((i): i is ItemPF2e => i instanceof ItemPF2e)) return [];
 
         return items

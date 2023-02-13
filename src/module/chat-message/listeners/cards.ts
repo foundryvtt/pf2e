@@ -9,6 +9,7 @@ import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair";
 import { LocalizePF2e } from "@system/localize";
 import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
 import { ChatMessagePF2e } from "..";
+import { UUIDUtils } from "@util/uuid-utils";
 
 export const ChatCards = {
     listen: ($html: JQuery): void => {
@@ -130,7 +131,7 @@ export const ChatCards = {
                     await onRepairChatCardEvent(event, message, $card);
                 } else if (action === "pay-crafting-costs") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await fromUuid(itemUuid);
+                    const item = await UUIDUtils.fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
                     const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
@@ -176,7 +177,7 @@ export const ChatCards = {
                     });
                 } else if (action === "lose-materials") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await fromUuid(itemUuid);
+                    const item = await UUIDUtils.fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
                     const craftingCost = CoinsPF2e.fromPrice(item.price, quantity);
@@ -196,7 +197,7 @@ export const ChatCards = {
                     }
                 } else if (action === "receieve-crafting-item") {
                     const itemUuid = $card.attr("data-item-uuid") || "";
-                    const item = await fromUuid(itemUuid);
+                    const item = await UUIDUtils.fromUuid(itemUuid);
                     if (!(item instanceof PhysicalItemPF2e)) return;
                     const quantity = Number($card.attr("data-crafting-quantity")) || 1;
 

@@ -1,7 +1,7 @@
 import { MigrationBase } from "../base";
 import { ItemSourcePF2e } from "@item/data";
 import { SpellPF2e } from "@item";
-import { fromUUIDs } from "@util/from-uuids";
+import { UUIDUtils } from "@util/uuid-utils";
 import { setHasElement } from "@util";
 
 /** Update the descriptions of several spells with new effect items */
@@ -19,7 +19,7 @@ export class Migration720UpdateSpellDescriptions extends MigrationBase {
         "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4", // Light
     ]);
 
-    private spells = fromUUIDs([...this.spellUUIDs]);
+    private spells = UUIDUtils.fromUUIDs([...this.spellUUIDs]);
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (!(source.type === "spell" && setHasElement(this.spellUUIDs, source.flags.core?.sourceId))) {

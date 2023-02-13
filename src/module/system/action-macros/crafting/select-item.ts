@@ -1,5 +1,6 @@
 import { PhysicalItemPF2e } from "@item";
 import { htmlQuery, sluggify } from "@util";
+import { UUIDUtils } from "@util/uuid-utils";
 
 class SelectItemDialog extends Application {
     #item: PhysicalItemPF2e | null = null;
@@ -48,7 +49,7 @@ class SelectItemDialog extends Application {
 
             const data: Partial<ItemDropData> = JSON.parse(json);
             const uuid = data.uuid ?? data.pf2e?.itemUuid;
-            const item = uuid ? await fromUuid(uuid) : null;
+            const item = uuid ? await UUIDUtils.fromUuid(uuid) : null;
 
             if (this.#action === "repair" && item && !(item?.isEmbedded && item.isOwner)) {
                 ui.notifications.error("DOCUMENT.UsePermissionWarn", { localize: true });

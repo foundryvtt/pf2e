@@ -3,6 +3,7 @@ import { ItemPF2e } from "@item";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, sluggify } from "@util";
 import { EffectBadge } from "./data";
+import { UUIDUtils } from "@util/uuid-utils";
 
 /** Base effect type for all PF2e effects including conditions and afflictions */
 export abstract class AbstractEffectPF2e extends ItemPF2e {
@@ -17,7 +18,7 @@ export abstract class AbstractEffectPF2e extends ItemPF2e {
     /** Get the actor from which this effect originated */
     get origin(): ActorPF2e | null {
         const actorOrToken = this.isOfType("affliction", "effect")
-            ? fromUuidSync(this.system.context?.origin.actor ?? "")
+            ? UUIDUtils.fromUuidSync(this.system.context?.origin.actor ?? "")
             : null;
 
         return actorOrToken instanceof ActorPF2e

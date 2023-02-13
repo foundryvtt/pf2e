@@ -6,13 +6,15 @@ import { CheckDC } from "@system/degree-of-success";
 import { ActionMacroHelpers } from "../helpers";
 import { SkillActionOptions } from "../types";
 import { SelectItemDialog } from "./select-item";
+import { UUIDUtils } from "@util/uuid-utils";
 
 export async function craft(options: CraftActionOptions) {
     const { checkType, property, stat, subtitle } = ActionMacroHelpers.resolveStat(options?.skill ?? "crafting");
 
     // resolve item
     const item =
-        options.item ?? (options.uuid ? await fromUuid(options.uuid) : await SelectItemDialog.getItem("craft"));
+        options.item ??
+        (options.uuid ? await UUIDUtils.fromUuid(options.uuid) : await SelectItemDialog.getItem("craft"));
 
     // ensure item is a valid crafting target
     if (!item) {

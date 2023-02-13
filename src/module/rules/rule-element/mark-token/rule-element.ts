@@ -1,7 +1,7 @@
 import { ItemPF2e } from "@item";
 import { TokenDocumentPF2e } from "@scene";
 import { ErrorPF2e, sluggify } from "@util";
-import { isTokenUUID } from "@util/from-uuids";
+import { UUIDUtils } from "@util/uuid-utils";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "..";
 import { MarkTargetPrompt } from "./prompt";
 
@@ -48,7 +48,7 @@ class MarkTokenRuleElement extends RuleElementPF2e {
     }
 
     override beforePrepareData(): void {
-        if (isTokenUUID(this.tokenUUID) && this.test()) {
+        if (UUIDUtils.isTokenUUID(this.tokenUUID) && this.test()) {
             this.actor.synthetics.targetMarks.set(this.tokenUUID, this.slug);
         }
     }
