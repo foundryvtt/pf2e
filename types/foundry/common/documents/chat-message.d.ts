@@ -57,9 +57,9 @@ declare module foundry {
             label: "DOCUMENT.ChatMessage";
             isPrimary: true;
             permissions: {
-                create: typeof BaseChatMessage["_canCreate"];
-                update: typeof BaseChatMessage["_canUpdate"];
-                delete: typeof BaseChatMessage["_canDelete"];
+                create: (typeof BaseChatMessage)["_canCreate"];
+                update: (typeof BaseChatMessage)["_canUpdate"];
+                delete: (typeof BaseChatMessage)["_canDelete"];
             };
         }
     }

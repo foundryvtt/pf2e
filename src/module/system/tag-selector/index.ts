@@ -4,7 +4,7 @@ export { SpeedSelector } from "./speeds";
 export { TagSelectorOptions } from "./base";
 
 const TAG_SELECTOR_TYPES = ["basic", "senses", "speed-types"] as const;
-type TagSelectorType = typeof TAG_SELECTOR_TYPES[number];
+type TagSelectorType = (typeof TAG_SELECTOR_TYPES)[number];
 
 // CONFIG properties that can be used in a tag selector
 const SELECTABLE_TAG_FIELDS = [
@@ -82,6 +82,6 @@ const SELECTABLE_TAG_FIELDS = [
     "weaponTraits",
 ] as const;
 
-type SelectableTagField = typeof SELECTABLE_TAG_FIELDS[number];
+type SelectableTagField = (typeof SELECTABLE_TAG_FIELDS)[number];
 
 export { SELECTABLE_TAG_FIELDS, SelectableTagField, TAG_SELECTOR_TYPES, TagSelectorType };

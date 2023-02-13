@@ -14,7 +14,7 @@ declare module foundry {
 
             readonly parent: null;
 
-            get documentName(): typeof BaseJournalEntry["metadata"]["name"];
+            get documentName(): (typeof BaseJournalEntry)["metadata"]["name"];
         }
     }
 

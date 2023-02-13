@@ -93,7 +93,7 @@ interface CreatureSystemData extends CreatureSystemSource, ActorSystemData {
     actions?: StrikeData[];
 }
 
-type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
+type CreatureType = (typeof CREATURE_ACTOR_TYPES)[number];
 
 interface SenseData {
     type: SenseType;

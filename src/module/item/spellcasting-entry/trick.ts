@@ -6,7 +6,7 @@ import { Statistic } from "@system/statistic";
 import { BaseSpellcastingEntry, CastOptions } from "./data";
 
 export const TRICK_MAGIC_SKILLS = ["arcana", "nature", "occultism", "religion"] as const;
-export type TrickMagicItemSkill = typeof TRICK_MAGIC_SKILLS[number];
+export type TrickMagicItemSkill = (typeof TRICK_MAGIC_SKILLS)[number];
 
 const TrickMagicTradition = {
     arcana: "arcane",

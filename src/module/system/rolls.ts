@@ -52,9 +52,9 @@ interface BaseRollContext {
     /** Any traits for the check. */
     traits?: TraitViewData[];
     /** The outcome a roll (usually relevant only to rerolls) */
-    outcome?: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null;
+    outcome?: (typeof DEGREE_OF_SUCCESS_STRINGS)[number] | null;
     /** The outcome prior to being changed by abilities raising or lowering degree of success */
-    unadjustedOutcome?: typeof DEGREE_OF_SUCCESS_STRINGS[number] | null;
+    unadjustedOutcome?: (typeof DEGREE_OF_SUCCESS_STRINGS)[number] | null;
     /** Should the roll be immediately created as a chat message? */
     createMessage?: boolean;
     /** Skip the roll dialog regardless of user setting  */

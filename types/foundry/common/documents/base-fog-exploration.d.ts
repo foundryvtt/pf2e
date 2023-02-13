@@ -29,8 +29,8 @@ declare module foundry {
             isPrimary: true;
             permissions: {
                 create: "PLAYER";
-                update: typeof BaseFogExploration["_canUserModify"];
-                delete: typeof BaseFogExploration["_canUserModify"];
+                update: (typeof BaseFogExploration)["_canUserModify"];
+                delete: (typeof BaseFogExploration)["_canUserModify"];
             };
         }
     }

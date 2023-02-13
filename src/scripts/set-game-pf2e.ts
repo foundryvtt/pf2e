@@ -45,7 +45,7 @@ export const SetGamePF2e = {
             ...ActionMacros,
         };
 
-        const initSafe: Partial<typeof game["pf2e"]> = {
+        const initSafe: Partial<(typeof game)["pf2e"]> = {
             Check: CheckPF2e,
             CheckModifier: CheckModifier,
             Coins: CoinsPF2e,

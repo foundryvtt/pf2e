@@ -23,7 +23,7 @@ export class Migration644SpellcastingCategory extends MigrationBase {
         if (!actor || item.type !== "spellcastingEntry") return;
         interface SpellcastingOld extends Omit<SpellcastingEntrySystemData, "tradition"> {
             tradition: {
-                value: typeof oldTraditions[number];
+                value: (typeof oldTraditions)[number];
             };
         }
 

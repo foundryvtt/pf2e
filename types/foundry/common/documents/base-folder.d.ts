@@ -17,7 +17,7 @@ declare module foundry {
 
             readonly parent: null;
 
-            get documentName(): typeof BaseFolder["metadata"]["name"];
+            get documentName(): (typeof BaseFolder)["metadata"]["name"];
         }
 
         interface FolderMetadata extends abstract.DocumentMetadata {

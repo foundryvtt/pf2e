@@ -48,7 +48,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<Ch
 
         // Conditions
         const RECOVERABLE_CONDITIONS = ["doomed", "drained", "fatigued", "wounded"] as const;
-        const conditionChanges: Record<typeof RECOVERABLE_CONDITIONS[number], "removed" | "reduced" | null> = {
+        const conditionChanges: Record<(typeof RECOVERABLE_CONDITIONS)[number], "removed" | "reduced" | null> = {
             doomed: null,
             drained: null,
             fatigued: null,

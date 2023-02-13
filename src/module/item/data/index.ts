@@ -24,7 +24,7 @@ import type { WeaponData, WeaponSource } from "@item/weapon/data";
 import { PROFICIENCY_RANKS } from "@module/data";
 import { PhysicalItemTraits } from "../physical/data";
 
-export type ProficiencyRank = typeof PROFICIENCY_RANKS[number];
+export type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
 
 export type NonPhysicalItemType =
     | "action"

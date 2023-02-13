@@ -45,7 +45,7 @@ declare global {
         /** A mapping of different light level channels */
         channels: LightChannels;
 
-        static override get layerOptions(): typeof PlaceablesLayer["layerOptions"] & {
+        static override get layerOptions(): (typeof PlaceablesLayer)["layerOptions"] & {
             name: "lighting";
             rotatableObjects: true;
             zIndex: 300;

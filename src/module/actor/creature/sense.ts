@@ -66,7 +66,7 @@ export class CreatureSensePF2e implements SenseData {
     }
 }
 
-export type SenseAcuity = typeof SENSE_ACUITIES[number];
+export type SenseAcuity = (typeof SENSE_ACUITIES)[number];
 export type SenseType = SetElement<typeof SENSE_TYPES>;
 
 export const SENSE_ACUITIES = ["precise", "imprecise", "vague"];

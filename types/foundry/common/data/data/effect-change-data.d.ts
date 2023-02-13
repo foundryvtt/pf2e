@@ -26,4 +26,4 @@ declare module foundry {
     }
 }
 
-declare type ActiveEffectChangeMode = typeof CONST.ACTIVE_EFFECT_MODES[keyof typeof CONST.ACTIVE_EFFECT_MODES];
+declare type ActiveEffectChangeMode = (typeof CONST.ACTIVE_EFFECT_MODES)[keyof typeof CONST.ACTIVE_EFFECT_MODES];

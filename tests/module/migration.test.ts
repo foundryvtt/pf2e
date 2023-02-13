@@ -46,10 +46,10 @@ describe("test migration runner", () => {
             version: "3.2.1",
         },
         settings: {
-            get<K extends keyof typeof settings>(_context: string, key: K): typeof settings[K] {
+            get<K extends keyof typeof settings>(_context: string, key: K): (typeof settings)[K] {
                 return settings[key];
             },
-            set<K extends keyof typeof settings>(_context: string, key: K, value: typeof settings[K]): void {
+            set<K extends keyof typeof settings>(_context: string, key: K, value: (typeof settings)[K]): void {
                 settings[key] = value;
             },
         },

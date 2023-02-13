@@ -233,7 +233,7 @@ type AdjustStrikeSchema = AELikeSchema & {
     definition: PredicateField;
 };
 
-type AdjustStrikeProperty = SetElement<typeof AdjustStrikeRuleElement["VALID_PROPERTIES"]>;
+type AdjustStrikeProperty = SetElement<(typeof AdjustStrikeRuleElement)["VALID_PROPERTIES"]>;
 
 interface AdjustStrikeSource extends Exclude<AELikeSource, "path"> {
     property?: unknown;

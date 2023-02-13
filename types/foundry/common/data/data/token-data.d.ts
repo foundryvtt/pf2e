@@ -105,13 +105,13 @@ declare module foundry {
 
             light: LightData<NonNullable<this["document"]>>;
 
-            get schema(): ReturnType<typeof ItemData["defineSchema"]>;
+            get schema(): ReturnType<(typeof ItemData)["defineSchema"]>;
         }
 
         namespace TokenData {
-            const schema: ReturnType<typeof TokenData["defineSchema"]>;
+            const schema: ReturnType<(typeof TokenData)["defineSchema"]>;
 
-            const _schema: ReturnType<typeof TokenData["defineSchema"]> | undefined;
+            const _schema: ReturnType<(typeof TokenData)["defineSchema"]> | undefined;
         }
     }
 }

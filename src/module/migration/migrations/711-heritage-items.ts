@@ -249,7 +249,7 @@ export class Migration711HeritageItems extends MigrationBase {
     }
 }
 
-type FeatKeys = typeof toDelete[number];
+type FeatKeys = (typeof toDelete)[number];
 type DeletionKeys = `-=${FeatKeys}`;
 type FeatPropertyDeletions = DeepPartial<Omit<FeatSystemSource, "traits">> & {
     [K in DeletionKeys | FeatKeys]?: unknown;

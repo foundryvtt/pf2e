@@ -121,7 +121,7 @@ const DEGREE_ADJUSTMENT_AMOUNTS = {
     INCREASE_BY_TWO: 2,
 } as const;
 
-type DegreeAdjustmentAmount = typeof DEGREE_ADJUSTMENT_AMOUNTS[keyof typeof DEGREE_ADJUSTMENT_AMOUNTS];
+type DegreeAdjustmentAmount = (typeof DEGREE_ADJUSTMENT_AMOUNTS)[keyof typeof DEGREE_ADJUSTMENT_AMOUNTS];
 
 type DegreeAdjustmentsRecord = {
     [key in "all" | DegreeOfSuccessString]?: { label: string; amount: DegreeAdjustmentAmount };
@@ -150,7 +150,7 @@ const DEGREE_OF_SUCCESS = {
 type DegreeOfSuccessIndex = ZeroToThree;
 
 const DEGREE_OF_SUCCESS_STRINGS = ["criticalFailure", "failure", "success", "criticalSuccess"] as const;
-type DegreeOfSuccessString = typeof DEGREE_OF_SUCCESS_STRINGS[number];
+type DegreeOfSuccessString = (typeof DEGREE_OF_SUCCESS_STRINGS)[number];
 
 export {
     CheckDC,

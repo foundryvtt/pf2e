@@ -82,7 +82,7 @@ declare global {
         get canStart(): boolean;
 
         /** The current status of the Tour */
-        get status(): typeof Tour.STATUS[keyof typeof Tour.STATUS];
+        get status(): (typeof Tour.STATUS)[keyof typeof Tour.STATUS];
 
         /* -------------------------------------------- */
         /*  Tour Methods                                */

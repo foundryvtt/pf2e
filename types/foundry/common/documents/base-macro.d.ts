@@ -24,7 +24,7 @@ declare module foundry {
 
             readonly parent: null;
 
-            get documentName(): typeof BaseMacro["metadata"]["name"];
+            get documentName(): (typeof BaseMacro)["metadata"]["name"];
         }
 
         interface MacroMetadata extends abstract.DocumentMetadata {
@@ -35,8 +35,8 @@ declare module foundry {
             types: ["script", "chat"];
             permissions: {
                 create: "PLAYER";
-                update: typeof BaseMacro["_canUpdate"];
-                delete: typeof BaseMacro["_canDelete"];
+                update: (typeof BaseMacro)["_canUpdate"];
+                delete: (typeof BaseMacro)["_canDelete"];
             };
         }
     }

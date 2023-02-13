@@ -19,7 +19,7 @@ declare module foundry {
 
             readonly parent: null;
 
-            get documentName(): typeof BaseRollTable["metadata"]["name"];
+            get documentName(): (typeof BaseRollTable)["metadata"]["name"];
         }
 
         interface RollTableMetadata extends abstract.DocumentMetadata {

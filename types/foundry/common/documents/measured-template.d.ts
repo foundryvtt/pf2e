@@ -43,8 +43,8 @@ declare module foundry {
             isEmbedded: true;
             permissions: {
                 create: "TEMPLATE_CREATE";
-                update: typeof BaseMeasuredTemplate["_canModify"];
-                delete: typeof BaseMeasuredTemplate["_canModify"];
+                update: (typeof BaseMeasuredTemplate)["_canModify"];
+                delete: (typeof BaseMeasuredTemplate)["_canModify"];
             };
         }
     }

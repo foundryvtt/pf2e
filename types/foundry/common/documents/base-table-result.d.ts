@@ -28,7 +28,7 @@ declare module foundry {
             label: "DOCUMENT.TableResult";
             types: typeof CONST.TABLE_RESULT_TYPES;
             permissions: Omit<foundry.abstract.DocumentMetadata["permissions"], "update"> & {
-                update: typeof BaseTableResult["_canUpdate"];
+                update: (typeof BaseTableResult)["_canUpdate"];
             };
         }
     }

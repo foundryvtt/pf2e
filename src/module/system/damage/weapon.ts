@@ -568,7 +568,7 @@ class WeaponDamagePF2e {
     /** Apply damage dice overrides and create a damage formula */
     static #finalizeDamage(
         damage: DamageFormulaData,
-        degree: typeof DEGREE_OF_SUCCESS["SUCCESS" | "CRITICAL_SUCCESS"]
+        degree: (typeof DEGREE_OF_SUCCESS)["SUCCESS" | "CRITICAL_SUCCESS"]
     ): AssembledFormula;
     static #finalizeDamage(damage: DamageFormulaData, degree: typeof DEGREE_OF_SUCCESS.CRITICAL_FAILURE): null;
     static #finalizeDamage(damage: DamageFormulaData, degree?: DegreeOfSuccessIndex): AssembledFormula | null;

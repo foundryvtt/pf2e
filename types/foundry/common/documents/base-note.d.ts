@@ -22,7 +22,7 @@ declare module foundry {
             label: "DOCUMENT.Note";
             isEmbedded: true;
             permissions: Omit<abstract.DocumentMetadata["permissions"], "update"> & {
-                update: typeof foundry.documents.BaseNote["_canUpdate"];
+                update: (typeof foundry.documents.BaseNote)["_canUpdate"];
             };
         }
     }
