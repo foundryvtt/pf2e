@@ -41,9 +41,16 @@
                 ]
             },
             {
-                "domain": "{item|flags.pf2e.rulesSelections.weapon}-damage",
-                "key": "RollOption",
-                "option": "item:rune:property:ghost-touch"
+                "definition": [
+                    "item:magical"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:trait:incorporeal"
+                ],
+                "property": "property-runes",
+                "value": "ghost-touch"
             }
         ],
         "source": {
