@@ -1,8 +1,9 @@
 import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
 import { ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e, WeaponPF2e } from "@item";
-import { ItemSummaryData, ItemType } from "@item/data";
+import { ItemSummaryData } from "@item/data";
 import { TrickMagicItemEntry } from "@item/spellcasting-entry/trick";
 import { ValueAndMax } from "@module/data";
+import { RuleElementPF2e } from "@module/rules";
 import { LocalizePF2e } from "@module/system/localize";
 import { DamageRoll } from "@system/damage/roll";
 import { ErrorPF2e } from "@util";
@@ -42,6 +43,19 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             parent: this.actor,
             fromConsumable: true,
         }) as Embedded<SpellPF2e>;
+    }
+
+    get formula(): string | null {
+        return this.system.consume.value.trim() || null;
+    }
+
+    override prepareRuleElements(): RuleElementPF2e[] {
+        const rules = super.prepareRuleElements();
+        for (const rule of rules) {
+            rule.ignored = true;
+        }
+
+        return rules;
     }
 
     override async getChatData(
@@ -115,7 +129,7 @@ class ConsumablePF2e extends PhysicalItemPF2e {
     async consume(this: Embedded<ConsumablePF2e>): Promise<void> {
         const { value, max } = this.uses;
 
-        if (["scroll", "wand"].includes(this.system.consumableType.value) && this.system.spell) {
+        if (["scroll", "wand"].includes(this.category) && this.system.spell) {
             if (this.actor.spellcasting.canCastConsumable(this)) {
                 this.castEmbeddedSpell();
             } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
@@ -135,34 +149,29 @@ class ConsumablePF2e extends PhysicalItemPF2e {
             });
 
             // If using this consumable creates a roll, we need to show it
-            const formula = this.system.consume.value;
             const flags = {
                 pf2e: {
                     origin: {
                         sourceId: this.flags.core?.sourceId,
                         uuid: this.uuid,
-                        type: this.type as ItemType,
+                        type: this.type,
                     },
                 },
             };
-            if (formula) {
-                const damageType = this.traits.has("positive")
-                    ? "positive"
-                    : this.traits.has("negative")
-                    ? "negative"
-                    : "untyped";
-                new DamageRoll(`${formula}[${damageType}]`).toMessage({
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    flavor: content,
-                    flags,
-                });
-            } else if (this.category !== "ammo") {
-                ChatMessage.create({
-                    user: game.user.id,
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    content,
-                    flags,
-                });
+
+            if (this.category !== "ammo") {
+                const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+
+                if (this.formula) {
+                    const damageType = this.traits.has("positive")
+                        ? "positive"
+                        : this.traits.has("negative")
+                        ? "negative"
+                        : "untyped";
+                    new DamageRoll(`${this.formula}[${damageType}]`).toMessage({ speaker, flavor: content, flags });
+                } else {
+                    ChatMessage.create({ speaker, content, flags });
+                }
             }
         }
 
