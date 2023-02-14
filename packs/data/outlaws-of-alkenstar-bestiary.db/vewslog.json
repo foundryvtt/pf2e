@@ -414,6 +414,11 @@
         },
         {
             "_id": "H7cZ5tGRxMQ3K4wQ",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "uRbxnNECHStUJeH0"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Greataxe",
             "sort": 500000,
@@ -442,7 +447,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "reach-10",
                         "sweep"
@@ -456,6 +460,11 @@
         },
         {
             "_id": "XE0I6ZTKCuJC8VSP",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "rlcd6aUPtc0ytlIS"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dueling Pistol",
             "sort": 600000,
@@ -484,7 +493,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "concealable",
                         "concussive",
@@ -732,13 +740,16 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "dueling-pistol-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:firearm"
+                        ]
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.classDC.value",
+                        "value": 25
                     }
                 ],
                 "slug": null,
