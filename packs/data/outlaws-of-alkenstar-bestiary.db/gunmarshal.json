@@ -414,6 +414,11 @@
         },
         {
             "_id": "5NdFW0jBa6cvb2SD",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "7tKkkF8eZ4iCLJtp"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortsword",
             "sort": 500000,
@@ -442,7 +447,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "agile",
                         "finesse",
@@ -457,6 +461,11 @@
         },
         {
             "_id": "Z6PnmDPF79Vsvyb7",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "hqMtsTwmOShdAdQW"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flintlock Musket",
             "sort": 600000,
@@ -485,7 +494,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "concussive",
                         "fatal-d10",
@@ -522,16 +530,10 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
+                        "key": "CriticalSpecialization",
                         "predicate": [
-                            "ranged"
-                        ],
-                        "selector": "damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                            "item:group:firearm"
+                        ]
                     }
                 ],
                 "slug": null,
