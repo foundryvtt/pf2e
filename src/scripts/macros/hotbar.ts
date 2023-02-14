@@ -46,13 +46,13 @@ export function rollItemMacro(itemId: string): ReturnType<ItemPF2e["toChat"]> | 
     return item.toChat();
 }
 
-export async function createActionMacro(actionIndex: number, actorId: string, slot: number): Promise<void> {
+export async function createActionMacro(actionIndex: number, slot: number): Promise<void> {
     const speaker = ChatMessage.getSpeaker();
     const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
     const action = actor?.isOfType("character", "npc") ? actor.system.actions[actionIndex] : null;
     if (!action) return;
     const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.label}`;
-    const command = `game.pf2e.rollActionMacro("${actorId}", ${actionIndex}, "${action.slug}")`;
+    const command = `game.pf2e.rollActionMacro("${action.item.id}", ${actionIndex}, "${action.slug}")`;
     const actionMacro =
         game.macros.find((macro) => macro.name === macroName && macro.command === command) ??
         (await MacroPF2e.create(
@@ -68,7 +68,7 @@ export async function createActionMacro(actionIndex: number, actorId: string, sl
     game.user.assignHotbarMacro(actionMacro ?? null, slot);
 }
 
-export async function rollActionMacro(_actorId: string, _actionIndex: number, actionSlug: string): Promise<void> {
+export async function rollActionMacro(itemId: string, _actionIndex: number, actionSlug: string): Promise<void> {
     const speaker = ChatMessage.getSpeaker();
     const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
     if (!actor?.isOfType("character", "npc")) {
@@ -76,8 +76,10 @@ export async function rollActionMacro(_actorId: string, _actionIndex: number, ac
     }
 
     const strikes: StrikeData[] = actor.system.actions;
-    const strike = strikes.find((s) => s.slug === actionSlug);
-    if (strike?.slug !== actionSlug) {
+    const strike =
+        strikes.find((s) => s.item.id === itemId && s.slug === actionSlug) ??
+        strikes.find((s) => s.slug === actionSlug);
+    if (!strike) {
         return ui.notifications.error("PF2E.MacroActionNoActionError", { localize: true });
     }
 

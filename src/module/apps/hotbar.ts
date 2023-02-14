@@ -53,8 +53,8 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                 return createSkillMacro(data.skill, skillName, data.actorId, slot);
             }
             case "Action": {
-                if (!(data.actorId && typeof data.index === "number")) return;
-                return createActionMacro(data.index, data.actorId, slot);
+                if (!(typeof data.index === "number")) return;
+                return createActionMacro(data.index, slot);
             }
         }
     }
