@@ -128,7 +128,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
         }
         // Traits
         const selectedTraits = multiselects.traits.selected.map((s) => s.value);
-        if (selectedTraits.length > 0 && !selectedTraits.some((t) => entry.traits.includes(t))) {
+        if (selectedTraits.length > 0 && !selectedTraits.every((t) => entry.traits.includes(t))) {
             return false;
         }
 

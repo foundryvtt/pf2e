@@ -87,7 +87,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
         // Filters
         this.filterData.checkboxes.sizes.options = this.generateCheckboxOptions(CONFIG.PF2E.actorSizes);
         this.filterData.checkboxes.alignments.options = this.generateCheckboxOptions(CONFIG.PF2E.alignments, false);
-        this.filterData.checkboxes.traits.options = this.generateCheckboxOptions(CONFIG.PF2E.monsterTraits);
+        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.monsterTraits);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
 
@@ -95,7 +95,7 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, sliders } = this.filterData;
+        const { checkboxes, multiselects, sliders } = this.filterData;
 
         // Level
         if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
@@ -108,8 +108,9 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
             if (!checkboxes.alignments.selected.includes(entry.alignment)) return false;
         }
         // Traits
-        if (checkboxes.traits.selected.length) {
-            if (!this.arrayIncludes(checkboxes.traits.selected, entry.traits)) return false;
+        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
+        if (selectedTraits.length > 0 && !selectedTraits.every((t) => entry.traits.includes(t))) {
+            return false;
         }
         // Source
         if (checkboxes.source.selected.length) {
@@ -137,12 +138,6 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                traits: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterTraits",
-                    options: {},
-                    selected: [],
-                },
                 rarity: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterRarities",
@@ -153,6 +148,13 @@ export class CompendiumBrowserBestiaryTab extends CompendiumBrowserTab {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterSource",
                     options: {},
+                    selected: [],
+                },
+            },
+            multiselects: {
+                traits: {
+                    label: "PF2E.BrowserFilterTraits",
+                    options: [],
                     selected: [],
                 },
             },

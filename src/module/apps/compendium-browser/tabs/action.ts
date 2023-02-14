@@ -65,18 +65,19 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
         this.indexData = actions;
 
         // Set Filters
-        this.filterData.checkboxes.traits.options = this.generateCheckboxOptions(CONFIG.PF2E.actionTraits);
+        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.actionTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
 
         console.debug("PF2e System | Compendium Browser | Finished loading actions");
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes } = this.filterData;
+        const { checkboxes, multiselects } = this.filterData;
 
         // Traits
-        if (checkboxes.traits.selected.length) {
-            if (!this.arrayIncludes(checkboxes.traits.selected, entry.traits)) return false;
+        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
+        if (selectedTraits.length > 0 && !selectedTraits.every((t) => entry.traits.includes(t))) {
+            return false;
         }
         // Source
         if (checkboxes.source.selected.length) {
@@ -88,16 +89,17 @@ export class CompendiumBrowserActionTab extends CompendiumBrowserTab {
     protected override prepareFilterData(): void {
         this.filterData = {
             checkboxes: {
-                traits: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterTraits",
-                    options: {},
-                    selected: [],
-                },
                 source: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterSource",
                     options: {},
+                    selected: [],
+                },
+            },
+            multiselects: {
+                traits: {
+                    label: "PF2E.BrowserFilterTraits",
+                    options: [],
                     selected: [],
                 },
             },

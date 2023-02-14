@@ -44,14 +44,6 @@
     </div>
     <button type="button" class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
     {{#each filterData.checkboxes as |checkbox name|}}
-        {{#if (eq @index 1)}}
-            {{#each ../filterData.multiselects as |selectData type|}}
-                <div class="filtercontainer" data-filter-type="multiselects" data-filter-name="{{type}}">
-                    <h3>{{localize selectData.label}}</h3>
-                    <input class="tags paizo-style" name="{{type}}" data-tagify-select="true" spellcheck="false" value="{{json selectData.selected}}" />
-                </div>
-            {{/each}}
-        {{/if}}
         <div class="filtercontainer" data-filter-type="checkboxes" data-filter-name="{{name}}">
             <div class="title">
                 <h3>{{localize checkbox.label}}</h3>
@@ -68,6 +60,14 @@
                 {{/each}}
             </dl>
         </div>
+        {{#if @first}}
+            {{#each ../filterData.multiselects as |selectData type|}}
+                <div class="filtercontainer" data-filter-type="multiselects" data-filter-name="{{type}}">
+                    <h3>{{localize selectData.label}}</h3>
+                    <input class="tags paizo-style" name="{{type}}" data-tagify-select="true" spellcheck="false" value="{{json selectData.selected}}" />
+                </div>
+            {{/each}}
+        {{/if}}
     {{/each}}
     {{#each filterData.ranges as |range name|}}
         <div class="filtercontainer rangecontainer" data-filter-type="ranges" data-filter-name="{{name}}">
