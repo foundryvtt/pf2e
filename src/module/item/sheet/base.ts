@@ -255,7 +255,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
         for (const anchor of htmlQueryAll(rulesPanel, "a.add-rule-element")) {
             anchor.addEventListener("click", async (event) => {
-                await this._onSubmit(event); // submit any unsaved changes
+                await this._onSubmit(event); // Submit any unsaved changes
                 const rulesData = this.item.toObject().system.rules;
                 const key = this.selectedRuleElementType ?? "NewRuleElement";
                 this.item.update({ "system.rules": rulesData.concat({ key }) });
@@ -263,17 +263,17 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
 
         for (const anchor of htmlQueryAll(rulesPanel, "a.edit-rule-element")) {
-            anchor.addEventListener("click", async (event) => {
-                await this._onSubmit(event); // submit any unsaved changes
+            anchor.addEventListener("click", async () => {
+                if (this._submitting) return; // Don't open if already submitting
                 const index = Number(anchor.dataset.ruleIndex ?? "NaN") ?? null;
                 this.editingRuleElementIndex = index;
-                this.render(true);
+                this.render();
             });
         }
 
         for (const anchor of htmlQueryAll(rulesPanel, ".rules a.remove-rule-element")) {
             anchor.addEventListener("click", async (event) => {
-                await this._onSubmit(event); // submit any unsaved changes
+                await this._onSubmit(event); // Submit any unsaved changes
                 const rules = this.item.toObject().system.rules;
                 const index = Number(anchor.dataset.ruleIndex ?? "NaN");
                 if (rules && Number.isInteger(index) && rules.length > index) {
@@ -310,8 +310,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             html.querySelector<HTMLDivElement>(".rule-editing .editor-placeholder")?.replaceWith(view.dom);
 
             const closeBtn = html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=close]");
-            closeBtn?.addEventListener("click", (event) => {
-                event.preventDefault();
+            closeBtn?.addEventListener("click", () => {
                 this.editingRuleElementIndex = null;
                 this.render();
             });
@@ -319,8 +318,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
             html.querySelector<HTMLButtonElement>(".rule-editing button[data-action=apply]")?.addEventListener(
                 "click",
-                (event) => {
-                    event.preventDefault();
+                () => {
                     const value = view.state.doc.toString();
 
                     // Close early if the editing index is invalid
