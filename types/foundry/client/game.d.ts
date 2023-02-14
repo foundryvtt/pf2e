@@ -86,9 +86,7 @@ declare global {
         /** A reference to the open Socket.io connection */
         socket: io.Socket;
 
-        /**
-         * A singleton GameTime instance which manages the progression of time within the game world.
-         */
+        /** A singleton GameTime instance which manages the progression of time within the game world. */
         time: GameTime;
 
         /** The id of the active game user */
@@ -102,6 +100,9 @@ declare global {
 
         /** A singleton instance of the TooltipManger class */
         tooltip: TooltipManager;
+
+        /** A singleton instance of the Clipboard Helper class. */
+        clipboard: ClipboardHelper;
 
         /** A singleton instance of the Tours class */
         tours: Tours;

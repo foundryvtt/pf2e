@@ -1,56 +1,72 @@
 {{#if ruleEditing}}
-<section class="rule-editing">
-    <div class="editor-placeholder"></div>
-    <div class="item-controls">
-        <button data-action="close">{{localize "PF2E.Item.Rules.Close"}}</button>
-        <button data-action="apply">{{localize "PF2E.Item.Rules.Apply"}}</button>
-    </div>
-</section>
+    <section class="rule-editing">
+        <div class="editor-placeholder"></div>
+        <div class="item-controls">
+            <button data-action="close">{{localize "PF2E.Item.Rules.Close"}}</button>
+            <button data-action="apply">{{localize "PF2E.Item.Rules.Apply"}}</button>
+        </div>
+    </section>
 {{else}}
-<div class="rules">
-    <div class="nerd-details">
-        <div class="form-group">
-            <label>{{localize "PF2E.ItemUUIDLabel"}}</label>
-            <input disabled value="{{@root.document.uuid}}"/>
-            <div class="item-controls">
-                <a data-clipboard="{{@root.document.uuid}}"><i class="fas fa-clipboard"></i></a>
-            </div>
-        </div>
-        {{#if @root.document.sourceId}}
+    <div class="rules">
+        <div class="nerd-details">
             <div class="form-group">
-                <label>{{localize "PF2E.ItemSourceIDLabel"}}</label>
-                <input disabled value="{{@root.document.sourceId}}"/>
+                <label for="{{options.id}}-uuid">
+                    <span>{{localize "PF2E.UUID.Label"}}</span>
+                    <i class="fas fa-info-circle small" title="{{localize "PF2E.Item.Rules.Hint.UUID"}}"></i>
+                </label>
+                <input id="{{options.id}}-uuid" disabled value="{{document.uuid}}" />
                 <div class="item-controls">
-                    <a data-clipboard="{{@root.document.sourceId}}"><i class="fas fa-clipboard"></i></a>
+                    <a data-clipboard="{{document.uuid}}"><i class="fas fa-clipboard"></i></a>
                 </div>
             </div>
-        {{/if}}
-    </div>
+            {{#if document.sourceId}}
+                <div class="form-group">
+                    <label for="{{options.id}}-source-id">
+                        <span>{{localize "PF2E.UUID.SourceId"}}</span>
+                        <i class="fas fa-info-circle small" title="{{localize "PF2E.Item.Rules.Hint.SourceId"}}"></i>
+                    </label>
+                    <input id="{{options.id}}-source-id" disabled value="{{document.sourceId}}" />
+                    <div class="item-controls">
+                        <a data-clipboard="{{document.sourceId}}"><i class="fas fa-clipboard"></i></a>
+                    </div>
+                </div>
+            {{/if}}
+            <div class="form-group">
+                <label slug="{{options.id}}-slug">
+                    <span>{{localize "PF2E.Slug"}}</span>
+                    <i class="fas fa-info-circle small" title="{{localize "PF2E.Item.Rules.Hint.Slug"}}"></i>
+                </label>
+                <input id="{{options.id}}-slug" type="text" name="system.slug" value="{{item.system.slug}}" />
+                <div class="item-controls">
+                    <a data-action="regenerate-slug" title="{{localize "PF2E.Item.Rules.RegenerateSlug"}}"><i class="fas fa-sync-alt"></i></a>
+                </div>
+            </div>
+        </div>
 
-    <div>
-        {{#each rules.elements}}
-            <div class="rule-element-header">
-                {{#with (lookup @root.rules.labels @index)}}<h3{{#if (not recognized)}} class="unrecognized"{{/if}}>{{label}}</h3>{{/with}}
-                <div class="item-controls">
-                    <a class="edit-rule-element" data-rule-index="{{@index}}"><i class="fas fa-edit"></i></a>
-                    <a class="remove-rule-element" data-rule-index="{{@index}}" title="{{localize "PF2E.ItemRemoveRuleElement"}}"><i class="fas fa-trash"></i></a>
+        <div>
+            {{#each rules.elements}}
+                <div class="rule-element-header">
+                    {{#with (lookup @root.rules.labels @index)}}<h3{{#if (not recognized)}} class="unrecognized"{{/if}}>{{label}}</h3>{{/with}}
+                    <div class="item-controls">
+                        <a class="edit-rule-element" data-rule-index="{{@index}}"><i class="fas fa-edit"></i></a>
+                        <a class="remove-rule-element" data-rule-index="{{@index}}" title="{{localize "PF2E.Item.Rules.Remove"}}"><i class="fas fa-trash"></i></a>
+                    </div>
                 </div>
+                <div class="rule-form" data-key="{{rule.key}}" data-idx="{{index}}">
+                    {{{template}}}
+                </div>
+                <hr/>
+            {{/each}}
+            <div class="create-rule-element">
+                <select data-action="select-rule-element">
+                    {{#select rules.selection.selected}}
+                        {{#each rules.selection.types as |value key|}}
+                            <option value="{{key}}">{{value}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+                <a class="add-rule-element"><i class="fas fa-plus"></i> {{localize "PF2E.Item.Rules.New"}}</a>
             </div>
-            <div class="rule-form" data-key="{{rule.key}}" data-idx="{{index}}">
-                {{{template}}}
-            </div>
-            <hr/>
-        {{/each}}
-        <div class="create-rule-element">
-            <select data-action="select-rule-element">
-                {{#select rules.selection.selected}}
-                    {{#each rules.selection.types as |value key|}}
-                        <option value="{{key}}">{{value}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
-            <a class="add-rule-element"><i class="fas fa-plus"></i> {{localize "PF2E.ItemNewRuleElement"}}</a>
         </div>
     </div>
-</div>
 {{/if}}

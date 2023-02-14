@@ -428,9 +428,11 @@ abstract class PhysicalItemPF2e extends ItemPF2e {
 
         if (!changed.system) return super._preUpdate(changed, options, user);
 
-        // Ensure an empty-string `stackGroup` property is null
-        if (typeof changed.system?.stackGroup === "string") {
-            changed.system.stackGroup ||= null;
+        // Avoid setting a `baseItem` or `stackGroup` to an empty string
+        for (const key of ["baseItem", "stackGroup"] as const) {
+            if (typeof changed.system?.[key] === "string") {
+                changed.system[key] = sluggify(String(changed.system[key])) || null;
+            }
         }
 
         // Remove equipped.handsHeld and equipped.inSlot if the item is held or worn anywhere

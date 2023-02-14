@@ -572,6 +572,11 @@ class ItemPF2e extends Item<ActorPF2e> {
             changed.system.description.value = "";
         }
 
+        // Normalize the slug, setting to `null` if empty
+        if (typeof changed.system?.slug === "string") {
+            changed.system.slug = sluggify(changed.system.slug) || null;
+        }
+
         // If this item is of a certain type and belongs to a PC, change current HP along with any change to max
         if (this.actor?.isOfType("character") && this.isOfType("ancestry", "background", "class", "feat", "heritage")) {
             const actorClone = this.actor.clone();
