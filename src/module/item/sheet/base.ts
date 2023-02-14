@@ -76,6 +76,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
     override async getData(options: Partial<DocumentSheetOptions> = {}): Promise<ItemSheetDataPF2e<TItem>> {
+        options.id = this.id;
         options.classes?.push(this.item.type);
         options.editable = this.isEditable;
 
@@ -230,12 +231,29 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             anchor.addEventListener("click", () => this.onTagSelector(anchor));
         }
 
-        const ruleElementSelect = html.querySelector<HTMLSelectElement>("select[data-action=select-rule-element]");
+        const rulesPanel = htmlQuery(html, ".tab[data-tab=rules]");
+
+        // Item slug
+        const slugInput = htmlQuery<HTMLInputElement>(rulesPanel, 'input[name="system.slug"]');
+        if (slugInput) {
+            slugInput.addEventListener("change", () => {
+                slugInput.value = sluggify(slugInput.value);
+            });
+            htmlQuery(rulesPanel, "a[data-action=regenerate-slug]")?.addEventListener("click", () => {
+                if (this._submitting) return;
+
+                slugInput.value = sluggify(this.item.name);
+                const event = new Event("change");
+                slugInput.dispatchEvent(event);
+            });
+        }
+
+        const ruleElementSelect = htmlQuery<HTMLSelectElement>(rulesPanel, "select[data-action=select-rule-element]");
         ruleElementSelect?.addEventListener("change", () => {
             this.selectedRuleElementType = ruleElementSelect.value;
         });
 
-        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a.add-rule-element")) {
+        for (const anchor of htmlQueryAll(rulesPanel, "a.add-rule-element")) {
             anchor.addEventListener("click", async (event) => {
                 await this._onSubmit(event); // submit any unsaved changes
                 const rulesData = this.item.toObject().system.rules;
@@ -244,7 +262,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
 
-        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a.edit-rule-element")) {
+        for (const anchor of htmlQueryAll(rulesPanel, "a.edit-rule-element")) {
             anchor.addEventListener("click", async (event) => {
                 await this._onSubmit(event); // submit any unsaved changes
                 const index = Number(anchor.dataset.ruleIndex ?? "NaN") ?? null;
@@ -253,7 +271,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
 
-        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, ".rules a.remove-rule-element")) {
+        for (const anchor of htmlQueryAll(rulesPanel, ".rules a.remove-rule-element")) {
             anchor.addEventListener("click", async (event) => {
                 await this._onSubmit(event); // submit any unsaved changes
                 const rules = this.item.toObject().system.rules;
@@ -265,11 +283,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             });
         }
 
-        for (const anchor of htmlQueryAll<HTMLAnchorElement>(html, "a[data-clipboard]")) {
+        for (const anchor of htmlQueryAll<HTMLAnchorElement>(rulesPanel, "a[data-clipboard]")) {
             anchor.addEventListener("click", () => {
                 const clipText = anchor.dataset.clipboard;
                 if (clipText) {
-                    navigator.clipboard.writeText(clipText);
+                    game.clipboard.copyPlainText(clipText);
                     ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
                 }
             });
@@ -376,6 +394,24 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 this.item.update({ [`system.variants.-=${index}`]: null });
             });
         }
+
+        // Tooltipped info circles
+        for (const infoCircle of htmlQueryAll(html, "i.fa-info-circle[title]")) {
+            if (infoCircle.classList.contains("small")) {
+                $(infoCircle).tooltipster({
+                    maxWidth: 275,
+                    position: "right",
+                    theme: "crb-hover",
+                    contentAsHTML: true,
+                });
+            } else if (infoCircle.classList.contains("large")) {
+                $(infoCircle).tooltipster({
+                    maxWidth: 400,
+                    theme: "crb-hover",
+                    contentAsHTML: true,
+                });
+            }
+        }
     }
 
     /** When tabs are changed, change visibility of elements such as the sidebar */
@@ -457,11 +493,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        // Avoid setting a baseItem of an empty string
-        if (formData["system.baseItem"] === "") {
-            formData["system.baseItem"] = null;
-        }
-
         const rulesVisible = !!this.form.querySelector(".rules");
         const expanded = expandObject(formData) as DeepPartial<ItemSourcePF2e>;
 

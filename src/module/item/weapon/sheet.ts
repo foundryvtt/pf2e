@@ -196,19 +196,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 }
             });
         }
-
-        $html.find("i.fa-info-circle.small[title]").tooltipster({
-            maxWidth: 275,
-            position: "right",
-            theme: "crb-hover",
-            contentAsHTML: true,
-        });
-
-        $html.find("i.fa-info-circle.large[title]").tooltipster({
-            maxWidth: 400,
-            theme: "crb-hover",
-            contentAsHTML: true,
-        });
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
