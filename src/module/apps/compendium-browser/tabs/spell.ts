@@ -127,10 +127,9 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 selected: false,
             };
         }
-        this.filterData.checkboxes.classes.options = this.generateCheckboxOptions(CONFIG.PF2E.classTraits);
         this.filterData.checkboxes.school.options = this.generateCheckboxOptions(CONFIG.PF2E.magicSchools);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
-        this.filterData.checkboxes.traits.options = this.generateCheckboxOptions(CONFIG.PF2E.spellTraits);
+        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.spellTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(sources);
 
         this.filterData.selects.timefilter.options = [...times].sort().reduce(
@@ -145,7 +144,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, selects } = this.filterData;
+        const { checkboxes, multiselects, selects } = this.filterData;
 
         // Level
         if (checkboxes.level.selected.length) {
@@ -164,10 +163,10 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         if (checkboxes.traditions.selected.length) {
             if (!this.arrayIncludes(checkboxes.traditions.selected, entry.traditions)) return false;
         }
-        // Traits and Class
-        if (checkboxes.classes.selected.length || checkboxes.traits.selected.length) {
-            const combined = [...checkboxes.classes.selected, ...checkboxes.traits.selected];
-            if (!this.arrayIncludes(combined, entry.traits)) return false;
+        // Traits
+        const selectedTraits = multiselects.traits.selected.map((s) => s.value);
+        if (selectedTraits.length > 0 && !selectedTraits.every((t) => entry.traits.includes(t))) {
+            return false;
         }
         // School
         if (checkboxes.school.selected.length) {
@@ -205,12 +204,6 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                classes: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterClass",
-                    options: {},
-                    selected: [],
-                },
                 school: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterSchools",
@@ -223,16 +216,17 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                     options: {},
                     selected: [],
                 },
-                traits: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterTraits",
-                    options: {},
-                    selected: [],
-                },
                 source: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterSource",
                     options: {},
+                    selected: [],
+                },
+            },
+            multiselects: {
+                traits: {
+                    label: "PF2E.BrowserFilterTraits",
+                    options: [],
                     selected: [],
                 },
             },
