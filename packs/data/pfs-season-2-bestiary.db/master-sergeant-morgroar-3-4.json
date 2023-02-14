@@ -413,6 +413,11 @@
         },
         {
             "_id": "jEAHJAcvb9tI3E4z",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "xV06IC9Kcp14Qmk8"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Halberd",
             "sort": 500000,
@@ -435,25 +440,14 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "{item|_id}-damage",
-                        "text": "On a critical hit, the target of the critical hit is moved 5 feet in a direction of Morgroar's choice.",
-                        "title": "Polearm Critical Specialization"
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
-                        "reach",
+                        "reach-10",
                         "versatile-s"
                     ]
                 },
@@ -465,6 +459,11 @@
         },
         {
             "_id": "61d5hzZpF2zZesFn",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "3Kl6Cr8srjCbumOZ"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Composite Shortbow",
             "sort": 600000,
@@ -493,7 +492,6 @@
                     "value": ""
                 },
                 "traits": {
-                    "rarity": "common",
                     "value": [
                         "brutal",
                         "deadly-d10",
@@ -688,7 +686,14 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:group:polearm"
+                        ]
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

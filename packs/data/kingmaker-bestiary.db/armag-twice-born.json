@@ -577,23 +577,15 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "ovinrbaane-damage",
-                        "text": "{item|system.description.value}\n",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "criticalSuccess"
-                        ],
-                        "selector": "greatsword-damage",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:slug:greatsword",
+                                    "item:slug:ovinrbaane"
+                                ]
+                            }
+                        ]
                     }
                 ],
                 "slug": null,
