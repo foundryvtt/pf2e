@@ -36,6 +36,7 @@ import { Migration816AlchemistResearchFields } from "@module/migration/migration
 import { Migration817FieldDiscoveryPredicates } from "@module/migration/migrations/817-field-discovery-predicates";
 import { Migration819SpinTaleAdventureSpecific } from "@module/migration/migrations/819-spin-tale-adventure-specific";
 import { Migration820RemoveUnusedTraitsData } from "@module/migration/migrations/820-remove-unused-traits-data";
+import { Migration821InlineDamageRolls } from "@module/migration/migrations/821-inline-damage-rolls";
 
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
@@ -75,6 +76,7 @@ const migrations: MigrationBase[] = [
     new Migration817FieldDiscoveryPredicates(),
     new Migration819SpinTaleAdventureSpecific(),
     new Migration820RemoveUnusedTraitsData(),
+    new Migration821InlineDamageRolls(),
 ];
 
 global.deepClone = <T>(original: T): T => {
