@@ -248,21 +248,22 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         if (!["character", "npc"].includes(this.actor.type)) InlineRollLinks.listen($html, this.actor);
 
-        // Roll Save Checks
-        $html.find(".save-name").on("click", (event) => {
-            event.preventDefault();
-            const saveType = $(event.currentTarget).closest("[data-save]")[0].getAttribute("data-save");
-            if (!tupleHasValue(SAVE_TYPES, saveType)) {
-                throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
-            }
+        // Roll saving throws
+        for (const link of htmlQueryAll(html, ".save-name")) {
+            link.addEventListener("click", (event) => {
+                const saveType = htmlClosest(link, "[data-save]")?.dataset.save;
+                if (!tupleHasValue(SAVE_TYPES, saveType)) {
+                    throw ErrorPF2e(`"${saveType}" is not a recognized save type`);
+                }
 
-            this.actor.saves?.[saveType]?.check.roll(eventToRollParams(event));
-        });
+                this.actor.saves?.[saveType]?.check.roll(eventToRollParams(event));
+            });
+        }
 
-        $html.find(".roll-init").on("click", (event) => {
-            const $target = $(event.currentTarget);
+        const rollInitElem = htmlQuery(html, ".roll-init");
+        rollInitElem?.addEventListener("click", (event) => {
             const { attributes } = this.actor.system;
-            if (!$target.hasClass("disabled") && "initiative" in attributes) {
+            if (!rollInitElem.classList.contains("disabled") && "initiative" in attributes) {
                 attributes.initiative.roll?.(eventToRollParams(event));
             }
         });
@@ -511,17 +512,20 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         });
 
         // Select all text in an input field on focus
-        $html.find<HTMLInputElement>("input[type=text], input[type=number]").on("focus", (event) => {
-            event.currentTarget.select();
-        });
+        for (const inputElem of htmlQueryAll<HTMLInputElement>(html, "input[type=text], input[type=number]")) {
+            inputElem.addEventListener("focus", () => {
+                inputElem.select();
+            });
+        }
 
-        // Only allow digits & leading plus and minus signs for `data-allow-delta` inputs thus emulating input[type="number"]
-        $html.find("input[data-allow-delta]").on("input", (event) => {
-            const target = <HTMLInputElement>event.target;
-            const match = target.value.match(/[+-]?\d*/);
-            if (match) target.value = match[0];
-            else target.value = "";
-        });
+        // Only allow digits & leading plus and minus signs for `data-allow-delta` inputs,
+        // thus emulating input[type="number"]
+        for (const deltaInput of htmlQueryAll<HTMLInputElement>(html, "input[data-allow-delta]")) {
+            deltaInput.addEventListener("input", () => {
+                const match = /[+-]?\d*/.exec(deltaInput.value)?.at(0);
+                deltaInput.value = match ?? deltaInput.value;
+            });
+        }
     }
 
     async onClickDeleteItem(event: JQuery.TriggeredEvent): Promise<void> {
@@ -1121,10 +1125,9 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         event: Event,
         { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {}
     ): Promise<Record<string, unknown>> {
-        const $form = $<HTMLFormElement>(this.form);
-        $form.find<HTMLInputElement>("tags ~ input").each((_i, input) => {
+        for (const input of htmlQueryAll<HTMLInputElement>(this.form, "tags ~ input")) {
             if (input.value === "") input.value = "[]";
-        });
+        }
 
         return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
