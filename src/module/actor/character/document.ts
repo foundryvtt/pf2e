@@ -2035,6 +2035,11 @@ class CharacterPF2e extends CreaturePF2e {
             }
         }
 
+        // Ensure minimum XP value and max
+        const xp = changed.system?.details?.xp ?? {};
+        if (typeof xp.value === "number") xp.value = Math.max(xp.value, 0);
+        if (typeof xp.max === "number") xp.max = Math.max(xp.max, 1);
+
         // Add or remove class features as necessary, appropriate to the PC's level
         const newLevel = changed.system?.details?.level?.value ?? this.level;
         const actorClass = this.class;
