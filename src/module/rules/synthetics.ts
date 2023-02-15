@@ -95,7 +95,7 @@ interface StrikeAdjustment {
         weapon: WeaponPF2e | MeleePF2e,
         { materials }: { materials?: Set<MaterialDamageEffect> }
     ) => void;
-    adjustWeapon?: (weapon: Embedded<WeaponPF2e>) => void;
+    adjustWeapon?: (weapon: WeaponPF2e | MeleePF2e) => void;
     adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]) => void;
 }
 
