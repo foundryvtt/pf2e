@@ -1046,7 +1046,7 @@
                     "value": null
                 },
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>After the dragon uses its Breath Weapon, a cloud of poison gas continues to emanate from its body for 1 round. Any creature that ends its turn in the miasma takes [[/r 4d6[poison]]] damage (@Check[type:fortitude|dc:37|basic:true] save).</p>\n<p>Any creature in the miasma is @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} and treats other creatures as concealed. The dragon can see through this concealment.</p>"
+                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>After the dragon uses its Breath Weapon, a cloud of poison gas continues to emanate from its body for 1 round. Any creature that ends its turn in the miasma takes [[/r 4d6[poison]]] damage (@Check[type:fortitude|dc:37|basic:true] save).</p>\n<p>Any creature in the miasma is @UUID[Compendium.pf2e.conditionitems.Concealed]{Concealed} and treats other creatures as concealed. The dragon can see through this concealment.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Effect: Draconic Breath Weapon Aura]{Effect: Draconic Breath Weapon Aura}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1055,19 +1055,13 @@
                     {
                         "key": "Aura",
                         "predicate": [
-                            "miasma-active"
+                            "self:effect:draconic-breath-weapon-aura"
                         ],
                         "radius": 20,
                         "slug": "miasma",
                         "traits": [
                             "poison"
                         ]
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "miasma-active",
-                        "toggleable": true
                     }
                 ],
                 "slug": null,
