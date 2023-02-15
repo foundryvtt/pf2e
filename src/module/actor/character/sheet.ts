@@ -9,7 +9,16 @@ import { PROFICIENCY_RANKS } from "@module/data";
 import { craft } from "@system/action-macros/crafting/craft";
 import { CheckDC } from "@system/degree-of-success";
 import { LocalizePF2e } from "@system/localize";
-import { ErrorPF2e, getActionIcon, groupBy, htmlQueryAll, isObject, objectHasKey, setHasElement } from "@util";
+import {
+    ErrorPF2e,
+    getActionIcon,
+    groupBy,
+    htmlQuery,
+    htmlQueryAll,
+    isObject,
+    objectHasKey,
+    setHasElement,
+} from "@util";
 import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { AbilityBuilderPopup } from "../sheet/popups/ability-builder";
@@ -542,13 +551,22 @@ class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         // SPELLCASTING
-        const $castingTab = $html.find(".tab.spellcasting");
+        const castingPanel = htmlQuery(html, ".tab.spellcasting");
 
-        $castingTab.find(".focus-pool").on("click contextmenu", (event) => {
-            const change = event.type === "click" ? 1 : -1;
-            const points = (this.actor.system.resources.focus?.value ?? 0) + change;
-            this.actor.update({ "system.resources.focus.value": points });
-        });
+        // Focus pool pips
+        const focusPips = htmlQueryAll(castingPanel, ".focus-pool");
+        if (focusPips.length > 0) {
+            const listener = (event: Event) => {
+                const change = event.type === "click" ? 1 : -1;
+                const points = this.actor.system.resources.focus.value + change;
+                this.actor.update({ "system.resources.focus.value": points });
+            };
+
+            for (const pips of focusPips) {
+                pips.addEventListener("click", listener);
+                pips.addEventListener("contextmenu", listener);
+            }
+        }
 
         // CRAFTING
         const $craftingTab = $html.find(".tab.crafting");

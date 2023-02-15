@@ -171,22 +171,27 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         const html = $html[0]!;
 
         // Change carry type
-        for (const carryTypeLink of htmlQueryAll(html, ".tab.inventory a[data-carry-type]")) {
-            carryTypeLink.addEventListener("click", () => {
-                const nextSibling = carryTypeLink.nextElementSibling;
-                if (nextSibling?.classList.contains("carry-type-hover")) {
-                    $(nextSibling).tooltipster("close");
-                }
+        const carryMenuListener = (event: MouseEvent) => {
+            if (!(event.currentTarget instanceof HTMLElement)) {
+                throw ErrorPF2e("Unexpected error retrieving carry-type link");
+            }
+            const menu = event.currentTarget;
+            const toggle = menu.nextElementSibling;
+            if (toggle?.classList.contains("carry-type-hover")) {
+                $(toggle).tooltipster("close");
+            }
 
-                const itemId = htmlClosest(carryTypeLink, "[data-item-id]")?.dataset.itemId;
-                const item = this.actor.inventory.get(itemId, { strict: true });
-                const carryType = carryTypeLink.dataset.carryType;
-                const handsHeld = Number(carryTypeLink.dataset.handsHeld) || 0;
-                const inSlot = carryTypeLink.dataset.inSlot === "true";
-                if (carryType && setHasElement(ITEM_CARRY_TYPES, carryType)) {
-                    this.actor.adjustCarryType(item, carryType, handsHeld, inSlot);
-                }
-            });
+            const itemId = htmlClosest(menu, "[data-item-id]")?.dataset.itemId;
+            const item = this.actor.inventory.get(itemId, { strict: true });
+            const carryType = menu.dataset.carryType;
+            const handsHeld = Number(menu.dataset.handsHeld) || 0;
+            const inSlot = menu.dataset.inSlot === "true";
+            if (carryType && setHasElement(ITEM_CARRY_TYPES, carryType)) {
+                this.actor.adjustCarryType(item, carryType, handsHeld, inSlot);
+            }
+        };
+        for (const carryTypeMenu of htmlQueryAll(html, ".tab.inventory a[data-carry-type]")) {
+            carryTypeMenu.addEventListener("click", carryMenuListener);
         }
 
         // General handler for embedded item updates
