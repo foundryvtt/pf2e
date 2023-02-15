@@ -219,3 +219,4 @@ export { Migration818BasicUndeadNegativeHealing } from "./818-basic-undead-negat
 export { Migration819SpinTaleAdventureSpecific } from "./819-spin-tale-adventure-specific";
 export { Migration820RemoveUnusedTraitsData } from "./820-remove-unused-traits-data";
 export { Migration821InlineDamageRolls } from "./821-inline-damage-rolls";
+export { Migration822BladeAllyConsolidation } from "./822-blade-ally-consolidation";
