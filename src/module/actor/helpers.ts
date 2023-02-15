@@ -146,7 +146,7 @@ function calculateMAPs(
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */
 function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
-    const { ability, traits, isMelee, isThrown } = item;
+    const { ability, isMelee, isThrown } = item;
     const { actor } = item;
     if (!actor.isOfType("npc", "hazard")) {
         throw ErrorPF2e("Attempted to create melee-item strike statistic for non-NPC/hazard");
@@ -154,7 +154,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
 
     // Conditions and Custom modifiers to attack rolls
     const slug = item.slug ?? sluggify(item.name);
-    const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
+    const unarmedOrWeapon = item.system.traits.value.includes("unarmed") ? "unarmed" : "weapon";
     const meleeOrRanged = isMelee ? "melee" : "ranged";
 
     const domains = [
@@ -193,7 +193,12 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
         return { tag, label };
     });
 
-    const baseOptions = [...actor.getRollOptions(domains), ...item.traits];
+    // Apply strike adjustments affecting the attack
+    for (const adjustment of synthetics.strikeAdjustments) {
+        adjustment.adjustWeapon?.(item);
+    }
+
+    const baseOptions = [...actor.getRollOptions(domains), ...item.system.traits.value];
     // Legacy support for "melee", "ranged", and "thrown" roll options
     if (isMelee) {
         baseOptions.push("melee");
@@ -204,7 +209,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
     }
 
     const statistic = new StatisticModifier(`${slug}-strike`, modifiers, baseOptions);
-    const traitObjects = Array.from(traits).map(
+    const traitObjects = item.system.traits.value.map(
         (t): TraitViewData => ({
             name: t,
             label: CONFIG.PF2E.npcAttackTraits[t] ?? t,
@@ -265,7 +270,7 @@ function strikeFromMeleeItem(item: Embedded<MeleePF2e>): NPCStrike {
                     item,
                     viewOnly: false,
                     domains,
-                    options: new Set([...baseOptions, ...params.options, ...traits]),
+                    options: new Set([...baseOptions, ...params.options]),
                 });
 
                 // Check whether target is out of maximum range; abort early if so

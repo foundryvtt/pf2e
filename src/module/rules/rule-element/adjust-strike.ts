@@ -88,7 +88,9 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
                     };
                 case "range-increment":
                     return {
-                        adjustWeapon: (weapon: Embedded<WeaponPF2e>): void => {
+                        adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
+                            if (weapon.isOfType("melee")) return; // Currently not supported
+
                             if (typeof change !== "number") {
                                 return this.failValidation("Change value is not a number.");
                             }
@@ -133,7 +135,7 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
                     };
                 case "weapon-traits":
                     return {
-                        adjustWeapon: (weapon: Embedded<WeaponPF2e>): void => {
+                        adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
                             if (!["add", "subtract", "remove"].includes(this.mode)) {
                                 return this.failValidation(
                                     'A strike adjustment of weapon traits must be used with the "add", "subtract", or "remove" mode.'
@@ -184,7 +186,9 @@ class AdjustStrikeRuleElement extends AELikeRuleElement<AdjustStrikeSchema> {
                     };
                 case "property-runes":
                     return {
-                        adjustWeapon: (weapon: Embedded<WeaponPF2e>): void => {
+                        adjustWeapon: (weapon: WeaponPF2e | MeleePF2e): void => {
+                            if (weapon.isOfType("melee")) return; // Currently not supported
+
                             if (!["add", "subtract", "remove"].includes(this.mode)) {
                                 return this.failValidation(
                                     'A strike adjustment of weapon property runes must be used with the "add", "subtract", or "remove" mode.'
