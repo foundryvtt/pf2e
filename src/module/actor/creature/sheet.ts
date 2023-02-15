@@ -2,7 +2,7 @@ import { CreaturePF2e } from "@actor";
 import { CreatureSheetItemRenderer } from "@actor/sheet/item-summary-renderer";
 import { createSpellcastingDialog } from "@actor/sheet/spellcasting-dialog";
 import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values";
-import { AbstractEffectPF2e, ItemPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
+import { AbstractEffectPF2e, ItemPF2e, SpellcastingEntryPF2e, SpellPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/data";
 import { ITEM_CARRY_TYPES } from "@item/data/values";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
@@ -170,23 +170,24 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
         super.activateListeners($html);
         const html = $html[0]!;
 
-        // Toggle equip
-        $html.find(".tab.inventory a[data-carry-type]").on("click", (event) => {
-            $html.find(".carry-type-hover").tooltipster("close");
+        // Change carry type
+        for (const carryTypeLink of htmlQueryAll(html, ".tab.inventory a[data-carry-type]")) {
+            carryTypeLink.addEventListener("click", () => {
+                const nextSibling = carryTypeLink.nextElementSibling;
+                if (nextSibling?.classList.contains("carry-type-hover")) {
+                    $(nextSibling).tooltipster("close");
+                }
 
-            const itemId = $(event.currentTarget).closest("[data-item-id]").attr("data-item-id") ?? "";
-            const item = this.actor.items.get(itemId, { strict: true });
-            if (!(item instanceof PhysicalItemPF2e)) {
-                throw ErrorPF2e("Tried to update carry type of non-physical item");
-            }
-
-            const carryType = $(event.currentTarget).attr("data-carry-type") ?? "";
-            const handsHeld = Number($(event.currentTarget).attr("data-hands-held")) ?? 1;
-            const inSlot = $(event.currentTarget).attr("data-in-slot") === "true";
-            if (carryType && setHasElement(ITEM_CARRY_TYPES, carryType)) {
-                this.actor.adjustCarryType(item, carryType, handsHeld, inSlot);
-            }
-        });
+                const itemId = htmlClosest(carryTypeLink, "[data-item-id]")?.dataset.itemId;
+                const item = this.actor.inventory.get(itemId, { strict: true });
+                const carryType = carryTypeLink.dataset.carryType;
+                const handsHeld = Number(carryTypeLink.dataset.handsHeld) || 0;
+                const inSlot = carryTypeLink.dataset.inSlot === "true";
+                if (carryType && setHasElement(ITEM_CARRY_TYPES, carryType)) {
+                    this.actor.adjustCarryType(item, carryType, handsHeld, inSlot);
+                }
+            });
+        }
 
         // General handler for embedded item updates
         const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
