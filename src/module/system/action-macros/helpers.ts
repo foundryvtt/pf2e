@@ -127,6 +127,11 @@ export class ActionMacroHelpers {
             combinedOptions.push(...(weapon?.getRollOptions("item") ?? []));
 
             const stat = getProperty(selfActor, options.statName) as StatisticModifier & { rank?: number };
+            if (!stat) {
+                const { id, name } = selfActor;
+                ui.notifications.error(`Actor ${name} (${id}) does not have a statistic for ${options.statName}`);
+                continue;
+            }
 
             const modifiers =
                 (typeof options.modifiers === "function"
@@ -143,7 +148,7 @@ export class ActionMacroHelpers {
                     if (dcStat) {
                         const extraRollOptions = combinedOptions.concat(targetOptions);
                         const { dc } = dcStat.withRollOptions({ extraRollOptions });
-                        const dcData: CheckDC = { value: dc.value };
+                        const dcData: CheckDC = { label: dcStat.label, value: dc.value };
                         if (setHasElement(DC_SLUGS, dcStat.slug)) dcData.slug = dcStat.slug;
 
                         return dcData;

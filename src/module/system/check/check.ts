@@ -519,9 +519,10 @@ class CheckPF2e {
         // DC, circumstance adjustments, and the target's name
         const dcData = ((): ResultFlavorTemplateData["dc"] => {
             const dcType = game.i18n.localize(
-                objectHasKey(translations.DC.Specific, dc.slug)
-                    ? translations.DC.Specific[dc.slug]
-                    : translations.DC.Unspecific
+                dc.label?.trim() ||
+                    (objectHasKey(translations.DC.Specific, dc.slug)
+                        ? translations.DC.Specific[dc.slug]
+                        : translations.DC.Unspecific)
             );
 
             // Get any circumstance penalties or bonuses to the target's DC
