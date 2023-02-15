@@ -259,7 +259,7 @@ export abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Act
             this.actor.skills[key]?.check.roll(rollParams);
         });
 
-        // Adding/Editing/Removing Spellcasting entries
+        // Add, edit, and remove spellcasting entries
         for (const section of htmlQueryAll(html, ".tab.spellcasting, .tab.spells") ?? []) {
             for (const element of htmlQueryAll(section, "[data-action=spellcasting-create]") ?? []) {
                 element.addEventListener("click", (event) => {
