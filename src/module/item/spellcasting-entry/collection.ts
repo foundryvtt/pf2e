@@ -144,7 +144,7 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
         return this.entry.update({ [key]: isExpended });
     }
 
-    async getSpellData() {
+    async getSpellData(): Promise<SpellCollectionData> {
         const { actor } = this.entry;
         if (!actor.isOfType("character", "npc")) {
             throw ErrorPF2e("Spellcasting entries can only exist on characters and npcs");
@@ -305,4 +305,10 @@ export class SpellCollection extends Collection<Embedded<SpellPF2e>> {
 
         return Object.values(spellPrepList).some((s) => !!s.length) ? spellPrepList : null;
     }
+}
+
+interface SpellCollectionData {
+    levels: SpellcastingSlotLevel[];
+    flexibleAvailable: { value: number; max: number } | undefined;
+    spellPrepList: Record<number, SpellPrepEntry[]> | null;
 }
