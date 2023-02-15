@@ -31,6 +31,7 @@ import { UserConfigPF2e } from "@module/user/sheet";
 import { TokenConfigPF2e, TokenDocumentPF2e } from "@scene";
 import { SceneConfigPF2e } from "@scene/sheet";
 import { LocalizePF2e } from "@system/localize";
+import { InfluenceSheetPF2e } from "@actor/influence";
 
 export function registerSheets(): void {
     const translations = LocalizePF2e.translations.PF2E;
@@ -60,6 +61,13 @@ export function registerSheets(): void {
         label: game.i18n.format(sheetLabel, { type: localizeType("npc") }),
         makeDefault: true,
     });
+    if (BUILD_MODE === "development") {
+        Actors.registerSheet("pf2e", InfluenceSheetPF2e, {
+            types: ["character", "familiar", "npc"],
+            label: game.i18n.localize("PF2E.InfluenceSheet.SheetSelectionLabel"),
+            makeDefault: false,
+        });
+    }
 
     // Register Hazard Sheet
     Actors.registerSheet("pf2e", HazardSheetPF2e, {

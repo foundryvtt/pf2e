@@ -1,0 +1,107 @@
+<form class="influence-sheet" autocomplete="off">
+    <h1>{{actor.name}}</h1>
+    <ul class="traits tags paizo-style traits-bar">
+        {{#if (and actor.rarity (ne actor.rarity "common"))}}
+            <li class="tag trait rarity {{actor.rarity}}">{{localize (lookup label.rarity actor.rarity)}}</li>
+        {{/if}}
+        {{#if actor.alignment}}
+            <li class="tag trait alignment {{actor.alignment}}">{{actor.alignment}}</li>
+        {{/if}}
+        {{#if actor.size}}
+            <li class="tag trait size {{actor.size}}">{{localize (lookup label.size actor.size)}}</li>
+        {{/if}}
+        {{#each actor.traits as |trait|}}
+            {{#if (lookup @root.label.trait trait)}}
+                <li class="tag trait {{trait}}">{{localize (lookup @root.label.trait trait)}}</li>
+            {{/if}}
+        {{/each}}
+    </ul>
+    <section>{{actor.system.influence.subtitle}}</section>
+    <section data-statistic="perception">
+        <strong>{{localize "PF2E.PerceptionLabel"}}</strong>
+        <span data-action="roll-check">
+            <i class="fa fa-dice-d20"></i>
+            {{numberFormat actor.perception.mod decimals=0 sign=true}}
+        </span>
+    </section>
+    <section data-statistic="will">
+        <strong>{{localize "PF2E.SavesWill"}}</strong>
+        <span data-action="roll-check">
+            <i class="fa fa-dice-d20"></i>
+            {{numberFormat actor.saves.will.mod decimals=0 sign=true}}
+        </span>
+    </section>
+    <section data-type="discovery">
+        <strong>{{localize "PF2E.InfluenceSheet.Section.Discovery.Label"}}</strong>
+        <i data-tooltip="PF2E.InfluenceSheet.Tooltip.InfluenceCheck" data-tooltip-direction="UP" class="fa fa-info-circle"></i>
+        <ul>
+            {{#each actor.system.influence.discovery as |discovery slug|}}
+                <li data-slug="{{slug}}">
+                    <span data-action="comment">
+                        {{#if (and discovery.label discovery.note)}}
+                            {{localize "PF2E.InfluenceSheet.Format.SkillWithNote" dc=discovery.dc label=(localize discovery.label) note=(localize discovery.note)}}
+                        {{else if discovery.note}}
+                            {{localize "PF2E.InfluenceSheet.Format.SkillWithNote" dc=discovery.dc label=(localize (lookup @root.label.statistic slug)) note=(localize discovery.note)}}
+                        {{else if discovery.label}}
+                            {{localize "PF2E.InfluenceSheet.Format.SkillWithoutNote" dc=discovery.dc label=(localize discovery.label)}}
+                        {{else}}
+                            {{localize "PF2E.InfluenceSheet.Format.SkillWithoutNote" dc=discovery.dc label=(localize (lookup @root.label.statistic slug))}}
+                        {{/if}}
+                    </span>
+                </li>
+            {{/each}}
+        </ul>
+    </section>
+    <section data-type="skills">
+        <strong>{{localize "PF2E.InfluenceSheet.Section.Skills.Label"}}</strong>
+        <i data-tooltip="PF2E.InfluenceSheet.Tooltip.InfluenceCheck" data-tooltip-direction="UP" class="fa fa-info-circle"></i>
+        <ul>
+            {{#each actor.system.influence.skills as |influence slug|}}
+                <li data-slug="{{slug}}">
+                    <span data-action="comment">
+                        {{#if (and influence.label influence.note)}}
+                            {{localize "PF2E.InfluenceSheet.Format.SkillWithNote" dc=influence.dc label=(localize influence.label) note=(localize influence.note)}}
+                        {{else if influence.note}}
+                            {{localize "PF2E.InfluenceSheet.Format.SkillWithNote" dc=influence.dc label=(localize (lookup @root.label.statistic slug)) note=(localize influence.note)}}
+                        {{else if influence.label}}
+                            {{localize "PF2E.InfluenceSheet.Format.SkillWithoutNote" dc=influence.dc label=(localize influence.label)}}
+                        {{else}}
+                            {{localize "PF2E.InfluenceSheet.Format.SkillWithoutNote" dc=influence.dc label=(localize (lookup @root.label.statistic slug))}}
+                        {{/if}}
+                    </span>
+                </li>
+            {{/each}}
+        </ul>
+    </section>
+    {{#each actor.system.influence.thresholds as |threshold|}}
+        <section data-threshold-index="{{@index}}">
+            <strong>{{localize "PF2E.InfluenceSheet.Section.Threshold.Label" threshold=threshold.value}}</strong>
+            <span>{{localize threshold.description}}</span>
+        </section>
+    {{/each}}
+    <hr>
+    <section>
+        <strong>{{localize "PF2E.InfluenceSheet.Section.Resistances.Label"}}</strong>
+        <span>{{actor.system.influence.resistances}}</span>
+    </section>
+    <section>
+        <strong>{{localize "PF2E.InfluenceSheet.Section.Weaknesses.Label"}}</strong>
+        <span>{{actor.system.influence.weaknesses}}</span>
+    </section>
+    <section>
+        <strong>{{localize "PF2E.InfluenceSheet.Section.Background.Label"}}</strong>
+        <span>{{actor.system.influence.background}}</span>
+    </section>
+    <section>
+        <strong>{{localize "PF2E.InfluenceSheet.Section.Appearance.Label"}}</strong>
+        <span>{{actor.system.influence.appearance}}</span>
+    </section>
+    <section>
+        <strong>{{localize "PF2E.InfluenceSheet.Section.Personality.Label"}}</strong>
+        <span>{{actor.system.influence.personality}}</span>
+    </section>
+    <section>
+        <strong>{{localize "PF2E.InfluenceSheet.Section.Penalty.Label"}}</strong>
+        <span>{{actor.system.influence.penalty}}</span>
+    </section>
+</form>
