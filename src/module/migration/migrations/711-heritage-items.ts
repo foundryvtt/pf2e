@@ -166,7 +166,7 @@ export class Migration711HeritageItems extends MigrationBase {
 
     private ancestrySlugs = Object.keys(this.officialAncestries);
 
-    private heritageFromFeat(feature: FeatSource): HeritageSource {
+    private heritageFromFeat(feature: FeatSource): HeritageSourceWithNoAncestrySlug {
         const featureSlug = feature.system.slug ?? "";
         const ancestrySlug =
             this.heritagesWithoutAncestryInName[featureSlug] ?? this.ancestrySlugs.find((s) => featureSlug.includes(s));
@@ -235,7 +235,8 @@ export class Migration711HeritageItems extends MigrationBase {
         if (itemSource.img === "systems/pf2e/icons/default-icons/feat.svg") {
             itemSource.img = "systems/pf2e/icons/default-icons/heritage.svg";
         }
-        const newSystemData: HeritageSystemSource & FeatPropertyDeletions = this.heritageFromFeat(itemSource).system;
+        type WithPropertyDeletions = HeritageSystemSourceWithNoAncestrySlug & FeatPropertyDeletions;
+        const newSystemData: WithPropertyDeletions = this.heritageFromFeat(itemSource).system;
         const deletionProperties = toDelete.map((k) => `-=${k}` as const);
         for (const property of deletionProperties) {
             newSystemData[property] = null;
@@ -262,5 +263,13 @@ type MaybeWithHeritageFeatType = ItemSourcePF2e & {
         };
     };
 };
+
+interface HeritageSourceWithNoAncestrySlug extends Omit<HeritageSource, "system"> {
+    system: HeritageSystemSourceWithNoAncestrySlug;
+}
+
+interface HeritageSystemSourceWithNoAncestrySlug extends Omit<HeritageSystemSource, "ancestry"> {
+    ancestry: { uuid: ItemUUID; name: string } | null;
+}
 
 type MaybeWithStoredHeritage = Omit<CharacterDetails, "heritage"> & { heritage?: unknown; "-=heritage"?: null };

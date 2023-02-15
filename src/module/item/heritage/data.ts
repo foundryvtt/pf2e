@@ -10,6 +10,7 @@ type HeritageData = Omit<HeritageSource, "system" | "effects" | "flags"> &
 interface HeritageSystemSource extends ItemSystemData {
     ancestry: {
         name: string;
+        slug: string;
         uuid: ItemUUID;
     } | null;
     traits: CreatureTraits;

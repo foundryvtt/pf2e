@@ -26,7 +26,7 @@ import {
 } from "@actor/data/base";
 import { StatisticModifier } from "@actor/modifiers";
 import { AbilityString, SaveType } from "@actor/types";
-import { FeatPF2e, WeaponPF2e } from "@item";
+import { FeatPF2e, HeritagePF2e, WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types";
 import { ProficiencyRank } from "@item/data";
 import { DeitySystemData } from "@item/deity/data";
@@ -434,7 +434,7 @@ interface CharacterTraitsData extends CreatureTraitsData {
 }
 
 interface GrantedFeat {
-    feat: FeatPF2e;
+    feat: FeatPF2e | HeritagePF2e;
     grants: GrantedFeat[];
 }
 
