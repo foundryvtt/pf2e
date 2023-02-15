@@ -335,6 +335,9 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 .join(", ");
             systemData.skills[shortForm] = stat;
         }
+
+        // Influence
+        this.prepareDerivedInfluence();
     }
 
     /** Familiars cannot have item bonuses. Nor do they have ability mods nor proficiency (sans master level) */

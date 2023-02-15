@@ -314,6 +314,8 @@ abstract class CreaturePF2e<
         attributes.dying = { value: 0, max: 4, recoveryDC: 10 };
         attributes.wounded = { value: 0, max: 3 };
 
+        this.prepareBaseInfluence();
+
         // Set IWR guaranteed by traits
         setImmunitiesFromTraits(this);
     }
@@ -707,6 +709,25 @@ abstract class CreaturePF2e<
 
             return stat;
         }
+    }
+
+    prepareBaseInfluence() {
+        this.system.influence = this.system.influence ?? {
+            subtitle: "",
+            discovery: {},
+            skills: {},
+            thresholds: [],
+            resistances: [],
+            weaknesses: [],
+            background: "",
+            appearance: "",
+            personality: "",
+            penalty: "",
+        };
+    }
+
+    prepareDerivedInfluence() {
+        // prepare influence discover and influence statistics
     }
 
     /* -------------------------------------------- */

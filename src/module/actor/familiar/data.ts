@@ -13,7 +13,7 @@ import { AbilityString } from "@actor/types";
 
 type FamiliarSource = BaseCreatureSource<"familiar", FamiliarSystemSource>;
 
-interface FamiliarSystemSource extends Pick<CreatureSystemSource, "schema"> {
+interface FamiliarSystemSource extends Pick<CreatureSystemSource, "influence" | "schema"> {
     details: {
         creature: {
             value: string;

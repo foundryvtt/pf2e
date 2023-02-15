@@ -546,6 +546,9 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Initiative
         this.prepareInitiative();
+
+        // Influence
+        this.prepareDerivedInfluence();
     }
 
     private prepareSaves(): void {

@@ -48,6 +48,8 @@ interface CreatureSystemSource extends ActorSystemSource {
     saves?: Record<SaveType, { value?: number; mod?: number }>;
 
     resources?: CreatureResourcesSource;
+
+    influence: CreatureInfluenceSource;
 }
 
 type CreatureDetails = {
@@ -242,6 +244,31 @@ interface HeldShieldData {
     icon: ImageFilePath;
 }
 
+interface InfluenceDifficultyClass {
+    dc: number;
+    label?: string;
+    note?: string;
+}
+
+interface InfluenceThreshold {
+    description: string;
+    value: number;
+}
+
+/** Data for use in influence encounters */
+interface CreatureInfluenceSource {
+    subtitle: string;
+    discovery: Record<"perception" | keyof ConfigPF2e["PF2E"]["skillList"] | string, InfluenceDifficultyClass>;
+    skills: Record<"perception" | keyof ConfigPF2e["PF2E"]["skillList"] | string, InfluenceDifficultyClass>;
+    thresholds: InfluenceThreshold[];
+    resistances: string;
+    weaknesses: string;
+    background: string;
+    appearance: string;
+    personality: string;
+    penalty: string;
+}
+
 export {
     Abilities,
     AbilityData,
@@ -262,6 +289,8 @@ export {
     CreatureTraitsSource,
     CreatureType,
     HeldShieldData,
+    InfluenceDifficultyClass,
+    InfluenceThreshold,
     LabeledSpeed,
     Language,
     MovementType,
